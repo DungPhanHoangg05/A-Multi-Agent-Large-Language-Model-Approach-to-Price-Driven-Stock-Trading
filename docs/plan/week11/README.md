@@ -21,7 +21,7 @@ Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed4
 Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
 H03 đã khóa protocol/dự toán; H04 đã hoàn tất adapter/runner offline.
 H05 PASS84 test offline; H06 PASS live smoke/cold verify, đã release H07 chỉ Free/0 USD.
-H07 đang thu bank:67 node complete; đã nghiệm thu phục hồi10054 có giới hạn; smoke H06 cách ly.
+H07 do agent trực tiếp chạy bằng supervisor, tự cập nhật trạng thái; smoke H06 cách ly.
 
 ## Checklist đánh giá lại
 
@@ -33,7 +33,7 @@ H07 đang thu bank:67 node complete; đã nghiệm thu phục hồi10054 có gi�
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — adapter9 mã và492 prefix HMM |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
 | H06 | Freeze và smoke sáu primary/Fact_Anchor | [x] PASS — 55 lượt, cold verify; release H07 Free/0 USD |
-| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] IN PROGRESS — 67 node complete; phục hồi10054 PASS17 test/live/cold replay |
+| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] IN PROGRESS — agent chạy supervisor CORE4→OOD5→cold verify; xem trạng thái máy |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
 | H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
 
@@ -589,3 +589,48 @@ Bằng chứng local tại `outputs/historical_reevaluation/run_r1/`:
 Người dùng chạy tiếp [khối lệnh H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá)
 có cờ phục hồi; không cần train/fit lại. H07 chưa hoàn tất; chỉ kết sổ sau thu đủ
 ma trận và cold consumer xác nhận. Economic acceptance vẫn PENDING_EXECUTION_DATA.
+
+## H07 — agent trực tiếp chạy có giám sát
+
+<!-- H07_MANAGED_START -->
+Supervisor đã sẵn sàng; agent đang khởi chạy. H07 chưa hoàn tất.
+<!-- H07_MANAGED_END -->
+
+Người dùng giao agent thực hiện trọn H07. Khi tiếp quản có73 node complete,
+một UUID pending `e3838022-3663-4acb-954a-38556b7c5c79` do raw503
+`ee0cf041-4d27-4864-a2ff-bb61b63faa50` báo qwen over capacity. Đã audit raw,
+reconcile đúng UUID và giữ mọi attempt/reserve. Lỗi503 cần phục hồi riêng,
+không thuộc riêng policy10054 đã nghiệm thu ở trên.
+
+[Supervisor](../../../scripts/run_historical_collection.py) chạy native ẩn cửa sổ,
+CORE4→OOD5→verify CORE4→verify OOD5. Source/protocol/runtime/quota/release
+neo Git; supervisor không đổi chúng giữa phase, không train hoặc nâng gói.
+Nó giữ lock riêng, chỉ audit/reconcile503 khi raw/hash/body/UUID khớp;
+429 phải có raw và retry_until, quota chưa dispatch phải có stop/reset mới
+đúng org và không có HTTP cho UUID. Backoff/chờ quota giữ nguyên reserve.
+Trần3 HTTP/slot tính mọi attempt cũ; transport unknown không đủ bằng chứng,
+response200 đã có, sai hash, lỗi cold verify hoặc lỗi khác đều dừng để audit.
+Không tự đổi lỗi thành CASH, xoay key/model hoặc giảm repeat/mẫu.
+
+Mỗi child vẫn dùng runner/transport đã khóa cùng policy10054. Supervisor
+kiểm exit0 và PHASE_COMPLETE đúng480/540 unit, không tin PARTIAL; cold verify
+phải giữ nguyên hash toàn HTTP/usage. Kết sổ dưới book lock, kiểm đủ1.020 label,
+27.846 forecast và3.480 graph full, băm slots/http/usage/images thành manifest.
+Chỉ sau bốn phase PASS mới ghi `historical_evaluation_collection.json` và cập
+nhật checkbox H07. H08 chưa được chạy. Không tuyên bố H07 DONE trước receipt.
+
+Trạng thái máy: `outputs/historical_reevaluation/managed_r1/status.json`;
+child log và stdout/stderr cùng thư mục. `checkpoint_files` gồm cả lượt đang chạy,
+không là số unit hoàn tất. Trạng thái/phase được ghi sau mỗi chuyển trạng thái,
+heartbeat mỗi phút; plan cập nhật ở milestone hoặc khi chạy/chờ/dừng/hoàn tất.
+Raw/journal/ảnh giữ tại `run_r1/`, không chứa key. Native job cần máy bật/có mạng;
+quota Free khiến dự toán nhiều tuần, không cam kết thời điểm hoàn tất.
+
+Kiểm scoped PASS17 test (9 supervisor+8 reset), biên dịch2 Python mới PASS.
+Bao phủ raw503/UUID/checksum, trần3, không replay200/unknown, quota đúng org/
+reset mới,429 wait, từ chối phase PARTIAL và bảo toàn vùng Markdown ngoài marker;
+chưa có receipt thì không đánh dấu DONE. Gate wire/10054 trước được viện dẫn
+vì source tương ứng không đổi. Không chạy full suite/E2E/leakage suite: không
+đổi dữ liệu/context/retrieval/nhãn hoặc code kinh tế; quản lý subprocess/quota/
+checkpoint được kiểm đúng phạm vi. Log test tại `run_r1/managed_collection_tests.log`,
+SHA256 `b7ffc5e89f5a406e6bf9a68fe79bd97d8940d6a4d3238998d9e0bf42919a8d59`.

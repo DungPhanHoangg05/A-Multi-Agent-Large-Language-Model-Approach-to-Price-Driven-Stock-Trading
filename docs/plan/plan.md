@@ -41,11 +41,14 @@ Prompt live tối đa5.954<6.500 ký tự. Quota5 org độc lập theo xác nh�
 30/1.000/8.000/200.000, TPM gộp, Free/0 USD; grant H07 đã release.
 Runtime v3 chỉ sửa tên schema tại SDK, giữ baseline H05 v2 nguyên byte;
 verifier hiện hành là `scripts/run_historical_smoke.py verify`.
-H07 IN_PROGRESS:67 node complete,34 HTTP200/3 transport_error; chưa có forecast grid.
-Đã xác định WinError10054 và timeout bị SDK ghi đè None. Chế độ TCP mới/timeout
-hữu hạn/phục hồi10054 tối đa3 HTTP/slot PASS17 test, một request live và cold replay.
-Giữ baseline v3/model/wire/identity/checkpoint; chạy CLI observed thêm
-`--recover-connection-reset`. Chỉ phục hồi reset mới trong tiến trình, giữ quota reserve.
+H07 được agent trực tiếp chạy bằng supervisor CORE4→OOD5→hai cold verify.
+Giữ Free/0 USD, protocol và full matrix; tiến trình tự audit503/429/quota,
+không gửi lại mù hoặc giảm mẫu. Trạng thái máy:
+
+<!-- H07_MANAGED_START -->
+Supervisor đã sẵn sàng; agent đang khởi chạy. H07 chưa hoàn tất.
+<!-- H07_MANAGED_END -->
+
 H07–H09 chưa hoàn tất.
 Execution data vẫn có giới hạn vendor series.
 

@@ -8,7 +8,7 @@ step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
 H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
-H07 đang thu bank:67 node complete; đã xác định WinError10054 và nghiệm thu chế độ phục hồi có giới hạn.
+H07 do agent trực tiếp chạy bằng supervisor; trạng thái máy cập nhật trong mục H07.
 
 ## Checklist tổng
 
@@ -216,21 +216,21 @@ py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 
 ## H07 — Chạy đánh giá
 
-Trạng thái IN_PROGRESS:67 node complete,34 HTTP200 và3 transport_error,
-chưa có forecast grid. Đã xác định lỗi mới tại Trend FPT-2022-06-16/u0 org2:
-`httpx.ReadError → httpcore.ReadError → ConnectionResetError/WinError10054`.
-Kết nối bị reset khi đọc response; chưa xác định phía mạng nào gây reset.
-SDK ghi đè timeout thành None. UUID lỗi đã được đối soát/reconcile, request
-kiểm tra tiếp theo HTTP200, body/model/credential khớp lượt cũ và cold replay PASS.
+<!-- H07_MANAGED_START -->
+Supervisor đã sẵn sàng; agent đang khởi chạy. H07 chưa hoàn tất.
+<!-- H07_MANAGED_END -->
 
-Bật `--recover-connection-reset` để dùng lớp vận hành mới: TCP mới mỗi HTTP,
-timeout connect/read/write/pool=30/120/60/30 giây. Chỉ tự reconcile lỗi10054
-vừa được ghi durable trong cùng tiến trình, giữ outcome UNKNOWN/quota reserve;
-backoff5/10 giây, tối đa3 HTTP/slot tính cả attempt cũ và retry429. Unknown từ
-lần chạy trước, timeout hoặc lỗi khác vẫn dừng để đối soát. Không đổi org/key,
-model, prompt/options/schema, run identity, hoặc các file baseline runtime v3.
-Policy/source được ghi vào từng request ledger.17 test theo phạm vi PASS;
-chi tiết tại [README W11](README.md#h07--phục-hồi-kết-nối-10054).
+Người dùng đã giao agent trực tiếp hoàn tất H07. Supervisor chạy CORE4→OOD5,
+sau đó cold verify CORE4/OOD5; chỉ khi đủ1.020 unit,27.846 forecast slot và
+3.480 graph đầy đủ mới seal manifest/receipt và đánh dấu checklist hoàn tất.
+Trạng thái chi tiết tại `outputs/historical_reevaluation/managed_r1/status.json`.
+
+Lỗi gần nhất là HTTP503 over capacity tại VCB-2022-06-16/pattern org4,
+73 node đã complete khi tiếp quản. Đã đối soát raw và reconcile đúng UUID,
+giữ checkpoint/reserve. Supervisor audit503/429/quota theo UUID trước khi
+tiếp tục; lỗi mới hoặc hết trần3 HTTP/slot phải dừng, không đổi model/key/mẫu.
+Chế độ phục hồi10054/TCP mới/timeout hữu hạn vẫn áp dụng. Năm org Free/0 USD;
+34.806 execution nominal, dự toán nhiều tuần, không có cam kết xong ngay.
 
 - [ ] Thu bank/shared state cần thiết, CORE4 rồi các mã bổ sung, ablation/control
   và panel upstream; đủ repeat/realization đã khóa, không vote hoặc chọn best repeat.
@@ -238,25 +238,13 @@ chi tiết tại [README W11](README.md#h07--phục-hồi-kết-nối-10054).
   không đổi lỗi thành CASH hoặc dừng khi kết quả vừa dương.
 - [ ] Kết sổ đủ ma trận và hash raw/forecast trước mở payoff để phân tích.
 
-Lệnh H07, chạy CORE4 trước rồi mới OOD5; cùng lệnh có thể tiếp tục các slot
-đã hoàn tất. Dừng nếu lỗi, giữ nguyên checkpoint và xử lý UUID unknown theo log:
-
-```powershell
-foreach ($cohort in @("CORE4", "OOD5")) {
-    py -3.13 -X utf8 -m dotenv -f .env run -- py -3.13 -X utf8 scripts/run_historical_evaluation_observed.py run --cohort $cohort --recover-connection-reset
-    if ($LASTEXITCODE -ne 0) { throw "Dừng tại $cohort; giữ checkpoint và log." }
-}
-```
-
-Theo dõi log trong PowerShell thứ hai sau khi lệnh chạy đã tạo file:
-
-```powershell
-Get-Content outputs/historical_reevaluation/run_r1/console.log -Tail 30 -Wait
-```
-
-Không chạy hai tiến trình thu thập cùng lúc. Nếu dừng, gửi traceback/UUID để
-đối soát trước khi tiếp tục; không xóa checkpoint hoặc tự reconcile unknown.
-Sau khi hai cohort hoàn tất, kiểm cold replay/kết sổ trước khi đánh dấu H07 DONE.
+Supervisor do agent khởi chạy, người dùng không cần chạy lại foreach cũ.
+Job giữ lock riêng, tiếp tục checkpoint cùng identity; chờ đúng reset quota,
+không gửi API khi quota chưa đủ. Native job cần máy bật và có mạng.
+Log/status tại `outputs/historical_reevaluation/managed_r1/`; raw/journal/ảnh
+vẫn tại `run_r1/`. Nếu job STOPPED, đối soát log trước khi tiếp tục.
+H07 chỉ DONE khi receipt `historical_evaluation_collection.json` PASS cùng
+bốn phase và checksum đầy đủ; H08/H09 thực hiện sau đó.
 
 ## H08 — Phân tích kết quả
 
