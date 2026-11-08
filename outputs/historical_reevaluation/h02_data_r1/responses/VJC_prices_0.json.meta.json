@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "0ad898229074dd424a903c98ebd730d8ab2ff202f89caccef784649febf629ab",
+  "retrieved_at_utc": "2026-11-08T03:41:18.819012+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/VJC/price-history?fromDate=20200101&toDate=20260930&page=0&size=1000"
+}

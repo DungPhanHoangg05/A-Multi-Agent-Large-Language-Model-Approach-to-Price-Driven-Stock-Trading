@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "3b01d0d5c1f25ccb1e5553781885c6e7835ca4efb59c11ea9fe38d74a55b5a7e",
+  "retrieved_at_utc": "2026-11-08T03:41:19.874857+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/events?ticker=VJC&fromDate=20190101&toDate=20261231&eventCode=DIV%2CISS%2CAIS%2CMA%2CMOVE%2CNLIS%2COTHE%2CRETU%2CSUSP&page=0&size=1000"
+}

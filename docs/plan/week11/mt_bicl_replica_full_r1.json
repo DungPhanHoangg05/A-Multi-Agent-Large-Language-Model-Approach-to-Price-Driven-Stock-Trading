@@ -1,0 +1,560 @@
+{
+  "authorization": {
+    "historical_evaluation": false,
+    "llm_api": false,
+    "student_training": true,
+    "teacher_fit": true
+  },
+  "corpus": {
+    "component_domains": {
+      "features": 3,
+      "labels_a": 4,
+      "labels_b": 7,
+      "latent_lambda_a": 1,
+      "latent_lambda_b": 5,
+      "latent_theta_a": 2,
+      "latent_theta_b": 6,
+      "prior_permutation": 8,
+      "structure": 0
+    },
+    "draw_primitives": {
+      "bernoulli": "Generator.random(size=N)_LT_THETA_TASK",
+      "beta": "Generator.beta(alpha,beta,size=K+1)_PRIOR_THEN_TARGET",
+      "categorical": "Generator.choice(16,p=pi)",
+      "features": "Generator.integers(0,731,size=SUM_N_PLUS_M_PLUS_1)",
+      "permutation": "PCG64_SeedSequence([permutation_stream_seed,model_seed_or_zero,episode_id,source_stream_seed]).permutation(K)",
+      "uniform_int": "Generator.integers(low,high_exclusive)"
+    },
+    "evaluation_mixture": {
+      "gate_denominator": 5000,
+      "iid_ids": [
+        0,
+        4499
+      ],
+      "stress_ids": [
+        4500,
+        4999
+      ],
+      "stress_recipe": {
+        "K": "1_IF_CASE_LT_5_ELSE_3",
+        "case": "(episode_id-4500)%10",
+        "latent_sampling_in_stress": false,
+        "m_by_case_mod5": [
+          0,
+          1,
+          2,
+          4,
+          8
+        ],
+        "n_each_prior": 8,
+        "prior_y": "ZERO_IF_FLOOR((episode_id-4500)/10)%2_EQ_0_ELSE_ONE",
+        "query_y": null,
+        "target_y": "ALTERNATING_0_1_START_ZERO"
+      }
+    },
+    "feature_pool_outcomes_used_in_generation": false,
+    "features": {
+      "clip": [
+        -4,
+        4
+      ],
+      "independent_of_latents_and_labels": true,
+      "pool": "TRAIN_AVAILABLE_731_SORTED_SYMBOL_THEN_AS_OF_DATE_THEN_ID",
+      "sampling": "UNIFORM_ROW_WITH_REPLACEMENT_WHOLE_4_VECTOR",
+      "scaler": "FROZEN_TRAIN_END_2020"
+    },
+    "fixed_corpora_model_seed": 0,
+    "generative": {
+      "K": "DISCRETE_UNIFORM_0_3",
+      "draw_order": [
+        "K_m_n",
+        "lambda",
+        "theta_prior_then_target",
+        "features_prior_then_target_then_query",
+        "uniform_labels_prior_then_target_then_query"
+      ],
+      "lambda": "CATEGORICAL_FITTED_PI",
+      "m": "DISCRETE_UNIFORM_0_8",
+      "n_each_prior": "DISCRETE_UNIFORM_2_8",
+      "query_x": "FEATURE_POOL_INDEPENDENT",
+      "target_query_y": "SIDECAR_ONLY_NOT_LOSS",
+      "theta": "INDEPENDENT_BETA_PER_TASK_GIVEN_LAMBDA",
+      "y": "BERNOULLI_THETA"
+    },
+    "materialization_gate": [
+      "TEACHER_FIT_AND_INDEPENDENT_ORACLE_PASS",
+      "TRAIN_FEATURE_POOL_BINDING",
+      "CONTENT_SHA256_AND_ID_MEMBERSHIP_SEAL_BEFORE_ANY_STUDENT_OPTIMIZER",
+      "TEST_AND_TEST_SWAP_NO_FORWARD_OR_METRICS_BEFORE_SELECTION_SEAL"
+    ],
+    "pilot_tiny_model_seed": 0,
+    "prior_swap": {
+      "base": "MATCHING_MIXTURE_RECIPE_WITH_OWN_SWAP_STREAM",
+      "eligible": "ABS_ORACLE_P_B_MINUS_P_A_GE_0.05",
+      "iid_replacement": "DRAW_INDEPENDENT_LAMBDA_B_AND_PRIOR_THETAS_FROM_SAME_PI_THEN_BERNOULLI",
+      "keep": [
+        "K",
+        "n_each_prior",
+        "all_x",
+        "target_observations",
+        "query_id",
+        "query_x"
+      ],
+      "max_attempts": 5000,
+      "min_eligible": 200,
+      "no_redraw": true,
+      "replace": "ALL_PRIOR_LABELS_ONLY",
+      "stress_replacement": "COMPLEMENT_EVERY_PRIOR_Y",
+      "target_y_query": "NEVER_VISIBLE"
+    },
+    "query_y_generation": "IID_ONLY_GENERATE_AFTER_M_TARGET_LABELS_AND_KEEP_SIDECAR_UNUSED_BY_Q_OR_LOSS",
+    "rng": "numpy.PCG64",
+    "seed_overlap_v1": false,
+    "seed_sequence": [
+      "stream_seed",
+      "model_seed_or_zero",
+      "episode_id",
+      "component_domain"
+    ],
+    "state": "RECIPE_ONLY_NO_EPISODES_OR_PREDICTIONS",
+    "streams": {
+      "diagnostic": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 1000
+        },
+        "materialized": false,
+        "seed": 2026102802
+      },
+      "permutation": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 640000
+        },
+        "materialized": false,
+        "seed": 2026102809
+      },
+      "pilot_tiny": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 32
+        },
+        "materialized": false,
+        "seed": 2026102807
+      },
+      "preflight": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 12800
+        },
+        "materialized": false,
+        "seed": 2026102810
+      },
+      "prior_predictive": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 1000
+        },
+        "materialized": false,
+        "seed": 2026102808
+      },
+      "synthetic_test": {
+        "held_until_selection_seal": true,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 5000
+        },
+        "materialized": false,
+        "seed": 2026102804
+      },
+      "synthetic_validation": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 5000
+        },
+        "materialized": false,
+        "seed": 2026102803
+      },
+      "test_swap": {
+        "held_until_selection_seal": true,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 5000
+        },
+        "materialized": false,
+        "seed": 2026102806
+      },
+      "train": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 640000
+        },
+        "materialized": false,
+        "seed": 2026102801
+      },
+      "validation_swap": {
+        "held_until_selection_seal": false,
+        "ids": {
+          "start": 0,
+          "stop_exclusive": 5000
+        },
+        "materialized": false,
+        "seed": 2026102805
+      }
+    },
+    "synthetic_observation_ids": "UNIQUE_STREAM_SEED_MODEL_EPISODE_TASK_INDEX_OBSERVATION_INDEX_NOT_SOURCE_FEATURE_ROW_ID",
+    "test_no_tuning": true,
+    "train_and_preflight_model_seeds": [
+      17,
+      42,
+      73
+    ],
+    "train_diagnostic_pilot_preflight_distribution": "GENERATIVE_ONLY_NO_STRESS",
+    "version": "mt_bicl_corpus_manifest_v2"
+  },
+  "data_sha256": {
+    "data/execution_prices/FPT.csv": "0a6606403e70247c8cf501844f2f011ec357c21d83095ed5c90336cd4f043a53",
+    "data/execution_prices/FPT.events.json": "0b37c6fd385b0e6ecd082aad0d00942d04343fa42ed2ec19aae4d3666991871c",
+    "data/execution_prices/FPT.evidence.json.gz": "16faea0ecdd68dd1f9af75a416ee30ded34e35ab60c09e53b00552babeaf90a5",
+    "data/execution_prices/MWG.csv": "3839c5d0d7240c997e02624b6afceb3aba88fb621a6e157a3852bcec15464693",
+    "data/execution_prices/MWG.events.json": "d9dc14691cc7943e663a4d54dd503fd4f684b1ceb8d43a4b6364f630abb96607",
+    "data/execution_prices/MWG.evidence.json.gz": "7b3424fe6ad1db982a684fbd6b7c4dbaa593161023b10bf3ed51f9c71cd0f3a9",
+    "data/execution_prices/VCB.csv": "64b6b272bad012f7739b6ecf33ce2d4e7dd8ae26429022fbeed3954796bbbe88",
+    "data/execution_prices/VCB.events.json": "0b01353f19a36696b6a5ff23a18d6920f8c4358f1bcebbfb22a0f9d31c992fc1",
+    "data/execution_prices/VCB.evidence.json.gz": "a2d6434d43680fee3dd9be27021a48519fd542e5346d6cb37d1e528e6934fcc8",
+    "data/execution_prices/VNM.csv": "7f36c58a33d6330ef75164d2d4e45de91494d19d723de9d4e4c573b6acdbdf1c",
+    "data/execution_prices/VNM.events.json": "31dc19e82f3ed1965568393ea91e281924cff7d9aa0efcb7e97446e00c174fd9",
+    "data/execution_prices/VNM.evidence.json.gz": "e10845a4547032817345c4fe6995afd25baf4eb3fd5773e180790ed4be0ea0c6",
+    "data/execution_prices/manifest.json": "e254273e7fb842cdf9fa60007ea7dcc5994ac7190975a5cf940e57852e52f09c",
+    "data/execution_prices_oos/FPT.csv": "ca20b01f40fd1e0e8a29d2af9b67173daec13ae6821156930244e6df02f2a53d",
+    "data/execution_prices_oos/FPT.events.json": "5d7c5974b26691d5e58ee2b620d4baa4ded301c960ec1ae95f1a076011ebea43",
+    "data/execution_prices_oos/FPT.evidence.json.gz": "6f7a7bd4b2e76e3b0ca91c89b393e57df8d86f89be91f232bee0109b3a79aabc",
+    "data/execution_prices_oos/MWG.csv": "edbed178d110d17ffe5a0d8ee2d479fd6bd1cc1d8708b93ef704e065f644290e",
+    "data/execution_prices_oos/MWG.events.json": "80fe8ecad9f6d1679f46a3ccbbb785f2d45cb27afa1840c07b15b9920b608fc8",
+    "data/execution_prices_oos/MWG.evidence.json.gz": "1f1bb28ac1d8b91c75f9f010f229719b3f7c52b75ceabb5eb2f91e9ec82647a2",
+    "data/execution_prices_oos/VCB.csv": "d1b7f48a1ae2e0056d3332e2d8db0b8bc6f4f1f09c4c3aa7ae8953d2e2f79489",
+    "data/execution_prices_oos/VCB.events.json": "b27a8921ffd627efdbc8ba638e86ba51feee666d5f98c172755b81046fa4d934",
+    "data/execution_prices_oos/VCB.evidence.json.gz": "ff19c416fbaf091e52d4cf14e8ce04a97010ced927838adc82eeb1d4707bccfa",
+    "data/execution_prices_oos/VNM.csv": "eeca6e035692987aac4d86a795557ef2ec817328f8ba41c8802bf5b3bd691413",
+    "data/execution_prices_oos/VNM.events.json": "85627c69bb76b67db3ac34fd2ae335865d9055a0d873877c929869e5623fdbb3",
+    "data/execution_prices_oos/VNM.evidence.json.gz": "00403d281514e1365a1af2e5b2c0e73f3eb5258ff0b8b65bef92d35e63df34b3",
+    "data/execution_prices_oos/manifest.json": "bb70790062210ad983e5250dae650a3d355cad4d4ba57807411208a5ac9c00f4",
+    "data/historical/VNINDEX.csv": "971eec19f3f2b252b0810f551bbfd50c0c31a2c26957da0b9434b9b25e869a34"
+  },
+  "frozen_inference_device": "cpu",
+  "frozen_replay": "EXACT_RAW_LOGITS_AND_DERIVED_METRICS_ON_SAME_CPU_RUNTIME",
+  "loss": {
+    "kind": "SOFT_BERNOULLI_CROSS_ENTROPY_WITH_LOGITS",
+    "latent_theta_as_q": false,
+    "market_BCE": false,
+    "position": "QUERY_ONLY",
+    "q_detached": true,
+    "query_y_used": false,
+    "reduction": "MEAN_EPISODES_PER_EFFECTIVE_BATCH",
+    "teacher_q": "POSTERIOR_FROM_VISIBLE_D_C_ONLY"
+  },
+  "mechanism": {
+    "controls": {
+      "constant": "SUM_FITTED_PI_TIMES_MU",
+      "context_blind": "SAME_STUDENT_D_EMPTY_C_EMPTY_KEEP_QUERY_X",
+      "no_prior": "TEACHER_OR_STUDENT_D_EMPTY",
+      "no_target": "TEACHER_OR_STUDENT_C_EMPTY",
+      "pooling": "SHARED_THETA_ALL_LABEL_COUNTS_WITH_FITTED_PI",
+      "report_same_inputs": "ALL_CONTROLS_ON_IDENTICAL_REGISTERED_CORPUS_AND_SUPPORT"
+    },
+    "degenerate_correlation": "NULL_WITH_REASON_NOT_ZERO",
+    "insufficient": "INCONCLUSIVE_NO_REDRAW",
+    "kl_clipping": false,
+    "kl_direction": "ORACLE_TO_STUDENT",
+    "mean_kl_max_nat": 0.02,
+    "negative_control": "IF_CONSTANT_MEETS_ALL_KL_P95_THRESHOLDS_OR_SWAP_ELIGIBLE_LT_200_THEN_INCONCLUSIVE_TEACHER_TOO_FLAT_NO_RELEASE",
+    "p95_absolute_error_max": 0.1,
+    "quantile": "LINEAR",
+    "report": [
+      "K_m_marginal_and_joint",
+      "cold_start",
+      "iid_and_stress_separately_and_combined",
+      "delta_amplitude_quantiles",
+      "delta_pearson_correlation",
+      "constant_and_context_blind_controls"
+    ],
+    "swap_abs_oracle_delta_min": 0.05,
+    "swap_delta_sign": "P_B_MINUS_P_A",
+    "swap_min_eligible": 200,
+    "swap_sign_agreement_min": 0.9,
+    "zero_student_delta": "DISAGREE_WHEN_ORACLE_NONZERO"
+  },
+  "model": {
+    "AMP": false,
+    "TF32": false,
+    "absolute_positions": 37,
+    "activation": "gelu",
+    "dropout": 0.0,
+    "dtype": "FLOAT32",
+    "ensemble": false,
+    "ff": 256,
+    "final_layer_norm": true,
+    "head": "LINEAR_128_TO_1_WITH_BIAS",
+    "heads": 4,
+    "hidden": 128,
+    "layer_norm_eps": 1e-05,
+    "layers": 2,
+    "norm_first": true,
+    "numeric_linear_bias": true,
+    "parameters": 271873,
+    "role_embeddings": 3,
+    "task_slot_embeddings": 4
+  },
+  "model_id": "MT_BICL_replica_full_r1",
+  "notes": [
+    "Freeze replica tr??c fit; kh?ng thay model/release g?c.",
+    "RNG/corpus theo recipe l?ch s? ?? exposed; kh?ng claim holdout ??c l?p.",
+    "Validation/checkpoint/test frozen inference CPU ?? cold replay CPU c?ng runtime; ?o l?i ETA g?m ph?n n?y."
+  ],
+  "recipe_commit": "00b24679f63d491c15cda6be0bc9a2c412651f93",
+  "recipe_sources": {
+    "core/mt_bicl_v2_simulator.py": "e1156d4ead4f4696616b54f4a5db3719de80627198313b9104de1e4270781727",
+    "core/mt_bicl_v2_student.py": "3d74ff213d7194e4c0a85129099a2009e50fc36389c86ba2af3a1d022226dd24",
+    "docs/plan/week10/corpus_manifest_v2.json": "28292984f0a320533dd288a197f97d0536272750534d87103b92e0a37154489f",
+    "docs/plan/week10/protocol_v2.json": "00fa160c4fd25aacaf789ba011721f3e03d1b03b9b020cb298a93ca94ddedb40",
+    "docs/plan/week10/protocol_v2_1.json": "16f31de4f3d3a24d36b059ae1929001b618f3805a7fb95a2cd8d969bae3a8952"
+  },
+  "runtime": {
+    "hmmlearn": "0.3.3",
+    "numpy": "2.1.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.16.1",
+    "threadpoolctl": "3.6.0",
+    "torch": "2.11.0+cu128"
+  },
+  "selection": {
+    "eligibility": "ALL_THREE_SYNTHETIC_VALIDATION_GATES_PASS_AND_TECHNICAL_PASS",
+    "global": "BEST_ELIGIBLE_ACROSS_ALL_SEEDS",
+    "no_eligible": "NO_ELIGIBLE_CHECKPOINT_NO_EXPORT_NO_TEST_FORWARD_NO_RELEASE",
+    "per_seed": "BEST_ELIGIBLE_OR_NO_ELIGIBLE_CHECKPOINT",
+    "rank_key": [
+      "round(macro_log_loss_2021,12)",
+      "round(macro_Brier_2021,12)",
+      "step",
+      "seed_order_17_42_73"
+    ],
+    "report_all_seed_curves": true,
+    "require_all_seeds_complete": true,
+    "seed_without_eligible_test": "NOT_RUN_NO_FALLBACK_CHECKPOINT",
+    "technical_invalid": "STOP_NOT_SILENT_CHECKPOINT_EXCLUSION",
+    "test_failure": "NO_MT_BICL_RELEASE_V2_NO_RESELECT",
+    "test_visibility": "AFTER_IMMUTABLE_SELECTION_SEAL_ONLY",
+    "validation_at": "EVERY_CHECKPOINT_250_TO_5000_ALL_3_SEEDS"
+  },
+  "source_sha256": {
+    "core/backtest_engine.py": "57074df54e806adb1685436eac9bbe3053a87cadb12cb6613e682589ec8e8f2d",
+    "core/execution_prices.py": "34f5c5d4e1d71fffae1770567dbd8a8c74054496650ce29d79d7d67d098f0121",
+    "core/historical_h02_data.py": "b93b6199bf10eb51f06ea0707ef714d64ebc8cf5b11f814cf1f0b8820c4a2130",
+    "core/mt_bicl_accounting.py": "17f350a112ae2d3580da08076cd4327775799e497e9987e9a6b30bd2ac65d8b3",
+    "core/mt_bicl_adapter.py": "7b4b217771b9e6445ae1be17d15ca2c50403e197a95e58c61d1f679c669aa98b",
+    "core/mt_bicl_analysis.py": "bec81a056d562a89dd6fd23abb84893c7bd8a29040464c7b11e6a91a67315b5d",
+    "core/mt_bicl_audit.py": "07bada86aa15c4e11739238a300921d773a4265ba1402238cfdd64ddd95726b2",
+    "core/mt_bicl_bank.py": "e537efa9f2049e4de217ee13a0aa28bb6ab100953438de0cb24aae3f26dcdb47",
+    "core/mt_bicl_context.py": "cf61434f719b43fb908711fd17972fe33ef6db3c3031df2f69671980f0e38c1e",
+    "core/mt_bicl_contracts.py": "cb155d306aacb5ec3172fd9d54da2ee344b47ddb1ceafcc2fd50410f2e6eb432",
+    "core/mt_bicl_decision.py": "2c02c0c9886a4f556444003d5fe39a2c0165eb3710318b82d9eb4e43e4d4c435",
+    "core/mt_bicl_distillation.py": "53caa9c70b1e8cd356ae1e0e066e2c8d9fc224265d99de1688b809c993fcc639",
+    "core/mt_bicl_evaluation.py": "cb0841d015144c5bd6bcd7ec67e3d72abef3ded7716f54a518d900d6c0a7a308",
+    "core/mt_bicl_features.py": "8c3fb1d4d4557bd976af13c79fd12e5025d83432eceb194c172a4c282ea8331e",
+    "core/mt_bicl_inputs.py": "5a273a32bab9d15e6404c200c8a7d89206d6ebbe9dab4df5eece7e5be7dc7b61",
+    "core/mt_bicl_io.py": "59b9387c3e7f8834e6a7fd60fab6ac4b52d23421f1913709592ee848fe9ba4fc",
+    "core/mt_bicl_oracle.py": "01b4202a996765399add9056405266d9805f69daa89a3a29e8d3d45d2d725579",
+    "core/mt_bicl_policy.py": "301525c36c150e21f09a1971101d53d5927cf38c1d2921017c477441e097b488",
+    "core/mt_bicl_prompt.py": "93519b6951a6d5c4df18a420eaf080af33ee9448422dcda3903b7809840c90c2",
+    "core/mt_bicl_prompt_limits.py": "588d801af508201bf5ee93f390516aed2ac06a30a09057487ebaba2da55f0003",
+    "core/mt_bicl_protocol.py": "2a04ced0fbb70cd4e2ca9427cffd7d2132df5c1ef883702e4317f85b153b9398",
+    "core/mt_bicl_reference.py": "e56c114e5c0987ba2f237ee59f643e2b9c972eb45a53ddd3aecf5caa658460f1",
+    "core/mt_bicl_regimes.py": "6d036cb93c0ca3a965e536145fe2074fc2e27064c21cae0c2d7de637fcada704",
+    "core/mt_bicl_replica_io.py": "c8332de3ff070d4d02752a7985d7845cb1f048e12c20f5330753d86ca344da55",
+    "core/mt_bicl_replica_learner.py": "4fcc849d3c606eb3495de1dff218a0ca83b888ef5ee11fd3b3e1a03c9f5201d0",
+    "core/mt_bicl_replica_metrics.py": "7548b420869f04ccde35e6c3734c77605164e80c44b710c332d36bf94ff65010",
+    "core/mt_bicl_replica_preparation.py": "31a9c91926fe9e36d6841500be8ed3244208fed2c0d602f2fe339157a70c168b",
+    "core/mt_bicl_replica_sampling.py": "fd5a314ef3cf72e837030d824193450ec5344544d4507f4a8bc25c45b127f5bf",
+    "core/mt_bicl_replica_student.py": "0a7a18066f8874ff1d21417f6e46c3b93782e0c6f4836b6f48a942c8d0616ecb",
+    "core/mt_bicl_replica_training.py": "49b8ed17cfc7a4316fbff792ba8b1c430033c0d905e3fac9b6b2967684e98aa9",
+    "core/mt_bicl_reporting.py": "e1914ad6029af9b40a1fd07f77e5250c1f521f1813d02bd45cc9f80d8f4c6333",
+    "core/mt_bicl_scaler.py": "f960bd8efae36c641cff2cca9e444877f1b44debddeee985cb84d12de615d27e",
+    "core/mt_bicl_stream.py": "d87b67432ea415ef60fb12eb96c8658565ee672de801273512d0ddc53454cd4b",
+    "core/mt_bicl_student.py": "fa2a7c783177f8c19fcebecaa320ac92d71c219fccbedb37a641ed658e56a885",
+    "core/mt_bicl_tasks.py": "0e8fdd0ce442ceb567f2650780dc812b9c3686d527be139957733bbeb41f72f1",
+    "core/mt_bicl_teacher.py": "423dc73be34113634b473ca391c293c1520b046be2e157a9ad8b2ba22734d151",
+    "core/mt_bicl_utility.py": "7678ff30ad5cb8f563628f41e3ba7f42415c035df02d0cab1833da6ccdef87b2",
+    "core/pit_price_features.py": "35e5042a49aa2d1c3854150925389c6c3a79260eecaa99851ae6bea2a43794dc",
+    "core/regime_detector.py": "fba35472efafe4d5133db50d8ca24d4c57b5682960de2b8a2320a18bddf3be8b",
+    "scripts/build_mt_bicl_bank.py": "fd8df2cfff19708676bbd7802a346d7824dceefcf4b97a4a31a6dedf232206e6",
+    "scripts/run_mt_bicl_replica.py": "31ef9e43ca25ef20bf693e441c1021ae5f204cb1e118b0aeee528910ff3b85da",
+    "scripts/verify_mt_bicl_protocol.py": "755ccd5dc7166ff10ccaa2588d16b8b98b9b7101a8ecbf3004c38e14d33381ff"
+  },
+  "status": "REPLICA_TRAINING_ONLY",
+  "teacher": {
+    "alpha": "mu*kappa",
+    "beta": "(1-mu)*kappa",
+    "binomial_coefficient": false,
+    "empty_context": "SUM_PI_TIMES_MU",
+    "family": "HIERARCHICAL_BETA_BERNOULLI",
+    "fit": {
+      "convergence": "MAX_ABS_PI_NEXT_MINUS_PI_LT_1e-10",
+      "convergence_definition": "CHECK_MAX_ABS_NEXT_MINUS_OLD_AFTER_EACH_M_STEP_THEN_SAVE_NEXT",
+      "convergence_required": true,
+      "counts": "ALL_AVAILABLE_CYCLES_IN_EACH_UNIQUE_TRAIN_BLOCK",
+      "deduplicate": "EPISODE_ID_UNIQUE_GROUP_ONCE_NOT_PER_QUERY",
+      "dirichlet_alpha": 2,
+      "expected_cycles": 731,
+      "expected_tasks": 48,
+      "fit_labels_after_2020": false,
+      "group_by": "task_id",
+      "initial_pi": "UNIFORM_16",
+      "max_iterations": 1000,
+      "membership_seal_required": true,
+      "method": "MAP_EM",
+      "nonconvergence": "STOP_TEACHER_NONCONVERGENCE_NO_UNIFORM_FALLBACK",
+      "posterior_responsibilities_include_dirichlet": false,
+      "precision": "FLOAT64_LOGSPACE",
+      "records": "BANK_AVAILABLE_TRAIN_EXIT_LE_2020-12-31",
+      "responsibility": "pi_j*L_task_j / SUM_j(pi_j*L_task_j)",
+      "task_membership_order": "SORT_TASK_ID_THEN_SORT_CYCLE_AS_OF_DATE_ID",
+      "task_min_cycles": 1,
+      "update": "(SUM_task responsibility_task_j + 1)/(N_tasks+16)"
+    },
+    "grid_order": "MU_MAJOR_KAPPA_MINOR",
+    "hyperprior_refit_after_train": false,
+    "kappa": [
+      2,
+      8,
+      32,
+      128
+    ],
+    "likelihood": "B(alpha+s,beta+f)/B(alpha,beta)",
+    "mu": [
+      0.2,
+      0.4,
+      0.6,
+      0.8
+    ],
+    "oracle_atol": 1e-12,
+    "oracle_checks": "ALL_FIXED_VALIDATION_TEST_AND_SWAP_A_B_PLUS_FIXTURES_BEFORE_STUDENT_FORWARD",
+    "oracle_independent": "SEQUENTIAL_BERNOULLI_PREDICTIVE_PRODUCTS_SCALAR_NO_LOGBETA_HELPER_REUSE",
+    "oracle_test_visibility": "ORACLE_BUILDER_ONLY_NO_STUDENT_FORWARD_OR_TEST_METRICS",
+    "posterior": "NORMALIZE_ONCE_pi_TIMES_PRODUCT_PRIOR_L_TIMES_TARGET_L",
+    "predictive": "SUM_POSTERIOR_LAMBDA_TIMES_(alpha+s_target)/(alpha+beta+m)",
+    "prior_predictive_audit": {
+      "hyperprior_shared_between_synthetic_tasks": "ONE_LAMBDA_PER_EPISODE_ALL_PRIOR_AND_TARGET_TASKS",
+      "interval": "2.5_AND_97.5_PERCENT_QUANTILES_ACROSS_1000_REPLICATE_SUMMARIES",
+      "market_fit_quality_is_not_release_gate": true,
+      "no_grid_tuning": true,
+      "replicates": 1000,
+      "report": "OBSERVED_AND_PREDICTIVE_95_PERCENT_INTERVAL_LINEAR",
+      "sampling": "EACH_REPLICATE_DRAW_LAMBDA_PER_TRAIN_TASK_FROM_PI_THEN_THETA_THEN_N_BERNOULLI_KEEP_ACTUAL_TASK_SIZES",
+      "summaries": [
+        "mean_rate",
+        "variance_task_rate",
+        "all_win_fraction",
+        "all_loss_fraction",
+        "task_rate_quantiles_05_50_95"
+      ],
+      "task_sizes": "ACTUAL_UNIQUE_TRAIN_TASK_SIZES"
+    },
+    "query_feature_in_likelihood": false,
+    "states": 16
+  },
+  "training": {
+    "batch_selection": "OOM_ONLY_BEFORE_TRAIN_SAME_FOR_ALL_SEEDS",
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "checkpoint_every_steps": 250,
+    "checkpoints_expected_total": 60,
+    "checkpoints_per_seed": 20,
+    "clip_grad_norm": 1.0,
+    "effective_batch": 128,
+    "eps": 1e-08,
+    "foreach": false,
+    "fresh_model_each_seed": true,
+    "fused": false,
+    "gradient_accumulation": [
+      1,
+      2,
+      4
+    ],
+    "lr": 0.0003,
+    "metric_early_stop": false,
+    "model_seeds": [
+      17,
+      42,
+      73
+    ],
+    "optimizer": "AdamW",
+    "optimizer_steps_per_seed": 5000,
+    "physical_batches_before_training": [
+      128,
+      64,
+      32
+    ],
+    "pilot_order": [
+      "LEGACY_X_Y_69_WITH_TASK_SLOT",
+      "PAIRED_37"
+    ],
+    "pilots": {
+      "batch": "REPEAT_32_IN_ORDER_4_TIMES",
+      "cases": [
+        "LEGACY_X_Y_69_WITH_TASK_SLOT",
+        "PAIRED_37"
+      ],
+      "common_architecture_except_packing": true,
+      "diagnostic_episodes": 1000,
+      "failure": "STOP_FOR_BUG_AUDIT_NO_EXTRA_SEARCH_OR_STEPS",
+      "legacy_loss": "QUERY_X_ONLY_SAME_SOFT_Q",
+      "legacy_parameters": 275969,
+      "legacy_result": "DIAGNOSTIC_ONLY_NOT_ARCHITECTURE_SELECTION",
+      "legacy_slots": "SAME_4_TASK_SLOTS_REPEAT_ON_X_Y",
+      "max_steps_each": 500,
+      "optimizer": "SAME_ADAMW_FIXED_LR_3e-4_NO_SCHEDULER",
+      "report_at_steps": [
+        0,
+        250,
+        500
+      ],
+      "required_paired_final_mean_KL_strict_max": 0.001,
+      "seed": 17,
+      "tiny_set": 32,
+      "weights_discarded": true
+    },
+    "preflight_steps": 100,
+    "preflight_weights_discarded": true,
+    "schedule": {
+      "at_optimizer_step_s": "s/250*3e-4_IF_s_LE_250_ELSE_3e-5+0.5*(3e-4-3e-5)*(1+cos(pi*(s-250)/4750))",
+      "end_lr": 3e-05,
+      "step_numbering": [
+        1,
+        5000
+      ],
+      "warmup_steps": 250
+    },
+    "seed_order": [
+      17,
+      42,
+      73
+    ],
+    "selection_no_shortcut": "ALL_60_VALIDATION_AND_2021_REPORTS_REQUIRED_BEFORE_SEAL",
+    "synthetic_only": true,
+    "synthetic_validation_batch": 128,
+    "train_stream_episode_id": "(optimizer_step-1)*128+batch_index",
+    "weight_decay": 0.01
+  },
+  "training_operator": "USER_CLI_ONLY",
+  "version": "mt_bicl_replica_full_r1"
+}

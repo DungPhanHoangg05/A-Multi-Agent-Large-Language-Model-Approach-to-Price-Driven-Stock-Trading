@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "e7dfe573cc6116e05c0946e36cf815e7217c160d4da90f09f74371841ac3304b",
+  "retrieved_at_utc": "2026-11-08T03:41:09.907149+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/MBB/price-history?fromDate=20200101&toDate=20260930&page=1&size=1000"
+}

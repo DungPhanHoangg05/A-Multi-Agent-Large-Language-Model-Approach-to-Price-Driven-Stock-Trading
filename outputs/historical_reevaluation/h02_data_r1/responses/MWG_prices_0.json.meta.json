@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "ab659b39a0b462ef683ece56c8893fa4df4487b4d51ca08846500f226e47f9d6",
+  "retrieved_at_utc": "2026-11-08T03:41:12.285249+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/MWG/price-history?fromDate=20200101&toDate=20260930&page=0&size=1000"
+}

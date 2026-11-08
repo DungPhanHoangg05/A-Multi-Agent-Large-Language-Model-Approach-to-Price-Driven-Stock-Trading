@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "c15eb691d8e3604ba0f25764008c60bd44c4cf89c11226cae78755b14d5978d0",
+  "retrieved_at_utc": "2026-11-08T03:41:15.085298+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/VCB/price-history?fromDate=20200101&toDate=20260930&page=0&size=1000"
+}

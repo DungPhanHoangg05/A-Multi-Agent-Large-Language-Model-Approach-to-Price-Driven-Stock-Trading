@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "a3d467675efded88cb2c6968e71b519e2d40a2d1ba502ba66be8114cc7ee046b",
+  "retrieved_at_utc": "2026-11-08T03:40:54.896501+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/BHN/price-history?fromDate=20200101&toDate=20260930&page=1&size=1000"
+}

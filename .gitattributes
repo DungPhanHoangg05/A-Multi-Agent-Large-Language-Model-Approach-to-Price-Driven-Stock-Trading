@@ -24,6 +24,14 @@ core/historical_asset_readiness.py text eol=lf
 scripts/prepare_historical_assets.py text eol=lf
 tests/test_historical_asset_readiness_leakage.py text eol=lf
 
+# Source/protocol replica được pin byte trước fit, giữ LF khi checkout Windows.
+core/mt_bicl_replica_*.py text eol=lf
+core/historical_h02_data.py text eol=lf
+scripts/run_mt_bicl_replica.py text eol=lf
+tests/test_mt_bicl_replica_leakage.py text eol=lf
+docs/plan/week11/mt_bicl_replica_full_r1.json -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/dense_bank.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
 core/mt_bicl*.py text eol=lf
 scripts/*mt_bicl*.py text eol=lf
 tests/*mt_bicl*.py text eol=lf
