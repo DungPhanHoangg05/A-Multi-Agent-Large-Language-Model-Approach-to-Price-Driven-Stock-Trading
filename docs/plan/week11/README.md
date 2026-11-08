@@ -598,3 +598,12 @@ tổng18 pilot riêng biệt. Source runtime được khóa trong free_pilot_run
 SHA256 ba log lần lượt81011394c0c0a6b3ceeb94f8bf7281945bb3c7a828ea82318ac24266fa03def3,
 f311fadc4441ef3a8aad7264410565e3ca25f0633bc6f97a45f39c7896260cb1,
 3c0437bc102e43503ea127f0dbca6453afddddee21b0581117ce0a492cd1f243.
+
+Khắc phục khởi động smoke: CLI chưa tự nạp `.env`; kiểm tra cục bộ xác nhận
+cả năm credential có giá trị, không xuất key. Ledger vẫn0 request pilot,
+slot graph/FPT-2023-06-23/u0/indicator có attempt unknown
+80890094-073d-436b-9253-6e7aec50d066 trước tạo client. Người dùng reconcile
+đúng UUID này với lý do chưa gửi HTTP, rồi chạy bootstrap dotenv trong plan.
+Giữ nguyên UUID run, checkpoint, runtime và quota. QA thay đổi thuần hướng dẫn:
+bootstrap `--help` PASS với socket chặn mạng; đối soát hash source/runtime;
+không chạy lại compile, unit hoặc E2E vì không đổi code/config/dữ liệu khoa học.

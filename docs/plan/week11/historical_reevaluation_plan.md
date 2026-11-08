@@ -395,9 +395,9 @@ chuẩn bị code, kiểm ngoại tuyến và đối soát output.
 Chạy tại thư mục gốc repository, giữ năm env key hiện có:
 
 ```powershell
-$pilotScript = Join-Path (Get-Location) 'scripts/run_free_paired_pilot.py'
+$bootstrap = "from dotenv import load_dotenv; import runpy; load_dotenv('.env', override=False); runpy.run_path('scripts/run_free_paired_pilot.py', run_name='__main__')"
 foreach ($stage in @('smoke', 'verify-smoke')) {
-    py -3.13 -X utf8 $pilotScript $stage
+    py -3.13 -X utf8 -c $bootstrap $stage
     if ($LASTEXITCODE -ne 0) { throw "Dừng tại $stage; giữ checkpoint và log." }
 }
 ```
@@ -406,6 +406,9 @@ Kết quả cần SMOKE_COLD_PASS. Agent đối soát rồi neo grant PILOT_RELE
 trước khi gửi lệnh shared/collect/verify. Grant SMOKE_READY hiện tại chỉ mở
 smoke; không phát hành API nghiên cứu. Log console và quota nằm trong namespace
 free_pilot_r1, resume cùng UUID, không dùng collector full cũ.
+CLI đọc credential từ environment; bootstrap trên nạp `.env` trước khi chạy.
+Nếu lần trước dừng vì thiếu credential, phải audit ledger rồi reconcile đúng
+attempt UUID chưa gửi HTTP trước khi chạy lại; không xóa slot hoặc reset run.
 
 ## H08 — Phân tích pilot
 
