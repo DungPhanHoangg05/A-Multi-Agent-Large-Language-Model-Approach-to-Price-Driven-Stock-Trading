@@ -20,14 +20,12 @@ liệu donor fix, primary6 nhánh, CORE4 gồm480 unit và lưới mở rộng1.
 với3 Decision repeats; H phải được chốt trước release.
 
 [Checklist W11](week11/README.md#checklist-đánh-giá-lại) quản lý H01–H09.
-H01/H02 hoàn tất audit; asset/data readiness còn blocker. Theo chỉ đạo08/11,
-không tìm thấy model gốc: ưu tiên train `MT_BICL_replica_fast_r1` theo
-[R0–R4](week11/historical_reevaluation_plan.md#41-train-lại-replica-theo-đường-nhanh).
-Một seed42, first-pass checkpoint mỗi250 step, tối đa5.000; giữ gate cơ chế/
-oracle/cold replay và hash riêng. Train dùng raw CORE4≤2020, không chờ
-VNINDEX2026 hoặc gọi LLM. Lượt này cập nhật kế hoạch, chưa train/release.
-H03 khóa protocol inference/budget và bind replica sau nghiệm thu; dữ liệu
-VNINDEX2026/context và execution quality vẫn cần đối soát cho toàn lưới.
+H01 hoàn tất; H02 mới xong audit, còn dữ liệu/model. Theo chỉ đạo mới08/11,
+train `MT_BICL_replica_full_r1` theo [checklist H02](week11/historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model):
+đủ ba seed17/42/73 ×5.000 step, đánh giá60 checkpoint, chọn bằng dữ liệu2021,
+test sau selection seal; giữ oracle/cold replay và hash riêng. Train-only
+không cần chờ VNINDEX2026. Lượt này chỉ cập nhật plan, chưa train/release.
+H03–H09 tiếp tục theo checklist; chưa có kết quả lưới mới.
 
 ## Những phần đã triển khai
 

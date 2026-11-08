@@ -41,10 +41,11 @@ py -3.13 -X utf8 scripts/prepare_historical_assets.py --verify
 ```
 
 Protocol hiện SPEC_ONLY. H03–H06 phải hoàn tất adapter/release cho lưới
-đánh giá mới trước API. Model gốc không tìm thấy; chỉ đạo08/11 chuyển sang
-[replica nhanh R0–R4](../week11/historical_reevaluation_plan.md#41-train-lại-replica-theo-đường-nhanh)
-với một seed42 và gate trước release. Đây là kế hoạch chưa chạy; VNINDEX2026
-còn thiếu cho đánh giá toàn lưới, không chặn teacher/student train-only.
+đánh giá mới trước API. Model gốc không tìm thấy; chỉ đạo mới08/11 dùng
+[quy trình replica đầy đủ](../week11/historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model):
+ba seed17/42/73,5.000 step/seed, đủ60 checkpoint rồi mới chọn model.
+Đây là kế hoạch chưa chạy; VNINDEX2026 còn thiếu cho đánh giá toàn lưới,
+không chặn teacher/student train-only.
 
 ## Kết quả đã lưu
 
