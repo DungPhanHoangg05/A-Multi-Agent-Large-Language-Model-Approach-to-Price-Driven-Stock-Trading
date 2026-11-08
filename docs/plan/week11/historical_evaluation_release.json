@@ -1,8 +1,8 @@
 {
   "payload": {
-    "status": "RELEASED",
+    "status": "REVOKED",
     "mode": "RESEARCH",
-    "api": true,
+    "api": false,
     "quota_verified": true,
     "quota_evidence": "USER_ATTESTATION_FREE_0_USD",
     "protocol_sha256": "904294ab0254858329b886e452eaa7c1fdb43b33a17c2bfa727f0e0f7ecd4f3d",
@@ -24,7 +24,10 @@
       },
       "http_attempts_before": 57,
       "http_attempts_after": 57
-    }
+    },
+    "revocation_reason": "USER_CANCELLED_FULL_COLLECTION_FOR_FREE_PAIRED_PILOT",
+    "revoked_on_local": "2026-11-09",
+    "cancelled_run_uuid": "5b596c26-86f7-41a4-93bf-cac417e560ea"
   },
-  "sha256": "2506951f1df97921a13eedc1cc8f7d2a955a16b082b8fdf2f518cef88475e5ad"
+  "sha256": "8c8699f915e4c947d33ce4fb194c4503090927ed78ba4d4f1452ec4a914ce22f"
 }
