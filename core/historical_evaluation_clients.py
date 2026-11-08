@@ -29,6 +29,14 @@ RUNTIME = Path("docs/plan/week11/historical_evaluation_runtime.json")
 RELEASE = Path("docs/plan/week11/historical_evaluation_release.json")
 
 
+def sdk_schema(schema: dict[str, Any]) -> dict[str, Any]:
+    """Bổ sung tên SDK cho schema vô danh, không sửa trường/enum/hợp đồng JSON đã khóa."""
+    result = deepcopy(schema)
+    if "title" not in result:
+        result["title"] = "UtilityICLReply"
+    return result
+
+
 def require_release(root: Path) -> dict[str, Any]:
     """H04 không tự cấp quyền; H06 phải neo grant/check receipt vào Git."""
     if not (root / RELEASE).is_file():
@@ -192,7 +200,7 @@ class Clients:
         """Lưu raw message bên cạnh parsed reply, sửa format nằm trong cùng trần3."""
         llm = self.models(org)[0]
         schema = request["structured"]["schema"]
-        structured = llm.with_structured_output(schema, method="json_schema", include_raw=True)
+        structured = llm.with_structured_output(sdk_schema(schema), method="json_schema", include_raw=True)
         prompt = request["messages"][0]["content"]
         messages, params = llm._create_message_dicts([HumanMessage(content=prompt)], None)
         raw_chain = structured.steps[0].steps__["raw"]

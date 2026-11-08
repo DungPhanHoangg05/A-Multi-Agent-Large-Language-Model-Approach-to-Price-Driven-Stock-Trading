@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from core.bayesian_memory import read_json
-from core.historical_evaluation_clients import RUNTIME
+from core.historical_evaluation_clients import RUNTIME, sdk_schema
 from core.historical_evaluation_journal import RunBook, load, save
 from core.historical_evaluation_protocol import binding, read, digest
 from core.historical_evaluation_scope import PORTS
@@ -43,7 +43,7 @@ def serialized_body(llm: Any, messages: Any, schema: dict[str, Any] | None = Non
     converted, params = llm._create_message_dicts(messages, None)
     body = {"messages": converted, **params}
     if schema is not None:
-        structured = llm.with_structured_output(schema, method="json_schema", include_raw=True)
+        structured = llm.with_structured_output(sdk_schema(schema), method="json_schema", include_raw=True)
         body["response_format"] = structured.steps[0].steps__["raw"].kwargs["response_format"]
     return body
 
@@ -225,7 +225,7 @@ def prepare(root: Path) -> dict[str, Any]:
 
 def runtime_profile(root: Path, data: Any) -> dict[str, Any]:
     """Dựng manifest source/thư viện độc lập với preview; không fit hay truy cập outcome."""
-    return {"version": "historical_h04_runtime_v2", "status": "IMPLEMENTED_NOT_RELEASED",
+    return {"version": "historical_h06_runtime_v3", "status": "IMPLEMENTED_NOT_RELEASED",
                "sources": source_manifest(root), "libraries": libraries(),
                "schema_sha256": digest(data.scope.module("mt_bicl_contracts").wire_schema()),
                "old_sources_modified": False, "h03_revision": "ae5dbc6d",
@@ -235,6 +235,7 @@ def runtime_profile(root: Path, data: Any) -> dict[str, Any]:
                    "alpha_projection": "FIVE_NUMERIC_NAME_VALUE_SIGNAL_MASK_ROWS_BEFORE_UNCHANGED_DISTILL_CAP",
                    "numeric_phase": "CORE4_WITHHOLDS_OOD_GRID_OUTCOMES_EVEN_AFTER_OOD_PHASE_COMPLETES",
                    "historical_hmm": "PRIVATE_2018_2026_PREFIX_FIT_LOAD; ORIGINAL_QUERY_AND_REPLICA_GUARDS_UNCHANGED",
+                   "reply_schema_transport_title": "SDK_ONLY_UtilityICLReply_FOR_ANONYMOUS_SCHEMA; JSON_FIELDS_ENUMS_UNCHANGED",
                    "universe": "EXPLICIT_NINE_SYMBOL_SCOPE_NO_MUTATION_OF_ORIGINAL_MODULES"}}
 
 

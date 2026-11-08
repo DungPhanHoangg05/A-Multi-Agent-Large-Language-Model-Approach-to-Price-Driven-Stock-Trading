@@ -31,7 +31,7 @@ H05 đã nghiệm thu offline PASS84 test; tiếp theo H06, API còn khóa trư�
 | H03 | Protocol máy, registry, inference, families và budget | [x] DONE OFFLINE — H=2.358, nominal34.806 calls; live quota/payload smoke thuộc H06 |
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — đã có492 prefix HMM; API chưa release |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
-| H06 | Freeze bank/runtime và smoke toàn registry | [ ] IN PROGRESS — freeze offline xong; chờ quota/account và live smoke |
+| H06 | Freeze bank/runtime và smoke toàn registry | [ ] IN PROGRESS — đã xác nhận quota5 org/Free; đang live smoke/cold verify |
 | H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] TODO |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
 | H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
@@ -506,3 +506,39 @@ Quota áp dụng theo org, các giới hạn thực và split ITPM/OTPM cần đ
 [Groq Limits](https://console.groq.com/docs/rate-limits); không dùng bảng công bố
 thay bằng chứng tài khoản. Chờ thông tin này trước cấp smoke/research release;
 không thay model, nâng gói hay tự hạ mẫu/repeat.
+
+Tiếp tục H06 theo xác nhận người dùng:5 key thuộc5 org độc lập, cả hai model
+cùng30 RPM/1.000 RPD/8.000 TPM/200.000 TPD; không tách ITPM/OTPM, chỉ Free/0 USD.
+[Quota đã khóa](historical_evaluation_quota.json) ghi rõ USER_ATTESTATION,
+không giả là provider org ID hay bằng chứng Console. [Plan smoke](historical_evaluation_smoke_plan.json)
+khóa55 execution/trần300 HTTP và source trước API. Vision reserve preflight
+5.471/5.110, Decision tối đa3.852, dưới8.000 TPM/request; không hạ token960.
+
+Preflight phát hiện schema reply MT-BICL vô danh không được SDK chấp nhận.
+[Amendment transport](historical_evaluation_transport_amendment.json) chỉ thêm
+`title=UtilityICLReply` tại adapter SDK; schema khoa học, fields/enum và Original
+giữ nguyên. Runtime v3 thay đúng hai file clients/audit, thư viện không đổi.
+[Runtime v2 nguyên byte](historical_evaluation_runtime_pre_schema_title.json) và
+receipt H05 được giữ làm baseline;10 test wire/guard PASS,5 Python thay đổi
+biên dịch PASS. Gate H05 v2 chỉ được viện dẫn cho phần không đổi, wire dùng
+kết quả hồi quy mới. Verifier H06 mới kiểm chuỗi amendment; lệnh freeze/H05
+v2 cũ không đại diện cho runtime v3.
+
+Smoke dùng namespace `outputs/historical_reevaluation/h06_smoke_r1/`, upstream
+và ảnh live một lần/org rồi deepcopy cho sáu primary/Fact_Anchor cùng hai control
+payload lớn. Teacher/student/utility giữ nguyên. Historical agent signals là
+fixture lặp từ query để kiểm support; giá/nhãn/regime quá khứ thật, chỉ lấy cycle
+non-grid đã exit<query. Đây không là archival PIT của tín hiệu LLM hoặc forecast
+H07; không import bank/control response vào research, không mở payoff query.
+Original→Fact_Anchor→MT dùng raw reply thật; anchor sai/lỗi/unknown phải dừng,
+không giả facts, sửa fallback hoặc CASH. Quota/ledger riêng từng org, round-robin
+giữa org độc lập, không xoay key khi hết quota. Grant hiện chỉ SMOKE.
+
+```powershell
+py -3.13 -X utf8 scripts/run_historical_smoke.py run
+py -3.13 -X utf8 scripts/run_historical_smoke.py verify
+```
+
+`run` tiếp tục slot complete, unknown cần `reconcile --attempt-id UUID --reason ...`;
+không tự gửi lại timeout. Log và raw HTTP/ảnh/checkpoint giữ local, không chứa key.
+H06 chưa hoàn tất cho đến khi live smoke và cold verify PASS; chưa release H07.

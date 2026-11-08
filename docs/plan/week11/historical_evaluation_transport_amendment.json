@@ -1,0 +1,55 @@
+{
+  "payload": {
+    "status": "PASS",
+    "scope": "SDK_SCHEMA_TITLE_ONLY_NO_SCIENTIFIC_SCHEMA_CHANGE",
+    "before_runtime": {
+      "path": "docs/plan/week11/historical_evaluation_runtime_pre_schema_title.json",
+      "bytes": 12029,
+      "sha256": "98735edb1d8167f5e77d77fad035cec1c94181ab9b3904ffc509704b5002211b"
+    },
+    "after_runtime": {
+      "path": "docs/plan/week11/historical_evaluation_runtime.json",
+      "bytes": 12146,
+      "sha256": "49a9333a16b1de8d1fbf5fa839e8d2fbbd8701cf62e1c92c69dff4520b450fde"
+    },
+    "changed_runtime_files": [
+      "core/historical_evaluation_clients.py",
+      "core/historical_evaluation_audit.py"
+    ],
+    "tests_passed": 10,
+    "test_modules": [
+      "test_historical_live_smoke",
+      "test_historical_adapter_transport"
+    ],
+    "compiled_files": [
+      "core/historical_live_smoke.py",
+      "scripts/run_historical_smoke.py",
+      "tests/test_historical_live_smoke.py",
+      "core/historical_evaluation_clients.py",
+      "core/historical_evaluation_audit.py"
+    ],
+    "bindings": {
+      "core/historical_live_smoke.py": {
+        "path": "core/historical_live_smoke.py",
+        "bytes": 18432,
+        "sha256": "08ed0ff582559133fb6acd57e9aed234056a54e7ee387e392bf56e24a55e7395"
+      },
+      "scripts/run_historical_smoke.py": {
+        "path": "scripts/run_historical_smoke.py",
+        "bytes": 2955,
+        "sha256": "71ef01fce31c9c5498189b41373c1ebc02ac1ea0a6003a26b661007efbf4257f"
+      },
+      "tests/test_historical_live_smoke.py": {
+        "path": "tests/test_historical_live_smoke.py",
+        "bytes": 5401,
+        "sha256": "604d9d5ad679d580d6f944c3aa554da23f393863bb878a58d6f59f3ae8385532"
+      },
+      "tests/test_historical_adapter_transport.py": {
+        "path": "tests/test_historical_adapter_transport.py",
+        "bytes": 7436,
+        "sha256": "4fd76aec5a881d8e2310a9839f75dcbabea1f650eae75687502b3d0244ef5891"
+      }
+    }
+  },
+  "sha256": "350573480268eef12cca676b6409c04f642cc2511bacd8d3b86c3c9eeb8233d3"
+}

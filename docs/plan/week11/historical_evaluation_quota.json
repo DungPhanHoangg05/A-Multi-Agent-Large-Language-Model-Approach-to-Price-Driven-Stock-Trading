@@ -1,0 +1,34 @@
+{
+  "payload": {
+    "status": "PASS",
+    "scope": "USER_ATTESTED_FREE_ACCOUNTS",
+    "evidence": "USER_EXPLICIT_CONFIRMATION",
+    "independent_organizations": 5,
+    "split_token_limits": false,
+    "paid_api_allowed": false,
+    "spend_limit_usd": 0,
+    "models": {
+      "openai/gpt-oss-20b": {
+        "rpm": 30,
+        "rpd": 1000,
+        "tpm": 8000,
+        "tpd": 200000
+      },
+      "qwen/qwen3.8-27b": {
+        "rpm": 30,
+        "rpd": 1000,
+        "tpm": 8000,
+        "tpd": 200000
+      }
+    },
+    "organization_refs": {
+      "1": "GROQ_ORG_1_API_KEY",
+      "2": "GROQ_ORG_2_API_KEY",
+      "3": "GROQ_ORG_3_API_KEY",
+      "4": "GROQ_ORG_4_API_KEY",
+      "5": "GROQ_ORG_5_API_KEY"
+    },
+    "provider_organization_ids": null
+  },
+  "sha256": "06f89f86520183ba91d8538133188e8395218d0aa80f8bbf3eb42366423cefa9"
+}

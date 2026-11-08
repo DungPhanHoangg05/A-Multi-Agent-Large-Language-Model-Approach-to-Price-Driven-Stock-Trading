@@ -1,6 +1,6 @@
 {
   "payload": {
-    "version": "historical_h04_runtime_v2",
+    "version": "historical_h06_runtime_v3",
     "status": "IMPLEMENTED_NOT_RELEASED",
     "sources": {
       "agents/alpha_agent.py": {
@@ -50,13 +50,13 @@
       },
       "core/historical_evaluation_audit.py": {
         "path": "core/historical_evaluation_audit.py",
-        "bytes": 15088,
-        "sha256": "0c0ac571b8e999ca1fef0a988fc889e07f2e9dba5453c51988f7cbb75eacb634"
+        "bytes": 15241,
+        "sha256": "a5d1d0de6222872c81a3286f42c4481e3a7620c229a5f2317526f32bbe7789ba"
       },
       "core/historical_evaluation_clients.py": {
         "path": "core/historical_evaluation_clients.py",
-        "bytes": 13206,
-        "sha256": "8efd3250d9976a45ff928a872227ce6d4abe7614bba1976c656d34280fa09670"
+        "bytes": 13509,
+        "sha256": "3432b9c64fc3f96b8e93240dcd1a11da72e8075c609eda45ba86c0df3899a3eb"
       },
       "core/historical_evaluation_context.py": {
         "path": "core/historical_evaluation_context.py",
@@ -285,8 +285,9 @@
       "alpha_projection": "FIVE_NUMERIC_NAME_VALUE_SIGNAL_MASK_ROWS_BEFORE_UNCHANGED_DISTILL_CAP",
       "numeric_phase": "CORE4_WITHHOLDS_OOD_GRID_OUTCOMES_EVEN_AFTER_OOD_PHASE_COMPLETES",
       "historical_hmm": "PRIVATE_2018_2026_PREFIX_FIT_LOAD; ORIGINAL_QUERY_AND_REPLICA_GUARDS_UNCHANGED",
+      "reply_schema_transport_title": "SDK_ONLY_UtilityICLReply_FOR_ANONYMOUS_SCHEMA; JSON_FIELDS_ENUMS_UNCHANGED",
       "universe": "EXPLICIT_NINE_SYMBOL_SCOPE_NO_MUTATION_OF_ORIGINAL_MODULES"
     }
   },
-  "sha256": "51e2d4af45de027602b43503735903311d3d4afec2b17c5727460d6f6a37ce39"
+  "sha256": "f053be16bd5988a015b53ac0766f6f26b3071af97fe482c3070ecc4635b00795"
 }

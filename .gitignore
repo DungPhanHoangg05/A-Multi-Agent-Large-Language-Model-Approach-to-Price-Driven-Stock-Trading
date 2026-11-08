@@ -32,3 +32,5 @@ sentiment_cache_*
 /outputs/historical_reevaluation/h04_assets/h05_validation.log
 /outputs/historical_reevaluation/h06_quota.json
 /outputs/historical_reevaluation/h06_quota_evidence/
+/outputs/historical_reevaluation/h06_prepare/
+/outputs/historical_reevaluation/h06_smoke_r1/

@@ -195,13 +195,16 @@ Chạy API nghiên cứu thuộc H06/H07 sau release, không nằm trong lệnh 
 giữ5 factor, BRPP600/601 và prompt tối đa5.867<6.500 ký tự; đây chưa phải
 live smoke sáu primary/Fact_Anchor hay longest payload thực.
 
-**Còn chờ quota/account trước API:** điền [mẫu quota5 org](historical_evaluation_quota_template.json)
-từ Console, gồm org ID độc lập, RPM/RPD/TPM/TPD, ITPM/OTPM nếu có và spend limit;
-không điền key. Hiện chỉ thấy5 tên key trong `.env`, chưa chứng minh5 org độc lập.
-Giữ H06 chưa hoàn tất; không tạo release hoặc tự đổi model/ngân sách.
+Người dùng đã xác nhận5 org độc lập, cả hai model đều30 RPM/1.000 RPD/
+8.000 TPM/200.000 TPD, TPM không tách, chỉ Free/0 USD.
+[Quota](historical_evaluation_quota.json) ghi nguồn USER_ATTESTATION, không giả
+org ID hoặc bằng chứng Console. [Plan smoke](historical_evaluation_smoke_plan.json)
+khóa55 execution, trần300 HTTP, namespace control riêng; grant hiện chỉ SMOKE.
+Đang chạy live smoke/cold verify; chưa release H07.
 
 ```powershell
-py -3.13 -X utf8 scripts/prepare_historical_smoke.py --verify
+py -3.13 -X utf8 scripts/run_historical_smoke.py run
+py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 ```
 
 ## H07 — Chạy đánh giá
