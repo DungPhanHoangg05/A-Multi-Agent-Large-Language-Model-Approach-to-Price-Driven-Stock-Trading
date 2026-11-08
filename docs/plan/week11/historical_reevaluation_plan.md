@@ -8,7 +8,7 @@ step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
 H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
-H07 đang thu bank; đã qua Pattern/Trend MWG sau chẩn đoán,7 node complete; tiếp tục bằng CLI có log lỗi gốc.
+H07 đang thu bank:67 node complete; đã xác định WinError10054 và nghiệm thu chế độ phục hồi có giới hạn.
 
 ## Checklist tổng
 
@@ -216,17 +216,21 @@ py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 
 ## H07 — Chạy đánh giá
 
-Trạng thái IN_PROGRESS:7 node complete (FPT4, MWG3),4 HTTP200 và2
-transport_error, chưa có forecast grid. Hai lỗi cũ tại Pattern MWG không có
-raw response/output; nguyên nhân cụ thể chưa xác định vì exception đã bị che.
-Đã reconcile đúng UUID, giữ attempt cũ/quota reserve; chạy chẩn đoán giới hạn
-đã hoàn tất Pattern và Trend MWG, không còn slot chờ. Partial cold replay7 node
-PASS theo raw/PIT/body, không API; full Alpha MWG và phần còn lại chưa chạy.
+Trạng thái IN_PROGRESS:67 node complete,34 HTTP200 và3 transport_error,
+chưa có forecast grid. Đã xác định lỗi mới tại Trend FPT-2022-06-16/u0 org2:
+`httpx.ReadError → httpcore.ReadError → ConnectionResetError/WinError10054`.
+Kết nối bị reset khi đọc response; chưa xác định phía mạng nào gây reset.
+SDK ghi đè timeout thành None. UUID lỗi đã được đối soát/reconcile, request
+kiểm tra tiếp theo HTTP200, body/model/credential khớp lượt cũ và cold replay PASS.
 
-CLI `run_historical_evaluation_observed.py` bọc nguyên runner đã khóa và ghi
-loại/mã exception gốc ra stderr cùng `run_r1/diagnostics/`. Observer được neo
-Git riêng, không đổi wire/model/key/retry, run identity hoặc runtime v3;
-9 test transport/observer và biên dịch3 Python mới PASS. Không tự retry unknown.
+Bật `--recover-connection-reset` để dùng lớp vận hành mới: TCP mới mỗi HTTP,
+timeout connect/read/write/pool=30/120/60/30 giây. Chỉ tự reconcile lỗi10054
+vừa được ghi durable trong cùng tiến trình, giữ outcome UNKNOWN/quota reserve;
+backoff5/10 giây, tối đa3 HTTP/slot tính cả attempt cũ và retry429. Unknown từ
+lần chạy trước, timeout hoặc lỗi khác vẫn dừng để đối soát. Không đổi org/key,
+model, prompt/options/schema, run identity, hoặc các file baseline runtime v3.
+Policy/source được ghi vào từng request ledger.17 test theo phạm vi PASS;
+chi tiết tại [README W11](README.md#h07--phục-hồi-kết-nối-10054).
 
 - [ ] Thu bank/shared state cần thiết, CORE4 rồi các mã bổ sung, ablation/control
   và panel upstream; đủ repeat/realization đã khóa, không vote hoặc chọn best repeat.
@@ -239,7 +243,7 @@ Lệnh H07, chạy CORE4 trước rồi mới OOD5; cùng lệnh có thể tiế
 
 ```powershell
 foreach ($cohort in @("CORE4", "OOD5")) {
-    py -3.13 -X utf8 -m dotenv -f .env run -- py -3.13 -X utf8 scripts/run_historical_evaluation_observed.py run --cohort $cohort
+    py -3.13 -X utf8 -m dotenv -f .env run -- py -3.13 -X utf8 scripts/run_historical_evaluation_observed.py run --cohort $cohort --recover-connection-reset
     if ($LASTEXITCODE -ne 0) { throw "Dừng tại $cohort; giữ checkpoint và log." }
 }
 ```

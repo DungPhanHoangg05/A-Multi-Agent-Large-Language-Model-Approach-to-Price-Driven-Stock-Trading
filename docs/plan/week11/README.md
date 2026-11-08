@@ -21,7 +21,7 @@ Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed4
 Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
 H03 đã khóa protocol/dự toán; H04 đã hoàn tất adapter/runner offline.
 H05 PASS84 test offline; H06 PASS live smoke/cold verify, đã release H07 chỉ Free/0 USD.
-H07 đang thu bank:7 node complete, đã qua điểm MWG bị gián đoạn; smoke H06 cách ly.
+H07 đang thu bank:67 node complete; đã nghiệm thu phục hồi10054 có giới hạn; smoke H06 cách ly.
 
 ## Checklist đánh giá lại
 
@@ -33,7 +33,7 @@ H07 đang thu bank:7 node complete, đã qua điểm MWG bị gián đoạn; smo
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — adapter9 mã và492 prefix HMM |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
 | H06 | Freeze và smoke sáu primary/Fact_Anchor | [x] PASS — 55 lượt, cold verify; release H07 Free/0 USD |
-| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] IN PROGRESS — 7 node complete; MWG Pattern/Trend PASS, tiếp tục với log lỗi gốc |
+| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] IN PROGRESS — 67 node complete; phục hồi10054 PASS17 test/live/cold replay |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
 | H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
 
@@ -536,40 +536,56 @@ H05/quota/plan/amendment/smoke PASS. Lệnh H07 CORE4→OOD5 tại
 `reconcile --attempt-id UUID --reason ...`, không tự gửi lại timeout.
 Economic acceptance vẫn PENDING_EXECUTION_DATA; H06 không thay đổi giới hạn vendor series.
 
-## H07 — thu bank, chẩn đoán transport
+## H07 — phục hồi kết nối 10054
 
-H07 tại `outputs/historical_reevaluation/run_r1/` hiện có7 node complete:
-FPT4 và MWG3;4 HTTP200 cùng2 transport_error, chưa có forecast grid.
-Hai lỗi ở Pattern MWG-2022-05-31/u0 org2 xảy ra sau20,19/16,39 giây;
-wrapper cũ bỏ exception gốc nên chưa thể kết luận là DNS, TLS, timeout hay reset.
-Probe GET không key tới endpoint Groq nhận401, chỉ chứng minh kết nối khi probe.
+Hiện có67 node complete,34 HTTP200 và3 transport_error tại `run_r1`, chưa có
+forecast grid. User đã chạy qua MWG và tiếp tục thu bank đến FPT-2022-06-16.
+Diagnostic `92c28ecd-201f-4e0f-b548-5e2df8a452db.json` xác định lỗi đọc mạng:
+`httpx.ReadError → httpcore.ReadError → ConnectionResetError`, WinError10054.
+Đây là kết nối bị reset, chưa xác định là server, đường mạng hay thiết bị trung gian.
+Bốn timeout thực tế đều None vì SDK ghi đè cấu hình httpx; không phải bằng chứng
+rằng timeout gây ra reset, nhưng cần chặn chờ vô hạn.
 
-Đã reconcile lần lỗi thứ hai đúng UUID `c7690901-b969-4839-961d-95bf998f759b`,
-giữ hai attempt cũ và quota reserve. Hai lượt chẩn đoán được giới hạn, dừng ngay
-sau checkpoint: Pattern MWG và Trend MWG đều thành công, tổng ledger hiện6 HTTP;
-không còn slot chờ. Không khẳng định đã khắc phục vĩnh viễn lỗi kết nối.
-Partial cold replay FPT4/MWG3 khớp raw/PIT/body,0 API; full Alpha MWG chưa chạy.
-Log partial tại `run_r1/partial_replay.log`, SHA256
-`6e0795b7cee4598895b0a60b54f367fd5184d116dfd49d4fdc673b9e248c892c`.
+Đã đối soát/reconcile UUID `33d22fcd-ed2a-4784-96c6-73d36eb66e08` và giữ
+attempt cũ/quota reserve. Request live kế tiếp dùng policy mới trả200, canonical
+body/model/credential scope khớp lượt lỗi, timeout hữu hạn được lưu trong ledger.
+Cold replay3 node của FPT-2022-06-16 khớp raw/PIT/body; kiểm hash đủ67 node,
+0 API replay. Full Alpha tại điểm này chưa chạy. Live không tái phát reset;
+đường tự phục hồi được kiểm bằng mock, không tuyên bố đã loại bỏ lỗi mạng.
 
-Thêm [CLI có quan sát lỗi](../../../scripts/run_historical_evaluation_observed.py)
-và `core/historical_transport_observer.py`: lớp ngoài gọi nguyên transport gốc
-một lần, trả nguyên response hoặc ném lại cùng exception. Ghi class/cause,
-errno/WinError/TLS code, kích thước request và timeout ra stderr/file diagnostics;
-không ghi message/args/header/key hoặc nội dung prompt/ảnh. Lỗi ghi chẩn đoán
-không che lỗi transport. Không retry, đổi credential/model/prompt/options,
-quota hoặc tự reconcile. Source observer/CLI được neo Git và băm riêng;
-runtime v3, schema/H03/run identity cùng các checkpoint giữ nguyên byte.
+[CLI observed](../../../scripts/run_historical_evaluation_observed.py) nhận cờ
+`--recover-connection-reset`, là opt-in cho policy `historical_connection_reset_v1`:
 
-Kiểm theo phạm vi PASS9 test:5 test mới `test_historical_transport_observer`
-và4 `test_historical_adapter_transport`, chạy qua observer bằng MockTransport.
-Bao phủ response/request identity, cùng exception/không retry khi ghi log lỗi,
-không lộ secret, từ chối source chưa neo Git, SDK wire/raw/cold replay và ngân
-sách3/429/reserve. Biên dịch3 Python mới PASS. Lượt Trend live qua CLI mới và
-partial cold replay PASS. Không chạy full suite/E2E hoặc leakage suite vì không
-đổi đường dữ liệu/context/retrieval/nhãn; wire/retry/checkpoint có hồi quy đúng phạm vi.
-Gate H05/H06 chỉ được viện dẫn cho phần frozen không đổi; observer có kiểm mới.
+- Mỗi request TCP mới, keepalive0, HTTPTransport/SDK retries ngầm vẫn0.
+- Timeout connect/read/write/pool=30/120/60/30 giây tại ranh transport,
+  không thêm/sửa trường JSON gửi LLM hoặc header xác thực.
+- Chỉ tự reconcile ReadError/WinError10054 vừa được quan sát và ghi durable
+  trong cùng tiến trình, cùng book/UUID/inputs; log lý do authorization rồi chờ5/10 giây.
+- Trần3 HTTP cho toàn slot gồm attempt cũ, retry429 và reset; chặn trước reserve
+  thứ4. Mỗi HTTP vẫn đi qua wrapper/ledger/admission cũ, giữ mọi reserve unknown.
+- Unknown từ lần chạy trước không tự authorize; timeout, lỗi khác, đã có response200,
+  inputs thay đổi, mất bằng chứng hoặc hết trần đều dừng. Không đổi lỗi thành CASH.
 
-Chạy tiếp [khối lệnh H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá)
-bằng CLI observed để lần gián đoạn sau hiện lỗi cụ thể. Dùng lại node complete;
-không cần train/fit lại. Chỉ đánh dấu H07 DONE sau thu đủ, cold replay và kết sổ.
+Source observer/CLI neo Git riêng; mỗi request ghi policy/timeouts/source hashes
+vào `historical_transport_policy`. Lớp vận hành thay đổi có chủ đích và opt-in;
+file baseline v3, schema/model/data/H03, scientific run identity
+nguyên byte; các checkpoint complete cũ không bị ghi đè. Gate H05/H06 chỉ viện dẫn phần baseline; không dùng gate cũ thay
+kiểm retry mới. Không xoay key/org/model hoặc tăng quota/chi tiêu Free0 USD.
+
+PASS17 test:8 `test_historical_reset_recovery`,5 `test_historical_transport_observer`
+và4 `test_historical_adapter_transport` chạy qua chế độ phục hồi bằng MockTransport.
+Bao phủ2 reset→success,3 reset dừng,429+reset chung trần, attempt cũ, timeout/
+unknown/inputs đổi không replay, body/response/exception identity, secret,
+source guard, SDK/raw/cold replay và reserve. Biên dịch3 Python mới/đổi PASS.
+Không chạy full suite/E2E hoặc leakage suite vì không đổi đường dữ liệu,
+context/retrieval/nhãn; test tích hợp đúng đường wire/retry/checkpoint đã PASS.
+
+Bằng chứng local tại `outputs/historical_reevaluation/run_r1/`:
+
+- `reset_recovery_tests_sealed.log`, SHA256 `bb35cab6486d33679b66f4d7f40b71ebed2e913af5f6c30ece9091a19b27d24c`.
+- `reset_recovery_replay.log`, SHA256 `1a5f1c6e1bfaaf49c7ec978ba69129d2ca465eb0b6797f2b14468d1657f44249`.
+- Diagnostic, raw response, ledger và journal gốc giữ nguyên, không chứa key.
+
+Người dùng chạy tiếp [khối lệnh H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá)
+có cờ phục hồi; không cần train/fit lại. H07 chưa hoàn tất; chỉ kết sổ sau thu đủ
+ma trận và cold consumer xác nhận. Economic acceptance vẫn PENDING_EXECUTION_DATA.
