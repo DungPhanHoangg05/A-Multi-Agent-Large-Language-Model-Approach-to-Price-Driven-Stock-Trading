@@ -3,7 +3,7 @@
 Đề tài Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent
 LLM Stock Trading in the Vietnamese Stock Market.
 
-## Trạng thái hiện hành08/11/2026
+## Trạng thái hiện hành09/11/2026
 
 Hệ thống giữ Original và bốn nhóm cải tiến.
 
@@ -46,7 +46,7 @@ Giữ Free/0 USD, protocol và full matrix; tiến trình tự audit503/429/quot
 không gửi lại mù hoặc giảm mẫu. Trạng thái máy:
 
 <!-- H07_MANAGED_START -->
-Supervisor đã sẵn sàng; agent đang khởi chạy. H07 chưa hoàn tất.
+Trạng thái máy: **RUNNING**; phase `collect_CORE4`; cập nhật `09/11/2026 00:05:45 UTC+7`. Số file checkpoint: 83 (kể cả lượt đang chạy).
 <!-- H07_MANAGED_END -->
 
 H07–H09 chưa hoàn tất.

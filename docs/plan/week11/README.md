@@ -1,6 +1,6 @@
 # W11 — Đánh giá lại các cải tiến trên dữ liệu lịch sử chung
 
-Cập nhật08/11/2026. Original và bốn nhóm cải tiến là Bayesian Prior v1,
+Cập nhật09/11/2026. Original và bốn nhóm cải tiến là Bayesian Prior v1,
 Bayesian Prior v2/C2, Bayesian Prior A/B và MT-BICL.
 [Kế hoạch tổng](../plan.md) · [Đặc tả đánh giá](historical_reevaluation_plan.md)
 
@@ -593,7 +593,7 @@ ma trận và cold consumer xác nhận. Economic acceptance vẫn PENDING_EXECU
 ## H07 — agent trực tiếp chạy có giám sát
 
 <!-- H07_MANAGED_START -->
-Supervisor đã sẵn sàng; agent đang khởi chạy. H07 chưa hoàn tất.
+Trạng thái máy: **RUNNING**; phase `collect_CORE4`; cập nhật `09/11/2026 00:05:45 UTC+7`. Số file checkpoint: 83 (kể cả lượt đang chạy).
 <!-- H07_MANAGED_END -->
 
 Người dùng giao agent thực hiện trọn H07. Khi tiếp quản có73 node complete,
@@ -634,3 +634,9 @@ vì source tương ứng không đổi. Không chạy full suite/E2E/leakage sui
 đổi dữ liệu/context/retrieval/nhãn hoặc code kinh tế; quản lý subprocess/quota/
 checkpoint được kiểm đúng phạm vi. Log test tại `run_r1/managed_collection_tests.log`,
 SHA256 `b7ffc5e89f5a406e6bf9a68fe79bd97d8940d6a4d3238998d9e0bf42919a8d59`.
+
+Lượt chạy native09/11 đã xác nhận supervisor tự phục hồi503 ở Trend
+VCB-2022-06-16: audit raw, backoff, ghi authorization DELEGATED_H07_SUPERVISOR,
+child tiếp theo dùng lại checkpoint rồi node complete. Native supervisor và
+child đang chạy CORE4; chưa có receipt H07 PASS. Trạng thái sống trong vùng máy
+ở trên và `managed_r1/status.json`; không yêu cầu người dùng chạy thêm lệnh.

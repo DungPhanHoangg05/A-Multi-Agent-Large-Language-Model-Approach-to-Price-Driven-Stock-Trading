@@ -1,6 +1,6 @@
 # Checklist đánh giá lại trên dữ liệu lịch sử
 
-Cập nhật08/11/2026. Thực hiện lại quy trình đầy đủ đã dùng trước đây,
+Cập nhật09/11/2026. Thực hiện lại quy trình đầy đủ đã dùng trước đây,
 ưu tiên độ tin cậy và khả năng tái lập. Train lại model dưới tên
 `MT_BICL_replica_full_r1`; bỏ phương án một seed/dừng sớm.
 Người dùng đã hoàn tất fit/pilot/train:đủ3 seed/60 checkpoint, chọn seed42/
@@ -217,7 +217,7 @@ py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 ## H07 — Chạy đánh giá
 
 <!-- H07_MANAGED_START -->
-Supervisor đã sẵn sàng; agent đang khởi chạy. H07 chưa hoàn tất.
+Trạng thái máy: **RUNNING**; phase `collect_CORE4`; cập nhật `09/11/2026 00:05:45 UTC+7`. Số file checkpoint: 83 (kể cả lượt đang chạy).
 <!-- H07_MANAGED_END -->
 
 Người dùng đã giao agent trực tiếp hoàn tất H07. Supervisor chạy CORE4→OOD5,
