@@ -6,9 +6,9 @@ Cập nhật08/11/2026. Thực hiện lại quy trình đầy đủ đã dùng t
 Người dùng đã hoàn tất fit/pilot/train:đủ3 seed/60 checkpoint, chọn seed42/
 step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
-H03 đã khóa protocol và dự toán offline; chưa release inference trên lưới mới.
-H04 đã hoàn tất adapter/runner; H05 nghiệm thu offline PASS84 test. Tiếp theo H06;
-API vẫn cần release H06; người dùng đã hoàn tất492 HMM prefix lịch sử.
+H03 đã khóa protocol và dự toán trước inference trên lưới mới.
+H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
+H07 đã được release chỉ Free/0 USD, chưa bắt đầu thu ma trận nghiên cứu.
 
 ## Checklist tổng
 
@@ -17,7 +17,7 @@ API vẫn cần release H06; người dùng đã hoàn tất492 HMM prefix lịc
 - [x] H03 — Khóa protocol, lịch, model và dự toán đánh giá offline.
 - [x] H04 — Hoàn thiện adapter và runner, nghiệm thu triển khai offline.
 - [x] H05 — Kiểm thử theo phạm vi, PASS84 test và đối soát asset/context.
-- [ ] H06 — Freeze và smoke test.
+- [x] H06 — Freeze, live smoke55 lượt và cold verify PASS; release H07 Free/0 USD.
 - [ ] H07 — Chạy đủ ma trận đánh giá.
 - [ ] H08 — Phân tích và đối soát kết quả.
 - [ ] H09 — Kết sổ và bàn giao.
@@ -122,8 +122,8 @@ validation/test và cold replay dùng CPU cùng runtime để so raw logits chí
 
 [Protocol máy](historical_evaluation_protocol.json) và
 [lịch/schema/input đã khóa](historical_evaluation_inputs.json) được tạo/kiểm bằng
-`scripts/prepare_historical_evaluation.py`. H03 hoàn tất offline; API vẫn khóa,
-H04/H05 đã hoàn tất offline; H06 còn freeze/release, smoke và quota.
+`scripts/prepare_historical_evaluation.py`. H03 hoàn tất offline;
+H04/H05 và các điều kiện live H06 đã được nghiệm thu ở dưới.
 
 ## H04 — Hoàn thiện adapter và runner
 
@@ -150,8 +150,8 @@ py -3.13 -X utf8 scripts/run_historical_evaluation.py prepare-regimes
 ```
 
 Lệnh chỉ fit HMM trên prefix VNINDEX đúng ngày, không train teacher/student,
-không dùng GPU/LLM. Chưa thực thi fit này trong H04. Query HMM2022 và model
-replica vẫn frozen. H05/H06 tiếp tục sau H04; chưa được chạy research API.
+không dùng GPU/LLM. Người dùng đã hoàn tất fit492 prefix; không cần fit lại.
+Query HMM2022 và model replica vẫn frozen; H05/H06 đã được nghiệm thu ở dưới.
 
 - [x] Sửa lỗi `prepare-regimes` dùng nhầm guard fit2018–2022: fit/load historical
   dùng namespace riêng tới30/09/2026, giữ nguyên guard model gốc và query/replica.
@@ -179,31 +179,38 @@ py -3.13 -X utf8 scripts/validate_historical_evaluation.py
 Lệnh kiểm492 prefix và1.020 context, chạy nhóm test đã chọn, biên dịch Python
 mới và chỉ ghi receipt PASS khi mọi kiểm tra đạt. Phần paired fixture/cold replay
 có thể mất vài phút; log tại `outputs/historical_reevaluation/h04_assets/h05_validation.log`.
-Sau khi receipt được neo Git, kiểm nhanh hash bằng cùng lệnh thêm `--verify`.
+Verifier H05 `--verify` áp dụng runtime v2 cũ; runtime v3 dùng verifier H06
+ở dưới để kiểm baseline H05 và delta SDK đã nghiệm thu.
 Chạy API nghiên cứu thuộc H06/H07 sau release, không nằm trong lệnh H05.
 
 ## H06 — Freeze và smoke test
 
 - [x] Neo Git source/runtime/model/data/protocol/IDs; kiểm manifest/hash trước API.
-- [ ] Smoke đủ sáu primary/Fact_Anchor và longest prompts:BRPP≤600, prompt<6.500,
+- [x] Smoke đủ sáu primary/Fact_Anchor và control báo cáo dài:BRPP≤600, prompt<6.500,
   giữ distill/cap, utility4.096 draws và factor rows/ảnh; không đổi fallback/model ngầm.
-- [ ] Kiểm schema/options/quota năm organization, retry wrapper và credential scope;
+- [x] Kiểm schema/options/quota năm organization, retry wrapper và credential scope;
   chỉ release lượt inference mới khi các gate áp dụng PASS.
 
-[Freeze H06](historical_evaluation_freeze.json) đã đối soát H05/source/runtime,
-492 prefix và input/IDs;3 test mới PASS, chỉ compile2 Python mới. Stress fixture
-giữ5 factor, BRPP600/601 và prompt tối đa5.867<6.500 ký tự; đây chưa phải
-live smoke sáu primary/Fact_Anchor hay longest payload thực.
+[Receipt smoke](historical_evaluation_smoke.json):55 lượt thành công trên5 org
+(45 Decision+10 vision),2 response503 được đối soát/reconcile, tổng57 HTTP;
+không có429. Cold verify PASS, không phát sinh HTTP mới, không còn slot chờ.
+Prompt live tối đa5.954<6.500 ký tự; BRPP600 và báo cáo bão hòa giữ đủ5 factor,
+output960, utility4.096 draws; tất cả response thành công kết thúc `stop`.
 
-Người dùng đã xác nhận5 org độc lập, cả hai model đều30 RPM/1.000 RPD/
-8.000 TPM/200.000 TPD, TPM không tách, chỉ Free/0 USD.
-[Quota](historical_evaluation_quota.json) ghi nguồn USER_ATTESTATION, không giả
-org ID hoặc bằng chứng Console. [Plan smoke](historical_evaluation_smoke_plan.json)
-khóa55 execution, trần300 HTTP, namespace control riêng; grant hiện chỉ SMOKE.
-Đang chạy live smoke/cold verify; chưa release H07.
+[Quota](historical_evaluation_quota.json) ghi đúng xác nhận người dùng:5 org
+độc lập, mỗi model30 RPM/1.000 RPD/8.000 TPM/200.000 TPD, không tách TPM,
+chỉ Free/0 USD. Không coi xác nhận này là bằng chứng Console.
+[Plan smoke](historical_evaluation_smoke_plan.json) khóa55 execution/trần300 HTTP;
+[grant H07](historical_evaluation_release.json) đã chuyển RESEARCH sau cold verify.
+
+Smoke dùng bank tín hiệu control cách ly, giá/nhãn/regime quá khứ thật,
+không mở payoff query hoặc nhập control vào H07; không là kết quả thị trường.
+Runtime v3 chỉ thêm tên schema tại SDK; giữ schema khoa học/H02/H03 và receipt
+H05 nguyên byte.10 test wire/guard và5 file Python biên dịch PASS;
+chi tiết delta, phạm vi gate và log tại [README W11](README.md#h06--freeze-và-live-smoke-pass).
+Verifier hiện hành (offline, không API):
 
 ```powershell
-py -3.13 -X utf8 scripts/run_historical_smoke.py run
 py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 ```
 
@@ -214,6 +221,16 @@ py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 - [ ] Checkpoint/resume cùng identity; xử lý pending/error/unknown có ledger;
   không đổi lỗi thành CASH hoặc dừng khi kết quả vừa dương.
 - [ ] Kết sổ đủ ma trận và hash raw/forecast trước mở payoff để phân tích.
+
+Lệnh H07, chạy CORE4 trước rồi mới OOD5; cùng lệnh có thể tiếp tục các slot
+đã hoàn tất. Dừng nếu lỗi, giữ nguyên checkpoint và xử lý UUID unknown theo log:
+
+```powershell
+foreach ($cohort in @("CORE4", "OOD5")) {
+    py -3.13 -X utf8 -m dotenv -f .env run -- py -3.13 -X utf8 scripts/run_historical_evaluation.py run --cohort $cohort
+    if ($LASTEXITCODE -ne 0) { throw "Dừng tại $cohort; giữ checkpoint và log." }
+}
+```
 
 ## H08 — Phân tích kết quả
 

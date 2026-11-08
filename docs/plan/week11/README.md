@@ -20,7 +20,8 @@ Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](hist
 Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed42/step3000.
 Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
 H03 đã khóa protocol/dự toán; H04 đã hoàn tất adapter/runner offline.
-H05 đã nghiệm thu offline PASS84 test; tiếp theo H06, API còn khóa trước release.
+H05 PASS84 test offline; H06 PASS live smoke/cold verify, đã release H07 chỉ Free/0 USD.
+H07 chưa bắt đầu; smoke control không phải forecast nghiên cứu.
 
 ## Checklist đánh giá lại
 
@@ -29,9 +30,9 @@ H05 đã nghiệm thu offline PASS84 test; tiếp theo H06, API còn khóa trư�
 | H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
 | H02 | Dữ liệu, train replica ba seed và asset readiness | [x] DONE — MODEL_GATE_PASS / CPU_REPLAY_MATCH; execution acceptance vẫn PENDING_EXECUTION_DATA |
 | H03 | Protocol máy, registry, inference, families và budget | [x] DONE OFFLINE — H=2.358, nominal34.806 calls; live quota/payload smoke thuộc H06 |
-| H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — đã có492 prefix HMM; API chưa release |
+| H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — adapter9 mã và492 prefix HMM |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
-| H06 | Freeze bank/runtime và smoke toàn registry | [ ] IN PROGRESS — đã xác nhận quota5 org/Free; đang live smoke/cold verify |
+| H06 | Freeze và smoke sáu primary/Fact_Anchor | [x] PASS — 55 lượt, cold verify; release H07 Free/0 USD |
 | H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] TODO |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
 | H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
@@ -477,68 +478,60 @@ Verifier cần model prefix và log local đúng checksum; H09 sẽ đóng gói 
 bằng chứng tái lập. H06 tiếp tục freeze/smoke/longest payload/quota năm org;
 H05 không cấp quyền chạy research API hay tự đổi ngân sách/model.
 
-## H06 — freeze offline, chờ quota và live smoke
+## H06 — freeze và live smoke PASS
 
-- [x] [Freeze source/runtime/model/data/IDs](historical_evaluation_freeze.json), đối soát receipt/log H05 và492 prefix.
-- [x] Kiểm biên fixture: Original5.266, legacy+BRPP600 là5.867, Fact_Anchor4.493,
-  MT-BICL5.143 ký tự; giữ5 factor, output960, utility recipe4.096 draws và chặn BRPP601.
-- [ ] Live smoke đủ sáu primary/Fact_Anchor, ảnh thật và longest payload thực.
-- [ ] Quota/account năm organization, credential mapping, spend limit và release.
+- [x] Neo [freeze](historical_evaluation_freeze.json), source/runtime/model/data/protocol/IDs; đối soát H05 và492 prefix.
+- [x] Live smoke sáu primary/Fact_Anchor, ảnh thật và control báo cáo bão hòa/BRPP600 trên5 org.
+- [x] Schema/options/credential scope/quota, output960, đủ5 factor và utility4.096 draws.
+- [x] Cold verify PASS không API; neo [receipt smoke](historical_evaluation_smoke.json), release H07 chỉ Free/0 USD.
 
-Ba test trong `test_historical_smoke_freeze.py` PASS: biên prompt và từ chối
-receipt/model hash bị đổi. Hai Python mới biên dịch PASS; producer freeze và
-verifier đối soát byte/Git. Không chạy lại84 test H05 vì runtime/source/model/
-input cũ giữ nguyên; source/runtime H04 v2 và receipt H05 không đổi byte.
-Boundary probe dùng fixture tổng hợp ghi rõ scope, không là live smoke hoặc
-kết quả thị trường. Tổng API thật0, chưa tạo release.
+Kết quả:55 HTTP200 (45 Decision+10 vision), tất cả `finish_reason=stop`,
+completion tối đa319 token. Hai HTTP503 `over capacity` tại pattern/trend org5
+đã đối soát raw response và reconcile đúng UUID, giữ nguyên org/key/model/payload;
+57 HTTP tổng, không429, không còn slot chờ. Mỗi org1–4 có11 lượt, org5 có13;
+5 credential scope khác nhau trong ledger. Cold verify dựng lại graph, prompt,
+raw/parsed reply, utility/policy và record hash; vẫn57 HTTP sau kiểm.
+Log/raw/ảnh/checkpoint tại `outputs/historical_reevaluation/h06_smoke_r1/`.
+Hash log cold verify được ghi trong [grant](historical_evaluation_release.json).
 
-```powershell
-py -3.13 -X utf8 scripts/prepare_historical_smoke.py --verify
-```
+Prompt live tối đa5.954<6.500 ký tự, MT control tối đa5.301; reserve vision
+5.471/5.110, Decision tối đa3.856<8.000 TPM/request. Giữ distill/cap, BRPP600,
+max_tokens960 và model/options H03. Đây là control báo cáo bão hòa cùng payload
+ảnh thực; không khẳng định đã quan sát mọi payload tương lai của lưới H07.
 
-Đã thấy5 tên key `GROQ_ORG_1_API_KEY`…`GROQ_ORG_5_API_KEY` trong `.env`,
-chưa xác minh chúng thuộc năm org độc lập. Cần điền
-[mẫu quota](historical_evaluation_quota_template.json) từ Console từng org,
-không gửi key. Có thể chép ra `outputs/historical_reevaluation/h06_quota.json`
-để điền; bằng chứng Console đã che thông tin nhạy cảm giữ local tại
-`outputs/historical_reevaluation/h06_quota_evidence/`.
-Quota áp dụng theo org, các giới hạn thực và split ITPM/OTPM cần đọc tại
-[Groq Limits](https://console.groq.com/docs/rate-limits); không dùng bảng công bố
-thay bằng chứng tài khoản. Chờ thông tin này trước cấp smoke/research release;
-không thay model, nâng gói hay tự hạ mẫu/repeat.
-
-Tiếp tục H06 theo xác nhận người dùng:5 key thuộc5 org độc lập, cả hai model
-cùng30 RPM/1.000 RPD/8.000 TPM/200.000 TPD; không tách ITPM/OTPM, chỉ Free/0 USD.
-[Quota đã khóa](historical_evaluation_quota.json) ghi rõ USER_ATTESTATION,
-không giả là provider org ID hay bằng chứng Console. [Plan smoke](historical_evaluation_smoke_plan.json)
-khóa55 execution/trần300 HTTP và source trước API. Vision reserve preflight
-5.471/5.110, Decision tối đa3.852, dưới8.000 TPM/request; không hạ token960.
+[Quota đã khóa](historical_evaluation_quota.json) là USER_ATTESTATION:
+5 key thuộc5 org độc lập, cả hai model30 RPM/1.000 RPD/8.000 TPM/200.000 TPD,
+không tách ITPM/OTPM, chỉ Free/0 USD. Header live xác nhận trần1.000 request/
+8.000 token; không giả là provider org ID hoặc bằng chứng Console đầy đủ.
+[Plan smoke](historical_evaluation_smoke_plan.json) khóa55 execution/trần300 HTTP;
+pacer/ledger riêng từng org, không xoay key khi hết quota.
 
 Preflight phát hiện schema reply MT-BICL vô danh không được SDK chấp nhận.
 [Amendment transport](historical_evaluation_transport_amendment.json) chỉ thêm
 `title=UtilityICLReply` tại adapter SDK; schema khoa học, fields/enum và Original
 giữ nguyên. Runtime v3 thay đúng hai file clients/audit, thư viện không đổi.
 [Runtime v2 nguyên byte](historical_evaluation_runtime_pre_schema_title.json) và
-receipt H05 được giữ làm baseline;10 test wire/guard PASS,5 Python thay đổi
-biên dịch PASS. Gate H05 v2 chỉ được viện dẫn cho phần không đổi, wire dùng
-kết quả hồi quy mới. Verifier H06 mới kiểm chuỗi amendment; lệnh freeze/H05
-v2 cũ không đại diện cho runtime v3.
-
-Smoke dùng namespace `outputs/historical_reevaluation/h06_smoke_r1/`, upstream
-và ảnh live một lần/org rồi deepcopy cho sáu primary/Fact_Anchor cùng hai control
-payload lớn. Teacher/student/utility giữ nguyên. Historical agent signals là
-fixture lặp từ query để kiểm support; giá/nhãn/regime quá khứ thật, chỉ lấy cycle
-non-grid đã exit<query. Đây không là archival PIT của tín hiệu LLM hoặc forecast
-H07; không import bank/control response vào research, không mở payoff query.
-Original→Fact_Anchor→MT dùng raw reply thật; anchor sai/lỗi/unknown phải dừng,
-không giả facts, sửa fallback hoặc CASH. Quota/ledger riêng từng org, round-robin
-giữa org độc lập, không xoay key khi hết quota. Grant hiện chỉ SMOKE.
+receipt H05 được giữ làm baseline.10 test PASS gồm6 test trong
+`test_historical_live_smoke` và4 test `test_historical_adapter_transport`;
+5 file Python mới/đổi biên dịch PASS. Không chạy lại84 test hoặc full suite/E2E:
+H05 được đối soát hash cho phần không đổi, delta wire có hồi quy mới.
+Lượt kết sổ chỉ sửa tài liệu/grant/receipt, kiểm diff/hash/liên kết, không chạy lại suite.
+Lệnh freeze/H05 v2 ở mục trước là lịch sử; verifier hiện hành kiểm baseline và delta:
 
 ```powershell
-py -3.13 -X utf8 scripts/run_historical_smoke.py run
 py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 ```
 
-`run` tiếp tục slot complete, unknown cần `reconcile --attempt-id UUID --reason ...`;
-không tự gửi lại timeout. Log và raw HTTP/ảnh/checkpoint giữ local, không chứa key.
-H06 chưa hoàn tất cho đến khi live smoke và cold verify PASS; chưa release H07.
+Smoke cách ly ở namespace riêng; upstream thật một lần/org rồi deepcopy tới
+các nhánh. Historical agent signals là fixture lặp từ query để kiểm support;
+giá/nhãn/regime quá khứ thật, chỉ lấy cycle non-grid exit<query. Đây không là
+archival PIT tín hiệu LLM hoặc kết quả H07; không import bank/control response
+vào research, không mở payoff query. Original→Fact_Anchor→MT dùng raw reply thật;
+không giả facts, sửa fallback hoặc đổi lỗi thành CASH.
+
+[Grant](historical_evaluation_release.json) hiện RESEARCH, ràng buộc protocol/runtime,
+H05/quota/plan/amendment/smoke PASS. H07 chưa chạy; lệnh CORE4→OOD5 tại
+[checklist H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá).
+`run` tiếp tục slot complete; unknown cần đối soát rồi
+`reconcile --attempt-id UUID --reason ...`, không tự gửi lại timeout.
+Economic acceptance vẫn PENDING_EXECUTION_DATA; H06 không thay đổi giới hạn vendor series.

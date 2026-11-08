@@ -1,0 +1,22 @@
+{
+  "payload": {
+    "status": "PASS",
+    "scope": "H06_CONTROL_ONLY_NOT_H07",
+    "run_uuid": "218e4f9b-ff50-4379-b7d1-351fb0f9408a",
+    "organizations": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "nominal_executions": 55,
+    "plan_sha256": "ed0396e368784163b61d6dd8bcb2900a650661ac3700bde28d3f2be57b6b9429",
+    "records_sha256": "1c83d87f9f26d87340eb29dddf4815127ed4ea4b5b96980e9ff4560156281550",
+    "control_bank_not_research": true,
+    "query_payoff_opened": false,
+    "paid_api_allowed": false,
+    "api_research_released": false
+  },
+  "sha256": "4f11da323f9ee9273bb7bfe6f5e9953a5149d9e2d8680e4d2e69c586dd753db5"
+}
