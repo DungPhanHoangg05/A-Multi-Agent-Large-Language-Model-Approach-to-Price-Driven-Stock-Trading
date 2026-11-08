@@ -41,8 +41,10 @@ py -3.13 -X utf8 scripts/prepare_historical_assets.py --verify
 ```
 
 Protocol hiện SPEC_ONLY. H03–H06 phải hoàn tất adapter/release cho lưới
-đánh giá mới trước API. Teacher/student chưa phục hồi đủ và VNINDEX2026
-còn thiếu theo audit readiness.
+đánh giá mới trước API. Model gốc không tìm thấy; chỉ đạo08/11 chuyển sang
+[replica nhanh R0–R4](../week11/historical_reevaluation_plan.md#41-train-lại-replica-theo-đường-nhanh)
+với một seed42 và gate trước release. Đây là kế hoạch chưa chạy; VNINDEX2026
+còn thiếu cho đánh giá toàn lưới, không chặn teacher/student train-only.
 
 ## Kết quả đã lưu
 

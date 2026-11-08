@@ -4,6 +4,9 @@ Cập nhật08/11/2026. Hệ thống gồm Bayesian Prior v1, Bayesian Prior v2 
 đại diện C2, Bayesian Prior cải tiến A/B và MT-BICL.
 [Checklist hiện hành](README.md#checklist-đánh-giá-lại) quản lý H01–H09.
 H01/H02 đã hoàn tất audit; readiness còn blocker, H03–H09 chưa triển khai.
+Theo chỉ đạo08/11/2026, model gốc không tìm thấy: **chuyển sang train replica
+MT-BICL nhanh theo mục4.1**, không tiếp tục chờ phục hồi weights cũ.
+Lượt cập nhật này chỉ sửa kế hoạch; chưa fit teacher, train hoặc gọi API.
 
 ## 1. Phạm vi và registry
 
@@ -16,7 +19,7 @@ hash source/model/input/prompt riêng; cùng dữ liệu và ngân sách inferen
 | Bayesian Prior v1 | `bayesian_v1` | Memory Bank, regime retrieval, agent signals và BRPP |
 | Bayesian Prior v2 | `C2` | Conditional statistics, shrinkage, split readiness và ranking |
 | Bayesian Prior cải tiến A/B | `A_tp_pool`, `B_semantic` | Partition T/P và renderer tương ứng |
-| MT-BICL | `MT_BICL` | Student/teacher frozen, bucket context, facts, posterior utility và veto |
+| MT-BICL | `MT_BICL` | Replica `MT_BICL_replica_fast_r1` sau nghiệm thu; frozen student/teacher, bucket context, facts, posterior utility và veto |
 
 Primary có **6 nhánh**, gồm Original và5 cải tiến. Fact_Anchor là dependency
 bắt buộc của MT-BICL trên toàn lưới. Các cấu hình nội bộ khác của Bayesian
@@ -116,8 +119,9 @@ max exit, scaler/model hashes, K/m, OOD và fallback reason.
 Query outcome chỉ đọc sau forecast/checkpoint durable.
 
 Availability pool mở rộng theo logical cutoff t cho mọi phương pháp.
-Outcome của test trước chỉ vào memory query sau khi exit<t; training/selection
-của model đóng trước test. Teacher/student giữ weights đã chọn. HMM giữ
+Outcome của test trước chỉ vào memory query sau khi exit<t; dữ liệu fit
+teacher/scaler/regime dừng ở train, selection replica không dùng outcome
+lưới2023–2026. Teacher/student đóng băng sau nghiệm thu replica. HMM giữ
 recipe KLTN và prefix decoding; regime SMA/volatility/liquidity của fix là
 strata mô tả riêng. Schema và input encoding của MT-BICL giữ bốn feature,
 K≤3, m≤8; adapter chín mã cần parity trên bốn mã và kiểm OOD trên năm mã mới.
@@ -131,10 +135,11 @@ phí0,25% và slippage0,10% cả hai chiều, fractional shares và risk OFF.
 [Readiness máy](../../../outputs/historical_reevaluation/manifests/asset_readiness.json)
 được tạo/cold-verify bằng `scripts/prepare_historical_assets.py`.
 Gói model MT-BICL có candidate tensor và teacher pi pin hash; nạp qua
-`core.mt_bicl_adapter.StudentAdapter`. Thiếu hoặc sai hash thì dừng trước
-prediction, không tự train hoặc dùng teacher thay student.
+`core.mt_bicl_adapter.StudentAdapter`. Model gốc hiện thiếu cả hai component.
+Theo chỉ đạo mới, dựng gói replica riêng theo mục4.1; không yêu cầu hash mới
+trùng hash model gốc và không dùng teacher thay student khi kiểm thất bại.
 
-H02 cần phục hồi đúng gói model, VNINDEX2026 và dữ liệu context/retrieval.
+H02 cần nghiệm thu gói replica mới, VNINDEX2026 và dữ liệu context/retrieval.
 Các source/data guards còn hard-code bốn mã cần adapter universe tường minh
 trong H04. Model/scaler chỉ dùng dữ liệu được recipe cho phép trước test.
 
@@ -148,6 +153,124 @@ Kết quả đã lưu của MT-BICL có D=−5,313090 đpt so Original và
 NOT_NOMINATED trên development60 điểm. Đây là kết quả cũ của phương pháp,
 không là kết quả lưới1.020 điểm. Dữ liệu raw/report cũ thiếu một phần; kết
 luận của lượt áp dụng lại phải có receipt và cold replay mới.
+
+### 4.1. Train lại replica theo đường nhanh
+
+**Quyết định08/11:**không chờ thêm model gốc. Triển khai một lượt
+`MT_BICL_replica_fast_r1`, giữ sáu primary; cột `MT_BICL` phải ghi rõ model
+ID/hash replica trong registry và report. Đây là replica rút gọn lịch train/
+selection, không là khôi phục nguyên byte hoặc tái lập đủ ba seed của run cũ.
+Kết quả NOT_NOMINATED cũ giữ nguyên như reference, không gán cho weights mới.
+
+**Đường găng bắt đầu từ dữ liệu local:**bank raw CORE4 giai đoạn2018–2022,
+VNINDEX đang có, primitive engine/features/scaler/teacher/student hiện hành.
+Teacher và feature pool chỉ dùng cycle hợp lệ có exit≤31/12/2020; không đưa
+năm2022 hoặc outcome2023–2026 vào fit/selection để bù support. Không cần
+historical agent signals, vision/Decision API, VNINDEX2026 hoặc universe
+chín mã để train teacher/student. Dữ liệu2026 và bằng chứng execution tiếp
+tục là dependency riêng cho đánh giá toàn lưới; không trì hoãn train vì chúng.
+R1 chỉ materialize train view trước; bank/query outcome2021–2022 dành cho
+diagnostic được mở sau selection seal, không chạy builder mặc định mở toàn
+bank2022 rồi gọi đó là train-only.
+
+| Thứ tự | Việc cần làm ngay khi triển khai | Điều kiện chuyển bước |
+| --- | --- | --- |
+| R0 Khóa recipe | Protocol replica máy, source/data/membership/RNG hashes, profile và rule dừng dưới đây; neo Git trước fit/optimizer | Đủ train support; oracle/packing/leakage và checkpoint/resume theo phạm vi PASS |
+| R1 Chuẩn bị CPU | Dựng bank/scaler train-only; fit teacher; tạo/cache corpora và q oracle đúng recipe | Teacher hội tụ, oracle độc lập sai số≤10⁻¹²; seal input/corpus trước student |
+| R2 Preflight | Đo trainer thật trên GPU hiện có, batch128; tiny-fit PAIRED_37 duy nhất, gradient query-only và resume check | Tiny32 đạt mean KL<0,001 ở checkpoint250 hoặc500; weights preflight/pilot bỏ đi |
+| R3 Train nhanh | Seed42 duy nhất, tối đa5.000 step, kiểm checkpoint mỗi250 step | Dừng ngay checkpoint đầu tiên đạt toàn gate validation; không tìm checkpoint tốt nhất theo lợi nhuận |
+| R4 Freeze/verify | Seal selection trước test; export candidate/teacher và kiểm test cố định/cold CPU replay | Test và integrity PASS mới khóa manifest replica, weights/scaler/teacher frozen |
+
+**Profile đã chọn để giảm thời gian:**
+
+- Giữ `DistilledStudent`:2 lớp, hidden128,4 head, FF256, dropout0,
+  paired tối đa37 token và bốn feature. Float32, AMP/TF32 OFF, không ensemble.
+- AdamW lr3e−4, betas0,9/0,999, eps10⁻⁸, weight decay0,01, clip1.
+  Effective batch128; preflight chọn physical128, chỉ xuống64/32 nếu OOM,
+  accumulation2/4 giữ effective batch. Khóa lựa chọn trước train chính.
+- Giữ `scheduled_lr` hiện có:250 step warmup, cosine theo horizon5.000 về
+  3e−5. Không nén scheduler theo thời điểm early stop. Seed42, train episode
+  ID=`(step−1)*128+i`; tối đa640.000 episode, sinh theo batch và cache q.
+- Chỉ distill synthetic từ teacher posterior D/C; loss tại query duy nhất.
+  Không dùng latent thật hoặc query-y làm target, không trộn BCE thị trường.
+  Không chạy lại pilot LEGACY_X_Y, ba seed hoặc hyperparameter search.
+- Checkpoint gồm model/optimizer/step, RNG và input identity; resume đúng
+  UUID/hash, không sinh lại stream mới. Cache tensor/corpus/q, tránh parse
+  JSON hoặc tính lại teacher trong mỗi epoch; mọi tối ưu phải giữ parity.
+  Giữ utility4.096 draws và mọi hợp đồng inference khi áp dụng replica.
+
+**Corpus và rule dừng khóa trước optimizer:**dùng recipe simulator cũ tại
+`00b24679f63d491c15cda6be0bc9a2c412651f93`, file
+`core/mt_bicl_v2_simulator.py` (SHA256
+`e1156d4ead4f4696616b54f4a5db3719de80627198313b9104de1e4270781727`)
+và `docs/plan/week10/corpus_manifest_v2.json` (SHA256
+`28292984f0a320533dd288a197f97d0536272750534d87103b92e0a37154489f`).
+Đọc bằng Git pin để port có chọn lọc sang replica; không phục hồi nguyên
+runner cũ hoặc monkey-patch né guard. Hiện có primitives fit/optimizer,
+nhưng chưa có CLI trainer/simulator replica hoàn chỉnh; R0 phải bổ sung.
+
+Giữ cấu trúc K=0..3, m=0..8, mỗi prior2..8 observation, sampling feature
+train-only và mixture4.500 IID+500 stress. Validation/test mỗi tập5.000
+episode; validation_swap/test_swap mỗi tập5.000 cặp A/B, giữ cấu trúc/x/C/
+query và chỉ thay nhãn prior theo swap recipe. Khóa stream seed/component domain riêng theo manifest
+replica, tách train/preflight/pilot/validation/test và domain RNG của run
+lịch sử; không redraw để tăng support. Feature pool cũ kỳ vọng731 cycle/
+48 task nhưng phải tái tính và kiểm membership/hash từ raw; không giả đủ
+731 bằng cách điền bù hoặc hard-code nhãn.
+
+Tại step250,500,…,5.000, candidate eligible khi technical PASS, mean
+KL(oracle||student)≤0,02 nat, P95 |p_student−q|≤0,10 trên5.000 validation,
+và swap sign agreement≥0,90 trên ít nhất200 cặp có |Δq|≥0,05.
+Zero student delta tính disagree khi oracle khác0. Constant/context-blind
+controls và teacher-too-flat check giữ nguyên: constant đạt cả KL/P95
+hoặc swap thiếu support thì INCONCLUSIVE, không release. Báo riêng IID,
+stress, K/m và controls; không thay aggregate gate sau xem kết quả.
+
+Chọn **checkpoint eligible đầu tiên theo step**, dừng optimizer, seal
+selection rồi mới forward synthetic_test/test_swap. Test áp dụng cùng gate
+và kiểm độc lập; fail thì STOP, không quay lại train/reselect bằng test.
+Không có candidate tới5.000 thì `NO_ELIGIBLE_CHECKPOINT`; không tăng seed,
+step hoặc nới threshold trong cùng revision. Năm2021/2022 chỉ diagnostic
+sau seal, không xếp hạng checkpoint; payoff lưới2023–2026 vẫn chưa mở.
+Rule một seed/first-pass khác recipe lịch sử ba seed/đủ60 checkpoint;
+report phải nêu giới hạn này và không claim ổn định qua seed. Reuse
+validation nhiều checkpoint được công khai; test riêng giữ sau selection.
+Seed42 được chọn trong bối cảnh đã biết lịch sử run cũ; test synthetic mới
+chỉ kiểm gate cơ chế của replica, không xóa exposure hoặc tạo xác nhận
+thị trường độc lập.
+
+Teacher giữ16 grid point, MAP-EM tối đa1.000 vòng, convergence<10⁻¹⁰,
+Dirichlet alpha2 và oracle tuần tự độc lập; không hội tụ thì dừng, không
+uniform fallback. HMM/scaler tái dựng đúng recipe train≤2020 và kiểm hash;
+không thay bằng artifact HMM fit cuối2022. Ngày tạo replica thực tế là2026;
+data cutoff quá khứ không chứng minh model đã tồn tại trước test lịch sử.
+Toàn bộ đánh giá tiếp tục exploratory/exposed.
+
+**Artifact/release:**ghi riêng tại
+`outputs/bayesian_benchmark/mt_bicl/replicas/fast_r1/`, gồm inputs, teacher,
+corpora, training/checkpoints, model và verification. Khi triển khai tạo
+`docs/plan/week11/mt_bicl_replica_fast_r1.json` và manifest model replica
+riêng, neo Git trước consumer; giữ nguyên manifest/hash gốc và readiness
+audit cũ. Loader phải bind đúng release/manifest mới, không dùng đường dẫn
+manifest tùy ý để né source guard. Candidate/teacher mới có SHA riêng;
+H03 map primary MT_BICL sang gói mới sau R4, các ablation dùng cùng gói.
+
+**Ưu tiên thời gian:**R0→R4 chạy tuần tự và checkpoint durable; không chờ
+H03 inference budget toàn lưới mới chuẩn bị teacher/student. Khóa protocol
+replica và kiểm theo phạm vi trước fit là gate kỹ thuật, không yêu cầu tìm
+lại model gốc hoặc xin lại lựa chọn train replica đã được chỉ đạo. Đo wall
+time gồm sinh corpus/oracle, train, validation, I/O và cold verify sau
+preflight; công bố ETA từ trainer thật, không hứa số phút từ benchmark
+proxy cũ. Tối đa5.000 step là trần công việc, không phải cam kết thời gian.
+Training teacher/student cần0 LLM API call. Quỹ research30.090+2H ở mục5
+không cộng nhầm CPU/GPU train thành API usage.
+
+**Phạm vi lượt cập nhật08/11:**chỉ Markdown; chưa tạo protocol/model
+manifest replica hoặc đổi các cờ `training_allowed=false` trong JSON hiện
+có. Chỉ đạo mới được ghi thành kế hoạch R0–R4; triển khai phải dùng release
+replica đúng phạm vi thay vì bật quyền toàn bộ protocol cũ. Đã đối soát
+recipe/source/hash, arithmetic và liên kết; không chạy compile/unit/E2E/
+leakage suite vì không đổi code/test/runtime/schema/input theo AGENTS1.2.
 
 ## 5. Inference và repeats
 
@@ -237,8 +360,8 @@ forward/power/cluster plan và release khóa trước response đầu.
 | Bước | Đầu ra và điều kiện hoàn tất |
 | --- | --- |
 | H01 | Audit donor/source, registry và kế hoạch bốn nhóm hiện hành |
-| H02 | Asset/data readiness, candidate grid, label bridge và blocker cụ thể |
-| H03 | Protocol máy, IDs/folds, inference/options, repeats, families và budget H |
+| H02 | Audit đã DONE; mở tiếp R0–R4 train replica nhanh, VNINDEX/context và blocker execution; chưa ghi READY khi thiếu gói nghiệm thu |
+| H03 | Protocol máy, IDs/folds, inference/options, repeats, families và budget H; bind manifest replica R4 |
 | H04 | Adapter/harness sáu primary, shared graph/history và symbol/OOD |
 | H05 | Tests trực tiếp, PIT/leakage, economics/paired/retry/checkpoint và oracle |
 | H06 | Freeze bank/runtime và smoke longest prompts/toàn registry |
@@ -248,7 +371,11 @@ forward/power/cluster plan và release khóa trước response đầu.
 
 Namespace dữ liệu mới là `outputs/historical_reevaluation/`.
 Model/runtime MT-BICL dùng `outputs/bayesian_benchmark/mt_bicl/`.
-Cấu hình hiện hành ở trạng thái SPEC_ONLY; API/training release chưa cấp.
+Cấu hình hiện hành ở trạng thái SPEC_ONLY; API evaluation chưa release.
+Kế hoạch train replica đã được chỉ đạo; gate R0–R4 và release riêng cần
+được triển khai trước chạy. H03 phải đồng bộ fractional shares của plan
+với `economic_contract.lot=100` và max_tokens960 với2048/1024 còn lưu trong
+JSON hiện hành; không để khác biệt này đi vào common inference contract.
 
 Kiểm H05 bao gồm future/query-y poison, exit==query, suffix index, symbol/
 OOD, strict net label, full factor rows, cache contract, unknown retries,

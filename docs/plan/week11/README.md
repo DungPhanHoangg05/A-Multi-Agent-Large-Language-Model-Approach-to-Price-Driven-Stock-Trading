@@ -15,15 +15,17 @@ Donor fix được đọc theo commit
 `9efd23f4157e0d3ab8069fccab7dccf03439a714`.
 Archive21 blob nguồn,9 CSV khớp hash và label bridge1.020 cycle.
 Data/vendor quality và economic acceptance được báo riêng.
-H02 đã hoàn tất audit; readiness cần phục hồi model/context và VNINDEX2026.
-H03–H09 tiếp tục theo dependency.
+H02 đã hoàn tất audit; theo chỉ đạo08/11, model gốc không tìm thấy nên mở
+tiếp [R0–R4 train replica nhanh](historical_reevaluation_plan.md#41-train-lại-replica-theo-đường-nhanh).
+Không chờ phục hồi weights cũ; model/context và VNINDEX2026 còn dependency
+trước READY toàn lưới. H03–H09 tiếp tục theo dependency.
 
 ## Checklist đánh giá lại
 
 | Bước | Công việc | Trạng thái |
 | --- | --- | --- |
 | H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
-| H02 | Source archive, candidate grid, label bridge và asset readiness | [x] DONE — audit hoàn tất, còn blocker |
+| H02 | Source archive, candidate grid, label bridge và asset readiness | [x] DONE audit; R0–R4 replica TODO, còn VNINDEX/context/execution blockers |
 | H03 | Protocol máy, registry, inference, families và budget chính xác | [ ] TODO |
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [ ] TODO |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [ ] TODO |
@@ -71,3 +73,26 @@ thí nghiệm bị bỏ; các nhóm request còn lại được giữ và tên n
 BLOCKED_ASSET; model package0/2 component, VNINDEX2026 còn thiếu.
 Label bridge1.020 cycle PASS; kinh tế giữ PENDING_EXECUTION_DATA.
 Receipt tại `outputs/historical_reevaluation/manifests/asset_readiness.json`.
+
+## Kế hoạch train replica08/11/2026
+
+Người dùng xác nhận không tìm thấy model và yêu cầu đường train nhanh.
+Chọn `MT_BICL_replica_fast_r1`:teacher train-only≤2020, student PAIRED_37,
+seed42 duy nhất, effective batch128, validation mỗi250 step và dừng ở
+checkpoint eligible đầu tiên; trần5.000 step. Giữ KL≤0,02, P95 error≤0,10,
+swap sign≥0,90/support≥200, independent oracle, test sau selection seal và
+cold replay. Khác recipe ba seed/best checkpoint cũ, report phải ghi rõ
+replica và giới hạn seed; không coi hash hoặc kết quả cũ là của gói mới.
+
+R0 khóa protocol/source/data/RNG và kiểm theo phạm vi; R1 dựng teacher/
+corpora, R2 preflight/tiny-fit, R3 train, R4 freeze/test/cold verify. Dùng dữ
+liệu local nên không chờ VNINDEX2026;0 LLM call cho training. Đo ETA toàn
+pipeline bằng trainer thật, không cam kết thời gian từ proxy. Chưa có CLI
+replica hoàn chỉnh; cần port simulator recipe từ Git pin, dùng primitives
+hiện hành và giữ checkpoint/resume. Chi tiết recipe/gate/namespace tại
+[mục4.1 kế hoạch](historical_reevaluation_plan.md#41-train-lại-replica-theo-đường-nhanh).
+
+Lượt này chỉ sửa tài liệu; chưa fit/train, chưa thay model/protocol JSON,
+readiness receipt hoặc dữ liệu. Kiểm diff/link, source recipe/hash và số
+liệu; không chạy compile/unit/E2E/leakage suite theo AGENTS1.2. Các kết quả
+PASS ở mục trước thuộc đợt hợp nhất, không phải kiểm nghiệm replica mới.
