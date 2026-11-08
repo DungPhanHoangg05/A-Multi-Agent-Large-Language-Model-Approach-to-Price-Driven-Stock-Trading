@@ -560,8 +560,8 @@ Decision mới. Có điều kiện audit bank/cache/token trước cam kết48 g
 nếu không đủ phải ghi BLOCKED_BUDGET hoặc PARTIAL, không chọn lại mẫu theo
 outcome. Giữ scope historical exploratory và giới hạn provenance bank/query.
 
-Đợt cập nhật chỉ sửa Markdown và trạng thái grant; không đổi Python, thuật
-toán, model, query input hoặc runtime. QA theo AGENTS1.2 gồm lịch/ID/call
+Đợt cập nhật sửa Markdown, trạng thái grant và ignore cho ledger quota local;
+không đổi Python, thuật toán, model, query input hoặc runtime. QA theo AGENTS1.2 gồm lịch/ID/call
 math, liên kết/diff, hash asset, quota projection và guard từ chối grant
 REVOKED trước API. Không chạy compile/unit/E2E toàn hệ thống; gate cũ
 không được ghi là gate pilot mới. QA PASS cho48 ID/ngày/holding spans,
