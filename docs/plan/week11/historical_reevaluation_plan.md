@@ -10,7 +10,7 @@ H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
 Ngày09/11/2026, người dùng hủy lượt H07 đầy đủ để chuẩn bị trình bày trong
 hai ngày. Phương án hiện hành FREE_PAIRED_PILOT_48 có trạng thái
-OFFLINE_READY_SMOKE; chưa thu API pilot hoặc hoàn tất H07.
+READY_COLLECTION; smoke9/cold PASS, chưa thu48 điểm hoặc hoàn tất H07.
 H01–H06 bên dưới ghi bằng chứng thiết kế cũ; pilot cần khóa protocol/input/
 runtime và nghiệm thu phần thay đổi riêng trước API.
 
@@ -239,7 +239,7 @@ không giữ report, ảnh, prompt hay kết quả nghiên cứu. Lượt mới 
 quota còn hiệu lực của ledger này và H06; đổi namespace không reset quota.
 
 Pilot có namespace mới outputs/historical_reevaluation/free_pilot_r1/,
-UUID/protocol/runtime riêng, hiện OFFLINE_READY_SMOKE. Runner cũ34.806 call và grant
+UUID/protocol/runtime riêng, hiện READY_COLLECTION. Runner cũ34.806 call và grant
 H06 không phát hành pilot. Các phần mở rộng9 mã, ablation/retrieval control,
 Original_duplicate và repeats bổ sung nằm ngoài phạm vi buổi trình bày.
 Thiết kế đầy đủ H03 được giữ làm tham chiếu.
@@ -360,7 +360,7 @@ chưa hoàn tất. Chỉ Free, chi tiêu0 USD.
 - [x] P02 — Protocol/input/schema/runtime pilot riêng,48 ID, bridge OFF/ON,
   memory policy, call order, model/options và manifest khóa trước inference.
   Adapter giữ thuật toán từng phiên bản; runner tách full-matrix cũ.
-- [ ] P03 — Kiểm scoped PIT/query-y poison, full population, disjoint context,
+- [x] P03 — Kiểm scoped PIT/query-y poison, full population, disjoint context,
   paired/deep-copy, prompt/factor rows, metric và checkpoint/quota carry-over.
   Chỉ compile Python thay đổi; smoke9 lượt và cold verify trước release.
 - [ ] P04 — Seal48 shared states, grant pilot sau P01–P03 PASS, thu đủ
@@ -387,25 +387,31 @@ signals dựa vào QA/schema chuẩn hóa đã công bố, thiếu raw signal jo
 Preflight không mở payoff48 query: MT đủ support26/48 với selected query
 còn bị khóa; support thực tế/bypass được lưu khi chạy đúng lịch prequential.
 
-P03 offline PASS18 test pilot và38 test hồi quy liên quan; compile đúng bốn
-file Python mới. Smoke9 và cold verify còn chờ người dùng chạy, do đó P03–P05
-chưa đánh dấu hoàn thành. Từ đây người dùng chạy mọi lệnh API; agent chỉ
+P03 PASS18 test pilot và38 test hồi quy liên quan; compile đúng bốn file mới.
+Người dùng đã chạy smoke:9/9 HTTP200,7 Decision+2 vision,19.611 token;
+cold replay PASS,12 slot complete, không còn latest unknown. Agent kiểm lại
+không gọi API, source/raw/ảnh/usage/checkpoint khớp; grant PILOT_RELEASED
+bind đúng cold receipt và UUID3881b4ba-4609-460a-8137-5fbad4f617db.
+P04–P05 còn chờ chạy. Ngân sách còn lại khoảng42,7 giờ gồm retry reserve20%,
+PASS thời gian còn lại47,3 giờ; deadline cố định01:56:52 ngày11/11/2026
+(UTC+7), không reset khi resume. Người dùng chạy mọi lệnh API; agent chỉ
 chuẩn bị code, kiểm ngoại tuyến và đối soát output.
 
 Chạy tại thư mục gốc repository, giữ năm env key hiện có:
 
 ```powershell
 $bootstrap = "from dotenv import load_dotenv; import runpy; load_dotenv('.env', override=False); runpy.run_path('scripts/run_free_paired_pilot.py', run_name='__main__')"
-foreach ($stage in @('smoke', 'verify-smoke')) {
+foreach ($stage in @('shared', 'collect', 'verify')) {
     py -3.13 -X utf8 -c $bootstrap $stage
     if ($LASTEXITCODE -ne 0) { throw "Dừng tại $stage; giữ checkpoint và log." }
 }
 ```
 
-Kết quả cần SMOKE_COLD_PASS. Agent đối soát rồi neo grant PILOT_RELEASED
-trước khi gửi lệnh shared/collect/verify. Grant SMOKE_READY hiện tại chỉ mở
-smoke; không phát hành API nghiên cứu. Log console và quota nằm trong namespace
-free_pilot_r1, resume cùng UUID, không dùng collector full cũ.
+Grant PILOT_RELEASED chỉ mở pilot48. Stage shared seal đủ48 upstream trước
+Decision; collect kiểm lại admission với payload thực rồi thu336 forecast slot
+gồm fallback/bypass hợp lệ; verify chạy cold và xuất P05_COLD_PASS cùng receipt.
+Gửi kết quả P05 để đối soát và chuyển H08. Log console và quota nằm trong
+namespace free_pilot_r1, resume cùng UUID, không dùng collector full cũ.
 CLI đọc credential từ environment; bootstrap trên nạp `.env` trước khi chạy.
 Nếu lần trước dừng vì thiếu credential, phải audit ledger rồi reconcile đúng
 attempt UUID chưa gửi HTTP trước khi chạy lại; không xóa slot hoặc reset run.

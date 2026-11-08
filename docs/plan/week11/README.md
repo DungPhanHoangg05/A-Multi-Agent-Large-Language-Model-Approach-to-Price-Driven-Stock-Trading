@@ -18,7 +18,8 @@ theo phương pháp và replica seed42/step3000 đã nghiệm thu. Query donor f
 prompt/model/options/kinh tế chung phải khóa trước API. Reuse upstream là
 đánh giá có điều kiện trên reports đã lưu, phải có provenance; Decision
 primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích mẫu nhỏ
-được đặc tả trong plan. Hiện PLAN_ONLY, chưa triển khai hoặc release pilot.
+được đặc tả trong plan. Hiện READY_COLLECTION, smoke9/cold PASS và grant
+pilot đã phát hành;48 điểm nghiên cứu còn chờ người dùng chạy.
 
 ## Checklist đánh giá lại
 
@@ -31,9 +32,9 @@ primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích 
 | H05 | 84 test offline,492 prefix,1.020 context | [x] Bằng chứng cũ; kiểm delta pilot trước release |
 | H06 | Smoke55 execution và cold verify | [x] Bằng chứng cũ; grant full collection đã REVOKED |
 | H07 cũ | Dừng và xóa lượt thu dở | [x] CANCELLED_BY_USER ngày09/11 |
-| H07 pilot P01 | Audit bank/cache/quota và feasibility48 giờ | [ ] TODO |
-| H07 pilot P02 | Khóa48 ID/protocol/runtime/bridge option | [ ] TODO |
-| H07 pilot P03 | Scoped checks, smoke9 execution và cold verify | [ ] TODO |
+| H07 pilot P01 | Audit bank/cache/quota và feasibility48 giờ | [x] PASS |
+| H07 pilot P02 | Khóa48 ID/protocol/runtime/bridge option | [x] PASS |
+| H07 pilot P03 | Scoped checks, smoke9 execution và cold verify | [x] PASS |
 | H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [ ] TODO |
 | H07 pilot P05 | Cold verify và seal pilot | [ ] TODO |
 | H08 | Phân tích paired/uncertainty/coverage | [ ] TODO |
@@ -553,7 +554,7 @@ P01 phải cộng lịch sử quota này và H06 vào accounting thực, kể c�
 Grant full collection đã thu hồi bằng status=REVOKED, api=false; H06 smoke
 vẫn là bằng chứng lịch sử. Protocol full/input/schema/runtime/H02 model,
 donor và HMM prefix giữ byte cũ. Pilot đã có collector, protocol/input/runtime
-và grant SMOKE_READY riêng; smoke/live collection còn chờ người dùng chạy.
+và grant PILOT_RELEASED riêng; smoke/cold PASS, collection chờ người dùng chạy.
 
 Plan chốt48 điểm theo lịch, Bayesian bank frozen, shared reports chung và
 Decision mới. Có điều kiện audit bank/cache/token trước cam kết48 giờ;
@@ -571,13 +572,13 @@ Chín file bank/model/protocol/input/runtime/receipt đối soát với1213c076
 giữ nguyên byte. Consumer require_release trên grant đã commit từ chối đúng
 lỗi REVOKED, socket mock xác nhận0 kết nối. Diff check PASS, main/fix giữ ref.
 
-### Pilot48 — sẵn sàng smoke do người dùng chạy
+### Pilot48 — sẵn sàng thu thập do người dùng chạy
 
 - [x] P01: bank852/native labels/scaler≤2022;12 ngày/48 ID cố định; audit nguồn
   query/cache và carry160 request/396.206 token. Reuse0, vision mới96.
-- [x] P02: collector riêng, protocol/input/runtime/grant SMOKE_READY;
+- [x] P02: collector riêng, protocol/input/runtime/grant PILOT_RELEASED;
   bridge OFF, smoke org5,48 query round-robin. Grant full vẫn REVOKED.
-- [ ] P03: offline PASS18 test pilot và38 test hồi quy; live smoke9/cold còn chờ.
+- [x] P03: offline PASS18 test pilot và38 test hồi quy; live smoke9/cold PASS.
 - [ ] P04/P05: seal48 shared, release riêng,336 forecast và cold receipt.
 
 Lệnh chạy và giới hạn nguồn được cập nhật trong
@@ -607,3 +608,14 @@ slot graph/FPT-2023-06-23/u0/indicator có attempt unknown
 Giữ nguyên UUID run, checkpoint, runtime và quota. QA thay đổi thuần hướng dẫn:
 bootstrap `--help` PASS với socket chặn mạng; đối soát hash source/runtime;
 không chạy lại compile, unit hoặc E2E vì không đổi code/config/dữ liệu khoa học.
+
+Nghiệm thu smoke và release:9/9 HTTP200 ở org5,7 Decision+2 vision,
+19.611 token;12 slot complete,0 latest unknown. Cold replay offline được
+kiểm lại với socket chặn mạng; evidence/checkpoint/usage/ảnh giữ byte.
+Source/runtime và các gate scoped trên giữ nguyên; không chạy lại unit/compile/E2E.
+Grant bind smoke_verified.json SHA256
+1d2e895c3845ac963741556f4bf0be7841692022db3b02d163358b83682d6e24,
+UUID3881b4ba-4609-460a-8137-5fbad4f617db. Log release_verify.log SHA256
+9a93d04f75573cbe46aa68b86605d029f533e3ce00d53d454d962e8c8442fcf4.
+Ngân sách còn lại PASS khoảng42,7 giờ; deadline01:56:52 ngày11/11/2026 UTC+7
+giữ nguyên. Người dùng chạy shared→collect→verify theo plan; P04/P05/H08 chưa DONE.

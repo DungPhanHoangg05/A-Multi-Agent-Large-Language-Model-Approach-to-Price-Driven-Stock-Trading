@@ -1,13 +1,18 @@
 {
   "payload": {
-    "status": "SMOKE_READY",
+    "status": "PILOT_RELEASED",
     "api": true,
     "paid_api_allowed": false,
     "run_uuid": "3881b4ba-4609-460a-8137-5fbad4f617db",
     "protocol_sha256": "f07c4a4ad5d5fe3eac0f8a9f7d9f5f856ac47580039b1564477b81ad1135e73a",
     "runtime_sha256": "b79723f0b8357bc67e48d22e033e80bcf428f4f547acb83eec1fa740e8f1af36",
     "audit_sha256": "a9b13e770459953b0df8dfaf3741079ba7d77e21efa3c747e56f55400c7b400e",
-    "campaign_sha256": "a28dc0e4f3b006a130e91ed36d2dd31ec9e33d2af8eb66c5ff8b68182f5744ec"
+    "campaign_sha256": "a28dc0e4f3b006a130e91ed36d2dd31ec9e33d2af8eb66c5ff8b68182f5744ec",
+    "smoke_receipt": {
+      "path": "outputs/historical_reevaluation/free_pilot_r1/smoke_verified.json",
+      "bytes": 2441,
+      "sha256": "1d2e895c3845ac963741556f4bf0be7841692022db3b02d163358b83682d6e24"
+    }
   },
-  "sha256": "81e25d438a0e9b6fe661022317bdbde5cea367d3c07192515cf8d56a1f83a1a4"
+  "sha256": "ad11b294c9a38d071388aa0476362b54cd42c02b5a6f4b1c63b7a2d952060113"
 }
