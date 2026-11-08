@@ -29,8 +29,11 @@ không cần chờ VNINDEX2026. Người dùng đã hoàn tất fit/pilot/train,
 seed42/step3000; test `MODEL_GATE_PASS`, cold replay60 checkpoint
 `CPU_REPLAY_MATCH`. H02 hoàn tất, gói [model replica](week11/mt_bicl_replica_full_r1_model.json)
 đã được neo Git. H03 đã khóa [protocol đánh giá](week11/historical_evaluation_protocol.json),
-lịch/schema và dự toán offline. Tiếp theo H04 hoàn thiện adapter/runner;
-H04–H09 chưa hoàn tất, quota trực tiếp và smoke thuộc H06.
+lịch/schema và dự toán offline. H04 đã hoàn tất adapter9 mã, runner paired,
+checkpoint/run/resume/verify và kiểm triển khai offline. Tiếp theo H05;
+H05–H09 chưa hoàn tất, quota trực tiếp và smoke thuộc H06. Cần người dùng
+chạy `scripts/run_historical_evaluation.py prepare-regimes` để chuẩn bị492
+HMM prefix lịch sử bằng CPU trước thu thập; không train lại teacher/student.
 Chưa release lưới mới; execution data vẫn có giới hạn vendor series.
 
 ## Những phần đã triển khai

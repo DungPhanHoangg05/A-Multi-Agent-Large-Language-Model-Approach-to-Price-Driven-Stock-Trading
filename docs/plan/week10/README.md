@@ -49,7 +49,8 @@ Người dùng đã chạy đủ ba seed; selection chọn seed42/step3000 và t
 với [manifest replica](../week11/mt_bicl_replica_full_r1_model.json). Manifest
 gốc vẫn giữ như bằng chứng lịch sử. VNINDEX2026 đã có snapshot bổ sung;
 H03 đã bind model trong [protocol đánh giá](../week11/historical_evaluation_protocol.json);
-H04–H06 còn cần adapter, kiểm thử/smoke/quota và release lượt đánh giá chung.
+H04 đã hoàn tất adapter/runner offline; H05/H06 còn kiểm thử nghiệm thu,
+smoke/quota và release lượt đánh giá chung.
 
 ## Kết quả đã lưu
 

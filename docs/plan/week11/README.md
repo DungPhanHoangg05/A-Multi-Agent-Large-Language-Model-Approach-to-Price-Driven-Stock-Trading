@@ -19,7 +19,8 @@ H02 hoàn tất audit VNINDEX2026, raw/quyền9 mã và bank train, cùng nghi�
 Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
 Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed42/step3000.
 Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
-H03 đã khóa protocol và dự toán offline; tiếp theo H04 adapter/runner.
+H03 đã khóa protocol/dự toán; H04 đã hoàn tất adapter/runner offline.
+Tiếp theo H05; API còn khóa trước release H06.
 
 ## Checklist đánh giá lại
 
@@ -28,7 +29,7 @@ H03 đã khóa protocol và dự toán offline; tiếp theo H04 adapter/runner.
 | H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
 | H02 | Dữ liệu, train replica ba seed và asset readiness | [x] DONE — MODEL_GATE_PASS / CPU_REPLAY_MATCH; execution acceptance vẫn PENDING_EXECUTION_DATA |
 | H03 | Protocol máy, registry, inference, families và budget | [x] DONE OFFLINE — H=2.358, nominal34.806 calls; live quota/payload smoke thuộc H06 |
-| H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [ ] TODO |
+| H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — prefix HMM lịch sử cần lệnh CPU riêng; API chưa release |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [ ] TODO |
 | H06 | Freeze bank/runtime và smoke toàn registry | [ ] TODO |
 | H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] TODO |
@@ -314,5 +315,90 @@ py -3.13 -X utf8 scripts/prepare_historical_evaluation.py --verify
 
 Verifier cần các archive/input H02 và ledger tham chiếu local; H09 đóng gói
 chúng cùng bằng chứng tái lập. Trạng thái `LOCKED_OFFLINE_NOT_RELEASED`:
-API/training/teacher-fit/confirmation đều OFF. Tiếp theo H04, rồi H05/H06;
+API/training/teacher-fit/confirmation đều OFF. H04 đã triển khai bên dưới, tiếp theo H05/H06;
 economic acceptance vẫn `PENDING_EXECUTION_DATA`.
+
+## H04 — adapter và runner offline
+
+- [x] Adapter9 mã/lịch2023–2026, ID OOD thật và parity CORE4.
+- [x] Context, bank, train-only scaler, frozen student/teacher/regime và nhãn engine PIT.
+- [x] Sentiment toàn lưới, date-only ngày sau, tách count/score/mask.
+- [x] Shared upstream một lần/unit/realization, deep-copy, ảnh/parent hash và năm factor.
+- [x] CLI run/resume/verify/reconcile, ledger riêng, unknown reserve và checkpoint.
+
+Các module `core/historical_evaluation_{scope,data,context,prior,graph,journal,
+clients,runner,audit}.py` và [CLI](../../../scripts/run_historical_evaluation.py)
+tách đường chạy mới khỏi hệ thống cũ. Adapter nạp bytecode nguồn đã pin vào
+namespace riêng, mở universe/vendor calendar tại phạm vi này; không sửa
+global hoặc validator của module gốc. Giữ ID thật của OOD, scaler731 cycle
+và candidate seed42/step3000. Giá donor không splice với giá train replica;
+rào chắn quyền lấy ngày từ raw/event H02 đã hash, không tạo cột Reference giả.
+
+Context stream chặn query chưa đủ forecast durable trước khi tính nhãn;
+retrieval bắt buộc `exit<query`. Kiểm dữ liệu tương lai và ID/ngày không hợp lệ
+đều dừng bằng lỗi. Unit chỉ mở nhãn qua engine sau toàn bộ forecast cần thiết;
+giữ `previous_exit<next_entry` trong mỗi tài khoản. Original và Fact_Anchor
+được resolve trước các revision. Mọi repeat/nhánh dùng cùng upstream và ảnh
+trong realization, nhận bản sao độc lập.
+Cold replay CORE4 luôn giữ kín outcome grid OOD của pha sau, kể cả khi file
+OOD đã durable; mỗi instance chỉ chạy một pha để membership không đổi khi resume.
+Run thật chỉ cho bắt đầu OOD5 sau khi toàn bộ forecast CORE4 đã durable.
+
+Hai tương thích được ghi rõ trong [runtime H04](historical_evaluation_runtime.json):
+Alpha xuất đủ năm dòng tên/giá trị/signal/mask trước distill/cap cũ, tránh
+separator Markdown làm mất bảng; formatter v1 dùng flag `allow_sentiment=True`
+có sẵn, giữ template T/P/A/I và score tin thật, không ghi lại sentiment thành
+NEUTRAL. Renderer donor giữ nguyên bytecode, chạy tuần tự trong cwd tạm để
+cô lập file phụ; PNG thật có hash và provenance trong namespace run.
+
+[Audit metadata](../../../outputs/historical_reevaluation/h04_assets/prepared.json)
+đã kiểm1.020 context preview,51 scaler scope và540 unit OOD. Có862 preview
+AVAILABLE/158 UNAVAILABLE khi chủ động giữ kín outcome của toàn bộ grid;
+đây không phải context đóng băng của H07. Coverage tin là213/1.020 unit đủ
+ít nhất3 score xác minh,88 unit đạt reliability downstream ít nhất8 bài;
+count/missing mask của hai tầng giữ riêng (anchor tương ứng23/102 và9/102).
+Không chứng nhận archived content
+PIT, fill thực hoặc lợi nhuận từ các số này.
+
+Retry dùng wrapper hiện hành, SDK/HTTP không retry ngầm; trần3 HTTP/slot
+bao gồm429 và sửa format. Unknown/crash cần reconcile đúng UUID trước replay,
+không tự chuyển lỗi thành CASH. Raw HTTP lưu trước parse, tách ledger năm org,
+khóa credential scope, giữ reserve unknown và trần attempt theo H03.
+Cold verifier dựng lại body bằng serializer SDK bị chặn mạng, replay node từ
+raw response, dựng lại policy và nhãn; checksum tự khai không đủ để qua gate.
+
+Kiểm triển khai H04:32 test riêng biệt PASS trong năm module
+`test_historical_adapter_{journal,leakage,methods,runner,transport}.py`.
+Bao phủ PIT/query-y, clean suffix, bản sao dữ liệu, hai tầng sentiment,
+membership/scaler, parity task/bucket/utility4.096 draws, ID OOD, prompt năm
+factor, renderer thật, ma trận27.846 Decision, paired/checkpoint/unknown và
+raw HTTP/body/retry. Wire tests dùng mock HTTP trong RAM; fixture vision/Decision
+có marker cách ly, không dùng credential hoặc provider. Đã biên dịch15 Python
+mới, kiểm runtime/source và verifier H03 PASS; không chạy toàn suite/E2E hay
+train/refit/đánh giá lại model H02 theo phạm vi AGENTS1.2.
+
+Lệnh audit không fit/gọi LLM:
+
+```powershell
+py -3.13 -X utf8 scripts/run_historical_evaluation.py prepare
+py -3.13 -X utf8 scripts/run_historical_evaluation.py run --fixture --cohort OOD5 --max-units 1
+py -3.13 -X utf8 scripts/run_historical_evaluation.py verify --fixture --cohort OOD5 --max-units 1
+```
+
+`run/resume` dùng checkpoint complete, không gọi lại slot đã hoàn tất;
+`--max-units` giới hạn số unit mới, còn `verify` giới hạn số unit được kiểm.
+Lệnh thật thiếu release H06 đã được kiểm là dừng trước đọc key/HTTP.
+H04 chỉ hoàn tất triển khai offline; H05/H06 vẫn chưa nghiệm thu/release.
+
+Trước thu thập cần492 model HMM historical prefix, tách khỏi query HMM2022
+và HMM/scaler train replica. Chưa fit các model mới trong H04; runner preflight
+dừng trước vision nếu thiếu. Theo chỉ đạo người dùng tự chạy khi cần train,
+lệnh CPU được bàn giao tại [checklist H04](historical_reevaluation_plan.md#h04--hoàn-thiện-adapter-và-runner):
+
+```powershell
+py -3.13 -X utf8 scripts/run_historical_evaluation.py prepare-regimes
+```
+
+Lệnh lưu từng prefix, kiểm lại model đã có khi chạy tiếp; không train
+teacher/student, không GPU/LLM. H05 kiểm nghiệm thu theo phạm vi, H06 khóa
+receipt/runtime/Git, kiểm longest payload và quota năm org trước API.

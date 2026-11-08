@@ -23,3 +23,9 @@ sentiment_cache_*
 
 # Coverage/lịch benchmark được tái lập từ nguồn đã khóa, giữ cục bộ.
 /outputs/bayesian_benchmark/
+
+# H04 giữ journal/HTTP/ảnh và HMM prefix ở local, không lẫn artifact fixture với research.
+/outputs/historical_reevaluation/h04_fixture/
+/outputs/historical_reevaluation/h04_fixture_pre_phase_fix/
+/outputs/historical_reevaluation/run_r1/
+/outputs/historical_reevaluation/h04_assets/legacy_regimes/

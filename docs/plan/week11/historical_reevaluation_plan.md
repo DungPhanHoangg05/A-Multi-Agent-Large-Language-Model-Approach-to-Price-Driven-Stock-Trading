@@ -7,14 +7,15 @@ Người dùng đã hoàn tất fit/pilot/train:đủ3 seed/60 checkpoint, chọ
 step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
 H03 đã khóa protocol và dự toán offline; chưa release inference trên lưới mới.
-Bước tiếp theo là H04.
+H04 đã hoàn tất adapter/runner và kiểm tra triển khai offline. Tiếp theo H05;
+API vẫn cần release H06, historical HMM prefix cần chuẩn bị bằng lệnh riêng.
 
 ## Checklist tổng
 
 - [x] H01 — Khảo sát nguồn và phạm vi đánh giá.
 - [x] H02 — Audit dữ liệu và train lại model, nghiệm thu CPU và lưu asset.
 - [x] H03 — Khóa protocol, lịch, model và dự toán đánh giá offline.
-- [ ] H04 — Hoàn thiện adapter và runner.
+- [x] H04 — Hoàn thiện adapter và runner, nghiệm thu triển khai offline.
 - [ ] H05 — Kiểm thử các phần thay đổi.
 - [ ] H06 — Freeze và smoke test.
 - [ ] H07 — Chạy đủ ma trận đánh giá.
@@ -122,19 +123,35 @@ validation/test và cold replay dùng CPU cùng runtime để so raw logits chí
 [Protocol máy](historical_evaluation_protocol.json) và
 [lịch/schema/input đã khóa](historical_evaluation_inputs.json) được tạo/kiểm bằng
 `scripts/prepare_historical_evaluation.py`. H03 hoàn tất offline; API vẫn khóa,
-H04–H06 còn phải triển khai adapter, kiểm thử, smoke và quota.
+H04 đã triển khai adapter; H05/H06 còn kiểm thử nghiệm thu, smoke và quota.
 
 ## H04 — Hoàn thiện adapter và runner
 
-- [ ] Mở universe9 mã và lịch2023–2026 bằng adapter riêng; kiểm parity CORE4/OOD5 mã.
-- [ ] Dựng context/bank theo recipe từng phương pháp, nhãn engine và PIT;
+- [x] Mở universe9 mã và lịch2023–2026 bằng adapter riêng; kiểm parity CORE4/OOD5 mã.
+- [x] Dựng context/bank theo recipe từng phương pháp, nhãn engine và PIT;
   query outcome chỉ đọc sau forecast/checkpoint durable, retrieval `exit<query`.
-- [ ] Kiểm sentiment count/score/mask và coverage toàn lưới; giữ date-only khả dụng
+- [x] Kiểm sentiment count/score/mask và coverage toàn lưới; giữ date-only khả dụng
   ngày sau, loại tin không ngày/tương lai; không claim archived content khi chưa có.
-- [ ] Chạy upstream một lần/unit/realization rồi deep-copy cho các nhánh;
+- [x] Chạy upstream một lần/unit/realization rồi deep-copy cho các nhánh;
   lưu parent/hash/ảnh, đủ5 factor rows và resolve Original→Fact_Anchor→MT_BICL.
-- [ ] Hoàn thiện CLI run/resume/verify, ledger/cache riêng, retry/unknown reserve,
+- [x] Hoàn thiện CLI run/resume/verify, ledger/cache riêng, retry/unknown reserve,
   checkpoint mỗi unit và kiểm `previous_exit < next_entry` khi stride3.
+
+CLI: `scripts/run_historical_evaluation.py`. [Runtime H04](historical_evaluation_runtime.json)
+khóa source/thư viện mới, giữ nguyên protocol/input/model H02/H03. Fixture cách ly,
+không được tính là inference hoặc kết quả nghiên cứu; kiểm triển khai và giới hạn
+ghi tại [README W11](README.md#h04--adapter-và-runner-offline).
+
+Trước thu thập cần tạo492 HMM prefix lịch sử bằng CPU; runner dừng trước API
+nếu thiếu, không tự fit. Người dùng chạy lệnh sau, có thể chạy lại để tiếp tục:
+
+```powershell
+py -3.13 -X utf8 scripts/run_historical_evaluation.py prepare-regimes
+```
+
+Lệnh chỉ fit HMM trên prefix VNINDEX đúng ngày, không train teacher/student,
+không dùng GPU/LLM. Chưa thực thi fit này trong H04. Query HMM2022 và model
+replica vẫn frozen. H05/H06 tiếp tục sau H04; chưa được chạy research API.
 
 ## H05 — Kiểm thử theo phạm vi
 
