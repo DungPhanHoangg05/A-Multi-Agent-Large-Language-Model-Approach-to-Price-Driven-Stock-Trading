@@ -7,8 +7,8 @@ Người dùng đã hoàn tất fit/pilot/train:đủ3 seed/60 checkpoint, chọ
 step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
 H03 đã khóa protocol và dự toán offline; chưa release inference trên lưới mới.
-H04 đã hoàn tất adapter/runner và kiểm tra triển khai offline. Tiếp theo H05;
-API vẫn cần release H06, historical HMM prefix cần chuẩn bị bằng lệnh riêng.
+H04 đã hoàn tất adapter/runner; H05 nghiệm thu offline PASS84 test. Tiếp theo H06;
+API vẫn cần release H06; người dùng đã hoàn tất492 HMM prefix lịch sử.
 
 ## Checklist tổng
 
@@ -16,7 +16,7 @@ API vẫn cần release H06, historical HMM prefix cần chuẩn bị bằng l�
 - [x] H02 — Audit dữ liệu và train lại model, nghiệm thu CPU và lưu asset.
 - [x] H03 — Khóa protocol, lịch, model và dự toán đánh giá offline.
 - [x] H04 — Hoàn thiện adapter và runner, nghiệm thu triển khai offline.
-- [ ] H05 — Kiểm thử các phần thay đổi.
+- [x] H05 — Kiểm thử theo phạm vi, PASS84 test và đối soát asset/context.
 - [ ] H06 — Freeze và smoke test.
 - [ ] H07 — Chạy đủ ma trận đánh giá.
 - [ ] H08 — Phân tích và đối soát kết quả.
@@ -123,7 +123,7 @@ validation/test và cold replay dùng CPU cùng runtime để so raw logits chí
 [Protocol máy](historical_evaluation_protocol.json) và
 [lịch/schema/input đã khóa](historical_evaluation_inputs.json) được tạo/kiểm bằng
 `scripts/prepare_historical_evaluation.py`. H03 hoàn tất offline; API vẫn khóa,
-H04 đã triển khai adapter; H05/H06 còn kiểm thử nghiệm thu, smoke và quota.
+H04/H05 đã hoàn tất offline; H06 còn freeze/release, smoke và quota.
 
 ## H04 — Hoàn thiện adapter và runner
 
@@ -155,16 +155,32 @@ replica vẫn frozen. H05/H06 tiếp tục sau H04; chưa được chạy resear
 
 - [x] Sửa lỗi `prepare-regimes` dùng nhầm guard fit2018–2022: fit/load historical
   dùng namespace riêng tới30/09/2026, giữ nguyên guard model gốc và query/replica.
-- [ ] Hoàn tất492 HMM prefix: hiện đã có51 prefix tới29/12/2022 được kiểm lại;
-  chạy lại lệnh trên để tiếp tục441 prefix còn thiếu, không xóa model đã lưu.
+- [x] Người dùng hoàn tất492 HMM prefix từ31/05/2022 tới17/09/2026;
+  H05 đối soát toàn bộ checksum/prefix/PIT, không fit lại model đã lưu.
 
 ## H05 — Kiểm thử theo phạm vi
 
-- [ ] Chạy tests bị ảnh hưởng:label/cost, suffix/index, PIT/news/query-y poison,
+- [x] Chạy tests bị ảnh hưởng:label/cost, suffix/index, PIT/news/query-y poison,
   exit==query, D/C/query rời nhau, scaler/regime, symbol/OOD và model fingerprint.
-- [ ] Kiểm paired/deep-copy, factor rows/prompt, cache identity, retry/checkpoint/
+- [x] Kiểm paired/deep-copy, factor rows/prompt, cache identity, retry/checkpoint/
   resume và metric/bootstrap oracle; chỉ compile Python mới/đổi.
-- [ ] Ghi kết quả và phạm vi PASS; không chạy full suite/E2E nếu không được yêu cầu.
+- [x] Ghi kết quả và phạm vi PASS; không chạy full suite/E2E nếu không được yêu cầu.
+
+[Receipt H05](historical_evaluation_validation.json):84 test/13 module PASS,
+492 prefix đúng hash/PIT,1.020 context khớp preview,862 frozen forward;
+chỉ biên dịch2 Python mới. Chi tiết và giới hạn tại [README W11](README.md#h05--nghiệm-thu-offline).
+
+Lệnh nghiệm thu offline (không train production, không gọi API):
+
+```powershell
+py -3.13 -X utf8 scripts/validate_historical_evaluation.py
+```
+
+Lệnh kiểm492 prefix và1.020 context, chạy nhóm test đã chọn, biên dịch Python
+mới và chỉ ghi receipt PASS khi mọi kiểm tra đạt. Phần paired fixture/cold replay
+có thể mất vài phút; log tại `outputs/historical_reevaluation/h04_assets/h05_validation.log`.
+Sau khi receipt được neo Git, kiểm nhanh hash bằng cùng lệnh thêm `--verify`.
+Chạy API nghiên cứu thuộc H06/H07 sau release, không nằm trong lệnh H05.
 
 ## H06 — Freeze và smoke test
 

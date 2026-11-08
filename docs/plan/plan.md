@@ -30,12 +30,12 @@ seed42/step3000; test `MODEL_GATE_PASS`, cold replay60 checkpoint
 `CPU_REPLAY_MATCH`. H02 hoàn tất, gói [model replica](week11/mt_bicl_replica_full_r1_model.json)
 đã được neo Git. H03 đã khóa [protocol đánh giá](week11/historical_evaluation_protocol.json),
 lịch/schema và dự toán offline. H04 đã hoàn tất adapter9 mã, runner paired,
-checkpoint/run/resume/verify và kiểm triển khai offline. Tiếp theo H05;
-H05–H09 chưa hoàn tất, quota trực tiếp và smoke thuộc H06. Cần người dùng
-chạy `scripts/run_historical_evaluation.py prepare-regimes` để chuẩn bị492
-HMM prefix lịch sử bằng CPU trước thu thập; không train lại teacher/student.
-Đã sửa guard fit/load prefix sau2022 tại adapter riêng; hiện có51/492 prefix
-được kiểm hash, chạy lại cùng lệnh để tiếp tục441 prefix còn thiếu.
+checkpoint/run/resume/verify và kiểm triển khai offline. Người dùng đã hoàn tất492
+HMM prefix lịch sử; H05 đối soát hash/PIT toàn bộ,1.020 context và862 frozen forward,
+PASS84 test trong13 module. [Receipt H05](week11/historical_evaluation_validation.json)
+khóa bằng chứng; CLI `scripts/validate_historical_evaluation.py` chạy nghiệm thu offline,
+thêm `--verify` để chỉ kiểm hash/receipt đã neo Git. Không train lại teacher/student.
+Tiếp theo H06; H06–H09 chưa hoàn tất, quota trực tiếp và smoke thuộc H06.
 Chưa release lưới mới; execution data vẫn có giới hạn vendor series.
 
 ## Những phần đã triển khai

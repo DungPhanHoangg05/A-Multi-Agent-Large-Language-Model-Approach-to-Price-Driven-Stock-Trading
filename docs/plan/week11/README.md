@@ -20,7 +20,7 @@ Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](hist
 Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed42/step3000.
 Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
 H03 đã khóa protocol/dự toán; H04 đã hoàn tất adapter/runner offline.
-Tiếp theo H05; API còn khóa trước release H06.
+H05 đã nghiệm thu offline PASS84 test; tiếp theo H06, API còn khóa trước release.
 
 ## Checklist đánh giá lại
 
@@ -29,8 +29,8 @@ Tiếp theo H05; API còn khóa trước release H06.
 | H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
 | H02 | Dữ liệu, train replica ba seed và asset readiness | [x] DONE — MODEL_GATE_PASS / CPU_REPLAY_MATCH; execution acceptance vẫn PENDING_EXECUTION_DATA |
 | H03 | Protocol máy, registry, inference, families và budget | [x] DONE OFFLINE — H=2.358, nominal34.806 calls; live quota/payload smoke thuộc H06 |
-| H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — prefix HMM lịch sử cần lệnh CPU riêng; API chưa release |
-| H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [ ] TODO |
+| H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — đã có492 prefix HMM; API chưa release |
+| H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
 | H06 | Freeze bank/runtime và smoke toàn registry | [ ] TODO |
 | H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] TODO |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
@@ -388,7 +388,7 @@ py -3.13 -X utf8 scripts/run_historical_evaluation.py verify --fixture --cohort 
 `run/resume` dùng checkpoint complete, không gọi lại slot đã hoàn tất;
 `--max-units` giới hạn số unit mới, còn `verify` giới hạn số unit được kiểm.
 Lệnh thật thiếu release H06 đã được kiểm là dừng trước đọc key/HTTP.
-H04 chỉ hoàn tất triển khai offline; H05/H06 vẫn chưa nghiệm thu/release.
+H04 hoàn tất triển khai offline; H05 được nghiệm thu ở mục dưới, H06 chưa release.
 
 Trước thu thập cần492 model HMM historical prefix, tách khỏi query HMM2022
 và HMM/scaler train replica. Chưa fit các model mới trong H04; runner preflight
@@ -422,3 +422,57 @@ kiểm save/load, guard2022 gốc, future poison/cutoff, resume không refit/ghi
 hash sai và runner load/preflight. Bốn Python thay đổi biên dịch PASS; source/
 model/protocol/input H02/H03 giữ nguyên byte. Đây là kiểm theo đường sửa lỗi;
 không chạy lại32 test H04, full suite/E2E hoặc492 model production.
+
+## H05 — nghiệm thu offline
+
+- [x] Người dùng hoàn tất492 HMM prefix; đối soát toàn bộ hash, cutoff và classification.
+- [x] Dựng lại1.020 context và kiểm D/C/query/PIT/schema, khớp byte-ngữ nghĩa preview H04.
+- [x] Forward862 context AVAILABLE bằng student frozen, kiểm fingerprint sau forward.
+- [x] PASS84 test thuộc13 module đã chọn; không skip, error hoặc failure.
+- [x] Biên dịch2 Python mới; kiểm source/runtime/model/data giữ nguyên sau nghiệm thu.
+
+[Receipt máy H05](historical_evaluation_validation.json) khóa source/test/helper,
+protocol/input/model/runtime/preview,492 checksum model prefix và checksum log.
+Prefix từ31/05/2022 tới17/09/2026:480 HMM và12 MULTI_FACTOR theo calibration
+của recipe, không bỏ model fallback hoặc chọn lại theo kết quả. Query HMM2022,
+student/teacher/scaler replica và runtime H04 v2 giữ nguyên byte.
+
+Nhóm kiểm được chọn theo đúng đường H04/H03 sử dụng, gồm năm module
+`test_historical_adapter_*`, `test_historical_regime_prefix_leakage`, ba module
+`test_historical_evaluation_{protocol,leakage,statistics}`, cùng
+`test_mt_bicl_{adapter_leakage,features_leakage,utility}` và
+`test_historical_validation_leakage`. Chúng bao phủ label/cost bằng oracle cash
+hai chiều trên fixture9 mã, lịch/suffix và exit==query, future/query-y poison,
+membership/scaler/regime, OOD/model fingerprint, paired/deep-copy, năm factor,
+prompt/utility4.096 draws, journal/unknown/retry/resume/raw HTTP và bootstrap
+scalar10.000 draw. Kiểm32 test H04 được chạy lại trong nhóm84 test này;
+không chạy unit toàn hệ thống/E2E hoặc lặp lại60 checkpoint/model gate H02.
+
+Audit context giữ kín outcome của toàn grid;862 AVAILABLE/158 UNAVAILABLE
+khớp preview H04. Đây là kiểm hợp đồng/frozen forward, chưa phải context
+prequential cuối cùng H07 hoặc kết quả hiệu quả thị trường. Các model HMM
+production đã được người dùng fit; lượt H05 không refit chúng hoặc teacher/student.
+Test numerical fit chỉ dùng fixture tổng hợp trong thư mục tạm; HTTP/vision/Decision
+dùng mock/fixture cách ly. Tổng API thật0; economic acceptance vẫn PENDING_EXECUTION_DATA.
+
+Chạy nghiệm thu đầy đủ:
+
+```powershell
+py -3.13 -X utf8 scripts/validate_historical_evaluation.py
+```
+
+Lệnh kiểm asset/context, chạy84 test và biên dịch đúng hai Python mới.
+Phần paired fixture/cold replay có thể mất vài phút; xem log tại
+`outputs/historical_reevaluation/h04_assets/h05_validation.log`.
+Thời gian chạy không tham gia checksum log. Chỉ ghi PASS sau toàn bộ gate;
+source/asset đổi hoặc test lỗi phải dừng, không ghi đè receipt khác.
+
+Kiểm nhanh bằng chứng đã neo Git, không chạy lại tests:
+
+```powershell
+py -3.13 -X utf8 scripts/validate_historical_evaluation.py --verify
+```
+
+Verifier cần model prefix và log local đúng checksum; H09 sẽ đóng gói cùng
+bằng chứng tái lập. H06 tiếp tục freeze/smoke/longest payload/quota năm org;
+H05 không cấp quyền chạy research API hay tự đổi ngân sách/model.

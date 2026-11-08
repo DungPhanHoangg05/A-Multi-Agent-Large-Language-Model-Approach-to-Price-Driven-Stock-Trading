@@ -29,3 +29,4 @@ sentiment_cache_*
 /outputs/historical_reevaluation/h04_fixture_pre_phase_fix/
 /outputs/historical_reevaluation/run_r1/
 /outputs/historical_reevaluation/h04_assets/legacy_regimes/
+/outputs/historical_reevaluation/h04_assets/h05_validation.log
