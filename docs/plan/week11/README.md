@@ -15,9 +15,9 @@ Donor fix được đọc theo commit
 `9efd23f4157e0d3ab8069fccab7dccf03439a714`.
 Archive21 blob nguồn,9 CSV khớp hash và label bridge1.020 cycle.
 Data/vendor quality và economic acceptance được báo riêng.
-H02 đã hoàn tất audit nhưng chưa hoàn tất toàn task. Model gốc không tìm
-thấy; theo chỉ đạo mới08/11, áp dụng [checklist train replica đầy đủ](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
-Model/context và VNINDEX2026 còn dependency trước READY toàn lưới.
+H02 đã bổ sung VNINDEX2026, audit raw/quyền9 mã và bank train; chưa hoàn tất
+toàn task. Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
+CLI/protocol đã triển khai; chờ người dùng fit teacher/pilot/train theo lệnh bên dưới.
 H03–H09 tiếp tục theo checklist.
 
 ## Checklist đánh giá lại
@@ -25,7 +25,7 @@ H03–H09 tiếp tục theo checklist.
 | Bước | Công việc | Trạng thái |
 | --- | --- | --- |
 | H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
-| H02 | Dữ liệu, train replica ba seed và asset readiness | [ ] ĐANG LÀM — audit xong; train/model và dữ liệu bổ sung chưa xong |
+| H02 | Dữ liệu, train replica ba seed và asset readiness | [ ] ĐANG LÀM — dữ liệu/bank/CLI đã kiểm; chờ người dùng fit/pilot/train và nghiệm thu model |
 | H03 | Protocol máy, registry, inference, families và budget chính xác | [ ] TODO |
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [ ] TODO |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [ ] TODO |
@@ -84,7 +84,79 @@ rồi step và seed order; test chỉ mở sau seal, fail thì không reselect.
 
 Các task chuẩn bị/teacher/pilot/train/test/cold replay có checkbox tại
 [checklist H02](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
-Plan đã bỏ phương án một seed; chưa fit/train hoặc thay model/protocol JSON,
-receipt hay dữ liệu. Chỉ kiểm diff/link/recipe/hash/số liệu; không chạy
-compile/unit/E2E/leakage theo AGENTS1.2 vì chỉ sửa Markdown. PASS ở mục trước
-thuộc đợt hợp nhất, không phải kiểm nghiệm replica mới.
+Lượt viết lại plan trước triển khai chỉ sửa Markdown, chưa fit/train hoặc
+thay model/protocol JSON, receipt hay dữ liệu; khi đó chỉ kiểm diff/link/
+recipe/hash/số liệu theo AGENTS1.2. PASS ở mục trước thuộc đợt hợp nhất;
+kết quả triển khai H02 mới được ghi riêng ngay bên dưới.
+
+## H02 — chuẩn bị và bàn giao08/11/2026
+
+- [x] Tải snapshot VNINDEX2025–2026 riêng,249 phiên overlap khớp đủ OHLCV với
+  bản cũ; xuất lịch2018–2026 gồm2181 phiên, phủ đủ decision/entry/exit của grid.
+- [x] Lưu HTTP responses/raw/events của9 mã; audit18 cycle có rào chắn quyền,
+  giữ raw BHN lỗi và suffix673; không thay donor hoặc chứng nhận fill.
+- [x] Dựng bank1235/1640 cycle hợp lệ, train731 cycle/48 task, support PASS;
+  cold-check input, feature/label/scaler qua nguồn đã khóa, không fit HMM/teacher.
+- [x] Port simulator/student69+37/metrics theo recipe Git pin, CLI từng stage,
+  checkpoint đầy đủ optimizer/RNG, OS lock, selection đủ60 và test sau seal.
+- [x] Khóa protocol/source/runtime/data trước fit; model manifest/release cũ nguyên byte.
+- [ ] Người dùng chạy `prepare` để fit teacher/HMM, tạo corpus/context và seal.
+- [ ] Người dùng chạy `pilot` rồi `train`; đủ3 seed/60 checkpoint, không early stop.
+- [ ] Sau train, chạy `evaluate` và `verify`, kiểm model/test/cold CPU replay mới.
+
+Evidence mới ở `outputs/historical_reevaluation/h02_data_r1/`, gồm raw HTTP,
+manifest acquisition và `execution_audit.json`. Manifest acquisition ghi
+coverage của supplement2025–2026; dùng `execution_audit.json` để đọc coverage
+trên lịch đầy đủ2018–2026 và suffix BHN. Raw/vendor khác nhau trên phần lớn
+ngày; economic acceptance vẫn `PENDING_EXECUTION_DATA`, không splice giá cổ
+phiếu hoặc sửa nhãn riêng phương pháp. Receipt readiness trước đó là bằng
+chứng audit cũ, không bị ghi đè hay coi là nghiệm thu gói replica mới.
+
+Protocol máy [mt_bicl_replica_full_r1.json](mt_bicl_replica_full_r1.json) bind
+recipe tại `00b24679`, source/runtime/raw train và raw OOS dùng cho context.
+Pipeline mới dùng CPU cho mọi frozen validation/test/cold replay để so raw
+logits cùng runtime; GPU chỉ dùng preflight/pilot/train. Phải đo ETA gồm
+sample/teacher, CPU validation và I/O, không lấy proxy GPU làm ETA toàn lượt.
+Prepared receipt bind mọi corpus/teacher/context; test chỉ được decode bởi
+student sau selection seal; train/inference LLM historical vẫn tách quyền.
+
+Kiểm theo phạm vi: **63 test riêng biệt PASS** gồm16 mới,8 bank leakage,
+13 task leakage,3 adapter leakage và23 economic account; **10 Python mới
+biên dịch PASS**. Có fixture CPU kiểm loss query-only, hai packing, serving
+parity, optimizer/RNG replay và checkpoint orphan; đây không phải production
+training. Không full suite/compileall/E2E; không fit teacher/HMM, không chạy
+GPU hoặc LLM. Source/protocol đã neo Git trước lệnh bàn giao.
+
+## Lệnh chạy H02
+
+Chạy trong thư mục repo bằng PowerShell. `prepare` bắt đầu fit CPU; `pilot`
+bắt đầu GPU. Theo chỉ đạo, các bước này để người dùng chạy. Mỗi stage có
+guard riêng; lỗi hoặc gate FAIL thì dừng, không tự chuyển sang stage kế.
+
+```powershell
+$env:CUBLAS_WORKSPACE_CONFIG = ":4096:8"
+foreach ($replicaStage in @("prepare", "pilot", "train")) {
+    py -3.13 -X utf8 scripts/run_mt_bicl_replica.py $replicaStage
+    if ($LASTEXITCODE -ne 0) { throw "H02 dừng tại $replicaStage; giữ checkpoint và log để kiểm tra." }
+}
+```
+
+Nếu bị ngắt khi train, đặt lại biến môi trường rồi chạy lại lệnh stage
+`train`; giữ nguyên namespace, UUID và checkpoint, không xóa state.
+
+```powershell
+$env:CUBLAS_WORKSPACE_CONFIG = ":4096:8"
+py -3.13 -X utf8 scripts/run_mt_bicl_replica.py train
+```
+
+Sau khi `train` trả `SELECTED`, bước nghiệm thu CPU, không optimizer:
+
+```powershell
+py -3.13 -X utf8 scripts/run_mt_bicl_replica.py evaluate
+if ($LASTEXITCODE -ne 0) { throw "Model không qua test; không reselect." }
+py -3.13 -X utf8 scripts/run_mt_bicl_replica.py verify
+if ($LASTEXITCODE -ne 0) { throw "Cold replay chưa PASS; không release model." }
+```
+
+Output riêng: `outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/`.
+`MODEL_GATE_PASS` không cấp quyền chạy lưới H07; H03–H06 vẫn cần hoàn tất.

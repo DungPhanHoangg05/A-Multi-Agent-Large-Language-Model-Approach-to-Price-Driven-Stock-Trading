@@ -3,7 +3,9 @@
 Cập nhật08/11/2026. Thực hiện lại quy trình đầy đủ đã dùng trước đây,
 ưu tiên độ tin cậy và khả năng tái lập. Train lại model dưới tên
 `MT_BICL_replica_full_r1`; bỏ phương án một seed/dừng sớm.
-Hiện mới hoàn tất audit ban đầu, chưa train hoặc chạy đánh giá mới.
+H02 đã bổ sung dữ liệu, bank và CLI replica; chờ người dùng chạy các bước
+fit/pilot/train theo [lệnh bàn giao](README.md#lệnh-chạy-h02). Chưa fit teacher,
+chưa chạy GPU hoặc đánh giá model mới.
 
 ## Checklist tổng
 
@@ -31,25 +33,28 @@ Hiện mới hoàn tất audit ban đầu, chưa train hoặc chạy đánh giá
 - [x] Archive21 blob nguồn, lưu donor commit/blob OID/SHA256.
 - [x] Kiểm label bridge1.020 cycle với engine; sai số lớn nhất0.
 - [x] Đối soát frozen news155 membership/154 bài và suffix BHN từ14/09/2022.
-- [ ] Bổ sung VNINDEX tới30/09/2026, kiểm các phiên và phần giao với dữ liệu cũ;
-  lưu snapshot/provenance riêng, không điền thiếu hoặc nối chuỗi chưa kiểm.
-- [ ] Kiểm giá raw, đơn vị, quyền/cổ tức/chia tách và lịch của9 mã trên từng
-  holding span; giữ `VENDOR_SERIES_LIMITED`/`PENDING_EXECUTION_DATA` nếu thiếu chứng cứ.
+- [x] Bổ sung VNINDEX tới30/09/2026:2181 phiên,249 phiên overlap khớp đủ OHLCV,
+  không thiếu ngày của grid; giữ snapshot/provenance riêng, không sửa prefix cũ.
+- [x] Audit raw/đơn vị/quyền/lịch9 mã:18 cycle có rào chắn quyền; BHN giữ suffix673.
+  Lưu [audit mới](../../../outputs/historical_reevaluation/h02_data_r1/execution_audit.json);
+  vẫn `VENDOR_SERIES_LIMITED`/`PENDING_EXECUTION_DATA`, chưa chứng nhận fill.
 - [ ] Kiểm lại dữ liệu context/retrieval, membership và khả năng tái dựng
   scaler/regime từ train; ghi rõ asset nào còn thiếu trong readiness.
 
 ### Train lại MT-BICL theo quy trình đầy đủ
 
-- [ ] Khóa protocol replica/source/data/RNG trước fit. Dùng recipe tại Git
+- [x] Khóa [protocol replica/source/data/RNG](mt_bicl_replica_full_r1.json) trước fit. Dùng recipe tại Git
   `00b24679f63d491c15cda6be0bc9a2c412651f93`: `protocol_v2.json`,
   `protocol_v2_1.json`, `corpus_manifest_v2.json` trong `docs/plan/week10/`
   và simulator tương ứng. Port có chọn lọc sang code hiện hành, không né guard.
-- [ ] Hoàn thiện CLI chuẩn bị/train/resume/verify; dùng namespace
+- [x] Hoàn thiện CLI `scripts/run_mt_bicl_replica.py` chuẩn bị/pilot/train/resume/evaluate/verify;
+  tests fixture PASS, các giai đoạn production chưa chạy. Dùng namespace
   `outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/`, manifest và hash mới;
   giữ nguyên model manifest, receipt và kết quả cũ.
 - [ ] Dựng bank CORE4 từ raw2018–2022; tách train≤2020, chọn checkpoint2021,
   kiểm cuối2022. Teacher/feature pool/scaler chỉ dùng train; HMM giữ recipe
-  prefix và model cuối2020. Kiểm support/membership trước khi fit.
+  prefix và model cuối2020. Bank đã PASS1235/1640 cycle, train731 cycle/48 task;
+  context/HMM thực chờ lệnh `prepare`, chưa đánh dấu hoàn tất toàn mục.
 - [ ] Fit teacher Beta–Bernoulli16 grid point, MAP-EM tối đa1.000 vòng,
   convergence<10⁻¹⁰; kiểm oracle độc lập≤10⁻¹² và prior-predictive1.000 draw.
   Không hội tụ thì dừng, không dùng uniform fallback.
@@ -62,9 +67,10 @@ Hiện mới hoàn tất audit ban đầu, chưa train hoặc chạy đánh giá
 - [ ] Train đủ ba seed **17,42,73**, mỗi seed **5.000 optimizer step**,
   effective batch128; checkpoint mỗi250 step: **60 checkpoint tổng cộng**.
   Không dừng sớm khi vừa đạt validation; không thay seed hoặc nới gate.
-- [ ] Giữ student PAIRED_37,2 lớp/hidden128/4 head/FF256/dropout0,
+- [x] Khóa student PAIRED_37,2 lớp/hidden128/4 head/FF256/dropout0,
   float32 và AMP/TF32 OFF. Giữ AdamW/lịch warmup250+cosine hiện hành;
   physical batch128/64/32 chọn trước train theo OOM, accumulation giữ batch128.
+  Đã kiểm tương thích serving và optimizer/RNG resume bằng fixture CPU.
 - [ ] Đánh giá đủ60 checkpoint trên synthetic validation/swap và thị trường2021.
   Giữ gate mean KL≤0,02, P95 error≤0,10, swap sign≥0,90 với≥200 cặp có
   |Δq|≥0,05; kiểm constant/context-blind và teacher-too-flat. Thiếu support
@@ -82,6 +88,8 @@ Hiện mới hoàn tất audit ban đầu, chưa train hoặc chạy đánh giá
 Train teacher/student dùng dữ liệu local và0 LLM call, có thể bắt đầu sau
 khóa protocol replica mà không chờ VNINDEX2026. Chỉ đánh dấu phần model
 hoàn tất khi toàn bộ checklist train PASS; toàn H02 còn cần checklist dữ liệu.
+Mọi fit/pilot/train production do người dùng chạy theo chỉ đạo; frozen
+validation/test và cold replay dùng CPU cùng runtime để so raw logits chính xác.
 
 ## H03 — Khóa protocol và ngân sách
 
