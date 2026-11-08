@@ -88,6 +88,7 @@ def pilot(root: Path) -> dict[str, Any]:
         return result
     if "physical_batch" not in state:
         for physical in (128, 64, 32):
+            model, optimizer = None, None
             try:
                 configure(17, cuda=True)
                 model = DistilledStudent().to(device)
