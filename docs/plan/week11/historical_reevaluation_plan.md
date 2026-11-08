@@ -6,13 +6,14 @@ Cập nhật08/11/2026. Thực hiện lại quy trình đầy đủ đã dùng t
 Người dùng đã hoàn tất fit/pilot/train:đủ3 seed/60 checkpoint, chọn seed42/
 step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
-Chưa release inference trên lưới mới; bước tiếp theo là H03.
+H03 đã khóa protocol và dự toán offline; chưa release inference trên lưới mới.
+Bước tiếp theo là H04.
 
 ## Checklist tổng
 
 - [x] H01 — Khảo sát nguồn và phạm vi đánh giá.
 - [x] H02 — Audit dữ liệu và train lại model, nghiệm thu CPU và lưu asset.
-- [ ] H03 — Khóa protocol và ngân sách đánh giá.
+- [x] H03 — Khóa protocol, lịch, model và dự toán đánh giá offline.
 - [ ] H04 — Hoàn thiện adapter và runner.
 - [ ] H05 — Kiểm thử các phần thay đổi.
 - [ ] H06 — Freeze và smoke test.
@@ -99,23 +100,29 @@ validation/test và cold replay dùng CPU cùng runtime để so raw logits chí
 
 ## H03 — Khóa protocol và ngân sách
 
-- [ ] Khóa sáu primary và model replica; CORE4 gồm480 unit, EXTENDED gồm1.020
+- [x] Khóa sáu primary và model replica; CORE4 gồm480 unit, EXTENDED gồm1.020
   unit/9 mã/6 block; giữ102 anchor và eligibility BHN, không chọn theo payoff.
-- [ ] Khóa recipe từng phương pháp, ablation/control, membership D/C/query,
+- [x] Khóa recipe từng phương pháp, ablation/control, membership D/C/query,
   train-only scaler, missing support/fallback và prequential memory `exit<t`.
-- [ ] Khóa LONG Open(t+1)→Close(t+3), SHORT=CASH, phí0,25%/slippage0,10%
+- [x] Khóa LONG Open(t+1)→Close(t+3), SHORT=CASH, phí0,25%/slippage0,10%
   cả hai chiều; labels qua `compute_round_trip_net_return`, fractional shares,
-  risk OFF, reset50 triệu/mã/block/repeat. Đồng bộ JSON còn `lot=100`.
-- [ ] Khóa model Decision `openai/gpt-oss-20b`, vision `qwen/qwen3.8-27b`,
-  temperature0, max_tokens960/960 và schema; đồng bộ JSON còn2048/1024.
-- [ ] Khóa3 Decision repeat/unit, Original_duplicate,10 ablation/3 retrieval
+  risk OFF, reset50 triệu/mã/block/repeat. JSON hiệu lực mới có `lot=null`;
+  protocol cũ giữ nguyên byte.
+- [x] Khóa model Decision `openai/gpt-oss-20b`, vision `qwen/qwen3.8-27b`,
+  temperature0, max_tokens960/960 và hai schema response; không dùng cache2048/1024.
+- [x] Khóa3 Decision repeat/unit, Original_duplicate,10 ablation/3 retrieval
   control trên102 anchor; panel51 unit thêm realization1/2 và3 repeat/mỗi realization.
-- [ ] Chốt số historical upstream H, token/quota/chi phí/thời gian thực tế;
-  đối soát nominal27.846 Decision+2.244 vision+2H = **30.090+2H calls**,
-  chưa gồm smoke/control/retry/unknown; không tính CPU/GPU train thành API call.
-- [ ] Khóa estimand macro đều mã/block, bootstrap10.000 draw seed20261107,
+- [x] Chốt **H=2.358**, nominal27.846 Decision+6.960 vision=**34.806 calls**.
+  Dự toán token/chi phí/thời gian từ telemetry cũ, tách smoke/retry/unknown;
+  quota tài khoản và payload960 thực tế kiểm ở H06, không tự chuyển sang trả phí.
+- [x] Khóa estimand macro đều mã/block, bootstrap10.000 draw seed20261107,
   family5 contrast với Original và CI đồng thời centered max-deviation,
   quantile linear; BA family riêng, mục tiêu half-width1 đpt return/3 đpt BA.
+
+[Protocol máy](historical_evaluation_protocol.json) và
+[lịch/schema/input đã khóa](historical_evaluation_inputs.json) được tạo/kiểm bằng
+`scripts/prepare_historical_evaluation.py`. H03 hoàn tất offline; API vẫn khóa,
+H04–H06 còn phải triển khai adapter, kiểm thử, smoke và quota.
 
 ## H04 — Hoàn thiện adapter và runner
 
@@ -169,5 +176,5 @@ validation/test và cold replay dùng CPU cùng runtime để so raw logits chí
 - [ ] Cập nhật checklist tại đây và [README W11](README.md#checklist-đánh-giá-lại).
 - [ ] Đóng gói evidence/manifest và hướng dẫn tái lập; giữ receipt/model cũ nguyên byte.
 - [ ] Chỉ đánh dấu hoàn thành khi đủ output và kiểm tra của task; thiếu thì giữ
-  TODO/BLOCKED với lý do. Lượt cập nhật plan này chỉ kiểm diff/link/recipe/số liệu,
-  không chạy lại compile/unit/E2E/leakage vì chỉ đổi Markdown theo AGENTS1.2.
+  TODO/BLOCKED với lý do. Kiểm theo phạm vi thay đổi tại AGENTS1.2;
+  ghi kết quả và giới hạn vào README tuần, không tự động chạy lại toàn suite.

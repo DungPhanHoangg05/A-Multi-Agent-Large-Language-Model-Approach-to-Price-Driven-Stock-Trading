@@ -19,7 +19,7 @@ H02 hoàn tất audit VNINDEX2026, raw/quyền9 mã và bank train, cùng nghi�
 Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
 Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed42/step3000.
 Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
-Tiếp theo H03 khóa protocol và ngân sách; H03–H09 tiếp tục theo checklist.
+H03 đã khóa protocol và dự toán offline; tiếp theo H04 adapter/runner.
 
 ## Checklist đánh giá lại
 
@@ -27,7 +27,7 @@ Tiếp theo H03 khóa protocol và ngân sách; H03–H09 tiếp tục theo chec
 | --- | --- | --- |
 | H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
 | H02 | Dữ liệu, train replica ba seed và asset readiness | [x] DONE — MODEL_GATE_PASS / CPU_REPLAY_MATCH; execution acceptance vẫn PENDING_EXECUTION_DATA |
-| H03 | Protocol máy, registry, inference, families và budget chính xác | [ ] TODO |
+| H03 | Protocol máy, registry, inference, families và budget | [x] DONE OFFLINE — H=2.358, nominal34.806 calls; live quota/payload smoke thuộc H06 |
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [ ] TODO |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [ ] TODO |
 | H06 | Freeze bank/runtime và smoke toàn registry | [ ] TODO |
@@ -226,11 +226,93 @@ Toàn bộ checkpoint optimizer/RNG và corpus vẫn giữ nguyên tại namespa
 
 H02 hoàn tất ở phạm vi audit dữ liệu và model; data quality vẫn
 `VENDOR_SERIES_LIMITED`, economic acceptance vẫn `PENDING_EXECUTION_DATA`.
-Chưa release inference trên lưới mới. H03 tiếp theo khóa sáu primary, model binding,
-IDs/folds, hợp đồng kinh tế, options API, repeat/family thống kê và ngân sách.
+Chưa release inference trên lưới mới. Kết quả khóa protocol H03 được ghi bên dưới.
 
 Kiểm lần này: frozen `evaluate`/`verify`, loader/fingerprint và đối soát hash
 43 file nguồn/27 file dữ liệu PASS; diff và liên kết đã kiểm. Không sửa
 code/test/runtime, không train/refit; không chạy lại compile/unit/E2E/leakage suite
 theo AGENTS1.2. Kết quả test fixture trước đây vẫn là bằng chứng lịch sử, không ghi
 là đã chạy lại.
+
+## H03 — khóa protocol và dự toán offline
+
+- [x] Tạo [protocol máy](historical_evaluation_protocol.json), gồm registry sáu primary,
+  Fact_Anchor dependency, model replica và cấu hình MT-BICL hiệu lực riêng.
+- [x] Khóa [input/lịch/schema](historical_evaluation_inputs.json):1.020 unit,
+  51 scope,102 anchor và panel51 ID chọn bằng hash trước response.
+- [x] Khóa recipe, scaler train-only, PIT/membership, fallback và bootstrap oracle.
+- [x] Khóa ma trận calls, dự toán token/latency/chi phí và trần attempt/reserve.
+- [x] Kiểm thử theo phạm vi, compile Python mới và đối soát protocol/input/Git.
+
+Protocol cũ, manifest model và dữ liệu H02 giữ nguyên byte. Cấu hình mới là
+960/960 token, temperature0, fractional shares (`lot=null`), risk OFF,
+reset50 triệu/mã/block/nhánh/realization/repeat. Hai schema response được chụp
+từ `TradeDecisionOutput` và reply MT-BICL; alias Original/A_reference không
+tạo thêm execution ngoài Original_common/A_tp_pool.
+
+Legacy scaler fit feature trên train IDs của từng scope, freeze trước validation;
+MT-BICL giữ scaler/regime cuối2020 của replica. Legacy query HMM giữ artifact
+fit tới30/12/2022, historical metadata dùng prefix tại ngày lịch sử.
+Giữ bank giá donor riêng, không splice với chuỗi dùng train replica.
+Tin date-only khả dụng ngày sau, lookback90 ngày, tối thiểu3 bài, peers rỗng;
+provenance/scorer đã khóa nhưng không chứng nhận archived content PIT.
+
+History LLM gồm2.998 cycle theo suffix sạch, warmup600 và stride3. Trong đó640
+cycle trùng query được dùng chung đúng upstream realization0 của run mới;
+**H=2.358** cycle cần thêm. Thu theo union lịch tăng dần; chỉ cấp history có
+`exit<query`, không chèn query ngoài cadence vào legacy bank. MT-BICL giữ
+stream numeric theo calendar riêng. Cache donor2048/1024 không được tính là reuse.
+
+| Hạng mục | Nominal executions/calls |
+| --- | ---: |
+| Sáu primary + Fact_Anchor, ba Decision repeat | 21.420 |
+| Mười ablation trên102 anchor, ba repeat | 3.060 |
+| Ba retrieval control trên102 anchor, ba repeat | 918 |
+| Original_duplicate trên102 anchor, ba repeat | 306 |
+| Panel51 unit, thêm hai upstream realization và ba repeat/bảy nhánh | 2.142 |
+| Tổng Decision | 27.846 |
+| Vision query/panel | 2.244 |
+| Vision history bổ sung,2H | 4.716 |
+| Tổng research nominal trước bypass/reuse | **34.806** |
+
+Panel là diagnostic upstream, không tham gia tài khoản primary hoặc tăng N thị
+trường. Primary chỉ dùng realization0; báo đủ ba repeat và mean, không vote/best.
+CI return và BA là hai family riêng, mỗi family năm contrast CORE4; resample
+toàn sáu block bằng cùng draw indices. Giữ ties/constant; bất kỳ support null
+làm cả family INCONCLUSIVE, không loại contrast hoặc điền0.
+
+Dự toán dùng4.511 response Decision và1.284 response vision thành công trong
+ledger cũ; chỉ lưu aggregate, không lưu key/scope/request ID. Giá niêm yết quy
+đổi khoảng **20,69 USD** cho research nominal theo usage tham chiếu; dự toán
+6500 input+960 output token/call là **84,51 USD**, chưa gồm reserve.
+Trần cả attempt/reserve là106.459 HTTP attempt, quy đổi khoảng271,99 USD theo
+cùng giả định token. Đây là dự toán, không là invoice hoặc quyền chi tiền.
+Giá tham chiếu kiểm08/11/2026 từ
+[GPT-OSS20B](https://console.groq.com/docs/model/openai/gpt-oss-20b) và
+[Qwen3.8-27B](https://console.groq.com/docs/model/qwen/qwen3.8-27b).
+
+[Quota công bố](https://console.groq.com/docs/rate-limits) tham chiếu30 RPM,
+1.000 RPD,8.000 TPM và200.000 TPD/org. Nếu có năm org độc lập và cộng chung
+quota token hai model, usage tham chiếu tương đương **68 ngày năng lực token**;
+không phải cam kết lịch chạy hoặc phép đo payload960. Trần dự toán token cao
+hơn nhiều; cần đối soát ITPM/OTPM/TPD, spend limit, tổ chức độc lập và longest
+payload tại H06. Không hứa72 giờ, tự nâng gói trả phí hoặc giảm mẫu/repeat.
+Ảnh dự trù khoảng3,40 GiB, RAM dự trù2 GiB; đo tài nguyên mới thuộc H06.
+
+Kiểm H03:18 test PASS trong `test_historical_evaluation_protocol.py`,
+`test_historical_evaluation_leakage.py`, `test_historical_evaluation_statistics.py`;
+bao phủ lịch/suffix/purge, future/exit==query, deep-copy, reseal, workload/reserve
+và oracle scalar độc lập cho CI. Sáu Python mới biên dịch PASS.
+Producer offline và verifier tái dựng byte/ngữ nghĩa/Git PASS; không chạy lại
+unit toàn hệ thống/E2E hoặc các gate model H02 vì source/runtime cũ không đổi.
+
+Kiểm lại offline, không gọi API:
+
+```powershell
+py -3.13 -X utf8 scripts/prepare_historical_evaluation.py --verify
+```
+
+Verifier cần các archive/input H02 và ledger tham chiếu local; H09 đóng gói
+chúng cùng bằng chứng tái lập. Trạng thái `LOCKED_OFFLINE_NOT_RELEASED`:
+API/training/teacher-fit/confirmation đều OFF. Tiếp theo H04, rồi H05/H06;
+economic acceptance vẫn `PENDING_EXECUTION_DATA`.

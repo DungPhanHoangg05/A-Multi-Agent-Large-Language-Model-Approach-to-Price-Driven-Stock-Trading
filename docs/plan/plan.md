@@ -16,8 +16,8 @@ Hệ thống giữ Original và bốn nhóm cải tiến.
 
 [Kế hoạch đánh giá lại](week11/historical_reevaluation_plan.md) dùng dữ
 liệu donor fix, primary6 nhánh, CORE4 gồm480 unit và lưới mở rộng1.020 unit/
-120 ngày. Fact_Anchor là dependency MT-BICL. Budget nominal30.090+2H calls
-với3 Decision repeats; H phải được chốt trước release.
+120 ngày. Fact_Anchor là dependency MT-BICL. H03 đã chốt H=2.358,
+budget nominal34.806 calls với3 Decision repeats, chưa gồm retry/smoke/unknown.
 
 [Checklist W11](week11/README.md#checklist-đánh-giá-lại) quản lý H01–H09.
 H01 hoàn tất; H02 đã bổ sung VNINDEX tới30/09/2026, audit raw/quyền9 mã,
@@ -28,7 +28,9 @@ test sau selection seal; giữ oracle/cold replay và hash riêng. Train-only
 không cần chờ VNINDEX2026. Người dùng đã hoàn tất fit/pilot/train, chọn
 seed42/step3000; test `MODEL_GATE_PASS`, cold replay60 checkpoint
 `CPU_REPLAY_MATCH`. H02 hoàn tất, gói [model replica](week11/mt_bicl_replica_full_r1_model.json)
-đã được neo Git. Tiếp theo H03 khóa protocol và ngân sách; H03–H09 chưa hoàn tất.
+đã được neo Git. H03 đã khóa [protocol đánh giá](week11/historical_evaluation_protocol.json),
+lịch/schema và dự toán offline. Tiếp theo H04 hoàn thiện adapter/runner;
+H04–H09 chưa hoàn tất, quota trực tiếp và smoke thuộc H06.
 Chưa release lưới mới; execution data vẫn có giới hạn vendor series.
 
 ## Những phần đã triển khai

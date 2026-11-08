@@ -48,7 +48,8 @@ Người dùng đã chạy đủ ba seed; selection chọn seed42/step3000 và t
 `MODEL_GATE_PASS`; cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`, H02 hoàn tất
 với [manifest replica](../week11/mt_bicl_replica_full_r1_model.json). Manifest
 gốc vẫn giữ như bằng chứng lịch sử. VNINDEX2026 đã có snapshot bổ sung;
-H03–H06 vẫn cần bind gói model mới và release lượt đánh giá chung.
+H03 đã bind model trong [protocol đánh giá](../week11/historical_evaluation_protocol.json);
+H04–H06 còn cần adapter, kiểm thử/smoke/quota và release lượt đánh giá chung.
 
 ## Kết quả đã lưu
 

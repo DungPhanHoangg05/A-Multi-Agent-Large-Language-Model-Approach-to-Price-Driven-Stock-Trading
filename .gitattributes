@@ -45,3 +45,9 @@ outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/training/selection.json -tex
 outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/evaluation/*.json -text
 outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/regime_models.json -text
 outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/pilot/report.json -text
+
+# Khóa protocol H03 và bộ sinh bằng byte ổn định.
+docs/plan/week11/historical_evaluation_*.json -text
+core/historical_evaluation_*.py text eol=lf
+scripts/prepare_historical_evaluation.py text eol=lf
+tests/test_historical_evaluation*.py text eol=lf
