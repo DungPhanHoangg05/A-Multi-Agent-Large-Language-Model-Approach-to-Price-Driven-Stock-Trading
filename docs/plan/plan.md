@@ -14,43 +14,34 @@ Hệ thống giữ Original và bốn nhóm cải tiến.
 | Bayesian Prior cải tiến A/B | A_tp_pool và B_semantic |
 | MT-BICL | Bucket context, student/teacher, facts, utility và revision policy |
 
-[Kế hoạch đánh giá lại](week11/historical_reevaluation_plan.md) dùng dữ
-liệu donor fix, primary6 nhánh, CORE4 gồm480 unit và lưới mở rộng1.020 unit/
-120 ngày. Fact_Anchor là dependency MT-BICL. H03 đã chốt H=2.358,
-budget nominal34.806 calls với3 Decision repeats, chưa gồm retry/smoke/unknown.
+[Kế hoạch hiện hành](week11/historical_reevaluation_plan.md#h07--pilot-ghép-cặp48-điểm-bằng-api-free)
+là FREE_PAIRED_PILOT_48 để phục vụ buổi trình bày trong hai ngày. Sáu primary
+gồm Original_common, bayesian_v1, C2, A_tp_pool, B_semantic, MT_BICL; giữ
+Fact_Anchor dependency. CORE4 ×12 cutoff chung2023–2024 =48 điểm, một repeat,
+336 Decision nominal và0–96 vision mới tùy archive hợp lệ; smoke9 lượt riêng.
+Bridge fix mặc định OFF, nếu khóa ON trước inference thì thêm48 Decision.
+Chỉ Groq Free, chi tiêu0 USD; preflight phải xác minh ngân sách48 giờ.
 
 [Checklist W11](week11/README.md#checklist-đánh-giá-lại) quản lý H01–H09.
-H01 hoàn tất; H02 đã bổ sung VNINDEX tới30/09/2026, audit raw/quyền9 mã,
-bank train731 cycle/48 task và CLI replica. Theo chỉ đạo mới08/11,
-train `MT_BICL_replica_full_r1` theo [checklist H02](week11/historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model):
-đủ ba seed17/42/73 ×5.000 step, đánh giá60 checkpoint, chọn bằng dữ liệu2021,
-test sau selection seal; giữ oracle/cold replay và hash riêng. Train-only
-không cần chờ VNINDEX2026. Người dùng đã hoàn tất fit/pilot/train, chọn
-seed42/step3000; test `MODEL_GATE_PASS`, cold replay60 checkpoint
-`CPU_REPLAY_MATCH`. H02 hoàn tất, gói [model replica](week11/mt_bicl_replica_full_r1_model.json)
-đã được neo Git. H03 đã khóa [protocol đánh giá](week11/historical_evaluation_protocol.json),
-lịch/schema và dự toán offline. H04 đã hoàn tất adapter9 mã, runner paired,
-checkpoint/run/resume/verify và kiểm triển khai offline. Người dùng đã hoàn tất492
-HMM prefix lịch sử; H05 đối soát hash/PIT toàn bộ,1.020 context và862 frozen forward,
-PASS84 test trong13 module. [Receipt H05](week11/historical_evaluation_validation.json)
-khóa bằng chứng; CLI `scripts/validate_historical_evaluation.py` chạy nghiệm thu offline,
-lệnh H05 `--verify` chỉ áp dụng baseline runtime v2. Không train lại teacher/student.
-H06 hoàn tất:55 lượt smoke thành công,2 response503 được reconcile,
-57 HTTP tổng, không429; cold verify PASS và không gọi API mới.
-Prompt live tối đa5.954<6.500 ký tự. Quota5 org độc lập theo xác nhận người dùng,
-30/1.000/8.000/200.000, TPM gộp, Free/0 USD; grant H07 đã release.
-Runtime v3 chỉ sửa tên schema tại SDK, giữ baseline H05 v2 nguyên byte;
-verifier hiện hành là `scripts/run_historical_smoke.py verify`.
-H07 được agent trực tiếp chạy bằng supervisor CORE4→OOD5→hai cold verify.
-Giữ Free/0 USD, protocol và full matrix; tiến trình tự audit503/429/quota,
-không gửi lại mù hoặc giảm mẫu. Trạng thái máy:
+H01–H06 của thiết kế cũ đã nghiệm thu dữ liệu, replica đủ ba seed/60 checkpoint,
+chọn seed42/step3000, MODEL_GATE_PASS/CPU_REPLAY_MATCH;492 HMM prefix,
+84 test offline và55 smoke execution. Các asset/receipt đã hoàn tất được giữ.
+Pilot cần audit bank852/reuse upstream, khóa protocol/input/runtime riêng và
+kiểm lại phần thay đổi trước release; H03–H06 cũ không tự cấp gate pilot.
 
-<!-- H07_MANAGED_START -->
-Trạng thái máy: **RUNNING**; phase `collect_CORE4`; cập nhật `09/11/2026 00:05:45 UTC+7`. Số file checkpoint: 83 (kể cả lượt đang chạy).
-<!-- H07_MANAGED_END -->
+Ngày09/11/2026, người dùng hủy H07 đầy đủ34.806 call. Supervisor/child đã
+dừng, run_r1/managed_r1 đã xóa; grant thu đầy đủ REVOKED, api=false.
+Trước khi xóa có186 node upstream complete và0 forecast grid. Chỉ giữ riêng
+ledger tối thiểu103 request/264.449 token đã tính hoặc reserve để cộng quota
+còn hiệu lực vào lượt mới. Smoke H06 và model/donor/HMM giữ nguyên.
 
-H07–H09 chưa hoàn tất.
-Execution data vẫn có giới hạn vendor series.
+Pilot hiện PLAN_ONLY, P01–P05/H08/H09 TODO; chưa có API hay kết quả pilot mới.
+Bayesian dùng bank signal đóng băng2020–2022; MT giữ numeric context của
+phương pháp. Query chung dùng donor fix; bank/query khác provenance phải
+được audit và báo như giới hạn chuyển giao. Kết luận là historical exploratory
+có điều kiện trên shared reports; một repeat không đo variance giữa các lần LLM.
+H07 đầy đủ1.020 điểm vẫn CANCELLED. Execution acceptance giữ
+PENDING_EXECUTION_DATA và giới hạn vendor series.
 
 ## Những phần đã triển khai
 

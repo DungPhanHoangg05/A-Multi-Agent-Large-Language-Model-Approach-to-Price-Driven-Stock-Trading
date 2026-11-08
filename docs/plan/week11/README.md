@@ -1,41 +1,43 @@
-# W11 — Đánh giá lại các cải tiến trên dữ liệu lịch sử chung
+# W11 — So sánh các phương pháp bằng Groq Free
 
-Cập nhật09/11/2026. Original và bốn nhóm cải tiến là Bayesian Prior v1,
-Bayesian Prior v2/C2, Bayesian Prior A/B và MT-BICL.
-[Kế hoạch tổng](../plan.md) · [Đặc tả đánh giá](historical_reevaluation_plan.md)
+Cập nhật09/11/2026. Hệ thống gồm Original và bốn nhóm cải tiến Bayesian
+Prior v1, Bayesian Prior v2/C2, Bayesian Prior A/B và MT-BICL.
+[Kế hoạch tổng](../plan.md) · [Kế hoạch pilot](historical_reevaluation_plan.md#h07--pilot-ghép-cặp48-điểm-bằng-api-free)
 
 ## Phạm vi hiện hành
 
-Primary6 nhánh gồm Original_common, bayesian_v1, C2, A_tp_pool, B_semantic,
-MT_BICL. Fact_Anchor là dependency bắt buộc của MT-BICL.
-CORE4 gồm480 unit; EXTENDED gồm1.020 unit trên9 mã eligible,120 ngày cutoff,
-6 time blocks. Các ablation/retrieval/repeats có lịch riêng trong kế hoạch.
+FREE_PAIRED_PILOT_48 có sáu primary Original_common, bayesian_v1, C2,
+A_tp_pool, B_semantic, MT_BICL và dependency Fact_Anchor. CORE4 gồm
+FPT/MWG/VCB/VNM,12 cutoff chung2023–2024, một upstream và một Decision
+repeat/điểm;336 Decision nominal,0–96 vision mới tùy archive hợp lệ,
+smoke9 execution cách ly. Bridge Full_fix_native960 mặc định OFF, thêm48
+Decision nếu được khóa ON trước inference. Quota năm org Free, chi tiêu0 USD.
 
-Donor fix được đọc theo commit
-`9efd23f4157e0d3ab8069fccab7dccf03439a714`.
-Archive21 blob nguồn,9 CSV khớp hash và label bridge1.020 cycle.
-Data/vendor quality và economic acceptance được báo riêng.
-H02 hoàn tất audit VNINDEX2026, raw/quyền9 mã và bank train, cùng nghiệm thu model.
-Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
-Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed42/step3000.
-Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
-H03 đã khóa protocol/dự toán; H04 đã hoàn tất adapter/runner offline.
-H05 PASS84 test offline; H06 PASS live smoke/cold verify, đã release H07 chỉ Free/0 USD.
-H07 do agent trực tiếp chạy bằng supervisor, tự cập nhật trạng thái; smoke H06 cách ly.
+Bayesian dùng bank852 episode đóng băng2020–2022; MT giữ numeric context
+theo phương pháp và replica seed42/step3000 đã nghiệm thu. Query donor fix,
+prompt/model/options/kinh tế chung phải khóa trước API. Reuse upstream là
+đánh giá có điều kiện trên reports đã lưu, phải có provenance; Decision
+primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích mẫu nhỏ
+được đặc tả trong plan. Hiện PLAN_ONLY, chưa triển khai hoặc release pilot.
 
 ## Checklist đánh giá lại
 
 | Bước | Công việc | Trạng thái |
 | --- | --- | --- |
-| H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
-| H02 | Dữ liệu, train replica ba seed và asset readiness | [x] DONE — MODEL_GATE_PASS / CPU_REPLAY_MATCH; execution acceptance vẫn PENDING_EXECUTION_DATA |
-| H03 | Protocol máy, registry, inference, families và budget | [x] DONE OFFLINE — H=2.358, nominal34.806 calls; live quota/payload smoke thuộc H06 |
-| H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — adapter9 mã và492 prefix HMM |
-| H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
-| H06 | Freeze và smoke sáu primary/Fact_Anchor | [x] PASS — 55 lượt, cold verify; release H07 Free/0 USD |
-| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] IN PROGRESS — agent chạy supervisor CORE4→OOD5→cold verify; xem trạng thái máy |
-| H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
-| H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
+| H01 | Audit donor và phạm vi các phương pháp | [x] DONE của thiết kế đầy đủ |
+| H02 | Dữ liệu và replica ba seed/60 checkpoint | [x] MODEL_GATE_PASS / CPU_REPLAY_MATCH; giữ asset |
+| H03 | Protocol/lịch/dự toán34.806 call | [x] Bằng chứng thiết kế cũ; pilot cần protocol riêng |
+| H04 | Adapter/runner9 mã | [x] Bằng chứng thiết kế cũ; pilot cần adapter/runner riêng |
+| H05 | 84 test offline,492 prefix,1.020 context | [x] Bằng chứng cũ; kiểm delta pilot trước release |
+| H06 | Smoke55 execution và cold verify | [x] Bằng chứng cũ; grant full collection đã REVOKED |
+| H07 cũ | Dừng và xóa lượt thu dở | [x] CANCELLED_BY_USER ngày09/11 |
+| H07 pilot P01 | Audit bank/cache/quota và feasibility48 giờ | [ ] TODO |
+| H07 pilot P02 | Khóa48 ID/protocol/runtime/bridge option | [ ] TODO |
+| H07 pilot P03 | Scoped checks, smoke9 execution và cold verify | [ ] TODO |
+| H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [ ] TODO |
+| H07 pilot P05 | Cold verify và seal pilot | [ ] TODO |
+| H08 | Phân tích paired/uncertainty/coverage | [ ] TODO |
+| H09 | Bảng so sánh/evidence và bàn giao | [ ] TODO |
 
 ## Kết quả các phương pháp đã ghi nhận
 
@@ -529,114 +531,42 @@ archival PIT tín hiệu LLM hoặc kết quả H07; không import bank/control 
 vào research, không mở payoff query. Original→Fact_Anchor→MT dùng raw reply thật;
 không giả facts, sửa fallback hoặc đổi lỗi thành CASH.
 
-[Grant](historical_evaluation_release.json) hiện RESEARCH, ràng buộc protocol/runtime,
-H05/quota/plan/amendment/smoke PASS. Lệnh H07 CORE4→OOD5 tại
-[checklist H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá).
-`run` tiếp tục slot complete; unknown cần đối soát rồi
-`reconcile --attempt-id UUID --reason ...`, không tự gửi lại timeout.
+[Grant](historical_evaluation_release.json) từng RESEARCH, hiện REVOKED; bằng chứng protocol/runtime,
+H05/quota/plan/amendment/smoke PASS. Thiết kế CORE4→OOD5 đã hủy; thay bằng
+[kế hoạch pilot](historical_reevaluation_plan.md#h07--pilot-ghép-cặp48-điểm-bằng-api-free).
+Collection full đã hủy và output đã xóa; pilot cần grant/runtime riêng.
 Economic acceptance vẫn PENDING_EXECUTION_DATA; H06 không thay đổi giới hạn vendor series.
 
-## H07 — phục hồi kết nối 10054
+## H07 — chuyển sang pilot Free ngày09/11/2026
 
-Hiện có67 node complete,34 HTTP200 và3 transport_error tại `run_r1`, chưa có
-forecast grid. User đã chạy qua MWG và tiếp tục thu bank đến FPT-2022-06-16.
-Diagnostic `92c28ecd-201f-4e0f-b548-5e2df8a452db.json` xác định lỗi đọc mạng:
-`httpx.ReadError → httpcore.ReadError → ConnectionResetError`, WinError10054.
-Đây là kết nối bị reset, chưa xác định là server, đường mạng hay thiết bị trung gian.
-Bốn timeout thực tế đều None vì SDK ghi đè cấu hình httpx; không phải bằng chứng
-rằng timeout gây ra reset, nhưng cần chặn chờ vô hạn.
+Theo chỉ đạo người dùng, đã dừng supervisor và child thu thập; không còn
+tiến trình run_historical_collection hoặc run_historical_evaluation của H07.
+Đã xóa outputs/historical_reevaluation/run_r1/ và managed_r1/, gồm398 và12
+file tại thời điểm dọn. Các log kiểm vận hành từng nằm trong run_r1 cũng
+được xóa cùng lượt dở. Không có forecast grid nào được giữ làm kết quả.
 
-Đã đối soát/reconcile UUID `33d22fcd-ed2a-4784-96c6-73d36eb66e08` và giữ
-attempt cũ/quota reserve. Request live kế tiếp dùng policy mới trả200, canonical
-body/model/credential scope khớp lượt lỗi, timeout hữu hạn được lưu trong ledger.
-Cold replay3 node của FPT-2022-06-16 khớp raw/PIT/body; kiểm hash đủ67 node,
-0 API replay. Full Alpha tại điểm này chưa chạy. Live không tái phát reset;
-đường tự phục hồi được kiểm bằng mock, không tuyên bố đã loại bỏ lỗi mạng.
+Chỉ giữ quota tối thiểu tại outputs/historical_reevaluation/quota_history/
+cancelled_run_r1/,103 request với264.449 token đã tính/reserve;93 HTTP200,
+7 HTTP503,3 transport_error. Không giữ prompt/report/ảnh/nhãn ở ledger này.
+P01 phải cộng lịch sử quota này và H06 vào accounting thực, kể cả unknown.
 
-[CLI observed](../../../scripts/run_historical_evaluation_observed.py) nhận cờ
-`--recover-connection-reset`, là opt-in cho policy `historical_connection_reset_v1`:
+Grant full collection đã thu hồi bằng status=REVOKED, api=false; H06 smoke
+vẫn là bằng chứng lịch sử. Protocol full/input/schema/runtime/H02 model,
+donor và HMM prefix giữ byte cũ. P01–P05 của pilot là công việc tiếp theo,
+chưa có collector, JSON protocol, smoke hoặc grant pilot mới.
 
-- Mỗi request TCP mới, keepalive0, HTTPTransport/SDK retries ngầm vẫn0.
-- Timeout connect/read/write/pool=30/120/60/30 giây tại ranh transport,
-  không thêm/sửa trường JSON gửi LLM hoặc header xác thực.
-- Chỉ tự reconcile ReadError/WinError10054 vừa được quan sát và ghi durable
-  trong cùng tiến trình, cùng book/UUID/inputs; log lý do authorization rồi chờ5/10 giây.
-- Trần3 HTTP cho toàn slot gồm attempt cũ, retry429 và reset; chặn trước reserve
-  thứ4. Mỗi HTTP vẫn đi qua wrapper/ledger/admission cũ, giữ mọi reserve unknown.
-- Unknown từ lần chạy trước không tự authorize; timeout, lỗi khác, đã có response200,
-  inputs thay đổi, mất bằng chứng hoặc hết trần đều dừng. Không đổi lỗi thành CASH.
+Plan chốt48 điểm theo lịch, Bayesian bank frozen, shared reports chung và
+Decision mới. Có điều kiện audit bank/cache/token trước cam kết48 giờ;
+nếu không đủ phải ghi BLOCKED_BUDGET hoặc PARTIAL, không chọn lại mẫu theo
+outcome. Giữ scope historical exploratory và giới hạn provenance bank/query.
 
-Source observer/CLI neo Git riêng; mỗi request ghi policy/timeouts/source hashes
-vào `historical_transport_policy`. Lớp vận hành thay đổi có chủ đích và opt-in;
-file baseline v3, schema/model/data/H03, scientific run identity
-nguyên byte; các checkpoint complete cũ không bị ghi đè. Gate H05/H06 chỉ viện dẫn phần baseline; không dùng gate cũ thay
-kiểm retry mới. Không xoay key/org/model hoặc tăng quota/chi tiêu Free0 USD.
-
-PASS17 test:8 `test_historical_reset_recovery`,5 `test_historical_transport_observer`
-và4 `test_historical_adapter_transport` chạy qua chế độ phục hồi bằng MockTransport.
-Bao phủ2 reset→success,3 reset dừng,429+reset chung trần, attempt cũ, timeout/
-unknown/inputs đổi không replay, body/response/exception identity, secret,
-source guard, SDK/raw/cold replay và reserve. Biên dịch3 Python mới/đổi PASS.
-Không chạy full suite/E2E hoặc leakage suite vì không đổi đường dữ liệu,
-context/retrieval/nhãn; test tích hợp đúng đường wire/retry/checkpoint đã PASS.
-
-Bằng chứng local tại `outputs/historical_reevaluation/run_r1/`:
-
-- `reset_recovery_tests_sealed.log`, SHA256 `bb35cab6486d33679b66f4d7f40b71ebed2e913af5f6c30ece9091a19b27d24c`.
-- `reset_recovery_replay.log`, SHA256 `1a5f1c6e1bfaaf49c7ec978ba69129d2ca465eb0b6797f2b14468d1657f44249`.
-- Diagnostic, raw response, ledger và journal gốc giữ nguyên, không chứa key.
-
-Người dùng chạy tiếp [khối lệnh H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá)
-có cờ phục hồi; không cần train/fit lại. H07 chưa hoàn tất; chỉ kết sổ sau thu đủ
-ma trận và cold consumer xác nhận. Economic acceptance vẫn PENDING_EXECUTION_DATA.
-
-## H07 — agent trực tiếp chạy có giám sát
-
-<!-- H07_MANAGED_START -->
-Trạng thái máy: **RUNNING**; phase `collect_CORE4`; cập nhật `09/11/2026 00:05:45 UTC+7`. Số file checkpoint: 83 (kể cả lượt đang chạy).
-<!-- H07_MANAGED_END -->
-
-Người dùng giao agent thực hiện trọn H07. Khi tiếp quản có73 node complete,
-một UUID pending `e3838022-3663-4acb-954a-38556b7c5c79` do raw503
-`ee0cf041-4d27-4864-a2ff-bb61b63faa50` báo qwen over capacity. Đã audit raw,
-reconcile đúng UUID và giữ mọi attempt/reserve. Lỗi503 cần phục hồi riêng,
-không thuộc riêng policy10054 đã nghiệm thu ở trên.
-
-[Supervisor](../../../scripts/run_historical_collection.py) chạy native ẩn cửa sổ,
-CORE4→OOD5→verify CORE4→verify OOD5. Source/protocol/runtime/quota/release
-neo Git; supervisor không đổi chúng giữa phase, không train hoặc nâng gói.
-Nó giữ lock riêng, chỉ audit/reconcile503 khi raw/hash/body/UUID khớp;
-429 phải có raw và retry_until, quota chưa dispatch phải có stop/reset mới
-đúng org và không có HTTP cho UUID. Backoff/chờ quota giữ nguyên reserve.
-Trần3 HTTP/slot tính mọi attempt cũ; transport unknown không đủ bằng chứng,
-response200 đã có, sai hash, lỗi cold verify hoặc lỗi khác đều dừng để audit.
-Không tự đổi lỗi thành CASH, xoay key/model hoặc giảm repeat/mẫu.
-
-Mỗi child vẫn dùng runner/transport đã khóa cùng policy10054. Supervisor
-kiểm exit0 và PHASE_COMPLETE đúng480/540 unit, không tin PARTIAL; cold verify
-phải giữ nguyên hash toàn HTTP/usage. Kết sổ dưới book lock, kiểm đủ1.020 label,
-27.846 forecast và3.480 graph full, băm slots/http/usage/images thành manifest.
-Chỉ sau bốn phase PASS mới ghi `historical_evaluation_collection.json` và cập
-nhật checkbox H07. H08 chưa được chạy. Không tuyên bố H07 DONE trước receipt.
-
-Trạng thái máy: `outputs/historical_reevaluation/managed_r1/status.json`;
-child log và stdout/stderr cùng thư mục. `checkpoint_files` gồm cả lượt đang chạy,
-không là số unit hoàn tất. Trạng thái/phase được ghi sau mỗi chuyển trạng thái,
-heartbeat mỗi phút; plan cập nhật ở milestone hoặc khi chạy/chờ/dừng/hoàn tất.
-Raw/journal/ảnh giữ tại `run_r1/`, không chứa key. Native job cần máy bật/có mạng;
-quota Free khiến dự toán nhiều tuần, không cam kết thời điểm hoàn tất.
-
-Kiểm scoped PASS17 test (9 supervisor+8 reset), biên dịch2 Python mới PASS.
-Bao phủ raw503/UUID/checksum, trần3, không replay200/unknown, quota đúng org/
-reset mới,429 wait, từ chối phase PARTIAL và bảo toàn vùng Markdown ngoài marker;
-chưa có receipt thì không đánh dấu DONE. Gate wire/10054 trước được viện dẫn
-vì source tương ứng không đổi. Không chạy full suite/E2E/leakage suite: không
-đổi dữ liệu/context/retrieval/nhãn hoặc code kinh tế; quản lý subprocess/quota/
-checkpoint được kiểm đúng phạm vi. Log test tại `run_r1/managed_collection_tests.log`,
-SHA256 `b7ffc5e89f5a406e6bf9a68fe79bd97d8940d6a4d3238998d9e0bf42919a8d59`.
-
-Lượt chạy native09/11 đã xác nhận supervisor tự phục hồi503 ở Trend
-VCB-2022-06-16: audit raw, backoff, ghi authorization DELEGATED_H07_SUPERVISOR,
-child tiếp theo dùng lại checkpoint rồi node complete. Native supervisor và
-child đang chạy CORE4; chưa có receipt H07 PASS. Trạng thái sống trong vùng máy
-ở trên và `managed_r1/status.json`; không yêu cầu người dùng chạy thêm lệnh.
+Đợt cập nhật chỉ sửa Markdown và trạng thái grant; không đổi Python, thuật
+toán, model, query input hoặc runtime. QA theo AGENTS1.2 gồm lịch/ID/call
+math, liên kết/diff, hash asset, quota projection và guard từ chối grant
+REVOKED trước API. Không chạy compile/unit/E2E toàn hệ thống; gate cũ
+không được ghi là gate pilot mới. QA PASS cho48 ID/ngày/holding spans,
+call math336/432/1.323 attempt, toàn bộ link/fragment/fence của ba Markdown,
+projection quota103 request/264.449 token và absence hai thư mục đã xóa.
+Chín file bank/model/protocol/input/runtime/receipt đối soát với1213c076
+giữ nguyên byte. Consumer require_release trên grant đã commit từ chối đúng
+lỗi REVOKED, socket mock xác nhận0 kết nối. Diff check PASS, main/fix giữ ref.

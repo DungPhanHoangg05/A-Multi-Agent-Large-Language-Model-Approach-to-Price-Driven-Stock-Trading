@@ -1,4 +1,4 @@
-# Checklist đánh giá lại trên dữ liệu lịch sử
+# Kế hoạch so sánh các phương pháp bằng Groq Free
 
 Cập nhật09/11/2026. Thực hiện lại quy trình đầy đủ đã dùng trước đây,
 ưu tiên độ tin cậy và khả năng tái lập. Train lại model dưới tên
@@ -8,7 +8,10 @@ step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
 H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
-H07 do agent trực tiếp chạy bằng supervisor; trạng thái máy cập nhật trong mục H07.
+Ngày09/11/2026, người dùng hủy lượt H07 đầy đủ để chuẩn bị trình bày trong
+hai ngày. Phương án hiện hành FREE_PAIRED_PILOT_48 có trạng thái PLAN_ONLY.
+H01–H06 bên dưới ghi bằng chứng thiết kế cũ; pilot cần khóa protocol/input/
+runtime và nghiệm thu phần thay đổi riêng trước API.
 
 ## Checklist tổng
 
@@ -17,8 +20,9 @@ H07 do agent trực tiếp chạy bằng supervisor; trạng thái máy cập nh
 - [x] H03 — Khóa protocol, lịch, model và dự toán đánh giá offline.
 - [x] H04 — Hoàn thiện adapter và runner, nghiệm thu triển khai offline.
 - [x] H05 — Kiểm thử theo phạm vi, PASS84 test và đối soát asset/context.
-- [x] H06 — Freeze, live smoke55 lượt và cold verify PASS; release H07 Free/0 USD.
-- [ ] H07 — Chạy đủ ma trận đánh giá.
+- [x] H06 — Smoke thiết kế cũ PASS; grant thu thập đầy đủ đã REVOKED ngày09/11.
+- [x] H07 cũ — Dừng tiến trình và xóa output thu thập dở theo yêu cầu người dùng.
+- [ ] H07 pilot — Audit reuse, khóa48 điểm, nghiệm thu và thu đủ sáu phương pháp.
 - [ ] H08 — Phân tích và đối soát kết quả.
 - [ ] H09 — Kết sổ và bàn giao.
 
@@ -201,7 +205,8 @@ output960, utility4.096 draws; tất cả response thành công kết thúc `sto
 độc lập, mỗi model30 RPM/1.000 RPD/8.000 TPM/200.000 TPD, không tách TPM,
 chỉ Free/0 USD. Không coi xác nhận này là bằng chứng Console.
 [Plan smoke](historical_evaluation_smoke_plan.json) khóa55 execution/trần300 HTTP;
-[grant H07](historical_evaluation_release.json) đã chuyển RESEARCH sau cold verify.
+[grant H07](historical_evaluation_release.json) từng chuyển RESEARCH sau cold verify,
+đã được thu hồi ngày09/11/2026 khi người dùng hủy lượt thu đầy đủ.
 
 Smoke dùng bank tín hiệu control cách ly, giá/nhãn/regime quá khứ thật,
 không mở payoff query hoặc nhập control vào H07; không là kết quả thị trường.
@@ -214,53 +219,192 @@ Verifier hiện hành (offline, không API):
 py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 ```
 
-## H07 — Chạy đánh giá
+## H07 — Pilot ghép cặp48 điểm bằng API Free
 
-<!-- H07_MANAGED_START -->
-Trạng thái máy: **RUNNING**; phase `collect_CORE4`; cập nhật `09/11/2026 00:05:45 UTC+7`. Số file checkpoint: 83 (kể cả lượt đang chạy).
-<!-- H07_MANAGED_END -->
+### Trạng thái và phạm vi
 
-Người dùng đã giao agent trực tiếp hoàn tất H07. Supervisor chạy CORE4→OOD5,
-sau đó cold verify CORE4/OOD5; chỉ khi đủ1.020 unit,27.846 forecast slot và
-3.480 graph đầy đủ mới seal manifest/receipt và đánh dấu checklist hoàn tất.
-Trạng thái chi tiết tại `outputs/historical_reevaluation/managed_r1/status.json`.
+Lượt đầy đủ34.806 call đã CANCELLED_BY_USER. Supervisor/child đã dừng;
+outputs/historical_reevaluation/run_r1/ và managed_r1/ đã xóa. Trước khi
+xóa có186 node upstream complete, một slot unknown và0 forecast grid.
+Checkpoint, raw response, ảnh, log và lock của lượt dở không thuộc pilot.
+Grant cũ có status=REVOKED, api=false. H02 model, donor archive,
+492 HMM prefix và bằng chứng nghiệm thu H05/H06 được giữ.
 
-Lỗi gần nhất là HTTP503 over capacity tại VCB-2022-06-16/pattern org4,
-73 node đã complete khi tiếp quản. Đã đối soát raw và reconcile đúng UUID,
-giữ checkpoint/reserve. Supervisor audit503/429/quota theo UUID trước khi
-tiếp tục; lỗi mới hoặc hết trần3 HTTP/slot phải dừng, không đổi model/key/mẫu.
-Chế độ phục hồi10054/TCP mới/timeout hữu hạn vẫn áp dụng. Năm org Free/0 USD;
-34.806 execution nominal, dự toán nhiều tuần, không có cam kết xong ngay.
+Ledger quota tối thiểu tại
+outputs/historical_reevaluation/quota_history/cancelled_run_r1/ giữ103
+request và264.449 token đã tính hoặc reserve, gồm93 HTTP200,7 HTTP503 và3
+transport_error. Chỉ giữ thời gian/model/usage/rate-limit và định danh quota,
+không giữ report, ảnh, prompt hay kết quả nghiên cứu. Lượt mới phải cộng
+quota còn hiệu lực của ledger này và H06; đổi namespace không reset quota.
 
-- [ ] Thu bank/shared state cần thiết, CORE4 rồi các mã bổ sung, ablation/control
-  và panel upstream; đủ repeat/realization đã khóa, không vote hoặc chọn best repeat.
-- [ ] Checkpoint/resume cùng identity; xử lý pending/error/unknown có ledger;
-  không đổi lỗi thành CASH hoặc dừng khi kết quả vừa dương.
-- [ ] Kết sổ đủ ma trận và hash raw/forecast trước mở payoff để phân tích.
+Pilot có namespace mới outputs/historical_reevaluation/free_pilot_r1/,
+UUID/protocol/runtime riêng, hiện PLAN_ONLY. Runner cũ34.806 call và grant
+H06 không phát hành pilot. Các phần mở rộng9 mã, ablation/retrieval control,
+Original_duplicate và repeats bổ sung nằm ngoài phạm vi buổi trình bày.
+Thiết kế đầy đủ H03 được giữ làm tham chiếu.
 
-Supervisor do agent khởi chạy, người dùng không cần chạy lại foreach cũ.
-Job giữ lock riêng, tiếp tục checkpoint cùng identity; chờ đúng reset quota,
-không gửi API khi quota chưa đủ. Native job cần máy bật và có mạng.
-Log/status tại `outputs/historical_reevaluation/managed_r1/`; raw/journal/ảnh
-vẫn tại `run_r1/`. Nếu job STOPPED, đối soát log trước khi tiếp tục.
-H07 chỉ DONE khi receipt `historical_evaluation_collection.json` PASS cùng
-bốn phase và checksum đầy đủ; H08/H09 thực hiện sau đó.
+### Mẫu và đối chứng
 
-## H08 — Phân tích kết quả
+Sáu primary là Original_common, bayesian_v1, C2, A_tp_pool, B_semantic,
+MT_BICL. Fact_Anchor là dependency bắt buộc của MT-BICL. Mỗi điểm có một
+upstream realization và một Decision repeat. CORE4 gồm FPT/MWG/VCB/VNM,
+mỗi mã12 ngày chung, tổng48 điểm; mỗi năm có6 ngày.
 
-- [ ] Dựng lại accounts từ saved actions; báo return/D, MDD daily/cycle-end,
-  exposure/turnover/phí, accuracy/BA/MCC/F1/recall và undefined=null.
-- [ ] Báo đủ sáu primary, ablation, Fact_Anchor, numeric baselines và student−teacher;
-  phân rã raw→facts→veto, support/missingness/OOD, strata, latency và chi phí.
-- [ ] Tính CI đồng thời, leave-one-block/symbol-out và từng repeat; giữ kết quả âm,
-  LOW_PRECISION và scope exploratory. Chỉ dùng probability đúng event contract.
-- [ ] Cold consumer độc lập dựng lại account/metric/report từ raw/forecast/labels
-  khớp hash; giữ riêng claim vendor simulation và economic acceptance.
+| Block | Cutoff đã chọn theo lịch |
+| --- | --- |
+| b2023_h2 | 03/07/2023,14/07/2023,01/08/2023,17/08/2023,06/09/2023,22/09/2023 |
+| b2024_h2 | 01/07/2024,12/07/2024,30/07/2024,15/08/2024,04/09/2024,20/09/2024 |
 
-## H09 — Kết sổ
+Lấy giao ngày đủ bốn mã trong từng block của input H03, sắp20 ngày tăng
+dần, chọn index0,3,7,11,15,19 theo floor(j*19/5), j=0..5. Không dùng
+payoff/action để chọn ngày. Manifest pilot phải pin đủ48 ID, entry/exit và
+source hash trước inference; kiểm holding spans không chồng lấn.
+Dữ liệu2023–2024 đã exposed, scope của pilot là historical exploratory.
 
-- [ ] Cập nhật checklist tại đây và [README W11](README.md#checklist-đánh-giá-lại).
-- [ ] Đóng gói evidence/manifest và hướng dẫn tái lập; giữ receipt/model cũ nguyên byte.
-- [ ] Chỉ đánh dấu hoàn thành khi đủ output và kiểm tra của task; thiếu thì giữ
-  TODO/BLOCKED với lý do. Kiểm theo phạm vi thay đổi tại AGENTS1.2;
-  ghi kết quả và giới hạn vào README tuần, không tự động chạy lại toàn suite.
+Full ở fix và Original_common khác prompt/cap/options. Primary dùng
+Original_common cùng scaffold của năm cải tiến; số Full102 điểm trên fix
+được dẫn riêng với cohort/options gốc. Bridge Full_fix_native960 mặc định
+OFF. Nếu bật, phải khóa trước mọi Decision pilot, chạy đủ48 điểm với
+prompt/schema fix và cùng model/960, thêm48 call và family riêng. Bridge
+đo cách triển khai Full; không thay Original_common trong năm contrast
+primary và không được ghi là tái lập run fix2048/1024.
+
+### Dữ liệu, bank và reuse
+
+- Query giá dùng donor fix đã archive và suffix sạch, cùng prefix tới cutoff
+  cho mọi nhánh,45 nến biểu đồ và600 nến Alpha. News cùng snapshot/scorer,
+  cửa sổ90 ngày, date-only khả dụng ngày sau và missingness. Entry/exit dùng
+  chung; raw supplement chỉ phục vụ audit/barrier, không splice giá.
+- Bayesian v1/C2/A/B dùng bank852 episode hiện có tại
+  data_manager/regime_memory_store.json, exit04/06/2020–30/12/2022. Khóa
+  toàn population cùng schema/manifest/audit/source. Kiểm nhãn qua engine,
+  historical signals và PIT trước rank; không dựng bank bằng signal giả.
+- Bank Bayesian đóng băng, không append query2023–2024. Giữ K=3, gate,
+  shrinkage, tuổi/gap/similarity, renderer và fallback từng phương pháp.
+  Báo eligible/stats/examples/fallback mọi query, kể cả prior-off.
+- Bank cũ và donor query có provenance riêng. Audit báo chênh nguồn giá,
+  normalization và thời điểm tạo signal; không relabel bank theo snapshot
+  khác hoặc ghép chuỗi. Estimand là chuyển giao với bank đóng băng, khác
+  memory cập nhật đầy đủ của H07 cũ.
+- MT dùng replica seed42/step3000, teacher/scaler/HMM frozen đã nghiệm thu.
+  Numeric context theo primitive hiện hành trên donor suffix, chỉ cycle
+  exit<query, giữ D/C/query và holding spans rời nhau. Context giá không
+  cần API lịch sử. Selected query chỉ thành observation sau mọi forecast
+  bắt buộc đã durable. Báo rõ MT có numeric context cập nhật còn Bayesian
+  có bank signal đóng băng; không quy mọi chênh lệch cho riêng kiến trúc student.
+- Audit archive upstream theo input/report/ảnh/factor rows, model/options,
+  source/runtime/hash. Thư mục trống hoặc summary không được tính là cache.
+  Archive fix được đọc ở commit9efd23f4 đã pin; các nhánh giữ nguyên ref.
+  Chỉ nhận raw HTTP thật có provenance; loại fixture/offline_dry_run,
+  control smoke H06 và mọi dữ liệu từ lượt H07 đã hủy.
+- Archive upstream là dữ liệu cố định cho so sánh có điều kiện trên reports.
+  Lưu options gốc, gồm output1024 nếu có; không ghi thành execution960 mới.
+  Thiếu provenance/nội dung hoặc khác query data thì không reuse. Nếu tạo
+  mới, vision960 một lần/điểm rồi deep-copy tới mọi nhánh.
+- Seal48 shared states và strata reused/new trước Decision; báo rõ strata.
+  Chạy mới toàn bộ Decision primary trong cùng collection. Action cũ của
+  năm phương pháp không được ghép với MT mới thành bảng primary.
+
+### Prompt, model và kinh tế chung
+
+Decision openai/gpt-oss-20b, vision mới qwen/qwen3.8-27b, temperature0,
+max_tokens960, reasoning/client options theo H03. Mọi primary dùng cùng
+COMMON_INSTRUCTION, distill/cap, năm dòng Alpha và trường kết quả chung;
+prefix/projection/schema anchored đổi đúng theo phương pháp. Original
+prior OFF, C2/A/B giữ fallback, MT giữ facts guard và utility4.096 draw.
+Fact_Anchor bắt buộc. Prompt<6.500, BRPP≤600 ký tự.
+
+LONG Open(t+1)→Close(t+3), SHORT=CASH, phí0,25%/slippage0,10% mỗi chiều,
+fractional shares, risk OFF, vốn50 triệu reset mỗi mã/năm/phương pháp.
+TP/SL mô tả không thay exit. Nhãn qua compute_round_trip_net_return;
+payoff query chỉ mở sau forecast durable. API lỗi không đổi thành CASH.
+
+### Quota và thời gian
+
+| Hạng mục | Execution nominal |
+| --- | ---: |
+| Sáu primary | 288 |
+| Fact_Anchor | 48 |
+| Decision tổng | 336 |
+| Vision mới tùy cache hợp lệ | 0–96 |
+| Research tổng | 336–432 |
+| Smoke cách ly một điểm,7 Decision+2 vision | 9 |
+| Bridge Full_fix_native960 nếu khóa ON từ đầu | +48 |
+
+Nominal là trần khi mọi nhánh cần LLM; fallback/bypass hợp lệ ghi riêng.
+Retry/format repair dùng chung tối đa3 HTTP/slot; trần toàn lượt gồm smoke
+là1.323 attempt, hoặc1.467 khi bridge ON. Quota/deadline là rào chắn chặt
+hơn các trần này. Smoke tại FPT-2023-06-23 cách ly khỏi48 điểm, giữ raw và
+kiểm schema/PIT/payload; không tính vào N.
+
+Phân48 ID sắp theo ngày/mã qua năm org round-robin; mỗi query giữ org cho
+mọi nhánh. Cân bằng thứ tự bằng xoay danh sách và giữ dependency
+Original→Fact_Anchor→MT; lưu thứ tự actual. Năm key đúng env hiện có.
+Mỗi request qua wrapper/quota ledger; unknown giữ reserve,429 chờ reset.
+H06 và103 request lượt hủy phải dedup/import vào accounting trước API mới;
+quota không được chia lại từ zero theo project hoặc UUID.
+
+Preflight dựng đủ payload để tính ngân sách theo org/model, gồm input ảnh,
+output reserve960, quota đã dùng, smoke và retry reserve. ETA dùng telemetry
+thật kèm biên thận trọng. Nếu ngân sách không vừa48 giờ thì BLOCKED_BUDGET
+trước research, báo phần thiếu; không giảm mẫu/repeat, đổi model/key/cap
+hoặc nâng gói sau outcome. Mục tiêu thu trong24 giờ đầu, dành24 giờ sau
+cho cold analysis/bảng biểu; chưa bảo đảm deadline khi audit reuse/token
+chưa hoàn tất. Chỉ Free, chi tiêu0 USD.
+
+### Công việc cần thực hiện
+
+- [ ] P01 — Audit bank852, feature index/scaler/regime, nguồn query/cache
+  upstream, quota carry-over, coverage/support48 điểm và feasibility48 giờ.
+- [ ] P02 — Protocol/input/schema/runtime pilot riêng,48 ID, bridge OFF/ON,
+  memory policy, call order, model/options và manifest khóa trước inference.
+  Adapter giữ thuật toán từng phiên bản; runner tách full-matrix cũ.
+- [ ] P03 — Kiểm scoped PIT/query-y poison, full population, disjoint context,
+  paired/deep-copy, prompt/factor rows, metric và checkpoint/quota carry-over.
+  Chỉ compile Python thay đổi; smoke9 lượt và cold verify trước release.
+- [ ] P04 — Seal48 shared states, grant pilot sau P01–P03 PASS, thu đủ
+  336 forecast slot và48 bridge nếu đã khóa ON, với bypass hợp lệ,
+  source/parent/HTTP/latency. Resume cùng UUID; không chọn lại point hoặc
+  dừng theo return.
+- [ ] P05 — Cold verify48 point ×sáu primary và Fact_Anchor, mọi slot complete
+  hoặc bypass đúng policy, không pending/unknown, nhãn/source khớp. Seal
+  manifest trước H08. Thiếu thì PARTIAL và giữ48 là N planned.
+
+## H08 — Phân tích pilot
+
+- [ ] Dựng tám account mã/năm mỗi phương pháp. Primary D là mean đều bốn
+  mã và hai năm của chênh return so Original_common, đơn vị đpt. Báo return
+  tuyệt đối, daily/cycle-end MDD, exposure/turnover/phí/số LONG và cash giữa
+  query theo đúng lịch; không gộp thành portfolio return.
+- [ ] Pooled accuracy/BA/MCC/F1/confusion matrix trên cùng48 điểm, per-symbol/
+  year có n_planned/n_complete/n_defined; undefined=null. Prior-off vẫn trong
+  estimand toàn bộ, subgroup chỉ diagnostic. Sharpe/Sortino chu kỳ chỉ báo
+  khi xác định, annualized=null; bỏ sqrt(252) mặc định cho mẫu thưa.
+- [ ] Khóa trước inference bootstrap circular theo selected-date trong từng
+  năm, L=2, mỗi năm giữ6 ngày; cùng index cho bốn mã/mọi nhánh/metric,
+  10.000 draw PCG64 seed20261109. Dựng account từng draw, báo point estimate
+  và band centered max-deviation95% cho family năm contrast với Original.
+  BA là family riêng; cần ít nhất9.500/10.000 joint finite draw để xuất band.
+  Giữ số draw mất class, dưới ngưỡng thì band toàn family=null, không sinh bù
+  hoặc đổi cách tính sau outcome.
+- [ ] Báo12 ngày thực, hai block năm, độ rộng interval, leave-one-date/symbol-out.
+  Bootstrap mô tả độ nhạy trên mẫu nhỏ, chưa chứng nhận simultaneous coverage
+  hoặc superiority. Một repeat không đo variance giữa các lần LLM. Dữ liệu
+  exposed và archive upstream làm kết luận có điều kiện trên reports.
+- [ ] Báo coverage/support/bypass, strata nguồn, bank frozen/numeric context,
+  raw→facts→veto, inference mới/reuse, token/call/latency thật. Kết quả MT
+  cũ−5,313090 đpt và gate replica không phải kết quả pilot mới.
+- [ ] So fix bằng bridge nếu khóa ON, hoặc dẫn bảng102 điểm riêng với cohort/
+  prompt/options gốc; không trừ hai return khác protocol. Cold consumer
+  đối soát raw/label/metric/hash, giữ VENDOR_SERIES_LIMITED, news content PIT
+  chưa chứng nhận và PENDING_EXECUTION_DATA.
+
+## H09 — Kết sổ pilot
+
+- [ ] Một bảng sáu primary, per-symbol/year, coverage và uncertainty; bridge
+  chỉ xuất khi thu đủ48 điểm theo tùy chọn đã khóa trước.
+- [ ] Đóng gói protocol/input/model/manifest/raw/forecast/labels/usage và lệnh
+  tái lập offline; README ghi kết quả/trạng thái/giới hạn thật.
+- [ ] PILOT_COMPLETE cần P01–P05/H08 và cold verification PASS. H07 đầy đủ
+  1.020 điểm vẫn CANCELLED, không đánh dấu full matrix DONE từ pilot48.
+  Hết hạn thì bàn giao PARTIAL/BLOCKED và planned/complete thực tế.
