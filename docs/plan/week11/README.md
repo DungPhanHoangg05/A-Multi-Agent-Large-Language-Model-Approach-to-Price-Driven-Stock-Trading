@@ -35,7 +35,7 @@ pilot đã phát hành;48 điểm nghiên cứu còn chờ người dùng chạy
 | H07 pilot P01 | Audit bank/cache/quota và feasibility48 giờ | [x] PASS |
 | H07 pilot P02 | Khóa48 ID/protocol/runtime/bridge option | [x] PASS |
 | H07 pilot P03 | Scoped checks, smoke9 execution và cold verify | [x] PASS |
-| H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [ ] TODO |
+| H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [ ] PARTIAL:6/48 shared;0 forecast nghiên cứu |
 | H07 pilot P05 | Cold verify và seal pilot | [ ] TODO |
 | H08 | Phân tích paired/uncertainty/coverage | [ ] TODO |
 | H09 | Bảng so sánh/evidence và bàn giao | [ ] TODO |
@@ -619,3 +619,11 @@ UUID3881b4ba-4609-460a-8137-5fbad4f617db. Log release_verify.log SHA256
 9a93d04f75573cbe46aa68b86605d029f533e3ce00d53d454d962e8c8442fcf4.
 Ngân sách còn lại PASS khoảng42,7 giờ; deadline01:56:52 ngày11/11/2026 UTC+7
 giữ nguyên. Người dùng chạy shared→collect→verify theo plan; P04/P05/H08 chưa DONE.
+
+P04 tạm dừng ở Trend VCB-2023-07-14/org2: raw HTTP503 nêu model over
+capacity, checksum khớp ledger. Có6 shared nghiên cứu complete;0 forecast
+nghiên cứu, một latest unknown. Slot lỗi mới có1 HTTP503/3 attempt cho phép,
+chưa có HTTP200. Người dùng reconcile attempt5ad0db1e-d58f-4642-ab2f-d7ae6d577ead
+với lý do provider overload đã kiểm raw, chờ backoff rồi chạy tiếp cùng UUID.
+Không xóa checkpoint hoặc reserve503. Chỉ cập nhật vận hành, đối soát source/
+runtime/raw hash; không đổi code và không chạy lại compile/unit/E2E hoặc API.

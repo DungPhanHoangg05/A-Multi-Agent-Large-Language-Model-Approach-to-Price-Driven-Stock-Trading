@@ -397,6 +397,13 @@ PASS thời gian còn lại47,3 giờ; deadline cố định01:56:52 ngày11/11/
 (UTC+7), không reset khi resume. Người dùng chạy mọi lệnh API; agent chỉ
 chuẩn bị code, kiểm ngoại tuyến và đối soát output.
 
+P04 đang PARTIAL:6/48 shared nghiên cứu complete,0 Decision nghiên cứu.
+Trend VCB-2023-07-14 tại org2 dừng HTTP503 do model over capacity;
+raw response đã kiểm checksum, slot mới dùng1/3 HTTP, không có HTTP200 của
+slot lỗi. Attempt cần người dùng reconcile:
+5ad0db1e-d58f-4642-ab2f-d7ae6d577ead. Chờ backoff rồi resume cùng UUID;
+giữ response503/quota reserve và mọi checkpoint complete, không đổi model/key.
+
 Chạy tại thư mục gốc repository, giữ năm env key hiện có:
 
 ```powershell
