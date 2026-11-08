@@ -25,9 +25,11 @@ bank train731 cycle/48 task và CLI replica. Theo chỉ đạo mới08/11,
 train `MT_BICL_replica_full_r1` theo [checklist H02](week11/historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model):
 đủ ba seed17/42/73 ×5.000 step, đánh giá60 checkpoint, chọn bằng dữ liệu2021,
 test sau selection seal; giữ oracle/cold replay và hash riêng. Train-only
-không cần chờ VNINDEX2026. Chờ người dùng chạy [lệnh H02](week11/README.md#lệnh-chạy-h02)
-để fit teacher/pilot/train; chưa thực hiện các bước này hoặc release model mới.
-H03–H09 tiếp tục theo checklist; execution data vẫn có giới hạn vendor series.
+không cần chờ VNINDEX2026. Người dùng đã hoàn tất fit/pilot/train, chọn
+seed42/step3000; test `MODEL_GATE_PASS`, cold replay60 checkpoint
+`CPU_REPLAY_MATCH`. H02 hoàn tất, gói [model replica](week11/mt_bicl_replica_full_r1_model.json)
+đã được neo Git. Tiếp theo H03 khóa protocol và ngân sách; H03–H09 chưa hoàn tất.
+Chưa release lưới mới; execution data vẫn có giới hạn vendor series.
 
 ## Những phần đã triển khai
 

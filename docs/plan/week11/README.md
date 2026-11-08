@@ -15,17 +15,18 @@ Donor fix được đọc theo commit
 `9efd23f4157e0d3ab8069fccab7dccf03439a714`.
 Archive21 blob nguồn,9 CSV khớp hash và label bridge1.020 cycle.
 Data/vendor quality và economic acceptance được báo riêng.
-H02 đã bổ sung VNINDEX2026, audit raw/quyền9 mã và bank train; chưa hoàn tất
-toàn task. Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
-CLI/protocol đã triển khai; chờ người dùng fit teacher/pilot/train theo lệnh bên dưới.
-H03–H09 tiếp tục theo checklist.
+H02 hoàn tất audit VNINDEX2026, raw/quyền9 mã và bank train, cùng nghiệm thu model.
+Model gốc không tìm thấy; áp dụng [checklist replica đầy đủ](historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model).
+Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed42/step3000.
+Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
+Tiếp theo H03 khóa protocol và ngân sách; H03–H09 tiếp tục theo checklist.
 
 ## Checklist đánh giá lại
 
 | Bước | Công việc | Trạng thái |
 | --- | --- | --- |
 | H01 | Audit donor, dữ liệu/PIT/exposure và kế hoạch bốn nhóm | [x] DONE |
-| H02 | Dữ liệu, train replica ba seed và asset readiness | [ ] ĐANG LÀM — dữ liệu/bank/CLI đã kiểm; chờ người dùng fit/pilot/train và nghiệm thu model |
+| H02 | Dữ liệu, train replica ba seed và asset readiness | [x] DONE — MODEL_GATE_PASS / CPU_REPLAY_MATCH; execution acceptance vẫn PENDING_EXECUTION_DATA |
 | H03 | Protocol máy, registry, inference, families và budget chính xác | [ ] TODO |
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [ ] TODO |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [ ] TODO |
@@ -100,9 +101,9 @@ kết quả triển khai H02 mới được ghi riêng ngay bên dưới.
 - [x] Port simulator/student69+37/metrics theo recipe Git pin, CLI từng stage,
   checkpoint đầy đủ optimizer/RNG, OS lock, selection đủ60 và test sau seal.
 - [x] Khóa protocol/source/runtime/data trước fit; model manifest/release cũ nguyên byte.
-- [ ] Người dùng chạy `prepare` để fit teacher/HMM, tạo corpus/context và seal.
-- [ ] Người dùng chạy `pilot` rồi `train`; đủ3 seed/60 checkpoint, không early stop.
-- [ ] Sau train, chạy `evaluate` và `verify`, kiểm model/test/cold CPU replay mới.
+- [x] Người dùng chạy `prepare` để fit teacher/HMM, tạo corpus/context và seal.
+- [x] Người dùng chạy `pilot` rồi `train`; đủ3 seed/60 checkpoint, không early stop.
+- [x] Sau train, chạy `evaluate` và `verify`, kiểm model/test/cold CPU replay mới.
 
 Evidence mới ở `outputs/historical_reevaluation/h02_data_r1/`, gồm raw HTTP,
 manifest acquisition và `execution_audit.json`. Manifest acquisition ghi
@@ -187,3 +188,49 @@ if ($LASTEXITCODE -ne 0) { throw "Cold replay chưa PASS; không release model."
 
 Output riêng: `outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/`.
 `MODEL_GATE_PASS` không cấp quyền chạy lưới H07; H03–H06 vẫn cần hoàn tất.
+
+## H02 — kết quả train và nghiệm thu replica08/11/2026
+
+Người dùng đã chạy `prepare`/`pilot`/`train` đầy đủ. Đã đối soát12 input,
+60 checkpoint và60 assessment theo byte hash. Teacher hội tụ237 vòng,
+max delta9,827×10⁻¹¹; oracle toàn bộ corpus max error7,106×10⁻¹⁴.
+Pilot69/37 đều optimizer replay PASS; PAIRED tiny KL4,652×10⁻¹⁰.
+Context có248 query2021/256 query2022; scaler fit731 cycle với max exit
+29/12/2020, mọi model regime có fit cutoff≤31/12/2020.
+
+Selection đã seal sau đủ60 checkpoint:global **seed42/step3000**; best
+seed17 và73 đều step2500. `evaluate` CPU trả `MODEL_GATE_PASS`, giữ đủ
+kết quả từng seed và ablation. Gate test cố định5.000 episode, swap5.000 cặp:
+
+| Seed | Step chọn | Mean KL | P95 absolute error | Swap sign agreement | Eligible pairs | Gate |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| 17 | 2500 | 0,002497287 | 0,067003671 | 98,243115% | 2106 | PASS |
+| 42 | 3000 | 0,002774316 | 0,066780334 | 98,385565% | 2106 | PASS |
+| 73 | 2500 | 0,003114808 | 0,069906050 | 98,338082% | 2106 | PASS |
+
+Diagnostic2022 của candidate:macro log loss0,6813400072/Brier0,2441134978;
+teacher tương ứng0,6775858521/0,2422396245. Student kém teacher lần lượt
++0,0037541551/+0,0018738733; không che kết quả bất lợi hoặc đổi checkpoint.
+Gate cơ chế không chứng minh lợi nhuận; kết quả lịch sử giữ scope exploratory.
+
+Cold replay CPU đã PASS: toàn bộ 60 checkpoint khớp raw logits/metrics;
+các test stage của ba seed khớp receipt, không chạy optimizer. Adapter CPU
+nạp đúng weights, fingerprint `c60ae9695dde6f308ff30b0f4de7e40539ea5e8353cc7b1e0acb3d57a11f471c`,
+model ở chế độ frozen.
+
+[Manifest model replica](mt_bicl_replica_full_r1_model.json) khóa candidate,
+teacher, scaler train-only, regime và hash các receipt. Weights/teacher,
+regime và receipt nghiệm thu được lưu Git, giữ nguyên byte khi checkout.
+Toàn bộ checkpoint optimizer/RNG và corpus vẫn giữ nguyên tại namespace local;
+đóng gói bằng chứng đầy đủ thuộc H09. Manifest gốc và protocol train không đổi.
+
+H02 hoàn tất ở phạm vi audit dữ liệu và model; data quality vẫn
+`VENDOR_SERIES_LIMITED`, economic acceptance vẫn `PENDING_EXECUTION_DATA`.
+Chưa release inference trên lưới mới. H03 tiếp theo khóa sáu primary, model binding,
+IDs/folds, hợp đồng kinh tế, options API, repeat/family thống kê và ngân sách.
+
+Kiểm lần này: frozen `evaluate`/`verify`, loader/fingerprint và đối soát hash
+43 file nguồn/27 file dữ liệu PASS; diff và liên kết đã kiểm. Không sửa
+code/test/runtime, không train/refit; không chạy lại compile/unit/E2E/leakage suite
+theo AGENTS1.2. Kết quả test fixture trước đây vẫn là bằng chứng lịch sử, không ghi
+là đã chạy lại.

@@ -44,8 +44,11 @@ Protocol hiện SPEC_ONLY. H03–H06 phải hoàn tất adapter/release cho lư�
 đánh giá mới trước API. Model gốc không tìm thấy; chỉ đạo mới08/11 dùng
 [quy trình replica đầy đủ](../week11/historical_reevaluation_plan.md#h02--chuẩn-bị-dữ-liệu-và-model):
 ba seed17/42/73,5.000 step/seed, đủ60 checkpoint rồi mới chọn model.
-Đây là kế hoạch chưa chạy; VNINDEX2026 còn thiếu cho đánh giá toàn lưới,
-không chặn teacher/student train-only.
+Người dùng đã chạy đủ ba seed; selection chọn seed42/step3000 và test
+`MODEL_GATE_PASS`; cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`, H02 hoàn tất
+với [manifest replica](../week11/mt_bicl_replica_full_r1_model.json). Manifest
+gốc vẫn giữ như bằng chứng lịch sử. VNINDEX2026 đã có snapshot bổ sung;
+H03–H06 vẫn cần bind gói model mới và release lượt đánh giá chung.
 
 ## Kết quả đã lưu
 

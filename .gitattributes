@@ -36,3 +36,12 @@ core/mt_bicl*.py text eol=lf
 scripts/*mt_bicl*.py text eol=lf
 tests/*mt_bicl*.py text eol=lf
 docs/plan/week11/mt_bicl*.json -text
+
+# Giữ gói model replica và receipt nghiệm thu nguyên byte sau checkout.
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/model/* -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/prepared.json -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/training/state.json -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/training/selection.json -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/evaluation/*.json -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/regime_models.json -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/pilot/report.json -text
