@@ -51,6 +51,8 @@ chưa chạy GPU hoặc đánh giá model mới.
   tests fixture PASS, các giai đoạn production chưa chạy. Dùng namespace
   `outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/`, manifest và hash mới;
   giữ nguyên model manifest, receipt và kết quả cũ.
+  Có `repair-lock`/`check-lock` cho owner released khác signature trước fit;
+  không cho phục hồi kiểu này khi đã có output teacher/pilot/train.
 - [ ] Dựng bank CORE4 từ raw2018–2022; tách train≤2020, chọn checkpoint2021,
   kiểm cuối2022. Teacher/feature pool/scaler chỉ dùng train; HMM giữ recipe
   prefix và model cuối2020. Bank đã PASS1235/1640 cycle, train731 cycle/48 task;

@@ -133,6 +133,33 @@ Chạy trong thư mục repo bằng PowerShell. `prepare` bắt đầu fit CPU; 
 bắt đầu GPU. Theo chỉ đạo, các bước này để người dùng chạy. Mỗi stage có
 guard riêng; lỗi hoặc gate FAIL thì dừng, không tự chuyển sang stage kế.
 
+Lỗi owner khác signature ở đầu `prepare` đã xác định là metadata của lần
+`check-inputs` trước khi sửa source OOM. Owner cũ đã released, chưa có fit/
+train. Bổ sung recovery riêng cho replica: lấy OS lock, kiểm cùng host,
+owner đã kết thúc, signature cũ có Git provenance và recipe/data/runtime
+không đổi; chỉ cho phép namespace có input bank và metadata preflight.
+Lưu nguyên byte owner tại `lock_history/` cùng receipt migration trước khi
+chuyển owner cũ ra khỏi đường dẫn active. Không xóa `run.lock`, không nới
+`PriorRunLock` dùng chung hoặc thay UUID/state/checkpoint nghiên cứu.
+
+Khi cần kiểm lại lỗi này trước fit, các lệnh dưới đây không chạy training:
+
+```powershell
+py -3.13 -X utf8 scripts/run_mt_bicl_replica.py repair-lock
+if ($LASTEXITCODE -ne 0) { throw "Chưa phục hồi được khóa; không xóa state hoặc chạy train." }
+py -3.13 -X utf8 scripts/run_mt_bicl_replica.py check-lock
+if ($LASTEXITCODE -ne 0) { throw "Khóa chưa PASS; giữ metadata để kiểm tra." }
+```
+
+Kiểm riêng bản sửa:14 test PASS (7 recovery mới,6 hồi quy OS lock và1 source
+pin),3 Python mới/đổi biên dịch PASS. Bao phủ khóa sống/host khác/liveness
+unknown, artifact fit/train, signature không rõ, archive nguyên byte và
+resume sau crash trước rename. Chỉ source pins CLI/lock đổi; recipe/model/
+data/runtime giữ nguyên, không full suite/E2E hoặc fit/GPU/LLM.
+Đã chạy recovery local: `PREFIT_OWNER_ARCHIVED`, sau đó `check-lock` trả
+`LOCK_VERIFIED_NO_FIT`; owner mới released và bind đúng protocol hiện tại.
+Không chạy `prepare` hoặc tự bắt đầu training trong lượt sửa này.
+
 ```powershell
 $env:CUBLAS_WORKSPACE_CONFIG = ":4096:8"
 foreach ($replicaStage in @("prepare", "pilot", "train")) {
