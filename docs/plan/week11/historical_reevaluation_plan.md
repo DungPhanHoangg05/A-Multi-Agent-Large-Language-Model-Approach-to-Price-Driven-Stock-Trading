@@ -9,7 +9,8 @@ step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
 Ngày09/11/2026, người dùng hủy lượt H07 đầy đủ để chuẩn bị trình bày trong
-hai ngày. Phương án hiện hành FREE_PAIRED_PILOT_48 có trạng thái PLAN_ONLY.
+hai ngày. Phương án hiện hành FREE_PAIRED_PILOT_48 có trạng thái
+OFFLINE_READY_SMOKE; chưa thu API pilot hoặc hoàn tất H07.
 H01–H06 bên dưới ghi bằng chứng thiết kế cũ; pilot cần khóa protocol/input/
 runtime và nghiệm thu phần thay đổi riêng trước API.
 
@@ -238,7 +239,7 @@ không giữ report, ảnh, prompt hay kết quả nghiên cứu. Lượt mới 
 quota còn hiệu lực của ledger này và H06; đổi namespace không reset quota.
 
 Pilot có namespace mới outputs/historical_reevaluation/free_pilot_r1/,
-UUID/protocol/runtime riêng, hiện PLAN_ONLY. Runner cũ34.806 call và grant
+UUID/protocol/runtime riêng, hiện OFFLINE_READY_SMOKE. Runner cũ34.806 call và grant
 H06 không phát hành pilot. Các phần mở rộng9 mã, ablation/retrieval control,
 Original_duplicate và repeats bổ sung nằm ngoài phạm vi buổi trình bày.
 Thiết kế đầy đủ H03 được giữ làm tham chiếu.
@@ -354,9 +355,9 @@ chưa hoàn tất. Chỉ Free, chi tiêu0 USD.
 
 ### Công việc cần thực hiện
 
-- [ ] P01 — Audit bank852, feature index/scaler/regime, nguồn query/cache
+- [x] P01 — Audit bank852, feature index/scaler/regime, nguồn query/cache
   upstream, quota carry-over, coverage/support48 điểm và feasibility48 giờ.
-- [ ] P02 — Protocol/input/schema/runtime pilot riêng,48 ID, bridge OFF/ON,
+- [x] P02 — Protocol/input/schema/runtime pilot riêng,48 ID, bridge OFF/ON,
   memory policy, call order, model/options và manifest khóa trước inference.
   Adapter giữ thuật toán từng phiên bản; runner tách full-matrix cũ.
 - [ ] P03 — Kiểm scoped PIT/query-y poison, full population, disjoint context,
@@ -369,6 +370,42 @@ chưa hoàn tất. Chỉ Free, chi tiêu0 USD.
 - [ ] P05 — Cold verify48 point ×sáu primary và Fact_Anchor, mọi slot complete
   hoặc bypass đúng policy, không pending/unknown, nhãn/source khớp. Seal
   manifest trước H08. Thiếu thì PARTIAL và giữ48 là N planned.
+
+Tiến độ09/11: [audit](free_pilot_audit.json), [protocol](free_pilot_protocol.json),
+[48 input](free_pilot_inputs.json), [runtime](free_pilot_runtime.json) và
+[grant](free_pilot_release.json) đã khóa riêng. Bridge OFF, smoke cố định org5;
+48 query vẫn round-robin org1–5. Import đủ160 request H06/lượt hủy,
+396.206 token đã tính/reserve. Không cache upstream nào đạt raw HTTP provenance:
+48 shared mới/96 vision. Ngân sách gồm530 HTTP nominal+retry reserve20%,
+ước lượng khoảng44 giờ, PASS giới hạn48 giờ nhưng chưa đạt mục tiêu24 giờ;
+không bảo đảm ETA thực tế. Admission kiểm lại payload48 shared trước Decision.
+
+Bank852 xác minh nhãn native qua engine;828 nhãn khác donor hơn1e-8,
+chênh tối đa0,0429885 điểm phần trăm; giữ nguyên cả hai nguồn. Historical
+signals dựa vào QA/schema chuẩn hóa đã công bố, thiếu raw signal journal
+để chứng nhận lại độc lập. Scaler fit bank≤2022, không fit query.
+Preflight không mở payoff48 query: MT đủ support26/48 với selected query
+còn bị khóa; support thực tế/bypass được lưu khi chạy đúng lịch prequential.
+
+P03 offline PASS18 test pilot và38 test hồi quy liên quan; compile đúng bốn
+file Python mới. Smoke9 và cold verify còn chờ người dùng chạy, do đó P03–P05
+chưa đánh dấu hoàn thành. Từ đây người dùng chạy mọi lệnh API; agent chỉ
+chuẩn bị code, kiểm ngoại tuyến và đối soát output.
+
+Chạy tại thư mục gốc repository, giữ năm env key hiện có:
+
+```powershell
+$pilotScript = Join-Path (Get-Location) 'scripts/run_free_paired_pilot.py'
+foreach ($stage in @('smoke', 'verify-smoke')) {
+    py -3.13 -X utf8 $pilotScript $stage
+    if ($LASTEXITCODE -ne 0) { throw "Dừng tại $stage; giữ checkpoint và log." }
+}
+```
+
+Kết quả cần SMOKE_COLD_PASS. Agent đối soát rồi neo grant PILOT_RELEASED
+trước khi gửi lệnh shared/collect/verify. Grant SMOKE_READY hiện tại chỉ mở
+smoke; không phát hành API nghiên cứu. Log console và quota nằm trong namespace
+free_pilot_r1, resume cùng UUID, không dùng collector full cũ.
 
 ## H08 — Phân tích pilot
 

@@ -552,8 +552,8 @@ P01 phải cộng lịch sử quota này và H06 vào accounting thực, kể c�
 
 Grant full collection đã thu hồi bằng status=REVOKED, api=false; H06 smoke
 vẫn là bằng chứng lịch sử. Protocol full/input/schema/runtime/H02 model,
-donor và HMM prefix giữ byte cũ. P01–P05 của pilot là công việc tiếp theo,
-chưa có collector, JSON protocol, smoke hoặc grant pilot mới.
+donor và HMM prefix giữ byte cũ. Pilot đã có collector, protocol/input/runtime
+và grant SMOKE_READY riêng; smoke/live collection còn chờ người dùng chạy.
 
 Plan chốt48 điểm theo lịch, Bayesian bank frozen, shared reports chung và
 Decision mới. Có điều kiện audit bank/cache/token trước cam kết48 giờ;
@@ -570,3 +570,31 @@ projection quota103 request/264.449 token và absence hai thư mục đã xóa.
 Chín file bank/model/protocol/input/runtime/receipt đối soát với1213c076
 giữ nguyên byte. Consumer require_release trên grant đã commit từ chối đúng
 lỗi REVOKED, socket mock xác nhận0 kết nối. Diff check PASS, main/fix giữ ref.
+
+### Pilot48 — sẵn sàng smoke do người dùng chạy
+
+- [x] P01: bank852/native labels/scaler≤2022;12 ngày/48 ID cố định; audit nguồn
+  query/cache và carry160 request/396.206 token. Reuse0, vision mới96.
+- [x] P02: collector riêng, protocol/input/runtime/grant SMOKE_READY;
+  bridge OFF, smoke org5,48 query round-robin. Grant full vẫn REVOKED.
+- [ ] P03: offline PASS18 test pilot và38 test hồi quy; live smoke9/cold còn chờ.
+- [ ] P04/P05: seal48 shared, release riêng,336 forecast và cold receipt.
+
+Lệnh chạy và giới hạn nguồn được cập nhật trong
+[plan H07](historical_reevaluation_plan.md#h07--pilot-ghép-cặp48-điểm-bằng-api-free).
+Từ đây người dùng chạy API; agent không tự thu thập. Preflight khoảng44 giờ
+gồm retry reserve20%, chưa bảo đảm48 giờ hoặc mục tiêu thu24 giờ.
+
+QA theo AGENTS1.2: compile bốn Python mới;18 test pilot kiểm PIT/query-y,
+bank transfer/full population, paired/cold policy, prompt, carry/deadline/
+grant/checkpoint.38 hồi quy thuộc price_feature_index_leakage,
+prior_price_similarity_leakage, historical_adapter_transport,
+historical_reset_recovery, historical_adapter_journal và backtest_token_budget:
+bao phủ primitive giá/PIT, SDK wire, retry/checkpoint và prompt được tái dùng.
+Không chạy full suite, E2E hay train lại; chưa ghi smoke hoặc H07 DONE.
+Logs local trong free_pilot_r1: offline_tests.log PASS50 (12 pilot ban đầu+
+38 hồi quy); pilot_tests.log PASS15; grant_tests.log PASS11, tám test trùng,
+tổng18 pilot riêng biệt. Source runtime được khóa trong free_pilot_runtime.json.
+SHA256 ba log lần lượt81011394c0c0a6b3ceeb94f8bf7281945bb3c7a828ea82318ac24266fa03def3,
+f311fadc4441ef3a8aad7264410565e3ca25f0633bc6f97a45f39c7896260cb1,
+3c0437bc102e43503ea127f0dbca6453afddddee21b0581117ce0a492cd1f243.

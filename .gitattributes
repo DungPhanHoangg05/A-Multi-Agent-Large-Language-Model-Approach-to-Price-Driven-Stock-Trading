@@ -77,4 +77,9 @@ tests/test_historical_validation_leakage.py text eol=lf
 docs/plan/week11/historical_evaluation_validation.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 scripts/run_historical_evaluation.py text eol=lf
 docs/plan/week11/historical_evaluation_runtime.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+core/free_pilot_assets.py text eol=lf
+core/free_pilot_runtime.py text eol=lf
+scripts/run_free_paired_pilot.py text eol=lf
+tests/test_free_pilot_leakage.py text eol=lf
+docs/plan/week11/free_pilot_*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 outputs/historical_reevaluation/h04_assets/prepared.json -text
