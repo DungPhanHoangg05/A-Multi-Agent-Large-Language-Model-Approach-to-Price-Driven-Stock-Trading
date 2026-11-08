@@ -8,7 +8,7 @@ step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
 H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
-H07 đã bắt đầu thu bank; tạm dừng vì transport_error, đã reconcile để người dùng tiếp tục.
+H07 đang thu bank; đã qua Pattern/Trend MWG sau chẩn đoán,7 node complete; tiếp tục bằng CLI có log lỗi gốc.
 
 ## Checklist tổng
 
@@ -216,13 +216,17 @@ py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 
 ## H07 — Chạy đánh giá
 
-Trạng thái IN_PROGRESS: đã bắt đầu thu bank tại `run_r1`;5 checkpoint node
-complete,2 HTTP200 và1 transport_error, chưa có forecast grid. Pattern của
-`MWG-2022-05-31/u0` org2 gián đoạn kết nối, không có raw response/output;
-không xác định được provider đã xử lý request hay chưa. Đã đối soát và
-reconcile UUID `4f84363c-c92f-4ff6-a567-74be59962424`, giữ nguyên attempt cũ,
-quota reserve, key/model/payload và5 checkpoint complete. Chờ người dùng
-chạy lại khối lệnh dưới; không cần train/fit lại, chưa hoàn tất H07.
+Trạng thái IN_PROGRESS:7 node complete (FPT4, MWG3),4 HTTP200 và2
+transport_error, chưa có forecast grid. Hai lỗi cũ tại Pattern MWG không có
+raw response/output; nguyên nhân cụ thể chưa xác định vì exception đã bị che.
+Đã reconcile đúng UUID, giữ attempt cũ/quota reserve; chạy chẩn đoán giới hạn
+đã hoàn tất Pattern và Trend MWG, không còn slot chờ. Partial cold replay7 node
+PASS theo raw/PIT/body, không API; full Alpha MWG và phần còn lại chưa chạy.
+
+CLI `run_historical_evaluation_observed.py` bọc nguyên runner đã khóa và ghi
+loại/mã exception gốc ra stderr cùng `run_r1/diagnostics/`. Observer được neo
+Git riêng, không đổi wire/model/key/retry, run identity hoặc runtime v3;
+9 test transport/observer và biên dịch3 Python mới PASS. Không tự retry unknown.
 
 - [ ] Thu bank/shared state cần thiết, CORE4 rồi các mã bổ sung, ablation/control
   và panel upstream; đủ repeat/realization đã khóa, không vote hoặc chọn best repeat.
@@ -235,7 +239,7 @@ Lệnh H07, chạy CORE4 trước rồi mới OOD5; cùng lệnh có thể tiế
 
 ```powershell
 foreach ($cohort in @("CORE4", "OOD5")) {
-    py -3.13 -X utf8 -m dotenv -f .env run -- py -3.13 -X utf8 scripts/run_historical_evaluation.py run --cohort $cohort
+    py -3.13 -X utf8 -m dotenv -f .env run -- py -3.13 -X utf8 scripts/run_historical_evaluation_observed.py run --cohort $cohort
     if ($LASTEXITCODE -ne 0) { throw "Dừng tại $cohort; giữ checkpoint và log." }
 }
 ```
