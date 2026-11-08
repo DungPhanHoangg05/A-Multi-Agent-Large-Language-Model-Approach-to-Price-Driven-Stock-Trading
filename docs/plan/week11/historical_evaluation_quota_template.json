@@ -1,0 +1,150 @@
+{
+  "status": "UNVERIFIED",
+  "organization_independence_verified": false,
+  "smoke_max_cost_usd": null,
+  "research_spend_budget_usd": null,
+  "source": "https://console.groq.com/settings/limits",
+  "instructions": "Điền từ Console từng org; không điền API key. Lưu bằng chứng đã che thông tin nhạy cảm tại outputs/historical_reevaluation/h06_quota_evidence/.",
+  "organizations": [
+    {
+      "key_env": "GROQ_ORG_1_API_KEY",
+      "organization_id": null,
+      "plan": null,
+      "limits_checked_at_utc": null,
+      "limits_evidence_path": null,
+      "spend_limit_usd": null,
+      "models": {
+        "openai/gpt-oss-20b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        },
+        "qwen/qwen3.8-27b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        }
+      }
+    },
+    {
+      "key_env": "GROQ_ORG_2_API_KEY",
+      "organization_id": null,
+      "plan": null,
+      "limits_checked_at_utc": null,
+      "limits_evidence_path": null,
+      "spend_limit_usd": null,
+      "models": {
+        "openai/gpt-oss-20b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        },
+        "qwen/qwen3.8-27b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        }
+      }
+    },
+    {
+      "key_env": "GROQ_ORG_3_API_KEY",
+      "organization_id": null,
+      "plan": null,
+      "limits_checked_at_utc": null,
+      "limits_evidence_path": null,
+      "spend_limit_usd": null,
+      "models": {
+        "openai/gpt-oss-20b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        },
+        "qwen/qwen3.8-27b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        }
+      }
+    },
+    {
+      "key_env": "GROQ_ORG_4_API_KEY",
+      "organization_id": null,
+      "plan": null,
+      "limits_checked_at_utc": null,
+      "limits_evidence_path": null,
+      "spend_limit_usd": null,
+      "models": {
+        "openai/gpt-oss-20b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        },
+        "qwen/qwen3.8-27b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        }
+      }
+    },
+    {
+      "key_env": "GROQ_ORG_5_API_KEY",
+      "organization_id": null,
+      "plan": null,
+      "limits_checked_at_utc": null,
+      "limits_evidence_path": null,
+      "spend_limit_usd": null,
+      "models": {
+        "openai/gpt-oss-20b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        },
+        "qwen/qwen3.8-27b": {
+          "rpm": null,
+          "rpd": null,
+          "tpm": null,
+          "tpd": null,
+          "split_limits_present": null,
+          "itpm": null,
+          "otpm": null
+        }
+      }
+    }
+  ]
+}

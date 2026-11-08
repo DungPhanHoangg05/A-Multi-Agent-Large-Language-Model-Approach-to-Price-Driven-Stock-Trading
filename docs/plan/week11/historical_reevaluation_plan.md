@@ -184,11 +184,25 @@ Chạy API nghiên cứu thuộc H06/H07 sau release, không nằm trong lệnh 
 
 ## H06 — Freeze và smoke test
 
-- [ ] Neo Git source/runtime/model/data/protocol/IDs; kiểm manifest/hash trước API.
+- [x] Neo Git source/runtime/model/data/protocol/IDs; kiểm manifest/hash trước API.
 - [ ] Smoke đủ sáu primary/Fact_Anchor và longest prompts:BRPP≤600, prompt<6.500,
   giữ distill/cap, utility4.096 draws và factor rows/ảnh; không đổi fallback/model ngầm.
 - [ ] Kiểm schema/options/quota năm organization, retry wrapper và credential scope;
   chỉ release lượt inference mới khi các gate áp dụng PASS.
+
+[Freeze H06](historical_evaluation_freeze.json) đã đối soát H05/source/runtime,
+492 prefix và input/IDs;3 test mới PASS, chỉ compile2 Python mới. Stress fixture
+giữ5 factor, BRPP600/601 và prompt tối đa5.867<6.500 ký tự; đây chưa phải
+live smoke sáu primary/Fact_Anchor hay longest payload thực.
+
+**Còn chờ quota/account trước API:** điền [mẫu quota5 org](historical_evaluation_quota_template.json)
+từ Console, gồm org ID độc lập, RPM/RPD/TPM/TPD, ITPM/OTPM nếu có và spend limit;
+không điền key. Hiện chỉ thấy5 tên key trong `.env`, chưa chứng minh5 org độc lập.
+Giữ H06 chưa hoàn tất; không tạo release hoặc tự đổi model/ngân sách.
+
+```powershell
+py -3.13 -X utf8 scripts/prepare_historical_smoke.py --verify
+```
 
 ## H07 — Chạy đánh giá
 

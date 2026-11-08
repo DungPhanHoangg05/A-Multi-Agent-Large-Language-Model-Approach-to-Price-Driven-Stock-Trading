@@ -36,6 +36,9 @@ PASS84 test trong13 module. [Receipt H05](week11/historical_evaluation_validatio
 khóa bằng chứng; CLI `scripts/validate_historical_evaluation.py` chạy nghiệm thu offline,
 thêm `--verify` để chỉ kiểm hash/receipt đã neo Git. Không train lại teacher/student.
 Tiếp theo H06; H06–H09 chưa hoàn tất, quota trực tiếp và smoke thuộc H06.
+H06 đã freeze offline và kiểm biên prompt; chờ quota thực/độc lập năm org
+trước live smoke và release. [Mẫu quota](week11/historical_evaluation_quota_template.json)
+không chứa key; H06 vẫn chưa hoàn tất và API còn khóa.
 Chưa release lưới mới; execution data vẫn có giới hạn vendor series.
 
 ## Những phần đã triển khai

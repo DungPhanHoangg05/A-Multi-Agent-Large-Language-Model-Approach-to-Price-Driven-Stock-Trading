@@ -31,7 +31,7 @@ H05 đã nghiệm thu offline PASS84 test; tiếp theo H06, API còn khóa trư�
 | H03 | Protocol máy, registry, inference, families và budget | [x] DONE OFFLINE — H=2.358, nominal34.806 calls; live quota/payload smoke thuộc H06 |
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — đã có492 prefix HMM; API chưa release |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
-| H06 | Freeze bank/runtime và smoke toàn registry | [ ] TODO |
+| H06 | Freeze bank/runtime và smoke toàn registry | [ ] IN PROGRESS — freeze offline xong; chờ quota/account và live smoke |
 | H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] TODO |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
 | H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
@@ -476,3 +476,33 @@ py -3.13 -X utf8 scripts/validate_historical_evaluation.py --verify
 Verifier cần model prefix và log local đúng checksum; H09 sẽ đóng gói cùng
 bằng chứng tái lập. H06 tiếp tục freeze/smoke/longest payload/quota năm org;
 H05 không cấp quyền chạy research API hay tự đổi ngân sách/model.
+
+## H06 — freeze offline, chờ quota và live smoke
+
+- [x] [Freeze source/runtime/model/data/IDs](historical_evaluation_freeze.json), đối soát receipt/log H05 và492 prefix.
+- [x] Kiểm biên fixture: Original5.266, legacy+BRPP600 là5.867, Fact_Anchor4.493,
+  MT-BICL5.143 ký tự; giữ5 factor, output960, utility recipe4.096 draws và chặn BRPP601.
+- [ ] Live smoke đủ sáu primary/Fact_Anchor, ảnh thật và longest payload thực.
+- [ ] Quota/account năm organization, credential mapping, spend limit và release.
+
+Ba test trong `test_historical_smoke_freeze.py` PASS: biên prompt và từ chối
+receipt/model hash bị đổi. Hai Python mới biên dịch PASS; producer freeze và
+verifier đối soát byte/Git. Không chạy lại84 test H05 vì runtime/source/model/
+input cũ giữ nguyên; source/runtime H04 v2 và receipt H05 không đổi byte.
+Boundary probe dùng fixture tổng hợp ghi rõ scope, không là live smoke hoặc
+kết quả thị trường. Tổng API thật0, chưa tạo release.
+
+```powershell
+py -3.13 -X utf8 scripts/prepare_historical_smoke.py --verify
+```
+
+Đã thấy5 tên key `GROQ_ORG_1_API_KEY`…`GROQ_ORG_5_API_KEY` trong `.env`,
+chưa xác minh chúng thuộc năm org độc lập. Cần điền
+[mẫu quota](historical_evaluation_quota_template.json) từ Console từng org,
+không gửi key. Có thể chép ra `outputs/historical_reevaluation/h06_quota.json`
+để điền; bằng chứng Console đã che thông tin nhạy cảm giữ local tại
+`outputs/historical_reevaluation/h06_quota_evidence/`.
+Quota áp dụng theo org, các giới hạn thực và split ITPM/OTPM cần đọc tại
+[Groq Limits](https://console.groq.com/docs/rate-limits); không dùng bảng công bố
+thay bằng chứng tài khoản. Chờ thông tin này trước cấp smoke/research release;
+không thay model, nâng gói hay tự hạ mẫu/repeat.
