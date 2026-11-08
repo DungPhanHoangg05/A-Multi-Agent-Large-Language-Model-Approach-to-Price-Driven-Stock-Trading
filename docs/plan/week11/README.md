@@ -33,7 +33,7 @@ H07 chưa bắt đầu; smoke control không phải forecast nghiên cứu.
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — adapter9 mã và492 prefix HMM |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
 | H06 | Freeze và smoke sáu primary/Fact_Anchor | [x] PASS — 55 lượt, cold verify; release H07 Free/0 USD |
-| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] TODO |
+| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] READY_TO_RUN — preflight PASS; đã bàn giao lệnh, chờ người dùng chạy |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
 | H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
 
@@ -535,3 +535,14 @@ H05/quota/plan/amendment/smoke PASS. H07 chưa chạy; lệnh CORE4→OOD5 tại
 `run` tiếp tục slot complete; unknown cần đối soát rồi
 `reconcile --attempt-id UUID --reason ...`, không tự gửi lại timeout.
 Economic acceptance vẫn PENDING_EXECUTION_DATA; H06 không thay đổi giới hạn vendor series.
+
+## H07 — bàn giao chạy thu thập
+
+Preflight PASS: grant RESEARCH đã neo Git, runtime/source/data đúng hash,
+492 HMM prefix sẵn sàng và5 credential khác nhau đã cấu hình.0 API mới,
+chưa có identity nghiên cứu tại `outputs/historical_reevaluation/run_r1/`.
+Lệnh CORE4→OOD5 và theo dõi log ở [plan H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá).
+Chưa cần train/fit lại; giữ nguyên quota Free/0 USD và toàn bộ ma trận H03.
+H07 chỉ hoàn tất sau thu đủ, cold replay và kết sổ hash.
+Lượt bàn giao chỉ sửa tài liệu, kiểm preflight/diff/liên kết; không chạy lại
+unit/full suite/E2E vì code/runtime/schema/input đã khóa không thay đổi.

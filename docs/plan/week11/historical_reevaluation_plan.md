@@ -216,6 +216,10 @@ py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 
 ## H07 — Chạy đánh giá
 
+Trạng thái READY_TO_RUN: preflight grant RESEARCH/runtime/data/492 prefix và
+5 credential PASS,0 API; chưa có identity/forecast tại `run_r1`. Đã bàn giao
+lệnh cho người dùng chạy, không cần train hoặc fit lại. Chưa đánh dấu hoàn tất.
+
 - [ ] Thu bank/shared state cần thiết, CORE4 rồi các mã bổ sung, ablation/control
   và panel upstream; đủ repeat/realization đã khóa, không vote hoặc chọn best repeat.
 - [ ] Checkpoint/resume cùng identity; xử lý pending/error/unknown có ledger;
@@ -231,6 +235,16 @@ foreach ($cohort in @("CORE4", "OOD5")) {
     if ($LASTEXITCODE -ne 0) { throw "Dừng tại $cohort; giữ checkpoint và log." }
 }
 ```
+
+Theo dõi log trong PowerShell thứ hai sau khi lệnh chạy đã tạo file:
+
+```powershell
+Get-Content outputs/historical_reevaluation/run_r1/console.log -Tail 30 -Wait
+```
+
+Không chạy hai tiến trình thu thập cùng lúc. Nếu dừng, gửi traceback/UUID để
+đối soát trước khi tiếp tục; không xóa checkpoint hoặc tự reconcile unknown.
+Sau khi hai cohort hoàn tất, kiểm cold replay/kết sổ trước khi đánh dấu H07 DONE.
 
 ## H08 — Phân tích kết quả
 
