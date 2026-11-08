@@ -17,11 +17,18 @@ from core.prior_run_lock import PriorRunLock
 def main() -> None:
     """Không tự chuyển bước: mỗi lệnh là một giai đoạn người dùng chủ động chạy."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=("check-inputs", "prepare", "pilot", "train", "evaluate", "verify"))
+    parser.add_argument("stage", choices=("check-inputs", "check-lock", "repair-lock", "prepare", "pilot", "train", "evaluate", "verify"))
     args = parser.parse_args()
     protocol = load_protocol(ROOT)
+    if args.stage == "repair-lock":
+        from core.mt_bicl_replica_lock import repair_pretraining_lock
+        result = repair_pretraining_lock(ROOT, protocol)
+        print("Replica: " + result["status"], flush=True)
+        return
     with PriorRunLock(ROOT / NAMESPACE, content_hash(protocol)):
-        if args.stage in ("check-inputs", "prepare"):
+        if args.stage == "check-lock":
+            result = {"status":"LOCK_VERIFIED_NO_FIT"}
+        elif args.stage in ("check-inputs", "prepare"):
             from core.mt_bicl_replica_preparation import check_inputs, prepare
             if args.stage == "check-inputs":
                 inputs = check_inputs(ROOT)

@@ -380,6 +380,7 @@
     "core/mt_bicl_regimes.py": "6d036cb93c0ca3a965e536145fe2074fc2e27064c21cae0c2d7de637fcada704",
     "core/mt_bicl_replica_io.py": "c8332de3ff070d4d02752a7985d7845cb1f048e12c20f5330753d86ca344da55",
     "core/mt_bicl_replica_learner.py": "4fcc849d3c606eb3495de1dff218a0ca83b888ef5ee11fd3b3e1a03c9f5201d0",
+    "core/mt_bicl_replica_lock.py": "1fa78e671dc350c559092c17f481eb2345a34bc988cafa4ebe8333c0156a1e6d",
     "core/mt_bicl_replica_metrics.py": "7548b420869f04ccde35e6c3734c77605164e80c44b710c332d36bf94ff65010",
     "core/mt_bicl_replica_preparation.py": "31a9c91926fe9e36d6841500be8ed3244208fed2c0d602f2fe339157a70c168b",
     "core/mt_bicl_replica_sampling.py": "fd5a314ef3cf72e837030d824193450ec5344544d4507f4a8bc25c45b127f5bf",
@@ -395,7 +396,7 @@
     "core/pit_price_features.py": "35e5042a49aa2d1c3854150925389c6c3a79260eecaa99851ae6bea2a43794dc",
     "core/regime_detector.py": "fba35472efafe4d5133db50d8ca24d4c57b5682960de2b8a2320a18bddf3be8b",
     "scripts/build_mt_bicl_bank.py": "fd8df2cfff19708676bbd7802a346d7824dceefcf4b97a4a31a6dedf232206e6",
-    "scripts/run_mt_bicl_replica.py": "31ef9e43ca25ef20bf693e441c1021ae5f204cb1e118b0aeee528910ff3b85da",
+    "scripts/run_mt_bicl_replica.py": "b80da7a013d1c851a45efaa7f69be5aebb426d57b0e23cc28d88c19cfdcfbd83",
     "scripts/verify_mt_bicl_protocol.py": "755ccd5dc7166ff10ccaa2588d16b8b98b9b7101a8ecbf3004c38e14d33381ff"
   },
   "status": "REPLICA_TRAINING_ONLY",
