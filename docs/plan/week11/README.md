@@ -21,7 +21,7 @@ Người dùng đã hoàn tất fit/pilot/train:đủ60 checkpoint, chọn seed4
 Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint `CPU_REPLAY_MATCH`.
 H03 đã khóa protocol/dự toán; H04 đã hoàn tất adapter/runner offline.
 H05 PASS84 test offline; H06 PASS live smoke/cold verify, đã release H07 chỉ Free/0 USD.
-H07 chưa bắt đầu; smoke control không phải forecast nghiên cứu.
+H07 đã bắt đầu thu bank, đang chờ tiếp tục sau reconcile transport_error; smoke H06 cách ly.
 
 ## Checklist đánh giá lại
 
@@ -33,7 +33,7 @@ H07 chưa bắt đầu; smoke control không phải forecast nghiên cứu.
 | H04 | Adapter/harness trên dữ liệu chung và universe chín mã | [x] DONE OFFLINE — adapter9 mã và492 prefix HMM |
 | H05 | Kiểm theo phạm vi, PIT/paired/economics/checkpoint | [x] PASS OFFLINE — 84 test/13 module,492 prefix,1.020 context |
 | H06 | Freeze và smoke sáu primary/Fact_Anchor | [x] PASS — 55 lượt, cold verify; release H07 Free/0 USD |
-| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] READY_TO_RUN — preflight PASS; đã bàn giao lệnh, chờ người dùng chạy |
+| H07 | Collect primary, extension, ablation/retrieval và repeats | [ ] IN PROGRESS — 5 node complete; transport_error đã reconcile, chờ tiếp tục |
 | H08 | Cold analysis và uncertainty/multiplicity/strata/cost | [ ] TODO |
 | H09 | Kết sổ bằng chứng, trạng thái và giới hạn | [ ] TODO |
 
@@ -536,13 +536,22 @@ H05/quota/plan/amendment/smoke PASS. H07 chưa chạy; lệnh CORE4→OOD5 tại
 `reconcile --attempt-id UUID --reason ...`, không tự gửi lại timeout.
 Economic acceptance vẫn PENDING_EXECUTION_DATA; H06 không thay đổi giới hạn vendor series.
 
-## H07 — bàn giao chạy thu thập
+## H07 — thu bank, tiếp tục sau gián đoạn transport
 
-Preflight PASS: grant RESEARCH đã neo Git, runtime/source/data đúng hash,
-492 HMM prefix sẵn sàng và5 credential khác nhau đã cấu hình.0 API mới,
-chưa có identity nghiên cứu tại `outputs/historical_reevaluation/run_r1/`.
-Lệnh CORE4→OOD5 và theo dõi log ở [plan H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá).
-Chưa cần train/fit lại; giữ nguyên quota Free/0 USD và toàn bộ ma trận H03.
-H07 chỉ hoàn tất sau thu đủ, cold replay và kết sổ hash.
-Lượt bàn giao chỉ sửa tài liệu, kiểm preflight/diff/liên kết; không chạy lại
-unit/full suite/E2E vì code/runtime/schema/input đã khóa không thay đổi.
+Preflight grant/runtime/data/492 prefix/5 credential PASS. Người dùng đã chạy
+CORE4 tại `outputs/historical_reevaluation/run_r1/`:5 node complete,2 HTTP200
+cho graph FPT và1 transport_error tại Pattern MWG-2022-05-31/u0 org2.
+Chưa có forecast grid. Không có raw response/output của lượt lỗi, nên không
+khẳng định provider chưa xử lý hoặc chưa tính quota.
+
+Đã đối soát ledger `d3afea4a-a86a-4213-9558-e82502d5bb7b` và reconcile đúng
+UUID `4f84363c-c92f-4ff6-a567-74be59962424` qua CLI, chưa gửi HTTP mới.
+Giữ nguyên5 node complete, raw checksum, attempt lỗi và quota reserve;
+không đổi key/model/payload hay ghi lỗi thành CASH. Kiểm hậu reconcile PASS:
+identity khớp,5 output hash hợp lệ, một UUID được authorize, ledger vẫn3 HTTP.
+Người dùng chạy lại [khối lệnh H07](historical_reevaluation_plan.md#h07--chạy-đánh-giá)
+để tiếp tục CORE4→OOD5; không cần train/fit lại. H07 chưa hoàn tất.
+
+Lượt xử lý chỉ sửa tài liệu và authorization trong journal local bằng CLI có lock;
+code/runtime/schema/input giữ nguyên. Kiểm diff/hash/journal, không chạy lại
+unit/full suite/E2E hoặc API. Thu đủ rồi mới cold replay và kết sổ H07.

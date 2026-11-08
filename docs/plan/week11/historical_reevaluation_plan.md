@@ -8,7 +8,7 @@ step3000. Test `MODEL_GATE_PASS`, cold replay đủ60 checkpoint
 `CPU_REPLAY_MATCH`; H02 hoàn tất ở phạm vi audit dữ liệu và model.
 H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
-H07 đã được release chỉ Free/0 USD, chưa bắt đầu thu ma trận nghiên cứu.
+H07 đã bắt đầu thu bank; tạm dừng vì transport_error, đã reconcile để người dùng tiếp tục.
 
 ## Checklist tổng
 
@@ -216,9 +216,13 @@ py -3.13 -X utf8 scripts/run_historical_smoke.py verify
 
 ## H07 — Chạy đánh giá
 
-Trạng thái READY_TO_RUN: preflight grant RESEARCH/runtime/data/492 prefix và
-5 credential PASS,0 API; chưa có identity/forecast tại `run_r1`. Đã bàn giao
-lệnh cho người dùng chạy, không cần train hoặc fit lại. Chưa đánh dấu hoàn tất.
+Trạng thái IN_PROGRESS: đã bắt đầu thu bank tại `run_r1`;5 checkpoint node
+complete,2 HTTP200 và1 transport_error, chưa có forecast grid. Pattern của
+`MWG-2022-05-31/u0` org2 gián đoạn kết nối, không có raw response/output;
+không xác định được provider đã xử lý request hay chưa. Đã đối soát và
+reconcile UUID `4f84363c-c92f-4ff6-a567-74be59962424`, giữ nguyên attempt cũ,
+quota reserve, key/model/payload và5 checkpoint complete. Chờ người dùng
+chạy lại khối lệnh dưới; không cần train/fit lại, chưa hoàn tất H07.
 
 - [ ] Thu bank/shared state cần thiết, CORE4 rồi các mã bổ sung, ablation/control
   và panel upstream; đủ repeat/realization đã khóa, không vote hoặc chọn best repeat.

@@ -41,8 +41,9 @@ Prompt live tối đa5.954<6.500 ký tự. Quota5 org độc lập theo xác nh�
 30/1.000/8.000/200.000, TPM gộp, Free/0 USD; grant H07 đã release.
 Runtime v3 chỉ sửa tên schema tại SDK, giữ baseline H05 v2 nguyên byte;
 verifier hiện hành là `scripts/run_historical_smoke.py verify`.
-H07 READY_TO_RUN: preflight PASS, đã bàn giao lệnh CORE4→OOD5 cho người dùng;
-0 API mới, chưa tạo identity nghiên cứu. H07–H09 chưa hoàn tất.
+H07 IN_PROGRESS: đã bắt đầu thu bank,5 node complete,2 HTTP200 và1 transport_error.
+Chưa có forecast grid. Đã reconcile đúng UUID lỗi, giữ reserve/checkpoint;
+chờ người dùng tiếp tục CORE4→OOD5. H07–H09 chưa hoàn tất.
 Execution data vẫn có giới hạn vendor series.
 
 ## Những phần đã triển khai
