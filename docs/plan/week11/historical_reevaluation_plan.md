@@ -153,6 +153,11 @@ Lệnh chỉ fit HMM trên prefix VNINDEX đúng ngày, không train teacher/stu
 không dùng GPU/LLM. Chưa thực thi fit này trong H04. Query HMM2022 và model
 replica vẫn frozen. H05/H06 tiếp tục sau H04; chưa được chạy research API.
 
+- [x] Sửa lỗi `prepare-regimes` dùng nhầm guard fit2018–2022: fit/load historical
+  dùng namespace riêng tới30/09/2026, giữ nguyên guard model gốc và query/replica.
+- [ ] Hoàn tất492 HMM prefix: hiện đã có51 prefix tới29/12/2022 được kiểm lại;
+  chạy lại lệnh trên để tiếp tục441 prefix còn thiếu, không xóa model đã lưu.
+
 ## H05 — Kiểm thử theo phạm vi
 
 - [ ] Chạy tests bị ảnh hưởng:label/cost, suffix/index, PIT/news/query-y poison,

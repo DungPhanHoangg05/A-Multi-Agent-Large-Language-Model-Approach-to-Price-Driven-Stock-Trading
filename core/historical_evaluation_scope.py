@@ -24,7 +24,7 @@ PORTS = {
     "prior_quality_gate", "prior_prompt", "improvement_prior", "price_feature_index",
     "mt_bicl_bank", "mt_bicl_scaler", "mt_bicl_stream", "mt_bicl_tasks", "mt_bicl_features",
     "mt_bicl_contracts", "mt_bicl_protocol", "mt_bicl_utility", "mt_bicl_context",
-    "mt_bicl_policy", "mt_bicl_decision",
+    "mt_bicl_policy", "mt_bicl_decision", "regime_detector",
 }
 
 
@@ -82,7 +82,10 @@ class AlgorithmScope:
                 module.SYMBOLS = self.symbols
             if "SOURCE" in module.__dict__ and isinstance(module.SOURCE, dict):
                 module.SOURCE = deepcopy(self.source)
-            if name == "mt_bicl_bank":
+            if name == "regime_detector":
+                # Chỉ model metadata historical được mở tới snapshot H03; model gốc giữ guard2022.
+                module.TRAIN_END = pd.Timestamp("2026-09-30")
+            elif name == "mt_bicl_bank":
                 module.corporate_action_barriers = self.barriers
             elif name == "mt_bicl_stream":
                 module._visible_prices = self.visible_prices

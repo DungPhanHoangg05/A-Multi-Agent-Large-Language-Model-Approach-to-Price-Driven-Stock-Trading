@@ -1,6 +1,6 @@
 {
   "payload": {
-    "version": "historical_h04_runtime_v1",
+    "version": "historical_h04_runtime_v2",
     "status": "IMPLEMENTED_NOT_RELEASED",
     "sources": {
       "agents/alpha_agent.py": {
@@ -50,8 +50,8 @@
       },
       "core/historical_evaluation_audit.py": {
         "path": "core/historical_evaluation_audit.py",
-        "bytes": 14987,
-        "sha256": "e4a51f586ad57b95e1e1221f1c22244e0c2c39ba4e8f95fd51f9f2fcafc6d434"
+        "bytes": 15088,
+        "sha256": "0c0ac571b8e999ca1fef0a988fc889e07f2e9dba5453c51988f7cbb75eacb634"
       },
       "core/historical_evaluation_clients.py": {
         "path": "core/historical_evaluation_clients.py",
@@ -85,13 +85,13 @@
       },
       "core/historical_evaluation_runner.py": {
         "path": "core/historical_evaluation_runner.py",
-        "bytes": 23184,
-        "sha256": "b3a3f6f1de45c6ec59d6c28eb9541317163e44c5e234a4598e701b4e5f9d4f2b"
+        "bytes": 23285,
+        "sha256": "e2025fcdb2fe069e68a92e1be72d0dea97039479ba38db38164e90b27f9cb11a"
       },
       "core/historical_evaluation_scope.py": {
         "path": "core/historical_evaluation_scope.py",
-        "bytes": 9959,
-        "sha256": "493d9e7bc0592d7f02efa4ec21447918eefb215f03cefd170b94a8cfdd065201"
+        "bytes": 10197,
+        "sha256": "cbcd42a1df5b3f6cc0bb90298c28ba5281e99e58ae03bc41d080f9dcd8f73733"
       },
       "core/historical_signals.py": {
         "path": "core/historical_signals.py",
@@ -208,6 +208,11 @@
         "bytes": 10816,
         "sha256": "ddcda23fc80172bc42b35f2420964fa89d6be3e75a659d609c99cadc18fd8c98"
       },
+      "core/regime_detector.py": {
+        "path": "core/regime_detector.py",
+        "bytes": 24698,
+        "sha256": "fba35472efafe4d5133db50d8ca24d4c57b5682960de2b8a2320a18bddf3be8b"
+      },
       "core/research_invocation.py": {
         "path": "core/research_invocation.py",
         "bytes": 3080,
@@ -279,8 +284,9 @@
       "vendor_features": "H02_RAW_BARRIER_DATES_WITH_DONOR_OHLCV_NO_REFERENCE_FABRICATION",
       "alpha_projection": "FIVE_NUMERIC_NAME_VALUE_SIGNAL_MASK_ROWS_BEFORE_UNCHANGED_DISTILL_CAP",
       "numeric_phase": "CORE4_WITHHOLDS_OOD_GRID_OUTCOMES_EVEN_AFTER_OOD_PHASE_COMPLETES",
+      "historical_hmm": "PRIVATE_2018_2026_PREFIX_FIT_LOAD; ORIGINAL_QUERY_AND_REPLICA_GUARDS_UNCHANGED",
       "universe": "EXPLICIT_NINE_SYMBOL_SCOPE_NO_MUTATION_OF_ORIGINAL_MODULES"
     }
   },
-  "sha256": "a48983350105a467bcbbbcd05cd078ed3613cb77de04bad7a7e371ddff7d03d0"
+  "sha256": "51e2d4af45de027602b43503735903311d3d4afec2b17c5727460d6f6a37ce39"
 }

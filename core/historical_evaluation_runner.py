@@ -59,6 +59,7 @@ class Regimes:
 
     def __init__(self, data: HistoricalData, directory: Path, *, fixture: bool = False) -> None:
         self.data, self.directory, self.fixture = data, directory, fixture
+        self.historical_detector = data.scope.module("regime_detector").MarketRegimeDetector
         self.frozen = MarketRegimeDetector.load(data.root / "data_manager/regime_model.json")
         prefix = data.history.loc[data.history["Datetime"] <= self.frozen.metadata["train_end_date"]]
         if training_data_hash(prefix) != self.frozen.metadata["training_data_sha256"]:
@@ -74,7 +75,7 @@ class Regimes:
             path = self.directory / (cutoff + ".json")
             if not path.exists():
                 raise ValueError("Thiếu historical regime prefix; chạy CLI prepare-regimes trước API")
-            detector = MarketRegimeDetector.load(path, expected_training_hash=training_data_hash(prefix))
+            detector = self.historical_detector.load(path, expected_training_hash=training_data_hash(prefix))
             if detector.metadata["train_end_date"] != cutoff:
                 raise ValueError("Historical HMM không kết thúc đúng prefix")
         else:
@@ -100,7 +101,7 @@ class Regimes:
             raise ValueError(f"Thiếu{len(missing)} historical HMM prefix; chạy prepare-regimes trước API")
         for cutoff in dates:
             prefix = self.data.history.loc[self.data.history["Datetime"] <= cutoff]
-            model = MarketRegimeDetector.load(self.directory / (cutoff + ".json"),
+            model = self.historical_detector.load(self.directory / (cutoff + ".json"),
                                               expected_training_hash=training_data_hash(prefix))
             if model.metadata["train_end_date"] != cutoff:
                 raise ValueError("HMM prefix không đúng cutoff đã khóa")

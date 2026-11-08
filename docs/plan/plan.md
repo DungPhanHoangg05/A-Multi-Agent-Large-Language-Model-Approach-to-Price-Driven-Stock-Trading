@@ -34,6 +34,8 @@ checkpoint/run/resume/verify và kiểm triển khai offline. Tiếp theo H05;
 H05–H09 chưa hoàn tất, quota trực tiếp và smoke thuộc H06. Cần người dùng
 chạy `scripts/run_historical_evaluation.py prepare-regimes` để chuẩn bị492
 HMM prefix lịch sử bằng CPU trước thu thập; không train lại teacher/student.
+Đã sửa guard fit/load prefix sau2022 tại adapter riêng; hiện có51/492 prefix
+được kiểm hash, chạy lại cùng lệnh để tiếp tục441 prefix còn thiếu.
 Chưa release lưới mới; execution data vẫn có giới hạn vendor series.
 
 ## Những phần đã triển khai

@@ -402,3 +402,23 @@ py -3.13 -X utf8 scripts/run_historical_evaluation.py prepare-regimes
 Lệnh lưu từng prefix, kiểm lại model đã có khi chạy tiếp; không train
 teacher/student, không GPU/LLM. H05 kiểm nghiệm thu theo phạm vi, H06 khóa
 receipt/runtime/Git, kiểm longest payload và quota năm org trước API.
+
+Sửa lỗi `prepare-regimes`: lệnh cũ gọi trực tiếp primitive chỉ cho fit2018–2022,
+nên dừng khi prefix đầu tiên sang2023. Adapter nay nạp cùng bytecode HMM đã pin
+vào namespace historical riêng, mở biên fit/validation tới30/09/2026 cho cả
+producer và loader/preflight của runner. Giữ nguyên tham số, scaler/calibration,
+checksum/schema artifact; model query2022 và model/scaler MT-BICL không đổi.
+Runtime H04 được nâng lên `historical_h04_runtime_v2` trước release; bản v1
+vẫn được giữ nguyên tại Git `cb9cf9c0`. Không có research run cần migrate.
+
+Đã kiểm lại51 prefix local tới29/12/2022: đúng training hash và giữ nguyên byte.
+Chạy lại `prepare-regimes` dùng tiếp51 file này, chỉ fit441 prefix còn thiếu.
+Chưa chạy phần fit production còn lại; không cần xóa thư mục hoặc train replica.
+
+Kiểm sửa lỗi:17 test PASS gồm6 test mới trong
+`test_historical_regime_prefix_leakage.py` và11 test adapter leakage hiện hành.
+Đã numerical fit fixture synthetic qua2023 và2026, so byte artifact legacy,
+kiểm save/load, guard2022 gốc, future poison/cutoff, resume không refit/ghi đè,
+hash sai và runner load/preflight. Bốn Python thay đổi biên dịch PASS; source/
+model/protocol/input H02/H03 giữ nguyên byte. Đây là kiểm theo đường sửa lỗi;
+không chạy lại32 test H04, full suite/E2E hoặc492 model production.

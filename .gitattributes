@@ -52,6 +52,7 @@ core/historical_evaluation_*.py text eol=lf
 scripts/prepare_historical_evaluation.py text eol=lf
 tests/test_historical_evaluation*.py text eol=lf
 tests/test_historical_adapter*.py text eol=lf
+tests/test_historical_regime_prefix_leakage.py text eol=lf
 scripts/run_historical_evaluation.py text eol=lf
 docs/plan/week11/historical_evaluation_runtime.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 outputs/historical_reevaluation/h04_assets/prepared.json -text

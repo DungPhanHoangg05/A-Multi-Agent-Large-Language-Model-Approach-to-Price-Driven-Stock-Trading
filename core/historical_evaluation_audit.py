@@ -225,7 +225,7 @@ def prepare(root: Path) -> dict[str, Any]:
 
 def runtime_profile(root: Path, data: Any) -> dict[str, Any]:
     """Dựng manifest source/thư viện độc lập với preview; không fit hay truy cập outcome."""
-    return {"version": "historical_h04_runtime_v1", "status": "IMPLEMENTED_NOT_RELEASED",
+    return {"version": "historical_h04_runtime_v2", "status": "IMPLEMENTED_NOT_RELEASED",
                "sources": source_manifest(root), "libraries": libraries(),
                "schema_sha256": digest(data.scope.module("mt_bicl_contracts").wire_schema()),
                "old_sources_modified": False, "h03_revision": "ae5dbc6d",
@@ -234,6 +234,7 @@ def runtime_profile(root: Path, data: Any) -> dict[str, Any]:
                    "vendor_features": "H02_RAW_BARRIER_DATES_WITH_DONOR_OHLCV_NO_REFERENCE_FABRICATION",
                    "alpha_projection": "FIVE_NUMERIC_NAME_VALUE_SIGNAL_MASK_ROWS_BEFORE_UNCHANGED_DISTILL_CAP",
                    "numeric_phase": "CORE4_WITHHOLDS_OOD_GRID_OUTCOMES_EVEN_AFTER_OOD_PHASE_COMPLETES",
+                   "historical_hmm": "PRIVATE_2018_2026_PREFIX_FIT_LOAD; ORIGINAL_QUERY_AND_REPLICA_GUARDS_UNCHANGED",
                    "universe": "EXPLICIT_NINE_SYMBOL_SCOPE_NO_MUTATION_OF_ORIGINAL_MODULES"}}
 
 
@@ -241,9 +242,9 @@ def prepare_regimes(root: Path) -> dict[str, Any]:
     """Lệnh CPU tường minh tạo historical HMM prefix; không fit teacher/student hay refit query."""
     from threadpoolctl import threadpool_limits
     from core.historical_evaluation_data import HistoricalData
-    from core.historical_evaluation_runner import Regimes
-    from core.regime_detector import MarketRegimeDetector, training_data_hash
+    from core.regime_detector import training_data_hash
     data = HistoricalData(root)
+    detector_class = data.scope.module("regime_detector").MarketRegimeDetector
     directory = root / "outputs/historical_reevaluation/h04_assets/legacy_regimes"
     directory.mkdir(parents=True, exist_ok=True)
     dates = sorted({r["date"] for r in data.inputs["history"]})
@@ -251,12 +252,12 @@ def prepare_regimes(root: Path) -> dict[str, Any]:
         prefix = data.history.loc[data.history["Datetime"] <= cutoff].copy()
         path = directory / (cutoff + ".json")
         if path.exists():
-            detector = MarketRegimeDetector.load(path, expected_training_hash=training_data_hash(prefix))
+            detector = detector_class.load(path, expected_training_hash=training_data_hash(prefix))
         else:
             with threadpool_limits(limits=1):
-                detector = MarketRegimeDetector().fit(prefix)
+                detector = detector_class().fit(prefix)
             detector.save(path)
         if detector.metadata["train_end_date"] != cutoff:
             raise ValueError("HMM historical không đúng prefix")
-        print(f"Historical regime prefix {i + 1}/{len(dates)} đã durable.", flush=True)
+        print(f"Đã lưu HMM prefix lịch sử {i + 1}/{len(dates)}.", flush=True)
     return {"status": "PREFIX_MODELS_READY", "count": len(dates), "teacher_or_student_fit": False, "llm_calls": 0}
