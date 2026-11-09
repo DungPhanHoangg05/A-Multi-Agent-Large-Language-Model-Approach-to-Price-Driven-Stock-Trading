@@ -13,11 +13,12 @@ Ngày 09/11/2026: đã lập [kế hoạch hợp nhất](fix_develop_integration
 từ hai tip `fix:9efd23f4` và `develop:21f7ee67`. Lấy hành vi fix làm nền,
 develop tiếp tục là nhánh tích hợp; phân biệt native baseline, common baseline
 và các mở rộng để không gán thay đổi prompt/dữ liệu thành hiệu quả phương pháp.
-Chưa merge mã nguồn hoặc mở đợt inference mới.
+U02 đã ghép nguồn trong worktree riêng; develop vẫn giữ mốc trước tích hợp.
+Chưa mở đợt inference mới.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
-- [ ] U02 — Hợp nhất nguồn và bảo toàn contracts fix.
+- [x] U02 — Hợp nhất nguồn và bảo toàn contracts fix trên nhánh tích hợp.
 - [ ] U03 — Kiểm chứng tương đương original_fix.
 - [ ] U04 — Registry, runner, evaluator và CLI/UI thống nhất.
 - [ ] U05 — Profile nhân quả chung và bridge với native nếu nghiên cứu causal.
@@ -26,6 +27,124 @@ Chưa merge mã nguồn hoặc mở đợt inference mới.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U02
+
+Trạng thái ở đây là nguồn theo dõi duy nhất; kế hoạch hợp nhất dẫn tới mục này.
+Nhánh `feat/fix-develop-unification`, worktree
+`C:/Users/Legion/codex-worktrees/stock-unification`, base develop
+`2424dbc5fce87083ded678936d715a64f4fa6a82`, donor fix
+`9efd23f4157e0d3ab8069fccab7dccf03439a714`.
+Delta U01→U02 chỉ có hai commit tài liệu U01, runtime không đổi.
+
+- [x] U02.1 — Fetch/pull fast-forward, worktree sạch, đối soát mốc U01 và tạo nhánh tích hợp riêng.
+- [x] U02.2 — Merge đúng donor bằng `--no-commit --no-ff`; xử lý bốn conflict quản trị, giữ chỉ dẫn AGENTS hiện hành.
+- [x] U02.3 — Ghép engine theo caller: target/cost/risk fix và hooks Prior/checkpoint develop; không đổi oracle kinh tế.
+- [x] U02.4 — Schema Prior v2 và canonical projection cho Prior/MT; schema v1 và record legacy không tự nâng cấp.
+- [x] U02.5 — Renderer/legend fix cùng `write_artifacts`; prompt màu VI/EN, strict mode và retry hooks develop được giữ.
+- [x] U02.6 — Khóa dependencies/runtime tích hợp, kiểm version/requirements trên môi trường hiện hành.
+- [x] U02.7 — Đối soát toàn bộ đường dẫn và byte evidence/paper/revision/data/schema U01; giữ nguồn Git pin và archive.
+- [x] U02.8 — Compile đúng Python mới/đổi; test kinh tế, callers, graph/prompt, leakage và recovery trong phạm vi PASS.
+- [x] U02.9 — Kiểm diff/links, ghi số test/log/hash và giới hạn; tạo merge commit trên nhánh tích hợp.
+- [ ] Bàn giao nền vào develop — chỉ sau U03 và các kiểm tra U07 liên quan, không suy từ việc U02 đã PASS.
+
+### Kết quả và giới hạn U02
+
+Hoàn tất ngày **09/11/2026** trong worktree tích hợp riêng. Đã tạo local refs
+`refs/archive/fix-develop-u02/{develop,fix}` giữ đúng hai parent nguồn nêu trên.
+
+Nguồn runtime hiện có một engine root, giữ contracts target/cost/risk của fix
+cùng hooks Prior/checkpoint của develop. AST của `compute_round_trip_net_return`
+và `_validate_account_costs` giống cả hai nguồn khóa. `target_fields` và validator
+đã gọi lại oracle kinh tế thay vì giữ công thức net riêng. Risk giữ convention
+fix: SD population, downside SD trên tập âm; thiếu tần suất hoặc mẫu số suy biến
+cho `null`, không nhân mặc định `sqrt(252)` cho cycle returns.
+
+Prior/MT tạo canonical target từ frame sau phase forecast và chiếu metadata đã
+kiểm vào `TestPoint`; dữ liệu legacy không có provenance vẫn giữ trạng thái
+legacy. Prior summary lấy tần suất từ bar indices đã xác thực, không đoán từ
+ngày lịch. [Schema checkpoint v2](prior_research_checkpoint_v2.schema.json) có
+ID/version riêng, nhận canonical metadata và risk/null; schema v1 ở W4 nguyên
+byte và loader vẫn đọc được v1. Identity mới pin thêm schema/helpers/runtime
+lock, nên không resume run cũ bằng code mới hoặc sửa receipt cũ để vượt guard.
+
+Renderer giữ handles/màu fix và tùy chọn `write_artifacts` develop. Test ảnh cho
+thấy bật/tắt file phụ trả cùng bytes; messages Trend VI/EN khớp donor trên fixture.
+Auditor chart lịch sử vẫn từ chối AST tích hợp có retry hooks khác nguồn cũ;
+test lịch sử chạy trên đúng source donor, không nới guard để gọi mã mới là bản
+cũ. Golden payload Decision và parity graph/archive đầy đủ còn thuộc U03.
+
+Đã hợp nhất attributes/ignore của hai nhánh, giữ AGENTS hiện hành và viết root
+README tiếng Anh về kiến trúc/cài đặt/vận hành, gồm attribution QuantAgent.
+Python **3.13.5** và **107 package** có version/specifier/Requires-Python hợp lệ
+trên môi trường Windows hiện hành; [lock runtime](../../../requirements-unified.lock.txt)
+ghi đúng versions đã kiểm, bao gồm CUDA build của Torch. Thêm dependencies trực
+tiếp `pydantic`, `jsonschema`, `referencing`; Gunicorn chỉ áp dụng Unix. Chưa cài
+thử một môi trường mới hoặc nghiệm thu lock Unix/CPU; Docker/deploy cần lock
+theo nền tảng riêng trước khi phát hành.
+
+`scripts/verify_unified_evidence.py` đã đối soát **21.383 artifact đóng băng**
+bằng index mode/OID và byte length/SHA256 checkout. Đủ **21.948 đường dẫn U01**
+được đối chiếu: **21.947 giữ trong cây**, một đường dẫn đã ngừng dùng có lý do:
+`.github/workflows/deploy.yml` được develop thay bằng Oracle VM ở
+`9d30f85227111bf5ec43b7dd580c0fecb1221754`. Nguồn workflow cũ vẫn truy nguyên
+đúng hash từ fix; không bật lại GitHub Pages deployment. Ngoại lệ này chỉ áp dụng
+đúng đường dẫn cấu hình đó, không cho phép bỏ evidence hoặc runtime source khác.
+
+Checkout Windows ban đầu có **63 file chỉ khác LF/CRLF**; đã chứng minh delta
+chỉ là newline, khôi phục đúng blob U01 và thêm `-text` cho data/schema/evidence.
+Không đổi giá trị dữ liệu hoặc sửa nội dung receipt. Quy tắc whitespace riêng
+cho evidence/paper giữ nguyên byte log/third-party files và EOF nguồn fix; không
+dọn whitespace bằng cách sửa artifacts. Inventory U01, paper/revision, schemas
+cũ và mọi evidence được kiểm đều nguyên byte Git; local ignored assets vẫn ở
+workspace gốc và chưa được coi là đã khôi phục trong worktree tích hợp.
+
+### Kiểm thử U02 và cách kiểm lại
+
+Đã compile đúng **142 file Python mới/đổi**, không compileall toàn codebase.
+Kiểm **239 test case duy nhất**, **245 lượt thực thi** trong **26 module**:
+mọi lượt PASS, không fail/error/skip. Sáu ca `test_unified_contract_integration`
+được dùng ở cả nhóm economics và locks để đối soát lần thay đổi cuối.
+
+| Nhóm/log | Số lượt PASS | Phạm vi được chọn |
+| --- | --- | --- |
+| `economics.log` | 81 | Account P&L/risk, target, canonical Prior/MT, evidence tamper, ablation/sweep, JSON UI, chart VI/EN và attribution |
+| `callers.log` | 82 | Prior integration/leakage, checkpoint/leakage, durable stage recovery, MT analysis/leakage và pilot statistics |
+| `graphs.log` | 67 | Paired upstream, token budget, Prior graph/prompt, MT Decision và alpha/sentiment cutoff leakage |
+| `locks.log` | 15 | Research input lock/leakage, schema/helpers/runtime pins và sáu ca nối contracts mới |
+
+Các nhóm bao phủ đúng engine/schema/renderer/helpers và caller thay đổi; không
+chạy full unit suite/E2E hoặc toàn bộ leakage suite. Harness chặn socket ra ngoài
+máy; cho loopback phục vụ `asyncio.socketpair` trên Windows. Không API/huấn luyện,
+không nhận gate toàn hệ thống hoặc chứng nhận native alpha causal từ các test này.
+
+[Gói log và source/runtime bindings](fix_develop_unification_checks.zip):
+**31.333 byte**, SHA256
+`d3b7753d4db4c8f9e52daef788e3317f524587ab94d1d6cd5f36d9faf91ac952`.
+Gói có log bốn nhóm, IDs test/module, danh sách compile, kết quả đối soát
+evidence, source hashes, versions package, manifest hash từng thành viên và
+harness tái lập. Đây là bằng chứng U02 mới; không thay gate/receipt lịch sử.
+Đã kiểm hash **12/12 thành viên gói**, **150 source bindings** và **44 liên kết/
+anchor local** trong tài liệu hiện hành: PASS; diff whitespace không lỗi.
+
+Tại worktree tích hợp, có thể kiểm evidence bằng:
+
+```powershell
+py -3.13 -X utf8 scripts/verify_unified_evidence.py
+```
+
+Để chạy lại một nhóm khi có thay đổi tương ứng, giải nén log ra thư mục tạm mới
+rồi dùng harness từ repo root (thay `economics` bằng `callers`, `graphs` hoặc `locks`):
+
+```powershell
+Expand-Archive -LiteralPath docs/plan/week12/fix_develop_unification_checks.zip -DestinationPath "$env:TEMP/u02-checks"
+py -3.13 -X utf8 "$env:TEMP/u02-checks/run_scoped_checks.py" economics "$env:TEMP/u02-economics.log"
+```
+
+U02 chỉ được commit trên `feat/fix-develop-unification`; chưa merge nền vào
+develop. U03 và phần U07 bị ảnh hưởng tiếp tục trên nhánh tích hợp cho đến khi
+đủ điều kiện §4.1 của kế hoạch; chưa cấp release inference mới, chưa nhận native
+parity và không khôi phục H07 full1020 đã hủy.
 
 Task lập kế hoạch chỉ đổi Markdown: kiểm diff, links và bằng chứng nguồn;
 không chạy compileall/unit/E2E/leakage theo AGENTS §1.2. Các kết quả pilot
@@ -53,7 +172,7 @@ hướng dẫn tích hợp cho U02, chưa phải thay đổi runtime.
 Worktree sạch trước task; `git pull --ff-only origin develop` không có thay đổi.
 So với mốc `21f7ee67` trong kế hoạch, develop thêm đúng commit tài liệu
 `3eb3c765`: sửa `docs/plan/plan.md`, README này và thêm kế hoạch hợp nhất.
-Code/test/config/runtime không đổi. Develop hiện đi trước remote **37 commit**,
+Code/test/config/runtime không đổi. Develop tại mốc U01 đi trước remote **37 commit**,
 remote không có commit riêng; `fix...develop` có **63/287 commit riêng**.
 Live/backtest hiện hành vẫn dùng package root trên develop; `fix_frozen` là
 nguồn tham chiếu, chưa có port `original_fix` được nghiệm thu.

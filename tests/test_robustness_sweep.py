@@ -170,6 +170,11 @@ class RobustnessSweepTests(unittest.TestCase):
                     output_dir=Path(directory),
                     mode="norm",
                 )
+                for checkpoint_path in Path(directory).glob("checkpoint_*.json"):
+                    for point in json.loads(checkpoint_path.read_text(encoding="utf-8"))["test_points"]:
+                        self.assertEqual(point["label_contract_version"], "net_cycle_v1")
+                        self.assertEqual(point["label_net"], point["actual_direction"])
+                        self.assertEqual(point["decision_bar_index"] + 1, point["entry_bar_index"])
                 first_calls = dict(calls)
                 calls.update({"upstream": 0, "baseline": 0, "full": 0})
                 resumed_rows = run_shared_alpha_sweep(
@@ -191,6 +196,7 @@ class RobustnessSweepTests(unittest.TestCase):
         self.assertEqual(calls, {"upstream": 0, "baseline": 0, "full": 0})
         self.assertEqual(len({row["baseline_signature"] for row in rows}), 1)
         self.assertTrue(all(row["shared_across_alpha_configs"] for row in rows))
+        self.assertTrue(all(row["risk_metrics_full"]["periods_per_year"] == 84 for row in rows))
         self.assertEqual(
             [row["baseline_signature"] for row in resumed_rows],
             [row["baseline_signature"] for row in rows],
@@ -224,13 +230,17 @@ class RobustnessSweepTests(unittest.TestCase):
     def test_csv_does_not_expose_internal_prediction_arrays(self):
         row = _fake_result()
         row.update({"scenario": "rank", "symbol": "FPT"})
+        row.update({"sharpe_full": None, "risk_metrics_full": {"periods_per_year": None}})
         with tempfile.TemporaryDirectory() as directory:
             output = save_results([row], Path(directory), "sweep_norm", "FPT")
             saved = pd.read_csv(output)
+            raw = pd.read_csv(output, keep_default_na=False)
 
         self.assertIn("scenario", saved.columns)
         self.assertNotIn("_baseline_predictions", saved.columns)
         self.assertNotIn("_actual_directions", saved.columns)
+        self.assertEqual(raw.iloc[0]["sharpe_full"], "NA")
+        self.assertIsNone(json.loads(raw.iloc[0]["risk_metrics_full"])["periods_per_year"])
 
 
 if __name__ == "__main__":

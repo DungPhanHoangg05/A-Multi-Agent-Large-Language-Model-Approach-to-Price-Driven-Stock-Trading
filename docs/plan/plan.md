@@ -9,7 +9,10 @@ Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở r
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
 U01 đã khóa inventory/hash hai cây nguồn, imports/callers và bằng chứng;
 [kết quả audit](week12/README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa) ghi rõ delta nguồn và binding lịch sử.
-Chưa merge mã nguồn hai nhánh hoặc mở inference mới. Trạng thái pilot bên dưới
+U02 đã ghép nguồn và PASS kiểm thử đúng phạm vi trên nhánh/worktree riêng;
+[checklist chi tiết](week12/README.md#checklist-chi-tiết-u02)
+theo dõi contracts/schema/chart, dependencies, evidence và kiểm thử. Develop
+chưa nhận phần mã nguồn tích hợp; chưa mở inference mới. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 
 Hệ thống giữ Original và bốn nhóm cải tiến.

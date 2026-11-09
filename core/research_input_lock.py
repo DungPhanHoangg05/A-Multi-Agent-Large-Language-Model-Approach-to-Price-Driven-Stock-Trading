@@ -36,6 +36,8 @@ CODE_PATHS = tuple(sorted(set((*CODE_FILES, "core/backtest_engine.py", "core/pri
     "core/prior_stage_journal.py", "core/pilot_readiness.py", "core/research_cohort.py",
     "core/research_metrics.py", "core/prior_evidence_v2.py", "core/research_invocation.py",
     "core/research_input_lock.py", "core/cohort_calendar.py", "core/oos_coverage.py",
+    "utils/target_contract.py", "utils/account_risk.py",
+    "docs/plan/week12/prior_research_checkpoint_v2.schema.json", "requirements-unified.lock.txt",
     "core/regime_detector.py", "core/historical_runner.py", "utils/decision_parser.py", "utils/historical_api.py",
     "scripts/run_bayesian_ablation.py", "scripts/prepare_research_inputs.py",
     "docs/plan/week4/research_checkpoint.schema.json", "docs/plan/week4/checkpoint_policy.json",

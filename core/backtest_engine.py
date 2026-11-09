@@ -18,6 +18,8 @@ from default_config import DEFAULT_CONFIG
 from data_manager.sentiment_cache import BacktestSentimentStore
 from utils.statistical_tests import calculate_metrics_with_significance
 from utils.graph_setup import ABLATION_CONFIGS
+from utils.account_risk import cycle_frequency, risk_ratios, round_ratio
+from utils.target_contract import require_prompt_costs, target_fields, validate_target_record
 
 if TYPE_CHECKING:
     from core.prior_checkpoint import CheckpointSession
@@ -149,6 +151,18 @@ class TestPoint:
     decision_source_no_alpha: str = ""
     decision_fallback_reason_full: str = ""
     decision_fallback_reason_no_alpha: str = ""
+    entry_bar_index: Optional[int] = None
+    exit_bar_index: Optional[int] = None
+    decision_close: Optional[float] = None
+    gross_return: Optional[float] = None
+    net_return: Optional[float] = None
+    label_net: Optional[str] = None
+    label_gross: Optional[str] = None
+    decision_bar_index: Optional[int] = None
+    target_horizon_bars: Optional[int] = None
+    label_fee_each_side: Optional[float] = None
+    label_slippage_each_side: Optional[float] = None
+    label_contract_version: str = "legacy_unverified"
 
 
 @dataclass
@@ -168,8 +182,10 @@ class PartialSummary:
     equity_full_vnd: float = 50_000_000.0
     equity_no_alpha_vnd: float = 50_000_000.0
     initial_capital_vnd: float = 50_000_000.0
-    sharpe_full: float = 0.0
-    sharpe_no_alpha: float = 0.0
+    sharpe_full: Optional[float] = None
+    sharpe_no_alpha: Optional[float] = None
+    risk_metrics_full: dict = field(default_factory=dict)
+    risk_metrics_no_alpha: dict = field(default_factory=dict)
     mdd_full: float = 0.0
     mdd_no_alpha: float = 0.0
     equity_curve_full: List[float] = field(default_factory=lambda: [1.0])
@@ -181,8 +197,8 @@ class AccountMetrics:
     """Các chỉ số kinh tế tính trên đường vốn tài khoản lãi kép."""
 
     total_return_pct: float
-    sharpe_ratio: float
-    sortino_ratio: float
+    sharpe_ratio: Optional[float]
+    sortino_ratio: Optional[float]
     max_drawdown_pct: float
     hit_rate_pct: float
     avg_trade_pct: float
@@ -194,6 +210,7 @@ class AccountMetrics:
     final_cash_vnd: float
     final_shares: float
     equity_curve_vnd: List[float]
+    risk_metrics: dict
 
 @dataclass
 class BacktestSummary:
@@ -234,16 +251,16 @@ class BacktestSummary:
 
     # Advanced PnL metrics Full
     pnl_full: float = 0.0
-    sharpe_full: float = 0.0
-    sortino_full: float = 0.0
+    sharpe_full: Optional[float] = None
+    sortino_full: Optional[float] = None
     mdd_full: float = 0.0
     hit_rate_full: float = 0.0
     avg_trade_full: float = 0.0
 
     # Advanced PnL metrics No-Alpha
     pnl_no_alpha: float = 0.0
-    sharpe_no_alpha: float = 0.0
-    sortino_no_alpha: float = 0.0
+    sharpe_no_alpha: Optional[float] = None
+    sortino_no_alpha: Optional[float] = None
     mdd_no_alpha: float = 0.0
     hit_rate_no_alpha: float = 0.0
     avg_trade_no_alpha: float = 0.0
@@ -262,6 +279,8 @@ class BacktestSummary:
     equity_curve_no_alpha_vnd: List[float] = field(default_factory=lambda: [50_000_000.0])
 
     test_points: List[dict] = field(default_factory=list)
+    risk_metrics_full: dict = field(default_factory=dict)
+    risk_metrics_no_alpha: dict = field(default_factory=dict)
 
 
 def _validate_account_costs(fee: float, slippage: float) -> Tuple[float, float, float]:
@@ -313,6 +332,7 @@ def compute_account_metrics(
     slippage: float = 0.001,
     initial_capital_vnd: float = 50_000_000.0,
     price_multiplier: float = 1_000.0,
+    risk_frequency: Optional[dict] = None,
 ) -> Dict[str, AccountMetrics]:
     """Mô phỏng hai tài khoản theo các chu kỳ Open-to-Close khép kín.
 
@@ -320,6 +340,8 @@ def compute_account_metrics(
     Mỗi SHORT giữ CASH trong toàn bộ horizon vì không bán khống cổ phiếu cơ sở.
     Phí môi giới và trượt giá được áp dụng riêng trên cả hai chiều BUY/SELL.
     Cách thực thi này đồng nhất tuyệt đối horizon của P&L với horizon chấm nhãn.
+    risk_frequency phải khai báo tần suất return đã xác thực; thiếu thì ratio
+    annualised là null. Drawdown vẫn tính ở cycle-end, không phải daily MTM.
     """
 
     del allow_shorting  # Giữ tham số tương thích; hợp đồng mới luôn là long-only.
@@ -330,6 +352,8 @@ def compute_account_metrics(
         raise ValueError("initial_capital_vnd phải là số dương hữu hạn")
     if not np.isfinite(price_multiplier) or price_multiplier <= 0.0:
         raise ValueError("price_multiplier phải là số dương hữu hạn")
+    for point in test_points:
+        validate_target_record(asdict(point))
 
     def compute_variant(prediction_field: str, variant: str) -> AccountMetrics:
         cash_vnd = initial_capital_vnd
@@ -471,24 +495,10 @@ def compute_account_metrics(
                 point.transaction_fee_no_alpha_vnd = round(transaction_fee_vnd, 4)
                 point.slippage_cost_no_alpha_vnd = round(slippage_cost_vnd, 4)
 
-        returns_array = np.asarray(period_returns, dtype=float)
-        if returns_array.size:
-            mean_return = float(np.mean(returns_array))
-            std_return = float(np.std(returns_array))
-            sharpe = (
-                mean_return / std_return * np.sqrt(252.0)
-                if std_return > 1e-12
-                else 0.0
-            )
-            downside = returns_array[returns_array < 0.0]
-            downside_std = float(np.std(downside)) if downside.size else 0.0
-            sortino = (
-                mean_return / downside_std * np.sqrt(252.0)
-                if downside_std > 1e-12
-                else 0.0
-            )
-        else:
-            sharpe = sortino = 0.0
+        frequency = risk_frequency or {"return_basis": "cycle_end", "periods_per_year": None,
+                                        "frequency_status": "unspecified"}
+        risk = {**frequency, **risk_ratios(period_returns, frequency.get("periods_per_year")),
+                "drawdown_basis": "cycle_end_including_initial_wealth"}
 
         equity_array = np.asarray(equity_curve, dtype=float)
         running_peak = np.maximum.accumulate(equity_array)
@@ -515,8 +525,8 @@ def compute_account_metrics(
         final_equity_vnd = previous_equity_vnd
         return AccountMetrics(
             total_return_pct=(final_equity_vnd / initial_capital_vnd - 1.0) * 100.0,
-            sharpe_ratio=float(sharpe),
-            sortino_ratio=float(sortino),
+            sharpe_ratio=risk["sharpe_ratio"],
+            sortino_ratio=risk["sortino_ratio"],
             max_drawdown_pct=max_drawdown_pct,
             hit_rate_pct=hit_rate_pct,
             avg_trade_pct=avg_trade_pct,
@@ -528,6 +538,7 @@ def compute_account_metrics(
             final_cash_vnd=cash_vnd,
             final_shares=0.0,
             equity_curve_vnd=equity_curve_vnd,
+            risk_metrics=risk,
         )
 
     return {
@@ -581,6 +592,7 @@ class BacktestEngine:
     # ── Graph initialization ───────────────────────────────────────────────────
 
     def _init_graphs(self):
+        require_prompt_costs(self.config)
         import os
         from langchain_groq import ChatGroq
         from utils.graph_setup import SetGraph
@@ -661,7 +673,7 @@ class BacktestEngine:
         Lấy nhãn kinh tế sau cửa sổ phân tích.
 
         Args:
-            end_idx   : index cuối cửa sổ (nến cuối cùng agent nhìn thấy)
+            end_idx   : boundary exclusive e; nến cuối nhìn thấy là e-1
             lookahead : số nến phía trước để đánh giá.
                         - 1 = entry Open[end_idx], exit Close[end_idx]
                         - 3 = entry Open[end_idx], exit Close[end_idx+2]
@@ -670,6 +682,8 @@ class BacktestEngine:
                  entry_open = open đầu kỳ thực thi (end_idx)
                  next_close = close của nến end_idx + lookahead - 1
         """
+        if any(not isinstance(v, (int, np.integer)) or isinstance(v, (bool, np.bool_)) or v < 1 for v in (end_idx, lookahead)):
+            raise ValueError("Boundary/horizon phải là integer dương")
         target_idx = end_idx + lookahead - 1
         if target_idx >= len(df):
             return "UNKNOWN", 0.0, 0.0, 0.0, 0.0
@@ -1075,7 +1089,7 @@ class BacktestEngine:
 
     # ── Metrics helpers ────────────────────────────────────────────────────────
 
-    def _compute_partial(self, tps: List[TestPoint]) -> PartialSummary:
+    def _compute_partial(self, tps: List[TestPoint], *, timeframe: str = "", step: Optional[int] = None) -> PartialSummary:
         vf = [tp for tp in tps if tp.pred_full     not in ("UNKNOWN", "")]
         vn = [tp for tp in tps if tp.pred_no_alpha not in ("UNKNOWN", "")]
         cf = sum(1 for tp in vf if tp.correct_full)
@@ -1090,6 +1104,7 @@ class BacktestEngine:
             slippage=self.config.get("slippage", 0.001),
             initial_capital_vnd=self.config.get("initial_capital_vnd", 50_000_000.0),
             price_multiplier=self.config.get("price_multiplier", 1_000.0),
+            risk_frequency=cycle_frequency(tps, timeframe, step),
         )
         full_account = account["full"]
         no_alpha_account = account["no_alpha"]
@@ -1106,8 +1121,10 @@ class BacktestEngine:
             equity_full_vnd=round(full_account.final_equity_vnd, 0),
             equity_no_alpha_vnd=round(no_alpha_account.final_equity_vnd, 0),
             initial_capital_vnd=full_account.initial_capital_vnd,
-            sharpe_full=round(full_account.sharpe_ratio, 2),
-            sharpe_no_alpha=round(no_alpha_account.sharpe_ratio, 2),
+            sharpe_full=round_ratio(full_account.sharpe_ratio),
+            sharpe_no_alpha=round_ratio(no_alpha_account.sharpe_ratio),
+            risk_metrics_full=full_account.risk_metrics,
+            risk_metrics_no_alpha=no_alpha_account.risk_metrics,
             mdd_full=round(full_account.max_drawdown_pct, 2),
             mdd_no_alpha=round(no_alpha_account.max_drawdown_pct, 2),
             equity_curve_full=full_account.equity_curve,
@@ -1148,6 +1165,7 @@ class BacktestEngine:
             slippage=self.config.get("slippage", 0.001),
             initial_capital_vnd=self.config.get("initial_capital_vnd", 50_000_000.0),
             price_multiplier=self.config.get("price_multiplier", 1_000.0),
+            risk_frequency=cycle_frequency(tps, timeframe, step),
         )
         full_account = account["full"]
         no_alpha_account = account["no_alpha"]
@@ -1173,14 +1191,14 @@ class BacktestEngine:
             newey_west_statistic=float(significance["newey_west_statistic"]),
             newey_west_p_value=float(significance["newey_west_p_value"]),
             pnl_full=round(full_account.total_return_pct, 2),
-            sharpe_full=round(full_account.sharpe_ratio, 2),
-            sortino_full=round(full_account.sortino_ratio, 2),
+            sharpe_full=round_ratio(full_account.sharpe_ratio),
+            sortino_full=round_ratio(full_account.sortino_ratio),
             mdd_full=round(full_account.max_drawdown_pct, 2),
             hit_rate_full=round(full_account.hit_rate_pct, 2),
             avg_trade_full=round(full_account.avg_trade_pct, 2),
             pnl_no_alpha=round(no_alpha_account.total_return_pct, 2),
-            sharpe_no_alpha=round(no_alpha_account.sharpe_ratio, 2),
-            sortino_no_alpha=round(no_alpha_account.sortino_ratio, 2),
+            sharpe_no_alpha=round_ratio(no_alpha_account.sharpe_ratio),
+            sortino_no_alpha=round_ratio(no_alpha_account.sortino_ratio),
             mdd_no_alpha=round(no_alpha_account.max_drawdown_pct, 2),
             hit_rate_no_alpha=round(no_alpha_account.hit_rate_pct, 2),
             avg_trade_no_alpha=round(no_alpha_account.avg_trade_pct, 2),
@@ -1198,6 +1216,8 @@ class BacktestEngine:
             equity_curve_full_vnd=full_account.equity_curve_vnd,
             equity_curve_no_alpha_vnd=no_alpha_account.equity_curve_vnd,
             test_points=[asdict(tp) for tp in tps],
+            risk_metrics_full=full_account.risk_metrics,
+            risk_metrics_no_alpha=no_alpha_account.risk_metrics,
         )
 
     # ── Save helper ────────────────────────────────────────────────────────────
@@ -1359,16 +1379,20 @@ class BacktestEngine:
                 exit_time=pd.Timestamp(
                     df["Datetime"].iloc[end_idx + lookahead - 1]
                 ).isoformat(),
+                entry_bar_index=int(end_idx), exit_bar_index=int(end_idx + lookahead - 1),
                 error_full=err_f, error_no_alpha=err_n,
                 decision_source_full=source_f,
                 decision_source_no_alpha=source_n,
                 decision_fallback_reason_full=fallback_reason_f,
                 decision_fallback_reason_no_alpha=fallback_reason_n,
+                **{k: v for k, v in target_fields(df, int(end_idx), int(lookahead),
+                    self.config.get("tx_cost", .0025), self.config.get("slippage", .001)).items()
+                   if k not in ("entry_open", "exit_close")},
             )
             test_points.append(tp)
 
             # Tính P&L lũy kế tại điểm này và lưu vào TestPoint
-            partial = self._compute_partial(test_points)
+            partial = self._compute_partial(test_points, timeframe=timeframe, step=step)
 
             # Callback tiến trình
             if callback:

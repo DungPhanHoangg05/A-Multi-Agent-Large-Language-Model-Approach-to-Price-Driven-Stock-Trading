@@ -24,9 +24,13 @@ from core.historical_signals import CODE_FILES, digest
 from core.prior_config import copy_prior_json, normalize_prior_config, validate_prior_execution
 from core.prior_context import PriorContextAdapter, REPORT_FIELDS, _runtime_identity
 from utils import graph_setup, decision_parser
+from utils.account_risk import cycle_frequency
+from utils.target_contract import target_fields, target_record_fields
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_VERSION = "prior_research_checkpoint_v1"
+LEGACY_SCHEMA_VERSION = "prior_research_checkpoint_v1"
+SCHEMA_VERSION = "prior_research_checkpoint_v2"
+SCHEMA_PATH = "docs/plan/week12/prior_research_checkpoint_v2.schema.json"
 
 
 def canonical_hash(value: Any) -> str:
@@ -39,9 +43,11 @@ def canonical_hash(value: Any) -> str:
 class ResearchSchema:
     """Resolve schema đã khóa từ repo, không tải tham chiếu trên mạng."""
 
-    def __init__(self) -> None:
+    def __init__(self, version: str = SCHEMA_VERSION) -> None:
+        if version not in (LEGACY_SCHEMA_VERSION, SCHEMA_VERSION):
+            raise ValueError("Phiên bản checkpoint không được hỗ trợ")
         schemas = [read_json(ROOT / path) for path in (
-            "docs/plan/week4/research_checkpoint.schema.json",
+            SCHEMA_PATH, "docs/plan/week4/research_checkpoint.schema.json",
             "docs/plan/week1/historical_task_record.schema.json",
             "docs/plan/week1/market_regime_state.schema.json")]
         def reject_network(uri: str) -> Resource:
@@ -49,12 +55,16 @@ class ResearchSchema:
         registry = Registry(retrieve=reject_network)
         for schema in schemas:
             registry = registry.with_resource(schema["$id"], Resource.from_contents(schema))
-        self.schema, self.registry = schemas[0], registry
+        self.schemas = {SCHEMA_VERSION: schemas[0], LEGACY_SCHEMA_VERSION: schemas[1]}
+        self.schema, self.registry = self.schemas[version], registry
 
     def validate(self, value: dict[str, Any], definition: str | None = None) -> None:
         """Kiểm native/finite rồi kiểm schema; lỗi shape phải dừng trước ghi file."""
         value = copy_prior_json(value)
-        schema = self.schema if definition is None else {"$ref": f"{self.schema['$id']}#/$defs/{definition}"}
+        versions = value.get("versions")
+        version = value.get("schema_version", versions.get("checkpoint") if type(versions) is dict else None)
+        selected = self.schemas.get(version, self.schema) if type(version) is str else self.schema
+        schema = selected if definition is None else {"$ref": f"{selected['$id']}#/$defs/{definition}"}
         errors = list(Draft202012Validator(schema, registry=self.registry).iter_errors(value))
         if errors:
             raise ValueError(f"Kết quả nghiên cứu sai schema tại {list(errors[0].absolute_path)}")
@@ -90,7 +100,8 @@ def evaluate_point(frame: pd.DataFrame, events: list[dict[str, Any]], cutoff: st
         evaluated[name] = {"correct": bool((action == "LONG") == (actual == "UP")),
             "executed_action": "BUY_SELL" if action == "LONG" else "CASH",
             "cycle_net_return": net if action == "LONG" else 0.0}
-    return {"entry_date": entry, "exit_date": exit_date, "entry_open": entry_open,
+    return {**target_fields(frame, index + 1, 3), "entry_bar_index": index + 1, "exit_bar_index": index + 3,
+            "entry_date": entry, "exit_date": exit_date, "entry_open": entry_open,
             "exit_close": exit_close, "net_return_long": net, "actual_direction": actual,
             "branches": evaluated}
 
@@ -124,8 +135,12 @@ def summarize_points(points: list[dict[str, Any]]) -> dict[str, Any]:
                 rr_full=decision["risk_reward_ratio"], rr_no_alpha=decision["risk_reward_ratio"],
                 time_full_sec=point["branches"][name]["decision"]["latency_seconds"], time_no_alpha_sec=0.,
                 entry_open=evaluation["entry_open"], exit_close=evaluation["exit_close"],
-                entry_time=evaluation["entry_date"], exit_time=evaluation["exit_date"]))
-        metrics = compute_account_metrics(test_points)["full"]
+                entry_time=evaluation["entry_date"], exit_time=evaluation["exit_date"],
+                **target_record_fields(evaluation)))
+        steps = {b.entry_bar_index - a.entry_bar_index for a, b in zip(test_points, test_points[1:])
+                 if a.entry_bar_index is not None and b.entry_bar_index is not None}
+        step = next(iter(steps)) if len(steps) == 1 else None
+        metrics = compute_account_metrics(test_points, risk_frequency=cycle_frequency(test_points, "1d", step))["full"]
         count = len(points)
         correct = sum(int(point["evaluation"]["branches"][name]["correct"]) for point in points)
         longs = sum(point["branches"][name]["decision"]["action"] == "LONG" for point in points)
@@ -205,6 +220,7 @@ class PriorBacktestRunner:
                       "core/prior_config.py", "core/decision_prior.py", "core/bayesian_retriever.py", "agents/decision_agent.py",
                       "core/prior_checkpoint.py", "core/prior_run_lock.py", "core/groq_pacing.py", "core/prior_stage_journal.py",
                       "core/pilot_readiness.py", "scripts/run_bayesian_ablation.py",
+                      SCHEMA_PATH, "utils/target_contract.py", "utils/account_risk.py",
                       "docs/plan/week4/research_checkpoint.schema.json", "docs/plan/week4/checkpoint_policy.json",
                       "docs/plan/week1/historical_task_record.schema.json", "docs/plan/week1/market_regime_state.schema.json")
         identity = {"identity_version": "prior_run_identity_v1", "protocol": "five_way_full_shared_pit",
