@@ -11,6 +11,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from agents.decision_agent import create_final_trade_decider
+from core.decision_profiles import NATIVE_PROFILE
 from core.revision72_run import checked, freeze, variant_state
 from core.revision_r4_factorial import VARIANTS, controlled_prompt, prompt_parts
 from core.revision_common_study import digest
@@ -34,7 +35,7 @@ def native_prompt(state: dict) -> str:
 
     with contextlib.redirect_stdout(io.StringIO()):
         try:
-            create_final_trade_decider(Capture())(state)
+            create_final_trade_decider(Capture(), decision_profile=NATIVE_PROFILE)(state)
         except PromptCaptured:
             pass
     if len(prompts) != 1 or len(prompts[0]) >= 6500:

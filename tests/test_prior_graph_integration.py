@@ -155,7 +155,8 @@ class PriorGraphIntegrationTests(unittest.TestCase):
                         return {"alpha_report": "alpha" if alpha else "No data.",
                                 "sentiment_report": "sentiment" if sentiment else "No data."}
                     return node
-                def decide(_llm):
+                def decide(_llm, *, decision_profile):
+                    self.assertEqual(decision_profile, "original_fix_serving_v1")
                     def node(state):
                         calls.append("decision")
                         return {"final_trade_decision": "LONG"}

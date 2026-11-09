@@ -190,7 +190,9 @@ class PairedProtocolTests(unittest.TestCase):
         calls = []
 
         def factory(name: str, output: dict):
-            def make_node(*_args):
+            def make_node(*_args, decision_profile=None):
+                if name == "decision":
+                    self.assertEqual(decision_profile, "original_fix_serving_v1")
                 def node(_state: dict) -> dict:
                     calls.append(name)
                     return output

@@ -220,7 +220,7 @@ class PriorBacktestRunner:
                       "core/prior_config.py", "core/decision_prior.py", "core/bayesian_retriever.py", "agents/decision_agent.py",
                       "core/prior_checkpoint.py", "core/prior_run_lock.py", "core/groq_pacing.py", "core/prior_stage_journal.py",
                       "core/pilot_readiness.py", "scripts/run_bayesian_ablation.py",
-                      SCHEMA_PATH, "utils/target_contract.py", "utils/account_risk.py",
+                      SCHEMA_PATH, "utils/target_contract.py", "utils/account_risk.py", "core/decision_profiles.py",
                       "docs/plan/week4/research_checkpoint.schema.json", "docs/plan/week4/checkpoint_policy.json",
                       "docs/plan/week1/historical_task_record.schema.json", "docs/plan/week1/market_regime_state.schema.json")
         identity = {"identity_version": "prior_run_identity_v1", "protocol": "five_way_full_shared_pit",

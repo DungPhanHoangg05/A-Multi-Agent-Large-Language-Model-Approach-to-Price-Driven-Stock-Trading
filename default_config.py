@@ -1,4 +1,5 @@
 DEFAULT_CONFIG = {
+    "decision_profile":       "original_fix_serving_v1",
     "agent_llm_model":        "openai/gpt-oss-20b",   # text agent 
     "graph_llm_model":        "qwen/qwen3.8-27b",  # vision agent 
     "agent_llm_provider":     "groq",

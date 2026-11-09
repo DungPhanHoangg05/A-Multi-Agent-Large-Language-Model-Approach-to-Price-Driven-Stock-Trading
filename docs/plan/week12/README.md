@@ -13,13 +13,15 @@ Ngày 09/11/2026: đã lập [kế hoạch hợp nhất](fix_develop_integration
 từ hai tip `fix:9efd23f4` và `develop:21f7ee67`. Lấy hành vi fix làm nền,
 develop tiếp tục là nhánh tích hợp; phân biệt native baseline, common baseline
 và các mở rộng để không gán thay đổi prompt/dữ liệu thành hiệu quả phương pháp.
-U02 đã ghép nguồn trong worktree riêng; develop vẫn giữ mốc trước tích hợp.
+U02 đã ghép nguồn và U03 đạt parity offline trong worktree riêng; develop vẫn
+giữ mốc trước tích hợp. Native chạy mới dùng `original_fix_serving_v1`, có guard
+budget được version riêng; parity chỉ trên miền input hợp lệ đã kiểm.
 Chưa mở đợt inference mới.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
 - [x] U02 — Hợp nhất nguồn và bảo toàn contracts fix trên nhánh tích hợp.
-- [ ] U03 — Kiểm chứng tương đương original_fix.
+- [x] U03 — Kiểm chứng tương đương original_fix trên miền hợp lệ và version delta serving.
 - [ ] U04 — Registry, runner, evaluator và CLI/UI thống nhất.
 - [ ] U05 — Profile nhân quả chung và bridge với native nếu nghiên cứu causal.
 - [ ] U06 — Khóa giao thức so sánh, cohort, thống kê và ngân sách.
@@ -27,6 +29,116 @@ Chưa mở đợt inference mới.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U03
+
+U03 tiếp tục trên `feat/fix-develop-unification` theo §4.1 của kế hoạch vì nền
+U02 chưa đủ gate để vào develop. Mốc đầu vào:
+`9eeb201e9133d08ee857eff3abbcffe49291e2af`; oracle fix vẫn là
+`9efd23f4157e0d3ab8069fccab7dccf03439a714`.
+
+- [x] U03.1 — Đối soát nhánh sạch/mốc nguồn và giữ ref archive U02 trước khi sửa.
+- [x] U03.2 — Phương pháp `original_fix` có profile chạy mới `original_fix_serving_v1`, giữ native distill/cap và chặn quá budget; đường nghiên cứu hiện hành có tên riêng, native không nhận prior/MT.
+- [x] U03.3 — Golden request cuối VI/EN, bốn ablation, schema/options, parse/repair và chặn prompt quá budget trước model.
+- [x] U03.4 — Hai tiến trình sạch đối chiếu graph/reports/ảnh/factors/sentiment, PIT 600 bars, call counts và ledger kinh tế.
+- [x] U03.5 — Replay archive có đủ nguồn: xác minh parent/request/response/hash và báo đúng support, không gán provenance mới.
+- [x] U03.6 — Entrypoints CLI/UI cũ giữ hợp đồng dữ liệu/options/default native và lỗi rõ ràng.
+- [x] U03.7 — Compile/test caller/PIT/paired/recovery đúng vùng đổi, đối soát gate U02 còn áp dụng và delta mới.
+- [x] U03.8 — Cold replay không mạng, khóa source/runtime/golden/log, kiểm diff/links rồi commit trên nhánh tích hợp.
+- [ ] Bàn giao nền vào develop — còn cần các kiểm tra U07 liên quan; chưa mở inference hoặc nhận causal gate.
+
+### Kết quả và giới hạn U03
+
+Hoàn tất ngày **09/11/2026** trên `feat/fix-develop-unification`; ref
+`refs/archive/fix-develop-u03/integration` giữ mốc U02 trước thay đổi.
+
+Phương pháp native có ID `original_fix`; profile chạy mới là
+`original_fix_serving_v1`. CLI/live/backtest mặc định dùng profile này, giữ
+native distill/cap, schema và options. Tổng prompt từ **6.500 ký tự** bị chặn
+trước Decision inference, không tự cắt lại. Trong **34 golden cases** (VI/EN,
+live/backtest, B/A/S/AS, report ngắn/dài và parse/repair), **26 case hợp lệ khớp
+đúng request cuối/schema/options/parse**; **8 case live report dài** chỉ thuộc
+legacy replay vì donor gửi quá budget. Đây là delta serving có version, không
+nhận parity vô điều kiện trên mọi input. `integrated_default_v1` giữ cap nghiên
+cứu develop; đường `compile_report_decision` chọn nó tường minh. Tên profile
+không biết, prior bật/prefix chèn ngoài hoặc prior hook đi vào native bị từ chối;
+native không chạy MT hoặc mở memory bank/student.
+
+Hai tiến trình Python `-I` nạp hai cây nguồn riêng: donor lấy blob thô qua
+`git cat-file` (tránh chuyển LF/CRLF), cây tích hợp dùng nguồn hiện hành. Kiểm
+hash mọi module dự án đã nạp và từ chối import lẫn cây. Fixture graph chạy engine,
+LangGraph, renderer, selector 85 alpha và sentiment thật; chỉ thay transport/
+response bằng double xác định, dùng SDK Groq thật để serialize request/schema.
+Đối chiếu VI/EN khớp toàn bộ reports, ảnh PNG/pixel, inputs, request, parse,
+targets và ledger; chỉ bỏ clock/latency vận hành. Mỗi điểm có prefix **600 bars**,
+**8 tin hợp lệ** (future/undated bị loại), một lượt Indicator→Pattern→Trend→Alpha
+và hai Decision dùng chung upstream. Poison ba nến outcome không đổi forecast
+inputs/ảnh/factors/reports/request nhưng làm đổi target.
+
+Replay phase `main` của `revision_minimal_v1` giữ đủ **204/204 slot B/AS**,
+**102 điểm/chín mã**, **204 request IDs**, **204 ảnh dựng lại đúng bytes** và
+**102 ledger = 51 tài khoản mã/fold × hai variant**. Mỗi input phải khớp Git
+donor trong inventory U01, rồi kiểm parent/shared state, raw request/response,
+checkpoint và digest. Hai cây tái tạo cùng prompt, schema, model, effective
+temperature/max_tokens, normalized action, target và toàn bộ ledger. Replay này
+**conditional trên reports upstream và numeric assets lưu trữ**, không tái sinh
+response hosted, không nghiệm thu panel/repeats khác hoặc các trường packet cũ
+không được log. Không đổi support/cohort hoặc nhãn `Original_common` của pilot.
+
+CLI consumer bốn ablation/account và Flask test client đã đối chiếu trang
+backtest VI/EN, JSON status và 404. Test riêng kiểm default native, refresh và
+lỗi profile trước khi tạo client; không khởi động server/live job hoặc gọi nhà
+cung cấp market/model. Oracle vô hiệu hóa auto-load `.env`; chính sách credential
+tường minh của launcher hiện hành được giữ, không nhận import side effect cũ là
+đã khôi phục. Mọi lượt U03 chặn mạng ngoài máy: **0 hosted call, 0 huấn luyện**.
+
+### Kiểm thử U03 và cách kiểm lại
+
+Đã compile đúng **13 file Python mới/đổi**; **183/183 test case duy nhất trong
+22 module PASS**, không fail/error/skip:
+
+| Log trong gói QA | PASS | Phạm vi |
+| --- | --- | --- |
+| `parity.log` | 12 | Golden SDK, native guard/profile, oracle bytes, archive tamper, future poison và caller chart |
+| `graphs.log` | 78 | Token budget, paired, Prior graph/prompt, MT Decision và alpha/sentiment cutoff |
+| `entrypoints.log` | 35 | Ablation/sweep, JSON UI, target/account risk |
+| `recovery.log` | 49 | Prior integration/PIT, checkpoint, locks và durable stage recovery |
+| `locks.log` | 9 | Research input lock và leakage |
+
+Hai hàm `compute_round_trip_net_return`, `_validate_account_costs` giữ nguyên
+AST so với donor và U02. Đối soát lại **21.383 artifact đóng băng** và đủ
+**21.948 đường dẫn U01**: PASS; ngoại lệ workflow đã nghỉ giữ nguyên như U02.
+**143/150 source bindings U02** còn nguyên byte; bảy binding đổi được liệt kê
+trong `previous_gate_delta.json`. Các file U03 mới/đổi ngoài tập cũ có bindings
+mới; đã kiểm lại đúng caller chịu ảnh hưởng và **107 package/Python 3.13.5**.
+Không ghi 239 test U02 là đã chạy lại; gate cũ chỉ giữ phạm vi snapshot cũ,
+không cấp gate cho hành vi mới. Không chạy full suite/E2E/toàn leakage suite.
+
+Gói [golden, cold output, log và source/runtime bindings](original_fix_parity_checks.zip):
+**570.504 byte**, SHA256
+`9890f5d6865e83535e63a49611ce3049c4b3aab3cf727338312d17deb3ee7648`.
+Tiến trình cold consumer mới đã PASS **22/22 thành viên**, **482 source bindings**,
+runtime và toàn bộ archive inputs được khóa. Diff whitespace và **48 liên kết/
+anchor local** trong bốn tài liệu hiện hành đã kiểm PASS. Consumer chỉ kiểm bytes/input/
+source/runtime và so lại kết quả đã lưu, không tạo client hoặc chạy graph mới:
+
+```powershell
+py -3.13 -I -X utf8 scripts/verify_original_fix_parity.py --verify docs/plan/week12/original_fix_parity_checks.zip
+```
+
+Khi cần chạy lại parity graph/archive do đổi nguồn tương ứng, dùng output mới
+(lệnh chạy vài phút; không ghi đè archive cũ):
+
+```powershell
+py -3.13 -I -X utf8 scripts/verify_original_fix_parity.py --output outputs/unified_integration/original_fix_parity_review
+```
+
+Harness `run_scoped_checks.py` trong gói chạy lại từng nhóm từ repo root, ví dụ
+`py -3.13 -X utf8 <thư_mục_giải_nén>/run_scoped_checks.py graphs <log_mới>`.
+Giữ giới hạn **`native_rowwise_causal_gate=FAIL`**: outer cutoff PASS không
+chứng nhận row-wise causality/Zero-Leakage toàn hệ. U03 không mở nghiên cứu mới,
+không nhận superiority; U04–U10 và bàn giao nền vào develop vẫn theo các gate
+riêng trong kế hoạch.
 
 ### Checklist chi tiết U02
 
@@ -72,7 +184,8 @@ Renderer giữ handles/màu fix và tùy chọn `write_artifacts` develop. Test 
 thấy bật/tắt file phụ trả cùng bytes; messages Trend VI/EN khớp donor trên fixture.
 Auditor chart lịch sử vẫn từ chối AST tích hợp có retry hooks khác nguồn cũ;
 test lịch sử chạy trên đúng source donor, không nới guard để gọi mã mới là bản
-cũ. Golden payload Decision và parity graph/archive đầy đủ còn thuộc U03.
+cũ. Golden payload Decision và parity graph/archive được nghiệm thu riêng ở
+kết quả U03 phía trên.
 
 Đã hợp nhất attributes/ignore của hai nhánh, giữ AGENTS hiện hành và viết root
 README tiếng Anh về kiến trúc/cài đặt/vận hành, gồm attribution QuantAgent.
@@ -142,9 +255,9 @@ py -3.13 -X utf8 "$env:TEMP/u02-checks/run_scoped_checks.py" economics "$env:TEM
 ```
 
 U02 chỉ được commit trên `feat/fix-develop-unification`; chưa merge nền vào
-develop. U03 và phần U07 bị ảnh hưởng tiếp tục trên nhánh tích hợp cho đến khi
-đủ điều kiện §4.1 của kế hoạch; chưa cấp release inference mới, chưa nhận native
-parity và không khôi phục H07 full1020 đã hủy.
+develop. U03 được nghiệm thu riêng phía trên; phần U07 bị ảnh hưởng tiếp tục
+trên nhánh tích hợp cho đến khi đủ điều kiện §4.1 của kế hoạch. Chưa cấp release
+inference mới và không khôi phục H07 full1020 đã hủy.
 
 Task lập kế hoạch chỉ đổi Markdown: kiểm diff, links và bằng chứng nguồn;
 không chạy compileall/unit/E2E/leakage theo AGENTS §1.2. Các kết quả pilot

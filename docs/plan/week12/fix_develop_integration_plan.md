@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát: **09/11/2026**. Trạng thái: **U01 đã khóa inventory; U02 đã ghép nguồn trên nhánh tích hợp, chưa đưa nền vào develop hoặc cấp release mới**.
+Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U03 hoàn tất trên nhánh tích hợp; parity offline trên miền native hợp lệ, chưa đưa nền vào develop hoặc cấp release mới**.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
@@ -15,7 +15,7 @@ Giữ ba lớp nhận diện:
 2. `original_fix`: đường chạy gốc đã tích hợp, không prior/MT; phải đạt kiểm chứng tương đương với `fix` trên fixture và archive có đủ nguồn. Lời gọi hosted mới không được hứa hẹn trả đúng response lịch sử.
 3. `original_common` và các mở rộng: một cấu hình nghiên cứu chung, công khai các thay đổi về report, prompt, giới hạn đầu ra và schema so với `original_fix`. Tên `Original_common` của pilot cũ giữ nguyên trong archive, không đổi nhãn thành `original_fix`.
 
-Tài liệu này khóa thiết kế hợp nhất. U01 đã hoàn tất audit nguồn/bằng chứng tại [README W12](README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa); U02 đã ghép nguồn tại nhánh riêng theo [checklist chi tiết](README.md#checklist-chi-tiết-u02). Native parity và các gate nền còn phải nghiệm thu trước khi đưa mã vào develop. Chưa gọi API, huấn luyện hoặc sửa kết quả bài báo; không khôi phục đợt 1.020 điểm đã hủy.
+Tài liệu này khóa thiết kế hợp nhất. U01 đã hoàn tất audit nguồn/bằng chứng tại [README W12](README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa); U02 đã ghép nguồn tại nhánh riêng theo [checklist chi tiết](README.md#checklist-chi-tiết-u02). [U03 đã PASS parity offline](README.md#kết-quả-và-giới-hạn-u03) với profile `original_fix_serving_v1`, công khai guard budget và miền legacy-only. Các kiểm tra U07 liên quan còn phải nghiệm thu trước khi đưa nền vào develop. Chưa gọi API, huấn luyện hoặc sửa kết quả bài báo; không khôi phục đợt 1.020 điểm đã hủy.
 
 ## 2. Bằng chứng khảo sát hai nhánh
 
@@ -196,6 +196,11 @@ khóa nguồn/nhánh → giải quyết merge quản trị → engine contracts 
 → chart/prompt → dependency lock → byte evidence → kiểm thử đúng phạm vi → commit/bàn giao.
 Mỗi mục chỉ đánh dấu khi đầu ra tương ứng đã được kiểm; gate đưa nền vào develop
 được theo dõi riêng sau U03 và phần U07 bị ảnh hưởng.
+
+U03 có [checklist riêng](README.md#checklist-chi-tiết-u03) cho profile native,
+golden requests, graph/ảnh/PIT, archive, CLI/UI và cold replay. Oracle chỉ nạp
+nguồn Git donor trong tiến trình cách ly; cap native không được âm thầm đổi
+để vượt guard, và mọi support archive thiếu phải được báo trước khi nghiệm thu.
 
 | Mục | Nhánh đề xuất / công việc | Đầu ra và điều kiện thoát |
 | --- | --- | --- |

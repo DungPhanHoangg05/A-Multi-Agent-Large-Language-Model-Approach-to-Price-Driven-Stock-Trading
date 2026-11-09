@@ -34,6 +34,13 @@ price-pool and semantic variants. MT-BICL adds numeric context, a student,
 an anchor decision, posterior utility, and policy vetoes. Native and common
 prompt profiles are distinct; disabling a prior does not establish native parity.
 
+The CLI/web default `decision_profile` is `original_fix_serving_v1`: native
+reports, caps, schema and model options, with a pre-inference character guard.
+Requests of 6,500 characters or more fail instead of being silently recapped.
+Oversized historical native requests are limited to frozen offline replay.
+`integrated_default_v1` retains the existing research report caps; research
+common prompts and prior settings remain explicit configurations.
+
 Historical features use at most 600 candles ending at the query cutoff.
 Research news excludes unavailable and undated items, and memory episodes
 must exit strictly before the query date. The native alpha selector has a known

@@ -11,7 +11,10 @@ U01 đã khóa inventory/hash hai cây nguồn, imports/callers và bằng chứ
 [kết quả audit](week12/README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa) ghi rõ delta nguồn và binding lịch sử.
 U02 đã ghép nguồn và PASS kiểm thử đúng phạm vi trên nhánh/worktree riêng;
 [checklist chi tiết](week12/README.md#checklist-chi-tiết-u02)
-theo dõi contracts/schema/chart, dependencies, evidence và kiểm thử. Develop
+theo dõi contracts/schema/chart, dependencies, evidence và kiểm thử.
+U03 đã PASS parity offline trên miền native hợp lệ, replay đủ 204 slot B/AS;
+[checklist U03](week12/README.md#checklist-chi-tiết-u03) ghi profile
+`original_fix_serving_v1`, delta budget, log và giới hạn nhân quả. Develop
 chưa nhận phần mã nguồn tích hợp; chưa mở inference mới. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 

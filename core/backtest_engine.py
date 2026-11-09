@@ -593,6 +593,8 @@ class BacktestEngine:
 
     def _init_graphs(self):
         require_prompt_costs(self.config)
+        from core.decision_profiles import NATIVE_PROFILE, validate_decision_profile
+        profile = validate_decision_profile(self.config.get("decision_profile", NATIVE_PROFILE))
         import os
         from langchain_groq import ChatGroq
         from utils.graph_setup import SetGraph
@@ -633,7 +635,7 @@ class BacktestEngine:
         )
         toolkit = TechnicalTools()
 
-        graph_builder = SetGraph(agent_llm, graph_llm, toolkit)
+        graph_builder = SetGraph(agent_llm, graph_llm, toolkit, decision_profile=profile)
         print("[BacktestEngine] Khởi tạo shared upstream graph...")
         self._graph_upstream = graph_builder.compile_upstream()
         self._graph_decision_variants = {
