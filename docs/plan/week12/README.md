@@ -16,7 +16,8 @@ và các mở rộng để không gán thay đổi prompt/dữ liệu thành hi�
 U02 đã ghép nguồn và U03 đạt parity offline trong worktree riêng; develop vẫn
 giữ mốc trước tích hợp. Native chạy mới dùng `original_fix_serving_v1`, có guard
 budget được version riêng; parity chỉ trên miền input hợp lệ đã kiểm.
-U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. Chưa mở đợt
+U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. U05 có profile
+alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. Chưa mở đợt
 inference mới.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
@@ -24,12 +25,123 @@ inference mới.
 - [x] U02 — Hợp nhất nguồn và bảo toàn contracts fix trên nhánh tích hợp.
 - [x] U03 — Kiểm chứng tương đương original_fix trên miền hợp lệ và version delta serving.
 - [x] U04 — Registry, runner, evaluator và CLI/UI offline thống nhất.
-- [ ] U05 — Profile nhân quả chung và bridge với native nếu nghiên cứu causal.
+- [x] U05 — Profile alpha nhân quả chung và bridge với native; gate toàn hệ còn chờ U06/U07.
 - [ ] U06 — Khóa giao thức so sánh, cohort, thống kê và ngân sách.
 - [ ] U07 — Kiểm paired/PIT/recovery theo phạm vi.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U05
+
+Tiếp tục trên nhánh tích hợp từ U04
+`45ab87a132463dd2bada2bb0d7d9dbbee13dd193`; ref
+`refs/archive/fix-develop-u05/integration` giữ mốc đầu vào. Không thay code
+native hoặc nâng `native_rowwise_causal_gate=FAIL` thành PASS.
+
+- [x] U05.1 — Audit nguồn noncausal: normalizer, bfill, volume toàn cửa sổ và sáu cửa sổ phụ thuộc `len(d)`.
+- [x] U05.2 — `causal_common_v1` riêng cho 85 handler, rolling/expanding PIT, warm-up/missing mask rõ; nguồn native nguyên byte.
+- [x] U05.3 — Orientation trên train; top5/threshold trên validation common support, purge theo exit thực và chu kỳ LONG/CASH không chồng lấn; test không vào fit.
+- [x] U05.4 — Artifact nguồn/runtime/lịch/costs; replay fit trước load, freeze ID/sign/threshold khi predict, không reset origin hoặc fallback native.
+- [x] U05.5 — Spec/snapshot/forecast v2 tường minh; một raw parent, native giữ request cũ, cả family common dùng cùng causal projection.
+- [x] U05.6 — CLI fit/verify/predict/bridge offline, model/price hashes và giới hạn gate alpha riêng với toàn hệ.
+- [x] U05.7 — Prefix extension/future poison đủ 85 handler, purge/orientation, bridge tám vai trò và hồi quy đúng vùng PASS.
+- [x] U05.8 — Cold replay/QA, đối soát frozen evidence/gate cũ, diff/links và commit nhánh tích hợp.
+- [ ] Release causal/đưa nền vào develop — U06/U07 còn phải khóa và kiểm HMM/retrieval/news/model/providers; U05 không tự chứng nhận Zero-Leakage toàn hệ.
+
+### Kết quả và giới hạn U05
+
+`causal_common_v1` dùng đủ **85 công thức native** trong namespace riêng, không
+monkeypatch hoặc sửa byte `core/alpha_compare.py`, selector/agent native hay
+engine kinh tế. Thay riêng toán tử: không bfill, chuẩn hóa expanding theo từng
+prefix, volume observed-only không proxy và sáu cửa sổ cố định thay `len(d)`.
+Warm-up **300 bars**, normalizer tối thiểu **20 quan sát**; missing/undefined
+có mask, thiếu support phải dừng, không zero-fill hoặc fallback native. Đây vẫn
+là các công thức single-stock adaptation hiện hữu, không nhận là tái lập đầy đủ
+WorldQuant cross-sectional/industry/VWAP gốc.
+
+Selector học orientation bằng train Spearman; chọn top5/threshold trên validation
+**common support**, dùng cycle LONG/CASH thực và phí hai chiều. Nhãn gọi chính
+`compute_round_trip_net_return` qua ufunc; không thêm công thức net khác. Train
+exit phải **< validation start**, validation exit **< test start**; grid cách ba
+phiên không chồng cycle. Threshold candidates `.05/.10/.20`, support tối thiểu
+60 train/30 validation và 5 LONG được khóa trong artifact. Artifact giữ toàn
+validation search, selected IDs/sign/threshold, source/runtime/lịch/giá/costs.
+Giá test không vào fit, kể cả khi poison thành NaN. Load tái lập train/validation
+một lần; predict chỉ tính feature PIT, không chọn lại, không reset origin hoặc
+đổi selected ID khi missing.
+
+Normalization giữ **history origin cố định** trên toàn prefix hợp lệ; khác với
+native dùng cửa sổ 600 nến. Bridge vẫn dùng cùng file giá và raw upstream 600
+nến: native request nguyên vẹn, cả sáu phương pháp common và Fact_Anchor nhận
+cùng năm factor/report causal. Selector dùng anchored history để tính feature;
+đây là delta profile được công khai, không gán cho riêng prior/MT. Spec
+`unified_experiment_v2` khóa `input_profile` và `causal_sources` mỗi mã/fold
+(selector + giá đều ở `source_hashes`). Snapshot/forecast/result v2 và CSV giữ
+profile, projection/native-parent hashes; v1 không nhận causal snapshot ngầm.
+
+Regression bổ sung đã phát hiện opaque hash provenance toàn file có thể đổi
+source-card MT dù chỉ giá sau cutoff thay đổi. V2 nay chỉ dùng digest **request,
+facts card và nội dung reply PIT** cho token trong prompt; policy proof, raw
+source hashes và dependency ledger vẫn giữ đầy đủ bên ngoài prompt. V1/archives
+không đổi. Poison cả future prices và provenance response không đổi request
+ở bất kỳ nhánh nào; outcome và hash nguồn thay đổi đúng như kỳ vọng.
+
+Đã compile **10 file Python mới/đổi**, PASS **151 case duy nhất / 19 module**,
+không fail/error/skip trong các log nghiệm thu cuối:
+
+| Log trong gói QA | PASS | Phạm vi |
+| --- | --- | --- |
+| `causal.log` | 17 | Oracle toán tử/kinh tế, 85 raw handlers trước warm-up, prefix extension, future/validation poison, purge/freeze, cache, v2, tám request và CLI |
+| `unified.log` | 15 | Hồi quy v1 registry/snapshot/runner/UNKNOWN/resume/ledger/CLI/UI và lazy OFF |
+| `contracts.log` | 41 | Account/target, classification helper, JSON UI và RunBook |
+| `data.log` | 42 | Prior/quality-gate leakage và MT Decision/adapter/features |
+| `native.log` | 36 | Native golden/token/paired, outer-cutoff và các counterexample native row-wise |
+
+Prefix extension kiểm đủ 85 output ở các boundary 380/600/900; raw handlers
+được so cả trước warm-up. Future OHLCV/missing-volume không sửa quá khứ;
+validation poison không đổi orientation train; test poison không đổi artifact.
+Native counterexamples vẫn **`native_rowwise_causal_gate=FAIL`**, không bị đổi nhãn
+thành PASS bởi test detection hoặc local alpha gate.
+
+Cold fixture **synthetic** có **133 cycle train**, **59 cycle validation common**,
+purge một cycle tại mỗi boundary và freeze threshold `.20`. Native agent/selector
+thật chạy đúng một lần trên cùng giá: top5 giao **2/5**, Jaccard **0,25** với causal
+tại một cutoff (600 nến native so với 1.297 nến anchored causal). Đây chỉ là
+numeric/input bridge, không đo hiệu ứng hosted hoặc lợi nhuận thị trường.
+CLI fit/verify/predict/bridge/replay/export chạy ở tiến trình `-I` mới: artifact,
+projection, native request và policy/ledger **8/8 slot, 8 account** khớp; 5 response
+offline/3 fallback, prompt lớn nhất **2.859 ký tự**. Không API, không nạp student
+weights hoặc fit/cập nhật model thị trường; numeric selector được fit trên fixture.
+
+Đối soát lại **21.383 artifact frozen** và đủ **21.948 đường dẫn U01**: PASS.
+**484/491 source bindings U04** nguyên byte; bảy file đổi được ghi trong
+`previous_gate_delta.json`, file U05 mới có bindings riêng. **107 package và
+Python 3.13.5** giữ nguyên; không cài mới môi trường. Receipt U04 giữ scope
+snapshot cũ; các nhóm U05 ở bảng trên là kết quả kiểm lại, không phải nghiệm thu toàn hệ.
+Không full suite/E2E/toàn leakage suite; chỉ các nhóm trên cho vùng thay đổi.
+
+[Gói QA, selector, bridge và fixture journal](causal_common_profile_checks.zip):
+**347.774 byte**, SHA256
+`dbb07fa015c62833ef383088eb504a69b7cdebbcee9e9596aa219b279307a08d`.
+Manifest khóa **68 thành viên**, **497 source bindings**, runtime, log/IDs,
+compile list và toàn bộ fixture/journal. Consumer mới đã PASS hash/source/runtime,
+restore sang thư mục mới rồi tái fit đúng selector, projection/bridge/ledger và
+native numeric; không tạo SDK/HTTP client, bank hoặc student. Diff whitespace và
+**56 liên kết/anchor** trong bốn tài liệu hiện hành PASS. Tái lập từ repo root:
+
+```powershell
+Expand-Archive -LiteralPath docs/plan/week12/causal_common_profile_checks.zip -DestinationPath "$env:TEMP/u05-checks"
+py -3.13 -I -X utf8 "$env:TEMP/u05-checks/verify_package.py" docs/plan/week12/causal_common_profile_checks.zip "$env:TEMP/u05-cold-restore"
+```
+
+[Hướng dẫn profile/CLI](../../../README.md#causal-alpha-profile) mô tả schema
+lịch, nguồn và bridge. Harness trong ZIP chạy riêng `causal`, `unified`,
+`contracts`, `data`, `native` khi vùng tương ứng đổi. Local alpha PIT PASS không
+chứng nhận availability tin, PIT universe, HMM/scaler, retrieval/student,
+vendor/execution data hoặc contamination của hosted model. **Whole-system
+causal gate còn PENDING_U06_U07**; chưa mở release inference, cohort mới,
+superiority hoặc merge nền vào develop.
 
 ### Checklist chi tiết U04
 

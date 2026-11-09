@@ -82,7 +82,7 @@ class SharedSnapshot:
             raise ValueError("Payload/provenance snapshot phải là object")
         forecast_only(payload)
         allowed = {*REPORTS, "stock_name", "as_of_date", "is_backtest", "time_frame", "language",
-                   "pattern_image", "trend_image", "alpha_factors", "sentiment_data", "price_prefix"}
+                   "pattern_image", "trend_image", "alpha_factors", "sentiment_data", "price_prefix", "causal_alpha"}
         if set(payload) - allowed:
             raise ValueError("Snapshot có field ngoài projection forecast đã khóa")
         def news_availability(value: Any) -> None:
@@ -122,8 +122,11 @@ class SharedSnapshot:
                 or type(provenance["news_dates"]) is not list
                 or any(day(d) > point["cutoff"] for d in provenance["news_dates"])):
             raise ValueError("Nguồn/availability snapshot không hợp lệ")
-        doc = {"version": "shared_snapshot_v1", "point": point, "realization": realization,
+        doc = {"version": "shared_snapshot_causal_v1" if "causal_alpha" in payload else "shared_snapshot_v1", "point": point, "realization": realization,
                "payload": payload, "provenance": provenance}
+        if "causal_alpha" in payload:
+            from core.causal_bridge import validate_embedded
+            validate_embedded(doc)
         return cls(json_bytes(doc))
 
     def document(self) -> dict[str, Any]:
@@ -146,7 +149,9 @@ class ExperimentSpec:
         """Kiểm trước khi mở tài nguyên hoặc tạo RunBook."""
         expected = {"version", "namespace", "mode", "variants", "points", "repeats", "realizations", "seed",
                     "decision", "source_hashes", "resource_sources", "runtime_sha256", "calendar_sha256", "estimand", "missing_policy", "costs"}
-        if type(value) is not dict or set(value) != expected or value["version"] != VERSION:
+        if type(value) is dict and value.get("version") == "unified_experiment_v2":
+            expected |= {"input_profile", "causal_sources"}
+        if type(value) is not dict or set(value) != expected or value["version"] not in (VERSION, "unified_experiment_v2"):
             raise ValueError("ExperimentSpec sai version/fields")
         execution_order(value["variants"])
         namespace = PurePosixPath(value["namespace"])
@@ -195,6 +200,14 @@ class ExperimentSpec:
         # Dựng request rỗng ở adapter sẽ kiểm cấu trúc model/options đầy đủ.
         if type(value["decision"]) is not dict or not value["decision"]:
             raise ValueError("Thiếu serving config Decision")
+        if value["version"] == "unified_experiment_v2":
+            groups = {point["symbol"] + "/" + point["fold"] for point in points}
+            bindings = value["causal_sources"]
+            if (value["input_profile"] != "causal_common_v1" or type(bindings) is not dict or set(bindings) != groups
+                    or any(type(entry) is not dict or set(entry) != {"prices", "selector"}
+                           or any(type(path) is not str or path not in value["source_hashes"] for path in entry.values())
+                           for entry in bindings.values())):
+                raise ValueError("Causal family cần selector và giá đã hash cho mọi mã/fold")
         return cls(json_bytes(value))
 
     def document(self) -> dict[str, Any]:

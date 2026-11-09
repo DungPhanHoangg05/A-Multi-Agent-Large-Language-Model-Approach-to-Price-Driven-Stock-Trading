@@ -3,7 +3,7 @@
 Đề tài Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent
 LLM Stock Trading in the Vietnamese Stock Market.
 
-## Trạng thái hiện hành09/11/2026
+## Trạng thái hiện hành
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
@@ -17,7 +17,11 @@ U03 đã PASS parity offline trên miền native hợp lệ, replay đủ 204 sl
 `original_fix_serving_v1`, delta budget, log và giới hạn nhân quả.
 U04 đã có registry tám vai trò, snapshot/records, runner/evaluator và CLI/UI
 offline dùng chung; [checklist U04](week12/README.md#checklist-chi-tiết-u04)
-ghi 128 test, cold fixture và giới hạn prepared-asset replay. Develop
+ghi 128 test, cold fixture và giới hạn prepared-asset replay.
+U05 đã thêm `causal_common_v1`, selector train/validation đã purge và bridge
+native/common; [checklist U05](week12/README.md#checklist-chi-tiết-u05) ghi 151 test
+và cold replay. Gate này chỉ cho alpha PIT, không nâng native hoặc toàn hệ
+thành Zero-Leakage. Develop
 chưa nhận phần mã nguồn tích hợp; chưa mở inference mới. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 

@@ -38,7 +38,7 @@ document.getElementById('load').addEventListener('click', async () => {
   try {
     const response = await fetch('/api/experiments/' + encodeURIComponent(id)); const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'Không kiểm được kết quả.'); result = data;
-    document.getElementById('support').textContent = data.complete_slots + '/' + data.planned_slots + ' slot · ' + data.points + ' điểm · ' + data.mode;
+    document.getElementById('support').textContent = data.complete_slots + '/' + data.planned_slots + ' slot · ' + data.points + ' điểm · ' + data.mode + ' · ' + (data.input_profile || 'native_common_v1') + (data.causal_scope ? ' · Causal gate toàn hệ còn chờ U06/U07' : '');
     for (const format of ['json', 'csv']) { const link = document.createElement('a'); link.className = 'download'; link.textContent = 'Tải ' + format.toUpperCase() + ' toàn bộ'; link.href = '/api/experiments/' + encodeURIComponent(id) + '/export?format=' + format; document.getElementById('downloads').append(link, ' '); }
     render();
   } catch (e) { error.textContent = e.message; }

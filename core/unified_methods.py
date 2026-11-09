@@ -90,7 +90,8 @@ class MethodAdapters:
     def prepare(self, variant: str, snapshot: SharedSnapshot, dependencies: dict[str, Any], repeat: int) -> dict[str, Any]:
         """Tạo projection/request, không mutate shared và không gọi LLM."""
         from core.mt_bicl_prompt import canonical_request, COMMON_INSTRUCTION
-        shared = snapshot.document()["payload"]
+        from core.causal_bridge import decision_payload
+        shared = decision_payload(snapshot, variant)
         request, trace, aux = None, {"fallback": False}, {}
         if variant == "original_fix":
             request = native_request(shared, self.protocol, repeat)
@@ -143,6 +144,8 @@ class MethodAdapters:
                     branch_id=variant, packet=packet, projection=branch["projection"] if branch else None,
                     anchor=anchor, repeat=repeat)
                 request["messages"][0]["content"] = COMMON_INSTRUCTION + "\n" + request["messages"][0]["content"]
+                if variant == "MT_BICL" and "causal_alpha" in snapshot.document()["payload"]:
+                    trace["prompt_source_sha256"] = causal_source_card(request, shared, self.protocol, repeat, aux)
         else:
             raise ValueError("Không có adapter cho variant")
         if request is not None:
@@ -164,7 +167,8 @@ def validate_prepared(variant: str, snapshot: SharedSnapshot, prepared: dict[str
     from core.mt_bicl_decision import canonical_request as anchored_request
     if set(prepared) != {"request", "trace", "aux"}:
         raise ValueError("Preparation sai fields")
-    shared, protocol = snapshot.document()["payload"], {"decision": decision}
+    from core.causal_bridge import decision_payload
+    shared, protocol = decision_payload(snapshot, variant), {"decision": decision}
     if variant == "original_fix":
         expected = native_request(shared, protocol, repeat)
     elif variant == "original_common":
@@ -195,10 +199,32 @@ def validate_prepared(variant: str, snapshot: SharedSnapshot, prepared: dict[str
         if type(trace["fallback"]) is not bool or (trace["fallback"] and prefix):
             raise ValueError("Fallback không đúng prefix OFF")
         expected = None if trace["fallback"] else canonical_request(shared, prefix, protocol, repeat)
+    if variant == "MT_BICL" and expected is not None and "causal_alpha" in snapshot.document()["payload"]:
+        source = causal_source_card(expected, shared, protocol, repeat, prepared["aux"])
+        if prepared["trace"].get("prompt_source_sha256") != source:
+            raise ValueError("Source card v2 không bind đúng nội dung PIT")
     if prepared["request"] != expected:
         raise ValueError("Prepared request không khớp prompt/options/schema đã khóa")
     if expected is not None and len(expected["messages"][0]["content"]) >= 6500:
         raise ValueError("Prepared request vượt ngân sách")
+
+
+def causal_source_card(request: dict[str, Any], shared: dict[str, Any], protocol: dict[str, Any],
+                       repeat: int, aux: dict[str, Any]) -> str:
+    """Chỉ token trong prompt dùng content hash; policy proof giữ đầy đủ provenance ngoài prompt."""
+    from core.mt_bicl_prompt import canonical_request
+    from core.mt_bicl_decision import fact_card
+    anchor = aux["anchor"]
+    source = digest({"version": "pit_anchor_card_v1", "common_request": canonical_request(shared, "", protocol, repeat),
+        "facts_card": fact_card(aux["packet"]), "original_reply": anchor["proof"]["original"],
+        "anchor_reply": anchor["proof"]["anchor_reply"], "a0": anchor["policy"]["final_action"]})
+    old = "a0=" + anchor["policy"]["final_action"] + "; nguồn=" + anchor["policy"]["anchor_source_sha256"][:16]
+    new = "a0=" + anchor["policy"]["final_action"] + "; nguồn=" + source[:16]
+    prompt = request["messages"][0]["content"]
+    if prompt.count(old) != 1:
+        raise ValueError("Template source card đã đổi; cần audit version trước khi gửi")
+    request["messages"][0]["content"] = prompt.replace(old, new, 1)
+    return source
 
 
 def resolve(variant: str, prepared: dict[str, Any], raw: dict[str, Any] | None,

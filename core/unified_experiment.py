@@ -106,13 +106,23 @@ def make_record(point: dict[str, Any], snapshot: SharedSnapshot, variant: str, r
                 or raw["request_sha256"] != digest(prepared["request"]) or not checksum(raw["source_sha256"])):
             raise ValueError("Raw response không khớp request/source")
         UUID(raw["source_request_id"])
-    return {"forecast": {"version": "unified_forecast_record_v1", "point_id": point["id"],
+    record = {"forecast": {"version": "unified_forecast_record_v1", "point_id": point["id"],
         "variant": variant, "profile": get_variant(variant).profile, "repeat": repeat,
         "realization": snapshot.document()["realization"], "shared_sha256": snapshot.sha256,
         "request_sha256": digest(prepared["request"]) if prepared["request"] is not None else None,
         "raw": raw, "response_sha256": digest(raw) if raw is not None else None,
         "dependency_hashes": {key: digest(value) for key, value in dependencies.items()}},
         "policy": resolve(variant, prepared, raw, dependencies)}
+    if "causal_alpha" in snapshot.document()["payload"]:
+        from core.causal_bridge import decision_payload
+        record["forecast"].update(version="unified_forecast_record_v2",
+            input_profile="native_fix" if variant == "original_fix" else "causal_common_v1",
+            anchor_source_scope="PIT_REQUEST_REPLY_CONTENT_V1",
+            projection_sha256=digest(decision_payload(snapshot, variant)),
+            native_shared_sha256=snapshot.document()["payload"]["causal_alpha"]["native_shared_sha256"])
+        if variant != "original_fix":
+            record["forecast"]["profile"] = "causal_common_v1/" + get_variant(variant).profile
+    return record
 
 
 def evaluate(spec: dict[str, Any], records: list[dict[str, Any]], outcomes: dict[str, Any]) -> dict[str, Any]:
@@ -156,6 +166,8 @@ def evaluate(spec: dict[str, Any], records: list[dict[str, Any]], outcomes: dict
             "strategy_return": target["net_return"] if action == "LONG" else 0., "quality": point["quality"],
             "shared_sha256": forecast["shared_sha256"], "request_sha256": forecast["request_sha256"],
             "response_sha256": forecast["response_sha256"]})
+        if "input_profile" in forecast:
+            rows[-1].update({key: forecast[key] for key in ("input_profile", "projection_sha256", "native_shared_sha256", "anchor_source_scope")})
     accounts = {key: asdict(compute_account_metrics(points)["full"]) for key, points in sorted(groups.items())}
     json_bytes(accounts)
     from core.free_pilot_statistics import classification
@@ -175,7 +187,7 @@ def evaluate(spec: dict[str, Any], records: list[dict[str, Any]], outcomes: dict
     planned = len(spec["points"]) * spec["realizations"] * spec["repeats"] * len(order)
     if len(rows) != planned:
         raise ValueError("Thiếu common support, không seal summary từ nhánh thành công riêng")
-    return {"version": "unified_result_v1", "mode": spec["mode"], "planned_slots": planned, "complete_slots": len(rows),
+    result = {"version": "unified_result_v1", "mode": spec["mode"], "planned_slots": planned, "complete_slots": len(rows),
         "selected_variants": spec["variants"], "executed_variants": order, "points": len(spec["points"]),
         "account_unit": "SYMBOL_FOLD_REALIZATION_REPEAT", "return_unit": "FRACTION_IN_LEDGER_PERCENT_IN_ACCOUNT",
         "estimand": spec["estimand"], "missing_policy": spec["missing_policy"], "rows": rows, "accounts": accounts,
@@ -183,6 +195,10 @@ def evaluate(spec: dict[str, Any], records: list[dict[str, Any]], outcomes: dict
         "classification": metrics,
         "hosted_calls": 0, "native_rowwise_causal_gate": "FAIL",
         "scope": "OFFLINE_CONDITIONAL_ON_LOCKED_SHARED_AND_METHOD_ASSETS; NOT_A_HOSTED_OR_CAUSAL_RELEASE"}
+    if spec.get("input_profile") == "causal_common_v1":
+        result.update(version="unified_result_v2", input_profile="causal_common_v1",
+                      causal_scope="ALPHA_PROFILE_ONLY; WHOLE_SYSTEM_GATE_PENDING_U06_U07")
+    return result
 
 
 class UnifiedRunner:
@@ -201,6 +217,8 @@ class UnifiedRunner:
             if not path.resolve().is_relative_to(self.root) or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
                 raise ValueError("Asset/source khác spec: " + name)
         self.responses = responses
+        from core.causal_bridge import causal_sources
+        self.causal = causal_sources(self.spec, self.root)
         self.identity = {**spec.identity, "implementation": source_identity(), "runtime": runtime_identity(),
                          "offline_responses_sha256": digest(responses.rows), "input_bundle_sha256": input_bundle_sha256}
         self.directory = self.root / self.spec["namespace"]
@@ -228,11 +246,17 @@ class UnifiedRunner:
                 for realization in range(self.spec["realizations"]):
                     shared_slot = f"shared/{point['id']}/u{realization}"
                     def produce(_: str) -> dict[str, Any]:
-                        return snapshots(deepcopy(point), realization).document()
+                        supplied = snapshots(deepcopy(point), realization)
+                        return (self.causal.bind(supplied) if self.causal else supplied).document()
                     doc = book.execute(shared_slot, {"point": point, "realization": realization}, produce)
                     snapshot = SharedSnapshot.create(doc["point"], doc["realization"], doc["payload"], doc["provenance"])
                     if doc["point"] != point or doc["realization"] != realization:
                         raise ValueError("Shared provider trả sai point/realization")
+                    if self.causal:
+                        if self.causal.bind(snapshot).document() != doc:
+                            raise ValueError("Shared causal không tái lập từ giá/selector")
+                    elif "causal_alpha" in doc["payload"]:
+                        raise ValueError("Spec v1 không được ngầm dùng causal projection")
                     for repeat in range(self.spec["repeats"]):
                         outputs: dict[str, Any] = {}
                         for variant in order:
@@ -283,6 +307,8 @@ def verify_run(directory: Path, *, root: Path = ROOT) -> dict[str, Any]:
             raise ValueError("Input run đã đổi")
     records, outcomes = [], {}
     doc = spec.document()
+    from core.causal_bridge import causal_sources
+    causal = causal_sources(doc, root)
     with PriorRunLock(directory, digest(identity)):
         book = RunBook(directory, identity, verify_only=True)
         for point in doc["points"]:
@@ -291,6 +317,11 @@ def verify_run(directory: Path, *, root: Path = ROOT) -> dict[str, Any]:
                 snapshot = SharedSnapshot.create(state["point"], state["realization"], state["payload"], state["provenance"])
                 if state["point"] != point or state["realization"] != u:
                     raise ValueError("Shared journal sai point")
+                if causal:
+                    if causal.bind(snapshot).document() != state:
+                        raise ValueError("Causal journal không tái lập từ nguồn khóa")
+                elif "causal_alpha" in state["payload"]:
+                    raise ValueError("Spec v1 chứa causal projection chưa khai báo")
                 for r in range(doc["repeats"]):
                     outputs: dict[str, Any] = {}
                     for variant in execution_order(doc["variants"]):

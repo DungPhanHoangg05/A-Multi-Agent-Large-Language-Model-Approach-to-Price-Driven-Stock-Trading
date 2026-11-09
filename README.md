@@ -156,6 +156,54 @@ or regenerate hosted responses. A new release must separately validate the
 asset providers, cohort, quota and transport. Existing historical runners and
 archives retain their original identities and are not relabelled as new runs.
 
+## Causal alpha profile
+
+`causal_common_v1` provides a separate alpha profile with the same 85 formula
+handlers and explicit causal operator changes. It removes backward filling,
+full-series normalization, global volume proxy selection and six window sizes
+that depend on the input length. Warm-up and missing-volume observations are
+masked. Normalization uses expanding prefixes; it keeps a fixed history origin
+instead of resetting to a rolling 600-bar origin.
+
+The selector learns orientation on train only, selects five IDs and a threshold
+on purged validation support, and freezes them before the test window. Labels
+call the canonical round-trip oracle; selection scores use LONG/CASH cycles.
+Artifacts pin source, runtime, schedule, prices, costs and the full validation
+search. Loading replays the train/validation fit; prediction rejects changed
+training prices, future rows, a shifted origin or unavailable selected factors.
+
+```powershell
+py -3.13 -I -X utf8 scripts/manage_causal_profile.py fit --prices prices.json --schedule schedule.json --output outputs/unified_integration/<new-run>/selector.json
+py -3.13 -I -X utf8 scripts/manage_causal_profile.py verify --prices prices.json --selector outputs/unified_integration/<new-run>/selector.json
+py -3.13 -I -X utf8 scripts/manage_causal_profile.py predict --prices prices.json --selector outputs/unified_integration/<new-run>/selector.json --cutoff YYYY-MM-DD --output outputs/unified_integration/<new-run>/prediction.json
+```
+
+The input is explicit daily OHLCV in CSV or JSON column lists. Schedule fields
+are `train_start`, `train_end`, `validation_start`, `validation_end`, `test_start`
+and `test_end`; create a fresh output directory first. The `bridge` command also
+accepts `--snapshot`, `--decision` and `--output` to compare native and causal
+common requests without model calls.
+
+An experiment uses `unified_experiment_v2`, `input_profile: causal_common_v1`
+and a `causal_sources` map from `symbol/fold` to `prices` and `selector` paths,
+both bound in `source_hashes`. The raw upstream still shares its last 600 bars.
+The runner verifies and seals the causal alpha projection from the anchored
+history once per point, uses it for every common method, and preserves the
+native request on the same raw parent. V1 specs retain their original profile;
+they cannot silently receive a causal snapshot. New record/profile versions
+identify the bridge in JSON and CSV.
+
+V2 anchor source cards hash the rendered request and reply content. Full-file
+provenance hashes remain in the snapshot and dependency ledger; they are not
+fed back into the prompt through a source-card token. This keeps prepared
+requests invariant when only post-cutoff prices or audit metadata change.
+
+This is an alpha-only causal contract. It does not certify news availability,
+universe, HMM/scaler or retrieval/student provenance, execution quality, or
+whole-system zero leakage. Those providers and the comparison protocol still
+need their own release checks. Native row-wise causality remains FAIL, and
+neither profile grants hosted collection or a claim of statistical superiority.
+
 ## Repository and evidence
 
 - `agents/`, `utils/`: agents, graph assembly, prompts, charting and contracts.

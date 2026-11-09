@@ -35,7 +35,7 @@ VARIANTS = (
     Variant("MT_BICL", "utility_icl_v3", "utility_icl_reply_v3", ("original_common", "Fact_Anchor"),
             ("facts", "context", "student"), fallback="Fact_Anchor"),
 )
-REGISTRY_VERSION = "unified_variant_registry_v1"
+REGISTRY_VERSION = "unified_variant_registry_v2"
 
 
 def get_variant(identifier: str) -> Variant:
@@ -68,4 +68,6 @@ def registry_document() -> dict:
     return {"version": REGISTRY_VERSION, "default": "original_fix", "hosted_release": False,
             "variants": [{**asdict(v), "dependencies": list(v.dependencies), "resources": list(v.resources)} for v in VARIANTS],
             "archive_aliases": {"Original_common": "original_common"},
+            "input_profiles": {"native_common_v1": "HISTORICAL_EXPLORATORY",
+                "causal_common_v1": "FROZEN_PURGED_ALPHA_ONLY; WHOLE_SYSTEM_GATE_PENDING_U06_U07"},
             "native_rowwise_causal_gate": "FAIL", "quality": "HISTORICAL_EXPLORATORY_CONDITIONAL"}

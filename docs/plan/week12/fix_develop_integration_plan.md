@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U04 hoàn tất trên nhánh tích hợp; native parity và hợp đồng/runner chung được kiểm offline, chưa đưa nền vào develop hoặc cấp release mới**.
+Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U05 hoàn tất trên nhánh tích hợp; native parity, runner chung và profile alpha causal được kiểm offline, chưa đưa nền vào develop hoặc cấp release mới**.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
@@ -207,6 +207,13 @@ snapshots/records, lazy adapters, RunBook/evaluator và CLI/UI offline. Native,
 sáu phương pháp nghiên cứu và Fact_Anchor dùng chung evaluator; replay CLI
 conditional trên prepared assets, không nhận là thu hosted hoặc chạy lại student/
 retrieval. Provider/cohort/protocol/transport cho release mới vẫn phải qua U06–U08.
+
+U05 đã có [profile và bridge riêng](README.md#kết-quả-và-giới-hạn-u05): đủ 85
+handler PIT, orientation train, selection validation đã purge và test lock;
+Spec v2 áp dụng cùng projection cho mọi common method, giữ native request.
+Native row-wise vẫn FAIL; alpha PIT local không thay gate HMM/retrieval/news/
+student/providers và protocol U06/U07. Không sửa bằng chứng frozen hoặc nhận
+hiệu ứng hosted/superiority từ fixture bridge.
 
 | Mục | Nhánh đề xuất / công việc | Đầu ra và điều kiện thoát |
 | --- | --- | --- |
