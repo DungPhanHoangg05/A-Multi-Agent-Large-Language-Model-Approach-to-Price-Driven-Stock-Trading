@@ -18,8 +18,8 @@ theo phương pháp và replica seed42/step3000 đã nghiệm thu. Query donor f
 prompt/model/options/kinh tế chung phải khóa trước API. Reuse upstream là
 đánh giá có điều kiện trên reports đã lưu, phải có provenance; Decision
 primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích mẫu nhỏ
-được đặc tả trong plan. Hiện H07_ACCEPTED_H08_PASS:48 shared,336 forecast,
-48 nhãn; H08 offline/cold PASS. H09 đóng gói và bàn giao còn chờ.
+được đặc tả trong plan. Hiện PILOT_COMPLETE:48 shared,336 forecast,
+48 nhãn; H08 offline/cold PASS, H09 đóng gói và phục hồi độc lập/cold PASS.
 
 ## Checklist đánh giá lại
 
@@ -38,7 +38,7 @@ primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích 
 | H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [x] PASS:48 shared/336 forecast |
 | H07 pilot P05 | Cold verify và seal pilot | [x] P05_COLD_PASS |
 | H08 | Phân tích paired/uncertainty/coverage | [x] H08_COLD_VERIFY_PASS |
-| H09 | Bảng so sánh/evidence và bàn giao | [ ] TODO |
+| H09 | Bảng so sánh/evidence và bàn giao | [x] PILOT_COMPLETE; restore/cold PASS |
 
 ## Kết quả các phương pháp đã ghi nhận
 
@@ -747,4 +747,69 @@ Log h08_tests.log SHA256113776632d729b3c2bde3180fc69f5d7d0fcb91783355867bcd11bc6
 h08_cold_verify.log SHA2561a5f9ad73637ba6e3b44b2d7781d93076d8ebf1f908809950ee35dbdc0dae665.
 Giữ VENDOR_SERIES_LIMITED, PENDING_EXECUTION_DATA, news content PIT chưa
 chứng nhận, bank/query khác nguồn và scope exposed/conditional một repeat.
-H09 còn chờ đóng gói; chưa đánh dấu full1.020 hoặc toàn hệ thống DONE.
+H09 đã hoàn tất bên dưới; chưa đánh dấu full1.020 hoặc toàn hệ thống DONE.
+
+## H09 — Bàn giao pilot48
+
+Trạng thái **PILOT_COMPLETE**, chỉ pilot48; planned=complete48, shared48,
+forecast336/336, nhãn48, latest unknown0. P01–P05/H08 PASS. Lượt1.020 điểm vẫn
+CANCELLED; execution acceptance vẫn PENDING_EXECUTION_DATA. Không kết luận
+vượt Original, live profitability hoặc tác động riêng của student từ pilot này.
+
+| Nội dung bàn giao | Nguồn trong gói, tính từ root phục hồi |
+| --- | --- |
+| Sáu primary và band95% | outputs/historical_reevaluation/free_pilot_r1/analysis/report.md; summary.csv |
+| Tám account/method, return/risk/phí | analysis/accounts.csv; cycles.csv; daily_nav.csv trong cùng namespace |
+| Per-symbol/year và support | analysis/classification_by_group.csv; results.json |
+| Coverage/fallback/bypass, raw→facts→veto | analysis/report.md; predictions.csv; prior_diagnostics.json |
+| Độ nhạy12 ngày/bốn mã, inference/token/latency | analysis/results.json |
+| Full102 tham chiếu riêng; bridge OFF | analysis/reference_fix_102.csv và provenance Git trong results.json |
+| Protocol/input/runtime/model và gate | docs/plan/week11/free_pilot_*.json; historical_evaluation_*.json; mt_bicl_replica_full_r1_model.json |
+| Raw/forecast/label/ảnh/usage | outputs/historical_reevaluation/free_pilot_r1/{http,slots,images,usage}/ |
+| Candidate/teacher và preprocessing | outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/{model,inputs}/ |
+
+[Gói bằng chứng cục bộ](../../../outputs/historical_reevaluation/free_pilot_r1/handoff/pilot48_evidence.zip)
+giữ byte gốc, có manifest SHA256 từng thành viên và snapshot code/data tracked.
+[Receipt H09](free_pilot_h09_handoff.json) khóa hash toàn ZIP và kết quả kiểm tra;
+receipt đặt ngoài ZIP để tránh checksum tự tham chiếu. Gói không lấy .env,
+credential hoặc file owner/OS lock của máy gốc. Raw schema lỗi vẫn được giữ,
+không chuyển thành forecast. H07/H08 receipt giữ nguyên byte; H09=PENDING trong
+receipt H08 là trạng thái lịch sử, được kết sổ bằng receipt H09 riêng.
+
+Đã giải nén sang thư mục mới và chạy consumer tại đó: H08_COLD_VERIFY_PASS,
+mọi artifact tái dựng byte-identical, HTTP/usage giữ nguyên, API=0; nguồn được
+đối soát với manifest trước/sau cold. Script đóng gói không đổi collector,
+PIT/retrieval, checkpoint, prompt, kinh tế hay model. Bốn test riêng cho
+hash/tập file/traversal/Windows path/overwrite và compile hai Python mới PASS.
+Gate H07/H08 được tái sử dụng sau đối soát hash; không chạy lại full suite/E2E.
+
+Kiểm tra gói, không gọi API:
+
+```powershell
+py -3.13 -X utf8 scripts/package_free_pilot.py verify
+```
+
+Phục hồi từ checkout hiện tại vào thư mục mới/rỗng rồi tái lập offline:
+
+```powershell
+py -3.13 -X utf8 scripts/package_free_pilot.py restore --destination C:\pilot48_offline
+if ($LASTEXITCODE -ne 0) { throw "Dừng: gói hoặc thư mục phục hồi không hợp lệ." }
+Push-Location C:\pilot48_offline
+try {
+    py -3.13 -X utf8 scripts/analyze_free_pilot.py verify
+    if ($LASTEXITCODE -ne 0) { throw "Dừng: cold verification chưa PASS." }
+} finally { Pop-Location }
+```
+
+Nếu chỉ nhận ZIP, giải nén script scripts/package_free_pilot.py trước rồi dùng
+`restore --archive <đường-dẫn-ZIP> --destination <thư-mục-mới>`; không chỉ dùng
+Expand-Archive rồi chạy consumer vì consumer cần snapshot Git đi kèm. Ba
+snapshot Git đủ đọc đúng HEAD/donor/adapter mà gate yêu cầu, không cung cấp
+toàn bộ lịch sử Git. Overlay tài liệu/script H09 có hash riêng trong manifest.
+Python3.13.5 và các thư viện phải có sẵn; danh sách phiên bản đã dùng nằm ở
+handoff/requirements-installed.txt, không đóng gói Python/wheel hoặc chứng nhận
+trên runtime khác. Không cần train hoặc chạy lại collector để đọc/tái lập kết quả.
+
+Giữ giới hạn VENDOR_SERIES_LIMITED, news content PIT chưa chứng nhận, dữ liệu
+2023–2024 đã exposed, một repeat, bank/query khác provenance và kết quả có
+điều kiện trên shared reports. Các kết luận này áp dụng cho48 điểm đã khóa.

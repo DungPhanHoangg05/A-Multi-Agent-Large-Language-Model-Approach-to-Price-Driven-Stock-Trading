@@ -10,7 +10,7 @@ H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
 Ngày09/11/2026, người dùng hủy lượt H07 đầy đủ để chuẩn bị trình bày trong
 hai ngày. Phương án hiện hành FREE_PAIRED_PILOT_48 có trạng thái
-H07_ACCEPTED_H08_PASS;48 shared,336 forecast,48 nhãn đã nghiệm thu/cold verify.
+PILOT_COMPLETE;48 shared,336 forecast,48 nhãn đã nghiệm thu, H08/H09 cold PASS.
 H01–H06 bên dưới ghi bằng chứng thiết kế cũ; pilot cần khóa protocol/input/
 runtime và nghiệm thu phần thay đổi riêng trước API.
 
@@ -25,7 +25,7 @@ runtime và nghiệm thu phần thay đổi riêng trước API.
 - [x] H07 cũ — Dừng tiến trình và xóa output thu thập dở theo yêu cầu người dùng.
 - [x] H07 pilot — Audit reuse, khóa48 điểm, nghiệm thu và thu đủ sáu phương pháp.
 - [x] H08 — Phân tích và đối soát kết quả, cold consumer PASS.
-- [ ] H09 — Kết sổ và bàn giao.
+- [x] H09 — Kết sổ và bàn giao pilot48, phục hồi độc lập/cold PASS.
 
 ## H01 — Khảo sát nguồn và phạm vi
 
@@ -239,7 +239,7 @@ không giữ report, ảnh, prompt hay kết quả nghiên cứu. Lượt mới 
 quota còn hiệu lực của ledger này và H06; đổi namespace không reset quota.
 
 Pilot có namespace mới outputs/historical_reevaluation/free_pilot_r1/,
-UUID/protocol/runtime riêng, hiện H07_ACCEPTED_H08_PASS. Runner cũ34.806 call và grant
+UUID/protocol/runtime riêng, hiện PILOT_COMPLETE. Runner cũ34.806 call và grant
 H06 không phát hành pilot. Các phần mở rộng9 mã, ablation/retrieval control,
 Original_duplicate và repeats bổ sung nằm ngoài phạm vi buổi trình bày.
 Thiết kế đầy đủ H03 được giữ làm tham chiếu.
@@ -503,15 +503,31 @@ Không gọi thêm API hoặc train. Tái lập offline:
 py -3.13 -X utf8 scripts/analyze_free_pilot.py verify
 ```
 
-H09 còn chờ đóng gói/bàn giao; giữ VENDOR_SERIES_LIMITED/PENDING_EXECUTION_DATA,
+H09 đã đóng gói/bàn giao theo receipt bên dưới; giữ VENDOR_SERIES_LIMITED/PENDING_EXECUTION_DATA,
 news content PIT chưa chứng nhận và scope historical exploratory.
 
 ## H09 — Kết sổ pilot
 
-- [ ] Một bảng sáu primary, per-symbol/year, coverage và uncertainty; bridge
+- [x] Một bảng sáu primary, per-symbol/year, coverage và uncertainty; bridge
   chỉ xuất khi thu đủ48 điểm theo tùy chọn đã khóa trước.
-- [ ] Đóng gói protocol/input/model/manifest/raw/forecast/labels/usage và lệnh
+- [x] Đóng gói protocol/input/model/manifest/raw/forecast/labels/usage và lệnh
   tái lập offline; README ghi kết quả/trạng thái/giới hạn thật.
-- [ ] PILOT_COMPLETE cần P01–P05/H08 và cold verification PASS. H07 đầy đủ
+- [x] PILOT_COMPLETE cần P01–P05/H08 và cold verification PASS. H07 đầy đủ
   1.020 điểm vẫn CANCELLED, không đánh dấu full matrix DONE từ pilot48.
   Hết hạn thì bàn giao PARTIAL/BLOCKED và planned/complete thực tế.
+
+Đã kết sổ pilot48 ngày09/11/2026. [README bàn giao](README.md#h09--bàn-giao-pilot48)
+chỉ rõ bảng chính, per-symbol/year, coverage/bypass và uncertainty; bridge OFF,
+bảng Full102 là tham chiếu riêng. [Receipt H09](free_pilot_h09_handoff.json)
+khóa SHA256 gói pilot48_evidence.zip, nguồn đóng gói và log phục hồi/cold.
+Gói giữ nguyên byte evidence H07/H08, gồm model candidate/teacher, inputs,
+HMM prefix, raw HTTP, forecast/label journal, ảnh và usage; không chứa .env
+hoặc owner/OS lock của máy gốc. Có ba snapshot Git cần cho consumer offline,
+không phải toàn bộ lịch sử Git hoặc môi trường Python đã cài sẵn.
+
+Đã thử gói trên thư mục phục hồi mới, không đọc dependency từ checkout gốc;
+H08 tái dựng artifacts byte-identical và HTTP/usage không đổi, API=0.
+Kiểm tra bốn test đóng gói và compile đúng hai Python mới PASS; gate producer/
+H08 đã khóa được viện dẫn sau đối soát hash, không chạy lại toàn suite/E2E.
+Receipt H08 giữ nguyên trường H09=PENDING của thời điểm H08; trạng thái H09
+hiện hành nằm trong receipt bàn giao, không sửa ngược bằng chứng đã khóa.

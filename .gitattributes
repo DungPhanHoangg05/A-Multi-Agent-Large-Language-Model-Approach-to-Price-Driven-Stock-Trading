@@ -90,5 +90,7 @@ core/free_pilot_analysis.py text eol=lf
 scripts/analyze_free_pilot.py text eol=lf
 tests/test_free_pilot_statistics.py text eol=lf
 tests/test_free_pilot_analysis.py text eol=lf
+scripts/package_free_pilot.py text eol=lf
+tests/test_free_pilot_package.py text eol=lf
 docs/plan/week11/free_pilot_*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 outputs/historical_reevaluation/h04_assets/prepared.json -text

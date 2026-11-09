@@ -41,7 +41,10 @@ H08 đã chạy offline và cold consumer PASS; [receipt H08](week11/free_pilot_
 Return bình quân tám account: Original−3,690521%; A_tp_pool−2,550858%,
 D+1,139663 đpt với band95%[−0,680467;2,959792]; MT−4,414181%, D−0,723660 đpt.
 Cả sáu return âm; mọi band D return chứa0, chưa đủ bằng chứng vượt Original.
-H09 đóng gói/bàn giao còn chờ, không đánh dấu toàn hệ thống hoặc full matrix DONE.
+H09 đã đóng gói và phục hồi cold PASS; trạng thái PILOT_COMPLETE, phạm vi48 điểm.
+[Bàn giao và lệnh tái lập](week11/README.md#h09--bàn-giao-pilot48)
+cùng [receipt gói bằng chứng](week11/free_pilot_h09_handoff.json) quản lý SHA256.
+Không đánh dấu toàn hệ thống hoặc full matrix DONE từ pilot này.
 Bayesian dùng bank signal đóng băng2020–2022; MT giữ numeric context của
 phương pháp. Query chung dùng donor fix; bank/query khác provenance phải
 được audit và báo như giới hạn chuyển giao. Kết luận là historical exploratory
