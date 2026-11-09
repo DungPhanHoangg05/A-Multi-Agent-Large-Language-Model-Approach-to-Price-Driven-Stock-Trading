@@ -56,7 +56,7 @@ def run_lock(root: Path, state: dict) -> Iterator[None]:
 def profile(root: Path) -> dict:
     """Receipt bổ sung cho supervisor, không đổi runtime/identity/checkpoint inference đã khóa."""
     book = load(root / DIRECTORY / "identity.json")
-    return {"version": "free_pilot_manager_v2", "run_uuid": book["run_uuid"], "identity": identity(root),
+    return {"version": "free_pilot_manager_v3", "run_uuid": book["run_uuid"], "identity": identity(root),
             "policy": POLICY, "phases": ["shared", "collect", "verify"],
             "sources": {name: binding(root, name) for name in CODE},
             "grant": binding(root, GRANT), "campaign": binding(root, DIRECTORY / "campaign.json")}

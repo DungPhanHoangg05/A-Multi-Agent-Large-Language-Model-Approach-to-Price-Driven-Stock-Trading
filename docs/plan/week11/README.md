@@ -18,8 +18,8 @@ theo phương pháp và replica seed42/step3000 đã nghiệm thu. Query donor f
 prompt/model/options/kinh tế chung phải khóa trước API. Reuse upstream là
 đánh giá có điều kiện trên reports đã lưu, phải có provenance; Decision
 primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích mẫu nhỏ
-được đặc tả trong plan. Hiện READY_COLLECTION, smoke9/cold PASS và grant
-pilot đã phát hành;48 điểm nghiên cứu còn chờ người dùng chạy.
+được đặc tả trong plan. Hiện COLLECTING_PARTIAL:48 shared complete,
+18/336 forecast và2/48 điểm đủ nhãn; pilot chưa hoàn tất.
 
 ## Checklist đánh giá lại
 
@@ -35,7 +35,7 @@ pilot đã phát hành;48 điểm nghiên cứu còn chờ người dùng chạy
 | H07 pilot P01 | Audit bank/cache/quota và feasibility48 giờ | [x] PASS |
 | H07 pilot P02 | Khóa48 ID/protocol/runtime/bridge option | [x] PASS |
 | H07 pilot P03 | Scoped checks, smoke9 execution và cold verify | [x] PASS |
-| H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [ ] PARTIAL:12/48 shared;0 forecast nghiên cứu |
+| H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [ ] PARTIAL:48/48 shared;18/336 forecast;2/48 điểm |
 | H07 pilot P05 | Cold verify và seal pilot | [ ] TODO |
 | H08 | Phân tích paired/uncertainty/coverage | [ ] TODO |
 | H09 | Bảng so sánh/evidence và bàn giao | [ ] TODO |
@@ -672,6 +672,29 @@ Log manager_unbounded_tests.log PASS35, SHA256
 a26e4806ce6d2a552ddd5cde3cf27804f1f724c30d94ec503c04891b1de8c101;
 manager_unbounded_contract_tests.log PASS15. Agent không gọi API thật.
 
+Tiến độ kiểm09/11:48 shared/192 node nghiên cứu complete,18 forecast durable,
+2 điểm đủ bảy nhánh và nhãn. Supervisor đang STOPPED tại MT_BICL của
+VCB_b2023_h2_872; hai raw HTTP200 cùng có evidence_against rỗng nên không
+đạt schema. Không phải hết quota; không có tiến trình Python collector đang chạy.
+Admission gần nhất PASS; chưa có receipt P05, H08 vẫn chờ đủ dữ liệu.
+
+Delta v3 xử lý lỗi schema: chỉ reply đạt schema mới được replay/nhận làm
+forecast. Reply sai schema được giữ raw và đưa sang attempt sửa định dạng:
+thêm chỉ dẫn cố định chung cho mọi phương pháp, không đổi reports/facts/
+schema/model/options và không tự điền câu trả lời. Marker base/repair SHA
+được ghi trước HTTP; response và cold validator kiểm đúng body sửa. Các
+output đã complete giữ nguyên; H08 cần báo số repair theo từng phương pháp.
+Manifest supervisor khóa source/policy v3, giữ UUID, campaign và runtime gốc.
+
+QA delta PASS39 (24 test manager/recovery,4 SDK,11 quota/boundary), compile
+đúng ba Python thay đổi. Có kiểm schema-invalid200→repair→complete, tamper
+proof bị từ chối, crash/replay giữ UUID/HTTP/usage và marker qua SDK thật với
+MockTransport; không gọi Groq. Không chạy full suite/E2E hoặc train, không đổi
+giá/PIT/retrieval/kinh tế. Log manager_schema_release_tests.log SHA256
+99c40ea34b1445e4d7f6bfbbca2c76bce0a1bc6c9af54dd79d9f656782ae5e17.
+Người dùng chạy lại cùng lệnh một dòng để tiếp tục từ318 forecast còn thiếu;
+agent chưa gửi API mới.
+
 <!-- FREE_PILOT_MANAGER_START -->
-Trạng thái **NOT_STARTED**; đã giữ12/48 shared và0/336 forecast nghiên cứu.
+Trạng thái **STOPPED**, phase `collect`, cập nhật 09/11/2026 10:32:05 UTC+7. Shared 48/48; forecast 18/336; nhãn 2/48. Raw HTTP200 chưa thể tái lập output hợp lệ; giữ raw, xem worker log
 <!-- FREE_PILOT_MANAGER_END -->

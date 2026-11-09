@@ -10,7 +10,7 @@ H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
 Ngày09/11/2026, người dùng hủy lượt H07 đầy đủ để chuẩn bị trình bày trong
 hai ngày. Phương án hiện hành FREE_PAIRED_PILOT_48 có trạng thái
-READY_COLLECTION; smoke9/cold PASS, chưa thu48 điểm hoặc hoàn tất H07.
+COLLECTING_PARTIAL;48 shared và18/336 forecast đã lưu, chưa hoàn tất H07.
 H01–H06 bên dưới ghi bằng chứng thiết kế cũ; pilot cần khóa protocol/input/
 runtime và nghiệm thu phần thay đổi riêng trước API.
 
@@ -239,7 +239,7 @@ không giữ report, ảnh, prompt hay kết quả nghiên cứu. Lượt mới 
 quota còn hiệu lực của ledger này và H06; đổi namespace không reset quota.
 
 Pilot có namespace mới outputs/historical_reevaluation/free_pilot_r1/,
-UUID/protocol/runtime riêng, hiện READY_COLLECTION. Runner cũ34.806 call và grant
+UUID/protocol/runtime riêng, hiện COLLECTING_PARTIAL. Runner cũ34.806 call và grant
 H06 không phát hành pilot. Các phần mở rộng9 mã, ablation/retrieval control,
 Original_duplicate và repeats bổ sung nằm ngoài phạm vi buổi trình bày.
 Thiết kế đầy đủ H03 được giữ làm tham chiếu.
@@ -394,17 +394,20 @@ Người dùng đã chạy smoke:9/9 HTTP200,7 Decision+2 vision,19.611 token;
 cold replay PASS,12 slot complete, không còn latest unknown. Agent kiểm lại
 không gọi API, source/raw/ảnh/usage/checkpoint khớp; grant PILOT_RELEASED
 bind đúng cold receipt và UUID3881b4ba-4609-460a-8137-5fbad4f617db.
-P04–P05 còn chờ chạy. Ngân sách còn lại khoảng42,7 giờ gồm retry reserve20%,
-PASS thời gian còn lại47,3 giờ; deadline cố định01:56:52 ngày11/11/2026
+Tại mốc release, dự toán còn42,7 giờ gồm retry reserve20%, PASS so với47,3
+giờ khi đó; deadline cố định01:56:52 ngày11/11/2026
 (UTC+7), không reset khi resume. Người dùng chạy mọi lệnh API; agent chỉ
 chuẩn bị code, kiểm ngoại tuyến và đối soát output.
 
-P04 đang PARTIAL:12/48 shared nghiên cứu complete,0 Decision nghiên cứu.
-Pattern FPT-2023-08-17 tại org3 dừng HTTP503 do model over capacity;
-raw response đã kiểm checksum, đã ghi hai HTTP lỗi và chưa có HTTP200.
-Attempt cũ db3f3d2a đã được authorize; attempt cuối là
-1066b007-e5d1-433a-93ee-46b2fe8c1bc7. Supervisor tự tìm attempt cuối, không
-dùng lại UUID reconcile đã chép trong lệnh cũ; giữ mọi response/reserve/checkpoint.
+P04 đang PARTIAL:48/48 shared nghiên cứu complete,18/336 forecast durable,
+2/48 điểm đủ toàn bộ bảy nhánh và nhãn. Đang dừng tại MT_BICL của
+VCB_b2023_h2_872: hai HTTP200 có evidence_against rỗng, vi phạm schema;
+chưa được nhận làm forecast. Attempt3f127182-3314-4313-8ddb-7966bf508293.
+Supervisor v3 phân biệt HTTP200 sai schema với reply hợp lệ, tự yêu cầu LLM
+sửa định dạng bằng chỉ dẫn cố định. Reports/facts/schema/model/options giữ
+nguyên; prompt sửa vẫn kiểm6500 ký tự và reserve token. Không tự điền evidence.
+Base request, request sửa, marker và raw được bind trong ledger/response để
+cold verify; 18 forecast hợp lệ và48 shared giữ nguyên, không chạy lại vision.
 
 Chạy tại thư mục gốc repository, giữ năm env key hiện có:
 
@@ -431,14 +434,21 @@ phối, grant và UUID; runtime inference/protocol/asset cũ giữ nguyên byte.
 Nghiệm thu v2: PASS50 test liên quan, gồm thử worker thành công ở HTTP thứ5
 sau bốn lỗi, retry sau lần thứ7 và resume manager qua revision policy;
 compile đúng bốn Python thay đổi. Không gọi API thật.
+Delta v3 PASS39 test liên quan và compile ba Python thay đổi; có SDK mock
+chứng minh marker sửa định dạng ghi trước dispatch, cold replay đúng body và
+không gọi lại raw200 hợp lệ. Agent chỉ kiểm ngoại tuyến; người dùng chạy lại
+chính lệnh trên để tiếp tục collect rồi verify. P04/P05 vẫn chưa DONE.
 Log/tiến độ tại free_pilot_r1/manager/. Khi cold PASS có thêm manager/
 collection_receipt.json bind manifest bổ sung và receipt P05; H08 vẫn chờ.
 
 <!-- FREE_PILOT_MANAGER_START -->
-Trạng thái **NOT_STARTED**; đã giữ12/48 shared và0/336 forecast nghiên cứu.
+Trạng thái **STOPPED**, phase `collect`, cập nhật 09/11/2026 10:32:05 UTC+7. Shared 48/48; forecast 18/336; nhãn 2/48. Raw HTTP200 chưa thể tái lập output hợp lệ; giữ raw, xem worker log
 <!-- FREE_PILOT_MANAGER_END -->
 
 ## H08 — Phân tích pilot
+
+Báo số reply sai schema/format repair theo phương pháp từ ledger; không
+gộp HTTP200 sai schema vào forecast hợp lệ hoặc ghi chúng thành CASH.
 
 - [ ] Dựng tám account mã/năm mỗi phương pháp. Primary D là mean đều bốn
   mã và hai năm của chênh return so Original_common, đơn vị đpt. Báo return

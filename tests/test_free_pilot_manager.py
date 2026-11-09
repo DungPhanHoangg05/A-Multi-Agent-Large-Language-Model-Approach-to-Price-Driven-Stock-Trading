@@ -53,11 +53,19 @@ class RecoveryTests(unittest.TestCase):
         doc = load(self.book.path(self.slot))
         if status is None:
             return doc
+        self.record_http(doc,status,payload=payload)
+        return doc
+
+    def record_http(self, doc: dict, status: int | str, *, payload: dict | None = None, repair: dict | None = None) -> None:
+        """Lưu wire fixture cho attempt đã tồn tại, không tạo thêm journal/inference."""
         attempt = doc["attempts"][-1]["attempt_id"]
         role = self.slot.split("/")[-1]
         point = self.inputs.get("source", {}).get("point") or self.inputs["request"]["point_id"]
         row = {"id": str(uuid4()), "checkpoint_attempt_id": attempt, "status": status,
-               "point_id": point, "branch_id": role, "run_signature": self.book.signature}
+               "point_id": point, "branch_id": role, "run_signature": self.book.signature,
+               "model":self.body['model'],"started_at":100.,"reserved_tokens":2000}
+        if repair is not None:
+            row['pilot_schema_repair']=deepcopy(repair)
         if isinstance(status, int):
             payload = payload or ({"choices": [{"message": {"content": "REPORT_FIXTURE"}}]} if status == 200 else {"error": {"message": "over capacity"}})
             body = json.dumps(payload, ensure_ascii=False).encode()
@@ -72,7 +80,6 @@ class RecoveryTests(unittest.TestCase):
         path = self.directory / "usage/org3.json"
         ledger = json.loads(path.read_bytes()); ledger["requests"].append(row)
         atomic_write_json(path, ledger)
-        return doc
 
     def test_selects_current_uuid_after_old_attempt_was_already_reconciled(self) -> None:
         old = self.unknown(); current = self.unknown()
@@ -211,6 +218,104 @@ class RecoveryTests(unittest.TestCase):
         self.assertEqual(response["request_id"], doc["attempts"][-1]["attempt_id"])
         self.assertEqual(response["reply"]["decision"], "SHORT")
         self.assertEqual(snapshot(self.directory), before)
+
+    def test_invalid_200_schema_is_repaired_and_replay_is_bound_to_actual_wire(self) -> None:
+        from core.free_pilot_runtime import PilotClients
+        from core.free_pilot_recovery import repair_request, verify_repaired_decision, REPAIR
+        from core.prior_stage_journal import encode_output
+        from langchain_core.messages import AIMessage
+        schema={'type':'object','properties':{'decision':{'enum':['LONG','SHORT']},
+            'evidence_against':{'type':'string','minLength':1}},'required':['decision','evidence_against'],'additionalProperties':False}
+        request={'model':'openai/gpt-oss-20b','temperature':0.,'max_tokens':960,'service_tier':'on_demand',
+            'client_options':CONFIG['client_options']['agent'],'point_id':'FPT-2023-08-17',
+            'messages':[{'role':'user','content':self.messages}],'structured':{'schema':schema}}
+        self.slot='pilot/FPT_point/MT_BICL'; self.inputs={'org':3,'request':request}
+        def body(value: dict) -> dict:
+            return serialized_body(serializer({k:value[k] for k in ('model','temperature','max_tokens','service_tier','client_options')}),
+                                   value['messages'][0]['content'],schema)
+        self.body=body(request)
+        bad={'choices':[{'message':{'content':'{"decision":"SHORT","evidence_against":""}'}}]}
+        old=self.unknown(200,payload=bad)
+        before=snapshot(self.directory)
+        action=pending_action(self.book)
+        self.assertEqual(action['kind'],'RETRY')
+        self.assertEqual(action['reason'],'INVALID_DECISION_SCHEMA_REPAIR')
+        self.assertEqual(snapshot(self.directory),before)
+
+        self.book.reconcile(old['attempts'][-1]['attempt_id'],'Fixture schema repair')
+        actual,proof=repair_request(request)
+        base=deepcopy(request)
+        client=PilotClients.__new__(PilotClients); client.book=self.book
+        def invoke_wire(c: object, org: int, sent: dict, attempt: str, branch: str) -> dict:
+            self.assertEqual(sent,actual); self.assertEqual(REPAIR.get(),proof)
+            self.body=body(sent)
+            content='{"decision":"SHORT","evidence_against":"Chưa loại trừ đảo chiều trong fixture"}'
+            self.record_http(load(self.book.path(self.slot)),200,payload={'choices':[{'message':{'content':content}}]},repair=REPAIR.get())
+            return {'reply':json.loads(content),'raw_message':encode_output({'messages':[AIMessage(content=content)]})['messages'],
+                    'request_id':attempt,'expected_http_body_sha256':digest(self.body)}
+        def validate(response: dict) -> None:
+            verify_repaired_decision(self.book,response,'MT_BICL',fixture=False,request=request)
+        with patch.object(PilotClients,'decision',invoke_wire), replay_durable_success(), \
+                patch('socket.socket.connect',side_effect=AssertionError('Không gọi mạng')):
+            response=self.book.execute(self.slot,self.inputs,lambda a:client.decision(3,request,a,'MT_BICL'),validate=validate)
+        self.assertEqual(request,base)
+        self.assertEqual(response['schema_repair'],proof)
+        wrong=deepcopy(response); wrong['schema_repair']['base_request_sha256']='wrong'
+        with self.assertRaises(ValueError): validate(wrong)
+        doc=load(self.book.path(self.slot)); same_uuid=doc['attempts'][-1]['attempt_id']
+        doc['attempts'][-1].update(status='unknown',output=None,output_sha256=None)
+        save(self.book.path(self.slot),doc)
+        before=snapshot(self.directory)
+        with patch.object(PilotClients,'decision',side_effect=AssertionError('Không gọi lại wire khi replay')), replay_durable_success():
+            recovered=self.book.execute(self.slot,self.inputs,lambda a:client.decision(3,request,a,'MT_BICL'),validate=validate)
+        self.assertEqual(recovered,response)
+        self.assertEqual(recovered['request_id'],same_uuid)
+        self.assertEqual(snapshot(self.directory),before)
+
+
+    def test_schema_repair_marker_is_durable_through_real_sdk_mock_wire(self) -> None:
+        import httpx
+        from types import SimpleNamespace
+        from core.free_pilot_runtime import PilotClients
+        from core.free_pilot_recovery import supervisor_transport_policy, repair_request, verify_repaired_decision
+        from core.groq_pacing import GroqPacer,MODEL_LIMITS
+        schema={'type':'object','properties':{'decision':{'enum':['LONG','SHORT']},
+            'evidence_against':{'type':'string','minLength':1}},'required':['decision','evidence_against'],'additionalProperties':False}
+        request={'model':'openai/gpt-oss-20b','temperature':0.,'max_tokens':960,'service_tier':'on_demand',
+            'client_options':CONFIG['client_options']['agent'],'point_id':'FPT-2023-08-17',
+            'messages':[{'role':'user','content':self.messages}],'structured':{'schema':schema}}
+        self.slot='pilot/FPT_point/MT_BICL'; self.inputs={'org':3,'request':request}
+        model=serializer({k:request[k] for k in ('model','temperature','max_tokens','service_tier','client_options')})
+        self.body=serialized_body(model,self.messages,schema)
+        doc=self.unknown(200,payload={'choices':[{'message':{'content':'{"decision":"SHORT","evidence_against":""}'}}]})
+        self.book.reconcile(doc['attempts'][-1]['attempt_id'],'Fixture format repair')
+        for path in (self.directory/'usage').glob('org*.json'):
+            old=json.loads(path.read_bytes())
+            atomic_write_json(path,{'version':1,'limits':MODEL_LIMITS,'requests':old['requests']})
+        actual,proof=repair_request(request); seen=[]
+        def respond(message: httpx.Request) -> httpx.Response:
+            seen.append(json.loads(message.content))
+            persisted=json.loads((self.directory/'usage/org3.json').read_bytes())['requests'][-1]
+            self.assertEqual(persisted['pilot_schema_repair'],proof)
+            return httpx.Response(200,json={'id':'fixture','model':request['model'],'object':'chat.completion','created':1790000000,
+                'choices':[{'index':0,'finish_reason':'stop','message':{'role':'assistant','content':'{"decision":"SHORT","evidence_against":"Giới hạn fixture"}'}}],
+                'usage':{'prompt_tokens':10,'completion_tokens':10,'total_tokens':20}})
+        client=PilotClients.__new__(PilotClients)
+        client.book=self.book; client.data=SimpleNamespace(root=ROOT,protocol={'inference':{'config':CONFIG}},verify_sources=lambda:None)
+        client.cached={}; client.mode='pilot'; client.http_count=1; client.attempt_cap=100; client.deadline=time.time()+10000
+        with patch('core.historical_evaluation_audit.verify_runtime'), \
+                patch('core.historical_evaluation_clients.httpx.HTTPTransport',side_effect=lambda **_:httpx.MockTransport(respond)), \
+                patch.dict(os.environ,{'GROQ_ORG_3_API_KEY':'fixture-only'}), \
+                patch('socket.socket.connect',side_effect=AssertionError('Không gọi mạng')), \
+                supervisor_transport_policy(), replay_durable_success():
+            from core.historical_transport_observer import observe_transport
+            with observe_transport(ROOT,recover_connection_reset=True):
+                output=self.book.execute(self.slot,self.inputs,lambda a:client.decision(3,request,a,'MT_BICL'),
+                    validate=lambda value:verify_repaired_decision(self.book,value,'MT_BICL',fixture=False,request=request))
+        self.assertEqual(len(seen),1)
+        self.assertEqual(seen[0]['messages'][0]['content'],actual['messages'][0]['content'])
+        self.assertEqual(output['schema_repair'],proof)
+        for pair in client.cached.values(): pair[0].http_client.close()
 
 
 class ManagerTests(unittest.TestCase):

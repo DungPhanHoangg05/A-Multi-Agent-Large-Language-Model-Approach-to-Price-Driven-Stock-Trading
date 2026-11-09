@@ -7,6 +7,7 @@ from contextvars import ContextVar
 from copy import deepcopy
 from datetime import datetime
 import hashlib
+import json
 import math
 from pathlib import Path
 import time
@@ -20,11 +21,64 @@ from core.historical_evaluation_protocol import digest
 from core.prior_run_lock import safe_path, utc_now
 from core.prior_stage_journal import encode_output
 
-POLICY = {"version": "pilot_recovery_v2", "max_http_per_slot": None, "max_http_per_attempt": 3,
+POLICY = {"version": "pilot_recovery_v3", "max_http_per_slot": None, "max_http_per_attempt": 3,
           "transient_http": [429, 500, 502, 503, 504], "backoff_base_seconds": 30, "backoff_max_seconds": 900,
           "success": "OFFLINE_REPLAY_SAME_ATTEMPT_UUID", "no_dispatch": "NO_LEDGER_ROW_FOR_CURRENT_ATTEMPT",
-          "transport": "DURABLE_DIAGNOSTIC_REQUIRED", "quota": "KEEP_CARRY_AND_UNKNOWN_RESERVES"}
+          "transport": "DURABLE_DIAGNOSTIC_REQUIRED", "quota": "KEEP_CARRY_AND_UNKNOWN_RESERVES",
+          "schema_repair": "RETRY_INVALID_SCHEMA_WITH_AUDITED_FORMAT_INSTRUCTION; NO_LOCAL_REPLY_EDITS"}
 REPLAY: ContextVar[Any] = ContextVar("pilot_offline_replay", default=None)
+REPAIR: ContextVar[Any] = ContextVar("pilot_schema_repair", default=None)
+REPAIR_INSTRUCTION = ("\nLƯU Ý ĐỊNH DẠNG JSON: Phản hồi trước không đạt schema. Trả đủ các trường bắt buộc; "
+    "các trường chuỗi không được rỗng, kể cả evidence_against. Nếu thiếu bằng chứng, nêu rõ giới hạn; "
+    "không bịa thông tin. Chỉ trả JSON đúng schema.")
+
+
+def repair_request(request: dict) -> tuple[dict, dict]:
+    """Thêm chỉ dẫn định dạng cố định; giữ reports/facts/schema/model/options và không sửa reply."""
+    from core.mt_bicl_prompt_limits import check_prompt_length
+    actual = deepcopy(request)
+    actual["messages"][0]["content"] += REPAIR_INSTRUCTION
+    check_prompt_length(actual["messages"][0]["content"])
+    proof = {"version": "schema_repair_v1", "base_request_sha256": digest(request),
+             "repair_request_sha256": digest(actual)}
+    return actual, proof
+
+
+def request_body_hash(request: dict) -> str:
+    """Hash body SDK giống runtime đã khóa, gồm schema title/options thực gửi."""
+    model = serializer({k: request[k] for k in ("model", "temperature", "max_tokens", "service_tier", "client_options")})
+    return digest(serialized_body(model, request["messages"][0]["content"], request["structured"]["schema"]))
+
+
+def actual_request(request: dict, proof: dict | None) -> dict:
+    """Chỉ chấp nhận đúng bản sửa đã định nghĩa, không tin request tự khai trong cache."""
+    if proof is None:
+        return request
+    actual, expected = repair_request(request)
+    if proof != expected:
+        raise ValueError("Proof schema repair khác request gốc")
+    return actual
+
+
+def valid_decision_reply(book: RunBook, doc: dict, row: dict) -> bool:
+    """Phân biệt HTTP200 hợp lệ với JSON sai schema trước khi chọn replay hoặc repair."""
+    request = doc["inputs"].get("request")
+    if not request or "structured" not in request:
+        return True  # Vision vẫn dùng cold validator node, không áp schema Decision.
+    raw = checked_http(book, row)
+    actual = actual_request(request, row.get("pilot_schema_repair"))
+    if request_body_hash(actual) != raw["request_body_sha256"]:
+        raise ValueError("Raw Decision khác base/repair request đã khóa")
+    matches = [(r, payload) for r, payload in http_records(book, row["checkpoint_attempt_id"], row["branch_id"]) if r["id"] == row["id"]]
+    if len(matches) != 1:
+        raise ValueError("Không join được raw Decision duy nhất")
+    from jsonschema import Draft202012Validator, ValidationError
+    try:
+        reply = json.loads(matches[0][1]["choices"][0]["message"]["content"])
+        Draft202012Validator(request["structured"]["schema"]).validate(reply)
+        return True
+    except (json.JSONDecodeError, KeyError, IndexError, TypeError, ValidationError):
+        return False
 
 
 @contextmanager
@@ -53,6 +107,8 @@ def supervisor_transport_policy() -> Iterator[None]:
                     "version": POLICY["version"], "max_http_per_slot": None,
                     "max_http_per_attempt": POLICY["max_http_per_attempt"],
                     "timeouts": deepcopy(observer.RECOVERY_POLICY["timeouts"]), "sources": sources}
+                if REPAIR.get() is not None:
+                    transport.pacer.state["requests"][-1]["pilot_schema_repair"] = deepcopy(REPAIR.get())
                 transport.pacer.save()
                 return observed(transport, message)
 
@@ -117,7 +173,8 @@ def recovery_action(book: RunBook, doc: dict, *, now: float | None = None) -> di
         raise ValueError("Chỉ phục hồi unknown; không gọi lại slot complete")
     rows = slot_rows(book, doc)
     current = [r for r in rows if r["checkpoint_attempt_id"] == last["attempt_id"]]
-    successes = [r for r in rows if r["status"] == 200]
+    wire_successes = [r for r in rows if r["status"] == 200]
+    successes = [r for r in wire_successes if valid_decision_reply(book, doc, r)]
     if any(r["checkpoint_attempt_id"] != last["attempt_id"] for r in successes):
         raise ValueError("Có HTTP200 ở attempt trước; cần audit, không gửi lại")
     for row in rows:
@@ -125,6 +182,8 @@ def recovery_action(book: RunBook, doc: dict, *, now: float | None = None) -> di
             checked_http(book, row)
     base = {"slot": doc["slot"], "attempt_id": last["attempt_id"], "http_count": len(rows), "resume_at": now}
     if successes:
+        if successes[-1]["id"] != wire_successes[-1]["id"]:
+            raise ValueError("Có response hợp lệ trước response lỗi; cần audit, không chọn lại kết quả")
         return {**base, "kind": "REPLAY", "reason": "DURABLE_HTTP200_NO_NEW_API"}
     if not current:
         # Wrapper HTTP luôn fsync reserve trước dispatch; không có row nghĩa là chưa dispatch.
@@ -140,7 +199,9 @@ def recovery_action(book: RunBook, doc: dict, *, now: float | None = None) -> di
                 "reason": "PRE_DISPATCH_NO_HTTP", "resume_at": resume}
     delay = min(POLICY["backoff_max_seconds"], POLICY["backoff_base_seconds"] * 2 ** min(10, max(0, len(rows)-1)))
     for row in current:
-        if row["status"] in POLICY["transient_http"]:
+        if row["status"] == 200:
+            base["resume_at"] = max(base["resume_at"], now + delay)
+        elif row["status"] in POLICY["transient_http"]:
             raw = checked_http(book, row)
             try:
                 retry = float(raw.get("headers", {}).get("retry-after", 0))
@@ -167,7 +228,7 @@ def recovery_action(book: RunBook, doc: dict, *, now: float | None = None) -> di
         else:
             raise ValueError("Lỗi chưa có bằng chứng phục hồi an toàn; xem worker log")
     return {**base, "kind": "READY" if last.get("authorization") is not None else "RETRY",
-            "reason": "AUDITED_TRANSIENT_HTTP_OR_TRANSPORT"}
+            "reason": "INVALID_DECISION_SCHEMA_REPAIR" if wire_successes else "AUDITED_TRANSIENT_HTTP_OR_TRANSPORT"}
 
 
 def pending_action(book: RunBook, *, now: float | None = None) -> dict | None:
@@ -180,6 +241,32 @@ def pending_action(book: RunBook, *, now: float | None = None) -> dict | None:
     if len(pending) > 1:
         raise ValueError("Nhiều slot unknown; không tự chọn UUID")
     return recovery_action(book, pending[0], now=now) if pending else None
+
+
+def attempt_document(book: RunBook, attempt: str) -> dict:
+    """Lấy đúng parent đang invoke; không suy UUID từ tên mã hoặc phase cũ."""
+    matches = [doc for path in (book.directory / "slots").glob("*.json")
+               if (doc := load(path))["attempts"][-1]["attempt_id"] == attempt]
+    if len(matches) != 1:
+        raise ValueError("Attempt Decision không có journal duy nhất")
+    slot_rows(book, matches[0])
+    return matches[0]
+
+
+def verify_repaired_decision(book: RunBook, response: dict, branch: str, *, fixture: bool, request: dict | None = None) -> None:
+    """Cold verify đúng request gốc hoặc bản sửa có proof; vẫn dùng validator raw của baseline."""
+    from core.historical_evaluation_audit import verify_decision
+    if fixture or request is None:
+        if response.get("schema_repair") is not None:
+            raise ValueError("Schema repair cần base request thật")
+        return verify_decision(book, response, branch, fixture=fixture, request=request)
+    from jsonschema import Draft202012Validator
+    Draft202012Validator(request["structured"]["schema"]).validate(response["reply"])
+    successes = [(r, payload) for r, payload in http_records(book, response["request_id"], branch) if r["status"] == 200]
+    if not successes or successes[-1][0].get("pilot_schema_repair") != response.get("schema_repair"):
+        raise ValueError("Response repair không khớp marker durable trong ledger")
+    actual = actual_request(request, response.get("schema_repair"))
+    verify_decision(book, response, branch, fixture=False, request=actual)
 
 
 class ReplayModel:
@@ -208,6 +295,7 @@ class ReplayModel:
 def replay_durable_success() -> Iterator[None]:
     """Khôi phục output mất sau HTTP200 bằng caller/policy gốc, cùng attempt UUID."""
     from core.free_pilot_runtime import PilotClients
+    from core import free_pilot_runtime as runtime
     from core.historical_evaluation_clients import Clients
     original_execute, original_models = RunBook.execute, PilotClients.models
     original_decision, original_stage = PilotClients.decision, PilotClients.stage
@@ -223,7 +311,20 @@ def replay_durable_success() -> Iterator[None]:
     def decision(client: Any, org: int, request: dict, attempt: str, branch: str) -> dict:
         replay = REPLAY.get()
         if replay is None:
-            return original_decision(client, org, request, attempt, branch)
+            doc = attempt_document(client.book, attempt)
+            if doc["inputs"].get("request") != request:
+                raise ValueError("Decision khác base request trong journal")
+            previous = [r for r in slot_rows(client.book, doc) if r["status"] == 200]
+            needs_repair = any(not valid_decision_reply(client.book, doc, r) for r in previous)
+            actual, proof = repair_request(request) if needs_repair else (request, None)
+            token = REPAIR.set(proof)
+            try:
+                response = original_decision(client, org, actual, attempt, branch)
+            finally:
+                REPAIR.reset(token)
+            if proof is not None:
+                response["schema_repair"] = proof
+            return response
         from langchain_core.messages import AIMessage
         from jsonschema import Draft202012Validator
         import json
@@ -231,15 +332,18 @@ def replay_durable_success() -> Iterator[None]:
         if not successes:
             raise ValueError("Không có raw Decision200 để phục hồi")
         row, payload = successes[-1]
-        model = serializer({k: request[k] for k in ("model", "temperature", "max_tokens", "service_tier", "client_options")})
-        expected = digest(serialized_body(model, request["messages"][0]["content"], request["structured"]["schema"]))
+        actual = actual_request(request, row.get("pilot_schema_repair"))
+        expected = request_body_hash(actual)
         if expected != checked_http(client.book, row)["request_body_sha256"]:
             raise ValueError("Replay Decision khác body gốc")
         content = payload["choices"][0]["message"]["content"]
         reply = json.loads(content)
         Draft202012Validator(request["structured"]["schema"]).validate(reply)
-        return {"reply": reply, "raw_message": encode_output({"messages": [AIMessage(content=content)]})["messages"],
-                "request_id": attempt, "expected_http_body_sha256": expected}
+        response = {"reply": reply, "raw_message": encode_output({"messages": [AIMessage(content=content)]})["messages"],
+                    "request_id": attempt, "expected_http_body_sha256": expected}
+        if row.get("pilot_schema_repair") is not None:
+            response["schema_repair"] = deepcopy(row["pilot_schema_repair"])
+        return response
 
     def stage(client: Any, *args: Any, **kwargs: Any) -> dict:
         return (Clients.stage if REPLAY.get() is not None else original_stage)(client, *args, **kwargs)
@@ -279,5 +383,6 @@ def replay_durable_success() -> Iterator[None]:
         return deepcopy(output)
 
     with patch.object(RunBook, "execute", execute), patch.object(PilotClients, "models", models), \
-            patch.object(PilotClients, "decision", decision), patch.object(PilotClients, "stage", stage):
+            patch.object(PilotClients, "decision", decision), patch.object(PilotClients, "stage", stage), \
+            patch.object(runtime, "verify_decision", verify_repaired_decision):
         yield
