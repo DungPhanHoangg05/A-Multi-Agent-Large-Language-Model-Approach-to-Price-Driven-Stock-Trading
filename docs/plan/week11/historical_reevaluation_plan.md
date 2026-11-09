@@ -399,19 +399,15 @@ chuẩn bị code, kiểm ngoại tuyến và đối soát output.
 
 P04 đang PARTIAL:12/48 shared nghiên cứu complete,0 Decision nghiên cứu.
 Pattern FPT-2023-08-17 tại org3 dừng HTTP503 do model over capacity;
-raw response đã kiểm checksum, slot mới dùng1/3 HTTP, không có HTTP200 của
-slot lỗi. Attempt cần người dùng reconcile:
-db3f3d2a-bfac-47b3-a260-f0104f5b8eff. Chờ backoff rồi resume cùng UUID;
-giữ response503/quota reserve và mọi checkpoint complete, không đổi model/key.
+raw response đã kiểm checksum, slot đã dùng2/3 HTTP, chưa có HTTP200.
+Attempt cũ db3f3d2a đã được authorize; attempt cuối là
+1066b007-e5d1-433a-93ee-46b2fe8c1bc7. Supervisor tự tìm attempt cuối, không
+dùng lại UUID reconcile đã chép trong lệnh cũ; giữ mọi response/reserve/checkpoint.
 
 Chạy tại thư mục gốc repository, giữ năm env key hiện có:
 
 ```powershell
-$bootstrap = "from dotenv import load_dotenv; import runpy; load_dotenv('.env', override=False); runpy.run_path('scripts/run_free_paired_pilot.py', run_name='__main__')"
-foreach ($stage in @('shared', 'collect', 'verify')) {
-    py -3.13 -X utf8 -c $bootstrap $stage
-    if ($LASTEXITCODE -ne 0) { throw "Dừng tại $stage; giữ checkpoint và log." }
-}
+py -3.13 -X utf8 scripts/run_free_pilot.py
 ```
 
 Grant PILOT_RELEASED chỉ mở pilot48. Stage shared seal đủ48 upstream trước
@@ -419,9 +415,24 @@ Decision; collect kiểm lại admission với payload thực rồi thu336 forec
 gồm fallback/bypass hợp lệ; verify chạy cold và xuất P05_COLD_PASS cùng receipt.
 Gửi kết quả P05 để đối soát và chuyển H08. Log console và quota nằm trong
 namespace free_pilot_r1, resume cùng UUID, không dùng collector full cũ.
-CLI đọc credential từ environment; bootstrap trên nạp `.env` trước khi chạy.
-Nếu lần trước dừng vì thiếu credential, phải audit ledger rồi reconcile đúng
-attempt UUID chưa gửi HTTP trước khi chạy lại; không xóa slot hoặc reset run.
+Lệnh trên tự nạp `.env`, tìm phase/attempt hiện tại và chạy shared→collect→verify.
+Nếu terminal đóng hoặc tiến trình bị ngắt, chạy lại cùng lệnh; không cần
+bootstrap hoặc UUID thủ công. Nếu worker cũ còn giữ OS lock, chờ nó kết thúc;
+không khởi chạy API trùng. Lỗi503/429/quota/transport có proof được chờ và
+reconcile tự động, giữ trần3 HTTP/slot qua mọi lần khởi động lại. Raw HTTP200
+đủ proof được replay bằng chính node/policy cũ và cùng attempt UUID, không
+gọi lại API. Lỗi dữ liệu/source, response không thể tái lập, dispatch chưa rõ
+hoặc hết trần3 thì dừng có lý do; không giả CASH hoặc nới quota/deadline.
+
+[Manifest supervisor bổ sung](free_pilot_manager.json) khóa source/policy điều
+phối, grant và UUID; runtime inference/protocol/asset cũ giữ nguyên byte.
+Đã PASS21 test mới và26 hồi quy liên quan; compile đúng bốn Python mới.
+Log/tiến độ tại free_pilot_r1/manager/. Khi cold PASS có thêm manager/
+collection_receipt.json bind manifest bổ sung và receipt P05; H08 vẫn chờ.
+
+<!-- FREE_PILOT_MANAGER_START -->
+Trạng thái **NOT_STARTED**; đã giữ12/48 shared và0/336 forecast nghiên cứu.
+<!-- FREE_PILOT_MANAGER_END -->
 
 ## H08 — Phân tích pilot
 

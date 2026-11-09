@@ -81,5 +81,9 @@ core/free_pilot_assets.py text eol=lf
 core/free_pilot_runtime.py text eol=lf
 scripts/run_free_paired_pilot.py text eol=lf
 tests/test_free_pilot_leakage.py text eol=lf
+core/free_pilot_recovery.py text eol=lf
+core/free_pilot_manager.py text eol=lf
+scripts/run_free_pilot.py text eol=lf
+tests/test_free_pilot_manager.py text eol=lf
 docs/plan/week11/free_pilot_*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 outputs/historical_reevaluation/h04_assets/prepared.json -text
