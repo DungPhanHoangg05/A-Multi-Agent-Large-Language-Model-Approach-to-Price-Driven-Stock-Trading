@@ -156,6 +156,35 @@ or regenerate hosted responses. A new release must separately validate the
 asset providers, cohort, quota and transport. Existing historical runners and
 archives retain their original identities and are not relabelled as new runs.
 
+## Comparison protocol preflight
+
+The comparison design and its machine-readable support manifest live in
+`docs/plan/week12/unified_comparison_protocol.json` and
+`docs/plan/week12/unified_comparison_manifest.json`. Verify them offline with:
+
+```powershell
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison.py verify
+```
+
+Verification reconstructs the 102 donor anchors, purged split support,
+dependency-constrained branch orders and attempt budget. It checks source,
+runtime, donor, frozen model and quota-history bytes without loading weights,
+computing query returns or creating inference clients. The manifest requires
+the pinned local assets, including the original pilot handoff and usage ledgers;
+a checkout alone does not provide those ignored artifacts. Missing assets or
+changed bindings must be reported explicitly.
+
+An offline preflight PASS means the recorded audit is reproducible. Execution
+remains blocked until split support, providers, PIT resources, current serving
+availability, quota, recovery and a new run release have been accepted. The
+historical cohort was previously evaluated and supports exploratory analysis.
+Existing full-run and pilot grants do not authorize a new collection.
+
+`build --output outputs/unified_integration/<new-id>/manifest.json` writes a
+new candidate manifest without overwriting an existing file. Verification can
+read that candidate with `verify --manifest <path>`. Neither command releases
+hosted execution or changes the experiment runner's order.
+
 ## Causal alpha profile
 
 `causal_common_v1` provides a separate alpha profile with the same 85 formula

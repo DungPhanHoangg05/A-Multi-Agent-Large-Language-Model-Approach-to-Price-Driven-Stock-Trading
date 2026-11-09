@@ -17,8 +17,8 @@ U02 đã ghép nguồn và U03 đạt parity offline trong worktree riêng; deve
 giữ mốc trước tích hợp. Native chạy mới dùng `original_fix_serving_v1`, có guard
 budget được version riêng; parity chỉ trên miền input hợp lệ đã kiểm.
 U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. U05 có profile
-alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. Chưa mở đợt
-inference mới.
+alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 đã khóa
+protocol/preflight, nhưng điều kiện đủ nguồn còn BLOCKED. Chưa mở đợt inference mới.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
@@ -26,11 +26,148 @@ inference mới.
 - [x] U03 — Kiểm chứng tương đương original_fix trên miền hợp lệ và version delta serving.
 - [x] U04 — Registry, runner, evaluator và CLI/UI offline thống nhất.
 - [x] U05 — Profile alpha nhân quả chung và bridge với native; gate toàn hệ còn chờ U06/U07.
-- [ ] U06 — Khóa giao thức so sánh, cohort, thống kê và ngân sách.
+- [ ] U06 — Đã khóa protocol/preflight offline; điều kiện đủ support/quota để nghiệm thu còn BLOCKED.
 - [ ] U07 — Kiểm paired/PIT/recovery theo phạm vi.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U06
+
+Tiếp tục trên nhánh tích hợp từ U05
+`c0a4993fbd3214d32f0580109ad4ecfefd246fcb`; ref
+`refs/archive/fix-develop-u06/integration` giữ mốc trước task. U06 không kế thừa
+grant full1020 đã REVOKED hoặc grant pilot48 đã hoàn tất.
+
+- [x] U06.1 — Khóa hai family, năm mở rộng, hai baseline, Fact_Anchor và bridge; không chọn lại phương pháp theo pilot.
+- [x] U06.2 — Đối soát 102 anchor/51 scope bằng đúng 21 blob donor, calendar/index/suffix BHN; khóa CORE4 và ledger exposure.
+- [x] U06.3 — Khóa estimand/account reset, ba repeats/một realization, outcome barrier, strict frozen memory và thứ tự có dependency.
+- [x] U06.4 — Khóa controls, panel deferred tường minh, 20 endpoint/contrast đồng thời, block/bootstrap/undefined và sensitivity trước inference mới.
+- [x] U06.5 — Tính slot/attempt cap; khôi phục nguyên byte quota/handoff có sẵn, dedup carry, không suy quota/giá/thời gian hiện tại từ lịch sử.
+- [x] U06.6 — CLI/manifest offline, source/runtime/model hashes, test chống đổi thiết kế/cohort/quyền/manifest và cold verify.
+- [ ] U06.7 — **Điều kiện thoát đủ nguồn chưa đạt:** split donor không tương thích profile causal đã khóa; cần amendment/split hoặc profile có version trước inference, selector/providers/PIT, quota mới và gate U07. Không giảm N/ngưỡng hoặc chọn subset ngầm để đánh dấu hoàn tất.
+
+### Kết quả và giới hạn U06
+
+[Protocol v1](unified_comparison_protocol.json) khóa thiết kế
+`unified_anchor102_historical_v1`; [manifest máy](unified_comparison_manifest.json)
+ghi **`DESIGN_LOCKED_RELEASE_BLOCKED`**. PASS kiểm manifest nghĩa là tái dựng
+được audit, **không** phải đủ support hoặc được phép gọi API. Vì điều kiện
+thoát “đủ nguồn” của kế hoạch chưa đạt, checkbox U06 tổng vẫn để mở.
+
+Cohort dự kiến là đúng **102 endpoint anchor**, **51 symbol/fold account**,
+**12 cutoff**, chín mã; CORE4 **48 điểm** là subset secondary cố định. BHN
+chỉ có sáu anchor ở ba fold cuối, raw index lệch suffix **673**. Tất cả anchor
+đã thuộc nghiên cứu fix; **16/102** trùng selected pilot48. Không coi phần còn
+lại là holdout chưa xem, không nối response pilot vào lượt mới, không khôi phục
+full1020. Selection chỉ dùng lịch/ID; thêm hoặc đảo outcome trong metadata không
+thay cohort. Calendar có nguồn đủ **102/102**; **collection eligible 0**, complete
+mới 0, failed mới 0, not started 102. Số 0 eligible là chưa được gate chấp nhận,
+không phải kết luận không còn dữ liệu thị trường.
+
+Audit split phát hiện **cả 51 fold** có trần validation **18–21 cycle**, thấp hơn
+`causal_common_v1.min_validation=30`; phân bố lần lượt 9/16/18/8 fold với
+18/19/20/21 cycle. Một fold BHN còn chỉ có **32 train cycle**, dưới mức 60.
+Đây là trần từ lịch cycle đã purge, chưa giả định factor có support đủ. Không fit
+selector trên thị trường, không giảm ngưỡng U05 hoặc âm thầm mở rộng validation.
+Do đó chưa thể gắn 51 selector hợp lệ vào Spec v2 cho cohort này. Amendment
+phải có lý do, version, nguồn và quy tắc lịch trước response mới; lịch sử vẫn
+exposed/exploratory dù sau này giải quyết được numeric support.
+
+Hai family giữ đủ năm contrast extension-minus-baseline: method dùng
+`original_common`, system dùng `original_fix`. Bridge native/common và ladder
+Original_common → Fact_Anchor → MT báo riêng, không gán mọi chênh lệch cho
+student. Primary là chênh mean net return của **51 account độc lập**, reset
+50 triệu VND theo symbol/fold/method/realization/repeat, lấy mean ba repeat
+trong account rồi mean đều các account; không gọi là portfolio return. BA tính
+mỗi repeat trên 102 điểm rồi mean; repeats không tăng N thị trường. Kinh tế,
+oracle, LONG/CASH, horizon, phí/slippage và null metric giữ nguyên.
+
+Khóa **ba Decision repeats**, **một upstream realization**, chung raw parent,
+projection causal cho common và native nguyên vẹn. Xoay sáu ưu tiên tail common
+theo DAG rồi chèn native lần lượt ở tám vị trí; manifest lưu đủ **306 order**.
+Native ở mỗi vị trí 38 hoặc 39 lần; common/anchor vẫn bị dependency ràng buộc,
+không nhận cân bằng hoàn toàn. Runner offline U04 hiện chưa áp dụng lịch hosted
+này: gate U07/U08 phải kiểm thứ tự thực, org/epoch/time và retry; manifest không
+đổi runtime âm thầm.
+
+Controls CASH và always-LONG cùng cycle/cost/support, chỉ mở outcome sau barrier.
+Continuous hold bị loại khỏi v1 do chưa có execution acceptance; không đồng nhất
+với cycle LONG. Random/recent/similarity/bayesian, prior/MT ablations và B/A/S/AS
+được liệt kê rõ nhưng **deferred**, có **0 hosted slot** trong v1; không được
+nhận kết luận đóng góp regime/utility từ panel chưa chạy. Mở panel cần version
+và ngân sách riêng trước response của panel đó.
+
+Thống kê khóa chung **20 endpoint/contrast**: mười contrast ở hai family ×
+return và BA. Bootstrap di chuyển chung tất cả mã/ngày/method/repeat theo sáu
+fold có thứ tự, circular block length 2, **10.000 draw PCG64/seed20261110**;
+rebuild account của mỗi fold-copy từ 50 triệu, không compound xuyên fold.
+Dùng centered max standardized deviation cho band đồng thời 95%; tối thiểu
+9.500 draw joint-finite, thiếu hoặc SD=0 thì band null kèm lý do, không redraw.
+Block 1/3, leave-one-fold/symbol-out và CORE4 là sensitivity cố định. Chỉ là
+historical sensitivity với ít cluster đã exposed; không có confirmatory
+p-value, power/superiority hoặc chọn family/subgroup sau outcome. U09 mới
+triển khai tính toán từ forecast sealed; U06 không xuất kết quả lợi nhuận mới.
+
+Ngân sách khóa **2.448 Decision forecast slots**, tối đa **204 vision executions**,
+**10 smoke executions** ở epoch riêng: **2.662 nominal HTTP upper bound**,
+**7.986 attempts** nếu ba attempt/execution (repair và transport chung cap).
+Fallback có thể giảm call nhưng không xóa forecast slot. Không thu history mới,
+không reuse Decision archive, không tự giảm N/repeats hoặc đổi model/key.
+Token reserve, thời gian và USD hiện là null: chưa đo payload mới hoặc xác minh
+hạn mức/org/model hiện hành; không dùng giá/quota W11 như dữ liệu hiện tại.
+
+Đã tìm asset ignored ở worktree gốc và sao chép **nguyên byte 15 ledger quota +
+H09 ZIP** sang worktree tích hợp; không sửa nguồn. Dedup theo org/request UUID
+giữ **497 request**, **1.140.404 token đã tính/reserve**, không giả định hết cửa
+sổ quota theo đồng hồ. H06/lượt hủy/pilot trùng carry không bị đếm hai lần;
+history này chưa chứng nhận quota còn dùng được. H09 giữ SHA256 cũ
+`656be564c58cc78e141b1a8879196bec33ed08776f9196dc4efc6810ae210771`.
+Student/teacher full_r1, HMM prefix và bank852 được kiểm byte/hash, không load
+weights, không fit lại; bank vẫn khác provenance query và chỉ có CORE4, không
+gắn nhãn bank causal hoặc giả hỗ trợ OOD5. Nguồn raw news có ngày không chứng
+nhận content PIT; providers/context/scaler/news và availability còn phải gate.
+
+CLI chỉ có `build` và `verify`, chặn mạng ngoài máy và không tạo client. Thiết kế
+có hash pin trong code; envelope đã tự băm lại nhưng đổi cohort, repeat, quyền
+API hoặc multiplicity vẫn bị từ chối. Verify tái dựng toàn bộ manifest, còn build
+chỉ tạo file mới; không overwrite bản sealed. Tái lập từ repo root có đủ local
+asset đã hash:
+
+```powershell
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison.py verify
+```
+
+Đã compile **ba file Python mới**, PASS **16 test / một module**
+`test_unified_protocol`, không fail/error/skip trong log nghiệm thu. Nhóm này
+kiểm đúng CLI và compiler offline mới: immutable design, ID/calendar/purge,
+outcome-poison selection, source/donor mismatch, quota carry, DAG/order,
+manifest tự băm lại, overwrite guard và tiến trình cách ly không import
+torch/Groq/httpx/retriever/HMM/alpha runtime. Không đổi caller/đường chạy dữ
+liệu hiện hữu nên không chạy lại full unit/E2E/toàn leakage suite hoặc 151 test
+U05. Đối soát **495/497 bindings U05** nguyên byte; hai thay đổi chỉ là
+`.gitattributes` và root README. **107 package/Python 3.13.5** giữ nguyên.
+Đã đối soát lại **21.383 frozen artifact / 21.948 đường dẫn U01**: PASS.
+
+Manifest khóa **554 source bindings**, protocol semantic SHA256
+`2d12701324e04f40c5513ca9f1541b9008546b38e9c02c44cd9dee8169548283`,
+manifest payload SHA256
+`81d7ebacd7baedb557187fd04461b54420ec64baeada4693fc5ab4440f07bdd6`.
+[Gói QA nhỏ](unified_comparison_checks.zip) gồm năm thành viên: log test,
+cold verify, validation, consumer và manifest hash; **4.697 byte**, SHA256
+`814ed01046fcd77dc6a25ae1604df46fc6660158d92102bdb7994ec3994f3562`.
+Consumer `-I` mới đã PASS byte/hash gói và tái dựng đúng audit/manifest; trạng
+thái release vẫn BLOCKED. Gói không chứa lại thị trường, weights hoặc H09 ZIP;
+cần asset local đã hash. Diff whitespace và **61 liên kết/anchor local** trong bốn tài liệu hiện hành PASS.
+
+```powershell
+Expand-Archive -LiteralPath docs/plan/week12/unified_comparison_checks.zip -DestinationPath "$env:TEMP/u06-checks"
+py -3.13 -I -X utf8 "$env:TEMP/u06-checks/verify_package.py" "$PWD" docs/plan/week12/unified_comparison_checks.zip
+```
+
+Nguồn runtime U05 giữ nguyên;
+native row-wise vẫn **FAIL**, whole-system causal vẫn **PENDING_U06_U07**,
+API/paid API/training đều **false**, chưa merge nền vào develop.
 
 ### Checklist chi tiết U05
 

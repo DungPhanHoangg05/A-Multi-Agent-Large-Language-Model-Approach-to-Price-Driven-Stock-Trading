@@ -259,3 +259,6 @@ scripts/manage_causal_profile.py text eol=lf
 tests/causal_profile_support.py text eol=lf
 tests/test_causal_common_profile.py text eol=lf
 tests/test_causal_common_leakage.py text eol=lf
+core/unified_protocol.py text eol=lf
+scripts/prepare_unified_comparison.py text eol=lf
+tests/test_unified_protocol.py text eol=lf

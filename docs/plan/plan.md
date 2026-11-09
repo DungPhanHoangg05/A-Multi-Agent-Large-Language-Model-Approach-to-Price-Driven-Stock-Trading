@@ -5,6 +5,11 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+U06 đã khóa [protocol/preflight offline](week12/README.md#kết-quả-và-giới-hạn-u06)
+cho 102 anchor, ba repeat và hai family. Điều kiện đủ nguồn còn BLOCKED:
+split donor có 18–21 validation cycle/fold, chưa đạt min30 của profile causal;
+không tự đổi ngưỡng/lịch hoặc mở inference. Checklist U06 tổng chưa nghiệm thu.
+
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
 U01 đã khóa inventory/hash hai cây nguồn, imports/callers và bằng chứng;
