@@ -7,6 +7,8 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
+U01 đã khóa inventory/hash hai cây nguồn, imports/callers và bằng chứng;
+[kết quả audit](week12/README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa) ghi rõ delta nguồn và binding lịch sử.
 Chưa merge mã nguồn hai nhánh hoặc mở inference mới. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 

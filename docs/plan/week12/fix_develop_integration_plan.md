@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát: **09/11/2026**. Trạng thái: **đề xuất triển khai, chưa hợp nhất mã nguồn, chưa cấp release thực nghiệm mới**.
+Ngày khảo sát: **09/11/2026**. Trạng thái: **U01 đã khóa inventory nguồn; chưa hợp nhất mã nguồn, chưa cấp release thực nghiệm mới**.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
@@ -15,7 +15,7 @@ Giữ ba lớp nhận diện:
 2. `original_fix`: đường chạy gốc đã tích hợp, không prior/MT; phải đạt kiểm chứng tương đương với `fix` trên fixture và archive có đủ nguồn. Lời gọi hosted mới không được hứa hẹn trả đúng response lịch sử.
 3. `original_common` và các mở rộng: một cấu hình nghiên cứu chung, công khai các thay đổi về report, prompt, giới hạn đầu ra và schema so với `original_fix`. Tên `Original_common` của pilot cũ giữ nguyên trong archive, không đổi nhãn thành `original_fix`.
 
-Phạm vi task hiện tại chỉ là kế hoạch. Các bước gọi API, huấn luyện, sửa bài báo và merge hai nhánh nguồn thuộc triển khai sau; không khôi phục đợt 1.020 điểm đã hủy.
+Tài liệu này khóa thiết kế hợp nhất. U01 đã hoàn tất audit nguồn/bằng chứng tại [README W12](README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa); các bước gọi API, huấn luyện, sửa bài báo và merge hai nhánh nguồn thuộc triển khai sau; không khôi phục đợt 1.020 điểm đã hủy.
 
 ## 2. Bằng chứng khảo sát hai nhánh
 
@@ -47,7 +47,7 @@ Mô phỏng `git -c merge.renames=false merge-tree --write-tree --name-only deve
 | PIT alpha | `fix:core/revision_alpha_contract.py` ghi `native_rowwise_causal_gate=FAIL`, nhưng có outer-cutoff probe riêng | Không diễn giải test phát hiện lỗi PASS thành Zero-Leakage toàn hệ; xử lý phiên bản phương pháp ở mục 5 |
 | Adapter lịch sử | `historical_evaluation_protocol.py` đã pin đúng donor fix; graph lấy renderer bằng `git show`, đồng thời import agents từ develop | Tái sử dụng audit, journal, assets; không gọi adapter lai này là bằng chứng đã tích hợp nguyên gốc |
 | Dependencies | Develop thêm HMM/sklearn/httpx/tiktoken, pin vnstock/vnai; fix có dependency audit riêng | Khóa môi trường hợp nhất Python 3.13.5; kiểm source pin của receipts cũ trong môi trường đóng băng riêng |
-| Bài báo | `paper/`, `revision/`, 33 module `core/revision_*`, 43 test và 49 script có ở fix nhưng không ở develop tip | Giữ nguồn tác giả, pipeline sinh bảng và kiểm chứng; không bỏ bằng chứng âm hoặc ghi đè bài cũ bằng pilot |
+| Bài báo | `paper/`, `revision/`, 28 module `core/revision_*` + 5 module `core/revision72_*`, 43 test và 49 script có ở fix nhưng không ở develop tip | Giữ nguồn tác giả, pipeline sinh bảng và kiểm chứng; không bỏ bằng chứng âm hoặc ghi đè bài cũ bằng pilot |
 
 ### 2.3. Kết quả hiện có được phép dùng tới đâu
 
