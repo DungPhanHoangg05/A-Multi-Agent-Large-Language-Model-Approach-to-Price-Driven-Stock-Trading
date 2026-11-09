@@ -35,7 +35,13 @@ Trước khi xóa có186 node upstream complete và0 forecast grid. Chỉ giữ 
 ledger tối thiểu103 request/264.449 token đã tính hoặc reserve để cộng quota
 còn hiệu lực vào lượt mới. Smoke H06 và model/donor/HMM giữ nguyên.
 
-Pilot hiện PLAN_ONLY, P01–P05/H08/H09 TODO; chưa có API hay kết quả pilot mới.
+Pilot đã nghiệm thu P01–P05:48 shared,336 forecast,48 nhãn và cold PASS;
+[receipt H07](week11/free_pilot_h07_acceptance.json) khóa evidence trước phân tích.
+H08 đã chạy offline và cold consumer PASS; [receipt H08](week11/free_pilot_h08_analysis.json).
+Return bình quân tám account: Original−3,690521%; A_tp_pool−2,550858%,
+D+1,139663 đpt với band95%[−0,680467;2,959792]; MT−4,414181%, D−0,723660 đpt.
+Cả sáu return âm; mọi band D return chứa0, chưa đủ bằng chứng vượt Original.
+H09 đóng gói/bàn giao còn chờ, không đánh dấu toàn hệ thống hoặc full matrix DONE.
 Bayesian dùng bank signal đóng băng2020–2022; MT giữ numeric context của
 phương pháp. Query chung dùng donor fix; bank/query khác provenance phải
 được audit và báo như giới hạn chuyển giao. Kết luận là historical exploratory

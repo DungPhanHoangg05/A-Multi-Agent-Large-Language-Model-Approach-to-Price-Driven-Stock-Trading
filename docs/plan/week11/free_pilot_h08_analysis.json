@@ -1,0 +1,110 @@
+{
+  "payload": {
+    "status": "H08_PASS",
+    "run_uuid": "3881b4ba-4609-460a-8137-5fbad4f617db",
+    "h07": {
+      "path": "docs/plan/week11/free_pilot_h07_acceptance.json",
+      "bytes": 1456,
+      "sha256": "98b60b39db6b7be69e3fb5d8983fbd7704e39d0aa604fcac69780af7b2c2ebe4"
+    },
+    "sources": {
+      "core/free_pilot_analysis.py": {
+        "path": "core/free_pilot_analysis.py",
+        "bytes": 29474,
+        "sha256": "cf072730801216fdcc61636d51d191a27c82b4cfb37ee7313e9bef88c2c06d2e"
+      },
+      "core/free_pilot_statistics.py": {
+        "path": "core/free_pilot_statistics.py",
+        "bytes": 10408,
+        "sha256": "097cf88e3068126c1f668da3022109649aeaff4f8e22a2a319639a9fa9bcd7fb"
+      },
+      "scripts/analyze_free_pilot.py": {
+        "path": "scripts/analyze_free_pilot.py",
+        "bytes": 2782,
+        "sha256": "5224ca0e4cc8916cf9806571bedf3b42332adf933bfe320c6c4b786f157d4802"
+      },
+      "tests/test_free_pilot_statistics.py": {
+        "path": "tests/test_free_pilot_statistics.py",
+        "bytes": 6209,
+        "sha256": "416d40e6cd95704368d9075063eea8b42723fe0aaf91dcbc4cbbf08147e8ead2"
+      },
+      "tests/test_free_pilot_analysis.py": {
+        "path": "tests/test_free_pilot_analysis.py",
+        "bytes": 2598,
+        "sha256": "2ddf945dbbefaf8b28894204394a88edc529e50c3d29c53410d8dbecf7161187"
+      }
+    },
+    "runtime": {
+      "python": "3.13.5",
+      "numpy": "2.1.2",
+      "pandas": "2.3.3",
+      "matplotlib": "3.10.8"
+    },
+    "artifacts": {
+      "accounts.csv": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/accounts.csv",
+        "bytes": 13859,
+        "sha256": "e7f7477f29d78589c80035f7d3fbd90c101d8930a8a6d379e0d9cf2b4ad5f8b2"
+      },
+      "classification_by_group.csv": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/classification_by_group.csv",
+        "bytes": 4930,
+        "sha256": "353f7c7b649dad7a132c79a19139ba8badc7c9db7f81c5184f94f9e115a59e86"
+      },
+      "cycles.csv": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/cycles.csv",
+        "bytes": 85537,
+        "sha256": "84a47ab7d2ec7362ae608e2930b8885ce331b7a053c1258209f42a94b67d3c90"
+      },
+      "daily_nav.csv": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/daily_nav.csv",
+        "bytes": 139248,
+        "sha256": "234d33bba630f517bb5d4686ba8854d3f07024964909f46148102eba2af020d4"
+      },
+      "predictions.csv": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/predictions.csv",
+        "bytes": 58780,
+        "sha256": "e711de1a55aeb694567e06544e555682663eecc248af1f974e1e14dcaa8ec934"
+      },
+      "prior_diagnostics.json": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/prior_diagnostics.json",
+        "bytes": 17902130,
+        "sha256": "bd3bd26d1bc9b5b82709ef115ef1ec6efeb24cfb39a1e1b6d0fa1aa95d3c432b"
+      },
+      "reference_fix_102.csv": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/reference_fix_102.csv",
+        "bytes": 1928,
+        "sha256": "06742e2b876f3bb0e38191cb74f98e9d43f7ed5847b50e4a29e8b210c4056e6c"
+      },
+      "report.md": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/report.md",
+        "bytes": 3205,
+        "sha256": "b76c491ce65488283987e8ca60ba73bc68c2faab8b086683bfcfb12c66713cab"
+      },
+      "results.json": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/results.json",
+        "bytes": 153559,
+        "sha256": "33e75e92264ad0f22836af053b23e63052f424f5dbb993b33fbaa22302d3b295"
+      },
+      "return_contrasts.png": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/return_contrasts.png",
+        "bytes": 50884,
+        "sha256": "60484f9637eec979cbdf282db2ec9ebe97f714ba4ac4a51f450191bdf8c01d70"
+      },
+      "return_contrasts.svg": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/return_contrasts.svg",
+        "bytes": 51416,
+        "sha256": "e5424d929ce04d1a2e10b19cf802037888e31f52340a0048bee883b5100a42dc"
+      },
+      "summary.csv": {
+        "path": "outputs/historical_reevaluation/free_pilot_r1/analysis/summary.csv",
+        "bytes": 1954,
+        "sha256": "21535a291c6e8014aae3b535f7acb5210f58edf94031ebf0e08dc1951d78d1c2"
+      }
+    },
+    "new_api_calls": 0,
+    "teacher_student_fit": false,
+    "H09": "PENDING"
+  },
+  "sha256": "39b8ec7cd8f27a49a9c6dde10f7624f87652a27231b751b520d4e3e4f3d059b2"
+}

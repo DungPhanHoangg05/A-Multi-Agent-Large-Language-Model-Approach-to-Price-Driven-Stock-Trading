@@ -10,7 +10,7 @@ H03 đã khóa protocol và dự toán trước inference trên lưới mới.
 H04/H05 đã hoàn tất offline; H06 PASS live smoke55 lượt và cold verify.
 Ngày09/11/2026, người dùng hủy lượt H07 đầy đủ để chuẩn bị trình bày trong
 hai ngày. Phương án hiện hành FREE_PAIRED_PILOT_48 có trạng thái
-COLLECTING_PARTIAL;48 shared và18/336 forecast đã lưu, chưa hoàn tất H07.
+H07_ACCEPTED_H08_PASS;48 shared,336 forecast,48 nhãn đã nghiệm thu/cold verify.
 H01–H06 bên dưới ghi bằng chứng thiết kế cũ; pilot cần khóa protocol/input/
 runtime và nghiệm thu phần thay đổi riêng trước API.
 
@@ -23,8 +23,8 @@ runtime và nghiệm thu phần thay đổi riêng trước API.
 - [x] H05 — Kiểm thử theo phạm vi, PASS84 test và đối soát asset/context.
 - [x] H06 — Smoke thiết kế cũ PASS; grant thu thập đầy đủ đã REVOKED ngày09/11.
 - [x] H07 cũ — Dừng tiến trình và xóa output thu thập dở theo yêu cầu người dùng.
-- [ ] H07 pilot — Audit reuse, khóa48 điểm, nghiệm thu và thu đủ sáu phương pháp.
-- [ ] H08 — Phân tích và đối soát kết quả.
+- [x] H07 pilot — Audit reuse, khóa48 điểm, nghiệm thu và thu đủ sáu phương pháp.
+- [x] H08 — Phân tích và đối soát kết quả, cold consumer PASS.
 - [ ] H09 — Kết sổ và bàn giao.
 
 ## H01 — Khảo sát nguồn và phạm vi
@@ -239,7 +239,7 @@ không giữ report, ảnh, prompt hay kết quả nghiên cứu. Lượt mới 
 quota còn hiệu lực của ledger này và H06; đổi namespace không reset quota.
 
 Pilot có namespace mới outputs/historical_reevaluation/free_pilot_r1/,
-UUID/protocol/runtime riêng, hiện COLLECTING_PARTIAL. Runner cũ34.806 call và grant
+UUID/protocol/runtime riêng, hiện H07_ACCEPTED_H08_PASS. Runner cũ34.806 call và grant
 H06 không phát hành pilot. Các phần mở rộng9 mã, ablation/retrieval control,
 Original_duplicate và repeats bổ sung nằm ngoài phạm vi buổi trình bày.
 Thiết kế đầy đủ H03 được giữ làm tham chiếu.
@@ -365,11 +365,11 @@ chưa hoàn tất. Chỉ Free, chi tiêu0 USD.
 - [x] P03 — Kiểm scoped PIT/query-y poison, full population, disjoint context,
   paired/deep-copy, prompt/factor rows, metric và checkpoint/quota carry-over.
   Chỉ compile Python thay đổi; smoke9 lượt và cold verify trước release.
-- [ ] P04 — Seal48 shared states, grant pilot sau P01–P03 PASS, thu đủ
+- [x] P04 — Seal48 shared states, grant pilot sau P01–P03 PASS, thu đủ
   336 forecast slot và48 bridge nếu đã khóa ON, với bypass hợp lệ,
   source/parent/HTTP/latency. Resume cùng UUID; không chọn lại point hoặc
   dừng theo return.
-- [ ] P05 — Cold verify48 point ×sáu primary và Fact_Anchor, mọi slot complete
+- [x] P05 — Cold verify48 point ×sáu primary và Fact_Anchor, mọi slot complete
   hoặc bypass đúng policy, không pending/unknown, nhãn/source khớp. Seal
   manifest trước H08. Thiếu thì PARTIAL và giữ48 là N planned.
 
@@ -399,7 +399,7 @@ giờ khi đó; deadline cố định01:56:52 ngày11/11/2026
 (UTC+7), không reset khi resume. Người dùng chạy mọi lệnh API; agent chỉ
 chuẩn bị code, kiểm ngoại tuyến và đối soát output.
 
-P04 đang PARTIAL:48/48 shared nghiên cứu complete,18/336 forecast durable,
+Mốc trước khi sửa schema v3:48/48 shared complete,18/336 forecast durable,
 2/48 điểm đủ toàn bộ bảy nhánh và nhãn. Đang dừng tại MT_BICL của
 VCB_b2023_h2_872: hai HTTP200 có evidence_against rỗng, vi phạm schema;
 chưa được nhận làm forecast. Attempt3f127182-3314-4313-8ddb-7966bf508293.
@@ -437,12 +437,13 @@ compile đúng bốn Python thay đổi. Không gọi API thật.
 Delta v3 PASS39 test liên quan và compile ba Python thay đổi; có SDK mock
 chứng minh marker sửa định dạng ghi trước dispatch, cold replay đúng body và
 không gọi lại raw200 hợp lệ. Agent chỉ kiểm ngoại tuyến; người dùng chạy lại
-chính lệnh trên để tiếp tục collect rồi verify. P04/P05 vẫn chưa DONE.
+chính lệnh trên để tiếp tục collect rồi verify. Mốc đó P04/P05 chưa DONE;
+hiện đã thu đủ và nghiệm thu theo receipt bên dưới.
 Log/tiến độ tại free_pilot_r1/manager/. Khi cold PASS có thêm manager/
-collection_receipt.json bind manifest bổ sung và receipt P05; H08 vẫn chờ.
+collection_receipt.json bind manifest bổ sung và receipt P05; H08 còn chờ tại mốc đó.
 
 <!-- FREE_PILOT_MANAGER_START -->
-Trạng thái **STOPPED**, phase `collect`, cập nhật 09/11/2026 10:32:05 UTC+7. Shared 48/48; forecast 18/336; nhãn 2/48. Raw HTTP200 chưa thể tái lập output hợp lệ; giữ raw, xem worker log
+Trạng thái **P05_COLD_PASS**, phase `verify`, cập nhật 09/11/2026 13:09:22 UTC+7. Shared 48/48; forecast 336/336; nhãn 48/48. H08 đã PASS offline theo receipt bên dưới.
 <!-- FREE_PILOT_MANAGER_END -->
 
 ## H08 — Phân tích pilot
@@ -450,32 +451,60 @@ Trạng thái **STOPPED**, phase `collect`, cập nhật 09/11/2026 10:32:05 UTC
 Báo số reply sai schema/format repair theo phương pháp từ ledger; không
 gộp HTTP200 sai schema vào forecast hợp lệ hoặc ghi chúng thành CASH.
 
-- [ ] Dựng tám account mã/năm mỗi phương pháp. Primary D là mean đều bốn
+- [x] Dựng tám account mã/năm mỗi phương pháp. Primary D là mean đều bốn
   mã và hai năm của chênh return so Original_common, đơn vị đpt. Báo return
   tuyệt đối, daily/cycle-end MDD, exposure/turnover/phí/số LONG và cash giữa
   query theo đúng lịch; không gộp thành portfolio return.
-- [ ] Pooled accuracy/BA/MCC/F1/confusion matrix trên cùng48 điểm, per-symbol/
+- [x] Pooled accuracy/BA/MCC/F1/confusion matrix trên cùng48 điểm, per-symbol/
   year có n_planned/n_complete/n_defined; undefined=null. Prior-off vẫn trong
   estimand toàn bộ, subgroup chỉ diagnostic. Sharpe/Sortino chu kỳ chỉ báo
   khi xác định, annualized=null; bỏ sqrt(252) mặc định cho mẫu thưa.
-- [ ] Khóa trước inference bootstrap circular theo selected-date trong từng
+- [x] Khóa trước inference bootstrap circular theo selected-date trong từng
   năm, L=2, mỗi năm giữ6 ngày; cùng index cho bốn mã/mọi nhánh/metric,
   10.000 draw PCG64 seed20261109. Dựng account từng draw, báo point estimate
   và band centered max-deviation95% cho family năm contrast với Original.
   BA là family riêng; cần ít nhất9.500/10.000 joint finite draw để xuất band.
   Giữ số draw mất class, dưới ngưỡng thì band toàn family=null, không sinh bù
   hoặc đổi cách tính sau outcome.
-- [ ] Báo12 ngày thực, hai block năm, độ rộng interval, leave-one-date/symbol-out.
+- [x] Báo12 ngày thực, hai block năm, độ rộng interval, leave-one-date/symbol-out.
   Bootstrap mô tả độ nhạy trên mẫu nhỏ, chưa chứng nhận simultaneous coverage
   hoặc superiority. Một repeat không đo variance giữa các lần LLM. Dữ liệu
   exposed và archive upstream làm kết luận có điều kiện trên reports.
-- [ ] Báo coverage/support/bypass, strata nguồn, bank frozen/numeric context,
+- [x] Báo coverage/support/bypass, strata nguồn, bank frozen/numeric context,
   raw→facts→veto, inference mới/reuse, token/call/latency thật. Kết quả MT
   cũ−5,313090 đpt và gate replica không phải kết quả pilot mới.
-- [ ] So fix bằng bridge nếu khóa ON, hoặc dẫn bảng102 điểm riêng với cohort/
+- [x] So fix bằng bridge nếu khóa ON, hoặc dẫn bảng102 điểm riêng với cohort/
   prompt/options gốc; không trừ hai return khác protocol. Cold consumer
   đối soát raw/label/metric/hash, giữ VENDOR_SERIES_LIMITED, news content PIT
   chưa chứng nhận và PENDING_EXECUTION_DATA.
+
+Nghiệm thu09/11: [H07](free_pilot_h07_acceptance.json) PASS48 shared/336 forecast/
+48 label,0 latest unknown; hash closure HTTP/usage/ảnh/checkpoint khớp P05,
+paired shared và nhãn engine đối soát lại. Giữ gate cold đã chạy vì source/runtime
+không đổi; không lặp unit/E2E/NN gate. Prompt thực lớn nhất4746<6500 ký tự.
+
+[H08](free_pilot_h08_analysis.json) PASS offline và H08_COLD_VERIFY_PASS;
+15 test mới theo phạm vi PASS, compile năm Python mới. Bootstrap L2/10k/seed20261109
+đúng plan, cả hai family10000 joint finite/0 draw mất class. Mọi band return D chứa0.
+Return macro: Original−3,690521%; v1−2,775836%; C2−3,910791%; A−2,550858%;
+B−3,475401%; MT−4,414181%. A ít lỗ nhất, D+1,139663 đpt, band95%
+[−0,680467;2,959792]; không chứng minh superiority. MT D−0,723660 đpt,
+band[−2,543789;1,096470],22 bypass (12 thiếu feature/10 thiếu utility).
+48 action MT trùng Fact_Anchor; veto bác3 đề xuất khác a0, không tách được
+tác động riêng của student từ bảng này. C2/B fallback33/48, A25/48.
+
+Artifacts đầy đủ tại outputs/historical_reevaluation/free_pilot_r1/analysis/:
+report.md, results.json, summary/accounts/classification_by_group/cycles/daily_nav/
+predictions.csv, prior_diagnostics.json và return_contrasts.png/svg. Full102
+được dẫn riêng từ donor9efd23f4, không trừ return khác cohort/protocol.
+Không gọi thêm API hoặc train. Tái lập offline:
+
+```powershell
+py -3.13 -X utf8 scripts/analyze_free_pilot.py verify
+```
+
+H09 còn chờ đóng gói/bàn giao; giữ VENDOR_SERIES_LIMITED/PENDING_EXECUTION_DATA,
+news content PIT chưa chứng nhận và scope historical exploratory.
 
 ## H09 — Kết sổ pilot
 

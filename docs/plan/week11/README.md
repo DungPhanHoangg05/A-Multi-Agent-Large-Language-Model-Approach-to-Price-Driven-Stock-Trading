@@ -18,8 +18,8 @@ theo phương pháp và replica seed42/step3000 đã nghiệm thu. Query donor f
 prompt/model/options/kinh tế chung phải khóa trước API. Reuse upstream là
 đánh giá có điều kiện trên reports đã lưu, phải có provenance; Decision
 primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích mẫu nhỏ
-được đặc tả trong plan. Hiện COLLECTING_PARTIAL:48 shared complete,
-18/336 forecast và2/48 điểm đủ nhãn; pilot chưa hoàn tất.
+được đặc tả trong plan. Hiện H07_ACCEPTED_H08_PASS:48 shared,336 forecast,
+48 nhãn; H08 offline/cold PASS. H09 đóng gói và bàn giao còn chờ.
 
 ## Checklist đánh giá lại
 
@@ -35,9 +35,9 @@ primary đều chạy mới. Lịch48 điểm, quota carry-over và phân tích 
 | H07 pilot P01 | Audit bank/cache/quota và feasibility48 giờ | [x] PASS |
 | H07 pilot P02 | Khóa48 ID/protocol/runtime/bridge option | [x] PASS |
 | H07 pilot P03 | Scoped checks, smoke9 execution và cold verify | [x] PASS |
-| H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [ ] PARTIAL:48/48 shared;18/336 forecast;2/48 điểm |
-| H07 pilot P05 | Cold verify và seal pilot | [ ] TODO |
-| H08 | Phân tích paired/uncertainty/coverage | [ ] TODO |
+| H07 pilot P04 | Thu48 điểm/sáu primary/Fact_Anchor | [x] PASS:48 shared/336 forecast |
+| H07 pilot P05 | Cold verify và seal pilot | [x] P05_COLD_PASS |
+| H08 | Phân tích paired/uncertainty/coverage | [x] H08_COLD_VERIFY_PASS |
 | H09 | Bảng so sánh/evidence và bàn giao | [ ] TODO |
 
 ## Kết quả các phương pháp đã ghi nhận
@@ -696,5 +696,55 @@ Người dùng chạy lại cùng lệnh một dòng để tiếp tục từ318 
 agent chưa gửi API mới.
 
 <!-- FREE_PILOT_MANAGER_START -->
-Trạng thái **STOPPED**, phase `collect`, cập nhật 09/11/2026 10:32:05 UTC+7. Shared 48/48; forecast 18/336; nhãn 2/48. Raw HTTP200 chưa thể tái lập output hợp lệ; giữ raw, xem worker log
+Trạng thái **P05_COLD_PASS**, phase `verify`, cập nhật 09/11/2026 13:09:22 UTC+7. Shared 48/48; forecast 336/336; nhãn 48/48. H08 đã PASS offline theo receipt bên dưới.
 <!-- FREE_PILOT_MANAGER_END -->
+
+## Nghiệm thu H07 và kết quả H08 — pilot48
+
+[Receipt H07](free_pilot_h07_acceptance.json) PASS48 shared/336 forecast/48 nhãn,
+0 latest unknown; full manifest raw/usage/ảnh/slot sealed trước H08. Đối soát
+source/runtime/model/receipt khớp gate P05, paired shared và nhãn engine tươi
+PASS; không chạy lại NN/full unit/E2E gate vì nguồn khóa không đổi.
+Prompt lớn nhất4746 ký tự; một forecast MT qua format repair có proof.
+
+[Receipt H08](free_pilot_h08_analysis.json) và report/JSON/CSV/PNG/SVG tại
+outputs/historical_reevaluation/free_pilot_r1/analysis/. Cold consumer tái dựng
+toàn bộ artifacts byte-identical, không đổi HTTP/usage và0 API mới.
+
+| Phương pháp | Return macro8 account % | D so Original đpt | Band95% D | Accuracy % | BA % |
+| --- | ---: | ---: | --- | ---: | ---: |
+| Original_common | -3,690521 | 0 | — | 45,833 | 47,059 |
+| bayesian_v1 | -2,775836 | +0,914684 | [-0,905445;2,734814] | 50,000 | 47,899 |
+| C2 | -3,910791 | -0,220271 | [-2,040400;1,599859] | 43,750 | 45,588 |
+| A_tp_pool | -2,550858 | +1,139663 | [-0,680467;2,959792] | 47,917 | 46,429 |
+| B_semantic | -3,475401 | +0,215120 | [-1,605009;2,035249] | 47,917 | 48,529 |
+| MT_BICL | -4,414181 | -0,723660 | [-2,543789;1,096470] | 29,167 | 35,294 |
+
+Cả sáu return âm; A ít lỗ nhất nhưng mọi band return chứa0. Cash diagnostic
+return0%, accuracy70,833%, BA50%. MT final trùng Fact_Anchor48/48,22 bypass
+(12 QUERY_FEATURE_UNAVAILABLE/10 UTILITY_UNSUPPORTED),3 numeric veto giữ a0;
+không gán toàn bộ chênh so Original cho student. C2/B fallback33/48, A25/48,
+prior-off vẫn trong mẫu chung. Không tuyên bố superiority hoặc live profitability.
+
+Bootstrap circular selected-date L2 trong từng năm, chung chỉ số cho bốn mã/
+sáu method,10k PCG64 seed20261109. Return/BA đều10000 joint finite,0 mất class;
+half-width return1,820129 đpt; BA11,396156 đpt. Chỉ là sensitivity mẫu nhỏ,
+chưa chứng nhận simultaneous coverage. Sharpe/Sortino chu kỳ có undefined=null,
+annualized metrics=null. Có12 leave-one-date và4 leave-one-symbol-out,
+48 account ngày/cuối-cycle, phí/slippage/turnover/exposure/cash gaps.
+
+Research328 HTTP,691.390 provider-reported token,724.587 charged/reserved;
+smoke9 HTTP/19.611 token tách khỏiN48. Hai HTTP200 sai schema không được ghi
+thành forecast; một repair hợp lệ. Telemetry và P95 latency nằm trong results.json,
+không lẫn carry160 request. Full fix102 được dẫn riêng (return−0,796962%,
+accuracy65,686%, BA52,961%), cohort/options khác nên không trừ với pilot.
+
+QA theo AGENTS1.2:15 test mới kiểm oracle scalar kinh tế/tám account/bootstrap,
+null support/class loss, label pairing và hash tamper; compile đúng năm Python
+mới. Không full suite/E2E vì không đổi producer/PIT/retrieval/model hoặc input.
+H07 seal/receipt so byte, H08 run và cold rebuild PASS với socket chặn mạng.
+Log h08_tests.log SHA256113776632d729b3c2bde3180fc69f5d7d0fcb91783355867bcd11bc6782be387;
+h08_cold_verify.log SHA2561a5f9ad73637ba6e3b44b2d7781d93076d8ebf1f908809950ee35dbdc0dae665.
+Giữ VENDOR_SERIES_LIMITED, PENDING_EXECUTION_DATA, news content PIT chưa
+chứng nhận, bank/query khác nguồn và scope exposed/conditional một repeat.
+H09 còn chờ đóng gói; chưa đánh dấu full1.020 hoặc toàn hệ thống DONE.
