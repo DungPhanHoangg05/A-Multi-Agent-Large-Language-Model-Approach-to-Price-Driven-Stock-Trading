@@ -5,6 +5,11 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành09/11/2026
 
+Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
+Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
+Chưa merge mã nguồn hai nhánh hoặc mở inference mới. Trạng thái pilot bên dưới
+là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
+
 Hệ thống giữ Original và bốn nhóm cải tiến.
 
 | Phiên bản | Vai trò |
