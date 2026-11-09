@@ -87,11 +87,13 @@ class RecoveryTests(unittest.TestCase):
         self.book.reconcile(doc["attempts"][-1]["attempt_id"], "Fixture")
         self.assertEqual(pending_action(self.book)["kind"], "READY")
 
-    def test_max_three_survives_restarting_manager(self) -> None:
-        for _ in range(3): self.unknown()
+    def test_transient_retry_continues_after_three_and_after_restart(self) -> None:
+        for _ in range(7): self.unknown()
         for _ in range(2):
-            with self.assertRaisesRegex(ValueError, "hết trần3"):
-                pending_action(self.book)
+            action=pending_action(self.book,now=100.)
+            self.assertEqual(action['kind'],'RETRY')
+            self.assertEqual(action['http_count'],7)
+            self.assertEqual(action['resume_at'],1000.)
 
     def test_200_can_replay_at_third_attempt_without_fourth_http(self) -> None:
         self.unknown(); self.unknown(); self.unknown(200)
@@ -262,9 +264,33 @@ class ManagerTests(unittest.TestCase):
             self.assertEqual(stages, ["shared", "shared", "collect", "verify"])
             self.assertEqual(wait.call_count, 2)
             before = snapshot(book.directory)
-            manage(root)
+            old_owner=json.loads((book.directory/'manager/run.owner.json').read_bytes())
+            save(root/MANAGER_CONFIG,{'fixture':True,'revision':2})
+            with patch('core.free_pilot_manager.preflight',return_value={'fixture':True,'revision':2}):
+                manage(root)
             self.assertEqual(stages, ["shared", "shared", "collect", "verify", "verify"])
             self.assertEqual(snapshot(book.directory), before)
+            self.assertEqual(json.loads((book.directory/'manager/run.owner.json').read_bytes())['run_signature'],old_owner['run_signature'])
+
+    def test_worker_transport_reaches_fifth_request_preserving_native_budget_and_timeouts(self) -> None:
+        import test_historical_reset_recovery as legacy
+        from core import historical_transport_observer as observer
+        from core.free_pilot_recovery import supervisor_transport_policy
+        helper=legacy.RecoveryTests(); self.addCleanup(helper.doCleanups)
+        state=helper.fixture(['reset']*4+['ok'])
+        with supervisor_transport_policy(), patch.object(legacy,'observe_transport',observer.observe_transport):
+            for _ in range(4):
+                with self.assertRaises(legacy.PilotStop):
+                    state.run()
+                state.book.reconcile(load(state.book.path('fixture/trend'))['attempts'][-1]['attempt_id'],'Fixture retry liên tục')
+            state.run()
+        rows=state.pacer.state['requests']
+        self.assertEqual(len(state.calls),5)
+        self.assertEqual([r['status'] for r in rows],['transport_error']*4+[200])
+        self.assertEqual(len({body for body,_ in state.calls}),1)
+        self.assertTrue(all(timeout==observer.RECOVERY_POLICY['timeouts'] for _,timeout in state.calls))
+        self.assertTrue(all(r['historical_transport_policy']['max_http_per_slot'] is None for r in rows))
+        self.assertTrue(all(r['historical_transport_policy']['max_http_per_attempt']==3 for r in rows))
 
     def test_partial_exit_zero_is_rejected(self) -> None:
         with TemporaryDirectory() as folder:

@@ -56,7 +56,7 @@ def run_lock(root: Path, state: dict) -> Iterator[None]:
 def profile(root: Path) -> dict:
     """Receipt bổ sung cho supervisor, không đổi runtime/identity/checkpoint inference đã khóa."""
     book = load(root / DIRECTORY / "identity.json")
-    return {"version": "free_pilot_manager_v1", "run_uuid": book["run_uuid"], "identity": identity(root),
+    return {"version": "free_pilot_manager_v2", "run_uuid": book["run_uuid"], "identity": identity(root),
             "policy": POLICY, "phases": ["shared", "collect", "verify"],
             "sources": {name: binding(root, name) for name in CODE},
             "grant": binding(root, GRANT), "campaign": binding(root, DIRECTORY / "campaign.json")}
@@ -166,7 +166,7 @@ def wait_until(root: Path, state: dict, timestamp: float, deadline: float) -> No
 
 
 def manage(root: Path) -> dict:
-    """Chạy đến cold PASS; retry chỉ khi đủ proof, không tự nới3 HTTP hay tạo CASH."""
+    """Chạy đến cold PASS; retry tạm thời liên tục có proof, giữ quota và không tạo CASH."""
     from dotenv import load_dotenv
     config = preflight(root)
     load_dotenv(root / ".env", override=False)
@@ -180,10 +180,15 @@ def manage(root: Path) -> dict:
     deadline = load(directory / "campaign.json")["deadline_epoch"]
     state_path = manager / "status.json"
     child = None
-    with PriorRunLock(manager, digest(config)):
+    # Token khóa OS giữ nguyên qua revision policy; source vẫn được preflight kiểm riêng.
+    owner = manager / "run.owner.json"
+    from core.bayesian_memory import read_json
+    lock_signature = read_json(owner)["run_signature"] if owner.exists() else digest(config)
+    with PriorRunLock(manager, lock_signature):
         state = load(state_path) if state_path.exists() else {"run_uuid": book.uuid, "launches": 0}
         if state["run_uuid"] != book.uuid:
             raise ValueError("Trạng thái supervisor khác UUID")
+        state["supervisor"] = binding(root, CONFIG)
         no_http_retries = 0
         try:
             while True:
@@ -198,7 +203,7 @@ def manage(root: Path) -> dict:
                     if no_http_retries > 3:
                         raise ValueError("Lỗi trước HTTP lặp lại; xem worker log, chạy lại cùng lệnh sau khi sửa nguyên nhân")
                     write_status(root, state, "WAITING", phase=phase, reason=action["reason"], resume_at=action["resume_at"])
-                    print(f"Tự phục hồi {action['slot']}: {action['reason']}; HTTP đã dùng {action['http_count']}/3.", flush=True)
+                    print(f"Tự phục hồi {action['slot']}: {action['reason']}; đã ghi {action['http_count']} HTTP, tiếp tục theo quota/backoff.", flush=True)
                     wait_until(root, state, action["resume_at"], deadline)
                     with run_lock(root, state):
                         fresh = pending_action(book)

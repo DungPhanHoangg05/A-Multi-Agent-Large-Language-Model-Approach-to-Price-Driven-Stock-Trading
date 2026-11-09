@@ -333,9 +333,11 @@ payoff query chỉ mở sau forecast durable. API lỗi không đổi thành CAS
 | Bridge Full_fix_native960 nếu khóa ON từ đầu | +48 |
 
 Nominal là trần khi mọi nhánh cần LLM; fallback/bypass hợp lệ ghi riêng.
-Retry/format repair dùng chung tối đa3 HTTP/slot; trần toàn lượt gồm smoke
-là1.323 attempt, hoặc1.467 khi bridge ON. Quota/deadline là rào chắn chặt
-hơn các trần này. Smoke tại FPT-2023-06-23 cách ly khỏi48 điểm, giữ raw và
+Theo yêu cầu người dùng09/11, supervisor v2 bỏ trần cộng dồn HTTP/slot:
+lỗi tạm thời được tự retry qua các attempt mới đến khi thành công. Backoff
+tăng30→60→120 giây, tối đa900 giây, và tôn trọng reset quota của provider.
+Ngân sách toàn lượt đã khóa vẫn1.323 HTTP gồm smoke, hoặc1.467 khi bridge ON;
+quota Free và deadline giữ nguyên. Smoke tại FPT-2023-06-23 cách ly khỏi48 điểm, giữ raw và
 kiểm schema/PIT/payload; không tính vào N.
 
 Phân48 ID sắp theo ngày/mã qua năm org round-robin; mỗi query giữ org cho
@@ -399,7 +401,7 @@ chuẩn bị code, kiểm ngoại tuyến và đối soát output.
 
 P04 đang PARTIAL:12/48 shared nghiên cứu complete,0 Decision nghiên cứu.
 Pattern FPT-2023-08-17 tại org3 dừng HTTP503 do model over capacity;
-raw response đã kiểm checksum, slot đã dùng2/3 HTTP, chưa có HTTP200.
+raw response đã kiểm checksum, đã ghi hai HTTP lỗi và chưa có HTTP200.
 Attempt cũ db3f3d2a đã được authorize; attempt cuối là
 1066b007-e5d1-433a-93ee-46b2fe8c1bc7. Supervisor tự tìm attempt cuối, không
 dùng lại UUID reconcile đã chép trong lệnh cũ; giữ mọi response/reserve/checkpoint.
@@ -419,14 +421,16 @@ Lệnh trên tự nạp `.env`, tìm phase/attempt hiện tại và chạy share
 Nếu terminal đóng hoặc tiến trình bị ngắt, chạy lại cùng lệnh; không cần
 bootstrap hoặc UUID thủ công. Nếu worker cũ còn giữ OS lock, chờ nó kết thúc;
 không khởi chạy API trùng. Lỗi503/429/quota/transport có proof được chờ và
-reconcile tự động, giữ trần3 HTTP/slot qua mọi lần khởi động lại. Raw HTTP200
+reconcile tự động, không chặn theo số lần retry cộng dồn của slot. Raw HTTP200
 đủ proof được replay bằng chính node/policy cũ và cùng attempt UUID, không
 gọi lại API. Lỗi dữ liệu/source, response không thể tái lập, dispatch chưa rõ
-hoặc hết trần3 thì dừng có lý do; không giả CASH hoặc nới quota/deadline.
+thì dừng có lý do; không giả CASH hoặc nới quota/deadline.
 
 [Manifest supervisor bổ sung](free_pilot_manager.json) khóa source/policy điều
 phối, grant và UUID; runtime inference/protocol/asset cũ giữ nguyên byte.
-Đã PASS21 test mới và26 hồi quy liên quan; compile đúng bốn Python mới.
+Nghiệm thu v2: PASS50 test liên quan, gồm thử worker thành công ở HTTP thứ5
+sau bốn lỗi, retry sau lần thứ7 và resume manager qua revision policy;
+compile đúng bốn Python thay đổi. Không gọi API thật.
 Log/tiến độ tại free_pilot_r1/manager/. Khi cold PASS có thêm manager/
 collection_receipt.json bind manifest bổ sung và receipt P05; H08 vẫn chờ.
 

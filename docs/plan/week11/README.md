@@ -622,7 +622,7 @@ giữ nguyên. Người dùng chạy shared→collect→verify theo plan; P04/P0
 
 Mốc chuyển sang supervisor:12 shared nghiên cứu complete;0 forecast, một
 latest unknown ở Pattern FPT-2023-08-17/org3. Hai raw HTTP503 đều khớp
-checksum, chưa có HTTP200; còn1 lần HTTP trong trần3. UUID db3f3d2a đã
+checksum, chưa có HTTP200; supervisor v2 tiếp tục retry lỗi tạm thời. UUID db3f3d2a đã
 authorize, UUID cuối1066b007-e5d1-433a-93ee-46b2fe8c1bc7 được tự nhận diện.
 
 ### Một lệnh chạy và tiếp tục pilot
@@ -631,8 +631,10 @@ Chạy `py -3.13 -X utf8 scripts/run_free_pilot.py` ở thư mục gốc repo. L
 nạp `.env`, chọn shared→collect→verify từ checkpoint thực, kiểm và reconcile
 attempt cuối, chờ503/429/quota có proof. Nếu bị ngắt, dùng lại cùng lệnh;
 không chép UUID cũ. Raw200 đủ proof được replay cùng UUID/node/policy, không
-gửi API mới. Giữ toàn bộ carry/reserve và trần3 HTTP/slot kể cả khi restart;
-dispatch chưa rõ/lỗi source hoặc hết trần sẽ dừng có lý do. Không tự gia hạn48h.
+gửi API mới. Theo yêu cầu người dùng, v2 bỏ trần cộng dồn HTTP/slot, tăng
+backoff tối đa900 giây rồi tiếp tục retry lỗi tạm thời. Giữ toàn bộ carry/
+reserve, quota Free, ngân sách toàn lượt và deadline48h. Dispatch chưa rõ/
+lỗi source vẫn được báo rõ, không giả output. Không tự gia hạn48h.
 Worker cũ còn chạy thì chờ OS lock; supervisor đang chạy thì không tạo bản trùng.
 
 Manifest bổ sung free_pilot_manager.json pin source điều phối, policy và
@@ -641,7 +643,7 @@ base grant/identity. Protocol, runtime inference, model, smoke và checkpoint
 và phục hồi có proof. manager/collection_receipt.json khi hoàn tất bind
 manifest này với receipt P05, không tự làm H08 hoặc đánh dấu pilot tổng DONE.
 
-QA delta: PASS21 test mới,26 hồi quy liên quan (supervisor cũ, reset recovery,
+QA supervisor v1 tham chiếu: PASS21 test mới,26 hồi quy liên quan (supervisor cũ, reset recovery,
 journal và SDK transport). Có test end-to-end fixture shared→503→resume→collect→
 verify và chạy lại sau complete; kiểm replay vision/Decision raw200 giữ UUID/
 HTTP/quota, source/schema/payload tamper, attempt cũ, quota reset và trần3.
@@ -655,6 +657,20 @@ SHA256 ba log đầu tương ứng:
 8e2318a2ae8f756b74042490f29208f0e182195b15f9e6ad4c5c0c1b71731ad1,
 f74b465ed9610b80ccc85d71908b88f65cb29673d34142885784e255b3661178,
 d67c5158b7efcd48a723bdc8ae7a5c3e899b6a93f0ffc1c6c80b4a6b46af2fea.
+
+Delta v2 theo chỉ đạo bỏ trần slot: policy/source bổ sung được khóa lại,
+giữ UUID/checkpoint/cold smoke/runtime inference. Worker thay guard cộng dồn
+của observer cũ bằng attempt hữu hạn nối tiếp tự động; timeout hữu hạn,
+TCP mới/SDK không retry ngầm và mọi reserve/raw/audit vẫn giữ. Manager dùng
+lại token khóa OS qua revision, không xóa owner hoặc lịch sử quota.
+PASS50 kiểm tra liên quan:22 test manager/recovery,8 reset cũ,5 journal,
+4 SDK transport và11 quota/boundary. Có wire test gửi được HTTP thứ5 sau
+bốn reset, body/timeouts/ledger không đổi; retry sau7 lỗi vẫn tiếp tục và
+backoff dừng tăng ở900s. Compile bốn Python thay đổi, không chạy full suite/
+E2E toàn hệ thống hoặc train vì không đổi dữ liệu, retrieval, prompt hay kinh tế.
+Log manager_unbounded_tests.log PASS35, SHA256
+a26e4806ce6d2a552ddd5cde3cf27804f1f724c30d94ec503c04891b1de8c101;
+manager_unbounded_contract_tests.log PASS15. Agent không gọi API thật.
 
 <!-- FREE_PILOT_MANAGER_START -->
 Trạng thái **NOT_STARTED**; đã giữ12/48 shared và0/336 forecast nghiên cứu.

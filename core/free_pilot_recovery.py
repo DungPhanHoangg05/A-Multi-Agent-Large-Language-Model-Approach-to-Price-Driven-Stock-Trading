@@ -1,4 +1,4 @@
-"""Phục hồi pilot theo bằng chứng durable; không reset quota hoặc trần3 HTTP/slot."""
+"""Phục hồi pilot theo bằng chứng durable; retry tạm thời không giới hạn theo slot."""
 
 from __future__ import annotations
 
@@ -20,11 +20,47 @@ from core.historical_evaluation_protocol import digest
 from core.prior_run_lock import safe_path, utc_now
 from core.prior_stage_journal import encode_output
 
-POLICY = {"version": "pilot_recovery_v1", "max_http_per_slot": 3,
-          "transient_http": [429, 500, 502, 503, 504], "backoff_seconds": [30, 60],
+POLICY = {"version": "pilot_recovery_v2", "max_http_per_slot": None, "max_http_per_attempt": 3,
+          "transient_http": [429, 500, 502, 503, 504], "backoff_base_seconds": 30, "backoff_max_seconds": 900,
           "success": "OFFLINE_REPLAY_SAME_ATTEMPT_UUID", "no_dispatch": "NO_LEDGER_ROW_FOR_CURRENT_ATTEMPT",
           "transport": "DURABLE_DIAGNOSTIC_REQUIRED", "quota": "KEEP_CARRY_AND_UNKNOWN_RESERVES"}
 REPLAY: ContextVar[Any] = ContextVar("pilot_offline_replay", default=None)
+
+
+@contextmanager
+def supervisor_transport_policy() -> Iterator[None]:
+    """Thay trần cộng dồn cũ bằng các attempt hữu hạn; supervisor tự phục hồi tiếp."""
+    import httpx
+    from core import historical_transport_observer as observer
+    from core.historical_evaluation_clients import RawHTTP
+    original_observer, original_init = observer.observe_transport, RawHTTP.__init__
+
+    @contextmanager
+    def observe(root: Path, *, recover_connection_reset: bool = False) -> Iterator[None]:
+        # Giữ diagnostic gốc; retry/reset được điều phối bên ngoài theo UUID durable.
+        sources = observer.source_bindings(root)
+        with original_observer(root, recover_connection_reset=False):
+            observed = RawHTTP.handle_request
+
+            def initialize(transport: Any, clients: Any, pacer: Any, inner: Any = None) -> None:
+                if inner is None:
+                    inner = httpx.HTTPTransport(retries=0, limits=httpx.Limits(max_keepalive_connections=0))
+                original_init(transport, clients, pacer, inner)
+
+            def request(transport: Any, message: httpx.Request) -> httpx.Response:
+                message.extensions["timeout"] = deepcopy(observer.RECOVERY_POLICY["timeouts"])
+                transport.pacer.state["requests"][-1]["historical_transport_policy"] = {
+                    "version": POLICY["version"], "max_http_per_slot": None,
+                    "max_http_per_attempt": POLICY["max_http_per_attempt"],
+                    "timeouts": deepcopy(observer.RECOVERY_POLICY["timeouts"]), "sources": sources}
+                transport.pacer.save()
+                return observed(transport, message)
+
+            with patch.object(RawHTTP, "__init__", initialize), patch.object(RawHTTP, "handle_request", request):
+                yield
+
+    with patch.object(observer, "observe_transport", observe):
+        yield
 
 
 def slot_rows(book: RunBook, doc: dict) -> list[dict]:
@@ -50,8 +86,9 @@ def slot_rows(book: RunBook, doc: dict) -> list[dict]:
                     or expected_org != org or expected_point != row.get("point_id")):
                 raise ValueError("HTTP khác org/point/branch/source của slot")
             rows.append(row)
-    if len(rows) > POLICY["max_http_per_slot"]:
-        raise ValueError("Ledger đã vượt3 HTTP/slot")
+    # Mỗi invocation giữ budget riêng; số invocation phục hồi của slot không bị chặn.
+    if any(sum(r["checkpoint_attempt_id"] == attempt for r in rows) > POLICY["max_http_per_attempt"] for attempt in ids):
+        raise ValueError("Ledger vượt ngân sách HTTP của một attempt")
     return rows
 
 
@@ -89,8 +126,6 @@ def recovery_action(book: RunBook, doc: dict, *, now: float | None = None) -> di
     base = {"slot": doc["slot"], "attempt_id": last["attempt_id"], "http_count": len(rows), "resume_at": now}
     if successes:
         return {**base, "kind": "REPLAY", "reason": "DURABLE_HTTP200_NO_NEW_API"}
-    if len(rows) >= 3:
-        raise ValueError("HARD_STOP: hết trần3 HTTP/slot; không tự cấp lần thứ4")
     if not current:
         # Wrapper HTTP luôn fsync reserve trước dispatch; không có row nghĩa là chưa dispatch.
         resume = now + 2
@@ -103,7 +138,7 @@ def recovery_action(book: RunBook, doc: dict, *, now: float | None = None) -> di
                 resume = max(resume, datetime.fromisoformat(stop["resume_not_before_utc"]).timestamp() + 2)
         return {**base, "kind": "READY" if last.get("authorization") is not None else "RETRY",
                 "reason": "PRE_DISPATCH_NO_HTTP", "resume_at": resume}
-    delay = POLICY["backoff_seconds"][max(0, len(rows) - 1)]
+    delay = min(POLICY["backoff_max_seconds"], POLICY["backoff_base_seconds"] * 2 ** min(10, max(0, len(rows)-1)))
     for row in current:
         if row["status"] in POLICY["transient_http"]:
             raw = checked_http(book, row)

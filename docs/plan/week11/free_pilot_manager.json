@@ -1,6 +1,6 @@
 {
   "payload": {
-    "version": "free_pilot_manager_v1",
+    "version": "free_pilot_manager_v2",
     "run_uuid": "3881b4ba-4609-460a-8137-5fbad4f617db",
     "identity": {
       "scope": "FREE_PAIRED_PILOT_48",
@@ -9,8 +9,9 @@
       "runtime": "b79723f0b8357bc67e48d22e033e80bcf428f4f547acb83eec1fa740e8f1af36"
     },
     "policy": {
-      "version": "pilot_recovery_v1",
-      "max_http_per_slot": 3,
+      "version": "pilot_recovery_v2",
+      "max_http_per_slot": null,
+      "max_http_per_attempt": 3,
       "transient_http": [
         429,
         500,
@@ -18,10 +19,8 @@
         503,
         504
       ],
-      "backoff_seconds": [
-        30,
-        60
-      ],
+      "backoff_base_seconds": 30,
+      "backoff_max_seconds": 900,
       "success": "OFFLINE_REPLAY_SAME_ATTEMPT_UUID",
       "no_dispatch": "NO_LEDGER_ROW_FOR_CURRENT_ATTEMPT",
       "transport": "DURABLE_DIAGNOSTIC_REQUIRED",
@@ -35,23 +34,23 @@
     "sources": {
       "core/free_pilot_manager.py": {
         "path": "core/free_pilot_manager.py",
-        "bytes": 14860,
-        "sha256": "a584051244dc2df4944f91cc9c816360e418a22b8c2c66cf590c49566cf89fe4"
+        "bytes": 15231,
+        "sha256": "5a43a091ed82f12866bbe1b3b5c6681a02c013103d615011b26326fa8cf1c6f5"
       },
       "core/free_pilot_recovery.py": {
         "path": "core/free_pilot_recovery.py",
-        "bytes": 13858,
-        "sha256": "e283335c18176733815d49cd00110e3f365b1c653d3975f022e3cc4260588be8"
+        "bytes": 15967,
+        "sha256": "ebdc1bd9351d294e76747b3e6a620343dc122df15e50bb2828165d90f8c085d5"
       },
       "scripts/run_free_pilot.py": {
         "path": "scripts/run_free_pilot.py",
-        "bytes": 2848,
-        "sha256": "05fdcff4cfa3538b2363d11c2d98f97b39b32be00e5a35d981e8d4b2a7637e7c"
+        "bytes": 2908,
+        "sha256": "462213d9027bb41c900a96440a99dc66e81adeb59ef0c252c18825584692d524"
       },
       "tests/test_free_pilot_manager.py": {
         "path": "tests/test_free_pilot_manager.py",
-        "bytes": 19458,
-        "sha256": "d050afa37709fab85944ad501dfe244aea677b3c237247b74ce65aafaab46b6b"
+        "bytes": 21355,
+        "sha256": "69122d67777c9e83d4831cdbea49f5693c65e8a1c2b384c1aca14f5f93948496"
       }
     },
     "grant": {
@@ -65,5 +64,5 @@
       "sha256": "a28dc0e4f3b006a130e91ed36d2dd31ec9e33d2af8eb66c5ff8b68182f5744ec"
     }
   },
-  "sha256": "08243c44dd39d838f26ce73652d51e5f1b616670ecef36d46b29b38aac98fd17"
+  "sha256": "92e91c0efe8aadc0a4faa93f0000542a8d5b7a0f93121cefdd8a44939c453d6d"
 }

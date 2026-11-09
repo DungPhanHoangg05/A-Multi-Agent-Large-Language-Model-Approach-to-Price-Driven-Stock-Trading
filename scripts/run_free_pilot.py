@@ -28,7 +28,7 @@ def main() -> None:
         return
     if args.worker:
         from dotenv import load_dotenv
-        from core.free_pilot_recovery import replay_durable_success
+        from core.free_pilot_recovery import replay_durable_success, supervisor_transport_policy
         from core.free_pilot_runtime import PilotClients
         from unittest.mock import patch
         preflight(ROOT)
@@ -41,7 +41,7 @@ def main() -> None:
             """Source supervisor bổ sung cũng phải còn nguyên trước từng HTTP."""
             preflight(ROOT)
             original_guard(client)
-        with patch.object(PilotClients, "verify_release", guard), replay_durable_success():
+        with patch.object(PilotClients, "verify_release", guard), replay_durable_success(), supervisor_transport_policy():
             runpy.run_path(str(script), run_name="__main__")
         return
     try:
