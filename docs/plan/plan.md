@@ -14,7 +14,10 @@ U02 đã ghép nguồn và PASS kiểm thử đúng phạm vi trên nhánh/workt
 theo dõi contracts/schema/chart, dependencies, evidence và kiểm thử.
 U03 đã PASS parity offline trên miền native hợp lệ, replay đủ 204 slot B/AS;
 [checklist U03](week12/README.md#checklist-chi-tiết-u03) ghi profile
-`original_fix_serving_v1`, delta budget, log và giới hạn nhân quả. Develop
+`original_fix_serving_v1`, delta budget, log và giới hạn nhân quả.
+U04 đã có registry tám vai trò, snapshot/records, runner/evaluator và CLI/UI
+offline dùng chung; [checklist U04](week12/README.md#checklist-chi-tiết-u04)
+ghi 128 test, cold fixture và giới hạn prepared-asset replay. Develop
 chưa nhận phần mã nguồn tích hợp; chưa mở inference mới. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 

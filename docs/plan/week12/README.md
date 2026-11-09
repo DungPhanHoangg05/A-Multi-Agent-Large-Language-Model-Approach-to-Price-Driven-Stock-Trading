@@ -16,19 +16,122 @@ và các mở rộng để không gán thay đổi prompt/dữ liệu thành hi�
 U02 đã ghép nguồn và U03 đạt parity offline trong worktree riêng; develop vẫn
 giữ mốc trước tích hợp. Native chạy mới dùng `original_fix_serving_v1`, có guard
 budget được version riêng; parity chỉ trên miền input hợp lệ đã kiểm.
-Chưa mở đợt inference mới.
+U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. Chưa mở đợt
+inference mới.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
 - [x] U02 — Hợp nhất nguồn và bảo toàn contracts fix trên nhánh tích hợp.
 - [x] U03 — Kiểm chứng tương đương original_fix trên miền hợp lệ và version delta serving.
-- [ ] U04 — Registry, runner, evaluator và CLI/UI thống nhất.
+- [x] U04 — Registry, runner, evaluator và CLI/UI offline thống nhất.
 - [ ] U05 — Profile nhân quả chung và bridge với native nếu nghiên cứu causal.
 - [ ] U06 — Khóa giao thức so sánh, cohort, thống kê và ngân sách.
 - [ ] U07 — Kiểm paired/PIT/recovery theo phạm vi.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U04
+
+Tiếp tục trên `feat/fix-develop-unification` từ U03
+`84d9307a91ae7ff12c0cd321964cddff8a4349a9` theo §4.1; ref
+`refs/archive/fix-develop-u04/integration` giữ mốc đầu vào. Không sửa engine
+kinh tế, native factory, archive hoặc các runner lịch sử để nhận identity mới.
+
+- [x] U04.1 — Đối soát nhánh sạch, mốc U03 và callers; giữ nền ngoài develop.
+- [x] U04.2 — Registry tám vai trò, DAG dependencies, ExperimentSpec khóa version/cohort/order/model/options/source/resource/runtime/calendar/costs.
+- [x] U04.3 — SharedSnapshot bất biến, bản sao riêng cho consumer, projection từ graph/PIT 600 bars và rào query-y đệ quy.
+- [x] U04.4 — Adapter gọi primitive native/common/prior/facts/MT hiện hữu; lazy bank/context/student, tách raw proposal với fallback/veto/final policy.
+- [x] U04.5 — Một RunBook/OS lock, shared một lần mỗi realization, checkpoint/resume, UNKNOWN và outcome barrier đủ mọi repeat/variant.
+- [x] U04.6 — Evaluator chung canonical target, common support fail-closed, ledger reset mã/fold/realization/repeat, classification/undefined/unit rõ.
+- [x] U04.7 — CLI registry/spec/replay/verify/export và UI cùng IDs/evaluator; mặc định native, hosted extensions chưa được mở.
+- [x] U04.8 — Compile/test đúng vùng, active retrieval/PIT, OFF không mở tài nguyên, nối ContextBank và đối soát evidence/gate cũ.
+- [x] U04.9 — Cold replay/consumer mới, khóa source/runtime/log/fixture, diff/links và commit nhánh tích hợp.
+- [ ] Bàn giao nền vào develop — còn gate U07 liên quan; U04 không cấp release inference, protocol U06 hoặc causal gate U05.
+
+### Kết quả và giới hạn U04
+
+Hoàn tất **09/11/2026** trên nhánh tích hợp. Registry `unified_variant_registry_v1`
+có `original_fix`, `original_common`, `bayesian_v1`, `C2`, `A_tp_pool`, `B_semantic`,
+`MT_BICL` và dependency/control `Fact_Anchor`. Native vẫn dùng profile U03;
+`Original_common` chỉ là alias archive được công khai, không đổi nhãn pilot.
+Spec khóa DAG/order, cohort, serving config, source/resource hashes, runtime,
+calendar fingerprint, repeats/realizations, seed **42**, kinh tế và missing policy.
+Calendar/cohort admission, counterbalance và protocol nghiên cứu mới vẫn thuộc U06.
+
+`SharedSnapshot` seal bytes bất biến, chặn query-y đệ quy và availability sau
+cutoff; consumer nhận bản sao riêng. `snapshot_from_graph` giữ raw reports,
+ảnh, factors/sentiment và kiểm prefix đúng **600 bars** trước projection.
+Adapter tái dùng native factory, common renderer, request của bank và fact/MT
+policy hiện hữu. Bank, context/student được tạo khi nhánh tương ứng cần;
+native/common OFF và Fact_Anchor riêng không mở student. Callback
+`runner.forecasts_done` nối vào ContextBank để khóa nhãn selected query.
+Family common hiện theo hợp đồng **VI/1d** đã có; native live VI/EN cũ giữ nguyên.
+
+Runner dùng một RunBook/OS lock, một shared mỗi điểm/realization và deepcopy
+sang mọi repeat/variant. Checkpoint shared/preparation/forecast/outcome có
+parent hashes; UNKNOWN không tự gọi lại. Outcome chỉ được nối sau mọi forecast
+bắt buộc của điểm đã durable. Raw JSON/proposal và hash nguồn được giữ riêng
+với fallback/veto/final policy; schema lỗi không thành CASH. Evaluator tái dùng
+`target_fields` và `compute_account_metrics`, không thêm công thức P&L khác;
+ledger reset theo **mã/fold/realization/repeat**, common support fail-closed.
+Classification tách từng realization/repeat, giữ confusion/BA/MCC/F1/null;
+không coi repeats hoặc Fact_Anchor là thêm N thị trường độc lập.
+
+CLI có registry/spec/replay/verify/export; UI **`/experiments`** đọc cùng IDs,
+evaluator và JSON/CSV. Mặc định chọn native; request chọn extension ở endpoint
+backtest cũ bị chặn trước engine/credential. Trang backtest cũ và các runner/
+archive lịch sử được giữ cho hợp đồng cũ, không gán identity U04 cho chúng.
+[Hướng dẫn vận hành và adapter](../../../README.md#unified-experiments) mô tả
+resource factories và cấu trúc bundle. CLI chỉ replay **prepared assets có hash**:
+dựng lại prompt/schema/policy/ledger, không chạy lại retrieval, không nạp student
+weights và không tái sinh hosted response. Mọi subcommand CLI chặn mạng ngoài
+máy. Caller của adapter phải cung cấp đúng provider/assets đã xác minh; việc
+nghiệm thu provider/cohort/transport cho thu mới còn ở U06–U08.
+
+Đã compile **9 file Python mới/đổi** và PASS **128 test case duy nhất / 15 module**,
+không fail/error/skip:
+
+| Log trong gói QA | PASS | Phạm vi |
+| --- | --- | --- |
+| `unified.log` | 15 | Tám vai trò, active retrieval thật trên fixture đã kiểm, lazy OFF, immutable/PIT/query-y, raw/policy/bypass, reset/CASH/null, UNKNOWN/resume, CLI/UI |
+| `contracts.log` | 41 | Target/account risk, classification pilot helper, JSON UI và RunBook/reconcile |
+| `data.log` | 42 | Improvement prior/leakage, quality gate leakage, MT Decision, adapter/features leakage |
+| `native.log` | 30 | Native golden/guard/poison, token budget và paired protocol |
+
+Cold fixture tổng hợp chạy CLI replay, rồi tiến trình `-I` khác verify/export:
+**8/8 slot**, **8 account**, **8 classification groups**, **5 response offline**
+và **3 fallback**, prompt lớn nhất **2.644 ký tự**, policy/ledger khớp hoàn toàn.
+Đây là **fixture hợp đồng synthetic**, không phải tám forecast thị trường mới,
+không dùng frozen student weights hoặc fit/cập nhật model nghiên cứu. Kiểm
+active prior dùng retriever/index/selector/renderer thật trên bank fixture có
+nhãn engine; không nhận fixture fallback là bằng chứng active retrieval.
+
+Đối soát lại **21.383 artifact đóng băng**, đủ **21.948 đường dẫn U01**: PASS.
+**479/482 source bindings U03** giữ nguyên; ba file đổi là `.gitattributes`,
+root `README.md`, `web_interface.py`; nguồn native/economic/renderer cũ không đổi.
+**107 package/Python 3.13.5** vẫn khớp. Gate U03 giữ đúng snapshot/phạm vi cũ;
+không ghi là đã chạy lại cả 183 test hoặc replay archive 204 slot. U04 chỉ chạy
+các nhóm trên, không full suite/E2E/toàn leakage suite. Hạn chế
+**`native_rowwise_causal_gate=FAIL`** vẫn được giữ trong registry/kết quả/UI.
+
+[Gói QA và fixture journal](unified_experiment_checks.zip): **126.040 byte**,
+SHA256 `dc004fc209206378133fd073560145d045e124f00dc3c28f160becce46ba161f`.
+Manifest khóa **46 thành viên**, **491 source bindings**, runtime, test IDs/logs,
+compile list, delta gate cũ và toàn bộ journal fixture. Consumer mới đã kiểm
+PASS hash/source/runtime, restore sang thư mục tạm mới và tái tính đúng hoàn
+toàn prompt/policy/ledger; không khởi tạo
+SDK/HTTP client, bank hoặc student. Diff whitespace và **52 liên kết/anchor**
+trong bốn tài liệu hiện hành đã kiểm PASS. Có thể chạy lại từ repo root:
+
+```powershell
+Expand-Archive -LiteralPath docs/plan/week12/unified_experiment_checks.zip -DestinationPath "$env:TEMP/u04-checks"
+py -3.13 -I -X utf8 "$env:TEMP/u04-checks/verify_package.py" docs/plan/week12/unified_experiment_checks.zip "$env:TEMP/u04-cold-restore"
+```
+
+Harness `run_scoped_checks.py` trong gói chạy riêng `unified`, `contracts`,
+`data` hoặc `native` khi vùng tương ứng đổi. Không API/thu cohort mới, không
+khôi phục H07 bị hủy, không nhận causal/superiority hoặc release inference từ U04.
 
 ### Checklist chi tiết U03
 

@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U03 hoàn tất trên nhánh tích hợp; parity offline trên miền native hợp lệ, chưa đưa nền vào develop hoặc cấp release mới**.
+Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U04 hoàn tất trên nhánh tích hợp; native parity và hợp đồng/runner chung được kiểm offline, chưa đưa nền vào develop hoặc cấp release mới**.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
@@ -201,6 +201,12 @@ U03 có [checklist riêng](README.md#checklist-chi-tiết-u03) cho profile nativ
 golden requests, graph/ảnh/PIT, archive, CLI/UI và cold replay. Oracle chỉ nạp
 nguồn Git donor trong tiến trình cách ly; cap native không được âm thầm đổi
 để vượt guard, và mọi support archive thiếu phải được báo trước khi nghiệm thu.
+
+U04 đã có [checklist và kết quả](README.md#kết-quả-và-giới-hạn-u04) cho registry,
+snapshots/records, lazy adapters, RunBook/evaluator và CLI/UI offline. Native,
+sáu phương pháp nghiên cứu và Fact_Anchor dùng chung evaluator; replay CLI
+conditional trên prepared assets, không nhận là thu hosted hoặc chạy lại student/
+retrieval. Provider/cohort/protocol/transport cho release mới vẫn phải qua U06–U08.
 
 | Mục | Nhánh đề xuất / công việc | Đầu ra và điều kiện thoát |
 | --- | --- | --- |

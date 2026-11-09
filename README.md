@@ -118,6 +118,44 @@ Decision research prompts must remain below 6,500 characters and the K=3
 prior prefix at most 600 characters. Retry and checkpoint wrappers track
 attempts; an unresolved attempt must not be silently reissued or scored as cash.
 
+## Unified experiments
+
+The shared experiment registry and offline result viewer are available at
+`/experiments`. It defaults to `original_fix` and identifies six research
+methods plus the Fact_Anchor dependency. The existing native backtest remains
+available at `/backtest`; research selections do not grant hosted inference.
+
+```powershell
+py -3.13 -I -X utf8 scripts/run_unified_experiment.py registry
+py -3.13 -I -X utf8 scripts/run_unified_experiment.py validate path/to/spec.json
+py -3.13 -I -X utf8 scripts/run_unified_experiment.py replay path/to/bundle.json --sha256 <full-bundle-sha256>
+py -3.13 -I -X utf8 scripts/run_unified_experiment.py verify outputs/unified_integration/<run-id>
+py -3.13 -I -X utf8 scripts/run_unified_experiment.py export outputs/unified_integration/<run-id> --format csv --output table.csv
+```
+
+`ExperimentSpec` locks variants, dependencies, cohort order, repeats,
+realizations, serving options, source/resource hashes, runtime, calendar,
+costs and missing-support policy. `SharedSnapshot` seals raw reports, images,
+factors and PIT provenance; each branch receives a copy. `UnifiedRunner` uses
+the existing RunBook and accounting engine, opens outcomes after all required
+forecasts are durable, and retains raw proposals separately from final policy.
+Accounts reset by symbol/fold/realization/repeat. Undefined metrics remain null.
+
+For an existing verified asset provider, `MethodAdapters` accepts lazy bank,
+regime, facts and context factories. It delegates to the existing request and
+MT policy primitives. Pass `runner.forecasts_done` to the gated ContextBank;
+native/common OFF paths do not initialize these resources. Resource paths and
+hashes belong in `resource_sources` and `source_hashes` in the spec. The
+`snapshot_from_graph` adapter validates a 600-bar prefix before sealing it.
+
+The CLI replay bundle contains `spec`, `snapshots`, `preparations`, `responses`
+and separate `outcomes`. Replay reconstructs prompts, schemas, policy and
+accounting from the locked assets. It is conditional on the recorded retrieval
+and numeric preparations; it does not rerun retrieval, load student weights,
+or regenerate hosted responses. A new release must separately validate the
+asset providers, cohort, quota and transport. Existing historical runners and
+archives retain their original identities and are not relabelled as new runs.
+
 ## Repository and evidence
 
 - `agents/`, `utils/`: agents, graph assembly, prompts, charting and contracts.
