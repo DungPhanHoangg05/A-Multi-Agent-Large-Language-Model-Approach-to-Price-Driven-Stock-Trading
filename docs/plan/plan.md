@@ -15,9 +15,10 @@ ghi rõ barrier, UNKNOWN/recovery và phạm vi chín mã. Nền được đưa 
 sau nghiệm thu U07 theo §4.1. U08 đã PASS smoke Free/cold verify sau69 test và
 11 file compile. Research đã dừng có checkpoint để người dùng tự resume bằng lệnh,
 giữ cohort 102/ba repeat và dùng student/HMM frozen. Còn chờ đủ 2.448 forecast,
-102 nhãn và cold seal. Sau32 điểm, quota được sửa bằng amendment riêng để tách
+102 nhãn và cold seal. Sau 32 điểm, quota được sửa bằng amendment riêng để tách
 RPM/RPD/TPM/TPD theo org/model, nối journal hiện có qua lệnh resume mới tại
-[checklist U08](week12/README.md#amendment-quota-theo-model).
+[checklist U08](week12/README.md#amendment-quota-theo-model). Amendment đã PASS 61
+test, compile 5 file và cold verify 32 điểm đã đủ forecast.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
