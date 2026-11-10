@@ -47,6 +47,7 @@ không kế thừa release cũ hoặc mở inference. Checklist đang triển kh
 - [x] U07.5 — Fault injection, thoát tiến trình sau raw fsync, resume cùng UUID và verify không tạo client; kiểm parents/raw policy.
 - [x] U07.6 — Kiểm thử/compile đúng vùng, cold replay102 điểm, gói QA/hash và cập nhật checklist.
 - [x] U07.7 — Commit và đưa nền đã nghiệm thu vào develop theo §4.1; inference/release vẫn OFF.
+- [x] U07.8 — Hậu kiểm checkout Windows, khôi phục LF/CRLF đúng hash và test helper độc lập; không sửa gói QA đã khóa.
 
 ### Kết quả và giới hạn U07
 
@@ -108,6 +109,7 @@ Gói có **7.241 thành viên / 71.926.900 byte**, SHA256
 Khôi phục từ checkout có đủ các nguồn/artifact gốc đã pin:
 
 ```powershell
+py -3.13 -I -X utf8 scripts/restore_unified_checkout.py --write
 py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py restore
 py -3.13 -I -m zipfile -e docs/plan/week12/unified_execution_checks.zip "$env:TEMP/u07-checks"
 py -3.13 -I -X utf8 "$env:TEMP/u07-checks/verify_package.py" "$PWD" docs/plan/week12/unified_execution_checks.zip --restore
@@ -115,6 +117,13 @@ py -3.13 -I -X utf8 scripts/check_unified_execution.py verify --namespace output
 ```
 
 Consumer chỉ restore file thiếu trong đúng namespace, không overwrite byte khác.
+Helper checkout mặc định chỉ kiểm, `--write` chỉ chọn LF hoặc CRLF nếu đúng
+byte/hash đã khóa trong gói QA; từ chối mọi khác biệt nội dung thực sự và không
+stage Git. Hậu kiểm merge Windows đã gặp57 file đổi newline; đã khôi phục và
+đối soát đủ672/672 hash tại worktree gốc. Helper có **3 test bổ sung PASS** và
+compile riêng hai file; không chạy lại116 test hoặc numeric replay vì các nguồn
+nghiên cứu đã khóa giữ nguyên byte. Gói QA116 test ở trên giữ nguyên SHA; helper
+và tests mới được neo trong commit Git riêng, không gán vào receipt U07 cũ.
 Lệnh `control --namespace outputs/unified_integration/u07_<tên_mới>` chạy lại QA
 mock102 điểm trên graph/renderer thật; `--fixture-images` hoặc `--limit` chỉ dành
 probe có khai báo, không thay nghiệm thu toàn cohort. Verify không ghi journal.
