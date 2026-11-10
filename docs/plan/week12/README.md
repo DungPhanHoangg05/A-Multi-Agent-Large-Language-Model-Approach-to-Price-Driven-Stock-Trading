@@ -48,6 +48,7 @@ dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 - [x] U08.3 — PASS69 test/8 module, compile11 file; QA14 source mới và672 nguồn U07 giữ nguyên; neo runtime/preflight/grant smoke riêng vào Git.
 - [x] U08.4 — Smoke BHN-2025-10-01, một repeat/đúng org4:8 slot,6 HTTP200,12.793 token;0 query payoff, cold verify PASS.
 - [x] U08.5 — Grant research mới sau smoke đã neo Git. Collector có lock/checkpoint/heartbeat đã chạy và dừng an toàn, sẵn sàng để người dùng resume thủ công.
+- [x] U08.5a — Amendment quota theo `(org, model)` đã PASS 61 test, compile 5 file và cold verify 32 điểm hoàn chỉnh. Prefix 487 HTTP và 2.390 file checkpoint giữ nguyên byte, bàn giao entrypoint resume mới.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
 - [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
 
@@ -96,23 +97,60 @@ research. Trạng thái `STOPPED_BY_OPERATOR`, tiến trình PID25328 đã thoá
 Journal giữ 9 shared, 152 forecast, 5 canonical labels và 98 HTTP attempt
 (97 HTTP200, 1 HTTP503), mọi attempt có trạng thái xác định. `stop.request` giữ
 trạng thái dừng đến khi người dùng chạy lệnh resume bên dưới.
-Cập nhật vận hành này chỉ sửa ba tài liệu kế hoạch. Kiểm diff/liên kết và hash
-nguồn/bằng chứng, viện dẫn69 test/11 file compile đã PASS, không chạy lại suite.
+Lượt bàn giao thủ công tại commit `6c50b0ff` chỉ sửa ba tài liệu kế hoạch, kiểm
+diff/liên kết và hash nguồn/bằng chứng, viện dẫn69 test/11 file compile đã PASS.
 Tiến độ trong `status.json` là checkpoint gần nhất. Raw HTTP có thể đi trước
 checkpoint khi một tick đang chạy. Chỉ receipt research PASS mới xác nhận thu đủ.
+
+#### Amendment quota theo model
+
+Người dùng yêu cầu tách quota theo model ngày 10/11/2026. Bản gộp bảo thủ cũ
+cộng Qwen và GPT-OSS vào chung 200.000 token/24 giờ mỗi org, dẫn đến chờ ở
+32 điểm dù từng model còn ngân sách. Policy mới `per_org_model_v1` tính riêng
+RPM30/RPD1.000/TPM8.000/TPD200.000 cho từng cặp org/model, kể cả header reset,
+retry-after và reserve UNKNOWN. Tổng trần HTTP của phase là 7.956 attempt.
+
+Amendment nối từ sequence487, tức HTTP attempt thứ488, trong cùng journal.
+Prefix trước sửa gồm 487 HTTP (486 HTTP200, 1 HTTP503), 36 shared, 802 forecast và
+32 canonical labels. Runtime/grant riêng neo prefix raw, carry, run identity và
+mọi slot complete để kiểm khi resume. Nghiệm thu cuối có `receipt.json` cho
+execution và `quota_receipt.json` cho amendment. Telemetry mới có trạng thái
+`WAITING_QUOTA` và `waiting_models` ghi model, reserve, thời điểm mở lại.
+
+[Runtime amendment](unified_model_quota_runtime.json),
+[grant thủ công](unified_model_quota_release.json),
+[scoped checks](unified_model_quota_checks.json) và
+[gói QA](unified_model_quota_checks.zip) quản lý policy mới. Lệnh dưới dùng
+entrypoint amendment để tiếp tục cùng checkpoint.
+
+Nghiệm thu amendment tại source commit `1770b743` có 61 test, gồm 34 ca mới hoặc
+chạy bằng transport mới và 27 ca caller/recovery/leakage liên quan, 0 failure/error/skip.
+Compile riêng 5 file Python mới. Các ca phủ bốn loại hạn mức, header/reset,
+retry/repair/UNKNOWN, trần attempt chung, mixed-policy resume, paired/barrier
+và manager lock giữ đến hết cold seal. Tám pin source mới nối tiếp 686 pin nguồn
+U07/U08 đã đối soát. Phạm vi kiểm tra tập trung vào các đường bị ảnh hưởng.
+
+Cold audit trong tiến trình mới đã chặn mạng ngoài và sáu constructor key/client/
+SDK/provider, kết quả `PASS_MODEL_QUOTA_COLD_HANDOFF`, 0 HTTP mới. Đã tái lập
+32 điểm hoàn chỉnh/768 forecast thuộc những điểm này và 32 nhãn canonical,
+đối soát cả 2.390 file identity/wire/raw/slot nguyên byte. Journal có thêm 34
+forecast ở các điểm đang dở, tổng 802. Probe offline 8.000 token nhận READY ở đủ
+10 bucket org/model tại thời điểm kiểm tra. Study còn `PARTIAL_U08`.
+Gói QA có 7 thành viên/189.185 byte, SHA256
+`0c1851ba45665808f03b04760c91e155f3e60e9bb3a5b69e1220805f347242ab`.
 
 Người dùng khởi chạy hoặc resume từ thư mục gốc repo bằng PowerShell.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_live/run.py status --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_model_quota/run.py status
 Remove-Item -LiteralPath 'outputs/unified_integration/u08_research_r1/stop.request' -ErrorAction SilentlyContinue
-py -3.13 -I -X utf8 scripts/unified_live/run.py collect --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_model_quota/run.py collect
 ```
 
 Sau khi thu đủ, collector tự cold verify và seal. Có thể đối soát lại bằng lệnh sau.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_live/run.py verify --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_model_quota/run.py verify --seal
 ```
 
 Collector có OS lock và heartbeat ở `outputs/unified_integration/u08_research_r1/status.json`.

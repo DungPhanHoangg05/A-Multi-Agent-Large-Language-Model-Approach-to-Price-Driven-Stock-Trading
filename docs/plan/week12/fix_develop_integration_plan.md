@@ -3,6 +3,9 @@
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
 Ngày khảo sát **09/11/2026**. **U01–U07 hoàn tất và nền đã vào develop. U08 smoke Free/cold verify PASS, research đã dừng có checkpoint để người dùng tự resume bằng lệnh, giữ 102 điểm/ba repeat và chờ đủ cohort/cold seal. Whole-system causal chưa được chứng nhận**.
+Ngày 10/11/2026, theo yêu cầu người dùng, [amendment quota](README.md#amendment-quota-theo-model)
+tách ngân sách theo org/model và nối từ prefix 487 HTTP đã thu. Người dùng tự
+khởi chạy bằng entrypoint amendment được ghi trong checklist.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
