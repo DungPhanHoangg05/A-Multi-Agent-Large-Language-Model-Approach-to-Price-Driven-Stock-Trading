@@ -13,8 +13,8 @@ Ngày 09/11/2026: đã lập [kế hoạch hợp nhất](fix_develop_integration
 từ hai tip `fix:9efd23f4` và `develop:21f7ee67`. Lấy hành vi fix làm nền,
 develop tiếp tục là nhánh tích hợp; phân biệt native baseline, common baseline
 và các mở rộng để không gán thay đổi prompt/dữ liệu thành hiệu quả phương pháp.
-U02 đã ghép nguồn và U03 đạt parity offline trong worktree riêng; develop vẫn
-giữ mốc trước tích hợp. Native chạy mới dùng `original_fix_serving_v1`, có guard
+U02 đã ghép nguồn và U03 đạt parity offline trong worktree riêng; U07 nghiệm thu
+paired/recovery để đưa nền vào develop. Native chạy mới dùng `original_fix_serving_v1`, có guard
 budget được version riêng; parity chỉ trên miền input hợp lệ đã kiểm.
 U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. U05 có profile
 alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 có
@@ -28,10 +28,103 @@ replay đã PASS trong phạm vi U06. Chưa mở đợt inference mới.
 - [x] U04 — Registry, runner, evaluator và CLI/UI offline thống nhất.
 - [x] U05 — Profile alpha nhân quả chung và bridge với native; gate toàn hệ còn chờ U06/U07.
 - [x] U06 — Amendment v2 đủ nguồn offline, quota có bằng chứng, scoped tests và cold replay102/102 PASS; inference/release vẫn OFF.
-- [ ] U07 — Kiểm paired/PIT/recovery theo phạm vi.
+- [x] U07 — Paired/PIT/recovery offline PASS116 test, cold replay102 điểm/2.448 forecast slot; không mở inference.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U07
+
+Tiếp tục trên `feat/fix-develop-unification` theo §4.1, từ commit U06
+`ec1ca7ec8a7789a2d18f1cccce328aeccb92ac73`; ref
+`refs/archive/fix-develop-u07/integration` giữ nguyên mốc. Chỉ mock HTTP,
+không kế thừa release cũ hoặc mở inference. Checklist đang triển khai:
+
+- [x] U07.1 — Đối soát phạm vi paired/PIT/recovery và khóa mốc nguồn U06.
+- [x] U07.2 — Dispatcher năm org cố định, counterbalance đúng DAG, quota gộp hai model và carry.
+- [x] U07.3 — Durable intent/raw, UNKNOWN fail-closed, replay cùng UUID, retry/repair chung trần3.
+- [x] U07.4 — Graph/renderer thật, một upstream cho24 forecast/điểm; test scope chín mã và firewall nhãn.
+- [x] U07.5 — Fault injection, thoát tiến trình sau raw fsync, resume cùng UUID và verify không tạo client; kiểm parents/raw policy.
+- [x] U07.6 — Kiểm thử/compile đúng vùng, cold replay102 điểm, gói QA/hash và cập nhật checklist.
+- [x] U07.7 — Commit và đưa nền đã nghiệm thu vào develop theo §4.1; inference/release vẫn OFF.
+
+### Kết quả và giới hạn U07
+
+`core/unified_execution.py` điều phối năm hàng đợi cooperative, gán org bằng
+`1 + global_point_index % 5`, giữ toàn bộ repeat của một điểm trên cùng org.
+Thứ tự nhánh dùng `ordered_branches(3 * point_index + repeat)` đã khóa ở U06;
+Original_common → Fact_Anchor → MT và các parent fallback được giữ nguyên.
+`StudyProviders` chạy Indicator/Pattern/Trend/Alpha và renderer donor, tạo một
+shared snapshot rồi deepcopy sang tám vai trò. Context, selector, bank, HMM và
+student vẫn dùng hợp đồng frozen U06; không nhập nhãn102 query vào memory.
+
+`DurableCalls` chỉ nhận `MockHTTP`, không có constructor live, key hoặc quyền
+kế thừa grant cũ. Intent/reserve được fsync trước sender, raw response được fsync
+trước parse; forecast chỉ complete sau khi kiểm lại raw/policy/parent. UNKNOWN
+giữ reserve, không tự gửi lại; đối soát NOT_SENT cần đúng UUID và bằng chứng,
+vẫn trừ attempt cũ. Raw200 được replay cùng UUID khi mất checkpoint, kể cả qua
+tiến trình mới. Lỗi429/5xx dùng backoff và retry-after; schema repair chỉ thêm
+chỉ dẫn định dạng cố định, giữ nguyên reply cũ và cùng trần ba HTTP/slot qua
+mọi lần resume. Lỗi không được đổi thành CASH. Một org chờ quota nhường lượt
+cho org khác; CLI control dừng nếu có UNKNOWN cần đối soát, giữ mọi shard durable.
+
+Quota gộp cả hai model theo org, giữ carry đã dedup497 request/1.140.404 token,
+không reset bằng namespace/model/key. Header giảm limit, remaining/reset và
+usage vượt reserve đều được kiểm. Đồng hồ ảo chỉ phục vụ kiểm lịch offline;
+không đo latency hoặc cam kết thời gian hoàn thành hosted. Barrier outcome chỉ
+mở sau đủ24 forecast durable/điểm; U07 lưu marker
+`WITHHELD_CONTROL_NO_QUERY_PAYOFF`, không tính nhãn hay P&L cohort.
+
+Đã PASS **116 test / 13 module**, không lỗi hoặc skip:23 test paired/recovery
+và firewall mới,77 hồi quy caller/journal/prompt/paired,16 leakage alpha/provider
+liên quan. Đã biên dịch riêng sáu file Python mới. Không chạy full unit suite,
+full compileall hoặc E2E vì không đổi các kernel cũ; đối soát hash U06 và
+21.383 frozen artifacts là kiểm bảo toàn bằng chứng, không gọi là chạy lại
+các gate lịch sử.
+
+Nghiệm thu toàn cohort giữ nguyên **102 điểm, chín mã, 51 symbol/fold, ba repeat,
+một realization**:102 shared snapshot,408 node graph complete,204 raw vision,
+**2.448 forecast slot complete**, **1.302 raw Decision** và1.146 bypass theo
+registry. Toàn bộ1.506 HTTP attempts là `MockHTTP`,0 request đến provider,
+0 query payoff,0 huấn luyện student/HMM. Repeats có UUID request mới; không lấy
+response của repeat khác làm mẫu mới. Hai vision body của điểm đầu khớp nguyên
+ABI probe SDK U06 trên cùng ảnh thật. Cold restore/replay ở tiến trình và cây
+nguồn tạm độc lập đã PASS với client/SDK/provider constructors và socket bị chặn.
+Verifier kiểm lại request/schema/model/options, ảnh, raw-policy, shared/parent,
+shard/epoch, thứ tự thực và thời điểm barrier; không mở lại numeric providers.
+Proof số/context/student/retrieval U06 chỉ được viện dẫn sau khi băm660/660
+source bindings nguyên byte. Đây không phải lần chạy lại numeric replay U06.
+
+[Gói QA U07](unified_execution_checks.zip) chứa journal/raw nguyên byte, logs,
+116 test IDs, compile sáu file,672 source bindings, runtime107 package/Python3.13.5,
+consumer và log cold replay. Ba file attributes chỉ khóa LF cho sáu file Python
+mới và chính các attributes; giữ nguyên quy tắc audit cũ. Không sửa manifest,
+ZIP, grants hoặc receipt U06/W11. Source U07 mới có identity riêng; verifier
+nguyên cây U06 chạy trên snapshot `ec1ca7ec`, không nhận source mới là receipt cũ.
+
+Gói có **7.241 thành viên / 71.926.900 byte**, SHA256
+`c77da519973da453bd0581951421528d9567704a6b8ec17f39a9653cbf3a8d21`.
+
+Khôi phục từ checkout có đủ các nguồn/artifact gốc đã pin:
+
+```powershell
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py restore
+py -3.13 -I -m zipfile -e docs/plan/week12/unified_execution_checks.zip "$env:TEMP/u07-checks"
+py -3.13 -I -X utf8 "$env:TEMP/u07-checks/verify_package.py" "$PWD" docs/plan/week12/unified_execution_checks.zip --restore
+py -3.13 -I -X utf8 scripts/check_unified_execution.py verify --namespace outputs/unified_integration/u07_acceptance_r1
+```
+
+Consumer chỉ restore file thiếu trong đúng namespace, không overwrite byte khác.
+Lệnh `control --namespace outputs/unified_integration/u07_<tên_mới>` chạy lại QA
+mock102 điểm trên graph/renderer thật; `--fixture-images` hoặc `--limit` chỉ dành
+probe có khai báo, không thay nghiệm thu toàn cohort. Verify không ghi journal.
+
+U07 hoàn tất **phần mềm và kiểm soát offline**, không cấp collection release.
+Native row-wise vẫn **FAIL**, whole-system causal **NOT_CERTIFIED**; metadata
+ngày tin không chứng nhận nội dung PIT, dữ liệu historical vẫn exposed và
+bank/query vẫn có giới hạn nguồn đã công bố ở U06. U08 còn phải tích hợp transport
+live sau grant mới, đối soát quota/carry/header/thay đổi serving và smoke riêng;
+không lấy control forecasts làm kết quả nghiên cứu hoặc trộn smoke vào repeats.
 
 ### Checklist chi tiết U06
 
@@ -335,7 +428,8 @@ native hoặc nâng `native_rowwise_causal_gate=FAIL` thành PASS.
 - [x] U05.6 — CLI fit/verify/predict/bridge offline, model/price hashes và giới hạn gate alpha riêng với toàn hệ.
 - [x] U05.7 — Prefix extension/future poison đủ 85 handler, purge/orientation, bridge tám vai trò và hồi quy đúng vùng PASS.
 - [x] U05.8 — Cold replay/QA, đối soát frozen evidence/gate cũ, diff/links và commit nhánh tích hợp.
-- [ ] Release causal/đưa nền vào develop — U06/U07 còn phải khóa và kiểm HMM/retrieval/news/model/providers; U05 không tự chứng nhận Zero-Leakage toàn hệ.
+- [x] Bàn giao nền phần mềm vào develop — U06/U07 đã nghiệm thu offline theo phạm vi, xem checklist U07.
+- [ ] Release causal toàn hệ — U05/U07 không tự chứng nhận Zero-Leakage; giữ giới hạn news, nguồn và exposure.
 
 ### Kết quả và giới hạn U05
 
@@ -447,7 +541,7 @@ kinh tế, native factory, archive hoặc các runner lịch sử để nhận i
 - [x] U04.7 — CLI registry/spec/replay/verify/export và UI cùng IDs/evaluator; mặc định native, hosted extensions chưa được mở.
 - [x] U04.8 — Compile/test đúng vùng, active retrieval/PIT, OFF không mở tài nguyên, nối ContextBank và đối soát evidence/gate cũ.
 - [x] U04.9 — Cold replay/consumer mới, khóa source/runtime/log/fixture, diff/links và commit nhánh tích hợp.
-- [ ] Bàn giao nền vào develop — còn gate U07 liên quan; U04 không cấp release inference, protocol U06 hoặc causal gate U05.
+- [x] Bàn giao nền vào develop — gate U07 đã PASS offline; U04 không tự cấp release inference hoặc causal gate.
 
 ### Kết quả và giới hạn U04
 
@@ -548,7 +642,7 @@ U02 chưa đủ gate để vào develop. Mốc đầu vào:
 - [x] U03.6 — Entrypoints CLI/UI cũ giữ hợp đồng dữ liệu/options/default native và lỗi rõ ràng.
 - [x] U03.7 — Compile/test caller/PIT/paired/recovery đúng vùng đổi, đối soát gate U02 còn áp dụng và delta mới.
 - [x] U03.8 — Cold replay không mạng, khóa source/runtime/golden/log, kiểm diff/links rồi commit trên nhánh tích hợp.
-- [ ] Bàn giao nền vào develop — còn cần các kiểm tra U07 liên quan; chưa mở inference hoặc nhận causal gate.
+- [x] Bàn giao nền vào develop — kiểm tra U07 liên quan đã PASS; chưa mở inference hoặc nhận causal gate.
 
 ### Kết quả và giới hạn U03
 
@@ -661,7 +755,7 @@ Delta U01→U02 chỉ có hai commit tài liệu U01, runtime không đổi.
 - [x] U02.7 — Đối soát toàn bộ đường dẫn và byte evidence/paper/revision/data/schema U01; giữ nguồn Git pin và archive.
 - [x] U02.8 — Compile đúng Python mới/đổi; test kinh tế, callers, graph/prompt, leakage và recovery trong phạm vi PASS.
 - [x] U02.9 — Kiểm diff/links, ghi số test/log/hash và giới hạn; tạo merge commit trên nhánh tích hợp.
-- [ ] Bàn giao nền vào develop — chỉ sau U03 và các kiểm tra U07 liên quan, không suy từ việc U02 đã PASS.
+- [x] Bàn giao nền vào develop — sau U03 và các kiểm tra U07 liên quan, không suy riêng từ U02.
 
 ### Kết quả và giới hạn U02
 

@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U05 hoàn tất trên nhánh tích hợp; native parity, runner chung và profile alpha causal được kiểm offline, chưa đưa nền vào develop hoặc cấp release mới**.
+Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U07 hoàn tất offline; native parity, runner, alpha PIT và paired/recovery đã nghiệm thu để đưa nền vào develop; chưa cấp release inference mới, whole-system causal chưa được chứng nhận**.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
@@ -15,7 +15,7 @@ Giữ ba lớp nhận diện:
 2. `original_fix`: đường chạy gốc đã tích hợp, không prior/MT; phải đạt kiểm chứng tương đương với `fix` trên fixture và archive có đủ nguồn. Lời gọi hosted mới không được hứa hẹn trả đúng response lịch sử.
 3. `original_common` và các mở rộng: một cấu hình nghiên cứu chung, công khai các thay đổi về report, prompt, giới hạn đầu ra và schema so với `original_fix`. Tên `Original_common` của pilot cũ giữ nguyên trong archive, không đổi nhãn thành `original_fix`.
 
-Tài liệu này khóa thiết kế hợp nhất. U01 đã hoàn tất audit nguồn/bằng chứng tại [README W12](README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa); U02 đã ghép nguồn tại nhánh riêng theo [checklist chi tiết](README.md#checklist-chi-tiết-u02). [U03 đã PASS parity offline](README.md#kết-quả-và-giới-hạn-u03) với profile `original_fix_serving_v1`, công khai guard budget và miền legacy-only. Các kiểm tra U07 liên quan còn phải nghiệm thu trước khi đưa nền vào develop. Chưa gọi API, huấn luyện hoặc sửa kết quả bài báo; không khôi phục đợt 1.020 điểm đã hủy.
+Tài liệu này khóa thiết kế hợp nhất. U01 đã hoàn tất audit nguồn/bằng chứng tại [README W12](README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa); U02 đã ghép nguồn tại nhánh riêng theo [checklist chi tiết](README.md#checklist-chi-tiết-u02). [U03 đã PASS parity offline](README.md#kết-quả-và-giới-hạn-u03) với profile `original_fix_serving_v1`, công khai guard budget và miền legacy-only. [U07 đã nghiệm thu paired/recovery offline](README.md#kết-quả-và-giới-hạn-u07), đủ điều kiện đưa nền phần mềm vào develop. Chưa gọi inference, huấn luyện hoặc sửa kết quả bài báo; U06 chỉ đọc metadata provider đã khai báo. Không khôi phục đợt 1.020 điểm đã hủy.
 
 ## 2. Bằng chứng khảo sát hai nhánh
 
@@ -236,8 +236,9 @@ khóa split/selector trước anchor đầu từng mã, giữ102 test anchor và
 51 binding/chín fit frozen, đủ provider controls102 điểm và quota attestation
 hiện tại. U06 đã PASS146 test và cold restore/replay102/102 trên nguồn đã khóa.
 Prototype expanding có exposure được ghi rõ, không dùng vào study cuối.
-Input-eligible và collection-eligible là hai gate riêng: U07 còn kiểm
-scope chín mã/paired/recovery và dispatcher org; U08 cần quota headers/smoke/
+Input-eligible và collection-eligible là hai gate riêng: U07 đã PASS116 test,
+cold replay102 điểm/2.448 slot, scope chín mã/paired/recovery và dispatcher org
+với HTTP mock. U08 còn cần transport live, quota headers/smoke/
 grant mới. Không thu nhỏ cohort, sửa receipt cũ hoặc kế thừa quyền inference.
 
 ### Kiểm thử theo phạm vi
