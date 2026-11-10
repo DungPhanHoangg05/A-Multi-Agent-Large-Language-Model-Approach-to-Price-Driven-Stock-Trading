@@ -33,6 +33,26 @@ replay đã PASS trong phạm vi U06. Chưa mở đợt inference mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
 
+### Checklist chi tiết U08
+
+Triển khai trên `feat/unified-comparison-run`, từ develop `ea90605b`.
+Yêu cầu người dùng **tiếp tục U08** là quyền cho smoke/thu mới theo protocol đã
+khóa, chỉ Free/0 USD; không kế thừa grant H07/pilot cũ. Chưa đánh dấu hoàn tất
+thu khi mới triển khai hoặc khi chỉ một phần cohort thành công.
+
+- [x] U08.1 — Đối soát develop/plan, tạo branch; năm GET catalog mới đều thấy hai model active,0 inference.
+- [x] U08.2 — Thêm transport live/release riêng, giữ DAG, UUID, quota/carry và cap3/retry+repair.
+- [ ] U08.3 — Scoped tests, compile nguồn mới, QA source/runtime; neo runtime/preflight và grant smoke mới vào Git.
+- [ ] U08.4 — Smoke lexicographic một điểm/một repeat ở epoch riêng; raw/header/usage và cold verify PASS.
+- [ ] U08.5 — Grant research mới sau smoke, khởi động collector có lock/checkpoint/heartbeat, không giảm N/R/model.
+- [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
+- [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
+
+Trạng thái live được đọc qua `scripts/unified_live/run.py status --phase SMOKE`
+hoặc `--phase RESEARCH`. `verify` không khởi tạo client/key/provider. Outcome
+research chỉ đọc sau đủ24 slot durable; smoke không tính payoff. Mọi UNKNOWN
+giữ reserve và dừng để đối soát, không tự gửi lại hoặc đổi lỗi thành CASH.
+
 ### Checklist chi tiết U07
 
 Tiếp tục trên `feat/fix-develop-unification` theo §4.1, từ commit U06

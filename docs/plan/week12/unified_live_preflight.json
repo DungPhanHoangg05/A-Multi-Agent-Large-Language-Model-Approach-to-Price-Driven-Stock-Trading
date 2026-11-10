@@ -1,0 +1,162 @@
+{
+  "payload": {
+    "version": "unified_live_preflight_v1",
+    "metadata": {
+      "all_required_models_listed": true,
+      "authorization_changed": false,
+      "endpoint": "https://api.groq.com/openai/v1/models",
+      "inference_requests": 0,
+      "limits_source": "FRESH_PUBLIC_DOCS_PLUS_EXPLICIT_CURRENT_ACCOUNT_ATTESTATION_REQUIRED",
+      "metadata_requests": 5,
+      "method": "GET",
+      "observed_at_utc": "2026-11-10T02:55:46.816965+00:00",
+      "provider_org_identity_available": false,
+      "rows": [
+        {
+          "credential_hmac": "5148c28310a3849f3770babab57ac75da66414a842b10cbd752391e917674fea",
+          "credential_reference": "GROQ_ORG_1_API_KEY",
+          "model_catalog": {
+            "openai/gpt-oss-20b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "openai/gpt-oss-20b",
+              "owned_by": "OpenAI"
+            },
+            "qwen/qwen3.8-27b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "qwen/qwen3.8-27b",
+              "owned_by": "Alibaba Cloud"
+            }
+          },
+          "organization_slot": 1,
+          "provider_org_sha256": null,
+          "rate_headers": {
+            "date": "Tue, 10 Nov 2026 02:55:46 GMT"
+          },
+          "status": 200
+        },
+        {
+          "credential_hmac": "d6afb0851e9ed60e7f9bd17dd0dd875e70687439087bb3685fb478e58f0231f5",
+          "credential_reference": "GROQ_ORG_2_API_KEY",
+          "model_catalog": {
+            "openai/gpt-oss-20b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "openai/gpt-oss-20b",
+              "owned_by": "OpenAI"
+            },
+            "qwen/qwen3.8-27b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "qwen/qwen3.8-27b",
+              "owned_by": "Alibaba Cloud"
+            }
+          },
+          "organization_slot": 2,
+          "provider_org_sha256": null,
+          "rate_headers": {
+            "date": "Tue, 10 Nov 2026 02:55:46 GMT"
+          },
+          "status": 200
+        },
+        {
+          "credential_hmac": "6cce383ea13f2780d611364c05da88f46d3eddc5fd6315340729204e9142a2a2",
+          "credential_reference": "GROQ_ORG_3_API_KEY",
+          "model_catalog": {
+            "openai/gpt-oss-20b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "openai/gpt-oss-20b",
+              "owned_by": "OpenAI"
+            },
+            "qwen/qwen3.8-27b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "qwen/qwen3.8-27b",
+              "owned_by": "Alibaba Cloud"
+            }
+          },
+          "organization_slot": 3,
+          "provider_org_sha256": null,
+          "rate_headers": {
+            "date": "Tue, 10 Nov 2026 02:55:47 GMT"
+          },
+          "status": 200
+        },
+        {
+          "credential_hmac": "281cec715be8aab0f92fb887c941b1f89590a2e9362b8cf7d7ea94a1aa858779",
+          "credential_reference": "GROQ_ORG_4_API_KEY",
+          "model_catalog": {
+            "openai/gpt-oss-20b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "openai/gpt-oss-20b",
+              "owned_by": "OpenAI"
+            },
+            "qwen/qwen3.8-27b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "qwen/qwen3.8-27b",
+              "owned_by": "Alibaba Cloud"
+            }
+          },
+          "organization_slot": 4,
+          "provider_org_sha256": null,
+          "rate_headers": {
+            "date": "Tue, 10 Nov 2026 02:55:47 GMT"
+          },
+          "status": 200
+        },
+        {
+          "credential_hmac": "932516ec96179dfb25277ff3d461e6f3e4291037903bb886d49a69828e60a231",
+          "credential_reference": "GROQ_ORG_5_API_KEY",
+          "model_catalog": {
+            "openai/gpt-oss-20b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "openai/gpt-oss-20b",
+              "owned_by": "OpenAI"
+            },
+            "qwen/qwen3.8-27b": {
+              "active": true,
+              "context_window": 131072,
+              "id": "qwen/qwen3.8-27b",
+              "owned_by": "Alibaba Cloud"
+            }
+          },
+          "organization_slot": 5,
+          "provider_org_sha256": null,
+          "rate_headers": {
+            "date": "Tue, 10 Nov 2026 02:55:47 GMT"
+          },
+          "status": 200
+        }
+      ],
+      "version": "unified_provider_metadata_v2"
+    },
+    "limits": {
+      "rpm": 30,
+      "rpd": 1000,
+      "tpm": 8000,
+      "tpd": 200000
+    },
+    "organizations_independent_user_attested": 5,
+    "organization_ids_provider_verified": false,
+    "plan": "FREE_USER_ATTESTED",
+    "split_input_output_limits": false,
+    "paid_api_allowed": false,
+    "attestation_source": "USER_CONFIRMED_2026_11_10_FIVE_INDEPENDENT_FREE_ORGS_SAME_LIMITS",
+    "authorization_request": "USER_REQUEST_CONTINUE_U08_2026_11_10",
+    "carry_requests": 497,
+    "carry_charged_or_reserved_tokens": 1140404,
+    "provider_headers": "VALIDATE_ON_FIRST_RESPONSE_PER_ORG_AND_BEFORE_SUBSEQUENT_ADMISSION",
+    "sources": [
+      "https://console.groq.com/docs/models",
+      "https://console.groq.com/docs/rate-limits"
+    ],
+    "api_inference_before_release": 0,
+    "spend_limit_usd": 0
+  },
+  "sha256": "9f2d380ec4bb6c6a21d5cdd69aa638165dbc2c67f1221c1de2243b9fde3df5be"
+}
