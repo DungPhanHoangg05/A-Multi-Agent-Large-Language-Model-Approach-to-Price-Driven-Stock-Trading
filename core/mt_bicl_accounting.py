@@ -8,6 +8,7 @@ import pandas as pd
 from core.backtest_engine import TestPoint, compute_account_metrics, compute_round_trip_net_return
 from core.execution_prices import execution_prices_for_cycle
 from core.research_metrics import cycle_risk
+from utils.target_contract import target_fields, target_record_fields
 
 def evaluate_cycle(frame: pd.DataFrame, events: list[dict[str, Any]], cutoff: str) -> dict[str, Any]:
     """Mở giá query sau khi mọi action đã cố định; đúng phiên Open(t+1)/Close(t+3)."""
@@ -20,7 +21,8 @@ def evaluate_cycle(frame: pd.DataFrame, events: list[dict[str, Any]], cutoff: st
     entry, exit_date = (dates[index+i].strftime("%Y-%m-%d") for i in (1, 3))
     opening, closing = execution_prices_for_cycle(frame, events, cutoff, entry, exit_date)
     net = float(compute_round_trip_net_return(opening, closing))
-    return {"entry_date": entry, "exit_date": exit_date, "entry_open": float(opening),
+    return {**target_fields(frame, index + 1, 3), "entry_bar_index": index + 1, "exit_bar_index": index + 3,
+            "entry_date": entry, "exit_date": exit_date, "entry_open": float(opening),
             "exit_close": float(closing), "net_return_long": net, "actual_direction": "UP" if net > 0 else "DOWN"}
 
 
@@ -48,7 +50,8 @@ def account(points: list[dict[str, Any]], branch: str) -> dict[str, Any]:
             actual_pct_change=net*100, pred_full=decision, pred_no_alpha=decision, correct_full=correct, correct_no_alpha=correct,
             confidence_full="", confidence_no_alpha="", rr_full="", rr_no_alpha="", time_full_sec=0., time_no_alpha_sec=0.,
             entry_open=evaluation["entry_open"], exit_close=evaluation["exit_close"],
-            entry_time=evaluation["entry_date"], exit_time=evaluation["exit_date"]))
+            entry_time=evaluation["entry_date"], exit_time=evaluation["exit_date"],
+            **target_record_fields(evaluation)))
     metrics = asdict(compute_account_metrics(tests, fee=.0025, slippage=.001, initial_capital_vnd=50_000_000.)["full"])
     if not math.isclose(metrics["final_equity_vnd"], equity, abs_tol=1e-6, rel_tol=1e-12) or not math.isclose(metrics["max_drawdown_pct"], drawdown, abs_tol=1e-8):
         raise ValueError("Tài khoản engine lệch phép kiểm lãi kép độc lập")

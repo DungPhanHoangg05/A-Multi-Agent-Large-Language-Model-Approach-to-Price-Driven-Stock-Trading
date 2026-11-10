@@ -6,6 +6,7 @@ from langchain_core.language_models import BaseChatModel
 from default_config import DEFAULT_CONFIG
 from utils.graph_setup import SetGraph
 from utils.graph_util import TechnicalTools
+from core.decision_profiles import NATIVE_PROFILE, validate_decision_profile
 
 
 class TradingGraph:
@@ -15,6 +16,7 @@ class TradingGraph:
 
     def __init__(self, config=None):
         self.config = config if config is not None else DEFAULT_CONFIG.copy()
+        validate_decision_profile(self.config.get("decision_profile", NATIVE_PROFILE))
         self._ensure_api_key()
 
         self.agent_llm = self._create_llm(
@@ -34,6 +36,7 @@ class TradingGraph:
             self.agent_llm,
             self.graph_llm,
             self.toolkit,
+            decision_profile=self.config.get("decision_profile", NATIVE_PROFILE),
         )
         self.graph = self.graph_setup.set_graph()
 
@@ -97,6 +100,7 @@ class TradingGraph:
 
     def refresh_llms(self) -> None:
         """Tạo lại các LLM với cấu hình hiện tại (dùng khi config thay đổi)."""
+        profile = validate_decision_profile(self.config.get("decision_profile", NATIVE_PROFILE))
         self._ensure_api_key()
         self.agent_llm = self._create_llm(
             model=self.config.get("agent_llm_model", "openai/gpt-oss-20b"),
@@ -108,7 +112,7 @@ class TradingGraph:
             temperature=self.config.get("graph_llm_temperature", 0.1),
             max_tokens=self.config.get("graph_llm_max_tokens", 1024),
         )
-        self.graph_setup = SetGraph(self.agent_llm, self.graph_llm, self.toolkit)
+        self.graph_setup = SetGraph(self.agent_llm, self.graph_llm, self.toolkit, decision_profile=profile)
         self.graph = self.graph_setup.set_graph()
 
     def update_api_key(self, api_key: str) -> None:

@@ -13,6 +13,9 @@ langchain
 langchain-core
 langchain-groq
 groq
+pydantic
+jsonschema
+referencing
 httpx
 tiktoken
 langgraph
@@ -25,4 +28,4 @@ vnstock==4.0.9
 vnai==2.6.2
 python-dotenv
 beautifulsoup4
-gunicorn
+gunicorn; platform_system != "Windows"

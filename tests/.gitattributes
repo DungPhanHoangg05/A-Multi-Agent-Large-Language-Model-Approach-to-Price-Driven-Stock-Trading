@@ -1,2 +1,5 @@
 # Giữ byte của kiểm thử đã nghiệm thu cùng công cụ audit revision.
 test_bic_icl_input_audit_leakage.py -text
+test_unified_execution_recovery.py text eol=lf
+test_unified_execution_leakage.py text eol=lf
+.gitattributes text eol=lf

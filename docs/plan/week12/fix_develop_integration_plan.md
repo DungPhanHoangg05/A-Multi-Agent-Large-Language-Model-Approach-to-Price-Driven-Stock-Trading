@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát: **09/11/2026**. Trạng thái: **U01 đã khóa inventory nguồn; chưa hợp nhất mã nguồn, chưa cấp release thực nghiệm mới**.
+Ngày khảo sát: **09/11/2026**. Trạng thái: **U01–U07 hoàn tất offline; native parity, runner, alpha PIT và paired/recovery đã nghiệm thu để đưa nền vào develop; chưa cấp release inference mới, whole-system causal chưa được chứng nhận**.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
@@ -15,7 +15,7 @@ Giữ ba lớp nhận diện:
 2. `original_fix`: đường chạy gốc đã tích hợp, không prior/MT; phải đạt kiểm chứng tương đương với `fix` trên fixture và archive có đủ nguồn. Lời gọi hosted mới không được hứa hẹn trả đúng response lịch sử.
 3. `original_common` và các mở rộng: một cấu hình nghiên cứu chung, công khai các thay đổi về report, prompt, giới hạn đầu ra và schema so với `original_fix`. Tên `Original_common` của pilot cũ giữ nguyên trong archive, không đổi nhãn thành `original_fix`.
 
-Tài liệu này khóa thiết kế hợp nhất. U01 đã hoàn tất audit nguồn/bằng chứng tại [README W12](README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa); các bước gọi API, huấn luyện, sửa bài báo và merge hai nhánh nguồn thuộc triển khai sau; không khôi phục đợt 1.020 điểm đã hủy.
+Tài liệu này khóa thiết kế hợp nhất. U01 đã hoàn tất audit nguồn/bằng chứng tại [README W12](README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa); U02 đã ghép nguồn tại nhánh riêng theo [checklist chi tiết](README.md#checklist-chi-tiết-u02). [U03 đã PASS parity offline](README.md#kết-quả-và-giới-hạn-u03) với profile `original_fix_serving_v1`, công khai guard budget và miền legacy-only. [U07 đã nghiệm thu paired/recovery offline](README.md#kết-quả-và-giới-hạn-u07), đủ điều kiện đưa nền phần mềm vào develop. Chưa gọi inference, huấn luyện hoặc sửa kết quả bài báo; U06 chỉ đọc metadata provider đã khai báo. Không khôi phục đợt 1.020 điểm đã hủy.
 
 ## 2. Bằng chứng khảo sát hai nhánh
 
@@ -191,6 +191,30 @@ Hợp đồng kinh tế cố định: LONG mua `Open(t+1)`, bán `Close(t+3)` th
 
 Checklist trạng thái duy nhất ở [README W12](README.md). Các mục dưới là hợp đồng công việc, không phải receipt đã PASS.
 
+U02 được chia thành U02.1–U02.9 tại [checklist chi tiết](README.md#checklist-chi-tiết-u02):
+khóa nguồn/nhánh → giải quyết merge quản trị → engine contracts → schema/callers
+→ chart/prompt → dependency lock → byte evidence → kiểm thử đúng phạm vi → commit/bàn giao.
+Mỗi mục chỉ đánh dấu khi đầu ra tương ứng đã được kiểm; gate đưa nền vào develop
+được theo dõi riêng sau U03 và phần U07 bị ảnh hưởng.
+
+U03 có [checklist riêng](README.md#checklist-chi-tiết-u03) cho profile native,
+golden requests, graph/ảnh/PIT, archive, CLI/UI và cold replay. Oracle chỉ nạp
+nguồn Git donor trong tiến trình cách ly; cap native không được âm thầm đổi
+để vượt guard, và mọi support archive thiếu phải được báo trước khi nghiệm thu.
+
+U04 đã có [checklist và kết quả](README.md#kết-quả-và-giới-hạn-u04) cho registry,
+snapshots/records, lazy adapters, RunBook/evaluator và CLI/UI offline. Native,
+sáu phương pháp nghiên cứu và Fact_Anchor dùng chung evaluator; replay CLI
+conditional trên prepared assets, không nhận là thu hosted hoặc chạy lại student/
+retrieval. Provider/cohort/protocol/transport cho release mới vẫn phải qua U06–U08.
+
+U05 đã có [profile và bridge riêng](README.md#kết-quả-và-giới-hạn-u05): đủ 85
+handler PIT, orientation train, selection validation đã purge và test lock;
+Spec v2 áp dụng cùng projection cho mọi common method, giữ native request.
+Native row-wise vẫn FAIL; alpha PIT local không thay gate HMM/retrieval/news/
+student/providers và protocol U06/U07. Không sửa bằng chứng frozen hoặc nhận
+hiệu ứng hosted/superiority từ fixture bridge.
+
 | Mục | Nhánh đề xuất / công việc | Đầu ra và điều kiện thoát |
 | --- | --- | --- |
 | U01 | `docs/fix-develop-source-audit`: inventory nguồn/evidence/imports/callers, khóa nguồn trước code | Mapping ownership và hashes đầy đủ; phân biệt source đang chạy và archive, nhận diện path hardcode |
@@ -205,6 +229,17 @@ Checklist trạng thái duy nhất ở [README W12](README.md). Các mục dư�
 | U10 | `docs/manuscript-unified-system`: cập nhật nguồn paper của fix và bàn giao | Mỗi số truy về CSV/JSON/code/protocol; LaTeX build và render QA; claims đúng scope, archive tái lập |
 
 Thứ tự phụ thuộc: U01 → U02 → U03 → U04; U05 trước release có tuyên bố causal. U06 chuẩn bị từ U01 nhưng chỉ khóa sau U03–U05 theo scope. U07 → U08 → U09 → U10. Chưa ước lượng ngày hoàn thành inference khi chưa audit quota và support. Ưu tiên xong parity/runner trước khi trả chi phí nghiên cứu mới.
+
+U06 v1 giữ [preflight BLOCKED](README.md#kết-quả-và-giới-hạn-u06) nguyên byte.
+Theo yêu cầu hoàn thiện, [amendment v2](README.md#kết-quả-nghiệm-thu-u06-v2)
+khóa split/selector trước anchor đầu từng mã, giữ102 test anchor và ngưỡng U05,
+51 binding/chín fit frozen, đủ provider controls102 điểm và quota attestation
+hiện tại. U06 đã PASS146 test và cold restore/replay102/102 trên nguồn đã khóa.
+Prototype expanding có exposure được ghi rõ, không dùng vào study cuối.
+Input-eligible và collection-eligible là hai gate riêng: U07 đã PASS116 test,
+cold replay102 điểm/2.448 slot, scope chín mã/paired/recovery và dispatcher org
+với HTTP mock. U08 còn cần transport live, quota headers/smoke/
+grant mới. Không thu nhỏ cohort, sửa receipt cũ hoặc kế thừa quyền inference.
 
 ### Kiểm thử theo phạm vi
 

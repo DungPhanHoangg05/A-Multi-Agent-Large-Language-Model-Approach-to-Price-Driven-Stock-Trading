@@ -589,6 +589,14 @@ def backtest_start():
     try:
         data      = request.get_json()
         lang      = lang_from_payload(data)
+        variant = data.get("variant", "original_fix")
+        from core.variant_registry import get_variant
+        try:
+            get_variant(variant)
+        except ValueError:
+            return jsonify({"error": "Variant không được hỗ trợ"}), 400
+        if variant != "original_fix":
+            return jsonify({"error": "Phương pháp nghiên cứu chưa có hosted release; xem kết quả offline tại /experiments"}), 409
         symbol    = (data.get("symbol") or "").strip().upper()
         n_tests   = int(data.get("n_tests",   10))
         win_size  = int(data.get("window_size", 45))
@@ -783,6 +791,9 @@ def backtest_result(bt_id: str):
     return jsonify(to_json_compatible(
         job.get("summary") or {"error": t("err_not_finished", lang)}
     ))
+
+from utils.experiment_web import experiments
+app.register_blueprint(experiments)
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 

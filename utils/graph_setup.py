@@ -20,6 +20,7 @@ from core.prior_config import (
     normalize_prior_query_context, normalize_prior_state, validate_prior_execution,
 )
 from core.decision_prior import PriorSourceValidator, prepare_decision_prior
+from core.decision_profiles import INTEGRATED_PROFILE, NATIVE_PROFILE, validate_decision_profile
 
 
 PriorRetriever = Callable[[dict[str, Any]], dict[str, Any]]
@@ -156,8 +157,10 @@ class SetGraph:
         agent_llm: BaseChatModel,  
         graph_llm: BaseChatModel,  
         toolkit: TechnicalTools,
+        *, decision_profile: str = NATIVE_PROFILE,
     ):
         self.agent_llm = agent_llm
+        self.decision_profile = validate_decision_profile(decision_profile)
         self.graph_llm = graph_llm
         self.toolkit = toolkit
 
@@ -274,11 +277,12 @@ class SetGraph:
         if enabled:
             graph.add_node("Prior Preparation", prepare_prior)
             hooks = {} if before_decision is None else {"_before_invoke": before_decision}
-            decision = create_final_trade_decider(self.agent_llm, _prior_preparer=_consume_graph_prior, **hooks)
+            decision = create_final_trade_decider(self.agent_llm, decision_profile=INTEGRATED_PROFILE,
+                                                 _prior_preparer=_consume_graph_prior, **hooks)
             graph.add_edge(START, "Prior Preparation")
             graph.add_edge("Prior Preparation", "Decision Maker")
         else:
-            decision = _guard_prior_state(create_final_trade_decider(self.agent_llm))
+            decision = _guard_prior_state(create_final_trade_decider(self.agent_llm, decision_profile=INTEGRATED_PROFILE))
             graph.add_edge(START, "Decision Maker")
         graph.add_node("Decision Maker", decision)
         graph.add_edge("Decision Maker", END)
@@ -320,7 +324,7 @@ class SetGraph:
         enable_alpha = config["enable_alpha_factors"]
         enable_sentiment = config["enable_sentiment"]
         graph = StateGraph(BacktestAgentState)
-        decision_node = create_final_trade_decider(self.agent_llm)
+        decision_node = create_final_trade_decider(self.agent_llm, decision_profile=self.decision_profile)
         graph.add_node("Decision Maker", _guard_prior_state(decision_node))
 
         if enable_alpha or enable_sentiment:
@@ -386,7 +390,7 @@ class SetGraph:
         )
 
         # Decision Agent — synthesises all reports → LONG/SHORT
-        decision_agent_node = create_final_trade_decider(self.agent_llm)
+        decision_agent_node = create_final_trade_decider(self.agent_llm, decision_profile=self.decision_profile)
 
         # ── Build graph ───────────────────────────────────────────────────────
         graph = StateGraph(IndicatorAgentState)

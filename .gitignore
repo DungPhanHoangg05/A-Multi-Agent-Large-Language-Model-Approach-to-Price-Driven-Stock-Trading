@@ -37,3 +37,44 @@ sentiment_cache_*
 /outputs/historical_reevaluation/managed_r1/
 /outputs/historical_reevaluation/quota_history/
 /outputs/historical_reevaluation/free_pilot_r1/
+tmp/
+
+# Trạng thái vận hành cục bộ của lượt R1 đã chốt; bằng chứng vẫn được theo dõi.
+/outputs/revision/r1_72h_run_v2/migration.lock
+/outputs/revision/r1_72h_run_v2/provider_locks/
+/outputs/revision/r1_72h_run_v2/quota.sqlite3*
+/outputs/revision/r1_72h_run_v2/shards/org*/worker.lock
+/outputs/revision/r1_72h_run_v2/shards/org*/status.json
+/outputs/revision/r1_72h_run_v2/shards/org*/usage.json
+/outputs/revision/r1_72h_run_v2/shards/org*/work/
+
+# Runtime cục bộ của lượt sửa prompt R4; raw calls/checkpoints/analysis vẫn theo dõi.
+/outputs/revision/r4_value_run_v1/provider_locks/
+/outputs/revision/r4_value_run_v1/quota.sqlite3*
+/outputs/revision/r4_value_run_v1/shards/org*/worker.lock
+/outputs/revision/r4_value_run_v1/shards/org*/usage.json
+
+# Runtime local của chart rerun; raw calls/checkpoints và receipts vẫn được theo dõi.
+/outputs/revision/chart_r1_run_v1/quota.sqlite3*
+/outputs/revision/chart_r1_run_v1/provider_locks/
+/outputs/revision/chart_r1_run_v1/shards/org*/worker.lock
+/outputs/revision/chart_r1_run_v1/shards/org*/status.json
+/outputs/revision/chart_r1_run_v1/shards/org*/usage.json
+/outputs/revision/chart_r1_run_v1/shards/org*/work/
+/outputs/revision/chart_r4_run_v1/quota.sqlite3*
+/outputs/revision/chart_r4_run_v1/provider_locks/
+/outputs/revision/chart_r4_run_v1/shards/org*/worker.lock
+/outputs/revision/chart_r4_run_v1/shards/org*/usage.json
+
+# Trạng thái vận hành queue chung; manifest, raw và checkpoint vẫn được theo dõi.
+/outputs/revision/revision_minimal_v1/quota.sqlite3*
+/outputs/revision/revision_minimal_v1/runner.lock
+/outputs/revision/revision_minimal_v1/provider_locks/
+/outputs/revision/revision_minimal_v1/shards/org*/worker.lock
+/outputs/revision/revision_minimal_v1/shards/org*/usage.json
+
+# Sidecar weights cục bộ của package; manifest giữ hash, không đưa weights lớn vào Git.
+/outputs/revision/reproducibility*/model_weights.zip
+
+# Gói tổng hợp nội bộ lớn; index, hashes và QA vẫn được theo dõi trong Git.
+/outputs/revision/reviewer_response_v1/private_bundle.zip

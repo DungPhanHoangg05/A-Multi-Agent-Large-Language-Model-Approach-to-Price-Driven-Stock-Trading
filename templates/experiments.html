@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thí nghiệm giao dịch thống nhất</title>
+<style>body{font:16px system-ui,sans-serif;background:#f4f6fa;color:#172033;margin:0}main{max-width:1150px;margin:auto;padding:32px}h1{margin-bottom:8px}p{line-height:1.6}section{background:white;border:1px solid #dce2ea;border-radius:12px;padding:20px;margin:20px 0}label{display:inline-block;margin:8px 16px 8px 0}select,button,a.download{padding:9px;border:1px solid #a9b6c9;border-radius:6px;background:white;color:#172033}button{cursor:pointer;background:#edf2fc}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:10px;text-align:left;border-bottom:1px solid #dce2ea}th{background:#f4f6fa}.scroll{overflow:auto}.notice{color:#735000}#error{color:#a11622}small{color:#536173}</style></head>
+<body><main><a href="/backtest">← Backtest native</a>
+<h1>Thí nghiệm giao dịch thống nhất</h1>
+<p>Xem các phương pháp và đối chiếu kết quả đã lưu trên cùng tập điểm. Native mặc định: <strong>original_fix</strong> · <code>original_fix_serving_v1</code>.</p>
+<p class="notice">Đường thí nghiệm này chỉ đọc/replay offline. Chưa mở thu inference mới. Alpha native còn hạn chế nhân quả; kết quả historical chưa chứng nhận khả năng giao dịch thực.</p>
+<section><h2>Phương pháp và vai trò</h2><div class="scroll"><table><thead><tr><th>Phương pháp</th><th>Profile</th><th>Vai trò</th><th>Phụ thuộc</th></tr></thead><tbody>
+{% for v in registry.variants %}<tr><td>{{ v.id }}</td><td>{{ v.profile }}</td><td>{{ v.role }}</td><td>{{ v.dependencies|join(', ') or '—' }}</td></tr>{% endfor %}
+</tbody></table></div><small>Fact_Anchor là dependency/control; repeats không tạo thêm điểm thị trường độc lập.</small></section>
+<section><h2>Kết quả đã seal</h2>
+<label>Run <select id="run"><option value="">Chọn kết quả</option>{% for run in runs %}<option>{{ run }}</option>{% endfor %}</select></label>
+<label>Phương pháp <select id="variant">{% for v in registry.variants %}<option value="{{ v.id }}" {% if v.id == registry.default %}selected{% endif %}>{{ v.id }}</option>{% endfor %}</select></label>
+<button id="load">Kiểm và tải</button><p id="error" role="alert"></p><p id="support"></p><div id="downloads"></div>
+<div class="scroll"><table><thead><tr><th>Điểm</th><th>Raw</th><th>Final</th><th>Return chiến lược (%)</th><th>Policy</th><th>Chất lượng dữ liệu</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p id="accounts"></p><small>Return chiến lược theo chu kỳ sau phí. Tài khoản reset theo mã/fold/realization/repeat; metric không xác định giữ null.</small></section>
+<script>
+let result = null;
+function render() {
+  const variant = document.getElementById('variant').value, body = document.getElementById('rows'); body.replaceChildren();
+  if (!result) return;
+  for (const row of result.rows.filter(r => r.variant === variant)) {
+    const tr = document.createElement('tr');
+    for (const value of [row.point_id, row.raw_proposal ?? '—', row.final_action, (row.strategy_return * 100).toFixed(4), row.reason, row.quality]) {
+      const td = document.createElement('td'); td.textContent = value; tr.append(td);
+    } body.append(tr);
+  }
+  const accounts = Object.entries(result.accounts).filter(([key]) => key.split('/')[0] === variant);
+  document.getElementById('accounts').textContent = accounts.map(([key, a]) => key + ': net return ' + (a.total_return_pct == null ? 'null' : a.total_return_pct.toFixed(4) + '%')).join(' · ');
+}
+document.getElementById('variant').addEventListener('change', render);
+document.getElementById('load').addEventListener('click', async () => {
+  const id = document.getElementById('run').value, error = document.getElementById('error');
+  result = null; render(); error.textContent = ''; document.getElementById('support').textContent = ''; document.getElementById('downloads').replaceChildren();
+  if (!id) { error.textContent = 'Chọn một kết quả đã lưu.'; return; }
+  try {
+    const response = await fetch('/api/experiments/' + encodeURIComponent(id)); const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Không kiểm được kết quả.'); result = data;
+    document.getElementById('support').textContent = data.complete_slots + '/' + data.planned_slots + ' slot · ' + data.points + ' điểm · ' + data.mode + ' · ' + (data.input_profile || 'native_common_v1') + (data.causal_scope ? ' · Causal gate toàn hệ còn chờ U06/U07' : '');
+    for (const format of ['json', 'csv']) { const link = document.createElement('a'); link.className = 'download'; link.textContent = 'Tải ' + format.toUpperCase() + ' toàn bộ'; link.href = '/api/experiments/' + encodeURIComponent(id) + '/export?format=' + format; document.getElementById('downloads').append(link, ' '); }
+    render();
+  } catch (e) { error.textContent = e.message; }
+});
+</script></main></body></html>

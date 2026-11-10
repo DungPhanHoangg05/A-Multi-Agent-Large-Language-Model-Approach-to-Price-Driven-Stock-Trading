@@ -5,7 +5,8 @@ from typing import Any, Callable, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 from core.decision_prior import DecisionPriorPreparer, PriorSourceValidator, prepare_decision_prior
-from core.prior_config import PRIOR_STATE_FIELDS, copy_prior_json
+from core.prior_config import PRIOR_STATE_FIELDS, copy_prior_json, normalize_prior_config
+from core.decision_profiles import INTEGRATED_PROFILE, NATIVE_PROFILE, validate_decision_profile
 
 
 class TradeDecisionOutput(BaseModel):
@@ -257,10 +258,12 @@ def _distill_report(
 def _guard_backtest_prompt(
     prompt: str, *, lang: str, time_frame: str, report_lengths: dict[str, int],
     prefix_length: int = 0,
+    report_limits: dict[str, int] | None = None,
 ) -> None:
     """Kiểm prompt cuối trước API; lỗi ngân sách không đi vào retry output."""
     length = len(prompt)
-    details = (f"lang={lang}, khung={time_frame}, cap={_BACKTEST_REPORT_CHAR_LIMITS}, "
+    limits = _BACKTEST_REPORT_CHAR_LIMITS if report_limits is None else report_limits
+    details = (f"lang={lang}, khung={time_frame}, cap={limits}, "
                f"report={report_lengths}, prefix={prefix_length}, prompt={length}")
     if length >= BACKTEST_PROMPT_CHAR_LIMIT_EXCLUSIVE:
         raise ValueError(
@@ -599,6 +602,7 @@ def _insert_prior_context(prompt: str, prefix: str, lang: str) -> str:
 
 def create_final_trade_decider(
     llm, *, prior_source_validator: PriorSourceValidator | None = None,
+    decision_profile: str = INTEGRATED_PROFILE,
     _prior_preparer: DecisionPriorPreparer | None = None,
     _before_invoke: Callable[[dict[str, Any], str], None] | None = None,
     _prior_request: dict[str, Any] | None = None,
@@ -611,6 +615,10 @@ def create_final_trade_decider(
     Hai tham số không là field cấu hình JSON hoặc cơ chế tự xác nhận nguồn.
     """
 
+    profile = validate_decision_profile(decision_profile)
+    if profile == NATIVE_PROFILE and any(hook is not None for hook in (
+            prior_source_validator, _prior_preparer, _before_invoke, _prior_request)):
+        raise ValueError("Profile original_fix không nhận prior hoặc hook nghiên cứu")
     if _prior_preparer is not None and (not callable(_prior_preparer) or prior_source_validator is not None):
         raise ValueError("Hook nội bộ graph phải callable và không đi cùng verifier Decision")
     if _before_invoke is not None and not callable(_before_invoke):
@@ -631,6 +639,9 @@ def create_final_trade_decider(
             print(f"[DecisionAgent] Structured Output không khả dụng: {exc}")
 
     def trade_decision_node(state) -> dict:
+        if profile == NATIVE_PROFILE:
+            if type(state) is not dict or normalize_prior_config(state.get("prior_config"))["enable_bayesian_prior"]:
+                raise ValueError("Profile original_fix không được bật prior")
         if _prior_preparer is None:
             state, prior_prefix = prepare_decision_prior(state, source_validator=prior_source_validator)
         else:
@@ -646,7 +657,8 @@ def create_final_trade_decider(
 
         no_data = _t("no_data", lang)
         is_backtest = bool(state.get("is_backtest", False))
-        limits = _BACKTEST_REPORT_CHAR_LIMITS if is_backtest else _REPORT_CHAR_LIMITS
+        limits = (_BACKTEST_REPORT_CHAR_LIMITS if is_backtest and profile != NATIVE_PROFILE
+                  else _REPORT_CHAR_LIMITS)
 
         indicator_raw = state.get("indicator_report", no_data)
         pattern_raw   = state.get("pattern_report",   no_data)
@@ -699,7 +711,7 @@ def create_final_trade_decider(
         if request is not None:
             from core.prior_prompt import add_prior_use_contract
             prompt = add_prior_use_contract(prompt, request, lang)
-        if is_backtest:
+        if is_backtest or profile == NATIVE_PROFILE:
             report_lengths = {
                 "trend": len(trend_report or ""), "pattern": len(pattern_report or ""),
                 "indicator": len(indicator_report or ""),
@@ -709,6 +721,7 @@ def create_final_trade_decider(
             _guard_backtest_prompt(
                 prompt, lang=lang, time_frame=time_frame, report_lengths=report_lengths,
                 prefix_length=len(prior_prefix),
+                report_limits=limits,
             )
         if _before_invoke is not None:
             if _before_invoke(copy_prior_json(state), prompt) is not None:

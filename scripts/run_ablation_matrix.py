@@ -30,6 +30,8 @@ from core.run_robustness import load_market_data  # noqa: E402
 from utils.graph_setup import ABLATION_CONFIGS  # noqa: E402
 from utils.statistical_tests import calculate_metrics_with_significance  # noqa: E402
 from utils.static_util import get_forecast_horizon  # noqa: E402
+from utils.account_risk import cycle_frequency, round_ratio  # noqa: E402
+from utils.target_contract import target_fields, validate_target_record  # noqa: E402
 
 
 VARIANTS = ("full", "alpha_only", "sentiment_only", "baseline")
@@ -101,6 +103,7 @@ def load_checkpoint(
 
     restored: List[Dict[str, Any]] = []
     for raw_point in list(payload.get("test_points", []))[:n_tests]:
+        validate_target_record(raw_point)
         if not _valid_completed_point(raw_point, len(restored) + 1):
             break
         restored.append(raw_point)
@@ -167,6 +170,11 @@ def _variant_test_points(
                 exit_close=float(point["exit_close"]),
                 entry_time=point["entry_time"],
                 exit_time=point["exit_time"],
+                entry_bar_index=point.get("entry_bar_index"),
+                exit_bar_index=point.get("exit_bar_index"),
+                **{k: point[k] for k in ("decision_close", "gross_return", "net_return", "label_net", "label_gross",
+                    "decision_bar_index", "target_horizon_bars", "label_fee_each_side", "label_slippage_each_side",
+                    "label_contract_version") if k in point},
                 decision_source_full=str(result.get("decision_source", "")),
                 decision_source_no_alpha=str(result.get("decision_source", "")),
             )
@@ -202,6 +210,7 @@ def summarize_symbol(
             slippage=config["slippage"],
             initial_capital_vnd=config.get("initial_capital_vnd", 50_000_000.0),
             price_multiplier=config.get("price_multiplier", 1_000.0),
+            risk_frequency=cycle_frequency(variant_points, "1d", DEFAULT_STEP),
         )["full"]
         correct = [
             (prediction == "LONG" and actual == "UP")
@@ -248,8 +257,9 @@ def summarize_symbol(
                 if n_short
                 else 0.0,
                 "account_return_pct": round(account.total_return_pct, 2),
-                "sharpe_ratio": round(account.sharpe_ratio, 2),
-                "sortino_ratio": round(account.sortino_ratio, 2),
+                "sharpe_ratio": round_ratio(account.sharpe_ratio),
+                "sortino_ratio": round_ratio(account.sortino_ratio),
+                "risk_metrics": account.risk_metrics,
                 "max_drawdown_pct": round(account.max_drawdown_pct, 2),
                 "hit_rate_pct": round(account.hit_rate_pct, 1),
                 "mcnemar_p_value_vs_baseline": significance["mcnemar_p_value"],
@@ -418,6 +428,8 @@ def run_symbol(
                 df["Datetime"].iloc[end_idx + lookahead - 1]
             ).isoformat(),
             "variants": variant_results,
+            "entry_bar_index": int(end_idx), "exit_bar_index": int(end_idx + lookahead - 1),
+            **target_fields(df, int(end_idx), int(lookahead), config["tx_cost"], config["slippage"]),
         }
         if not _valid_completed_point(point, test_index):
             raise RuntimeError(f"{symbol} test {test_index}: điểm ablation không hợp lệ")
@@ -473,8 +485,9 @@ def save_aggregate(
         csv_row["lift_ci_95_vs_baseline"] = json.dumps(
             csv_row["lift_ci_95_vs_baseline"]
         )
+        csv_row["risk_metrics"] = json.dumps(csv_row.get("risk_metrics", {}), allow_nan=False)
         csv_rows.append(csv_row)
-    pd.DataFrame(csv_rows).to_csv(csv_path, index=False)
+    pd.DataFrame(csv_rows).to_csv(csv_path, index=False, na_rep="NA")
     _atomic_write_json(
         json_path,
         {

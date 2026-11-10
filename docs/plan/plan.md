@@ -3,13 +3,35 @@
 Đề tài Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent
 LLM Stock Trading in the Vietnamese Stock Market.
 
-## Trạng thái hiện hành09/11/2026
+## Trạng thái hiện hành
+
+U06 có [amendment v2](week12/README.md#kết-quả-nghiệm-thu-u06-v2) giữ102 anchor,
+ba repeat và hai family, 51 selector binding frozen trước anchor đầu từng mã,
+đủ102 provider preparations và quota Free được xác nhận lại. V2 đã PASS146 test
+và cold replay102/102; U06 hoàn tất offline. V1 BLOCKED giữ nguyên làm bằng chứng.
+U07 đã PASS116 test/13 module, compile riêng sáu file Python và cold paired
+replay102 điểm/2.448 slot với HTTP mô phỏng; [checklist và giới hạn](week12/README.md#kết-quả-và-giới-hạn-u07)
+ghi rõ barrier, UNKNOWN/recovery và phạm vi chín mã. Nền được đưa vào develop
+sau nghiệm thu U07 theo §4.1; chưa mở inference hoặc huấn luyện student/HMM.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
 U01 đã khóa inventory/hash hai cây nguồn, imports/callers và bằng chứng;
 [kết quả audit](week12/README.md#u01--inventory-nguồn-và-bằng-chứng-đã-khóa) ghi rõ delta nguồn và binding lịch sử.
-Chưa merge mã nguồn hai nhánh hoặc mở inference mới. Trạng thái pilot bên dưới
+U02 đã ghép nguồn và PASS kiểm thử đúng phạm vi trên nhánh/worktree riêng;
+[checklist chi tiết](week12/README.md#checklist-chi-tiết-u02)
+theo dõi contracts/schema/chart, dependencies, evidence và kiểm thử.
+U03 đã PASS parity offline trên miền native hợp lệ, replay đủ 204 slot B/AS;
+[checklist U03](week12/README.md#checklist-chi-tiết-u03) ghi profile
+`original_fix_serving_v1`, delta budget, log và giới hạn nhân quả.
+U04 đã có registry tám vai trò, snapshot/records, runner/evaluator và CLI/UI
+offline dùng chung; [checklist U04](week12/README.md#checklist-chi-tiết-u04)
+ghi 128 test, cold fixture và giới hạn prepared-asset replay.
+U05 đã thêm `causal_common_v1`, selector train/validation đã purge và bridge
+native/common; [checklist U05](week12/README.md#checklist-chi-tiết-u05) ghi 151 test
+và cold replay. Gate này chỉ cho alpha PIT, không nâng native hoặc toàn hệ
+thành Zero-Leakage. U07 nghiệm thu phần mềm offline, không nâng gate native/
+whole-system causal. Chưa mở inference mới. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 
 Hệ thống giữ Original và bốn nhóm cải tiến.
