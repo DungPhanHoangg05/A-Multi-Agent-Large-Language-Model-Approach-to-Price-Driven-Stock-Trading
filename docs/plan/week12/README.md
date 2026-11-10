@@ -19,8 +19,9 @@ budget được version riêng; parity chỉ trên miền input hợp lệ đã 
 U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. U05 có profile
 alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 có
 amendment v2 giữ 102 anchor, đủ assets/PIT và quota offline; nghiệm thu và cold
-replay đã PASS trong phạm vi U06. Smoke U08 đã cold verify PASS. Research đang
-thu theo grant riêng, giữ 102 điểm/ba repeat. U08 còn chờ đủ cohort và cold seal.
+replay đã PASS trong phạm vi U06. Smoke U08 đã cold verify PASS. Research đã
+dừng có checkpoint để người dùng tự chạy tiếp bằng lệnh, giữ 102 điểm/ba repeat.
+U08 còn chờ đủ cohort và cold seal.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
@@ -37,15 +38,16 @@ thu theo grant riêng, giữ 102 điểm/ba repeat. U08 còn chờ đủ cohort 
 ### Checklist chi tiết U08
 
 Triển khai trên `feat/unified-comparison-run`, từ develop `ea90605b`.
-Yêu cầu người dùng **tiếp tục U08** là quyền cho smoke/thu mới theo protocol đã
-khóa, chỉ Free/0 USD; không kế thừa grant H07/pilot cũ. Chưa đánh dấu hoàn tất
-thu khi mới triển khai hoặc khi chỉ một phần cohort thành công.
+Grant kỹ thuật cho lượt mới đã neo Git theo protocol khóa, chỉ Free/0 USD.
+Theo đính chính của người dùng ngày 10/11/2026, người dùng tự khởi chạy research
+bằng lệnh được bàn giao. Collector đã tự khởi chạy trước khi bàn giao lệnh và đã
+dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 
 - [x] U08.1 — Đối soát develop/plan, tạo branch; năm GET catalog mới đều thấy hai model active,0 inference.
 - [x] U08.2 — Thêm transport live/release riêng, giữ DAG, UUID, quota/carry và cap3/retry+repair.
 - [x] U08.3 — PASS69 test/8 module, compile11 file; QA14 source mới và672 nguồn U07 giữ nguyên; neo runtime/preflight/grant smoke riêng vào Git.
 - [x] U08.4 — Smoke BHN-2025-10-01, một repeat/đúng org4:8 slot,6 HTTP200,12.793 token;0 query payoff, cold verify PASS.
-- [x] U08.5 — Grant research mới sau smoke đã neo Git. Collector đang chạy có lock/checkpoint/heartbeat, giữ 102 điểm/ba repeat và model đã khóa.
+- [x] U08.5 — Grant research mới sau smoke đã neo Git. Collector có lock/checkpoint/heartbeat đã chạy và dừng an toàn, sẵn sàng để người dùng resume thủ công.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
 - [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
 
@@ -89,16 +91,27 @@ Research khởi chạy lúc 13:14 ngày 10/11/2026, giờ Việt Nam, PID25328 t
 năm org, mỗi response có header RPD1.000/TPM8.000. Provider chưa trả org ID.
 Ledger research giữ đúng 503 carry request/1.153.197 token, gồm lịch sử và smoke.
 Mã nguồn, QA, runtime và hai grant đã vào develop tại merge `e898e2ad`.
+Collector đã dừng lúc 14:02 ngày 10/11/2026 theo yêu cầu người dùng tự khởi chạy
+research. Trạng thái `STOPPED_BY_OPERATOR`, tiến trình PID25328 đã thoát.
+Journal giữ 9 shared, 152 forecast, 5 canonical labels và 98 HTTP attempt
+(97 HTTP200, 1 HTTP503), mọi attempt có trạng thái xác định. `stop.request` giữ
+trạng thái dừng đến khi người dùng chạy lệnh resume bên dưới.
 Cập nhật vận hành này chỉ sửa ba tài liệu kế hoạch. Kiểm diff/liên kết và hash
 nguồn/bằng chứng, viện dẫn69 test/11 file compile đã PASS, không chạy lại suite.
 Tiến độ trong `status.json` là checkpoint gần nhất. Raw HTTP có thể đi trước
 checkpoint khi một tick đang chạy. Chỉ receipt research PASS mới xác nhận thu đủ.
 
-Vận hành:
+Người dùng khởi chạy hoặc resume từ thư mục gốc repo bằng PowerShell.
 
 ```powershell
 py -3.13 -I -X utf8 scripts/unified_live/run.py status --phase RESEARCH
+Remove-Item -LiteralPath 'outputs/unified_integration/u08_research_r1/stop.request' -ErrorAction SilentlyContinue
 py -3.13 -I -X utf8 scripts/unified_live/run.py collect --phase RESEARCH
+```
+
+Sau khi thu đủ, collector tự cold verify và seal. Có thể đối soát lại bằng lệnh sau.
+
+```powershell
 py -3.13 -I -X utf8 scripts/unified_live/run.py verify --phase RESEARCH
 ```
 
