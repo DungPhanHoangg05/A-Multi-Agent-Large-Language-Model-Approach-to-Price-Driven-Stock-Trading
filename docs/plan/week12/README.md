@@ -42,7 +42,7 @@ thu khi mới triển khai hoặc khi chỉ một phần cohort thành công.
 
 - [x] U08.1 — Đối soát develop/plan, tạo branch; năm GET catalog mới đều thấy hai model active,0 inference.
 - [x] U08.2 — Thêm transport live/release riêng, giữ DAG, UUID, quota/carry và cap3/retry+repair.
-- [ ] U08.3 — Scoped tests, compile nguồn mới, QA source/runtime; neo runtime/preflight và grant smoke mới vào Git.
+- [x] U08.3 — PASS69 test/8 module, compile11 file; QA14 source mới và672 nguồn U07 giữ nguyên; neo runtime/preflight/grant smoke riêng vào Git.
 - [ ] U08.4 — Smoke lexicographic một điểm/một repeat ở epoch riêng; raw/header/usage và cold verify PASS.
 - [ ] U08.5 — Grant research mới sau smoke, khởi động collector có lock/checkpoint/heartbeat, không giảm N/R/model.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
@@ -52,6 +52,19 @@ Trạng thái live được đọc qua `scripts/unified_live/run.py status --pha
 hoặc `--phase RESEARCH`. `verify` không khởi tạo client/key/provider. Outcome
 research chỉ đọc sau đủ24 slot durable; smoke không tính payoff. Mọi UNKNOWN
 giữ reserve và dừng để đối soát, không tự gửi lại hoặc đổi lỗi thành CASH.
+
+[Runtime U08](unified_live_runtime.json), [preflight](unified_live_preflight.json),
+[QA](unified_live_checks.json)/[log gói](unified_live_checks.zip) và
+[grant smoke](unified_live_smoke_release.json) là các artifact mới, không sửa
+receipt cũ. Năm GET catalog mới thành công, hai model active; org IDs không được
+provider trả về nên vẫn ghi nguồn xác nhận độc lập/Free từ người dùng. Carry
+giữ497 request/1.140.404 token, không reset hoặc tự giả định đã hết cửa sổ.
+Header thực sẽ được kiểm ngay trên response đầu của từng org và trước admission
+tiếp theo. Token/attempt/planned cohort không bị giảm theo kết quả smoke.
+
+Các69 test gồm23 test U08,23 recovery/firewall U07,15 runner/caller và8 provider
+leakage. Chỉ compile11 file mới; không chạy full suite/E2E vì kernel cũ giữ byte
+và các thay đổi nằm ở release, transport, runner và oracle gate mới.
 
 ### Checklist chi tiết U07
 

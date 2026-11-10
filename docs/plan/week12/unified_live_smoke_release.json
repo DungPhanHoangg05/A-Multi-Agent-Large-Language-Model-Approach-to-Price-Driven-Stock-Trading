@@ -1,0 +1,18 @@
+{
+  "payload": {
+    "version": "unified_live_release_v1",
+    "status": "SMOKE_RELEASED",
+    "phase": "SMOKE",
+    "api": true,
+    "paid_api_allowed": false,
+    "spend_limit_usd": 0,
+    "authorization": "USER_REQUEST_CONTINUE_U08_2026_11_10",
+    "runtime_sha256": "4a8c23fb96ce0da78b96b0b9f7c6cf9d7bd3f85baaaad28e352c41421a3974c6",
+    "preflight_sha256": "9f2d380ec4bb6c6a21d5cdd69aa638165dbc2c67f1221c1de2243b9fde3df5be",
+    "namespace": "outputs/unified_integration/u08_smoke_r1",
+    "max_http_attempts": 30,
+    "legacy_release_inherited": false,
+    "automatic_N_repeat_model_reduction": false
+  },
+  "sha256": "fb6a58526a20a954a776776b6b591b45c44a0ab4a44d9a75aeb40cae1daa827d"
+}
