@@ -48,6 +48,7 @@ dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 - [x] U08.3 — PASS69 test/8 module, compile11 file; QA14 source mới và672 nguồn U07 giữ nguyên; neo runtime/preflight/grant smoke riêng vào Git.
 - [x] U08.4 — Smoke BHN-2025-10-01, một repeat/đúng org4:8 slot,6 HTTP200,12.793 token;0 query payoff, cold verify PASS.
 - [x] U08.5 — Grant research mới sau smoke đã neo Git. Collector có lock/checkpoint/heartbeat đã chạy và dừng an toàn, sẵn sàng để người dùng resume thủ công.
+- [ ] U08.5a — Amendment quota tách RPM/RPD/TPM/TPD theo `(org, model)`, kiểm thử resume và đối soát prefix trước khi bàn giao lệnh mới.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
 - [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
 
@@ -101,18 +102,39 @@ nguồn/bằng chứng, viện dẫn69 test/11 file compile đã PASS, không ch
 Tiến độ trong `status.json` là checkpoint gần nhất. Raw HTTP có thể đi trước
 checkpoint khi một tick đang chạy. Chỉ receipt research PASS mới xác nhận thu đủ.
 
+#### Amendment quota theo model
+
+Người dùng yêu cầu tách quota theo model ngày 10/11/2026. Bản gộp bảo thủ cũ
+cộng Qwen và GPT-OSS vào chung 200.000 token/24 giờ mỗi org, dẫn đến chờ ở
+32 điểm dù từng model còn ngân sách. Policy mới `per_org_model_v1` tính riêng
+RPM30/RPD1.000/TPM8.000/TPD200.000 cho từng cặp org/model, kể cả header reset,
+retry-after và reserve UNKNOWN. Tổng trần HTTP của phase vẫn là7.956 attempt.
+
+Amendment nối từ sequence487, tức HTTP attempt thứ488, trong cùng journal.
+Prefix trước sửa gồm487 HTTP (486 HTTP200,1 HTTP503),36 shared,802 forecast và
+32 canonical labels. Runtime/grant riêng neo prefix raw, carry, run identity và
+mọi slot complete để kiểm khi resume. Nghiệm thu cuối có `receipt.json` cho
+execution và `quota_receipt.json` cho amendment. Telemetry mới có trạng thái
+`WAITING_QUOTA` và `waiting_models` ghi model, reserve, thời điểm mở lại.
+
+[Runtime amendment](unified_model_quota_runtime.json),
+[grant thủ công](unified_model_quota_release.json),
+[scoped checks](unified_model_quota_checks.json) và
+[gói QA](unified_model_quota_checks.zip) quản lý policy mới. Lệnh dưới dùng
+entrypoint amendment để tiếp tục cùng checkpoint.
+
 Người dùng khởi chạy hoặc resume từ thư mục gốc repo bằng PowerShell.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_live/run.py status --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_model_quota/run.py status
 Remove-Item -LiteralPath 'outputs/unified_integration/u08_research_r1/stop.request' -ErrorAction SilentlyContinue
-py -3.13 -I -X utf8 scripts/unified_live/run.py collect --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_model_quota/run.py collect
 ```
 
 Sau khi thu đủ, collector tự cold verify và seal. Có thể đối soát lại bằng lệnh sau.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_live/run.py verify --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_model_quota/run.py verify --seal
 ```
 
 Collector có OS lock và heartbeat ở `outputs/unified_integration/u08_research_r1/status.json`.
