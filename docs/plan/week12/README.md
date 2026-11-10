@@ -19,7 +19,8 @@ budget được version riêng; parity chỉ trên miền input hợp lệ đã 
 U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. U05 có profile
 alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 có
 amendment v2 giữ 102 anchor, đủ assets/PIT và quota offline; nghiệm thu và cold
-replay đã PASS trong phạm vi U06. Chưa mở đợt inference mới.
+replay đã PASS trong phạm vi U06. U08 bắt đầu smoke Free ở epoch riêng,
+research còn chờ cold smoke PASS và grant riêng.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
@@ -32,6 +33,70 @@ replay đã PASS trong phạm vi U06. Chưa mở đợt inference mới.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U08
+
+Triển khai trên `feat/unified-comparison-run`, từ develop `ea90605b`.
+Yêu cầu người dùng **tiếp tục U08** là quyền cho smoke/thu mới theo protocol đã
+khóa, chỉ Free/0 USD; không kế thừa grant H07/pilot cũ. Chưa đánh dấu hoàn tất
+thu khi mới triển khai hoặc khi chỉ một phần cohort thành công.
+
+- [x] U08.1 — Đối soát develop/plan, tạo branch; năm GET catalog mới đều thấy hai model active,0 inference.
+- [x] U08.2 — Thêm transport live/release riêng, giữ DAG, UUID, quota/carry và cap3/retry+repair.
+- [x] U08.3 — PASS69 test/8 module, compile11 file; QA14 source mới và672 nguồn U07 giữ nguyên; neo runtime/preflight/grant smoke riêng vào Git.
+- [x] U08.4 — Smoke BHN-2025-10-01, một repeat/đúng org4:8 slot,6 HTTP200,12.793 token;0 query payoff, cold verify PASS.
+- [ ] U08.5 — Grant research mới sau smoke, khởi động collector có lock/checkpoint/heartbeat, không giảm N/R/model.
+- [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
+- [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
+
+Trạng thái live được đọc qua `scripts/unified_live/run.py status --phase SMOKE`
+hoặc `--phase RESEARCH`. `verify` không khởi tạo client/key/provider. Outcome
+research chỉ đọc sau đủ24 slot durable; smoke không tính payoff. Mọi UNKNOWN
+giữ reserve và dừng để đối soát, không tự gửi lại hoặc đổi lỗi thành CASH.
+
+[Runtime U08](unified_live_runtime.json), [preflight](unified_live_preflight.json),
+[QA](unified_live_checks.json)/[log gói](unified_live_checks.zip) và
+[grant smoke](unified_live_smoke_release.json) là các artifact mới, không sửa
+receipt cũ. Năm GET catalog mới thành công, hai model active; org IDs không được
+provider trả về nên vẫn ghi nguồn xác nhận độc lập/Free từ người dùng. Carry
+giữ497 request/1.140.404 token, không reset hoặc tự giả định đã hết cửa sổ.
+Header thực sẽ được kiểm ngay trên response đầu của từng org và trước admission
+tiếp theo. Token/attempt/planned cohort không bị giảm theo kết quả smoke.
+Transport HTTPX cũng đã được GET catalog kiểm TLS trên đúng org của điểm smoke
+(một GET bổ sung,0 inference); không sửa receipt năm GET đã khóa trong preflight.
+Smoke live đã nhận raw vision200 và quota header RPD1.000/TPM8.000 như attestation;
+collector giữ reserve và nhường đúng cửa sổ quota, không chọn key/model khác.
+
+Các69 test gồm23 test U08,23 recovery/firewall U07,15 runner/caller và8 provider
+leakage. Chỉ compile11 file mới; không chạy full suite/E2E vì kernel cũ giữ byte
+và các thay đổi nằm ở release, transport, runner và oracle gate mới.
+
+Smoke đã **PASS_U08_SMOKE**, hai vision và bốn Decision thực, không repair hoặc
+transport retry; bốn bypass theo registry vẫn có record đầy đủ. `outcome` của
+smoke chỉ là marker barrier; counter `labels_complete` ở phase này không phải
+nhãn thị trường. Cold verify trong tiến trình/cây nguồn tạm có686 source pin và
+U07 ZIP phụ thuộc, không key/client/SDK/provider constructors hoặc mạng, đã PASS.
+[Gói smoke](unified_live_smoke.zip) giữ raw, images, slot, runtime/grant/receipt
+và proof replay nguyên byte; [grant research](unified_live_research_release.json)
+neo đúng digest receipt smoke, không mang response smoke vào study.
+Gói smoke có46 thành viên/543.113 byte, SHA256
+`f3f09d19937cc6ff975bd84820506d3af3f636d2accbd6b9c29a408eb12a2676`.
+Source smoke/runtime không đổi sau các response; research chỉ bổ sung grant
+và mang thêm chi phí6 smoke request/12.793 token vào carry, không reuse forecasts.
+
+Vận hành:
+
+```powershell
+py -3.13 -I -X utf8 scripts/unified_live/run.py status --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_live/run.py collect --phase RESEARCH
+py -3.13 -I -X utf8 scripts/unified_live/run.py verify --phase RESEARCH
+```
+
+Collector có OS lock và heartbeat ở `outputs/unified_integration/u08_research_r1/status.json`.
+Lệnh collect thứ hai không được mở worker trùng. Chờ quota giữ timestamp/usage,
+không reset UUID hoặc mở lại full1020. UNKNOWN/cap3 hoặc source thay đổi làm
+dừng có checkpoint để đối soát. Chỉ khi đủ102 điểm và cold seal PASS mới đánh dấu
+U08.6 hoàn tất; trạng thái khởi chạy chưa phải nghiệm thu thu đủ hoặc superiority.
 
 ### Checklist chi tiết U07
 

@@ -1,0 +1,981 @@
+{
+  "payload": {
+    "version": "unified_live_runtime_v1",
+    "sources": {
+      "core/unified_live/.gitattributes": {
+        "path": "core/unified_live/.gitattributes",
+        "bytes": 8,
+        "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+      },
+      "core/unified_live/__init__.py": {
+        "path": "core/unified_live/__init__.py",
+        "bytes": 88,
+        "sha256": "db530d63cca0c3f279eca02a68040747690a54717e4ede9f22ae1391f143c3a3"
+      },
+      "core/unified_live/execution.py": {
+        "path": "core/unified_live/execution.py",
+        "bytes": 16441,
+        "sha256": "2bc419ccada9b67810201a78b462a9b93c85d57f13a3d43bd4c8957ccc66272c"
+      },
+      "core/unified_live/manager.py": {
+        "path": "core/unified_live/manager.py",
+        "bytes": 10041,
+        "sha256": "f5f9a4485df2b49ff949c015b5cc8f6213621dafa62556ab85090f213ccf3c6a"
+      },
+      "core/unified_live/release.py": {
+        "path": "core/unified_live/release.py",
+        "bytes": 8122,
+        "sha256": "7a318bcf0c0f71a237e3a513c51d8f9b48ace03c8377150094c8846b9043faf7"
+      },
+      "core/unified_live/transport.py": {
+        "path": "core/unified_live/transport.py",
+        "bytes": 10559,
+        "sha256": "5c9961f1082f58b31a29732a7a6a3fa3729d2a93903d6251b5bfcb359ea4f35c"
+      },
+      "scripts/unified_live/.gitattributes": {
+        "path": "scripts/unified_live/.gitattributes",
+        "bytes": 8,
+        "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+      },
+      "scripts/unified_live/run.py": {
+        "path": "scripts/unified_live/run.py",
+        "bytes": 5636,
+        "sha256": "f481bc995fefcae837f4310e2ad1c4d351cc9693066a7d4cd1843a2733f926d0"
+      },
+      "tests/unified_live/.gitattributes": {
+        "path": "tests/unified_live/.gitattributes",
+        "bytes": 8,
+        "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+      },
+      "tests/unified_live/__init__.py": {
+        "path": "tests/unified_live/__init__.py",
+        "bytes": 94,
+        "sha256": "b9d51a4612b4564b1bd84df78f50afe40f5fd8badb5edf601d64c0c014ef27b5"
+      },
+      "tests/unified_live/test_execution.py": {
+        "path": "tests/unified_live/test_execution.py",
+        "bytes": 7987,
+        "sha256": "b61712dfcccfa1e766d59dcdcffee956e475e4f632a72753a395b809317b9810"
+      },
+      "tests/unified_live/test_leakage.py": {
+        "path": "tests/unified_live/test_leakage.py",
+        "bytes": 4096,
+        "sha256": "a86c1fbecd298dbc7086d8565f5f58893941dd56d32de6165646ecc9a727fadf"
+      },
+      "tests/unified_live/test_release.py": {
+        "path": "tests/unified_live/test_release.py",
+        "bytes": 3299,
+        "sha256": "db85fdc026806a9cdf0e1e3c51c20056f18cd1c09188f5bafb154e3c68f82f0f"
+      },
+      "tests/unified_live/test_transport.py": {
+        "path": "tests/unified_live/test_transport.py",
+        "bytes": 5839,
+        "sha256": "38e106b3888faf3789b21f04fa09fdc93d094057e4714a8c1ed3b6196501bcdd"
+      }
+    },
+    "checks": {
+      "path": "docs/plan/week12/unified_live_checks.json",
+      "bytes": 12156,
+      "sha256": "9a1be870fdbda5c99301277d82f460ef20bb6a0d1566152c3f92a8b4e9e748a4"
+    },
+    "baseline_manifest_sha256": "973504c09932bd70d8fb8369ca9b6dfc757eeee79ab8eb57d0cefd31968e4548",
+    "runtime": {
+      "packages": {
+        "Flask": "3.1.3",
+        "Jinja2": "3.1.6",
+        "MarkupSafe": "3.0.2",
+        "PyYAML": "6.0.2",
+        "Pygments": "2.19.2",
+        "TA-Lib": "0.6.8",
+        "Werkzeug": "3.1.6",
+        "annotated-types": "0.7.0",
+        "anyio": "4.9.0",
+        "attrs": "25.3.0",
+        "beautifulsoup4": "4.13.4",
+        "blinker": "1.9.0",
+        "build": "1.4.0",
+        "certifi": "2025.6.15",
+        "cffi": "2.0.0",
+        "charset-normalizer": "3.4.2",
+        "click": "8.2.1",
+        "colorama": "0.4.6",
+        "contourpy": "1.3.3",
+        "cycler": "0.12.1",
+        "distro": "1.9.0",
+        "et_xmlfile": "2.0.0",
+        "filelock": "3.18.0",
+        "fonttools": "4.61.1",
+        "fsspec": "2025.5.1",
+        "groq": "0.37.1",
+        "h11": "0.16.0",
+        "hf-xet": "1.4.2",
+        "hmmlearn": "0.3.3",
+        "httpcore": "1.0.9",
+        "httpx": "0.28.1",
+        "huggingface_hub": "1.8.0",
+        "idna": "3.10",
+        "importlib_metadata": "8.7.1",
+        "itsdangerous": "2.2.0",
+        "joblib": "1.5.1",
+        "jsonpatch": "1.33",
+        "jsonpointer": "3.0.0",
+        "jsonschema": "4.24.0",
+        "jsonschema-specifications": "2025.4.1",
+        "kiwisolver": "1.4.9",
+        "langchain": "1.2.10",
+        "langchain-core": "1.2.17",
+        "langchain-groq": "1.1.2",
+        "langgraph": "1.0.10",
+        "langgraph-checkpoint": "4.0.1",
+        "langgraph-prebuilt": "1.0.8",
+        "langgraph-sdk": "0.3.9",
+        "langsmith": "0.7.10",
+        "markdown-it-py": "3.0.0",
+        "matplotlib": "3.10.8",
+        "mdurl": "0.1.2",
+        "mplfinance": "0.12.10b0",
+        "mpmath": "1.3.0",
+        "networkx": "3.5",
+        "numpy": "2.1.2",
+        "openpyxl": "3.1.5",
+        "orjson": "3.11.7",
+        "ormsgpack": "1.12.2",
+        "packaging": "25.0",
+        "pandas": "2.3.3",
+        "pillow": "11.0.0",
+        "psutil": "7.0.0",
+        "pycparser": "2.22",
+        "pydantic": "2.11.7",
+        "pydantic_core": "2.33.2",
+        "pyparsing": "3.3.2",
+        "pyproject_hooks": "1.2.0",
+        "python-dateutil": "2.9.0.post0",
+        "python-dotenv": "1.2.2",
+        "pytz": "2025.2",
+        "referencing": "0.36.2",
+        "regex": "2026.2.28",
+        "requests": "2.32.4",
+        "requests-toolbelt": "1.0.0",
+        "rich": "14.1.0",
+        "rpds-py": "0.26.0",
+        "safetensors": "0.7.0",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.16.1",
+        "seaborn": "0.13.2",
+        "sentencepiece": "0.2.1",
+        "setuptools": "80.9.0",
+        "shellingham": "1.5.4",
+        "six": "1.17.0",
+        "sniffio": "1.3.1",
+        "soupsieve": "2.7",
+        "sympy": "1.14.0",
+        "tenacity": "9.1.2",
+        "threadpoolctl": "3.6.0",
+        "tiktoken": "0.12.0",
+        "tokenizers": "0.22.2",
+        "torch": "2.11.0+cu128",
+        "tqdm": "4.67.1",
+        "transformers": "5.4.0",
+        "typer": "0.16.0",
+        "typing-inspection": "0.4.1",
+        "typing_extensions": "4.15.0",
+        "tzdata": "2025.3",
+        "urllib3": "2.6.3",
+        "uuid_utils": "0.14.1",
+        "vnai": "2.6.2",
+        "vnstock": "4.0.9",
+        "vnstock_ezchart": "1.0.2",
+        "xxhash": "3.6.0",
+        "zipp": "3.23.0",
+        "zstandard": "0.25.0"
+      },
+      "python": "3.13.5"
+    },
+    "points": [
+      {
+        "id": "CMG-2023-07-03",
+        "symbol": "CMG",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2023-07-03",
+        "symbol": "FPT",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2023-07-03",
+        "symbol": "HVN",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2023-07-03",
+        "symbol": "MBB",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2023-07-03",
+        "symbol": "MWG",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2023-07-03",
+        "symbol": "VCB",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2023-07-03",
+        "symbol": "VJC",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2023-07-03",
+        "symbol": "VNM",
+        "cutoff": "2023-07-03",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2023-09-22",
+        "symbol": "CMG",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2023-09-22",
+        "symbol": "FPT",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2023-09-22",
+        "symbol": "HVN",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2023-09-22",
+        "symbol": "MBB",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2023-09-22",
+        "symbol": "MWG",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2023-09-22",
+        "symbol": "VCB",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2023-09-22",
+        "symbol": "VJC",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2023-09-22",
+        "symbol": "VNM",
+        "cutoff": "2023-09-22",
+        "fold": "b2023_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2024-07-01",
+        "symbol": "CMG",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2024-07-01",
+        "symbol": "FPT",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2024-07-01",
+        "symbol": "HVN",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2024-07-01",
+        "symbol": "MBB",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2024-07-01",
+        "symbol": "MWG",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2024-07-01",
+        "symbol": "VCB",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2024-07-01",
+        "symbol": "VJC",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2024-07-01",
+        "symbol": "VNM",
+        "cutoff": "2024-07-01",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2024-09-20",
+        "symbol": "CMG",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2024-09-20",
+        "symbol": "FPT",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2024-09-20",
+        "symbol": "HVN",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2024-09-20",
+        "symbol": "MBB",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2024-09-20",
+        "symbol": "MWG",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2024-09-20",
+        "symbol": "VCB",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2024-09-20",
+        "symbol": "VJC",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2024-09-20",
+        "symbol": "VNM",
+        "cutoff": "2024-09-20",
+        "fold": "b2024_h2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2025-01-02",
+        "symbol": "CMG",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2025-01-02",
+        "symbol": "FPT",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2025-01-02",
+        "symbol": "HVN",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2025-01-02",
+        "symbol": "MBB",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2025-01-02",
+        "symbol": "MWG",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2025-01-02",
+        "symbol": "VCB",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2025-01-02",
+        "symbol": "VJC",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2025-01-02",
+        "symbol": "VNM",
+        "cutoff": "2025-01-02",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2025-03-31",
+        "symbol": "CMG",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2025-03-31",
+        "symbol": "FPT",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2025-03-31",
+        "symbol": "HVN",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2025-03-31",
+        "symbol": "MBB",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2025-03-31",
+        "symbol": "MWG",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2025-03-31",
+        "symbol": "VCB",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2025-03-31",
+        "symbol": "VJC",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2025-03-31",
+        "symbol": "VNM",
+        "cutoff": "2025-03-31",
+        "fold": "b2025_h1",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "BHN-2025-10-01",
+        "symbol": "BHN",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2025-10-01",
+        "symbol": "CMG",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2025-10-01",
+        "symbol": "FPT",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2025-10-01",
+        "symbol": "HVN",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2025-10-01",
+        "symbol": "MBB",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2025-10-01",
+        "symbol": "MWG",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2025-10-01",
+        "symbol": "VCB",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2025-10-01",
+        "symbol": "VJC",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2025-10-01",
+        "symbol": "VNM",
+        "cutoff": "2025-10-01",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "BHN-2025-12-19",
+        "symbol": "BHN",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2025-12-19",
+        "symbol": "CMG",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2025-12-19",
+        "symbol": "FPT",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2025-12-19",
+        "symbol": "HVN",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2025-12-19",
+        "symbol": "MBB",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2025-12-19",
+        "symbol": "MWG",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2025-12-19",
+        "symbol": "VCB",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2025-12-19",
+        "symbol": "VJC",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2025-12-19",
+        "symbol": "VNM",
+        "cutoff": "2025-12-19",
+        "fold": "f2025_q4",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "BHN-2026-04-01",
+        "symbol": "BHN",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2026-04-01",
+        "symbol": "CMG",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2026-04-01",
+        "symbol": "FPT",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2026-04-01",
+        "symbol": "HVN",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2026-04-01",
+        "symbol": "MBB",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2026-04-01",
+        "symbol": "MWG",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2026-04-01",
+        "symbol": "VCB",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2026-04-01",
+        "symbol": "VJC",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2026-04-01",
+        "symbol": "VNM",
+        "cutoff": "2026-04-01",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "BHN-2026-06-24",
+        "symbol": "BHN",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2026-06-24",
+        "symbol": "CMG",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2026-06-24",
+        "symbol": "FPT",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2026-06-24",
+        "symbol": "HVN",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2026-06-24",
+        "symbol": "MBB",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2026-06-24",
+        "symbol": "MWG",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2026-06-24",
+        "symbol": "VCB",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2026-06-24",
+        "symbol": "VJC",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2026-06-24",
+        "symbol": "VNM",
+        "cutoff": "2026-06-24",
+        "fold": "f2026_q2",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "BHN-2026-07-01",
+        "symbol": "BHN",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2026-07-01",
+        "symbol": "CMG",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2026-07-01",
+        "symbol": "FPT",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2026-07-01",
+        "symbol": "HVN",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2026-07-01",
+        "symbol": "MBB",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2026-07-01",
+        "symbol": "MWG",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2026-07-01",
+        "symbol": "VCB",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2026-07-01",
+        "symbol": "VJC",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2026-07-01",
+        "symbol": "VNM",
+        "cutoff": "2026-07-01",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "BHN-2026-09-23",
+        "symbol": "BHN",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "CMG-2026-09-23",
+        "symbol": "CMG",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "FPT-2026-09-23",
+        "symbol": "FPT",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "HVN-2026-09-23",
+        "symbol": "HVN",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MBB-2026-09-23",
+        "symbol": "MBB",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "MWG-2026-09-23",
+        "symbol": "MWG",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VCB-2026-09-23",
+        "symbol": "VCB",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VJC-2026-09-23",
+        "symbol": "VJC",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      },
+      {
+        "id": "VNM-2026-09-23",
+        "symbol": "VNM",
+        "cutoff": "2026-09-23",
+        "fold": "f2026_q3",
+        "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY"
+      }
+    ],
+    "smoke_point_id": "BHN-2025-10-01",
+    "variants": [
+      "original_fix",
+      "original_common",
+      "bayesian_v1",
+      "C2",
+      "A_tp_pool",
+      "B_semantic",
+      "MT_BICL",
+      "Fact_Anchor"
+    ],
+    "protocol": {
+      "path": "docs/plan/week12/unified_comparison_protocol_v2.json",
+      "bytes": 14563,
+      "sha256": "b783a0d50cd03d418fdc439ee93eba76edcd1a60be063deaecf3e8259c8bb34a"
+    },
+    "config": {
+      "client_max_retries": 0,
+      "client_options": {
+        "agent": {
+          "reasoning_effort": "low",
+          "reasoning_format": "hidden"
+        },
+        "graph": {
+          "reasoning_effort": "none",
+          "reasoning_format": "hidden"
+        }
+      },
+      "service_tier": "on_demand",
+      "signal_config": {
+        "alpha_weights": null,
+        "language": "vi",
+        "models": {
+          "agent_llm_max_tokens": 960,
+          "agent_llm_model": "openai/gpt-oss-20b",
+          "agent_llm_temperature": 0.0,
+          "graph_llm_max_tokens": 960,
+          "graph_llm_model": "qwen/qwen3.8-27b",
+          "graph_llm_temperature": 0.0
+        },
+        "norm_method": "zscore_tanh",
+        "time_frame": "1d",
+        "window_size": 45
+      },
+      "symbol_order": [
+        "BHN",
+        "CMG",
+        "FPT",
+        "HVN",
+        "MBB",
+        "MWG",
+        "VCB",
+        "VJC",
+        "VNM"
+      ]
+    },
+    "repeats": 3,
+    "realizations": 1,
+    "limits": {
+      "rpm": 30,
+      "rpd": 1000,
+      "tpm": 8000,
+      "tpd": 200000
+    },
+    "attempt_cap": 3,
+    "price_transform": "DONOR_THOUSAND_VND_TIMES_1000_ONCE_FOR_CANONICAL_OUTCOME",
+    "native_rowwise_causal_gate": "FAIL",
+    "whole_system_causal_gate": "NOT_CERTIFIED",
+    "scope": "HISTORICAL_EXPLORATORY_EXPOSED_COHORT"
+  },
+  "sha256": "4a8c23fb96ce0da78b96b0b9f7c6cf9d7bd3f85baaaad28e352c41421a3974c6"
+}

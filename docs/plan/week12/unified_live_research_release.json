@@ -1,0 +1,19 @@
+{
+  "payload": {
+    "version": "unified_live_release_v1",
+    "status": "RESEARCH_RELEASED",
+    "phase": "RESEARCH",
+    "api": true,
+    "paid_api_allowed": false,
+    "spend_limit_usd": 0,
+    "authorization": "USER_REQUEST_CONTINUE_U08_2026_11_10",
+    "runtime_sha256": "4a8c23fb96ce0da78b96b0b9f7c6cf9d7bd3f85baaaad28e352c41421a3974c6",
+    "preflight_sha256": "9f2d380ec4bb6c6a21d5cdd69aa638165dbc2c67f1221c1de2243b9fde3df5be",
+    "namespace": "outputs/unified_integration/u08_research_r1",
+    "max_http_attempts": 7956,
+    "legacy_release_inherited": false,
+    "automatic_N_repeat_model_reduction": false,
+    "smoke_receipt_sha256": "1f6cb73c0d08df83930a751728ade683c4aee8233e760c7b94ad6b04b6cb325e"
+  },
+  "sha256": "eed52946e4a350b3393b7cbdd5d03f0f6e4f6eb7b763f139ba70cb963047e04e"
+}

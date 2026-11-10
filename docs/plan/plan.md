@@ -12,7 +12,9 @@ và cold replay102/102; U06 hoàn tất offline. V1 BLOCKED giữ nguyên làm b
 U07 đã PASS116 test/13 module, compile riêng sáu file Python và cold paired
 replay102 điểm/2.448 slot với HTTP mô phỏng; [checklist và giới hạn](week12/README.md#kết-quả-và-giới-hạn-u07)
 ghi rõ barrier, UNKNOWN/recovery và phạm vi chín mã. Nền được đưa vào develop
-sau nghiệm thu U07 theo §4.1; chưa mở inference hoặc huấn luyện student/HMM.
+sau nghiệm thu U07 theo §4.1. U08 đã mở smoke Free ở epoch riêng sau69 test,
+11 file compile và grant mới; research chỉ mở sau cold smoke PASS. Không huấn
+luyện student/HMM hoặc đổi cohort102/ba repeat.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
@@ -31,7 +33,8 @@ U05 đã thêm `causal_common_v1`, selector train/validation đã purge và brid
 native/common; [checklist U05](week12/README.md#checklist-chi-tiết-u05) ghi 151 test
 và cold replay. Gate này chỉ cho alpha PIT, không nâng native hoặc toàn hệ
 thành Zero-Leakage. U07 nghiệm thu phần mềm offline, không nâng gate native/
-whole-system causal. Chưa mở inference mới. Trạng thái pilot bên dưới
+whole-system causal. Inference U08 đang ở smoke tách biệt; chưa có kết quả
+study mới để phân tích. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 
 Hệ thống giữ Original và bốn nhóm cải tiến.
