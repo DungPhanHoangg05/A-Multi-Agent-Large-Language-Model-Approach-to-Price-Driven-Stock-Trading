@@ -230,13 +230,15 @@ hiệu ứng hosted/superiority từ fixture bridge.
 
 Thứ tự phụ thuộc: U01 → U02 → U03 → U04; U05 trước release có tuyên bố causal. U06 chuẩn bị từ U01 nhưng chỉ khóa sau U03–U05 theo scope. U07 → U08 → U09 → U10. Chưa ước lượng ngày hoàn thành inference khi chưa audit quota và support. Ưu tiên xong parity/runner trước khi trả chi phí nghiên cứu mới.
 
-U06 đã khóa [thiết kế và preflight](README.md#kết-quả-và-giới-hạn-u06), nhưng
-chưa đạt điều kiện thoát đủ nguồn: cả 51 lịch donor có 18–21 validation cycle,
-không tương thích min30 của `causal_common_v1`. Manifest giữ
-`DESIGN_LOCKED_RELEASE_BLOCKED`, đủ 102 planned nhưng 0 collection-eligible;
-không đổi ngầm split/ngưỡng, thu nhỏ cohort hoặc kế thừa grant lịch sử. U07
-có thể kiểm contracts/recovery offline; U08 vẫn cần giải quyết support, quota
-và release mới trước bất kỳ API nào.
+U06 v1 giữ [preflight BLOCKED](README.md#kết-quả-và-giới-hạn-u06) nguyên byte.
+Theo yêu cầu hoàn thiện, [amendment v2](README.md#kết-quả-nghiệm-thu-u06-v2)
+khóa split/selector trước anchor đầu từng mã, giữ102 test anchor và ngưỡng U05,
+51 binding/chín fit frozen, đủ provider controls102 điểm và quota attestation
+hiện tại. U06 đã PASS146 test và cold restore/replay102/102 trên nguồn đã khóa.
+Prototype expanding có exposure được ghi rõ, không dùng vào study cuối.
+Input-eligible và collection-eligible là hai gate riêng: U07 còn kiểm
+scope chín mã/paired/recovery và dispatcher org; U08 cần quota headers/smoke/
+grant mới. Không thu nhỏ cohort, sửa receipt cũ hoặc kế thừa quyền inference.
 
 ### Kiểm thử theo phạm vi
 

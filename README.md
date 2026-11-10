@@ -158,32 +158,53 @@ archives retain their original identities and are not relabelled as new runs.
 
 ## Comparison protocol preflight
 
-The comparison design and its machine-readable support manifest live in
-`docs/plan/week12/unified_comparison_protocol.json` and
-`docs/plan/week12/unified_comparison_manifest.json`. Verify them offline with:
+The current comparison design and input manifest live in
+`docs/plan/week12/unified_comparison_protocol_v2.json` and
+`docs/plan/week12/unified_comparison_manifest_v2.json`. Restore the pinned
+numeric assets and verify them offline with:
 
 ```powershell
-py -3.13 -I -X utf8 scripts/prepare_unified_comparison.py verify
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py restore
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py verify
 ```
 
-Verification reconstructs the 102 donor anchors, purged split support,
-dependency-constrained branch orders and attempt budget. It checks source,
-runtime, donor, frozen model and quota-history bytes without loading weights,
-computing query returns or creating inference clients. The manifest requires
-the pinned local assets, including the original pilot handoff and usage ledgers;
-a checkout alone does not provide those ignored artifacts. Missing assets or
-changed bindings must be reported explicitly.
+Verification reconstructs the 102 donor anchors, split support, branch orders
+and quota scenarios. It checks source, runtime and artifact bytes without
+loading weights, computing query returns, reading credentials or creating
+clients. The asset ZIP includes the 51 selector bindings, 102 alpha projections,
+PIT provider preparations and explicitly labelled request controls. Nine unique
+selectors fit before each symbol's earliest test anchor and remain fixed across
+folds. MT contexts freeze before the first query of each fold and exclude every
+cohort query before label computation. Bank source transfer, OOD fallbacks and
+missing news remain explicit.
+
+For a full CPU replay of the frozen selectors, native numeric preparation,
+retrieval, HMM, student, utility and control request/policy ABI:
+
+```powershell
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py replay-numeric
+```
+
+The source manifest also requires the pinned original pilot handoff, quota
+ledgers, model and historical inputs. A checkout alone does not provide all
+ignored artifacts. Missing assets or changed bindings fail explicitly. The
+historical H03 and comparison v1 receipts certify their original source
+snapshots; their default verifiers are not acceptance gates for a changed tree.
 
 An offline preflight PASS means the recorded audit is reproducible. Execution
-remains blocked until split support, providers, PIT resources, current serving
-availability, quota, recovery and a new run release have been accepted. The
-historical cohort was previously evaluated and supports exploratory analysis.
-Existing full-run and pilot grants do not authorize a new collection.
+remains blocked until the paired/recovery checks and a new collection release
+have been accepted. Quota planning uses the current user attestation of five
+independent Free organizations and authenticated model-catalog GETs. Provider
+organization identities were not returned; collection must revalidate rate
+headers and reconcile other usage. Quota scenarios assume five independent
+organization queues and do not promise an end date. The historical cohort was
+previously evaluated and supports exploratory analysis. Existing full-run and
+pilot grants do not authorize a new collection.
 
-`build --output outputs/unified_integration/<new-id>/manifest.json` writes a
-new candidate manifest without overwriting an existing file. Verification can
-read that candidate with `verify --manifest <path>`. Neither command releases
-hosted execution or changes the experiment runner's order.
+The v2 CLI also provides `assets`, `package` and `freeze` for the pinned recipe;
+existing artifacts are preserved. Provider metadata auditing is a separate,
+explicit GET-only command in `scripts/audit_unified_provider.py`. Neither CLI
+releases hosted execution or changes the experiment runner's order.
 
 ## Causal alpha profile
 

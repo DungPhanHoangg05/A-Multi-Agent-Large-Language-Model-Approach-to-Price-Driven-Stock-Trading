@@ -17,8 +17,9 @@ U02 đã ghép nguồn và U03 đạt parity offline trong worktree riêng; deve
 giữ mốc trước tích hợp. Native chạy mới dùng `original_fix_serving_v1`, có guard
 budget được version riêng; parity chỉ trên miền input hợp lệ đã kiểm.
 U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. U05 có profile
-alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 đã khóa
-protocol/preflight, nhưng điều kiện đủ nguồn còn BLOCKED. Chưa mở đợt inference mới.
+alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 có
+amendment v2 giữ 102 anchor, đủ assets/PIT và quota offline; nghiệm thu và cold
+replay đã PASS trong phạm vi U06. Chưa mở đợt inference mới.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
@@ -26,7 +27,7 @@ protocol/preflight, nhưng điều kiện đủ nguồn còn BLOCKED. Chưa mở
 - [x] U03 — Kiểm chứng tương đương original_fix trên miền hợp lệ và version delta serving.
 - [x] U04 — Registry, runner, evaluator và CLI/UI offline thống nhất.
 - [x] U05 — Profile alpha nhân quả chung và bridge với native; gate toàn hệ còn chờ U06/U07.
-- [ ] U06 — Đã khóa protocol/preflight offline; điều kiện đủ support/quota để nghiệm thu còn BLOCKED.
+- [x] U06 — Amendment v2 đủ nguồn offline, quota có bằng chứng, scoped tests và cold replay102/102 PASS; inference/release vẫn OFF.
 - [ ] U07 — Kiểm paired/PIT/recovery theo phạm vi.
 - [ ] U08 — Smoke và thu thực nghiệm theo release mới.
 - [ ] U09 — Phân tích paired và cold replay.
@@ -45,9 +46,159 @@ grant full1020 đã REVOKED hoặc grant pilot48 đã hoàn tất.
 - [x] U06.4 — Khóa controls, panel deferred tường minh, 20 endpoint/contrast đồng thời, block/bootstrap/undefined và sensitivity trước inference mới.
 - [x] U06.5 — Tính slot/attempt cap; khôi phục nguyên byte quota/handoff có sẵn, dedup carry, không suy quota/giá/thời gian hiện tại từ lịch sử.
 - [x] U06.6 — CLI/manifest offline, source/runtime/model hashes, test chống đổi thiết kế/cohort/quyền/manifest và cold verify.
-- [ ] U06.7 — **Điều kiện thoát đủ nguồn chưa đạt:** split donor không tương thích profile causal đã khóa; cần amendment/split hoặc profile có version trước inference, selector/providers/PIT, quota mới và gate U07. Không giảm N/ngưỡng hoặc chọn subset ngầm để đánh dấu hoàn tất.
+- [x] U06.7 — Amendment v2 giữ 102 test anchor, min60/min30 và horizon; train từ index319, validation180 phiên trước anchor đầu từng mã; 51 binding tới chín selector frozen xuyên fold.
+- [x] U06.8 — Đủ 102 projection và provider controls tám vai trò; context MT frozen theo fold, chặn tất cả102 ID trước oracle; bank/source/schema compatibility có provenance riêng.
+- [x] U06.9 — Năm catalog GET và xác nhận hiện tại của người dùng về năm org Free; khóa payload SDK, carry-over và hai scenario quota, không giảm N/repeats hoặc mở inference.
+- [x] U06.10 — Compile/test đúng vùng, cold restore/replay nguồn số và request/policy, hash/evidence/links; commit trên nhánh tích hợp, không merge develop trước U07.
+
+### Kết quả nghiệm thu U06 v2
+
+Theo yêu cầu hoàn thiện U06, [protocol v2](unified_comparison_protocol_v2.json)
+thay thế điều kiện nguồn của v1 trước bất kỳ response hosted mới nào. Cohort,
+hai family, năm extension, ba repeats, một realization, economics, controls
+deferred và thống kê của v1 giữ nguyên. [Manifest v2](unified_comparison_manifest_v2.json)
+phân biệt **input-eligible 102** và **collection-eligible 0**: đủ nguồn offline
+không cấp grant inference, không thay các kiểm tra U07 hoặc release mới U08.
+
+**Split cuối:** với mỗi mã, dùng anchor đầu tiên làm ranh test cho tất cả fold;
+train từ bar319 tới `first_anchor_index−187`, validation từ `−183` tới `−4`
+với cadence3. Embargo bảo đảm mọi nhãn train/validation đóng trước ranh kế tiếp.
+Min60 train, min30 validation, min5 LONG, năm factor và ba threshold U05 giữ
+nguyên. Chín fit riêng theo mã được replay/khóa cho **51 scope**, đủ **102 query**;
+train có **85–123 cycle**, validation common **54–60 cycle**. Các fold sau dùng
+nguyên selector đầu mã; không dùng nhãn anchor cũ để refit.
+
+Prototype ban đầu mở rộng train theo từng fold đã tính nhãn của anchor thuộc
+fold trước trong history. Prototype này **không được dùng trong assets cuối**;
+amendment ghi rõ exposure, không gọi nghiên cứu là fresh holdout hoặc khẳng định
+chưa từng tính payoff trong cả phiên làm việc. Các file prototype local giữ riêng;
+gói nghiệm thu chỉ chứa selector frozen trước anchor đầu từng mã. Không chọn
+cohort/ngưỡng/thiết kế dựa vào payoff test hoặc lợi nhuận phương pháp.
+
+**Provider:** namespace riêng mở đúng ID/schema chín mã, tái dùng byte thuật toán
+đã pin và không sửa `sys.modules`/globals của hệ gốc. HMM/scaler/student/teacher
+frozen; chỉ forward CPU, không optimizer/refit HMM hoặc huấn luyện student.
+Context numeric đóng băng trước query đầu mỗi fold và giữ cùng view cho anchor
+cuối fold. Cả102 ID cohort bị reserve **trước** khi oracle có thể tính nhãn,
+kể cả ID thuộc fold cũ; query chỉ cung cấp feature/facts tại cutoff.
+
+Bank852 vẫn CORE4/raw execution; OOD5 fallback `original_common` có reason,
+không tạo episode giả hoặc đổi nhãn. Kiểm tương thích phát hiện schema và
+CSV/events trong QA cũ khóa checkout **CRLF** trong khi Git lưu **LF**. Byte
+CRLF đúng hash được phục hồi vào namespace mới, qua đầy đủ validator/schema/
+oracle gốc; file nguồn, manifest và QA cũ giữ nguyên. Nhãn raw/donor vẫn khác
+**828/852**, chênh lớn nhất **0,042988489 điểm phần trăm**; không relabel bank
+để làm mất khác biệt provenance. Gate H03 cũ từ chối serving tree mới đúng
+thiết kế; không dùng nó làm gate cây mới hoặc bỏ pin để ép PASS.
+
+Control không LLM đã dựng đủ tám request/policy role tại **102 điểm**, nguồn
+numeric thật, Indicator/Alpha chạy thật; Pattern/Trend và reply có marker control.
+Native request trước/sau bridge khớp. Đây là kiểm ABI/prompt, **không** phải
+forecast hay kết quả kinh tế mới. MT có support **66/102** điểm; **36** giữ
+fallback theo nguyên nhân (20 thiếu magnitude support,16 feature unavailable).
+Probe prior fallback lần lượt v1 **54**, C2 **99**, A **94**, B **99**; ngoài OOD
+bắt buộc, gate prior còn phụ thuộc reports control nên không nhận là tỷ lệ active
+của hosted run tương lai. News kiểm policy next-day/undated và mask từng điểm;
+**79/102** unavailable giữ missing, không thay bằng neutral. Metadata ngày vẫn
+không chứng nhận content PIT, execution fills hoặc contamination hosted model.
+
+**Quota:** người dùng xác nhận ngày **10/11/2026** năm org độc lập, Free, mỗi
+model RPM30/RPD1000/TPM8000/TPD200000, không tách ITPM/OTPM. Năm **GET catalog**
+xác nhận cả hai model active; không POST/inference. Endpoint không trả org ID,
+nên grade là **user attestation + authenticated catalog**, không nhận provider
+đã xác minh org IDs. [Nguồn hạn mức chính thức](https://console.groq.com/docs/rate-limits)
+và [catalog model](https://console.groq.com/docs/models) được đối chiếu cùng ngày.
+Không ghi key hoặc tạo credential/quyền mới; receipt chỉ giữ tham chiếu/HMAC.
+
+Trong controls, prompt lớn nhất **3.835 ký tự**, reserve body SDK lớn nhất
+**3.422 token**; khóa planning
+Decision reserve **4.500**, hai vision body trên ảnh thật **5.471 / 5.110**.
+Trần admission mỗi request **8.000 token**, prompt<6.500 ký tự, BRPP≤600;
+vượt trần phải dừng, không hạ cap ngầm. Budget vẫn **2.448 Decision slots +
+204 vision +10 smoke =2.662 nominal**, tối đa **7.986 attempts** gồm repair.
+Carry497 request/1.140.404 token giữ nguyên, dedup theo org/UUID; không reset
+quota khi đổi namespace.
+
+Lịch planning khóa năm queue org độc lập, point giữ cùng org ở mọi branch/repeat,
+DAG nội điểm tuần tự; ưu tiên point theo lịch, thứ tự hoàn tất xuyên org có thể
+khác nhau vì memory frozen không nhập nhãn test. Bảo thủ gộp cả hai model vào
+cùng RPM/RPD/TPM/TPD mỗi org. Với giả định latency **5 giây/request** (scenario,
+không phải phép đo hosted mới), nominal reserve **12.141.843 token**, khoảng
+**298,64 giờ**; scenario mọi attempt dùng trọn8.000 reserve là **63.888.000 token**,
+khoảng **1.594,28 giờ**. Đây là mô phỏng quota có điều kiện, không bảo đảm thời
+gian hoàn thành; không có deadline48h hoặc tự giảm mẫu. Usage bên ngoài, headers
+thực và model availability phải đối soát lại trước/tại U08. Chi tiêu khóa **0 USD**.
+
+[Gói assets v2](unified_comparison_assets_v2.zip) giữ **287 thành viên**,
+**25.448.065 byte**, SHA256
+`d5c4f1bc31c1a95d9e685a9cc13d1f86ce2d3cc0105b9023561fd5f567e2d8c4`.
+Gói có nguồn numeric/preparations/control và compatibility, không có model
+weights hoặc raw response hosted mới. Model/H09/nguồn gốc dùng bindings hiện hữu;
+CLI restore chỉ nhận namespace/hash đã khóa và từ chối overwrite byte khác.
+
+```powershell
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py restore
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py verify
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py replay-numeric
+```
+
+`verify` mặc định chỉ hash/tái dựng preflight thuần, không đọc credential,
+import model hoặc tạo client. `replay-numeric` tái fit selector trước test,
+kiểm102 alpha/native bridge, context/student/utility, retrieval và tám prompt/
+policy control từ nguồn đã pin trong tiến trình mới, không tạo HTTP client.
+
+Đã compile **chín Python mới/đổi**, PASS **146 case duy nhất / 14 module**,
+không fail/error/skip trong bốn log nghiệm thu cuối:
+
+| Nhóm | PASS | Phạm vi |
+| --- | --- | --- |
+| protocol | 31 | V1 candidate trên cây hiện hành, protocol/nguồn v2, split/export→CausalSources, quota pooling, metadata GET-only, không key/client trong verify |
+| causal | 25 | Đủ85 formula/prefix/poison, selector/bridge U05, source9-symbol/future events, reserve chặn oracle có positive control, H03 refusal và LF/CRLF compatibility |
+| providers | 75 | Regime prefix, Bayesian/price-index/similarity PIT, MT tasks/features/student/Decision và fallback/source proofs |
+| unified | 15 | Runner/evaluator/UNKNOWN/resume, immutable shared, paired/raw-policy, CLI/UI và lazy OFF |
+
+Module `test_historical_adapter_leakage` vẫn neo H03 và từ chối source serving
+mới ở setup, không được tính là suite PASS cho cây này. Probe bị từ chối được
+giữ nguyên trong QA; test mới xác nhận verifier cũ vẫn fail-closed, còn provider
+mới được kiểm bằng source/PIT và cold consumer riêng. Không sửa verifier/receipt
+H03, không che bằng skip hoặc xóa test cũ. Không chạy full unit/E2E/toàn leakage
+suite; chỉ các đường split, providers và hợp đồng caller ở bảng trên bị ảnh hưởng.
+
+Cold restore sang thư mục tạm mới đã kiểm **286 asset + manifest ZIP**, nguồn
+và runtime. Tiến trình `-I` mới tái tạo **102/102** điểm, chín fit selector và
+toàn native numeric/sentiment, alpha bridge, HMM/scaler/context/student/utility,
+retrieval, request và policy ABI. Không chỉ tin preparations đã ký; provider
+thật dựng lại trace/request và so bytes/numeric với producer. Gate cuối khóa
+manifest payload SHA256
+`973504c09932bd70d8fb8369ca9b6dfc757eeee79ab8eb57d0cefd31968e4548`,
+**660 source bindings**, **107 package/Python3.13.5**. **551/554** binding U06 v1
+giữ nguyên; ba thay đổi là `.gitattributes`, root README và test V1 dùng candidate
+hiện hành thay vì giả receipt frozen chứng nhận mọi cây mới. Model/runtime/math
+cũ không đổi; v1/H03 receipts tiếp tục giữ scope nguồn cũ.
+
+Đối soát **21.383 frozen artifact / 21.948 đường dẫn U01** PASS; không sửa giá,
+paper, revision, receipt hoặc archive lịch sử. [QA v2](unified_comparison_checks_v2.zip)
+giữ log/IDs, cold receipts, compile/source bindings và prototype bị loại nguyên
+byte trong `not_admitted_prototype/`; consumer không nhập chúng vào study.
+Gói **480.508 byte / 171 thành viên**, SHA256
+`0891a3934ab256a170b42b3681b65fc8b7ce2fbacdc11df2a18bda212005b7ce`.
+Consumer mới đã PASS hash/nguồn/runtime, viện dẫn đúng cold numeric đã khóa.
+Thêm `--numeric` để chạy lại toàn bộ forward/selector replay, không API:
+
+```powershell
+Expand-Archive -LiteralPath docs/plan/week12/unified_comparison_checks_v2.zip -DestinationPath "$env:TEMP/u06-v2-checks"
+py -3.13 -I -X utf8 "$env:TEMP/u06-v2-checks/verify_package.py" "$PWD" docs/plan/week12/unified_comparison_checks_v2.zip
+```
+
+U06 **COMPLETE_OFFLINE_INPUTS_READY**; native row-wise vẫn **FAIL**, whole-system
+causal **NOT_CERTIFIED**, execution release **PENDING_U07_U08**. Không nhận
+hosted effect hoặc superiority từ controls. Chưa merge nền vào develop.
 
 ### Kết quả và giới hạn U06
+
+Phần dưới giữ kết quả **v1** tại commit `1c19513d`, trước amendment ở trên.
+Trạng thái BLOCKED và gói QA v1 chứng nhận snapshot đó, không phải trạng thái v2
+hoặc gate của cây nguồn hiện hành; giữ nguyên byte cả ba artifact máy v1.
 
 [Protocol v1](unified_comparison_protocol.json) khóa thiết kế
 `unified_anchor102_historical_v1`; [manifest máy](unified_comparison_manifest.json)

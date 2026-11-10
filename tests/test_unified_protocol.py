@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
@@ -172,12 +173,18 @@ class UnifiedProtocolTests(unittest.TestCase):
         code = """
 import sys,runpy
 sys.path.insert(0,sys.argv.pop(1))
-sys.argv=['prepare_unified_comparison.py','verify']
+candidate=sys.argv.pop(1)
+sys.argv=['prepare_unified_comparison.py','verify','--manifest',candidate]
 runpy.run_path('scripts/prepare_unified_comparison.py',run_name='__main__')
 assert not {'torch','groq','httpx','core.bayesian_retriever','core.regime_detector','core.causal_alpha'}.intersection(sys.modules)
 """
-        result = subprocess.run([sys.executable, "-I", "-X", "utf8", "-c", code, str(ROOT)], cwd=ROOT,
-                                capture_output=True, text=True, encoding="utf-8")
+        # V1 frozen tiếp tục chứng nhận snapshot cũ; candidate này kiểm compiler v1 trên cây hiện hành.
+        with TemporaryDirectory(prefix="protocol-v1-test-", dir=ROOT / "outputs/unified_integration") as folder:
+            path = Path(folder) / "candidate.json"
+            self.assertTrue(path.resolve().is_relative_to(ROOT / "outputs/unified_integration"))
+            path.write_bytes(json_bytes(protocol.seal(self.manifest)))
+            result = subprocess.run([sys.executable, "-I", "-X", "utf8", "-c", code, str(ROOT), path.relative_to(ROOT).as_posix()], cwd=ROOT,
+                                    capture_output=True, text=True, encoding="utf-8")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["status"], "PASS_OFFLINE_PREFLIGHT")
 
