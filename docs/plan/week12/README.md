@@ -49,7 +49,7 @@ dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 - [x] U08.4 — Smoke BHN-2025-10-01, một repeat/đúng org4:8 slot,6 HTTP200,12.793 token;0 query payoff, cold verify PASS.
 - [x] U08.5 — Grant research mới sau smoke đã neo Git. Collector có lock/checkpoint/heartbeat đã chạy và dừng an toàn, sẵn sàng để người dùng resume thủ công.
 - [x] U08.5a — Amendment quota theo `(org, model)` đã PASS 61 test, compile 5 file và cold verify 32 điểm hoàn chỉnh. Prefix 487 HTTP và 2.390 file checkpoint giữ nguyên byte, bàn giao entrypoint resume mới.
-- [ ] U08.5b — Admission theo phản hồi provider, bỏ lịch suy từ bộ đếm local và kiểm mixed-policy resume trước khi bàn giao lệnh.
+- [x] U08.5b — Admission provider bỏ lịch local, PASS 41 test/compile 5 file, cold verify 38 điểm và đối soát 2.878 file checkpoint nguyên byte. Bàn giao lệnh resume mới, 0 HTTP mới trong lượt sửa.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
 - [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
 
@@ -146,11 +146,11 @@ Ngày 11/11/2026, người dùng yêu cầu bỏ lịch chờ local để gửi 
 provider còn quota. Policy `provider_response_v1` cho gửi ngay, chỉ defer khi
 response lỗi thực của đúng org/model yêu cầu Retry-After hoặc exponential
 backoff. Bộ đếm RPM/RPD/TPM/TPD và header remaining của response thành công cũ
-được giữ làm telemetry. Budget từng request, phase cap7.956, trần ba attempt
+được giữ làm telemetry. Budget từng request, phase cap 7.956, trần ba attempt
 gồm retry/repair và rào UNKNOWN tiếp tục được kiểm trong đường gọi U08.
 
-Collector đã dừng an toàn trước sửa, prefix gồm591 HTTP (590 HTTP200,1 HTTP503),
-43 shared,968 forecast và38 canonical labels. Amendment áp dụng từ sequence591,
+Collector đã dừng an toàn trước sửa, prefix gồm 591 HTTP (590 HTTP200, 1 HTTP503),
+43 shared, 968 forecast và 38 canonical labels. Amendment áp dụng từ sequence591,
 tức HTTP attempt thứ592. Cold verifier kiểm policy org/model cũ trên đoạn487–590
 và policy provider từ591, cùng identity/UUID của journal research hiện có.
 Các thời điểm chờ local cũ trong status được xóa khi chuẩn bị bàn giao.
@@ -161,6 +161,21 @@ Các thời điểm chờ local cũ trong status được xóa khi chuẩn bị 
 [gói QA](unified_provider_quota_checks.zip) quản lý amendment này.
 Telemetry `WAITING_QUOTA`/`waiting_models` ghi lý do
 `PROVIDER_RETRY_AFTER_OR_BACKOFF`, mã HTTP gần nhất và thời điểm retry.
+
+Nghiệm thu tại source commit `8c4f45cb` có 41 test, gồm 29 ca mới hoặc chạy bằng
+transport mới và 12 ca prefix/label firewall liên quan, 0 failure/error/skip.
+Compile riêng 5 file Python mới. Phạm vi gồm bỏ bốn gate bộ đếm local, header
+remaining cũ, cooldown thực theo org/model, 429 qua restart, retry/repair/cap,
+UNKNOWN, raw reuse, paired/barrier, mixed-policy replay và manager lock khi seal.
+Tám pin source mới nối tiếp 694 pin nguồn đã khóa của các giai đoạn trước.
+
+Cold audit mới chặn mạng ngoài và sáu constructor key/client/SDK/provider,
+kết quả `PASS_PROVIDER_QUOTA_COLD_HANDOFF`, tái lập 38 điểm/912 forecast thuộc
+những điểm này và 38 canonical labels. Cả 2.878 file identity/wire/raw/slot được
+đối soát nguyên byte. Journal có thêm 56 forecast ở các điểm dở, tổng 968.
+Probe offline 8.000 token ở đủ 10 bucket nhận READY, 0 HTTP mới. Study còn
+`PARTIAL_U08`, chờ thu đủ và seal. Gói QA có 7 thành viên/225.090 byte, SHA256
+`7d281df5b154bccc6e30f235a4cfed97f18ecfe781f396b04227cb40140aa3fa`.
 
 Người dùng khởi chạy hoặc resume bằng entrypoint hiện hành dưới đây từ thư mục gốc repo.
 
