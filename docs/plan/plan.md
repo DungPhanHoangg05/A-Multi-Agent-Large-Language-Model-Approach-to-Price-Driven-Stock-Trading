@@ -22,7 +22,11 @@ test, compile 5 file và cold verify 32 điểm đã đủ forecast.
 Ngày 11/11/2026, sau 38 điểm, [admission provider](week12/README.md#admission-theo-phản-hồi-provider)
 thay lịch chờ suy từ bộ đếm local bằng Retry-After/backoff từ response lỗi thực.
 Amendment đã PASS 41 test/compile 5 file và cold verify 38 điểm đã hoàn chỉnh.
-Người dùng tự khởi chạy theo lệnh resume hiện hành trong checklist U08.
+Ngày 11/11/2026, người dùng yêu cầu [reset hai điểm lỗi](week12/README.md#reset-hai-điểm-lỗi-theo-yêu-cầu-người-dùng)
+để tự chạy lại. Đã sao lưu/xóa 44 checkpoint của VCB-2026-04-01 và VJC-2025-12-19,
+giữ 67 điểm hoàn chỉnh và toàn bộ 1.087 HTTP. Amendment PASS 44 test/compile 6 file
+và cold verify 67 điểm; active còn 1.632 forecast/67 labels. Người dùng chạy tiếp
+bằng entrypoint mới trong checklist U08, chờ đủ cohort và cold seal.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.

@@ -50,6 +50,7 @@ dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 - [x] U08.5 — Grant research mới sau smoke đã neo Git. Collector có lock/checkpoint/heartbeat đã chạy và dừng an toàn, sẵn sàng để người dùng resume thủ công.
 - [x] U08.5a — Amendment quota theo `(org, model)` đã PASS 61 test, compile 5 file và cold verify 32 điểm hoàn chỉnh. Prefix 487 HTTP và 2.390 file checkpoint giữ nguyên byte, bàn giao entrypoint resume mới.
 - [x] U08.5b — Admission provider bỏ lịch local, PASS 41 test/compile 5 file, cold verify 38 điểm và đối soát 2.878 file checkpoint nguyên byte. Bàn giao lệnh resume mới, 0 HTTP mới trong lượt sửa.
+- [x] U08.5c — Reset hai điểm lỗi theo yêu cầu người dùng, sao lưu 44 checkpoint và giữ ledger; PASS 44 test/compile 6 file, cold verify 67 điểm hoàn chỉnh, bàn giao lệnh mới.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
 - [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
 
@@ -177,24 +178,69 @@ Probe offline 8.000 token ở đủ 10 bucket nhận READY, 0 HTTP mới. Study 
 `PARTIAL_U08`, chờ thu đủ và seal. Gói QA có 7 thành viên/225.090 byte, SHA256
 `7d281df5b154bccc6e30f235a4cfed97f18ecfe781f396b04227cb40140aa3fa`.
 
+### Reset hai điểm lỗi theo yêu cầu người dùng
+
+Ngày 11/11/2026, người dùng xác nhận Groq Console có HTTP200 khớp hai request
+mà journal local đang ghi UNKNOWN, rồi yêu cầu xóa điểm lỗi để tự chạy lại.
+Đã sao lưu và xóa toàn bộ 44 checkpoint của `VCB-2026-04-01` và
+`VJC-2025-12-19`, khóa generation mới bằng `provider_response_point_restart_v1`.
+Các kết quả mới thay toàn điểm, giữ upstream dùng chung cho đủ 24 forecast
+trong generation mới; 15 forecast dở trước reset được giữ trong backup.
+
+- [x] Hai điểm reset được chỉ định trước khi chạy lại, mọi checkpoint được sao lưu nguyên byte trước xóa.
+- [x] Giữ 67 điểm hoàn chỉnh và 4.916 file identity/wire/raw/slot còn lại nguyên byte.
+- [x] Giữ toàn bộ 1.087 HTTP attempts, gồm 12 raw của generation đã nghỉ và hai UNKNOWN cũ; chi phí vẫn cộng vào phase cap 7.956.
+- [x] PASS 44 test, compile riêng 6 file Python; cold handoff offline PASS, 0 HTTP mới.
+- [x] Neo runtime/grant/backup/checks vào Git và bàn giao entrypoint mới để người dùng tự chạy.
+
+[Backup checkpoint](unified_point_restart_backup.zip) có 57 thành viên/740.003 byte,
+SHA256 `5b61f99f7f44340e3545d56b22fecb23b1428a291b2dd46e44b13e8d9515249e`.
+[Runtime reset](unified_point_restart_runtime.json),
+[grant thủ công](unified_point_restart_release.json),
+[scoped checks](unified_point_restart_checks.json) và
+[gói QA](unified_point_restart_checks.zip) khóa danh sách điểm, từng raw đã nghỉ,
+prefix còn lại và quyền manual/Free/0 USD. Gói QA có 9 thành viên/382.452 byte,
+SHA256 `ead409a839c09f15b18cbdcc59e225bf3a1df93c0ec2bb9cfdc00af6d5ec41c1`.
+
+Nghiệm thu source `2369e6f0` bao phủ reset sau HTTP timeout, UUID mới, replay/raw,
+retry/repair/cap qua restart, backup hỏng, checkpoint bị sửa, đường dẫn ngoài
+namespace, purge bị ngắt, bảo vệ điểm hoàn chỉnh/prefix, paired/barrier, manager
+lock và label/leakage firewall liên quan. Chín pin source mới nối tiếp 702 pin
+nguồn cũ giữ nguyên hash; runtime/package versions cũ giữ nguyên. Chỉ kiểm thử
+đường chạy bị ảnh hưởng, không chạy full suite, full compileall hoặc E2E.
+
+Cold consumer chặn mạng ngoài và sáu constructor key/client/SDK/provider,
+nhận `PASS_EXPLICIT_POINT_RESTART_COLD_HANDOFF`: tái lập 67 điểm hoàn chỉnh/
+1.608 forecast và 67 canonical labels. Trạng thái active có 70 shared,
+1.632/2.448 forecast và 67/102 labels. Ledger có 1.075 HTTP active và 12 HTTP
+đã nghỉ; cả 1.087 vẫn có raw gốc. Probe admission offline cho đủ 10 bucket
+nhận READY; quota thực tiếp tục được xác định qua phản hồi provider khi người
+dùng chạy. UNKNOWN mới vẫn dừng để đối soát; cooldown 429/5xx và trần ba
+attempt mỗi execution vẫn hiệu lực. Diagnostic mới lưu status/request ID,
+response hoặc loại ngoại lệ sát HTTP transport, loại bỏ header credential
+và nội dung thông báo ngoại lệ khỏi log.
+
+U08.6 còn chờ đủ cohort và cold seal. U09 phải dùng receipt/dataset active của
+entrypoint mới; raw đã nghỉ được giữ để kiểm toán chi phí và quyết định reset.
+
 Người dùng khởi chạy hoặc resume bằng entrypoint hiện hành dưới đây từ thư mục gốc repo.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_provider_quota/run.py status
+py -3.13 -I -X utf8 scripts/unified_point_restart/run.py status
 Remove-Item -LiteralPath 'outputs/unified_integration/u08_research_r1/stop.request' -ErrorAction SilentlyContinue
-py -3.13 -I -X utf8 scripts/unified_provider_quota/run.py collect
+py -3.13 -I -X utf8 scripts/unified_point_restart/run.py collect
 ```
 
 Sau khi thu đủ, collector tự cold verify và seal. Có thể đối soát lại bằng lệnh sau.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_provider_quota/run.py verify --seal
+py -3.13 -I -X utf8 scripts/unified_point_restart/run.py verify --seal
 ```
 
 Collector có OS lock và heartbeat ở `outputs/unified_integration/u08_research_r1/status.json`.
 Lệnh collect thứ hai không được mở worker trùng. Chờ quota giữ timestamp/usage,
-không reset UUID hoặc mở lại full1020. UNKNOWN/cap3 hoặc source thay đổi làm
-dừng có checkpoint để đối soát. Chỉ khi đủ102 điểm và cold seal PASS mới đánh dấu
+giữ quyết định reset hai điểm đã khóa ở trên. UNKNOWN mới/cap3 hoặc source thay đổi
+làm dừng có checkpoint để đối soát. Chỉ khi đủ102 điểm và cold seal PASS mới đánh dấu
 U08.6 hoàn tất; trạng thái khởi chạy chưa phải nghiệm thu thu đủ hoặc superiority.
 
 ### Checklist chi tiết U07

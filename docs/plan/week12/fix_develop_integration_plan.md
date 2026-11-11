@@ -8,6 +8,9 @@ tách ngân sách theo org/model và nối từ prefix 487 HTTP đã thu. Ngư�
 khởi chạy bằng entrypoint amendment được ghi trong checklist.
 Ngày 11/11/2026, [amendment admission provider](README.md#admission-theo-phản-hồi-provider)
 nối từ prefix 591 HTTP, bỏ lịch chờ local và giữ cooldown theo lỗi provider.
+Sau đó, theo yêu cầu người dùng, [reset hai điểm lỗi](README.md#reset-hai-điểm-lỗi-theo-yêu-cầu-người-dùng)
+sao lưu/xóa 44 checkpoint, giữ 67 điểm hoàn chỉnh và 1.087 HTTP; cold handoff
+PASS với 1.632 forecast active. Người dùng tự chạy tiếp bằng entrypoint mới.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
