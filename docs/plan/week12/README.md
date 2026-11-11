@@ -49,6 +49,7 @@ dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 - [x] U08.4 — Smoke BHN-2025-10-01, một repeat/đúng org4:8 slot,6 HTTP200,12.793 token;0 query payoff, cold verify PASS.
 - [x] U08.5 — Grant research mới sau smoke đã neo Git. Collector có lock/checkpoint/heartbeat đã chạy và dừng an toàn, sẵn sàng để người dùng resume thủ công.
 - [x] U08.5a — Amendment quota theo `(org, model)` đã PASS 61 test, compile 5 file và cold verify 32 điểm hoàn chỉnh. Prefix 487 HTTP và 2.390 file checkpoint giữ nguyên byte, bàn giao entrypoint resume mới.
+- [ ] U08.5b — Admission theo phản hồi provider, bỏ lịch suy từ bộ đếm local và kiểm mixed-policy resume trước khi bàn giao lệnh.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
 - [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
 
@@ -139,18 +140,40 @@ forecast ở các điểm đang dở, tổng 802. Probe offline 8.000 token nh�
 Gói QA có 7 thành viên/189.185 byte, SHA256
 `0c1851ba45665808f03b04760c91e155f3e60e9bb3a5b69e1220805f347242ab`.
 
-Người dùng khởi chạy hoặc resume từ thư mục gốc repo bằng PowerShell.
+#### Admission theo phản hồi provider
+
+Ngày 11/11/2026, người dùng yêu cầu bỏ lịch chờ local để gửi được request khi
+provider còn quota. Policy `provider_response_v1` cho gửi ngay, chỉ defer khi
+response lỗi thực của đúng org/model yêu cầu Retry-After hoặc exponential
+backoff. Bộ đếm RPM/RPD/TPM/TPD và header remaining của response thành công cũ
+được giữ làm telemetry. Budget từng request, phase cap7.956, trần ba attempt
+gồm retry/repair và rào UNKNOWN tiếp tục được kiểm trong đường gọi U08.
+
+Collector đã dừng an toàn trước sửa, prefix gồm591 HTTP (590 HTTP200,1 HTTP503),
+43 shared,968 forecast và38 canonical labels. Amendment áp dụng từ sequence591,
+tức HTTP attempt thứ592. Cold verifier kiểm policy org/model cũ trên đoạn487–590
+và policy provider từ591, cùng identity/UUID của journal research hiện có.
+Các thời điểm chờ local cũ trong status được xóa khi chuẩn bị bàn giao.
+
+[Runtime provider](unified_provider_quota_runtime.json),
+[grant thủ công](unified_provider_quota_release.json),
+[scoped checks](unified_provider_quota_checks.json) và
+[gói QA](unified_provider_quota_checks.zip) quản lý amendment này.
+Telemetry `WAITING_QUOTA`/`waiting_models` ghi lý do
+`PROVIDER_RETRY_AFTER_OR_BACKOFF`, mã HTTP gần nhất và thời điểm retry.
+
+Người dùng khởi chạy hoặc resume bằng entrypoint hiện hành dưới đây từ thư mục gốc repo.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_model_quota/run.py status
+py -3.13 -I -X utf8 scripts/unified_provider_quota/run.py status
 Remove-Item -LiteralPath 'outputs/unified_integration/u08_research_r1/stop.request' -ErrorAction SilentlyContinue
-py -3.13 -I -X utf8 scripts/unified_model_quota/run.py collect
+py -3.13 -I -X utf8 scripts/unified_provider_quota/run.py collect
 ```
 
 Sau khi thu đủ, collector tự cold verify và seal. Có thể đối soát lại bằng lệnh sau.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_model_quota/run.py verify --seal
+py -3.13 -I -X utf8 scripts/unified_provider_quota/run.py verify --seal
 ```
 
 Collector có OS lock và heartbeat ở `outputs/unified_integration/u08_research_r1/status.json`.
