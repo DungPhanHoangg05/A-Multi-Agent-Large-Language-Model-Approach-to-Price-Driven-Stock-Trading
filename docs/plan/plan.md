@@ -5,6 +5,14 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+**Từ 12/11/2026, `develop` là nhánh tích hợp duy nhất cho toàn bộ công việc:**
+hệ gốc, Bayesian/MT-BICL, thực nghiệm, bài báo và phản hồi reviewer.
+Task mới tách nhánh từ develop rồi merge trở lại theo AGENTS; `fix` chỉ giữ vai
+trò nguồn lịch sử. [Hướng dẫn làm việc chung](week12/develop_workflow.md) xác định
+nguồn bài báo, evidence, lệnh kiểm offline và ranh giới tài liệu cũ.
+[Checklist W12](week12/README.md#đầu-mối-làm-việc-duy-nhất-trên-develop) là nơi
+theo dõi tiếp U10 và các yêu cầu reviewer còn thiếu; root `plan.md` là lịch sử.
+
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào
 develop. **U08 hoàn tất ngày 12/11/2026**: receipt `PASS_U08_RESEARCH`, đủ

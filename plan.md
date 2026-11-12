@@ -1,5 +1,23 @@
 # Kế hoạch hoàn thiện hệ thống theo 18 nhận xét reviewer
 
+> **Đầu mối hiện hành từ 12/11/2026:** toàn bộ hệ thống, thực nghiệm, bài báo và
+> phản hồi reviewer được phát triển trên các nhánh tác vụ từ **`develop`**, rồi
+> merge về **`develop`** theo AGENTS.md. Không tiếp tục luồng phát triển riêng
+> trên `fix`. [Kế hoạch tổng](docs/plan/plan.md),
+> [checklist hiện hành](docs/plan/week12/README.md#đầu-mối-làm-việc-duy-nhất-trên-develop)
+> và [hướng dẫn hệ thống/bài báo](docs/plan/week12/develop_workflow.md)
+> là nơi quản lý công việc mới.
+>
+> Phần bên dưới giữ kế hoạch và kết quả lịch sử của đợt phản biện tại
+> `fix:9efd23f4157e0d3ab8069fccab7dccf03439a714`. Những chỉ dẫn cũ về tạo nhánh
+> từ/merge vào `fix`, cập nhật tiến độ ở root `plan.md`, tách luồng KLTN hoặc
+> không thêm Bayesian chỉ mô tả phạm vi đợt cũ; không áp dụng cho luồng hợp nhất.
+> Các protocol, release, quyền gọi API và giới hạn khoa học cũ không tự được mở
+> lại. Giữ `paper/`, `revision/` và evidence đã khóa; cập nhật bài báo mới theo U10,
+> không thay số liệu hoặc nhận đã đáp ứng reviewer chỉ vì đổi đầu mối Git.
+
+## Kế hoạch và bằng chứng lịch sử của nhánh fix
+
 **Thứ tự: hoàn thiện hệ thống → đủ kết quả thật → kiểm chứng → sửa bài một lần → phản hồi reviewer.** Mục tiêu là hoàn thiện phần kỹ thuật và bằng chứng trong **48–72 giờ tiếp theo**, giảm số API calls cần thiết. Đối soát ngày 03/11/2026 theo `Reviewer Comments for author.docx`; thời gian chờ quota, nhãn người, tác giả/PID phải báo riêng, không tự coi đã xong.
 
 ## 1. Quy tắc thực hiện

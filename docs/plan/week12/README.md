@@ -7,6 +7,36 @@ Hệ thống giữ Original, Bayesian Prior v1, Bayesian Prior v2/C2,
 Bayesian Prior A/B và MT-BICL. Giai đoạn hiện hành đánh giá lại trên
 dữ liệu historical đã exposed; chưa có release xác nhận forward.
 
+## Đầu mối làm việc duy nhất trên develop
+
+Ngày **12/11/2026**, theo yêu cầu người dùng, mọi công việc hệ thống, thực nghiệm,
+bài báo và reviewer chuyển sang cùng luồng **nhánh tác vụ từ develop → kiểm tra
+theo phạm vi → merge develop**. [Hướng dẫn làm việc](develop_workflow.md) là đầu
+mối vận hành; không còn luồng phát triển riêng trên fix. Các tên `original_fix`,
+donor commit và source pin tiếp tục là định danh phương pháp/bằng chứng.
+
+- [x] Kiểm ancestry: `fix:9efd23f4` đã nằm trong `develop:4bc61086`; không có commit riêng của fix chưa được tích hợp.
+- [x] Kiểm đủ cây fix: chỉ workflow GitHub Pages đã nghỉ là không có ở cây hiện hành; không bật lại deployment cũ.
+- [x] Nguồn bài báo 50 file và revision 28 file đã có trên develop, cùng blob với fix; giữ nguyên raw/release/receipt lịch sử.
+- [x] Chuyển đầu mối root plan sang kế hoạch chung; hướng dẫn code, bài báo, reviewer và bằng chứng cùng trên develop.
+- [x] Kiểm diff/liên kết và đối soát evidence/source pins cho phạm vi tài liệu; không gọi API, refit hoặc sửa kết quả.
+
+Đã kiểm **29 liên kết mới/thay đổi**, giữ đủ **729 source bindings U09**.
+Rà checkout phát hiện **48 artifact lịch sử chỉ lệch CRLF/LF** so với inventory
+U01; đã sao lưu bản checkout vào ZIP tạm rồi khôi phục đúng byte Git đã khóa,
+kiểm cả OID/SHA256/length, không đổi giá trị dữ liệu hoặc expected hash. Các file
+này không thuộc source pins U09 hoặc asset bindings U06 hiện hành. Bản sao trước
+khôi phục: `%LOCALAPPDATA%/Temp/develop_checkout_newlines_d828a84970564413b1417138b1e2503e.zip`.
+Verifier U01/U02 sau khôi phục **PASS 21.383 artifact**, đối soát **21.948 đường
+dẫn**: giữ 21.947 đường dẫn, một workflow đã nghỉ có nguồn Git xác thực.
+
+Đợt này chỉ sửa tài liệu quản lý và thêm hướng dẫn vận hành. Không chạy
+compileall/unit/E2E/leakage theo AGENTS §1.2 vì code, runtime, schema, input,
+paper và các kết quả đã khóa không đổi. Gate U03/U08/U09 giữ đúng phạm vi cũ;
+việc tập trung công việc không nâng causal/reviewer acceptance hay đánh dấu U10
+hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
+trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
+
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
 Ngày 09/11/2026: đã lập [kế hoạch hợp nhất](fix_develop_integration_plan.md)
