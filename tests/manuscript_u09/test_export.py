@@ -206,6 +206,9 @@ class ExportTests(unittest.TestCase):
             with patch("core.manuscript_u09.release.load", return_value=self.bundle), \
                     patch("core.manuscript_u09.release.commit", return_value="fixture-commit"):
                 build(root)
+                manifest = decoded((root/RELEASE/"manifest.json").read_bytes())
+                self.assertEqual(manifest["figure"]["input"], PREFIX+"results.json")
+                self.assertEqual(manifest["figure"]["pointer"], "/contrasts")
                 self.assertTrue(verify(root)["byte_identical"])
                 with self.assertRaises(ValueError):
                     build(root)
