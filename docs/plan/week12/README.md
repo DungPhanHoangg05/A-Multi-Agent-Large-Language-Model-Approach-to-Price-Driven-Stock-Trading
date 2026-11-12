@@ -51,6 +51,7 @@ dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 - [x] U08.5a — Amendment quota theo `(org, model)` đã PASS 61 test, compile 5 file và cold verify 32 điểm hoàn chỉnh. Prefix 487 HTTP và 2.390 file checkpoint giữ nguyên byte, bàn giao entrypoint resume mới.
 - [x] U08.5b — Admission provider bỏ lịch local, PASS 41 test/compile 5 file, cold verify 38 điểm và đối soát 2.878 file checkpoint nguyên byte. Bàn giao lệnh resume mới, 0 HTTP mới trong lượt sửa.
 - [x] U08.5c — Reset hai điểm lỗi theo yêu cầu người dùng, sao lưu 44 checkpoint và giữ ledger; PASS 44 test/compile 6 file, cold verify 67 điểm hoàn chỉnh, bàn giao lệnh mới.
+- [x] U08.5d — Reset riêng MT_BICL/VCB-2026-09-23/repeat3 đã hết attempt; giữ 2.437 forecast và 1.693 HTTP, PASS 40 test/compile 4 file và cold verify 100 điểm.
 - [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
 - [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
 
@@ -223,18 +224,51 @@ và nội dung thông báo ngoại lệ khỏi log.
 U08.6 còn chờ đủ cohort và cold seal. U09 phải dùng receipt/dataset active của
 entrypoint mới; raw đã nghỉ được giữ để kiểm toán chi phí và quyết định reset.
 
+### Reset riêng forecast hết attempt
+
+Ngày 12/11/2026, người dùng yêu cầu bỏ lượt lỗi để chạy nốt. Đã sao lưu rồi xóa
+riêng checkpoint `forecast/VCB-2026-09-23/u0/r2/MT_BICL`; shared upstream,
+prepare và các forecast khác giữ nguyên. Execution cũ có ba HTTP theo thứ tự
+429 do TPM, 200 có `evidence_against` rỗng và 429 khi schema repair.
+Không chọn lại response hợp lệ hoặc xem payoff của điểm chưa hoàn chỉnh.
+
+- [x] Sao lưu một checkpoint và ba raw gốc trước xóa; giữ 7.992 file còn lại nguyên byte.
+- [x] Giữ 102 shared, 2.437 forecast, 100 điểm/labels hoàn chỉnh và toàn bộ 1.693 HTTP.
+- [x] UUID execution mới chỉ áp dụng slot đã chỉ định; 15 raw đã nghỉ gồm 12 raw của lần reset trước và ba raw lần này vẫn tính vào cap 7.956.
+- [x] PASS 40 test, compile riêng 4 file Python; cold handoff offline PASS, 0 request mới tới provider.
+- [x] Neo runtime/grant/backup/checks vào Git; người dùng tự chạy bằng CLI bên dưới.
+
+[Runtime slot](unified_slot_restart_runtime.json),
+[grant thủ công](unified_slot_restart_release.json),
+[scoped checks](unified_slot_restart_checks.json),
+[backup](unified_slot_restart_backup.zip) và [gói QA](unified_slot_restart_checks.zip)
+quản lý amendment `provider_response_slot_restart_v1` tại source `5177da6b`.
+Backup có 5 thành viên/22.750 byte, SHA256
+`09bec6ca8621e8f82802960527ab6e772ce901af8e01b19bdf773b9d45d2d7a9`.
+Gói QA có 9 thành viên/601.311 byte, SHA256
+`f2aee4c3b11ac718fbefdaa09400c11a91b7b2b823f3b5fe2fec90b4db1d098e`.
+Bảy pin mới nối tiếp 711 nguồn cũ giữ nguyên hash. Các test kiểm reset sau
+429/schema lỗi/429, giữ upstream/prepare/các slot khác, UUID mới, replay,
+retry/repair/cap, từ chối bỏ response hợp lệ, backup/checkpoint bị sửa,
+manager lock, barrier nhãn và leakage firewall liên quan. Chỉ chạy checks đúng
+phạm vi, không chạy full suite, full compileall hoặc E2E. Cold verifier chặn
+mạng và sáu constructor key/client/SDK/provider, tái lập 100 điểm hoàn chỉnh/
+2.400 forecast cùng 100 labels; 37 forecast còn lại thuộc hai điểm dở.
+Study còn thiếu 11 forecast và hai labels, chưa seal hoặc hoàn tất U08.6.
+Quota thực vẫn theo response provider; trần ba HTTP áp dụng riêng execution mới.
+
 Người dùng khởi chạy hoặc resume bằng entrypoint hiện hành dưới đây từ thư mục gốc repo.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_point_restart/run.py status
+py -3.13 -I -X utf8 scripts/unified_slot_restart/run.py status
 Remove-Item -LiteralPath 'outputs/unified_integration/u08_research_r1/stop.request' -ErrorAction SilentlyContinue
-py -3.13 -I -X utf8 scripts/unified_point_restart/run.py collect
+py -3.13 -I -X utf8 scripts/unified_slot_restart/run.py collect
 ```
 
 Sau khi thu đủ, collector tự cold verify và seal. Có thể đối soát lại bằng lệnh sau.
 
 ```powershell
-py -3.13 -I -X utf8 scripts/unified_point_restart/run.py verify --seal
+py -3.13 -I -X utf8 scripts/unified_slot_restart/run.py verify --seal
 ```
 
 Collector có OS lock và heartbeat ở `outputs/unified_integration/u08_research_r1/status.json`.
