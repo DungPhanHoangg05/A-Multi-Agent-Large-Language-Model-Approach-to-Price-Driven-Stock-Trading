@@ -40,11 +40,18 @@ trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại
 ## Công việc cuối cho bài báo và giao diện
 
 [Kế hoạch cuối](final_paper_ui_plan.md) được lập ngày **12/11/2026** sau audit
-nguồn `develop:d16630e9`. Đây là checklist duy nhất cho phần còn lại; F01–F05
+nguồn `develop:d16630e9`. Checklist này và cột checklist tại mục 6 của plan
+được cập nhật đồng bộ trong cùng commit; kết quả kiểm tra ghi tại đây. F01–F05
 cụ thể hóa U10, F06–F12 là yêu cầu nâng ứng dụng sau đó. Giữ nguyên các section
 chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào thân bài và chi tiết
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
+
+**Bước tiếp theo: F01**, chốt mapping hai study, snapshot và đường replay
+offline; đạt điều kiện F01 rồi mới làm F02. F00 hoàn tất, F01–F12 chưa bắt đầu.
+Bổ sung cột checklist theo yêu cầu ngày 12/11/2026 chỉ đổi hai tài liệu này;
+kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
+AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 
 - [x] F00 — Audit paper/reviewer, bảng/hình, registry/runner/API/templates; lập kế hoạch cuối, chưa triển khai code hoặc sửa bản thảo.
 - [ ] F01 — Chốt mapping hai study, snapshot nguồn và đường historical replay trước thay đổi.

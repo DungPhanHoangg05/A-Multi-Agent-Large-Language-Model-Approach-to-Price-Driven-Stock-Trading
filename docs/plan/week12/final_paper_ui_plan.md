@@ -2,8 +2,9 @@
 
 Ngày audit: **12/11/2026**, nguồn `develop:d16630e9`, donor `fix:9efd23f4`.
 Đây là kế hoạch triển khai phần còn lại sau U01–U09, **chưa sửa code, LaTeX,
-template, dữ liệu hay kết quả**. Checklist thực hiện duy nhất nằm tại
-[README W12](README.md#công-việc-cuối-cho-bài-báo-và-giao-diện).
+template, dữ liệu hay kết quả**. Bảng tại mục 6 có cột checklist để theo dõi
+ngay trong plan; trạng thái được cập nhật đồng bộ với
+[README W12](README.md#công-việc-cuối-cho-bài-báo-và-giao-diện), nơi ghi kết quả kiểm tra.
 [Quy trình develop](develop_workflow.md) tiếp tục áp dụng: nhánh tác vụ từ
 develop, kiểm tra đúng phạm vi, commit rồi merge develop; không quay lại làm
 việc trên fix. Kế hoạch này cụ thể hóa U10 và bổ sung phần ứng dụng sau U10,
@@ -325,24 +326,35 @@ Nguồn neo cho kế hoạch:
 
 ## 6. Thứ tự thực hiện và điều kiện hoàn thành
 
-Trạng thái/checklist của các mã F dưới đây chỉ cập nhật ở README W12. F01–F05
+Trạng thái/checklist của các mã F dưới đây cập nhật cùng README W12 trong
+cùng commit khi bắt đầu hoặc hoàn tất một bước. F01–F05
 hoàn tất U10; F06–F12 là phần ứng dụng bổ sung. Mỗi bước dùng nhánh tác vụ phù
 hợp từ develop, không commit trực tiếp develop.
 
-| Mã | Công việc, nhánh gợi ý | Phụ thuộc | Đầu ra và điều kiện hoàn thành |
-| --- | --- | --- | --- |
-| F01 | Chốt nguồn/evidence và đường historical replay — `docs/final-evidence-map` hoặc `feat/historical-consumer` nếu cần code | Audit này | Snapshot/archive cũ nguyên byte; mapping hai study; smoke restore offline đúng hashes, chỉ chạy phần resolver mới nếu có |
-| F02 | Generator bảng/figure/macros U09 — `feat/manuscript-unified-results` | F01 | Đọc nguồn đã verify; deterministic output namespace mới; đủ 10 hàng, contrasts/bridge/support/null; không ghi đè archive/macro gốc |
-| F03 | Cập nhật nội dung tám section và A–F — `docs/manuscript-extensions` | F02 | Đúng mapping §3, cùng cấu trúc/title/authors, kết luận cân bằng; references có nguồn, không trộn nghiên cứu |
-| F04 | Cập nhật sơ đồ/caption/layout — `docs/manuscript-figures` | F03 | Bốn sơ đồ/algorithm liên quan đúng pipeline, chart nguồn được giữ; bảng/hình đọc được ở kích thước PDF |
-| F05 | Reviewer, build hai PDF, kiểm và release bài — `docs/manuscript-final-release` | F04 | Đối soát 87 tiểu mục, numbering/physical pages sau build, manifest và source archive; không claim reviewer closed thiếu bằng chứng; U10 hoàn tất |
-| F06 | Chốt UX, capability và API contract — `feat/variant-serving-contract` | F05 | Schema/registry version mới, sáu lựa chọn chính/hai advanced, miền dùng rõ, job/config identity và trạng thái lỗi; historical pins vẫn có đường replay |
-| F07 | Đọc U09 và so sánh offline trên web — `feat/research-results-viewer` | F06 | UI thấy U09, adapter đúng schema, bảng/plot/export khớp artifacts; GET không gọi LLM; legacy reader còn hoạt động |
-| F08 | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Có dữ liệu as-of/resources mới đúng PIT, dependency/fallback, retry/checkpoint/quota, job isolation; cả sáu bản chạy được trên support công bố |
-| F09 | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn bản có hiệu lực backend, so sánh cùng snapshot, nguyên UI chức năng cũ, raw/final/coverage đúng, VI/EN và responsive |
-| F10 | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | Bỏ hard-code hai bản ở đường mới, bảo toàn adapter legacy, metrics/economics chung, progress/stop/resume/export và filters không làm sai pairing |
-| F11 | Nghiệm thu tích hợp đúng phạm vi — `test/variant-serving-integration` | F07–F10 | Offline tests/caller/leakage/recovery liên quan PASS, kiểm browser desktop/mobile, không đổi U09; live smoke giới hạn nếu triển khai cần |
-| F12 | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
+**Bắt đầu từ F01.** Chốt mapping bằng chứng của hai nghiên cứu, snapshot
+paper/revision/app và cách khôi phục nguồn/assets đã khóa; sau đó kiểm đường
+replay offline. Khi F01 đạt các điều kiện bên dưới mới chuyển F02 để sinh
+bảng/hình/macros U09. F01 chưa bắt đầu; việc thêm checklist không thay cho
+nghiệm thu bước này và không gọi API.
+
+Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**. Chỉ đánh ☑ khi
+đạt điều kiện hoàn thành và có kết quả kiểm tra tương ứng trong README W12.
+
+| Mã | Checklist | Công việc, nhánh gợi ý | Phụ thuộc | Đầu ra và điều kiện hoàn thành |
+| --- | --- | --- | --- | --- |
+| F00 | ☑ Hoàn tất | Audit và lập kế hoạch cuối | U01–U09 | Đã audit paper/reviewer/API/templates và lập plan; chưa triển khai các bước F01–F12 |
+| F01 | ☐ Chưa bắt đầu | Chốt nguồn/evidence và đường historical replay — `docs/final-evidence-map` hoặc `feat/historical-consumer` nếu cần code | Audit này | Snapshot/archive cũ nguyên byte; mapping hai study; smoke restore offline đúng hashes, chỉ chạy phần resolver mới nếu có |
+| F02 | ☐ Chưa bắt đầu | Generator bảng/figure/macros U09 — `feat/manuscript-unified-results` | F01 | Đọc nguồn đã verify; deterministic output namespace mới; đủ 10 hàng, contrasts/bridge/support/null; không ghi đè archive/macro gốc |
+| F03 | ☐ Chưa bắt đầu | Cập nhật nội dung tám section và A–F — `docs/manuscript-extensions` | F02 | Đúng mapping §3, cùng cấu trúc/title/authors, kết luận cân bằng; references có nguồn, không trộn nghiên cứu |
+| F04 | ☐ Chưa bắt đầu | Cập nhật sơ đồ/caption/layout — `docs/manuscript-figures` | F03 | Bốn sơ đồ/algorithm liên quan đúng pipeline, chart nguồn được giữ; bảng/hình đọc được ở kích thước PDF |
+| F05 | ☐ Chưa bắt đầu | Reviewer, build hai PDF, kiểm và release bài — `docs/manuscript-final-release` | F04 | Đối soát 87 tiểu mục, numbering/physical pages sau build, manifest và source archive; không claim reviewer closed thiếu bằng chứng; U10 hoàn tất |
+| F06 | ☐ Chưa bắt đầu | Chốt UX, capability và API contract — `feat/variant-serving-contract` | F05 | Schema/registry version mới, sáu lựa chọn chính/hai advanced, miền dùng rõ, job/config identity và trạng thái lỗi; historical pins vẫn có đường replay |
+| F07 | ☐ Chưa bắt đầu | Đọc U09 và so sánh offline trên web — `feat/research-results-viewer` | F06 | UI thấy U09, adapter đúng schema, bảng/plot/export khớp artifacts; GET không gọi LLM; legacy reader còn hoạt động |
+| F08 | ☐ Chưa bắt đầu | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Có dữ liệu as-of/resources mới đúng PIT, dependency/fallback, retry/checkpoint/quota, job isolation; cả sáu bản chạy được trên support công bố |
+| F09 | ☐ Chưa bắt đầu | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn bản có hiệu lực backend, so sánh cùng snapshot, nguyên UI chức năng cũ, raw/final/coverage đúng, VI/EN và responsive |
+| F10 | ☐ Chưa bắt đầu | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | Bỏ hard-code hai bản ở đường mới, bảo toàn adapter legacy, metrics/economics chung, progress/stop/resume/export và filters không làm sai pairing |
+| F11 | ☐ Chưa bắt đầu | Nghiệm thu tích hợp đúng phạm vi — `test/variant-serving-integration` | F07–F10 | Offline tests/caller/leakage/recovery liên quan PASS, kiểm browser desktop/mobile, không đổi U09; live smoke giới hạn nếu triển khai cần |
+| F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy
 được các bản mở rộng trên miền được hỗ trợ. Không gọi hoàn tất khoa học nếu
