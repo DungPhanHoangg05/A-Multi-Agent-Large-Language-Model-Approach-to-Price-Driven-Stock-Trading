@@ -8,6 +8,14 @@ This appendix specifies the role-level prompt and output contracts used to inter
 \label{app:prompt_decision}
 The prompt supplies distilled Indicator, Pattern and Trend reports with variant-enabled factor and sentiment sections. It requests comparison of trend/key levels, candles, momentum and enabled quantitative/text evidence, followed by a forced LONG/SHORT forecast for the net next-open/target-close cycle. The output contract comprises direction, horizon, confidence, risk/reward, supporting/opposing evidence and justification. General instructions remain in Base, while both factor and sentiment sections are removed. Main compact factor text and factorial five-row text are different families. Section~\ref{sec:systemarchitecture} and Figure~\ref{fig:decision_agent} describe these distinctions; the exact archived request is authoritative.
 
+\paragraph{Extension common/prior projection}
+Common uses the same shared Indicator/Pattern/Trend and sentiment parent as Native but substitutes the frozen causal alpha report and a common instruction/schema. Prior branches prepend only the visible historical evidence allowed by their readiness trace. Bayesian v1 displays at most three matured same-symbol examples. C2 conditions its rate estimates on matched Trend/Pattern/Alpha/Indicator signals; A conditions the statistics on Trend/Pattern; B renders C2's counts, plug-in credible intervals and example IDs with explicit semantic definitions. The English descriptions here summarize those request builders, not verbatim served prompts. Every actual Vietnamese prompt, prefix/source hash and structured-output schema remains authoritative in the U08 raw/preparation records.
+
+For C2/A/B, the frozen readiness policy requires population support at least 20; a displayed statistic additionally requires conditional support at least five and credible-interval width at most 0.75. Example readiness is tested separately, with feature/scaler availability and qualified selected IDs. Selection uses requested K=3, seed 42, signal weight 0.5, 365-day recency half-life, maximum age 730 days, similarity threshold 0.625 and minimum five-session spacing. A prompt can show a qualified statistics or examples block without claiming that the other is ready. An empty visible block reuses Common's completed action. These historical evidence gates do not impose a profitability threshold on the current query.
+
+\paragraph{Fact and MT context}
+Fact\_Anchor receives the common reports, deterministic fact identifiers and assertions, and Common's completed reply; its reply must reproduce the fact assertions. The MT request adds a source-bound anchor, prior and target summaries, compact exemplars, query features, student probability and teacher-based utility summary where eligible. A source card binds the common request, fact card and anchor replies. Each context prefix is at most 600 characters, and the final request remains strictly below 6,500 characters after report distillation and capping. A bypass has neither a fabricated request nor a fabricated raw reply. Fact verification checks declared identifiers and enums, not every free-text financial claim; the external policy, rather than prompt wording alone, enforces the utility decision rule.
+
 \subsection{Pattern Agent Prompt}
 \label{app:prompt_pattern}
 The visual input is the archived candlestick PNG. The requested report covers pattern, confidence, directional bias, evidence, key candles and implication. The body-colour convention is green for Close greater than Open and red otherwise, including doji. This instruction and the deterministic consistency flag do not establish that the model grounded its answer in local chart evidence.
@@ -35,12 +43,18 @@ The declared \texttt{IndicatorAgentState} is a shared \texttt{TypedDict}; the ba
 
 Declared RSI/MACD/Stochastic/ROC/Williams, ATR, Bollinger and ADX/DI arrays do not imply that every array is forwarded by the deterministic backtest Indicator node or that each is a separate vote. Likewise, a sentiment schema comment does not establish that its peer or relative fields were observed. The forecasting target is the net Open-to-Close cycle in Eq.~\ref{eq:label}; it is separate from the state schema's field names. The evaluated pair shares upstream report parents, then uses variant-specific Decision composition and separate ledgers. The full schema listing and wrapper provenance are retained in source rather than reproduced as a misleading complete runtime trace.
 
+\paragraph{Extension records and outcome barrier}
+\texttt{SharedSnapshot} binds point/symbol/cutoff/fold, realization, payload and provenance. Its payload retains the report/image parent and the separately hash-bound causal alpha projection. A forecast record adds variant/profile, repeat, request/source identity, optional raw reply and preparation/retrieval trace. A policy record distinguishes \texttt{raw\_proposal}, \texttt{final\_action}, reason, bypass and anchor/utility proof. \texttt{prepare} and \texttt{forecast} records are durable for all eight roles and three repeats before an outcome record is admitted. The canonical outcome carries explicit decision/entry/exit fields and Eq.~\ref{eq:label} metadata; it is not part of the forecasting state. Duplicate raw UUID reuse, missing dependencies or source/data mismatches are errors, not imputed actions. U09's \texttt{results.json} and artifact bindings summarize the sealed active grid; the older replay API's singular \texttt{result.json} is a different schema.
+
 \FloatBarrier
 \setcounter{table}{0}
 \section{Custom Alpha Formula Implementation}
 \label{app:signals}
 The custom formulas below specify native handlers and distinguish their preprocessing from prototype/fallback implementations. ``Custom'' describes their role in this implementation; it is not a validated novelty or profitability claim. The following formulas precede native global normalization and IC orientation. Handler identities are not the rank of a selected display row.
 \input{generated/a02_custom.tex}
+
+\paragraph{Common operators are a separate profile}
+The extension retains the native formulas above and in the archived registry. Its row-causal adapters remove backward fills, use only row-available rolling information and keep warm-up/missingness explicit. Training fixes IC orientation; purged validation selects five factor IDs and a threshold from $\{0.05,0.10,0.20\}$. The frozen policy requires at least 60 train observations, 30 validation observations and five validation LONG cycles. Fixed historical origin, query-prefix hash and selector identity are checked on every projection. This profile does not replace the native full-Series normalization in Eq.~\ref{eq:alpha_norm}, and a handler name does not assert equivalence between the two constructions.
 
 \subsection{Flow-Driven Momentum (FDM)}
 FDM multiplies volatility-adjusted one-bar return by a volume/ADV20 ratio before the scaled tanh. The return adjustment uses rolling sample SD with its implementation-specific minimum observations. It is an OHLCV proxy, not directly measured order flow.
@@ -82,6 +96,18 @@ The research runtime is Python 3.13.5 with pinned numerical, graph, model-client
 
 The operational installation, Flask/JSON handling, tokenizer configuration and optional endpoint routing instructions remain in the repository. Their existence does not establish that each backend was used in the frozen study. Public distribution remains conditional on rights and a real persistent identifier. No credentials or private review document belong in a public reproducibility package.
 
+\paragraph{Extension tasks, teacher and frozen student}
+The numerical context uses same-symbol 63-session tasks, up to three prior tasks and at most eight matured observations per task and target, with prior/target/query IDs and holding intervals disjoint. Four numerical coordinates encode momentum over five/twenty sessions, twenty-session volatility and relative position to the twenty-session moving average; their train-fitted scaler and clipped model representation are frozen. Factual buckets use the signs of MACD minus signal and Close minus SMA20; exact zero/missing axes produce UNKNOWN rather than a favorable bucket. Query outcomes are absent. Context is frozen before each fold's first query and excludes all 102 test IDs across folds.
+
+The explicit teacher has sixteen Beta components on $\mu\in\{0.2,0.4,0.6,0.8\}$ and $\kappa\in\{2,8,32,128\}$, with $\alpha=\mu\kappa$, $\beta=(1-\mu)\kappa$ and train-only MAP-EM mixture weights. Prior-task likelihoods preserve task boundaries; target successes/failures update the target posterior. The selected causal-mask student uses task/role markers and only observed context labels; its query label is masked. The served checkpoint is fixed at seed 42/step 3000. No checkpoint is selected from U09 returns. Utility support requires at least two prior tasks and at least five observed gains and five losses across the admitted magnitude support. Its 4,096 draws use teacher-posterior success probabilities and Bayesian-bootstrap net gain/loss magnitudes. Student $P(y=+1)$ is supplied as context, not substituted for teacher utility draws. Neither procedure is fitted again during U08 inference or manuscript generation.
+
+\begingroup\emergencystretch=2em
+\paragraph{Release identities and historical restore}
+The protocol and resource manifest are \path{unified_comparison_protocol_v2.json} and \path{unified_comparison_manifest_v2.json} under \path{docs/plan/week12/}. The same directory holds U08's sealed \path{unified_live_research.zip}, U09's \path{unified_analysis_results.zip} and \path{unified_analysis_acceptance.json}. The study locks Python 3.13.5 and 107 package versions, 51 selector bindings, HMM, scaler, teacher and student, with separate bank and query provenance. Regime snapshots use VN-Index observations available by the cutoff, prefix-only forward filtering and recorded fit and training-end dates; future smoothing is excluded. These are historical pins for inputs, weights and source; they are not immutable hosted-weight attestations.
+
+The presentation release \path{outputs/revision/u09_manuscript_assets_v1/manifest.json} binds tables, an English-labelled figure and \texttt{Unified} macros; \texttt{numeric\_cells.json} records literal values, units, scale and rounding. Original Full/Base macros and archives remain intact. The snapshot and \path{docs/plan/week12/final_evidence_map.md} specify historical checkout, exact-byte overlay, restore of 286 ignored assets and cold replay of fifteen U09 artifacts. Verification covers saved predictions and its declared source/runtime release, not identical hosted responses or changed serving code.
+\par\endgroup
+
 \FloatBarrier
 \clearpage
 \setcounter{table}{0}
@@ -95,4 +121,17 @@ These tables use the same final supports and unchanged predictions as the main r
 \input{generated/a03_symbols.tex}
 \input{generated/a04_execution.tex}
 \endgroup
+\FloatBarrier
+
+\paragraph{Separate extension companions}
+The following tables belong only to the U08/U09 extension study. They do not extend the original study's response sample or apply its twelve execution stress scenarios to untested methods. U09 companions preserve 1,530 account rows (ten roles/controls, 51 accounts and three repeats), per-symbol/fold/repeat classification, raw-versus-final actions, policy reasons and prior traces. NA/null values, missing-class reasons and unrecorded effective K remain explicit. The source archive also retains cycle and daily-NAV ledgers; separate account means are not aggregate portfolio returns.
+\input{generated/u09/classification.tex}
+\input{generated/u09/economics.tex}
+\input{generated/u09/repeats.tex}
+\input{generated/u09/contrasts.tex}
+\input{generated/u09/bridge.tex}
+\input{generated/u09/support.tex}
+\input{generated/u09/sensitivity_return.tex}
+\input{generated/u09/sensitivity_ba.tex}
+\input{generated/u09/sensitivity_core4.tex}
 \FloatBarrier
