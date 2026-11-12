@@ -331,11 +331,12 @@ cùng commit khi bắt đầu hoặc hoàn tất một bước. F01–F05
 hoàn tất U10; F06–F12 là phần ứng dụng bổ sung. Mỗi bước dùng nhánh tác vụ phù
 hợp từ develop, không commit trực tiếp develop.
 
-**F01 đã hoàn tất; bước tiếp theo là F02.** [Mapping và runbook historical](final_evidence_map.md)
+**F01–F02 đã hoàn tất; bước tiếp theo là F03.** [Mapping và runbook historical](final_evidence_map.md)
 đã chốt hai nghiên cứu, snapshot paper/revision/app và đường khôi phục
 nguồn/assets đã khóa. Smoke checkout biệt lập đã khớp nguồn và replay nguyên
-byte 15 artifact U09; kết quả và hash ghi tại README W12. Chưa sinh
-bảng/hình/macros mới, chưa sửa paper/UI và không gọi API.
+byte 15 artifact U09. F02 đã sinh 26 artifact với 798 ô có provenance trong
+release/namespace U09 riêng; cold render nguyên byte PASS. Kết quả và hash
+ghi tại README W12. Chưa sửa nội dung bản thảo hoặc UI, không gọi API.
 
 Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**. Chỉ đánh ☑ khi
 đạt điều kiện hoàn thành và có kết quả kiểm tra tương ứng trong README W12.
@@ -344,7 +345,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | --- | --- | --- | --- | --- |
 | F00 | ☑ Hoàn tất | Audit và lập kế hoạch cuối | U01–U09 | Đã audit paper/reviewer/API/templates và lập plan; chưa sửa paper/UI |
 | F01 | ☑ Hoàn tất | Chốt nguồn/evidence và đường historical replay — `docs/final-evidence-map` | Audit này | Snapshot 810 file nguyên byte; mapping hai study; restore 286 asset, 729 source pin và cold replay 15 artifact PASS; không cần resolver mới |
-| F02 | ☐ Chưa bắt đầu | Generator bảng/figure/macros U09 — `feat/manuscript-unified-results` | F01 | Đọc nguồn đã verify; deterministic output namespace mới; đủ 10 hàng, contrasts/bridge/support/null; không ghi đè archive/macro gốc |
+| F02 | ☑ Hoàn tất | Generator bảng/figure/macros U09 — `feat/manuscript-unified-results` | F01 | Release 26 artifact/798 ô có provenance, 10 hàng/20 contrast/3 bridge/support/null; 16 test, compile 6 file và cold render nguyên byte PASS; macro gốc/archive không đổi |
 | F03 | ☐ Chưa bắt đầu | Cập nhật nội dung tám section và A–F — `docs/manuscript-extensions` | F02 | Đúng mapping §3, cùng cấu trúc/title/authors, kết luận cân bằng; references có nguồn, không trộn nghiên cứu |
 | F04 | ☐ Chưa bắt đầu | Cập nhật sơ đồ/caption/layout — `docs/manuscript-figures` | F03 | Bốn sơ đồ/algorithm liên quan đúng pipeline, chart nguồn được giữ; bảng/hình đọc được ở kích thước PDF |
 | F05 | ☐ Chưa bắt đầu | Reviewer, build hai PDF, kiểm và release bài — `docs/manuscript-final-release` | F04 | Đối soát 87 tiểu mục, numbering/physical pages sau build, manifest và source archive; không claim reviewer closed thiếu bằng chứng; U10 hoàn tất |
