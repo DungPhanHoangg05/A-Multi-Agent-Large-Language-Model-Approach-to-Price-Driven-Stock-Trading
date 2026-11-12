@@ -18,12 +18,14 @@ audit ngày 12/11/2026 tại `develop:d16630e9`. Giữ tám section chính và a
 A–F của bài; đưa phương pháp/kết quả mở rộng chính vào thân bài, chi tiết vào
 appendix. F01–F05 cụ thể hóa U10; F06–F12 nâng ứng dụng Flask hiện tại để chọn,
 chạy và so sánh phiên bản. [Checklist cuối](week12/README.md#công-việc-cuối-cho-bài-báo-và-giao-diện)
-là nơi cập nhật tiến độ. F00–F02 đã hoàn tất: [mapping và historical restore](week12/final_evidence_map.md)
+là nơi cập nhật tiến độ. F00–F03 đã hoàn tất: [mapping và historical restore](week12/final_evidence_map.md)
 giữ snapshot 810 nguồn, restore 286 asset và cold replay nguyên byte 15 artifact
 U09; [release F02](week12/README.md#f02--generator-và-artifact-bài-báo-u09) có
 26 artifact/798 ô có provenance, 16 test và cold render nguyên byte PASS.
-Bước tiếp theo là F03 cập nhật nội dung bài; entrypoint/section và template
-chưa sửa, không cần gọi lại API để cập nhật bài từ U09.
+[F03](week12/README.md#f03--nội-dung-bản-thảo-hai-nghiên-cứu) đã bổ sung
+nội dung tám section/A–F, giữ metadata/cấu trúc và build hai PDF 50 trang,
+kiểm trực quan đủ 100 trang PASS. Bước tiếp theo là F04 sơ đồ/caption/layout;
+UI chưa đổi, không gọi LLM/market API để cập nhật bài từ U09.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào
@@ -43,7 +45,7 @@ nguyên byte,29 test đúng phạm vi, compile8 file; oracle độc lập1.530 a
 Return mean account: native−0,652699%, common−1,024794%, v1−0,698188%,
 MT−1,253483%; mọi vai trò research âm. V1 cải thiện so common trong band mô tả,
 chưa có bằng chứng vượt native; chỉ sensitivity trên sáu fold đã exposed.
-U10 đã xong F01/F02; nội dung, render và reviewer F03–F05 còn chờ. Native row-wise causal vẫn FAIL,
+U10 đã xong F01–F03; F04 sơ đồ/layout và F05 reviewer/release cuối còn chờ. Native row-wise causal vẫn FAIL,
 whole-system causal NOT_CERTIFIED;0 API mới hoặc refit trong U09.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).

@@ -1,0 +1,497 @@
+{
+  "schema": "manuscript_content_release_v1",
+  "created_date": "2026-11-12",
+  "status": "CONTENT_READY_FOR_F04_NOT_FINAL_PUBLICATION_RELEASE",
+  "source_commit": "a9912c5c76d670af0fd03fcdcd4ef6291ebbb954",
+  "baseline_commit": "4c091408",
+  "sources": {
+    "paper/.gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "paper/elsarticle-num.bst": {
+      "bytes": 29462,
+      "sha256": "0db2e53b2378cbe5815e436c1afe9dcac67123a32406fa8f11fad7978808e202"
+    },
+    "paper/elsarticle.cls": {
+      "bytes": 44541,
+      "sha256": "23a341acd0e35c20148c836fc6e9251549aa45b059fc1750356ca2f3f11f3cb0"
+    },
+    "paper/figs/alpha_agent_pipeline.png": {
+      "bytes": 1492185,
+      "sha256": "ce93ca2e80f33da49b8dba034f36007b6e9ff5fa1932fb234df54ad763d8dc4f"
+    },
+    "paper/figs/backtest_BHN_20260917_1227.png": {
+      "bytes": 145132,
+      "sha256": "1fdd500812ece8fa0d9b6b3bc205b7e171a1f5ecd149528836d0d092f3ab421f"
+    },
+    "paper/figs/backtest_CMG_20260916_1110.png": {
+      "bytes": 129024,
+      "sha256": "7351ffed0b0afcb6568d2cdae6004f9b23c0be512593bbe60c985109ba2c93de"
+    },
+    "paper/figs/backtest_FPT_20260915_1458.png": {
+      "bytes": 147841,
+      "sha256": "b772079e92c3d49e295439416c5456b8f20d9df1b4753123fcee98857ace9ab4"
+    },
+    "paper/figs/backtest_HVN_20260916_1032.png": {
+      "bytes": 135687,
+      "sha256": "ee84ba6bed88f5af8347006eeba9aa4394a4f92d50df4f9a90b133d4314e882d"
+    },
+    "paper/figs/backtest_MBB_20260916_1129.png": {
+      "bytes": 145415,
+      "sha256": "95f54e1f8f8398fc3473619110441e6d7ce6627324d2d40e6b3db2dc45ddea65"
+    },
+    "paper/figs/backtest_MWG_20260916_1422.png": {
+      "bytes": 148728,
+      "sha256": "2253a8844986d09c0fd67460b57fd8e90151a93681e35d85145329f9e9b4796d"
+    },
+    "paper/figs/backtest_VCB_20260916_1337.png": {
+      "bytes": 135665,
+      "sha256": "c2476a6242f3d3a440a64172cf890c93d1457db0584d97e620781eec5dfe81f7"
+    },
+    "paper/figs/backtest_VJC_20260915_1542.png": {
+      "bytes": 138084,
+      "sha256": "b6586b7368c04b88b1ac37dbf02720c63c2ceb8a01420753b248f9b68d290137"
+    },
+    "paper/figs/backtest_VNM_20260915_1514.png": {
+      "bytes": 141820,
+      "sha256": "442ab2fd645e332f3df1aef374d4a15bbb4b36cfa795ebc6a47f7280e8286aef"
+    },
+    "paper/figs/decision_agent_pipeline.png": {
+      "bytes": 1675383,
+      "sha256": "48c454d1540f6897e300d828c04ca56a1e03aa2d9d15b78e11a87666eb94392a"
+    },
+    "paper/figs/final_calendar.png": {
+      "bytes": 87265,
+      "sha256": "c79e08a03cb206a7ce429c18c7051a367d740e193faff74b837bd41f89c3b487"
+    },
+    "paper/figs/final_flow.tex": {
+      "bytes": 1679,
+      "sha256": "cade3659f2e2360f2fa2f439acd5c5dc533afb6989467017d92ec85314cdfd34"
+    },
+    "paper/figs/final_pattern.png": {
+      "bytes": 52805,
+      "sha256": "6e3a15ae1ad3bd417312d97b835b3558d4bcf31dc04addbe3c518cf540720f73"
+    },
+    "paper/figs/final_trend.png": {
+      "bytes": 72807,
+      "sha256": "265c73db2caba5a76a61ddae0678f6b27f33bcae0f7c45aeb1e28c0c4b36161d"
+    },
+    "paper/figs/revised_alpha_pipeline.tex": {
+      "bytes": 1923,
+      "sha256": "7832be294a8276037d82f1d6cc8d2bb4741f6554f9a7450e9a32c19a819ebbf4"
+    },
+    "paper/figs/revised_decision_pipeline.tex": {
+      "bytes": 1430,
+      "sha256": "aaccf57e4b9bf0caea7ab45f0877fd88d19fef53d484df8cc6cae26eddf24a3e"
+    },
+    "paper/figs/revised_walkforward.tex": {
+      "bytes": 1344,
+      "sha256": "b66d07a40a052e095b3224ffc24693449f2c6e4eee58fc9c20cb3265f52bc12e"
+    },
+    "paper/figs/system_pipeline.png": {
+      "bytes": 1372557,
+      "sha256": "d02d7f971ed0778b33921fbdfd1b0e727b513adf15f6ab4655315dba4639ea70"
+    },
+    "paper/figs/walkforward_protocol.png": {
+      "bytes": 1457082,
+      "sha256": "9953c5eabc41523db151caa5f56b20c707754eef41bfca7cc99755118c05b229"
+    },
+    "paper/generated/.gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "paper/generated/a01_rules.tex": {
+      "bytes": 1377,
+      "sha256": "c074c0fb45c66ebc6900117faa05218e7ad63f27baa0074ffdbd977754e03f0c"
+    },
+    "paper/generated/a02_custom.tex": {
+      "bytes": 1685,
+      "sha256": "2b429d757c3c6ac582c89e0d4adf2979d119a1e3b2c4f6fe235946f12318450a"
+    },
+    "paper/generated/a03_symbols.tex": {
+      "bytes": 1720,
+      "sha256": "36b760bd3a86efc8a13116792f87d767633f8dde2bb969996437469d1ec682df"
+    },
+    "paper/generated/a04_execution.tex": {
+      "bytes": 1464,
+      "sha256": "6a7d1a3dd1afb642f14c41b45b435991ee6487ccff112e766ec3cd625078c299"
+    },
+    "paper/generated/summary_numbers.tex": {
+      "bytes": 353,
+      "sha256": "63019e3643cfb5bde8030f4ca676876d01c3e73125a946e92018e7c904c62cfc"
+    },
+    "paper/generated/t01_scope.tex": {
+      "bytes": 1344,
+      "sha256": "9d24dfbabbfe92061bb5e2582579e41398f91dad4e59fdb9355a0ef9390d7c30"
+    },
+    "paper/generated/t02_classification.tex": {
+      "bytes": 2125,
+      "sha256": "f356dff5dd7bd10da3bfb60bfd9087e296a73d61d69005d0b858290bce7ec723"
+    },
+    "paper/generated/t03_accounts.tex": {
+      "bytes": 1374,
+      "sha256": "c226168c6c77a626d52cac9556270209d032076e86c4191db7c55d7b02a25b32"
+    },
+    "paper/generated/t04_repeats.tex": {
+      "bytes": 2362,
+      "sha256": "b2f1ffdcff2b3e6f886507e35d8cc1430ce1b0307bd4c33429af6bb1acb4ad03"
+    },
+    "paper/generated/t05_temporal.tex": {
+      "bytes": 1496,
+      "sha256": "a19a5a4ad27ed701fbef26ca9f195ec3af939123a8034ba859b8785a3bb38bfb"
+    },
+    "paper/generated/t06_numeric.tex": {
+      "bytes": 1589,
+      "sha256": "98a5d7fe4507cf24f94967e91cbae43f2a872c53cdef4c36083debd0126fd498"
+    },
+    "paper/generated/u09/bridge.tex": {
+      "bytes": 799,
+      "sha256": "e7abd8939032acc73c03d013645340cb546e407913bc769fc7e5b7f93a47abc7"
+    },
+    "paper/generated/u09/classification.tex": {
+      "bytes": 1345,
+      "sha256": "d1b3258dedc6b48d18f0b3628b962c6d5f281cdf474ae9f5695108e8bdfdc34e"
+    },
+    "paper/generated/u09/comparison.tex": {
+      "bytes": 1484,
+      "sha256": "6c87369d065a5aca002be747a5594a05213689cb429d99627e706f03b9ba4269"
+    },
+    "paper/generated/u09/contrasts.tex": {
+      "bytes": 2003,
+      "sha256": "6d3d009771f867d8a919f040145d754336e98d18a707d8e0fcbba993f51cdf7e"
+    },
+    "paper/generated/u09/economics.tex": {
+      "bytes": 1500,
+      "sha256": "257fb0cfee336373e11893d5e87f60068c58418b45a46ece7979535f1ec5378d"
+    },
+    "paper/generated/u09/repeats.tex": {
+      "bytes": 1469,
+      "sha256": "d0c074d59281df53463a6ff0eaf51b6704cfbe29d88e5c21c3fb11eb1e715c38"
+    },
+    "paper/generated/u09/return_contrasts.png": {
+      "bytes": 61161,
+      "sha256": "ec9448d436af29509830548d456dab18fb24615bb4d2ae0065c782eedc041fb6"
+    },
+    "paper/generated/u09/return_contrasts.svg": {
+      "bytes": 25313,
+      "sha256": "5f9a4e0a6a8e5d91d0ecf3657750ee68417eac10f404695daa7426855f2767d1"
+    },
+    "paper/generated/u09/scope.tex": {
+      "bytes": 1075,
+      "sha256": "c4ae371dbd17f50609c281b2c2ac56de3e0a1b90c62a33d264b0da9655751fa3"
+    },
+    "paper/generated/u09/sensitivity_ba.tex": {
+      "bytes": 1561,
+      "sha256": "8c2abc76aba8e7f0f7cbfab5f770c8ec9ae415f265304ce4d82f22f550de17c0"
+    },
+    "paper/generated/u09/sensitivity_core4.tex": {
+      "bytes": 1829,
+      "sha256": "05152f252d96363e9802bd932e2da6590d77fad8bac00d655a7cf37d7a21e31a"
+    },
+    "paper/generated/u09/sensitivity_return.tex": {
+      "bytes": 1555,
+      "sha256": "136d05559c2a185aee30a91a2af78f3a56fb0d29ffdd415a4829932ab0243f47"
+    },
+    "paper/generated/u09/summary_numbers.tex": {
+      "bytes": 4782,
+      "sha256": "09c3ee779c8050a055ebeb95e79c56ee2ca9b0c7cd70151b9d92778ec6f84687"
+    },
+    "paper/generated/u09/support.tex": {
+      "bytes": 1597,
+      "sha256": "d1bd93c14a6eae839081fce1cc6527564dff5fe8cfc0c7293ce86144169298c6"
+    },
+    "paper/main.tex": {
+      "bytes": 8855,
+      "sha256": "a10ef7bcd38f65c4b71db0366bfa6bd334580f934f49ddc0e161252299215e7a"
+    },
+    "paper/main_submit.tex": {
+      "bytes": 8908,
+      "sha256": "c4fc29440bdf40eb516aae63274522c4a7b99af32fd5869f96f1220645dfd322"
+    },
+    "paper/manuscript_layout.tex": {
+      "bytes": 877,
+      "sha256": "e912a7fc667ddc9c6fc28d746d726416002c2b2cc938d98af83095cbbd053b9b"
+    },
+    "paper/references.bib": {
+      "bytes": 14977,
+      "sha256": "d94e4cc649094517b88b50fb94b79b3aea2e4e89cbdd9749d9128fa48320149b"
+    },
+    "paper/sections/01_introduction.tex": {
+      "bytes": 6949,
+      "sha256": "b6c1602cbf536f2295f50365367d7c3f871372d198eefe3ffa6271fec96b176d"
+    },
+    "paper/sections/02_related_work.tex": {
+      "bytes": 5310,
+      "sha256": "fcb92325579beb4b24816c1599cde97615c8fc54cf70a03f5ee1b3857b832eba"
+    },
+    "paper/sections/03_problem_formulation.tex": {
+      "bytes": 28214,
+      "sha256": "c717d2220f7bd18fe19ec0625cceca9fd8ee0d481931f78f5a2511c083ec738a"
+    },
+    "paper/sections/04_system_architecture.tex": {
+      "bytes": 14269,
+      "sha256": "94a36451c1ff163a0de95379fe85cab30f2e252ceb45e8ff9983927ced0dcfa2"
+    },
+    "paper/sections/05_experimental_setup.tex": {
+      "bytes": 14901,
+      "sha256": "f8088ad08f56f78aaf56802bcd9597c77dc9544afcc1736103b610c2e99bf3fb"
+    },
+    "paper/sections/06_backtest_results.tex": {
+      "bytes": 11946,
+      "sha256": "a18b35e6a43598db98d7e68b8e73831a5136383096d9e02d298cba291e8ddeca"
+    },
+    "paper/sections/07_limitations.tex": {
+      "bytes": 6726,
+      "sha256": "dfca9342835923e4ef1a94d92a4e49902e29fbbd174a97cd349553fb3c563408"
+    },
+    "paper/sections/08_conclusion.tex": {
+      "bytes": 2181,
+      "sha256": "4e3167723b5f39073f1f2919286077224aa65f5cb866d2f3d2b38c994ab17024"
+    },
+    "paper/sections/acknowledgments.tex": {
+      "bytes": 345,
+      "sha256": "144503e0908506d64cd52bb99480fd3082c63bc63831e66299e237007f868e9c"
+    },
+    "paper/sections/appendices.tex": {
+      "bytes": 19011,
+      "sha256": "1404a04bfa9926585ba316bda6b67945580758998f82d3aef63c482e31e8a7da"
+    },
+    "paper/sections/availability.tex": {
+      "bytes": 2004,
+      "sha256": "bc1c2fdc822ee9d96e5ff75bb9ad5e0fa524580fde38b3375b7c96d70dcfb8dd"
+    }
+  },
+  "inputs": {
+    "docs/plan/week12/final_evidence_snapshot.zip": {
+      "bytes": 93154448,
+      "sha256": "80fed8c9a1c265098a394bfc40f13d7f0266c1e05abdb142fba01d873cb8b8b5"
+    },
+    "docs/plan/week12/unified_live_research.zip": {
+      "bytes": 78438700,
+      "sha256": "5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c"
+    },
+    "docs/plan/week12/unified_analysis_results.zip": {
+      "bytes": 1383945,
+      "sha256": "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9"
+    },
+    "docs/plan/week12/unified_analysis_acceptance.json": {
+      "bytes": 5064,
+      "sha256": "6b435c21c89000775be1f1e1d043b6b3429a0729f37efc16f4bd03be92355456"
+    },
+    "outputs/revision/u09_manuscript_assets_v1/manifest.json": {
+      "bytes": 12119,
+      "sha256": "9633dc6de3cc036b76f503713e3bf959581d93729ef8c420e4267a26aa0ebd7b"
+    }
+  },
+  "outputs": {
+    "main.pdf": {
+      "bytes": 860444,
+      "sha256": "753cefa7eb8dbc3cc4461b60d8cbf9289afadb36fc0424ca713fea8536fd840b"
+    },
+    "main_submit.pdf": {
+      "bytes": 834458,
+      "sha256": "be2f358b3f21cb4cf4724e3b05e478507bd95c75cfcf6c49124a9a192a226152"
+    },
+    "sources.zip": {
+      "bytes": 6677356,
+      "sha256": "7bde4786caa256eb8c18e01773946a29d45699d61d7fa159506856690e352a33"
+    }
+  },
+  "build_runtime": {
+    "python": "3.13.5",
+    "tools": {
+      "pdflatex": {
+        "command": [
+          "pdflatex",
+          "--version"
+        ],
+        "returncode": 0,
+        "version": "MiKTeX-pdfTeX 4.23 (MiKTeX 25.12)\r\n© 1982 D. E. Knuth, © 1996-2025 Hàn Thế Thành\r\nTeX is a trademark of the American Mathematical Society.\r\nusing bzip2 version 1.0.8, 13-Jul-2019\r\ncompiled with curl version 8.4.0; using libcurl/8.4.0 Schannel\r\ncompiled with expat version 2.5; using expat_2.5.0\r\ncompiled with jpeg version 9.5\r\ncompiled with liblzma version 50040002; using 50040002\r\ncompiled with libpng version 1.6.44; using 1.6.44\r\ncompiled with libressl version LibreSSL 3.8.1; using LibreSSL 3.8.1\r\ncompiled with MiKTeX Application Framework version 4.8; using 4.8\r\ncompiled with MiKTeX Core version 4.24; using 4.24\r\ncompiled with MiKTeX Archive Extractor version 4.1; using 4.1\r\ncompiled with MiKTeX Package Manager version 4.10; using 4.10\r\ncompiled with uriparser version 0.9.7\r\ncompiled with xpdf version 4.04\r\ncompiled with zlib version 1.2.13; using 1.2.13\r\npdflatex: major issue: So far, you have not checked for MiKTeX updates.\r\n"
+      },
+      "bibtex": {
+        "command": [
+          "bibtex",
+          "--version"
+        ],
+        "returncode": 0,
+        "version": "MiKTeX-BibTeX 4.2 (MiKTeX 25.12)\r\n© 1985, 1988, 2010 Oren Patashnik; all rights reserved.\r\nusing bzip2 version 1.0.8, 13-Jul-2019\r\ncompiled with curl version 8.4.0; using libcurl/8.4.0 Schannel\r\ncompiled with expat version 2.5; using expat_2.5.0\r\ncompiled with liblzma version 50040002; using 50040002\r\ncompiled with libressl version LibreSSL 3.8.1; using LibreSSL 3.8.1\r\ncompiled with MiKTeX Application Framework version 4.8; using 4.8\r\ncompiled with MiKTeX Core version 4.24; using 4.24\r\ncompiled with MiKTeX Archive Extractor version 4.1; using 4.1\r\ncompiled with MiKTeX Package Manager version 4.10; using 4.10\r\ncompiled with uriparser version 0.9.7\r\ncompiled with zlib version 1.2.13; using 1.2.13\r\nbibtex: major issue: So far, you have not checked for MiKTeX updates.\r\n"
+      },
+      "pdftoppm": {
+        "command": [
+          "pdftoppm",
+          "-v"
+        ],
+        "returncode": 0,
+        "version": "pdftoppm version 24.04.0\r\nCopyright 2005-2024 The Poppler Developers - http://poppler.freedesktop.org\r\nCopyright 1996-2011, 2022 Glyph & Cog, LLC\r\n"
+      }
+    }
+  },
+  "validation": {
+    "render": [
+      {
+        "entrypoint": "main",
+        "pages": 50,
+        "rendered_pages": 50,
+        "overfull": 0,
+        "undefined_reference_or_citation": false,
+        "missing_glyph": false,
+        "type3_fonts": false,
+        "words_outside_page": [],
+        "replacement_or_black_square_pages": [],
+        "log_warnings": [],
+        "underfull_notices": 7
+      },
+      {
+        "entrypoint": "main_submit",
+        "pages": 50,
+        "rendered_pages": 50,
+        "overfull": 0,
+        "undefined_reference_or_citation": false,
+        "missing_glyph": false,
+        "type3_fonts": false,
+        "words_outside_page": [],
+        "replacement_or_black_square_pages": [],
+        "log_warnings": [],
+        "underfull_notices": 7
+      }
+    ],
+    "source_content": {
+      "status": "PASS_F03_SOURCE_AND_CONTENT_CHECKS",
+      "baseline_commit": "4c091408",
+      "original_paper_files": 64,
+      "unchanged_paper_files": 50,
+      "changed_paper_files": [
+        "paper/main.tex",
+        "paper/main_submit.tex",
+        "paper/manuscript_layout.tex",
+        "paper/references.bib",
+        "paper/sections/01_introduction.tex",
+        "paper/sections/02_related_work.tex",
+        "paper/sections/03_problem_formulation.tex",
+        "paper/sections/04_system_architecture.tex",
+        "paper/sections/05_experimental_setup.tex",
+        "paper/sections/06_backtest_results.tex",
+        "paper/sections/07_limitations.tex",
+        "paper/sections/08_conclusion.tex",
+        "paper/sections/appendices.tex",
+        "paper/sections/availability.tex"
+      ],
+      "section_subsection_titles_preserved": {
+        "paper/sections/01_introduction.tex": [
+          "\\section{Introduction}"
+        ],
+        "paper/sections/02_related_work.tex": [
+          "\\section{Related works}",
+          "\\subsection{LLM Agents in Financial Analysis}",
+          "\\subsection{Technical Analysis and Pattern Recognition}",
+          "\\subsection{Quantitative Alpha Factor Research}",
+          "\\subsection{Sentiment Analysis in Finance and Vietnamese NLP}",
+          "\\subsection{Trading Systems for Emerging Markets}",
+          "\\subsection{Evaluation Standards and Agentic Benchmarks}"
+        ],
+        "paper/sections/03_problem_formulation.tex": [
+          "\\section{Problem Formulation}",
+          "\\subsection{Market Model and Data}",
+          "\\subsection{Directional Prediction Task}",
+          "\\subsection{Alpha Factor Formalisation and Adaptation}",
+          "\\subsection{Walk-Forward Alpha Selection}",
+          "\\subsection{Sentiment Signal Construction}",
+          "\\subsection{Multi-Agent Decision Function}",
+          "\\subsection{Walk-Forward Evaluation Protocol}"
+        ],
+        "paper/sections/04_system_architecture.tex": [
+          "\\section{System architecture}",
+          "\\subsection{Overview}",
+          "\\subsection{Indicator Agent}",
+          "\\subsection{Alpha Agent}",
+          "\\subsection{Pattern Agent}",
+          "\\subsection{Trend Agent}",
+          "\\subsection{Decision Agent}"
+        ],
+        "paper/sections/05_experimental_setup.tex": [
+          "\\section{Experimental Setup}",
+          "\\subsection{Dataset and Point-in-Time Data Contract}",
+          "\\subsection{Walk-Forward Protocol}",
+          "\\subsection{Paired Baseline and Disentangled Ablations}",
+          "\\subsection{Account and Statistical Metrics}",
+          "\\subsection{Implementation and Robustness Design}"
+        ],
+        "paper/sections/06_backtest_results.tex": [
+          "\\section{Backtest Results}",
+          "\\subsection{Nine-Symbol Paired Benchmark}",
+          "\\subsection{Disentangled Alpha--Sentiment Ablation}",
+          "\\subsection{Robustness and Sensitivity}"
+        ],
+        "paper/sections/07_limitations.tex": [
+          "\\section{Limitations \\& Future Work}",
+          "\\subsection{Limitations}",
+          "\\subsection{Future Work}",
+          "\\subsection{Broader Impact}"
+        ],
+        "paper/sections/08_conclusion.tex": [
+          "\\section{Conclusion}"
+        ],
+        "paper/sections/acknowledgments.tex": [
+          "\\section*{Acknowledgments}"
+        ],
+        "paper/sections/appendices.tex": [
+          "\\section{Agent System Prompts}",
+          "\\subsection{Decision Agent Prompt}",
+          "\\subsection{Pattern Agent Prompt}",
+          "\\subsection{Trend Agent Prompt}",
+          "\\subsection{Indicator Agent Prompt}",
+          "\\subsection{Sentiment LLM Prompt (Subroutine of Alpha Agent)}",
+          "\\subsection{Alpha Agent LLM Reasoning Prompt}",
+          "\\section{LangGraph State Schema}",
+          "\\section{Custom Alpha Formula Implementation}",
+          "\\subsection{Flow-Driven Momentum (FDM)}",
+          "\\subsection{MACD/Return Proxy (SFA)}",
+          "\\subsection{Liquidity Void Reversion (LVR)}",
+          "\\subsection{Bollinger Squeeze \\& Flow (BFE)}",
+          "\\subsection{Order Flow Exhaustion (OFE)}",
+          "\\section{Indicator Signal Classification Logic}",
+          "\\subsection{MACD Classification}",
+          "\\subsection{RSI Classification}",
+          "\\subsection{Stochastic Oscillator Classification}",
+          "\\subsection{Williams \\%R Classification}",
+          "\\subsection{ROC Classification}",
+          "\\subsection{Consensus Rule}",
+          "\\section{Software Dependencies and Reproducibility}",
+          "\\section{Additional Account and Symbol Results}"
+        ],
+        "paper/sections/availability.tex": [
+          "\\section*{Data and code availability}"
+        ]
+      },
+      "original_equation_align_blocks_preserved": 24,
+      "new_equation_align_blocks": 2,
+      "math_comparison_normalization": "LF_ONLY",
+      "appendix_D_unchanged": true,
+      "title_author_affiliation_credit_funding_keywords_preserved": true,
+      "abstract_words": 203,
+      "all_U09_macro_references_resolve": 29,
+      "citation_keys_added": [
+        "hamilton2005regimes",
+        "rubin2022retrieve",
+        "xie2022implicitbayes"
+      ],
+      "legacy_archives_and_packages_unchanged": 50,
+      "f02_artifacts_unchanged": 26,
+      "runtime_code_changed": false,
+      "unit_e2e_leakage_rerun": false,
+      "new_api_calls": 0,
+      "training": false
+    },
+    "visual_review": {
+      "bytes": 19938,
+      "sha256": "66fdc963e625017d61395eb746fb74fa8cbc50ed523b7cb6c4529e0d083b137a"
+    }
+  },
+  "boundaries": [
+    "F04 diagrams, captions and final layout pending",
+    "F05 reviewer subitems, final locators and publication release pending",
+    "No new inference, training, numerical analysis or market API calls",
+    "Native row-wise causal FAIL; whole-system NOT_CERTIFIED"
+  ]
+}

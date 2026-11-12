@@ -47,8 +47,8 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F03**, cập nhật nội dung tám section và appendix A–F từ
-release F02. F00–F02 hoàn tất; F03–F12 chưa bắt đầu.
+**Bước tiếp theo: F04**, cập nhật sơ đồ, caption và layout từ bản thảo F03.
+F00–F03 hoàn tất; F04–F12 chưa bắt đầu.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
 AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
@@ -56,7 +56,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F00 — Audit paper/reviewer, bảng/hình, registry/runner/API/templates; lập kế hoạch cuối, chưa triển khai code hoặc sửa bản thảo.
 - [x] F01 — Chốt mapping hai study, snapshot 810 nguồn nguyên byte; historical restore và cold replay U09 PASS.
 - [x] F02 — Generator và release U09 riêng: 26 artifact/798 ô có provenance, 16 test và cold render nguyên byte PASS.
-- [ ] F03 — Cập nhật nội dung tám section và appendix A–F, giữ title/tác giả/cấu trúc.
+- [x] F03 — Cập nhật tám section và appendix A–F; giữ metadata/cấu trúc, build hai PDF 50 trang và kiểm trực quan đủ 100 trang PASS.
 - [ ] F04 — Cập nhật sơ đồ, thuật toán, caption, bảng/hình và layout cần thiết.
 - [ ] F05 — Đối soát reviewer, build/render hai PDF, kiểm số liệu/locators và bàn giao release bài; hoàn tất U10.
 - [ ] F06 — Chốt UX/capability/API contract, sáu lựa chọn chính và hai vai trò nâng cao.
@@ -67,7 +67,8 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [ ] F11 — Kiểm thử tích hợp/leakage/caller đúng phạm vi và kiểm trình duyệt; smoke live có phạm vi nếu cần.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
-Audit xác nhận paper/revision vẫn cùng blob fix; bài chưa chứa U09. Web analyze
+Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
+bổ sung nội dung U09 vào bản thảo hiện hành, giữ nguyên snapshot lịch sử. Web analyze
 chưa dispatch variant, backtest chặn bản khác native, `/experiments` chỉ nhận
 `identity.json` + `result.json` nên chưa thấy U09 (`results.json`). Cả bốn template,
 registry và web entrypoint thuộc nguồn đã khóa: sửa UI cần release mới và giữ
@@ -162,6 +163,41 @@ hiện trong F02. Không chạy lại `tests/unified_analysis/test_analysis.py`,
 contracts cũ không đổi; 16 test mới và cold CLI bao phủ đường export mới theo
 AGENTS §1.2. **0 API mới, 0 inference/refit/ước lượng lại metrics**. Native
 row-wise causal vẫn **FAIL**, whole-system **NOT_CERTIFIED**; U10 chờ F03–F05.
+
+### F03 — Nội dung bản thảo hai nghiên cứu
+
+Hoàn tất ngày **12/11/2026**, nhánh `docs/manuscript-extensions`, từ develop
+`4c091408`; commit nguồn **`a9912c5c`**. Cập nhật đúng mapping §3 của kế hoạch:
+phần mở rộng ở thân bài, chi tiết prompt/schema/config/teacher/utility và kết
+quả đầy đủ tại A–F. Hai nghiên cứu giữ response, N, seed và thống kê riêng.
+Native/Common được phân biệt; v1 cải thiện so Common nhưng chưa chứng minh
+vượt Native, mọi vai trò research có mean return âm. Báo raw/final, bypass,
+CORE4/OOD5, thiếu sentiment và bridge chưa thay được ablation còn thiếu.
+
+[Manifest bản thảo nội dung](../../../outputs/revision/manuscript_content_v1/manifest.json)
+khóa **64 file nguồn**, input, runtime build và PDF; trạng thái
+`CONTENT_READY_FOR_F04_NOT_FINAL_PUBLICATION_RELEASE`. [Source archive](../../../outputs/revision/manuscript_content_v1/sources.zip)
+giữ nguyên byte 64 nguồn cùng manifest. Đây là mốc nội dung cho F04, chưa phải
+release xuất bản F05 hoặc hoàn tất U10.
+
+- [x] **14 file paper thay đổi, 50 file giữ nguyên**; giữ title/tác giả/ORCID/affiliation/CRediT/funding/keywords, tám section và tên/thứ tự subsection/A–F. Appendix D và acknowledgments không đổi; 24 khối equation/align gốc giữ nội dung sau chuẩn hóa LF, thêm hai khối cho snapshot/utility.
+- [x] Abstract hai bản giống nhau, **203 từ**; năm highlights đều ≤85 ký tự. **29 macro U09 được dùng** có định nghĩa, label/ref/cite key hợp lệ; không tính lại số trong LaTeX. Bảng gốc, macros Full/Base và 14 file generated U09 nguyên byte.
+- [x] Đọc ba nguồn nghiên cứu chính trước khi thêm citation: [Xie et al., ICLR 2022](https://arxiv.org/abs/2111.02080v6), [Rubin et al., NAACL 2022](https://aclanthology.org/2022.naacl-main.191/), [Hamilton, author draft 18/05/2005](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf). Giữ 40 mục BibTeX cũ, thêm ba mục đúng phiên bản; audit URL/hash/phạm vi hỗ trợ lưu trong QA. Không nhận lý thuyết Bayesian là bảo đảm cho LLM tài chính.
+- [x] **Build mới cả hai entrypoint** trong hai cây tạm biệt lập: `pdflatex → bibtex → pdflatex → pdflatex`, đủ tám lệnh exit 0. [Bản đầy đủ](../../../outputs/revision/manuscript_content_v1/main.pdf) **50 trang**; [bản submit](../../../outputs/revision/manuscript_content_v1/main_submit.pdf) **50 trang**. Poppler render đủ **100 trang** và kiểm trực quan từng trang; không tràn khung, thiếu glyph, Type3, chữ ngoài trang, undefined ref/citation hoặc LaTeX warning. Mỗi bản còn **bảy Underfull spacing notice**, đã xem và không gây cắt/mất chữ.
+- [x] Đối soát **26 artifact F02, chín binding nguồn generator, input và 20 gói W12 + 30 archive cũ** nguyên byte/hash. Không đổi code/test/schema/runtime/input nghiên cứu; không chạy compileall/unit/E2E/leakage theo AGENTS §1.2 vì chỉ đổi tài liệu/LaTeX. Build/render/hash là kiểm mới, không nhận đã chạy lại gate runtime cũ.
+- [x] QA **123 member**, gồm 100 PNG từng trang, tám command log, hai log LaTeX cuối, source/content/ref/render/visual checks và manifest; source ZIP 65 member. Kiểm hash mọi member, 64 nguồn khớp commit, **120 liên kết/anchor local** trong bốn tài liệu và checklist đồng bộ PASS.
+
+[Gói QA F03](manuscript_content_checks.zip): **17.791.977 byte**, SHA256
+`1eab72eb5591c98dd9a906a229328f23fd7b248f64738c41dc86cf5672809170`.
+Manifest release SHA256
+`3de4994c93c76a810351a8101ff612b8b7736c4cc9c2bf27ea71ea5beb2ecb31`.
+Không phân phối lại PDF nguồn nghiên cứu bên ngoài trong QA; chỉ lưu audit.
+
+**0 LLM/market API mới, 0 inference, 0 training/refit hoặc ước lượng lại số liệu**.
+Các sơ đồ cũ được ghi rõ là đường native; F04 còn cập nhật sơ đồ/caption/figure
+và layout cuối. F05 còn đối soát 87 tiểu mục reviewer, chốt locators và release;
+không tự đóng reviewer. Native row-wise causal vẫn **FAIL**, whole-system
+**NOT_CERTIFIED**. U10 chờ F04–F05; không push, deploy hoặc submit.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
