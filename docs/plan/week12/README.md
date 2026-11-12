@@ -48,14 +48,14 @@ vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng reg
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
 **Bước tiếp theo: F02**, sinh bảng/figure/macros U09 từ nguồn đã verify trong
-namespace mới. F00–F01 hoàn tất; F02–F12 chưa bắt đầu.
+namespace mới. F00–F01 hoàn tất; F02 đang triển khai; F03–F12 chưa bắt đầu.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
 AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 
 - [x] F00 — Audit paper/reviewer, bảng/hình, registry/runner/API/templates; lập kế hoạch cuối, chưa triển khai code hoặc sửa bản thảo.
 - [x] F01 — Chốt mapping hai study, snapshot 810 nguồn nguyên byte; historical restore và cold replay U09 PASS.
-- [ ] F02 — Generator bảng/figure/macros U09 có provenance và namespace riêng.
+- [ ] F02 — Đang làm: generator bảng/figure/macros U09 có provenance và namespace riêng.
 - [ ] F03 — Cập nhật nội dung tám section và appendix A–F, giữ title/tác giả/cấu trúc.
 - [ ] F04 — Cập nhật sơ đồ, thuật toán, caption, bảng/hình và layout cần thiết.
 - [ ] F05 — Đối soát reviewer, build/render hai PDF, kiểm số liệu/locators và bàn giao release bài; hoàn tất U10.
@@ -112,7 +112,7 @@ không cần resolver mới. Không chạy unit/E2E/leakage suite hoặc compile
 theo AGENTS §1.2; smoke restore/hash/cold analysis ở trên bao phủ đúng yêu cầu
 F01. **0 API mới, 0 full inference, 0 training/refit**. Gate U03/U08/U09 giữ
 phạm vi cũ; native row-wise causal **FAIL**, whole-system **NOT_CERTIFIED**.
-F02 chưa bắt đầu; U10 vẫn chờ F02–F05.
+Kết thúc F01, F02 chưa bắt đầu; U10 vẫn chờ F02–F05.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

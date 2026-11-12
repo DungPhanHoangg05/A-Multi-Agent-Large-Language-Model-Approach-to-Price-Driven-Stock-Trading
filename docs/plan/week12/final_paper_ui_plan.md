@@ -344,7 +344,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | --- | --- | --- | --- | --- |
 | F00 | ☑ Hoàn tất | Audit và lập kế hoạch cuối | U01–U09 | Đã audit paper/reviewer/API/templates và lập plan; chưa sửa paper/UI |
 | F01 | ☑ Hoàn tất | Chốt nguồn/evidence và đường historical replay — `docs/final-evidence-map` | Audit này | Snapshot 810 file nguyên byte; mapping hai study; restore 286 asset, 729 source pin và cold replay 15 artifact PASS; không cần resolver mới |
-| F02 | ☐ Chưa bắt đầu | Generator bảng/figure/macros U09 — `feat/manuscript-unified-results` | F01 | Đọc nguồn đã verify; deterministic output namespace mới; đủ 10 hàng, contrasts/bridge/support/null; không ghi đè archive/macro gốc |
+| F02 | ☐ Đang làm | Generator bảng/figure/macros U09 — `feat/manuscript-unified-results` | F01 | Đọc nguồn đã verify; deterministic output namespace mới; đủ 10 hàng, contrasts/bridge/support/null; không ghi đè archive/macro gốc |
 | F03 | ☐ Chưa bắt đầu | Cập nhật nội dung tám section và A–F — `docs/manuscript-extensions` | F02 | Đúng mapping §3, cùng cấu trúc/title/authors, kết luận cân bằng; references có nguồn, không trộn nghiên cứu |
 | F04 | ☐ Chưa bắt đầu | Cập nhật sơ đồ/caption/layout — `docs/manuscript-figures` | F03 | Bốn sơ đồ/algorithm liên quan đúng pipeline, chart nguồn được giữ; bảng/hình đọc được ở kích thước PDF |
 | F05 | ☐ Chưa bắt đầu | Reviewer, build hai PDF, kiểm và release bài — `docs/manuscript-final-release` | F04 | Đối soát 87 tiểu mục, numbering/physical pages sau build, manifest và source archive; không claim reviewer closed thiếu bằng chứng; U10 hoàn tất |
