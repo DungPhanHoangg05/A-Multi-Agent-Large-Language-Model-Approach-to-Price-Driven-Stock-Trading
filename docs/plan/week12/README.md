@@ -37,6 +37,45 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
+## Công việc cuối cho bài báo và giao diện
+
+[Kế hoạch cuối](final_paper_ui_plan.md) được lập ngày **12/11/2026** sau audit
+nguồn `develop:d16630e9`. Đây là checklist duy nhất cho phần còn lại; F01–F05
+cụ thể hóa U10, F06–F12 là yêu cầu nâng ứng dụng sau đó. Giữ nguyên các section
+chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào thân bài và chi tiết
+vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
+adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
+
+- [x] F00 — Audit paper/reviewer, bảng/hình, registry/runner/API/templates; lập kế hoạch cuối, chưa triển khai code hoặc sửa bản thảo.
+- [ ] F01 — Chốt mapping hai study, snapshot nguồn và đường historical replay trước thay đổi.
+- [ ] F02 — Generator bảng/figure/macros U09 có provenance và namespace riêng.
+- [ ] F03 — Cập nhật nội dung tám section và appendix A–F, giữ title/tác giả/cấu trúc.
+- [ ] F04 — Cập nhật sơ đồ, thuật toán, caption, bảng/hình và layout cần thiết.
+- [ ] F05 — Đối soát reviewer, build/render hai PDF, kiểm số liệu/locators và bàn giao release bài; hoàn tất U10.
+- [ ] F06 — Chốt UX/capability/API contract, sáu lựa chọn chính và hai vai trò nâng cao.
+- [ ] F07 — Adapter đọc U09, so sánh offline và export khớp bằng chứng.
+- [ ] F08 — Provider as-of, resources và runner chung chạy được các phiên bản trên miền hỗ trợ; paired/retry/checkpoint/job isolation.
+- [ ] F09 — Nâng trang phân tích và kết quả, lựa chọn phiên bản có hiệu lực, so sánh cùng snapshot.
+- [ ] F10 — Nâng backtest và trang thực nghiệm, metrics/series động, progress/stop/resume và tương thích kết quả cũ.
+- [ ] F11 — Kiểm thử tích hợp/leakage/caller đúng phạm vi và kiểm trình duyệt; smoke live có phạm vi nếu cần.
+- [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
+
+Audit xác nhận paper/revision vẫn cùng blob fix; bài chưa chứa U09. Web analyze
+chưa dispatch variant, backtest chặn bản khác native, `/experiments` chỉ nhận
+`identity.json` + `result.json` nên chưa thấy U09 (`results.json`). Cả bốn template,
+registry và web entrypoint thuộc nguồn đã khóa: sửa UI cần release mới và giữ
+đường tái lập historical. U09 không chứng minh mở rộng vượt native, native
+row-wise causal vẫn FAIL, whole-system NOT_CERTIFIED; reviewer không được tự
+đánh dấu đóng khi mới bổ sung trình bày.
+
+Kiểm tra đợt plan: **729/729 source bindings U09 khớp byte/hash**, SHA256 hai
+gói U08/U09 khớp receipt, paper50/revision28 không đổi so fix. Chỉ sửa Markdown
+kế hoạch/checklist; kiểm diff và **101 liên kết/anchor local** trong ba tài liệu
+PASS. Không chạy compileall/unit/
+E2E/leakage hoặc cold analysis lại theo AGENTS §1.2 vì code, runtime, inputs,
+schema và evidence không đổi. Kết quả PASS cũ chỉ được viện dẫn, không ghi là
+đã chạy lại. **0 API mới, 0 lượt chạy full, 0 refit** trong audit này.
+
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
 Ngày 09/11/2026: đã lập [kế hoạch hợp nhất](fix_develop_integration_plan.md)

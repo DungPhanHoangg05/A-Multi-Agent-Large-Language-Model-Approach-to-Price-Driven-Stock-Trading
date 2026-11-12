@@ -13,6 +13,14 @@ nguồn bài báo, evidence, lệnh kiểm offline và ranh giới tài liệu c
 [Checklist W12](week12/README.md#đầu-mối-làm-việc-duy-nhất-trên-develop) là nơi
 theo dõi tiếp U10 và các yêu cầu reviewer còn thiếu; root `plan.md` là lịch sử.
 
+**Kế hoạch thực hiện phần còn lại:** [bài báo và giao diện chọn phiên bản](week12/final_paper_ui_plan.md),
+audit ngày 12/11/2026 tại `develop:d16630e9`. Giữ tám section chính và appendix
+A–F của bài; đưa phương pháp/kết quả mở rộng chính vào thân bài, chi tiết vào
+appendix. F01–F05 cụ thể hóa U10; F06–F12 nâng ứng dụng Flask hiện tại để chọn,
+chạy và so sánh phiên bản. [Checklist cuối](week12/README.md#công-việc-cuối-cho-bài-báo-và-giao-diện)
+là nơi cập nhật tiến độ. Hiện chỉ hoàn tất audit/plan, chưa sửa code, paper hoặc
+template theo kế hoạch mới; không cần gọi lại API để cập nhật bài từ U09.
+
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào
 develop. **U08 hoàn tất ngày 12/11/2026**: receipt `PASS_U08_RESEARCH`, đủ
