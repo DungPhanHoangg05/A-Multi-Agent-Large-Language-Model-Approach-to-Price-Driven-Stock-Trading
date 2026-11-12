@@ -31,8 +31,11 @@ ngày 13/11/2026 đã đồng bộ đủ 87 yêu cầu/matrix/response, chốt P
 companions, locators và manifest; **0/18 comment được chứng nhận đóng**.
 F06 ngày 13/11/2026 đã chốt [contract serving riêng](week12/variant_serving_contract.md),
 sáu lựa chọn chính/hai nâng cao, preflight và job/config/result identity; 33 test
-đúng phạm vi PASS. Bước tiếp theo là F07 adapter U09; F07–F12 chưa bắt đầu.
-Template chưa đổi, runner mới chưa mở và không gọi LLM/market API trong F06.
+đúng phạm vi PASS. F07 đã nối reader U09 đã verify với experiments, so sánh
+nhiều bản/baseline, chi tiết và export; 46 Python + 6 DOM PASS. UI tách
+template/CSS/JS; browser trực quan chờ F11 do host/approval bị chặn. Bước tiếp
+theo F08 provider/runner; F08–F12 chưa bắt đầu, chưa mở inference mới hoặc
+gọi LLM/market API trong F07.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

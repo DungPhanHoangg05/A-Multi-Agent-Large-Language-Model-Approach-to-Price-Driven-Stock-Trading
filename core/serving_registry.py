@@ -43,7 +43,7 @@ def registry_document() -> dict[str, Any]:
             "retrieval_version": method.retrieval, "dependencies": list(method.dependencies),
             "fallback": method.fallback, "required_resources": required_resources([identifier]),
             "capabilities": {
-                "read_results": {"available": False, "reason": "RESULT_ADAPTER_PENDING",
+                "read_results": {"available": True, "reason": "VERIFIED_U09_ARTIFACT_READER",
                                  "scope": "VERIFIED_HISTORICAL_MANIFEST"},
                 "analyze": {"available": False, "reason": "RUNNER_NOT_RELEASED"},
                 "compare": {"available": False, "reason": "RUNNER_NOT_RELEASED"},

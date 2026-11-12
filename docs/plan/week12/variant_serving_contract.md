@@ -36,6 +36,14 @@ mới đều chưa mở: adapter U09 thuộc F07, provider/runner thuộc F08. K
 native tại endpoint cũ vẫn giữ hành vi hiện hữu, không được suy thành grant
 cho namespace mới.
 
+**Từ F07**, `read_results` có adapter `VERIFIED_U09_ARTIFACT_READER` và
+`available:true`; ba khả năng chạy mới vẫn chưa mở. `/experiments` dùng
+`/api/research-results/runs` và `/<run_id>`/`/export`/`/artifacts/<name>` dưới
+namespace `/api/research-results`. Reader kiểm package/member/receipt đã khóa,
+không gọi evaluator historical trên source serving mới. Filter method/baseline
+chỉ ẩn hàng của full cohort; symbol/fold chỉ lọc chi tiết, repeat còn chọn hàng
+metrics từng repeat đã seal. Xem [kết quả/giới hạn F07](README.md#f07--viewer-u09-và-so-sánh-offline).
+
 Miền ứng viên ban đầu của runner mới là **1d/VI**. Chưa có mã/ngày nào được
 cấp cho inference mới ở F06. EN được nhận về cấu trúc để snapshot ngôn ngữ,
 nhưng preflight báo `LANGUAGE_NOT_RELEASED`. Khung intraday bị từ chối.

@@ -1,0 +1,9 @@
+<section class="panel"><h2>{{ E.summary }}</h2><p>{{ E.estimand }}</p>
+  <div class="scroll" tabindex="0"><table><thead><tr><th>{{ E.method }}</th><th>{{ E.return }}</th><th>BA (%)</th><th>Accuracy (%)</th><th>MCC</th><th>F1 UP</th><th>F1 DOWN</th><th>{{ E.long_rate }}</th><th>{{ E.mdd }}</th><th>{{ E.fee }}</th><th>{{ E.slippage }}</th><th>{{ E.turnover }}</th><th>{{ E.bypass }}</th></tr></thead><tbody id="summary-rows"></tbody></table></div>
+</section>
+<section class="panel"><h2>{{ E.contrasts }}</h2><p>{{ E.band_note }}</p>
+  <div id="contrast-chart" role="img" tabindex="0" aria-label="{{ E.contrasts }}"></div>
+  <div class="scroll" tabindex="0"><table><thead><tr><th>{{ E.method }}</th><th>{{ E.baseline }}</th><th>{{ E.endpoint }}</th><th>{{ E.effect }}</th><th>{{ E.band }}</th></tr></thead><tbody id="contrast-rows"></tbody></table></div>
+</section>
+<details class="panel"><summary>{{ E.bridge }}</summary><p>{{ E.bridge_note }}</p><div class="scroll" tabindex="0"><table><thead><tr><th>{{ E.method }}</th><th>{{ E.baseline }}</th><th>Δ return (pp)</th><th>Δ BA (pp)</th><th>Same action / 306</th></tr></thead><tbody id="bridge-rows"></tbody></table></div></details>
+<details class="panel"><summary>{{ E.repeat_metrics }}</summary><div class="scroll" tabindex="0"><table><thead><tr><th>{{ E.method }}</th><th>{{ E.repeat }}</th><th>{{ E.return }}</th><th>BA (%)</th><th>Accuracy (%)</th><th>MCC</th><th>F1 UP</th><th>F1 DOWN</th><th>Sharpe / cycle</th><th>Sortino / cycle</th></tr></thead><tbody id="repeat-rows"></tbody></table></div></details>

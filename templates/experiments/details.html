@@ -1,0 +1,9 @@
+<section class="panel"><h2>{{ E.details }}</h2><p class="notice">{{ E.detail_note }}</p>
+  <form id="detail-filters" class="filter-row"><label>{{ E.table }}<select id="table"><option value="predictions">{{ E.predictions }}</option><option value="accounts">{{ E.account_table }}</option><option value="cycles">{{ E.cycles }}</option><option value="daily_nav">{{ E.daily_nav }}</option></select></label>
+    <label>{{ E.repeat }}<select id="repeat"><option value="all">{{ E.all }}</option><option value="0">0</option><option value="1">1</option><option value="2">2</option></select></label>
+    <label>{{ E.symbol }}<select id="symbol"><option value="all">{{ E.all }}</option></select></label>
+    <label>{{ E.fold }}<select id="fold"><option value="all">{{ E.all }}</option></select></label><button>{{ E.apply }}</button>
+  </form><p>{{ E.units_note }}</p>
+  <div class="scroll" tabindex="0"><table><thead id="detail-head"></thead><tbody id="detail-rows"></tbody></table></div>
+  <div class="pagination"><button id="prev" type="button">{{ E.prev }}</button><span id="page-info" aria-live="polite"></span><button id="next" type="button">{{ E.next }}</button></div>
+</section>
