@@ -46,7 +46,8 @@ Cùng lịch 102 điểm không tạo pairing giữa hai study: response, protoc
 provenance khác nhau. Không ghép predictions, cộng N, áp bootstrap/seed U09
 ngược lên bảng gốc, hoặc diễn giải ba Decision repeat thành ba full execution.
 F02 phải nối từng artifact đầu vào/hash → field/đơn vị → bảng/hình/macro mới
-trong release riêng. Mapping ở đây chốt nguồn; chưa sinh các artifact F02.
+trong release riêng. Mapping chốt tại F01; artifact F02 và kết quả kiểm tra
+được ghi tại [README W12](README.md#f02--generator-và-artifact-bài-báo-u09).
 
 ## Khôi phục và smoke offline trong checkout riêng
 

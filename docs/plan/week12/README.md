@@ -47,15 +47,15 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F02**, sinh bảng/figure/macros U09 từ nguồn đã verify trong
-namespace mới. F00–F01 hoàn tất; F02 đang triển khai; F03–F12 chưa bắt đầu.
+**Bước tiếp theo: F03**, cập nhật nội dung tám section và appendix A–F từ
+release F02. F00–F02 hoàn tất; F03–F12 chưa bắt đầu.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
 AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 
 - [x] F00 — Audit paper/reviewer, bảng/hình, registry/runner/API/templates; lập kế hoạch cuối, chưa triển khai code hoặc sửa bản thảo.
 - [x] F01 — Chốt mapping hai study, snapshot 810 nguồn nguyên byte; historical restore và cold replay U09 PASS.
-- [ ] F02 — Đang làm: generator bảng/figure/macros U09 có provenance và namespace riêng.
+- [x] F02 — Generator và release U09 riêng: 26 artifact/798 ô có provenance, 16 test và cold render nguyên byte PASS.
 - [ ] F03 — Cập nhật nội dung tám section và appendix A–F, giữ title/tác giả/cấu trúc.
 - [ ] F04 — Cập nhật sơ đồ, thuật toán, caption, bảng/hình và layout cần thiết.
 - [ ] F05 — Đối soát reviewer, build/render hai PDF, kiểm số liệu/locators và bàn giao release bài; hoàn tất U10.
@@ -113,6 +113,55 @@ theo AGENTS §1.2; smoke restore/hash/cold analysis ở trên bao phủ đúng y
 F01. **0 API mới, 0 full inference, 0 training/refit**. Gate U03/U08/U09 giữ
 phạm vi cũ; native row-wise causal **FAIL**, whole-system **NOT_CERTIFIED**.
 Kết thúc F01, F02 chưa bắt đầu; U10 vẫn chờ F02–F05.
+
+### F02 — Generator và artifact bài báo U09
+
+Hoàn tất ngày **12/11/2026**, nhánh `feat/manuscript-unified-results`, từ develop
+`5d1b31b2`; commit generator **`3ac6a28a`**. [Generator](../../../core/manuscript_u09)
+đọc trực tiếp các ZIP U09/U08 đã pin và acceptance, đối soát member/receipt/
+identity, viện dẫn source gate lịch sử F01. Không chạy lại evaluator,
+bootstrap, provider hoặc refit. Consumer historical U09 và generator Full/Base
+cũ giữ nguyên; verifier artifact trình bày này không chứng nhận code serving mới.
+
+[Manifest release](../../../outputs/revision/u09_manuscript_assets_v1/manifest.json)
+khóa input, chín file nguồn/test/attributes, runtime render/font và từng output.
+**26 artifact**, trong đó **14 file** được cài vào
+[`paper/generated/u09/`](../../../paper/generated/u09); nội dung section và hai
+entrypoint LaTeX chưa đổi. Release gồm:
+
+- Bảng scope, so sánh chính đủ mười vai trò/control, class-aware metrics, economics, ba Decision repeat, đủ 20 contrast và ba dependency bridge.
+- Bảng CORE4/OOD5 có raw/bypass và effective K được ghi; giữ NA khi K thiếu. Ghi đúng 79/102 điểm thiếu sentiment; không đổi missing thành neutral.
+- L1/L2/L3 cho cả return và BA; CORE4 riêng; companions nguyên byte theo symbol/fold/repeat/account và toàn bộ leave-one-out/sensitivity đã khóa.
+- **109 macro** prefix `Unified` trong `summary_numbers.tex`, namespace dành riêng U09; macro Full/Base cũ không đổi. Return/BA là %, contrasts là đpt, phí/slippage hiển thị kVND; scale/rounding được ghi riêng.
+- Figure SVG/PNG tiếng Anh cho hai baseline từ đúng mười return contrasts, giữ nguyên figure nguồn U09. **798 ô số** trong `numeric_cells.json` nối literal/pointer/package/member tới output, đơn vị, scale và giá trị render; support đếm từ shared/prediction frozen có lineage riêng.
+
+[QA/log đúng phạm vi](unified_manuscript_checks.zip): **5.226 byte**, SHA256
+`b1b00e3d26e724f2d164286196f4cc5b6f68d5053f797162c9c1c3ac5fe84b6c`.
+Gói bảy member giữ log test, compile, build/cold verify, preservation và source/
+runtime bindings; không tạo thêm receipt rời.
+
+- [x] **16 test trực tiếp PASS**, không skip/error: nguồn/schema, hai baseline/family, đủ support, đơn vị/null, lineage, macro hợp lệ/tách namespace, không ghi đè, phát hiện source/output/install/thừa file bị sửa và render xác định.
+- [x] Compile đúng **sáu file Python mới**, không compileall toàn codebase.
+- [x] CLI `-I` ở tiến trình mới: **`PASS_U09_MANUSCRIPT_COLD_REPLAY`**, khớp nguyên byte cả 26 artifact, gồm SVG/PNG; network bị chặn.
+- [x] Kiểm trực quan figure hai panel: nhãn, đơn vị, point/band đầy đủ, không cắt/tràn; ảnh preview khớp byte release. Build/render toàn bộ hai bản thảo và QA layout cuối thuộc F03–F05.
+- [x] Đối soát F01 sau sinh: **810 nguồn** (gồm paper50/revision28 và 729 pin U09), **20 gói W12 + 30 archive cũ** nguyên byte. Chỉ thêm namespace mới, không sửa công thức kinh tế hoặc dữ liệu đã seal.
+- [x] Kiểm bàn giao: bảy member QA đúng hash, chín binding source khớp Git commit generator, 114 liên kết/anchor local trong bốn tài liệu PASS; checklist F02/F03 đồng bộ.
+
+Kiểm lại release đã có, không ghi đè:
+
+```powershell
+py -3.13 -I -X utf8 scripts/manuscript_u09/run.py verify
+```
+
+`build` chỉ dùng một lần khi release và `paper/generated/u09` chưa tồn tại;
+`--artifact-only --release outputs/revision/u09_manuscript_assets_<tên-mới>`
+cho phép tạo bản riêng không cài vào paper. F03 sẽ dùng
+`\input{generated/u09/summary_numbers.tex}` và các bảng theo mapping, chưa thực
+hiện trong F02. Không chạy lại `tests/unified_analysis/test_analysis.py`,
+`tests/test_revision_manuscript.py`, E2E hoặc leakage suite vì nguồn/caller/
+contracts cũ không đổi; 16 test mới và cold CLI bao phủ đường export mới theo
+AGENTS §1.2. **0 API mới, 0 inference/refit/ước lượng lại metrics**. Native
+row-wise causal vẫn **FAIL**, whole-system **NOT_CERTIFIED**; U10 chờ F03–F05.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

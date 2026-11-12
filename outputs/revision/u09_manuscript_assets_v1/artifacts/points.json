@@ -1,0 +1,1022 @@
+[
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "CMG-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/bb5386de16154e9c9c4f5c97bfc5bebea7c1100a52c83a522e78b133c3565552.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "FPT-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/7ace396801b8666a24f23ed0aef3466aa073db80185db93ceab24d48741a9ec3.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "HVN-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/0d9ba105f418f21acdf54428082de497af018d14d42abf5ba48fa5eaeaaa5fbc.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "MBB-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/63c8aa74f6fd532e23a953e5d93146b7c937708aa9f9901e1993ec9ed91f3e5a.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "MWG-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/4fa71f97c26377e856ed5cef84a67d2db0fd5d9137f3f86b9de81292b91e87bc.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "VCB-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/41386e3187eea4a9660616cc13686f318f72ae2fc7db2db1c90d9d6b5ca5fc3b.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "VJC-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/85afe20c2d1823e3b3c7ddcfdbc810817bfbd7ef2aee2b480edc2c65b763352e.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2023-07-03",
+    "fold": "b2023_h2",
+    "id": "VNM-2023-07-03",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/9356e7dba65c8f77db0a912977d943ab237a862a25404a723b6a51483ea7a385.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "CMG-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/44217508db079e34c741c0475523e1e2a58af6ae17048a94e83ff1c2aafc5f0c.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "FPT-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/1bc464f5dac981dea4a9535b0a87337bb9942abe76ade27d811b469354cde4ba.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "HVN-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/4f260b67868a22b4bc9d40f54d990e4430efa7dd820d2fa1a5862a1d2e738970.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "MBB-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/413e4906b586a4f40d997fdc5ba54a753ce2858ce2dafc1ca6d35b9c8fa8a74b.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "MWG-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/6e0d7e5e508a00187592b3b0694dedc915930e69f5fcd91bb37483562ca6a620.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "VCB-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/5f5b92418b94239833c2b9b6238f97092ff913d377cee03104137a5f2fffcc20.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "VJC-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/9fee978b6764da37478d6ff19dbea77230c429fd4d40088ede9a91baa344c144.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2023-09-22",
+    "fold": "b2023_h2",
+    "id": "VNM-2023-09-22",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/988039a40b36d3ac8c052aa83f224ba66f6ee3d9ff2379cb584639f2a0dd056c.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "CMG-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/916bc24ab7bfd7d866b4dbe3ce1eece64ca1823779bc83e27be6b56ccc394703.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "FPT-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/54e5f414b6e96704514b9ee433a802221a06f2a13e4338276e8a83ea5e363aa3.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "HVN-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/8d955df4cc7f6de4697c3d94b9856f1fa230ab1e65cf07a82358588f5c5643fb.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "MBB-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/332e1774433e2034e8715b96ea9be88c697c913d48b2de62063a98501d336efe.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "MWG-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/683a3b5a06440f4fb5de015f80988888af172bd29b170eebd7f96f4db423d999.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "VCB-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/74d1b04a15b3d3924d9a964e8b63f5266da168a6a7b639037d3617fa145918f2.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "VJC-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/7614a86cc789687a454138ed36e399d1867187dcb6180908e2fbc236937e4e3b.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2024-07-01",
+    "fold": "b2024_h2",
+    "id": "VNM-2024-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/6b3dfe257e38d9a16eeceb4d244049d63e9d231940e0d17dafcd9b7bdbb44d82.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "CMG-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f82849b9c39143031d4654cf75c3e63f0f9461371dd24549f59a55aede118ba1.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "FPT-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/cb716580ade8dcefb3cbc044af4682c78cf66bd64be16f3233b89a469a32da31.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "HVN-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/5335bfee512f2db65f2e78fbb8ce262edc5035469d3d86613fe495ff37b4b683.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "MBB-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/ead76865f23ca9848e6e105f0fb4f569c354653148512b42213612dacf5d4bb9.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "MWG-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/3ec26085d0deba6658532f7a00eb7616ecae86c5a27211a934fc2381322dfb20.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "VCB-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/d712135e707e0763af75cb225a8384a44b3609bc24735119a4bd3ef35ec050b5.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "VJC-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/ed3a552752e3a6c7e611152fae343bda43dd72764ea869c76fd2fa4b29c972b6.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2024-09-20",
+    "fold": "b2024_h2",
+    "id": "VNM-2024-09-20",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/fd7235ec0370ab343158b147c150a11fba6ad5070560bb2edc6ea9cb4d453b9f.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "CMG-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/a19cce55611f0053aaab25f641418de91624c9cbb78c6f24fd6dddcc52d7ed38.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "FPT-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/74cfab081bf73982d4d17f1b940745e183a5b762d294146787787d579f1f235e.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "HVN-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/9593782a7a6a038caef949d11c32576217588b6f9eba08483d4c5594b6119369.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "MBB-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/5e15e0384eb6837a156cb1fe8c97c44c48782d0faead74e07e56895d14c9f616.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "MWG-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/3a9ea1d6ab831f8c0480fd8c674a875b906761287207ad36a67e3d6364c4273f.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "VCB-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/37f67b72e8d1d8d35f28f0f0058a19646e1ebc4d829baaa9a8304d28d412494a.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "VJC-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/a710135f091ca990d24c358baece7ef766c5cddb94c87fa806f3f39589bcdc4d.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2025-01-02",
+    "fold": "b2025_h1",
+    "id": "VNM-2025-01-02",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/d8ee9013ce1f4f40ee8a468f13ec167366fed3f0addbede9857119f8f1c938a6.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "CMG-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/8357c2ec5c1f5a911c2969ea4f7d3bc07d1faf2e88de44569f446dca514c9441.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "FPT-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/d122a13d7b17c129a8d443e3cf8f4b554838517594dbdc9c6172ca547266a5b3.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "HVN-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/c5a0a6941a8bb1c4ee3b1a5bf3f8c5d211d7038286d2a839ebb040105c022678.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "MBB-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/ed287ee8af92fcebf3c9e941a056fa655a461289e66e6439cbd347ac7ae4069a.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "MWG-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/164df55ca2e025dbe09a7c5d7a273981426d3a1323a5467ea0ea1aa987fc7c4f.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "VCB-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/29c511fe9997cd7a53d985127c7d8fa0c4eadc1417f48d55982e4dedb3bb0beb.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "VJC-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/54dd359b484fb11a8367501d531f6911ba7db3fdfada2689a597684f67900988.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2025-03-31",
+    "fold": "b2025_h1",
+    "id": "VNM-2025-03-31",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/3b8c58e6fd980f4aa7ef0cc29099b68db3ad179afaae5285214279503d374b60.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "BHN-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/c0beb49a7893ca0eb2b0770b85871ea16073aa16449c591a1bc984349a8345a8.json",
+    "symbol": "BHN"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "CMG-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f59c6e77f02a3875c38a8e8c6b7e9cd48d5e3e25ab38642e3c3cd1a1fde05329.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "FPT-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/8b2df34c6f7366592fa890c42185238e0e110bffb8d881a18eb1ae2d1f32a7fc.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "HVN-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/8935dbd1a215fa75afc2199469fd3ae6e93a65b8aa7b9e511618cf6ef07eb064.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "MBB-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/81e9f4bfb7819d6c924346f29363b62245be8b8298ca4a2540260250a958ebbd.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "MWG-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/3dfa98f95eb7f960ba1aecfa9957d935bf929d80ebc3fa83579353f27ad9e209.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "VCB-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/58a97eb7c3721b9197ec4eb30e6c16a115a53f6b1c5c8a0ff6246ac224e42d23.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "VJC-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/4cb887d08028bd707f30d0ff399e7fb6de192dee01836697fc50b61d0367b26c.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2025-10-01",
+    "fold": "f2025_q4",
+    "id": "VNM-2025-10-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/e09f991fd29ee24ba0d9baf61310014b14ede15cfd4f32a102d045a9a7c5d2cb.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "BHN-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/2181ceedbd2f111db992a4fc238c8aa3d09eac2aee3d3fef5425776fd6e2e022.json",
+    "symbol": "BHN"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "CMG-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/396fdd70f842efdaf3663b6bda0e7bcae154421401651c7531d4a5f3f321e75b.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "FPT-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/323c4f5aa910a25b21e0e300b83091b7d139dcb19a3b98555a205088cd95e80d.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "HVN-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/6830ae4db0728892a75bc7c6d2b5faa28135a4381382e22e2db0e15391a869c7.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "MBB-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/73207d9af3fa7c838bb7cb49e0d515aa0d53cb515b26247b156afc60a96cc56e.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "MWG-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f52b1c90d75a2b221d779c87d61f70eda178203a09a61cdfb5fd92cca0430984.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "VCB-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/365d45f4a6553b6559494fa40b44a32ff73162a82e1df29d939fede66dd49d38.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "VJC-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f57ec6c51477cd8c028ae9aae1b27a0623e35aba19790fd2927513b042fab270.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2025-12-19",
+    "fold": "f2025_q4",
+    "id": "VNM-2025-12-19",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/09f1096e8fad8e3aa5561beb9ce1bccae8cd8fb2a97c16a358e963acd7a222f6.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "BHN-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/cd96e57641f769973cb18a1900274a6bd91c6afe044b428d9f5958ecef0be1b6.json",
+    "symbol": "BHN"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "CMG-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/73747b2a13d9f42d6717fa584a6aa154d1d31ae0cb3c56b1015457c4da000b73.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "FPT-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/060e404a40b403b4dc1db7bc7952ce220abd92b3091fa6e51701c7b42581590d.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "HVN-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/28251bef7e2494df89872862794f6463ab6945ed887b439fd589e5be4bb7c5d3.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "MBB-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f212fafbe05b4c13c5c4c0bb333187db48562510882a3e67834b6251c4e98222.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "MWG-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/8ec887b6aa1ba030ff583f38713348660b93a0ec8cb1f860ab6df05c85cae2f9.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "VCB-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/c994f1e63368490ddfd771a8ee99143a2dd0f814ad8fb6647dbd0e774655a403.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "VJC-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/e7ce74af371ede28392597f863b22b66f67d9487b7513556bfb9628e887cb9de.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2026-04-01",
+    "fold": "f2026_q2",
+    "id": "VNM-2026-04-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/c5687fc59bf43faa07ddcf1e3cdaccf53d312dfb6c540369dc3f008e2850c878.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "BHN-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/bddde67f18aa526593f90a32b58ab30aa4fb0bd72ef55cc411400d857da6b2ea.json",
+    "symbol": "BHN"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "CMG-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/1c319e454785d274daf490f4dd7a19a234535585c4d68c8b381234d3c1b5994e.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "FPT-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/e9e6b11f9b42fe95122d51bd37db83152ac98d88855b386c6b3add6f1868ddf6.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "HVN-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/e846cc0bad505bccdea945a8e61879c2f4ff13bf4e179a7c93dbba7cee432a61.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "MBB-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/47c940f33e3eca8606daab60a54451207adafd20faab194b887d511f2c5b04a8.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "MWG-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/3b13b80fb2453b3f5d77df89dce5434d449ddd3c3a3bbb4860d223ebe9c76246.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "VCB-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/7f717ebc0568a8775147209e82c6cb4cdf74c2c74ee28be6c5f10e4257a797bd.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "VJC-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f2f3b50623c12645c4313bdb0f82716035e8e633b59efb1a4051d901c4d69673.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2026-06-24",
+    "fold": "f2026_q2",
+    "id": "VNM-2026-06-24",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f10cd1cb7f13c8c45b55e3a25fd7d64b0e8a330b89fcbdfa74dce2142b6b2981.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "BHN-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/5a84f978c5cbb0a4383983ae4519c543742893116d8bed50b64fe58eaca42bf2.json",
+    "symbol": "BHN"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "CMG-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/88ad71d52b5dc70e79fe64c8a23126b79220b54deb7fec92db240fdb3f023663.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "FPT-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f942a0b6d65b757271dbf337cb786ba32e7e9403295a5a3ada94531bb05fb83f.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "HVN-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/883d2cc886a95081b810afd03cecca3dd54e785fc9186fbcfd2fb13a7f840784.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "MBB-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/dfd5c24f8ca5836ec7b10329a71ac33cee366f7f1aba4651bf274d0991ba3861.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "MWG-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/c86a9b690a84bd938094c1fa79c77f80909ceac9fabda97b04fdf82ef8797241.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "VCB-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/916bc498d948f63783785e8841402130a69263e4da08d964e4d3e90f6f996d17.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "VJC-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/272501c2b3fea55017da614421b4351b8d862e6bdc636bcd98539d97106c806d.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2026-07-01",
+    "fold": "f2026_q3",
+    "id": "VNM-2026-07-01",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/9d634fb6ee3285e2c6bbbe5dfa793d907986357d11aa40922bc5f74817ace518.json",
+    "symbol": "VNM"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "BHN-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/73a0d42ab5fe4fa03da0380befe48e1d65600ca4f75d8082f2a6814d0cdbbbf7.json",
+    "symbol": "BHN"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "CMG-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": true,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/a21d0684d8fe79c5624bf3f03185a6d020d9c68c8c09145eab36e2abe55d0021.json",
+    "symbol": "CMG"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "FPT-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/ae76a44beee79332eb2e748e63856273e50a027fc2953305d2b631a21fdcca69.json",
+    "symbol": "FPT"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "HVN-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/e80990c65e0a579a32f0c9c08d62142e8bb6e9c9d98ee398922086f9f57f27f8.json",
+    "symbol": "HVN"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "MBB-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/1a4b058a0edf0b8f5048a3bbf096902b2dec46c20abbc98a8e13ee846e26776e.json",
+    "symbol": "MBB"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "MWG-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/aad3f68c99ac854c03cf99537d66361050e8a818bf3ecf76943bfe46783299e2.json",
+    "symbol": "MWG"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "VCB-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/65400a9d1e2809f8d29b00504fabeee55b821dd97fd10f99febea1a47f72b6c1.json",
+    "symbol": "VCB"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "VJC-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/e4db93c59e6717dec8bad35abf3c3a033d37fb576f4334187fb683af486075cb.json",
+    "symbol": "VJC"
+  },
+  {
+    "cutoff": "2026-09-23",
+    "fold": "f2026_q3",
+    "id": "VNM-2026-09-23",
+    "quality": "U08_HOSTED_HISTORICAL_EXPLORATORY",
+    "realization": 0,
+    "sentiment_unavailable": false,
+    "source_member": "outputs/unified_integration/u08_research_r1/slots/f8cf240a8782549efb7dabd9ea1a104a49f48b02ade7d02e1d2e3e315399de5b.json",
+    "symbol": "VNM"
+  }
+]

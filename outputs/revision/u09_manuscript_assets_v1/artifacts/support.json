@@ -1,0 +1,315 @@
+{
+  "accounts": 51,
+  "by_symbol": {
+    "BHN": 6,
+    "CMG": 12,
+    "FPT": 12,
+    "HVN": 12,
+    "MBB": 12,
+    "MWG": 12,
+    "VCB": 12,
+    "VJC": 12,
+    "VNM": 12
+  },
+  "dates": 12,
+  "domain_support": [
+    {
+      "bypass": 0,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "original_fix",
+      "points": 48,
+      "raw_responses": 144,
+      "reasons": {
+        "RAW_DECISION": 144
+      }
+    },
+    {
+      "bypass": 0,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "original_fix",
+      "points": 54,
+      "raw_responses": 162,
+      "reasons": {
+        "RAW_DECISION": 162
+      }
+    },
+    {
+      "bypass": 0,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "original_common",
+      "points": 48,
+      "raw_responses": 144,
+      "reasons": {
+        "RAW_DECISION": 144
+      }
+    },
+    {
+      "bypass": 0,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "original_common",
+      "points": 54,
+      "raw_responses": 162,
+      "reasons": {
+        "RAW_DECISION": 162
+      }
+    },
+    {
+      "bypass": 0,
+      "domain": "CORE4",
+      "effective_K_defined": 144,
+      "effective_K_max": 3.0,
+      "effective_K_min": 3.0,
+      "forecasts": 144,
+      "method": "bayesian_v1",
+      "points": 48,
+      "raw_responses": 144,
+      "reasons": {
+        "RAW_DECISION": 144
+      }
+    },
+    {
+      "bypass": 162,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "bayesian_v1",
+      "points": 54,
+      "raw_responses": 0,
+      "reasons": {
+        "FALLBACK_ORIGINAL": 162
+      }
+    },
+    {
+      "bypass": 141,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "C2",
+      "points": 48,
+      "raw_responses": 3,
+      "reasons": {
+        "FALLBACK_ORIGINAL": 141,
+        "RAW_DECISION": 3
+      }
+    },
+    {
+      "bypass": 162,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "C2",
+      "points": 54,
+      "raw_responses": 0,
+      "reasons": {
+        "FALLBACK_ORIGINAL": 162
+      }
+    },
+    {
+      "bypass": 120,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "A_tp_pool",
+      "points": 48,
+      "raw_responses": 24,
+      "reasons": {
+        "FALLBACK_ORIGINAL": 120,
+        "RAW_DECISION": 24
+      }
+    },
+    {
+      "bypass": 162,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "A_tp_pool",
+      "points": 54,
+      "raw_responses": 0,
+      "reasons": {
+        "FALLBACK_ORIGINAL": 162
+      }
+    },
+    {
+      "bypass": 141,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "B_semantic",
+      "points": 48,
+      "raw_responses": 3,
+      "reasons": {
+        "FALLBACK_ORIGINAL": 141,
+        "RAW_DECISION": 3
+      }
+    },
+    {
+      "bypass": 162,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "B_semantic",
+      "points": 54,
+      "raw_responses": 0,
+      "reasons": {
+        "FALLBACK_ORIGINAL": 162
+      }
+    },
+    {
+      "bypass": 57,
+      "domain": "CORE4",
+      "effective_K_defined": 144,
+      "effective_K_max": 3.0,
+      "effective_K_min": 0.0,
+      "forecasts": 144,
+      "method": "MT_BICL",
+      "points": 48,
+      "raw_responses": 87,
+      "reasons": {
+        "ACCEPT_POSITIVE_Q10_DELTA_U": 2,
+        "BYPASS_QUERY_FEATURE_UNAVAILABLE": 30,
+        "BYPASS_UTILITY_UNSUPPORTED": 27,
+        "KEEP_PROPOSED_SAME": 82,
+        "REJECT_NONPOSITIVE_Q10_DELTA_U": 3
+      }
+    },
+    {
+      "bypass": 51,
+      "domain": "OOD5",
+      "effective_K_defined": 162,
+      "effective_K_max": 3.0,
+      "effective_K_min": 0.0,
+      "forecasts": 162,
+      "method": "MT_BICL",
+      "points": 54,
+      "raw_responses": 111,
+      "reasons": {
+        "ACCEPT_POSITIVE_Q10_DELTA_U": 2,
+        "BYPASS_QUERY_FEATURE_UNAVAILABLE": 18,
+        "BYPASS_UTILITY_UNSUPPORTED": 33,
+        "KEEP_PROPOSED_SAME": 107,
+        "REJECT_NONPOSITIVE_Q10_DELTA_U": 2
+      }
+    },
+    {
+      "bypass": 0,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "Fact_Anchor",
+      "points": 48,
+      "raw_responses": 144,
+      "reasons": {
+        "NO_NUMERIC_VETO": 144
+      }
+    },
+    {
+      "bypass": 0,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "Fact_Anchor",
+      "points": 54,
+      "raw_responses": 162,
+      "reasons": {
+        "NO_NUMERIC_VETO": 162
+      }
+    },
+    {
+      "bypass": 144,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "CASH_EVERY_CYCLE",
+      "points": 48,
+      "raw_responses": 0,
+      "reasons": {
+        "REGISTERED_NO_LLM_CONTROL": 144
+      }
+    },
+    {
+      "bypass": 162,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "CASH_EVERY_CYCLE",
+      "points": 54,
+      "raw_responses": 0,
+      "reasons": {
+        "REGISTERED_NO_LLM_CONTROL": 162
+      }
+    },
+    {
+      "bypass": 144,
+      "domain": "CORE4",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 144,
+      "method": "ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS",
+      "points": 48,
+      "raw_responses": 0,
+      "reasons": {
+        "REGISTERED_NO_LLM_CONTROL": 144
+      }
+    },
+    {
+      "bypass": 162,
+      "domain": "OOD5",
+      "effective_K_defined": 0,
+      "effective_K_max": null,
+      "effective_K_min": null,
+      "forecasts": 162,
+      "method": "ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS",
+      "points": 54,
+      "raw_responses": 0,
+      "reasons": {
+        "REGISTERED_NO_LLM_CONTROL": 162
+      }
+    }
+  ],
+  "folds": 6,
+  "points": 102,
+  "raw_decision_responses": 1290,
+  "sentiment_missing": 79,
+  "symbols": 9,
+  "upstream_executions": 102,
+  "upstream_realizations": 1
+}
