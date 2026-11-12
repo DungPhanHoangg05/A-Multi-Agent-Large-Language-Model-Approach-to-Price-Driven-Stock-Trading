@@ -21,7 +21,7 @@ alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 
 amendment v2 giữ 102 anchor, đủ assets/PIT và quota offline; nghiệm thu và cold
 replay đã PASS trong phạm vi U06. U08 đã thu đủ 102 điểm/2.448 forecast/102 labels
 và cold seal PASS ngày 12/11/2026; gói research đã được nghiệm thu nguyên byte.
-U09 phân tích paired và U10 cập nhật bài báo còn chờ thực hiện.
+U09 đã PASS phân tích paired/cold replay nguyên byte; U10 cập nhật bài báo còn chờ.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
@@ -32,8 +32,140 @@ U09 phân tích paired và U10 cập nhật bài báo còn chờ thực hiện.
 - [x] U06 — Amendment v2 đủ nguồn offline, quota có bằng chứng, scoped tests và cold replay102/102 PASS; inference/release vẫn OFF.
 - [x] U07 — Paired/PIT/recovery offline PASS116 test, cold replay102 điểm/2.448 forecast slot; không mở inference.
 - [x] U08 — Smoke và research đã seal đủ 102 điểm/2.448 forecast/102 labels; nghiệm thu và gói evidence PASS.
-- [ ] U09 — Phân tích paired và cold replay.
+- [x] U09 — Phân tích paired102 điểm/ba repeat, hai family/20 contrast và bridge; cold replay15 artifact, oracle1.530 account và gói evidence PASS.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+
+### Checklist chi tiết U09
+
+Ngày 12/11/2026, triển khai trên `feat/unified-comparison-analysis` từ develop
+`2ead2bc9`; source phân tích khóa tại `ae90d995`. Chỉ đọc research U08 đã seal,
+không gọi LLM, refit student/HMM, đổi economics/PIT hoặc sửa primary sau outcome.
+
+- [x] U09.1 — Đối soát gói U08, receipt active, protocol v2, 718 pin nguồn/286 assets/Python3.13.5 và107 package; giữ đủ102 điểm/ba repeat.
+- [x] U09.2 — Consumer từ archive đã seal, kiểm đúng 2.448 slot/UUID/shared và nhãn; 51 account mã/fold, BHN chỉ ba fold sau.
+- [x] U09.3 — Hạch toán daily NAV/cycle ledger, hai family/20 endpoint-contrast, ba bridge, CASH/ALWAYS_LONG và toàn sensitivity đã khóa.
+- [x] U09.4 — PASS25 test trực tiếp/caller, compile8 file Python mới; thêm4 test label/firewall liên quan PASS.
+- [x] U09.5 — Phân tích đủ tám vai trò và hai control, mean repeat trong account rồi mean51 account; giữ âm/null/fallback và toàn bộ cost ledger.
+- [x] U09.6 — Cold replay tiến trình mới khớp nguyên byte15 artifact; oracle engine/scalar BA đối soát1.530 account PASS; giữ8.035 file journal U08 nguyên byte.
+- [x] U09.7 — Receipt/gói kết quả/QA/hash/consumer PASS, cập nhật checklist, commit/merge vào develop; bàn giao dữ liệu cho U10.
+
+### Kết quả và giới hạn U09
+
+[Nghiệm thu U09](unified_analysis_acceptance.json),
+[runtime](unified_analysis_runtime.json), [checks](unified_analysis_checks.json),
+[gói kết quả](unified_analysis_results.zip) và [QA](unified_analysis_checks.zip)
+khóa lineage vào đúng dataset active U08. Namespace kết quả là
+`outputs/unified_integration/u09_analysis_r1`, chứa JSON/CSV/report và PNG/SVG.
+Bổ sung 11 pin mới, tổng729 nguồn; không sửa718 pin hoặc gói research U08.
+
+| Vai trò/control | Mean account return % | BA % | LONG /306 | Bypass /306 |
+| --- | ---: | ---: | ---: | ---: |
+| original_fix | -0.652699 | 51.844156 | 69 | 0 |
+| original_common | -1.024794 | 45.965368 | 88 | 0 |
+| bayesian_v1 | -0.698188 | 50.095238 | 73 | 162 |
+| C2 | -1.030117 | 45.748918 | 89 | 303 |
+| A_tp_pool | -1.019471 | 46.181818 | 87 | 282 |
+| B_semantic | -1.030117 | 45.748918 | 89 | 303 |
+| MT_BICL | -1.253483 | 43.168831 | 105 | 108 |
+| Fact_Anchor | -1.286449 | 42.735931 | 107 | 0 |
+| CASH_EVERY_CYCLE | 0.000000 | 50.000000 | 0 | 306 |
+| ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS | -2.999738 | 50.000000 | 306 | 306 |
+
+Return là bình quân đều51 account mã/fold, mỗi account bình quân ba repeat;
+không nối fold hoặc compound qua repeat, không gọi mean account là portfolio.
+Tám vai trò và ALWAYS_LONG đều có mean net return âm; CASH là0. Đây là
+cycle controls cùng102 query, không phải continuous buy-and-hold.
+
+Primary dùng10.000 circular fold block L2, PCG64 seed20261110, cùng indices
+cho hai endpoint ×10 contrast. Cả10.000 draw joint finite; không redraw.
+Band95% dùng SD ddof1 trên joint finite và higher quantile của max
+|draw−estimate|/SD, chung20 chiều. Index SHA256
+`09374ae6e221b701c9b2b88241135fd70a701e611e752a8b8ec5bf82b669b9a7`.
+
+| Return contrast | Effect đpt | Band95% mô tả đpt |
+| --- | ---: | --- |
+| bayesian_v1 − original_fix | -0.045489 | [-0.362311; 0.271332] |
+| C2 − original_fix | -0.377419 | [-0.865902; 0.111065] |
+| A_tp_pool − original_fix | -0.366772 | [-0.867016; 0.133472] |
+| B_semantic − original_fix | -0.377419 | [-0.865902; 0.111065] |
+| MT_BICL − original_fix | -0.600784 | [-1.090421; -0.111147] |
+| bayesian_v1 − original_common | +0.326606 | [0.067130; 0.586081] |
+| C2 − original_common | -0.005323 | [-0.015970; 0.005323] |
+| A_tp_pool − original_common | +0.005323 | [-0.005323; 0.015970] |
+| B_semantic − original_common | -0.005323 | [-0.015970; 0.005323] |
+| MT_BICL − original_common | -0.228689 | [-0.575839; 0.118462] |
+
+Bayesian v1 cải thiện so common trong band mô tả: D return +0,326606đpt và
+D BA +4.129870đpt [2.010663; 6.249077]. So native, D return
+−0,045489đpt có band chứa0. MT có D return −0,600784đpt so native và
+−0,228689đpt so common; giữ nguyên các kết quả bất lợi. Sáu cluster lịch đã
+exposed chỉ hỗ trợ sensitivity, không p-value xác nhận, coverage/power hoặc
+khẳng định superiority/live profitability. Không chọn family có kết quả đẹp.
+
+Bridge mô tả native→common làm return thay đổi −0,372095đpt; common→anchor
+−0,261655đpt; anchor→MT +0,032967đpt. MT trùng action anchor302/306 forecast,
+chỉ bốn action khác; không quy toàn bộ chênh baseline cho student. C2/B_semantic
+chỉ có3 raw Decision mỗi nhánh, A_tp_pool24, v1 144, MT198. Kết quả primary
+bao gồm fallback đúng protocol, không coi mọi slot là một LLM call mới.
+
+`results.json` giữ L1/L3, leave-one-fold-out, leave-one-symbol-out và CORE4
+48 điểm/24 account đã khóa. `per_repeat.csv` giữ dispersion và cycle ratios;
+confusion/F1/MCC/BA theo repeat và mã/fold nằm ở các CSV classification.
+`accounts.csv`, `cycles.csv`, `daily_nav.csv` giữ toàn1.530 account, phí/slippage,
+fractional shares, EOD MTM MDD, cycle-end MDD và cash giữa query. Sharpe dùng
+SD sample ddof1, Sortino dùng RMS phần âm toàn cycle/MAR0; annualized=null.
+Null/zero denominator và draw thiếu class được kiểm bằng unit test, không ép0.
+
+Raw proposal, numeric veto, final action, trace hash và support nằm ở predictions;
+prior_traces.json giữ trace dedup. K/age/similarity xuất khi đã ghi; regret không
+có trong frozen trace cho null kèm lý do. Brier chỉ mô tả numeric student/teacher
+đúng target trên eligible support; không gán probability cho confidence LLM/fallback.
+Các panel retrieval/prior/MT ablation deferred vẫn chưa thực thi.
+
+Cold consumer chạy trong tiến trình mới với mạng ngoài và sáu constructor
+key/client/SDK/provider bị chặn: `PASS_U09_COLD_REPLAY`, khớp nguyên byte cả
+15 artifact. Kiểm riêng bằng `compute_account_metrics` frozen và BA scalar
+trên1.530 account/tám vai trò/hai control khớp trong tolerance1e−10đpt return
+và1e−12đpt BA. Không gọi evaluator U04 như một replay đầy đủ ABI metadata;
+chỉ đối soát kinh tế/phân loại bằng engine và phép đếm độc lập. Figure PNG đã
+được xem kiểm nhãn/band, không clipping.
+
+Đã PASS25 test mới/caller (20 ca U09,5 ca accounting/metrics) và4 ca firewall
+U08 liên quan; compile riêng8 file Python mới. Test phủ oracle scalar, reset
+account/repeat, padding BHN, paired indices, cả20 chiều, higher quantile, missing
+class/zero SD/minimum9500, checksum/grid/raw reuse, VND một lần và null JSON.
+Không chạy full suite/compileall/E2E vì chỉ thêm consumer/statistics offline;
+PIT/retrieval/kernel frozen được giữ hash, không mở đường thu hoặc huấn luyện mới.
+
+Gói kết quả có24 thành viên/1,383,945 byte, SHA256
+`e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9`.
+Gói QA có17 thành viên/18,302 byte, SHA256
+`8cb5adcf002a228c6b4a1ac9162526c9d0372f6be247a26cab43a727868a4dde`.
+Consumer thư viện chuẩn đã kiểm đủ member/hash và729 nguồn local. Gói giữ
+15 artifact/receipt gốc, runtime/checks, cold proof/cross-check/firewall và
+manifest; source Git, gói U08,286 assets và107 package là dependency ngoài gói.
+Acceptance JSON là gate cold cuối; receipt execution giữ nguyên mốc
+`cold_replay=PENDING` trước khi verifier riêng chạy, không ghi đè lịch sử.
+
+Chỉ0 API mới,0 training/refit. Giữ nguyên native row-wise causal FAIL,
+whole-system causal NOT_CERTIFIED và giới hạn nguồn/exposure U06. U09 hoàn tất;
+U10 cập nhật nguồn bài báo và render/QA còn chờ thực hiện.
+
+Kiểm lại toàn bộ phân tích, không gọi LLM:
+
+```powershell
+py -3.13 -I -X utf8 scripts/unified_analysis/run.py verify
+```
+
+Khôi phục các bảng đã sinh từ gói (giữ nguyên namespace) và kiểm manifest:
+
+```powershell
+py -3.13 -I -m zipfile -e docs/plan/week12/unified_analysis_results.zip "$env:TEMP/u09-results"
+py -3.13 -I -X utf8 "$env:TEMP/u09-results/evidence/verify_u09_package.py" docs/plan/week12/unified_analysis_results.zip --root "$PWD"
+```
+
+`analyze` chỉ dùng cho checkout chưa có namespace U09; có receipt thì dùng
+`verify`, không overwrite results để chọn lại kết quả.
 
 ### Checklist chi tiết U08
 
@@ -174,8 +306,8 @@ U09 dùng dataset active theo `receipt.json`/`quota_receipt.json` trong namespac
 - `wire_sha256`: `f7a5894f2576211c03dfd190428679bcdf1e5ee7be8d5909bbca4e27efa9eb6c`.
 - Runtime slot reset: `24ec38a6fdb2c040384abd2f15de49af2cf823c42120b8e87ca29e6c59244f47`.
 
-U08 hoàn tất thu thập và nghiệm thu phần mềm/evidence. **U09/U10 chưa thực hiện**;
-chưa có phân tích superiority hoặc cập nhật kết quả bài báo. Historical exposure,
+U08 hoàn tất thu thập và nghiệm thu phần mềm/evidence. U09 đã có phân tích
+paired tại mục phía trên; U10 chưa cập nhật kết quả bài báo. Historical exposure,
 news availability và các giới hạn nguồn ở U06 giữ nguyên; native row-wise causal
 vẫn **FAIL**, whole-system causal **NOT_CERTIFIED**. Repeats không tăng N thị trường.
 Nhật ký amendment bên dưới ghi đúng trạng thái tại từng mốc trước khi seal.

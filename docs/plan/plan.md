@@ -16,8 +16,15 @@ source bindings/runtime đã khóa, 0 inference mới trong lượt nghiệm thu
 raw/usage, reset, nguồn/hash và lệnh kiểm gói. Ledger giữ 1.702 HTTP attempts,
 trong đó 15 raw đã nghỉ vẫn tính chi phí và được lưu; không có UNKNOWN active.
 [Gói research đã seal](week12/unified_live_research.zip) là đầu vào U09.
-U09 phân tích paired và U10 cập nhật bài báo chưa thực hiện; native row-wise
-causal vẫn FAIL, whole-system causal NOT_CERTIFIED, chưa kết luận superiority.
+**U09 hoàn tất ngày 12/11/2026**: [kết quả và giới hạn](week12/README.md#kết-quả-và-giới-hạn-u09),
+[gói bảng/figure](week12/unified_analysis_results.zip) và
+[receipt](week12/unified_analysis_acceptance.json) đã PASS. Cold replay15 artifact
+nguyên byte,29 test đúng phạm vi, compile8 file; oracle độc lập1.530 account khớp.
+Return mean account: native−0,652699%, common−1,024794%, v1−0,698188%,
+MT−1,253483%; mọi vai trò research âm. V1 cải thiện so common trong band mô tả,
+chưa có bằng chứng vượt native; chỉ sensitivity trên sáu fold đã exposed.
+U10 cập nhật bài báo chưa thực hiện. Native row-wise causal vẫn FAIL,
+whole-system causal NOT_CERTIFIED;0 API mới hoặc refit trong U09.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.

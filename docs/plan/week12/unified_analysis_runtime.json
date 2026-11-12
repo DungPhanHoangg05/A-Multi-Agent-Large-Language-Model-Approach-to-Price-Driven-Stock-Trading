@@ -1,0 +1,78 @@
+{
+  "payload": {
+    "version": "unified_analysis_runtime_v1",
+    "sources": {
+      "core/unified_analysis/.gitattributes": {
+        "path": "core/unified_analysis/.gitattributes",
+        "bytes": 8,
+        "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+      },
+      "core/unified_analysis/__init__.py": {
+        "path": "core/unified_analysis/__init__.py",
+        "bytes": 90,
+        "sha256": "a2cbf1104608f7e2a80160af0ca1a70926500e27f6104ba1871fa54468595354"
+      },
+      "core/unified_analysis/analysis.py": {
+        "path": "core/unified_analysis/analysis.py",
+        "bytes": 15413,
+        "sha256": "e805460aa47b8d36f563d936b0e52322968f65485537c16fdd94525955179a85"
+      },
+      "core/unified_analysis/inputs.py": {
+        "path": "core/unified_analysis/inputs.py",
+        "bytes": 8812,
+        "sha256": "786cb670e6b9948a829e86cca561de48d29407128a09b4bf353f8b9cf2650947"
+      },
+      "core/unified_analysis/output.py": {
+        "path": "core/unified_analysis/output.py",
+        "bytes": 8921,
+        "sha256": "b4bb05ad7244f421b09b6f765e88b8c4056ff4a2b06c5b72001b6f1403faa564"
+      },
+      "core/unified_analysis/runtime.py": {
+        "path": "core/unified_analysis/runtime.py",
+        "bytes": 5823,
+        "sha256": "74d7dd4a0245699368e7e5dc70d502189f470faca6b933e05cb5f03aedee356f"
+      },
+      "core/unified_analysis/statistics.py": {
+        "path": "core/unified_analysis/statistics.py",
+        "bytes": 6257,
+        "sha256": "4446fa0a77fce1a74a38d94918ae64c1c379c9a6a997b60a8d5df40dfff85b12"
+      },
+      "scripts/unified_analysis/.gitattributes": {
+        "path": "scripts/unified_analysis/.gitattributes",
+        "bytes": 8,
+        "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+      },
+      "scripts/unified_analysis/run.py": {
+        "path": "scripts/unified_analysis/run.py",
+        "bytes": 1335,
+        "sha256": "924693735407f6a601569bd9ec969467f4b3f559e42d833f7897a6c96cef635a"
+      },
+      "tests/unified_analysis/.gitattributes": {
+        "path": "tests/unified_analysis/.gitattributes",
+        "bytes": 8,
+        "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+      },
+      "tests/unified_analysis/test_analysis.py": {
+        "path": "tests/unified_analysis/test_analysis.py",
+        "bytes": 11600,
+        "sha256": "3dc430f5a790af5c7ba29299f0c3841fcf69b9f21e2fbc7a9fd1b47cfa687a63"
+      }
+    },
+    "checks": {
+      "path": "docs/plan/week12/unified_analysis_checks.json",
+      "bytes": 5572,
+      "sha256": "ff339dd1a267bffae7e61607dd1a83098d1f4dfbd8bb80456b841cd984672822"
+    },
+    "u08_package_sha256": "5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c",
+    "protocol": {
+      "path": "docs/plan/week12/unified_comparison_protocol_v2.json",
+      "bytes": 14563,
+      "sha256": "b783a0d50cd03d418fdc439ee93eba76edcd1a60be063deaecf3e8259c8bb34a"
+    },
+    "namespace": "outputs/unified_integration/u09_analysis_r1",
+    "api": false,
+    "training": false,
+    "primary_changes_after_outcomes": false
+  },
+  "sha256": "cf743125ee3b7da792b6d37b4d5ac95c753fce334e914ef9e0c51e4081a89b2a"
+}
