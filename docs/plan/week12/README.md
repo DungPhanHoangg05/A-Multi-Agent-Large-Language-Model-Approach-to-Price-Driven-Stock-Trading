@@ -19,9 +19,9 @@ budget được version riêng; parity chỉ trên miền input hợp lệ đã 
 U04 đã thêm registry/runner/evaluator và CLI/UI offline chung. U05 có profile
 alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 có
 amendment v2 giữ 102 anchor, đủ assets/PIT và quota offline; nghiệm thu và cold
-replay đã PASS trong phạm vi U06. Smoke U08 đã cold verify PASS. Research đã
-dừng có checkpoint để người dùng tự chạy tiếp bằng lệnh, giữ 102 điểm/ba repeat.
-U08 còn chờ đủ cohort và cold seal.
+replay đã PASS trong phạm vi U06. U08 đã thu đủ 102 điểm/2.448 forecast/102 labels
+và cold seal PASS ngày 12/11/2026; gói research đã được nghiệm thu nguyên byte.
+U09 phân tích paired và U10 cập nhật bài báo còn chờ thực hiện.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
@@ -31,7 +31,7 @@ U08 còn chờ đủ cohort và cold seal.
 - [x] U05 — Profile alpha nhân quả chung và bridge với native; gate toàn hệ còn chờ U06/U07.
 - [x] U06 — Amendment v2 đủ nguồn offline, quota có bằng chứng, scoped tests và cold replay102/102 PASS; inference/release vẫn OFF.
 - [x] U07 — Paired/PIT/recovery offline PASS116 test, cold replay102 điểm/2.448 forecast slot; không mở inference.
-- [ ] U08 — Smoke và thu thực nghiệm theo release mới.
+- [x] U08 — Smoke và research đã seal đủ 102 điểm/2.448 forecast/102 labels; nghiệm thu và gói evidence PASS.
 - [ ] U09 — Phân tích paired và cold replay.
 - [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
 
@@ -41,7 +41,8 @@ Triển khai trên `feat/unified-comparison-run`, từ develop `ea90605b`.
 Grant kỹ thuật cho lượt mới đã neo Git theo protocol khóa, chỉ Free/0 USD.
 Theo đính chính của người dùng ngày 10/11/2026, người dùng tự khởi chạy research
 bằng lệnh được bàn giao. Collector đã tự khởi chạy trước khi bàn giao lệnh và đã
-dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
+dừng có checkpoint lúc 14:02. Người dùng đã chạy tiếp và thu đủ research;
+nghiệm thu hoàn tất ngày 12/11/2026, xem [kết quả U08](#nghiệm-thu-u08).
 
 - [x] U08.1 — Đối soát develop/plan, tạo branch; năm GET catalog mới đều thấy hai model active,0 inference.
 - [x] U08.2 — Thêm transport live/release riêng, giữ DAG, UUID, quota/carry và cap3/retry+repair.
@@ -52,8 +53,8 @@ dừng có checkpoint lúc 14:02. U08 còn chờ đủ cohort và nghiệm thu.
 - [x] U08.5b — Admission provider bỏ lịch local, PASS 41 test/compile 5 file, cold verify 38 điểm và đối soát 2.878 file checkpoint nguyên byte. Bàn giao lệnh resume mới, 0 HTTP mới trong lượt sửa.
 - [x] U08.5c — Reset hai điểm lỗi theo yêu cầu người dùng, sao lưu 44 checkpoint và giữ ledger; PASS 44 test/compile 6 file, cold verify 67 điểm hoàn chỉnh, bàn giao lệnh mới.
 - [x] U08.5d — Reset riêng MT_BICL/VCB-2026-09-23/repeat3 đã hết attempt; giữ 2.437 forecast và 1.693 HTTP, PASS 40 test/compile 4 file và cold verify 100 điểm.
-- [ ] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; seal raw/usage/order/coverage và cold replay.
-- [ ] U08.7 — Đối soát receipt/evidence, cập nhật checklist, commit/merge theo phạm vi; U09 phân tích sau seal.
+- [x] U08.6 — Đủ102 shared,2.448 forecast,102 canonical labels; receipt PASS_U08_RESEARCH, raw/usage/order/coverage và cold replay đã đối soát.
+- [x] U08.7 — Nghiệm thu nguồn/runtime/receipt PASS, giữ 8.035 file journal nguyên byte, đóng gói/hash/consumer PASS; cập nhật checklist, commit/merge tài liệu, bàn giao U09.
 
 Trạng thái live được đọc qua `scripts/unified_live/run.py status --phase SMOKE`
 hoặc `--phase RESEARCH`. `verify` không khởi tạo client/key/provider. Outcome
@@ -104,6 +105,80 @@ Lượt bàn giao thủ công tại commit `6c50b0ff` chỉ sửa ba tài liệu
 diff/liên kết và hash nguồn/bằng chứng, viện dẫn69 test/11 file compile đã PASS.
 Tiến độ trong `status.json` là checkpoint gần nhất. Raw HTTP có thể đi trước
 checkpoint khi một tick đang chạy. Chỉ receipt research PASS mới xác nhận thu đủ.
+
+### Nghiệm thu U08
+
+Ngày 12/11/2026, research do người dùng chạy đã seal lúc **10:10:18 giờ Việt Nam**,
+receipt `PASS_U08_RESEARCH`. Đã thu đủ **102 điểm, chín mã, 51 symbol/fold,
+ba repeat, một realization**, 102 shared snapshot, 408 graph nodes, 204 render,
+2.448 prepare, **2.448 forecast** và **102 canonical labels**. Mỗi repeat có
+816 forecast; mỗi vai trò có đủ 306 forecast. Smoke vẫn tách riêng, không nhập
+response smoke vào study. Student/HMM và các prepared assets U06 giữ frozen.
+
+| Vai trò | Forecast | Raw Decision được dùng | Bypass theo thuật toán |
+| --- | ---: | ---: | ---: |
+| original_fix | 306 | 306 | 0 |
+| original_common | 306 | 306 | 0 |
+| Fact_Anchor | 306 | 306 | 0 |
+| bayesian_v1 | 306 | 144 | 162 |
+| C2 | 306 | 3 | 303 |
+| A_tp_pool | 306 | 24 | 282 |
+| B_semantic | 306 | 3 | 303 |
+| MT_BICL | 306 | 198 | 108 |
+| Tổng | 2.448 | 1.290 | 1.158 |
+
+Bypass có record/policy hợp lệ theo registry, không thay lỗi transport/schema
+thành CASH. U09 phải báo coverage/fallback cùng kết quả thay vì coi 2.448 slot
+là 2.448 lời gọi LLM. Ledger research giữ **1.702 HTTP attempts**: 1.505 HTTP200,
+194 HTTP429, một HTTP503 và hai UNKNOWN. Tập active có 1.687 attempts; **15 raw
+đã nghỉ** sau hai amendment reset vẫn nguyên byte, gồm cả hai UNKNOWN cũ;
+không có UNKNOWN active. Cả hai backup giữ quyết định thay kết quả, không suy
+UNKNOWN thành NOT_SENT. Cap vẫn 7.956 cho toàn ledger, tối đa ba HTTP mỗi UUID
+execution. Usage quan sát trong raw là 2.986.930 token; hai UNKNOWN giữ reserve
+9.177 token riêng. Đây là usage của research, chưa cộng carry lịch sử/smoke.
+Quyền chỉ Free/0 USD; không suy usage thiếu thành số token thực hoặc chi phí trả phí.
+
+Đối soát mới dùng cold consumer ở tiến trình riêng, chặn mạng ngoài và sáu
+constructor key/client/SDK/provider: `PASS_U08_ACCEPTANCE`, **0 inference mới**.
+Đã tái lập toàn bộ metadata/raw/policy, shared/parents, thứ tự/DAG, barrier đủ
+24 forecast trước label, nhãn T+2.5 từ oracle canonical và từng policy quota
+qua các mốc amendment. **718 source bindings**, Python3.13.5/107 package cùng
+assets/data/model frozen khớp; 8.035 file journal được kiểm nguyên byte trước
+và sau nghiệm thu. Prompt Decision lớn nhất kể cả repair là 4.750 ký tự.
+Receipt, quota receipt, status và log cold seal của collector đồng nhất.
+
+Lượt này chỉ cập nhật tài liệu và đóng gói bằng chứng có sẵn. Theo AGENTS §1.2,
+không chạy lại compileall/unit/E2E/leakage suite. Viện dẫn đúng checks đã PASS
+và được đối soát hash nguồn: U08 ban đầu 69 test/11 file compile; amendment
+model 61/5, provider 41/5, point reset 44/6, slot reset 40/4. Đây là các gate
+đúng phạm vi của từng snapshot, không cộng thành một full suite mới hoặc nâng
+các gate causal cũ. Cold consumer/kiểm archive đã thực thi mới trong lượt này.
+
+[Gói research đã seal](unified_live_research.zip) giữ **8.064 thành viên /
+78.438.700 byte**, SHA256
+`5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c`.
+Trong đó có 8.035 file journal/205.506.904 byte nguyên bản, toàn bộ raw kể cả
+raw đã nghỉ, diagnostics, receipt/status/log, hai backup, protocol/runtime/
+checks/grants, 718 source bindings, inventory và script/log nghiệm thu.
+Manifest liệt kê hash từng thành viên; consumer thư viện chuẩn đã đọc và kiểm
+đủ 8.064 thành viên cùng 718 nguồn local, `PASS_U08_EVIDENCE_PACKAGE`.
+Các lock/owner/recovery/launcher tạm không thuộc evidence dataset. Source Git,
+assets U06 và các QA ZIP cha vẫn là dependency ngoài gói, được consumer nghiệm
+thu đối soát; gói không chứa credential hoặc tự nhận là bản cài đặt độc lập.
+
+U09 dùng dataset active theo `receipt.json`/`quota_receipt.json` trong namespace
+`outputs/unified_integration/u08_research_r1`, được giữ trong gói ở cùng đường dẫn.
+
+- `records_sha256`: `c5c9d18fc8175b9067d2d08df9925a6c6c80d83f70acd613e95874fa80ac414c`.
+- `outcomes_sha256`: `39ee19354355f1264a92e37f3cd10a649ab42d79bb9e7c30056043149774dc44`.
+- `wire_sha256`: `f7a5894f2576211c03dfd190428679bcdf1e5ee7be8d5909bbca4e27efa9eb6c`.
+- Runtime slot reset: `24ec38a6fdb2c040384abd2f15de49af2cf823c42120b8e87ca29e6c59244f47`.
+
+U08 hoàn tất thu thập và nghiệm thu phần mềm/evidence. **U09/U10 chưa thực hiện**;
+chưa có phân tích superiority hoặc cập nhật kết quả bài báo. Historical exposure,
+news availability và các giới hạn nguồn ở U06 giữ nguyên; native row-wise causal
+vẫn **FAIL**, whole-system causal **NOT_CERTIFIED**. Repeats không tăng N thị trường.
+Nhật ký amendment bên dưới ghi đúng trạng thái tại từng mốc trước khi seal.
 
 #### Amendment quota theo model
 
@@ -257,25 +332,23 @@ mạng và sáu constructor key/client/SDK/provider, tái lập 100 điểm hoà
 Study còn thiếu 11 forecast và hai labels, chưa seal hoặc hoàn tất U08.6.
 Quota thực vẫn theo response provider; trần ba HTTP áp dụng riêng execution mới.
 
-Người dùng khởi chạy hoặc resume bằng entrypoint hiện hành dưới đây từ thư mục gốc repo.
+Research đã hoàn tất; collector hiện không chạy. Đọc trạng thái hoặc đối soát
+lại receipt đã seal bằng các lệnh offline sau từ thư mục gốc repo:
 
 ```powershell
 py -3.13 -I -X utf8 scripts/unified_slot_restart/run.py status
-Remove-Item -LiteralPath 'outputs/unified_integration/u08_research_r1/stop.request' -ErrorAction SilentlyContinue
-py -3.13 -I -X utf8 scripts/unified_slot_restart/run.py collect
-```
-
-Sau khi thu đủ, collector tự cold verify và seal. Có thể đối soát lại bằng lệnh sau.
-
-```powershell
 py -3.13 -I -X utf8 scripts/unified_slot_restart/run.py verify --seal
 ```
 
-Collector có OS lock và heartbeat ở `outputs/unified_integration/u08_research_r1/status.json`.
-Lệnh collect thứ hai không được mở worker trùng. Chờ quota giữ timestamp/usage,
-giữ quyết định reset hai điểm đã khóa ở trên. UNKNOWN mới/cap3 hoặc source thay đổi
-làm dừng có checkpoint để đối soát. Chỉ khi đủ102 điểm và cold seal PASS mới đánh dấu
-U08.6 hoàn tất; trạng thái khởi chạy chưa phải nghiệm thu thu đủ hoặc superiority.
+Để kiểm gói độc lập, giải nén vào thư mục tạm rồi chạy consumer có trong gói:
+
+```powershell
+py -3.13 -I -m zipfile -e docs/plan/week12/unified_live_research.zip "$env:TEMP/u08-research-evidence"
+py -3.13 -I -X utf8 "$env:TEMP/u08-research-evidence/acceptance/verify_u08_package.py" docs/plan/week12/unified_live_research.zip --root "$PWD"
+```
+
+Không nhập các file trong backup vào tập forecast active của U09. Đọc manifest
+và receipt active để giữ đúng quyết định reset đã khóa và tính đủ chi phí HTTP.
 
 ### Checklist chi tiết U07
 
