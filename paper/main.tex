@@ -52,6 +52,7 @@
 \graphicspath{{./}}
 
 \input{generated/summary_numbers.tex}
+\input{generated/u09/summary_numbers.tex}
 
 \begin{document}
 
@@ -87,7 +88,7 @@
 
 %% Abstract
 \begin{abstract}
-Quantitative signals and local-language news offer complementary context for multi-agent LLM trading, but their incremental value requires matched evaluation. We study quantitative alpha integration in a five-role framework for Vietnamese equities, combining an 85-candidate OHLCV registry, Vietnamese sentiment and two chart-reading agents. Selected factors and sentiment remain separate inputs to a report-based Decision Agent. A shared-report protocol compares Full and Base on 102 historical market units across nine equities, twelve dates and six blocks, with 25 UP and 77 DOWN net-return labels. Full balanced accuracy is \FullBA\%, versus \BaseBA\% for Base and \LogisticPriceBA\% for a price-only logistic comparator. The Full--Base difference is \DeltaBA\ percentage points, with a descriptive block interval of $[\PrimaryLow,\PrimaryHigh]$ points. Both variants capture seven UP outcomes; Full makes fewer false LONG forecasts. Mean separate-account net returns are \FullReturn\% and \BaseReturn\%, respectively. Three-execution component/placebo panels and train-fit numeric controls provide additional, separately scoped comparisons. The reduced historical scope is exploratory, native factor construction is not fully row-causal, and financial-news validity and availability remain unverified. The study contributes a specified integration and comparative evaluation, while its results do not establish causal component gains or deployable profitability.
+Quantitative signals and local-language news provide context for multi-agent LLM trading, but their value requires matched evaluation. We integrate an 85-candidate OHLCV registry and Vietnamese sentiment with inherited chart-agent roles. Two historical studies retain distinct responses and provenance. The original shared-report study compares Full and Base on 102 market units across nine equities, twelve dates and six blocks. Full balanced accuracy is \FullBA\%, versus \BaseBA\% for Base; mean separate-account net returns are \FullReturn\% and \BaseReturn\%. Separate component/placebo panels and numeric controls contextualize these results. An extension study compares native and common-input baselines, five Bayesian/task-conditioned methods, a fact anchor and two cycle controls on the same eligible calendar, with one upstream realization and three Decision repeats. Bayesian v1's mean account return is \UnifiedVOneReturn\%, versus \UnifiedCommonReturn\% for Common and \UnifiedNativeReturn\% for Native. Its return difference is $+\UnifiedVOneCommonReturnEffect$ percentage points versus Common but $\UnifiedVOneNativeReturnEffect$ versus Native; descriptive sensitivity does not establish an advantage over the native system. All eight research roles have negative mean returns. Coverage and fallback are part of the evaluated methods. Native row-wise noncausality, historical exposure, unauthenticated financial-news availability and limited temporal clusters constrain both studies. The contribution is a specified integration and comparative evaluation, not demonstrated causal component value or deployable profitability.
 \end{abstract}
 
 %%Graphical abstract
@@ -95,11 +96,11 @@ Quantitative signals and local-language news offer complementary context for mul
 
 %%Research highlights
 \begin{highlights}
-\item Quantitative alpha and Vietnamese sentiment extend a multi-agent trading framework.
-\item An 85-factor registry adapts OHLCV signals to single-stock decision context.
-\item Shared-report comparisons evaluate factor, sentiment and past-donor variants.
-\item Balanced-accuracy gains coincide with fewer false LONG forecasts.
-\item Cost-aware accounts distinguish directional scores from economic outcomes.
+\item Quantitative alpha and Vietnamese sentiment augment inherited chart-agent roles.
+\item Regime priors and task-conditioned revision share one upstream snapshot.
+\item Two historical studies retain separate responses and comparison baselines.
+\item Bayesian v1 gains over Common do not establish an advantage over Native.
+\item Negative net account returns limit economic and deployment claims.
 \end{highlights}
 
 %% Keywords

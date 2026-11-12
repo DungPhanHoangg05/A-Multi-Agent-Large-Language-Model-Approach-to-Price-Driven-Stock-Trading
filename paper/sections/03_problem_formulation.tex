@@ -6,29 +6,29 @@
 \small
 \caption{Walk-Forward Evaluation}
 \label{alg:walkforward}
-\KwIn{OHLCV series $\mathbf{X}$, alpha registry $\mathcal{A}$, sentiment context $\mathcal{D}$, chart window $W$, lookahead $L$, frozen eligible test schedule $\mathcal{T}$ and variant masks}
-\KwOut{Directional predictions $\hat{y}_{e,L}$, class-aware paired metrics and separate-account returns}
-Initialize results list $\mathcal{R}\leftarrow\emptyset$\;
+\KwIn{OHLCV $\mathbf{X}$, alpha registry $\mathcal{A}$, dated sentiment $\mathcal{D}$, $W$, $L$, study-specific schedule $\mathcal{T}$, frozen fits/banks, variants and repeats}
+\KwOut{Raw proposals, final actions, paired metrics and separate-account ledgers}
+Reserve all evaluation IDs outside historical context; initialize $\mathcal{R}\leftarrow\emptyset$\;
 \ForEach{test point $e$ in chronological order in $\mathcal{T}$}{
-Extract chart window $\mathbf{X}_e=\mathbf{X}_{[e-W,e)}$ and alpha history ending at $d=e-1$\;
-Compute deterministic technical reports and native candidate diagnostics\;
-Form eligible candidates $\mathcal{V}$ and rank by\;
-\[
-S_k=0.40\mathcal{N}_{\mathcal{V}}(|IC_k|)
- +0.35\mathcal{N}_{\mathcal{V}}(Acc_k)
- +0.25\mathcal{N}_{\mathcal{V}}(Sharpe_k)
-\]
-Select top-five $\mathcal{A}^{*}$; obtain separate sentiment aggregate/count context\;
-Generate the two charts from the same $\mathbf{X}_e$ and retain their exact inputs\;
-Run or retrieve the recorded Indicator, Pattern and Trend reports shared within the pair\;
-\ForEach{registered variant}{
-Compose Decision input from shared reports and enabled factor/sentiment sections\;
-Retain its actual LONG/SHORT request, output and execution provenance\;
+Cut history at $d=e-1$; admit only eligible dated news and prior cycles with exit strictly before $d$\;
+Run Indicator, Pattern and Trend once per registered upstream realization; freeze reports and exact chart inputs\;
+Retain native top-five diagnostics using Eq.~\ref{eq:composite}; bind the separate frozen common alpha projection\;
+Deep-copy the shared parent to each branch; do not rerun vision for a comparator\;
+\ForEach{registered Decision repeat}{
+\ForEach{variant in the registered dependency-ordered schedule}{
+Prepare native/common prompt, historical prior or fact/task context without the query outcome\;
+\eIf{registered support policy requires bypass}{
+Reuse the completed parent action with its reason/source proof\;
+}{
+Invoke through retry/checkpoint handling; retain raw proposal and request identity\;
 }
-Join predictions to common net-return labels; update the separate long-only reference ledgers\;
-Store outcomes in $\mathcal{R}$\;
+Resolve fact/utility policy; persist raw proposal, final action and provenance\;
 }
-Compute pooled/macro classification, paired contrasts and account outcomes on their declared support\;
+}
+After all required forecasts are durable, join canonical net labels and update separate ledgers\;
+Store outputs in $\mathcal{R}$ without inserting test labels into context\;
+}
+Summarize each study on its own support and statistical protocol\;
 \Return{$\mathcal{R}$}
 \end{algorithm}
 
@@ -97,6 +97,17 @@ A trading system $\mathcal{F}$ maps the analysis window and its associated histo
 
 
 where $+1$ corresponds to \texttt{LONG} and $-1$ to \texttt{SHORT}. In the long-only reference ledger, SHORT maps to CASH, not a short sale; a correct DOWN forecast earns no bearish trading return. Account return therefore differs from the candidate-LONG target. Gross returns are a separate diagnostic on the same net-elicited predictions, not a replacement target. Decision Close differs from entry Open at 65/102 units, and seven gross/net labels differ. A legacy field called \texttt{actual\_prev\_close} has unresolved price semantics; canonical evaluation uses explicit decision/entry/exit fields.
+
+\paragraph{Variant-conditioned extension}
+For extension variant $v$ and Decision repeat $r$, let $S_e$ be the immutable shared snapshot at $d=e-1$, including report/image provenance and the native parent. A projection $P_v(S_e)$ chooses native or common alpha context without regenerating the shared vision reports. Historical context is restricted to
+\begin{equation}
+ \mathcal{B}_e=\{b\in\mathcal{B}^{\mathrm{frozen}}:\operatorname{exit}(b)<\tau_d,
+                 \ b\notin\mathcal{Q}_{\mathrm{eval}}\},
+ \label{eq:prior_cutoff}
+\end{equation}
+where $\mathcal{Q}_{\mathrm{eval}}$ contains all reserved evaluation IDs. Prefix prices satisfy date $\le\tau_d$; undated news is rejected and date-only news is conservatively available the following day. Context membership is frozen before the first test query in each fold; neither a query label nor a later test outcome is inserted for subsequent queries. Source/data violations raise errors rather than becoming valid CASH predictions.
+
+Write the raw proposal as $p^{v,r}_e\in\{\mathrm{LONG},\mathrm{SHORT},\varnothing\}$ and the resolved action as $a^{v,r}_e\in\{0,1\}$, with one denoting LONG and zero CASH. A bypass has no new raw proposal. The extension evaluates the final policy prediction $\hat y^{v,r}_{e,L}=2a^{v,r}_e-1$, while retaining $p^{v,r}_e$ separately. Direct branches simply map LONG/SHORT to LONG/CASH; dependency or revision policies can instead retain a completed parent action. Equation~\ref{eq:label} is unchanged for every branch, and account execution uses the resolved action in Eq.~\ref{eq:execution_return}.
 
 \subsection{Alpha Factor Formalisation and Adaptation}
 An alpha factor $\alpha^{(k)}$ maps an engineered feature frame from the historical prefix to a scalar signal:
@@ -250,6 +261,9 @@ The native row-wise causal gate fails. The native \texttt{delay().bfill()}, whol
 
 Custom handler formulas are in \ref{app:signals}. Native BFE multiplies $(\%B-0.5)$ by signed $VolZ_5$ before tanh: negative volume z-score reverses the sign and zero cancels it. There is no squeeze/volume-expansion gate. Registry/prototype preprocessing differ, and a selected display rank is not a permanent handler ID. Six metadata slots have description/handler mismatches, without the literal wrong formula in the affected prompts; their separate semantic effect is unmeasured.
 
+\paragraph{Separate common alpha projection}
+The extension's \texttt{causal\_common\_v1} projection uses row-causal operator adaptations and training-fitted IC orientation, with top-five selection and a signal threshold chosen on purged validation data. IDs, signs, threshold and preprocessing are frozen before the test scope. Historical-origin and selector hashes bind every projected query. This is a different alpha representation from the native diagnostics above; the original formulas and native failure are retained as their own specification. Common, all prior methods and the fact/MT branches receive this projection, while Native retains its original projection and prompt. The alpha-specific causal checks do not certify news availability, hosted-model training information or whole-system causality.
+
 \subsection{Sentiment Signal Construction}
 Let $\mathcal{D}_e=\{d_1,\ldots,d_{|\mathcal{D}_e|}\}$ denote the target-stock articles admitted by the date, identity and scorer-provenance rules at cutoff $\tau_d$, $d=e-1$. Each article has score
 
@@ -345,6 +359,15 @@ Decision aggregates the role reports through prompt instructions:
 
 The inclusion of factor and sentiment sections is variant-specific: Full includes both, Base neither, A only factors, S only sentiment, and P the predetermined past-donor factor replacement with current sentiment. Thus $\mathbf{r}^{\mathrm{alpha}}$ denotes enabled quantitative/text context, not evidence of a learned fusion model. General priority instructions can remain even when their corresponding sections are omitted. Compact main/upstream and explicit-five-row factorial families are reported separately. Binary prediction is distinct from the account action: SHORT maps to CASH; LONG enters the specified cycle under the separate execution assumptions.
 
+\paragraph{Task-conditioned revision and utility}
+MT-BICL preserves prior-task and target-task boundaries rather than pooling all historical labels. Its frozen numerical student conditions on the selected context and estimates $P(y=+1)$; that probability is not an expected return or calibrated LLM confidence. A separate hierarchical Beta--Bernoulli teacher supplies the posterior success-probability draws used by the utility calculation. With positive net-gain magnitude $g$ and nonpositive-return loss magnitude $\ell$, the stored utility draws use
+\begin{equation}
+ U=\theta g-(1-\theta)\ell,\qquad
+ \Delta U=U(a^{\mathrm{proposed}})-U(a^0),\qquad U(\mathrm{CASH})=0.
+ \label{eq:revision_utility}
+\end{equation}
+Here $a^0$ is the validated fact-anchor action and $U(\mathrm{LONG})=U$. After fact assertions pass, a changed action is accepted only when the recorded tenth percentile $Q_{0.10}(\Delta U)>0$. CASH-to-LONG uses $Q_{0.10}(U)$; LONG-to-CASH uses $-Q_{0.90}(U)$. Missing support keeps the anchor without inventing a response, and invalid revision assertions retain the anchor. A missing/failed transport response is a technical failure, not algorithmic fallback. These quantiles describe the specified teacher/magnitude model, not calibrated uncertainty about executable market returns.
+
 \subsection{Walk-Forward Evaluation Protocol}
 Valid boundaries satisfy $W\le e\le T-L$. For each security, the study evaluates the chronologically ordered eligible dates in its fixed schedule:
 
@@ -357,7 +380,7 @@ Valid boundaries satisfy $W\le e\le T-L$. For each security, the study evaluates
 \end{equation}
 
 
-where $\mathcal{D}_{\mathrm{test}}$ comprises two selected dates in each of six blocks, with $N_s=12$ eligible units for eight securities and six for BHN. This is not a continuous uniform $S=3$, twenty-point backtest. Train and validation labels are purged at the next partition boundary. The pseudocode describes the implemented input/report comparison, while the causal qualifications above remain applicable.
+where $\mathcal{D}_{\mathrm{test}}$ comprises two selected dates in each of six blocks, with $N_s=12$ eligible units for eight securities and six for BHN. This is not a continuous uniform $S=3$, twenty-point backtest. Train and validation labels are purged at the next partition boundary. Algorithm~\ref{alg:walkforward} makes shared upstream, native/common projection and the dependency-ordered extension explicit. The original study retains its own registered masks and separate repeated panels; only the extension uses the eight-role schedule. All native causal qualifications remain applicable.
 
 Directional accuracy, its paired difference, the reference cycle return and wealth are
 
