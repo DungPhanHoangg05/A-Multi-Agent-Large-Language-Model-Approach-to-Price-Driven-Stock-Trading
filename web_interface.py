@@ -796,6 +796,8 @@ from utils.experiment_web import experiments
 app.register_blueprint(experiments)
 from utils.serving_web import serving
 app.register_blueprint(serving)
+from utils.research_web import research
+app.register_blueprint(research)
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 

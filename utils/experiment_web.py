@@ -8,6 +8,9 @@ from flask import Blueprint, Response, jsonify, render_template, request
 from core.unified_contracts import ExperimentSpec, digest
 from core.variant_registry import registry_document
 from utils.experiment_io import export_bytes, run_path
+from utils.i18n import normalize_lang
+from utils.research_i18n import messages
+from core.serving_registry import registry_document as serving_registry
 
 ROOT = Path(__file__).resolve().parents[1]
 experiments = Blueprint("experiments", __name__)
@@ -18,7 +21,10 @@ def experiment_page() -> str:
     """Danh mục và bộ lọc dùng cùng IDs với CLI/evaluator."""
     base = ROOT / "outputs/unified_integration"
     runs = [p.name for p in sorted(base.iterdir()) if p.is_dir() and (p / "identity.json").is_file() and (p / "result.json").is_file()] if base.exists() else []
-    return render_template("experiments.html", registry=registry_document(), runs=runs)
+    language = normalize_lang(request.args.get("lang") or request.cookies.get("qa_lang")
+                              or request.accept_languages.best_match(("vi", "en")))
+    return render_template("experiments.html", registry=registry_document(), runs=runs,
+                           serving_registry=serving_registry(), LANG=language, E=messages(language))
 
 
 @experiments.get("/api/experiments/registry")

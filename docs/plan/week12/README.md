@@ -47,9 +47,9 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F07**, adapter U09 và so sánh offline trên ứng dụng.
+**Bước tiếp theo: F08**, provider as-of, tài nguyên và runner chung.
 F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
-contract ứng dụng, F07–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
+contract ứng dụng; F07 có viewer U09 offline, F08–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
@@ -62,7 +62,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F04 — Cập nhật bốn sơ đồ/caption, figure hai baseline và vị trí bảng; hai PDF 51/50 trang, kiểm đủ 101 trang PASS.
 - [x] F05 — Đồng bộ 87 yêu cầu/matrix/response, chốt numbering/locators, hai PDF 51/50 trang và release nội bộ; U10 hoàn tất, 0/18 comment được chứng nhận đóng.
 - [x] F06 — Contract/registry/config serving v1 riêng, sáu lựa chọn chính/hai nâng cao, API metadata/preflight, job/result identity và 33 test đúng phạm vi PASS.
-- [ ] F07 — Adapter đọc U09, so sánh offline và export khớp bằng chứng.
+- [x] F07 — Reader U09 kiểm hash/receipt, viewer nhiều bản/hai baseline, plot/export và legacy; 46 Python + 6 DOM PASS, browser trực quan chờ F11 do host/approval.
 - [ ] F08 — Provider as-of, resources và runner chung chạy được các phiên bản trên miền hỗ trợ; paired/retry/checkpoint/job isolation.
 - [ ] F09 — Nâng trang phân tích và kết quả, lựa chọn phiên bản có hiệu lực, so sánh cùng snapshot.
 - [ ] F10 — Nâng backtest và trang thực nghiệm, metrics/series động, progress/stop/resume và tương thích kết quả cũ.
@@ -339,7 +339,46 @@ forecast barrier có trong hồi quy experiment đã PASS. Native row-wise causa
 vẫn FAIL, whole-system NOT_CERTIFIED; không nâng gate khoa học từ test serving.
 **0 API LLM/thị trường, 0 refit**, bốn template và hành vi endpoint native cũ
 giữ nguyên. F07 triển khai reader U09; F08 mới grant runner/provider, F09/F10
-mới nối các màn hình chạy. F07–F12 chưa hoàn tất; không push/deploy/submit.
+mới nối các màn hình chạy. Tại mốc F06, F07–F12 chưa hoàn tất; không push/deploy/submit.
+
+### F07 — Viewer U09 và so sánh offline
+
+Hoàn tất phạm vi triển khai/kiểm chức năng ngày **13/11/2026**, nhánh
+`feat/research-results-viewer` từ develop `a5e30ab0`. `/experiments` mặc định
+**U09 · Research102**, phân biệt bằng chứng bài báo và replay legacy. Giữ
+endpoint/schema/evaluator legacy, không đổi `no_alpha` thành common hoặc ghép
+run khác nhau thành paired contrast. Legacy vẫn kiểm source/runtime cũ;
+run có pin khác HEAD cần checkout historical như F01.
+
+- [x] `core/research_results.py` kiểm SHA256 gói U09, inventory/member/receipt và identity `results.json`. Không import Python từ ZIP, không gọi cold evaluator/provider/LLM; cache theo bytes, không tin mtime. Support companion F02 có hash riêng, giữ missing sentiment **79/102**.
+- [x] API `/api/research-results/runs`, `/<run_id>`, `/export`, `/artifacts/<name>` có whitelist run/table/artifact, filter/phân trang đóng, lỗi an toàn. PNG nguyên byte; JSON/CSV projection có units/support/provenance, CSV chặn formula chuỗi, giữ số âm.
+- [x] So sánh tám vai trò/hai control nâng cao: return/BA/accuracy/MCC/F1/LONG/MDD/phí/slippage/turnover/bypass, policy tooltip, bridge, metrics từng repeat. Plot dùng đúng effect/band đã khóa; không tạo family/bootstrap hay suy superiority.
+- [x] Mã/fold chỉ lọc chi tiết; repeat còn chọn metrics từng repeat đã seal. Summary/band luôn đủ **102 điểm, 51 tài khoản, ba repeat**. Không nhận date/cohort filter tùy ý rồi giữ band toàn study. Bốn bảng predictions/accounts/cycles/daily NAV có phân trang; BHN/fold thiếu giữ rỗng, không padding CASH.
+- [x] Export lấy mọi hàng chi tiết khớp, không chỉ trang đang xem. Phân biệt `r_net` nhãn thị trường và `strategy_return`/P&L; NAV EOD từng account không cộng thành portfolio, null/NA có lý do và zero giữ zero.
+- [x] UI VI/EN tách **template chính + ba partial, CSS riêng + bốn module JS**; giữ điều hướng và bảng phương pháp/profile/dependency. DOM chỉ ghi text. Abort/response guard chống response cũ đè lựa chọn mới; error/empty xóa dữ liệu/link export cũ.
+- [x] **46 Python + 6 DOM/JavaScript PASS**, không skip: 13 viewer mới, 15 serving contract, 15 unified experiment, 3 web JSON. DOM kiểm số/NA, chart/export, nội dung không tin cậy, legacy, empty/error và đổi filter nhanh. Compile đúng **9 Python**, syntax **4 JS** PASS; Python **3.13.5**, Node **v24.18.0**. HTTP local app thật trả 200 U09/HTML EN/static JS đúng MIME, không coi là browser visual PASS.
+- [x] **20 gói W12 + 30 archive lịch sử**, **11 file release F05 + 68 nguồn manuscript** giữ nguyên byte. HEAD khớp **726/729** source pin U09; ba file đổi có chủ đích: `templates/experiments.html`, `utils/experiment_web.py`, `web_interface.py`. Snapshot F01 khôi phục đủ **729/729**, không sửa receipt/expected pin.
+
+Lượt đầu CLI export trả exit2 trong lúc runtime source đang được sửa giữa
+replay/verify/export và có guard khóa hash; stderr lượt đầu không được lưu.
+Chẩn đoán riêng và toàn nhóm khi source ổn định đã PASS, giữ guard/hash.
+Receipt F06 tiếp tục là lịch sử; source serving đã đổi
+được kiểm lại trong F07. [QA viewer](research_viewer_checks.zip), **13 member**,
+giữ log, source hashes, integrity và **144 liên kết/checklist PASS**, cùng
+giới hạn kiểm trực quan. Chạy lại
+đúng phạm vi bằng unittest discover với từng pattern
+`test_research_results_viewer.py`, `test_variant_serving.py`,
+`test_unified_experiment.py`, `test_web_json_serialization.py`; DOM:
+`node --test tests/js/research_viewer.test.mjs`.
+
+**Browser trực quan chưa kiểm:** browser access host không khả dụng; automatic
+approval review từ chối Edge: “Computer Use was not approved to use Microsoft
+Edge”, không nêu thêm lý do. Desktop/mobile/keyboard/layout giữ trong gate F11.
+F07 chỉ đọc outcome đã seal, không đổi inference/PIT/retrieval/kinh tế; theo
+AGENTS §1.2 không chạy full unit/E2E/compileall/leakage hoặc cold replay study.
+Hồi quy unified có forecast barrier/future-poison; native causal vẫn FAIL,
+whole-system NOT_CERTIFIED. **0 API LLM/thị trường, 0 refit**; F08–F12 chưa
+hoàn tất, không push/deploy/submit. Server QA local đã dừng.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
