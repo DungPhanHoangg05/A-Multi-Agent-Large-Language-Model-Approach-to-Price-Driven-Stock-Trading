@@ -1,8 +1,10 @@
 # Tiến độ xử lý phản biện
 
-Kế hoạch chính: [../plan.md](../plan.md). Nhánh tích hợp của đợt phản biện: `fix`; luồng KLTN trên `develop` được quản lý riêng.
+Kế hoạch hiện hành: [docs/plan/plan.md](../docs/plan/plan.md). Mọi công việc mới tách nhánh tác vụ từ `develop` rồi merge trở lại; `fix` và [plan reviewer cũ](../plan.md) chỉ giữ vai trò nguồn/nhật ký lịch sử.
 
-**Tiến độ hiện hành:** [R1](../plan.md#r1-progress), [R2](../plan.md#r2-progress), [R3](../plan.md#r3-progress) và [R4](../plan.md#r4-progress) đã xử lý trong phạm vi historical exploratory ngày 03/11/2026; xem [response](response_to_reviewers.md) và [release R4 cuối](../outputs/revision/r4_manuscript_v2/manifest.json). R5–R18 đánh giá riêng. Những mục dưới đây là nhật ký lịch sử, không phải checklist hiện tại.
+**Đầu mối hiện hành từ 12/11/2026:** [README W12](../docs/plan/week12/README.md) và [kế hoạch bài báo/giao diện](../docs/plan/week12/final_paper_ui_plan.md) quản lý công việc trên develop. [Response](response_to_reviewers.md) và [matrix](reviewer_matrix.csv) hiện đối soát đủ **87 yêu cầu/18 comment** với hai nghiên cứu tách biệt; **0/18 comment được chứng nhận đóng**. [Release bản thảo thống nhất](../outputs/revision/manuscript_unified_final_v1/manifest.json) thay các locator/trạng thái hiện hành cũ, không thay byte evidence lịch sử. U10 là bàn giao bản thảo nội bộ khớp bằng chứng; quyền/PID, thực nghiệm còn thiếu và route nộp bài vẫn là các giới hạn riêng.
+
+Mọi ghi nhận R1–R4 “closed/addressed” và số liệu/locators phía dưới chỉ thuộc release lịch sử được nêu tại chính mục đó, không phải nghiệm thu hiện tại của toàn comment. Không dùng các checker current-source cũ để chứng nhận nguồn đã thay; [runbook](archive_runbook.md) phân biệt đường historical và gói mới. Những mục dưới đây giữ làm nhật ký lịch sử, không phải checklist hiện hành.
 
 ## Nghiệm thu R4 — 03/11/2026
 
@@ -14,11 +16,11 @@ Full–placebo BA mean +6,94 pp, SD 4,81, nhưng joint envelope [−6,55;20,44];
 
 [R4 audit](../outputs/revision/r4_audit_v1/manifest.json) xác nhận 264/264 alpha-bearing research prompts mất năm factor rows do split vào Markdown separator; các report/consensus contrasts cũ không thay full-value information control. 54 paired groups giữ upstream và isolation A/S, donor train-only/mask hợp lệ nhưng mapping là rank-vector (84/90 tên khác nhau). AS−P và interaction BA đều mean −2,78 pp, CI mô tả chứa 0; không nhận isolated alpha/sentiment value.
 
-[Bank mới](../outputs/revision/r4_value_bank_v1/manifest.json) khóa 90 prompts, 270 fresh Decision calls, không vision mới; đủ năm rows, 3.244–4.228 chars, same AS/P schema/headings/sentiment/budget. **0/270, 0 attempts**; chỉ tác giả chạy API theo [kế hoạch](../plan.md#r4-progress). R1–R3 giữ nguyên byte. 12 targeted tests + compile năm file mới + fresh-process chín-artifact reproduction PASS; không full suite/E2E hoặc API calls. [Bản thảo audit](../outputs/revision/r4_manuscript_v1/manifest.json) 60/61 trang và [response](response_to_reviewers.md) giữ R4 pending. Đây là bàn giao phần audit/runner, không nghiệm thu thông tin factor.
+[Bank mới](../outputs/revision/r4_value_bank_v1/manifest.json) khóa 90 prompts, 270 fresh Decision calls, không vision mới; đủ năm rows, 3.244–4.228 chars, same AS/P schema/headings/sentiment/budget. **0/270, 0 attempts**; chỉ tác giả chạy API theo [kế hoạch](../plan.md#a-hoàn-tất-bằng-chứng-bằng-queue-api-rút-gọn). R1–R3 giữ nguyên byte. 12 targeted tests + compile năm file mới + fresh-process chín-artifact reproduction PASS; không full suite/E2E hoặc API calls. [Bản thảo audit](../outputs/revision/r4_manuscript_v1/manifest.json) 60/61 trang và [response](response_to_reviewers.md) giữ R4 pending. Đây là bàn giao phần audit/runner, không nghiệm thu thông tin factor.
 
 ## Nghiệm thu R3 — 03/11/2026
 
-Audit offline hai panel đã khóa: 18×5×3 Decision và 9×2×3 upstream, union 322 unique decisions/88 vision requests, 90 nhóm cùng prompt, 98/98 call orders đúng lịch trong job. [Analysis release](../outputs/revision/r3_repeats_v1/manifest.json) có 16 artifacts; [kế hoạch](../plan.md#r3-progress) và response ghi số liệu, mẫu số và giới hạn. SDK ghi T=1e-8 do adapter đổi cấu hình zero; served weights/commit lịch sử không được tự xác thực. Decision Full–Base BA mean 5,56 pp nhưng SD 14,63 pp và interval [−9,56,+23,08]; không kết luận lợi thế ổn định. Hai panel khác support, không trừ SD để phân rã phương sai.
+Audit offline hai panel đã khóa: 18×5×3 Decision và 9×2×3 upstream, union 322 unique decisions/88 vision requests, 90 nhóm cùng prompt, 98/98 call orders đúng lịch trong job. [Analysis release](../outputs/revision/r3_repeats_v1/manifest.json) có 16 artifacts; [kế hoạch](../plan.md#a-hoàn-tất-bằng-chứng-bằng-queue-api-rút-gọn) và response ghi số liệu, mẫu số và giới hạn. SDK ghi T=1e-8 do adapter đổi cấu hình zero; served weights/commit lịch sử không được tự xác thực. Decision Full–Base BA mean 5,56 pp nhưng SD 14,63 pp và interval [−9,56,+23,08]; không kết luận lợi thế ổn định. Hai panel khác support, không trừ SD để phân rã phương sai.
 
 10 targeted tests, compile ba file mới, replay 484 real decisions, 3.752 hashes và fresh-process byte reproduction 16 artifacts/bốn TeX PASS. Lệnh offline: `py -3.13 -X utf8 scripts/analyze_revision_r3.py --check`. Không gọi API hoặc đổi inference/input/runtime; không chạy lại full suite/E2E. Hai PDF 59/58 trang đã build/render QA. R1/R2 outputs nguyên byte; source cũ xác minh qua frozen ZIP. Ba executions/ba block chưa bảo đảm precision; không chọn best run hoặc ensemble, không coi repeats là market observations độc lập.
 
@@ -37,7 +39,7 @@ Ignore đúng 37 file runtime của run R1 đã chốt: locks, quota SQLite, sta
 
 ## Điều chỉnh ngân sách ngày 02/11/2026 — chỉ thay đổi tài liệu
 
-**Ưu tiên mới:** [phương án rút gọn trong kế hoạch](../plan.md#0-phương-án-rút-gọn-có-hiệu-lực-từ-02112026), thay yêu cầu hoàn tất 8.100 decisions của study Full cũ. Những số 5/10 repeats, 8.100 decisions, 14.580 requests và lệnh resume trần 30.000 ở phần lịch sử bên dưới mô tả **protocol cũ**, không là ngân sách mặc định mới.
+**Ưu tiên mới:** [phương án rút gọn trong kế hoạch](../plan.md#ngân-sách-rút-gọn-khoảng-182-decisions-mới), thay yêu cầu hoàn tất 8.100 decisions của study Full cũ. Những số 5/10 repeats, 8.100 decisions, 14.580 requests và lệnh resume trần 30.000 ở phần lịch sử bên dưới mô tả **protocol cũ**, không là ngân sách mặc định mới.
 
 - [x] Xác định nguồn chi phí: 540 calibration Full +540×14 test decisions; calibration exposure và lặp dày toàn grid không phải điều kiện bắt đầu R1.
 - [x] Chốt thiết kế kế hoạch: R1 đầu tiên 540 Full decisions; gói chung **2.430 decisions/4.158 research requests**, smoke <=60 attempts, trần đề xuất **5.000 attempts** gồm retry. Không gọi đây là nghiên cứu đã chạy hoặc đủ power mặc định.

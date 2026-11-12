@@ -47,8 +47,9 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F05**, đối soát reviewer, chốt locators và release bài.
-F00–F04 hoàn tất; F05–F12 chưa bắt đầu.
+**Bước tiếp theo: F06**, chốt UX/capability/API contract của ứng dụng.
+F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06–F12 chưa
+bắt đầu. **0/18 comment được chứng nhận đóng**; không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
 AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
@@ -58,7 +59,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F02 — Generator và release U09 riêng: 26 artifact/798 ô có provenance, 16 test và cold render nguyên byte PASS.
 - [x] F03 — Cập nhật tám section và appendix A–F; giữ metadata/cấu trúc, build hai PDF 50 trang và kiểm trực quan đủ 100 trang PASS.
 - [x] F04 — Cập nhật bốn sơ đồ/caption, figure hai baseline và vị trí bảng; hai PDF 51/50 trang, kiểm đủ 101 trang PASS.
-- [ ] F05 — Đối soát reviewer, build/render hai PDF, kiểm số liệu/locators và bàn giao release bài; hoàn tất U10.
+- [x] F05 — Đồng bộ 87 yêu cầu/matrix/response, chốt numbering/locators, hai PDF 51/50 trang và release nội bộ; U10 hoàn tất, 0/18 comment được chứng nhận đóng.
 - [ ] F06 — Chốt UX/capability/API contract, sáu lựa chọn chính và hai vai trò nâng cao.
 - [ ] F07 — Adapter đọc U09, so sánh offline và export khớp bằng chứng.
 - [ ] F08 — Provider as-of, resources và runner chung chạy được các phiên bản trên miền hỗ trợ; paired/retry/checkpoint/job isolation.
@@ -249,6 +250,68 @@ F05 còn đối soát 87 tiểu mục reviewer, xác nhận locators ở bản c
 gói release xuất bản; **U10 chưa hoàn tất**. Native row-wise causal vẫn
 **FAIL**, whole-system **NOT_CERTIFIED**; không push, deploy hoặc submit.
 
+### F05 — Reviewer, locators và bàn giao bản thảo cuối
+
+Hoàn tất ngày **13/11/2026**, nhánh `docs/manuscript-final-release`, từ develop
+`22ceec41`; commit nguồn khóa cuối **`08d02162`**. **U10 hoàn tất theo phạm vi F01–F05:**
+bản thảo khớp bằng chứng và đủ gói bàn giao nội bộ. Không đồng nghĩa reviewer
+đã chấp thuận, causal gate toàn hệ PASS hoặc có quyền public/submit.
+
+[Response hiện hành](../../../revision/response_to_reviewers.md),
+[matrix hiện hành](../../../revision/reviewer_matrix.csv) và
+[crosswalk khóa phiên bản](../../../outputs/revision/manuscript_unified_final_v1/response_map.json)
+cùng đủ **87 yêu cầu/18 comment**. Matrix 43 dòng cũ có trạng thái/locators từ
+các lượt khác đã được thay bằng 87 mã yêu cầu; nguyên byte bốn tài liệu reviewer
+trước F05 được giữ trong QA. Mỗi yêu cầu có giải trình, trạng thái riêng,
+bằng chứng/hash, source anchor/dòng hiện tại, PDF/hash/trang vật lý và phần
+còn thiếu. Không gắn locator author vào bản submit khi block không được render.
+
+| Trạng thái theo từng yêu cầu | Số mục | Ý nghĩa |
+| --- | ---: | --- |
+| `documented_with_limits` | 43 | Có giải trình/bằng chứng trong phạm vi nêu rõ; không phải reviewer acceptance |
+| `partial_missing_scientific_evidence` | 22 | Còn thiếu thực nghiệm/validation khoa học |
+| `unresolved_historical_identity` | 14 | Chưa xác minh được nguồn/định danh lịch sử |
+| `pending_rights_or_author_route` | 5 | Còn thiếu quyền, liên hệ hoặc route/hồ sơ tác giả |
+| `partial_editorial_request` | 3 | Yêu cầu biên tập còn một phần, giữ title/khung theo chỉ dẫn |
+
+**0/18 comment được chứng nhận đóng.** Giữ rõ native causal FAIL, whole-system
+NOT_CERTIFIED, thiếu financial-news/PIT/human-visual/prospective/factorial
+validation, unknown legacy duplicates/references, PID/quyền và route/contact.
+Đã cập nhật đầu mối revision README/runbook để không còn lấy nhãn R1–R4 cũ làm
+nghiệm thu hiện tại. Mọi gói/receipt lịch sử giữ nguyên.
+
+[Manifest cuối](../../../outputs/revision/manuscript_unified_final_v1/manifest.json)
+khóa **68 nguồn** (64 paper + bốn tài liệu reviewer), **74 input bindings** và
+từng output; trạng thái `FINAL_LOCAL_MANUSCRIPT_HANDOFF_U10_COMPLETE`.
+[Source ZIP](../../../outputs/revision/manuscript_unified_final_v1/sources.zip)
+có **69 member** kể cả manifest. [Companions](../../../outputs/revision/manuscript_unified_final_v1/scientific_companions.zip)
+giữ **40 artifact nguyên byte + manifest**: 14 S1–S4 của study gốc và 26 artifact
+F02/U09 trong hai namespace riêng. S1 classification có 144 dòng tổng cộng,
+trong đó đúng 81 dòng theo mã; giữ cả pooled/block. Không gộp các study hoặc
+chạy lại analysis để tạo gói. [Runbook](../../../revision/archive_runbook.md)
+phân biệt current handoff với historical checkout/overlay.
+
+- [x] Build mới hai cây MiKTeX biệt lập, đủ tám lệnh exit 0. [Bản đầy đủ](../../../outputs/revision/manuscript_unified_final_v1/main.pdf) **51 trang**, [bản submit](../../../outputs/revision/manuscript_unified_final_v1/main_submit.pdf) **50 trang**, gồm highlights. Ngày hiển thị manuscript giữ **12/11/2026** theo F04; ngày release/response là **13/11/2026**.
+- [x] Poppler render đủ **101 trang**; 99 PNG khớp nguyên byte các trang đã kiểm trực quan ở F04, hai trang availability thay đổi đã xem trực tiếp. **Bảy figure/21 table/một algorithm và 29 locators mỗi PDF**; 38 node TikZ/bản không chồng khung hoặc chữ vượt node. Không Overfull, undefined ref/cite, thiếu glyph, Type3, chữ ngoài trang hoặc LaTeX warning. **Tám Underfull spacing notice mỗi PDF** được xem và không mất nội dung.
+- [x] Reference ledger khóa **43 BibTeX entries/21 cited keys**, số/trang/bbox reference thực tế ở cả hai PDF. Deng giữ uncited; các historical [14]/[21]/[22]/[23] vẫn chưa định danh, không ánh xạ bằng numbering hiện hành. Audit ba nguồn primary F03 được viện dẫn đúng phiên bản, không nhận tra cứu mới.
+- [x] Chỉ availability đổi trong paper; **63/64 nguồn paper** nguyên byte, đủ **27 equation/align**, metadata/title/authors/ORCID/CRediT/funding, abstract/highlights, bảng/hình/macros không đổi. **798 ô số F02, 26 artifact**, 732 binding snapshot ngoài paper/revision và **50 gói/archive lịch sử** khớp. Source/evidence/anchor/hash của đủ 87 yêu cầu và 64 nguồn evidence gốc đã đối soát.
+- [x] Gói QA **145 member**, gồm 101 PNG, tám command log, log/aux/bibliography/runtime, source/reviewer/numbering/geometry/companion/visual checks và bốn tài liệu trước F05. Kiểm mọi member, source ZIP/companion ZIP, nguồn khớp commit, **700 liên kết/anchor local** trong chín tài liệu, diff và checklist đồng bộ PASS.
+
+[QA cuối](manuscript_final_checks.zip): **18.428.304 byte**, SHA256
+`f0505aa9ed800d8562ef3af1c88496d4ca3ebd62160b9163485ca1805d2583e0`.
+Manifest release SHA256
+`8e5ce2a4ca6f3a52945047cb8e1e1e99e8c00dfcd959a6fc6cdadcd701013de9`.
+[Rights](../../../outputs/revision/manuscript_unified_final_v1/rights.json)
+giữ `public_release_authorized=false`, `pid=null`, `editorial_acceptance_certified=false`.
+
+F05 chỉ đổi LaTeX/tài liệu và metadata đối soát reviewer; không đổi code/test,
+schema chạy, runtime hoặc input nghiên cứu. Theo AGENTS §1.2 không chạy lại
+compileall/unit/E2E/leakage; kiểm hash nguồn/runtime/receipt bảo toàn phạm vi
+các gate cũ, không nâng native/whole-system causal. Build/render/hash/locators
+là kiểm mới. **0 API LLM/thị trường, 0 inference/scoring/fit/bootstrap mới**;
+không push, upload, publish, liên hệ bên ngoài, submit hoặc deploy.
+F06–F12 ứng dụng chưa bắt đầu.
+
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
 Ngày 09/11/2026: đã lập [kế hoạch hợp nhất](fix_develop_integration_plan.md)
@@ -263,7 +326,8 @@ alpha causal và bridge riêng, không nâng gate native hoặc toàn hệ. U06 
 amendment v2 giữ 102 anchor, đủ assets/PIT và quota offline; nghiệm thu và cold
 replay đã PASS trong phạm vi U06. U08 đã thu đủ 102 điểm/2.448 forecast/102 labels
 và cold seal PASS ngày 12/11/2026; gói research đã được nghiệm thu nguyên byte.
-U09 đã PASS phân tích paired/cold replay nguyên byte; U10 cập nhật bài báo còn chờ.
+U09 đã PASS phân tích paired/cold replay nguyên byte; U10 đã hoàn tất bàn giao
+bản thảo nội bộ qua F01–F05 ngày 13/11/2026; không phải nghiệm thu khoa học/editor.
 
 - [x] Phân tích hai nhánh, mô phỏng merge, đối soát 25 tham chiếu file/hash H08/H09 và lập kế hoạch.
 - [x] U01 — Khóa inventory nguồn, evidence và callers trước triển khai.
@@ -275,7 +339,7 @@ U09 đã PASS phân tích paired/cold replay nguyên byte; U10 cập nhật bài
 - [x] U07 — Paired/PIT/recovery offline PASS116 test, cold replay102 điểm/2.448 forecast slot; không mở inference.
 - [x] U08 — Smoke và research đã seal đủ 102 điểm/2.448 forecast/102 labels; nghiệm thu và gói evidence PASS.
 - [x] U09 — Phân tích paired102 điểm/ba repeat, hai family/20 contrast và bridge; cold replay15 artifact, oracle1.530 account và gói evidence PASS.
-- [ ] U10 — Cập nhật bài báo từ bằng chứng và bàn giao.
+- [x] U10 — F01–F05 hoàn tất: bản thảo/response/87-row matrix/locators/source/companions/QA nội bộ khớp bằng chứng; quyền/PID, nghiên cứu còn thiếu và reviewer acceptance vẫn riêng.
 
 ### Checklist chi tiết U09
 
@@ -391,7 +455,8 @@ Acceptance JSON là gate cold cuối; receipt execution giữ nguyên mốc
 
 Chỉ0 API mới,0 training/refit. Giữ nguyên native row-wise causal FAIL,
 whole-system causal NOT_CERTIFIED và giới hạn nguồn/exposure U06. U09 hoàn tất;
-U10 cập nhật nguồn bài báo và render/QA còn chờ thực hiện.
+U10 đã cập nhật nguồn bài báo và chốt build/render/QA ở F05 ngày 13/11/2026;
+không thay kết quả nghiên cứu hoặc nâng gate causal/reviewer.
 
 Kiểm lại toàn bộ phân tích, không gọi LLM:
 
@@ -549,7 +614,8 @@ U09 dùng dataset active theo `receipt.json`/`quota_receipt.json` trong namespac
 - Runtime slot reset: `24ec38a6fdb2c040384abd2f15de49af2cf823c42120b8e87ca29e6c59244f47`.
 
 U08 hoàn tất thu thập và nghiệm thu phần mềm/evidence. U09 đã có phân tích
-paired tại mục phía trên; U10 chưa cập nhật kết quả bài báo. Historical exposure,
+paired tại mục phía trên; tại mốc U08, U10 chưa cập nhật bài báo. Trạng thái
+hiện hành là F05/U10 đã bàn giao nội bộ ngày 13/11/2026. Historical exposure,
 news availability và các giới hạn nguồn ở U06 giữ nguyên; native row-wise causal
 vẫn **FAIL**, whole-system causal **NOT_CERTIFIED**. Repeats không tăng N thị trường.
 Nhật ký amendment bên dưới ghi đúng trạng thái tại từng mốc trước khi seal.
