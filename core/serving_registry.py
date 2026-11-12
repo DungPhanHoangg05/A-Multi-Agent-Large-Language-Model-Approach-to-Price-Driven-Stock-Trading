@@ -45,9 +45,9 @@ def registry_document() -> dict[str, Any]:
             "capabilities": {
                 "read_results": {"available": True, "reason": "VERIFIED_U09_ARTIFACT_READER",
                                  "scope": "VERIFIED_HISTORICAL_MANIFEST"},
-                "analyze": {"available": False, "reason": "RUNNER_NOT_RELEASED"},
-                "compare": {"available": False, "reason": "RUNNER_NOT_RELEASED"},
-                "backtest": {"available": False, "reason": "RUNNER_NOT_RELEASED"},
+                "analyze": {"available": True, "reason": "CONDITIONAL_SERVER_PREFLIGHT"},
+                "compare": {"available": True, "reason": "CONDITIONAL_SERVER_PREFLIGHT"},
+                "backtest": {"available": True, "reason": "CONDITIONAL_SERVER_PREFLIGHT"},
             },
         })
     return {
@@ -58,9 +58,11 @@ def registry_document() -> dict[str, Any]:
         "variants": variants, "evaluation_controls": ["CASH", "ALWAYS_LONG"],
         "domain": {
             "candidate_timeframes": ["1d"], "candidate_languages": ["vi"],
-            "released_symbols": [], "released_date_ranges": [],
+            "released_symbols": ["BHN", "CMG", "FPT", "HVN", "MBB", "MWG", "VCB", "VJC", "VNM"],
+            "released_date_ranges": [{"start_date": "2026-07-01", "end_date": "2026-09-23"}],
+            "resource_version": "serving_asof_q3_2026_v1", "max_points": 30, "live_latest_supported": False,
             "support_policy": "SERVER_VERIFIED_RESOURCE_MANIFEST_REQUIRED",
-            "resource_readiness": "NOT_RELEASED",
+            "resource_readiness": "VERIFY_ON_SERVER_PREFLIGHT",
             "historical_support": "EXACT_POINTS_IN_VERIFIED_U09_MANIFEST_ONLY",
             "ood_policy": "DECLARED_METHOD_FALLBACK_ONLY; NOT_RESOURCE_FAILURE",
         },

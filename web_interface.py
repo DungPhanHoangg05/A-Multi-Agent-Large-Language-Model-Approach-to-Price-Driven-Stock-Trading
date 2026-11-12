@@ -795,6 +795,7 @@ def backtest_result(bt_id: str):
 from utils.experiment_web import experiments
 app.register_blueprint(experiments)
 from utils.serving_web import serving
+app.config["SERVING_API_KEY_PROVIDER"] = lambda: analyzer.config.get("groq_api_key", "") or os.environ.get("GROQ_API_KEY", "")
 app.register_blueprint(serving)
 from utils.research_web import research
 app.register_blueprint(research)

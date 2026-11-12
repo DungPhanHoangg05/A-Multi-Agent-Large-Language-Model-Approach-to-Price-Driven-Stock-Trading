@@ -47,9 +47,10 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F08**, provider as-of, tài nguyên và runner chung.
+**Bước tiếp theo: F09**, nối form phân tích và kết quả với serving mới.
 F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
-contract ứng dụng; F07 có viewer U09 offline, F08–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
+contract ứng dụng; F07 có viewer U09 offline, F08 có provider/runner/API job
+as-of. F09–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
@@ -63,7 +64,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F05 — Đồng bộ 87 yêu cầu/matrix/response, chốt numbering/locators, hai PDF 51/50 trang và release nội bộ; U10 hoàn tất, 0/18 comment được chứng nhận đóng.
 - [x] F06 — Contract/registry/config serving v1 riêng, sáu lựa chọn chính/hai nâng cao, API metadata/preflight, job/result identity và 33 test đúng phạm vi PASS.
 - [x] F07 — Reader U09 kiểm hash/receipt, viewer nhiều bản/hai baseline, plot/export và legacy; 46 Python + 6 DOM PASS, browser trực quan chờ F11 do host/approval.
-- [ ] F08 — Provider as-of, resources và runner chung chạy được các phiên bản trên miền hỗ trợ; paired/retry/checkpoint/job isolation.
+- [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [ ] F09 — Nâng trang phân tích và kết quả, lựa chọn phiên bản có hiệu lực, so sánh cùng snapshot.
 - [ ] F10 — Nâng backtest và trang thực nghiệm, metrics/series động, progress/stop/resume và tương thích kết quả cũ.
 - [ ] F11 — Kiểm thử tích hợp/leakage/caller đúng phạm vi và kiểm trình duyệt; smoke live có phạm vi nếu cần.
@@ -379,6 +380,33 @@ AGENTS §1.2 không chạy full unit/E2E/compileall/leakage hoặc cold replay s
 Hồi quy unified có forecast barrier/future-poison; native causal vẫn FAIL,
 whole-system NOT_CERTIFIED. **0 API LLM/thị trường, 0 refit**; F08–F12 chưa
 hoàn tất, không push/deploy/submit. Server QA local đã dừng.
+
+### F08 — Provider as-of và runner bền vững
+
+Hoàn tất ngày **13/11/2026**, nhánh `feat/variant-serving-runner` từ develop
+`5fd45e2b`. [Contract và lệnh vận hành](variant_serving_contract.md#chạy-serving-as-of-từ-f08)
+công bố backend riêng cho cả sáu bản chính/hai dependency, không đổi grant
+U08 hoặc verifier/receipt lịch sử. **Chỉ hỗ trợ 1d/VI trên chín mã, 58 phiên
+01/07–23/09/2026**, tối đa 30 point/job, repeat1–3; backtest mỗi ba phiên để
+không chồng vòng vốn. Latest/intraday/EN chưa được release; UI mới chờ F09/F10.
+
+- [x] [Resource manifest](serving_resources_v1.json) `serving_asof_q3_2026_v1`, **188 binding**, SHA256 `ec0cb010361533716604b5ea2155ea6303358aa68c30bca16ffa0151e64e704c`; giữ weights/scaler/HMM/bank frozen. `prepare_serving_resources.py --restore-assets --verify` khôi phục đúng byte asset U06 thiếu, không ghi đè khác hash; lệnh đã PASS.
+- [x] Provider riêng dựng snapshot as-of, ảnh theo run/point, I→P→T/Alpha/sentiment một lần/point và deep-copy. Tái dùng adapter/prompt/retrieval/policy hiện hữu, không lookup response U09. Context freeze trước 01/07, không nhập query vào memory; news từ dated corpus có missingness, không coi thiếu/hỏng nguồn là fallback thành công.
+- [x] Native giữ projection gốc; common dùng causal alpha/selector đã khóa. Không fit HMM/student/bank mới; kiểm selector có replay train/validation cũ, native Alpha giữ hành vi tính/selection vốn có trên prefix. Gate native vẫn FAIL, whole-system NOT_CERTIFIED.
+- [x] API `/api/serving/v1/defaults`, preflight thực và jobs start/status/stop/resume; owner cookie ký/HttpOnly/SameSite, JSON cùng origin, key chỉ ở server. Mỗi job snapshot model/options/key scope/source/runtime/resource; config toàn cục đổi không làm hotswap job đang chạy, resume sai credential/owner bị từ chối.
+- [x] Journal/intent/raw atomic/fsync, quota SQLite chung mọi serving job/key/model, headroom/reset headers, backoff/retry-after và attempt cap ba lần/slot qua restart. UNKNOWN giữ reserve, không retry mù hoặc đổi thành CASH; raw complete được replay cùng UUID. Stop theo generation không bị resume cũ xóa; checkpoint giữ slot đã xong.
+- [x] Outcome provider tự kiểm barrier đủ slot/dependency/repeat và chỉ mở ở backtest; oracle chung dùng VND đổi đúng một lần, SHORT giữ CASH/P&L0. Analyze/compare để P&L null/NOT_EVALUATED. Status GET read-only không tạo model/client; raw/checksum bị sửa bị từ chối.
+- [x] Đối soát **522 cửa sổ mã/ngày** (chín mã × 58 phiên): ngày query và ba phiên thực thi khớp calendar chung, **0 lệch lịch**; không dùng payoff để chọn query.
+- [x] **105 test PASS**, không skip, gồm **26 mới** (17 runtime/quota, 4 API, 5 resource/provider) và **79 hồi quy**: serving15, unified15, webJSON3, recovery17, leakage **8+6+4**, tokenbudget11. Actual provider/adapter chạy query mới **MWG 02/07/2026**, đủ tám slot và **MT có raw khi eligible**, toàn HTTP fixture; OOD/BHN fallback và stop giữa vision node/resume không gọi Pattern lần hai đều PASS. Hai owner/job khác key/model không lẫn config.
+- [x] Compile đúng **18 Python** thay đổi PASS, Python **3.13.5**. Giữ nguyên **20 gói W12 + 30 archive lịch sử**, **11 file release F05 + 68 nguồn manuscript**. HEAD khớp **725/729** pin U09: ba đường UI/entrypoint đã version hóa và `scripts/.gitattributes` thêm quy tắc LF cho installer mới; F01 phục hồi đủ729. Các template không đổi trong F08.
+
+[QA runner](serving_runner_checks.zip) gồm 22 member, giữ test/runtime/source/resource/log,
+integrity và checklist/**148 liên kết**. Sửa fixture OOD thiếu nhãn tín hiệu rồi chạy
+lại đủ file resource PASS; lỗi đóng SQLite trên Windows đã sửa và kiểm qua
+cleanup/restart. Theo AGENTS §1.2 chọn đúng caller/recovery/leakage/token paths,
+không chạy full unit/E2E/compileall hoặc cold replay study. **0 LLM hosted,
+0 market API mới, 0 training HMM/student/bank**; chưa smoke hosted mới hay
+chứng nhận causal/live fills. F09–F12 tiếp tục, không push/deploy/submit.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

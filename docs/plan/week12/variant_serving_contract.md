@@ -5,6 +5,111 @@ Contract `variant_serving_v1`, registry `variant_serving_registry_v1`, config
 `unified_variant_registry_v2` và `unified_experiment_v1/v2` tiếp tục nhận diện
 phương pháp và replay nghiên cứu. Không đổi expected hash/receipt lịch sử.
 
+**F08 đã có backend inference as-of riêng**: resource
+`serving_asof_q3_2026_v1`, runner `serving_runner_v1`. Các ghi chú “chưa mở”
+ở mốc F06/F07 bên dưới là lịch sử; trạng thái hiện hành là grant có điều kiện
+qua server preflight và miền cụ thể trong mục tiếp theo. Không mở lại grant
+nghiên cứu U08, không dùng API key từ body request.
+
+## Chạy serving as-of từ F08
+
+Miền công bố: **1d/VI**, BHN/CMG/FPT/HVN/MBB/MWG/VCB/VJC/VNM, **58 phiên
+01/07–23/09/2026** trong calendar đã pin. Đây là dữ liệu vendor historical
+frozen; **chưa hỗ trợ giá/tin mới nhất hiện tại, intraday hoặc EN**. Query mới
+được dựng từ giá as-of và chạy upstream/Decision mới, không lookup forecast
+hay prepared response U09. Bank CORE4/OOD fallback và MT eligible/bypass giữ
+đúng policy; “chạy được” không có nghĩa mọi nhánh luôn đủ support để gọi LLM.
+Thiếu/hỏng resource là lỗi, không được chuyển thành fallback thành công.
+
+Resource manifest [serving_resources_v1.json](serving_resources_v1.json) khóa
+**188 input binding**, tham chiếu nguyên byte các component đã có; không nhân
+bản weights hoặc thay manifest/receipt cũ. Source và runtime SDK/scientific
+được bind riêng cho mỗi job. Cần checkout Git với nguồn historical còn truy
+cập được và các dependencies/runtime đã cài theo dự án, Python 3.13.5. Chuẩn bị:
+
+```powershell
+py -3.13 -X utf8 scripts/prepare_serving_resources.py --restore-assets --verify
+```
+
+Lệnh khôi phục asset ignored từ gói U06 đúng SHA/member binding; không ghi đè
+file hiện có khác hash. Không fit HMM/student/bank, không gọi thị trường/LLM.
+Selector được kiểm integrity bằng replay đúng train/validation cũ, không chọn
+lại trên query; native Alpha giữ hành vi tính/selection của profile gốc trên
+prefix. Nếu tokenizer o200k chưa cache, preflight báo TOKENIZER_NOT_READY;
+có thể chuẩn bị cache bằng `py -3.13 -c "import tiktoken; tiktoken.get_encoding('o200k_base')"`
+(chỉ tải tokenizer khi thiếu, không inference).
+
+Chạy app hiện hành; API key lấy từ cấu hình server hiện có hoặc `GROQ_API_KEY`.
+`GET /api/serving/v1/defaults` trả đủ model/options đã mở cho client. Pattern/
+Trend dùng `qwen/qwen3.8-27b`, Decision dùng `openai/gpt-oss-20b`; Indicator,
+Alpha và sentiment là numeric/frozen-score, không gọi LLM riêng dù request
+snapshot đủ sáu role. Provider thực tế có thể trả lỗi/quota; chỉ kiểm HTTP
+fixture trong F08, chưa chứng nhận smoke hosted mới hoặc độ chính xác khoa học.
+
+| Endpoint mới | Kết quả | Hành vi |
+| --- | --- | --- |
+| `GET /api/serving/v1/defaults` | 200 | Model/options, registry, role execution; không key |
+| `POST /api/serving/v1/preflight` | 200 ready/blocked | Kiểm resource/hash, calendar, language, model/tokenizer/key; không inference |
+| `POST /api/serving/v1/jobs` | 202 / 409 | Snapshot riêng rồi start nền / bị preflight chặn |
+| `GET /api/serving/v1/jobs/<run_id>` | 200 / 404 | Chỉ đọc checkpoint thuộc owner, không khởi động LLM |
+| `POST /api/serving/v1/jobs/<run_id>/stop` | 202 | Body `{}`, dừng tại ranh giới an toàn |
+| `POST /api/serving/v1/jobs/<run_id>/resume` | 202 / 409 | Body `{}`, giữ UUID/config/model/key binding/slot |
+
+POST cần JSON cùng origin. Cookie owner ký, HttpOnly/SameSite Strict, được
+giữ qua preflight/start và các lần poll/control. Sai owner trả 404. Đổi key
+server không hotswap job cũ; muốn resume phải khớp credential scope đã bind.
+API key không nằm trong config/status/checkpoint public; HMAC fingerprint ở
+kho private chỉ ánh xạ sang UUID opaque, browser chỉ nhận digest của scope.
+
+Ví dụ PowerShell dùng model/options do server trả; **POST jobs thực sự gọi
+Groq** khi preflight ready. Ví dụ không tự gửi nếu thiếu key/resource/support:
+
+```powershell
+$servingBase = 'http://127.0.0.1:5000/api/serving/v1'
+$servingDefaults = Invoke-RestMethod "$servingBase/defaults"
+$servingSpec = @{
+  version = 'variant_serving_v1'; mode = 'compare'
+  variant_ids = @('original_fix', 'bayesian_v1', 'C2', 'A_tp_pool', 'B_semantic', 'MT_BICL')
+  symbols = @('FPT'); start_date = '2026-07-02'; end_date = '2026-07-02'
+  timeframe = '1d'; language = 'vi'; repeats = 1; models = $servingDefaults.models
+}
+$servingBody = [Text.Encoding]::UTF8.GetBytes(($servingSpec | ConvertTo-Json -Depth 12))
+$servingCheck = Invoke-RestMethod -Uri "$servingBase/preflight" -Method Post -ContentType 'application/json' -Body $servingBody -SessionVariable servingSession
+if ($servingCheck.run_enabled) {
+  $servingRun = Invoke-RestMethod -Uri "$servingBase/jobs" -Method Post -ContentType 'application/json' -Body $servingBody -WebSession $servingSession
+  Invoke-RestMethod -Uri "$servingBase/jobs/$($servingRun.run_id)" -WebSession $servingSession
+}
+```
+
+Backtest chọn tối đa 30 point/job, lấy mỗi ba phiên từ đầu cửa sổ từng mã để
+không chồng vòng vốn; repeat 1–3. Cùng point có một I→P→T/Alpha/sentiment,
+deep-copy sang các nhánh; dependency chạy một lần/repeat. Chọn cả sáu bản
+tối đa tám Decision slot/repeat và hai vision request/point trước retry.
+Preflight trả upper bound attempt; fallback/bypass không được tính là API call.
+
+State private tại `outputs/serving_inference/v1/`, tự ignored. Một job có
+input-resource manifest hash bất biến và shared-report hash riêng từng point;
+ảnh đặt theo run/point, không dùng cwd/ảnh chung. Journal/raw fsync trước
+dispatch/parse; SQLite quota chung mọi serving job/key/model, không chia quota
+theo từng model hoặc hotswap key để né giới hạn. Reserve UNKNOWN, usage thực,
+headroom/reset headers, 429/5xx và backoff đều bền qua resume; chờ bằng các nhịp
+ngắn có thể stop. Ledger không biết traffic legacy/bên ngoài trước khi thấy
+header provider, nên không bảo đảm quota còn lại của tài khoản trên server.
+
+Timeout/response mơ hồ giữ UNKNOWN, `retryable:false`; resume không gửi lại
+UNKNOWN. Operator local phải đối soát request UUID và bằng chứng trước khi
+dùng `Calls.reconcile_not_sent`; không có endpoint browser tự reset hoặc xóa
+attempt cap. Complete raw sau crash được replay cùng UUID, không gọi lại LLM.
+Source/runtime/resource đổi thì dừng; không ký lại identity cũ để chạy tiếp.
+
+Outcome chỉ mở sau đủ forecast durable của đúng point/repeat/dependency và chỉ
+ở mode backtest; provider tự kiểm journal barrier. Analyze/compare luôn giữ
+P&L null/NOT_EVALUATED. LONG dùng oracle kinh tế chung, SHORT=CASH có P&L 0.
+Partial/failed/unknown giữ rows đã xong, tiến độ tách point/slot/API attempts;
+không dựng slot thiếu thành CASH. Kết quả/chi tiết có raw/final, policy reason,
+requested/effective IDs, snapshot/provenance. F09/F10 mới nối form/kết quả và
+backtest UI; F08 không sửa template cũ hay thay endpoint native legacy.
+
 ## Lựa chọn và miền sử dụng
 
 Nguồn tên/nhóm/dependency/fallback duy nhất cho ứng dụng là
