@@ -1,5 +1,36 @@
 # Archive phản hồi và bằng chứng cuối — nội bộ
 
+## Bàn giao hiện hành F05
+
+Ngày **13/11/2026**, bản thảo thống nhất và phản hồi hiện hành được khóa tại
+[`manuscript_unified_final_v1`](../outputs/revision/manuscript_unified_final_v1/manifest.json).
+Gói có hai PDF, source archive, response/matrix, crosswalk đủ 87 yêu cầu,
+locators/reference ledger và scientific companions tách `original`/`u09`.
+`rights.json` giữ `public_release_authorized=false`, `pid=null`; hoàn tất U10
+không phải chấp thuận của reviewer/editor, quyền công bố hay lệnh nộp bài.
+[QA F05](../docs/plan/week12/manuscript_final_checks.zip) giữ logs, ảnh mọi trang,
+kiểm nguồn/số liệu/locator và nguyên byte response/matrix trước F05. Trạng thái
+hiện hành: **0/18 comment được chứng nhận đóng**; xem [response](response_to_reviewers.md),
+[matrix](reviewer_matrix.csv) và [README W12](../docs/plan/week12/README.md).
+
+Manifest mới khóa từng output và nguồn theo commit, cùng input F01/F02/F04,
+U08/U09 và evidence gốc. Khi copy nội bộ, đối chiếu length/SHA256 theo manifest
+và ZIP member manifest trước khi dùng; không trộn các version. Source ZIP có
+đủ cây `paper/` để dựng bằng MiKTeX tại một thư mục mới; trình tự
+`pdflatex → bibtex → pdflatex → pdflatex` cho từng entrypoint được ghi trong
+`build_commands.json` của QA. F05 đã dựng hai cây biệt lập và render toàn bộ;
+không inference, fit hoặc chạy lại phân tích khoa học.
+
+S1–S4 là scientific companions của nghiên cứu gốc; U09 gồm artifacts F02
+nguyên byte. Chúng không thay raw requests/weights/data archives. Muốn replay
+lịch sử U09, dùng [mapping và historical restore](../docs/plan/week12/final_evidence_map.md)
+trên đúng checkout/overlay đã khóa. Không sửa receipt để checker cũ chấp nhận
+response/matrix mới. Lệnh `--archive-only` và các mô tả T22/T23/T34 dưới đây
+chỉ kiểm/khôi phục **gói lịch sử tương ứng**, không nghiệm thu nguồn hiện hành
+F05 hoặc serving/UI mới. Không có upload, PID giả hoặc submit trong bàn giao.
+
+## Gói lịch sử T34 và lệnh theo phiên bản
+
 Release `outputs/revision/reviewer_response_v1/` là **local private draft**, không phải archive public hoặc bản sẵn sàng nộp. `rights.json` giữ `public_release_authorized=false`, `pid=null`. Không có API/upload/provider probe trong các lệnh dưới đây. Chỉ dẫn giữ metadata của tác giả không cấp quyền phân phối dữ liệu/model/raw hosted outputs.
 
 ## Thành phần và phiên bản

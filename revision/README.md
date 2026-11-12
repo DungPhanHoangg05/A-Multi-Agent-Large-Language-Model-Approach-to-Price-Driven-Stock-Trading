@@ -1,8 +1,10 @@
 # Tiến độ xử lý phản biện
 
-Kế hoạch chính: [../plan.md](../plan.md). Nhánh tích hợp của đợt phản biện: `fix`; luồng KLTN trên `develop` được quản lý riêng.
+Kế hoạch hiện hành: [docs/plan/plan.md](../docs/plan/plan.md). Mọi công việc mới tách nhánh tác vụ từ `develop` rồi merge trở lại; `fix` và [plan reviewer cũ](../plan.md) chỉ giữ vai trò nguồn/nhật ký lịch sử.
 
-**Tiến độ hiện hành:** [R1](../plan.md#r1-progress), [R2](../plan.md#r2-progress), [R3](../plan.md#r3-progress) và [R4](../plan.md#r4-progress) đã xử lý trong phạm vi historical exploratory ngày 03/11/2026; xem [response](response_to_reviewers.md) và [release R4 cuối](../outputs/revision/r4_manuscript_v2/manifest.json). R5–R18 đánh giá riêng. Những mục dưới đây là nhật ký lịch sử, không phải checklist hiện tại.
+**Đầu mối hiện hành từ 12/11/2026:** [README W12](../docs/plan/week12/README.md) và [kế hoạch bài báo/giao diện](../docs/plan/week12/final_paper_ui_plan.md) quản lý công việc trên develop. [Response](response_to_reviewers.md) và [matrix](reviewer_matrix.csv) hiện đối soát đủ **87 yêu cầu/18 comment** với hai nghiên cứu tách biệt; **0/18 comment được chứng nhận đóng**. [Release bản thảo thống nhất](../outputs/revision/manuscript_unified_final_v1/manifest.json) thay các locator/trạng thái hiện hành cũ, không thay byte evidence lịch sử. U10 là bàn giao bản thảo nội bộ khớp bằng chứng; quyền/PID, thực nghiệm còn thiếu và route nộp bài vẫn là các giới hạn riêng.
+
+Mọi ghi nhận R1–R4 “closed/addressed” và số liệu/locators phía dưới chỉ thuộc release lịch sử được nêu tại chính mục đó, không phải nghiệm thu hiện tại của toàn comment. Không dùng các checker current-source cũ để chứng nhận nguồn đã thay; [runbook](archive_runbook.md) phân biệt đường historical và gói mới. Những mục dưới đây giữ làm nhật ký lịch sử, không phải checklist hiện hành.
 
 ## Nghiệm thu R4 — 03/11/2026
 
