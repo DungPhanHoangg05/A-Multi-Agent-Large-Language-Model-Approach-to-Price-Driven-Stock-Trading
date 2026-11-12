@@ -11,14 +11,14 @@ Task mới tách nhánh từ develop rồi merge trở lại theo AGENTS; `fix` 
 trò nguồn lịch sử. [Hướng dẫn làm việc chung](week12/develop_workflow.md) xác định
 nguồn bài báo, evidence, lệnh kiểm offline và ranh giới tài liệu cũ.
 [Checklist W12](week12/README.md#đầu-mối-làm-việc-duy-nhất-trên-develop) là nơi
-theo dõi tiếp U10 và các yêu cầu reviewer còn thiếu; root `plan.md` là lịch sử.
+theo dõi F06–F12 và các yêu cầu khoa học/editorial còn thiếu sau U10; root `plan.md` là lịch sử.
 
 **Kế hoạch thực hiện phần còn lại:** [bài báo và giao diện chọn phiên bản](week12/final_paper_ui_plan.md),
 audit ngày 12/11/2026 tại `develop:d16630e9`. Giữ tám section chính và appendix
 A–F của bài; đưa phương pháp/kết quả mở rộng chính vào thân bài, chi tiết vào
 appendix. F01–F05 cụ thể hóa U10; F06–F12 nâng ứng dụng Flask hiện tại để chọn,
 chạy và so sánh phiên bản. [Checklist cuối](week12/README.md#công-việc-cuối-cho-bài-báo-và-giao-diện)
-là nơi cập nhật tiến độ. F00–F04 đã hoàn tất: [mapping và historical restore](week12/final_evidence_map.md)
+là nơi cập nhật tiến độ. F00–F05 và U10 đã hoàn tất phạm vi bàn giao nội bộ: [mapping và historical restore](week12/final_evidence_map.md)
 giữ snapshot 810 nguồn, restore 286 asset và cold replay nguyên byte 15 artifact
 U09; [release F02](week12/README.md#f02--generator-và-artifact-bài-báo-u09) có
 26 artifact/798 ô có provenance, 16 test và cold render nguyên byte PASS.
@@ -26,8 +26,11 @@ U09; [release F02](week12/README.md#f02--generator-và-artifact-bài-báo-u09) c
 nội dung tám section/A–F, giữ metadata/cấu trúc và build hai PDF 50 trang,
 kiểm trực quan đủ 100 trang PASS. [F04](week12/README.md#f04--sơ-đồ-caption-và-layout-bản-thảo)
 đã cập nhật bốn sơ đồ/caption, figure hai baseline và vị trí bảng; hai PDF
-51/50 trang, kiểm đủ 101 trang PASS. Bước tiếp theo là F05 reviewer/locators
-và release bài; UI chưa đổi, không gọi LLM/market API để cập nhật bài từ U09.
+51/50 trang, kiểm đủ 101 trang PASS. [F05](week12/README.md#f05--reviewer-locators-và-bàn-giao-bản-thảo-cuối)
+ngày 13/11/2026 đã đồng bộ đủ 87 yêu cầu/matrix/response, chốt PDF, source,
+companions, locators và manifest; **0/18 comment được chứng nhận đóng**.
+Bước tiếp theo là F06 UX/capability/API contract; F06–F12 chưa bắt đầu,
+UI chưa đổi và không gọi LLM/market API để hoàn thiện bài từ U09.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào
@@ -47,7 +50,8 @@ nguyên byte,29 test đúng phạm vi, compile8 file; oracle độc lập1.530 a
 Return mean account: native−0,652699%, common−1,024794%, v1−0,698188%,
 MT−1,253483%; mọi vai trò research âm. V1 cải thiện so common trong band mô tả,
 chưa có bằng chứng vượt native; chỉ sensitivity trên sáu fold đã exposed.
-U10 đã xong F01–F04; F05 reviewer/locators/release cuối còn chờ. Native row-wise causal vẫn FAIL,
+U10 đã xong F01–F05 trong phạm vi bản thảo/bằng chứng nội bộ; reviewer/editor
+acceptance, quyền/PID và các nghiên cứu còn thiếu không được suy là hoàn tất. Native row-wise causal vẫn FAIL,
 whole-system causal NOT_CERTIFIED;0 API mới hoặc refit trong U09.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).

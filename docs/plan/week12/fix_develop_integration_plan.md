@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát **09/11/2026**. **U01–U09 hoàn tất và nền đã vào develop. U08 seal PASS đủ 102 điểm/2.448 forecast/102 labels; U09 phân tích/cold replay PASS ngày 12/11/2026; U10 còn chờ. Whole-system causal chưa được chứng nhận**.
+Ngày khảo sát **09/11/2026**. **U01–U10 hoàn tất theo phạm vi tích hợp và bàn giao bản thảo nội bộ. U08 seal PASS đủ 102 điểm/2.448 forecast/102 labels; U09 phân tích/cold replay PASS ngày 12/11/2026; U10 qua F01–F05 bàn giao ngày 13/11/2026. Whole-system causal chưa được chứng nhận, 0/18 comment được chứng nhận đóng**. [Kết quả F05](README.md#f05--reviewer-locators-và-bàn-giao-bản-thảo-cuối) khóa nguồn/PDF/response/locators; F06–F12 ứng dụng là phạm vi tiếp theo, chưa bắt đầu. Nội dung khảo sát/điều kiện theo giai đoạn phía dưới giữ làm lịch sử, không nâng scientific/editorial acceptance.
 Ngày 10/11/2026, theo yêu cầu người dùng, [amendment quota](README.md#amendment-quota-theo-model)
 tách ngân sách theo org/model và nối từ prefix 487 HTTP đã thu. Người dùng tự
 khởi chạy bằng entrypoint amendment được ghi trong checklist.
