@@ -27,6 +27,10 @@ Ngày 11/11/2026, người dùng yêu cầu [reset hai điểm lỗi](week12/REA
 giữ 67 điểm hoàn chỉnh và toàn bộ 1.087 HTTP. Amendment PASS 44 test/compile 6 file
 và cold verify 67 điểm; active còn 1.632 forecast/67 labels. Người dùng chạy tiếp
 bằng entrypoint mới trong checklist U08, chờ đủ cohort và cold seal.
+Ngày 12/11/2026, [reset riêng forecast hết attempt](week12/README.md#reset-riêng-forecast-hết-attempt)
+giữ 100 điểm hoàn chỉnh, 2.437 forecast và 1.693 HTTP. Người dùng yêu cầu bỏ
+checkpoint MT_BICL/VCB-2026-09-23/repeat3 rồi tự chạy nốt; amendment đã PASS
+40 test/compile 4 file và cold handoff 100 điểm. Còn thiếu 11 forecast/hai labels.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
