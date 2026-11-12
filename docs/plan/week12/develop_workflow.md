@@ -93,6 +93,13 @@ giá hoặc quota ledger. Trên workspace này giữ các asset hiện có; khi 
 máy, dùng runbook/gói handoff và đối soát source/runtime/data hashes. Không
 tạo lại dữ liệu hay gọi API vì thiếu file mà chưa kiểm archive và nguồn đã khóa.
 
+F01 đã chốt [mapping hai study và lệnh historical restore](final_evidence_map.md),
+[snapshot nguyên byte](final_evidence_snapshot.zip) và
+[kết quả smoke/hash](README.md#f01--nguồn-và-historical-replay).
+Khi paper/UI thay đổi, dùng checkout biệt lập tại commit snapshot và overlay
+đúng nguồn đã khóa để chạy verifier lịch sử; không đưa code ZIP vào import
+path Flask hoặc sửa receipt cũ để nhận bản thảo/ứng dụng mới.
+
 Các chỉ dẫn lịch sử ở root plan/revision mô tả đợt trước. Hướng dẫn branch và
 tiến độ hiện hành tại đây được ưu tiên cho công việc mới; các protocol khoa học,
 quyền gọi API, điều kiện công bố và raw evidence của từng release vẫn giữ scope

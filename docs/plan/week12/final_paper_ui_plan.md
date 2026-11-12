@@ -331,19 +331,19 @@ cùng commit khi bắt đầu hoặc hoàn tất một bước. F01–F05
 hoàn tất U10; F06–F12 là phần ứng dụng bổ sung. Mỗi bước dùng nhánh tác vụ phù
 hợp từ develop, không commit trực tiếp develop.
 
-**Bắt đầu từ F01.** Chốt mapping bằng chứng của hai nghiên cứu, snapshot
-paper/revision/app và cách khôi phục nguồn/assets đã khóa; sau đó kiểm đường
-replay offline. Khi F01 đạt các điều kiện bên dưới mới chuyển F02 để sinh
-bảng/hình/macros U09. F01 chưa bắt đầu; việc thêm checklist không thay cho
-nghiệm thu bước này và không gọi API.
+**F01 đã hoàn tất; bước tiếp theo là F02.** [Mapping và runbook historical](final_evidence_map.md)
+đã chốt hai nghiên cứu, snapshot paper/revision/app và đường khôi phục
+nguồn/assets đã khóa. Smoke checkout biệt lập đã khớp nguồn và replay nguyên
+byte 15 artifact U09; kết quả và hash ghi tại README W12. Chưa sinh
+bảng/hình/macros mới, chưa sửa paper/UI và không gọi API.
 
 Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**. Chỉ đánh ☑ khi
 đạt điều kiện hoàn thành và có kết quả kiểm tra tương ứng trong README W12.
 
 | Mã | Checklist | Công việc, nhánh gợi ý | Phụ thuộc | Đầu ra và điều kiện hoàn thành |
 | --- | --- | --- | --- | --- |
-| F00 | ☑ Hoàn tất | Audit và lập kế hoạch cuối | U01–U09 | Đã audit paper/reviewer/API/templates và lập plan; chưa triển khai các bước F01–F12 |
-| F01 | ☐ Chưa bắt đầu | Chốt nguồn/evidence và đường historical replay — `docs/final-evidence-map` hoặc `feat/historical-consumer` nếu cần code | Audit này | Snapshot/archive cũ nguyên byte; mapping hai study; smoke restore offline đúng hashes, chỉ chạy phần resolver mới nếu có |
+| F00 | ☑ Hoàn tất | Audit và lập kế hoạch cuối | U01–U09 | Đã audit paper/reviewer/API/templates và lập plan; chưa sửa paper/UI |
+| F01 | ☑ Hoàn tất | Chốt nguồn/evidence và đường historical replay — `docs/final-evidence-map` | Audit này | Snapshot 810 file nguyên byte; mapping hai study; restore 286 asset, 729 source pin và cold replay 15 artifact PASS; không cần resolver mới |
 | F02 | ☐ Chưa bắt đầu | Generator bảng/figure/macros U09 — `feat/manuscript-unified-results` | F01 | Đọc nguồn đã verify; deterministic output namespace mới; đủ 10 hàng, contrasts/bridge/support/null; không ghi đè archive/macro gốc |
 | F03 | ☐ Chưa bắt đầu | Cập nhật nội dung tám section và A–F — `docs/manuscript-extensions` | F02 | Đúng mapping §3, cùng cấu trúc/title/authors, kết luận cân bằng; references có nguồn, không trộn nghiên cứu |
 | F04 | ☐ Chưa bắt đầu | Cập nhật sơ đồ/caption/layout — `docs/manuscript-figures` | F03 | Bốn sơ đồ/algorithm liên quan đúng pipeline, chart nguồn được giữ; bảng/hình đọc được ở kích thước PDF |
