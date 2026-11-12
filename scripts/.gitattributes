@@ -2,3 +2,4 @@
 audit_bic_icl_inputs.py -text
 check_unified_execution.py text eol=lf
 .gitattributes text eol=lf
+prepare_serving_resources.py text eol=lf

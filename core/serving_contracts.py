@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import json
 import re
 from typing import Any
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from core.serving_registry import CONFIG_VERSION, CONTRACT_VERSION, JOB_STATES, REGISTRY_VERSION, required_resources
 from core.unified_contracts import checksum, day, digest, json_bytes
@@ -109,14 +109,10 @@ class ServingRequest:
 
 
 def preflight(spec: ServingRequest) -> dict[str, Any]:
-    """Chỉ kiểm cấu trúc và công bố blocker; chưa có grant chạy khi runner chưa release."""
+    """Caller thuần chỉ kiểm cấu trúc; grant phải qua Service kiểm resource/owner/key phía server."""
     request = spec.document()
-    blockers = [
-        {"code": "RUNNER_NOT_RELEASED", "message": "Runner serving mới chưa được nghiệm thu"},
-        {"code": "SUPPORT_NOT_PUBLISHED", "message": "Chưa có manifest mã/ngày được cấp cho inference mới"},
-        {"code": "RESOURCES_NOT_READY", "message": "Cần provider as-of và tài nguyên có version/hash",
-         "resources": required_resources(request["variant_ids"])},
-    ]
+    blockers = [{"code": "SERVER_PREFLIGHT_REQUIRED", "message": "Cần kiểm resource/support/model/credential tại server",
+                 "resources": required_resources(request["variant_ids"])}]
     if request["language"] != "vi":
         blockers.append({"code": "LANGUAGE_NOT_RELEASED", "message": "Projection mới chưa nghiệm thu tiếng Anh"})
     return {"version": CONTRACT_VERSION, "registry_version": REGISTRY_VERSION, "status": "blocked",
@@ -132,7 +128,7 @@ class ServingJob:
 
     @classmethod
     def create(cls, spec: ServingRequest, config: dict[str, Any], snapshot_sha256: str,
-               owner_scope_sha256: str) -> ServingJob:
+               owner_scope_sha256: str, *, run_id: str | None = None) -> ServingJob:
         """Config do server dựng; không nhận API key, path, grant hoặc credentials từ request."""
         _object(config, {"version", "registry_version", "runner_version", "provider_version", "source_sha256",
                          "calendar_sha256", "support_sha256", "credential_scope_sha256", "resources", "prompt_versions"}, "config")
@@ -158,7 +154,9 @@ class ServingJob:
                     "request": request, "config": config, "snapshot_sha256": snapshot_sha256,
                     "costs": dict(COSTS), "target": "OPEN_T1_CLOSE_T3_NET; SHORT_IS_CASH",
                     "method_profiles": {v: get_variant(v).profile for v in plan}}
-        doc = {"run_id": str(uuid4()), "owner_scope_sha256": owner_scope_sha256,
+        identifier = str(uuid4()) if run_id is None else run_id
+        _require(type(identifier) is str and str(UUID(identifier)) == identifier, "run_id", "Run ID phải là UUID canonical")
+        doc = {"run_id": identifier, "owner_scope_sha256": owner_scope_sha256,
                "config_sha256": digest(config), "identity_sha256": digest(identity),
                "cache_sha256": digest({"identity": identity, "owner_scope_sha256": owner_scope_sha256}),
                "identity": identity, "requested_ids": request["variant_ids"], "execution_plan": plan}

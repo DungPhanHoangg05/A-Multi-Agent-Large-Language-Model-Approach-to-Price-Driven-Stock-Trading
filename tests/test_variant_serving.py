@@ -68,8 +68,8 @@ class ServingContractTests(unittest.TestCase):
         self.assertEqual([v["id"] for v in doc["variants"] if v["group"] == "advanced"], list(ADVANCED_IDS))
         self.assertTrue(set(doc["evaluation_controls"]).isdisjoint(v["id"] for v in doc["variants"]))
         self.assertTrue(all(v["capabilities"]["read_results"]["available"] for v in doc["variants"]))
-        self.assertFalse(any(c["available"] for v in doc["variants"] for k, c in v["capabilities"].items() if k != "read_results"))
-        self.assertEqual(doc["domain"]["released_symbols"], [])
+        self.assertTrue(all(c["available"] for v in doc["variants"] for c in v["capabilities"].values()))
+        self.assertEqual(len(doc["domain"]["released_symbols"]), 9)
         self.assertEqual(before, digest(historical_registry()))
         self.assertFalse(old["hosted_release"])
         json_bytes(doc)
@@ -81,7 +81,7 @@ class ServingContractTests(unittest.TestCase):
         self.assertEqual(result["status"], "blocked")
         self.assertEqual(len(result["execution_plan"]), 8)
         self.assertEqual(len(set(result["execution_plan"])), 8)
-        resources = result["blockers"][2]["resources"]
+        resources = result["blockers"][0]["resources"]
         self.assertEqual(set(resources), {"prices", "news", "calendar", "bank", "regime", "facts", "context", "student"})
         self.assertLess(result["execution_plan"].index("Fact_Anchor"), result["execution_plan"].index("MT_BICL"))
         en = request_fixture(); en["language"] = "en"
@@ -256,7 +256,7 @@ class ServingApiTests(unittest.TestCase):
         self.assertFalse(response.get_json()["run_enabled"])
         self.assertNotIn("run_id", response.get_json())
         self.assertEqual(digest(historical_registry()), old)
-        self.assertEqual(self.client.post("/api/serving/v1/jobs", json=request_fixture()).status_code, 404)
+        self.assertEqual(self.client.post("/api/serving/v1/jobs", json=request_fixture()).status_code, 409)
 
     def test_malformed_json_and_secret_fields_return_safe_errors(self) -> None:
         responses = [self.client.post("/api/serving/v1/preflight", data="{", content_type="application/json"),
