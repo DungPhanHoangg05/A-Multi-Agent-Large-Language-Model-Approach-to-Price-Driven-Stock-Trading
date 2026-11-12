@@ -5,12 +5,12 @@ The implementation uses a LangGraph directed graph with five specialised roles a
 
 A versioned registry separates eight extension roles from their resources and action dependencies. \texttt{original\_fix} (Native) uses the native serving profile; \texttt{original\_common} (Common) uses the common instruction/schema and causal alpha projection, with alpha and sentiment both present. Bayesian v1, C2, A\_tp\_pool and B\_semantic depend on Common; Fact\_Anchor also depends on Common, and MT\_BICL depends on the completed Common and Fact\_Anchor records for the same repeat. These are method identities, not alpha on/off switches or inference permissions. The original Full/Base masks remain a separate comparison. Offline native parity applies only on the declared valid-input serving domain; it does not establish equivalence for arbitrary inputs or equality of newly hosted responses.
 
-Figure~\ref{fig:flow} depicts the native report path; the extension retains its shared upstream and adds the projections and dependencies described here. In the evaluated backtest, Indicator is deterministic and the numerical/report Alpha path bypasses an additional alpha-reasoning LLM call. Pattern and Trend consume their separate chart images, while Decision receives the condensed reports and enabled quantitative/text sections. The five role names consequently do not imply five hosted LLM calls per forecast. Model aliases and actual request accounting are specified in Section~\ref{sec:experimentalsetup}.
+Figure~\ref{fig:flow} shows the shared upstream, native/common projections and extension dependency schedule. In the evaluated backtest, Indicator is deterministic and the numerical/report Alpha path bypasses an additional alpha-reasoning LLM call. Pattern and Trend consume their separate chart images, while Decision receives the condensed reports and enabled quantitative/text sections. The five role names consequently do not imply five hosted LLM calls per forecast. Model aliases and actual request accounting are specified in Section~\ref{sec:experimentalsetup}.
 
 \begin{figure}[!htbp]
 \centering
 \input{figs/final_flow.tex}
-\caption{System pipeline with shared-report Full/Base comparison. Indicator and alpha backtest reports are deterministic/numerical; Pattern and Trend use vision requests. Decision aggregates enabled reports by prompt instructions.}
+\caption{Shared-input system pipeline and the two alpha/prompt projections. Arrows show data flow; Indicator, Pattern and Trend execute once in sequence per upstream realization. The extension reuses their immutable parent across roles and three Decision repeats. Original Full/Base results use a separate response collection and their own masks. Decision dependencies and external action policy are detailed in Figure~\ref{fig:decision_agent}; neither projection certifies the whole system as causal.}
 \label{fig:flow}
 \end{figure}
 
@@ -31,11 +31,11 @@ The extension binds a frozen selector to the same point, price prefix and native
 \paragraph{Sentiment integration}
 Vietnamese sentiment is a separate contextual report, not an input to the native OHLCV factor formulas or score. The frozen provider supplies aggregate/count information and empty article-detail/peer lists. Relative sentiment and z-score fields on that path are consequently zero-valued outputs of the normalizer, rather than measured contemporaneous peer evidence. The three-article availability rule differs from the eight-article reliability flag. The 90-day window, 30-day decay, scorer revision and provenance limitations are specified in Section~\ref{sec:formulation}.
 
-Figure~\ref{fig:alpha_agent} separates OHLCV factor selection from sentiment-context construction and shows the information delivered by the evaluated backtest. Optional live endpoints, lexicon fallbacks and peer discovery are repository capabilities; they are not evidence that the corresponding inputs were used or historically available in the evaluated calls.
+Figure~\ref{fig:alpha_agent} separates native selection, the frozen causal-common alpha projection and sentiment-context construction. Optional live endpoints, lexicon fallbacks and peer discovery are repository capabilities; they are not evidence that the corresponding inputs were used or historically available in the evaluated calls.
 
 \begin{figure}[!htbp]
 \centering\input{figs/revised_alpha_pipeline.tex}
-\caption{Alpha Agent: native OHLCV selection and separate sentiment context. Native factor diagnostics retain their causal/selection defects; the frozen sentiment path has no authenticated peer comparison. Both reports enter Decision only when enabled by the variant.}
+\caption{Alpha Agent profiles and separate sentiment context. The native path retains its in-sample ranking and row-wise causal defects. The common projection uses row-available operators and a selector fixed by chronological training/purged validation. Sentiment enters the enabled Decision text separately; it is not a factor-score input or authenticated peer comparison. Freezing the common selector does not repair the native profile.}
 \label{fig:alpha_agent}
 \end{figure}
 
@@ -60,11 +60,11 @@ For row position $u$, a fitted line has form $b+mu$. A support bound must remain
 The renderer audit matched 204 images across 102 units byte for byte and pixel for pixel, and 240 actual vision requests matched their image caches and Vietnamese templates. It verified body geometry, colour and legend handles, not the model's visual understanding. In particular, the Vietnamese word \emph{xanh} is less colour-specific than the corrected English ``blue'' wording. Inherited high-frequency/K-line prompt language also remains distinguishable from this daily-bar application. Matched local-pattern interventions and trend swaps would be needed to test whether the model uses the purported visual evidence.
 
 \subsection{Decision Agent}
-Decision receives condensed Indicator, Pattern and Trend reports plus enabled factor/sentiment sections. Reports are distilled and capped before prompt composition. The observed successful Decision prompts are at most 4,187 characters, below the 6,500-character guard. Figure~\ref{fig:decision_agent} shows report composition, prompt instructions, structured output and the separate action mapping.
+Decision receives condensed Indicator, Pattern and Trend reports plus enabled factor/sentiment sections. Reports are distilled and capped before prompt composition. The original study's observed successful Decision prompts are at most 4,187 characters, below the 6,500-character guard. Figure~\ref{fig:decision_agent} shows the extension dependencies, raw proposals, fallback and separate action policy.
 
 \begin{figure}[!htbp]
 \centering\input{figs/revised_decision_pipeline.tex}
-\caption{Decision Agent pipeline. Evidence priorities are prompt heuristics rather than learned/calibrated weights. The structured forecast is evaluated separately from the conditional long-only account action.}
+\caption{Decision dependencies and raw-to-final action policy. Role-to-role arrows require the completed record from the same repeat; the four prior methods are parallel dependants of Common. Support bypass reuses a parent without an LLM call. Fact assertions and the MT utility veto are external policies, not model reasoning guarantees. Raw/final actions and rejection/bypass proofs remain distinct; technical failures use retry/checkpoint handling.}
 \label{fig:decision_agent}
 \end{figure}
 

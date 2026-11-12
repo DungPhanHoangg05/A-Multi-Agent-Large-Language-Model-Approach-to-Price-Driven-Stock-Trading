@@ -20,7 +20,23 @@ Returns and drawdowns summarize separate accounts, not one portfolio, total-retu
 Table~\ref{tab:u09-comparison} reports all ten extension roles/controls, retaining both baselines and every bypass. Native mean account return is \UnifiedNativeReturn\%, Common \UnifiedCommonReturn\%, Bayesian v1 \UnifiedVOneReturn\% and MT-BICL \UnifiedMTReturn\%. Their BAs are \UnifiedNativeBA\%, \UnifiedCommonBA\%, \UnifiedVOneBA\% and \UnifiedMTBA\%, respectively. These are U09 outcomes, not replacements for the original Full/Base numbers above. Every research role's mean account return is negative, whereas CASH is zero; Always-LONG cycles return \UnifiedAlwaysLongReturn\% under the same two-leg costs.
 
 Bayesian v1 minus Common has mean return difference $+\UnifiedVOneCommonReturnEffect$ pp with descriptive simultaneous band $[\UnifiedVOneCommonReturnLow,\UnifiedVOneCommonReturnHigh]$. Against Native, its difference is $\UnifiedVOneNativeReturnEffect$ pp with band $[\UnifiedVOneNativeReturnLow,\UnifiedVOneNativeReturnHigh]$. The comparator therefore changes the interpretation: the recorded improvement over Common does not establish an advantage over the native system. MT-BICL minus Native is $\UnifiedMTNativeReturnEffect$ pp with band $[\UnifiedMTNativeReturnLow,\UnifiedMTNativeReturnHigh]$; the negative result is retained. Full precision and all twenty return/BA contrasts are reported in \ref{app:additional} and the source companions, not recomputed from rounded table cells.
+% Giữ bảng chính gần phần diễn giải và trước figure; không sửa artifact generated đã khóa.
+\begingroup
+\let\savedcomparisontable\table
+\def\table[#1]{\savedcomparisontable[!htbp]}
 \input{generated/u09/comparison.tex}
+\endgroup
+\FloatBarrier
+
+Figure~\ref{fig:u09-return-contrasts} displays all five extension-versus-baseline return differences for each baseline. The panels use the same frozen analysis and simultaneous family as the tabulated contrasts; changing the displayed baseline does not create another experiment.
+\begin{figure}[!htbp]
+\centering
+% Chỉ cắt khung hiển thị hai panel từ cùng PNG 1692x666, 180 dpi; không sửa byte ảnh/số liệu.
+\includegraphics[width=0.82\textwidth,trim=0bp 14.4bp 336.8bp 18bp,clip]{generated/u09/return_contrasts.png}\par\smallskip
+\includegraphics[width=0.82\textwidth,trim=340bp 14.4bp 0bp 18bp,clip]{generated/u09/return_contrasts.png}
+\caption{Extension mean account-return contrasts against Native (top) and Common (bottom), in percentage points. The frozen two-panel image is displayed as enlarged panels with separate horizontal scales. Points and descriptive 95\% simultaneous bands come from the paired circular-fold bootstrap (10,000 draws, primary block length L2; joint family of twenty return/BA contrasts). The vertical line denotes zero difference. Bands describe sensitivity on six exposed folds, not calibrated significance or deployable profitability. Both panels retain every extension, including adverse results; uncertainty is conditional on one upstream realization.}
+\label{fig:u09-return-contrasts}
+\end{figure}
 
 Coverage is part of these method outcomes. C2 and B\_semantic each have only \UnifiedCTwoRaw\ raw Decisions and \UnifiedCTwoBypass\ bypasses per 306 slots; A\_tp\_pool has \UnifiedAPoolRaw\ raw Decisions, Bayesian v1 \UnifiedVOneRaw\ and MT-BICL \UnifiedMTRaw. A fallback reuses the same repeat's parent action and is included in primary metrics, not removed as a failed observation. Table~\ref{tab:u09-support} separates CORE4/OOD5 and recorded effective K; \UnifiedMissingSentiment/\UnifiedPoints\ points have unavailable sentiment. Consequently, near-equal outcomes of C2/B and Common primarily reflect coverage and policy, not evidence that the corresponding retrievers extracted equivalent useful information.
 
