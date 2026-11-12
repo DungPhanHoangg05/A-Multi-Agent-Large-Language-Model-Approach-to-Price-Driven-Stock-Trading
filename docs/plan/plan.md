@@ -29,8 +29,10 @@ kiểm trực quan đủ 100 trang PASS. [F04](week12/README.md#f04--sơ-đồ-c
 51/50 trang, kiểm đủ 101 trang PASS. [F05](week12/README.md#f05--reviewer-locators-và-bàn-giao-bản-thảo-cuối)
 ngày 13/11/2026 đã đồng bộ đủ 87 yêu cầu/matrix/response, chốt PDF, source,
 companions, locators và manifest; **0/18 comment được chứng nhận đóng**.
-Bước tiếp theo là F06 UX/capability/API contract; F06–F12 chưa bắt đầu,
-UI chưa đổi và không gọi LLM/market API để hoàn thiện bài từ U09.
+F06 ngày 13/11/2026 đã chốt [contract serving riêng](week12/variant_serving_contract.md),
+sáu lựa chọn chính/hai nâng cao, preflight và job/config/result identity; 33 test
+đúng phạm vi PASS. Bước tiếp theo là F07 adapter U09; F07–F12 chưa bắt đầu.
+Template chưa đổi, runner mới chưa mở và không gọi LLM/market API trong F06.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

@@ -331,7 +331,7 @@ cùng commit khi bắt đầu hoặc hoàn tất một bước. F01–F05
 hoàn tất U10; F06–F12 là phần ứng dụng bổ sung. Mỗi bước dùng nhánh tác vụ phù
 hợp từ develop, không commit trực tiếp develop.
 
-**F01–F05 và U10 đã hoàn tất phạm vi bàn giao nội bộ; bước tiếp theo là F06.** [Mapping và runbook historical](final_evidence_map.md)
+**F01–F05 và U10 đã hoàn tất phạm vi bàn giao nội bộ; F06 đã xong contract, bước tiếp theo là F07.** [Mapping và runbook historical](final_evidence_map.md)
 đã chốt hai nghiên cứu, snapshot paper/revision/app và đường khôi phục
 nguồn/assets đã khóa. Smoke checkout biệt lập đã khớp nguồn và replay nguyên
 byte 15 artifact U09. F02 đã sinh 26 artifact với 798 ô có provenance trong
@@ -342,7 +342,10 @@ bốn sơ đồ/caption/figure và vị trí bảng, build hai PDF 51/50 trang v
 101 trang PASS. F05 ngày 13/11/2026 đã đồng bộ 87 yêu cầu/18 comment, chốt
 PDF 51/50 trang/101 trang render, source/companions/locators và manifest.
 0/18 comment được chứng nhận đóng; quyền/PID và evidence còn thiếu giữ rõ.
-UI chưa đổi; F06–F12 chưa bắt đầu, không gọi LLM/market API.
+F06 ngày 13/11/2026 đã chốt [contract/version serving riêng](variant_serving_contract.md),
+registry sáu chính/hai nâng cao, API metadata/preflight và job/config/result
+identity, 33 test đúng phạm vi PASS. Template chưa đổi; F07–F12 chưa bắt đầu,
+runner mới chưa mở, không gọi LLM/market API.
 
 Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**. Chỉ đánh ☑ khi
 đạt điều kiện hoàn thành và có kết quả kiểm tra tương ứng trong README W12.
@@ -355,7 +358,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F03 | ☑ Hoàn tất | Cập nhật nội dung tám section và A–F — `docs/manuscript-extensions` | F02 | Đã cập nhật tám section/A–F và references có nguồn; metadata/24 khối toán cũ giữ nguyên; hai PDF 50 trang và 100 trang render/visual PASS; không trộn nghiên cứu |
 | F04 | ☑ Hoàn tất | Cập nhật sơ đồ/caption/layout — `docs/manuscript-figures` | F03 | Bốn sơ đồ khớp shared/projection/dependency/policy và Algorithm 1; figure hai baseline nguyên nguồn; bảng gần diễn giải; hai PDF 51/50 trang, 101 trang render/visual và hình học 38 node/bản PASS |
 | F05 | ☑ Hoàn tất | Reviewer, build hai PDF, kiểm và release bài — `docs/manuscript-final-release` | F04 | 87 yêu cầu đồng bộ response/matrix/crosswalk; PDF 51/50 trang, numbering/locators, source68/companions40/manifest và QA145 PASS; U10 bàn giao nội bộ hoàn tất, 0/18 comment được chứng nhận đóng |
-| F06 | ☐ Chưa bắt đầu | Chốt UX, capability và API contract — `feat/variant-serving-contract` | F05 | Schema/registry version mới, sáu lựa chọn chính/hai advanced, miền dùng rõ, job/config identity và trạng thái lỗi; historical pins vẫn có đường replay |
+| F06 | ☑ Hoàn tất | Chốt UX, capability và API contract — `feat/variant-serving-contract` | F05 | Contract/registry/config serving v1 riêng, sáu chính/hai nâng cao; API metadata/preflight, job identity bất biến và result/partial/UNKNOWN; 33 test, compile 5 file PASS, historical replay giữ F01; runner mới chờ F08 |
 | F07 | ☐ Chưa bắt đầu | Đọc U09 và so sánh offline trên web — `feat/research-results-viewer` | F06 | UI thấy U09, adapter đúng schema, bảng/plot/export khớp artifacts; GET không gọi LLM; legacy reader còn hoạt động |
 | F08 | ☐ Chưa bắt đầu | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Có dữ liệu as-of/resources mới đúng PIT, dependency/fallback, retry/checkpoint/quota, job isolation; cả sáu bản chạy được trên support công bố |
 | F09 | ☐ Chưa bắt đầu | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn bản có hiệu lực backend, so sánh cùng snapshot, nguyên UI chức năng cũ, raw/final/coverage đúng, VI/EN và responsive |
