@@ -5,32 +5,19 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
-U06 có [amendment v2](week12/README.md#kết-quả-nghiệm-thu-u06-v2) giữ102 anchor,
-ba repeat và hai family, 51 selector binding frozen trước anchor đầu từng mã,
-đủ102 provider preparations và quota Free được xác nhận lại. V2 đã PASS146 test
-và cold replay102/102; U06 hoàn tất offline. V1 BLOCKED giữ nguyên làm bằng chứng.
-U07 đã PASS116 test/13 module, compile riêng sáu file Python và cold paired
-replay102 điểm/2.448 slot với HTTP mô phỏng; [checklist và giới hạn](week12/README.md#kết-quả-và-giới-hạn-u07)
-ghi rõ barrier, UNKNOWN/recovery và phạm vi chín mã. Nền được đưa vào develop
-sau nghiệm thu U07 theo §4.1. U08 đã PASS smoke Free/cold verify sau69 test và
-11 file compile. Research đã dừng có checkpoint để người dùng tự resume bằng lệnh,
-giữ cohort 102/ba repeat và dùng student/HMM frozen. Còn chờ đủ 2.448 forecast,
-102 nhãn và cold seal. Sau 32 điểm, quota được sửa bằng amendment riêng để tách
-RPM/RPD/TPM/TPD theo org/model, nối journal hiện có qua lệnh resume mới tại
-[checklist U08](week12/README.md#amendment-quota-theo-model). Amendment đã PASS 61
-test, compile 5 file và cold verify 32 điểm đã đủ forecast.
-Ngày 11/11/2026, sau 38 điểm, [admission provider](week12/README.md#admission-theo-phản-hồi-provider)
-thay lịch chờ suy từ bộ đếm local bằng Retry-After/backoff từ response lỗi thực.
-Amendment đã PASS 41 test/compile 5 file và cold verify 38 điểm đã hoàn chỉnh.
-Ngày 11/11/2026, người dùng yêu cầu [reset hai điểm lỗi](week12/README.md#reset-hai-điểm-lỗi-theo-yêu-cầu-người-dùng)
-để tự chạy lại. Đã sao lưu/xóa 44 checkpoint của VCB-2026-04-01 và VJC-2025-12-19,
-giữ 67 điểm hoàn chỉnh và toàn bộ 1.087 HTTP. Amendment PASS 44 test/compile 6 file
-và cold verify 67 điểm; active còn 1.632 forecast/67 labels. Người dùng chạy tiếp
-bằng entrypoint mới trong checklist U08, chờ đủ cohort và cold seal.
-Ngày 12/11/2026, [reset riêng forecast hết attempt](week12/README.md#reset-riêng-forecast-hết-attempt)
-giữ 100 điểm hoàn chỉnh, 2.437 forecast và 1.693 HTTP. Người dùng yêu cầu bỏ
-checkpoint MT_BICL/VCB-2026-09-23/repeat3 rồi tự chạy nốt; amendment đã PASS
-40 test/compile 4 file và cold handoff 100 điểm. Còn thiếu 11 forecast/hai labels.
+U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
+và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào
+develop. **U08 hoàn tất ngày 12/11/2026**: receipt `PASS_U08_RESEARCH`, đủ
+**102 điểm/chín mã, 2.448 forecast, 102 canonical labels**. Cold consumer mới
+và gói research đã PASS, giữ 8.035 file journal nguyên byte và đối soát 718
+source bindings/runtime đã khóa, 0 inference mới trong lượt nghiệm thu.
+
+[Nghiệm thu và bàn giao U08](week12/README.md#nghiệm-thu-u08) ghi coverage,
+raw/usage, reset, nguồn/hash và lệnh kiểm gói. Ledger giữ 1.702 HTTP attempts,
+trong đó 15 raw đã nghỉ vẫn tính chi phí và được lưu; không có UNKNOWN active.
+[Gói research đã seal](week12/unified_live_research.zip) là đầu vào U09.
+U09 phân tích paired và U10 cập nhật bài báo chưa thực hiện; native row-wise
+causal vẫn FAIL, whole-system causal NOT_CERTIFIED, chưa kết luận superiority.
 
 Yêu cầu mới: [hợp nhất fix làm hệ gốc và develop làm các mở rộng](week12/fix_develop_integration_plan.md).
 Đã hoàn tất phân tích và kế hoạch; [checklist W12](week12/README.md) quản lý U01–U10.
@@ -49,8 +36,8 @@ U05 đã thêm `causal_common_v1`, selector train/validation đã purge và brid
 native/common; [checklist U05](week12/README.md#checklist-chi-tiết-u05) ghi 151 test
 và cold replay. Gate này chỉ cho alpha PIT, không nâng native hoặc toàn hệ
 thành Zero-Leakage. U07 nghiệm thu phần mềm offline, không nâng gate native/
-whole-system causal. Research U08 chờ người dùng chạy tiếp từ checkpoint sau
-smoke tách biệt, rồi seal study mới để phân tích. Trạng thái pilot bên dưới
+whole-system causal. Research U08 đã seal với smoke tách biệt; U09 dùng receipt/dataset active
+để phân tích paired, giữ nguyên raw đã nghỉ làm bằng chứng chi phí/reset. Trạng thái pilot bên dưới
 là bằng chứng giữ nguyên, không phải nghiệm thu hệ thống hợp nhất.
 
 Hệ thống giữ Original và bốn nhóm cải tiến.
