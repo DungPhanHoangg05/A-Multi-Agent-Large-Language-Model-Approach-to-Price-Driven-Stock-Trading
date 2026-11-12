@@ -47,14 +47,14 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F01**, chốt mapping hai study, snapshot và đường replay
-offline; đạt điều kiện F01 rồi mới làm F02. F00 hoàn tất, F01–F12 chưa bắt đầu.
-Bổ sung cột checklist theo yêu cầu ngày 12/11/2026 chỉ đổi hai tài liệu này;
+**Bước tiếp theo: F02**, sinh bảng/figure/macros U09 từ nguồn đã verify trong
+namespace mới. F00–F01 hoàn tất; F02–F12 chưa bắt đầu.
+Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
 AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 
 - [x] F00 — Audit paper/reviewer, bảng/hình, registry/runner/API/templates; lập kế hoạch cuối, chưa triển khai code hoặc sửa bản thảo.
-- [ ] F01 — Chốt mapping hai study, snapshot nguồn và đường historical replay trước thay đổi.
+- [x] F01 — Chốt mapping hai study, snapshot 810 nguồn nguyên byte; historical restore và cold replay U09 PASS.
 - [ ] F02 — Generator bảng/figure/macros U09 có provenance và namespace riêng.
 - [ ] F03 — Cập nhật nội dung tám section và appendix A–F, giữ title/tác giả/cấu trúc.
 - [ ] F04 — Cập nhật sơ đồ, thuật toán, caption, bảng/hình và layout cần thiết.
@@ -82,6 +82,37 @@ PASS. Không chạy compileall/unit/
 E2E/leakage hoặc cold analysis lại theo AGENTS §1.2 vì code, runtime, inputs,
 schema và evidence không đổi. Kết quả PASS cũ chỉ được viện dẫn, không ghi là
 đã chạy lại. **0 API mới, 0 lượt chạy full, 0 refit** trong audit này.
+
+### F01 — Nguồn và historical replay
+
+Hoàn tất ngày **12/11/2026**, nhánh `docs/final-evidence-map`, từ develop
+`384725a66fec074700963fac67c358b28b842092`. [Mapping và lệnh restore](final_evidence_map.md)
+tách study gốc Full/Base, numeric controls và hai panel chín đơn vị khỏi
+study U08/U09 một upstream/ba Decision repeat; xác định nguồn cho từng nhóm
+bảng/hình/macros và nền bản thảo `author_preserved_v1`. Không trộn response,
+N hoặc phương pháp thống kê giữa hai study.
+
+[Snapshot nguồn](final_evidence_snapshot.zip): **93.154.448 byte**, SHA256
+`80fed8c9a1c265098a394bfc40f13d7f0266c1e05abdb142fba01d873cb8b8b5`.
+ZIP giữ 810 file nguồn cùng manifest, gồm đủ 729 pin U09, paper50/revision28
+và cây app/cấu hình; các tập giao nhau. Có cả file ignored mà pin yêu cầu.
+Proof `evidence/f01_restore_smoke.json` và full `evidence/u09_cold_verify.json`
+được lưu trong ZIP này, không tạo receipt rời lặp lại kết quả.
+
+- [x] Hash/length của 810 nguồn khớp snapshot ở cả cây hiện hành và historical checkout biệt lập tại commit trên; 50 file paper khớp nguyên byte `author_preserved_v1/sources.zip`.
+- [x] Restore đúng 286 asset ignored từ gói U06 v2 và 16 file U09 từ gói đã seal (15 artifact + receipt); giữ namespace/`results.json`, không ghi đè bằng kết quả phân tích mới.
+- [x] Consumer gói U09 PASS: 24 member, 729 source pin, 102 điểm và 2.448 forecast slot; Python3.13.5/107 package đúng manifest được cold consumer đối soát.
+- [x] **Đã chạy mới** cold replay trong tiến trình `-I` trên checkout historical: `PASS_U09_COLD_REPLAY`, cả 15 artifact nguyên byte; mạng ngoài và sáu constructor key/client/provider bị chặn.
+- [x] **Đã chạy mới** verifier U01 trên cả hai checkout: 21.383 artifact, 21.948 đường dẫn được giải trình (21.947 giữ, một workflow đã nghỉ); 20 gói W12 và 30 archive cũ không đổi SHA256/length.
+- [x] Kiểm bàn giao: ZIP 814 member không trùng/hỏng, đủ source/proof đúng hash; 134 liên kết/anchor local trong năm tài liệu PASS, checklist F01/F02 đồng bộ.
+
+F01 chỉ bổ sung tài liệu vận hành và snapshot/proof. Không sửa code, test,
+runtime, schema, inputs, paper, template hoặc expected hashes/receipt cũ;
+không cần resolver mới. Không chạy unit/E2E/leakage suite hoặc compileall
+theo AGENTS §1.2; smoke restore/hash/cold analysis ở trên bao phủ đúng yêu cầu
+F01. **0 API mới, 0 full inference, 0 training/refit**. Gate U03/U08/U09 giữ
+phạm vi cũ; native row-wise causal **FAIL**, whole-system **NOT_CERTIFIED**.
+F02 chưa bắt đầu; U10 vẫn chờ F02–F05.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

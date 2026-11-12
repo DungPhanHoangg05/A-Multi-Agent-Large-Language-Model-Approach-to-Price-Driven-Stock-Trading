@@ -18,8 +18,10 @@ audit ngày 12/11/2026 tại `develop:d16630e9`. Giữ tám section chính và a
 A–F của bài; đưa phương pháp/kết quả mở rộng chính vào thân bài, chi tiết vào
 appendix. F01–F05 cụ thể hóa U10; F06–F12 nâng ứng dụng Flask hiện tại để chọn,
 chạy và so sánh phiên bản. [Checklist cuối](week12/README.md#công-việc-cuối-cho-bài-báo-và-giao-diện)
-là nơi cập nhật tiến độ. Hiện chỉ hoàn tất audit/plan, chưa sửa code, paper hoặc
-template theo kế hoạch mới; không cần gọi lại API để cập nhật bài từ U09.
+là nơi cập nhật tiến độ. F00–F01 đã hoàn tất: [mapping và historical restore](week12/final_evidence_map.md)
+giữ snapshot 810 nguồn, restore 286 asset và cold replay nguyên byte 15 artifact
+U09. Bước tiếp theo là F02 sinh bảng/hình/macros; chưa sửa code, paper hoặc
+template theo kế hoạch mới, không cần gọi lại API để cập nhật bài từ U09.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào
