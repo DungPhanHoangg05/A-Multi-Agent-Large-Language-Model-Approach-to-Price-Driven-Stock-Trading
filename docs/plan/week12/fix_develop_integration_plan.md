@@ -2,7 +2,7 @@
 
 [Kế hoạch tổng](../plan.md) · [Checklist W12](README.md) · [Đánh giá lịch sử W11](../week11/historical_reevaluation_plan.md)
 
-Ngày khảo sát **09/11/2026**. **U01–U08 hoàn tất và nền đã vào develop. U08 seal PASS ngày 12/11/2026, đủ 102 điểm/2.448 forecast/102 labels; U09/U10 còn chờ. Whole-system causal chưa được chứng nhận**.
+Ngày khảo sát **09/11/2026**. **U01–U09 hoàn tất và nền đã vào develop. U08 seal PASS đủ 102 điểm/2.448 forecast/102 labels; U09 phân tích/cold replay PASS ngày 12/11/2026; U10 còn chờ. Whole-system causal chưa được chứng nhận**.
 Ngày 10/11/2026, theo yêu cầu người dùng, [amendment quota](README.md#amendment-quota-theo-model)
 tách ngân sách theo org/model và nối từ prefix 487 HTTP đã thu. Người dùng tự
 khởi chạy bằng entrypoint amendment được ghi trong checklist.
@@ -17,6 +17,9 @@ Amendment PASS 40 test/compile 4 file; bàn giao CLI mới để chạy nốt 11
 Ngày 12/11/2026, [nghiệm thu U08](README.md#nghiệm-thu-u08) PASS cold consumer,
 đối soát 718 nguồn và 8.035 file journal; gói research giữ đủ raw, các lượt reset,
 receipts và inventory/hash, 0 inference mới. U09 dùng dataset active đã seal.
+Ngày 12/11/2026, [U09 đã nghiệm thu](README.md#kết-quả-và-giới-hạn-u09) hai family/20 endpoint-contrast,
+bridge/controls và toàn sensitivity khóa trước;15 artifact cold replay nguyên byte,
+oracle1.530 account khớp,29 test/compile8 file PASS,0 API/refit. Kết quả âm giữ nguyên.
 Mục tiêu: một hệ thống có hệ gốc truy nguyên được về `fix`, các phương pháp mở rộng từ `develop`, một giao thức đánh giá chung và các bảng bài báo tái lập được từ bằng chứng.
 
 ## 1. Kết luận kiến trúc và phạm vi
