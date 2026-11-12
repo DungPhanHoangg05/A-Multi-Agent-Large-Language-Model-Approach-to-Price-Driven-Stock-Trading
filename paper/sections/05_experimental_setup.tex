@@ -15,17 +15,23 @@ The reduced scope was amended after some inference to complete a bounded histori
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/final_calendar.png}
-\caption{Selected historical decision dates and eligibility across nine equities. Missing BHN cells remain excluded rather than being filled with CASH predictions. Labels are shared evaluation truth, not a visualization selected from Full's successful forecasts.}
+\caption{Historical decision dates and eligibility shared by the original and extension studies. Matching dates do not imply shared inference responses. Missing BHN cells remain excluded rather than being filled with CASH predictions. Labels are shared evaluation truth, not a visualization selected from Full's successful forecasts.}
 \label{fig:calendar}
 \end{figure}
 \input{generated/t01_scope.tex}
 
 The extension fixes \UnifiedPoints\ points, \UnifiedAccounts\ symbol--fold accounts, \UnifiedUpstreamRealizations\ upstream realization per point and \UnifiedDecisionRepeats\ Decision repeats. One immutable report/image parent is deep-copied into all roles; each repeat uses new Decision responses where a call is eligible. The \UnifiedForecastSlots\ research slots are not independent market samples, full-system executions or successful HTTP calls. All 102 evaluation IDs are reserved globally before context labels can be computed, including IDs belonging to earlier folds. Context is frozen before the first test query in a fold and reused at its second anchor; test labels are never added prequentially.
+\begingroup
+\let\savedscopepresentationtable\table
+\def\table[#1]{\savedscopepresentationtable[!htbp]}
 \input{generated/u09/scope.tex}
+\endgroup
+% Không để bảng phạm vi trôi sang phần Results của bản submit.
+\FloatBarrier
 
 \begin{figure}[!htbp]
 \centering\input{figs/revised_walkforward.tex}
-\caption{Walk-forward time-index and split contract. The 45-bar chart ends at $d=e-1$, entry is at $e$ and the $L=3$ target is at $e+2$. The final study visits twelve selected dates across six blocks; it does not use a uniform $S=3$, twenty-point grid. Outer cutoff isolation does not certify native row-wise causality.}
+\caption{Walk-forward timing, frozen resources and forecast/outcome barrier. The chart ends at $d=e-1$, entry is at $e$ and the $L=3$ target is at $e+2$: equivalently Open$(t+1)$ to Close$(t+3)$. Prior exits precede the cutoff and all evaluation IDs stay outside context. The extension uses one upstream realization and three Decision repeats per point on twelve selected dates/six folds, not a uniform $S=3$ grid. Outer cutoff isolation does not certify native row-wise causality.}
 \label{fig:walkforward}
 \end{figure}
 

@@ -47,8 +47,8 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F04**, cập nhật sơ đồ, caption và layout từ bản thảo F03.
-F00–F03 hoàn tất; F04–F12 chưa bắt đầu.
+**Bước tiếp theo: F05**, đối soát reviewer, chốt locators và release bài.
+F00–F04 hoàn tất; F05–F12 chưa bắt đầu.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
 AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
@@ -57,7 +57,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F01 — Chốt mapping hai study, snapshot 810 nguồn nguyên byte; historical restore và cold replay U09 PASS.
 - [x] F02 — Generator và release U09 riêng: 26 artifact/798 ô có provenance, 16 test và cold render nguyên byte PASS.
 - [x] F03 — Cập nhật tám section và appendix A–F; giữ metadata/cấu trúc, build hai PDF 50 trang và kiểm trực quan đủ 100 trang PASS.
-- [ ] F04 — Cập nhật sơ đồ, thuật toán, caption, bảng/hình và layout cần thiết.
+- [x] F04 — Cập nhật bốn sơ đồ/caption, figure hai baseline và vị trí bảng; hai PDF 51/50 trang, kiểm đủ 101 trang PASS.
 - [ ] F05 — Đối soát reviewer, build/render hai PDF, kiểm số liệu/locators và bàn giao release bài; hoàn tất U10.
 - [ ] F06 — Chốt UX/capability/API contract, sáu lựa chọn chính và hai vai trò nâng cao.
 - [ ] F07 — Adapter đọc U09, so sánh offline và export khớp bằng chứng.
@@ -198,6 +198,56 @@ Các sơ đồ cũ được ghi rõ là đường native; F04 còn cập nhật 
 và layout cuối. F05 còn đối soát 87 tiểu mục reviewer, chốt locators và release;
 không tự đóng reviewer. Native row-wise causal vẫn **FAIL**, whole-system
 **NOT_CERTIFIED**. U10 chờ F04–F05; không push, deploy hoặc submit.
+
+### F04 — Sơ đồ, caption và layout bản thảo
+
+Hoàn tất ngày **12/11/2026**, nhánh `docs/manuscript-figures`, từ develop
+`9439e54e`; commit nguồn **`da8d1db2`**. Cập nhật bốn sơ đồ TikZ hiện có,
+giữ năm vai trò và khung tám section/A–F:
+
+- Pipeline chung: I/P/T một lần theo trình tự, immutable parent, deep-copy, hai projection native/common, dependency và raw → policy → final action → ledger.
+- Alpha: tách native diagnostics khỏi causal-common frozen selector và đường sentiment; giữ native causal FAIL và không vẽ sentiment thành factor-score input.
+- Decision: dependency cùng repeat, prior bypass về Common, fact assertions, MT về anchor khi thiếu support và veto Q10ΔU; lỗi kỹ thuật giữ retry/checkpoint.
+- Walk-forward: bank exit trước cutoff, resource/fits đóng băng, loại toàn bộ evaluation IDs khỏi context, ba Decision repeat chung upstream, outcome barrier và Open(t+1)→Close(t+3).
+
+Algorithm 1 đã được cập nhật ở F03; F04 đối chiếu lại với bốn sơ đồ, giữ nguyên
+byte thuật toán và công thức. Caption lịch nói rõ cùng calendar nhưng khác
+responses. PNG lịch khớp 12 ngày/102 điểm/sáu ô BHN được dùng; cặp chart CMG và
+provenance gốc được giữ. Figure 7 dùng **nguyên PNG F02**, hiển thị hai panel
+phóng lớn xếp dọc bằng viewport LaTeX; giữ đủ nhãn, trục, point/band, hai scale
+và mọi kết quả âm. Caption ghi đơn vị đpt, joint family 20 contrasts và giới
+hạn band mô tả. Không tính lại metrics hoặc sinh lại figure dữ liệu.
+
+Chỉ đổi placement cục bộ bên ngoài hai bảng generated scope/comparison:
+bảng phạm vi ở trước sơ đồ walk-forward, bảng so sánh trước figure kết quả,
+tránh trôi sang phần khác. Không đổi byte bất kỳ bảng/macros đã khóa.
+
+[Manifest bản thảo sơ đồ](../../../outputs/revision/manuscript_figures_v1/manifest.json)
+khóa nguồn, input, runtime, PDF và locators của build này; trạng thái
+`FIGURES_READY_FOR_F05_NOT_FINAL_PUBLICATION_RELEASE`.
+[Source archive](../../../outputs/revision/manuscript_figures_v1/sources.zip)
+giữ **64 nguồn + manifest**, không ghi đè bản nội dung F03.
+
+- [x] **Bảy file paper thay đổi, 57 file nguyên byte**; metadata/hai entrypoint, abstract/highlights, appendix, references và đủ **27 khối equation/align** giữ nguyên. Algorithm 1 không đổi.
+- [x] Build mới hai cây biệt lập, đủ tám lệnh `pdflatex → bibtex → pdflatex → pdflatex` exit 0. [Bản đầy đủ](../../../outputs/revision/manuscript_figures_v1/main.pdf) **51 trang**, [bản submit](../../../outputs/revision/manuscript_figures_v1/main_submit.pdf) **50 trang**; render Poppler và kiểm trực quan đủ **101 trang**.
+- [x] Mỗi PDF có **bảy figure, 21 table và một algorithm**; đối soát **29 locators** với caption trên trang vật lý. Kiểm hình học **38 khung TikZ mỗi bản**: không chồng khung hoặc chữ vượt node. Không Overfull, undefined ref/cite, thiếu glyph, Type3, chữ ngoài trang hoặc LaTeX warning. Mỗi PDF giữ **bảy Underfull spacing notice**, đã xem và không mất nội dung.
+- [x] Đối soát **26 artifact F02**, nguồn generator/input, release/QA F03, **50 archive/gói lịch sử** và **732 binding snapshot ngoài paper/revision** nguyên byte/hash. Không sửa source pins/receipt hoặc kết quả đã seal.
+- [x] Gói QA **130 member**, gồm **101 PNG**, tám command log, log/aux của hai bản, source/render/visual/geometry/calendar checks, locators, công cụ kiểm và manifest. Source ZIP 65 member; 64 nguồn khớp Git commit. Kiểm mọi member, **126 liên kết/anchor local** trong bốn tài liệu, diff và checklist đồng bộ PASS.
+
+[QA F04](manuscript_figures_checks.zip): **18.332.010 byte**, SHA256
+`247e13f0c0ddc7fd82b3f8955de4bf5edd86aa66c65a04fe4f52ffc10bb07961`.
+Manifest release SHA256
+`048c7a2e88e58a476878e0347c68be75baac78590dba0fd17c80db47c2d75ee1`.
+Trình tự dựng và phiên bản công cụ nằm trong `build_commands.json` và
+`build_runtime.json` của QA; nguồn PDF lấy từ source ZIP nêu trên.
+
+F04 chỉ sửa LaTeX/tài liệu, không đổi code/test/schema/runtime/input nghiên
+cứu; không chạy compileall/unit/E2E/leakage theo AGENTS §1.2. Build/render,
+hình học và hash là kiểm mới, không nhận chạy lại gate nghiên cứu cũ.
+**0 LLM/market API mới, 0 inference/training/refit hoặc ước lượng lại metrics**.
+F05 còn đối soát 87 tiểu mục reviewer, xác nhận locators ở bản cuối và đóng
+gói release xuất bản; **U10 chưa hoàn tất**. Native row-wise causal vẫn
+**FAIL**, whole-system **NOT_CERTIFIED**; không push, deploy hoặc submit.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
