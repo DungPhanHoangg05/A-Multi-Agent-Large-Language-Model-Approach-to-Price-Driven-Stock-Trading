@@ -47,9 +47,10 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F06**, chốt UX/capability/API contract của ứng dụng.
-F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06–F12 chưa
-bắt đầu. **0/18 comment được chứng nhận đóng**; không suy quyền công bố/nộp bài.
+**Bước tiếp theo: F07**, adapter U09 và so sánh offline trên ứng dụng.
+F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
+contract ứng dụng, F07–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
+không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
 AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
@@ -60,7 +61,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F03 — Cập nhật tám section và appendix A–F; giữ metadata/cấu trúc, build hai PDF 50 trang và kiểm trực quan đủ 100 trang PASS.
 - [x] F04 — Cập nhật bốn sơ đồ/caption, figure hai baseline và vị trí bảng; hai PDF 51/50 trang, kiểm đủ 101 trang PASS.
 - [x] F05 — Đồng bộ 87 yêu cầu/matrix/response, chốt numbering/locators, hai PDF 51/50 trang và release nội bộ; U10 hoàn tất, 0/18 comment được chứng nhận đóng.
-- [ ] F06 — Chốt UX/capability/API contract, sáu lựa chọn chính và hai vai trò nâng cao.
+- [x] F06 — Contract/registry/config serving v1 riêng, sáu lựa chọn chính/hai nâng cao, API metadata/preflight, job/result identity và 33 test đúng phạm vi PASS.
 - [ ] F07 — Adapter đọc U09, so sánh offline và export khớp bằng chứng.
 - [ ] F08 — Provider as-of, resources và runner chung chạy được các phiên bản trên miền hỗ trợ; paired/retry/checkpoint/job isolation.
 - [ ] F09 — Nâng trang phân tích và kết quả, lựa chọn phiên bản có hiệu lực, so sánh cùng snapshot.
@@ -310,7 +311,35 @@ compileall/unit/E2E/leakage; kiểm hash nguồn/runtime/receipt bảo toàn ph�
 các gate cũ, không nâng native/whole-system causal. Build/render/hash/locators
 là kiểm mới. **0 API LLM/thị trường, 0 inference/scoring/fit/bootstrap mới**;
 không push, upload, publish, liên hệ bên ngoài, submit hoặc deploy.
-F06–F12 ứng dụng chưa bắt đầu.
+Tại thời điểm kết thúc F05, F06–F12 ứng dụng chưa bắt đầu.
+
+### F06 — UX, capability và contract serving
+
+Hoàn tất ngày **13/11/2026**, nhánh `feat/variant-serving-contract` từ develop
+`cb2df984`. [Contract ứng dụng](variant_serving_contract.md) chốt sáu lựa chọn
+chính và hai vai trò nâng cao, native mặc định, ba khả năng đọc/phân tích/
+backtest cùng mode compare và các luồng bốn màn hình theo plan §4. Mỗi lựa
+chọn giữ canonical ID, dependency/fallback/profile của phương pháp hiện hữu.
+
+- [x] Thêm registry `variant_serving_registry_v1`, contract `variant_serving_v1` và config `serving_config_v1`; registry/schema nghiên cứu cũ nguyên byte.
+- [x] `GET /api/serving/v1/registry` chỉ metadata; `POST /api/serving/v1/preflight` kiểm body đóng và trả request hash/topo plan/blocker, không tạo job hoặc inference.
+- [x] Phân biệt artifact lịch sử và inference mới; miền ứng viên 1d/VI, chưa công bố mã/ngày live. Preflight báo runner/support/resources thiếu; EN chưa nghiệm thu có blocker riêng. Không mở hàng loạt bằng `hosted_release` của research cũ.
+- [x] Request snapshot đủ sáu agent model/provider/options, mã/ngày/ngôn ngữ/repeat/variant; config server khóa source/provider/calendar/support/resource/prompt versions. Job bất biến có UUID/owner/config/snapshot/identity/cache hashes; cache gồm owner scope, không chứa API key.
+- [x] Result envelope kiểm raw/final, LONG/SHORT→LONG/CASH, fallback đúng chuỗi, dependency/repeat coverage, units, null/NA reason; partial/failed/UNKNOWN giữ slot đã xong, UNKNOWN không retry mù. Chưa có state machine hoặc start/resume/stop/export mới ở F06.
+- [x] **33 test PASS**: 15 `test_variant_serving.py`, 15 `test_unified_experiment.py`, 3 `test_web_json_serialization.py`. Bao phủ validation/security boundary mới, identity/isolation, coverage/error và caller web/CLI/evaluator cũ. `py_compile` đúng **5 file Python** thay đổi PASS, runtime **3.13.5**.
+- [x] Đối soát **20 gói W12 + 30 archive lịch sử**, **11 file release F05 + 68 nguồn manuscript** nguyên byte. **728/729** source pins U09 còn khớp HEAD; chỉ `web_interface.py` thêm hai dòng đăng ký blueprint. Snapshot F01 vẫn phục hồi đủ **729/729** pin; không sửa expected hash hoặc receipt.
+
+QA gọn **10 member** gồm log test, integrity/link checks (**142 liên kết/anchor
+local và checklist đồng bộ PASS**), command/source hashes và script đối soát
+tại [variant_serving_checks.zip](variant_serving_checks.zip).
+Chỉ chọn test contract và caller bị ảnh hưởng theo AGENTS §1.2; không chạy
+full unit/E2E/compileall hoặc cold replay study. Không đổi đường dữ liệu/PIT/
+retrieval nên không chạy lại leakage suite; test shared/future-poison và
+forecast barrier có trong hồi quy experiment đã PASS. Native row-wise causal
+vẫn FAIL, whole-system NOT_CERTIFIED; không nâng gate khoa học từ test serving.
+**0 API LLM/thị trường, 0 refit**, bốn template và hành vi endpoint native cũ
+giữ nguyên. F07 triển khai reader U09; F08 mới grant runner/provider, F09/F10
+mới nối các màn hình chạy. F07–F12 chưa hoàn tất; không push/deploy/submit.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
