@@ -1,0 +1,850 @@
+{
+  "schema": "manuscript_figures_release_v1",
+  "created_date": "2026-11-12",
+  "status": "FIGURES_READY_FOR_F05_NOT_FINAL_PUBLICATION_RELEASE",
+  "source_commit": "da8d1db24d7db3601592d388845d3b4939e602ea",
+  "baseline_commit": "9439e54e",
+  "sources": {
+    "paper/.gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "paper/elsarticle-num.bst": {
+      "bytes": 29462,
+      "sha256": "0db2e53b2378cbe5815e436c1afe9dcac67123a32406fa8f11fad7978808e202"
+    },
+    "paper/elsarticle.cls": {
+      "bytes": 44541,
+      "sha256": "23a341acd0e35c20148c836fc6e9251549aa45b059fc1750356ca2f3f11f3cb0"
+    },
+    "paper/figs/alpha_agent_pipeline.png": {
+      "bytes": 1492185,
+      "sha256": "ce93ca2e80f33da49b8dba034f36007b6e9ff5fa1932fb234df54ad763d8dc4f"
+    },
+    "paper/figs/backtest_BHN_20260917_1227.png": {
+      "bytes": 145132,
+      "sha256": "1fdd500812ece8fa0d9b6b3bc205b7e171a1f5ecd149528836d0d092f3ab421f"
+    },
+    "paper/figs/backtest_CMG_20260916_1110.png": {
+      "bytes": 129024,
+      "sha256": "7351ffed0b0afcb6568d2cdae6004f9b23c0be512593bbe60c985109ba2c93de"
+    },
+    "paper/figs/backtest_FPT_20260915_1458.png": {
+      "bytes": 147841,
+      "sha256": "b772079e92c3d49e295439416c5456b8f20d9df1b4753123fcee98857ace9ab4"
+    },
+    "paper/figs/backtest_HVN_20260916_1032.png": {
+      "bytes": 135687,
+      "sha256": "ee84ba6bed88f5af8347006eeba9aa4394a4f92d50df4f9a90b133d4314e882d"
+    },
+    "paper/figs/backtest_MBB_20260916_1129.png": {
+      "bytes": 145415,
+      "sha256": "95f54e1f8f8398fc3473619110441e6d7ce6627324d2d40e6b3db2dc45ddea65"
+    },
+    "paper/figs/backtest_MWG_20260916_1422.png": {
+      "bytes": 148728,
+      "sha256": "2253a8844986d09c0fd67460b57fd8e90151a93681e35d85145329f9e9b4796d"
+    },
+    "paper/figs/backtest_VCB_20260916_1337.png": {
+      "bytes": 135665,
+      "sha256": "c2476a6242f3d3a440a64172cf890c93d1457db0584d97e620781eec5dfe81f7"
+    },
+    "paper/figs/backtest_VJC_20260915_1542.png": {
+      "bytes": 138084,
+      "sha256": "b6586b7368c04b88b1ac37dbf02720c63c2ceb8a01420753b248f9b68d290137"
+    },
+    "paper/figs/backtest_VNM_20260915_1514.png": {
+      "bytes": 141820,
+      "sha256": "442ab2fd645e332f3df1aef374d4a15bbb4b36cfa795ebc6a47f7280e8286aef"
+    },
+    "paper/figs/decision_agent_pipeline.png": {
+      "bytes": 1675383,
+      "sha256": "48c454d1540f6897e300d828c04ca56a1e03aa2d9d15b78e11a87666eb94392a"
+    },
+    "paper/figs/final_calendar.png": {
+      "bytes": 87265,
+      "sha256": "c79e08a03cb206a7ce429c18c7051a367d740e193faff74b837bd41f89c3b487"
+    },
+    "paper/figs/final_flow.tex": {
+      "bytes": 2445,
+      "sha256": "fa0645f92de4a9731536f485e4966505559c3f572b2e6e27067c73bc6ba67751"
+    },
+    "paper/figs/final_pattern.png": {
+      "bytes": 52805,
+      "sha256": "6e3a15ae1ad3bd417312d97b835b3558d4bcf31dc04addbe3c518cf540720f73"
+    },
+    "paper/figs/final_trend.png": {
+      "bytes": 72807,
+      "sha256": "265c73db2caba5a76a61ddae0678f6b27f33bcae0f7c45aeb1e28c0c4b36161d"
+    },
+    "paper/figs/revised_alpha_pipeline.tex": {
+      "bytes": 2126,
+      "sha256": "037aa177f188d726ec9b2ceb6a29feb4da02fbe0bd834379170ecc73ad683dc4"
+    },
+    "paper/figs/revised_decision_pipeline.tex": {
+      "bytes": 2560,
+      "sha256": "56b29e74a63cbf6ed4d27c6969d01fcaa57949cae7bbe014cf07b554062caa71"
+    },
+    "paper/figs/revised_walkforward.tex": {
+      "bytes": 2558,
+      "sha256": "b73034870c94d7f0348f35a908107da9305dd4c8e80297c5791cf9bbcfb0a05c"
+    },
+    "paper/figs/system_pipeline.png": {
+      "bytes": 1372557,
+      "sha256": "d02d7f971ed0778b33921fbdfd1b0e727b513adf15f6ab4655315dba4639ea70"
+    },
+    "paper/figs/walkforward_protocol.png": {
+      "bytes": 1457082,
+      "sha256": "9953c5eabc41523db151caa5f56b20c707754eef41bfca7cc99755118c05b229"
+    },
+    "paper/generated/.gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "paper/generated/a01_rules.tex": {
+      "bytes": 1377,
+      "sha256": "c074c0fb45c66ebc6900117faa05218e7ad63f27baa0074ffdbd977754e03f0c"
+    },
+    "paper/generated/a02_custom.tex": {
+      "bytes": 1685,
+      "sha256": "2b429d757c3c6ac582c89e0d4adf2979d119a1e3b2c4f6fe235946f12318450a"
+    },
+    "paper/generated/a03_symbols.tex": {
+      "bytes": 1720,
+      "sha256": "36b760bd3a86efc8a13116792f87d767633f8dde2bb969996437469d1ec682df"
+    },
+    "paper/generated/a04_execution.tex": {
+      "bytes": 1464,
+      "sha256": "6a7d1a3dd1afb642f14c41b45b435991ee6487ccff112e766ec3cd625078c299"
+    },
+    "paper/generated/summary_numbers.tex": {
+      "bytes": 353,
+      "sha256": "63019e3643cfb5bde8030f4ca676876d01c3e73125a946e92018e7c904c62cfc"
+    },
+    "paper/generated/t01_scope.tex": {
+      "bytes": 1344,
+      "sha256": "9d24dfbabbfe92061bb5e2582579e41398f91dad4e59fdb9355a0ef9390d7c30"
+    },
+    "paper/generated/t02_classification.tex": {
+      "bytes": 2125,
+      "sha256": "f356dff5dd7bd10da3bfb60bfd9087e296a73d61d69005d0b858290bce7ec723"
+    },
+    "paper/generated/t03_accounts.tex": {
+      "bytes": 1374,
+      "sha256": "c226168c6c77a626d52cac9556270209d032076e86c4191db7c55d7b02a25b32"
+    },
+    "paper/generated/t04_repeats.tex": {
+      "bytes": 2362,
+      "sha256": "b2f1ffdcff2b3e6f886507e35d8cc1430ce1b0307bd4c33429af6bb1acb4ad03"
+    },
+    "paper/generated/t05_temporal.tex": {
+      "bytes": 1496,
+      "sha256": "a19a5a4ad27ed701fbef26ca9f195ec3af939123a8034ba859b8785a3bb38bfb"
+    },
+    "paper/generated/t06_numeric.tex": {
+      "bytes": 1589,
+      "sha256": "98a5d7fe4507cf24f94967e91cbae43f2a872c53cdef4c36083debd0126fd498"
+    },
+    "paper/generated/u09/bridge.tex": {
+      "bytes": 799,
+      "sha256": "e7abd8939032acc73c03d013645340cb546e407913bc769fc7e5b7f93a47abc7"
+    },
+    "paper/generated/u09/classification.tex": {
+      "bytes": 1345,
+      "sha256": "d1b3258dedc6b48d18f0b3628b962c6d5f281cdf474ae9f5695108e8bdfdc34e"
+    },
+    "paper/generated/u09/comparison.tex": {
+      "bytes": 1484,
+      "sha256": "6c87369d065a5aca002be747a5594a05213689cb429d99627e706f03b9ba4269"
+    },
+    "paper/generated/u09/contrasts.tex": {
+      "bytes": 2003,
+      "sha256": "6d3d009771f867d8a919f040145d754336e98d18a707d8e0fcbba993f51cdf7e"
+    },
+    "paper/generated/u09/economics.tex": {
+      "bytes": 1500,
+      "sha256": "257fb0cfee336373e11893d5e87f60068c58418b45a46ece7979535f1ec5378d"
+    },
+    "paper/generated/u09/repeats.tex": {
+      "bytes": 1469,
+      "sha256": "d0c074d59281df53463a6ff0eaf51b6704cfbe29d88e5c21c3fb11eb1e715c38"
+    },
+    "paper/generated/u09/return_contrasts.png": {
+      "bytes": 61161,
+      "sha256": "ec9448d436af29509830548d456dab18fb24615bb4d2ae0065c782eedc041fb6"
+    },
+    "paper/generated/u09/return_contrasts.svg": {
+      "bytes": 25313,
+      "sha256": "5f9a4e0a6a8e5d91d0ecf3657750ee68417eac10f404695daa7426855f2767d1"
+    },
+    "paper/generated/u09/scope.tex": {
+      "bytes": 1075,
+      "sha256": "c4ae371dbd17f50609c281b2c2ac56de3e0a1b90c62a33d264b0da9655751fa3"
+    },
+    "paper/generated/u09/sensitivity_ba.tex": {
+      "bytes": 1561,
+      "sha256": "8c2abc76aba8e7f0f7cbfab5f770c8ec9ae415f265304ce4d82f22f550de17c0"
+    },
+    "paper/generated/u09/sensitivity_core4.tex": {
+      "bytes": 1829,
+      "sha256": "05152f252d96363e9802bd932e2da6590d77fad8bac00d655a7cf37d7a21e31a"
+    },
+    "paper/generated/u09/sensitivity_return.tex": {
+      "bytes": 1555,
+      "sha256": "136d05559c2a185aee30a91a2af78f3a56fb0d29ffdd415a4829932ab0243f47"
+    },
+    "paper/generated/u09/summary_numbers.tex": {
+      "bytes": 4782,
+      "sha256": "09c3ee779c8050a055ebeb95e79c56ee2ca9b0c7cd70151b9d92778ec6f84687"
+    },
+    "paper/generated/u09/support.tex": {
+      "bytes": 1597,
+      "sha256": "d1bd93c14a6eae839081fce1cc6527564dff5fe8cfc0c7293ce86144169298c6"
+    },
+    "paper/main.tex": {
+      "bytes": 8855,
+      "sha256": "a10ef7bcd38f65c4b71db0366bfa6bd334580f934f49ddc0e161252299215e7a"
+    },
+    "paper/main_submit.tex": {
+      "bytes": 8908,
+      "sha256": "c4fc29440bdf40eb516aae63274522c4a7b99af32fd5869f96f1220645dfd322"
+    },
+    "paper/manuscript_layout.tex": {
+      "bytes": 877,
+      "sha256": "e912a7fc667ddc9c6fc28d746d726416002c2b2cc938d98af83095cbbd053b9b"
+    },
+    "paper/references.bib": {
+      "bytes": 14977,
+      "sha256": "d94e4cc649094517b88b50fb94b79b3aea2e4e89cbdd9749d9128fa48320149b"
+    },
+    "paper/sections/01_introduction.tex": {
+      "bytes": 6949,
+      "sha256": "b6c1602cbf536f2295f50365367d7c3f871372d198eefe3ffa6271fec96b176d"
+    },
+    "paper/sections/02_related_work.tex": {
+      "bytes": 5310,
+      "sha256": "fcb92325579beb4b24816c1599cde97615c8fc54cf70a03f5ee1b3857b832eba"
+    },
+    "paper/sections/03_problem_formulation.tex": {
+      "bytes": 28214,
+      "sha256": "c717d2220f7bd18fe19ec0625cceca9fd8ee0d481931f78f5a2511c083ec738a"
+    },
+    "paper/sections/04_system_architecture.tex": {
+      "bytes": 14887,
+      "sha256": "16b0367b82efc36223f485365b72bbc497a50531a50a0f48a517e5e9b4252a84"
+    },
+    "paper/sections/05_experimental_setup.tex": {
+      "bytes": 15339,
+      "sha256": "d6f0b78721916c60cfe95f0c9e796aea0a1194d2ed6207dce2ad4c28ddc4f292"
+    },
+    "paper/sections/06_backtest_results.tex": {
+      "bytes": 13528,
+      "sha256": "829aa3dd732bc6dd727483d259a3df66ee1fc3e7346a9e6094c64a46544da1e6"
+    },
+    "paper/sections/07_limitations.tex": {
+      "bytes": 6726,
+      "sha256": "dfca9342835923e4ef1a94d92a4e49902e29fbbd174a97cd349553fb3c563408"
+    },
+    "paper/sections/08_conclusion.tex": {
+      "bytes": 2181,
+      "sha256": "4e3167723b5f39073f1f2919286077224aa65f5cb866d2f3d2b38c994ab17024"
+    },
+    "paper/sections/acknowledgments.tex": {
+      "bytes": 345,
+      "sha256": "144503e0908506d64cd52bb99480fd3082c63bc63831e66299e237007f868e9c"
+    },
+    "paper/sections/appendices.tex": {
+      "bytes": 19011,
+      "sha256": "1404a04bfa9926585ba316bda6b67945580758998f82d3aef63c482e31e8a7da"
+    },
+    "paper/sections/availability.tex": {
+      "bytes": 2004,
+      "sha256": "bc1c2fdc822ee9d96e5ff75bb9ad5e0fa524580fde38b3375b7c96d70dcfb8dd"
+    }
+  },
+  "inputs": {
+    "docs/plan/week12/final_evidence_snapshot.zip": {
+      "bytes": 93154448,
+      "sha256": "80fed8c9a1c265098a394bfc40f13d7f0266c1e05abdb142fba01d873cb8b8b5"
+    },
+    "docs/plan/week12/unified_live_research.zip": {
+      "bytes": 78438700,
+      "sha256": "5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c"
+    },
+    "docs/plan/week12/unified_analysis_results.zip": {
+      "bytes": 1383945,
+      "sha256": "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9"
+    },
+    "docs/plan/week12/unified_analysis_acceptance.json": {
+      "bytes": 5064,
+      "sha256": "6b435c21c89000775be1f1e1d043b6b3429a0729f37efc16f4bd03be92355456"
+    },
+    "outputs/revision/u09_manuscript_assets_v1/manifest.json": {
+      "bytes": 12119,
+      "sha256": "9633dc6de3cc036b76f503713e3bf959581d93729ef8c420e4267a26aa0ebd7b"
+    },
+    "outputs/revision/manuscript_content_v1/manifest.json": {
+      "bytes": 20696,
+      "sha256": "3de4994c93c76a810351a8101ff612b8b7736c4cc9c2bf27ea71ea5beb2ecb31"
+    },
+    "docs/plan/week12/manuscript_content_checks.zip": {
+      "bytes": 17791977,
+      "sha256": "1eab72eb5591c98dd9a906a229328f23fd7b248f64738c41dc86cf5672809170"
+    },
+    "docs/plan/week12/unified_manuscript_checks.zip": {
+      "bytes": 5226,
+      "sha256": "b1b00e3d26e724f2d164286196f4cc5b6f68d5053f797162c9c1c3ac5fe84b6c"
+    }
+  },
+  "outputs": {
+    "main.pdf": {
+      "bytes": 942530,
+      "sha256": "9376937514bd6ece5b5c0fd431544cf6519b443025a83e17f9ac7697f3587603"
+    },
+    "main_submit.pdf": {
+      "bytes": 915157,
+      "sha256": "d6b350cf7e8b75d39108aad04337707b52660fa60a24833943b3abbe4577b557"
+    },
+    "sources.zip": {
+      "bytes": 6680105,
+      "sha256": "79bd64ffb178ea6c40910d42a4808830a7299d0e13104a7b84013d13670e9b1c"
+    }
+  },
+  "build_runtime": {
+    "python": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
+    "pymupdf": "1.27.2.3",
+    "pillow": "11.0.0",
+    "tools": {
+      "pdflatex": {
+        "args": [
+          "pdflatex",
+          "--version"
+        ],
+        "returncode": 0,
+        "version": "MiKTeX-pdfTeX 4.23 (MiKTeX 25.12)\r\n© 1982 D. E. Knuth, © 1996-2025 Hàn Thế Thành\r\nTeX is a trademark of the American Mathematical Society.\r\nusing bzip2 version 1.0.8, 13-Jul-2019\r\ncompiled with curl version 8.4.0; using libcurl/8.4.0 Schannel\r\ncompiled with expat version 2.5; using expat_2.5.0\r\ncompiled with jpeg version 9.5\r\ncompiled with liblzma version 50040002; using 50040002\r\ncompiled with libpng version 1.6.44; using 1.6.44\r\ncompiled with libressl version LibreSSL 3.8.1; using LibreSSL 3.8.1\r\ncompiled with MiKTeX Application Framework version 4.8; using 4.8\r\ncompiled with MiKTeX Core version 4.24; using 4.24\r\ncompiled with MiKTeX Archive Extractor version 4.1; using 4.1\r\ncompiled with MiKTeX Package Manager version 4.10; using 4.10\r\ncompiled with uriparser version 0.9.7\r\ncompiled with xpdf version 4.04\r\ncompiled with zlib version 1.2.13; using 1.2.13\r\npdflatex: major issue: So far, you have not checked for MiKTeX updates.\r\n"
+      },
+      "bibtex": {
+        "args": [
+          "bibtex",
+          "--version"
+        ],
+        "returncode": 0,
+        "version": "MiKTeX-BibTeX 4.2 (MiKTeX 25.12)\r\n© 1985, 1988, 2010 Oren Patashnik; all rights reserved.\r\nusing bzip2 version 1.0.8, 13-Jul-2019\r\ncompiled with curl version 8.4.0; using libcurl/8.4.0 Schannel\r\ncompiled with expat version 2.5; using expat_2.5.0\r\ncompiled with liblzma version 50040002; using 50040002\r\ncompiled with libressl version LibreSSL 3.8.1; using LibreSSL 3.8.1\r\ncompiled with MiKTeX Application Framework version 4.8; using 4.8\r\ncompiled with MiKTeX Core version 4.24; using 4.24\r\ncompiled with MiKTeX Archive Extractor version 4.1; using 4.1\r\ncompiled with MiKTeX Package Manager version 4.10; using 4.10\r\ncompiled with uriparser version 0.9.7\r\ncompiled with zlib version 1.2.13; using 1.2.13\r\nbibtex: major issue: So far, you have not checked for MiKTeX updates.\r\n"
+      },
+      "pdftoppm": {
+        "args": [
+          "pdftoppm",
+          "-v"
+        ],
+        "returncode": 0,
+        "version": "pdftoppm version 24.04.0\r\nCopyright 2005-2024 The Poppler Developers - http://poppler.freedesktop.org\r\nCopyright 1996-2011, 2022 Glyph & Cog, LLC\r\n"
+      }
+    }
+  },
+  "validation": {
+    "source_content": {
+      "status": "PASS_F04_SOURCE_AND_CONTENT_CHECKS",
+      "baseline_commit": "9439e54e",
+      "original_paper_files": 64,
+      "changed_paper_files": [
+        "paper/figs/final_flow.tex",
+        "paper/figs/revised_alpha_pipeline.tex",
+        "paper/figs/revised_decision_pipeline.tex",
+        "paper/figs/revised_walkforward.tex",
+        "paper/sections/04_system_architecture.tex",
+        "paper/sections/05_experimental_setup.tex",
+        "paper/sections/06_backtest_results.tex"
+      ],
+      "unchanged_paper_files": 57,
+      "all_equation_align_blocks_preserved": 27,
+      "comparison_normalization": "LF_ONLY_FOR_TEX_SYNTAX",
+      "metadata_abstract_highlights_appendices_references_unchanged": true,
+      "all_generated_tables_macros_chart_png_svg_unchanged": true,
+      "f02_artifacts_unchanged": 26,
+      "f03_release_unchanged": true,
+      "historical_packages_and_archives_unchanged": 50,
+      "snapshot_non_paper_revision_bindings_unchanged": 732,
+      "diagram_semantics_reviewed_against": [
+        "core/variant_registry.py",
+        "core/unified_methods.py",
+        "core/causal_alpha.py",
+        "core/mt_bicl_policy.py",
+        "paper/sections/03_problem_formulation.tex"
+      ],
+      "diagram_checks": {
+        "upstream_once_and_shared_parent": "final_flow.tex",
+        "native_common_and_separate_sentiment": "revised_alpha_pipeline.tex",
+        "same_repeat_dependencies_fallback_raw_final_utility": "revised_decision_pipeline.tex",
+        "prior_exit_cutoff_frozen_fits_all_test_ids_outcome_barrier": "revised_walkforward.tex"
+      },
+      "new_figure_label": "fig:u09-return-contrasts",
+      "figure_display": "Two enlarged vertically stacked panels clipped in LaTeX from the same frozen PNG; source bytes unchanged",
+      "runtime_code_changed": false,
+      "unit_compile_e2e_leakage_rerun": false,
+      "new_llm_market_api_calls": 0,
+      "new_inference_training_refit": false,
+      "F05_reviewer_final_locators_and_publication_release_pending": true
+    },
+    "render": [
+      {
+        "entrypoint": "main",
+        "pages": 51,
+        "rendered_pages": 51,
+        "overfull": 0,
+        "undefined_reference_or_citation": false,
+        "missing_glyph": false,
+        "type3_fonts": false,
+        "words_outside_page": [],
+        "replacement_or_black_square_pages": [],
+        "log_warnings": [],
+        "underfull_notices": 7
+      },
+      {
+        "entrypoint": "main_submit",
+        "pages": 50,
+        "rendered_pages": 50,
+        "overfull": 0,
+        "undefined_reference_or_citation": false,
+        "missing_glyph": false,
+        "type3_fonts": false,
+        "words_outside_page": [],
+        "replacement_or_black_square_pages": [],
+        "log_warnings": [],
+        "underfull_notices": 7
+      }
+    ],
+    "visual_review": {
+      "bytes": 19169,
+      "sha256": "a89ccee77660d3df3d2be563101b25d776ccbd1aa3179f4a05442b39f1c537d0"
+    },
+    "locators_and_geometry": {
+      "main": {
+        "pages": 51,
+        "locators": {
+          "alg:walkforward": {
+            "type": "Algorithm",
+            "number": "1",
+            "latex_page": "5",
+            "physical_page": 6
+          },
+          "fig:flow": {
+            "type": "Figure",
+            "number": "1",
+            "latex_page": "13",
+            "physical_page": 14
+          },
+          "fig:alpha_agent": {
+            "type": "Figure",
+            "number": "2",
+            "latex_page": "15",
+            "physical_page": 16
+          },
+          "fig:charts": {
+            "type": "Figure",
+            "number": "3",
+            "latex_page": "16",
+            "physical_page": 17
+          },
+          "fig:decision_agent": {
+            "type": "Figure",
+            "number": "4",
+            "latex_page": "17",
+            "physical_page": 18
+          },
+          "fig:calendar": {
+            "type": "Figure",
+            "number": "5",
+            "latex_page": "19",
+            "physical_page": 20
+          },
+          "tab:scope": {
+            "type": "Table",
+            "number": "1",
+            "latex_page": "20",
+            "physical_page": 21
+          },
+          "tab:u09-scope": {
+            "type": "Table",
+            "number": "2",
+            "latex_page": "20",
+            "physical_page": 21
+          },
+          "fig:walkforward": {
+            "type": "Figure",
+            "number": "6",
+            "latex_page": "21",
+            "physical_page": 22
+          },
+          "tab:classification": {
+            "type": "Table",
+            "number": "3",
+            "latex_page": "25",
+            "physical_page": 26
+          },
+          "tab:accounts": {
+            "type": "Table",
+            "number": "4",
+            "latex_page": "26",
+            "physical_page": 27
+          },
+          "tab:u09-comparison": {
+            "type": "Table",
+            "number": "5",
+            "latex_page": "26",
+            "physical_page": 27
+          },
+          "fig:u09-return-contrasts": {
+            "type": "Figure",
+            "number": "7",
+            "latex_page": "28",
+            "physical_page": 29
+          },
+          "tab:repeats": {
+            "type": "Table",
+            "number": "6",
+            "latex_page": "29",
+            "physical_page": 30
+          },
+          "tab:temporal": {
+            "type": "Table",
+            "number": "7",
+            "latex_page": "30",
+            "physical_page": 31
+          },
+          "tab:numeric": {
+            "type": "Table",
+            "number": "8",
+            "latex_page": "31",
+            "physical_page": 32
+          },
+          "tab:custom_definitions": {
+            "type": "Table",
+            "number": "C.1",
+            "latex_page": "37",
+            "physical_page": 38
+          },
+          "tab:indicator_rules": {
+            "type": "Table",
+            "number": "D.1",
+            "latex_page": "38",
+            "physical_page": 39
+          },
+          "tab:symbol_results": {
+            "type": "Table",
+            "number": "F.1",
+            "latex_page": "41",
+            "physical_page": 42
+          },
+          "tab:execution": {
+            "type": "Table",
+            "number": "F.2",
+            "latex_page": "42",
+            "physical_page": 43
+          },
+          "tab:u09-classification": {
+            "type": "Table",
+            "number": "F.3",
+            "latex_page": "43",
+            "physical_page": 44
+          },
+          "tab:u09-economics": {
+            "type": "Table",
+            "number": "F.4",
+            "latex_page": "43",
+            "physical_page": 44
+          },
+          "tab:u09-repeats": {
+            "type": "Table",
+            "number": "F.5",
+            "latex_page": "44",
+            "physical_page": 45
+          },
+          "tab:u09-contrasts": {
+            "type": "Table",
+            "number": "F.6",
+            "latex_page": "45",
+            "physical_page": 46
+          },
+          "tab:u09-bridge": {
+            "type": "Table",
+            "number": "F.7",
+            "latex_page": "45",
+            "physical_page": 46
+          },
+          "tab:u09-support": {
+            "type": "Table",
+            "number": "F.8",
+            "latex_page": "46",
+            "physical_page": 47
+          },
+          "tab:u09-sensitivity-return": {
+            "type": "Table",
+            "number": "F.9",
+            "latex_page": "46",
+            "physical_page": 47
+          },
+          "tab:u09-sensitivity-ba": {
+            "type": "Table",
+            "number": "F.10",
+            "latex_page": "47",
+            "physical_page": 48
+          },
+          "tab:u09-sensitivity-core4": {
+            "type": "Table",
+            "number": "F.11",
+            "latex_page": "48",
+            "physical_page": 49
+          }
+        },
+        "diagram_geometry": {
+          "fig:flow": {
+            "node_count": 10,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          },
+          "fig:alpha_agent": {
+            "node_count": 13,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          },
+          "fig:decision_agent": {
+            "node_count": 8,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          },
+          "fig:walkforward": {
+            "node_count": 7,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          }
+        }
+      },
+      "main_submit": {
+        "pages": 50,
+        "locators": {
+          "alg:walkforward": {
+            "type": "Algorithm",
+            "number": "1",
+            "latex_page": "5",
+            "physical_page": 6
+          },
+          "fig:flow": {
+            "type": "Figure",
+            "number": "1",
+            "latex_page": "13",
+            "physical_page": 14
+          },
+          "fig:alpha_agent": {
+            "type": "Figure",
+            "number": "2",
+            "latex_page": "14",
+            "physical_page": 15
+          },
+          "fig:charts": {
+            "type": "Figure",
+            "number": "3",
+            "latex_page": "16",
+            "physical_page": 17
+          },
+          "fig:decision_agent": {
+            "type": "Figure",
+            "number": "4",
+            "latex_page": "17",
+            "physical_page": 18
+          },
+          "fig:calendar": {
+            "type": "Figure",
+            "number": "5",
+            "latex_page": "19",
+            "physical_page": 20
+          },
+          "tab:scope": {
+            "type": "Table",
+            "number": "1",
+            "latex_page": "19",
+            "physical_page": 20
+          },
+          "tab:u09-scope": {
+            "type": "Table",
+            "number": "2",
+            "latex_page": "20",
+            "physical_page": 21
+          },
+          "fig:walkforward": {
+            "type": "Figure",
+            "number": "6",
+            "latex_page": "21",
+            "physical_page": 22
+          },
+          "tab:classification": {
+            "type": "Table",
+            "number": "3",
+            "latex_page": "25",
+            "physical_page": 26
+          },
+          "tab:accounts": {
+            "type": "Table",
+            "number": "4",
+            "latex_page": "26",
+            "physical_page": 27
+          },
+          "tab:u09-comparison": {
+            "type": "Table",
+            "number": "5",
+            "latex_page": "26",
+            "physical_page": 27
+          },
+          "fig:u09-return-contrasts": {
+            "type": "Figure",
+            "number": "7",
+            "latex_page": "27",
+            "physical_page": 28
+          },
+          "tab:repeats": {
+            "type": "Table",
+            "number": "6",
+            "latex_page": "29",
+            "physical_page": 30
+          },
+          "tab:temporal": {
+            "type": "Table",
+            "number": "7",
+            "latex_page": "30",
+            "physical_page": 31
+          },
+          "tab:numeric": {
+            "type": "Table",
+            "number": "8",
+            "latex_page": "31",
+            "physical_page": 32
+          },
+          "tab:custom_definitions": {
+            "type": "Table",
+            "number": "C.1",
+            "latex_page": "37",
+            "physical_page": 38
+          },
+          "tab:indicator_rules": {
+            "type": "Table",
+            "number": "D.1",
+            "latex_page": "38",
+            "physical_page": 39
+          },
+          "tab:symbol_results": {
+            "type": "Table",
+            "number": "F.1",
+            "latex_page": "40",
+            "physical_page": 41
+          },
+          "tab:execution": {
+            "type": "Table",
+            "number": "F.2",
+            "latex_page": "41",
+            "physical_page": 42
+          },
+          "tab:u09-classification": {
+            "type": "Table",
+            "number": "F.3",
+            "latex_page": "42",
+            "physical_page": 43
+          },
+          "tab:u09-economics": {
+            "type": "Table",
+            "number": "F.4",
+            "latex_page": "42",
+            "physical_page": 43
+          },
+          "tab:u09-repeats": {
+            "type": "Table",
+            "number": "F.5",
+            "latex_page": "43",
+            "physical_page": 44
+          },
+          "tab:u09-contrasts": {
+            "type": "Table",
+            "number": "F.6",
+            "latex_page": "44",
+            "physical_page": 45
+          },
+          "tab:u09-bridge": {
+            "type": "Table",
+            "number": "F.7",
+            "latex_page": "44",
+            "physical_page": 45
+          },
+          "tab:u09-support": {
+            "type": "Table",
+            "number": "F.8",
+            "latex_page": "45",
+            "physical_page": 46
+          },
+          "tab:u09-sensitivity-return": {
+            "type": "Table",
+            "number": "F.9",
+            "latex_page": "45",
+            "physical_page": 46
+          },
+          "tab:u09-sensitivity-ba": {
+            "type": "Table",
+            "number": "F.10",
+            "latex_page": "46",
+            "physical_page": 47
+          },
+          "tab:u09-sensitivity-core4": {
+            "type": "Table",
+            "number": "F.11",
+            "latex_page": "47",
+            "physical_page": 48
+          }
+        },
+        "diagram_geometry": {
+          "fig:flow": {
+            "node_count": 10,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          },
+          "fig:alpha_agent": {
+            "node_count": 13,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          },
+          "fig:decision_agent": {
+            "node_count": 8,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          },
+          "fig:walkforward": {
+            "node_count": 7,
+            "overlapping_node_pairs": [],
+            "words_outside_own_node": []
+          }
+        }
+      }
+    },
+    "calendar": {
+      "status": "MATCHED_EXISTING_CALENDAR_TO_FROZEN_U09_POINTS",
+      "dates": [
+        "2023-07-03",
+        "2023-09-22",
+        "2024-07-01",
+        "2024-09-20",
+        "2025-01-02",
+        "2025-03-31",
+        "2025-10-01",
+        "2025-12-19",
+        "2026-04-01",
+        "2026-06-24",
+        "2026-07-01",
+        "2026-09-23"
+      ],
+      "points": 102,
+      "BHN_points": 6,
+      "inspection": "Nhãn 12 ngày và sáu ô BHN bị loại trong PNG gốc khớp points.json; không đổi ảnh hoặc nhãn."
+    }
+  },
+  "boundaries": [
+    "F05 reviewer subitems, final locators and publication release pending",
+    "No new inference, training, metrics estimation or LLM/market API calls",
+    "Native row-wise causal FAIL; whole-system NOT_CERTIFIED"
+  ]
+}
