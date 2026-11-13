@@ -89,10 +89,11 @@ class LiveApiTests(unittest.TestCase):
         self.assertEqual(self.senders,[])
 
     def test_live_form_default_and_result_shell_preserve_source_without_inference(self) -> None:
-        from html.parser import HTMLParser
         raw = self.client.get('/demo?lang=vi').get_data(as_text=True)
-        self.assertIn('<option value="latest" selected>',raw)
-        self.assertIn('id="capture-live"',raw); self.assertIn('MT_BICL',raw)
+        self.assertIn('<option value="legacy" selected>',raw)
+        self.assertNotIn('<option value="latest"',raw); self.assertNotIn('<option value="asof"',raw)
+        self.assertNotIn('id="capture-live"',raw); self.assertNotIn('id="compareBtn"',raw)
+        self.assertIn('MT_BICL',raw); self.assertIn('data-tf="1d"',raw)
         raw = self.client.get('/output?serving_run=12345678-1234-4234-8234-123456789abc&serving_source=live&lang=en').get_data(as_text=True)
         self.assertIn('"source": "live"',raw); self.assertIn('serving_source=live',raw)
         self.assertEqual(self.market_calls,[]); self.assertEqual(self.senders,[])

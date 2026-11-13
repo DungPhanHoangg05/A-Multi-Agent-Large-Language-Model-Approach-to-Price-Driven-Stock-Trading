@@ -63,29 +63,20 @@ F10 đã nối backtest mới và danh mục owner vào experiments, cùng evalu
 account/classification U09, daily NAV/cycle returns, filter/contrast cùng
 support và JSON/CSV; Full/No-Alpha legacy có adapter riêng. **156 Python +
 31 DOM, compile13/JS7 PASS**, chỉ HTTP fixture; browser visual chờ F11.
-**F11 đang làm**: [receipt tích hợp](week12/serving_integration_acceptance.json)
-đã có gate offline ban đầu và nay được mở rộng theo yêu cầu người dùng:
-nhánh F11 đã hợp nhất develop `4de6d1aa` qua `6ac5d7ab`, giữ bài báo/archive
-mới. Form mặc định **Realtime · phiên ngày hoàn tất mới nhất**, chọn từng bản
-trong sáu bản chính để phân tích, hoặc so sánh trên cùng snapshot mới từ VCI/KBS.
-Theo đính chính tiếp theo, chế độ **Realtime · intraday và các khung thời gian**
-cũng chọn đủ sáu bản ngay trong chế độ đó; I/P/T/chart dùng khung được chọn,
-Alpha/prior/MT giữ ngữ cảnh ngày và hợp đồng T+2.5. Không còn khóa chế độ này
-chỉ cho Original. [Cách dùng và hợp đồng đa khung](week12/variant_serving_contract.md#chọn-phiên-bản-ngay-trong-chế-độ-intraday-và-các-khung-thời-gian).
-Provider/nguồn live riêng giữ cutoff, key/options/owner, retry/checkpoint và
-không đọc payoff query. Các caller/service/UI/leakage bị đổi được kiểm lại;
-QA ngày/đa khung trước đó giữ nguyên làm lịch sử. Sửa incident realtime từ
-`0197e35a`: bỏ guard 6.500 ở Original realtime theo yêu cầu người dùng (backtest
-giữ nguyên); VNINDEX dùng ngày/Close cho lịch/HMM, không đòi OHLC không dùng.
-[QA sửa realtime](week12/serving_realtime_repair_checks.zip): **100 Python +
-20 DOM, compile14/JS3 PASS**, có 18 leakage/11 native parity. Probe giá thật
-FPT ngày 13/11 trả snapshot200/preflight ready/C2 completed; model HTTP fixture,
-tin tắt, không phải dự báo thật. Kiểm đúng phần ảnh hưởng, không chạy toàn suite.
-Browser desktop/mobile
-vẫn chờ: host không khả dụng, duyệt tự động đã từ chối mở Edge. Chưa đạt gate
-browser nên F11 chưa hoàn tất, nhánh tác vụ chưa merge theo AGENTS §1.2;
-**F12 chưa bắt đầu**. [Runbook nghiệm thu/preview](week12/variant_serving_contract.md#nghiệm-thu-f11-và-preview-fixture)
-giữ rõ phần còn chờ; không gọi hosted LLM, đã đọc thị trường để xác minh incident.
+**F11 đang làm**: đã nhận develop `4de6d1aa`, sửa prompt Original realtime và
+snapshot VNINDEX. Theo yêu cầu mới nhất, form phân tích chỉ còn nguồn
+**Realtime · intraday and other timeframes**, duy nhất **1D**, chọn một trong
+sáu bản rồi Phân tích. Đã xóa lựa chọn as-of/daily riêng, so sánh, repeats và
+cấu hình serving khỏi form. Original giữ pipeline hiện tại; bản nâng cấp dùng
+cùng overlay từng agent rồi mở cùng bố cục kết quả, thêm phần BICL thực tế.
+Tiến trình từ checkpoint, decision/policy/context giữ nguyên; không tính lại
+hoặc bịa kết quả khi lỗi/UNKNOWN. [Runbook hiện hành](week12/variant_serving_contract.md#form-phân-tích-hiện-hành--realtime-1d).
+[Receipt hiện hành](week12/serving_integration_acceptance.json) và
+[QA giao diện 1D](week12/serving_daily_analysis_checks.zip): **103 Python + 19 DOM, compile12/JS6 PASS**.
+Các QA cũ giữ nguyên byte làm lịch sử; không chạy toàn suite/cold study hoặc
+gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn không khả dụng;
+F11 còn mở, nhánh `feat/realtime-daily-analysis` chưa merge develop theo AGENTS
+§1.2. **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

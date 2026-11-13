@@ -7,6 +7,7 @@
     <title>{{ T.page_title_output }}</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/legacy_output.css') }}">
+    {% if results.serving_analysis %}<link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/daily_output.css') }}">{% endif %}
 </head>
 
 <body>
@@ -23,6 +24,7 @@
                         </div>
                     </div>
                     <div class="meta-pills">
+                        {% if results.analysis_version %}<span class="meta-pill">{{ results.analysis_version }}</span>{% endif %}
                         <span class="meta-pill"><i class="fas fa-chart-candlestick"></i> {{ results.asset_name if
                             results.asset_name else 'N/A' }}</span>
                         <span class="meta-pill"><i class="fas fa-clock"></i> {{ results.timeframe if results.timeframe
@@ -97,6 +99,8 @@
                 <p>{{ results.final_decision.justification }}</p>
             </div>
             {% endif %}
+
+            {% if results.bicl %}{% include 'analysis/bicl.html' %}{% endif %}
 
             <!-- Tác tử Chỉ báo / Indicator agent -->
             <div class="agent-panel" style="margin-top:2rem;">
@@ -373,9 +377,11 @@
                                 <img src="data:image/png;base64,{{ results.pattern_chart }}"
                                     alt="{{ T.pattern_analysis }}" class="analysis-image" id="patternChart">
                                 {% else %}
+                                {% if results.serving_analysis %}<p>{{ T.chart_unavailable }}</p>{% else %}
                                 <img src="/api/images/pattern" alt="{{ T.pattern_analysis }}" class="analysis-image"
                                     id="patternChart"
                                     onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><i class=\'fas fa-image\'></i>{{ T.chart_unavailable }}</div>'">
+                                {% endif %}
                                 {% endif %}
                                 <p class="chart-caption">{{ T.candlestick_chart }} - {{ results.asset_name if
                                     results.asset_name
@@ -413,9 +419,11 @@
                                 <img src="data:image/png;base64,{{ results.trend_chart }}" alt="{{ T.trend_chart }}"
                                     class="analysis-image" id="trendChart">
                                 {% else %}
+                                {% if results.serving_analysis %}<p>{{ T.chart_unavailable }}</p>{% else %}
                                 <img src="/api/images/trend" alt="{{ T.trend_chart }}" class="analysis-image"
                                     id="trendChart"
                                     onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><i class=\'fas fa-image\'></i>{{ T.chart_unavailable }}</div>'">
+                                {% endif %}
                                 {% endif %}
                                 <p class="chart-caption">
                                     <span style="color:#3b82f6;">■</span> {{ T.support }} &nbsp;
@@ -444,7 +452,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="application/json" id="legacy-config">{{ {'messages': T, 'language': LANG}|tojson }}</script>
+    {% if results.serving_analysis %}
+    <script type="module" src="{{ url_for('static', filename='js/analysis/daily_output.js') }}"></script>
+    {% else %}
     <script src="{{ url_for('static', filename='js/analysis/legacy_output.js') }}"></script>
+    {% endif %}
 </body>
 
 </html>

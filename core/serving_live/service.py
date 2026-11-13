@@ -123,6 +123,8 @@ class LiveService(Service):
     def result(self, identifier: str, owner: str) -> dict:
         """GET chỉ đọc journal và metadata capture, không làm mới dữ liệu hoặc chạy model."""
         result = super().result(identifier,owner)
+        from core.serving_live.progress import agent_progress
+        result['agent_progress'] = agent_progress(self.store,self.store.reservation(identifier,owner))
         request = result['identity']['request']
         record = self.snapshots.read(request['snapshot_id'],owner)
         result['live_input'] = self.snapshots.summary(request['snapshot_id'],record)

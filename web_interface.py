@@ -339,6 +339,18 @@ def demo():
 @app.route("/output")
 def output():
     if "serving_run" in request.args:
+        if request.args.get('serving_source') == 'live' and request.args.get('presentation') == 'analysis':
+            from utils.serving_web import owner
+            from utils.serving_live_web import service
+            from utils.realtime_analysis_view import project
+            scope,_ = owner()
+            if scope is None: return render_localized('output.html',serving_run=request.args.get('serving_run')),404
+            try:
+                data = service().result(request.args.get('serving_run'),scope)
+                if data['state'] == 'completed':
+                    return render_localized('output.html',results=project(data,current_lang()))
+            except (PermissionError,FileNotFoundError,ValueError,KeyError,StopIteration):
+                return render_localized('output.html',serving_run=request.args.get('serving_run')),404
         # Trang chỉ chứa shell; API owner kiểm UUID và journal, không khởi động inference qua GET.
         return render_localized("output.html", serving_run=request.args.get("serving_run"))
     results = request.args.get("results")

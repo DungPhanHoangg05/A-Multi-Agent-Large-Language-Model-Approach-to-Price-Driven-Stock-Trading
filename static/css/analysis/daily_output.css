@@ -1,0 +1,7 @@
+/* Bổ sung BICL và báo cáo an toàn trên cùng bố cục Original. */
+.bicl-panel {margin-top:1.5rem}
+.bicl-panel p {line-height:1.65;overflow-wrap:anywhere}
+.bicl-panel summary {cursor:pointer;font-weight:650;padding:.7rem 0}
+.bicl-context {white-space:pre-wrap;overflow-wrap:anywhere;max-height:26rem;overflow:auto;background:#f8fafc;padding:1rem;border-radius:8px;font-size:.82rem}
+.report-table {overflow-x:auto;max-width:100%}
+.auto-beautify p {overflow-wrap:anywhere}

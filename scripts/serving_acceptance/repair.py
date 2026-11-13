@@ -1,4 +1,4 @@
-"""Nghiệm thu sửa incident realtime: prompt UI và hợp đồng VNINDEX ngày/Close."""
+"""Nghiệm thu form realtime 1D, tiến trình từng agent và cửa sổ kết quả Original/BICL."""
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor,as_completed
@@ -14,12 +14,12 @@ from scripts.serving_acceptance import live,timeframes
 from scripts.serving_acceptance.evidence import binding,runtime
 
 ROOT,DOC,RECEIPT = live.ROOT,live.DOC,live.RECEIPT
-BASE = '0197e35a'
-PACKAGE = DOC/'serving_realtime_repair_checks.zip'
-WORK = ROOT/'tmp/f11_repair'
+BASE = '6ba5cfea'
+PACKAGE = DOC/'serving_daily_analysis_checks.zip'
+WORK = ROOT/'tmp/f11_daily_analysis'
 PLANS = [('tests/serving_live','test_*.py'),('tests','test_realtime_decision_budget.py'),('tests','test_realtime_index.py'),
     ('tests','test_realtime_sources.py'),('tests','test_original_fix_parity.py'),('tests','test_decision_prior_integration.py'),
-    ('tests','test_bayesian_prompt_budget.py'),('tests/analysis_ui','test_pages.py'),('tests','test_web_json_serialization.py'),
+    ('tests','test_bayesian_prompt_budget.py'),('tests/analysis_ui','test_*.py'),('tests','test_web_json_serialization.py'),
     ('tests/serving_integration','test_*.py'),('tests','test_unified_execution_leakage.py'),
     ('tests','test_unified_preflight_leakage.py'),('tests/unified_live','test_leakage.py')]
 
@@ -40,7 +40,10 @@ def historical() -> dict:
     name = 'docs/plan/week12/serving_timeframe_checks.zip'
     expected = subprocess.check_output(['git','show',BASE+':'+name],cwd=ROOT)
     if (ROOT/name).read_bytes()!=expected: raise ValueError('QA timeframe lịch sử đã đổi')
-    return {**result,'timeframe_qa_unchanged':binding(expected)}
+    repair_name = 'docs/plan/week12/serving_realtime_repair_checks.zip'
+    previous = subprocess.check_output(['git','show',BASE+':'+repair_name],cwd=ROOT)
+    if (ROOT/repair_name).read_bytes()!=previous: raise ValueError('QA sửa realtime trước đó đã đổi')
+    return {**result,'timeframe_qa_unchanged':binding(expected),'repair_qa_unchanged':binding(previous)}
 
 
 def suite(plan: tuple[str,str]) -> tuple[str,dict]:
@@ -55,7 +58,7 @@ def suite(plan: tuple[str,str]) -> tuple[str,dict]:
 
 
 def run() -> dict:
-    """Không gọi Groq/thị trường trong suite; probe giá thật có receipt riêng đã quan sát trước đó."""
+    """Chỉ kiểm caller/projection/progress đổi, không gọi Groq hoặc thị trường thật."""
     WORK.mkdir(parents=True,exist_ok=True)
     sealed = sources(); environment = runtime(ROOT); integrity = historical()
     names = subprocess.check_output(['git','diff',BASE,'--name-only','--','*.py'],cwd=ROOT).decode().splitlines()
@@ -71,28 +74,34 @@ def run() -> dict:
     done = subprocess.run(command,cwd=ROOT,capture_output=True); raw = done.stdout+b'\n'+done.stderr
     (WORK/'analysis_ui.log').write_bytes(raw); count = re.search(rb'(?:#|\xe2\x84\xb9) tests (\d+)',raw)
     results['analysis_ui.log'] = {'passed':not done.returncode and bool(count),'tests':int(count[1]) if count else 0,'command':command,'log':binding(raw)}
-    syntax = ['static/js/analysis/'+name for name in ('common.js','form.js','timeframe.js')]
+    syntax = ['static/js/analysis/'+name for name in ('form.js','timeframe.js','progress.js','report.js','daily_output.js','legacy_form.js')]
     for name in syntax: subprocess.run(['node','--check',name],cwd=ROOT,check=True,capture_output=True)
-    if not all(row['passed'] for row in results.values()): raise ValueError('Gate sửa realtime chưa PASS; xem tmp/f11_repair')
+    if not all(row['passed'] for row in results.values()): raise ValueError('Gate sửa realtime chưa PASS; xem tmp/f11_daily_analysis')
     if sources()!=sealed or runtime(ROOT)!=environment: raise ValueError('Nguồn/runtime đổi khi kiểm gate')
-    probe_path = ROOT/'tmp/realtime_diagnosis/real_capture_checks.json'
-    probe = json.loads(probe_path.read_bytes()) if probe_path.exists() else {'status':'NOT_RUN'}
-    checks = {'version':'serving_realtime_repair_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
+    probe = {'status':'NOT_RUN_UI_SCOPE','market_calls':0,'hosted_llm_calls':0}
+    checks = {'version':'serving_daily_analysis_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
         'sources':sealed,'runtime':environment,'historical':integrity,'compiled_python':compiled,'javascript_syntax':syntax,
         'test_suites':results,'real_market_probe':probe,'hosted_llm_calls':0,'new_hmm_student_bank_training':0,
         'recorded_at':datetime.now(timezone.utc).isoformat(),'f11_complete':False,
         'browser':{'status':'PENDING','desktop':'NOT_RUN','mobile':'NOT_RUN','reason':'BROWSER_HOST_UNAVAILABLE; PRIOR_EDGE_AUTOMATIC_REVIEW_REJECTED'},
-        'scope':'NATIVE_REALTIME_NO_6500_GUARD; BACKTEST_GUARD_UNCHANGED; VNINDEX_CLOSE_ONLY; STOCK_OHLC_STRICT'}
+        'scope':'REALTIME_1D_ONLY_FORM; ORIGINAL_OVERLAY_AND_RESULT; DURABLE_AGENT_PROGRESS; BICL_POLICY_CONTEXT; MODEL_FIXTURE_ONLY'}
+    return publish(checks,results)
+
+
+def publish(checks: dict, results: dict, extras: dict | None = None) -> dict:
+    """Đóng gói log nguyên byte, kể cả lần FAIL ban đầu nếu được giải quyết bằng delta đúng phạm vi."""
     members = {'checks.json':(json.dumps(checks,ensure_ascii=False,indent=2)+'\n').encode()}
     members.update({name:(WORK/name).read_bytes() for name in results})
+    members.update(extras or {})
     members['manifest.json'] = (json.dumps({name:binding(data) for name,data in members.items()},indent=2)+'\n').encode()
     with zipfile.ZipFile(PACKAGE,'w',zipfile.ZIP_DEFLATED) as archive:
         for name,data in members.items(): archive.writestr(name,data)
-    receipt = {'version':'serving_integration_acceptance_v4','status':checks['status'],'base_commit':BASE,
+    receipt = {'version':'serving_integration_acceptance_v5','status':checks['status'],'base_commit':BASE,
         'checks_package':{'path':PACKAGE.relative_to(ROOT).as_posix(),**binding(PACKAGE.read_bytes())},
-        'python_tests':sum(row['tests'] for name,row in results.items() if name!='analysis_ui.log'),
-        'dom_tests':results['analysis_ui.log']['tests'],'compiled_python':len(compiled),'javascript_syntax':len(syntax),
-        'scope':checks['scope'],'real_market_probe':probe,'browser':checks['browser'],'f11_complete':False,'historical':integrity}
+        'python_tests':sum(row.get('unique_tests',row['tests']) for name,row in results.items() if name!='analysis_ui.log'),
+        'dom_tests':results['analysis_ui.log']['tests'],'compiled_python':len(checks['compiled_python']),'javascript_syntax':len(checks['javascript_syntax']),
+        'scope':checks['scope'],'real_market_probe':checks['real_market_probe'],'browser':checks['browser'],'f11_complete':False,'historical':checks['historical']}
+    if 'test_delta' in checks: receipt['test_delta'] = checks['test_delta']
     RECEIPT.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     return verify()
 

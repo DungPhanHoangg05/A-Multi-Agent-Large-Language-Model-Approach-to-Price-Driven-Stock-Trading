@@ -102,11 +102,11 @@ class TimeframeProviders(unittest.TestCase):
             self.assertEqual(alpha['time_frame'],'1d'); self.assertEqual(len(alpha['kline_data']['Close']),45)
             self.assertEqual(state['time_frame'],timeframe); self.assertEqual(state['kline_data']['Close'],[1.,2.])
 
-    def test_each_version_analyzes_selected_intraday_frame_with_single_upstream_and_no_payoff(self) -> None:
+    def test_each_version_daily_agents_original_layout_and_bicl_with_single_upstream_and_no_payoff(self) -> None:
         with TemporaryDirectory() as folder:
             clock = Clock(); store = Snapshots(Path(folder)/'inputs',prices=prices,news=news,charts=charts,
                 now=lambda:datetime(2026,11,13,10,tzinfo=ZONE))
-            owner = '7'*64; captured = store.capture_timeframe('MWG','5m',owner)
+            owner = '7'*64; captured = store.capture_timeframe('MWG','1d',owner)
             senders = []; providers = []
             def sender(key: str):
                 result = Sender(clock); senders.append(result); return result
@@ -119,23 +119,47 @@ class TimeframeProviders(unittest.TestCase):
             for variant in MAIN_IDS:
                 with self.subTest(variant=variant):
                     body = request(captured['snapshot_id'],captured['cutoff'],[variant])
-                    body.update(version='variant_serving_timeframe_v1',chart_timeframe='5m')
+                    body.update(version='variant_serving_timeframe_v1',chart_timeframe='1d')
                     spec = LiveRequest.create(body)
                     identifier = service.create(spec,'fixture',owner,background=False)
+                    from core.serving_live.progress import agent_progress
+                    reservation = service.store.reservation(identifier,owner)
+                    samples = []
+                    service.sender_factory = lambda key: sender_with_progress(key)
+                    def sender_with_progress(key):
+                        result = sender(key)
+                        result.on_send = lambda: samples.append(agent_progress(service.store,reservation))
+                        return result
                     service.work(identifier,'fixture',owner,wait=False)
                     result = service.result(identifier,owner)
                     self.assertEqual(result['state'],'completed',result.get('error'))
                     self.assertEqual(result['requested_ids'],[variant])
-                    self.assertEqual(result['identity']['request']['chart_timeframe'],'5m')
+                    self.assertEqual(result['identity']['request']['chart_timeframe'],'1d')
+                    self.assertEqual(set(result['agent_progress'].values()),{'complete'})
+                    self.assertTrue(any(sample['pattern']=='running' for sample in samples))
+                    self.assertTrue(any(sample['trend']=='running' for sample in samples))
+                    self.assertTrue(any(sample['decision']=='running' for sample in samples))
                     self.assertTrue(all(row['net_return_pct'] is None for row in result['rows']))
                     self.assertEqual(result['outcome_points'],0)
                     self.assertEqual(result['realtime_chart'],store.read(captured['snapshot_id'])['chart'])
                     self.assertEqual(sum('response_format' not in body for body in senders[-1].bodies),2)
                     state = providers[-1].state('MWG','2026-11-13')
-                    self.assertEqual(state['time_frame'],'5m')
+                    self.assertEqual(state['time_frame'],'1d')
                     self.assertEqual(providers[-1].role_state('full',state)['time_frame'],'1d')
                     self.assertEqual(state['kline_data'],result['realtime_chart'])
-                    self.assertTrue(all(detail['context']['trace']['live_input']['chart_timeframe']=='5m' for detail in result['policy_details'].values()))
+                    self.assertTrue(all(detail['context']['trace']['live_input']['chart_timeframe']=='1d' for detail in result['policy_details'].values()))
                     with patch.dict(web.app.config,{'SERVING_LIVE_SERVICE':service,'SERVING_SERVICE':service}):
                         # GET shell không thực thi model; cookie owner API được kiểm ở các suite riêng.
                         self.assertEqual(web.app.test_client().get('/output?serving_run='+identifier+'&serving_source=live').status_code,200)
+                        with patch('utils.serving_web.owner',return_value=(owner,None)):
+                            client = web.app.test_client()
+                            count = len(senders[-1].bodies)
+                            for language in ('vi','en'):
+                                response = client.get('/output?serving_run='+identifier+'&serving_source=live&presentation=analysis&lang='+language)
+                                self.assertEqual(response.status_code,200,response.get_data(as_text=True)[-1000:])
+                                raw = response.get_data(as_text=True)
+                                self.assertIn('legacy_output.css',raw); self.assertIn('daily_output.js',raw)
+                                self.assertNotIn('js/analysis/result.js',raw); self.assertNotIn('/api/images/',raw)
+                                self.assertEqual('bicl-panel' in raw,variant!='original_fix')
+                            self.assertEqual(count,len(senders[-1].bodies))
+                        self.assertEqual(web.app.test_client().get('/output?serving_run='+identifier+'&serving_source=live&presentation=analysis').status_code,404)

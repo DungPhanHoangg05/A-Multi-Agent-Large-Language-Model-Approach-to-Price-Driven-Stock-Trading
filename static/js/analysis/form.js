@@ -1,183 +1,57 @@
-import {byId, element, label, json, jobUrl, requestFor, blockerText,captureErrorMessage} from './common.js';
+import {byId,json} from './common.js';
 import {runTimeframe} from './timeframe.js';
+import {followAnalysis,showAgentProgress} from './progress.js';
 
-// Mỗi lần sửa form hủy grant cũ; chỉ response đúng generation mới được bật nút chạy.
-export function formController(config, io = json, navigate = url => location.assign(url)) {
+// Một form realtime 1D; Original giữ đường chạy cũ, bản nâng cấp dùng cùng overlay/kết quả.
+export function formController(config, io = json, navigate = url => location.assign(url), pause) {
   const text = config.messages;
-  let defaults, generation = 0, abort, timer, starting = false, legacyLoaded = false, legacyBusy = false;
-  let snapshot, captureAbort, captureGeneration = 0, capturing = false;
-  const grants = new Map();
-  const latest = () => byId('analysis-source').value === 'latest';
-  const legacy = () => byId('analysis-source').value === 'legacy';
-  const api = () => latest() ? '/api/serving/live/v1' : '/api/serving/v1';
+  let defaults, starting = false, legacyBusy = false, uncertain = false;
   function buttons() {
-    byId('analyzeBtn').disabled = starting || capturing || legacyBusy || (legacy() ? byId('analysis-version').value !== 'original_fix' && !defaults : !grants.has('analyze'));
-    byId('compareBtn').disabled = starting || capturing || legacy() || !grants.has('compare');
-    byId('compareBtn').hidden = legacy();
-    byId('capture-live').disabled = starting || capturing;
-  }
-  function values(mode) {
-    return {mode, ids:mode === 'analyze' ? [byId('analysis-version').value] :
-      [...document.querySelectorAll('input[name="compare-method"]:checked')].map(node => node.value),
-      symbol:byId('asof-symbol').value, date:latest() ? snapshot?.cutoff : byId('asof-date').value,
-      language:byId('report-language').value, repeats:Number(byId('analysis-repeats').value)};
-  }
-  function models() {
-    const result = structuredClone(defaults.models);
-    for (const role of ['decision','pattern','trend']) {
-      result[role].options.temperature = Number(byId(role+'-temperature').value);
-      result[role].options.max_tokens = Number(byId(role+'-tokens').value);
-    }
-    return result;
+    const busy = starting || legacyBusy;
+    byId('analyzeBtn').disabled = busy || uncertain || (byId('analysis-version').value !== 'original_fix' && !defaults);
+    byId('analysis-source').disabled = busy;
+    byId('analysis-version').disabled = busy;
+    byId('legacy-inputs').inert = busy;
   }
   function description() {
     const id = byId('analysis-version').value;
     byId('version-description').textContent = id === 'original_fix' ? text.native_description :
       id === 'MT_BICL' ? text.mt_description : text.prior_description;
-  }
-  async function check() {
-    clearTimeout(timer);
-    abort?.abort(); abort = new AbortController();
-    const mine = ++generation, signal = abort.signal;
-    grants.clear(); buttons(); byId('serving-form-error').textContent = '';
-    if (legacy() || !defaults || starting || capturing) return;
-    if (latest() && (!snapshot || snapshot.symbol !== byId('asof-symbol').value)) {
-      byId('preflight-status').textContent = text.live_unloaded; return;
-    }
-    byId('preflight-status').textContent = text.waiting;
-    const results = await Promise.all(['analyze','compare'].map(async mode => {
-      try {
-        const base = requestFor(values(mode),models());
-        const request = latest() ? {version:'variant_serving_live_v1',snapshot_id:snapshot.snapshot_id,request:base} : base;
-        const data = await io(api()+'/preflight',request,signal);
-        if (mine !== generation || signal.aborted) return null;
-        if (data.run_enabled && data.status === 'ready') grants.set(mode,structuredClone(request));
-        return (mode === 'analyze' ? text.analyze : text.compare)+': '+(data.run_enabled ? text.ready :
-          (data.blockers ?? []).map(b => blockerText(b,text)).join(' · '));
-      } catch (error) {
-        if (mine !== generation || signal.aborted) return null;
-        return (mode === 'analyze' ? text.analyze : text.compare)+': '+
-          (error.message === 'COMPARE_SELECTION' ? text.choose : text.failed);
-      }
-    }));
-    if (mine === generation && !signal.aborted) {
-      byId('preflight-status').replaceChildren(...results.filter(Boolean).map(value => element('p',value)));
-      buttons();
-    }
-  }
-  function invalidate() {
-    ++generation; abort?.abort(); grants.clear(); buttons(); description();
-    ++captureGeneration; captureAbort?.abort(); capturing = false;
-    if (snapshot?.symbol !== byId('asof-symbol').value) {
-      snapshot = undefined; byId('live-input-status').textContent = text.live_unloaded;
-    }
     buttons();
-    byId('preflight-status').textContent = text.unchecked;
-    clearTimeout(timer);
-    if (!legacy() && !starting && (!latest() || snapshot)) timer = setTimeout(check,350);
   }
-  function source() {
-    document.querySelectorAll('[data-legacy-only]').forEach(node => node.hidden = !legacy());
-    byId('asof-inputs').hidden = legacy(); byId('legacy-inputs').hidden = !legacy();
-    byId('legacy-note').hidden = !legacy();
-    for (const id of ['live-note','live-input-status','capture-live']) byId(id).hidden = !latest();
-    byId('asof-date-field').hidden = latest(); byId('asof-date').disabled = latest();
-    if (legacy() && !legacyLoaded) { window.legacyAnalysis.load(); legacyLoaded = true; }
-    invalidate();
-  }
-  async function capture() {
-    if (!latest() || starting || capturing) return;
-    ++generation; abort?.abort(); clearTimeout(timer); grants.clear(); snapshot = undefined;
-    const mine = ++captureGeneration, symbol = byId('asof-symbol').value;
-    captureAbort?.abort(); captureAbort = new AbortController();
-    capturing = true; buttons(); byId('live-input-status').textContent = text.live_loading;
-    byId('serving-form-error').textContent = '';
+  async function start(mode = 'analyze') {
+    if (mode !== 'analyze' || starting || legacyBusy || uncertain) return;
+    if (byId('analysis-version').value === 'original_fix') { window.legacyAnalysis.run(); return; }
+    if (!defaults || !window.legacyAnalysis.begin(true)) return;
+    starting = true; buttons(); byId('timeframe-run-status').textContent = '';
     try {
-      const data = await io('/api/serving/live/v1/snapshot',{symbol},captureAbort.signal);
-      if (mine !== captureGeneration || !latest() || symbol !== byId('asof-symbol').value) return;
-      if (data.symbol !== symbol || !/^[0-9a-f]{64}$/.test(data.snapshot_id) || !/^\d{4}-\d{2}-\d{2}$/.test(data.cutoff)) throw new Error('Invalid capture');
-      snapshot = structuredClone(data);
-      byId('live-input-status').textContent = `${text.live_captured}: ${data.symbol} · ${data.cutoff} · ${data.price_rows} · ${data.captured_at}`;
-      capturing = false; await check();
+      const chosen = {...window.legacyAnalysis.selection(),timeframe:'1d',variant:byId('analysis-version').value,language:'vi',repeats:1};
+      const result = await runTimeframe(config,chosen,structuredClone(defaults.models),io,
+        value => byId('analysis-progress-message').textContent = value);
+      const link = byId('last-serving-job'); link.href = result.url; link.hidden = false;
+      try { localStorage.setItem('qa_last_serving_job',result.runId); localStorage.setItem('qa_last_serving_source','live'); } catch {}
+      await followAnalysis(config,result.runId,io,data => showAgentProgress(data,config),pause);
+      navigate(result.url);
     } catch (error) {
-      if (mine === captureGeneration) {
-        byId('live-input-status').textContent = captureErrorMessage(error,config);
-        byId('serving-form-error').textContent = captureErrorMessage(error,config);
-      }
-    } finally { if (mine === captureGeneration) { capturing = false; buttons(); } }
-  }
-  async function start(mode) {
-    if (starting) return;
-    if (legacy()) {
-      if (mode !== 'analyze') return;
-      if (byId('analysis-version').value === 'original_fix') { window.legacyAnalysis.run(); return; }
-      if (!defaults) return;
-      starting = true; buttons();
-      const controls = [byId('analysis-source'),byId('analysis-version')];
-      controls.forEach(node => node.disabled = true); byId('legacy-inputs').inert = true;
-      try {
-        const chosen = {...window.legacyAnalysis.selection(),variant:byId('analysis-version').value,
-          language:byId('report-language').value,repeats:Number(byId('analysis-repeats').value)};
-        const result = await runTimeframe(config,chosen,models(),io,value => byId('timeframe-run-status').textContent = value);
-        try { localStorage.setItem('qa_last_serving_job',result.runId); localStorage.setItem('qa_last_serving_source','live'); } catch {}
-        navigate(result.url);
-      } catch (error) { byId('timeframe-run-status').textContent = error.message || text.failed; }
-      finally { starting = false; controls.forEach(node => node.disabled = false); byId('legacy-inputs').inert = false; buttons(); }
-      return;
-    }
-    const request = grants.get(mode);
-    if (!request) return;
-    starting = true; ++generation; abort?.abort(); clearTimeout(timer); grants.clear(); buttons();
-    const controls = [...document.querySelectorAll('#asof-inputs input, #asof-inputs select, #analysis-source'),byId('analysis-version')];
-    controls.forEach(node => node.disabled = true);
-    try {
-      const sourceName = latest() ? 'live' : 'asof';
-      const data = await io(api()+'/jobs',structuredClone(request));
-      const url = jobUrl(data.run_id,config.language,sourceName);
-      try { localStorage.setItem('qa_last_serving_job',data.run_id); localStorage.setItem('qa_last_serving_source',sourceName); } catch {}
-      navigate(url);
-    } catch (error) {
-      byId('serving-form-error').textContent = error.status === 409 ?
-        (error.data?.blockers ?? []).map(b => blockerText(b,text)).join(' · ') || text.failed : text.start_unknown;
-    } finally {
-      starting = false; controls.forEach(node => node.disabled = false); byId('asof-date').disabled = latest(); buttons();
-    }
+      uncertain = error.message === text.start_unknown;
+      byId('timeframe-run-status').textContent = error.message || text.failed;
+    } finally { starting = false; window.legacyAnalysis.end(); buttons(); }
   }
   async function init() {
-    source(); buttons(); description();
-    byId('capture-live').addEventListener('click',capture);
-    byId('preflightBtn').addEventListener('click',check);
-    byId('analyzeBtn').addEventListener('click',() => start('analyze'));
-    byId('compareBtn').addEventListener('click',() => start('compare'));
-    byId('analysis-source').addEventListener('change',source);
-    byId('analysis-version').addEventListener('change',invalidate);
-    byId('asof-inputs').addEventListener('input',invalidate);
-    byId('asof-inputs').addEventListener('change',invalidate);
-    document.addEventListener('analysis-key-changed',invalidate);
+    byId('analysis-source').value = 'legacy';
+    document.querySelectorAll('[data-legacy-only]').forEach(node => node.hidden = false);
+    byId('legacy-inputs').hidden = false;
+    window.legacyAnalysis.load();
+    byId('analyzeBtn').addEventListener('click',() => start());
+    byId('analysis-version').addEventListener('change',description);
     for (const [event,busy] of [['analysis-legacy-start',true],['analysis-legacy-end',false]]) {
-      document.addEventListener(event,() => { legacyBusy = busy; byId('analysis-source').disabled = busy; byId('analysis-version').disabled = busy; buttons(); });
+      document.addEventListener(event,() => { legacyBusy = busy; buttons(); });
     }
-    try {
-      const previous = localStorage.getItem('qa_last_serving_job');
-      if (previous) { byId('last-serving-job').href = jobUrl(previous,config.language,localStorage.getItem('qa_last_serving_source')); byId('last-serving-job').hidden = false; }
-    } catch {}
-    try {
-      defaults = await io('/api/serving/v1/defaults');
-      const container = byId('serving-models');
-      for (const role of ['decision','pattern','trend']) {
-        const group = element('div');
-        group.append(element('h4',text[role+'_model']),element('p',defaults.models[role].model,'serving-muted'));
-        for (const [option,suffix,max,step] of [['temperature','temperature',2,.1],['max_tokens','tokens',role === 'decision' ? 2048 : 1024,1]]) {
-          const field = element('label',text[option],'serving-field'), input = element('input');
-          Object.assign(input,{id:role+'-'+suffix,type:'number',min:option === 'temperature' ? 0 : 1,max,step,
-            value:defaults.models[role].options[option],required:true});
-          field.append(input); group.append(field);
-        }
-        container.append(group);
-      }
-      await check();
-    } catch { byId('serving-form-error').textContent = text.failed; }
+    description();
+    try { defaults = await io('/api/serving/v1/defaults'); }
+    catch { byId('timeframe-run-status').textContent = text.failed; }
+    buttons();
   }
-  return {init,check,start,invalidate,source,capture};
+  return {init,start};
 }
 if (byId('analysis-config')) formController(JSON.parse(byId('analysis-config').textContent)).init();

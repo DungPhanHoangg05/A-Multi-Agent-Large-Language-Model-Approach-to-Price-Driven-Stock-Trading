@@ -4,6 +4,7 @@ import {jobUrl,requestFor,blockerText,captureErrorMessage} from './common.js';
 export async function runTimeframe(config, selection, models, io, status) {
   const text = config.messages;
   if (!selection.symbol) throw new Error(text.timeframe_choose_symbol);
+  if (selection.timeframe !== '1d') throw new Error(text.daily_note);
   status(text.live_loading);
   let snapshot;
   try { snapshot = await io('/api/serving/live/v1/snapshot',{symbol:selection.symbol,timeframe:selection.timeframe}); }
@@ -19,5 +20,5 @@ export async function runTimeframe(config, selection, models, io, status) {
   let data;
   try { data = await io('/api/serving/live/v1/jobs',structuredClone(body)); }
   catch { throw new Error(text.start_unknown); }
-  return {runId:data.run_id,url:jobUrl(data.run_id,config.language,'live')};
+  return {runId:data.run_id,url:jobUrl(data.run_id,config.language,'live')+'&presentation=analysis'};
 }

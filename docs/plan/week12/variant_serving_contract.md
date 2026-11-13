@@ -16,7 +16,42 @@ Theo yêu cầu người dùng ngày **13/11/2026**, F11 bổ sung
 Luồng live tách khỏi release frozen F08, dùng lại runner/method adapters và
 weights/bank đã khóa; không biến kết quả historical U09 thành forecast mới.
 
-## Phân tích phiên ngày mới nhất
+## Form phân tích hiện hành — Realtime 1D
+
+Theo yêu cầu mới nhất của người dùng, `/demo` chỉ còn **Analysis source →
+Realtime · intraday and other timeframes** và **timeframe 1D**. Giữ nhãn nguồn
+đúng yêu cầu dù chỉ mở khung ngày. Chọn mã, một trong sáu bản rồi **Phân tích**;
+form không còn as-of, nguồn daily riêng, so sánh/repeats/capture thủ công hoặc
+cấu hình serving. Các phần API/miền đa khung/as-of bên dưới là hợp đồng backend
+và lịch sử, không phải lựa chọn hiện có trên form này.
+
+Original chạy `/api/analyze` như trước. Bản nâng cấp tự capture `{symbol,timeframe:"1d"}`,
+preflight rồi tạo một job analyze/repeat1; báo cáo nâng cấp vẫn VI, UI VI/EN.
+Cùng overlay hiển thị từng agent từ `agent_progress` của checkpoint đã kiểm
+checksum, gồm render/I/P/T/Alpha/context/Decision. Thứ tự node tuân thủ DAG
+hiện có; không gọi thêm upstream để tạo hoạt ảnh hoặc làm giống số lần gọi.
+Chỉ khi completed mới chuyển sang
+`/output?serving_run=<UUID>&serving_source=live&presentation=analysis&lang=<vi|en>`.
+Lỗi/UNKNOWN giữ thông báo và liên kết job, không tự POST lại; create mơ hồ khóa
+gửi lại để tránh nhân đôi inference.
+
+Kết quả dùng cùng template/CSS Original và thêm panel BICL: cách áp dụng,
+prior/context thực tế, chế độ thị trường/support nếu có, baseline→final,
+raw/final/CASH và lý do fallback/bypass. Common Alpha hiển thị đúng projection
+được Decision của bản nâng cấp sử dụng. Báo cáo/ảnh chỉ từ snapshot cùng job;
+không lấy ảnh global hoặc session cũ. GET/reload kiểm cookie owner, chỉ chiếu
+một bản/một point/một repeat/1D hoàn tất; không inference/tải lại thị trường.
+HTML/link trong báo cáo model được hiển thị an toàn bằng text node; JSON
+context chi tiết nằm trong mục thu gọn, không dùng JSON thay phần giải thích chính.
+
+**103 Python + 19 DOM, compile12/JS6 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
+dùng [QA giao diện 1D](serving_daily_analysis_checks.zip); QA cũ nguyên byte,
+F11 vẫn chờ browser host khả dụng. Khởi động lại server rồi tải lại trang
+vì `web_interface.py` không bật auto-reload.
+
+<a id="phân-tích-phiên-ngày-mới-nhất"></a>
+
+## Phân tích phiên ngày mới nhất (API và lịch sử UI)
 
 Mở `/demo`, nguồn mặc định **Realtime · phiên ngày hoàn tất mới nhất**.
 Chọn mã và một trong sáu bản chính, nhấn **Lấy dữ liệu mới nhất**, đợi kiểm
@@ -69,7 +104,7 @@ exploratory; native causal FAIL, whole-system NOT_CERTIFIED giữ nguyên.
 
 ## Chọn phiên bản ngay trong chế độ intraday và các khung thời gian
 
-Đính chính theo yêu cầu người dùng: chế độ trước mang nhãn **Original · intraday
+Mốc đa khung trước khi thu gọn UI: chế độ trước mang nhãn **Original · intraday
 and other timeframes** nay là **Realtime · intraday and other timeframes**.
 Dropdown phiên bản luôn hiển thị ngoài vùng as-of: chọn một trong sáu bản,
 chọn mã/khung rồi nhấn **Phân tích**. Các bản nâng cấp không bị chuyển ngầm
@@ -307,13 +342,13 @@ tải lại trang để nạp sửa đổi; ứng dụng không bật auto-reloa
 [Receipt tích hợp](serving_integration_acceptance.json) và
 [gói QA ban đầu](serving_integration_checks.zip) giữ bằng chứng lịch sử;
 QA ngày trước đó là [QA live](serving_live_checks.zip), tiếp theo là
-[QA đa khung](serving_timeframe_checks.zip). Receipt v4 hiện hành dùng
-[QA sửa realtime](serving_realtime_repair_checks.zip), trạng thái
-`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. Gate mới có
-100 Python + 20 DOM, compile14/JS3 PASS, kiểm incident decision/index,
-capture/provider bảy khung/sáu bản, API/HTTP recovery, 18 leakage/11 native parity
-và prompt/prior. QA cũ giữ nguyên byte làm lịch sử, không viện dẫn thay kiểm
-tra code mới. Probe giá thật/model fixture có giới hạn như mô tả ở trên.
+[QA đa khung](serving_timeframe_checks.zip). Receipt v4 với
+[QA sửa realtime](serving_realtime_repair_checks.zip) là lịch sử. Receipt v5
+hiện hành dùng [QA giao diện 1D](serving_daily_analysis_checks.zip), trạng thái
+`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. **103 Python + 19 DOM, compile12/JS6 PASS**.
+Kiểm form/overlay/projection/BICL và caller/service/PIT/native bị ảnh hưởng;
+QA cũ giữ nguyên byte, không thay kiểm tra code mới. Probe giá thật/model fixture
+của incident trước đó không được coi là đã chạy lại trong lần sửa UI này.
 
 ```powershell
 py -3.13 -X utf8 scripts/check_serving_acceptance.py

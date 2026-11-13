@@ -183,8 +183,9 @@ as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh c�
 F10 đã nối backtest nhiều bản và trang thực nghiệm, filter/evaluator/export
 cùng support; adapter Full/No-Alpha riêng. F11 đã nhận develop mới và bổ sung
 phân tích phiên ngày mới nhất cho cả sáu bản, không chỉ so sánh historical.
-Theo đính chính mới nhất, chế độ intraday/khung khác cũng chọn đủ sáu bản
-ngay tại đó; chart/I/P/T theo khung chọn, Alpha/prior/MT giữ ngữ cảnh ngày/T+2.5.
+Theo yêu cầu mới nhất, form chỉ còn một nguồn Realtime và khung 1D, sáu lựa
+chọn phiên bản; các bản nâng cấp hiện cùng tiến trình agent và bố cục kết quả
+Original, bổ sung giải thích BICL từ context/policy thực tế.
 Service/provider/UI đã đổi nên kiểm lại caller/PIT/recovery liên quan;
 gate ban đầu giữ làm lịch sử. Browser còn chờ, chưa hoàn tất/chưa merge.
 F12 chưa bắt đầu.
@@ -205,7 +206,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: hai chế độ realtime chọn đủ sáu bản; sửa guard 6.500 áp nhầm Original realtime và VNINDEX dùng ngày/Close. 100 Python + 20 DOM, compile14/JS3 PASS; probe giá thật snapshot200/C2 completed với model fixture. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: form chỉ Realtime/1D và sáu bản; bản nâng cấp dùng cùng overlay agent và cửa sổ kết quả Original, thêm BICL/context/policy. **103 Python + 19 DOM, compile12/JS6 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -693,6 +694,39 @@ Server `web_interface.py` không auto-reload: cần khởi động lại server 
 trang để dùng backend/JS mới. Hai ảnh người dùng sinh ngoài phạm vi task được giữ
 nguyên và không đưa vào commit. Diff, **193 liên kết/anchor local** và checklist
 được đối soát PASS.
+
+### Thu gọn F11 — Realtime 1D, cùng tiến trình và kết quả Original
+
+Theo yêu cầu mới nhất, nhánh `feat/realtime-daily-analysis` tạo từ develop
+`4de6d1aa`, nhận fast-forward nhánh F11 `6ba5cfea` để kế thừa sửa lỗi đã kiểm.
+
+- [x] **Analysis source** chỉ có **Realtime · intraday and other timeframes**; timeframe chỉ còn **1D**. Xóa phần form/handler as-of, daily riêng, capture thủ công, so sánh, repeats và cấu hình serving. Chọn một trong sáu bản rồi nhấn Phân tích; giữ ô mã/key/model hiện có của Original.
+- [x] Original giữ `/api/analyze`, ngôn ngữ VI/EN và kết quả đang hoạt động. Năm bản nâng cấp capture/preflight/create tự động rồi dùng cùng overlay, đọc trạng thái render/I/P/T/Alpha/context/Decision từ journal có checksum. Không giả tiến trình bằng timer; chỉ chuyển cửa sổ kết quả khi job hoàn tất. Double click, preflight blocked, capture error và UNKNOWN không gọi lại hoặc chuyển ngầm Original.
+- [x] Kết quả nâng cấp dùng lại `legacy_output.html` và CSS Original: decision, justification, indicator/Alpha/pattern/trend và ảnh của đúng snapshot. Thêm panel BICL: phương pháp, mã/ngày, prior và chế độ thị trường nếu có, ngữ cảnh/Fact Anchor/MT, baseline→final, raw/final/CASH, lý do fallback/bypass. Bản nâng cấp dùng common Alpha đúng nguồn Decision; không gán native Alpha thành context common.
+- [x] Projection chỉ đọc journal, không tính lại policy, model hoặc giá. GET/reload kiểm owner và một bản/một point/một repeat/1D hoàn tất. Không đọc ảnh global/session của job khác; báo cáo HTML/link model chỉ là văn bản trong renderer Markdown giới hạn, chi tiết context được escape.
+- [x] **103 Python + 19 DOM, compile12/JS6 PASS**. Chọn đúng suite caller/progress/projection/API/PIT/native bị ảnh hưởng; không chạy full unit/E2E/compileall. Không gọi thị trường/hosted LLM/HF hoặc refit HMM/student/bank. Kiểm cả sáu phương pháp qua provider thật và HTTP Groq fixture, cùng progress đang chạy, bố cục VI/EN và owner/reload.
+
+Lượt đầy đủ chạy 103 ca: 102 PASS, một test form cũ vẫn đòi `<option latest>`
+và nút capture vừa bị xóa theo yêu cầu. Sau lượt đó ứng dụng giữ nguyên byte;
+chỉ sửa assertion tại `tests/serving_live/test_live_api.py` và helper đóng gói.
+Chạy lại **đúng một ca form PASS**, không chạy lại 22 ca live hoặc các suite đã
+PASS. QA giữ nguyên log FAIL ban đầu, nguồn test cũ, binding ghi sau lượt đầu
+trước delta, danh sách ba file test/helper đổi và log delta; tổng là **103 ca
+Python duy nhất đã PASS**, không ghi thành đã chạy lại toàn bộ suite lần hai.
+Biên dịch 12 Python đổi so với `6ba5cfea`, syntax sáu JS; kiểm 18 leakage và
+11 native parity, 23 ca live cùng 10 ca page/projection, HTTP recovery/quota
+và hồi quy prompt/prior. Không thay mã ứng dụng trong delta assertion.
+
+- [ ] Kiểm trực quan desktop/mobile còn chờ: inventory browser tiếp tục báo `The browser access host is unavailable`. F11 chưa đóng/F12 chưa mở và chưa merge develop; không dùng DOM/HTML200 thay browser PASS.
+
+[Receipt v5](serving_integration_acceptance.json) dùng
+[QA giao diện 1D](serving_daily_analysis_checks.zip). QA sửa incident, đa khung,
+daily và tích hợp trước đó giữ nguyên byte; chúng mô tả nguồn/phạm vi cũ.
+API as-of/backtest và viewer nghiên cứu phục vụ các trang độc lập, không còn là
+chức năng/lựa chọn của form phân tích này. Native causal FAIL,
+whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận đóng không đổi.
+Server không auto-reload: khởi động lại server và tải lại trang để dùng bản mới.
+Diff, **198 liên kết/anchor local** và trạng thái checklist đã đối soát PASS.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

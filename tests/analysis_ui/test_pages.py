@@ -57,9 +57,15 @@ class AnalysisPages(unittest.TestCase):
             page = Page(response.get_data(as_text=True)); config = json.loads(page.config)
             self.assertEqual(config['language'],lang)
             self.assertEqual(config['messages'],messages(lang))
-            chosen = [a['value'] for tag,a in page.nodes if a.get('name') == 'compare-method' and 'checked' in a]
-            self.assertEqual(chosen,['original_fix','bayesian_v1'])
-            self.assertEqual(len([a for tag,a in page.nodes if a.get('name') == 'compare-method']),8)
+            self.assertNotIn('name="compare-method"',response.get_data(as_text=True))
+            self.assertNotIn('id="compareBtn"',response.get_data(as_text=True))
+            raw = response.get_data(as_text=True)
+            self.assertIn('<option value="legacy" selected>',raw)
+            self.assertNotIn('<option value="latest"',raw); self.assertNotIn('<option value="asof"',raw)
+            self.assertNotIn('id="asof-inputs"',raw)
+            self.assertEqual([a['data-tf'] for tag,a in page.nodes if 'data-tf' in a],['1d'])
+            self.assertEqual(len([a for tag,a in page.nodes if a.get('id') == 'step-bicl']),1)
+            self.assertEqual(raw.count('<option value='),7)
             self.assertIn('disabled',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
             self.assertNotIn('onclick',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
             for tag,attrs in page.nodes:

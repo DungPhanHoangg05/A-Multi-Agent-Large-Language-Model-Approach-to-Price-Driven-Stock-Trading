@@ -222,16 +222,17 @@ nếu phải đổi tài nguyên, version hóa bộ mới và giữ kết quả 
 
 ### 4.2. Luồng màn hình
 
-1. **Trang phân tích — `demo_new.html`:** giữ form mã/khung/ngôn ngữ và cấu
-   hình hiện có; thêm lựa chọn phiên bản kèm mô tả ngắn, thông tin khả dụng,
-   nút “Phân tích” và “So sánh phiên bản”. Mặc định hệ gốc. Với so sánh, chọn
-   ít nhất hai phiên bản, mặc định hệ gốc + một mở rộng; cấu hình nâng cao thu
-   gọn, không nhét runtime hashes vào form chính.
-2. **Kết quả — `output.html`:** giữ các báo cáo agent/chart chung; thêm tên
-   phiên bản, thời điểm dữ liệu, dự báo LONG/SHORT, hành động LONG/CASH, lý do,
-   fallback/bypass. So sánh đặt các quyết định cạnh nhau dưới cùng chart/input,
-   có phần xem chi tiết khác biệt context. Ngày chưa có giá thoát chỉ có
-   quyết định; P&L/đúng-sai hiển thị “Chưa có kết quả”, không dùng giá tương lai.
+1. **Trang phân tích — `demo_new.html`:** theo yêu cầu mới nhất chỉ có nguồn
+   Realtime · intraday and other timeframes, duy nhất 1D và sáu lựa chọn phiên bản.
+   Chọn mã/bản rồi Phân tích; bỏ form as-of/daily riêng và so sánh. Mọi bản hiện
+   cùng overlay từng agent rồi mở cùng bố cục kết quả Original; bản nâng cấp
+   bổ sung BICL/context/policy. Original giữ pipeline/ngôn ngữ hiện tại;
+   năm bản nâng cấp giữ miền tài nguyên chín mã và báo cáo VI.
+2. **Kết quả — `output.html`:** giữ bố cục Original cho decision, lý do,
+   báo cáo agent và ảnh của đúng snapshot. Bản nâng cấp thêm panel BICL với
+   phương pháp/context/prior, baseline→final, raw/final/LONG/CASH và lý do
+   fallback/bypass. Chỉ mở khi phân tích hoàn tất; GET/reload kiểm owner và
+   không gọi model. Không tạo P&L/đúng-sai query khi chưa có giá thoát.
 3. **Backtest — `backtest.html`:** cấu hình cùng cửa sổ ngày/mã và danh sách
    phiên bản; bảng và series sinh từ IDs. Giữ khả năng đọc kết quả Full/Base
    cũ bằng adapter riêng, không đổi `no_alpha` thành `original_common`.
@@ -375,7 +376,10 @@ cho lịch/HMM thay vì chặn vì OHLC không được dùng. **100 Python + 20
 compile14/JS3 PASS**, 18 leakage/11 native parity. Probe giá thật FPT ngày
 13/11: snapshot200/preflight ready/C2 completed, HTTP model fixture và tin tắt;
 không phải dự báo thật. [QA sửa realtime](serving_realtime_repair_checks.zip)
-khóa kết quả mới, QA trước đó giữ nguyên làm lịch sử.
+khóa kết quả mới, QA trước đó giữ nguyên làm lịch sử. Yêu cầu UI tiếp theo
+thu gọn form còn một nguồn Realtime/1D; năm bản nâng cấp dùng cùng overlay và
+cửa sổ Original, thêm BICL đọc từ context/policy. **103 Python + 19 DOM, compile12/JS6 PASS**;
+[QA giao diện 1D](serving_daily_analysis_checks.zip) khóa phạm vi mới.
 [Receipt F11](serving_integration_acceptance.json) giữ
 `OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
 và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
@@ -397,7 +401,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Đang làm | Nghiệm thu tích hợp và chọn phiên bản realtime — `test/variant-serving-integration` | F07–F10 | Cả nguồn phiên ngày và intraday/khung khác chọn sáu bản; chart/I/P/T theo khung chọn, ngữ cảnh Alpha/prior/MT ngày/T+2.5; snapshot/owner/key/quota/checkpoint dùng chung hợp đồng; sửa guard Original realtime và VNINDEX ngày/Close; 100 Python + 20 DOM, compile14/JS3 PASS, probe giá thật/model fixture. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
+| F11 | ☐ Đang làm | Nghiệm thu tích hợp và form realtime 1D — `feat/realtime-daily-analysis` | F07–F10 | Chỉ một nguồn Realtime/1D, sáu bản; cùng overlay từng agent và bố cục Original, thêm BICL/context/policy. **103 Python + 19 DOM, compile12/JS6 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy

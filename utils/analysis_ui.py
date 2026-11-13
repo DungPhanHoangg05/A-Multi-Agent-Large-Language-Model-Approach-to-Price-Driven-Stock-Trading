@@ -6,6 +6,17 @@ def messages(language: str) -> dict[str, str]:
     """Không nạp graph/resource hoặc gọi API khi render trang."""
     labels = {
         'source': ('Nguồn phân tích', 'Analysis source'),
+        'daily_note': ('Phân tích realtime khung 1D. Chọn một phiên bản rồi nhấn Phân tích; các bản nâng cấp hiện tạo báo cáo tiếng Việt cho 9 mã được hỗ trợ.', 'Realtime analysis on the 1D timeframe. Select a version, then Analyze; upgraded versions currently produce Vietnamese reports for 9 supported symbols.'),
+        'bicl_step': ('BICL · truy xuất và phân tích ngữ cảnh', 'BICL · context retrieval and analysis'),
+        'bicl_title': ('BICL đã được áp dụng như thế nào?', 'How was BICL applied?'),
+        'bicl_policy': ('Kết quả áp dụng', 'Application result'),
+        'bicl_context': ('Ngữ cảnh thực tế của lần phân tích', 'Context used in this analysis'),
+        'bicl_raw': ('Đề xuất model / quyết định cuối', 'Model proposal / final decision'),
+        'bicl_baseline': ('Baseline chung → quyết định cuối', 'Common baseline → final decision'),
+        'bicl_closed': ('Phiên thoát chu kỳ lịch sử', 'Historical cycle exit date'),
+        'bicl_prior': ('Prior và thống kê đã truy xuất', 'Retrieved priors and statistics'),
+        'bicl_facts': ('Fact Anchor và ngữ cảnh đa nhiệm', 'Fact Anchor and multi-task context'),
+        'bicl_details': ('Chi tiết ngữ cảnh và policy', 'Context and policy details'),
         'asof': ('As-of · dữ liệu đã đóng băng', 'As-of · frozen data'),
         'latest': ('Realtime · phiên ngày hoàn tất mới nhất', 'Realtime · latest completed daily session'),
         'legacy': ('Realtime · intraday và các khung thời gian', 'Realtime · intraday and other timeframes'),

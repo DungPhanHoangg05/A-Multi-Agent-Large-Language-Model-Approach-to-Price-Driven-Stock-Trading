@@ -14,8 +14,10 @@ const {resultController} = await import('../../static/js/analysis/result.js');
 const root = fileURLToPath(new URL('../../',import.meta.url));
 const fixture = JSON.parse(execFileSync('py',['-3.13','-X','utf8','tests/analysis_ui/fixture.py'],{cwd:root,encoding:'utf8'}));
 let nodes, selected, events, legacyRuns, legacyLoads;
+const {followAnalysis,showAgentProgress} = await import('../../static/js/analysis/progress.js');
+const {renderReport} = await import('../../static/js/analysis/report.js');
 class Element {
-  constructor(tag) { this.tag = tag; this.children = []; this.attributes = {}; this.listeners = {}; this.dataset = {}; this.disabled = false; this.hidden = false; this.value = ''; }
+  constructor(tag) { this.tag = tag; this.children = []; this.attributes = {}; this.listeners = {}; this.dataset = {}; this.disabled = false; this.hidden = false; this.value = ''; this.classes = new Set(); this.classList = {toggle:(key,on) => on ? this.classes.add(key) : this.classes.delete(key)}; }
   set id(value) { this._id = value; nodes?.set(value,this); }
   get id() { return this._id; }
   set textContent(value) { this.text = String(value); this.children = []; }
@@ -38,7 +40,7 @@ beforeEach(() => {
     querySelectorAll:selector => selector.includes(':checked') ? selected.map(value => ({value})) : [],
   };
   globalThis.localStorage = {setItem(){},getItem:() => null};
-  globalThis.window = {legacyAnalysis:{run:() => legacyRuns++,load:() => legacyLoads++,selection:() => ({symbol:'MWG',timeframe:'5m'})}};
+  globalThis.window = {legacyAnalysis:{run:() => { legacyRuns++; events['analysis-legacy-start']?.(); },begin:() => { events['analysis-legacy-start']?.(); return true; },end:() => events['analysis-legacy-end']?.(),load:() => legacyLoads++,selection:() => ({symbol:'MWG',timeframe:'1d'})}};
   for (const [id,value] of Object.entries({'analysis-source':'asof','analysis-version':'original_fix','asof-symbol':'MWG',
     'asof-date':'2026-07-02','report-language':'vi','analysis-repeats':'1'})) node(id).value = value;
 });
@@ -100,52 +102,6 @@ test('UI tiếng Anh giữ nguyên báo cáo VI và không diễn giải confide
   assert.match(node('decision-cards').textContent,/Original/); assert.match(node('decision-cards').textContent,/No outcome yet/);
   assert.match(node('shared-reports').textContent,/Báo cáo synthetic/); assert.doesNotMatch(node('decision-cards').textContent,/100%/);
 });
-test('Preflight ready chạy đúng request sáu bản, giữ model đã check và chỉ tạo một job', async () => {
-  const calls = [], routes = [];
-  const io = async (url,body) => { calls.push({url,body}); return url.endsWith('/defaults') ? {models:fixture.data.identity.request.models} :
-    url.endsWith('/jobs') ? {run_id:fixture.data.run_id} : ready; };
-  const form = formController(fixture.config,io,url => routes.push(url)); await form.init();
-  selected = [...fixture.data.requested_ids]; form.invalidate(); await form.check();
-  node('decision-temperature').value = .7;
-  await Promise.all([form.start('compare'),form.start('compare')]);
-  const jobs = calls.filter(row => row.url.endsWith('/jobs'));
-  assert.equal(jobs.length,1); assert.deepEqual(jobs[0].body.variant_ids,fixture.data.requested_ids);
-  assert.equal(jobs[0].body.models.decision.options.temperature,0); assert.equal(jobs[0].body.mode,'compare');
-  assert.match(routes[0],/serving_run=12345678/); assert.equal(legacyRuns,0);
-});
-test('Đổi form hủy grant, response preflight cũ không bật lại nút; thiếu resource giữ disabled', async () => {
-  const pending = [];
-  const io = async (url,body,signal) => url.endsWith('/defaults') ? {models:fixture.data.identity.request.models} :
-    new Promise(resolve => pending.push({resolve,signal,body}));
-  const form = formController(fixture.config,io); const initial = form.init(); await flush();
-  assert.equal(pending.length,2); node('analysis-version').value = 'MT_BICL'; form.invalidate();
-  const current = form.check(); assert.ok(pending[0].signal.aborted);
-  pending[2].resolve({run_enabled:false,status:'blocked',blockers:[{code:'RESOURCES_NOT_READY'}]});
-  pending[3].resolve({run_enabled:false,status:'blocked',blockers:[{code:'RESOURCES_NOT_READY'}]}); await current;
-  pending[0].resolve(ready); pending[1].resolve(ready); await initial;
-  assert.equal(node('analyzeBtn').disabled,true); assert.equal(node('compareBtn').disabled,true);
-  assert.match(node('preflight-status').textContent,/Resource/);
-});
-test('Compare thiếu lựa chọn bị khóa riêng; legacy chỉ gọi native, không gửi variants giả', async () => {
-  selected = ['MT_BICL']; const calls = [];
-  const form = formController(fixture.config,async(url,body) => { calls.push({url,body}); return url.endsWith('/defaults') ? {models:fixture.data.identity.request.models} : ready; });
-  await form.init(); assert.equal(node('compareBtn').disabled,true); assert.equal(node('analyzeBtn').disabled,false);
-  node('analysis-source').value = 'legacy'; node('analysis-version').value = 'original_fix'; form.source();
-  await form.start('analyze'); await form.start('compare');
-  assert.equal(legacyRuns,1); assert.equal(legacyLoads,1); assert.equal(node('asof-inputs').hidden,true);
-  assert.equal(calls.filter(row => row.url.endsWith('/jobs')).length,0);
-  events['analysis-legacy-start'](); assert.equal(node('analysis-source').disabled,true);
-  events['analysis-legacy-end'](); assert.equal(node('analysis-source').disabled,false);
-});
-test('Lỗi POST start mơ hồ không retry; nút chạy giữ khóa tới check/input mới', async () => {
-  let jobs = 0;
-  const form = formController(fixture.config,async url => {
-    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-    if (url.endsWith('/jobs')) { jobs++; throw new Error('offline'); } return ready;
-  });
-  await form.init(); await form.start('analyze'); await form.start('analyze');
-  assert.equal(jobs,1); assert.equal(node('analyzeBtn').disabled,true); assert.match(node('serving-form-error').textContent,/Không tự gửi lại/);
-});
 test('Poll/reload chỉ GET; stop/resume body rỗng và UNKNOWN không tự retry', async () => {
   const calls = [], scheduled = [];
   const data = structuredClone(fixture.data); data.state = 'running'; data.worker_alive = true;
@@ -170,52 +126,6 @@ test('ID trên URL không hợp lệ bị từ chối trước API, reload khôn
   let calls = 0;
   const controller = resultController({...fixture.config,runId:'../other'},async () => { calls++; return fixture.data; });
   await controller.init(); assert.equal(calls,0); assert.equal(node('resume-job').disabled,true);
-});
-
-test('Latest phân tích một bản nâng cấp trên snapshot mới, giữ IDs/options đã preflight', async () => {
-  node('analysis-source').value = 'latest'; node('analysis-version').value = 'MT_BICL';
-  const calls = [], routes = [];
-  const snapshot = {symbol:'MWG',cutoff:'2026-11-12',snapshot_id:'a'.repeat(64),price_rows:2000,captured_at:'2026-11-13T10:00:00+07:00'};
-  const form = formController(fixture.config,async (url,body) => {
-    calls.push({url,body});
-    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-    if (url.endsWith('/snapshot')) return snapshot;
-    if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
-    return ready;
-  },url => routes.push(url));
-  await form.init(); assert.equal(node('analyzeBtn').disabled,true);
-  await form.start('analyze'); assert.equal(calls.filter(c => c.url.endsWith('/jobs')).length,0);
-  await form.capture(); assert.equal(node('analyzeBtn').disabled,false);
-  node('decision-temperature').value = 1.;
-  await form.start('analyze');
-  const sent = calls.find(c => c.url.endsWith('/jobs'));
-  assert.equal(sent.url,'/api/serving/live/v1/jobs');
-  assert.equal(sent.body.snapshot_id,snapshot.snapshot_id);
-  assert.deepEqual(sent.body.request.variant_ids,['MT_BICL']);
-  assert.equal(sent.body.request.mode,'analyze'); assert.equal(sent.body.request.start_date,'2026-11-12');
-  assert.equal(sent.body.request.models.decision.options.temperature,0);
-  assert.match(routes[0],/serving_source=live/); assert.equal(legacyRuns,0);
-  assert.equal(node('asof-inputs').hidden,false); assert.equal(node('asof-date').disabled,true);
-});
-
-test('Đổi mã hủy capture cũ, lỗi thị trường không cho chạy và không fallback về dữ liệu frozen', async () => {
-  node('analysis-source').value = 'latest'; let resolve, signal;
-  const form = formController(fixture.config,async (url,body,current) => {
-    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-    if (url.endsWith('/snapshot')) { signal = current; return new Promise(done => resolve = done); }
-    throw new Error('Không được preflight hoặc start khi capture chưa hợp lệ');
-  });
-  await form.init(); const pending = form.capture();
-  node('asof-symbol').value = 'FPT'; form.invalidate();
-  assert.equal(signal.aborted,true);
-  resolve({symbol:'MWG',cutoff:'2026-11-12',snapshot_id:'b'.repeat(64)}); await pending;
-  assert.equal(node('analyzeBtn').disabled,true); assert.equal(node('compareBtn').disabled,true);
-  const failed = formController(fixture.config,async url => {
-    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-    throw new Error('market unavailable');
-  });
-  await failed.init(); await failed.capture();
-  assert.match(node('serving-form-error').textContent,/chưa gọi LLM/); assert.equal(node('analyzeBtn').disabled,true);
 });
 
 test('Reload kết quả live chỉ đọc đúng namespace, giữ nguồn và thời điểm capture', async () => {
@@ -244,45 +154,6 @@ test('Poll trạng thái intraday chỉ chạy khi đang chọn nguồn legacy, 
   mockDocument.getElementById('analysis-source').value = 'legacy'; heartbeat(); assert.deepEqual(calls,['/api/realtime-status']);
 });
 
-test('Chế độ intraday cho chọn từng bản nâng cấp, gửi đúng mã/khung/phiên bản thay vì native legacy', async () => {
-  for (const variant of ['bayesian_v1','C2','A_tp_pool','B_semantic','MT_BICL']) {
-    node('analysis-source').value = 'legacy'; node('analysis-version').value = variant;
-    const calls = [],routes = [];
-    const form = formController(fixture.config,async (url,body) => {
-      calls.push({url,body});
-      if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-      if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'5m',snapshot_id:'c'.repeat(64)};
-      if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
-      return ready;
-    },url => routes.push(url));
-    await form.init(); await Promise.all([form.start('analyze'),form.start('analyze')]);
-    const capture = calls.find(call => call.url.endsWith('/snapshot'));
-    assert.deepEqual(capture.body,{symbol:'MWG',timeframe:'5m'});
-    const jobs = calls.filter(call => call.url.endsWith('/jobs'));
-    assert.equal(jobs.length,1); assert.equal(jobs[0].body.version,'variant_serving_timeframe_v1');
-    assert.deepEqual(jobs[0].body.request.variant_ids,[variant]); assert.equal(jobs[0].body.chart_timeframe,'5m');
-    assert.match(routes[0],/serving_source=live/);
-    assert.equal(node('analysis-version').disabled,false); assert.equal(node('legacy-inputs').inert,false);
-  }
-  assert.equal(legacyRuns,0);
-});
-
-test('Thiếu mã, lỗi capture hoặc preflight blocked trong intraday không chuyển sang Original', async () => {
-  node('analysis-source').value = 'legacy'; node('analysis-version').value = 'MT_BICL';
-  window.legacyAnalysis.selection = () => ({symbol:'',timeframe:'1h'});
-  let jobs = 0;
-  const form = formController(fixture.config,async url => {
-    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-    if (url.endsWith('/jobs')) jobs++;
-    throw new Error('fixture');
-  });
-  await form.init(); await form.start('analyze');
-  assert.match(node('timeframe-run-status').textContent,/chọn mã/);
-  window.legacyAnalysis.selection = () => ({symbol:'MWG',timeframe:'1h'});
-  await form.start('analyze'); assert.equal(jobs,0); assert.equal(legacyRuns,0);
-  assert.match(node('timeframe-run-status').textContent,/chưa gọi LLM/);
-});
-
 test('Chart kết quả intraday giữ đúng timestamp và nhãn 5m, không đổi thành đường daily', () => {
   const data = structuredClone(fixture.data);
   data.identity.request.chart_timeframe = '5m'; data.identity.request.data_source = 'live';
@@ -305,4 +176,113 @@ test('Capture lỗi trả đúng VNINDEX/giai đoạn trong UI, không che thàn
   const form = formController(fixture.config,io); await form.init(); await form.start('analyze');
   assert.match(node('timeframe-run-status').textContent,/VNINDEX.*CAPTURE_INDEX_DAILY.*index.daily/);
   assert.equal(calls.filter(url => url.endsWith('/jobs')).length,0); assert.equal(legacyRuns,0);
+});
+
+test('Form chỉ realtime; Original vẫn dùng pipeline cũ và không cần defaults thành công', async () => {
+  const form = formController(fixture.config,async () => { throw new Error('offline'); });
+  await form.init();
+  assert.equal(node('analysis-source').value,'legacy'); assert.equal(legacyLoads,1);
+  assert.equal(node('legacy-inputs').hidden,false); assert.equal(node('analyzeBtn').disabled,false);
+  await form.start('compare'); assert.equal(legacyRuns,0);
+  await form.start(); assert.equal(legacyRuns,1);
+  assert.equal(node('analysis-version').disabled,true);
+});
+
+test('Năm bản nâng cấp chờ từng agent hoàn tất rồi mở cùng bố cục Original; double click chỉ tạo một job', async () => {
+  for (const variant of ['bayesian_v1','C2','A_tp_pool','B_semantic','MT_BICL']) {
+    node('analysis-version').value = variant;
+    const calls = [],routes = []; let polls = 0;
+    const io = async (url,body) => {
+      calls.push({url,body});
+      if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+      if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'1d',snapshot_id:'c'.repeat(64)};
+      if (url.endsWith('/preflight')) return ready;
+      if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
+      assert.equal(routes.length,0);
+      const result = structuredClone(fixture.data); result.identity.request.mode = 'analyze';
+      result.state = ++polls === 1 ? 'running' : 'completed'; result.worker_alive = polls === 1;
+      result.agent_progress = {loading:'complete',indicator:'complete',pattern:'complete',trend:'complete',alpha:'complete',context:'complete',decision:polls===1 ? 'running' : 'complete'};
+      return result;
+    };
+    const form = formController(fixture.config,io,url => routes.push(url),async () => {});
+    await form.init(); await Promise.all([form.start(),form.start()]);
+    const jobs = calls.filter(call => call.url.endsWith('/jobs'));
+    assert.equal(jobs.length,1); assert.deepEqual(jobs[0].body.request.variant_ids,[variant]);
+    assert.equal(jobs[0].body.chart_timeframe,'1d'); assert.equal(jobs[0].body.request.repeats,1);
+    assert.equal(polls,2); assert.match(routes[0],/presentation=analysis/);
+    assert.ok(node('step6').classes.has('done')); assert.equal(node('analysis-version').disabled,false);
+  }
+  assert.equal(legacyRuns,0);
+});
+
+test('Tiến trình phản ánh checkpoint và quota; UNKNOWN không redirect hoặc gửi lại', async () => {
+  const data = structuredClone(fixture.data); data.identity.request.mode = 'analyze';
+  data.state = 'unknown'; data.agent_progress = {indicator:'complete',pattern:'running',trend:'pending'};
+  data.retry_at = 1000000;
+  showAgentProgress(data,fixture.config);
+  assert.ok(node('step2').classes.has('done')); assert.ok(node('step3').classes.has('active'));
+  assert.ok(!node('step4').classes.has('done')); assert.match(node('analysis-progress-message').textContent,/Chờ đến/);
+  const calls = [];
+  await assert.rejects(followAnalysis(fixture.config,data.run_id,async (url,body) => { calls.push({url,body}); return data; },() => {}),/UUID/);
+  assert.equal(calls.length,1); assert.equal(calls[0].body,undefined);
+});
+
+test('POST tạo job mơ hồ khóa gửi lại; capture/preflight không rơi sang Original', async () => {
+  node('analysis-version').value = 'C2'; let jobs = 0;
+  const form = formController(fixture.config,async url => {
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'1d',snapshot_id:'c'.repeat(64)};
+    if (url.endsWith('/preflight')) return ready;
+    jobs++; throw new Error('offline');
+  });
+  await form.init(); await form.start(); await form.start();
+  assert.equal(jobs,1); assert.equal(legacyRuns,0); assert.equal(node('analyzeBtn').disabled,true);
+  assert.match(node('timeframe-run-status').textContent,/Không tự gửi lại/);
+});
+
+test('Báo cáo ở bố cục Original giữ bold/bảng nhưng không thực thi HTML/link model', () => {
+  const target = new Element('div');
+  renderReport(target,'## Báo cáo\n**LONG** và `<script>`\n| Tên | Giá |\n|---|---|\n| FPT | 100 |\n<img src=x onerror=attack()>\n- [link](javascript:attack())');
+  assert.match(target.textContent,/LONG/); assert.match(target.textContent,/<img src=x/);
+  assert.match(target.textContent,/javascript:attack/);
+  assert.ok(target.children.some(child => child.tag==='h4'));
+  assert.ok(target.children.some(child => child.children.some(node => node.tag==='table')));
+  const tags = parent => [parent.tag,...parent.children.flatMap(child => tags(child))];
+  assert.ok(!tags(target).includes('img')); assert.ok(!tags(target).includes('script')); assert.ok(!tags(target).includes('a'));
+});
+
+test('Preflight blocked giữ lỗi resource, không gọi model hoặc chuyển về Original', async () => {
+  node('analysis-version').value = 'MT_BICL'; const calls = [];
+  const form = formController(fixture.config,async url => {
+    calls.push(url);
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'1d',snapshot_id:'c'.repeat(64)};
+    return {run_enabled:false,status:'blocked',blockers:[{code:'RESOURCES_NOT_READY'}]};
+  });
+  await form.init(); await form.start();
+  assert.match(node('timeframe-run-status').textContent,/Resource/);
+  assert.equal(calls.filter(url => url.endsWith('/jobs')).length,0); assert.equal(legacyRuns,0);
+});
+
+test('Overlay Original giữ thứ tự agent và gửi 1D; bản nâng cấp đổi đúng nhãn và thêm BICL', () => {
+  const registry = new Map(),calls = [],dispatched = [];
+  const mockDocument = {addEventListener(){},dispatchEvent:event => dispatched.push(event.type),getElementById(id) {
+    if (!registry.has(id)) {
+      const classes = new Set();
+      const item = {textContent:'',innerHTML:'',value:'',disabled:false,hidden:false,
+        classList:{add:key => classes.add(key),remove:(...keys) => keys.forEach(key => classes.delete(key))},querySelector:() => item.label};
+      item.label = {textContent:''}; registry.set(id,item);
+    }
+    return registry.get(id);
+  }};
+  mockDocument.getElementById('legacy-config').textContent = JSON.stringify({messages:{load_step3:'Alpha',load_step4:'Pattern',load_step5:'Trend'},language:'en'});
+  const context = {document:mockDocument,window:{},Event:class {constructor(type){this.type=type;}},
+    fetch:(url,body) => { calls.push({url,body}); return new Promise(() => {}); }};
+  runInNewContext(readFileSync(root+'/static/js/analysis/legacy_form.js','utf8')+"\nmaDaChon='FPT'; keyDaLuu=true;",context);
+  context.window.legacyAnalysis.begin(true);
+  assert.equal(registry.get('step3').label.textContent,'Pattern'); assert.equal(registry.get('step-bicl').hidden,false);
+  context.window.legacyAnalysis.end(); context.window.legacyAnalysis.run();
+  assert.equal(registry.get('step3').label.textContent,'Alpha'); assert.equal(registry.get('step-bicl').hidden,true);
+  assert.equal(calls[0].url,'/api/analyze'); assert.equal(JSON.parse(calls[0].body.body).timeframe,'1d');
+  assert.equal(JSON.parse(calls[0].body.body).language,'en'); assert.ok(dispatched.includes('analysis-legacy-end'));
 });

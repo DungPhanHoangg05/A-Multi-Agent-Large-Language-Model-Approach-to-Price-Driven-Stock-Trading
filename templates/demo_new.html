@@ -18,7 +18,7 @@
         <div class="loading-card">
             <div class="loading-spinner"></div>
             <h3>{{ T.loading_title }}</h3>
-            <p>{{ T.loading_sub }}</p>
+            <p id="analysis-progress-message" role="status" aria-live="polite">{{ T.loading_sub }}</p>
             <div class="loading-steps">
                 <div class="loading-step" id="step1">
                     <div class="step-dot"></div> <span id="step1Text">{{ T.load_step1 }}</span>
@@ -37,6 +37,9 @@
                 </div>
                 <div class="loading-step" id="step6">
                     <div class="step-dot"></div> <span>{{ T.load_step6 }}</span>
+                </div>
+                <div class="loading-step" id="step-bicl" hidden>
+                    <div class="step-dot"></div> <span>{{ A.bicl_step }}</span>
                 </div>
             </div>
         </div>
@@ -156,20 +159,8 @@
 
                             <div class="timeframe-selector">
                                 <div class="tf-btn-row">
-                                    <button class="tf-btn" data-tf="5m" data-label="{{ T.tf_5m }}"
-                                        data-desc="{{ T.tf_desc_5m }}">5m</button>
-                                    <button class="tf-btn" data-tf="15m" data-label="{{ T.tf_15m }}"
-                                        data-desc="{{ T.tf_desc_15m }}">15m</button>
-                                    <button class="tf-btn" data-tf="30m" data-label="{{ T.tf_30m }}"
-                                        data-desc="{{ T.tf_desc_30m }}">30m</button>
-                                    <button class="tf-btn" data-tf="1h" data-label="{{ T.tf_1h }}"
-                                        data-desc="{{ T.tf_desc_1h }}">1h</button>
                                     <button class="tf-btn active" data-tf="1d" data-label="{{ T.tf_1d }}"
                                         data-desc="{{ T.tf_desc_1d }}">1D</button>
-                                    <button class="tf-btn" data-tf="1w" data-label="{{ T.tf_1w }}"
-                                        data-desc="{{ T.tf_desc_1w }}">1W</button>
-                                    <button class="tf-btn" data-tf="1mo" data-label="{{ T.tf_1mo }}"
-                                        data-desc="{{ T.tf_desc_1mo }}">1M</button>
                                 </div>
                             </div>
 
@@ -287,7 +278,6 @@
                         {{ T.run_analysis }}
                         <i class="fas fa-arrow-right"></i>
                     </button>
-                    <button class="btn-run serving-compare" id="compareBtn" type="button" disabled>{{ A.compare }}</button>
                 </div>
             </div>
         </div>
