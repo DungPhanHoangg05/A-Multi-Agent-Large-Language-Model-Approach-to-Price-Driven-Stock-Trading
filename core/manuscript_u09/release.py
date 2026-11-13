@@ -15,7 +15,8 @@ from core.manuscript_u09.sources import (ACCEPTANCE, PACKAGE, PREFIX, binding, d
     encoded, load, require, safe_name, semantic)
 
 RELEASE = "outputs/revision/u09_manuscript_assets_v1"
-INSTALL = "paper/generated/u09"
+INSTALL = "paper/content/tables/historical_context"
+INSTALL_FILENAMES = {"sensitivity_core4.tex": "sensitivity_covered.tex"}
 SOURCES = ("core/manuscript_u09/.gitattributes", "core/manuscript_u09/__init__.py",
     "core/manuscript_u09/sources.py", "core/manuscript_u09/render.py", "core/manuscript_u09/release.py",
     "scripts/manuscript_u09/.gitattributes", "scripts/manuscript_u09/run.py",
@@ -61,14 +62,16 @@ def build(root: Path, release: str = RELEASE, *, artifact_only: bool = False) ->
     require(artifact_only or all(not p.is_symlink() for p in (installed, *installed.parents)), "Paper đi qua symlink")
     bundle = load(root)
     outputs = render(bundle)
-    installed_names = [name for name in outputs if Path(name).suffix in (".tex", ".png", ".svg")]
+    installed_names = [name for name in outputs if Path(name).suffix == ".tex"]
+    install_files = {name: INSTALL_FILENAMES.get(name, name) for name in installed_names}
     manifest = {"version": "u09_manuscript_assets_v1", "status": "PASS_U09_MANUSCRIPT_ASSETS",
         "study_id": "unified_u08_u09_r1", "generator_source_commit": commit(root),
         "historical_source_commit": bundle["historical_source_commit"], "sources": sources(root),
         "inputs": bundle["input_bindings"], "input_identity": bundle["result"]["input_identity"],
         "acceptance": ACCEPTANCE, "historical_gate": "F01_PASS_U09_COLD_REPLAY_729_SOURCES_15_ARTIFACTS",
         "runtime": runtime(), "outputs": {name: binding(raw) for name, raw in outputs.items()},
-        "installation": {"namespace": INSTALL, "enabled": not artifact_only, "members": installed_names},
+        "installation": {"namespace": INSTALL, "enabled": not artifact_only, "members": installed_names,
+                         "filenames": install_files},
         "numeric_lineage": "numeric_cells.json",
         "derived_support": {"definition": "COUNT_FROZEN_SHARED_AND_PREDICTIONS_ONLY_NO_NEW_METRICS",
             "predictions": {"package": PACKAGE, "member": PREFIX+"predictions.csv"},
@@ -92,7 +95,7 @@ def build(root: Path, release: str = RELEASE, *, artifact_only: bool = False) ->
             install_stage = Path(temporary) / "install"
             install_stage.mkdir()
             for name in installed_names:
-                shutil.copyfile(stage / "artifacts" / name, install_stage / name)
+                shutil.copyfile(stage / "artifacts" / name, install_stage / install_files[name])
             installed.parent.mkdir(parents=True, exist_ok=True)
         os.rename(stage, folder)
         if not artifact_only:
@@ -119,10 +122,11 @@ def verify(root: Path, release: str = RELEASE) -> dict[str, Any]:
     if manifest["installation"]["enabled"]:
         installed = root / INSTALL
         names = manifest["installation"]["members"]
-        require({p.relative_to(installed).as_posix() for p in installed.rglob("*") if p.is_file()} == set(names),
+        filenames = manifest["installation"].get("filenames", {name: name for name in names})
+        require({p.relative_to(installed).as_posix() for p in installed.rglob("*") if p.is_file()} == set(filenames.values()),
             "Paper U09 thừa/thiếu file")
         for name in names:
-            require(binding((installed / safe_name(name)).read_bytes()) == expected[name], "Paper U09 khác release: " + name)
+            require(binding((installed / safe_name(filenames[name])).read_bytes()) == expected[name], "Paper U09 khác release: " + name)
     bundle = load(root)
     require(bundle["input_bindings"] == manifest["inputs"]
         and bundle["result"]["input_identity"] == manifest["input_identity"], "Input identity khác release")

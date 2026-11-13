@@ -1,0 +1,25 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Mean risk, exposure and trading costs of historical-context accounts.}
+\label{tab:u09-economics}
+\textbf{Mean account quantities}\par\smallskip
+\begin{tabular}{lrrrrrr}
+\hline
+Role & EOD MDD (\%) & Cycle MDD (\%) & Held (\%) & Fees (kVND) & Slip. (kVND) & Turnover/$C_0$ \\
+\hline
+Native & 1.186 & 0.963 & 2.22 & 111.782 & 44.713 & 0.894 \\
+Common & 1.647 & 1.323 & 2.83 & 142.223 & 56.889 & 1.138 \\
+Bayesian & 1.321 & 1.011 & 2.35 & 118.286 & 47.314 & 0.946 \\
+Conditional & 1.653 & 1.329 & 2.86 & 143.837 & 57.534 & 1.151 \\
+Trend--pattern & 1.642 & 1.318 & 2.80 & 140.610 & 56.244 & 1.125 \\
+Explicit counts & 1.653 & 1.329 & 2.86 & 143.837 & 57.534 & 1.151 \\
+MT-BICL & 1.853 & 1.607 & 3.38 & 169.159 & 67.663 & 1.353 \\
+Fact anchor & 1.883 & 1.640 & 3.44 & 172.300 & 68.920 & 1.378 \\
+CASH & 0.000 & 0.000 & 0.00 & 0.000 & 0.000 & 0.000 \\
+Always-LONG & 4.523 & 3.903 & 9.84 & 493.251 & 197.300 & 3.946 \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize Accounts start at VND50 million with 0.25\% fees and 0.10\% slippage per leg; Held includes observed sessions between queries.\end{minipage}
+\end{table}

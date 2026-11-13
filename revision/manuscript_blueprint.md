@@ -46,7 +46,7 @@ Section 3 nêu causal FAIL và thiếu validation ngay khi mô tả phương ph�
 
 ## Sáu bảng chính
 
-Các captions dưới đây là nội dung đã chọn để triển khai ở T32. IDs T1–T6 là design IDs; số Table cuối do LaTeX sinh sau khi bố trí. Dữ liệu, masks và expected row counts nằm trong [layout.json](../outputs/revision/manuscript_blueprint_v1/layout.json).
+Các captions dưới đây là nội dung đã chọn để triển khai ở T32. IDs T1–T6 là design IDs; số Table cuối do LaTeX sinh sau khi bố trí. Dữ liệu, masks và expected row counts nằm trong [layout.json](../docs/plan/revision_evidence/README.md#manuscript_blueprint_v1).
 
 **T1 — Evaluation scope and prompt variants.** Section 5; hai panels. Panel A có ba rows main/upstream/factorial với units, symbols, dates, blocks, classes và executions. Main: 102 units, 204 Decisions; upstream: 9 units ×2 variants ×3 realizations =54 Decisions, trong đó 18 r0 đã thuộc main, chỉ 36 bổ sung; factorial: 9 units ×5 variants ×3 repeats =135 Decisions. Union là **375**, không cộng 204+54+135. Panel B có B/A/S/AS/P, sections present và prompt family; Base không alpha lẫn sentiment. Ghi main compact khác factorial explicit five-row, placebo giữ schema/current sentiment và dùng một past train-only rank vector. Caption: *Evaluation scopes and prompt variants in the frozen historical study. Shared main/upstream executions are counted once.*
 
@@ -97,7 +97,7 @@ Trong main chỉ giữ model aliases đúng raw, configured/observed temperature
 ## Quy tắc triển khai và kiểm chứng
 
 1. T32 sửa cả hai entrypoints/shared sections/bibliography/figures theo cùng content contract. T21 quản lý reference identity và câu dẫn; số citations reviewer đọc phải đối chiếu, không map theo thứ tự BibTeX hiện tại.
-2. T29 crosswalk 87 yêu cầu vẫn là nguồn hành động; [coverage.json](../outputs/revision/manuscript_blueprint_v1/coverage.json) ánh xạ từng ID sang section/table/supplement hoặc dependency T33/T34/T35. Ánh xạ không đóng reviewer hoặc xác nhận metadata/PID/domain validation.
+2. T29 crosswalk 87 yêu cầu vẫn là nguồn hành động; [coverage.json](../docs/plan/revision_evidence/README.md#manuscript_blueprint_v1) ánh xạ từng ID sang section/table/supplement hoặc dependency T33/T34/T35. Ánh xạ không đóng reviewer hoặc xác nhận metadata/PID/domain validation.
 3. Chỉ chuyển/reshape/format dữ liệu đã khóa, dùng full source precision rồi làm tròn để trình bày; percentage points khác percentages. Không thay predictions, labels, source snapshots hoặc manifests; all undefined giữ null/NA.
 4. Native causal FAIL phải hiện ở phương pháp, hệ quả ở discussion; không giấu ở một footnote supplement. Bỏ claims causal/unbiased/superiority/profitability/financially validated/novel learned fusion trong abstract/highlights/title/conclusion và câu dẫn.
 5. T32 kiểm nguồn/citation/numeric contracts; T35 build/render cả hai PDFs, kiểm readability, citations, table/figure numbering, appendix length và current locators. Không coi outline hoặc source anchors ở đây là PDF QA đã đạt.

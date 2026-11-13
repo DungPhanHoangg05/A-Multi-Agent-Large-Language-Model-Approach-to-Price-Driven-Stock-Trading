@@ -5,6 +5,23 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+Nguồn `paper/` đã được [làm rõ đóng góp và rà liên kết](week12/README.md#làm-rõ-đóng-góp-và-rà-liên-kết-bài-báo):
+highlights/abstract mới, bảng indicator, bỏ hình lịch đánh giá cũ; hai PDF vẫn
+44 trang/43 references, 42 đích truy cập đã xác nhận và một trang nhà xuất bản
+còn yêu cầu xác minh trình duyệt, chi tiết trong báo cáo liên kết hiện hành.
+
+Nguồn bài báo ngày 13/11/2026 đã được [biên tập thành bản độc lập](week12/README.md#biên-tập-bài-báo-độc-lập):
+bỏ mã task/giọng phản hồi, caption một câu, toàn bộ bảng/hình `[htb]`, cả hai PDF
+44 trang và 43 references; nguồn ở `paper/`, PDF hiện hành ở [outputs/paper](../../outputs/paper/README.md).
+Cấu trúc thư mục và cách khôi phục kết quả cũ được ghi tại [checklist dọn dẹp](week12/README.md#sắp-xếp-nguồn-bài-báo-và-kết-quả).
+Số liệu, công thức và bằng chứng thực nghiệm giữ nguyên.
+
+Ngày 13/11/2026 đã sửa bố cục và bổ sung references cho nguồn `paper/`:
+cả hai PDF 50 trang, 43 tài liệu được dẫn; reference [6] có URL thay thế đã kiểm.
+[Checklist và gói bố cục trước](week12/README.md#điều-chỉnh-bố-cục-và-tài-liệu-tham-khảo-của-bài-báo)
+ghi phạm vi tài liệu, đối soát số liệu và PDF/ZIP Overleaf mới; bản F05 cùng
+crosswalk của nó giữ nguyên làm bằng chứng lịch sử.
+
 **Từ 12/11/2026, `develop` là nhánh tích hợp duy nhất cho toàn bộ công việc:**
 hệ gốc, Bayesian/MT-BICL, thực nghiệm, bài báo và phản hồi reviewer.
 Task mới tách nhánh từ develop rồi merge trở lại theo AGENTS; `fix` chỉ giữ vai

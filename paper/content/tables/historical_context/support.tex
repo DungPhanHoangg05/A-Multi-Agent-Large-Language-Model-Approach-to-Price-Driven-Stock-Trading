@@ -1,0 +1,31 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Historical support and fallback coverage for bank-covered and other stocks.}
+\label{tab:u09-support}
+\textbf{Covered: 144 slots/role; Other: 162 slots/role}\par\smallskip
+\begin{tabular}{lrrrrrrr}
+\hline
+Role & Domain & Points & Raw & Bypass & $K$ recorded & $K_{min}$ & $K_{max}$ \\
+\hline
+Native & Covered & 48 & 144 & 0 & 0 & NA & NA \\
+Native & Other & 54 & 162 & 0 & 0 & NA & NA \\
+Common & Covered & 48 & 144 & 0 & 0 & NA & NA \\
+Common & Other & 54 & 162 & 0 & 0 & NA & NA \\
+Bayesian & Covered & 48 & 144 & 0 & 144 & 3 & 3 \\
+Bayesian & Other & 54 & 0 & 162 & 0 & NA & NA \\
+Conditional & Covered & 48 & 3 & 141 & 0 & NA & NA \\
+Conditional & Other & 54 & 0 & 162 & 0 & NA & NA \\
+Trend--pattern & Covered & 48 & 24 & 120 & 0 & NA & NA \\
+Trend--pattern & Other & 54 & 0 & 162 & 0 & NA & NA \\
+Explicit counts & Covered & 48 & 3 & 141 & 0 & NA & NA \\
+Explicit counts & Other & 54 & 0 & 162 & 0 & NA & NA \\
+MT-BICL & Covered & 48 & 87 & 57 & 144 & 0 & 3 \\
+MT-BICL & Other & 54 & 111 & 51 & 162 & 0 & 3 \\
+Fact anchor & Covered & 48 & 144 & 0 & 0 & NA & NA \\
+Fact anchor & Other & 54 & 162 & 0 & 0 & NA & NA \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize Covered denotes FPT/MWG/VCB/VNM and Other denotes BHN/CMG/HVN/MBB/VJC; NA means effective $K$ is unrecorded or inapplicable.\end{minipage}
+\end{table}

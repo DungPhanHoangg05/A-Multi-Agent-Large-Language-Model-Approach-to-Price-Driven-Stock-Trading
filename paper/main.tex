@@ -1,5 +1,6 @@
 % Giữ tên và cấu trúc tác giả; số liệu và diễn giải theo bằng chứng hiện hành.
 \PassOptionsToPackage{pdfusetitle=false,hypertexnames=false,hidelinks}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
 \documentclass[preprint,12pt]{elsarticle}
 
 \usepackage[
@@ -42,7 +43,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \usepackage{hyperref}
-\input{manuscript_layout.tex}
+\input{layout.tex}
 
 \journal{Knowledge-Based Systems}
 
@@ -51,8 +52,8 @@
 %% source manuscript, so we add "figures/" to the graphics search path.
 \graphicspath{{./}}
 
-\input{generated/summary_numbers.tex}
-\input{generated/u09/summary_numbers.tex}
+\input{content/tables/component/summary_numbers.tex}
+\input{content/tables/historical_context/summary_numbers.tex}
 
 \begin{document}
 
@@ -88,7 +89,7 @@
 
 %% Abstract
 \begin{abstract}
-Quantitative signals and local-language news provide context for multi-agent LLM trading, but their value requires matched evaluation. We integrate an 85-candidate OHLCV registry and Vietnamese sentiment with inherited chart-agent roles. Two historical studies retain distinct responses and provenance. The original shared-report study compares Full and Base on 102 market units across nine equities, twelve dates and six blocks. Full balanced accuracy is \FullBA\%, versus \BaseBA\% for Base; mean separate-account net returns are \FullReturn\% and \BaseReturn\%. Separate component/placebo panels and numeric controls contextualize these results. An extension study compares native and common-input baselines, five Bayesian/task-conditioned methods, a fact anchor and two cycle controls on the same eligible calendar, with one upstream realization and three Decision repeats. Bayesian v1's mean account return is \UnifiedVOneReturn\%, versus \UnifiedCommonReturn\% for Common and \UnifiedNativeReturn\% for Native. Its return difference is $+\UnifiedVOneCommonReturnEffect$ percentage points versus Common but $\UnifiedVOneNativeReturnEffect$ versus Native; descriptive sensitivity does not establish an advantage over the native system. All eight research roles have negative mean returns. Coverage and fallback are part of the evaluated methods. Native row-wise noncausality, historical exposure, unauthenticated financial-news availability and limited temporal clusters constrain both studies. The contribution is a specified integration and comparative evaluation, not demonstrated causal component value or deployable profitability.
+We present a multi-agent LLM framework for Vietnamese stock trading that integrates quantitative alpha signals, local-language news sentiment and historical decision context with technical and visual market analysis. A configurable OHLCV factor registry supplies quantitative evidence, while specialised agents produce shared indicator, candlestick and trend reports. Regime-aware Bayesian priors and task-conditioned decision refinement extend this evidence with qualified historical information. The framework distinguishes native adaptive factor diagnostics from a training-fitted causal projection and connects directional forecasts to transaction-cost-aware, long-only execution. Paired component and historical-context studies compare information configurations, numerical baselines and decision policies using shared upstream evidence. Quantitative augmentation produces more selective LONG forecasts and higher balanced accuracy than the chart-based baseline, while historical-prior effects depend on the comparator and available support. Classification improvements do not consistently translate into stronger economic performance. Repeated decisions, component ablations and historical placebos help identify the roles of signal representation, missing inputs and fallback behaviour. The findings remain exploratory because temporal coverage and historical input validity are limited. The resulting framework provides an auditable basis for studying quantitative knowledge integration and for designing prospective evaluations of multi-agent trading systems.
 \end{abstract}
 
 %%Graphical abstract
@@ -96,11 +97,11 @@ Quantitative signals and local-language news provide context for multi-agent LLM
 
 %%Research highlights
 \begin{highlights}
-\item Quantitative alpha and Vietnamese sentiment augment inherited chart-agent roles.
-\item Regime priors and task-conditioned revision share one upstream snapshot.
-\item Two historical studies retain separate responses and comparison baselines.
-\item Bayesian v1 gains over Common do not establish an advantage over Native.
-\item Negative net account returns limit economic and deployment claims.
+\item Integrates quantitative alpha and Vietnamese news into multi-agent stock trading.
+\item Builds a configurable OHLCV factor registry for market-specific alpha selection.
+\item Adds regime-aware Bayesian priors and task-conditioned decision refinement.
+\item Shares upstream evidence across methods for controlled trading comparisons.
+\item Links signal attribution and historical support to cost-aware trading outcomes.
 \end{highlights}
 
 %% Keywords
@@ -111,14 +112,14 @@ Multi-agent LLM \sep Knowledge fusion \sep Knowledge integration \sep Financial 
 \end{frontmatter}
 
 %% main text
-\input{sections/01_introduction.tex}
-\input{sections/02_related_work.tex}
-\input{sections/03_problem_formulation.tex}
-\input{sections/04_system_architecture.tex}
-\input{sections/05_experimental_setup.tex}
-\input{sections/06_backtest_results.tex}
-\input{sections/07_limitations.tex}
-\input{sections/08_conclusion.tex}
+\input{content/introduction.tex}
+\input{content/related_work.tex}
+\input{content/problem_formulation.tex}
+\input{content/system_architecture.tex}
+\input{content/experimental_setup.tex}
+\input{content/results.tex}
+\input{content/limitations.tex}
+\input{content/conclusion.tex}
 
 %% CRediT authorship contribution statement
 %% (elsarticle.cls has no \credit/\printcredits macros; the CRediT
@@ -147,11 +148,11 @@ Authors state no conflict of interest.
 % When papers talk about using people or animals, authors should make it clear that the research followed all national rules and institutional policies, and it was approved by the authors' institutional review board or a similar committee. The Helsinki Declaration's tenets must guide all investigations involving human subjects. Authors must also identify the committee or review board approving the experiments and provide a statement indicating approval of the research. Incorporate the following (or a similar) statement: The research related to human use has been complied with all the relevant national regulations and institutional policies in accordance with the tenets of the Helsinki Declaration and has been approved by the authors' institutional review board or equivalent committee; or: The research related to animal use has been complied with all the relevant national regulations and institutional policies for the care and use of animals.
 
 
-\input{sections/availability.tex}
+\input{content/availability.tex}
 
-\input{sections/acknowledgments.tex}
+\input{content/acknowledgments.tex}
 
-\input{sections/appendices.tex}
+\input{content/appendices.tex}
 
 %% Loading bibliography style file
 \bibliographystyle{elsarticle-num}

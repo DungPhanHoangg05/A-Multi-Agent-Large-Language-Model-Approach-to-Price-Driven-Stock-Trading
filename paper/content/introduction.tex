@@ -1,0 +1,22 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Large language models (LLMs) provide a flexible interface for combining numerical signals, news and chart descriptions in financial decision support. Multi-agent systems such as QuantAgent \cite{xiong2025quantagent} assign these inputs to specialised analytical roles, but their predictive and economic value depends on how the evidence is constructed, combined and evaluated. Vietnamese equities offer a useful setting because local-language news, single-stock data and cash-equity settlement require explicit adaptations.
+
+We integrate an OHLCV alpha selector and Vietnamese sentiment with Indicator, Pattern, Trend and Decision roles adapted from QuantAgent. The selector ranks 85 candidate factors, while sentiment enters a separate textual report. Numerical indicators, chart descriptions and the enabled factor/news reports are condensed into the Decision prompt with heuristic evidence priorities. The resulting binary forecast is evaluated against a net three-session LONG cycle; a bearish forecast maps to CASH in the long-only account.
+
+The empirical analysis comprises two studies on 102 eligible stock--date observations across nine equities, twelve dates and six historical blocks. The component study compares Full, which includes factors and sentiment, with Base, which omits both, alongside class-aware and non-LLM controls. Small repeated panels examine upstream variability, factor-only and sentiment-only variants, and a matched-structure historical placebo. The historical-context study evaluates Bayesian and conditional priors, a fact anchor and multi-task Bayesian in-context learning (MT-BICL), using three Decision repeats conditional on one shared upstream realization. Each study uses its own model responses and statistical protocol.
+
+In the component study, Full balanced accuracy (BA) is \FullBA\%, compared with \BaseBA\% for Base and \LogisticPriceBA\% for a price-only logistic comparator. Full and Base both capture seven of the 25 UP outcomes, with Full producing fewer false LONG forecasts. Their mean separate-account net returns are \FullReturn\% and \BaseReturn\%. In the historical-context study, the Bayesian prior improves mean return over the Common baseline by $+\UnifiedVOneCommonReturnEffect$ percentage points, but differs from Native by $\UnifiedVOneNativeReturnEffect$ points. All research methods have negative mean account returns.
+
+The contributions are:
+\begin{itemize}
+\item A Vietnamese-equity implementation that combines an 85-candidate OHLCV selector and local-language sentiment with shared chart-agent reports.
+\item A specified distinction between native adaptive factor diagnostics and a training-fitted causal projection used by historical-context methods.
+\item A paired evaluation of component variants, numerical baselines and historical-context policies, with explicit missing-input, support and fallback rules.
+\item An analysis connecting class-aware forecasts, repeated hosted decisions and transaction-cost-aware account outcomes.
+\end{itemize}
+
+The analysis is historical and exploratory: the evaluation schedule was finalized after some inference, market outcomes precede the November 2026 data freeze, and only twelve dates are represented. Native within-history noncausality, uncertain historical news availability and limited repetitions constrain causal and deployment conclusions. These limitations motivate interpreting the system as a documented decision-support experiment.
+
+The remainder of the paper reviews related work, formalises the forecasting task, describes the agents and experiments, reports results, and discusses limitations and future work.

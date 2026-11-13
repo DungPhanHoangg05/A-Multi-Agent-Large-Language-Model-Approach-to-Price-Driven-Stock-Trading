@@ -1,0 +1,24 @@
+% Sơ đồ upstream dùng chung; không chứng nhận nhân quả toàn hệ.
+\begin{tikzpicture}[>=Latex,
+ box/.style={draw=blue!55!black,fill=blue!4,rounded corners,align=center,text width=4.5cm,minimum height=1.15cm,font=\footnotesize},
+ wide/.style={box,text width=15.8cm},half/.style={box,text width=6.9cm,minimum height=1.7cm},arr/.style={->,thick}]
+\node[wide] (price) at (5.7,0) {\textbf{Frozen price prefix at decision $d$}\\Observed OHLCV only; exact 45-bar images for Pattern and Trend};
+\node[box] (ind) at (0,-1.9) {\textbf{Indicator}\\Deterministic TA report};
+\node[box] (pat) at (5.7,-1.9) {\textbf{Pattern}\\Candlestick vision report};
+\node[box] (trend) at (11.4,-1.9) {\textbf{Trend}\\Support/resistance vision report};
+\draw[arr] (price.south)--(pat.north);
+\draw[arr] (price.south)--++(0,-0.35)-|(ind.north);
+\draw[arr] (price.south)--++(0,-0.35)-|(trend.north);
+\node[wide] (shared) at (5.7,-3.9) {\textbf{One immutable parent per point / upstream realization}\\I/P/T reports and exact chart hashes; native Alpha diagnostics; separate dated sentiment report\\Deep-copy into every branch; no comparator-specific vision rerun};
+\foreach \n in {ind,pat,trend}{\draw[arr] (\n.south)--(\n.south |- shared.north);}
+\node[half] (native) at (1.4,-6.1) {\textbf{Native projection}\\Native Alpha report and instructions\\Component-study Full/Base use their own masks};
+\node[half] (common) at (10,-6.1) {\textbf{Common projection}\\Frozen causal Alpha selector\\and common instructions\\I/P/T, charts and sentiment remain shared};
+\draw[arr] (shared.south)--++(0,-0.35)-|(native.north);
+\draw[arr] (shared.south)--++(0,-0.35)-|(common.north);
+\node[half] (dn) at (1.4,-8.5) {\textbf{Decision: native baseline}\\Native factors and instructions\\Within-history causality is limited};
+\node[half] (dc) at (10,-8.5) {\textbf{Decision: extension schedule}\\Common and historical priors;\\Fact anchor; then MT-BICL revision};
+\draw[arr] (native)--(dn);\draw[arr] (common)--(dc);
+\node[wide,fill=orange!7] (out) at (5.7,-10.9) {\textbf{Raw proposal $\rightarrow$ specified policy $\rightarrow$ final action $\rightarrow$ separate ledger}\\LONG: Open$(t+1)$ to Close$(t+3)$, both-leg costs; SHORT: CASH\\Component and historical-context studies keep separate responses, repeats and statistical protocols};
+\draw[arr] (dn.south)--(dn.south |- out.north);
+\draw[arr] (dc.south)--(dc.south |- out.north);
+\end{tikzpicture}

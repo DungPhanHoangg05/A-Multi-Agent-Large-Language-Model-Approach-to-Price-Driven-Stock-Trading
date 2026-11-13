@@ -37,6 +37,135 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
+## Làm rõ đóng góp và rà liên kết bài báo
+
+- [x] Viết lại năm highlights theo đóng góp tích hợp alpha/tin tiếng Việt,
+  registry nhân tố, historical context, paired comparison và đánh giá có chi phí;
+  mỗi dòng không quá 85 ký tự. Hai abstract đồng nhất, 185 từ, bỏ các con số
+  hiệu quả/lợi nhuận và giữ kết luận định tính cùng giới hạn diễn giải.
+- [x] Bỏ Figure 5 cũ (`fig:calendar`), dẫn chiếu và ảnh lịch đánh giá; các hình
+  sau tự đánh số lại. Thêm Table 1 tóm tắt năm indicator, chu kỳ, thông tin và
+  cách diễn giải; giữ bảng quy tắc chi tiết trong phụ lục. Toàn bộ 22 bảng,
+  sáu hình và một thuật toán dùng `[htb]`, 29 caption vẫn một câu.
+- [x] Rà 57 mục BibTeX/79 URL và DOI, bao gồm đủ 43 mục được dẫn; đối chiếu
+  25/25 DOI với registry. Bổ sung/thay 16 URL, giữ DOI gốc; kiểm nội dung trang
+  thay vì chỉ tin HTTP 200. [Kết quả từng link](../../../outputs/paper/reference_links.json)
+  ghi 42/43 đích truy cập xác nhận được; reference 38 Sortino–Price vẫn bị
+  xác minh trình duyệt của nhà xuất bản, không ghi tất cả website mở được.
+- [x] Build hai bản bằng tám lệnh cuối pdfLaTeX/BibTeX exit 0, 44 trang/bản,
+  43 references, không cảnh báo LaTeX/Overfull, chữ ngoài trang hoặc font Type3.
+  Poppler render và kiểm trực quan 88 trang; lượt cuối đổi URL chỉ thay pixels
+  ở trang 42–44 đã render/kiểm lại. 23 tệp bảng/macro cũ và 27 khối công thức
+  giữ nguyên byte/nội dung; mọi input biên dịch hợp lệ và đủ hyperlink tới
+  đích truy cập chính của 43 references trong PDF.
+  [PDF và manifest hiện hành](../../../outputs/paper/README.md) được cập nhật,
+  không tạo ZIP bài báo. Đây là sửa tài liệu, không đổi code/runtime/dữ liệu;
+  không chạy unit/E2E/leakage/compileall theo AGENTS §1.2.
+
+## Sắp xếp nguồn bài báo và kết quả
+
+- [x] Nguồn bài báo được gom vào `paper/content/`, bảng theo hai nghiên cứu ở
+  `content/tables/component/` và `content/tables/historical_context/`, hình/sơ đồ
+  ở `paper/figures/`; bỏ 16 ảnh/biểu đồ không được sử dụng và các thư mục cũ rỗng.
+  [Hướng dẫn biên dịch](../../../paper/README.md) nêu hai điểm vào và cấu trúc mới.
+- [x] PDF hiện hành ở [outputs/paper/](../../../outputs/paper/README.md), có manifest
+  khóa 50 tệp nguồn và hai PDF; không tạo ZIP bài báo mới. Cả hai bản biên dịch
+  pdfLaTeX/BibTeX thành công, **44 trang/43 references**; đối soát text và pixels
+  **88/88 trang khớp bản trước**, 21 bảng/7 hình/1 thuật toán vẫn dùng `[htb]`.
+- [x] Đưa **74 thư mục/21.121 tệp** lịch sử ra khỏi `outputs/revision/`, giữ nguyên
+  byte trong [kho bằng chứng](../revision_evidence/README.md) có chỉ mục/hash và CLI
+  khôi phục theo release. Giữ đúng hai thư mục còn được consumer hiện hành đọc;
+  [README](../../../outputs/revision/README.md) giải thích từng thư mục.
+  Đã kiểm toàn kho **21.136 tệp** (gồm 15 snapshot Markdown), đối soát toàn bộ
+  tệp gốc trước khi chuyển, và khôi phục thử nguyên byte ba tệp của một release
+  sang thư mục tạm riêng. Asset vốn đã ignore tiếp tục chỉ có bản lưu cục bộ.
+- [x] Cập nhật 15 tài liệu có đường dẫn cũ; liên kết release lịch sử dẫn tới
+  chỉ mục khôi phục. Sửa đường dẫn generator đang dùng; installer bảng chỉ cài
+  `.tex` và dùng tên `sensitivity_covered.tex`, không cài thêm ảnh thừa.
+- [x] **42 test đúng phạm vi PASS**: exporter bảng 16, exporter thành phần 8,
+  lưu trữ/khôi phục 5, reader/API kết quả nghiên cứu 13. Biên dịch đúng sáu file
+  Python thay đổi PASS; đối soát **188/188 binding serving** còn nguyên hash.
+  Kiểm **1.188 liên kết local** trong các tài liệu liên quan không có đích thiếu;
+  reader nghiên cứu đọc thành công dữ liệu thật sau khi chuyển thư mục.
+  Không đổi công thức kinh tế, PIT, paired protocol, dữ liệu hay runtime LLM;
+  không chạy lại toàn suite, E2E/leakage hoặc cấp lại gate lịch sử theo AGENTS §1.2.
+
+## Biên tập bài báo độc lập
+
+Ngày **13/11/2026**, biên tập tiếp nguồn `paper/` theo yêu cầu bỏ mã task và
+giọng trả lời phản biện, giữ các giới hạn và kết quả khoa học:
+
+- [x] Viết lại abstract, introduction, related work, limitations, conclusion,
+  availability và phụ lục thành bài độc lập; bỏ U08/U09, task/receipt/acceptance,
+  đường dẫn quản lý dự án và nội dung mô tả quá trình sửa bài khỏi PDF.
+- [x] Dùng hai tên nghiên cứu `component study` và `historical-context study`;
+  đổi C2/A/B thành Conditional/Trend--pattern/Explicit counts, giải thích trong
+  Methods và thống nhất bảng/sơ đồ/biểu đồ; nhóm Covered/Other được định nghĩa
+  theo bốn mã có bank và năm mã còn lại, không nhầm với ngành ngân hàng.
+- [x] Cả **21 bảng, 7 hình và 1 thuật toán** dùng đúng `[htb]`, không còn wrapper
+  ghi đè; **29 caption và 21 ghi chú bảng** đều một câu, caption không quá 25 từ,
+  ghi chú không quá 40 từ. Chi tiết phương pháp cần thiết nằm trong thân bài/phụ lục.
+- [x] Giữ nguyên ô số của **32 panel bảng**, **27 khối equation/align** và byte
+  của **hai file macro**; biểu đồ vector chỉ vẽ lại các điểm/cận đã có trong bảng
+  để đổi nhãn, không chạy lại thống kê hoặc inference. Tên tác giả và tài trợ giữ nguyên.
+- [x] Build mới hai cây độc lập, tám lệnh cuối
+  `pdflatex → bibtex → pdflatex → pdflatex` exit 0; cả hai PDF **44 trang**,
+  **43 references**, đủ 29 locators. Poppler render **88 trang**; xem toàn bộ
+  contact sheet và đọc riêng sơ đồ, biểu đồ cùng bảng đổi nhãn. Không Overfull,
+  undefined reference/citation, Type3, chữ ngoài trang hoặc mã nội bộ bị cấm.
+  Mỗi bản có năm Underfull notice; BibTeX còn notice bài ICLR điện tử không có số trang.
+
+[PDF đầy đủ](../revision_evidence/README.md#manuscript_standalone_v1),
+[PDF submit](../revision_evidence/README.md#manuscript_standalone_v1),
+[ZIP Overleaf](../revision_evidence/README.md#manuscript_standalone_v1),
+[manifest](../revision_evidence/README.md#manuscript_standalone_v1)
+và [locators mới](../revision_evidence/README.md#manuscript_standalone_v1)
+thuộc phiên bản này; [QA đóng gói](manuscript_standalone_checks.zip) lưu log,
+ảnh render, kiểm tự động và công cụ biên tập/kiểm tra. Các gói nguồn/PDF/receipt
+cũ giữ nguyên; tên phương pháp hiển thị được ánh xạ trong manifest tới danh tính
+thực nghiệm cũ để truy nguyên, không đổi tên runtime hoặc raw records.
+Đợt này chỉ sửa tài liệu: không chạy unit/E2E/leakage/compileall theo AGENTS §1.2
+vì code, runtime, schema và dữ liệu nghiên cứu không đổi; không nâng trạng thái
+đóng phản biện hoặc chứng nhận nhân quả/khả năng giao dịch.
+
+## Điều chỉnh bố cục và tài liệu tham khảo của bài báo
+
+Ngày **13/11/2026**, theo yêu cầu sửa bản hiện hành tại `paper/`:
+
+- [x] Đổi vị trí bảng/hình sang `[!htb]` linh hoạt; bỏ ép `[H]` và ngắt trang
+  cứng ở phụ lục F, bỏ ngắt trang references riêng của bản submit. Giữ rào chắn
+  ở nơi đổi số phụ lục. Trang chỉ chứa float được căn đầu, không giãn khoảng giữa
+  các bảng; hai bảng bốn panel dùng lưới 2×2, không thu nhỏ phông bảng.
+- [x] Bổ sung citation thực tế cho indicator/chart, IC, Sharpe/Sortino,
+  walk-forward, BA/MCC, HAC, Holm, dependent bootstrap, HMM, teacher Bayes/EM,
+  Bayesian bootstrap và các công cụ được sử dụng. Danh mục được dẫn tăng từ
+  **21 lên 43 nguồn**, không dùng `nocite{*}` để tăng số lượng.
+- [x] Reference **[6] Tsantekidis et al.** giữ đúng bài/DOI, đủ sáu tác giả;
+  thay URL IEEE `/metrics` lỗi bằng bản ghi Đại học Aarhus đã kiểm HTTP **200**.
+  Bật ngắt URL ở dấu gạch nối để các địa chỉ dài không tràn lề.
+- [x] Build mới hai cây độc lập bằng `pdflatex → bibtex → pdflatex → pdflatex`,
+  tám lệnh exit 0; cả hai bản **50 trang**. Poppler render đủ **100 trang**;
+  xem toàn bộ bố cục qua contact sheet và xem riêng bảng lưới, trang references,
+  phụ lục của bản submit. Không Overfull, undefined reference/citation, chữ ngoài
+  trang hoặc Type3. Mỗi bản còn tám Underfull notice; BibTeX giữ một notice
+  thiếu số trang của bài ICLR điện tử Xie et al., không tự tạo số trang giả.
+- [x] Đối soát 64 nguồn trước sửa với source ZIP F05; giữ nguyên **32 panel
+  tabular, 27 khối equation/align, 22 asset hình/sơ đồ** và hai bộ macro số liệu.
+  Các kết quả, raw, receipt, source ZIP và PDF lịch sử không bị ghi đè.
+
+[Bản đầy đủ](../revision_evidence/README.md#manuscript_layout_references_v1),
+[bản submit](../revision_evidence/README.md#manuscript_layout_references_v1)
+và [ZIP nguồn Overleaf](../revision_evidence/README.md#manuscript_layout_references_v1)
+thuộc [manifest mới](../revision_evidence/README.md#manuscript_layout_references_v1).
+[QA đóng gói](manuscript_layout_references_checks.zip) lưu nguồn công cụ kiểm,
+log, aux/bibliography, kết quả đối soát và PNG. Source ZIP F05 và crosswalk
+reviewer F05 vẫn là bằng chứng lịch sử; vị trí trang mới nằm trong
+[pdf anchors](../revision_evidence/README.md#manuscript_layout_references_v1),
+không nhận các số trang F05 là vị trí hiện tại. Bản này chỉ sửa tài liệu và
+trình bày, không chạy unit/E2E/leakage/compileall theo AGENTS §1.2 vì không đổi
+code, runtime, schema hoặc dữ liệu nghiên cứu. Không chạy lại inference,
+scoring hay thống kê và không nâng trạng thái đóng các phản biện khoa học.
+
 ## Công việc cuối cho bài báo và giao diện
 
 [Kế hoạch cuối](final_paper_ui_plan.md) được lập ngày **12/11/2026** sau audit
@@ -135,7 +264,7 @@ cũ giữ nguyên; verifier artifact trình bày này không chứng nhận code
 [Manifest release](../../../outputs/revision/u09_manuscript_assets_v1/manifest.json)
 khóa input, chín file nguồn/test/attributes, runtime render/font và từng output.
 **26 artifact**, trong đó **14 file** được cài vào
-[`paper/generated/u09/`](../../../paper/generated/u09); nội dung section và hai
+[`paper/content/tables/historical_context/`](../../../paper/content/tables/historical_context); nội dung section và hai
 entrypoint LaTeX chưa đổi. Release gồm:
 
 - Bảng scope, so sánh chính đủ mười vai trò/control, class-aware metrics, economics, ba Decision repeat, đủ 20 contrast và ba dependency bridge.
@@ -162,7 +291,7 @@ Kiểm lại release đã có, không ghi đè:
 py -3.13 -I -X utf8 scripts/manuscript_u09/run.py verify
 ```
 
-`build` chỉ dùng một lần khi release và `paper/generated/u09` chưa tồn tại;
+`build` chỉ dùng một lần khi release và `paper/content/tables/historical_context` chưa tồn tại;
 `--artifact-only --release outputs/revision/u09_manuscript_assets_<tên-mới>`
 cho phép tạo bản riêng không cài vào paper. F03 sẽ dùng
 `\input{generated/u09/summary_numbers.tex}` và các bảng theo mapping, chưa thực
@@ -182,16 +311,16 @@ Native/Common được phân biệt; v1 cải thiện so Common nhưng chưa ch�
 vượt Native, mọi vai trò research có mean return âm. Báo raw/final, bypass,
 CORE4/OOD5, thiếu sentiment và bridge chưa thay được ablation còn thiếu.
 
-[Manifest bản thảo nội dung](../../../outputs/revision/manuscript_content_v1/manifest.json)
+[Manifest bản thảo nội dung](../revision_evidence/README.md#manuscript_content_v1)
 khóa **64 file nguồn**, input, runtime build và PDF; trạng thái
-`CONTENT_READY_FOR_F04_NOT_FINAL_PUBLICATION_RELEASE`. [Source archive](../../../outputs/revision/manuscript_content_v1/sources.zip)
+`CONTENT_READY_FOR_F04_NOT_FINAL_PUBLICATION_RELEASE`. [Source archive](../revision_evidence/README.md#manuscript_content_v1)
 giữ nguyên byte 64 nguồn cùng manifest. Đây là mốc nội dung cho F04, chưa phải
 release xuất bản F05 hoặc hoàn tất U10.
 
 - [x] **14 file paper thay đổi, 50 file giữ nguyên**; giữ title/tác giả/ORCID/affiliation/CRediT/funding/keywords, tám section và tên/thứ tự subsection/A–F. Appendix D và acknowledgments không đổi; 24 khối equation/align gốc giữ nội dung sau chuẩn hóa LF, thêm hai khối cho snapshot/utility.
 - [x] Abstract hai bản giống nhau, **203 từ**; năm highlights đều ≤85 ký tự. **29 macro U09 được dùng** có định nghĩa, label/ref/cite key hợp lệ; không tính lại số trong LaTeX. Bảng gốc, macros Full/Base và 14 file generated U09 nguyên byte.
 - [x] Đọc ba nguồn nghiên cứu chính trước khi thêm citation: [Xie et al., ICLR 2022](https://arxiv.org/abs/2111.02080v6), [Rubin et al., NAACL 2022](https://aclanthology.org/2022.naacl-main.191/), [Hamilton, author draft 18/05/2005](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf). Giữ 40 mục BibTeX cũ, thêm ba mục đúng phiên bản; audit URL/hash/phạm vi hỗ trợ lưu trong QA. Không nhận lý thuyết Bayesian là bảo đảm cho LLM tài chính.
-- [x] **Build mới cả hai entrypoint** trong hai cây tạm biệt lập: `pdflatex → bibtex → pdflatex → pdflatex`, đủ tám lệnh exit 0. [Bản đầy đủ](../../../outputs/revision/manuscript_content_v1/main.pdf) **50 trang**; [bản submit](../../../outputs/revision/manuscript_content_v1/main_submit.pdf) **50 trang**. Poppler render đủ **100 trang** và kiểm trực quan từng trang; không tràn khung, thiếu glyph, Type3, chữ ngoài trang, undefined ref/citation hoặc LaTeX warning. Mỗi bản còn **bảy Underfull spacing notice**, đã xem và không gây cắt/mất chữ.
+- [x] **Build mới cả hai entrypoint** trong hai cây tạm biệt lập: `pdflatex → bibtex → pdflatex → pdflatex`, đủ tám lệnh exit 0. [Bản đầy đủ](../revision_evidence/README.md#manuscript_content_v1) **50 trang**; [bản submit](../revision_evidence/README.md#manuscript_content_v1) **50 trang**. Poppler render đủ **100 trang** và kiểm trực quan từng trang; không tràn khung, thiếu glyph, Type3, chữ ngoài trang, undefined ref/citation hoặc LaTeX warning. Mỗi bản còn **bảy Underfull spacing notice**, đã xem và không gây cắt/mất chữ.
 - [x] Đối soát **26 artifact F02, chín binding nguồn generator, input và 20 gói W12 + 30 archive cũ** nguyên byte/hash. Không đổi code/test/schema/runtime/input nghiên cứu; không chạy compileall/unit/E2E/leakage theo AGENTS §1.2 vì chỉ đổi tài liệu/LaTeX. Build/render/hash là kiểm mới, không nhận đã chạy lại gate runtime cũ.
 - [x] QA **123 member**, gồm 100 PNG từng trang, tám command log, hai log LaTeX cuối, source/content/ref/render/visual checks và manifest; source ZIP 65 member. Kiểm hash mọi member, 64 nguồn khớp commit, **120 liên kết/anchor local** trong bốn tài liệu và checklist đồng bộ PASS.
 
@@ -230,14 +359,14 @@ Chỉ đổi placement cục bộ bên ngoài hai bảng generated scope/compari
 bảng phạm vi ở trước sơ đồ walk-forward, bảng so sánh trước figure kết quả,
 tránh trôi sang phần khác. Không đổi byte bất kỳ bảng/macros đã khóa.
 
-[Manifest bản thảo sơ đồ](../../../outputs/revision/manuscript_figures_v1/manifest.json)
+[Manifest bản thảo sơ đồ](../revision_evidence/README.md#manuscript_figures_v1)
 khóa nguồn, input, runtime, PDF và locators của build này; trạng thái
 `FIGURES_READY_FOR_F05_NOT_FINAL_PUBLICATION_RELEASE`.
-[Source archive](../../../outputs/revision/manuscript_figures_v1/sources.zip)
+[Source archive](../revision_evidence/README.md#manuscript_figures_v1)
 giữ **64 nguồn + manifest**, không ghi đè bản nội dung F03.
 
 - [x] **Bảy file paper thay đổi, 57 file nguyên byte**; metadata/hai entrypoint, abstract/highlights, appendix, references và đủ **27 khối equation/align** giữ nguyên. Algorithm 1 không đổi.
-- [x] Build mới hai cây biệt lập, đủ tám lệnh `pdflatex → bibtex → pdflatex → pdflatex` exit 0. [Bản đầy đủ](../../../outputs/revision/manuscript_figures_v1/main.pdf) **51 trang**, [bản submit](../../../outputs/revision/manuscript_figures_v1/main_submit.pdf) **50 trang**; render Poppler và kiểm trực quan đủ **101 trang**.
+- [x] Build mới hai cây biệt lập, đủ tám lệnh `pdflatex → bibtex → pdflatex → pdflatex` exit 0. [Bản đầy đủ](../revision_evidence/README.md#manuscript_figures_v1) **51 trang**, [bản submit](../revision_evidence/README.md#manuscript_figures_v1) **50 trang**; render Poppler và kiểm trực quan đủ **101 trang**.
 - [x] Mỗi PDF có **bảy figure, 21 table và một algorithm**; đối soát **29 locators** với caption trên trang vật lý. Kiểm hình học **38 khung TikZ mỗi bản**: không chồng khung hoặc chữ vượt node. Không Overfull, undefined ref/cite, thiếu glyph, Type3, chữ ngoài trang hoặc LaTeX warning. Mỗi PDF giữ **bảy Underfull spacing notice**, đã xem và không mất nội dung.
 - [x] Đối soát **26 artifact F02**, nguồn generator/input, release/QA F03, **50 archive/gói lịch sử** và **732 binding snapshot ngoài paper/revision** nguyên byte/hash. Không sửa source pins/receipt hoặc kết quả đã seal.
 - [x] Gói QA **130 member**, gồm **101 PNG**, tám command log, log/aux của hai bản, source/render/visual/geometry/calendar checks, locators, công cụ kiểm và manifest. Source ZIP 65 member; 64 nguồn khớp Git commit. Kiểm mọi member, **126 liên kết/anchor local** trong bốn tài liệu, diff và checklist đồng bộ PASS.
@@ -266,7 +395,7 @@ bản thảo khớp bằng chứng và đủ gói bàn giao nội bộ. Không �
 
 [Response hiện hành](../../../revision/response_to_reviewers.md),
 [matrix hiện hành](../../../revision/reviewer_matrix.csv) và
-[crosswalk khóa phiên bản](../../../outputs/revision/manuscript_unified_final_v1/response_map.json)
+[crosswalk khóa phiên bản](../revision_evidence/README.md#manuscript_unified_final_v1)
 cùng đủ **87 yêu cầu/18 comment**. Matrix 43 dòng cũ có trạng thái/locators từ
 các lượt khác đã được thay bằng 87 mã yêu cầu; nguyên byte bốn tài liệu reviewer
 trước F05 được giữ trong QA. Mỗi yêu cầu có giải trình, trạng thái riêng,
@@ -287,18 +416,18 @@ validation, unknown legacy duplicates/references, PID/quyền và route/contact.
 Đã cập nhật đầu mối revision README/runbook để không còn lấy nhãn R1–R4 cũ làm
 nghiệm thu hiện tại. Mọi gói/receipt lịch sử giữ nguyên.
 
-[Manifest cuối](../../../outputs/revision/manuscript_unified_final_v1/manifest.json)
+[Manifest cuối](../revision_evidence/README.md#manuscript_unified_final_v1)
 khóa **68 nguồn** (64 paper + bốn tài liệu reviewer), **74 input bindings** và
 từng output; trạng thái `FINAL_LOCAL_MANUSCRIPT_HANDOFF_U10_COMPLETE`.
-[Source ZIP](../../../outputs/revision/manuscript_unified_final_v1/sources.zip)
-có **69 member** kể cả manifest. [Companions](../../../outputs/revision/manuscript_unified_final_v1/scientific_companions.zip)
+[Source ZIP](../revision_evidence/README.md#manuscript_unified_final_v1)
+có **69 member** kể cả manifest. [Companions](../revision_evidence/README.md#manuscript_unified_final_v1)
 giữ **40 artifact nguyên byte + manifest**: 14 S1–S4 của study gốc và 26 artifact
 F02/U09 trong hai namespace riêng. S1 classification có 144 dòng tổng cộng,
 trong đó đúng 81 dòng theo mã; giữ cả pooled/block. Không gộp các study hoặc
 chạy lại analysis để tạo gói. [Runbook](../../../revision/archive_runbook.md)
 phân biệt current handoff với historical checkout/overlay.
 
-- [x] Build mới hai cây MiKTeX biệt lập, đủ tám lệnh exit 0. [Bản đầy đủ](../../../outputs/revision/manuscript_unified_final_v1/main.pdf) **51 trang**, [bản submit](../../../outputs/revision/manuscript_unified_final_v1/main_submit.pdf) **50 trang**, gồm highlights. Ngày hiển thị manuscript giữ **12/11/2026** theo F04; ngày release/response là **13/11/2026**.
+- [x] Build mới hai cây MiKTeX biệt lập, đủ tám lệnh exit 0. [Bản đầy đủ](../revision_evidence/README.md#manuscript_unified_final_v1) **51 trang**, [bản submit](../revision_evidence/README.md#manuscript_unified_final_v1) **50 trang**, gồm highlights. Ngày hiển thị manuscript giữ **12/11/2026** theo F04; ngày release/response là **13/11/2026**.
 - [x] Poppler render đủ **101 trang**; 99 PNG khớp nguyên byte các trang đã kiểm trực quan ở F04, hai trang availability thay đổi đã xem trực tiếp. **Bảy figure/21 table/một algorithm và 29 locators mỗi PDF**; 38 node TikZ/bản không chồng khung hoặc chữ vượt node. Không Overfull, undefined ref/cite, thiếu glyph, Type3, chữ ngoài trang hoặc LaTeX warning. **Tám Underfull spacing notice mỗi PDF** được xem và không mất nội dung.
 - [x] Reference ledger khóa **43 BibTeX entries/21 cited keys**, số/trang/bbox reference thực tế ở cả hai PDF. Deng giữ uncited; các historical [14]/[21]/[22]/[23] vẫn chưa định danh, không ánh xạ bằng numbering hiện hành. Audit ba nguồn primary F03 được viện dẫn đúng phiên bản, không nhận tra cứu mới.
 - [x] Chỉ availability đổi trong paper; **63/64 nguồn paper** nguyên byte, đủ **27 equation/align**, metadata/title/authors/ORCID/CRediT/funding, abstract/highlights, bảng/hình/macros không đổi. **798 ô số F02, 26 artifact**, 732 binding snapshot ngoài paper/revision và **50 gói/archive lịch sử** khớp. Source/evidence/anchor/hash của đủ 87 yêu cầu và 64 nguồn evidence gốc đã đối soát.
@@ -308,7 +437,7 @@ phân biệt current handoff với historical checkout/overlay.
 `f0505aa9ed800d8562ef3af1c88496d4ca3ebd62160b9163485ca1805d2583e0`.
 Manifest release SHA256
 `8e5ce2a4ca6f3a52945047cb8e1e1e99e8c00dfcd959a6fc6cdadcd701013de9`.
-[Rights](../../../outputs/revision/manuscript_unified_final_v1/rights.json)
+[Rights](../revision_evidence/README.md#manuscript_unified_final_v1)
 giữ `public_release_authorized=false`, `pid=null`, `editorial_acceptance_certified=false`.
 
 F05 chỉ đổi LaTeX/tài liệu và metadata đối soát reviewer; không đổi code/test,
@@ -1894,7 +2023,7 @@ Lệnh không sửa index/worktree và không phải nghiệm thu hành vi.
 | `historical_evaluation_scope.py:AlgorithmScope` | Whitelist `PORTS`, pin H03 trong `docs/plan/week11/historical_evaluation_protocol.json`, fallback Git `ae5dbc6d`. Nạp byte local vào namespace riêng rồi điều chỉnh bindings; thay module sau U02 có thể làm verifier cũ từ chối. Replay cũ cần source/environment đã khóa, adapter mới có namespace/version riêng. |
 | `core/free_pilot_assets.py`, runtime/analysis, `scripts/package_free_pilot.py` | Giữ `docs/plan/week11/free_pilot_*.json`, namespace `outputs/historical_reevaluation/free_pilot_r1`, H04 regimes, H06 smoke, quota history và replica `full_r1` inputs/model. Nhiều asset là ignored local; Git inventory không đủ khôi phục. H09 ZIP là gói pilot riêng và chứa sparse Git objects cho consumer, không phải full history. |
 | `core/prior_backtest.py`, Prior/MT schemas/loaders | Paths schema/QA/protocol/model trong docs và data được nhận diện trong `hardcodes.json`; không dời chúng cùng lúc với port contracts. Giữ JSON fixtures và entrypoints cũ cho consumer; code đã đổi dùng output namespace mới. |
-| Fix revision/paper consumers | Giữ `outputs/revision/**`, `revision/*.json`, `paper/generated/`, các `original_sources.zip` và lineage blobs. `fix:scripts/build_revision_manuscript.py` fallback paper source theo member/hash; `core/revision_reproducibility.py` còn đọc manifest/archive và weights. Không chỉ giữ PDF hoặc di chuyển archive mà chưa có resolver/test consumer. |
+| Fix revision/paper consumers | Giữ `outputs/revision/**`, `revision/*.json`, `paper/content/tables/`, các `original_sources.zip` và lineage blobs. `fix:scripts/build_revision_manuscript.py` fallback paper source theo member/hash; `core/revision_reproducibility.py` còn đọc manifest/archive và weights. Không chỉ giữ PDF hoặc di chuyển archive mà chưa có resolver/test consumer. |
 | Grant/lượt đã hủy | H07 full1020 vẫn CANCELLED; run_r1/managed_r1 không được phục hồi hoặc suy quyền từ protocol/grids còn trên đĩa. Không tái dùng output namespace cũ cho code mới, không sửa receipt frozen để đổi provenance. |
 
 ### Đối soát bằng chứng và sáu binding lịch sử

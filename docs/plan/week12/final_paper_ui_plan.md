@@ -44,8 +44,8 @@ website riêng. Hoàn tất bài báo trước, sau đó triển khai backend v�
 | Đối tượng đã đọc | Hiện trạng xác nhận | Hệ quả đối với việc còn lại |
 | --- | --- | --- |
 | `paper/`, `revision/` | 50 file paper và 28 file revision cùng blob với fix; bài vẫn dùng số liệu nghiên cứu gốc | Chưa thể coi việc chuyển nhánh là đã cập nhật bài bằng U09 |
-| `paper/sections/01…08`, `appendices.tex` | Đủ tám section và A–F; architecture/algorithm còn mô tả Full/Base và native selector | Bổ sung nhánh common/prior/MT và định nghĩa hai study ngay tại các phần tương ứng |
-| `paper/generated/` | Sáu bảng chính, bốn bảng appendix, `summary_numbers.tex` lấy từ release cũ | Generator mới và namespace số liệu riêng; không thay macro Full/Base bằng số U09 |
+| `paper/content/01…08`, `appendices.tex` | Đủ tám section và A–F; architecture/algorithm còn mô tả Full/Base và native selector | Bổ sung nhánh common/prior/MT và định nghĩa hai study ngay tại các phần tương ứng |
+| `paper/content/tables/` | Sáu bảng chính, bốn bảng appendix, `summary_numbers.tex` lấy từ release cũ | Generator mới và namespace số liệu riêng; không thay macro Full/Base bằng số U09 |
 | `scripts/build_revision_manuscript.py` | Generator lịch sử có source archive và hợp đồng không ghi đè artifact | Không dùng như lệnh cập nhật U09 một bước, không ép finalizer cũ nhận bản thảo mới |
 | `core/variant_registry.py`, `core/unified_methods.py`, `core/causal_bridge.py` | Tám vai trò có dependency/fallback; common đổi alpha projection và instruction; registry chưa cấp hosted release | UI phải dùng đúng adapter/dependency, không ánh xạ tên phiên bản sang cờ bật/tắt alpha |
 | `web_interface.py`, `demo_new.html`, `output.html` | `/api/analyze` nhận mã/khung/ngôn ngữ, chạy graph gốc; không dispatch theo variant; cấu hình/graph dùng chung | Cần request contract, cấu hình đóng băng theo job và orchestration mới trước khi thêm lựa chọn có hiệu lực |

@@ -1,0 +1,25 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Balanced-accuracy contrast sensitivity to bootstrap block length.}
+\label{tab:u09-sensitivity-ba}
+\textbf{All predeclared L1/L2/L3 bands}\par\smallskip
+\begin{tabular}{lrrrrr}
+\hline
+Method & Baseline & Effect & L1 & L2 (primary) & L3 \\
+\hline
+Bayesian & Native & -1.749 & [-7.081, 3.584] & [-6.374, 2.876] & [-5.258, 1.760] \\
+Conditional & Native & -6.095 & [-11.682, -0.508] & [-11.629, -0.561] & [-10.054, -2.137] \\
+Trend--pattern & Native & -5.662 & [-11.434, 0.110] & [-11.771, 0.446] & [-10.200, -1.125] \\
+Explicit counts & Native & -6.095 & [-11.682, -0.508] & [-11.629, -0.561] & [-10.054, -2.137] \\
+MT-BICL & Native & -8.675 & [-20.362, 3.012] & [-20.239, 2.888] & [-17.868, 0.518] \\
+Bayesian & Common & 4.130 & [0.323, 7.937] & [2.011, 6.249] & [2.092, 6.168] \\
+Conditional & Common & -0.216 & [-0.781, 0.348] & [-0.668, 0.235] & [-0.528, 0.095] \\
+Trend--pattern & Common & 0.216 & [-0.348, 0.781] & [-0.235, 0.668] & [-0.095, 0.528] \\
+Explicit counts & Common & -0.216 & [-0.781, 0.348] & [-0.668, 0.235] & [-0.528, 0.095] \\
+MT-BICL & Common & -2.797 & [-12.059, 6.466] & [-11.168, 5.575] & [-9.588, 3.995] \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize L1/L2/L3 denote fold block lengths one/two/three, with L2 primary; all bands describe historical sensitivity.\end{minipage}
+\end{table}

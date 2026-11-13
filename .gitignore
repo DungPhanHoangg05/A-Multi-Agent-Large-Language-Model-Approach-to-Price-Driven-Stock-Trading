@@ -78,3 +78,6 @@ tmp/
 
 # Gói tổng hợp nội bộ lớn; index, hashes và QA vẫn được theo dõi trong Git.
 /outputs/revision/reviewer_response_v1/private_bundle.zip
+
+# Các mảnh asset cục bộ đã ignore từ trước; chỉ mục/hash vẫn được theo dõi.
+/docs/plan/revision_evidence/local-*.zip

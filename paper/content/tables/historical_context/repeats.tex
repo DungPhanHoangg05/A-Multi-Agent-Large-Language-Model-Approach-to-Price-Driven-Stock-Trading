@@ -1,0 +1,25 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Return and balanced accuracy across three conditional Decision repeats.}
+\label{tab:u09-repeats}
+\textbf{Return percent and BA percent}\par\smallskip
+\begin{tabular}{lrrrrrrr}
+\hline
+Role & $R_1$ & $R_2$ & $R_3$ & $BA_1$ & $BA_2$ & $BA_3$ & $s_R$ \\
+\hline
+Native & -0.726 & -0.684 & -0.548 & 52.96 & 52.31 & 50.26 & 0.093 \\
+Common & -0.930 & -1.019 & -1.125 & 47.71 & 47.06 & 43.12 & 0.098 \\
+Bayesian & -0.642 & -0.715 & -0.738 & 50.31 & 50.31 & 49.66 & 0.050 \\
+Conditional & -0.946 & -1.019 & -1.125 & 47.06 & 47.06 & 43.12 & 0.090 \\
+Trend--pattern & -0.930 & -1.003 & -1.125 & 47.71 & 47.71 & 43.12 & 0.098 \\
+Explicit counts & -0.946 & -1.019 & -1.125 & 47.06 & 47.06 & 43.12 & 0.090 \\
+MT-BICL & -1.175 & -1.220 & -1.366 & 43.82 & 43.17 & 42.52 & 0.100 \\
+Fact anchor & -1.234 & -1.259 & -1.366 & 43.17 & 42.52 & 42.52 & 0.070 \\
+CASH & 0.000 & 0.000 & 0.000 & 50.00 & 50.00 & 50.00 & 0.000 \\
+Always-LONG & -3.000 & -3.000 & -3.000 & 50.00 & 50.00 & 50.00 & 0.000 \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize Each repeat covers 102 observations and 51 accounts conditional on one shared upstream realization; $s_R$ is sample return SD.\end{minipage}
+\end{table}

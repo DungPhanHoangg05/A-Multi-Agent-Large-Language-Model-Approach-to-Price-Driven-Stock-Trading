@@ -1,0 +1,25 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Mean returns, balanced accuracy and support across historical-context methods and controls.}
+\label{tab:u09-comparison}
+\textbf{Paired support: 102 points per repeat}\par\smallskip
+\begin{tabular}{lrrrrrr}
+\hline
+Role & Return (\%) & BA (\%) & LONG (\%) & Raw & Bypass & $N$/repeat \\
+\hline
+Native & -0.653 & 51.84 & 22.55 & 306 & 0 & 102 \\
+Common & -1.025 & 45.97 & 28.76 & 306 & 0 & 102 \\
+Bayesian & -0.698 & 50.10 & 23.86 & 144 & 162 & 102 \\
+Conditional & -1.030 & 45.75 & 29.08 & 3 & 303 & 102 \\
+Trend--pattern & -1.019 & 46.18 & 28.43 & 24 & 282 & 102 \\
+Explicit counts & -1.030 & 45.75 & 29.08 & 3 & 303 & 102 \\
+MT-BICL & -1.253 & 43.17 & 34.31 & 198 & 108 & 102 \\
+Fact anchor & -1.286 & 42.74 & 34.97 & 306 & 0 & 102 \\
+CASH & 0.000 & 50.00 & 0.00 & 0 & 306 & 102 \\
+Always-LONG & -3.000 & 50.00 & 100.00 & 0 & 306 & 102 \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize Return averages 51 accounts after averaging three repeats; BA averages per-repeat metrics, and Raw/Bypass counts cover 306 method slots.\end{minipage}
+\end{table}

@@ -33,8 +33,8 @@ chữ fix: chúng xác định phương pháp và bằng chứng, không phải 
 | Nội dung | Nơi làm việc trên develop | Cách sử dụng |
 | --- | --- | --- |
 | Hệ thống và các phiên bản | `agents/`, `core/`, `utils/`, `data_manager/`, `scripts/`, `tests/` | Sửa theo task; giữ hợp đồng kinh tế/PIT/paired/token/recovery |
-| Bài báo | [paper/main.tex](../../../paper/main.tex), [main_submit.tex](../../../paper/main_submit.tex), [các sections](../../../paper/sections), [references.bib](../../../paper/references.bib) | Nguồn tác giả hiện hành; sửa tại đây theo U10, giữ tên tác giả/title/cấu trúc đã được chốt |
-| Bảng và hình | [paper/generated](../../../paper/generated), [paper/figs](../../../paper/figs) | Sinh từ release được xác định; không nhập tay số headline hoặc trộn cohort |
+| Bài báo | [paper/main.tex](../../../paper/main.tex), [main_submit.tex](../../../paper/main_submit.tex), [các sections](../../../paper/content), [references.bib](../../../paper/references.bib) | Nguồn tác giả hiện hành; sửa tại đây theo U10, giữ tên tác giả/title/cấu trúc đã được chốt |
+| Bảng và hình | [paper/content/tables](../../../paper/content/tables), [paper/figures](../../../paper/figures) | Sinh từ release được xác định; không nhập tay số headline hoặc trộn cohort |
 | Phản hồi reviewer | [response_to_reviewers.md](../../../revision/response_to_reviewers.md), [reviewer_matrix.csv](../../../revision/reviewer_matrix.csv) | Cập nhật trên nhánh tác vụ từ develop; mỗi yêu cầu dẫn đúng evidence, version và vị trí bản thảo |
 | Quy ước bài báo cũ | [manuscript_blueprint.md](../../../revision/manuscript_blueprint.md), [author_metadata.md](../../../revision/author_metadata.md), [target_contract.md](../../../revision/target_contract.md) | Đọc quy ước khoa học/tác giả; các chỉ dẫn branch/tiến độ cũ được thay bằng hướng dẫn hiện hành này |
 | Bằng chứng fix | [outputs/revision](../../../outputs/revision), [revision](../../../revision) | Giữ releases/raw/schema/source archives đã đóng băng, không chạy lại generator để ghi đè |
@@ -104,3 +104,15 @@ Các chỉ dẫn lịch sử ở root plan/revision mô tả đợt trước. H�
 tiến độ hiện hành tại đây được ưu tiên cho công việc mới; các protocol khoa học,
 quyền gọi API, điều kiện công bố và raw evidence của từng release vẫn giữ scope
 riêng. Tập trung công việc về develop không mở lại run đã hủy hoặc quyền submit.
+
+## Nguồn và kết quả sau khi dọn thư mục
+
+Nguồn biên dịch được quản lý trong [paper/README.md](../../../paper/README.md),
+với `content/`, `content/tables/` và `figures/`; PDF hiện hành ở
+[outputs/paper/](../../../outputs/paper/README.md). Không tạo ZIP bài báo mới.
+`outputs/revision/` chỉ giữ hai bộ dữ liệu còn được consumer hiện hành đọc;
+xem [giải thích](../../../outputs/revision/README.md).
+
+Các lệnh lịch sử ở trên cần release cũ thì phải khôi phục đúng tên bằng
+[CLI lưu trữ](../revision_evidence/README.md#cách-tra-và-khôi-phục) trước khi chạy.
+Không chạy generator lịch sử để ghi đè các bảng đã biên tập trong `paper/`.

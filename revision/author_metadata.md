@@ -44,7 +44,7 @@ Giữ nguyên phân công theo chỉ dẫn của người dùng. Chưa được 
 
 ## Funding và declaration đang ghi
 
-[Acknowledgments](../paper/sections/acknowledgments.tex): “This research is funded by Foreign Trade University under research program number FTURP02-2026-08”. Hai entrypoints đều include section này. Conflict statement đang ghi “Authors state no conflict of interest.” ở cả hai bản. Giữ nguyên các statements theo phản hồi của người dùng; không xác minh độc lập tài trợ hoặc tạo declaration mới.
+[Acknowledgments](../paper/content/acknowledgments.tex): “This research is funded by Foreign Trade University under research program number FTURP02-2026-08”. Hai entrypoints đều include section này. Conflict statement đang ghi “Authors state no conflict of interest.” ở cả hai bản. Giữ nguyên các statements theo phản hồi của người dùng; không xác minh độc lập tài trợ hoặc tạo declaration mới.
 
 ## Journal và route cần hồ sơ tác giả
 
@@ -63,7 +63,7 @@ Chưa áp dụng chính sách tạp chí dựa trên phỏng đoán. Khi có rou
 
 Email của corresponding author (và từng người nếu route yêu cầu), given/family fields khi cổng nộp yêu cầu, hồ sơ đồng thuận nếu cần, manuscript ID, decision letter và route blind/nonblind chưa được cung cấp. Chỉ dẫn “giữ nguyên” áp dụng các giá trị có sẵn, không biến các trường chưa có thành đã xác nhận. Không yêu cầu xác nhận lại thứ tự hoặc ORCID Phuong-Thai đã được chốt. T33 còn phần route/liên hệ; R18 còn response và locator PDF cuối tại T34/T35.
 
-Nguồn bài sau sửa được khóa riêng tại [author_metadata_v1](../outputs/revision/author_metadata_v1/manifest.json); [sources.zip](../outputs/revision/author_metadata_v1/sources.zip) có đủ 46 paper files hiện tại. Giữ nguyên các source ZIP/manifest lịch sử; T32 là snapshot trước sửa metadata, không còn là toàn bộ current source. Không dùng checker current-source T32 để xác nhận ngược thay đổi mới; đối soát 101 references của T32 qua đúng hash/member trong ZIP T32 khi cần.
+Nguồn bài sau sửa được khóa riêng tại [author_metadata_v1](../docs/plan/revision_evidence/README.md#author_metadata_v1); [sources.zip](../docs/plan/revision_evidence/README.md#author_metadata_v1) có đủ 46 paper files hiện tại. Giữ nguyên các source ZIP/manifest lịch sử; T32 là snapshot trước sửa metadata, không còn là toàn bộ current source. Không dùng checker current-source T32 để xác nhận ngược thay đổi mới; đối soát 101 references của T32 qua đúng hash/member trong ZIP T32 khi cần.
 
 ## Provenance của bản trích
 
@@ -73,7 +73,7 @@ SHA-256 dưới đây là **nguồn trước sửa metadata**, tính trên byte 
 |---|---|
 | `paper/main.tex` | `bcf115331f2f34a617f1ca6e515bf2dc6eb31a9c01aa249fb1ee254313f5c7df` |
 | `paper/main_submit.tex` | `495201e29022dca547655cbeed9d56fe78dae8176d994993d87be7420c61ad7e` |
-| `paper/sections/acknowledgments.tex` | `144503e0908506d64cd52bb99480fd3082c63bc63831e66299e237007f868e9c` |
+| `paper/content/acknowledgments.tex` | `144503e0908506d64cd52bb99480fd3082c63bc63831e66299e237007f868e9c` |
 | `outputs/revision/reviewer_crosswalk_v1/author_pending.json` | `f5f5b875bf6e621822c6e14c75b9acd17c41e7195764ce415ba3a18ae48f8808` |
 | `outputs/revision/manuscript_rewrite_v1/manifest.json` | `fb73df6e8a28d3d69a73fcb70eec1e9ce2025e87374add60bde007ebb49b0440` |
 | `Reviewer Comments for author.docx` | `614f6d6fee623ed1eb124019fed3489d432d93a1316a4b3714266d15c706f15a` |

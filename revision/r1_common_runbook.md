@@ -85,7 +85,7 @@ Không gộp tất cả repeats thành số thị trường độc lập, không
 
 ## Lượt smoke và khóa lại bank
 
-Bank/run `v1` là smoke bị dừng sau 2 response vision thật, chưa có prediction Full: guard cũ đã nhầm yêu cầu Indicator phải gọi LLM. Source trước sửa được bảo toàn trong `r1_common_bank_v1/source_snapshot.zip`. Runner hiện dùng bank/run/output `v3`. Lịch, runtime, giá, tin và AST hàm sinh feature không đổi; [feature_reuse.json](../outputs/revision/r1_common_bank_v3/feature_reuse.json) ghi kiểm tra và nguồn. Chỉ bank ID/self-hash của feature đổi, không sửa feature/market-input hash. Không chuyển response smoke sang run mới. Script `refreeze_revision_common_bank.py --previous v2 --version v3` là thao tác chuyển phiên bản một lần, từ chối ghi đè bank đích.
+Bank/run `v1` là smoke bị dừng sau 2 response vision thật, chưa có prediction Full: guard cũ đã nhầm yêu cầu Indicator phải gọi LLM. Source trước sửa được bảo toàn trong `r1_common_bank_v1/source_snapshot.zip`. Runner hiện dùng bank/run/output `v3`. Lịch, runtime, giá, tin và AST hàm sinh feature không đổi; [feature_reuse.json](../docs/plan/revision_evidence/README.md#r1_common_bank_v3) ghi kiểm tra và nguồn. Chỉ bank ID/self-hash của feature đổi, không sửa feature/market-input hash. Không chuyển response smoke sang run mới. Script `refreeze_revision_common_bank.py --previous v2 --version v3` là thao tác chuyển phiên bản một lần, từ chối ghi đè bank đích.
 
 ## Quota ngày và checkout mới
 

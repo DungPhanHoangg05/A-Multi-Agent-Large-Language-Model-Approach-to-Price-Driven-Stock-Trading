@@ -1,0 +1,1372 @@
+{
+  "schema": "paper_reference_access_v1",
+  "checked_at_utc": "2026-11-13T09:22:58.832038+00:00",
+  "bib_entries_checked": 57,
+  "links_checked": 79,
+  "doi_registry_valid": 25,
+  "cited_references": [
+    {
+      "number": 1,
+      "key": "xiong2025quantagent",
+      "primary_url": "https://arxiv.org/abs/2509.09995v3",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "xiong2025quantagent",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/2509.09995v3",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/2509.09995v3",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[2509.09995v3] QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading",
+          "bytes": 43219
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 2,
+      "key": "wu2023bloomberggpt",
+      "primary_url": "https://arxiv.org/abs/2303.17564v3",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "wu2023bloomberggpt",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/2303.17564v3",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/2303.17564v3",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[2303.17564v3] BloombergGPT: A Large Language Model for Finance",
+          "bytes": 44145
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 3,
+      "key": "yang2023fingpt",
+      "primary_url": "https://arxiv.org/abs/2306.06031v1",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "yang2023fingpt",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/2306.06031v1",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/2306.06031v1",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[2306.06031v1] FinGPT: Open-Source Financial Large Language Models",
+          "bytes": 41403
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 4,
+      "key": "tradingagents2024",
+      "primary_url": "https://arxiv.org/abs/2412.20138v7",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "tradingagents2024",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/2412.20138v7",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/2412.20138v7",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[2412.20138v7] TradingAgents: Multi-Agents LLM Financial Trading Framework",
+          "bytes": 43399
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 5,
+      "key": "han2023chartllama",
+      "primary_url": "https://arxiv.org/abs/2311.16483v1",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "han2023chartllama",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/2311.16483v1",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/2311.16483v1",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[2311.16483v1] ChartLlama: A Multimodal LLM for Chart Understanding and Generation",
+          "bytes": 42366
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 6,
+      "key": "tsantekidis2017lob",
+      "primary_url": "https://pure.au.dk/portal/en/publications/forecasting-stock-prices-from-the-limit-order-book-using-convolut/",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "tsantekidis2017lob",
+          "kind": "url",
+          "url": "https://pure.au.dk/portal/en/publications/forecasting-stock-prices-from-the-limit-order-book-using-convolut/",
+          "status": 200,
+          "final_url": "https://pure.au.dk/portal/en/publications/forecasting-stock-prices-from-the-limit-order-book-using-convolut/",
+          "content_type": "text/html;charset=UTF-8",
+          "title": "Forecasting Stock Prices from the Limit Order Book Using Convolutional Neural Networks - Aarhus University",
+          "bytes": 58404
+        },
+        {
+          "key": "tsantekidis2017lob",
+          "kind": "doi",
+          "url": "https://doi.org/10.1109/CBI.2017.23",
+          "status": 202,
+          "final_url": "https://ieeexplore.ieee.org/document/8010701/",
+          "content_type": "text/html; charset=UTF-8",
+          "title": null,
+          "bytes": 0
+        }
+      ],
+      "doi_registry": {
+        "key": "tsantekidis2017lob",
+        "doi": "10.1109/CBI.2017.23",
+        "registry_http": 200,
+        "registered_title": [
+          "Forecasting Stock Prices from the Limit Order Book Using Convolutional Neural Networks"
+        ],
+        "registered_url": "https://doi.org/10.1109/cbi.2017.23"
+      }
+    },
+    {
+      "number": 7,
+      "key": "lo2000technical",
+      "primary_url": "https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "lo2000technical",
+          "kind": "url",
+          "url": "https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf",
+          "status": 200,
+          "final_url": "https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 676351
+        },
+        {
+          "key": "lo2000technical",
+          "kind": "doi",
+          "url": "https://doi.org/10.1111/0022-1082.00265",
+          "status": 403,
+          "final_url": "https://onlinelibrary.wiley.com/doi/10.1111/0022-1082.00265",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5654
+        }
+      ],
+      "doi_registry": {
+        "key": "lo2000technical",
+        "doi": "10.1111/0022-1082.00265",
+        "registry_http": 200,
+        "registered_title": [
+          "Foundations of Technical Analysis: Computational Algorithms, Statistical Inference, and Empirical Implementation"
+        ],
+        "registered_url": "https://doi.org/10.1111/0022-1082.00265"
+      }
+    },
+    {
+      "number": 8,
+      "key": "murphy1999technical",
+      "primary_url": "https://www.penguinrandomhouse.com/books/350647/technical-analysis-of-the-financial-markets-by-john-j-murphy/",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "murphy1999technical",
+          "kind": "url",
+          "url": "https://www.penguinrandomhouse.com/books/350647/technical-analysis-of-the-financial-markets-by-john-j-murphy/",
+          "status": 200,
+          "final_url": "https://www.penguinrandomhouse.com/books/350647/technical-analysis-of-the-financial-markets-by-john-j-murphy/",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Technical Analysis of the Financial Markets by John J. Murphy: 9780735200661 | PenguinRandomHouse.com: Books",
+          "bytes": 262027
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 9,
+      "key": "kakushadze2016formulaic",
+      "primary_url": "https://arxiv.org/abs/1601.00991v3",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "kakushadze2016formulaic",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/1601.00991v3",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/1601.00991v3",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[1601.00991v3] 101 Formulaic Alphas",
+          "bytes": 37638
+        },
+        {
+          "key": "kakushadze2016formulaic",
+          "kind": "doi",
+          "url": "https://doi.org/10.1002/wilm.10525",
+          "status": 403,
+          "final_url": "https://onlinelibrary.wiley.com/doi/10.1002/wilm.10525",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5639
+        }
+      ],
+      "doi_registry": {
+        "key": "kakushadze2016formulaic",
+        "doi": "10.1002/wilm.10525",
+        "registry_http": 200,
+        "registered_title": [
+          "101 Formulaic Alphas"
+        ],
+        "registered_url": "https://doi.org/10.1002/wilm.10525"
+      }
+    },
+    {
+      "number": 10,
+      "key": "harvey2016",
+      "primary_url": "https://people.duke.edu/~charvey/Research/Published_Papers/P118_and_the_cross.PDF",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "harvey2016",
+          "kind": "url",
+          "url": "https://people.duke.edu/~charvey/Research/Published_Papers/P118_and_the_cross.PDF",
+          "status": 200,
+          "final_url": "https://people.duke.edu/~charvey/Research/Published_Papers/P118_and_the_cross.PDF",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 969629
+        },
+        {
+          "key": "harvey2016",
+          "kind": "doi",
+          "url": "https://doi.org/10.1093/rfs/hhv059",
+          "status": 403,
+          "final_url": "https://academic.oup.com/rfs/article-lookup/doi/10.1093/rfs/hhv059",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5646
+        }
+      ],
+      "doi_registry": {
+        "key": "harvey2016",
+        "doi": "10.1093/rfs/hhv059",
+        "registry_http": 200,
+        "registered_title": [
+          "… and the Cross-Section of Expected Returns"
+        ],
+        "registered_url": "https://doi.org/10.1093/rfs/hhv059"
+      }
+    },
+    {
+      "number": 11,
+      "key": "varma2006bias",
+      "primary_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-7-91.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "varma2006bias",
+          "kind": "url",
+          "url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-7-91.pdf",
+          "status": 200,
+          "final_url": "https://link.springer.com/content/pdf/10.1186/1471-2105-7-91.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 243814,
+          "initial_client_result": {
+            "status": 200,
+            "title": "Client Challenge",
+            "content_type": "text/html; charset=utf-8",
+            "final_url": "https://link.springer.com/content/pdf/10.1186/1471-2105-7-91.pdf"
+          },
+          "verified_client": "python-requests default user agent",
+          "pdf_pages": 8,
+          "pdf_identity_confirmed": true
+        },
+        {
+          "key": "varma2006bias",
+          "kind": "doi",
+          "url": "https://doi.org/10.1186/1471-2105-7-91",
+          "status": 200,
+          "final_url": "https://link.springer.com/article/10.1186/1471-2105-7-91",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Client Challenge",
+          "bytes": 3038
+        }
+      ],
+      "doi_registry": {
+        "key": "varma2006bias",
+        "doi": "10.1186/1471-2105-7-91",
+        "registry_http": 200,
+        "registered_title": [
+          "Bias in error estimation when using cross-validation for model selection"
+        ],
+        "registered_url": "https://doi.org/10.1186/1471-2105-7-91"
+      }
+    },
+    {
+      "number": 12,
+      "key": "bailey2014deflated",
+      "primary_url": "https://davidhbailey.com/dhbpapers/deflated-sharpe.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "bailey2014deflated",
+          "kind": "url",
+          "url": "https://davidhbailey.com/dhbpapers/deflated-sharpe.pdf",
+          "status": 200,
+          "final_url": "https://davidhbailey.com/dhbpapers/deflated-sharpe.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 1048118
+        },
+        {
+          "key": "bailey2014deflated",
+          "kind": "doi",
+          "url": "https://doi.org/10.3905/jpm.2014.40.5.094",
+          "status": 403,
+          "final_url": "http://pm-research.com/lookup/doi/10.3905/jpm.2014.40.5.094",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5545
+        }
+      ],
+      "doi_registry": {
+        "key": "bailey2014deflated",
+        "doi": "10.3905/jpm.2014.40.5.094",
+        "registry_http": 200,
+        "registered_title": [
+          "The Deflated Sharpe Ratio:\n                    <i>Correcting for Selection Bias, Backtest</i>\n                    <i>Overfitting, and Non-Normality</i>"
+        ],
+        "registered_url": "https://doi.org/10.3905/jpm.2014.40.5.094"
+      }
+    },
+    {
+      "number": 13,
+      "key": "white2000reality",
+      "primary_url": "https://users.ssc.wisc.edu/~behansen/718/White2000.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "white2000reality",
+          "kind": "url",
+          "url": "https://users.ssc.wisc.edu/~behansen/718/White2000.pdf",
+          "status": 200,
+          "final_url": "https://users.ssc.wisc.edu/~behansen/718/White2000.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 259584
+        },
+        {
+          "key": "white2000reality",
+          "kind": "doi",
+          "url": "https://doi.org/10.1111/1468-0262.00152",
+          "status": 403,
+          "final_url": "http://doi.wiley.com/10.1111/1468-0262.00152",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5547
+        }
+      ],
+      "doi_registry": {
+        "key": "white2000reality",
+        "doi": "10.1111/1468-0262.00152",
+        "registry_http": 200,
+        "registered_title": [
+          "A Reality Check for Data Snooping"
+        ],
+        "registered_url": "https://doi.org/10.1111/1468-0262.00152"
+      }
+    },
+    {
+      "number": 14,
+      "key": "holm1979multiple",
+      "primary_url": "https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "holm1979multiple",
+          "kind": "url",
+          "url": "https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf",
+          "status": 200,
+          "final_url": "https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 533148
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 15,
+      "key": "nguyen2023visobert",
+      "primary_url": "https://aclanthology.org/2023.emnlp-main.315/",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "nguyen2023visobert",
+          "kind": "url",
+          "url": "https://aclanthology.org/2023.emnlp-main.315/",
+          "status": 200,
+          "final_url": "https://aclanthology.org/2023.emnlp-main.315/",
+          "content_type": "text/html; charset=utf-8",
+          "title": "ViSoBERT: A Pre-Trained Language Model for Vietnamese Social Media Text Processing - ACL Anthology",
+          "bytes": 43828
+        },
+        {
+          "key": "nguyen2023visobert",
+          "kind": "doi",
+          "url": "https://doi.org/10.18653/v1/2023.emnlp-main.315",
+          "status": 200,
+          "final_url": "https://aclanthology.org/2023.emnlp-main.315/",
+          "content_type": "text/html; charset=utf-8",
+          "title": "ViSoBERT: A Pre-Trained Language Model for Vietnamese Social Media Text Processing - ACL Anthology",
+          "bytes": 43828
+        }
+      ],
+      "doi_registry": {
+        "key": "nguyen2023visobert",
+        "doi": "10.18653/v1/2023.emnlp-main.315",
+        "registry_http": 200,
+        "registered_title": [
+          "ViSoBERT: A Pre-Trained Language Model for Vietnamese Social Media Text Processing"
+        ],
+        "registered_url": "https://doi.org/10.18653/v1/2023.emnlp-main.315"
+      }
+    },
+    {
+      "number": 16,
+      "key": "hf5cdsentiment",
+      "primary_url": "https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "hf5cdsentiment",
+          "kind": "url",
+          "url": "https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert",
+          "status": 200,
+          "final_url": "https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert",
+          "content_type": "text/html; charset=utf-8",
+          "title": "5CD-AI/Vietnamese-Sentiment-visobert · Hugging Face",
+          "bytes": 177586
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 17,
+      "key": "tetlock2007news",
+      "primary_url": "https://business.columbia.edu/sites/default/files-efs/pubfiles/3097/Tetlock_Media_Sentiment_JF.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "tetlock2007news",
+          "kind": "url",
+          "url": "https://business.columbia.edu/sites/default/files-efs/pubfiles/3097/Tetlock_Media_Sentiment_JF.pdf",
+          "status": 200,
+          "final_url": "https://business.columbia.edu/sites/default/files-efs/pubfiles/3097/Tetlock_Media_Sentiment_JF.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 472674
+        },
+        {
+          "key": "tetlock2007news",
+          "kind": "doi",
+          "url": "https://doi.org/10.1111/j.1540-6261.2007.01232.x",
+          "status": 403,
+          "final_url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.2007.01232.x",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5702
+        }
+      ],
+      "doi_registry": {
+        "key": "tetlock2007news",
+        "doi": "10.1111/j.1540-6261.2007.01232.x",
+        "registry_http": 200,
+        "registered_title": [
+          "Giving Content to Investor Sentiment: The Role of Media in the Stock Market"
+        ],
+        "registered_url": "https://doi.org/10.1111/j.1540-6261.2007.01232.x"
+      }
+    },
+    {
+      "number": 18,
+      "key": "araci2019finbert",
+      "primary_url": "https://arxiv.org/abs/1908.10063v1",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "araci2019finbert",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/1908.10063v1",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/1908.10063v1",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[1908.10063v1] FinBERT: Financial Sentiment Analysis with Pre-trained Language Models",
+          "bytes": 40469
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 19,
+      "key": "rabiner1989hmm",
+      "primary_url": "https://web.mit.edu/6.435/www/Rabiner89.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "rabiner1989hmm",
+          "kind": "url",
+          "url": "https://web.mit.edu/6.435/www/Rabiner89.pdf",
+          "status": 200,
+          "final_url": "https://web.mit.edu/6.435/www/Rabiner89.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 2754043
+        },
+        {
+          "key": "rabiner1989hmm",
+          "kind": "doi",
+          "url": "https://doi.org/10.1109/5.18626",
+          "status": 202,
+          "final_url": "https://ieeexplore.ieee.org/document/18626/",
+          "content_type": "text/html; charset=UTF-8",
+          "title": null,
+          "bytes": 0
+        }
+      ],
+      "doi_registry": {
+        "key": "rabiner1989hmm",
+        "doi": "10.1109/5.18626",
+        "registry_http": 200,
+        "registered_title": [
+          "A tutorial on hidden Markov models and selected applications in speech recognition"
+        ],
+        "registered_url": "https://doi.org/10.1109/5.18626"
+      }
+    },
+    {
+      "number": 20,
+      "key": "hamilton2005regimes",
+      "primary_url": "https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "hamilton2005regimes",
+          "kind": "url",
+          "url": "https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf",
+          "status": 200,
+          "final_url": "https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 158535
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 21,
+      "key": "xie2022implicitbayes",
+      "primary_url": "https://arxiv.org/abs/2111.02080v6",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "xie2022implicitbayes",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/2111.02080v6",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/2111.02080v6",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[2111.02080v6] An Explanation of In-context Learning as Implicit Bayesian Inference",
+          "bytes": 44032
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 22,
+      "key": "rubin2022retrieve",
+      "primary_url": "https://aclanthology.org/2022.naacl-main.191/",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "rubin2022retrieve",
+          "kind": "url",
+          "url": "https://aclanthology.org/2022.naacl-main.191/",
+          "status": 200,
+          "final_url": "https://aclanthology.org/2022.naacl-main.191/",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Learning To Retrieve Prompts for In-Context Learning - ACL Anthology",
+          "bytes": 41765
+        },
+        {
+          "key": "rubin2022retrieve",
+          "kind": "doi",
+          "url": "https://doi.org/10.18653/v1/2022.naacl-main.191",
+          "status": 200,
+          "final_url": "https://aclanthology.org/2022.naacl-main.191/",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Learning To Retrieve Prompts for In-Context Learning - ACL Anthology",
+          "bytes": 41765
+        }
+      ],
+      "doi_registry": {
+        "key": "rubin2022retrieve",
+        "doi": "10.18653/v1/2022.naacl-main.191",
+        "registry_http": 200,
+        "registered_title": [
+          "Learning To Retrieve Prompts for In-Context Learning"
+        ],
+        "registered_url": "https://doi.org/10.18653/v1/2022.naacl-main.191"
+      }
+    },
+    {
+      "number": 23,
+      "key": "openai2025gptoss",
+      "primary_url": "https://arxiv.org/abs/2508.10925v1",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "openai2025gptoss",
+          "kind": "url",
+          "url": "https://arxiv.org/abs/2508.10925v1",
+          "status": 200,
+          "final_url": "https://arxiv.org/abs/2508.10925v1",
+          "content_type": "text/html; charset=utf-8",
+          "title": "[2508.10925v1] gpt-oss-120b &amp; gpt-oss-20b Model Card",
+          "bytes": 61246
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 24,
+      "key": "grinold1999active",
+      "primary_url": "https://www.mheducation.com/highered/mhp/product/active-portfolio-management-quantitative-approach-producing-superior-returns-selecting-superior-returns-controlling-risk.html",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "grinold1999active",
+          "kind": "url",
+          "url": "https://www.mheducation.com/highered/mhp/product/active-portfolio-management-quantitative-approach-producing-superior-returns-selecting-superior-returns-controlling-risk.html",
+          "status": 200,
+          "final_url": "https://www.mheducation.com/highered/mhp/product/active-portfolio-management-quantitative-approach-producing-superior-returns-selecting-superior-returns-controlling-risk.html",
+          "content_type": "text/html;charset=utf-8",
+          "title": "Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk",
+          "bytes": 319848
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 25,
+      "key": "sharpe1966mutual",
+      "primary_url": "https://web.stanford.edu/~wfsharpe/art/mfp.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "sharpe1966mutual",
+          "kind": "url",
+          "url": "https://web.stanford.edu/~wfsharpe/art/mfp.pdf",
+          "status": 200,
+          "final_url": "https://web.stanford.edu/~wfsharpe/art/mfp.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 975877
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 26,
+      "key": "langgraph_docs",
+      "primary_url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "langgraph_docs",
+          "kind": "url",
+          "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+          "status": 200,
+          "final_url": "https://docs.langchain.com/oss/python/langgraph/overview",
+          "content_type": "text/html; charset=utf-8",
+          "title": "LangGraph overview - Docs by LangChain",
+          "bytes": 447163
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 27,
+      "key": "appel2005technical",
+      "primary_url": "https://www.informit.com/store/technical-analysis-power-tools-for-active-investors-9780131479029",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "appel2005technical",
+          "kind": "url",
+          "url": "https://www.informit.com/store/technical-analysis-power-tools-for-active-investors-9780131479029",
+          "status": 200,
+          "final_url": "https://www.informit.com/store/technical-analysis-power-tools-for-active-investors-9780131479029",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Technical Analysis: Power Tools for Active Investors | InformIT",
+          "bytes": 69415
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 28,
+      "key": "talib_rsi_docs",
+      "primary_url": "https://ta-lib.github.io/ta-doc/indicator/RSI.htm",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "talib_rsi_docs",
+          "kind": "url",
+          "url": "https://ta-lib.github.io/ta-doc/indicator/RSI.htm",
+          "status": 200,
+          "final_url": "https://ta-lib.github.io/ta-doc/indicator/RSI.htm",
+          "content_type": "text/html; charset=utf-8",
+          "title": "TADOC - Technical Analysis Documentation",
+          "bytes": 7568
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 29,
+      "key": "talib_willr_docs",
+      "primary_url": "https://ta-lib.github.io/ta-doc/indicator/WILLR.htm",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "talib_willr_docs",
+          "kind": "url",
+          "url": "https://ta-lib.github.io/ta-doc/indicator/WILLR.htm",
+          "status": 200,
+          "final_url": "https://ta-lib.github.io/ta-doc/indicator/WILLR.htm",
+          "content_type": "text/html; charset=utf-8",
+          "title": "TADOC - Technical Analysis Documentation",
+          "bytes": 4918
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 30,
+      "key": "mplfinance_docs",
+      "primary_url": "https://github.com/matplotlib/mplfinance",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "mplfinance_docs",
+          "kind": "url",
+          "url": "https://github.com/matplotlib/mplfinance",
+          "status": 200,
+          "final_url": "https://github.com/matplotlib/mplfinance",
+          "content_type": "text/html; charset=utf-8",
+          "title": "GitHub - matplotlib/mplfinance: Financial Markets Data Visualization using Matplotlib · GitHub",
+          "bytes": 358846
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 31,
+      "key": "vnstock_docs",
+      "primary_url": "https://vnstocks.com/docs",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "vnstock_docs",
+          "kind": "url",
+          "url": "https://vnstocks.com/docs",
+          "status": 200,
+          "final_url": "https://vnstocks.com/docs",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Tài liệu Vnstock",
+          "bytes": 1669263
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 32,
+      "key": "pardo2008evaluation",
+      "primary_url": "https://www.wiley.com/en-us/-p-9780470128015",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "pardo2008evaluation",
+          "kind": "url",
+          "url": "https://www.wiley.com/en-us/-p-9780470128015",
+          "status": 200,
+          "final_url": "https://www.wiley.com/en-us/-p-9780470128015",
+          "content_type": "text/html; charset=utf-8",
+          "title": "The Evaluation and Optimization of Trading Strategies, 2nd Edition | Wiley",
+          "bytes": 286501
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 33,
+      "key": "pedregosa2011sklearn",
+      "primary_url": "https://jmlr.org/papers/v12/pedregosa11a.html",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "pedregosa2011sklearn",
+          "kind": "url",
+          "url": "https://jmlr.org/papers/v12/pedregosa11a.html",
+          "status": 200,
+          "final_url": "https://jmlr.org/papers/v12/pedregosa11a.html",
+          "content_type": "text/html",
+          "title": "Scikit-learn: Machine Learning in Python",
+          "bytes": 6429
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 34,
+      "key": "brodersen2010balanced",
+      "primary_url": "https://www.ong-home.my/papers/brodersen10post-balacc.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "brodersen2010balanced",
+          "kind": "url",
+          "url": "https://www.ong-home.my/papers/brodersen10post-balacc.pdf",
+          "status": 200,
+          "final_url": "https://www.ong-home.my/papers/brodersen10post-balacc.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 582559
+        },
+        {
+          "key": "brodersen2010balanced",
+          "kind": "doi",
+          "url": "https://doi.org/10.1109/ICPR.2010.764",
+          "status": 202,
+          "final_url": "https://ieeexplore.ieee.org/document/5597285/",
+          "content_type": "text/html; charset=UTF-8",
+          "title": null,
+          "bytes": 0
+        }
+      ],
+      "doi_registry": {
+        "key": "brodersen2010balanced",
+        "doi": "10.1109/ICPR.2010.764",
+        "registry_http": 200,
+        "registered_title": [
+          "The Balanced Accuracy and Its Posterior Distribution"
+        ],
+        "registered_url": "https://doi.org/10.1109/icpr.2010.764"
+      }
+    },
+    {
+      "number": 35,
+      "key": "chicco2020mcc",
+      "primary_url": "https://bmcgenomics.biomedcentral.com/counter/pdf/10.1186/s12864-019-6413-7.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "chicco2020mcc",
+          "kind": "url",
+          "url": "https://bmcgenomics.biomedcentral.com/counter/pdf/10.1186/s12864-019-6413-7.pdf",
+          "status": 200,
+          "final_url": "https://link.springer.com/content/pdf/10.1186/s12864-019-6413-7.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 625877,
+          "initial_client_result": {
+            "status": 200,
+            "title": "Client Challenge",
+            "content_type": "text/html; charset=utf-8",
+            "final_url": "https://link.springer.com/content/pdf/10.1186/s12864-019-6413-7.pdf"
+          },
+          "verified_client": "python-requests default user agent",
+          "pdf_pages": 13,
+          "pdf_identity_confirmed": true
+        },
+        {
+          "key": "chicco2020mcc",
+          "kind": "doi",
+          "url": "https://doi.org/10.1186/s12864-019-6413-7",
+          "status": 200,
+          "final_url": "https://link.springer.com/article/10.1186/s12864-019-6413-7",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Client Challenge",
+          "bytes": 3038
+        }
+      ],
+      "doi_registry": {
+        "key": "chicco2020mcc",
+        "doi": "10.1186/s12864-019-6413-7",
+        "registry_http": 200,
+        "registered_title": [
+          "The advantages of the Matthews correlation coefficient (MCC) over F1 score and accuracy in binary classification evaluation"
+        ],
+        "registered_url": "https://doi.org/10.1186/s12864-019-6413-7"
+      }
+    },
+    {
+      "number": 36,
+      "key": "lahiri2003resampling",
+      "primary_url": "https://www.gbv.de/dms/goettingen/366100181.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "lahiri2003resampling",
+          "kind": "url",
+          "url": "https://www.gbv.de/dms/goettingen/366100181.pdf",
+          "status": 200,
+          "final_url": "https://www.gbv.de/dms/goettingen/366100181.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 140127
+        },
+        {
+          "key": "lahiri2003resampling",
+          "kind": "doi",
+          "url": "https://doi.org/10.1007/978-1-4757-3803-2",
+          "status": 200,
+          "final_url": "https://link.springer.com/10.1007/978-1-4757-3803-2",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Client Challenge",
+          "bytes": 3038
+        }
+      ],
+      "doi_registry": {
+        "key": "lahiri2003resampling",
+        "doi": "10.1007/978-1-4757-3803-2",
+        "registry_http": 200,
+        "registered_title": [
+          "Resampling Methods for Dependent Data"
+        ],
+        "registered_url": "https://doi.org/10.1007/978-1-4757-3803-2"
+      }
+    },
+    {
+      "number": 37,
+      "key": "newey1987hac",
+      "primary_url": "https://www.ssc.wisc.edu/~bhansen/718/NeweyWest1987.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "newey1987hac",
+          "kind": "url",
+          "url": "https://www.ssc.wisc.edu/~bhansen/718/NeweyWest1987.pdf",
+          "status": 200,
+          "final_url": "https://users.ssc.wisc.edu/~behansen/718/NeweyWest1987.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 539596
+        },
+        {
+          "key": "newey1987hac",
+          "kind": "doi",
+          "url": "https://doi.org/10.2307/1913610",
+          "status": 200,
+          "final_url": "https://www.jstor.org/stable/1913610?origin=crossref",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Client Challenge",
+          "bytes": 3038
+        }
+      ],
+      "doi_registry": {
+        "key": "newey1987hac",
+        "doi": "10.2307/1913610",
+        "registry_http": 200,
+        "registered_title": [
+          "A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix"
+        ],
+        "registered_url": "https://doi.org/10.2307/1913610"
+      }
+    },
+    {
+      "number": 38,
+      "key": "sortino1994downside",
+      "primary_url": "https://www.pm-research.com/content/iijinvest/3/3/59",
+      "primary_access": "PUBLISHER_BROWSER_VERIFICATION",
+      "links": [
+        {
+          "key": "sortino1994downside",
+          "kind": "url",
+          "url": "https://www.pm-research.com/content/iijinvest/3/3/59",
+          "status": 403,
+          "final_url": "https://www.pm-research.com/content/iijinvest/3/3/59",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5556
+        },
+        {
+          "key": "sortino1994downside",
+          "kind": "doi",
+          "url": "https://doi.org/10.3905/joi.3.3.59",
+          "status": 403,
+          "final_url": "http://pm-research.com/lookup/doi/10.3905/joi.3.3.59",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5524
+        }
+      ],
+      "doi_registry": {
+        "key": "sortino1994downside",
+        "doi": "10.3905/joi.3.3.59",
+        "registry_http": 200,
+        "registered_title": [
+          "Performance Measurement in a Downside Risk Framework"
+        ],
+        "registered_url": "https://doi.org/10.3905/joi.3.3.59"
+      }
+    },
+    {
+      "number": 39,
+      "key": "vsd2022settlement",
+      "primary_url": "https://vsdc.vn/vi/ad/152750",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "vsd2022settlement",
+          "kind": "url",
+          "url": "https://vsdc.vn/vi/ad/152750",
+          "status": 200,
+          "final_url": "https://vsdc.vn/vi/ad/152750",
+          "content_type": "text/html; charset=utf-8",
+          "title": "T&#x1ED5;ng c&#xF4;ng ty L&#x1B0;u k&#xFD; v&#xE0; B&#xF9; tr&#x1EEB; ch&#x1EE9;ng kho&#xE1;n Vi&#x1EC7;t Nam Tin t&#x1EE9;c",
+          "bytes": 68655
+        }
+      ],
+      "doi_registry": null
+    },
+    {
+      "number": 40,
+      "key": "wolf2020transformers",
+      "primary_url": "https://aclanthology.org/2020.emnlp-demos.6/",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "wolf2020transformers",
+          "kind": "url",
+          "url": "https://aclanthology.org/2020.emnlp-demos.6/",
+          "status": 200,
+          "final_url": "https://aclanthology.org/2020.emnlp-demos.6/",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Transformers: State-of-the-Art Natural Language Processing - ACL Anthology",
+          "bytes": 50939
+        },
+        {
+          "key": "wolf2020transformers",
+          "kind": "doi",
+          "url": "https://doi.org/10.18653/v1/2020.emnlp-demos.6",
+          "status": 200,
+          "final_url": "https://aclanthology.org/2020.emnlp-demos.6/",
+          "content_type": "text/html; charset=utf-8",
+          "title": "Transformers: State-of-the-Art Natural Language Processing - ACL Anthology",
+          "bytes": 50939
+        }
+      ],
+      "doi_registry": {
+        "key": "wolf2020transformers",
+        "doi": "10.18653/v1/2020.emnlp-demos.6",
+        "registry_http": 200,
+        "registered_title": [
+          "Transformers: State-of-the-Art Natural Language Processing"
+        ],
+        "registered_url": "https://doi.org/10.18653/v1/2020.emnlp-demos.6"
+      }
+    },
+    {
+      "number": 41,
+      "key": "gelman2013bayesian",
+      "primary_url": "https://sites.stat.columbia.edu/gelman/book/",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "gelman2013bayesian",
+          "kind": "url",
+          "url": "https://sites.stat.columbia.edu/gelman/book/",
+          "status": 200,
+          "final_url": "https://sites.stat.columbia.edu/gelman/book/",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Home page for the book, \"Bayesian Data Analysis\"",
+          "bytes": 3232
+        },
+        {
+          "key": "gelman2013bayesian",
+          "kind": "doi",
+          "url": "https://doi.org/10.1201/b16018",
+          "status": 403,
+          "final_url": "https://www.taylorfrancis.com/books/9781439898208",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5607
+        }
+      ],
+      "doi_registry": {
+        "key": "gelman2013bayesian",
+        "doi": "10.1201/b16018",
+        "registry_http": 200,
+        "registered_title": [
+          "Bayesian Data Analysis"
+        ],
+        "registered_url": "https://doi.org/10.1201/b16018"
+      }
+    },
+    {
+      "number": 42,
+      "key": "dempster1977em",
+      "primary_url": "https://web.mit.edu/6.435/www/Dempster77.pdf",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "dempster1977em",
+          "kind": "url",
+          "url": "https://web.mit.edu/6.435/www/Dempster77.pdf",
+          "status": 200,
+          "final_url": "https://web.mit.edu/6.435/www/Dempster77.pdf",
+          "content_type": "application/pdf",
+          "title": null,
+          "bytes": 1163485
+        },
+        {
+          "key": "dempster1977em",
+          "kind": "doi",
+          "url": "https://doi.org/10.1111/j.2517-6161.1977.tb01600.x",
+          "status": 403,
+          "final_url": "https://academic.oup.com/jrsssb/article/39/1/1/7027539",
+          "content_type": "text/html; charset=UTF-8",
+          "title": "Just a moment...",
+          "bytes": 5589
+        }
+      ],
+      "doi_registry": {
+        "key": "dempster1977em",
+        "doi": "10.1111/j.2517-6161.1977.tb01600.x",
+        "registry_http": 200,
+        "registered_title": [
+          "Maximum Likelihood from Incomplete Data Via the\n                    <i>EM</i>\n                    Algorithm"
+        ],
+        "registered_url": "https://doi.org/10.1111/j.2517-6161.1977.tb01600.x"
+      }
+    },
+    {
+      "number": 43,
+      "key": "rubin1981bootstrap",
+      "primary_url": "https://doi.org/10.1214/aos/1176345338",
+      "primary_access": "VERIFIED_CONTENT",
+      "links": [
+        {
+          "key": "rubin1981bootstrap",
+          "kind": "doi",
+          "url": "https://doi.org/10.1214/aos/1176345338",
+          "status": 200,
+          "final_url": "https://projecteuclid.org/journals/annals-of-statistics/volume-9/issue-1/The-Bayesian-Bootstrap/10.1214/aos/1176345338.full",
+          "content_type": "text/html",
+          "title": null,
+          "bytes": 1057
+        }
+      ],
+      "doi_registry": {
+        "key": "rubin1981bootstrap",
+        "doi": "10.1214/aos/1176345338",
+        "registry_http": 200,
+        "registered_title": [
+          "The Bayesian Bootstrap"
+        ],
+        "registered_url": "https://doi.org/10.1214/aos/1176345338"
+      }
+    }
+  ],
+  "uncited_bibliography_links": [
+    {
+      "key": "arora2026predictionmarketbench",
+      "kind": "url",
+      "url": "https://arxiv.org/abs/2602.00133v1",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2602.00133v1",
+      "content_type": "text/html; charset=utf-8",
+      "title": "[2602.00133v1] PredictionMarketBench: A SWE-bench-Style Framework for Backtesting Trading Agents on Prediction Markets",
+      "bytes": 40716
+    },
+    {
+      "key": "deng2017deep",
+      "kind": "url",
+      "url": "https://ieeexplore.ieee.org/abstract/document/7407387",
+      "status": 420,
+      "final_url": "https://ieeexplore.ieee.org/abstract/document/7407387",
+      "content_type": null,
+      "title": null,
+      "bytes": 0
+    },
+    {
+      "key": "deng2017deep",
+      "kind": "doi",
+      "url": "https://doi.org/10.1109/TNNLS.2016.2522401",
+      "status": 202,
+      "final_url": "https://ieeexplore.ieee.org/document/7407387/",
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "bytes": 0
+    },
+    {
+      "key": "fama1992crosssection",
+      "kind": "doi",
+      "url": "https://doi.org/10.1111/j.1540-6261.1992.tb04398.x",
+      "status": 403,
+      "final_url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1992.tb04398.x",
+      "content_type": "text/html; charset=UTF-8",
+      "title": "Just a moment...",
+      "bytes": 5708
+    },
+    {
+      "key": "fatemi2024finvision",
+      "kind": "url",
+      "url": "https://arxiv.org/abs/2411.08899v1",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2411.08899v1",
+      "content_type": "text/html; charset=utf-8",
+      "title": "[2411.08899v1] FinVision: A Multi-Agent Framework for Stock Market Prediction",
+      "bytes": 42329
+    },
+    {
+      "key": "hurst2017trend",
+      "kind": "url",
+      "url": "https://www.aqr.com/-/media/AQR/Documents/Insights/Journal-Article/AQR-JPM-Fall-2017.pdf",
+      "status": 200,
+      "final_url": "https://www.aqr.com/-/media/AQR/Documents/Insights/Journal-Article/AQR-JPM-Fall-2017.pdf",
+      "content_type": "application/pdf",
+      "title": null,
+      "bytes": 2752830
+    },
+    {
+      "key": "hurst2017trend",
+      "kind": "doi",
+      "url": "https://doi.org/10.3905/jpm.2017.44.1.015",
+      "status": 403,
+      "final_url": "http://pm-research.com/lookup/doi/10.3905/jpm.2017.44.1.015",
+      "content_type": "text/html; charset=UTF-8",
+      "title": "Just a moment...",
+      "bytes": 5524
+    },
+    {
+      "key": "jegadeesh1993momentum",
+      "kind": "doi",
+      "url": "https://doi.org/10.1111/j.1540-6261.1993.tb04702.x",
+      "status": 403,
+      "final_url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1993.tb04702.x",
+      "content_type": "text/html; charset=UTF-8",
+      "title": "Just a moment...",
+      "bytes": 5708
+    },
+    {
+      "key": "lane1984stochastic",
+      "kind": "url",
+      "url": "https://store.traders.com/-v02-c03-lane-pdf.html",
+      "status": 200,
+      "final_url": "https://store.traders.com/-v02-c03-lane-pdf.html",
+      "content_type": "text/html",
+      "title": "V.2:3 (87-90): LANE'S STOCHASTICS by George C. Lane, M.D.",
+      "bytes": 21733
+    },
+    {
+      "key": "shu2026finchart",
+      "kind": "url",
+      "url": "https://aclanthology.org/2026.acl-long.615/",
+      "status": 200,
+      "final_url": "https://aclanthology.org/2026.acl-long.615/",
+      "content_type": "text/html; charset=utf-8",
+      "title": "FinChart-Bench: Benchmarking Financial Chart Comprehension in Vision-Language Models - ACL Anthology",
+      "bytes": 44821
+    },
+    {
+      "key": "shu2026finchart",
+      "kind": "doi",
+      "url": "https://doi.org/10.18653/v1/2026.acl-long.615",
+      "status": 200,
+      "final_url": "https://aclanthology.org/2026.acl-long.615/",
+      "content_type": "text/html; charset=utf-8",
+      "title": "FinChart-Bench: Benchmarking Financial Chart Comprehension in Vision-Language Models - ACL Anthology",
+      "bytes": 44821
+    },
+    {
+      "key": "vo2016herdvietnam",
+      "kind": "url",
+      "url": "https://digital.lib.ueh.edu.vn/handle/UEH/56589",
+      "status": 200,
+      "final_url": "https://digital.lib.ueh.edu.vn/handle/UEH/56589",
+      "content_type": "text/html;charset=UTF-8",
+      "title": "Herd behavior in emerging equity markets: evidence from Vietnam | Digital Repository",
+      "bytes": 37958
+    },
+    {
+      "key": "wang2026martingale",
+      "kind": "url",
+      "url": "https://arxiv.org/abs/2606.17423v1",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2606.17423v1",
+      "content_type": "text/html; charset=utf-8",
+      "title": "[2606.17423v1] Martingale Doppelgänger-Eval: An Identification Framework for Auditing Candlestick Understanding in Vision-Language Models",
+      "bytes": 42588
+    },
+    {
+      "key": "wei2022chain",
+      "kind": "url",
+      "url": "https://proceedings.neurips.cc/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract.html",
+      "status": 200,
+      "final_url": "https://proceedings.neurips.cc/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract.html",
+      "content_type": "text/html; charset=utf-8",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "bytes": 9698
+    },
+    {
+      "key": "xia2026agentictrading",
+      "kind": "url",
+      "url": "https://arxiv.org/abs/2605.19337v2",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2605.19337v2",
+      "content_type": "text/html; charset=utf-8",
+      "title": "[2605.19337v2] Agentic Trading: When LLM Agents Meet Financial Markets",
+      "bytes": 42941
+    },
+    {
+      "key": "zeng2025futurexadvancedlivebenchmark",
+      "kind": "url",
+      "url": "https://arxiv.org/abs/2508.11987v3",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2508.11987v3",
+      "content_type": "text/html; charset=utf-8",
+      "title": "[2508.11987v3] FutureX: An Advanced Live Benchmark for LLM Agents in Future Prediction",
+      "bytes": 47354
+    },
+    {
+      "key": "zhang2026predictionarena",
+      "kind": "url",
+      "url": "https://arxiv.org/abs/2604.07355v1",
+      "status": 200,
+      "final_url": "https://arxiv.org/abs/2604.07355v1",
+      "content_type": "text/html; charset=utf-8",
+      "title": "[2604.07355v1] Prediction Arena: Benchmarking AI Models on Real-World Prediction Markets",
+      "bytes": 44359
+    }
+  ],
+  "limits": "HTTP 200 alone is not access verification; browser challenges are flagged; access is a dated observation, not a future availability guarantee.",
+  "primary_access_summary": {
+    "VERIFIED_CONTENT": 42,
+    "PUBLISHER_BROWSER_VERIFICATION": 1
+  },
+  "completed_at_utc": "2026-11-13T09:26:35.013437+00:00"
+}

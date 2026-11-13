@@ -4,7 +4,7 @@ Tiến độ và điều kiện đóng R1 nằm trong [plan.md](../plan.md). Tà
 
 ## Run đã hoàn tất — 03/11/2026
 
-Đủ 474 research +10 smoke, 102 cặp chính và panels 18/9. R1 đã chốt bằng [bản thảo release mới](../outputs/revision/r1_manuscript_v2/manifest.json) và [response](response_to_reviewers.md); không cần chạy thêm API để hoàn thành R1. Các lệnh smoke/run bên dưới là hướng dẫn vận hành lịch sử, không phải yêu cầu chạy lại.
+Đủ 474 research +10 smoke, 102 cặp chính và panels 18/9. R1 đã chốt bằng [bản thảo release mới](../docs/plan/revision_evidence/README.md#r1_manuscript_v2) và [response](response_to_reviewers.md); không cần chạy thêm API để hoàn thành R1. Các lệnh smoke/run bên dưới là hướng dẫn vận hành lịch sử, không phải yêu cầu chạy lại.
 
 Đối soát/tái tạo bảng offline:
 
