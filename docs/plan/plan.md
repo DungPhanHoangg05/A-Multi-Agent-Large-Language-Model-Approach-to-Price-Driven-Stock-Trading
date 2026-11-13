@@ -74,13 +74,18 @@ Alpha/prior/MT giữ ngữ cảnh ngày và hợp đồng T+2.5. Không còn kh�
 chỉ cho Original. [Cách dùng và hợp đồng đa khung](week12/variant_serving_contract.md#chọn-phiên-bản-ngay-trong-chế-độ-intraday-và-các-khung-thời-gian).
 Provider/nguồn live riêng giữ cutoff, key/options/owner, retry/checkpoint và
 không đọc payoff query. Các caller/service/UI/leakage bị đổi được kiểm lại;
-QA F10/F11 ngày trước đó là lịch sử, không thay kiểm thử code đa khung mới:
-**136 Python + 19 DOM, compile14/JS7 PASS**, có 18 leakage/11 native parity;
-kiểm đúng provider/caller/PIT/recovery đổi, không chạy toàn suite. Browser desktop/mobile
+QA ngày/đa khung trước đó giữ nguyên làm lịch sử. Sửa incident realtime từ
+`0197e35a`: bỏ guard 6.500 ở Original realtime theo yêu cầu người dùng (backtest
+giữ nguyên); VNINDEX dùng ngày/Close cho lịch/HMM, không đòi OHLC không dùng.
+[QA sửa realtime](week12/serving_realtime_repair_checks.zip): **100 Python +
+20 DOM, compile14/JS3 PASS**, có 18 leakage/11 native parity. Probe giá thật
+FPT ngày 13/11 trả snapshot200/preflight ready/C2 completed; model HTTP fixture,
+tin tắt, không phải dự báo thật. Kiểm đúng phần ảnh hưởng, không chạy toàn suite.
+Browser desktop/mobile
 vẫn chờ: host không khả dụng, duyệt tự động đã từ chối mở Edge. Chưa đạt gate
 browser nên F11 chưa hoàn tất, nhánh tác vụ chưa merge theo AGENTS §1.2;
 **F12 chưa bắt đầu**. [Runbook nghiệm thu/preview](week12/variant_serving_contract.md#nghiệm-thu-f11-và-preview-fixture)
-giữ rõ phần còn chờ; không gọi API hosted/thị trường mới.
+giữ rõ phần còn chờ; không gọi hosted LLM, đã đọc thị trường để xác minh incident.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

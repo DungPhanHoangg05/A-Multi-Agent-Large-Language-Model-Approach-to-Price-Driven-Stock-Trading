@@ -3,3 +3,4 @@
 unified_execution.py text eol=lf
 unified_execution_transport.py text eol=lf
 unified_execution_providers.py text eol=lf
+realtime_index.py text eol=lf

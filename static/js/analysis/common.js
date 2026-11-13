@@ -31,3 +31,10 @@ export function blockerText(blocker, text) {
     MODEL_NOT_RELEASED:'blocked_model',TOKENIZER_NOT_READY:'blocked_tokenizer'}[blocker.code];
   return key ? text[key] : blocker.code;
 }
+
+export function captureErrorMessage(error, config) {
+  const detail = error?.data?.capture_error;
+  const message = detail?.message?.[config.language];
+  if (typeof message !== 'string' || !/^[A-Z_]{3,80}$/.test(detail?.code ?? '') || !/^[a-z.]{3,48}$/.test(detail?.stage ?? '')) return config.messages.live_failed;
+  return `${message} [${detail.code} · ${detail.stage}]`;
+}

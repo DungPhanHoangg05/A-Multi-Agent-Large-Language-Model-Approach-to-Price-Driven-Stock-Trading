@@ -1,4 +1,4 @@
-import {byId, element, label, json, jobUrl, requestFor, blockerText} from './common.js';
+import {byId, element, label, json, jobUrl, requestFor, blockerText,captureErrorMessage} from './common.js';
 import {runTimeframe} from './timeframe.js';
 
 // Mỗi lần sửa form hủy grant cũ; chỉ response đúng generation mới được bật nút chạy.
@@ -101,8 +101,8 @@ export function formController(config, io = json, navigate = url => location.ass
       capturing = false; await check();
     } catch (error) {
       if (mine === captureGeneration) {
-        byId('live-input-status').textContent = text.live_failed;
-        byId('serving-form-error').textContent = text.live_failed;
+        byId('live-input-status').textContent = captureErrorMessage(error,config);
+        byId('serving-form-error').textContent = captureErrorMessage(error,config);
       }
     } finally { if (mine === captureGeneration) { capturing = false; buttons(); } }
   }

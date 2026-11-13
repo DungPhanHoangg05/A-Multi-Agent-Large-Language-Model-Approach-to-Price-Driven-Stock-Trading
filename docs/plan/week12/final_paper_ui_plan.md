@@ -369,7 +369,13 @@ sáu bản. Mã service/provider/UI đã đổi nên kiểm lại caller/PIT/rec
 quan. Mốc ngày trước đính chính có 138 Python + 16 DOM, compile19/JS5 PASS;
 đính chính mới mở sáu lựa chọn ngay trong intraday/khung khác và kiểm lại
 provider/caller/PIT: **136 Python + 19 DOM, compile14/JS7 PASS**, không coi
-gate ngày là chứng nhận code đa khung.
+gate ngày là chứng nhận code đa khung. Sửa incident tiếp theo: guard 6.500 chỉ
+áp dụng backtest, Original realtime giữ prompt gốc; VNINDEX dùng ngày/Close
+cho lịch/HMM thay vì chặn vì OHLC không được dùng. **100 Python + 20 DOM,
+compile14/JS3 PASS**, 18 leakage/11 native parity. Probe giá thật FPT ngày
+13/11: snapshot200/preflight ready/C2 completed, HTTP model fixture và tin tắt;
+không phải dự báo thật. [QA sửa realtime](serving_realtime_repair_checks.zip)
+khóa kết quả mới, QA trước đó giữ nguyên làm lịch sử.
 [Receipt F11](serving_integration_acceptance.json) giữ
 `OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
 và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
@@ -391,7 +397,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Đang làm | Nghiệm thu tích hợp và chọn phiên bản realtime — `test/variant-serving-integration` | F07–F10 | Cả nguồn phiên ngày và intraday/khung khác chọn sáu bản; chart/I/P/T theo khung chọn, ngữ cảnh Alpha/prior/MT ngày/T+2.5; snapshot/owner/key/quota/checkpoint dùng chung hợp đồng; 136 Python + 19 DOM, compile14/JS7 PASS. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
+| F11 | ☐ Đang làm | Nghiệm thu tích hợp và chọn phiên bản realtime — `test/variant-serving-integration` | F07–F10 | Cả nguồn phiên ngày và intraday/khung khác chọn sáu bản; chart/I/P/T theo khung chọn, ngữ cảnh Alpha/prior/MT ngày/T+2.5; snapshot/owner/key/quota/checkpoint dùng chung hợp đồng; sửa guard Original realtime và VNINDEX ngày/Close; 100 Python + 20 DOM, compile14/JS3 PASS, probe giá thật/model fixture. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy
@@ -414,7 +420,8 @@ chỉ sửa trình bày/UI; các nghiên cứu bổ sung còn thiếu vẫn ghi 
   đường bị ảnh hưởng; không chỉ kiểm happy path của UI.
 - F11: kiểm một upstream/point, dependency once/repeat, common projection,
   native parity, resource thiếu, short=CASH, net target oracle, NA, prompt
-  <6.500 ký tự/BRPP ≤600, retry/UNKNOWN/resume/stop và đồng thời hai job khác
+  backtest <6.500 ký tự/BRPP ≤600 (Original realtime bỏ trần tổng theo yêu cầu
+  người dùng), retry/UNKNOWN/resume/stop và đồng thời hai job khác
   cấu hình. Browser kiểm cả sáu lựa chọn, advanced controls, offline/new run,
   empty/error/partial, export và mobile; fixture/mock trước API thật.
 - Bốn gate lịch sử chỉ viện dẫn đúng source/runtime/receipt. Thay code thì

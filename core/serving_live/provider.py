@@ -56,7 +56,8 @@ class LiveProvider(AsOfProvider):
         self.selectors[symbol] = LiveSelector(read(root,source['selector']),frozen_prices)
         self.record = deepcopy(record)
         self.prices[symbol] = frame(record['prices'])
-        index = frame(record['index'])
+        from core.realtime_index import index_frame
+        index = index_frame(record['index'])
         previous = self.data.history
         self.data.history = pd.concat([previous,index.loc[index.Datetime > previous.Datetime.iloc[-1]]],ignore_index=True)
         if str(self.data.history.Datetime.iloc[-1].date()) != cutoff:

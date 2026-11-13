@@ -205,7 +205,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: nhận develop mới, cả chế độ phiên ngày mới nhất và intraday/khung khác chọn đủ sáu bản; kiểm lại caller/provider/UI/PIT/recovery bị đổi, không dùng gate cũ thay kết quả mới. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: hai chế độ realtime chọn đủ sáu bản; sửa guard 6.500 áp nhầm Original realtime và VNINDEX dùng ngày/Close. 100 Python + 20 DOM, compile14/JS3 PASS; probe giá thật snapshot200/C2 completed với model fixture. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -674,6 +674,25 @@ không auto-reload; cần khởi động lại server và tải lại trang đ�
 Native causal FAIL, whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận
 đóng và source/PDF/archive mới từ develop giữ nguyên.
 Diff, **188 liên kết/anchor local** và đồng bộ checklist PASS.
+
+### Sửa incident F11 — Decision realtime và snapshot VNINDEX
+
+Theo yêu cầu tiếp theo của người dùng, sửa trên nhánh F11 từ `0197e35a`:
+
+- [x] Tái hiện đúng prompt EN **7.730 ký tự** với độ dài report trong log. Guard native đã áp nhầm giới hạn backtest vào Original realtime; nay chỉ guard khi `is_backtest=True`. Realtime giữ prompt gốc, distill/cap report, schema/parser/retry và trả decision từ phản hồi model; không tạo action thay thế. Backtest vẫn từ chối prompt từ 6.500 ký tự, BRPP giữ nguyên.
+- [x] Đọc nguồn thật: FPT có 1.995 nến ngày hợp lệ; VNINDEX có 1.995 phiên nhưng VCI có **4** dòng, KBS có **3** dòng vi phạm quan hệ OHLC. Lịch/HMM chỉ cần Datetime/Close. Thêm hợp đồng `vnindex_close_v1`, kiểm Close hữu hạn/dương, ngày duy nhất/không future; không sửa OHLC, bỏ phiên, nội suy hoặc đổi đơn vị. Cổ phiếu giữ kiểm OHLCV nghiêm ngặt. Provider đọc được snapshot cũ và khóa version mới cho hợp đồng chỉ số mới.
+- [x] Ngoài giờ, dùng lịch ngày VNINDEX đã quan sát cho khung ngày/tuần/tháng; chỉ lấy Close intraday khi cần bổ sung phiên đang diễn ra. Không bắt feed VNINDEX5m tồn tại ban đêm/cuối tuần. Lỗi capture có code/stage và lời giải thích VI/EN trên UI/log, không phản chiếu lỗi mạng chứa key.
+- [x] **100 Python + 20 DOM PASS**, không skip; compile **14 Python đổi**, syntax **3 JS PASS**. Gồm 23 test live/capture/provider bảy khung và sáu bản, incident 7.730 qua serializer tới kết quả web, index fallback/invalid Close, API lỗi nguồn, 18 leakage, 11 native parity và hồi quy prompt/prior/HTTP recovery. Chỉ kiểm phần ảnh hưởng; không chạy full unit/E2E/compileall.
+- [x] Probe **giá thị trường thật** FPT/VNINDEX tại cutoff **13/11/2026**, mỗi nguồn ngày 1.995 dòng: snapshot **200**, preflight **200/ready**, job **C2 completed**, hai dòng kết quả (C2/common), không payoff query. **HTTP Groq là fixture, tin tắt/unavailable**, không gọi hosted LLM/HF; kết quả này xác minh pipeline, không chứng nhận dự báo thị trường.
+- [ ] Browser desktop/mobile còn chờ; F11 chưa hoàn tất, F12 chưa bắt đầu, chưa merge develop. Giữ nguyên paper/PDF/archive nghiên cứu, native causal FAIL, whole-system NOT_CERTIFIED và 0/18 comment được chứng nhận đóng.
+
+[Receipt v4](serving_integration_acceptance.json) khóa
+[QA sửa realtime](serving_realtime_repair_checks.zip), nguồn/runtime và log thô;
+QA ngày/đa khung trước đó giữ nguyên byte, không thay kiểm tra code đã đổi.
+Server `web_interface.py` không auto-reload: cần khởi động lại server và tải lại
+trang để dùng backend/JS mới. Hai ảnh người dùng sinh ngoài phạm vi task được giữ
+nguyên và không đưa vào commit. Diff, **193 liên kết/anchor local** và checklist
+được đối soát PASS.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

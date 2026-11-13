@@ -1,4 +1,4 @@
-import {jobUrl,requestFor,blockerText} from './common.js';
+import {jobUrl,requestFor,blockerText,captureErrorMessage} from './common.js';
 
 // Một click phân tích: khóa selection, capture nến, preflight rồi tạo đúng phiên bản đã chọn.
 export async function runTimeframe(config, selection, models, io, status) {
@@ -7,7 +7,7 @@ export async function runTimeframe(config, selection, models, io, status) {
   status(text.live_loading);
   let snapshot;
   try { snapshot = await io('/api/serving/live/v1/snapshot',{symbol:selection.symbol,timeframe:selection.timeframe}); }
-  catch { throw new Error(text.live_failed); }
+  catch (error) { throw new Error(captureErrorMessage(error,config)); }
   if (snapshot.symbol !== selection.symbol || snapshot.chart_timeframe !== selection.timeframe || !/^[0-9a-f]{64}$/.test(snapshot.snapshot_id)) throw new Error(text.live_failed);
   const body = {version:'variant_serving_timeframe_v1',snapshot_id:snapshot.snapshot_id,chart_timeframe:selection.timeframe,
     request:requestFor({mode:'analyze',ids:[selection.variant],symbol:selection.symbol,date:snapshot.cutoff,

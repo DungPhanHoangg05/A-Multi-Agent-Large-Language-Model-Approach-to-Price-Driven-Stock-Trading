@@ -274,17 +274,46 @@ ghi `LEGACY_DECLARED_NOT_RECERTIFIED`. Thiếu/lỗi giữ NA, không suy thành
 Không chứng nhận lại economics của file cũ qua adapter. Browser desktop/mobile
 vẫn chờ F11 do host không khả dụng; kiểm offline dùng HTTP fixture.
 
+## Sửa lỗi decision và capture realtime ngày 13/11/2026
+
+Original realtime không áp giới hạn tổng prompt 6.500 ký tự. Guard chỉ chạy
+khi `is_backtest=True`; distill/cap báo cáo, parser/schema và retry giữ nguyên.
+Prompt EN 7.730 ký tự của incident đã đi qua serializer và tới kết quả web với
+decision đúng như phản hồi fixture. Không dùng action thay thế khi pipeline lỗi.
+Giới hạn benchmark/backtest và BRPP không đổi.
+
+VNINDEX chỉ cấp lịch và Close cho HMM; nguồn VCI/KBS có OHLC cũ mâu thuẫn dù
+Close vẫn hợp lệ. Snapshot mới ghi `index_contract=vnindex_close_v1` với hai cột
+`Datetime`, `Close`, kiểm ngày/Close nghiêm ngặt, không tạo OHLC hoặc bỏ phiên.
+Provider vẫn đọc snapshot OHLCV cũ; resource version mới thêm `/index_close_v1`
+để phân biệt hợp đồng. OHLCV cổ phiếu tiếp tục dùng validator cũ.
+Ngoài phiên, khung ngày/tuần/tháng dùng lịch VNINDEX ngày đã quan sát; chỉ cần
+feed intraday khi bổ sung Close phiên hiện tại chưa có trong nguồn ngày.
+
+HTTP409 capture trả `capture_error={code,stage,message:{vi,en},retryable}`.
+UI hiển thị thông báo và code/stage; server log cùng giai đoạn. Ví dụ
+`CAPTURE_INDEX_DAILY`/`index.daily` là lỗi lấy nguồn chỉ số;
+`CAPTURE_INDEX_VALIDATE`/`index.validate` là lỗi ngày/Close. Không ghi raw lỗi
+provider vào UI/log hoặc tự chạy Original khi bản được chọn capture thất bại.
+
+Probe giá thật FPT/VNINDEX ngày 13/11/2026 có 1.995 dòng ngày mỗi nguồn,
+snapshot200, preflight ready và C2 completed. Tin được tắt/unavailable và
+HTTP Groq dùng fixture: đây là xác minh dữ liệu/pipeline, chưa phải live LLM
+smoke hoặc chứng nhận decision giao dịch. Khởi động lại server đang chạy rồi
+tải lại trang để nạp sửa đổi; ứng dụng không bật auto-reload.
+
 ## Nghiệm thu F11 và preview fixture
 
 [Receipt tích hợp](serving_integration_acceptance.json) và
 [gói QA ban đầu](serving_integration_checks.zip) giữ bằng chứng lịch sử;
-QA ngày trước đó là [QA live](serving_live_checks.zip); receipt hiện hành dùng
-[QA đa khung](serving_timeframe_checks.zip), trạng thái
-`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. Gate hiện hành
-kiểm lại caller/runtime service/UI/PIT bị đổi, bổ sung capture và sáu job
-analyze chọn riêng từng bản trên phiên 12/11/2026 mô phỏng, cùng compare,
-restart không refetch và UNKNOWN. Gate F10/F11 ban đầu chỉ là lịch sử;
-không viện dẫn nguyên trạng cho code live mới.
+QA ngày trước đó là [QA live](serving_live_checks.zip), tiếp theo là
+[QA đa khung](serving_timeframe_checks.zip). Receipt v4 hiện hành dùng
+[QA sửa realtime](serving_realtime_repair_checks.zip), trạng thái
+`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. Gate mới có
+100 Python + 20 DOM, compile14/JS3 PASS, kiểm incident decision/index,
+capture/provider bảy khung/sáu bản, API/HTTP recovery, 18 leakage/11 native parity
+và prompt/prior. QA cũ giữ nguyên byte làm lịch sử, không viện dẫn thay kiểm
+tra code mới. Probe giá thật/model fixture có giới hạn như mô tả ở trên.
 
 ```powershell
 py -3.13 -X utf8 scripts/check_serving_acceptance.py
@@ -293,7 +322,7 @@ py -3.13 -X utf8 scripts/serve_serving_review.py --port 5051 --seed --duration 9
 ```
 
 Lệnh đầu chỉ đối soát receipt/member/source/runtime/evidence. `--run` chạy lại
-đúng các suite đã chọn trong `scripts/serving_acceptance/timeframes.py`, biên dịch
+đúng các suite đã chọn trong `scripts/serving_acceptance/repair.py`, biên dịch
 Python đổi rồi ghi QA/receipt. Mạng thị trường/Groq dùng fixture trong test,
 không gọi hosted thật. Không có cờ tự đánh PASS browser; nguồn/runtime khác
 gói QA mới thì lệnh verify từ chối, cần kiểm lại phần bị ảnh hưởng.

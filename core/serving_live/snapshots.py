@@ -21,9 +21,12 @@ ZONE = ZoneInfo('Asia/Ho_Chi_Minh')
 def market_prices(symbol: str) -> pd.DataFrame:
     """VCI/KBS theo loader hiện hữu; cần đủ lịch dài, không dùng cache 200 nến của UI cũ."""
     from core.realtime_loader import fetch_realtime_ohlcv
-    frame, error = fetch_realtime_ohlcv(symbol, '1d', lookback_days=3600, tail=3000, use_cache=False)
+    from core.realtime_index import fetch_index_history
+    from core.serving_live.errors import CaptureError
+    frame,error = (fetch_index_history('1d',lookback_days=3600,tail=3000) if symbol=='VNINDEX' else
+                   fetch_realtime_ohlcv(symbol,'1d',lookback_days=3600,tail=3000,use_cache=False))
     if error or frame.empty:
-        raise ValueError('Không lấy được nguồn giá ngày mới nhất')
+        raise CaptureError('index.daily' if symbol=='VNINDEX' else 'prices.daily')
     return frame
 
 
@@ -53,6 +56,14 @@ def clean(frame: pd.DataFrame, maximum: pd.Timestamp) -> pd.DataFrame:
     if (checked.Datetime > maximum.normalize()).any():
         raise ValueError('Nguồn thị trường chứa nến tương lai')
     return checked.loc[checked.Datetime >= pd.Timestamp('2018-01-02')].reset_index(drop=True)
+
+
+def clean_market_index(frame: pd.DataFrame, maximum: pd.Timestamp) -> pd.DataFrame:
+    """Chỉ số là lịch/Close, không dùng OHLC/Volume; cắt PIT sau khi kiểm lịch thật."""
+    from core.realtime_index import clean_index
+    result = clean_index(frame)
+    if (result.Datetime > maximum.normalize()).any(): raise ValueError('VNINDEX chứa ngày tương lai')
+    return result.loc[result.Datetime >= pd.Timestamp('2018-01-02')].reset_index(drop=True)
 
 
 class Snapshots:
@@ -85,7 +96,10 @@ class Snapshots:
             raise ValueError('Mã hoặc owner ngoài miền live')
         now = self.now().astimezone(ZONE)
         today = pd.Timestamp(now.date())
-        stock, index = clean(self.prices(symbol), today), clean(self.prices('VNINDEX'), today)
+        from core.serving_live.errors import at
+        from core.realtime_index import index_document,CONTRACT
+        stock = at('prices.validate',clean,at('prices.daily',self.prices,symbol),today)
+        index = at('index.validate',clean_market_index,at('index.daily',self.prices,'VNINDEX'),today)
         closed = today if (now.hour, now.minute) >= (15, 30) else today-pd.Timedelta(days=1)
         index = index.loc[index.Datetime <= closed].copy()
         if len(index) < 600:
@@ -98,7 +112,7 @@ class Snapshots:
             raise ValueError('Cổ phiếu thiếu 600 phiên hoặc chưa đồng bộ phiên VNINDEX')
         if not pd.DatetimeIndex(stock.Datetime).isin(pd.DatetimeIndex(index.Datetime)).all():
             raise ValueError('Giá cổ phiếu có phiên ngoài lịch VNINDEX')
-        articles = self.news(symbol, cutoff)
+        articles = at('news.fetch',self.news,symbol,cutoff)
         dated = []
         for row in articles:
             published = row.get('date_parsed')
@@ -108,9 +122,9 @@ class Snapshots:
                 raise ValueError('Tin tức vượt cutoff')
             dated.append(row)
         frozen = FrozenNews({symbol: dated})
-        frozen.get_sentiment_at(symbol, cutoff)  # Kiểm score/availability trước khi ghi hoặc gọi vision.
+        at('news.validate',frozen.get_sentiment_at,symbol,cutoff)
         record = {'version':VERSION, 'owner_scope_sha256':owner, 'symbol':symbol, 'cutoff':cutoff,
-            'captured_at':now.isoformat(), 'prices':frame_document(stock), 'index':frame_document(index),
+            'captured_at':now.isoformat(), 'prices':frame_document(stock), 'index':index_document(index),'index_contract':CONTRACT,
             'news':dated, 'calendar_policy':'OBSERVED_VNINDEX; QUERY_T1_T3_WEEKDAY_PLAN_ONLY',
             'price_unit':'thousand_VND', 'source':'VNSTOCK_VCI_KBS_VENDOR_SERIES_LIMITED',
             'corporate_actions':'LIVE_EVENT_LEDGER_UNAVAILABLE; VENDOR_ADJUSTMENT_RISK',
@@ -136,7 +150,7 @@ class Snapshots:
     def summary(identifier: str, record: dict) -> dict:
         """Metadata công khai không có key hoặc đường dẫn máy chủ."""
         return {key:record[key] for key in ('symbol','cutoff','captured_at','source','price_unit','calendar_policy','corporate_actions','scientific_status')} | {
-            **{key:record[key] for key in ('chart_timeframe','daily_provisional') if key in record},
+            **{key:record[key] for key in ('chart_timeframe','daily_provisional','index_contract') if key in record},
             'snapshot_id':identifier, 'price_rows':len(record['prices']['Datetime']), 'news_articles':len(record['news'])}
 
 

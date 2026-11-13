@@ -54,8 +54,10 @@ class LiveResources:
     def __init__(self, root: Path, snapshots: Snapshots, identifier: str) -> None:
         self.base, self.snapshots, self.identifier = Resources(root), snapshots, identifier
         self.record = snapshots.read(identifier)
+        if self.record.get('index_contract') == 'vnindex_close_v1': self.version = VERSION+'/index_close_v1'
         if 'chart_timeframe' in self.record:
             self.version = 'serving_realtime_timeframe_v1/'+self.record['chart_timeframe']
+            if self.record.get('index_contract') == 'vnindex_close_v1': self.version += '/index_close_v1'
 
     def verify(self) -> None:
         """Không cập nhật expected hash để làm job cũ chạy với dữ liệu mới."""

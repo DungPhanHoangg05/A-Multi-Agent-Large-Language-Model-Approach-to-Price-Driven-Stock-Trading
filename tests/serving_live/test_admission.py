@@ -56,3 +56,50 @@ class AdmissionTests(unittest.TestCase):
     def test_live_news_unknown_scorer_is_an_error_instead_of_neutral_fallback(self) -> None:
         with patch('data_manager.sentiment_cache._crawl_articles_full',return_value=[]),patch('data_manager.sentiment_cache._score_articles',return_value=[{'scorer':'unknown-provider'}]):
             with self.assertRaises(ValueError): market_news('MWG','2026-11-12')
+
+    def test_capture_api_returns_safe_index_stage_instead_of_generic_409(self) -> None:
+        from datetime import datetime
+        from core.serving_live.snapshots import Snapshots,ZONE
+        from support import news,charts
+        def source(symbol: str):
+            if symbol=='VNINDEX': raise ValueError('fixture-private-key-must-never-leak')
+            return prices(symbol)
+        with TemporaryDirectory() as folder,patch('core.realtime_loader.get_all_symbols_realtime',return_value=[]):
+            web = importlib.import_module('web_interface'); clock = Clock()
+            store = Snapshots(Path(folder)/'inputs',prices=source,news=news,charts=charts,
+                now=lambda:datetime(2026,11,13,10,tzinfo=ZONE))
+            live = LiveService(ROOT,state_root=Path(folder)/'live',snapshots=store,clock=clock)
+            asof = Service(ROOT,state_root=Path(folder)/'asof',clock=clock)
+            with patch.dict(web.app.config,{'SERVING_SERVICE':asof,'SERVING_LIVE_SERVICE':live}):
+                client = web.app.test_client()
+                with self.assertLogs(web.app.logger,level='WARNING') as logs:
+                    response = client.post('/api/serving/live/v1/snapshot',json={'symbol':'MWG','timeframe':'1d'})
+            self.assertEqual(response.status_code,409)
+            error = response.get_json()['capture_error']
+            self.assertEqual(error['stage'],'index.daily'); self.assertEqual(error['code'],'CAPTURE_INDEX_DAILY')
+            self.assertIn('VNINDEX',error['message']['en'])
+            self.assertNotIn('fixture-private-key',response.get_data(as_text=True))
+            self.assertNotIn('fixture-private-key',' '.join(logs.output))
+            self.assertEqual(live.tasks,{})
+
+    def test_after_hours_capture_uses_close_only_index_and_does_not_require_intraday_index(self) -> None:
+        from datetime import datetime
+        from core.serving_live.snapshots import Snapshots,ZONE
+        from support import news,charts
+        def source(symbol: str):
+            result = prices(symbol)
+            if symbol=='VNINDEX':
+                result.loc[0,'Open'] = 0.
+                result.loc[0,'Volume'] = float('nan')
+            return result
+        def chart_source(symbol: str,timeframe: str):
+            self.assertNotEqual(symbol,'VNINDEX','Sau phiên không được bắt feed chỉ số 5m tồn tại')
+            return charts(symbol,timeframe)
+        with TemporaryDirectory() as folder:
+            store = Snapshots(Path(folder),prices=source,charts=chart_source,news=news,
+                now=lambda:datetime(2026,11,13,20,tzinfo=ZONE))
+            captured = store.capture_timeframe('MWG','1d','7'*64)
+            record = store.read(captured['snapshot_id'])
+            self.assertEqual(set(record['index']),{'Datetime','Close'})
+            self.assertEqual(record['index_contract'],'vnindex_close_v1')
+            self.assertEqual(record['cutoff'],'2026-11-12')

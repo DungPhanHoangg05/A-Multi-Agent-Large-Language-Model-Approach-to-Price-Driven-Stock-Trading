@@ -292,3 +292,17 @@ test('Chart kết quả intraday giữ đúng timestamp và nhãn 5m, không đ�
   assert.match(node('shared-reports').textContent,/5m/); assert.match(node('shared-reports').textContent,/09:05:00/);
   assert.match(node('job-meta').textContent,/5m/);
 });
+
+test('Capture lỗi trả đúng VNINDEX/giai đoạn trong UI, không che thành lỗi chung hoặc gọi model', async () => {
+  node('analysis-source').value = 'legacy'; node('analysis-version').value = 'C2';
+  const calls = [];
+  const io = async url => {
+    calls.push(url);
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    throw Object.assign(new Error('Request failed'),{status:409,data:{capture_error:{code:'CAPTURE_INDEX_DAILY',stage:'index.daily',
+      message:{vi:'Không lấy được Close VNINDEX.',en:'Could not load VNINDEX Close.'}}}});
+  };
+  const form = formController(fixture.config,io); await form.init(); await form.start('analyze');
+  assert.match(node('timeframe-run-status').textContent,/VNINDEX.*CAPTURE_INDEX_DAILY.*index.daily/);
+  assert.equal(calls.filter(url => url.endsWith('/jobs')).length,0); assert.equal(legacyRuns,0);
+});

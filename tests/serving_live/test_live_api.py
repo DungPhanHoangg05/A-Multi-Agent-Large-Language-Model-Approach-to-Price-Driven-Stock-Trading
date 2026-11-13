@@ -58,7 +58,7 @@ class LiveApiTests(unittest.TestCase):
             data = self.client.get('/api/serving/live/v1/jobs/'+identifier).get_json()
             self.assertEqual(data['state'],'completed',data.get('error'))
             self.assertEqual(data['requested_ids'],ids); self.assertEqual(data['identity']['request']['mode'],mode)
-            self.assertEqual(data['identity']['config']['provider_version'],'serving_live_daily_v1')
+            self.assertEqual(data['identity']['config']['provider_version'],'serving_live_daily_v1/index_close_v1')
             self.assertEqual(data['outcome_points'],0)
             self.assertTrue(all(row['net_return_pct'] is None and row['as_of_date']=='2026-11-12' for row in data['rows']))
             self.assertEqual(len(data['snapshots']),1)

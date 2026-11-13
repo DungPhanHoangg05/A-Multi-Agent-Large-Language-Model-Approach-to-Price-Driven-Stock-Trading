@@ -8,6 +8,7 @@ from werkzeug.exceptions import BadRequest, UnsupportedMediaType
 
 from core.serving_contracts import ContractError
 from core.serving_live.service import LiveRequest, LiveService
+from core.serving_live.errors import CaptureError
 from utils.serving_web import ROOT, key_snapshot, mutation_allowed, owner, respond
 
 live = Blueprint('serving_live',__name__,url_prefix='/api/serving/live/v1')
@@ -39,8 +40,13 @@ def capture() -> Response:
         data = (service().snapshots.capture_timeframe(body['symbol'],body['timeframe'],scope)
                 if 'timeframe' in body else service().snapshots.capture(body['symbol'],scope))
         return respond(data,cookie)
+    except CaptureError as error:
+        current_app.logger.warning('Capture thất bại: code=%s; giai đoạn=%s',error.code,error.stage)
+        return respond({'error':str(error),'capture_error':error.document()},status=409)
     except (ValueError,OSError,KeyError,BadRequest,UnsupportedMediaType):
-        return respond({'error':'Không khóa được phiên mới nhất: cần mã hỗ trợ, đủ 600 nến và lịch VNINDEX đồng bộ'},status=409)
+        error = CaptureError('snapshot.validate')
+        current_app.logger.warning('Capture thất bại: code=%s; giai đoạn=%s',error.code,error.stage)
+        return respond({'error':str(error),'capture_error':error.document()},status=409)
     except Exception:
         return respond({'error':'Nguồn dữ liệu mới nhất tạm không khả dụng; chưa gọi LLM'},status=503)
 
