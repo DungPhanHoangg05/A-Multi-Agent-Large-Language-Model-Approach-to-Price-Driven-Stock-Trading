@@ -81,6 +81,7 @@ test('Đổi filter nhanh bỏ response cũ; lỗi/empty xóa dữ liệu và li
   const pending = [];
   const response = data => ({ok: true, json: async () => data});
   globalThis.fetch = async (url, options) => {
+    if (url.startsWith('/api/serving/v1/')) return response({runs:[]});
     if (url.endsWith('/runs')) return response({default: 'u09_analysis_r1', runs: [{id: 'u09_analysis_r1', kind: 'paper_evidence', label: 'U09'}]});
     return new Promise(resolve => pending.push({resolve, signal: options.signal}));
   };

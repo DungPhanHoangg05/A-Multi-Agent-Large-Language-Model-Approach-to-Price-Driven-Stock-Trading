@@ -66,10 +66,13 @@ def render_localized(template: str, **ctx):
     Template nhận `T` (dict chuỗi đã dịch) và `LANG` (mã ngôn ngữ hiện tại).
     """
     lang = current_lang()
-    if template in ("demo_new.html", "output.html"):
+    if template in ("demo_new.html", "output.html", "backtest.html"):
         from utils.analysis_ui import messages
         from core.serving_registry import registry_document
         ctx.update(A=messages(lang), serving_registry=registry_document())
+        if template == 'backtest.html':
+            from utils.backtest_ui import messages as backtest_messages
+            ctx['B'] = backtest_messages(lang)
     resp = make_response(
         render_template(template, T=catalogue(lang), LANG=lang, **ctx)
     )
