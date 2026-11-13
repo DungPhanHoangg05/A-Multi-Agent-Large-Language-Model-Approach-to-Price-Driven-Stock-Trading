@@ -1,6 +1,9 @@
 <section class="serving-ui" aria-label="{{ A.source }}">
   <label class="serving-field">{{ A.source }}<select id="analysis-source"><option value="latest" selected>{{ A.latest }}</option><option value="asof">{{ A.asof }}</option><option value="legacy">{{ A.legacy }}</option></select></label>
   <p id="legacy-note" hidden>{{ A.legacy_note }}</p>
+  <label class="serving-field">{{ A.version }}<select id="analysis-version">{% for variant in serving_registry.variants if variant.group == 'main' %}<option value="{{ variant.id }}">{{ variant.label[LANG] }}</option>{% endfor %}</select></label>
+  <p id="version-description"></p>
+  <p id="timeframe-run-status" role="status" aria-live="polite"></p>
   <div id="asof-inputs">
     <p class="serving-notice">{{ A.domain }}</p>
     <p id="live-note" class="serving-notice">{{ A.live_note }}</p>
@@ -10,10 +13,8 @@
       <label class="serving-field">{{ A.symbol }}<select id="asof-symbol">{% for symbol in serving_registry.domain.released_symbols %}<option{% if symbol == 'FPT' %} selected{% endif %}>{{ symbol }}</option>{% endfor %}</select></label>
       <label id="asof-date-field" class="serving-field" hidden>{{ A.date }}<input id="asof-date" type="date" value="2026-07-02" min="{{ serving_registry.domain.released_date_ranges[0].start_date }}" max="{{ serving_registry.domain.released_date_ranges[0].end_date }}" required></label>
       <label class="serving-field">{{ A.language }}<select id="report-language"><option value="vi">Tiếng Việt · VI</option><option value="en">English · EN</option></select></label>
-      <label class="serving-field">{{ A.version }}<select id="analysis-version">{% for variant in serving_registry.variants if variant.group == 'main' %}<option value="{{ variant.id }}">{{ variant.label[LANG] }}</option>{% endfor %}</select></label>
     </div>
     <p class="serving-muted">{{ A.report_note }}</p>
-    <p id="version-description"></p>
     <fieldset><legend>{{ A.methods }}</legend><div class="serving-choices">{% for variant in serving_registry.variants if variant.group == 'main' %}<label><input type="checkbox" name="compare-method" value="{{ variant.id }}"{% if variant.id in ['original_fix', 'bayesian_v1'] %} checked{% endif %}> {{ variant.label[LANG] }}</label>{% endfor %}</div></fieldset>
     <details><summary>{{ A.advanced }}</summary><p>{{ A.dependency }}</p>
       <div class="serving-choices">{% for variant in serving_registry.variants if variant.group == 'advanced' %}<label><input type="checkbox" name="compare-method" value="{{ variant.id }}"> {{ variant.label[LANG] }}</label>{% endfor %}</div>

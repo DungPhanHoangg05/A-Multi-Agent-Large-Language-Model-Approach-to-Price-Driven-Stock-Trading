@@ -21,13 +21,21 @@ class LiveRequest:
     @classmethod
     def create(cls, value: Any) -> LiveRequest:
         """Model/options/IDs tiếp tục qua validator phục vụ as-of đã có."""
-        if (type(value) is not dict or set(value) != {'version','snapshot_id','request'}
-                or value['version'] != 'variant_serving_live_v1' or not checksum(value['snapshot_id'])):
+        from core.serving_live.timeframes import TIMEFRAMES
+        realtime = type(value) is dict and value.get('version') == 'variant_serving_timeframe_v1'
+        fields = {'version','snapshot_id','request'} | ({'chart_timeframe'} if realtime else set())
+        if (type(value) is not dict or set(value) != fields
+                or value['version'] not in ('variant_serving_live_v1','variant_serving_timeframe_v1') or not checksum(value['snapshot_id'])):
             raise ValueError('Envelope live không hợp lệ')
         request = ServingRequest.create(value['request']).document()
         if request['mode'] not in ('analyze','compare') or request['language'] != 'vi':
             raise ValueError('Live hiện hỗ trợ phân tích/so sánh 1d/VI')
-        return cls(json_bytes({**request,'snapshot_id':value['snapshot_id'],'data_source':'live'}))
+        extra = {}
+        if realtime:
+            if value['chart_timeframe'] not in TIMEFRAMES or request['mode'] != 'analyze':
+                raise ValueError('Khung realtime không hợp lệ hoặc không phải phân tích một bản')
+            extra['chart_timeframe'] = value['chart_timeframe']
+        return cls(json_bytes({**request,'snapshot_id':value['snapshot_id'],'data_source':'live',**extra}))
 
     def document(self) -> dict:
         """Bản sao JSON gồm nguồn live và hash input trong identity job."""
@@ -46,6 +54,8 @@ class LiveResources:
     def __init__(self, root: Path, snapshots: Snapshots, identifier: str) -> None:
         self.base, self.snapshots, self.identifier = Resources(root), snapshots, identifier
         self.record = snapshots.read(identifier)
+        if 'chart_timeframe' in self.record:
+            self.version = 'serving_realtime_timeframe_v1/'+self.record['chart_timeframe']
 
     def verify(self) -> None:
         """Không cập nhật expected hash để làm job cũ chạy với dữ liệu mới."""
@@ -64,6 +74,9 @@ class LiveResources:
             'start_date':record['cutoff'],'end_date':record['cutoff'],'timeframes':['1d'],'languages':['vi'],
             'snapshot_id':identifier,'source':'LIVE_CAPTURED_DAILY_CLOSED_SESSION',
             'calendar_policy':record['calendar_policy'],'scientific_status':record['scientific_status']}
+        if 'chart_timeframe' in record:
+            document['support'].update(chart_timeframe=record['chart_timeframe'],chart_sha256=digest(record['chart']),
+                source='REALTIME_CHART_WITH_DAILY_CONTEXT',daily_provisional=record['daily_provisional'])
         return document
 
     def points(self, request: dict) -> list[dict]:
@@ -72,7 +85,7 @@ class LiveResources:
         if (request.get('snapshot_id') != self.identifier or request['symbols'] != [record['symbol']]
                 or request['start_date'] != record['cutoff'] or request['end_date'] != record['cutoff']
                 or request['mode'] not in ('analyze','compare') or request['timeframe'] != '1d'
-                or request['language'] != 'vi'):
+                or request['language'] != 'vi' or request.get('chart_timeframe') != record.get('chart_timeframe')):
             raise ValueError('Request không khớp snapshot live')
         return [{'id':record['symbol']+'-'+record['cutoff'],'symbol':record['symbol'],'cutoff':record['cutoff'],
                  'fold':'serving_live_daily','quality':'LIVE_VENDOR_SERIES_EXPLORATORY'}]
@@ -100,6 +113,9 @@ class LiveService(Service):
         from core.serving_live.provider import LiveProvider
         request = reservation['job']['identity']['request']
         record = self.snapshots.read(request['snapshot_id'], reservation['job']['owner_scope_sha256'])
+        if 'chart_timeframe' in record:
+            from core.serving_live.timeframe_provider import TimeframeProvider
+            return TimeframeProvider(self.root,reservation['points'],request['models'],request['variant_ids'],record)
         return LiveProvider(self.root,reservation['points'],request['models'],request['variant_ids'],record)
 
     def result(self, identifier: str, owner: str) -> dict:
@@ -108,4 +124,5 @@ class LiveService(Service):
         request = result['identity']['request']
         record = self.snapshots.read(request['snapshot_id'],owner)
         result['live_input'] = self.snapshots.summary(request['snapshot_id'],record)
+        if 'chart' in record: result['realtime_chart'] = record['chart']
         return result

@@ -1,32 +1,23 @@
 {
-  "version": "serving_integration_acceptance_v2",
+  "version": "serving_integration_acceptance_v3",
   "status": "OFFLINE_PASS_BROWSER_PENDING",
+  "base_commit": "2e330c8c",
   "checks_package": {
-    "path": "docs/plan/week12/serving_live_checks.zip",
-    "bytes": 104366,
-    "sha256": "1059c873b22064c4e76eebbcb510047cb1ce7164623f5a8d1ab7cd7c5d0bbf3f"
+    "path": "docs/plan/week12/serving_timeframe_checks.zip",
+    "bytes": 83652,
+    "sha256": "533f1ee0d11a9e8b7dff7ef4802586c901b1d6202da2e08de674a932495b0f5b"
   },
-  "base_commit": "6ac5d7ab",
-  "python_tests": 138,
-  "dom_tests": 16,
-  "compiled_python": 19,
-  "javascript_syntax": 5,
+  "python_tests": 136,
+  "dom_tests": 19,
+  "compiled_python": 14,
+  "javascript_syntax": 7,
   "browser": {
     "status": "PENDING",
     "desktop": "NOT_RUN",
     "mobile": "NOT_RUN",
-    "reason": "BROWSER_HOST_UNAVAILABLE; PRIOR_EDGE_AUTOMATIC_REVIEW_REJECTED",
-    "required": [
-      "all_six_latest_analysis",
-      "advanced",
-      "frozen_reader",
-      "empty_error_partial",
-      "exports",
-      "stop_resume",
-      "VI_EN",
-      "desktop_mobile_keyboard_focus"
-    ]
+    "reason": "BROWSER_HOST_UNAVAILABLE; PRIOR_EDGE_AUTOMATIC_REVIEW_REJECTED"
   },
+  "f11_complete": false,
   "historical": {
     "frozen_packages": 20,
     "legacy_archives": 30,
@@ -42,40 +33,32 @@
     "f10_and_f11_v1": "HISTORICAL_ONLY; CHANGED_CALLERS_RETESTED_NOT_BLINDLY_REUSED",
     "develop_paper_unchanged": true,
     "native_rowwise_causal_gate": "FAIL",
-    "whole_system_causal_gate": "NOT_CERTIFIED"
+    "whole_system_causal_gate": "NOT_CERTIFIED",
+    "daily_qa_unchanged": {
+      "bytes": 104366,
+      "sha256": "1059c873b22064c4e76eebbcb510047cb1ce7164623f5a8d1ab7cd7c5d0bbf3f"
+    }
   },
+  "scope": "SELECTED_REALTIME_CHART_5m_15m_30m_1h_1d_1w_1mo; DAILY_PRIOR_ALPHA_MT; T_PLUS_2_5_SESSIONS",
   "hosted_smoke": "NOT_RUN; FIXTURE_FIRST",
-  "f11_complete": false,
-  "previous_f11_qa_preserved": "docs/plan/week12/serving_integration_checks.zip",
+  "previous_daily_qa_preserved": "docs/plan/week12/serving_live_checks.zip",
   "scoped_followup": {
     "changed_paths": [
-      "scripts/serving_acceptance/live.py",
-      "static/js/analysis/legacy_form.js",
-      "tests/js/analysis_ui.test.mjs",
-      "tests/serving_live/test_admission.py",
-      "tests/test_realtime_sources.py",
-      "utils/serving_live_web.py"
+      "core/serving_live/timeframes.py",
+      "tests/serving_live/test_timeframes.py"
     ],
-    "reason": "SHARE_DEFAULT_ADMISSION_LEDGER; LEGACY_ONLY_POLL; CONNECTOR_BOUNDARY",
-    "tests": [
-      "tests_serving_live_admission.log",
-      "tests_realtime_sources.log",
-      "analysis_ui.log"
-    ],
-    "prior_checks": "checks_before_admission.json",
-    "prior_dom_log": "analysis_ui_before_admission.log",
-    "unchanged_python_suites": "RETAINED_PASS_LOGS; PROVIDER_RUNNER_METHODS_UNCHANGED_AFTER_MAIN_GATE",
-    "source_guard_before_after": true
-  },
-  "scorer_followup": {
-    "changed_paths": [
-      "core/serving_live/snapshots.py",
-      "tests/serving_live/test_admission.py"
-    ],
-    "reason": "REAL_VISOBERT_LEXICON_SCORER_IDS_TO_FROZEN_ENUM; KEEP_ORIGINAL_PROVENANCE",
-    "test_log": "tests_serving_live_admission.log",
-    "prior_checks": "checks_before_scorer.json",
-    "prior_test_log": "admission_before_scorer.log",
-    "unchanged_paths": "NO_PROVIDER_RUNNER_METHOD_OR_UI_CHANGE; RETAIN_PRIOR_PASS_LOGS"
+    "reason": "CHECK_UNITS_BEFORE_ASSEMBLING_DAILY_PROVISIONAL; NO_AUTO_RESCALE",
+    "log": "capture_currency_followup.log",
+    "additional_test_runs": 4,
+    "prior_checks": "checks_before_currency.json",
+    "unchanged_captures": {
+      "timeframes": 7,
+      "binding": {
+        "bytes": 547,
+        "sha256": "56b20dd94c806e989117347934ab3d0d06291a75f14c66480969ba1b1ca3e2e4"
+      },
+      "member": "capture_bindings_before_after.json"
+    },
+    "scope": "CAPTURE_ONLY; PROVIDER_METHODS_AND_VALID_CAPTURE_BYTES_UNCHANGED; RETAIN_OTHER_PASS_LOGS"
   }
 }

@@ -93,7 +93,8 @@ if __name__ == '__main__':
     parser.add_argument('--run',action='store_true',help='Chạy đúng suite F11 mới rồi ghi receipt')
     args = parser.parse_args()
     # Gate cũ giữ để đọc lịch sử; nguồn live đã đổi phải kiểm lại caller thay vì viện dẫn F10.
-    from scripts.serving_acceptance import live
+    from scripts.serving_acceptance import live, timeframes
     receipt = json.loads(RECEIPT.read_bytes())
-    result = live.run() if args.run else live.verify() if receipt['version'] == 'serving_integration_acceptance_v2' else verify()
+    result = (timeframes.run() if args.run else timeframes.verify() if receipt['version'] == 'serving_integration_acceptance_v3'
+              else live.verify() if receipt['version'] == 'serving_integration_acceptance_v2' else verify())
     print(json.dumps(result,ensure_ascii=False))

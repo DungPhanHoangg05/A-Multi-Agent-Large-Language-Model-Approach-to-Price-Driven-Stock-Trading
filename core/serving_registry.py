@@ -66,6 +66,8 @@ def registry_document() -> dict[str, Any]:
                      "session_policy": "LATEST_COMPLETED_DAILY_SESSION_AFTER_15_30_ASIA_HO_CHI_MINH",
                      "snapshot_policy": "CAPTURE_ONCE_PER_OWNER; NO_REFETCH_ON_RESUME",
                      "scientific_status": "EXPLORATORY_NOT_CERTIFIED"},
+            "realtime_timeframes": ["5m", "15m", "30m", "1h", "1d", "1w", "1mo"],
+            "realtime_versions": list(MAIN_IDS),
             "support_policy": "SERVER_VERIFIED_RESOURCE_MANIFEST_REQUIRED",
             "resource_readiness": "VERIFY_ON_SERVER_PREFLIGHT",
             "historical_support": "EXACT_POINTS_IN_VERIFIED_U09_MANIFEST_ONLY",

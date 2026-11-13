@@ -34,9 +34,10 @@ def capture() -> Response:
     if not mutation_allowed(): return respond({'error':'Cần JSON cùng origin'},status=400)
     try:
         body = request.get_json()
-        if type(body) is not dict or set(body) != {'symbol'}: raise ValueError('Body snapshot không hợp lệ')
+        if type(body) is not dict or set(body) not in ({'symbol'},{'symbol','timeframe'}): raise ValueError('Body snapshot không hợp lệ')
         scope,cookie = owner(True)
-        data = service().snapshots.capture(body['symbol'],scope)
+        data = (service().snapshots.capture_timeframe(body['symbol'],body['timeframe'],scope)
+                if 'timeframe' in body else service().snapshots.capture(body['symbol'],scope))
         return respond(data,cookie)
     except (ValueError,OSError,KeyError,BadRequest,UnsupportedMediaType):
         return respond({'error':'Không khóa được phiên mới nhất: cần mã hỗ trợ, đủ 600 nến và lịch VNINDEX đồng bộ'},status=409)

@@ -26,7 +26,7 @@ def make_app(state_root: Path) -> tuple[Any,Any,str]:
     fixture_spec = importlib.util.spec_from_file_location('live_preview_fixture',ROOT/'tests/serving_live/support.py')
     fixture = importlib.util.module_from_spec(fixture_spec)
     fixture_spec.loader.exec_module(fixture)
-    snapshots = Snapshots(state_root/'live-inputs',prices=fixture.prices,news=fixture.news,
+    snapshots = Snapshots(state_root/'live-inputs',prices=fixture.prices,news=fixture.news,charts=fixture.charts,
         now=lambda:datetime(2026,11,13,10,tzinfo=ZONE))
     live_service = LiveService(ROOT,state_root=state_root/'live',snapshots=snapshots,clock=clock,sender_factory=lambda _:Sender(clock))
     app.config.update(SERVING_SERVICE=service,SERVING_API_KEY_PROVIDER=lambda:'fixture-review-key',

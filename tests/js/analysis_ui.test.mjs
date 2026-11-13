@@ -38,7 +38,7 @@ beforeEach(() => {
     querySelectorAll:selector => selector.includes(':checked') ? selected.map(value => ({value})) : [],
   };
   globalThis.localStorage = {setItem(){},getItem:() => null};
-  globalThis.window = {legacyAnalysis:{run:() => legacyRuns++,load:() => legacyLoads++}};
+  globalThis.window = {legacyAnalysis:{run:() => legacyRuns++,load:() => legacyLoads++,selection:() => ({symbol:'MWG',timeframe:'5m'})}};
   for (const [id,value] of Object.entries({'analysis-source':'asof','analysis-version':'original_fix','asof-symbol':'MWG',
     'asof-date':'2026-07-02','report-language':'vi','analysis-repeats':'1'})) node(id).value = value;
 });
@@ -130,7 +130,7 @@ test('Compare thiếu lựa chọn bị khóa riêng; legacy chỉ gọi native,
   selected = ['MT_BICL']; const calls = [];
   const form = formController(fixture.config,async(url,body) => { calls.push({url,body}); return url.endsWith('/defaults') ? {models:fixture.data.identity.request.models} : ready; });
   await form.init(); assert.equal(node('compareBtn').disabled,true); assert.equal(node('analyzeBtn').disabled,false);
-  node('analysis-source').value = 'legacy'; form.source();
+  node('analysis-source').value = 'legacy'; node('analysis-version').value = 'original_fix'; form.source();
   await form.start('analyze'); await form.start('compare');
   assert.equal(legacyRuns,1); assert.equal(legacyLoads,1); assert.equal(node('asof-inputs').hidden,true);
   assert.equal(calls.filter(row => row.url.endsWith('/jobs')).length,0);
@@ -242,4 +242,53 @@ test('Poll trạng thái intraday chỉ chạy khi đang chọn nguồn legacy, 
   context.window.legacyAnalysis.load(); calls.length = 0;
   mockDocument.getElementById('analysis-source').value = 'latest'; heartbeat(); assert.deepEqual(calls,[]);
   mockDocument.getElementById('analysis-source').value = 'legacy'; heartbeat(); assert.deepEqual(calls,['/api/realtime-status']);
+});
+
+test('Chế độ intraday cho chọn từng bản nâng cấp, gửi đúng mã/khung/phiên bản thay vì native legacy', async () => {
+  for (const variant of ['bayesian_v1','C2','A_tp_pool','B_semantic','MT_BICL']) {
+    node('analysis-source').value = 'legacy'; node('analysis-version').value = variant;
+    const calls = [],routes = [];
+    const form = formController(fixture.config,async (url,body) => {
+      calls.push({url,body});
+      if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+      if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'5m',snapshot_id:'c'.repeat(64)};
+      if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
+      return ready;
+    },url => routes.push(url));
+    await form.init(); await Promise.all([form.start('analyze'),form.start('analyze')]);
+    const capture = calls.find(call => call.url.endsWith('/snapshot'));
+    assert.deepEqual(capture.body,{symbol:'MWG',timeframe:'5m'});
+    const jobs = calls.filter(call => call.url.endsWith('/jobs'));
+    assert.equal(jobs.length,1); assert.equal(jobs[0].body.version,'variant_serving_timeframe_v1');
+    assert.deepEqual(jobs[0].body.request.variant_ids,[variant]); assert.equal(jobs[0].body.chart_timeframe,'5m');
+    assert.match(routes[0],/serving_source=live/);
+    assert.equal(node('analysis-version').disabled,false); assert.equal(node('legacy-inputs').inert,false);
+  }
+  assert.equal(legacyRuns,0);
+});
+
+test('Thiếu mã, lỗi capture hoặc preflight blocked trong intraday không chuyển sang Original', async () => {
+  node('analysis-source').value = 'legacy'; node('analysis-version').value = 'MT_BICL';
+  window.legacyAnalysis.selection = () => ({symbol:'',timeframe:'1h'});
+  let jobs = 0;
+  const form = formController(fixture.config,async url => {
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    if (url.endsWith('/jobs')) jobs++;
+    throw new Error('fixture');
+  });
+  await form.init(); await form.start('analyze');
+  assert.match(node('timeframe-run-status').textContent,/chọn mã/);
+  window.legacyAnalysis.selection = () => ({symbol:'MWG',timeframe:'1h'});
+  await form.start('analyze'); assert.equal(jobs,0); assert.equal(legacyRuns,0);
+  assert.match(node('timeframe-run-status').textContent,/chưa gọi LLM/);
+});
+
+test('Chart kết quả intraday giữ đúng timestamp và nhãn 5m, không đổi thành đường daily', () => {
+  const data = structuredClone(fixture.data);
+  data.identity.request.chart_timeframe = '5m'; data.identity.request.data_source = 'live';
+  data.live_input = {chart_timeframe:'5m',captured_at:'2026-11-13T10:00:00+07:00'};
+  data.realtime_chart = {Datetime:['2026-11-13 09:00:00','2026-11-13 09:05:00'],Close:[1,2]};
+  renderer(fixture.config).render(data);
+  assert.match(node('shared-reports').textContent,/5m/); assert.match(node('shared-reports').textContent,/09:05:00/);
+  assert.match(node('job-meta').textContent,/5m/);
 });

@@ -113,7 +113,7 @@ class AsOfProvider:
             def render(_: str, role: str = role) -> dict:
                 with NUMERIC_LOCK:
                     image = (static_util.generate_kline_image if role == "pattern" else static_util.generate_trend_image)(
-                        deepcopy(state["kline_data"]), write_artifacts=False)
+                        deepcopy(state["kline_data"]), timeframe=state.get("chart_timeframe", "1d"), write_artifacts=False)
                 raw = base64.b64decode(image[role + "_image"], validate=True)
                 path = book.directory / "images" / point["id"] / (role + ".png")
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -129,6 +129,7 @@ class AsOfProvider:
             state.update(image)
         for role in ("indicator", "pattern", "trend", "full"):
             slot = "graph/" + point["id"] + "/" + role
+            node_state = self.role_state(role, state)
             def invoke(attempt: str, role: str = role, slot: str = slot) -> dict:
                 proxy = VisionProxy(calls, slot, attempt, self.models[role] if role != "full" else self.models["alpha"])
                 nodes = {"indicator": lambda: create_indicator_agent(None, TechnicalTools()),
@@ -138,15 +139,19 @@ class AsOfProvider:
                 token = ENABLED.set(True)
                 try:
                     with invocation_scope(role):
-                        return nodes[role]()(deepcopy(state))
+                        return nodes[role]()(deepcopy(node_state))
                 finally:
                     ENABLED.reset(token)
-            inputs = {k: v for k, v in state.items() if k not in ("point_in_time_df", "sentiment_store")}
-            inputs["point_in_time_df"] = snapshot_payload(state["point_in_time_df"])
+            inputs = {k: v for k, v in node_state.items() if k not in ("point_in_time_df", "sentiment_store")}
+            inputs["point_in_time_df"] = snapshot_payload(node_state["point_in_time_df"])
             output = book.execute(slot, {"state_sha256": digest(encode_output(inputs))}, invoke)
             state.update(output)
         state["alpha_factors"] = deepcopy(state["sentiment_data"]["alpha_results"])
         return self.snapshot(point, state)
+
+    def role_state(self, role: str, state: dict) -> dict:
+        """Mặc định cùng state nguyên vẹn; provider đa khung có thể chiếu nguồn riêng theo role."""
+        return deepcopy(state)
 
     def snapshot(self, point: dict, state: dict) -> dict:
         """Biên đóng snapshot chung; provider live dùng cùng upstream với nguồn riêng đã khóa."""

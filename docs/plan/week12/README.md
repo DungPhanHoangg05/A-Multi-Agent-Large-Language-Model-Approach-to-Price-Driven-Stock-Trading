@@ -183,6 +183,8 @@ as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh c�
 F10 đã nối backtest nhiều bản và trang thực nghiệm, filter/evaluator/export
 cùng support; adapter Full/No-Alpha riêng. F11 đã nhận develop mới và bổ sung
 phân tích phiên ngày mới nhất cho cả sáu bản, không chỉ so sánh historical.
+Theo đính chính mới nhất, chế độ intraday/khung khác cũng chọn đủ sáu bản
+ngay tại đó; chart/I/P/T theo khung chọn, Alpha/prior/MT giữ ngữ cảnh ngày/T+2.5.
 Service/provider/UI đã đổi nên kiểm lại caller/PIT/recovery liên quan;
 gate ban đầu giữ làm lịch sử. Browser còn chờ, chưa hoàn tất/chưa merge.
 F12 chưa bắt đầu.
@@ -203,7 +205,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: nhận develop mới, thêm phân tích phiên ngày mới nhất qua snapshot live cho sáu bản; kiểm lại caller/service/UI/PIT/recovery bị đổi, không dùng gate cũ thay kết quả mới. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: nhận develop mới, cả chế độ phiên ngày mới nhất và intraday/khung khác chọn đủ sáu bản; kiểm lại caller/provider/UI/PIT/recovery bị đổi, không dùng gate cũ thay kết quả mới. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -633,8 +635,7 @@ không khôi phục cấu trúc paper cũ hoặc ghi đè kết quả người d
 - [x] **138 Python + 16 DOM PASS**, không skip; compile **19 Python thay đổi**, syntax **5 JS PASS**. Gồm 14 test live mới, 8 nghiệm thu F11, hồi quy service/runtime/resource/API, analysis/backtest caller/evaluator, contract/shared snapshot, JSON, 18 leakage và 11 native parity. Gate chính130 Python/15 DOM đã PASS; sau đó sửa default ledger, poll legacy và ánh xạ tên scorer thật sang enum FrozenNews (giữ nguyên `scorer_source`), kiểm đúng 5 test admission/connector/scorer, 3 loader và DOM16/syntax liên quan, không chạy lại các suite không bị ảnh hưởng. QA giữ checks/log trước bổ sung, delta source và bằng chứng kiểm tiếp theo; không nhận là đã chạy lại toàn bộ test lần hai.
 - [ ] Browser desktop/mobile/keyboard vẫn chờ host khả dụng; không dùng HTML200/DOM test thay quan sát trực quan. Không đánh dấu F11 hoàn tất hoặc mở F12/merge khi thiếu gate này.
 
-[Receipt F11 hiện hành](serving_integration_acceptance.json) dùng
-[QA live](serving_live_checks.zip), có log kiểm lại các caller/service/PIT
+Ở mốc hỗ trợ phiên ngày, [QA live](serving_live_checks.zip) có log kiểm lại các caller/service/PIT
 đã đổi và nguồn/runtime mới. Gói F10/F11 ban đầu giữ nguyên làm lịch sử,
 không chứng nhận code mới bằng kết quả cũ. [Runbook](variant_serving_contract.md#phân-tích-phiên-ngày-mới-nhất)
 ghi thao tác UI, miền 1d/VI/chín mã, API và giới hạn chuyển nguồn.
@@ -647,6 +648,32 @@ Không chạy full unit/E2E/compileall/research; không gọi Groq/thị trườ
 trong kiểm thử, không training HMM/student/bank mới. Native Alpha vẫn giữ
 hành vi tính/selection cũ, native causal FAIL/whole-system NOT_CERTIFIED và
 0/18 reviewer comment được chứng nhận đóng không thay đổi.
+
+### Đính chính F11 — Chọn bản nâng cấp trong intraday và các khung khác
+
+Theo yêu cầu làm rõ của người dùng, tiếp tục trên nhánh F11 từ `2e330c8c`:
+chế độ trước mang nhãn **Original · intraday and other timeframes** không
+còn chỉ dành cho Original. Nhãn hiện tại là **Realtime · intraday and other
+timeframes**, dropdown sáu bản luôn hiện trong chính chế độ đó.
+
+- [x] Chọn Bayesian v1/C2/A/B/MT-BICL rồi **Phân tích** gửi đúng mã/khung/ID, capture/preflight/start qua API durable; không gọi Original ngầm hoặc bắt chuyển sang nguồn ngày. Original giữ đường native đang có. Vùng chọn mã/khung bị khóa trong lúc tạo job, chống double click; thiếu mã/dữ liệu/resource hoặc POST chưa rõ kết quả không thành fallback thành công.
+- [x] Hỗ trợ **5m/15m/30m/1h/1d/1w/1mo**. I/P/T và ảnh dùng đúng nến/timestamp khung chọn; Alpha/prior/MT dùng ngữ cảnh ngày và T+2.5 theo phiên. Một I→P→T/point, dependency một lần/repeat, source/key/options/owner/checkpoint giữ riêng; không đổi oracle/phí/horizon thành ba nến intraday.
+- [x] Snapshot khóa chart và nguồn ngày/VNINDEX/tin. Có thể dùng daily provisional tại thời điểm capture, hoặc tổng hợp từ intraday thực có đầu phiên; thiếu đầu phiên, nến future, lệch lịch/đơn vị giá bị chặn trước model. Không fill giá/volume, không tự nhân/chia đơn vị và không tạo P&L query. Daily-closed mode giữ policy cũ.
+- [x] Kết quả giữ chart đúng khung và timestamp, metadata source/capture/daily context riêng, raw/final/effective/bypass rõ; mode intraday không được ghi nhãn chart 1d. Preview fixture cũng cấp nến đa khung, không rơi sang mạng thị trường thật.
+- [x] **136 Python + 19 DOM PASS**, compile **14 Python đổi**, syntax **7 JS PASS**. Có 21 ca live (gồm 7 ca đa khung mới), 8 ca nghiệm thu HTTP/recovery F11, runtime/resource/API, analysis/backtest caller, 18 leakage và 11 native parity. Chạy riêng từng bản trên nến5m qua provider thật/HTTP Groq fixture, capture đủ bảy khung, owner/timeframe binding, future/missing-open/units errors, chart timestamp/label, chống double click và không chuyển lỗi sang Original.
+- [x] Rà cuối bổ sung guard đơn vị trước khi ghép daily provisional; chỉ chạy lại bốn ca capture bị ảnh hưởng và compile hai Python, giữ log PASS các phần không đổi. SHA capture hợp lệ cả bảy khung **nguyên byte trước/sau guard**; QA giữ checks trước sửa và log/binding kiểm tiếp theo. Không chạy lại toàn bộ suite để cập nhật receipt; scalar evaluator không đổi giữ phạm vi QA ngày cũ.
+- [ ] Kiểm trực quan desktop/mobile vẫn chờ browser host; F11 chưa đóng/F12 chưa mở và chưa merge vào develop.
+
+[Receipt hiện hành](serving_integration_acceptance.json) dùng
+[QA đa khung](serving_timeframe_checks.zip); gói QA ngày và các receipt nghiên
+cứu trước đó giữ nguyên byte. Kiểm lại các provider/caller/PIT thay đổi,
+không chạy full unit/E2E/compileall hoặc gọi API thị trường/Groq thật.
+[Runbook đa khung](variant_serving_contract.md#chọn-phiên-bản-ngay-trong-chế-độ-intraday-và-các-khung-thời-gian)
+ghi cách dùng và phân biệt tần suất chart với mục tiêu T+2.5. Server đang chạy
+không auto-reload; cần khởi động lại server và tải lại trang để nạp backend/JS mới.
+Native causal FAIL, whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận
+đóng và source/PDF/archive mới từ develop giữ nguyên.
+Diff, **188 liên kết/anchor local** và đồng bộ checklist PASS.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

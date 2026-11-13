@@ -1,4 +1,5 @@
 import {byId, element, label, json, jobUrl, requestFor, blockerText} from './common.js';
+import {runTimeframe} from './timeframe.js';
 
 // Mỗi lần sửa form hủy grant cũ; chỉ response đúng generation mới được bật nút chạy.
 export function formController(config, io = json, navigate = url => location.assign(url)) {
@@ -10,7 +11,7 @@ export function formController(config, io = json, navigate = url => location.ass
   const legacy = () => byId('analysis-source').value === 'legacy';
   const api = () => latest() ? '/api/serving/live/v1' : '/api/serving/v1';
   function buttons() {
-    byId('analyzeBtn').disabled = starting || capturing || legacyBusy || (!legacy() && !grants.has('analyze'));
+    byId('analyzeBtn').disabled = starting || capturing || legacyBusy || (legacy() ? byId('analysis-version').value !== 'original_fix' && !defaults : !grants.has('analyze'));
     byId('compareBtn').disabled = starting || capturing || legacy() || !grants.has('compare');
     byId('compareBtn').hidden = legacy();
     byId('capture-live').disabled = starting || capturing;
@@ -107,11 +108,27 @@ export function formController(config, io = json, navigate = url => location.ass
   }
   async function start(mode) {
     if (starting) return;
-    if (legacy()) { if (mode === 'analyze') window.legacyAnalysis.run(); return; }
+    if (legacy()) {
+      if (mode !== 'analyze') return;
+      if (byId('analysis-version').value === 'original_fix') { window.legacyAnalysis.run(); return; }
+      if (!defaults) return;
+      starting = true; buttons();
+      const controls = [byId('analysis-source'),byId('analysis-version')];
+      controls.forEach(node => node.disabled = true); byId('legacy-inputs').inert = true;
+      try {
+        const chosen = {...window.legacyAnalysis.selection(),variant:byId('analysis-version').value,
+          language:byId('report-language').value,repeats:Number(byId('analysis-repeats').value)};
+        const result = await runTimeframe(config,chosen,models(),io,value => byId('timeframe-run-status').textContent = value);
+        try { localStorage.setItem('qa_last_serving_job',result.runId); localStorage.setItem('qa_last_serving_source','live'); } catch {}
+        navigate(result.url);
+      } catch (error) { byId('timeframe-run-status').textContent = error.message || text.failed; }
+      finally { starting = false; controls.forEach(node => node.disabled = false); byId('legacy-inputs').inert = false; buttons(); }
+      return;
+    }
     const request = grants.get(mode);
     if (!request) return;
     starting = true; ++generation; abort?.abort(); clearTimeout(timer); grants.clear(); buttons();
-    const controls = [...document.querySelectorAll('#asof-inputs input, #asof-inputs select, #analysis-source')];
+    const controls = [...document.querySelectorAll('#asof-inputs input, #asof-inputs select, #analysis-source'),byId('analysis-version')];
     controls.forEach(node => node.disabled = true);
     try {
       const sourceName = latest() ? 'live' : 'asof';
@@ -133,11 +150,12 @@ export function formController(config, io = json, navigate = url => location.ass
     byId('analyzeBtn').addEventListener('click',() => start('analyze'));
     byId('compareBtn').addEventListener('click',() => start('compare'));
     byId('analysis-source').addEventListener('change',source);
+    byId('analysis-version').addEventListener('change',invalidate);
     byId('asof-inputs').addEventListener('input',invalidate);
     byId('asof-inputs').addEventListener('change',invalidate);
     document.addEventListener('analysis-key-changed',invalidate);
     for (const [event,busy] of [['analysis-legacy-start',true],['analysis-legacy-end',false]]) {
-      document.addEventListener(event,() => { legacyBusy = busy; byId('analysis-source').disabled = busy; buttons(); });
+      document.addEventListener(event,() => { legacyBusy = busy; byId('analysis-source').disabled = busy; byId('analysis-version').disabled = busy; buttons(); });
     }
     try {
       const previous = localStorage.getItem('qa_last_serving_job');

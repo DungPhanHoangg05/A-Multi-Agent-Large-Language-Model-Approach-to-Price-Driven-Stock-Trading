@@ -299,7 +299,7 @@
         });
 
 // Chỉ tải danh sách realtime khi chọn nguồn legacy; giữ nhịp kiểm trạng thái năm phút.
-window.legacyAnalysis = {run: chayPhanTich, load: () => {
+window.legacyAnalysis = {run: chayPhanTich, selection: () => ({symbol:maDaChon,timeframe:KHUNG_THOI_GIAN}), load: () => {
     kiemTraTrangThaiRT(); taiDanhSachMa();
     setInterval(() => { if (document.getElementById('analysis-source').value === 'legacy') kiemTraTrangThaiRT(); }, 5 * 60 * 1000);
 }};

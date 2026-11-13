@@ -58,10 +58,17 @@ def clean(frame: pd.DataFrame, maximum: pd.Timestamp) -> pd.DataFrame:
 class Snapshots:
     """Kho nội bộ theo owner và SHA; chỉ endpoint capture được phép truy cập mạng."""
     def __init__(self, directory: Path, *, prices: Callable = market_prices,
-                 news: Callable = market_news, now: Callable | None = None) -> None:
+                 news: Callable = market_news, now: Callable | None = None, charts: Callable | None = None) -> None:
         self.directory = directory
         self.prices, self.news = prices, news
         self.now = now or (lambda: datetime.now(ZONE))
+        from core.serving_live.timeframes import market_chart
+        self.charts = charts or market_chart
+
+    def capture_timeframe(self, symbol: str, timeframe: str, owner: str) -> dict:
+        """Luồng intraday/tuần/tháng dùng chart thật, giữ nguyên capture ngày hoàn tất hiện có."""
+        from core.serving_live.timeframes import capture
+        return capture(self,symbol,timeframe,owner)
 
     def path(self, identifier: str) -> Path:
         """ID là SHA đầy đủ, không nhận đường dẫn hoặc alias từ trình duyệt."""
@@ -129,6 +136,7 @@ class Snapshots:
     def summary(identifier: str, record: dict) -> dict:
         """Metadata công khai không có key hoặc đường dẫn máy chủ."""
         return {key:record[key] for key in ('symbol','cutoff','captured_at','source','price_unit','calendar_policy','corporate_actions','scientific_status')} | {
+            **{key:record[key] for key in ('chart_timeframe','daily_provisional') if key in record},
             'snapshot_id':identifier, 'price_rows':len(record['prices']['Datetime']), 'news_articles':len(record['news'])}
 
 

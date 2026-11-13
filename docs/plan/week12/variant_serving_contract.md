@@ -28,8 +28,8 @@ Miền live là chín mã như F08, **1d/VI**, nguồn VCI/KBS qua loader hiện
 Không giới hạn ngày mới trong tháng 7–9 nữa. Trước **15:30 Asia/Ho_Chi_Minh**
 loại nến ngày hiện tại; sau đó chỉ nhận phiên có cả cổ phiếu và VNINDEX.
 Giá/volume phải hợp lệ, có ít nhất 600 phiên, không nến tương lai hoặc lịch
-lệch; nguồn quá cũ trên mười ngày bị chặn. Chọn **Hệ gốc · intraday và khung
-thời gian khác** nếu cần luồng cũ; không gán model theo ngày cho nến phút.
+lệch; nguồn quá cũ trên mười ngày bị chặn. Chế độ **Realtime · intraday và
+các khung thời gian** bên dưới cũng chọn được cả sáu phiên bản.
 Tin undated bị loại, tin future bị từ chối; tin chỉ có ngày được coi là khả
 dụng từ ngày kế tiếp. Thiếu ít nhất ba score hợp lệ giữ sentiment unavailable,
 không giả thành trung tính. Sự kiện quyền live chưa có ledger độc lập; metadata
@@ -66,6 +66,41 @@ Phân tích live không có outcome/P&L t+3, không nhận mode backtest. Resume
 đọc lại capture cũ theo SHA, không tự lấy giá mới và không gửi lại UNKNOWN.
 Muốn dùng dữ liệu mới hơn phải capture và tạo job mới. Báo cáo/nguồn live là
 exploratory; native causal FAIL, whole-system NOT_CERTIFIED giữ nguyên.
+
+## Chọn phiên bản ngay trong chế độ intraday và các khung thời gian
+
+Đính chính theo yêu cầu người dùng: chế độ trước mang nhãn **Original · intraday
+and other timeframes** nay là **Realtime · intraday and other timeframes**.
+Dropdown phiên bản luôn hiển thị ngoài vùng as-of: chọn một trong sáu bản,
+chọn mã/khung rồi nhấn **Phân tích**. Các bản nâng cấp không bị chuyển ngầm
+sang Original. Original giữ pipeline cũ; năm bản nâng cấp chạy provider/DAG
+durable riêng trên nến khung đã chọn. Hiện tài nguyên nâng cấp có chín mã như
+trên; thiếu resource/support là lỗi có thông báo, không giả thành fallback thành công.
+
+Các khung: **5m, 15m, 30m, 1h, 1d, 1w, 1mo**. Indicator/Pattern/Trend và ảnh
+dùng chart khung được chọn. Alpha/prior/facts/student/regime giữ ngữ cảnh ngày
+và mục tiêu **Open(t+1)→Close(t+3) theo phiên giao dịch**, không thay bằng ba
+nến 5m/ba tuần/ba tháng. Đây là chuyển ngữ cảnh phục vụ inference mới, không
+nhận là model đã được huấn luyện hoặc chứng nhận hiệu quả cho từng tần suất.
+
+`POST /api/serving/live/v1/snapshot` nhận `{symbol,timeframe}` trong chế độ này.
+Capture khóa cả chart timestamps và 600+ nến ngày, tin có ngày, VNINDEX. Có thể
+dùng phiên ngày đang hình thành tại thời điểm capture, ghi `daily_provisional`;
+nếu nguồn daily chưa có phiên đó, chỉ tổng hợp OHLCV từ nến intraday thực có từ
+đầu phiên. Thiếu nến đầu phiên, nến vượt capture, lịch lệch hoặc đơn vị giá
+chart/daily không nhất quán đều từ chối trước LLM, không nội suy/đổi đơn vị.
+Snapshot chỉ ngày hoàn tất hiện có vẫn giữ policy cũ, không bị nới ngầm.
+
+Preflight/start nhận `version=variant_serving_timeframe_v1`, `snapshot_id`,
+`chart_timeframe` và `request` chuẩn ngày bên trong. `request.mode=analyze`,
+`request.variant_ids=[bản đã chọn]`, `request.timeframe=1d` là ngữ cảnh/target;
+chart timeframe phải khớp snapshot và được bind trong identity/support/hash.
+Không nhận live backtest/payoff query. Kết quả giữ nguồn live, timestamp/nhãn
+chart đúng khung, daily prefix/provenance riêng, requested/effective/bypass rõ.
+Đổi lựa chọn sau click không sửa request đã khóa; lỗi create mơ hồ không tự gửi lại.
+
+Server `web_interface.py` chạy `use_reloader=False`; sau khi cập nhật code phải
+khởi động lại tiến trình server hiện có và tải lại trang để nạp cả backend/JS mới.
 
 ## Chạy serving as-of từ F08
 
@@ -172,8 +207,9 @@ F10 đã nối backtest/experiments. F08 không sửa template hoặc endpoint n
 Mở `/` hoặc `/demo`, chọn nguồn **As-of** và một mã/ngày trong miền công bố.
 Mặc định Hệ gốc; “Phân tích” chạy bản trong dropdown, “So sánh phiên bản” chạy
 các checkbox đã chọn (ít nhất hai, mặc định Hệ gốc + Bayesian v1). Các dependency
-tự chạy và hiện trong phần nâng cao. Chọn nguồn Hệ gốc intraday/khung khác
-để dùng form mã/khung cũ; nguồn Realtime phiên ngày mới nhất chạy cả sáu bản.
+tự chạy và hiện trong phần nâng cao. Cả nguồn Realtime intraday/khung khác và
+nguồn Realtime phiên ngày mới nhất đều có dropdown đủ sáu bản; intraday không
+bắt người dùng chuyển sang chế độ ngày mới chọn được bản nâng cấp.
 
 Giao diện VI/EN không đổi ngôn ngữ report đã có. Provider mới hiện chỉ hỗ trợ
 VI; chọn report EN sẽ bị chặn thay vì tự đổi sang VI. Repeat và options của
@@ -242,7 +278,8 @@ vẫn chờ F11 do host không khả dụng; kiểm offline dùng HTTP fixture.
 
 [Receipt tích hợp](serving_integration_acceptance.json) và
 [gói QA ban đầu](serving_integration_checks.zip) giữ bằng chứng lịch sử;
-receipt hiện hành dùng [QA live](serving_live_checks.zip), trạng thái
+QA ngày trước đó là [QA live](serving_live_checks.zip); receipt hiện hành dùng
+[QA đa khung](serving_timeframe_checks.zip), trạng thái
 `OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. Gate hiện hành
 kiểm lại caller/runtime service/UI/PIT bị đổi, bổ sung capture và sáu job
 analyze chọn riêng từng bản trên phiên 12/11/2026 mô phỏng, cùng compare,
@@ -256,7 +293,7 @@ py -3.13 -X utf8 scripts/serve_serving_review.py --port 5051 --seed --duration 9
 ```
 
 Lệnh đầu chỉ đối soát receipt/member/source/runtime/evidence. `--run` chạy lại
-đúng các suite đã chọn trong `scripts/serving_acceptance/live.py`, biên dịch
+đúng các suite đã chọn trong `scripts/serving_acceptance/timeframes.py`, biên dịch
 Python đổi rồi ghi QA/receipt. Mạng thị trường/Groq dùng fixture trong test,
 không gọi hosted thật. Không có cờ tự đánh PASS browser; nguồn/runtime khác
 gói QA mới thì lệnh verify từ chối, cần kiểm lại phần bị ảnh hưởng.
@@ -317,7 +354,8 @@ metrics từng repeat đã seal. Xem [kết quả/giới hạn F07](README.md#f0
 
 Miền ứng viên ban đầu của runner mới là **1d/VI**. Chưa có mã/ngày nào được
 cấp cho inference mới ở F06. EN được nhận về cấu trúc để snapshot ngôn ngữ,
-nhưng preflight báo `LANGUAGE_NOT_RELEASED`. Khung intraday bị từ chối.
+nhưng preflight báo `LANGUAGE_NOT_RELEASED`. Envelope as-of `variant_serving_v1`
+chỉ nhận khung ngày; chế độ intraday dùng envelope/provider riêng đã mô tả ở trên.
 U09 chỉ có các point trong manifest lịch sử đã verify; không suy thành mọi
 ngày của chín mã. Bank CORE4/OOD fallback, HMM/student và selector phải có
 support/availability version hóa do server kiểm ở F08; không refit ngầm.

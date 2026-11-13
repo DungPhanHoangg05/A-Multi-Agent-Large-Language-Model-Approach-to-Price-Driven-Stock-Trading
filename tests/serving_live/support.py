@@ -51,3 +51,21 @@ def request(identifier: str, cutoff: str, ids: list[str], *, mode: str = 'analyz
     return {'version':'variant_serving_live_v1','snapshot_id':identifier,'request':{'version':'variant_serving_v1',
         'mode':mode,'variant_ids':ids,'symbols':[symbol],'start_date':cutoff,'end_date':cutoff,
         'timeframe':'1d','language':'vi','repeats':1,'models':default_models()}}
+
+
+def charts(symbol: str, timeframe: str) -> pd.DataFrame:
+    """Nến các khung thật về schema, dữ liệu synthetic tại 10h ngày13/11; không tải thị trường."""
+    daily = prices(symbol)
+    if timeframe in ('1d','1w','1mo'):
+        if timeframe == '1d': return daily.tail(200)
+        rule = 'W-MON' if timeframe == '1w' else 'MS'
+        return daily.set_index('Datetime').resample(rule,label='left',closed='left').agg(
+            {'Open':'first','High':'max','Low':'min','Close':'last','Volume':'sum'}).dropna().reset_index().tail(120)
+    minutes = {'5m':5,'15m':15,'30m':30,'1h':60}[timeframe]
+    stamps = pd.DatetimeIndex([stamp for day in pd.bdate_range('2026-10-20','2026-11-13')
+        for stamp in pd.date_range(day+pd.Timedelta(hours=9),day+pd.Timedelta(hours=14,minutes=45),freq=f'{minutes}min')
+        if stamp <= pd.Timestamp('2026-11-13 10:00')])
+    n = np.arange(len(stamps),dtype=float)
+    close = float(daily.Close.iloc[-1])*(1.+.002*np.sin(n*.4))
+    return pd.DataFrame({'Datetime':stamps,'Open':close*.999,'High':close*1.002,'Low':close*.998,
+                         'Close':close,'Volume':1000.+np.arange(len(stamps))%100}).tail(250)

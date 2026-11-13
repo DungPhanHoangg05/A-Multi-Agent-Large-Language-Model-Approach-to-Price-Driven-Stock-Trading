@@ -26,4 +26,7 @@ class PreviewBoundaryTests(unittest.TestCase):
             live = client.post('/api/serving/live/v1/snapshot',json={'symbol':'MWG'})
             self.assertEqual(live.status_code,200)
             self.assertEqual(live.get_json()['cutoff'],'2026-11-12')
+            intraday = client.post('/api/serving/live/v1/snapshot',json={'symbol':'MWG','timeframe':'5m'})
+            self.assertEqual(intraday.status_code,200)
+            self.assertEqual(intraday.get_json()['chart_timeframe'],'5m')
             self.assertEqual(service.tasks,{})

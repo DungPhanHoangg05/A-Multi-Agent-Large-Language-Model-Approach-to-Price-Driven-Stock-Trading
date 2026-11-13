@@ -68,11 +68,15 @@ support và JSON/CSV; Full/No-Alpha legacy có adapter riêng. **156 Python +
 nhánh F11 đã hợp nhất develop `4de6d1aa` qua `6ac5d7ab`, giữ bài báo/archive
 mới. Form mặc định **Realtime · phiên ngày hoàn tất mới nhất**, chọn từng bản
 trong sáu bản chính để phân tích, hoặc so sánh trên cùng snapshot mới từ VCI/KBS.
+Theo đính chính tiếp theo, chế độ **Realtime · intraday và các khung thời gian**
+cũng chọn đủ sáu bản ngay trong chế độ đó; I/P/T/chart dùng khung được chọn,
+Alpha/prior/MT giữ ngữ cảnh ngày và hợp đồng T+2.5. Không còn khóa chế độ này
+chỉ cho Original. [Cách dùng và hợp đồng đa khung](week12/variant_serving_contract.md#chọn-phiên-bản-ngay-trong-chế-độ-intraday-và-các-khung-thời-gian).
 Provider/nguồn live riêng giữ cutoff, key/options/owner, retry/checkpoint và
 không đọc payoff query. Các caller/service/UI/leakage bị đổi được kiểm lại;
-QA F10/F11 ban đầu là lịch sử, không thay kiểm thử code mới. **138 Python +
-16 DOM, compile19/JS5 PASS**, có 18 leakage/11 native parity; kiểm tiếp theo
-đúng phần default ledger/poll thay đổi, không chạy lại toàn suite. Browser desktop/mobile
+QA F10/F11 ngày trước đó là lịch sử, không thay kiểm thử code đa khung mới:
+**136 Python + 19 DOM, compile14/JS7 PASS**, có 18 leakage/11 native parity;
+kiểm đúng provider/caller/PIT/recovery đổi, không chạy toàn suite. Browser desktop/mobile
 vẫn chờ: host không khả dụng, duyệt tự động đã từ chối mở Edge. Chưa đạt gate
 browser nên F11 chưa hoàn tất, nhánh tác vụ chưa merge theo AGENTS §1.2;
 **F12 chưa bắt đầu**. [Runbook nghiệm thu/preview](week12/variant_serving_contract.md#nghiệm-thu-f11-và-preview-fixture)
