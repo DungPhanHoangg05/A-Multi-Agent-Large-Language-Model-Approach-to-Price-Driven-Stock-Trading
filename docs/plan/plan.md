@@ -37,8 +37,12 @@ template/CSS/JS; browser trực quan chờ F11 do host/approval bị chặn. F08
 provider/runner riêng, resource **188 binding/chín mã/58 phiên 01/07–23/09/2026**,
 API job owner/preflight/stop/resume, quota/retry/UNKNOWN và paired DAG; **105 test
 đúng phạm vi + compile18 PASS**, chỉ HTTP fixture, chưa smoke hosted mới.
-Bước tiếp theo **F09** form/kết quả; F09–F12 chưa bắt đầu. UI legacy chưa đổi
-đường chạy, latest/intraday/EN chưa thuộc miền serving mới.
+F09 đã nối form/kết quả với serving: sáu bản chính/hai dependency, preflight,
+so sánh cùng snapshot, raw/final/CASH, context và hai projection Alpha;
+**108 Python + 18 DOM, compile5/JS7 PASS**. Template/CSS/JS đã tách file,
+giữ đường realtime legacy riêng; UI VI/EN, báo cáo serving vẫn chỉ VI.
+Browser desktop/mobile chưa kiểm vì host không khả dụng, giữ trong F11.
+Bước tiếp theo **F10** backtest/so sánh; F10–F12 chưa bắt đầu.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

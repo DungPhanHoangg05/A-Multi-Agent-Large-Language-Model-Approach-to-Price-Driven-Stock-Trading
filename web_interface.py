@@ -66,6 +66,10 @@ def render_localized(template: str, **ctx):
     Template nhận `T` (dict chuỗi đã dịch) và `LANG` (mã ngôn ngữ hiện tại).
     """
     lang = current_lang()
+    if template in ("demo_new.html", "output.html"):
+        from utils.analysis_ui import messages
+        from core.serving_registry import registry_document
+        ctx.update(A=messages(lang), serving_registry=registry_document())
     resp = make_response(
         render_template(template, T=catalogue(lang), LANG=lang, **ctx)
     )
@@ -331,6 +335,9 @@ def demo():
 
 @app.route("/output")
 def output():
+    if "serving_run" in request.args:
+        # Trang chỉ chứa shell; API owner kiểm UUID và journal, không khởi động inference qua GET.
+        return render_localized("output.html", serving_run=request.args.get("serving_run"))
     results = request.args.get("results")
     job_id  = request.args.get("job_id")
     lang    = current_lang()
