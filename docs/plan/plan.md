@@ -46,7 +46,14 @@ F10 đã nối backtest mới và danh mục owner vào experiments, cùng evalu
 account/classification U09, daily NAV/cycle returns, filter/contrast cùng
 support và JSON/CSV; Full/No-Alpha legacy có adapter riêng. **156 Python +
 31 DOM, compile13/JS7 PASS**, chỉ HTTP fixture; browser visual chờ F11.
-Bước tiếp theo **F11** nghiệm thu tích hợp; F11–F12 chưa bắt đầu.
+**F11 đang làm**: [receipt tích hợp](week12/serving_integration_acceptance.json)
+ghi 8 test mới/compile8 PASS; đối soát nguồn ứng dụng, runtime107 và QA F10 để
+viện dẫn 156 Python + 31 DOM, không chạy lại. Hai job HTTP đồng thời, phục hồi
+service mới và 522 cửa sổ support đã kiểm bằng fixture. Browser desktop/mobile
+vẫn BLOCKED: host không khả dụng, duyệt tự động từ chối mở Edge. Chưa đạt gate
+browser nên F11 chưa hoàn tất, nhánh tác vụ chưa merge theo AGENTS §1.2;
+**F12 chưa bắt đầu**. [Runbook nghiệm thu/preview](week12/variant_serving_contract.md#nghiệm-thu-f11-và-preview-fixture)
+giữ rõ phần còn chờ; không gọi API hosted/thị trường mới.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

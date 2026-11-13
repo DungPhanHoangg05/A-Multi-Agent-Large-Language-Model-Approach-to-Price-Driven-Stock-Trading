@@ -331,7 +331,7 @@ cùng commit khi bắt đầu hoặc hoàn tất một bước. F01–F05
 hoàn tất U10; F06–F12 là phần ứng dụng bổ sung. Mỗi bước dùng nhánh tác vụ phù
 hợp từ develop, không commit trực tiếp develop.
 
-**F01–F05 và U10 đã hoàn tất phạm vi bàn giao nội bộ; F06–F10 đã xong phần tương ứng, bước tiếp theo là F11.** [Mapping và runbook historical](final_evidence_map.md)
+**F01–F05 và U10 đã hoàn tất phạm vi bàn giao nội bộ; F06–F10 đã xong phần tương ứng, F11 đang nghiệm thu.** [Mapping và runbook historical](final_evidence_map.md)
 đã chốt hai nghiên cứu, snapshot paper/revision/app và đường khôi phục
 nguồn/assets đã khóa. Smoke checkout biệt lập đã khớp nguồn và replay nguyên
 byte 15 artifact U09. F02 đã sinh 26 artifact với 798 ô có provenance trong
@@ -356,7 +356,12 @@ so sánh cùng snapshot, raw/final/CASH, context và native/common Alpha;
 host không khả dụng, giữ ở F11. F10 đã có backtest nhiều bản, catalog owner,
 filter cùng support, account/classification chung U09, daily NAV/cycle return,
 JSON/CSV và adapter Full/No-Alpha riêng; 156 Python + 31 DOM, compile13/JS7
-PASS, toàn HTTP fixture. F11–F12 chưa bắt đầu.
+PASS, toàn HTTP fixture. F11 đã PASS 8 test tích hợp mới/compile8, đối soát
+nguyên nguồn/runtime107/QA để viện dẫn 156 Python + 31 DOM F10, không chạy lại.
+[Receipt F11](serving_integration_acceptance.json) giữ
+`OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
+và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
+thiếu theo AGENTS §1.2; F12 chưa bắt đầu.
 
 Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**. Chỉ đánh ☑ khi
 đạt điều kiện hoàn thành và có kết quả kiểm tra tương ứng trong README W12.
@@ -374,7 +379,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Chưa bắt đầu | Nghiệm thu tích hợp đúng phạm vi — `test/variant-serving-integration` | F07–F10 | Offline tests/caller/leakage/recovery liên quan PASS, kiểm browser desktop/mobile, không đổi U09; live smoke giới hạn nếu triển khai cần |
+| F11 | ☐ Đang làm | Nghiệm thu tích hợp đúng phạm vi — `test/variant-serving-integration` | F07–F10 | 8 test mới/compile8 PASS; nguồn/runtime107/QA F10 khớp để viện dẫn 156 Python + 31 DOM, không chạy lại; HTTP đồng thời/restart/522 cửa sổ support PASS. Browser desktop/mobile BLOCKED, chưa hoàn tất/chưa merge; không đổi U09, live smoke giới hạn nếu triển khai cần |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy

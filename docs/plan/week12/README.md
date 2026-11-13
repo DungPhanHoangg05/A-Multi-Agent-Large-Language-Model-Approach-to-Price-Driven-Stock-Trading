@@ -47,12 +47,14 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F11**, nghiệm thu tích hợp và kiểm trình duyệt đúng phạm vi.
+**Đang thực hiện F11**, nghiệm thu tích hợp và kiểm trình duyệt đúng phạm vi.
 F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
 contract ứng dụng; F07 có viewer U09 offline, F08 có provider/runner/API job
 as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh cùng snapshot.
 F10 đã nối backtest nhiều bản và trang thực nghiệm, filter/evaluator/export
-cùng support; adapter Full/No-Alpha riêng. F11–F12 chưa bắt đầu.
+cùng support; adapter Full/No-Alpha riêng. F11 offline PASS 8 test mới/compile8,
+QA F10 được đối soát và viện dẫn; browser BLOCKED, chưa hoàn tất/chưa merge.
+F12 chưa bắt đầu.
 **0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
@@ -70,7 +72,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Kiểm thử tích hợp/leakage/caller đúng phạm vi và kiểm trình duyệt; smoke live có phạm vi nếu cần.
+- [ ] F11 — Đang làm: 8 test mới/compile8 PASS; đối soát nguồn/runtime107 và viện dẫn 156 Python + 31 DOM F10, không chạy lại. Browser desktop/mobile BLOCKED, chưa hoàn tất/chưa merge; smoke live có phạm vi nếu triển khai cần.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -464,6 +466,27 @@ mới**; native Alpha giữ hành vi tính/selection cũ. Chưa smoke hosted m�
 Browser tiếp tục báo `The browser access host is unavailable`, inventory không
 có browser; **chưa kiểm trực quan desktop/mobile**, giữ gate này tại F11.
 F11–F12 tiếp tục; không push/deploy/submit.
+
+### F11 — Nghiệm thu tích hợp, còn chờ browser
+
+Ngày **13/11/2026**, nhánh `test/variant-serving-integration` từ develop
+`f96b44f2`. Không sửa mã ứng dụng hoặc runtime; bổ sung test, CLI preview/gate
+và receipt machine-readable, tách helper khỏi script/test chính.
+
+- [x] **8 test mới PASS**, compile **8 Python mới PASS**. HTTP loopback thật với hai owner/job, provider/resource thật và chỉ mock HTTP Groq; key/model options/config/snapshot tách biệt khi chạy đồng thời. Một upstream/point, dependency một lần/repeat, hai projection native/common, prompt <6.500 ký tự và BRPP ≤600 được kiểm. Backtest sáu bản/repeat2 có 16 slot, 12 account và 12 dòng prediction export; GET evaluation/export không gọi thêm model, owner/run filter sai bị chặn.
+- [x] Tạo **Service mới** trên cùng store/journal để kiểm stop/resume giữ UUID/config/raw, crash sau fsync raw không gửi lại, deadline429/attempt ledger bền vững và UNKNOWN không retry mù/không thành CASH. Thiếu key/resource, ngôn ngữ/mã/model ngoài support đều từ chối trước dispatch. Audit riêng đủ **522 cửa sổ = chín mã × 58 phiên**, ≥600 nến PIT và lịch t+1/t+3 khớp; outcome audit không đi vào input forecast.
+- [x] **Viện dẫn, không chạy lại 156 Python + 31 DOM F10**: kiểm toàn bộ member/hash/log QA, nguồn ứng dụng nguyên `f96b44f2`, source bindings của test/JS và Python3.13.5/107 package/Node24.18.0 khớp. Bao phủ kế thừa có 18 leakage, 11 native parity, oracle/NA/CASH, prompt, DOM caller và recovery. Không chạy full unit/E2E/compileall/cold study theo AGENTS §1.2; chỉ chạy suite F11 mới vì không đổi đường chạy ứng dụng.
+- [x] Preview loopback dùng key fixture, cookie review riêng, store UUID riêng, banner rõ **HTTP FIXTURE**, chặn API legacy/thị trường/đổi key-model. Test rào chắn nằm trong tám test trên. Probe HTTP `/demo`, `/backtest`, `/experiments`, catalog và seed backtest sáu bản PASS; **không phải nghiệm thu browser**. Server preview đã dừng; [runbook](variant_serving_contract.md#nghiệm-thu-f11-và-preview-fixture) có lệnh mở lại.
+- [x] **20 gói W12 + 30 archive lịch sử**, **11 output F05 + 68 nguồn manuscript**, resource manifest và QA F08/F09/F10 nguyên byte. Worktree khớp **722/729** pin U09, vẫn bảy đường đã version hóa; F01 phục hồi đủ729. Native causal giữ FAIL, whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận đóng. **0 hosted LLM, 0 market API, 0 training HMM/student/bank mới**; native Alpha vẫn tính/selection theo hành vi cũ. Không smoke hosted vì chưa có yêu cầu triển khai.
+- [ ] Browser desktop/mobile: đủ sáu lựa chọn, advanced controls, offline/new run, empty/error/partial/completed, stop/resume, exports, VI/EN, layout và keyboard/focus. Host báo `The browser access host is unavailable`; inventory không có browser. Thử mở Microsoft Edge bằng computer-use bị duyệt tự động từ chối: `Computer Use was not approved to use Microsoft Edge`, không có lý do thêm. Không thử vòng đường khác để vượt từ chối, không ghi PASS cho phần chưa quan sát.
+
+[Receipt F11](serving_integration_acceptance.json) và
+[QA tích hợp](serving_integration_checks.zip) gồm ba member, giữ nguồn/runtime,
+log tám test, đối soát evidence/QA kế thừa và trạng thái
+**`OFFLINE_PASS_BROWSER_PENDING`, `f11_complete=false`**. Checklist F11 vẫn mở;
+đã kiểm diff, **158 liên kết/anchor local** và đồng bộ checklist PASS.
+F12 chưa bắt đầu. **Chưa merge vào develop** vì AGENTS §1.2 yêu cầu mọi kiểm tra
+áp dụng PASS; còn thiếu browser gate bắt buộc của F11. Không push/deploy/submit.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

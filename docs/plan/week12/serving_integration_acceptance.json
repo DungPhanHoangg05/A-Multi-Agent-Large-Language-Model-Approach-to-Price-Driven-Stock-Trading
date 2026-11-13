@@ -1,0 +1,46 @@
+{
+  "version": "serving_integration_acceptance_v1",
+  "status": "OFFLINE_PASS_BROWSER_PENDING",
+  "application_base_commit": "f96b44f2",
+  "checks_package": {
+    "bytes": 24549,
+    "sha256": "b147bf9c3b5f0a936106db12feae6a3ec029a062913a8fcd8621e7567b140232"
+  },
+  "new_tests": 8,
+  "reused_f10": {
+    "status": "REUSED_VERIFIED_NOT_RERUN",
+    "path": "docs/plan/week12/backtest_ui_checks.zip",
+    "bytes": 45895,
+    "sha256": "7a12b28e952dccc204f37563ff8bc5a1e3dca24517bc8f7709c029967c510b37",
+    "python_tests": 156,
+    "dom_tests": 31,
+    "suites": 19,
+    "leakage_tests": 18,
+    "native_parity_tests": 11,
+    "reason": "APP_SOURCE_RUNTIME_AND_ALL_QA_MEMBERS_MATCH; AGENTS_1_2_SCOPED_REUSE"
+  },
+  "compiled_python": 8,
+  "runtime_packages": 107,
+  "browser": {
+    "status": "BLOCKED",
+    "observed_at": "2026-11-13",
+    "host_error": "The browser access host is unavailable",
+    "native_attempt": "Microsoft Edge via computer-use sky.launch_app",
+    "automatic_review_error": "Computer Use was not approved to use Microsoft Edge",
+    "additional_rejection_reason": null,
+    "desktop": "NOT_RUN",
+    "mobile": "NOT_RUN",
+    "required_cases": [
+      "six_main_choices",
+      "advanced_controls",
+      "offline_and_new_run",
+      "empty_error_partial_completed",
+      "stop_resume",
+      "exports",
+      "VI_EN",
+      "desktop_mobile_layout_keyboard_focus"
+    ]
+  },
+  "hosted_smoke": "NOT_RUN; OFFLINE_SCOPE_NO_DEPLOYMENT",
+  "f11_complete": false
+}

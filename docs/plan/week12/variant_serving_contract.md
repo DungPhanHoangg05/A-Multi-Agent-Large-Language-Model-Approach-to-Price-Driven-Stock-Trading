@@ -181,6 +181,41 @@ ghi `LEGACY_DECLARED_NOT_RECERTIFIED`. Thiếu/lỗi giữ NA, không suy thành
 Không chứng nhận lại economics của file cũ qua adapter. Browser desktop/mobile
 vẫn chờ F11 do host không khả dụng; kiểm offline dùng HTTP fixture.
 
+## Nghiệm thu F11 và preview fixture
+
+[Receipt tích hợp](serving_integration_acceptance.json) và
+[gói QA](serving_integration_checks.zip) đang có trạng thái
+`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. Tám test mới kiểm
+HTTP hai job/provider thật đồng thời, restart trên store bền vững, support522
+và rào chắn preview. Gate F10 156 Python + 31 DOM được viện dẫn sau đối soát
+nguồn/log/runtime107, không chạy lại vì ứng dụng không đổi.
+
+```powershell
+py -3.13 -X utf8 scripts/check_serving_acceptance.py
+py -3.13 -X utf8 scripts/check_serving_acceptance.py --run
+py -3.13 -X utf8 scripts/serve_serving_review.py --port 5051 --seed --duration 900
+```
+
+Lệnh đầu chỉ đối soát receipt/member/source/runtime/evidence. `--run` chạy lại
+đúng suite F11 tám test và biên dịch tám Python mới rồi ghi QA/receipt, không
+gọi hosted LLM/thị trường. Không có cờ tự đánh PASS browser. Nếu ứng dụng hoặc
+runtime khác F10, script từ chối viện dẫn; phải chọn lại test đúng phần đổi.
+
+Preview chỉ bind `127.0.0.1`, in URL form và UUID seed backtest sáu bản.
+HTTP Groq dùng fixture, provider/resource/UI vẫn thật; native Alpha vẫn tính/
+selection. Key cố định fixture, cookie `qa_serving_review_owner` và store dưới
+`tmp/serving_review/<UUID>` riêng, API legacy/thị trường/đổi key-model bị chặn.
+Banner **HTTP FIXTURE** giữ rõ nguồn mô phỏng; không dùng kết quả để ra quyết
+định giao dịch. Dừng bằng Ctrl+C hoặc tự thoát sau 900 giây; không reloader.
+
+Phần còn thiếu bắt buộc: browser desktop/mobile kiểm sáu lựa chọn, nâng cao,
+offline/new run, empty/error/partial/completed, stop/resume, exports, VI/EN,
+layout và keyboard/focus. Host không khả dụng và duyệt tự động từ chối mở Edge;
+HTTP200/DOM test không thay nghiệm thu trực quan. Khi có browser khả dụng, ghi
+bằng chứng quan sát thật và kiểm phần ảnh hưởng trước khi chốt F11/merge hoặc
+mở F12. Live smoke chỉ thực hiện nếu phạm vi triển khai cần; chưa gọi API thật
+trong lượt nghiệm thu offline này. Giữ U09, causal FAIL/NOT_CERTIFIED nguyên vẹn.
+
 ## Lựa chọn và miền sử dụng
 
 Nguồn tên/nhóm/dependency/fallback duy nhất cho ứng dụng là
