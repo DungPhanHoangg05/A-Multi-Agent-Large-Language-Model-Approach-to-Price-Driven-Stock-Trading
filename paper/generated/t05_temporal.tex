@@ -1,8 +1,8 @@
-\begin{table}[!htb]
+\begin{table}[htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\caption{Overlapping temporal cohorts and observed trend strata. Small-block intervals and calendar-aligned HAC diagnostics are descriptive rather than calibrated significance tests.}
+\caption{Balanced accuracy across temporal cohorts and observed stock-level trend strata.}
 \label{tab:temporal}
 \textbf{A. Cohorts: BA percent; difference/interval in pp}\par\smallskip
 \begin{tabular}{lrrrrrrr}
@@ -24,5 +24,5 @@ Bull & 33 & 9/24 & 47.92 & 53.47 & 36.36 & 39.39 \\
 Sideways & 34 & 11/23 & 59.49 & 46.25 & 23.53 & 32.35 \\
 \hline
 \end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize Cohorts overlap and are not pooled as extra samples. Trend uses past Close/SMA60 with strict +/-2\% thresholds; it is not an index-regime policy. Primary intervals retain both dates, full cross-sections and pairing within blocks. HAC concerns accuracy rather than BA and is reported for both fixed-universe panels at lags 0/1/2 in S4.\end{minipage}
+\begin{minipage}{\textwidth}\footnotesize Trend strata use past Close/SMA60 with strict $\pm2\%$ thresholds; overlapping cohorts and dependence diagnostics are descriptive.\end{minipage}
 \end{table}

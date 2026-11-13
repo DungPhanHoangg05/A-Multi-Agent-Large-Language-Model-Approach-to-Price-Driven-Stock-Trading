@@ -1,0 +1,296 @@
+{
+  "main": {
+    "alg:walkforward": {
+      "latex_page": "4",
+      "number": "1",
+      "pdf_page": 5
+    },
+    "fig:alpha_agent": {
+      "latex_page": "14",
+      "number": "2",
+      "pdf_page": 15
+    },
+    "fig:calendar": {
+      "latex_page": "18",
+      "number": "5",
+      "pdf_page": 19
+    },
+    "fig:charts": {
+      "latex_page": "15",
+      "number": "3",
+      "pdf_page": 16
+    },
+    "fig:decision_agent": {
+      "latex_page": "16",
+      "number": "4",
+      "pdf_page": 17
+    },
+    "fig:flow": {
+      "latex_page": "12",
+      "number": "1",
+      "pdf_page": 13
+    },
+    "fig:u09-return-contrasts": {
+      "latex_page": "25",
+      "number": "7",
+      "pdf_page": 26
+    },
+    "fig:walkforward": {
+      "latex_page": "20",
+      "number": "6",
+      "pdf_page": 21
+    },
+    "tab:accounts": {
+      "latex_page": "24",
+      "number": "4",
+      "pdf_page": 25
+    },
+    "tab:classification": {
+      "latex_page": "23",
+      "number": "3",
+      "pdf_page": 24
+    },
+    "tab:custom_definitions": {
+      "latex_page": "32",
+      "number": "C.1",
+      "pdf_page": 33
+    },
+    "tab:execution": {
+      "latex_page": "35",
+      "number": "F.2",
+      "pdf_page": 36
+    },
+    "tab:indicator_rules": {
+      "latex_page": "33",
+      "number": "D.1",
+      "pdf_page": 34
+    },
+    "tab:numeric": {
+      "latex_page": "27",
+      "number": "8",
+      "pdf_page": 28
+    },
+    "tab:repeats": {
+      "latex_page": "26",
+      "number": "6",
+      "pdf_page": 27
+    },
+    "tab:scope": {
+      "latex_page": "18",
+      "number": "1",
+      "pdf_page": 19
+    },
+    "tab:symbol_results": {
+      "latex_page": "35",
+      "number": "F.1",
+      "pdf_page": 36
+    },
+    "tab:temporal": {
+      "latex_page": "27",
+      "number": "7",
+      "pdf_page": 28
+    },
+    "tab:u09-bridge": {
+      "latex_page": "37",
+      "number": "F.7",
+      "pdf_page": 38
+    },
+    "tab:u09-classification": {
+      "latex_page": "36",
+      "number": "F.3",
+      "pdf_page": 37
+    },
+    "tab:u09-comparison": {
+      "latex_page": "24",
+      "number": "5",
+      "pdf_page": 25
+    },
+    "tab:u09-contrasts": {
+      "latex_page": "37",
+      "number": "F.6",
+      "pdf_page": 38
+    },
+    "tab:u09-economics": {
+      "latex_page": "36",
+      "number": "F.4",
+      "pdf_page": 37
+    },
+    "tab:u09-repeats": {
+      "latex_page": "37",
+      "number": "F.5",
+      "pdf_page": 38
+    },
+    "tab:u09-scope": {
+      "latex_page": "19",
+      "number": "2",
+      "pdf_page": 20
+    },
+    "tab:u09-sensitivity-ba": {
+      "latex_page": "39",
+      "number": "F.10",
+      "pdf_page": 40
+    },
+    "tab:u09-sensitivity-core4": {
+      "latex_page": "39",
+      "number": "F.11",
+      "pdf_page": 40
+    },
+    "tab:u09-sensitivity-return": {
+      "latex_page": "38",
+      "number": "F.9",
+      "pdf_page": 39
+    },
+    "tab:u09-support": {
+      "latex_page": "38",
+      "number": "F.8",
+      "pdf_page": 39
+    }
+  },
+  "main_submit": {
+    "alg:walkforward": {
+      "latex_page": "4",
+      "number": "1",
+      "pdf_page": 5
+    },
+    "fig:alpha_agent": {
+      "latex_page": "13",
+      "number": "2",
+      "pdf_page": 14
+    },
+    "fig:calendar": {
+      "latex_page": "17",
+      "number": "5",
+      "pdf_page": 18
+    },
+    "fig:charts": {
+      "latex_page": "14",
+      "number": "3",
+      "pdf_page": 15
+    },
+    "fig:decision_agent": {
+      "latex_page": "15",
+      "number": "4",
+      "pdf_page": 16
+    },
+    "fig:flow": {
+      "latex_page": "12",
+      "number": "1",
+      "pdf_page": 13
+    },
+    "fig:u09-return-contrasts": {
+      "latex_page": "25",
+      "number": "7",
+      "pdf_page": 26
+    },
+    "fig:walkforward": {
+      "latex_page": "19",
+      "number": "6",
+      "pdf_page": 20
+    },
+    "tab:accounts": {
+      "latex_page": "23",
+      "number": "4",
+      "pdf_page": 24
+    },
+    "tab:classification": {
+      "latex_page": "22",
+      "number": "3",
+      "pdf_page": 23
+    },
+    "tab:custom_definitions": {
+      "latex_page": "31",
+      "number": "C.1",
+      "pdf_page": 32
+    },
+    "tab:execution": {
+      "latex_page": "35",
+      "number": "F.2",
+      "pdf_page": 36
+    },
+    "tab:indicator_rules": {
+      "latex_page": "33",
+      "number": "D.1",
+      "pdf_page": 34
+    },
+    "tab:numeric": {
+      "latex_page": "27",
+      "number": "8",
+      "pdf_page": 28
+    },
+    "tab:repeats": {
+      "latex_page": "26",
+      "number": "6",
+      "pdf_page": 27
+    },
+    "tab:scope": {
+      "latex_page": "18",
+      "number": "1",
+      "pdf_page": 19
+    },
+    "tab:symbol_results": {
+      "latex_page": "34",
+      "number": "F.1",
+      "pdf_page": 35
+    },
+    "tab:temporal": {
+      "latex_page": "26",
+      "number": "7",
+      "pdf_page": 27
+    },
+    "tab:u09-bridge": {
+      "latex_page": "37",
+      "number": "F.7",
+      "pdf_page": 38
+    },
+    "tab:u09-classification": {
+      "latex_page": "35",
+      "number": "F.3",
+      "pdf_page": 36
+    },
+    "tab:u09-comparison": {
+      "latex_page": "24",
+      "number": "5",
+      "pdf_page": 25
+    },
+    "tab:u09-contrasts": {
+      "latex_page": "37",
+      "number": "F.6",
+      "pdf_page": 38
+    },
+    "tab:u09-economics": {
+      "latex_page": "36",
+      "number": "F.4",
+      "pdf_page": 37
+    },
+    "tab:u09-repeats": {
+      "latex_page": "36",
+      "number": "F.5",
+      "pdf_page": 37
+    },
+    "tab:u09-scope": {
+      "latex_page": "18",
+      "number": "2",
+      "pdf_page": 19
+    },
+    "tab:u09-sensitivity-ba": {
+      "latex_page": "39",
+      "number": "F.10",
+      "pdf_page": 40
+    },
+    "tab:u09-sensitivity-core4": {
+      "latex_page": "39",
+      "number": "F.11",
+      "pdf_page": 40
+    },
+    "tab:u09-sensitivity-return": {
+      "latex_page": "38",
+      "number": "F.9",
+      "pdf_page": 39
+    },
+    "tab:u09-support": {
+      "latex_page": "38",
+      "number": "F.8",
+      "pdf_page": 39
+    }
+  }
+}

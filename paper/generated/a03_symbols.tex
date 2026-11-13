@@ -1,8 +1,8 @@
-\begin{table}[!htb]
+\begin{table}[htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\caption{Full and Base symbol-level results on their common historical support.}
+\caption{Full and Base classification performance by stock.}
 \label{tab:symbol_results}
 \textbf{Percent except MCC}\par\smallskip
 \begin{tabular}{lrrrrrr}
@@ -29,5 +29,5 @@ VNM/Full & 0/12 & 83.33 & NA & NA & NA & 83.33 \\
 VNM/Base & 0/12 & 83.33 & NA & NA & NA & 83.33 \\
 \hline
 \end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize BHN contributes six eligible units, other symbols twelve; NA retains missing-class denominators. S1 additionally contains all nine classifiers for every symbol and both-class precision/recall/F1, with pooled and macro summaries.\end{minipage}
+\begin{minipage}{\textwidth}\footnotesize BHN contributes six observations and other stocks twelve; NA indicates missing-class support or a degenerate metric.\end{minipage}
 \end{table}

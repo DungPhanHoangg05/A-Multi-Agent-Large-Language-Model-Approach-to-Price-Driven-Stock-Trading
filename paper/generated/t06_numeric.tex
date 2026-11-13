@@ -1,8 +1,8 @@
-\begin{table}[!htb]
+\begin{table}[htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\caption{Train-fit numeric selector controls using separate causal adapters. These auxiliary results neither repeat the native LLM selector experiment nor repair its row-wise causal defect.}
+\caption{Performance of training-fitted fixed, dynamic and random numerical factor selectors.}
 \label{tab:numeric}
 \textbf{A. Pooled numeric results; random mean (SD)}\par\smallskip
 \begin{tabular}{lrrrrr}
@@ -25,5 +25,5 @@ Dynamic - random mean & 7.33 & [0.57, 13.75] & 0.1250 & 1.0000 \\
 Dynamic - no flip & 6.44 & [-10.93, 20.26] & 0.5312 & 1.0000 \\
 \hline
 \end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize $N=102$, UP/DOWN=25/77, 51 train-fit scopes. Numeric adapters/preprocessing are separate from the native LLM pipeline. All 20 random trials and all 23 contrasts remain in S3. Exact tests have 64 six-block sign assignments; percentile intervals are unadjusted, Holm uses the full 23-hypothesis family. No contrast rejects at 0.05.\end{minipage}
+\begin{minipage}{\textwidth}\footnotesize All selectors use 102 observations across 51 training scopes; Holm correction covers 23 contrasts, including all twenty random trials.\end{minipage}
 \end{table}

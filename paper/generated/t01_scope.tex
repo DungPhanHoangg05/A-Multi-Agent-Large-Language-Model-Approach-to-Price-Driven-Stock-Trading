@@ -1,8 +1,8 @@
-\begin{table}[!htb]
+\begin{table}[htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\caption{Evaluation scopes and prompt variants in the frozen historical study. Shared main/upstream executions are counted once.}
+\caption{Evaluation panels and enabled prompt components in the component study.}
 \label{tab:scope}
 \textbf{A. Recorded supports}\par\smallskip
 \begin{tabular}{lrrrrrrr}
@@ -26,5 +26,5 @@ AS & Current & Current & Compact main / five-row factorial \\
 P & Past donor & Current & Five-row factorial \\
 \hline
 \end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize Main uses B/AS; upstream uses B/AS; factorial uses B/A/S/AS/P. Class counts are per execution. Upstream includes 18 main r0 calls: 204+54+135-18=375 unique Decisions. P preserves current names/schema/missingness and sentiment, replacing factor values/signals/skill metadata by one past train-only rank-vector donor.\end{minipage}
+\begin{minipage}{\textwidth}\footnotesize B omits both components, A enables factors, S enables sentiment, AS enables both, and P replaces current factors with a past training donor.\end{minipage}
 \end{table}

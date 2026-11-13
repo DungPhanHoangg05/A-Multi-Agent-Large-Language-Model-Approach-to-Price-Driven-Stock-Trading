@@ -5,9 +5,14 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+Nguồn bài báo ngày 13/11/2026 đã được [biên tập thành bản độc lập](week12/README.md#biên-tập-bài-báo-độc-lập):
+bỏ mã task/giọng phản hồi, caption một câu, toàn bộ bảng/hình `[htb]`, cả hai PDF
+44 trang và 43 references; PDF/ZIP Overleaf hiện hành ở `manuscript_standalone_v1`.
+Số liệu, công thức và bằng chứng thực nghiệm giữ nguyên.
+
 Ngày 13/11/2026 đã sửa bố cục và bổ sung references cho nguồn `paper/`:
 cả hai PDF 50 trang, 43 tài liệu được dẫn; reference [6] có URL thay thế đã kiểm.
-[Checklist và gói hiện hành](week12/README.md#điều-chỉnh-bố-cục-và-tài-liệu-tham-khảo-của-bài-báo)
+[Checklist và gói bố cục trước](week12/README.md#điều-chỉnh-bố-cục-và-tài-liệu-tham-khảo-của-bài-báo)
 ghi phạm vi tài liệu, đối soát số liệu và PDF/ZIP Overleaf mới; bản F05 cùng
 crosswalk của nó giữ nguyên làm bằng chứng lịch sử.
 

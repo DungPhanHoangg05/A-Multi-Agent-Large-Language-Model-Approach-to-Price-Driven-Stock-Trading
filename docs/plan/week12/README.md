@@ -37,6 +37,44 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
+## Biên tập bài báo độc lập
+
+Ngày **13/11/2026**, biên tập tiếp nguồn `paper/` theo yêu cầu bỏ mã task và
+giọng trả lời phản biện, giữ các giới hạn và kết quả khoa học:
+
+- [x] Viết lại abstract, introduction, related work, limitations, conclusion,
+  availability và phụ lục thành bài độc lập; bỏ U08/U09, task/receipt/acceptance,
+  đường dẫn quản lý dự án và nội dung mô tả quá trình sửa bài khỏi PDF.
+- [x] Dùng hai tên nghiên cứu `component study` và `historical-context study`;
+  đổi C2/A/B thành Conditional/Trend--pattern/Explicit counts, giải thích trong
+  Methods và thống nhất bảng/sơ đồ/biểu đồ; nhóm Covered/Other được định nghĩa
+  theo bốn mã có bank và năm mã còn lại, không nhầm với ngành ngân hàng.
+- [x] Cả **21 bảng, 7 hình và 1 thuật toán** dùng đúng `[htb]`, không còn wrapper
+  ghi đè; **29 caption và 21 ghi chú bảng** đều một câu, caption không quá 25 từ,
+  ghi chú không quá 40 từ. Chi tiết phương pháp cần thiết nằm trong thân bài/phụ lục.
+- [x] Giữ nguyên ô số của **32 panel bảng**, **27 khối equation/align** và byte
+  của **hai file macro**; biểu đồ vector chỉ vẽ lại các điểm/cận đã có trong bảng
+  để đổi nhãn, không chạy lại thống kê hoặc inference. Tên tác giả và tài trợ giữ nguyên.
+- [x] Build mới hai cây độc lập, tám lệnh cuối
+  `pdflatex → bibtex → pdflatex → pdflatex` exit 0; cả hai PDF **44 trang**,
+  **43 references**, đủ 29 locators. Poppler render **88 trang**; xem toàn bộ
+  contact sheet và đọc riêng sơ đồ, biểu đồ cùng bảng đổi nhãn. Không Overfull,
+  undefined reference/citation, Type3, chữ ngoài trang hoặc mã nội bộ bị cấm.
+  Mỗi bản có năm Underfull notice; BibTeX còn notice bài ICLR điện tử không có số trang.
+
+[PDF đầy đủ](../../../outputs/revision/manuscript_standalone_v1/main.pdf),
+[PDF submit](../../../outputs/revision/manuscript_standalone_v1/main_submit.pdf),
+[ZIP Overleaf](../../../outputs/revision/manuscript_standalone_v1/overleaf.zip),
+[manifest](../../../outputs/revision/manuscript_standalone_v1/manifest.json)
+và [locators mới](../../../outputs/revision/manuscript_standalone_v1/pdf_anchors.json)
+thuộc phiên bản này; [QA đóng gói](manuscript_standalone_checks.zip) lưu log,
+ảnh render, kiểm tự động và công cụ biên tập/kiểm tra. Các gói nguồn/PDF/receipt
+cũ giữ nguyên; tên phương pháp hiển thị được ánh xạ trong manifest tới danh tính
+thực nghiệm cũ để truy nguyên, không đổi tên runtime hoặc raw records.
+Đợt này chỉ sửa tài liệu: không chạy unit/E2E/leakage/compileall theo AGENTS §1.2
+vì code, runtime, schema và dữ liệu nghiên cứu không đổi; không nâng trạng thái
+đóng phản biện hoặc chứng nhận nhân quả/khả năng giao dịch.
+
 ## Điều chỉnh bố cục và tài liệu tham khảo của bài báo
 
 Ngày **13/11/2026**, theo yêu cầu sửa bản hiện hành tại `paper/`:

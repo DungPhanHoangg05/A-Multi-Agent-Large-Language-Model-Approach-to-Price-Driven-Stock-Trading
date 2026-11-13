@@ -1,8 +1,8 @@
-\begin{table}[!htb]
+\begin{table}[htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.12}
-\caption{Extension study: class-aware metrics on the same 102 market points.}
+\caption{Classification metrics averaged across three historical-context Decision repeats.}
 \label{tab:u09-classification}
 \textbf{Mean of per-repeat metrics}\par\smallskip
 \begin{tabular}{lrrrrrr}
@@ -11,15 +11,15 @@ Role & Acc. (\%) & BA (\%) & MCC & $F1_U$ (\%) & $F1_D$ (\%) & Macro F1 (\%) \\
 \hline
 Native & 65.36 & 51.84 & 0.037 & 26.26 & 77.34 & 51.80 \\
 Common & 57.84 & 45.97 & -0.076 & 20.91 & 71.26 & 46.08 \\
-Bayes v1 & 63.40 & 50.10 & 0.002 & 24.33 & 75.86 & 50.09 \\
-C2 & 57.52 & 45.75 & -0.080 & 20.77 & 70.97 & 45.87 \\
-A pool & 58.17 & 46.18 & -0.072 & 21.05 & 71.54 & 46.29 \\
-B semantic & 57.52 & 45.75 & -0.080 & 20.77 & 70.97 & 45.87 \\
+Bayesian & 63.40 & 50.10 & 0.002 & 24.33 & 75.86 & 50.09 \\
+Conditional & 57.52 & 45.75 & -0.080 & 20.77 & 70.97 & 45.87 \\
+Trend--pattern & 58.17 & 46.18 & -0.072 & 21.05 & 71.54 & 46.29 \\
+Explicit counts & 57.52 & 45.75 & -0.080 & 20.77 & 70.97 & 45.87 \\
 MT-BICL & 52.94 & 43.17 & -0.124 & 20.00 & 66.66 & 43.33 \\
 Fact anchor & 52.29 & 42.74 & -0.131 & 19.78 & 66.05 & 42.91 \\
 CASH & 75.49 & 50.00 & NA & 0.00 & 86.03 & 43.02 \\
 Always-LONG & 24.51 & 50.00 & NA & 39.37 & 0.00 & 19.69 \\
 \hline
 \end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize Metrics are averaged after per-repeat evaluation, not pooled as 306 independent market points. NA is undefined and is not replaced by zero; constant controls have undefined MCC. Per-class support, missing-class reasons and per-symbol/fold metrics remain in the source companions.\end{minipage}
+\begin{minipage}{\textwidth}\footnotesize Metrics average three per-repeat evaluations on 102 observations; NA denotes an undefined quantity.\end{minipage}
 \end{table}

@@ -3,14 +3,14 @@
 \subsection{Overview}
 The implementation uses a LangGraph \cite{langgraph_docs} directed graph with five specialised roles and a shared typed state. Indicator, Pattern, Trend and Decision roles, shared state, chart tools and trendline procedures reuse or modify QuantAgent components; the upstream MIT notice is preserved in the repository \cite{xiong2025quantagent}. Alpha adds numerical factor and Vietnamese sentiment reports. This integration is an engineering adaptation, distinct from inventing the inherited graph or validating a learned knowledge-fusion method.
 
-A versioned registry separates eight extension roles from their resources and action dependencies. \texttt{original\_fix} (Native) uses the native serving profile; \texttt{original\_common} (Common) uses the common instruction/schema and causal alpha projection, with alpha and sentiment both present. Bayesian v1, C2, A\_tp\_pool and B\_semantic depend on Common; Fact\_Anchor also depends on Common, and MT\_BICL depends on the completed Common and Fact\_Anchor records for the same repeat. These are method identities, not alpha on/off switches or inference permissions. The original Full/Base masks remain a separate comparison. Offline native parity applies only on the declared valid-input serving domain; it does not establish equivalence for arbitrary inputs or equality of newly hosted responses.
+The historical-context study compares eight research methods and two economic controls. Native uses the native alpha report and instructions; Common uses a training-fitted causal alpha projection with a common prompt and both alpha and sentiment enabled. Four historical priors depend on Common. Fact anchor also receives Common's completed decision, and MT-BICL receives both Common and Fact anchor for the same repeat. The component study separately compares Full and Base by switching factor and sentiment sections.
 
 Figure~\ref{fig:flow} shows the shared upstream, native/common projections and extension dependency schedule. In the evaluated backtest, Indicator is deterministic and the numerical/report Alpha path bypasses an additional alpha-reasoning LLM call. Pattern and Trend consume their separate chart images, while Decision receives the condensed reports and enabled quantitative/text sections. The five role names consequently do not imply five hosted LLM calls per forecast. Model aliases and actual request accounting are specified in Section~\ref{sec:experimentalsetup}.
 
-\begin{figure}[!htb]
+\begin{figure}[htb]
 \centering
 \input{figs/final_flow.tex}
-\caption{Shared-input system pipeline and the two alpha/prompt projections. Arrows show data flow; Indicator, Pattern and Trend execute once in sequence per upstream realization. The extension reuses their immutable parent across roles and three Decision repeats. Original Full/Base results use a separate response collection and their own masks. Decision dependencies and external action policy are detailed in Figure~\ref{fig:decision_agent}; neither projection certifies the whole system as causal.}
+\caption{Shared-report architecture for component and historical-context comparisons.}
 \label{fig:flow}
 \end{figure}
 
@@ -23,7 +23,7 @@ Four-decimal rounding precedes classification, nonfinite samples are removed and
 \paragraph{Alpha selection}
 The Alpha role evaluates 85 native candidates: 80 retained WorldQuant adaptations and five custom formulas. It supplies a selected top-five report from the trailing prefix, using the diagnostic score in Eq.~\ref{eq:composite}. The transformations, metric support, IC orientation and native row-wise causal failure are defined in Section~\ref{sec:formulation}. A rolling own-history rank is not a cross-sectional rank, and the 21 exclusions are not all justified by an inability to translate cross-sectional operators. Full expressions and exception handling remain in the registry; \ref{app:signals} gives the custom formulas needed to read the reports.
 
-Selection, IC sign and candidate diagnostics reuse trailing observations. Hence the current value is an input to a report, while the reported skill fields are in-sample ranking statistics. Neither choosing the top five nor reversing negative IC establishes out-of-sample profitability. Six selected metadata slots have description/handler mismatches; actual prompts, metadata and implementation identity are kept distinct. No historical prediction is repaired to agree with a corrected description.
+Selection, IC sign and candidate diagnostics reuse trailing observations. Hence the current value is an input to a report, while the reported skill fields are in-sample ranking statistics. Neither choosing the top five nor reversing negative IC establishes out-of-sample profitability. Six selected metadata slots have description/handler mismatches; actual prompts, metadata and implementation identity are kept distinct. The semantic effect of these mismatches is unmeasured.
 
 \paragraph{Common projection and shared parent}
 The extension binds a frozen selector to the same point, price prefix and native snapshot hash. Only the alpha report/factor fields are replaced for common-profile consumers; Indicator, Pattern, Trend, chart inputs and sentiment remain shared. Selector fits precede the test scope and are not repeated on a Decision repeat. Native is preserved for comparison rather than silently upgraded. The bridge therefore controls upstream realization while deliberately changing alpha representation and instruction family.
@@ -33,22 +33,22 @@ Vietnamese sentiment is a separate contextual report, not an input to the native
 
 Figure~\ref{fig:alpha_agent} separates native selection, the frozen causal-common alpha projection and sentiment-context construction. Optional live endpoints, lexicon fallbacks and peer discovery are repository capabilities; they are not evidence that the corresponding inputs were used or historically available in the evaluated calls.
 
-\begin{figure}[!htb]
+\begin{figure}[htb]
 \centering\input{figs/revised_alpha_pipeline.tex}
-\caption{Alpha Agent profiles and separate sentiment context. The native path retains its in-sample ranking and row-wise causal defects. The common projection uses row-available operators and a selector fixed by chronological training/purged validation. Sentiment enters the enabled Decision text separately; it is not a factor-score input or authenticated peer comparison. Freezing the common selector does not repair the native profile.}
+\caption{Native and causal alpha processing with separate Vietnamese sentiment context.}
 \label{fig:alpha_agent}
 \end{figure}
 
 \subsection{Pattern Agent}
 Pattern Agent analyses a candlestick PNG rendered with mplfinance \cite{mplfinance_docs} from the exact 45-bar window. The prompt requests a chart formation, recent-candle evidence, directional bias, confidence and trading implication. The report parser retains the structured text fields; format completion and consistency checks are distinguished from financial correctness. Figure~\ref{fig:charts} presents an actual archived chart pair rather than a synthetic demonstration.
 
-Candle bodies are green when Close exceeds Open and red otherwise, including a doji. This is an Open--Close body rule, not the Vietnamese exchange board's reference-price colouring rule. The exchange-board convention is not used to infer candle direction. After inference, consistency rules compare the claimed bias with simple OHLCV-derived properties such as the final body and recent closes. A contradiction flag can reduce displayed confidence; it cannot reveal which candle the VLM actually attended to. Alternative text-only paths in the general application are not assumed to have replaced any frozen vision input.
+Candle bodies are green when Close exceeds Open and red otherwise, including a doji. This is an Open--Close body rule, not the Vietnamese exchange board's reference-price colouring rule. The exchange-board convention is not used to infer candle direction. After inference, consistency rules compare the claimed bias with simple OHLCV-derived properties such as the final body and recent closes. A contradiction flag can reduce displayed confidence; it cannot reveal which candle the VLM actually attended to. The reported vision requests use their stored chart inputs.
 
-\begin{figure}[!htb]
+\begin{figure}[htb]
 \centering
 \includegraphics[width=0.90\textwidth]{figs/final_pattern.png}\par\smallskip
 \includegraphics[width=0.90\textwidth]{figs/final_trend.png}
-\caption{Actual Pattern and corrected Trend inputs for CMG on 3 July 2023, the first chronologically eligible main unit. Bodies compare Close with Open; the Trend legend maps blue to support and red to resistance. The unit was selected by date then symbol/ID without inspecting outcomes.}
+\caption{Candlestick and support--resistance inputs for CMG at the 3 July 2023 decision cutoff.}
 \label{fig:charts}
 \end{figure}
 
@@ -57,14 +57,14 @@ Trend Agent receives a separate chart with fitted support/resistance lines. The 
 
 For row position $u$, a fitted line has form $b+mu$. A support bound must remain below the corresponding price sequence within the implementation tolerance; resistance must remain above it. The local slope search reduces its step when the squared-deviation objective fails to improve or violates the constraint. The VLM then describes direction, levels, slope, price relative to support, forecast and confidence. Support is drawn blue and resistance red. A deterministic consistency check against simple price/trend summaries does not validate every reported level or coordinate.
 
-The renderer audit matched 204 images across 102 units byte for byte and pixel for pixel, and 240 actual vision requests matched their image caches and Vietnamese templates. It verified body geometry, colour and legend handles, not the model's visual understanding. In particular, the Vietnamese word \emph{xanh} is less colour-specific than the corrected English ``blue'' wording. Inherited high-frequency/K-line prompt language also remains distinguishable from this daily-bar application. Matched local-pattern interventions and trend swaps would be needed to test whether the model uses the purported visual evidence.
+Input checks match 204 chart images across 102 units byte for byte and pixel for pixel, and 240 recorded vision requests match their image caches and Vietnamese templates. The charts use blue support and red resistance lines, while the Vietnamese word \emph{xanh} is less colour-specific than the English term ``blue. Inherited high-frequency/K-line wording is used with daily bars, and the model's interpretation of these instructions is unverified.
 
 \subsection{Decision Agent}
-Decision receives condensed Indicator, Pattern and Trend reports plus enabled factor/sentiment sections. Reports are distilled and capped before prompt composition. The original study's observed successful Decision prompts are at most 4,187 characters, below the 6,500-character guard. Figure~\ref{fig:decision_agent} shows the extension dependencies, raw proposals, fallback and separate action policy.
+Decision receives condensed Indicator, Pattern and Trend reports plus enabled factor/sentiment sections. Reports are distilled and capped before prompt composition. The component study's observed successful Decision prompts are at most 4,187 characters, below the 6,500-character guard. Figure~\ref{fig:decision_agent} shows the extension dependencies, raw proposals, fallback and separate action policy.
 
-\begin{figure}[!htb]
+\begin{figure}[htb]
 \centering\input{figs/revised_decision_pipeline.tex}
-\caption{Decision dependencies and raw-to-final action policy. Role-to-role arrows require the completed record from the same repeat; the four prior methods are parallel dependants of Common. Support bypass reuses a parent without an LLM call. Fact assertions and the MT utility veto are external policies, not model reasoning guarantees. Raw/final actions and rejection/bypass proofs remain distinct; technical failures use retry/checkpoint handling.}
+\caption{Decision dependencies, fallback rules and final-action policy.}
 \label{fig:decision_agent}
 \end{figure}
 
@@ -75,10 +75,10 @@ The required output includes a binary LONG/SHORT forecast, forecast horizon, con
 Base retains the same upstream content and general instructions but removes both alpha and sentiment sections; those concepts may still appear in general instructions. Thus Full--Base changes a bundle and prompt length, not solely one numerical factor. Main/upstream prompts use compact factor text, whereas factorial A/AS/P deliver five explicit rows. The resulting representation difference remains part of the interpretation of the separate panels.
 
 \paragraph{Historical-prior methods}
-Bayesian v1 retrieves up to three matured same-symbol examples using regime and report-signal context, and appends a compact historical prior. C2 adds conditional Beta-based statistics on matched Trend/Pattern/Alpha/Indicator states, shrinkage using a disjoint background and independent readiness gates for statistics and examples. A\_tp\_pool relaxes the conditioning match to Trend/Pattern to increase usable conditional support. B\_semantic retains C2's evidence/readiness but makes the meaning of its historical counts, intervals and example identifiers more explicit; it is not a separately trained semantic embedding retriever. Historical rates and plug-in credible intervals are not query probabilities or expected returns. If no qualified prior block is visible, the method reuses the same repeat's Common action and records the reason; it does not issue a duplicate Decision call.
+The \emph{Bayesian prior} (Bayesian in tables) retrieves up to three matured same-stock examples using regime and report-signal context. The \emph{conditional prior} (Conditional) adds Beta-based statistics matched on Trend/Pattern/Alpha/Indicator states, disjoint-background shrinkage and separate readiness checks for statistics and examples. The \emph{trend--pattern prior} (Trend--pattern) relaxes the statistics match to Trend/Pattern. The \emph{explicit-count prior} (Explicit counts) uses the conditional prior's support but explains counts, intervals and example identifiers more explicitly. Historical rates and plug-in intervals summarize the selected history; when no qualified prior is available, the method reuses Common's action for that repeat.
 
 \paragraph{Fact anchor and MT-BICL}
-Fact\_Anchor receives a deterministic point-in-time fact packet, including MACD-versus-signal and Close-versus-SMA20 assertions, and the completed Common decision. Valid assertions select its proposed action without the numerical utility veto; invalid assertions select Common with a source proof. MT-BICL constructs numerical prior/target tasks conditioned on the factual bucket, retains a frozen student estimate and teacher-based utility summary, and requests a revision of that anchor only when context is eligible. The external policy in Eq.~\ref{eq:revision_utility} decides whether a changed proposal is accepted. Raw proposals, anchor actions, bypass and final actions are distinct saved fields, so final outcome differences cannot be assigned entirely to the LLM or student.
+Fact anchor receives a deterministic point-in-time fact packet, including MACD-versus-signal and Close-versus-SMA20 assertions, and the completed Common decision. Valid assertions select its proposed action without the numerical utility veto; invalid assertions select Common with a source proof. MT-BICL constructs numerical prior/target tasks conditioned on the factual bucket, retains a frozen student estimate and teacher-based utility summary, and requests a revision of that anchor only when context is eligible. The external policy in Eq.~\ref{eq:revision_utility} decides whether a changed proposal is accepted. Raw proposals, anchor actions, bypass and final actions are distinct saved fields, so final outcome differences cannot be assigned entirely to the LLM or student.
 
-All extension prompts preserve report distillation/capping, require fewer than 6,500 characters and cap their prior/context prefix at 600 characters. The original-study maximum of 4,187 characters above is not an extension-run maximum. Exact prompt projections, readiness thresholds and request schemas are given in \ref{app:prompts} and~\ref{app:state_schema}; runtime resources and restore instructions are in \ref{app:software}.
+All extension prompts preserve report distillation/capping, require fewer than 6,500 characters and cap their prior/context prefix at 600 characters. The component-study maximum of 4,187 characters above is not an extension-run maximum. Exact prompt projections, readiness thresholds and request schemas are given in \ref{app:prompts} and~\ref{app:state_schema}; runtime resources and restore instructions are in \ref{app:software}.
 \FloatBarrier

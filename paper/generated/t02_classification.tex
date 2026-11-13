@@ -1,8 +1,8 @@
-\begin{table}[!htb]
+\begin{table}[htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\caption{Class-aware performance on the same 102 historical market units. Macro summaries weight symbols equally and retain undefined denominators.}
+\caption{Classification performance of nine methods on 102 stock--date observations.}
 \label{tab:classification}
 \textbf{A. Pooled (percent except MCC)}\par\smallskip
 \begin{tabular}{lrrrrrrrr}
@@ -36,5 +36,5 @@ Logistic-matched & 56.55 & 8/9 & 0.08 & 8/9 \\
 Factor vote & 46.86 & 8/9 & -0.04 & 8/9 \\
 \hline
 \end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize $N=102$, UP/DOWN=25/77. P/R denote class precision/recall. NA is undefined, including MCC for constant predictions. Train-majority is fit on purged train labels. Logistic-matched uses common numerical market inputs, not identical chart/text representations. Full per-symbol/class metrics are supplied in companion S1; hold has no classification prediction.\end{minipage}
+\begin{minipage}{\textwidth}\footnotesize UP/DOWN support is 25/77; P/R denote class precision/recall, and NA denotes an undefined metric.\end{minipage}
 \end{table}

@@ -1,8 +1,8 @@
-\begin{table}[!htb]
+\begin{table}[htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
-\caption{All twelve account-execution sensitivities on unchanged predictions.}
+\caption{Account-return sensitivity to twelve execution assumptions.}
 \label{tab:execution}
 \textbf{Means over 51 accounts per variant}\par\smallskip
 \begin{tabular}{lrrrrr}
@@ -23,5 +23,5 @@ combined & -1.074 & -1.166 & -0.369 & 0 & 0 \\
 all\_entries\_missed & 0.000 & 0.000 & 0.797 & 0 & 0 \\
 \hline
 \end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize Stock/Pending count Full accounts with residual shares/receivables; zero Full residuals do not imply none for other strategies. All 6,120 account executions are in the companion results. Fee/slippage, advance fees, sell charge, lots and capacity are assumptions. No-fill/delay proxies do not measure queue fills; all entries missed is not a mathematical worst bound.\end{minipage}
+\begin{minipage}{\textwidth}\footnotesize Stock/Pending count Full accounts with residual shares/receivables, and no-fill/delay scenarios are execution proxies.\end{minipage}
 \end{table}

@@ -2,22 +2,22 @@
 \label{sec:formulation}
 
 
-\begin{algorithm}[!htb]
+\begin{algorithm}[htb]
 \small
-\caption{Walk-Forward Evaluation}
+\caption{Walk-forward evaluation with shared reports and separate account ledgers.}
 \label{alg:walkforward}
 \KwIn{OHLCV $\mathbf{X}$, alpha registry $\mathcal{A}$, dated sentiment $\mathcal{D}$, $W$, $L$, study-specific schedule $\mathcal{T}$, frozen fits/banks, variants and repeats}
 \KwOut{Raw proposals, final actions, paired metrics and separate-account ledgers}
 Reserve all evaluation IDs outside historical context; initialize $\mathcal{R}\leftarrow\emptyset$\;
 \ForEach{test point $e$ in chronological order in $\mathcal{T}$}{
 Cut history at $d=e-1$; admit only eligible dated news and prior cycles with exit strictly before $d$\;
-Run Indicator, Pattern and Trend once per registered upstream realization; freeze reports and exact chart inputs\;
+Run Indicator, Pattern and Trend once per specified upstream realization; freeze reports and exact chart inputs\;
 Retain native top-five diagnostics using Eq.~\ref{eq:composite}; bind the separate frozen common alpha projection\;
 Deep-copy the shared parent to each branch; do not rerun vision for a comparator\;
-\ForEach{registered Decision repeat}{
-\ForEach{variant in the registered dependency-ordered schedule}{
+\ForEach{specified Decision repeat}{
+\ForEach{variant in the specified dependency-ordered schedule}{
 Prepare native/common prompt, historical prior or fact/task context without the query outcome\;
-\eIf{registered support policy requires bypass}{
+\eIf{specified support policy requires bypass}{
 Reuse the completed parent action with its reason/source proof\;
 }{
 Invoke through retry/checkpoint handling; retain raw proposal and request identity\;
@@ -96,7 +96,7 @@ A trading system $\mathcal{F}$ maps the analysis window and its associated histo
 \end{equation}
 
 
-where $+1$ corresponds to \texttt{LONG} and $-1$ to \texttt{SHORT}. In the long-only reference ledger, SHORT maps to CASH, not a short sale; a correct DOWN forecast earns no bearish trading return. Account return therefore differs from the candidate-LONG target. Gross returns are a separate diagnostic on the same net-elicited predictions, not a replacement target. Decision Close differs from entry Open at 65/102 units, and seven gross/net labels differ. A legacy field called \texttt{actual\_prev\_close} has unresolved price semantics; canonical evaluation uses explicit decision/entry/exit fields.
+where $+1$ corresponds to \texttt{LONG} and $-1$ to \texttt{SHORT}. In the long-only reference ledger, SHORT maps to CASH, not a short sale; a correct DOWN forecast earns no bearish trading return. Account return therefore differs from the candidate-LONG target. Gross returns are a separate diagnostic on the same net-elicited predictions, not a replacement target. Decision Close differs from entry Open at 65/102 units, and seven gross/net labels differ. Evaluation uses explicit decision, entry and exit prices.
 
 \paragraph{Variant-conditioned extension}
 For extension variant $v$ and Decision repeat $r$, let $S_e$ be the immutable shared snapshot at $d=e-1$, including report/image provenance and the native parent. A projection $P_v(S_e)$ chooses native or common alpha context without regenerating the shared vision reports. Historical context is restricted to
@@ -257,12 +257,12 @@ The displayed diagnostic rounding precedes sorting. Up to $K=\min(5,|\mathcal{V}
 This selection and IC orientation remain adaptive reuse of trailing data. They do not demonstrate factor discovery or alpha profitability. Separate train-fit fixed/dynamic/random numerical controls are reported in Section~\ref{sec:backtestresults}.
 
 \paragraph{Causal scope}
-The native row-wise causal gate fails. The native \texttt{delay().bfill()}, whole-Series normalisation and full-frame volume-availability branch can change earlier rows when later rows in the supplied prefix change. Synthetic probes that alter prices after the outer cutoff leave outputs unchanged, but establish only outer-cutoff isolation. They do not certify causality of rows inside the prefix or news availability. Historical LLM outcomes are consequently interpreted as observations under this native construction, not as outputs of a retrospectively repaired causal selector.
+Native backward filling, whole-Series normalization and full-frame volume-availability branching can change earlier historical values when later rows in the supplied prefix change. Synthetic perturbations after the decision cutoff leave outputs unchanged, establishing outer-cutoff isolation but not row-wise causality within the prefix. Native diagnostics are therefore evaluated as in-sample historical constructions.
 
-Custom handler formulas are in \ref{app:signals}. Native BFE multiplies $(\%B-0.5)$ by signed $VolZ_5$ before tanh: negative volume z-score reverses the sign and zero cancels it. There is no squeeze/volume-expansion gate. Registry/prototype preprocessing differ, and a selected display rank is not a permanent handler ID. Six metadata slots have description/handler mismatches, without the literal wrong formula in the affected prompts; their separate semantic effect is unmeasured.
+Custom handler formulas are in \ref{app:signals}. Native BFE multiplies $(\%B-0.5)$ by signed $VolZ_5$ before tanh: negative volume z-score reverses the sign and zero cancels it. There is no squeeze/volume-expansion gate. Registry/prototype preprocessing differ, and a selected display rank is not a permanent handler ID. Six selected metadata slots differ from their handler descriptions, with unmeasured semantic effects.
 
 \paragraph{Separate common alpha projection}
-The extension's \texttt{causal\_common\_v1} projection uses row-causal operator adaptations and training-fitted IC orientation, with top-five selection and a signal threshold chosen on purged validation data. IDs, signs, threshold and preprocessing are frozen before the test scope. Historical-origin and selector hashes bind every projected query. This is a different alpha representation from the native diagnostics above; the original formulas and native failure are retained as their own specification. Common, all prior methods and the fact/MT branches receive this projection, while Native retains its original projection and prompt. The alpha-specific causal checks do not certify news availability, hosted-model training information or whole-system causality.
+The common causal projection uses row-causal operator adaptations and training-fitted IC orientation, with top-five selection and a signal threshold chosen on purged validation data. IDs, signs, threshold and preprocessing are frozen before the test scope. Historical-origin and selector hashes bind every projected query. This is a different alpha representation from the native diagnostics above; native and causal constructions are evaluated as distinct representations. Common, all prior methods and the fact/MT branches receive this projection, while Native retains its original projection and prompt. These causal restrictions apply to alpha construction; historical news availability and hosted-model training exposure remain uncertain.
 
 \subsection{Sentiment Signal Construction}
 Let $\mathcal{D}_e=\{d_1,\ldots,d_{|\mathcal{D}_e|}\}$ denote the target-stock articles admitted by the date, identity and scorer-provenance rules at cutoff $\tau_d$, $d=e-1$. Each article has score
@@ -305,7 +305,7 @@ The half-life is $h=30$ days. The peer comparison requires at least three valid 
 \paragraph{Batch definition and low-news stability}
 The target window spans 90 days and requires at least three distinct identities with accepted scorer provenance and finite scores. Missing context is not an observed neutral zero. The separate normalizer reliability flag requires at least eight articles; a false flag alone does not mean that the aggregate was missing. Explicit availability times are retained; date-only publication is conservatively available the next day and undated records are rejected. These rules cannot authenticate original content availability retrospectively.
 
-Legacy inventory contains 180 article records and 177 identities. All 180 legacy scorer identities are unknown, and no legacy cutoff meets the strict three-valid-article rule; old runtime counts are distinct from this eligibility audit. The reconstructed study and 154 locally rescored excerpts have separate provenance. Without independent financial-news labels or authenticated historical content, neither financial-domain accuracy nor point-in-time-certified sentiment is established. Neither the weighted aggregate nor the peer extension enters native OHLCV factor formulas or their ranking.
+An auxiliary historical cache contains 180 article records and 177 identities with unknown scorer identities; none of its cutoffs meets the strict three-valid-article eligibility rule. The reconstructed study and 154 locally rescored excerpts have separate provenance. Independent financial-news labels and authenticated historical content are unavailable, limiting sentiment validity. Neither the weighted aggregate nor the peer extension enters native OHLCV factor formulas or their ranking.
 
 \subsection{Multi-Agent Decision Function}
 The system decomposes $\mathcal{F}$ into the following role-level functions, with the history prefix explicitly distinguished from the chart window:
@@ -380,7 +380,7 @@ Valid boundaries satisfy $W\le e\le T-L$. For each security, the study evaluates
 \end{equation}
 
 
-where $\mathcal{D}_{\mathrm{test}}$ comprises two selected dates in each of six blocks, with $N_s=12$ eligible units for eight securities and six for BHN. This is not a continuous uniform $S=3$, twenty-point backtest. Train and validation labels are purged at the next partition boundary. Algorithm~\ref{alg:walkforward} makes shared upstream, native/common projection and the dependency-ordered extension explicit. The original study retains its own registered masks and separate repeated panels; only the extension uses the eight-role schedule. All native causal qualifications remain applicable.
+where $\mathcal{D}_{\mathrm{test}}$ comprises two selected dates in each of six blocks, with $N_s=12$ eligible units for eight securities and six for BHN. This is not a continuous uniform $S=3$, twenty-point backtest. Train and validation labels are purged at the next partition boundary. Algorithm~\ref{alg:walkforward} makes shared upstream, native/common projection and the dependency-ordered extension explicit. The component study retains its own specified masks and separate repeated panels; only the extension uses the eight-role schedule. All native causal qualifications remain applicable.
 
 Directional accuracy, its paired difference, the reference cycle return and wealth are
 
@@ -431,7 +431,7 @@ For daily-close wealth $W^{\mathrm{day}}_t$ including CASH gaps and the initial 
 \end{align}
 
 
-The daily Sharpe uses population SD, zero risk-free rate and a 252-observed-session convention; it is undefined if dispersion is zero or insufficient. Annualised cycle ratios are not reported for the irregular/gapped schedule. These daily conventions do not certify exchange calendars, executable returns or reliable sparse-trade risk estimates.
+The daily Sharpe uses population SD, zero risk-free rate and a 252-observed-session convention; it is undefined if dispersion is zero or insufficient. Annualised cycle ratios are not reported for the irregular/gapped schedule. Daily risk estimates remain sensitive to unverified calendars, execution assumptions and sparse trades.
 
 Finally, with $\mathcal{X}=\{e_k:a_{e_k}=1\}$, trade-level summaries are
 
