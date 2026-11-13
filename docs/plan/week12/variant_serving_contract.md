@@ -107,8 +107,37 @@ Outcome chỉ mở sau đủ forecast durable của đúng point/repeat/dependen
 P&L null/NOT_EVALUATED. LONG dùng oracle kinh tế chung, SHORT=CASH có P&L 0.
 Partial/failed/unknown giữ rows đã xong, tiến độ tách point/slot/API attempts;
 không dựng slot thiếu thành CASH. Kết quả/chi tiết có raw/final, policy reason,
-requested/effective IDs, snapshot/provenance. F09/F10 mới nối form/kết quả và
-backtest UI; F08 không sửa template cũ hay thay endpoint native legacy.
+requested/effective IDs, snapshot/provenance. F09 đã nối form/kết quả;
+backtest UI mới thuộc F10. F08 không sửa template hoặc endpoint native legacy.
+
+## Form và kết quả từ F09
+
+Mở `/` hoặc `/demo`, chọn nguồn **As-of** và một mã/ngày trong miền công bố.
+Mặc định Hệ gốc; “Phân tích” chạy bản trong dropdown, “So sánh phiên bản” chạy
+các checkbox đã chọn (ít nhất hai, mặc định Hệ gốc + Bayesian v1). Các dependency
+tự chạy và hiện trong phần nâng cao. Chọn nguồn realtime legacy để dùng form
+mã/khung cũ với Hệ gốc; luồng này không nhận các bản mở rộng.
+
+Giao diện VI/EN không đổi ngôn ngữ report đã có. Provider mới hiện chỉ hỗ trợ
+VI; chọn report EN sẽ bị chặn thay vì tự đổi sang VI. Repeat và options của
+Decision/Pattern/Trend nằm trong cấu hình nâng cao; tên model lấy từ server.
+Đổi input hoặc lưu key làm hết hiệu lực preflight cũ. Chỉ grant mới tương ứng
+mới bật nút; server vẫn preflight lại khi tạo job. Start có gọi Groq thực nếu
+đủ tài nguyên/key; mở trang hoặc đọc kết quả không gọi inference.
+
+Kết quả mở `/output?serving_run=<UUID>`, giữ cookie owner để reload/stop/resume;
+link job gần nhất trên form chỉ lưu UUID, không lưu key hoặc raw response.
+Các card tách raw/final/action/effective ID/reason, dependency thu gọn. Chart,
+ảnh và reports lấy từ một snapshot; Alpha native/common ghi rõ hai projection.
+Chi tiết thêm `policy_details[slot].context = {trace, aux}` từ prepare durable,
+không tính lại context qua GET. P&L analyze/compare luôn “Chưa có kết quả”;
+không dùng giá thoát tương lai hoặc xếp hạng khi partial. UNKNOWN cần operator
+đối soát, UI không tự resume/resend. Nếu POST start mất phản hồi, không tự gửi
+lại; dùng link gần nhất nếu có hoặc kiểm nhật ký server trước khi tạo job khác.
+
+UI serving mới dùng text DOM cho nội dung model và PNG base64 cho ảnh; không
+đọc ảnh/sessionStorage legacy. CSS/JS/partial tách theo chức năng, có layout
+mobile/focus; browser desktop/mobile chưa kiểm do host không khả dụng, giữ ở F11.
 
 ## Lựa chọn và miền sử dụng
 

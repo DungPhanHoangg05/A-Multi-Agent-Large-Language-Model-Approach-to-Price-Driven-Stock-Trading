@@ -47,10 +47,11 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F09**, nối form phân tích và kết quả với serving mới.
+**Bước tiếp theo: F10**, nối backtest và trang so sánh với serving mới.
 F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
 contract ứng dụng; F07 có viewer U09 offline, F08 có provider/runner/API job
-as-of. F09–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
+as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh cùng snapshot.
+F10–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
@@ -65,7 +66,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F06 — Contract/registry/config serving v1 riêng, sáu lựa chọn chính/hai nâng cao, API metadata/preflight, job/result identity và 33 test đúng phạm vi PASS.
 - [x] F07 — Reader U09 kiểm hash/receipt, viewer nhiều bản/hai baseline, plot/export và legacy; 46 Python + 6 DOM PASS, browser trực quan chờ F11 do host/approval.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
-- [ ] F09 — Nâng trang phân tích và kết quả, lựa chọn phiên bản có hiệu lực, so sánh cùng snapshot.
+- [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [ ] F10 — Nâng backtest và trang thực nghiệm, metrics/series động, progress/stop/resume và tương thích kết quả cũ.
 - [ ] F11 — Kiểm thử tích hợp/leakage/caller đúng phạm vi và kiểm trình duyệt; smoke live có phạm vi nếu cần.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
@@ -407,6 +408,34 @@ cleanup/restart. Theo AGENTS §1.2 chọn đúng caller/recovery/leakage/token p
 không chạy full unit/E2E/compileall hoặc cold replay study. **0 LLM hosted,
 0 market API mới, 0 training HMM/student/bank**; chưa smoke hosted mới hay
 chứng nhận causal/live fills. F09–F12 tiếp tục, không push/deploy/submit.
+
+### F09 — Form phân tích và kết quả chọn phiên bản
+
+Hoàn tất phạm vi chức năng/offline ngày **13/11/2026**, nhánh
+`feat/variant-analysis-ui` từ develop `943b7b61`. `/` và `/demo` mặc định
+**as-of/Hệ gốc**, so sánh mặc định Hệ gốc + Bayesian v1. Nguồn realtime legacy
+được chọn riêng, chỉ chạy Hệ gốc; không gửi lựa chọn mở rộng tới endpoint cũ.
+Miền serving giữ nguyên F08: chín mã, 58 phiên, 1d/VI. Giao diện VI/EN tách
+khỏi ngôn ngữ báo cáo; yêu cầu báo cáo EN bị preflight chặn rõ ràng.
+
+- [x] Sáu lựa chọn chính, hai đối chứng nâng cao, ngày/mã, repeat và model/options từ server defaults; cấu hình nâng cao thu gọn, không đưa hash vào form chính. Preflight analyze/compare độc lập; đổi input/key hủy grant, response cũ không bật lại nút. POST start gửi bản request đã kiểm, không retry tự động khi chưa xác nhận được job.
+- [x] `/output?serving_run=<UUID>` chỉ render shell, API owner đọc checkpoint; reload không gọi model. Poll/progress phân biệt point/slot/API attempt, có stop/resume; UNKNOWN không tự gửi lại hoặc cho resume trong UI. Lỗi đọc/sai owner xóa card/ảnh cũ; job partial giữ slot đã hoàn tất và đánh dấu slot còn thiếu, không suy CASH hoặc xếp hạng.
+- [x] Sáu bản được chọn hiện cạnh nhau; dependency tự chạy nằm trong phần nâng cao. Card tách raw prediction/final prediction/LONG-CASH/effective ID/fallback-bypass; analyze/compare giữ P&L null/NOT_EVALUATED. Biểu đồ Close, ảnh Pattern/Trend và I/P/T/sentiment lấy cùng snapshot; **Alpha native và common hiển thị riêng**, không gọi giá mới. Context/trace/aux đọc từ prepare durable, không chạy retrieval/Decision lại qua GET.
+- [x] Model/report/context dùng text DOM, ảnh chỉ nhận PNG base64; không chèn HTML từ output serving. ID URL phải UUID, bootstrap JSON/URL được escape; không lấy ảnh/sessionStorage legacy cho serving. Confidence giữ raw trong chi tiết, không biến thành xác suất đã hiệu chuẩn.
+- [x] Tách `demo_new.html` còn khoảng 300 dòng và `output.html` thành dispatcher; partial trong `templates/analysis/`, CSS/JS trong `static/css/analysis/` và `static/js/analysis/`. CSS legacy hai trang giữ nguyên nội dung; JS output chỉ đổi bootstrap sang JSON. Handler Python native/realtime/backtest giữ nguyên AST, chỉ thêm context render và nhánh output serving. Realtime trì hoãn tải danh sách đến khi chọn nguồn, giữ kiểm trạng thái năm phút; dừng đổi nguồn khi legacy đang chạy.
+- [x] **108 Python PASS**: bảy test page/API mới + 101 hồi quy (serving26, contract15, unified15, webJSON3, reader13, native parity11, leakage8+6+4). **18 DOM PASS**: 12 mới + sáu viewer U09. Có ca API thật/provider thật cho **MWG 02/07/2026**, đủ tám slot/cả sáu yêu cầu, MT eligible có raw; toàn HTTP fixture. Kiểm stale preflight/poll, double click, lỗi POST mơ hồ, wrong-owner, context, NA, UNKNOWN và legacy dispatcher.
+- [x] Biên dịch đúng **năm Python** và kiểm syntax **bảy JS** thay đổi PASS. Gói QA giữ lỗi kiểm thử đầu tiên (timeout join quá ngắn và assertion nhầm metadata legacy) cùng kết quả chạy lại PASS; không sửa runtime để né test.
+- [x] Đối soát **20 gói W12 + 30 archive lịch sử**, **11 output F05 + 68 nguồn manuscript**, resource manifest và QA F08 nguyên byte. Worktree khớp **723/729** pin U09: sáu đường version hóa gồm bốn đường đã đổi đến F08 và hai template mới; F01 vẫn phục hồi đủ729. Không ký lại receipt hoặc nâng native causal FAIL/whole-system NOT_CERTIFIED.
+
+[QA giao diện](analysis_ui_checks.zip) gồm **26 member**, giữ nguồn/runtime/test/log/syntax/integrity
+và kiểm **149 liên kết**/checklist. Theo AGENTS §1.2 chỉ chạy các caller UI/result/native,
+serving và leakage liên quan; không chạy full unit/E2E/compileall/cold study.
+**0 hosted LLM, 0 API thị trường, 0 training HMM/student/bank mới**; native Alpha
+giữ hành vi tính/selection cũ. CSS có layout mobile, focus và vùng đọc cuộn,
+nhưng **chưa kiểm trực quan desktop/mobile**: công cụ báo
+`The browser access host is unavailable`, không có browser trong inventory;
+không đánh dấu browser PASS, giữ gate này tại F11. F10–F12 tiếp tục;
+không push/deploy/submit.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

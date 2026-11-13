@@ -148,7 +148,9 @@ class Runner:
                         "net_return_pct": (float(outcome["target"]["net_return"]) * 100 if policy["final_action"] == "LONG" else 0.) if outcome else None,
                         "metric_reason": None if outcome else "NOT_EVALUATED"}
                     point_rows.append(row)
+                    preparation = decode_output(load(self.book.path("prepare/"+slot))["attempts"][0]["output"])
                     details[slot] = {"policy": policy, "raw_reply": raw["reply"] if raw else None,
+                                     "context": {"trace": preparation.get("trace"), "aux": preparation.get("aux")},
                                      "shared_sha256": snapshots[point["id"]]["sha256"]}
             rows.extend(point_rows)
             points_complete += int(len(point_rows) == len(self.plan)*self.request["repeats"])
