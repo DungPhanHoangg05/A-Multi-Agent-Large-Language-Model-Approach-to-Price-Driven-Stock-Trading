@@ -1,0 +1,10 @@
+<section class="common-alpha-section">
+  <h4>{{ A.common_alpha }}</h4><p>{{ A.common_alpha_note }}</p>
+  {% if results.common_alpha_cutoff %}<p>{{ results.common_alpha_cutoff }} · T+2.5</p>{% endif %}
+  {% if results.common_alpha_factors %}
+  <div class="report-table"><table><thead><tr><th scope="col">{{ A.factor_name }}</th><th scope="col">{{ A.factor_value }}</th><th scope="col">{{ A.factor_signal }}</th><th scope="col">{{ A.factor_orientation }}</th></tr></thead><tbody>
+  {% for factor in results.common_alpha_factors %}<tr><td>{{ factor.alpha_id }}</td><td>{{ '%+.6f'|format(factor.value) }}</td><td>{{ factor.signal }}</td><td>{{ factor.orientation }}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<div id="commonAlphaContent" class="auto-beautify">{{ results.common_alpha_analysis|safe }}</div>{% endif %}
+  {% if results.common_alpha_selector %}<details><summary>{{ A.snapshot }}</summary><p class="alpha-selector">{{ results.common_alpha_selector }}</p></details>{% endif %}
+</section>

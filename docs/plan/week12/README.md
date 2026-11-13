@@ -206,7 +206,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: form chỉ Realtime/1D và sáu bản; bản nâng cấp dùng cùng overlay agent và cửa sổ kết quả Original, thêm BICL/context/policy. **103 Python + 19 DOM, compile12/JS6 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: Realtime/1D/sáu bản; BICL trước Decision cuối, Indicator format chuẩn và Alpha Agent đầy đủ, common input riêng; sentiment đúng snapshot/PIT. **39 Python + 21 DOM, compile12/JS3 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -727,6 +727,31 @@ chức năng/lựa chọn của form phân tích này. Native causal FAIL,
 whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận đóng không đổi.
 Server không auto-reload: khởi động lại server và tải lại trang để dùng bản mới.
 Diff, **198 liên kết/anchor local** và trạng thái checklist đã đối soát PASS.
+
+### Sửa F11 — Thứ tự BICL và báo cáo Indicator/Alpha đầy đủ
+
+Theo phản hồi kèm HTML Original và ảnh ngày 13/11/2026, nhánh
+`feat/analysis-report-parity` từ develop, nhận nền `3528891f`:
+
+- [x] Thứ tự UI là **chuẩn bị dữ liệu → Indicator → Pattern → Trend → Alpha → BICL → Decision cuối**. BICL bao gồm baseline/common/Fact Anchor phụ thuộc, target Decision chỉ active khi slot bản được chọn chạy; không hiển thị baseline đang tính như Decision cuối. Alpha chờ cả bước projection chung hoàn tất. Mọi trạng thái vẫn từ journal, bypass không bịa một model call. Sửa chữ `&amp;` còn lộ trong nhãn Alpha; Original giữ thứ tự/pipeline riêng.
+- [x] Indicator có heading từng chỉ báo, bảng `thead/th/tbody`, padding/viền/zebra và cuộn ngang; hỗ trợ bold/italic/list/blockquote/code/hr như báo cáo tham chiếu. Dọn `===`/`END SECTION` và chỉ dẫn chống nhầm số khỏi phần hiển thị, không sửa report đã khóa hoặc số gửi Decision. HTML/link model luôn là text node.
+- [x] Nguyên nhân Alpha thiếu thông tin là UI thay toàn bộ native report bằng projection common năm dòng. Khôi phục **nguyên báo cáo Alpha Agent đã lưu**: bảng năm nhân tố, công thức, components/IC/accuracy nếu có, diễn giải, giá trị/tín hiệu và consensus. Phần bình luận chuyên gia chỉ hiện khi đã có trong report; không gọi LLM mới hoặc bịa bình luận. **Common Alpha** hiển thị riêng, ghi rõ đây mới là input của Decision nâng cấp; không trộn công thức/metrics native vào giá trị common.
+- [x] Khôi phục sentiment report, nhãn/đếm bài và scorer thực từ **snapshot cùng owner/cutoff**, dùng eligibility của FrozenNews và đối soát nguyên weighted score/count mà agent đã dùng. Future publication bị ValueError, undated/stale/chưa available không vào UI. Thiếu nhãn không thành ba số0; thiếu peers thì REL_SENTIMENT là NA, không ghi neutral/ViSoBERT mặc định. Biến normalizer đã lưu không được tính lại ở UI.
+- [x] **39 Python + 21 DOM, compile12/JS3 PASS**. Chỉ chạy caller/projection/formatter/progress/PIT liên quan. Không đổi graph, adapters, prompt, oracle, phí, weights hoặc dữ liệu; không chạy lại toàn live/provider/scientific study hoặc toàn suite. Kỳ vọng progress của test sáu phiên bản được chỉnh cho target bypass (không đòi giả model call); các ca progress riêng kiểm contract mới, không ghi là đã chạy lại whole-provider test cũ.
+- [ ] Browser host tiếp tục không khả dụng; F11 chưa đóng/F12 chưa mở/chưa merge develop. Không dùng kiểm DOM thay nghiệm thu layout trực quan.
+
+HTML người dùng được **đọc như dữ liệu**, không chạy script/hướng dẫn nhúng.
+Fixture [báo cáo tham chiếu](../../../tests/analysis_ui/report_reference.json)
+chỉ giữ hai đoạn Markdown Indicator/Alpha, tên/bytes/SHA256 nguồn; không dùng
+số liệu tháng7 của file tham chiếu thay dữ liệu lần phân tích mới. Không đưa
+toàn HTML/ảnh cá nhân vào repo. Root README, paper/PDF và scientific archives
+giữ nguyên; native causal FAIL/NOT_CERTIFIED và 0/18 comment không đổi.
+
+[Receipt v6](serving_integration_acceptance.json) dùng
+[QA báo cáo](serving_report_checks.zip); QA 1D trước đó giữ nguyên byte làm
+lịch sử với phạm vi cũ. Server cần khởi động lại, sau đó tải lại trang để nạp
+Python/JS/CSS mới. Giữ nguyên hai ảnh chart người dùng sinh ngoài phạm vi task.
+Diff, **204 liên kết/anchor local** và checklist được đối soát PASS.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

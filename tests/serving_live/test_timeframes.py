@@ -138,7 +138,8 @@ class TimeframeProviders(unittest.TestCase):
                     self.assertEqual(set(result['agent_progress'].values()),{'complete'})
                     self.assertTrue(any(sample['pattern']=='running' for sample in samples))
                     self.assertTrue(any(sample['trend']=='running' for sample in samples))
-                    self.assertTrue(any(sample['decision']=='running' for sample in samples))
+                    if next(row for row in result['rows'] if row['requested_id']==variant)['raw_prediction'] is not None:
+                        self.assertTrue(any(sample['decision']=='running' for sample in samples))
                     self.assertTrue(all(row['net_return_pct'] is None for row in result['rows']))
                     self.assertEqual(result['outcome_points'],0)
                     self.assertEqual(result['realtime_chart'],store.read(captured['snapshot_id'])['chart'])

@@ -348,7 +348,8 @@ def output():
             try:
                 data = service().result(request.args.get('serving_run'),scope)
                 if data['state'] == 'completed':
-                    return render_localized('output.html',results=project(data,current_lang()))
+                    snapshot = service().snapshots.read(data['identity']['request']['snapshot_id'],scope)
+                    return render_localized('output.html',results=project(data,current_lang(),articles=snapshot['news']))
             except (PermissionError,FileNotFoundError,ValueError,KeyError,StopIteration):
                 return render_localized('output.html',serving_run=request.args.get('serving_run')),404
         # Trang chỉ chứa shell; API owner kiểm UUID và journal, không khởi động inference qua GET.

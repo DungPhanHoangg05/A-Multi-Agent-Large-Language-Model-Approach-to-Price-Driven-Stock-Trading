@@ -379,7 +379,10 @@ không phải dự báo thật. [QA sửa realtime](serving_realtime_repair_chec
 khóa kết quả mới, QA trước đó giữ nguyên làm lịch sử. Yêu cầu UI tiếp theo
 thu gọn form còn một nguồn Realtime/1D; năm bản nâng cấp dùng cùng overlay và
 cửa sổ Original, thêm BICL đọc từ context/policy. **103 Python + 19 DOM, compile12/JS6 PASS**;
-[QA giao diện 1D](serving_daily_analysis_checks.zip) khóa phạm vi mới.
+[QA giao diện 1D](serving_daily_analysis_checks.zip) khóa mốc đó. Phản hồi UI
+tiếp theo sửa BICL trước Decision cuối, format Indicator, khôi phục Alpha
+Agent đầy đủ và common riêng, sentiment đúng snapshot/PIT. **39 Python + 21 DOM, compile12/JS3 PASS**,
+[QA báo cáo](serving_report_checks.zip); không đổi graph/adapter/prompt/scientific artifacts.
 [Receipt F11](serving_integration_acceptance.json) giữ
 `OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
 và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
@@ -401,7 +404,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Đang làm | Nghiệm thu tích hợp và form realtime 1D — `feat/realtime-daily-analysis` | F07–F10 | Chỉ một nguồn Realtime/1D, sáu bản; cùng overlay từng agent và bố cục Original, thêm BICL/context/policy. **103 Python + 19 DOM, compile12/JS6 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
+| F11 | ☐ Đang làm | Nghiệm thu realtime và báo cáo Original/BICL — `feat/analysis-report-parity` | F07–F10 | Chỉ Realtime/1D/sáu bản; BICL trước Decision cuối, Indicator chuẩn bảng, Alpha Agent đầy đủ và common riêng, tin snapshot/PIT. **39 Python + 21 DOM, compile12/JS3 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy

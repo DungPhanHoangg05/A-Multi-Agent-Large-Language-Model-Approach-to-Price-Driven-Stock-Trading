@@ -22,7 +22,7 @@ METHODS = {
 }
 
 
-def project(data: dict, language: str) -> dict:
+def project(data: dict, language: str, *, articles: list[dict] | None = None) -> dict:
     """Không gọi model/tái tính policy; chỉ một bản, một point, một repeat realtime 1D đã hoàn tất."""
     request = data['identity']['request']
     ids = data['requested_ids']
@@ -42,18 +42,20 @@ def project(data: dict, language: str) -> dict:
     reply['decision'] = row['final_prediction']
     reply.setdefault('forecast_horizon','T+2.5')
     reports = {role:str(escape(payload.get(role+'_report') or '')) for role in ('indicator','pattern','trend','alpha')}
-    if variant != 'original_fix':
-        reports['alpha'] = str(escape(payload.get('causal_alpha',{}).get('projection',{}).get('report') or ''))
-    sentiment = deepcopy(payload.get('sentiment_data') or {})
-    main = sentiment.get('main_sentiment') or {}
-    if main.get('avg_score') is None or not main.get('article_count'): sentiment = {}
+    from utils.analysis_sentiment_view import sentiment_view
+    sentiment = sentiment_view(payload.get('sentiment_data') or {},articles,row['symbol'],row['as_of_date'])
     chart = data.get('realtime_chart') or payload.get('price_prefix') or {}
     result = {'success':True,'serving_analysis':True,'asset_name':row['symbol'],'timeframe':'1D',
         'data_length':len(chart.get('Datetime',[])), 'technical_indicators':reports['indicator'],
         'pattern_analysis':reports['pattern'],'trend_analysis':reports['trend'],'alpha_analysis':reports['alpha'],
         'pattern_chart':payload.get('pattern_image') or '', 'trend_chart':payload.get('trend_image') or '',
-        'sentiment_data':sentiment,'final_decision':reply,'analysis_version':LABELS[variant][int(language=='en')]}
+        'sentiment_data':sentiment,'sentiment_analysis':str(escape(payload.get('sentiment_report') or '')),
+        'final_decision':reply,'analysis_version':LABELS[variant][int(language=='en')]}
     if variant != 'original_fix':
+        common = payload.get('causal_alpha',{}).get('projection') or {}
+        result.update(common_alpha_analysis=str(escape(common.get('report') or '')),
+            common_alpha_factors=deepcopy(common.get('factors') or []),common_alpha_cutoff=common.get('cutoff'),
+            common_alpha_selector=common.get('selector_sha256'))
         trace = detail['context'].get('trace') or {}
         aux = detail['context'].get('aux') or {}
         evidence = trace.get('evidence') or trace.get('retrieval') or {}

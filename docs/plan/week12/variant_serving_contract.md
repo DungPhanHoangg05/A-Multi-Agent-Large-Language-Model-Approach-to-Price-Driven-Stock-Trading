@@ -37,15 +37,20 @@ gửi lại để tránh nhân đôi inference.
 
 Kết quả dùng cùng template/CSS Original và thêm panel BICL: cách áp dụng,
 prior/context thực tế, chế độ thị trường/support nếu có, baseline→final,
-raw/final/CASH và lý do fallback/bypass. Common Alpha hiển thị đúng projection
-được Decision của bản nâng cấp sử dụng. Báo cáo/ảnh chỉ từ snapshot cùng job;
+raw/final/CASH và lý do fallback/bypass. BICL nằm trước Decision cuối; common/
+Fact Anchor phụ thuộc thuộc bước BICL. Báo cáo Alpha Agent đầy đủ (native) được
+giữ nguyên, common Alpha tách riêng và ghi rõ là input Decision nâng cấp.
+Không lấy metrics/công thức native gán cho giá trị common. Indicator dựng
+heading/bảng có header và CSS như báo cáo Original tham chiếu. Tin hiển thị
+được đọc từ cùng snapshot/owner, cùng eligibility FrozenNews, không đổi score
+và normalizer đã lưu; thiếu nhãn/peers là NA, future publication bị ValueError. Báo cáo/ảnh chỉ từ snapshot cùng job;
 không lấy ảnh global hoặc session cũ. GET/reload kiểm cookie owner, chỉ chiếu
 một bản/một point/một repeat/1D hoàn tất; không inference/tải lại thị trường.
 HTML/link trong báo cáo model được hiển thị an toàn bằng text node; JSON
 context chi tiết nằm trong mục thu gọn, không dùng JSON thay phần giải thích chính.
 
-**103 Python + 19 DOM, compile12/JS6 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
-dùng [QA giao diện 1D](serving_daily_analysis_checks.zip); QA cũ nguyên byte,
+**39 Python + 21 DOM, compile12/JS3 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
+dùng [QA báo cáo](serving_report_checks.zip); [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte,
 F11 vẫn chờ browser host khả dụng. Khởi động lại server rồi tải lại trang
 vì `web_interface.py` không bật auto-reload.
 
@@ -343,9 +348,9 @@ tải lại trang để nạp sửa đổi; ứng dụng không bật auto-reloa
 [gói QA ban đầu](serving_integration_checks.zip) giữ bằng chứng lịch sử;
 QA ngày trước đó là [QA live](serving_live_checks.zip), tiếp theo là
 [QA đa khung](serving_timeframe_checks.zip). Receipt v4 với
-[QA sửa realtime](serving_realtime_repair_checks.zip) là lịch sử. Receipt v5
-hiện hành dùng [QA giao diện 1D](serving_daily_analysis_checks.zip), trạng thái
-`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. **103 Python + 19 DOM, compile12/JS6 PASS**.
+[QA sửa realtime](serving_realtime_repair_checks.zip) và [QA 1D](serving_daily_analysis_checks.zip) là lịch sử.
+Receipt v6 hiện hành dùng [QA báo cáo](serving_report_checks.zip), trạng thái
+`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. **39 Python + 21 DOM, compile12/JS3 PASS**.
 Kiểm form/overlay/projection/BICL và caller/service/PIT/native bị ảnh hưởng;
 QA cũ giữ nguyên byte, không thay kiểm tra code mới. Probe giá thật/model fixture
 của incident trước đó không được coi là đã chạy lại trong lần sửa UI này.
@@ -357,7 +362,7 @@ py -3.13 -X utf8 scripts/serve_serving_review.py --port 5051 --seed --duration 9
 ```
 
 Lệnh đầu chỉ đối soát receipt/member/source/runtime/evidence. `--run` chạy lại
-đúng các suite đã chọn trong `scripts/serving_acceptance/repair.py`, biên dịch
+đúng các suite đã chọn trong `scripts/serving_acceptance/reports.py`, biên dịch
 Python đổi rồi ghi QA/receipt. Mạng thị trường/Groq dùng fixture trong test,
 không gọi hosted thật. Không có cờ tự đánh PASS browser; nguồn/runtime khác
 gói QA mới thì lệnh verify từ chối, cần kiểm lại phần bị ảnh hưởng.

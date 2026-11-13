@@ -15,7 +15,7 @@ const root = fileURLToPath(new URL('../../',import.meta.url));
 const fixture = JSON.parse(execFileSync('py',['-3.13','-X','utf8','tests/analysis_ui/fixture.py'],{cwd:root,encoding:'utf8'}));
 let nodes, selected, events, legacyRuns, legacyLoads;
 const {followAnalysis,showAgentProgress} = await import('../../static/js/analysis/progress.js');
-const {renderReport} = await import('../../static/js/analysis/report.js');
+const {renderReport,normalizeIndicator} = await import('../../static/js/analysis/report.js');
 class Element {
   constructor(tag) { this.tag = tag; this.children = []; this.attributes = {}; this.listeners = {}; this.dataset = {}; this.disabled = false; this.hidden = false; this.value = ''; this.classes = new Set(); this.classList = {toggle:(key,on) => on ? this.classes.add(key) : this.classes.delete(key)}; }
   set id(value) { this._id = value; nodes?.set(value,this); }
@@ -245,7 +245,7 @@ test('Báo cáo ở bố cục Original giữ bold/bảng nhưng không thực t
   renderReport(target,'## Báo cáo\n**LONG** và `<script>`\n| Tên | Giá |\n|---|---|\n| FPT | 100 |\n<img src=x onerror=attack()>\n- [link](javascript:attack())');
   assert.match(target.textContent,/LONG/); assert.match(target.textContent,/<img src=x/);
   assert.match(target.textContent,/javascript:attack/);
-  assert.ok(target.children.some(child => child.tag==='h4'));
+  assert.ok(target.children.some(child => child.tag==='h2'));
   assert.ok(target.children.some(child => child.children.some(node => node.tag==='table')));
   const tags = parent => [parent.tag,...parent.children.flatMap(child => tags(child))];
   assert.ok(!tags(target).includes('img')); assert.ok(!tags(target).includes('script')); assert.ok(!tags(target).includes('a'));
@@ -275,14 +275,38 @@ test('Overlay Original giữ thứ tự agent và gửi 1D; bản nâng cấp đ
     }
     return registry.get(id);
   }};
-  mockDocument.getElementById('legacy-config').textContent = JSON.stringify({messages:{load_step3:'Alpha',load_step4:'Pattern',load_step5:'Trend'},language:'en'});
+  mockDocument.getElementById('legacy-config').textContent = JSON.stringify({messages:{load_step3:'Alpha &amp; sentiment',load_step4:'Pattern',load_step5:'Trend'},language:'en'});
   const context = {document:mockDocument,window:{},Event:class {constructor(type){this.type=type;}},
     fetch:(url,body) => { calls.push({url,body}); return new Promise(() => {}); }};
   runInNewContext(readFileSync(root+'/static/js/analysis/legacy_form.js','utf8')+"\nmaDaChon='FPT'; keyDaLuu=true;",context);
   context.window.legacyAnalysis.begin(true);
   assert.equal(registry.get('step3').label.textContent,'Pattern'); assert.equal(registry.get('step-bicl').hidden,false);
   context.window.legacyAnalysis.end(); context.window.legacyAnalysis.run();
-  assert.equal(registry.get('step3').label.textContent,'Alpha'); assert.equal(registry.get('step-bicl').hidden,true);
+  assert.equal(registry.get('step3').label.textContent,'Alpha & sentiment'); assert.equal(registry.get('step-bicl').hidden,true);
   assert.equal(calls[0].url,'/api/analyze'); assert.equal(JSON.parse(calls[0].body.body).timeframe,'1d');
   assert.equal(JSON.parse(calls[0].body.body).language,'en'); assert.ok(dispatched.includes('analysis-legacy-end'));
+});
+
+test('HTML Original tham chiếu giữ đủ 5 alpha, công thức, thành phần, chuyên gia và table header thật', () => {
+  const reference=JSON.parse(readFileSync(root+'/tests/analysis_ui/report_reference.json','utf8'));
+  const target=new Element('div'); renderReport(target,reference.alpha);
+  const find=(parent,tag) => [parent,...parent.children.flatMap(child => find(child,tag))].filter(child => child.tag===tag);
+  assert.equal(find(target,'thead')[0].children[0].children.length,6);
+  assert.equal(find(target,'tbody')[0].children.length,5);
+  assert.ok(find(target,'th').every(node => node.attributes.scope==='col'));
+  assert.match(target.textContent,/Công thức đầy đủ/); assert.match(target.textContent,/composite_score/);
+  assert.match(target.textContent,/Chuyên gia định lượng/); assert.match(target.textContent,/TỔNG HỢP/);
+  assert.ok(find(target,'em').length>=5); assert.ok(find(target,'hr').length>=5);
+  const indicator=new Element('div'); renderReport(indicator,normalizeIndicator(reference.indicator));
+  assert.match(indicator.textContent,/39\.4957/); assert.ok(find(indicator,'hr').length>=4);
+});
+
+test('Indicator số được chuẩn hóa header/bảng mà không đổi số hoặc rò guard prompt', () => {
+  const raw='=== MACD (12,26,9) — CHỈ ĐỌC SỐ TRONG SECTION NÀY ===\n| Chỉ số | Giá trị mới nhất | Chuỗi 5 nến gần nhất |\n|---|---|---|\n| MACD Line | **-2.8411** | [-3.009, -2.9592] |\n[END MACD SECTION — giá trị Histogram=0.1286 KHÔNG áp dụng cho chỉ báo khác]\n---\n=== RSI (14) — CHỈ ĐỌC SỐ TRONG SECTION NÀY ===\n- RSI: **30.4664**';
+  const target=new Element('div'); renderReport(target,normalizeIndicator(raw));
+  const tags = parent => [parent.tag,...parent.children.flatMap(child => tags(child))];
+  assert.equal(tags(target).filter(tag => tag==='th').length,3); assert.equal(tags(target).filter(tag => tag==='td').length,3);
+  assert.match(target.textContent,/-2\.8411/); assert.match(target.textContent,/30\.4664/);
+  assert.doesNotMatch(target.textContent,/CHỈ ĐỌC|END MACD|===/);
+  assert.equal(tags(target).filter(tag => tag==='h3').length,2);
 });

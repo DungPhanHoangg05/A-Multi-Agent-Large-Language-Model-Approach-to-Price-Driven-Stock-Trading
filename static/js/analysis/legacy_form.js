@@ -220,7 +220,7 @@
             if (!keyDaLuu) { hienThongBao(tr('warn_save_key'), 'warn'); document.getElementById('groqApiKeyInput').focus(); return false; }
             const order = upgraded ? [2,4,5,3,6] : [2,3,4,5,6];
             order.forEach((label,index) => {
-                document.getElementById('step'+(index+2)).querySelector('span').textContent = tr('load_step'+label);
+                document.getElementById('step'+(index+2)).querySelector('span').textContent = tr('load_step'+label).replaceAll('&amp;','&');
             });
             document.getElementById('step-bicl').hidden = !upgraded;
             document.getElementById('step-bicl').classList.remove('active','done');

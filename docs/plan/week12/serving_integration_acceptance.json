@@ -1,27 +1,22 @@
 {
-  "version": "serving_integration_acceptance_v5",
+  "version": "serving_integration_acceptance_v6",
   "status": "OFFLINE_PASS_BROWSER_PENDING",
-  "base_commit": "6ba5cfea",
+  "base_commit": "3528891f",
   "checks_package": {
-    "path": "docs/plan/week12/serving_daily_analysis_checks.zip",
-    "bytes": 91643,
-    "sha256": "2d8b4910a42d6386c89ae7b0374690d7e4034283093c178f175cd727b07c7fac"
+    "path": "docs/plan/week12/serving_report_checks.zip",
+    "bytes": 30672,
+    "sha256": "bca3a292fd3c316cdf44bdb8ba3bbcf220740fbf18a5197007477f26cff57c63"
   },
-  "python_tests": 103,
-  "dom_tests": 19,
+  "python_tests": 39,
+  "dom_tests": 21,
   "compiled_python": 12,
-  "javascript_syntax": 6,
-  "scope": "REALTIME_1D_ONLY_FORM; ORIGINAL_OVERLAY_AND_RESULT; DURABLE_AGENT_PROGRESS; BICL_POLICY_CONTEXT; MODEL_FIXTURE_ONLY",
-  "real_market_probe": {
-    "status": "NOT_RUN_UI_SCOPE",
-    "market_calls": 0,
-    "hosted_llm_calls": 0
-  },
+  "javascript_syntax": 3,
+  "scope": "BICL_BEFORE_SELECTED_DECISION; ORIGINAL_FULL_ALPHA_AND_COMMON_SEPARATE; SAFE_MARKDOWN; SNAPSHOT_NEWS_PIT",
   "browser": {
     "status": "PENDING",
     "desktop": "NOT_RUN",
     "mobile": "NOT_RUN",
-    "reason": "BROWSER_HOST_UNAVAILABLE; PRIOR_EDGE_AUTOMATIC_REVIEW_REJECTED"
+    "reason": "BROWSER_HOST_UNAVAILABLE"
   },
   "f11_complete": false,
   "historical": {
@@ -51,22 +46,10 @@
     "repair_qa_unchanged": {
       "bytes": 51411,
       "sha256": "8ac98684c66dbce666533d26f0c0017cde9e1c9656df8cf2b607187b82cb4677"
+    },
+    "daily_analysis_qa_unchanged": {
+      "bytes": 91643,
+      "sha256": "2d8b4910a42d6386c89ae7b0374690d7e4034283093c178f175cd727b07c7fac"
     }
-  },
-  "test_delta": {
-    "status": "PASS_SCOPED_ASSERTION_DELTA",
-    "initial_python_tests": 103,
-    "initial_failures": 1,
-    "rerun_tests": 1,
-    "resolved_test": "test_live_form_default_and_result_shell_preserve_source_without_inference",
-    "unique_python_tests_passed": 103,
-    "changed_files": [
-      "scripts/serving_acceptance/daily_delta.py",
-      "scripts/serving_acceptance/repair.py",
-      "tests/serving_live/test_live_api.py"
-    ],
-    "application_changed_after_full_run": false,
-    "binding_recorded": "AFTER_FULL_RUN_BEFORE_ASSERTION_FIX",
-    "note": "Lượt đầu 102/103 PASS; một test đòi nguồn latest đã bị xóa. Sửa riêng assertion, chạy lại đúng một ca PASS; không chạy lại 22 ca live hoặc các suite đã PASS."
   }
 }

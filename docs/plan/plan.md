@@ -72,10 +72,14 @@ cùng overlay từng agent rồi mở cùng bố cục kết quả, thêm phần
 Tiến trình từ checkpoint, decision/policy/context giữ nguyên; không tính lại
 hoặc bịa kết quả khi lỗi/UNKNOWN. [Runbook hiện hành](week12/variant_serving_contract.md#form-phân-tích-hiện-hành--realtime-1d).
 [Receipt hiện hành](week12/serving_integration_acceptance.json) và
-[QA giao diện 1D](week12/serving_daily_analysis_checks.zip): **103 Python + 19 DOM, compile12/JS6 PASS**.
+[QA báo cáo hiện hành](week12/serving_report_checks.zip): **39 Python + 21 DOM, compile12/JS3 PASS**.
+Đã sửa BICL đứng trước Decision cuối; khôi phục báo cáo Alpha Agent đầy đủ,
+hiển thị common Alpha riêng đúng nguồn Decision, format Indicator theo HTML
+Original tham chiếu. Tin hiển thị cùng snapshot/cutoff, thiếu metadata là NA.
+QA 1D trước đó nguyên byte, không thay kiểm renderer/PIT của bản sửa mới.
 Các QA cũ giữ nguyên byte làm lịch sử; không chạy toàn suite/cold study hoặc
 gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn không khả dụng;
-F11 còn mở, nhánh `feat/realtime-daily-analysis` chưa merge develop theo AGENTS
+F11 còn mở, nhánh `feat/analysis-report-parity` chưa merge develop theo AGENTS
 §1.2. **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding

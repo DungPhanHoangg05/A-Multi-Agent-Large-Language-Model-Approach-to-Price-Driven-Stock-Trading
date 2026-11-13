@@ -21,7 +21,14 @@ def agent_progress(store: Any, reservation: dict) -> dict[str,str]:
     progress = {'loading':state(['render/'+point+'/'+role for role in ('pattern','trend')]),
         **{role:state(['graph/'+point+'/'+node]) for role,node in
            [('indicator','indicator'),('pattern','pattern'),('trend','trend'),('alpha','full')]}}
-    progress['context'] = state(['prepare/forecast/'+point+'/r0/'+variant for variant in request['variant_ids']])
+    # Common/Fact Anchor là tính toán phụ thuộc của BICL, không phải Decision cuối người dùng chọn.
+    shared_complete = book.complete('shared/'+point)
+    if book.path('graph/'+point+'/full').exists():
+        progress['alpha'] = 'complete' if shared_complete else 'running'
+    context_slots = ['prepare/forecast/'+point+'/r'+str(repeat)+'/'+variant
+        for repeat in range(request['repeats']) for variant in request['variant_ids']]
+    progress['context'] = state(context_slots)
+    if shared_complete and progress['context'] == 'pending': progress['context'] = 'running'
     progress['decision'] = state(['forecast/'+point+'/r'+str(repeat)+'/'+variant
-        for repeat in range(request['repeats']) for variant in job['execution_plan']])
+        for repeat in range(request['repeats']) for variant in request['variant_ids']])
     return progress

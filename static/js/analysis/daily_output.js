@@ -1,7 +1,10 @@
-import {renderReport} from './report.js';
+import {renderReport,normalizeIndicator} from './report.js';
 
 // Cùng bố cục Original; báo cáo từ journal được dựng bằng text node, không dùng ảnh/session job khác.
-for (const id of ['indicatorContent','alphaContent','patternContent','trendContent','sentimentContent']) {
+for (const id of ['indicatorContent','alphaContent','commonAlphaContent','patternContent','trendContent','sentimentContent']) {
   const node = document.getElementById(id);
-  if (node) renderReport(node,node.textContent);
+  if (node) {
+    node.classList.add('auto-beautify');
+    renderReport(node,id==='indicatorContent' ? normalizeIndicator(node.textContent) : node.textContent);
+  }
 }

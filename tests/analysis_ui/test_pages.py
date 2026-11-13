@@ -65,6 +65,7 @@ class AnalysisPages(unittest.TestCase):
             self.assertNotIn('id="asof-inputs"',raw)
             self.assertEqual([a['data-tf'] for tag,a in page.nodes if 'data-tf' in a],['1d'])
             self.assertEqual(len([a for tag,a in page.nodes if a.get('id') == 'step-bicl']),1)
+            self.assertLess(raw.index('id="step-bicl"'),raw.index('id="step6"'))
             self.assertEqual(raw.count('<option value='),7)
             self.assertIn('disabled',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
             self.assertNotIn('onclick',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
