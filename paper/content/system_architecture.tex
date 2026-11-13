@@ -15,7 +15,25 @@ Figure~\ref{fig:flow} shows the shared upstream, native/common projections and e
 \end{figure}
 
 \subsection{Indicator Agent}
-Indicator Agent computes and renders five deterministic TA-Lib-based votes: MACD(12,26,9), RSI(14), Stochastic(14,3,3), Williams \%R(14) and ROC(10). They are momentum/trend indicators, not five volatility oscillators; MACD and the broader indicator vocabulary follow technical-analysis references \cite{appel2005technical,murphy1999technical}. Its backtest node returns a report and messages, without calling an LLM or forwarding the declared state schema's complete numeric arrays. Bollinger variables can be computed on the alpha path; BB/ADX state declarations do not create two additional Indicator votes. \ref{app:indicator_logic} specifies the ordered boundaries and missing-data convention \cite{talib_rsi_docs,talib_willr_docs}.
+Indicator Agent converts five TA-Lib-based technical indicators into a structured report of bullish, bearish and neutral votes. Table~\ref{tab:indicator_overview} summarises the periods, information and interpretation of each indicator; their technical-analysis foundations follow \cite{appel2005technical,murphy1999technical}. Its backtest node returns a report and messages, without calling an LLM or forwarding the declared state schema's complete numeric arrays. Bollinger variables can be computed on the alpha path; BB/ADX state declarations do not create two additional Indicator votes. \ref{app:indicator_logic} specifies the ordered boundaries and missing-data convention \cite{talib_rsi_docs,talib_willr_docs}.
+
+\begin{table}[htb]
+\centering\small
+\renewcommand{\arraystretch}{1.18}
+\caption{Technical indicators and their roles in the Indicator Agent.}
+\label{tab:indicator_overview}
+\begin{tabularx}{\textwidth}{p{2.0cm}p{1.6cm}XX}
+\hline
+Indicator & Periods & Information supplied & Vote interpretation \\
+\hline
+MACD & 12, 26, 9 & Fast/slow moving-average difference, signal line and histogram. & Crossovers take priority, followed by histogram sign and change. \\
+RSI & 14 & Relative strength of recent upward and downward price changes. & Ordered level thresholds and retained-sample direction determine the vote. \\
+Stochastic & 14, 3, 3 & Smoothed \%K and \%D locate the close within its recent price range. & Crossovers take priority over overbought/oversold levels and interior rules. \\
+Williams \%R & 14 & Position of the close relative to the recent high--low range. & Extreme levels take priority, followed by retained-sample direction. \\
+ROC & 10 & Percentage price change over the lookback window. & Values above $+0.5\%$ or below $-0.5\%$ yield bullish or bearish votes. \\
+\hline
+\end{tabularx}
+\end{table}
 
 Four-decimal rounding precedes classification, nonfinite samples are removed and zero is retained. Crossovers take priority where specified; overlapping RSI/Williams thresholds require ordered branches rather than two simultaneous unconditional rules. Each missing/error result contributes a neutral vote within the fixed denominator of five. Directional plurality and the confidence categories are deterministic summary heuristics. They are not calibrated probabilities, and an immutable signal tally does not make a downstream narrative correct.
 

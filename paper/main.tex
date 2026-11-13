@@ -89,7 +89,7 @@
 
 %% Abstract
 \begin{abstract}
-We investigate how quantitative alpha signals, Vietnamese news sentiment and historical context affect multi-agent LLM decisions for Vietnamese equities. The system combines an 85-candidate OHLCV registry with shared technical-indicator and chart-agent reports. Two complementary historical studies use 102 eligible stock--date observations across nine equities, twelve dates and six blocks. In the component study, Full balanced accuracy is \FullBA\%, compared with \BaseBA\% for Base; mean separate-account net returns are \FullReturn\% and \BaseReturn\%. Numerical baselines and repeated component/placebo panels assess classification, variability and attribution. The historical-context study compares native and common-input baselines with Bayesian and task-conditioned methods using one upstream realization and three Decision repeats. The Bayesian prior returns \UnifiedVOneReturn\%, versus \UnifiedCommonReturn\% for Common and \UnifiedNativeReturn\% for Native, corresponding to differences of $+\UnifiedVOneCommonReturnEffect$ and $\UnifiedVOneNativeReturnEffect$ percentage points. All eight research methods have negative mean returns. The results show comparator-dependent effects of information integration, with coverage and fallback materially shaping outcomes. Limited temporal support, native within-history noncausality and uncertain historical news validity constrain generalisation and causal interpretation.
+We present a multi-agent LLM framework for Vietnamese stock trading that integrates quantitative alpha signals, local-language news sentiment and historical decision context with technical and visual market analysis. A configurable OHLCV factor registry supplies quantitative evidence, while specialised agents produce shared indicator, candlestick and trend reports. Regime-aware Bayesian priors and task-conditioned decision refinement extend this evidence with qualified historical information. The framework distinguishes native adaptive factor diagnostics from a training-fitted causal projection and connects directional forecasts to transaction-cost-aware, long-only execution. Paired component and historical-context studies compare information configurations, numerical baselines and decision policies using shared upstream evidence. Quantitative augmentation produces more selective LONG forecasts and higher balanced accuracy than the chart-based baseline, while historical-prior effects depend on the comparator and available support. Classification improvements do not consistently translate into stronger economic performance. Repeated decisions, component ablations and historical placebos help identify the roles of signal representation, missing inputs and fallback behaviour. The findings remain exploratory because temporal coverage and historical input validity are limited. The resulting framework provides an auditable basis for studying quantitative knowledge integration and for designing prospective evaluations of multi-agent trading systems.
 \end{abstract}
 
 %%Graphical abstract
@@ -97,11 +97,11 @@ We investigate how quantitative alpha signals, Vietnamese news sentiment and his
 
 %%Research highlights
 \begin{highlights}
-\item Quantitative alpha and Vietnamese sentiment augment inherited chart-agent roles.
-\item Regime priors and task-conditioned revision share one upstream snapshot.
-\item Two historical studies retain separate responses and comparison baselines.
-\item Bayesian prior gains over Common do not establish an advantage over Native.
-\item Negative net account returns limit economic and deployment claims.
+\item Integrates quantitative alpha and Vietnamese news into multi-agent stock trading.
+\item Builds a configurable OHLCV factor registry for market-specific alpha selection.
+\item Adds regime-aware Bayesian priors and task-conditioned decision refinement.
+\item Shares upstream evidence across methods for controlled trading comparisons.
+\item Links signal attribution and historical support to cost-aware trading outcomes.
 \end{highlights}
 
 %% Keywords

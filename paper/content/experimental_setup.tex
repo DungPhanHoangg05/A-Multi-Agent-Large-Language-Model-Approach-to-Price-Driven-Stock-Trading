@@ -2,7 +2,7 @@
 \label{sec:experimentalsetup}
 
 \subsection{Dataset and Point-in-Time Data Contract}
-The daily universe spans information technology (FPT, CMG), banking (VCB, MBB), retail (MWG), food/beverages (VNM, BHN) and aviation/tourism (HVN, VJC). The reconstructed vnstock/VCI snapshot \cite{vnstock_docs} covers observed vendor sessions from 2020 through September 2026. The sample is purposive, and original historical data availability is unverified. A valid-suffix policy excludes contradictory BHN OHLC data; insufficient warm-up then excludes BHN from three early blocks. This leaves 102 eligible cells of the twelve-date by nine-stock grid in Figure~\ref{fig:calendar}.
+The daily universe spans information technology (FPT, CMG), banking (VCB, MBB), retail (MWG), food/beverages (VNM, BHN) and aviation/tourism (HVN, VJC). The reconstructed vnstock/VCI snapshot \cite{vnstock_docs} covers observed vendor sessions from 2020 through September 2026. The sample is purposive, and original historical data availability is unverified. A valid-suffix policy excludes contradictory BHN OHLC data; insufficient warm-up then excludes BHN from three early blocks. This leaves 102 eligible stock--date observations for the paired comparisons.
 
 \paragraph{Component and historical-context studies}
 The component study evaluates Full/Base and numerical controls; the historical-context study evaluates Native/Common and prior/task-conditioned methods. They share eligible market dates but use separate model responses and statistical protocols. Base omits factors and sentiment, whereas Common retains both under a different alpha/prompt profile. Sentiment is unavailable at \UnifiedMissingSentiment/\UnifiedPoints\ historical-context points.
@@ -12,12 +12,6 @@ Six blocks cover 2023 H2, 2024 H2, 2025 H1, 2025 Q4, 2026 Q2 and 2026 Q3, with t
 
 The evaluation schedule was finalized after some inference, making this an exploratory historical analysis. The 375 component-study Decisions comprise 193 reused successful executions and 182 additional successes. The upstream panel shares 18 calls with the main comparison, so 204+54+135-18=375 unique Decisions. Factorial units were selected by stock/date round-robin metadata. Table~\ref{tab:scope} reports the supports of the main, upstream and factorial panels.
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=\textwidth]{figures/evaluation_calendar.png}
-\caption{Eligible stock--date observations across the six historical blocks.}
-\label{fig:calendar}
-\end{figure}
 \input{content/tables/component/scope.tex}
 
 The extension fixes \UnifiedPoints\ points, \UnifiedAccounts\ symbol--fold accounts, \UnifiedUpstreamRealizations\ upstream realization per point and \UnifiedDecisionRepeats\ Decision repeats. One immutable report/image parent is deep-copied into all roles; each repeat uses new Decision responses where a call is eligible. The \UnifiedForecastSlots\ research slots are not independent market samples, full-system executions or successful HTTP calls. All 102 evaluation IDs are reserved globally before context labels can be computed, including IDs belonging to earlier folds. Context is frozen before the first test query in a fold and reused at its second anchor; test labels are never added prequentially.

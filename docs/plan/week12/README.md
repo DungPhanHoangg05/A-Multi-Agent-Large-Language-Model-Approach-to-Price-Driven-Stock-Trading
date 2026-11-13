@@ -37,6 +37,31 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
+## Làm rõ đóng góp và rà liên kết bài báo
+
+- [x] Viết lại năm highlights theo đóng góp tích hợp alpha/tin tiếng Việt,
+  registry nhân tố, historical context, paired comparison và đánh giá có chi phí;
+  mỗi dòng không quá 85 ký tự. Hai abstract đồng nhất, 185 từ, bỏ các con số
+  hiệu quả/lợi nhuận và giữ kết luận định tính cùng giới hạn diễn giải.
+- [x] Bỏ Figure 5 cũ (`fig:calendar`), dẫn chiếu và ảnh lịch đánh giá; các hình
+  sau tự đánh số lại. Thêm Table 1 tóm tắt năm indicator, chu kỳ, thông tin và
+  cách diễn giải; giữ bảng quy tắc chi tiết trong phụ lục. Toàn bộ 22 bảng,
+  sáu hình và một thuật toán dùng `[htb]`, 29 caption vẫn một câu.
+- [x] Rà 57 mục BibTeX/79 URL và DOI, bao gồm đủ 43 mục được dẫn; đối chiếu
+  25/25 DOI với registry. Bổ sung/thay 16 URL, giữ DOI gốc; kiểm nội dung trang
+  thay vì chỉ tin HTTP 200. [Kết quả từng link](../../../outputs/paper/reference_links.json)
+  ghi 42/43 đích truy cập xác nhận được; reference 38 Sortino–Price vẫn bị
+  xác minh trình duyệt của nhà xuất bản, không ghi tất cả website mở được.
+- [x] Build hai bản bằng tám lệnh cuối pdfLaTeX/BibTeX exit 0, 44 trang/bản,
+  43 references, không cảnh báo LaTeX/Overfull, chữ ngoài trang hoặc font Type3.
+  Poppler render và kiểm trực quan 88 trang; lượt cuối đổi URL chỉ thay pixels
+  ở trang 42–44 đã render/kiểm lại. 23 tệp bảng/macro cũ và 27 khối công thức
+  giữ nguyên byte/nội dung; mọi input biên dịch hợp lệ và đủ hyperlink tới
+  đích truy cập chính của 43 references trong PDF.
+  [PDF và manifest hiện hành](../../../outputs/paper/README.md) được cập nhật,
+  không tạo ZIP bài báo. Đây là sửa tài liệu, không đổi code/runtime/dữ liệu;
+  không chạy unit/E2E/leakage/compileall theo AGENTS §1.2.
+
 ## Sắp xếp nguồn bài báo và kết quả
 
 - [x] Nguồn bài báo được gom vào `paper/content/`, bảng theo hai nghiên cứu ở
