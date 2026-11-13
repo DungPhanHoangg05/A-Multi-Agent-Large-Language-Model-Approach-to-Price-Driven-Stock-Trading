@@ -3,7 +3,7 @@
 ## Bàn giao hiện hành F05
 
 Ngày **13/11/2026**, bản thảo thống nhất và phản hồi hiện hành được khóa tại
-[`manuscript_unified_final_v1`](../outputs/revision/manuscript_unified_final_v1/manifest.json).
+[`manuscript_unified_final_v1`](../docs/plan/revision_evidence/README.md#manuscript_unified_final_v1).
 Gói có hai PDF, source archive, response/matrix, crosswalk đủ 87 yêu cầu,
 locators/reference ledger và scientific companions tách `original`/`u09`.
 `rights.json` giữ `public_release_authorized=false`, `pid=null`; hoàn tất U10

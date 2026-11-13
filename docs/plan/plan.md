@@ -7,7 +7,8 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 Nguồn bài báo ngày 13/11/2026 đã được [biên tập thành bản độc lập](week12/README.md#biên-tập-bài-báo-độc-lập):
 bỏ mã task/giọng phản hồi, caption một câu, toàn bộ bảng/hình `[htb]`, cả hai PDF
-44 trang và 43 references; PDF/ZIP Overleaf hiện hành ở `manuscript_standalone_v1`.
+44 trang và 43 references; nguồn ở `paper/`, PDF hiện hành ở [outputs/paper](../../outputs/paper/README.md).
+Cấu trúc thư mục và cách khôi phục kết quả cũ được ghi tại [checklist dọn dẹp](week12/README.md#sắp-xếp-nguồn-bài-báo-và-kết-quả).
 Số liệu, công thức và bằng chứng thực nghiệm giữ nguyên.
 
 Ngày 13/11/2026 đã sửa bố cục và bổ sung references cho nguồn `paper/`:

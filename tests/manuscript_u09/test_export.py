@@ -121,7 +121,7 @@ class ExportTests(unittest.TestCase):
         self.assertEqual(len(names), len(text.splitlines()))
         self.assertEqual(len(names), len(set(names)))
         self.assertTrue(all(n.startswith("Unified") for n in names))
-        legacy = (ROOT/"paper/generated/summary_numbers.tex").read_text(encoding="utf-8")
+        legacy = (ROOT/"paper/content/tables/component/summary_numbers.tex").read_text(encoding="utf-8")
         self.assertTrue(set(names).isdisjoint(re.findall(r"\\newcommand\{\\([A-Za-z]+)\}", legacy)))
         self.assertIn(r"\newcommand{\UnifiedVOneCommonReturnEffect}{0.327}", text)
         self.assertIn(r"\newcommand{\UnifiedVOneNativeReturnLow}{-0.362}", text)
@@ -210,6 +210,8 @@ class ExportTests(unittest.TestCase):
                 self.assertEqual(manifest["figure"]["input"], PREFIX+"results.json")
                 self.assertEqual(manifest["figure"]["pointer"], "/contrasts")
                 self.assertTrue(verify(root)["byte_identical"])
+                self.assertTrue((root/INSTALL/"sensitivity_covered.tex").is_file())
+                self.assertTrue(all(p.suffix == ".tex" for p in (root/INSTALL).iterdir()))
                 with self.assertRaises(ValueError):
                     build(root)
                 for path in (root/SOURCES[2], root/RELEASE/"artifacts/comparison.tex", root/INSTALL/"comparison.tex"):

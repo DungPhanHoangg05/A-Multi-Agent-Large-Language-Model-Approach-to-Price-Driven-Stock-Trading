@@ -43,7 +43,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \usepackage{hyperref}
-\input{manuscript_layout.tex}
+\input{layout.tex}
 
 \journal{Knowledge-Based Systems}
 
@@ -52,8 +52,8 @@
 %% source manuscript, so we add "figures/" to the graphics search path.
 \graphicspath{{./}}
 
-\input{generated/summary_numbers.tex}
-\input{generated/u09/summary_numbers.tex}
+\input{content/tables/component/summary_numbers.tex}
+\input{content/tables/historical_context/summary_numbers.tex}
 
 \begin{document}
 
@@ -112,14 +112,14 @@ Multi-agent LLM \sep Knowledge fusion \sep Knowledge integration \sep Financial 
 \end{frontmatter}
 
 %% main text
-\input{sections/01_introduction.tex}
-\input{sections/02_related_work.tex}
-\input{sections/03_problem_formulation.tex}
-\input{sections/04_system_architecture.tex}
-\input{sections/05_experimental_setup.tex}
-\input{sections/06_backtest_results.tex}
-\input{sections/07_limitations.tex}
-\input{sections/08_conclusion.tex}
+\input{content/introduction.tex}
+\input{content/related_work.tex}
+\input{content/problem_formulation.tex}
+\input{content/system_architecture.tex}
+\input{content/experimental_setup.tex}
+\input{content/results.tex}
+\input{content/limitations.tex}
+\input{content/conclusion.tex}
 
 %% CRediT authorship contribution statement
 %% (elsarticle.cls has no \credit/\printcredits macros; the CRediT
@@ -148,11 +148,11 @@ Authors state no conflict of interest.
 % When papers talk about using people or animals, authors should make it clear that the research followed all national rules and institutional policies, and it was approved by the authors' institutional review board or a similar committee. The Helsinki Declaration's tenets must guide all investigations involving human subjects. Authors must also identify the committee or review board approving the experiments and provide a statement indicating approval of the research. Incorporate the following (or a similar) statement: The research related to human use has been complied with all the relevant national regulations and institutional policies in accordance with the tenets of the Helsinki Declaration and has been approved by the authors' institutional review board or equivalent committee; or: The research related to animal use has been complied with all the relevant national regulations and institutional policies for the care and use of animals.
 
 
-\input{sections/availability.tex}
+\input{content/availability.tex}
 
-\input{sections/acknowledgments.tex}
+\input{content/acknowledgments.tex}
 
-\input{sections/appendices.tex}
+\input{content/appendices.tex}
 
 %% Loading bibliography style file
 \bibliographystyle{elsarticle-num}

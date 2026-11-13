@@ -6,7 +6,7 @@ All 18 comments and 87 indexed requests are mapped below and in the synchronized
 
 Locations below refer only to the newly built release: main has 51 physical pages and submit 50, including the unnumbered highlights sheet. Physical page 2 is the title/abstract page, with subsequent printed numbers one lower than physical pages. PDFs have no printed line numbering; source lines, LaTeX labels and physical pages are supplied, with text bounding boxes where applicable. Author/CRediT blocks are commented in submit; funding remains rendered, so anonymity/journal-route compliance is not certified.
 
-The [final release manifest](../outputs/revision/manuscript_unified_final_v1/manifest.json), [request crosswalk](../outputs/revision/manuscript_unified_final_v1/response_map.json), [current matrix](reviewer_matrix.csv) and [archive runbook](archive_runbook.md) identify evidence, source bytes and exact PDF versions. The pre-F05 response and 43-row matrix are preserved byte-for-byte in the F05 QA archive; all older releases remain unchanged. The current 87-row matrix supersedes their current-status claims and stale locators. No inference, scoring, bootstrap, refitting, upload or submission is performed in F05. Local handoff is complete; public rights/PID and scientific/editorial acceptance are separate.
+The [final release manifest](../docs/plan/revision_evidence/README.md#manuscript_unified_final_v1), [request crosswalk](../docs/plan/revision_evidence/README.md#manuscript_unified_final_v1), [current matrix](reviewer_matrix.csv) and [archive runbook](archive_runbook.md) identify evidence, source bytes and exact PDF versions. The pre-F05 response and 43-row matrix are preserved byte-for-byte in the F05 QA archive; all older releases remain unchanged. The current 87-row matrix supersedes their current-status claims and stale locators. No inference, scoring, bootstrap, refitting, upload or submission is performed in F05. Local handoff is complete; public rights/PID and scientific/editorial acceptance are separate.
 
 ## R1 — Baselines, class imbalance and economic interpretation
 
@@ -18,7 +18,7 @@ We replaced the 180-point legacy headline with the completed common-support hist
 
 Evidence: [outputs/revision/final_baselines_v1/classification.csv](../outputs/revision/final_baselines_v1/classification.csv); [outputs/revision/final_baselines_v1/per_class.csv](../outputs/revision/final_baselines_v1/per_class.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:6](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:classification}`); [paper/generated/t02_classification.tex:6](../paper/generated/t02_classification.tex) (`\label{tab:classification}`); [paper/generated/t03_accounts.tex:6](../paper/generated/t03_accounts.tex) (`\label{tab:accounts}`).
+Source anchors: [paper/content/results.tex:6](../paper/content/results.tex) (`Table~\ref{tab:classification}`); [paper/content/tables/component/classification.tex:6](../paper/content/tables/component/classification.tex) (`\label{tab:classification}`); [paper/content/tables/component/accounts.tex:6](../paper/content/tables/component/accounts.tex) (`\label{tab:accounts}`).
 
 Verified PDF locations: main physical pp. 20, 26, 27, 29, 44; main_submit physical pp. 20, 26, 27, 28, 43. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -30,7 +30,7 @@ Table 3 reports BA, MCC, accuracy, LONG rate and precision/recall for both class
 
 Evidence: [outputs/revision/final_baselines_v1/classification.csv](../outputs/revision/final_baselines_v1/classification.csv); [outputs/revision/final_baselines_v1/per_class.csv](../outputs/revision/final_baselines_v1/per_class.csv); [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:6](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:classification}`); [paper/generated/t02_classification.tex:6](../paper/generated/t02_classification.tex) (`\label{tab:classification}`); [paper/generated/t03_accounts.tex:6](../paper/generated/t03_accounts.tex) (`\label{tab:accounts}`).
+Source anchors: [paper/content/results.tex:6](../paper/content/results.tex) (`Table~\ref{tab:classification}`); [paper/content/tables/component/classification.tex:6](../paper/content/tables/component/classification.tex) (`\label{tab:classification}`); [paper/content/tables/component/accounts.tex:6](../paper/content/tables/component/accounts.tex) (`\label{tab:accounts}`).
 
 Verified PDF locations: main physical pp. 26, 27, 29, 44; main_submit physical pp. 26, 27, 28, 43. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -42,7 +42,7 @@ Always-CASH and a majority rule fitted on purged historical training data are bo
 
 Evidence: [outputs/revision/final_baselines_v1/baseline_contracts.json](../outputs/revision/final_baselines_v1/baseline_contracts.json); [outputs/revision/final_baselines_v1/classification.csv](../outputs/revision/final_baselines_v1/classification.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:6](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:classification}`); [paper/generated/t02_classification.tex:6](../paper/generated/t02_classification.tex) (`\label{tab:classification}`); [paper/generated/t03_accounts.tex:6](../paper/generated/t03_accounts.tex) (`\label{tab:accounts}`).
+Source anchors: [paper/content/results.tex:6](../paper/content/results.tex) (`Table~\ref{tab:classification}`); [paper/content/tables/component/classification.tex:6](../paper/content/tables/component/classification.tex) (`\label{tab:classification}`); [paper/content/tables/component/accounts.tex:6](../paper/content/tables/component/accounts.tex) (`\label{tab:accounts}`).
 
 Verified PDF locations: main physical pp. 26, 27, 29, 44; main_submit physical pp. 26, 27, 28, 43. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -54,7 +54,7 @@ Table 4 compares the mean over 51 separately funded symbol-block accounts: Full 
 
 Evidence: [outputs/revision/final_baselines_v1/baseline_contracts.json](../outputs/revision/final_baselines_v1/baseline_contracts.json); [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:6](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:classification}`); [paper/generated/t02_classification.tex:6](../paper/generated/t02_classification.tex) (`\label{tab:classification}`); [paper/generated/t03_accounts.tex:6](../paper/generated/t03_accounts.tex) (`\label{tab:accounts}`).
+Source anchors: [paper/content/results.tex:6](../paper/content/results.tex) (`Table~\ref{tab:classification}`); [paper/content/tables/component/classification.tex:6](../paper/content/tables/component/classification.tex) (`\label{tab:classification}`); [paper/content/tables/component/accounts.tex:6](../paper/content/tables/component/accounts.tex) (`\label{tab:accounts}`).
 
 Verified PDF locations: main physical pp. 26, 27, 29, 44; main_submit physical pp. 26, 27, 28, 43. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -66,7 +66,7 @@ Momentum-20, train-fitted logistic-price, logistic with matched numerical market
 
 Evidence: [outputs/revision/final_baselines_v1/baseline_contracts.json](../outputs/revision/final_baselines_v1/baseline_contracts.json); [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md).
 
-Source anchors: [paper/sections/06_backtest_results.tex:6](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:classification}`); [paper/generated/t02_classification.tex:6](../paper/generated/t02_classification.tex) (`\label{tab:classification}`); [paper/generated/t03_accounts.tex:6](../paper/generated/t03_accounts.tex) (`\label{tab:accounts}`).
+Source anchors: [paper/content/results.tex:6](../paper/content/results.tex) (`Table~\ref{tab:classification}`); [paper/content/tables/component/classification.tex:6](../paper/content/tables/component/classification.tex) (`\label{tab:classification}`); [paper/content/tables/component/accounts.tex:6](../paper/content/tables/component/accounts.tex) (`\label{tab:accounts}`).
 
 Verified PDF locations: main physical pp. 26, 27, 29, 44; main_submit physical pp. 26, 27, 28, 43. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -76,9 +76,9 @@ Full makes 24/102 LONG decisions and Base 29/102, while both recover the same se
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** LONG propensity and held sessions are reported; no exposure-matched causal explanation of the difference.
 
-Evidence: [outputs/revision/final_baselines_v1/classification.csv](../outputs/revision/final_baselines_v1/classification.csv); [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [outputs/revision/final_repeats_v1/contrasts.csv](../outputs/revision/final_repeats_v1/contrasts.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_baselines_v1/classification.csv](../outputs/revision/final_baselines_v1/classification.csv); [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [outputs/revision/final_repeats_v1/contrasts.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:6](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:classification}`); [paper/generated/t02_classification.tex:6](../paper/generated/t02_classification.tex) (`\label{tab:classification}`); [paper/generated/t03_accounts.tex:6](../paper/generated/t03_accounts.tex) (`\label{tab:accounts}`).
+Source anchors: [paper/content/results.tex:6](../paper/content/results.tex) (`Table~\ref{tab:classification}`); [paper/content/tables/component/classification.tex:6](../paper/content/tables/component/classification.tex) (`\label{tab:classification}`); [paper/content/tables/component/accounts.tex:6](../paper/content/tables/component/accounts.tex) (`\label{tab:accounts}`).
 
 Verified PDF locations: main physical pp. 26, 27, 29, 44; main_submit physical pp. 26, 27, 28, 43. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -90,7 +90,7 @@ The original title is retained at the author's instruction. Abstract, highlights
 
 Evidence: [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:6](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:classification}`); [paper/generated/t02_classification.tex:6](../paper/generated/t02_classification.tex) (`\label{tab:classification}`); [paper/generated/t03_accounts.tex:6](../paper/generated/t03_accounts.tex) (`\label{tab:accounts}`).
+Source anchors: [paper/content/results.tex:6](../paper/content/results.tex) (`Table~\ref{tab:classification}`); [paper/content/tables/component/classification.tex:6](../paper/content/tables/component/classification.tex) (`\label{tab:classification}`); [paper/content/tables/component/accounts.tex:6](../paper/content/tables/component/accounts.tex) (`\label{tab:accounts}`).
 
 Verified PDF locations: main physical pp. 2, 26, 27, 29, 34, 44; main_submit physical pp. 2, 26, 27, 28, 34, 43. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -102,9 +102,9 @@ The final study contains real archived hosted decisions at twelve selected dates
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Twelve selected historical dates, no untouched prospective or dense continuous multi-year LLM validation.
 
-Evidence: [outputs/revision/final_temporal_v1/calendar_panel.csv](../outputs/revision/final_temporal_v1/calendar_panel.csv); [outputs/revision/final_temporal_v1/report.md](../outputs/revision/final_temporal_v1/report.md).
+Evidence: [outputs/revision/final_temporal_v1/calendar_panel.csv](../docs/plan/revision_evidence/README.md#final_temporal_v1); [outputs/revision/final_temporal_v1/report.md](../docs/plan/revision_evidence/README.md#final_temporal_v1).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:11](../paper/sections/05_experimental_setup.tex) (`Six blocks cover`); [paper/generated/t05_temporal.tex:6](../paper/generated/t05_temporal.tex) (`\label{tab:temporal}`).
+Source anchors: [paper/content/experimental_setup.tex:11](../paper/content/experimental_setup.tex) (`Six blocks cover`); [paper/content/tables/component/temporal.tex:6](../paper/content/tables/component/temporal.tex) (`\label{tab:temporal}`).
 
 Verified PDF locations: main physical pp. 20, 21, 31, 47, 48; main_submit physical pp. 20, 21, 31, 46, 47. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -114,9 +114,9 @@ We report all observed bull/bear/sideways, volatility and turnover-proxy strata 
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Original security-level strata are post-inference descriptions; extension regime context is not validated cross-regime performance.
 
-Evidence: [outputs/revision/final_temporal_v1/report.md](../outputs/revision/final_temporal_v1/report.md); [outputs/revision/final_temporal_v1/stratified_metrics.json](../outputs/revision/final_temporal_v1/stratified_metrics.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_temporal_v1/report.md](../docs/plan/revision_evidence/README.md#final_temporal_v1); [outputs/revision/final_temporal_v1/stratified_metrics.json](../docs/plan/revision_evidence/README.md#final_temporal_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:11](../paper/sections/05_experimental_setup.tex) (`Six blocks cover`); [paper/generated/t05_temporal.tex:6](../paper/generated/t05_temporal.tex) (`\label{tab:temporal}`).
+Source anchors: [paper/content/experimental_setup.tex:11](../paper/content/experimental_setup.tex) (`Six blocks cover`); [paper/content/tables/component/temporal.tex:6](../paper/content/tables/component/temporal.tex) (`\label{tab:temporal}`).
 
 Verified PDF locations: main physical pp. 21, 31, 47, 48; main_submit physical pp. 21, 31, 46, 47. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -126,9 +126,9 @@ Whole-block resampling retains dates, the complete eligible cross-section, varia
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Joint resampling retains dependence; six exposed folds do not justify calibrated significance, coverage or power.
 
-Evidence: [outputs/revision/final_temporal_v1/panel_hac.csv](../outputs/revision/final_temporal_v1/panel_hac.csv); [outputs/revision/final_temporal_v1/report.md](../outputs/revision/final_temporal_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_temporal_v1/panel_hac.csv](../docs/plan/revision_evidence/README.md#final_temporal_v1); [outputs/revision/final_temporal_v1/report.md](../docs/plan/revision_evidence/README.md#final_temporal_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:11](../paper/sections/05_experimental_setup.tex) (`Six blocks cover`); [paper/generated/t05_temporal.tex:6](../paper/generated/t05_temporal.tex) (`\label{tab:temporal}`).
+Source anchors: [paper/content/experimental_setup.tex:11](../paper/content/experimental_setup.tex) (`Six blocks cover`); [paper/content/tables/component/temporal.tex:6](../paper/content/tables/component/temporal.tex) (`\label{tab:temporal}`).
 
 Verified PDF locations: main physical pp. 21, 31, 47, 48; main_submit physical pp. 21, 31, 46, 47. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -138,9 +138,9 @@ The effective number of independent market replications is not 102, nor the coun
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Correlated securities/repeats/overlapping cohorts are not independent market replications.
 
-Evidence: [outputs/revision/final_temporal_v1/calendar_panel.csv](../outputs/revision/final_temporal_v1/calendar_panel.csv); [outputs/revision/final_temporal_v1/folds.csv](../outputs/revision/final_temporal_v1/folds.csv); [outputs/revision/final_temporal_v1/report.md](../outputs/revision/final_temporal_v1/report.md).
+Evidence: [outputs/revision/final_temporal_v1/calendar_panel.csv](../docs/plan/revision_evidence/README.md#final_temporal_v1); [outputs/revision/final_temporal_v1/folds.csv](../docs/plan/revision_evidence/README.md#final_temporal_v1); [outputs/revision/final_temporal_v1/report.md](../docs/plan/revision_evidence/README.md#final_temporal_v1).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:11](../paper/sections/05_experimental_setup.tex) (`Six blocks cover`); [paper/generated/t05_temporal.tex:6](../paper/generated/t05_temporal.tex) (`\label{tab:temporal}`).
+Source anchors: [paper/content/experimental_setup.tex:11](../paper/content/experimental_setup.tex) (`Six blocks cover`); [paper/content/tables/component/temporal.tex:6](../paper/content/tables/component/temporal.tex) (`\label{tab:temporal}`).
 
 Verified PDF locations: main physical pp. 20, 21, 22, 31, 47, 48; main_submit physical pp. 20, 21, 22, 31, 46, 47. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -152,9 +152,9 @@ The legacy default labels and matching prediction sequences cannot authenticate 
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Legacy default labels do not authenticate original requests, code or served weights; their differences are not treatment effects.
 
-Evidence: [outputs/revision/final_repeats_v1/disagreement.csv](../outputs/revision/final_repeats_v1/disagreement.csv); [outputs/revision/final_repeats_v1/report.md](../outputs/revision/final_repeats_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_repeats_v1/disagreement.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/report.md](../docs/plan/revision_evidence/README.md#final_repeats_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:45](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:repeats}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/results.tex:45](../paper/content/results.tex) (`Table~\ref{tab:repeats}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 21, 30, 45; main_submit physical pp. 21, 30, 44. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -164,9 +164,9 @@ We report two separate nine-unit panels, each with two UP/seven DOWN and three r
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** U09 adds three full-support Decision repeats but only one upstream realization; no crossed upstream-by-Decision variance study.
 
-Evidence: [outputs/revision/final_repeats_v1/pairing.csv](../outputs/revision/final_repeats_v1/pairing.csv); [outputs/revision/final_repeats_v1/repeat_summary.csv](../outputs/revision/final_repeats_v1/repeat_summary.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_repeats_v1/pairing.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/repeat_summary.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:45](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:repeats}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/results.tex:45](../paper/content/results.tex) (`Table~\ref{tab:repeats}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 21, 30, 45; main_submit physical pp. 21, 30, 44. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -176,9 +176,9 @@ Table 6 and S2 retain all 21 variant-execution metric rows, all 48 contrast-metr
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** All recorded executions/disagreements are retained; small-panel variation is not transferred to the main market support.
 
-Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../outputs/revision/final_repeats_v1/contrasts.csv); [outputs/revision/final_repeats_v1/disagreement.csv](../outputs/revision/final_repeats_v1/disagreement.csv); [outputs/revision/final_repeats_v1/repeat_summary.csv](../outputs/revision/final_repeats_v1/repeat_summary.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/disagreement.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/repeat_summary.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:45](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:repeats}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/results.tex:45](../paper/content/results.tex) (`Table~\ref{tab:repeats}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 21, 30, 45; main_submit physical pp. 21, 30, 44. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -188,9 +188,9 @@ Repeated-panel contrasts use joint block/paired-execution resampling, with undef
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Order/epoch confounding, three executions and unknown hosted weight revisions prevent a calibrated stability claim.
 
-Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../outputs/revision/final_repeats_v1/contrasts.csv); [outputs/revision/final_repeats_v1/report.md](../outputs/revision/final_repeats_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/report.md](../docs/plan/revision_evidence/README.md#final_repeats_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:45](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:repeats}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/results.tex:45](../paper/content/results.tex) (`Table~\ref{tab:repeats}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 21, 30, 45; main_submit physical pp. 21, 30, 44. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -202,9 +202,9 @@ We agree that Base removes both alpha and sentiment, not alpha alone. The manusc
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Original Base removes alpha and sentiment; extension Common is a different alpha/prompt baseline.
 
-Evidence: [outputs/revision/final_baselines_v1/baseline_contracts.json](../outputs/revision/final_baselines_v1/baseline_contracts.json); [outputs/revision/fusion_prompt_audit_v1/audit.json](../outputs/revision/fusion_prompt_audit_v1/audit.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_baselines_v1/baseline_contracts.json](../outputs/revision/final_baselines_v1/baseline_contracts.json); [outputs/revision/fusion_prompt_audit_v1/audit.json](../docs/plan/revision_evidence/README.md#fusion_prompt_audit_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:43](../paper/sections/05_experimental_setup.tex) (`P retains`); [paper/generated/t01_scope.tex:6](../paper/generated/t01_scope.tex) (`\label{tab:scope}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/experimental_setup.tex:43](../paper/content/experimental_setup.tex) (`P retains`); [paper/content/tables/component/scope.tex:6](../paper/content/tables/component/scope.tex) (`\label{tab:scope}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 18, 21, 30, 46, 47; main_submit physical pp. 18, 20, 30, 45, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -214,9 +214,9 @@ The explicit factorial panel includes B, A, S, AS and P on the same nine units a
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Original factorial and main prompts differ in representation/support; U09 is another response collection.
 
-Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../outputs/revision/final_repeats_v1/contrasts.csv); [outputs/revision/final_repeats_v1/pairing.csv](../outputs/revision/final_repeats_v1/pairing.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/pairing.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:43](../paper/sections/05_experimental_setup.tex) (`P retains`); [paper/generated/t01_scope.tex:6](../paper/generated/t01_scope.tex) (`\label{tab:scope}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/experimental_setup.tex:43](../paper/content/experimental_setup.tex) (`P retains`); [paper/content/tables/component/scope.tex:6](../paper/content/tables/component/scope.tex) (`\label{tab:scope}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 18, 21, 30, 46, 47; main_submit physical pp. 18, 20, 30, 45, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -226,9 +226,9 @@ P preserves current names, headings, schema/missingness and sentiment while repl
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Rank-vector replacement is not name-matched covariance, exposure matching or a distribution of placebo interventions.
 
-Evidence: [outputs/revision/final_repeats_v1/donors.csv](../outputs/revision/final_repeats_v1/donors.csv); [outputs/revision/final_repeats_v1/report.md](../outputs/revision/final_repeats_v1/report.md).
+Evidence: [outputs/revision/final_repeats_v1/donors.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/report.md](../docs/plan/revision_evidence/README.md#final_repeats_v1).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:43](../paper/sections/05_experimental_setup.tex) (`P retains`); [paper/generated/t01_scope.tex:6](../paper/generated/t01_scope.tex) (`\label{tab:scope}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/experimental_setup.tex:43](../paper/content/experimental_setup.tex) (`P retains`); [paper/content/tables/component/scope.tex:6](../paper/content/tables/component/scope.tex) (`\label{tab:scope}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 18, 21, 30, 46, 47; main_submit physical pp. 18, 20, 30, 45, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -238,9 +238,9 @@ Actual-content integrity establishes delivery, not that the LLM used a factor se
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Content delivery and near-equal fallback actions do not establish semantic information use or component causality.
 
-Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../outputs/revision/final_repeats_v1/contrasts.csv); [outputs/revision/fusion_prompt_audit_v1/audit.json](../outputs/revision/fusion_prompt_audit_v1/audit.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/fusion_prompt_audit_v1/audit.json](../docs/plan/revision_evidence/README.md#fusion_prompt_audit_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:43](../paper/sections/05_experimental_setup.tex) (`P retains`); [paper/generated/t01_scope.tex:6](../paper/generated/t01_scope.tex) (`\label{tab:scope}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/experimental_setup.tex:43](../paper/content/experimental_setup.tex) (`P retains`); [paper/content/tables/component/scope.tex:6](../paper/content/tables/component/scope.tex) (`\label{tab:scope}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 18, 21, 30, 46, 47; main_submit physical pp. 18, 20, 30, 45, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -250,9 +250,9 @@ We distinguish interaction AS-A-S+B (mean +14.29 pp) from the post-hoc gap betwe
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Interaction and post-hoc best-single gap are distinct; descriptive family envelopes do not establish synergy.
 
-Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../outputs/revision/final_repeats_v1/contrasts.csv); [outputs/revision/final_repeats_v1/report.md](../outputs/revision/final_repeats_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_repeats_v1/contrasts.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/final_repeats_v1/report.md](../docs/plan/revision_evidence/README.md#final_repeats_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:43](../paper/sections/05_experimental_setup.tex) (`P retains`); [paper/generated/t01_scope.tex:6](../paper/generated/t01_scope.tex) (`\label{tab:scope}`); [paper/generated/t04_repeats.tex:6](../paper/generated/t04_repeats.tex) (`\label{tab:repeats}`).
+Source anchors: [paper/content/experimental_setup.tex:43](../paper/content/experimental_setup.tex) (`P retains`); [paper/content/tables/component/scope.tex:6](../paper/content/tables/component/scope.tex) (`\label{tab:scope}`); [paper/content/tables/component/variability.tex:6](../paper/content/tables/component/variability.tex) (`\label{tab:repeats}`).
 
 Verified PDF locations: main physical pp. 18, 21, 30, 46, 47; main_submit physical pp. 18, 20, 30, 45, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -264,9 +264,9 @@ Primary main BA inference is a descriptive 10,000-draw paired whole-block interv
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Bootstrap and accuracy discordance answer different questions; neither certifies independent observations or a significant/no effect.
 
-Evidence: [outputs/revision/final_temporal_v1/panel_hac.csv](../outputs/revision/final_temporal_v1/panel_hac.csv); [outputs/revision/final_temporal_v1/report.md](../outputs/revision/final_temporal_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_temporal_v1/panel_hac.csv](../docs/plan/revision_evidence/README.md#final_temporal_v1); [outputs/revision/final_temporal_v1/report.md](../docs/plan/revision_evidence/README.md#final_temporal_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:49](../paper/sections/05_experimental_setup.tex) (`BA averages`); [paper/generated/t05_temporal.tex:6](../paper/generated/t05_temporal.tex) (`\label{tab:temporal}`).
+Source anchors: [paper/content/experimental_setup.tex:49](../paper/content/experimental_setup.tex) (`BA averages`); [paper/content/tables/component/temporal.tex:6](../paper/content/tables/component/temporal.tex) (`\label{tab:temporal}`).
 
 Verified PDF locations: main physical pp. 31, 44, 46; main_submit physical pp. 31, 43, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -276,9 +276,9 @@ S4 includes all six actual HAC rows. Common-eight mean accuracy difference is +3
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** HAC uses selected dates and accuracy effects; small-cluster inference remains sensitivity only.
 
-Evidence: [outputs/revision/final_temporal_v1/panel_hac.csv](../outputs/revision/final_temporal_v1/panel_hac.csv); [outputs/revision/final_temporal_v1/report.md](../outputs/revision/final_temporal_v1/report.md).
+Evidence: [outputs/revision/final_temporal_v1/panel_hac.csv](../docs/plan/revision_evidence/README.md#final_temporal_v1); [outputs/revision/final_temporal_v1/report.md](../docs/plan/revision_evidence/README.md#final_temporal_v1).
 
-Source anchors: [paper/sections/06_backtest_results.tex:61](../paper/sections/06_backtest_results.tex) (`Calendar-aligned HAC accuracy effects`).
+Source anchors: [paper/content/results.tex:61](../paper/content/results.tex) (`Calendar-aligned HAC accuracy effects`).
 
 Verified PDF locations: main physical pp. 31, 44, 46; main_submit physical pp. 31, 43, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -288,9 +288,9 @@ We separate pooled confusion-cell metrics from unweighted means over symbols and
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Pooled classification, symbol macro and equal mean account returns remain separate estimands with explicit null reasons.
 
-Evidence: [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [outputs/revision/final_temporal_v1/calendar_panel.csv](../outputs/revision/final_temporal_v1/calendar_panel.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [outputs/revision/final_temporal_v1/calendar_panel.csv](../docs/plan/revision_evidence/README.md#final_temporal_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:49](../paper/sections/05_experimental_setup.tex) (`BA averages`); [paper/generated/t05_temporal.tex:6](../paper/generated/t05_temporal.tex) (`\label{tab:temporal}`).
+Source anchors: [paper/content/experimental_setup.tex:49](../paper/content/experimental_setup.tex) (`BA averages`); [paper/content/tables/component/temporal.tex:6](../paper/content/tables/component/temporal.tex) (`\label{tab:temporal}`).
 
 Verified PDF locations: main physical pp. 31, 44, 46; main_submit physical pp. 31, 43, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -300,9 +300,9 @@ We removed annualized cycle Sharpe/Sortino claims for irregular, gapped schedule
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Original daily and U09 cycle risk conventions differ; annualized ratios remain NA for the irregular schedule.
 
-Evidence: [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md); [outputs/revision/final_contracts_v1/risk_cycles.csv](../outputs/revision/final_contracts_v1/risk_cycles.csv); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1); [outputs/revision/final_contracts_v1/risk_cycles.csv](../docs/plan/revision_evidence/README.md#final_contracts_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:61](../paper/sections/05_experimental_setup.tex) (`Annualised cycle ratios are NA`).
+Source anchors: [paper/content/experimental_setup.tex:61](../paper/content/experimental_setup.tex) (`Annualised cycle ratios are NA`).
 
 Verified PDF locations: main physical pp. 31, 44, 46; main_submit physical pp. 31, 43, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -312,9 +312,9 @@ We disclose few trades, long CASH gaps and separate account funding. Main cutoff
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Few trades and CASH gaps preclude reliable investment-quality risk estimates or rapid capital-reuse validation.
 
-Evidence: [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [outputs/revision/final_contracts_v1/risk_cycles.csv](../outputs/revision/final_contracts_v1/risk_cycles.csv).
+Evidence: [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [outputs/revision/final_contracts_v1/risk_cycles.csv](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:49](../paper/sections/05_experimental_setup.tex) (`BA averages`); [paper/generated/t05_temporal.tex:6](../paper/generated/t05_temporal.tex) (`\label{tab:temporal}`).
+Source anchors: [paper/content/experimental_setup.tex:49](../paper/content/experimental_setup.tex) (`BA averages`); [paper/content/tables/component/temporal.tex:6](../paper/content/tables/component/temporal.tex) (`\label{tab:temporal}`).
 
 Verified PDF locations: main physical pp. 31, 44, 46; main_submit physical pp. 31, 43, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -326,9 +326,9 @@ The legacy audit compares 47 artifacts, 66 streams and 573 pairs; twenty pairs h
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** The executed root cause of duplicated legacy streams is unverified; no authenticated original request set.
 
-Evidence: [outputs/revision/legacy_lineage_v1/comparisons.json](../outputs/revision/legacy_lineage_v1/comparisons.json); [outputs/revision/legacy_lineage_v1/report.json](../outputs/revision/legacy_lineage_v1/report.json).
+Evidence: [outputs/revision/legacy_lineage_v1/comparisons.json](../docs/plan/revision_evidence/README.md#legacy_lineage_v1); [outputs/revision/legacy_lineage_v1/report.json](../docs/plan/revision_evidence/README.md#legacy_lineage_v1).
 
-Source anchors: [paper/sections/07_limitations.tex:6](../paper/sections/07_limitations.tex) (`Byte-level duplication`).
+Source anchors: [paper/content/limitations.tex:6](../paper/content/limitations.tex) (`Byte-level duplication`).
 
 Verified PDF locations: main physical pp. 32; main_submit physical pp. 32. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -338,9 +338,9 @@ We cannot retrospectively certify the old Full/No-Alpha/ablation branch labels o
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Old branch names and independent execution cannot be certified retrospectively.
 
-Evidence: [outputs/revision/legacy_lineage_v1/comparisons.json](../outputs/revision/legacy_lineage_v1/comparisons.json); [outputs/revision/legacy_lineage_v1/report.json](../outputs/revision/legacy_lineage_v1/report.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/legacy_lineage_v1/comparisons.json](../docs/plan/revision_evidence/README.md#legacy_lineage_v1); [outputs/revision/legacy_lineage_v1/report.json](../docs/plan/revision_evidence/README.md#legacy_lineage_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/07_limitations.tex:6](../paper/sections/07_limitations.tex) (`Byte-level duplication`).
+Source anchors: [paper/content/limitations.tex:6](../paper/content/limitations.tex) (`Byte-level duplication`).
 
 Verified PDF locations: main physical pp. 32; main_submit physical pp. 32. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -350,9 +350,9 @@ Repeated legacy return values such as -7.85/-7.38 are not treated as proof of ma
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Duplicate returns do not identify a caching bug; new results cannot authenticate the old duplication.
 
-Evidence: [outputs/revision/final_repeats_v1/pairing.csv](../outputs/revision/final_repeats_v1/pairing.csv); [outputs/revision/legacy_lineage_v1/comparisons.json](../outputs/revision/legacy_lineage_v1/comparisons.json).
+Evidence: [outputs/revision/final_repeats_v1/pairing.csv](../docs/plan/revision_evidence/README.md#final_repeats_v1); [outputs/revision/legacy_lineage_v1/comparisons.json](../docs/plan/revision_evidence/README.md#legacy_lineage_v1).
 
-Source anchors: [paper/sections/07_limitations.tex:6](../paper/sections/07_limitations.tex) (`Byte-level duplication`).
+Source anchors: [paper/content/limitations.tex:6](../paper/content/limitations.tex) (`Byte-level duplication`).
 
 Verified PDF locations: main physical pp. 32; main_submit physical pp. 32. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -364,9 +364,9 @@ We withdraw the claim of 8,180 authenticated news articles. The retained legacy 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Legacy records and identities are counted separately; no claim of 8,180 authenticated articles.
 
-Evidence: [outputs/revision/sentiment_inventory_v1/inventory.json](../outputs/revision/sentiment_inventory_v1/inventory.json); [outputs/revision/sentiment_inventory_v1/summary.json](../outputs/revision/sentiment_inventory_v1/summary.json).
+Evidence: [outputs/revision/sentiment_inventory_v1/inventory.json](../docs/plan/revision_evidence/README.md#sentiment_inventory_v1); [outputs/revision/sentiment_inventory_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_inventory_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -376,9 +376,9 @@ The inventory provides article identities/counts by symbol; the cutoff coverage 
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Cutoff/source coverage is available, but financial-domain truth and publication authentication remain missing.
 
-Evidence: [outputs/revision/sentiment_coverage_v1/coverage.json](../outputs/revision/sentiment_coverage_v1/coverage.json); [outputs/revision/sentiment_inventory_v1/inventory.json](../outputs/revision/sentiment_inventory_v1/inventory.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/sentiment_coverage_v1/coverage.json](../docs/plan/revision_evidence/README.md#sentiment_coverage_v1); [outputs/revision/sentiment_inventory_v1/inventory.json](../docs/plan/revision_evidence/README.md#sentiment_inventory_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -388,9 +388,9 @@ We separate raw records, unique identities, dated records, accepted provenance a
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Legacy scorer provenance and conflicting date records remain unknown; new rescores do not repair the historical cache.
 
-Evidence: [outputs/revision/sentiment_coverage_v1/summary.json](../outputs/revision/sentiment_coverage_v1/summary.json); [outputs/revision/sentiment_inventory_v1/summary.json](../outputs/revision/sentiment_inventory_v1/summary.json).
+Evidence: [outputs/revision/sentiment_coverage_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_coverage_v1); [outputs/revision/sentiment_inventory_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_inventory_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -400,9 +400,9 @@ Availability requires at least three distinct accepted-provenance finite-score a
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Availability, reliability and unavailable sentiment are distinct; 79/102 missing extension points are not neutral observations.
 
-Evidence: [outputs/revision/sentiment_coverage_v1/coverage.json](../outputs/revision/sentiment_coverage_v1/coverage.json); [outputs/revision/sentiment_coverage_v1/summary.json](../outputs/revision/sentiment_coverage_v1/summary.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/sentiment_coverage_v1/coverage.json](../docs/plan/revision_evidence/README.md#sentiment_coverage_v1); [outputs/revision/sentiment_coverage_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_coverage_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -412,9 +412,9 @@ The legacy FPT Sentiment-only result cannot authenticate a sentiment-information
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** The legacy FPT sentiment-only result cannot support component value; the newer factorial is a different experiment.
 
-Evidence: [outputs/revision/legacy_lineage_v1/report.json](../outputs/revision/legacy_lineage_v1/report.json); [outputs/revision/sentiment_coverage_v1/coverage.json](../outputs/revision/sentiment_coverage_v1/coverage.json).
+Evidence: [outputs/revision/legacy_lineage_v1/report.json](../docs/plan/revision_evidence/README.md#legacy_lineage_v1); [outputs/revision/sentiment_coverage_v1/coverage.json](../docs/plan/revision_evidence/README.md#sentiment_coverage_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -424,9 +424,9 @@ The text cites the ViSoBERT backbone and separately identifies 5CD-AI/Vietnamese
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Backbone and downstream classifier are identified separately; neither establishes financial-news accuracy.
 
-Evidence: [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [outputs/revision/sentiment_contract_v1/scorer_tokenizer.json](../outputs/revision/sentiment_contract_v1/scorer_tokenizer.json).
+Evidence: [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/sentiment_contract_v1/scorer_tokenizer.json](../docs/plan/revision_evidence/README.md#sentiment_contract_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -436,9 +436,9 @@ No independently labelled financial-news set, agreement/adjudication study or do
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** No independent financial-news labels, adjudication/agreement or domain validation study.
 
-Evidence: [outputs/revision/sentiment_contract_v1/scorer_tokenizer.json](../outputs/revision/sentiment_contract_v1/scorer_tokenizer.json); [outputs/revision/sentiment_contract_v1/summary.json](../outputs/revision/sentiment_contract_v1/summary.json).
+Evidence: [outputs/revision/sentiment_contract_v1/scorer_tokenizer.json](../docs/plan/revision_evidence/README.md#sentiment_contract_v1); [outputs/revision/sentiment_contract_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_contract_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -448,9 +448,9 @@ Date-only content is made available the following day by an explicit conservativ
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Date-only rules and content hashes do not authenticate original news availability or content.
 
-Evidence: [outputs/revision/sentiment_coverage_v1/summary.json](../outputs/revision/sentiment_coverage_v1/summary.json); [outputs/revision/sentiment_inventory_v1/summary.json](../outputs/revision/sentiment_inventory_v1/summary.json).
+Evidence: [outputs/revision/sentiment_coverage_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_coverage_v1); [outputs/revision/sentiment_inventory_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_inventory_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:308](../paper/sections/03_problem_formulation.tex) (`Legacy inventory`).
+Source anchors: [paper/content/problem_formulation.tex:308](../paper/content/problem_formulation.tex) (`Legacy inventory`).
 
 Verified PDF locations: main physical pp. 21, 47; main_submit physical pp. 21, 46. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -462,9 +462,9 @@ The architecture and related work now attribute Indicator, Pattern, Trend and De
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Reused QuantAgent roles/tools are attributed; engineering integration is not proof of architectural novelty.
 
-Evidence: [outputs/revision/quantagent_attribution_v1/attribution.json](../outputs/revision/quantagent_attribution_v1/attribution.json); [outputs/revision/quantagent_attribution_v1/provenance.json](../outputs/revision/quantagent_attribution_v1/provenance.json).
+Evidence: [outputs/revision/quantagent_attribution_v1/attribution.json](../docs/plan/revision_evidence/README.md#quantagent_attribution_v1); [outputs/revision/quantagent_attribution_v1/provenance.json](../docs/plan/revision_evidence/README.md#quantagent_attribution_v1).
 
-Source anchors: [paper/sections/02_related_work.tex:5](../paper/sections/02_related_work.tex) (`QuantAgent`); [paper/sections/04_system_architecture.tex:4](../paper/sections/04_system_architecture.tex) (`QuantAgent`).
+Source anchors: [paper/content/related_work.tex:5](../paper/content/related_work.tex) (`QuantAgent`); [paper/content/system_architecture.tex:4](../paper/content/system_architecture.tex) (`QuantAgent`).
 
 Verified PDF locations: main physical pp. 14, 18; main_submit physical pp. 14, 18. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -474,9 +474,9 @@ We restrict contributions to daily Vietnamese-equity adaptation, the implemented
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Integration and comparative evaluation are documented; novel reasoning, causal component benefit and profitability are not established.
 
-Evidence: [outputs/revision/fusion_prompt_audit_v1/audit.json](../outputs/revision/fusion_prompt_audit_v1/audit.json); [outputs/revision/quantagent_attribution_v1/attribution.json](../outputs/revision/quantagent_attribution_v1/attribution.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/fusion_prompt_audit_v1/audit.json](../docs/plan/revision_evidence/README.md#fusion_prompt_audit_v1); [outputs/revision/quantagent_attribution_v1/attribution.json](../docs/plan/revision_evidence/README.md#quantagent_attribution_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/02_related_work.tex:5](../paper/sections/02_related_work.tex) (`QuantAgent`); [paper/sections/04_system_architecture.tex:4](../paper/sections/04_system_architecture.tex) (`QuantAgent`).
+Source anchors: [paper/content/related_work.tex:5](../paper/content/related_work.tex) (`QuantAgent`); [paper/content/system_architecture.tex:4](../paper/content/system_architecture.tex) (`QuantAgent`).
 
 Verified PDF locations: main physical pp. 14, 18; main_submit physical pp. 14, 18. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -486,9 +486,9 @@ The repository includes LICENSES/QuantAgent-MIT.txt and THIRD_PARTY_NOTICES.md w
 
 **Disposition:** `pending_rights_or_author_route`; comment closure not certified. **Remaining:** Upstream MIT notice does not grant rights to all author additions, data, model assets or hosted outputs.
 
-Evidence: [LICENSES/QuantAgent-MIT.txt](../LICENSES/QuantAgent-MIT.txt); [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md); [outputs/revision/quantagent_attribution_v1/attribution.json](../outputs/revision/quantagent_attribution_v1/attribution.json).
+Evidence: [LICENSES/QuantAgent-MIT.txt](../LICENSES/QuantAgent-MIT.txt); [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md); [outputs/revision/quantagent_attribution_v1/attribution.json](../docs/plan/revision_evidence/README.md#quantagent_attribution_v1).
 
-Source anchors: [paper/sections/availability.tex:2](../paper/sections/availability.tex) (`Distribution remains subject to source terms`).
+Source anchors: [paper/content/availability.tex:2](../paper/content/availability.tex) (`Distribution remains subject to source terms`).
 
 Verified PDF locations: main physical pp. 14, 18; main_submit physical pp. 14, 18. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -498,9 +498,9 @@ We acknowledge inherited high-frequency/K-line wording in actual frozen prompts 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Inherited HFT/K-line wording in archived daily-bar prompts is disclosed and not retrospectively rewritten.
 
-Evidence: [outputs/revision/fusion_prompt_audit_v1/audit.json](../outputs/revision/fusion_prompt_audit_v1/audit.json); [outputs/revision/quantagent_attribution_v1/prompt_inventory.json](../outputs/revision/quantagent_attribution_v1/prompt_inventory.json).
+Evidence: [outputs/revision/fusion_prompt_audit_v1/audit.json](../docs/plan/revision_evidence/README.md#fusion_prompt_audit_v1); [outputs/revision/quantagent_attribution_v1/prompt_inventory.json](../docs/plan/revision_evidence/README.md#quantagent_attribution_v1).
 
-Source anchors: [paper/sections/02_related_work.tex:5](../paper/sections/02_related_work.tex) (`QuantAgent`); [paper/sections/04_system_architecture.tex:4](../paper/sections/04_system_architecture.tex) (`QuantAgent`).
+Source anchors: [paper/content/related_work.tex:5](../paper/content/related_work.tex) (`QuantAgent`); [paper/content/system_architecture.tex:4](../paper/content/system_architecture.tex) (`QuantAgent`).
 
 Verified PDF locations: main physical pp. 14, 18; main_submit physical pp. 14, 18. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -510,9 +510,9 @@ We replaced the stronger knowledge-fusion framing with prompt-level report aggre
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Prompt precedence, model confidence and external utility policy are not calibrated learned fusion or guaranteed conflict resolution.
 
-Evidence: [outputs/revision/fusion_prompt_audit_v1/audit.json](../outputs/revision/fusion_prompt_audit_v1/audit.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/fusion_prompt_audit_v1/audit.json](../docs/plan/revision_evidence/README.md#fusion_prompt_audit_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/02_related_work.tex:5](../paper/sections/02_related_work.tex) (`QuantAgent`); [paper/sections/04_system_architecture.tex:4](../paper/sections/04_system_architecture.tex) (`QuantAgent`).
+Source anchors: [paper/content/related_work.tex:5](../paper/content/related_work.tex) (`QuantAgent`); [paper/content/system_architecture.tex:4](../paper/content/system_architecture.tex) (`QuantAgent`).
 
 Verified PDF locations: main physical pp. 14, 18; main_submit physical pp. 14, 18. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -524,9 +524,9 @@ A byte-indexed private package retains reconstructed OHLCV/news inputs, saved se
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Research inputs are reconstructed; exact submission-time provenance and redistribution permissions are not authenticated.
 
-Evidence: [outputs/revision/reproducibility_v1/manifest.json](../outputs/revision/reproducibility_v1/manifest.json); [outputs/revision/sentiment_inventory_v1/summary.json](../outputs/revision/sentiment_inventory_v1/summary.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/reproducibility_v1/manifest.json](../docs/plan/revision_evidence/README.md#reproducibility_v1); [outputs/revision/sentiment_inventory_v1/summary.json](../docs/plan/revision_evidence/README.md#sentiment_inventory_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/availability.tex:2](../paper/sections/availability.tex) (`OHLCV/news snapshots are reconstructed`).
+Source anchors: [paper/content/availability.tex:2](../paper/content/availability.tex) (`OHLCV/news snapshots are reconstructed`).
 
 Verified PDF locations: main physical pp. 40; main_submit physical pp. 40. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -536,9 +536,9 @@ Pinned runtime/dependency manifests replace latest-based reproducibility claims.
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Pinned environments/replay evidence apply to their named releases, not arbitrary current serving code or all platforms.
 
-Evidence: [outputs/revision/final_regression_v1/report.json](../outputs/revision/final_regression_v1/report.json); [outputs/revision/reproducibility_v1/manifest.json](../outputs/revision/reproducibility_v1/manifest.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_regression_v1/report.json](../docs/plan/revision_evidence/README.md#final_regression_v1); [outputs/revision/reproducibility_v1/manifest.json](../docs/plan/revision_evidence/README.md#reproducibility_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/appendices.tex:95](../paper/sections/appendices.tex) (`The research runtime is Python 3.13.5`).
+Source anchors: [paper/content/appendices.tex:95](../paper/content/appendices.tex) (`The research runtime is Python 3.13.5`).
 
 Verified PDF locations: main physical pp. 40; main_submit physical pp. 40. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -548,9 +548,9 @@ The private evidence preserves prompts/images, upstream reports, requests, respo
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Original and U08 attempt/token ledgers stay separate; unrecorded billing/error usage is not fabricated.
 
-Evidence: [outputs/revision/final_cost_integrity_v1/report.json](../outputs/revision/final_cost_integrity_v1/report.json); [outputs/revision/reproducibility_v1/manifest.json](../outputs/revision/reproducibility_v1/manifest.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_cost_integrity_v1/report.json](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [outputs/revision/reproducibility_v1/manifest.json](../docs/plan/revision_evidence/README.md#reproducibility_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:71](../paper/sections/05_experimental_setup.tex) (`Archived SDK aliases`); [paper/sections/availability.tex:1](../paper/sections/availability.tex) (`\section`).
+Source anchors: [paper/content/experimental_setup.tex:71](../paper/content/experimental_setup.tex) (`Archived SDK aliases`); [paper/content/availability.tex:1](../paper/content/availability.tex) (`\section`).
 
 Verified PDF locations: main physical pp. 40; main_submit physical pp. 40. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -560,9 +560,9 @@ We state exactly the archived SDK aliases openai/gpt-oss-20b (text) and qwen/qwe
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** SDK aliases/fingerprints are not immutable hosted-weight or historical catalogue attestations.
 
-Evidence: [outputs/revision/final_cost_integrity_v1/report.json](../outputs/revision/final_cost_integrity_v1/report.json); [outputs/revision/fusion_prompt_audit_v1/audit.json](../outputs/revision/fusion_prompt_audit_v1/audit.json).
+Evidence: [outputs/revision/final_cost_integrity_v1/report.json](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [outputs/revision/fusion_prompt_audit_v1/audit.json](../docs/plan/revision_evidence/README.md#fusion_prompt_audit_v1).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:71](../paper/sections/05_experimental_setup.tex) (`Archived SDK aliases`); [paper/sections/availability.tex:1](../paper/sections/availability.tex) (`\section`).
+Source anchors: [paper/content/experimental_setup.tex:71](../paper/content/experimental_setup.tex) (`Archived SDK aliases`); [paper/content/availability.tex:1](../paper/content/availability.tex) (`\section`).
 
 Verified PDF locations: main physical pp. 40; main_submit physical pp. 40. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -572,9 +572,9 @@ The final archive remains a local private draft: PID is null and public release 
 
 **Disposition:** `pending_rights_or_author_route`; comment closure not certified. **Remaining:** PID is null and public release remains unauthorized; no repository commit or local ZIP substitutes for publication rights.
 
-Evidence: [outputs/revision/reproducibility_v1/manifest.json](../outputs/revision/reproducibility_v1/manifest.json); [outputs/revision/reproducibility_v1/rights.json](../outputs/revision/reproducibility_v1/rights.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/reproducibility_v1/manifest.json](../docs/plan/revision_evidence/README.md#reproducibility_v1); [outputs/revision/reproducibility_v1/rights.json](../docs/plan/revision_evidence/README.md#reproducibility_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/availability.tex:2](../paper/sections/availability.tex) (`Public distribution rights`).
+Source anchors: [paper/content/availability.tex:2](../paper/content/availability.tex) (`Public distribution rights`).
 
 Verified PDF locations: main physical pp. 40; main_submit physical pp. 40. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -584,9 +584,9 @@ The existing no-network package-only replay reproduced 375 saved predictions, 68
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Existing cold replays reproduce saved outputs only; F05 checks hashes/builds PDFs and does not rerun inference, fitting or scientific analyses.
 
-Evidence: [outputs/revision/clean_replay_v1/metrics_qa.json](../outputs/revision/clean_replay_v1/metrics_qa.json); [outputs/revision/reproducibility_v1/manifest.json](../outputs/revision/reproducibility_v1/manifest.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/clean_replay_v1/metrics_qa.json](../docs/plan/revision_evidence/README.md#clean_replay_v1); [outputs/revision/reproducibility_v1/manifest.json](../docs/plan/revision_evidence/README.md#reproducibility_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:71](../paper/sections/05_experimental_setup.tex) (`Archived SDK aliases`); [paper/sections/availability.tex:1](../paper/sections/availability.tex) (`\section`).
+Source anchors: [paper/content/experimental_setup.tex:71](../paper/content/experimental_setup.tex) (`Archived SDK aliases`); [paper/content/availability.tex:1](../paper/content/availability.tex) (`\section`).
 
 Verified PDF locations: main physical pp. 40; main_submit physical pp. 40. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -598,9 +598,9 @@ Native frequency diagnostics cover all 85 candidates at all 102 cutoffs: 8,670 o
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Complete dependent in-sample selection counts do not establish out-of-sample factor stability.
 
-Evidence: [outputs/revision/alpha_selection_v1/aggregate.json](../outputs/revision/alpha_selection_v1/aggregate.json).
+Evidence: [outputs/revision/alpha_selection_v1/aggregate.json](../docs/plan/revision_evidence/README.md#alpha_selection_v1).
 
-Source anchors: [paper/sections/06_backtest_results.tex:69](../paper/sections/06_backtest_results.tex) (`Native diagnostics separately account`).
+Source anchors: [paper/content/results.tex:69](../paper/content/results.tex) (`Native diagnostics separately account`).
 
 Verified PDF locations: main physical pp. 16, 32, 46; main_submit physical pp. 15, 32, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -610,9 +610,9 @@ We report 1,282 adjacent nonzero-IC sign flips over 7,894 eligible transition pa
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Native row-wise causal FAIL remains; the separate frozen common selector does not repair native history.
 
-Evidence: [outputs/revision/alpha_selection_v1/aggregate.json](../outputs/revision/alpha_selection_v1/aggregate.json); [outputs/revision/alpha_selection_v1/transitions.json](../outputs/revision/alpha_selection_v1/transitions.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/alpha_selection_v1/aggregate.json](../docs/plan/revision_evidence/README.md#alpha_selection_v1); [outputs/revision/alpha_selection_v1/transitions.json](../docs/plan/revision_evidence/README.md#alpha_selection_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:260](../paper/sections/03_problem_formulation.tex) (`The native row-wise causal gate fails.`); [paper/generated/t06_numeric.tex:6](../paper/generated/t06_numeric.tex) (`\label{tab:numeric}`).
+Source anchors: [paper/content/problem_formulation.tex:260](../paper/content/problem_formulation.tex) (`The native row-wise causal gate fails.`); [paper/content/tables/component/numeric_controls.tex:6](../paper/content/tables/component/numeric_controls.tex) (`\label{tab:numeric}`).
 
 Verified PDF locations: main physical pp. 16, 32, 46; main_submit physical pp. 15, 32, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -622,9 +622,9 @@ We provide a separate train-fitted numeric fixed-custom-five control, with eligi
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Numeric fixed-factor control is available; the requested fixed-factor hosted-LLM intervention was not executed.
 
-Evidence: [outputs/revision/numeric_controls_v1/summary.json](../outputs/revision/numeric_controls_v1/summary.json); [revision/numeric_controls_protocol.json](../revision/numeric_controls_protocol.json).
+Evidence: [outputs/revision/numeric_controls_v1/summary.json](../docs/plan/revision_evidence/README.md#numeric_controls_v1); [revision/numeric_controls_protocol.json](../revision/numeric_controls_protocol.json).
 
-Source anchors: [paper/sections/06_backtest_results.tex:65](../paper/sections/06_backtest_results.tex) (`Table~\ref{tab:numeric} is a separate numeric study`).
+Source anchors: [paper/content/results.tex:65](../paper/content/results.tex) (`Table~\ref{tab:numeric} is a separate numeric study`).
 
 Verified PDF locations: main physical pp. 16, 32, 46; main_submit physical pp. 15, 32, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -634,9 +634,9 @@ All twenty predeclared random eligible-five trials are retained, giving 23 numer
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** All random numeric trials/Holm family are retained; no random-factor hosted LLM, White Reality Check or Deflated Sharpe study.
 
-Evidence: [outputs/revision/numeric_controls_v1/inference.json](../outputs/revision/numeric_controls_v1/inference.json); [outputs/revision/numeric_controls_v1/summary.json](../outputs/revision/numeric_controls_v1/summary.json).
+Evidence: [outputs/revision/numeric_controls_v1/inference.json](../docs/plan/revision_evidence/README.md#numeric_controls_v1); [outputs/revision/numeric_controls_v1/summary.json](../docs/plan/revision_evidence/README.md#numeric_controls_v1).
 
-Source anchors: [paper/sections/06_backtest_results.tex:65](../paper/sections/06_backtest_results.tex) (`all twenty random eligible-five trials`).
+Source anchors: [paper/content/results.tex:65](../paper/content/results.tex) (`all twenty random eligible-five trials`).
 
 Verified PDF locations: main physical pp. 16, 32, 46; main_submit physical pp. 15, 32, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -646,9 +646,9 @@ The complete registry lists all 101 source WorldQuant expressions, 80 retained a
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Three price/volume omissions lack an authenticated selection rationale; the other exclusions are documented.
 
-Evidence: [outputs/revision/alpha_registry_v1/registry.json](../outputs/revision/alpha_registry_v1/registry.json); [outputs/revision/alpha_registry_v1/summary.json](../outputs/revision/alpha_registry_v1/summary.json).
+Evidence: [outputs/revision/alpha_registry_v1/registry.json](../docs/plan/revision_evidence/README.md#alpha_registry_v1); [outputs/revision/alpha_registry_v1/summary.json](../docs/plan/revision_evidence/README.md#alpha_registry_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:121](../paper/sections/03_problem_formulation.tex) (`three price/volume omissions lack`).
+Source anchors: [paper/content/problem_formulation.tex:121](../paper/content/problem_formulation.tex) (`three price/volume omissions lack`).
 
 Verified PDF locations: main physical pp. 16, 32, 46; main_submit physical pp. 15, 32, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -658,9 +658,9 @@ Each retained expression is linked to the actual handler, operator calls, window
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Operator divergences/probes are documented; source-expression equivalence and repaired native causal construction are not certified.
 
-Evidence: [outputs/revision/alpha_contract_v1/leakage.json](../outputs/revision/alpha_contract_v1/leakage.json); [outputs/revision/alpha_contract_v1/summary.json](../outputs/revision/alpha_contract_v1/summary.json); [outputs/revision/alpha_registry_v1/registry.json](../outputs/revision/alpha_registry_v1/registry.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/alpha_contract_v1/leakage.json](../docs/plan/revision_evidence/README.md#alpha_contract_v1); [outputs/revision/alpha_contract_v1/summary.json](../docs/plan/revision_evidence/README.md#alpha_contract_v1); [outputs/revision/alpha_registry_v1/registry.json](../docs/plan/revision_evidence/README.md#alpha_registry_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:260](../paper/sections/03_problem_formulation.tex) (`The native row-wise causal gate fails.`); [paper/generated/t06_numeric.tex:6](../paper/generated/t06_numeric.tex) (`\label{tab:numeric}`).
+Source anchors: [paper/content/problem_formulation.tex:260](../paper/content/problem_formulation.tex) (`The native row-wise causal gate fails.`); [paper/content/tables/component/numeric_controls.tex:6](../paper/content/tables/component/numeric_controls.tex) (`\label{tab:numeric}`).
 
 Verified PDF locations: main physical pp. 16, 32, 46; main_submit physical pp. 15, 32, 45. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -672,9 +672,9 @@ The text and exported contract now use the net Open[d+1]-to-Close[d+3] candidate
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Canonical net target and schema are documented; old raw records and saved net-elicited predictions remain unchanged.
 
-Evidence: [outputs/revision/final_contracts_v1/targets.json](../outputs/revision/final_contracts_v1/targets.json); [revision/target_schema.json](../revision/target_schema.json); [outputs/revision/author_preserved_v1/formula_comparison.json](../outputs/revision/author_preserved_v1/formula_comparison.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_contracts_v1/targets.json](../docs/plan/revision_evidence/README.md#final_contracts_v1); [revision/target_schema.json](../revision/target_schema.json); [outputs/revision/author_preserved_v1/formula_comparison.json](../docs/plan/revision_evidence/README.md#author_preserved_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:99](../paper/sections/03_problem_formulation.tex) (`actual\_prev\_close`).
+Source anchors: [paper/content/problem_formulation.tex:99](../paper/content/problem_formulation.tex) (`actual\_prev\_close`).
 
 Verified PDF locations: main physical pp. 7, 22; main_submit physical pp. 6, 22. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -684,9 +684,9 @@ Canonical exports distinguish decision Close, entry Open and exit Close. The leg
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** The legacy actual_prev_close meaning is unresolved; price equality is not provenance evidence.
 
-Evidence: [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md); [outputs/revision/final_contracts_v1/targets.json](../outputs/revision/final_contracts_v1/targets.json).
+Evidence: [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1); [outputs/revision/final_contracts_v1/targets.json](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/sections/03_problem_formulation.tex:99](../paper/sections/03_problem_formulation.tex) (`actual\_prev\_close`).
+Source anchors: [paper/content/problem_formulation.tex:99](../paper/content/problem_formulation.tex) (`actual\_prev\_close`).
 
 Verified PDF locations: main physical pp. 7; main_submit physical pp. 6. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -698,9 +698,9 @@ Table D.1 gives ordered RSI rules: RSI>=70 is bearish first; RSI<=30 bullish; 55
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Ordered implemented RSI boundaries are explicit; deterministic rules are not calibrated financial predictors.
 
-Evidence: [outputs/revision/final_contracts_v1/indicators.json](../outputs/revision/final_contracts_v1/indicators.json); [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md).
+Evidence: [outputs/revision/final_contracts_v1/indicators.json](../docs/plan/revision_evidence/README.md#final_contracts_v1); [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/generated/a01_rules.tex:6](../paper/generated/a01_rules.tex) (`\label{tab:indicator_rules}`).
+Source anchors: [paper/content/tables/component/indicator_rules.tex:6](../paper/content/tables/component/indicator_rules.tex) (`\label{tab:indicator_rules}`).
 
 Verified PDF locations: main physical pp. 39; main_submit physical pp. 39. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -710,9 +710,9 @@ The five actual Indicator votes are MACD, RSI, Stochastic, Williams %R and ROC, 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Five momentum/trend votes and the deterministic backtest path are documented; no extra observed Indicator LLM call.
 
-Evidence: [outputs/revision/final_contracts_v1/indicators.json](../outputs/revision/final_contracts_v1/indicators.json); [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md).
+Evidence: [outputs/revision/final_contracts_v1/indicators.json](../docs/plan/revision_evidence/README.md#final_contracts_v1); [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/generated/a01_rules.tex:6](../paper/generated/a01_rules.tex) (`\label{tab:indicator_rules}`).
+Source anchors: [paper/content/tables/component/indicator_rules.tex:6](../paper/content/tables/component/indicator_rules.tex) (`\label{tab:indicator_rules}`).
 
 Verified PDF locations: main physical pp. 39; main_submit physical pp. 39. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -722,9 +722,9 @@ We distinguish declared BB/ADX state slots from numeric arrays/reports actually 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Declared BB/ADX slots are not delivered Indicator arrays or two additional votes.
 
-Evidence: [outputs/revision/final_contracts_v1/indicators.json](../outputs/revision/final_contracts_v1/indicators.json); [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md).
+Evidence: [outputs/revision/final_contracts_v1/indicators.json](../docs/plan/revision_evidence/README.md#final_contracts_v1); [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/generated/a01_rules.tex:6](../paper/generated/a01_rules.tex) (`\label{tab:indicator_rules}`).
+Source anchors: [paper/content/tables/component/indicator_rules.tex:6](../paper/content/tables/component/indicator_rules.tex) (`\label{tab:indicator_rules}`).
 
 Verified PDF locations: main physical pp. 39; main_submit physical pp. 39. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -734,9 +734,9 @@ The architecture, shared methods and Table D.1 now use one five-vote contract wi
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Five-vote rules and denominator are consistent; the reviewer historical Table 1 number is not the current table number.
 
-Evidence: [outputs/revision/final_contracts_v1/indicators.json](../outputs/revision/final_contracts_v1/indicators.json); [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md).
+Evidence: [outputs/revision/final_contracts_v1/indicators.json](../docs/plan/revision_evidence/README.md#final_contracts_v1); [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/generated/a01_rules.tex:6](../paper/generated/a01_rules.tex) (`\label{tab:indicator_rules}`).
+Source anchors: [paper/content/tables/component/indicator_rules.tex:6](../paper/content/tables/component/indicator_rules.tex) (`\label{tab:indicator_rules}`).
 
 Verified PDF locations: main physical pp. 39; main_submit physical pp. 39. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -748,9 +748,9 @@ We now describe native BFE/SignedVolZAlpha4 as tanh(1.5*(%B-0.5)*VolZ5). Negativ
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Signed volume z-score reverses/cancels the native signal; no expansion-only or squeeze gate is inferred.
 
-Evidence: [outputs/revision/alpha_contract_v1/summary.json](../outputs/revision/alpha_contract_v1/summary.json); [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md).
+Evidence: [outputs/revision/alpha_contract_v1/summary.json](../docs/plan/revision_evidence/README.md#alpha_contract_v1); [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/generated/a02_custom.tex:6](../paper/generated/a02_custom.tex) (`\label{tab:custom_definitions}`).
+Source anchors: [paper/content/tables/component/custom_factors.tex:6](../paper/content/tables/component/custom_factors.tex) (`\label{tab:custom_definitions}`).
 
 Verified PDF locations: main physical pp. 16, 38; main_submit physical pp. 15, 38. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -760,9 +760,9 @@ We withdrew unsupported volume-expansion and squeeze gating descriptions and dis
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Registry/prototype and metadata mismatches remain disclosed; semantic effects cannot be ruled out.
 
-Evidence: [outputs/revision/alpha_registry_v1/registry.json](../outputs/revision/alpha_registry_v1/registry.json); [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md).
+Evidence: [outputs/revision/alpha_registry_v1/registry.json](../docs/plan/revision_evidence/README.md#alpha_registry_v1); [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/generated/a02_custom.tex:6](../paper/generated/a02_custom.tex) (`\label{tab:custom_definitions}`).
+Source anchors: [paper/content/tables/component/custom_factors.tex:6](../paper/content/tables/component/custom_factors.tex) (`\label{tab:custom_definitions}`).
 
 Verified PDF locations: main physical pp. 38; main_submit physical pp. 38. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -772,9 +772,9 @@ The scientific text now calls the five formulas custom, not proprietary, and dis
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Custom means an implementation role, not proprietary ownership, measured order flow or profitable investment alpha.
 
-Evidence: [outputs/revision/alpha_registry_v1/registry.json](../outputs/revision/alpha_registry_v1/registry.json); [outputs/revision/final_contracts_v1/report.md](../outputs/revision/final_contracts_v1/report.md).
+Evidence: [outputs/revision/alpha_registry_v1/registry.json](../docs/plan/revision_evidence/README.md#alpha_registry_v1); [outputs/revision/final_contracts_v1/report.md](../docs/plan/revision_evidence/README.md#final_contracts_v1).
 
-Source anchors: [paper/generated/a02_custom.tex:6](../paper/generated/a02_custom.tex) (`\label{tab:custom_definitions}`).
+Source anchors: [paper/content/tables/component/custom_factors.tex:6](../paper/content/tables/component/custom_factors.tex) (`\label{tab:custom_definitions}`).
 
 Verified PDF locations: main physical pp. 38; main_submit physical pp. 38. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -786,9 +786,9 @@ We withdrew the green-bearish/red-bullish claim. Actual candle bodies are green 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Body colour and exchange-board reference-price rules are distinct; renderer correctness is not model understanding.
 
-Evidence: [outputs/revision/final_cost_integrity_v1/chart_replay.json](../outputs/revision/final_cost_integrity_v1/chart_replay.json); [outputs/revision/final_cost_integrity_v1/report.md](../outputs/revision/final_cost_integrity_v1/report.md).
+Evidence: [outputs/revision/final_cost_integrity_v1/chart_replay.json](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [outputs/revision/final_cost_integrity_v1/report.md](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1).
 
-Source anchors: [paper/sections/04_system_architecture.tex:45](../paper/sections/04_system_architecture.tex) (`Candle bodies are green`).
+Source anchors: [paper/content/system_architecture.tex:45](../paper/content/system_architecture.tex) (`Candle bodies are green`).
 
 Verified PDF locations: main physical pp. 17; main_submit physical pp. 17. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -798,9 +798,9 @@ The final integrity audit rerendered 204 PNGs for 102 frozen windows byte/pixel 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Original chart audit and CMG input provenance are preserved; those counts do not silently describe U08 requests.
 
-Evidence: [outputs/revision/final_cost_integrity_v1/actual_images.csv](../outputs/revision/final_cost_integrity_v1/actual_images.csv); [outputs/revision/final_cost_integrity_v1/chart_replay.json](../outputs/revision/final_cost_integrity_v1/chart_replay.json); [outputs/revision/final_cost_integrity_v1/report.json](../outputs/revision/final_cost_integrity_v1/report.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_cost_integrity_v1/actual_images.csv](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [outputs/revision/final_cost_integrity_v1/chart_replay.json](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [outputs/revision/final_cost_integrity_v1/report.json](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/04_system_architecture.tex:60](../paper/sections/04_system_architecture.tex) (`The renderer audit matched 204 images`).
+Source anchors: [paper/content/system_architecture.tex:60](../paper/content/system_architecture.tex) (`The renderer audit matched 204 images`).
 
 Verified PDF locations: main physical pp. 17; main_submit physical pp. 17. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -810,9 +810,9 @@ The final whitelist has real corrected-Trend and Decision calls with original Pa
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** No randomized old/new-image-only, human local-evidence or counterfactual visual-comprehension experiment.
 
-Evidence: [outputs/revision/final_cost_integrity_v1/report.json](../outputs/revision/final_cost_integrity_v1/report.json); [outputs/revision/final_cost_integrity_v1/report.md](../outputs/revision/final_cost_integrity_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_cost_integrity_v1/report.json](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [outputs/revision/final_cost_integrity_v1/report.md](../docs/plan/revision_evidence/README.md#final_cost_integrity_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/04_system_architecture.tex:45](../paper/sections/04_system_architecture.tex) (`Candle bodies are green`).
+Source anchors: [paper/content/system_architecture.tex:45](../paper/content/system_architecture.tex) (`Candle bodies are green`).
 
 Verified PDF locations: main physical pp. 17; main_submit physical pp. 17. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -824,9 +824,9 @@ The reference ledger assumes shares become sellable in the afternoon of T+2 cond
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Settlement/advance phases and broker/fill assumptions are not authenticated executable trades.
 
-Evidence: [outputs/revision/execution_evidence_v1/sources.json](../outputs/revision/execution_evidence_v1/sources.json); [outputs/revision/execution_final_v1/report.md](../outputs/revision/execution_final_v1/report.md).
+Evidence: [outputs/revision/execution_evidence_v1/sources.json](../docs/plan/revision_evidence/README.md#execution_evidence_v1); [outputs/revision/execution_final_v1/report.md](../docs/plan/revision_evidence/README.md#execution_final_v1).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:63](../paper/sections/05_experimental_setup.tex) (`Shares are assumed`); [paper/generated/a04_execution.tex:6](../paper/generated/a04_execution.tex) (`\label{tab:execution}`).
+Source anchors: [paper/content/experimental_setup.tex:63](../paper/content/experimental_setup.tex) (`Shares are assumed`); [paper/content/tables/component/execution_sensitivity.tex:6](../paper/content/tables/component/execution_sensitivity.tex) (`\label{tab:execution}`).
 
 Verified PDF locations: main physical pp. 43; main_submit physical pp. 42. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -836,9 +836,9 @@ The paper reports all twelve cost, pending-cash, advance, tax/charge, no-fill/de
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** Twelve original sensitivities use OHLCV proxies; no certified queues, partial fills, venue units, capacity or corporate actions; not rerun for U09.
 
-Evidence: [outputs/revision/execution_evidence_v1/report.md](../outputs/revision/execution_evidence_v1/report.md); [outputs/revision/execution_evidence_v1/sample_audit.json](../outputs/revision/execution_evidence_v1/sample_audit.json); [outputs/revision/execution_final_v1/report.md](../outputs/revision/execution_final_v1/report.md); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/execution_evidence_v1/report.md](../docs/plan/revision_evidence/README.md#execution_evidence_v1); [outputs/revision/execution_evidence_v1/sample_audit.json](../docs/plan/revision_evidence/README.md#execution_evidence_v1); [outputs/revision/execution_final_v1/report.md](../docs/plan/revision_evidence/README.md#execution_final_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:63](../paper/sections/05_experimental_setup.tex) (`Shares are assumed`); [paper/generated/a04_execution.tex:6](../paper/generated/a04_execution.tex) (`\label{tab:execution}`).
+Source anchors: [paper/content/experimental_setup.tex:63](../paper/content/experimental_setup.tex) (`Shares are assumed`); [paper/content/tables/component/execution_sensitivity.tex:6](../paper/content/tables/component/execution_sensitivity.tex) (`\label{tab:execution}`).
 
 Verified PDF locations: main physical pp. 43; main_submit physical pp. 42. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -848,9 +848,9 @@ L=3 is a fixed observed-bar protocol choice: buy on d+1 and exit on d+3, two obs
 
 **Disposition:** `partial_missing_scientific_evidence`; comment closure not certified. **Remaining:** L=3 is fixed by protocol; no L5/L10 study or horizon-optimality claim.
 
-Evidence: [outputs/revision/execution_final_v1/report.md](../outputs/revision/execution_final_v1/report.md); [outputs/revision/final_contracts_v1/targets.json](../outputs/revision/final_contracts_v1/targets.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/execution_final_v1/report.md](../docs/plan/revision_evidence/README.md#execution_final_v1); [outputs/revision/final_contracts_v1/targets.json](../docs/plan/revision_evidence/README.md#final_contracts_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/05_experimental_setup.tex:63](../paper/sections/05_experimental_setup.tex) (`Shares are assumed`); [paper/generated/a04_execution.tex:6](../paper/generated/a04_execution.tex) (`\label{tab:execution}`).
+Source anchors: [paper/content/experimental_setup.tex:63](../paper/content/experimental_setup.tex) (`Shares are assumed`); [paper/content/tables/component/execution_sensitivity.tex:6](../paper/content/tables/component/execution_sensitivity.tex) (`\label{tab:execution}`).
 
 Verified PDF locations: main physical pp. 43; main_submit physical pp. 42. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -862,9 +862,9 @@ We added an explicit Kakushadze 101 Formulaic Alphas citation at the catalogue/a
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Formulaic Alphas source is cited; adapted operators are not claimed mathematically equivalent.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/references.bib:130](../paper/references.bib) (`kakushadze2016formulaic`); [paper/sections/02_related_work.tex:1](../paper/sections/02_related_work.tex) (`\section{Related works}`).
+Source anchors: [paper/references.bib:130](../paper/references.bib) (`kakushadze2016formulaic`); [paper/content/related_work.tex:1](../paper/content/related_work.tex) (`\section{Related works}`).
 
 Verified PDF locations: main physical pp. 4, 32, 50; main_submit physical pp. 4, 32, 49. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -874,9 +874,9 @@ We added the audited ViSoBERT paper citation and retained a separate model-card 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** ViSoBERT paper and separate classifier card are cited without financial-domain or unknown-legacy-scorer attribution.
 
-Evidence: [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [outputs/revision/sentiment_contract_v1/scorer_tokenizer.json](../outputs/revision/sentiment_contract_v1/scorer_tokenizer.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/sentiment_contract_v1/scorer_tokenizer.json](../docs/plan/revision_evidence/README.md#sentiment_contract_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/references.bib:178](../paper/references.bib) (`nguyen2023visobert`); [paper/sections/02_related_work.tex:1](../paper/sections/02_related_work.tex) (`\section{Related works}`).
+Source anchors: [paper/references.bib:178](../paper/references.bib) (`nguyen2023visobert`); [paper/content/related_work.tex:1](../paper/content/related_work.tex) (`\section{Related works}`).
 
 Verified PDF locations: main physical pp. 4, 32, 50; main_submit physical pp. 4, 32, 49. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -886,9 +886,9 @@ White (2000) is cited for data-snooping methodology, alongside a clearly prospec
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** White is cited for methodology/future work; no completed Reality Check is claimed.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/references.bib:326](../paper/references.bib) (`white2000reality`); [paper/sections/02_related_work.tex:1](../paper/sections/02_related_work.tex) (`\section{Related works}`).
+Source anchors: [paper/references.bib:326](../paper/references.bib) (`white2000reality`); [paper/content/related_work.tex:1](../paper/content/related_work.tex) (`\section{Related works}`).
 
 Verified PDF locations: main physical pp. 4, 32, 50; main_submit physical pp. 4, 32, 49. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -898,9 +898,9 @@ TradingAgents is attributed to the four audited authors Xiao, Sun, Luo and Wang,
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Current TradingAgents authors/version are audited; this does not authenticate the historical reviewed numbering.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/references.bib:260](../paper/references.bib) (`tradingagents2024`); [paper/sections/02_related_work.tex:1](../paper/sections/02_related_work.tex) (`\section{Related works}`).
+Source anchors: [paper/references.bib:260](../paper/references.bib) (`tradingagents2024`); [paper/content/related_work.tex:1](../paper/content/related_work.tex) (`\section{Related works}`).
 
 Verified PDF locations: main physical pp. 4, 32, 50; main_submit physical pp. 4, 32, 49. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -910,9 +910,9 @@ The Tsantekidis citation is described as limit-order-book forecasting rather tha
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** LOB forecasting citation no longer serves as candlestick-recognition validation.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/references.bib:269](../paper/references.bib) (`tsantekidis2017lob`); [paper/sections/02_related_work.tex:1](../paper/sections/02_related_work.tex) (`\section{Related works}`).
+Source anchors: [paper/references.bib:269](../paper/references.bib) (`tsantekidis2017lob`); [paper/content/related_work.tex:1](../paper/content/related_work.tex) (`\section{Related works}`).
 
 Verified PDF locations: main physical pp. 4, 32, 50; main_submit physical pp. 4, 32, 49. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -922,9 +922,9 @@ Deng metadata distinguishes the 2017 issue from 2016 online-first timing in the 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Deng metadata distinguishes issue/online-first dates; it is retained uncited and has no rendered number.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/references.bib:38](../paper/references.bib) (`deng2017deep`); [paper/sections/02_related_work.tex:1](../paper/sections/02_related_work.tex) (`\section{Related works}`).
+Source anchors: [paper/references.bib:38](../paper/references.bib) (`deng2017deep`); [paper/content/related_work.tex:1](../paper/content/related_work.tex) (`\section{Related works}`).
 
 Verified PDF locations: main physical pp. 4, 32; main_submit physical pp. 4, 32. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -934,9 +934,9 @@ For reviewer reference [14], its identity in the reviewed PDF has not been authe
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Historical reviewed reference [14] cannot be identified from current BibTeX numbering.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/inventory.json](../outputs/revision/reference_audit_v1/inventory.json); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/inventory.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/sections/02_related_work.tex:6](../paper/sections/02_related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
+Source anchors: [paper/content/related_work.tex:6](../paper/content/related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
 
 Verified PDF locations: main physical pp. 4, 32; main_submit physical pp. 4, 32. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -946,9 +946,9 @@ The historical identity of reviewer reference [21] likewise remains unresolved; 
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Historical reviewed reference [21] cannot be identified from current BibTeX numbering.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/inventory.json](../outputs/revision/reference_audit_v1/inventory.json); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/inventory.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/sections/02_related_work.tex:6](../paper/sections/02_related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
+Source anchors: [paper/content/related_work.tex:6](../paper/content/related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
 
 Verified PDF locations: main physical pp. 4, 32; main_submit physical pp. 4, 32. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -958,9 +958,9 @@ The same limitation applies separately to reviewer reference [22]. We provide th
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Historical reviewed reference [22] cannot be identified from current BibTeX numbering.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/inventory.json](../outputs/revision/reference_audit_v1/inventory.json); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/inventory.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/sections/02_related_work.tex:6](../paper/sections/02_related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
+Source anchors: [paper/content/related_work.tex:6](../paper/content/related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
 
 Verified PDF locations: main physical pp. 4, 32; main_submit physical pp. 4, 32. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -970,9 +970,9 @@ For reviewer reference [23], historical numbering/title identity is also unverif
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Historical reviewed reference [23] cannot be identified from current BibTeX numbering.
 
-Evidence: [outputs/revision/reference_audit_v1/changes.csv](../outputs/revision/reference_audit_v1/changes.csv); [outputs/revision/reference_audit_v1/inventory.json](../outputs/revision/reference_audit_v1/inventory.json); [outputs/revision/reference_audit_v1/reference_audit.json](../outputs/revision/reference_audit_v1/reference_audit.json); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
+Evidence: [outputs/revision/reference_audit_v1/changes.csv](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/inventory.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [outputs/revision/reference_audit_v1/reference_audit.json](../docs/plan/revision_evidence/README.md#reference_audit_v1); [docs/plan/week12/manuscript_content_checks.zip](../docs/plan/week12/manuscript_content_checks.zip).
 
-Source anchors: [paper/sections/02_related_work.tex:6](../paper/sections/02_related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
+Source anchors: [paper/content/related_work.tex:6](../paper/content/related_work.tex) (`Tsantekidis`); [paper/references.bib:1](../paper/references.bib) (`@`).
 
 Verified PDF locations: main physical pp. 4, 32; main_submit physical pp. 4, 32. Current bibliography context only; historical [14]/[21]/[22]/[23] identities remain unresolved. Deng is uncited.
 
@@ -984,9 +984,9 @@ The appendix retains the original scientific topics: role-specific prompt contra
 
 **Disposition:** `partial_editorial_request`; comment closure not certified. **Remaining:** Operational listings stay in the repository; author-required A-F topics and scientific details remain, so a blanket appendix reduction is not claimed.
 
-Evidence: [outputs/revision/final_regression_v1/report.json](../outputs/revision/final_regression_v1/report.json); [outputs/revision/reproducibility_v1/manifest.json](../outputs/revision/reproducibility_v1/manifest.json); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/final_regression_v1/report.json](../docs/plan/revision_evidence/README.md#final_regression_v1); [outputs/revision/reproducibility_v1/manifest.json](../docs/plan/revision_evidence/README.md#reproducibility_v1); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
-Source anchors: [paper/sections/appendices.tex:2](../paper/sections/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
+Source anchors: [paper/content/appendices.tex:2](../paper/content/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
 
 Verified PDF locations: main physical pp. 14, 18, 22, 29, 35, 37, 40; main_submit physical pp. 14, 18, 22, 28, 35, 36, 40. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -996,9 +996,9 @@ The article retains the author-required title, eight main sections, original sub
 
 **Disposition:** `partial_editorial_request`; comment closure not certified. **Remaining:** Current 51/50-page article retains eight sections/A-F and full evidence; requested brevity/page-limit adequacy remains for editor assessment.
 
-Evidence: [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip); [outputs/revision/author_preserved_v1/formula_comparison.json](../outputs/revision/author_preserved_v1/formula_comparison.json).
+Evidence: [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip); [outputs/revision/author_preserved_v1/formula_comparison.json](../docs/plan/revision_evidence/README.md#author_preserved_v1).
 
-Source anchors: [paper/sections/appendices.tex:2](../paper/sections/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
+Source anchors: [paper/content/appendices.tex:2](../paper/content/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
 
 Verified PDF locations: main physical pp. 6, 14, 16, 18, 22, 29, 35; main_submit physical pp. 6, 14, 15, 18, 22, 28, 35. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -1008,9 +1008,9 @@ The rewritten paragraph headings are checked for the double-period pattern, and 
 
 **Disposition:** `documented_with_limits`; comment closure not certified. **Remaining:** Current paragraph punctuation is checked; exact historical rendered defect is not authenticated.
 
-Evidence: [outputs/revision/reference_audit_v1/inventory.json](../outputs/revision/reference_audit_v1/inventory.json).
+Evidence: [outputs/revision/reference_audit_v1/inventory.json](../docs/plan/revision_evidence/README.md#reference_audit_v1).
 
-Source anchors: [paper/sections/appendices.tex:2](../paper/sections/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
+Source anchors: [paper/content/appendices.tex:2](../paper/content/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
 
 Verified PDF locations: main physical pp. 14, 18, 22, 29, 35; main_submit physical pp. 14, 18, 22, 28, 35. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -1020,9 +1020,9 @@ The quoted sub-tasks-market wording was already absent from the recovered source
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Quoted historical sentence is absent from recovered source; current dash conventions do not prove an isolated historical correction.
 
-Evidence: [outputs/revision/reference_audit_v1/inventory.json](../outputs/revision/reference_audit_v1/inventory.json).
+Evidence: [outputs/revision/reference_audit_v1/inventory.json](../docs/plan/revision_evidence/README.md#reference_audit_v1).
 
-Source anchors: [paper/sections/appendices.tex:2](../paper/sections/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
+Source anchors: [paper/content/appendices.tex:2](../paper/content/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
 
 Verified PDF locations: main physical pp. 14, 18, 22, 29, 35; main_submit physical pp. 14, 18, 22, 28, 35. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -1032,9 +1032,9 @@ The original individual-agent subsection structure is retained. Current chart-ag
 
 **Disposition:** `unresolved_historical_identity`; comment closure not certified. **Remaining:** Current quotation pairs are checked; the exact historical Section 4.3 defect is unverified.
 
-Evidence: [outputs/revision/reference_audit_v1/inventory.json](../outputs/revision/reference_audit_v1/inventory.json).
+Evidence: [outputs/revision/reference_audit_v1/inventory.json](../docs/plan/revision_evidence/README.md#reference_audit_v1).
 
-Source anchors: [paper/sections/appendices.tex:2](../paper/sections/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
+Source anchors: [paper/content/appendices.tex:2](../paper/content/appendices.tex) (`\appendix`); [paper/main.tex:63](../paper/main.tex) (`\title{`); [revision/implementation_notes.md:1](../revision/implementation_notes.md) (`#`).
 
 Verified PDF locations: main physical pp. 13, 14, 18, 22, 29, 35; main_submit physical pp. 13, 14, 18, 22, 28, 35. Current section/table context; locators do not certify acceptance or unperformed evidence.
 
@@ -1044,7 +1044,7 @@ At the author's instruction, the manuscript retains the original title, Enhancin
 
 **Disposition:** `partial_editorial_request`; comment closure not certified. **Remaining:** Author retains the original title; a narrower decision-support retitling was not adopted and this request is not certified closed.
 
-Evidence: [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [outputs/revision/fusion_prompt_audit_v1/audit.json](../outputs/revision/fusion_prompt_audit_v1/audit.json); [outputs/revision/author_preserved_v1/formula_comparison.json](../outputs/revision/author_preserved_v1/formula_comparison.json).
+Evidence: [outputs/revision/final_baselines_v1/financial.csv](../outputs/revision/final_baselines_v1/financial.csv); [outputs/revision/final_baselines_v1/report.md](../outputs/revision/final_baselines_v1/report.md); [outputs/revision/fusion_prompt_audit_v1/audit.json](../docs/plan/revision_evidence/README.md#fusion_prompt_audit_v1); [outputs/revision/author_preserved_v1/formula_comparison.json](../docs/plan/revision_evidence/README.md#author_preserved_v1).
 
 Source anchors: [paper/main.tex:63](../paper/main.tex) (`\title{`).
 
@@ -1058,7 +1058,7 @@ The author confirmed the displayed order and instructed that the remaining metad
 
 **Disposition:** `pending_rights_or_author_route`; comment closure not certified. **Remaining:** Displayed name/order is author-confirmed; submission-portal given/family fields and any required individual approvals remain unavailable.
 
-Evidence: [outputs/revision/author_metadata_v1/manifest.json](../outputs/revision/author_metadata_v1/manifest.json); [revision/author_metadata.md](../revision/author_metadata.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip).
+Evidence: [outputs/revision/author_metadata_v1/manifest.json](../docs/plan/revision_evidence/README.md#author_metadata_v1); [revision/author_metadata.md](../revision/author_metadata.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip).
 
 Source anchors: [paper/main.tex:69](../paper/main.tex) (`Thanh-Tam Do Thi`).
 
@@ -1070,7 +1070,7 @@ Under the same confirmation, Van-Tang Nguyen is retained consistently in the aut
 
 **Disposition:** `pending_rights_or_author_route`; comment closure not certified. **Remaining:** Displayed name/order and corresponding marker are retained; corresponding email and editorial route are unavailable.
 
-Evidence: [outputs/revision/author_metadata_v1/manifest.json](../outputs/revision/author_metadata_v1/manifest.json); [revision/author_metadata.md](../revision/author_metadata.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip).
+Evidence: [outputs/revision/author_metadata_v1/manifest.json](../docs/plan/revision_evidence/README.md#author_metadata_v1); [revision/author_metadata.md](../revision/author_metadata.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip).
 
 Source anchors: [paper/main.tex:71](../paper/main.tex) (`Van-Tang Nguyen`).
 
@@ -1082,7 +1082,7 @@ The author explicitly confirmed Phuong-Thai Nguyen's ORCID as 0009-0006-2033-778
 
 **Disposition:** `pending_rights_or_author_route`; comment closure not certified. **Remaining:** Confirmed ORCID and metadata are preserved; manuscript ID, letter, route and independent ownership/consent evidence are not supplied.
 
-Evidence: [outputs/revision/author_metadata_v1/manifest.json](../outputs/revision/author_metadata_v1/manifest.json); [revision/author_metadata.md](../revision/author_metadata.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
+Evidence: [outputs/revision/author_metadata_v1/manifest.json](../docs/plan/revision_evidence/README.md#author_metadata_v1); [revision/author_metadata.md](../revision/author_metadata.md); [docs/plan/week12/manuscript_final_checks.zip](../docs/plan/week12/manuscript_final_checks.zip); [docs/plan/week12/unified_analysis_results.zip](../docs/plan/week12/unified_analysis_results.zip); [docs/plan/week12/unified_live_research.zip](../docs/plan/week12/unified_live_research.zip); [outputs/revision/u09_manuscript_assets_v1/manifest.json](../outputs/revision/u09_manuscript_assets_v1/manifest.json).
 
 Source anchors: [paper/main.tex:70](../paper/main.tex) (`0009-0006-2033-7788`).
 

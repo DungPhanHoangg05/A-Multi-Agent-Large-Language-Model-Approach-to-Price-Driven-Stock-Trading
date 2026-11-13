@@ -1,0 +1,66 @@
+\section{Backtest Results}
+\label{sec:backtestresults}
+
+\subsection{Nine-Symbol Paired Benchmark}
+\subsubsection{Main class-aware comparison}
+Table~\ref{tab:classification} reports the 102 component-study observations. Full accuracy is \FullAccuracy\%, Base \BaseAccuracy\%, and CASH/train-majority \CashAccuracy\%. The 77 DOWN outcomes make ordinary accuracy favour conservative predictions. Full BA is \FullBA\%, Base \BaseBA\%, and logistic-price \LogisticPriceBA\%, giving a Full--Base difference of \DeltaBA\ percentage points. Constant-rule MCC is undefined.
+
+Full and Base each identify seven of 25 UP outcomes. Full issues 24 LONG forecasts, with 17 false positives, versus Base's 29 LONG forecasts and 22 false positives. Thus the observed BA difference accompanies improved DOWN recall rather than additional captured UP cases. This pattern is compatible with a shift towards CASH; it does not identify why the shift occurred or establish information-specific alpha. Neither a higher score than Base nor a smaller loss than an always-invested rule is sufficient evidence of profitability or broad superiority.
+
+Pooled and macro values are different estimands. BHN contributes six eligible units, the other eight symbols twelve; missing class support reduces some macro denominators. Table~\ref{tab:symbol_results} reports Full/Base by symbol. Supplement S1 provides all 81 stock--classifier rows, both-class metrics and pooled/macro denominators.
+\input{content/tables/component/classification.tex}
+
+\subsubsection{Account outcomes and exposure}
+Full mean net account return is \FullReturn\%, versus Base \BaseReturn\% and CASH zero (Table~\ref{tab:accounts}). Full has higher BA but a slightly lower mean account return than Base. Always-LONG cycles and continuous hold have different costs and gap exposure, and neither is substituted for the other. The held-session fractions include the long CASH gaps between the two cutoffs in each block; their low values should not be confused with LONG percentages over scheduled decision units.
+
+Returns and drawdowns summarize separate accounts, not one portfolio, total-return index or certified executable strategy. Risk ratios cannot recover evidence of profitability from sparse trades. The main schedules have 57 observed sessions between cutoffs, so pending-cash/on-demand-advance equivalence on these accounts provides little evidence about rapid capital reuse. All twelve economic sensitivities are reported in Table~\ref{tab:execution}. The all-entries-missed scenario gives zero but is not a mathematical worst-return bound; other assumptions may introduce unfilled entries, delays, pending balances or residual shares. Predictions and classification labels are unchanged across these sensitivities.
+\input{content/tables/component/accounts.tex}
+
+\subsubsection{Historical-context comparison}
+Table~\ref{tab:u09-comparison} reports the historical-context methods and economic controls. Native mean account return is \UnifiedNativeReturn\%, Common \UnifiedCommonReturn\%, Bayesian prior \UnifiedVOneReturn\% and MT-BICL \UnifiedMTReturn\%. Their BAs are \UnifiedNativeBA\%, \UnifiedCommonBA\%, \UnifiedVOneBA\% and \UnifiedMTBA\%, respectively. All research-method mean returns are negative; CASH returns zero and Always-LONG cycles return \UnifiedAlwaysLongReturn\%.
+
+The Bayesian prior minus Common has mean return difference $+\UnifiedVOneCommonReturnEffect$ pp with descriptive simultaneous band $[\UnifiedVOneCommonReturnLow,\UnifiedVOneCommonReturnHigh]$. Against Native, its difference is $\UnifiedVOneNativeReturnEffect$ pp with band $[\UnifiedVOneNativeReturnLow,\UnifiedVOneNativeReturnHigh]$. The improvement over Common therefore does not establish an advantage over Native. MT-BICL minus Native is $\UnifiedMTNativeReturnEffect$ pp with band $[\UnifiedMTNativeReturnLow,\UnifiedMTNativeReturnHigh]$, indicating a lower mean return. All twenty return/BA contrasts are reported in \ref{app:additional} and the supplementary results.
+% Đặt bảng so sánh cạnh phần diễn giải trước biểu đồ.
+\input{content/tables/historical_context/comparison.tex}
+
+Figure~\ref{fig:u09-return-contrasts} displays all five extension-versus-baseline return differences for each baseline. The bands use the same joint return/BA contrast family as the tabulated analysis.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/return_comparisons.pdf}
+\caption{Mean account-return differences against Native and Common with descriptive simultaneous bands.}
+\label{fig:u09-return-contrasts}
+\end{figure}
+
+Support determines how often historical context affects decisions. The conditional and explicit-count priors each have \UnifiedCTwoRaw\ raw Decisions and \UnifiedCTwoBypass\ bypasses per 306 slots; the trend--pattern prior has \UnifiedAPoolRaw\ raw Decisions, the Bayesian prior \UnifiedVOneRaw\ and MT-BICL \UnifiedMTRaw. A fallback reuses the parent action from the same repeat and contributes to the primary metrics. Table~\ref{tab:u09-support} separates bank-covered and other stocks and reports effective K; sentiment is unavailable at \UnifiedMissingSentiment/\UnifiedPoints\ points. Near-equal outcomes of the conditional/explicit-count priors and Common therefore primarily reflect limited support and action reuse.
+
+\subsection{Component Contrasts and Variability}
+\subsubsection{Repeated executions and factorial contrasts}
+Table~\ref{tab:repeats} retains all three executions, sample SD, range and cutoff-level prediction disagreement summaries. The two panels have nine market units each but different symbols, dates and prompt families. Their means and SDs are not transferable to the broad 102-unit main study. Zero metric SD does not imply identical predictions: factorial S has unchanged aggregate BA but nonzero disagreement. Return means use nine upstream or eight factorial symbol--block accounts per variant/execution.
+
+On the factorial panel the AS--B BA mean is $-9.52$ pp and AS--P is $-11.90$ pp. Interaction $AS-A-S+B$ is $+14.29$ pp, whereas the gap of mean BA between AS and the observed best single component is zero. These are different quantities. All seven descriptive BA family envelopes contain zero; only 6,986 of 10,000 BA draws retain both classes and 3,014 are undefined. Intervals condition on defined BA draws and have descriptive coverage. All factorial mean account returns are negative.
+
+The upstream AS--B mean BA difference is $+4.76$ pp, with conditional percentile interval $[0,10]$ pp. This panel uses different observations from the factorial panel. Across recorded groups, 40/147 have a successful-call order different from the planned order and nine span execution epochs, introducing time/order confounding.
+\input{content/tables/component/variability.tex}
+
+\subsubsection{Baseline and action-policy comparisons}
+Table~\ref{tab:u09-bridge} separates the Native--Common comparison, the fact-anchor step and MT revision. MT-BICL agrees with Fact anchor on 302/306 final actions. This high agreement limits attribution of the overall MT outcome to retrieved context or numerical student inference. Retrieval-only, statistics-only, no-prior, no-target and no-utility interventions were not evaluated.
+
+\subsection{Robustness and Sensitivity}
+\subsubsection{Temporal and dependence diagnostics}
+Table~\ref{tab:temporal} keeps the all-102 primary cohort and two overlapping structural cohorts. The primary Full--Base BA interval is $[\PrimaryLow,\PrimaryHigh]$ pp. The common-eight cohort has 96 units over twelve dates; recent-nine has 54 over six dates. These overlapping sensitivity cohorts are analysed separately. The six-block sample includes an all-DOWN early-2025 block: within-block BA is undefined when either class is absent.
+
+Past Close/SMA60 contexts distinguish bull, bear and sideways observations. These are per-security descriptions, not validated market-wide index regimes or a regime-conditioned trading policy. Additional volatility and turnover-proxy thresholds are fitted on purged training data, but their post-inference stratification remains descriptive. Close times Volume is in vendor units, not measured spread/depth liquidity. Exposure based on three target sessions differs from whole-calendar exposure with gaps.
+
+Calendar-aligned HAC accuracy effects for common-eight/recent-nine are $+3.125/+9.259$ pp. At lags 0/1/2, common-eight SEs are 0.026042/0.023146/0.020172 with $p$-values 0.255346, 0.204107 and 0.149610; recent-nine SEs are 0.040713/0.047112/0.045710 with $p$-values 0.072051, 0.106554 and 0.098654. These are accuracy, not BA, effects on twelve/six selected dates. Companion S4 retains all six rows, the calendar masks, all regime strata, block-length sensitivities and leave-one-block-out diagnostics. Few clusters and irregular dates prevent reliable significance, null-effect or calibrated-coverage conclusions.
+\input{content/tables/component/temporal.tex}
+
+\subsubsection{Auxiliary numeric selector controls}
+Table~\ref{tab:numeric} is a separate numeric study, not an LLM factor-selector ablation. Causal adapters and train-only eligibility, imputation, scaling, orientation and ranking are fitted once per symbol--block scope, then retained through validation/test. Fixed custom five, dynamic train top-five, the same IDs without sign flip, and all twenty random eligible-five trials produce 2,346 predictions on the same 102 units. All twenty specified random trials are included.
+
+Dynamic-minus-fixed, dynamic-minus-random-family and dynamic-minus-no-flip BA differences are respectively $+15.84$, $+7.33$ and $+6.44$ pp. Exact tests enumerate all 64 six-block sign assignments; the two-sided sign-flip values are 0.0625, 0.125 and 0.53125; Holm correction \cite{holm1979multiple} over all 23 declared hypotheses gives adjusted $p=1$ throughout. Unadjusted percentile intervals and the entire random dispersion remain visible. Positive point differences do not establish superiority, and the no-flip contrast does not identify sign-flip value inside the LLM pipeline.
+
+Native diagnostics separately account for 102 cutoffs, 8,670 candidate opportunities and 510 selected slots. WQ42 occurs at 52/102 cutoffs (52/510 slots); adjacent nonzero IC signs flip 1,282 times over 7,894 eligible transition pairs. These are dependent in-sample diagnostics, not out-of-sample alpha stability. Complete per-factor frequency, eligible denominators, IC signs, windows and all 21 exclusions are retained in the registry companion. These numerical controls use a separate causal construction and do not isolate selector effects within the LLM pipeline.
+\input{content/tables/component/numeric_controls.tex}
+
+\subsubsection{Extension repeat, support and resampling sensitivity}
+Table~\ref{tab:u09-repeats} retains all three Decision repeats on the full extension support. The uncertainty is conditional on one shared upstream realization; it does not estimate upstream-by-Decision variance or increase the number of market dates. \ref{app:additional} reports both L1/L3 variants beside primary L2, and the bank-covered subset. Leave-one-fold/symbol-out effects and every per-symbol/fold/repeat classification/account row remain in the machine-readable companions. These views retain the observed eligibility mask, including BHN's three recent folds, rather than padding missing accounts with CASH. All specified sensitivity settings are reported, with bands interpreted descriptively on this historical cohort.

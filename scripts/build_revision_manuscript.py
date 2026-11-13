@@ -120,7 +120,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
         economics=select('final_baselines_v1/financial.csv',cohort='all_102');require(len(economics)==10,'Thiếu account strategy')
         scope=[['Main','102','9','12','6','25/77','1','204'],['Upstream','9','9','3','3','2/7','3','54'],['Factorial','9','8','4','3','2/7','3','135']]
         variants=[['B','--','--','Shared price reports'],['A','Current','--','Five-row factorial'],['S','--','Current','Factorial'],['AS','Current','Current','Compact main / five-row factorial'],['P','Past donor','Current','Five-row factorial']]
-        output('paper/generated/t01_scope.tex',table(captions['T1'],'tab:scope',[
+        output('paper/content/tables/component/scope.tex',table(captions['T1'],'tab:scope',[
             panel('A. Recorded supports',['Scope','$N$/exec.','Symbols','Dates','Blocks','UP/DOWN','Exec.','Decisions'],scope),
             panel('B. Prompt sections',['Variant','Factors','Sentiment','Representation'],variants,'llll')],
             'Main uses B/AS; upstream uses B/AS; factorial uses B/A/S/AS/P. Class counts are per execution. Upstream includes 18 main r0 calls: 204+54+135-18=375 unique Decisions. P preserves current names/schema/missingness and sentiment, replacing factor values/signals/skill metadata by one past train-only rank-vector donor.'))
@@ -139,7 +139,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
             for met in ('balanced_accuracy','mcc'):
                 r=one(macro,variant=v,metric=met);cells += [record('T2B',{'variant':v,'metric':met},'mean',r['mean'],100 if met=='balanced_accuracy' else 1),r['n_defined']+'/'+r['n_planned']]
             macro_rows.append([LABELS[v],*cells])
-        output('paper/generated/t02_classification.tex',table(captions['T2'],'tab:classification',[
+        output('paper/content/tables/component/classification.tex',table(captions['T2'],'tab:classification',[
             panel('A. Pooled (percent except MCC)',['Strategy','Acc.','BA','MCC','$P_U$','$R_U$','$P_D$','$R_D$','LONG'],rows),
             panel('B. Unweighted symbol macro summaries',['Strategy','BA (\\%)','Defined','MCC','Defined'],macro_rows)],
             '$N=102$, UP/DOWN=25/77. P/R denote class precision/recall. NA is undefined, including MCC for constant predictions. Train-majority is fit on purged train labels. Logistic-matched uses common numerical market inputs, not identical chart/text representations. Full per-symbol/class metrics are supplied in companion S1; hold has no classification prediction.'))
@@ -148,7 +148,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
             r=one(economics,variant=v);require(r['n_accounts']=='51','Account denominator sai')
             erows.append([LABELS[v],*[record('T3',{'variant':v},k,r[k],100 if k=='mean_account_held_session_fraction' else 1,3 if k.endswith('return_pct') else 2)
                 for k in ('mean_account_net_return_pct','mean_account_drawdown_pct','mean_account_held_session_fraction','mean_account_order_count')]])
-        output('paper/generated/t03_accounts.tex',table(captions['T3'],'tab:accounts',[
+        output('paper/content/tables/component/accounts.tex',table(captions['T3'],'tab:accounts',[
             panel('Reference ledger',['Strategy','Return (\\%)','MDD (\\%)','Held (\\%)','Orders'],erows)],
             'Each row averages 51 independent-capital symbol--block accounts, not a portfolio. Held is the fraction of observed calendar sessions held, including scheduled CASH gaps; it differs from the LONG rate. Continuous hold buys once and sells once across gaps. Dividends/corporate actions and fills are not certified. Annualised cycle Sharpe/Sortino are omitted for irregular/gapped schedules.'))
         rep=load('final_repeats_v1/repeat_summary.csv');contr=load('final_repeats_v1/contrasts.csv');dis=load('final_repeats_v1/disagreement.csv'); rrows=[]
@@ -161,7 +161,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
         for r in [r for r in contr if r['metric']=='balanced_accuracy']:
             cr.append([('U ' if r['panel']=='upstream' else 'F ')+esc(r['contrast']),num(r['mean'],100),num(r['sd'],100),interval(r['min'],r['max']),interval(r['percentile_low'],r['percentile_high']),interval(r['descriptive_family_low'],r['descriptive_family_high'])])
         require(len(cr)==8 and len(rrows)==7,'Repeat rows thiếu')
-        output('paper/generated/t04_repeats.tex',table(captions['T4'],'tab:repeats',[
+        output('paper/content/tables/component/variability.tex',table(captions['T4'],'tab:repeats',[
             panel('A. Three executions: mean (sample SD)',['Panel/variant','Acc. (\\%)','BA (\\%)','BA range','Disagr. (\\%)','Return (\\%)'],rrows),
             panel('B. BA contrasts in percentage points',['Contrast','Mean','SD','Range','Percentile','Family env.'],cr)],
             'U: nine symbols/three dates/three blocks; F: eight symbols/four dates/three blocks. Each panel has nine units and UP/DOWN=2/7 per execution. Returns average nine U or eight F accounts per variant/execution. BA intervals retain 6,986 finite and 3,014 undefined draws of 10,000; envelopes are descriptive, not calibrated simultaneous coverage. U AS-B is separate from the seven F contrasts. Forty/147 groups deviate from listed variant order; nine span execution epochs.'))
@@ -176,7 +176,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
         for name in ('bear','bull','sideways'):
             a=one(strata,cohort='all_102',dimension='trend',stratum=name,variant='AS');b=one(strata,cohort='all_102',dimension='trend',stratum=name,variant='B');m=a['metrics']
             trend.append([name.title(),str(a['n_units']),str(m['per_class']['UP']['support'])+'/'+str(m['per_class']['DOWN']['support']),num(m['balanced_accuracy'],100),num(b['metrics']['balanced_accuracy'],100),num(m['long_rate'],100),num(b['metrics']['long_rate'],100)])
-        output('paper/generated/t05_temporal.tex',table(captions['T5'],'tab:temporal',[
+        output('paper/content/tables/component/temporal.tex',table(captions['T5'],'tab:temporal',[
             panel('A. Cohorts: BA percent; difference/interval in pp',['Cohort','$N$','Dates','Blocks','Full','Base','$\\Delta$','Interval'],trows),
             panel('B. Observed per-security trend contexts (percent)',['Trend','$N$','UP/DOWN','Full BA','Base BA','Full LONG','Base LONG'],trend)],
             'Cohorts overlap and are not pooled as extra samples. Trend uses past Close/SMA60 with strict +/-2\\% thresholds; it is not an index-regime policy. Primary intervals retain both dates, full cross-sections and pairing within blocks. HAC concerns accuracy rather than BA and is reported for both fixed-universe panels at lags 0/1/2 in S4.'))
@@ -188,7 +188,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
         for r in inf['contrasts'][:3]:
             label={'dynamic_vs_fixed':'Dynamic - fixed','dynamic_vs_random_mean':'Dynamic - random mean','dynamic_vs_no_flip':'Dynamic - no flip'}[r['contrast']]
             nr.append([label,num(r['balanced_accuracy_difference'],100),interval(*r['bootstrap_percentile_95']),num(r['p_exact_two_sided'],digits=4),num(r['p_holm_family_23'],digits=4)])
-        output('paper/generated/t06_numeric.tex',table(captions['T6'],'tab:numeric',[
+        output('paper/content/tables/component/numeric_controls.tex',table(captions['T6'],'tab:numeric',[
             panel('A. Pooled numeric results; random mean (SD)',['Strategy','Trials','Acc. (\\%)','BA (\\%)','MCC','Random BA range'],nrows),
             panel('B. Three primary contrasts; multiplicity family = 23',['Contrast','$\\Delta$BA (pp)','Percentile interval','Exact $p$','Holm $p$'],nr)],
             '$N=102$, UP/DOWN=25/77, 51 train-fit scopes. Numeric adapters/preprocessing are separate from the native LLM pipeline. All 20 random trials and all 23 contrasts remain in S3. Exact tests have 64 six-block sign assignments; percentile intervals are unadjusted, Holm uses the full 23-hypothesis family. No contrast rejects at 0.05.'))
@@ -198,7 +198,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
                ['Stochastic',r'Crossing precedes $\ge80$ bear / $\le20$ bull; interior fallback retained.','Legacy equality/zero-D truthiness is disclosed.'],
                [r'Williams \%R',r'$\ge-20$: bear; $\le-80$: bull; otherwise retained-sample direction.','Not a volatility vote.'],
                ['ROC',r'$>+0.5\%$: bull; $<-0.5\%$: bear; equality neutral.','Thresholds follow four-decimal rounding.']]
-        output('paper/generated/a01_rules.tex',table('Indicator signal rules and missing-data conventions.','tab:indicator_rules',[
+        output('paper/content/tables/component/indicator_rules.tex',table('Indicator signal rules and missing-data conventions.','tab:indicator_rules',[
             panel('Five deterministic votes',['Signal','Priority and boundaries','Qualification'],rules,r'lp{7.1cm}p{5.2cm}')],
             'None/nonfinite values are removed, zero retained; rounding is to four decimals before classification. Retained samples need not be consecutive if missing. Missing/error gives a neutral vote within denominator five. Directional plurality, ties MIXED, and confidence are heuristics, not calibrated probabilities.'))
         formulas=[['FDM',r'$\tanh(0.5\,a_t V_t/ADV_{20,t})$','Native uses adjusted one-bar return, not the MACD display template.'],
@@ -206,7 +206,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
                   ['LVR',r'$\tanh(-0.8\,z_{20}((C_t-SMA_{5,t})/C_t))$','Rolling mean/SD conventions and partial windows are implementation-specific.'],
                   ['BFE',r'$\tanh(1.5(\%B_t-0.5)\,VolZ_{5,t})$','Negative VolZ reverses the sign; zero cancels. No squeeze or volume-expansion gate.'],
                   ['OFE',r'$\tanh(3a_t\,CP_t)$','OHLCV proxy, not measured signed order flow.']]
-        output('paper/generated/a02_custom.tex',table('Custom native factor definitions and implementation distinctions.','tab:custom_definitions',[
+        output('paper/content/tables/component/custom_factors.tex',table('Custom native factor definitions and implementation distinctions.','tab:custom_definitions',[
             panel('Before global normalization and IC orientation',['ID','Native handler expression','Distinction'],formulas,r'lp{8.0cm}p{5.0cm}')],
             '$a_t$ is one-bar pct-change divided by rolling 20-bar sample SD (minimum five); $H_t$ is MACD(12,26,9) histogram; $CP_t$ is close location relative to the bar midpoint/range; ADV is mean Volume, not dollar volume. Guarded denominators and fills follow the registry. BFE registry sample-SD preprocessing differs from the rounded/population-SD prototype. Six selected metadata slots differ from their handler description, without the literal wrong formula in the affected prompts. A display rank of four does not identify BFE. Full expressions, guards and counterexamples are in the companion registry.'))
         symbols=select('final_baselines_v1/classification.csv',cohort='all_102',dimension='symbol');sr=[]
@@ -214,7 +214,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
             for v in ('AS','B'):
                 r=one(symbols,group=sym,variant=v);per=load('final_baselines_v1/per_class.csv')
                 sr.append([sym+'/'+LABELS[v],r['support_up']+'/'+r['support_down'],num(r['accuracy'],100),num(r['balanced_accuracy'],100),num(r['mcc'],digits=3),num(one(per,cohort='all_102',dimension='symbol',group=sym,variant=v,**{'class':'UP'})['recall'],100),num(one(per,cohort='all_102',dimension='symbol',group=sym,variant=v,**{'class':'DOWN'})['recall'],100)])
-        output('paper/generated/a03_symbols.tex',table('Full and Base symbol-level results on their common historical support.','tab:symbol_results',[
+        output('paper/content/tables/component/by_stock.tex',table('Full and Base symbol-level results on their common historical support.','tab:symbol_results',[
             panel('Percent except MCC',['Symbol/variant','UP/DOWN','Acc.','BA','MCC','$R_U$','$R_D$'],sr)],
             'BHN contributes six eligible units, other symbols twelve; NA retains missing-class denominators. S1 additionally contains all nine classifiers for every symbol and both-class precision/recall/F1, with pooled and macro summaries.'))
         scenarios=load('execution_final_v1/scenario_summary.csv');xr=[]
@@ -222,7 +222,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
             a=one(scenarios,scenario=s,variant='AS');b=one(scenarios,scenario=s,variant='B')
             xr.append([esc(s),num(b['mean_account_net_return_pct'],digits=3),num(a['mean_account_net_return_pct'],digits=3),num(a['mean_difference_from_reference_pp'],digits=3),a['residual_stock_accounts'],a['pending_cash_accounts']])
         require(len(xr)==12,'Thiếu execution scenario')
-        output('paper/generated/a04_execution.tex',table('All twelve account-execution sensitivities on unchanged predictions.','tab:execution',[
+        output('paper/content/tables/component/execution_sensitivity.tex',table('All twelve account-execution sensitivities on unchanged predictions.','tab:execution',[
             panel('Means over 51 accounts per variant',['Scenario','Base (\\%)','Full (\\%)','$\\Delta$Full (pp)','Stock','Pending'],xr)],
             'Stock/Pending count Full accounts with residual shares/receivables; zero Full residuals do not imply none for other strategies. All 6,120 account executions are in the companion results. Fee/slippage, advance fees, sell charge, lots and capacity are assumptions. No-fill/delay proxies do not measure queue fills; all entries missed is not a mathematical worst bound.'))
         # Macros tránh chép tay headline numeric values trong abstract/results.
@@ -232,13 +232,13 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
                 'CashAccuracy':num(one(c,variant='constant_down_cash')['accuracy'],100),'LogisticPriceBA':num(one(c,variant='logistic_price')['balanced_accuracy'],100),
                 'FullReturn':num(ec_a['mean_account_net_return_pct'],digits=3),'BaseReturn':num(ec_b['mean_account_net_return_pct'],digits=3),
                 'DeltaBA':num(float(a['balanced_accuracy'])-float(b['balanced_accuracy']),100),'PrimaryLow':num(bounds[0],100),'PrimaryHigh':num(bounds[1],100)}
-        output('paper/generated/summary_numbers.tex',('\n'.join(r'\newcommand{'+chr(92)+key+'}{'+value+'}' for key,value in macros.items())+'\n').encode())
+        output('paper/content/tables/component/summary_numbers.tex',('\n'.join(r'\newcommand{'+chr(92)+key+'}{'+value+'}' for key,value in macros.items())+'\n').encode())
         output('numeric_cells.json',encoded(values));output('headline_values.json',encoded(macros))
         # Đúng chart PNG bytes và calendar labels, không tạo/sửa empirical images.
         layout=load('manuscript_blueprint_v1/layout.json');f3=next(f for f in layout['figures'] if f['id']=='F3')
         for p in f3['panels']:
             sources.add(p['source']);png=base64.b64decode(read(root/p['source'])[p['field']],validate=True);require(digest(png)==p['png_sha256'],'Actual PNG khác')
-            output('paper/figs/final_'+p['kind']+'.png',png)
+            output('paper/figures/'+{'pattern':'candlestick','trend':'trendlines'}[p['kind']]+'.png',png)
         import matplotlib
         matplotlib.use('Agg')
         import matplotlib.pyplot as plt
@@ -257,7 +257,7 @@ def build(root: Path,release: Path=RELEASE,artifact_only: bool=False) -> dict:
         for x in (1.5,3.5,5.5,7.5,9.5):ax.axvline(x,color='white',linewidth=3)
         ax.set_title('Historical decision dates: U = UP, D = DOWN, NA = excluded',fontsize=12);ax.set_xlabel('Selected dates; gaps are not a continuous daily backtest')
         image=io.BytesIO();fig.savefig(image,format='png',dpi=180,metadata={'Software':'T32 frozen calendar export'});plt.close(fig)
-        output('paper/figs/final_calendar.png',image.getvalue())
+        output('paper/figures/evaluation_calendar.png',image.getvalue())
         # Scientific companions chỉ export dữ liệu đã có, không copy private reviewer text.
         companions={'S1_classification.csv':('final_baselines_v1/classification.csv',{'cohort':'all_102'}),'S1_per_class.csv':('final_baselines_v1/per_class.csv',{'cohort':'all_102'}),
                     'S1_macro.csv':('final_baselines_v1/macro.csv',{'cohort':'all_102'}),'S2_executions.csv':('final_repeats_v1/executions.csv',{}),

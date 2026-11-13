@@ -7,11 +7,11 @@ component/QuantAgent, license và novelty thuộc D2-13, không được suy t�
 
 ## Bằng chứng và cách tái lập
 
-Release mới: [manifest](../outputs/revision/legacy_lineage_v1/manifest.json),
-[tổng hợp](../outputs/revision/legacy_lineage_v1/report.json),
-[66 streams với từng row](../outputs/revision/legacy_lineage_v1/streams.json),
-[573 comparisons](../outputs/revision/legacy_lineage_v1/comparisons.json),
-[lịch sử file](../outputs/revision/legacy_lineage_v1/git_history.json).
+Release mới: [manifest](../docs/plan/revision_evidence/README.md#legacy_lineage_v1),
+[tổng hợp](../docs/plan/revision_evidence/README.md#legacy_lineage_v1),
+[66 streams với từng row](../docs/plan/revision_evidence/README.md#legacy_lineage_v1),
+[573 comparisons](../docs/plan/revision_evidence/README.md#legacy_lineage_v1),
+[lịch sử file](../docs/plan/revision_evidence/README.md#legacy_lineage_v1).
 SHA-256 khóa nguyên byte 47 artifacts hiện có trong ba cây
 `outputs/backtest_result/`, `outputs/robustness/`, `outputs/ablation/`, gồm
 JSON, CSV và PNG; không ghi lại artifacts đó. Trong đó 30 JSON có test points:
@@ -112,13 +112,13 @@ Không sửa runner legacy/runtime của các study đã khóa trong D1-16. Khô
 retrofit hashes hoặc parent IDs vào checkpoint cũ. Đường study mới đã có
 archive/rendered prompt, context, variant/repeat/realization và parent identity;
 tham chiếu evidence đã chốt tại
-[R3](../outputs/revision/r3_repeats_v1/manifest.json) và
-[R4 corrected](../outputs/revision/r4_final_v1/manifest.json), không gán lineage
+[R3](../docs/plan/revision_evidence/README.md#r3_repeats_v1) và
+[R4 corrected](../docs/plan/revision_evidence/README.md#r4_final_v1), không gán lineage
 của study mới cho study cũ và không ghi là đã chạy lại verifier của chúng.
 
 ## Quyết định sử dụng và nghiệm thu phạm vi
 
-Bảng four-way legacy trong `paper/sections/06_backtest_results.tex`, đoạn
+Bảng four-way legacy trong `paper/content/results.tex`, đoạn
 `tab:disentangled_ablation`, đã ghi rõ **unverified / traceability only / not
 confirmatory attribution evidence**. Giữ nguyên bảng và PDF release R4 đã khóa;
 không dùng số legacy để khẳng định alpha/sentiment contribution. Panel corrected
@@ -143,7 +143,7 @@ Ngày 03/11/2026, dependency D2-03 đã hoàn tất. Đặc tả
 [r5_statistics_policy.json](r5_statistics_policy.json) được khóa trước chạy
 phân tích bổ sung; việc thêm phương pháp diễn ra **sau inference**, không gọi
 là preregistration hoặc confirmatory. Release riêng tại
-[dependent_statistics_v1](../outputs/revision/dependent_statistics_v1/manifest.json).
+[dependent_statistics_v1](../docs/plan/revision_evidence/README.md#dependent_statistics_v1).
 Không gọi LLM, đổi prediction/label, fit classifier hoặc sửa helper thống kê
 legacy. Annualisation engine vẫn là D2-06; R5 chưa đóng bởi D2-05.
 
@@ -247,7 +247,7 @@ Thông tin runtime Python/NumPy/SciPy được lưu và kiểm lại, không g�
 
 ## Annualisation và risk contract — D2-06
 
-Ngày 03/11/2026; dependency D2-05 đã hoàn tất. [Release riêng](../outputs/revision/account_annualisation_v1/manifest.json)
+Ngày 03/11/2026; dependency D2-05 đã hoàn tất. [Release riêng](../docs/plan/revision_evidence/README.md#account_annualisation_v1)
 khóa sáu outputs và nguồn/runtime. Không gọi API, thay prediction/label hoặc
 dựng lại daily ledger. `before_sources.zip` giữ nguyên ba source files tại
 commit `c801af51` trước sửa; commit này chỉ là baseline code của task, không
@@ -292,8 +292,8 @@ là daily-close MDD; metadata ghi đúng basis.
 ### Hai nguồn return được đối soát riêng
 
 1. **Legacy benchmark:** 18 accounts (Full/Base của chín mã), 20 cycles/account.
-   [Bảng](../outputs/revision/account_annualisation_v1/cycle_risk_table.tex) và
-   [CSV](../outputs/revision/account_annualisation_v1/legacy_cycle_ratios.csv)
+   [Bảng](../docs/plan/revision_evidence/README.md#account_annualisation_v1) và
+   [CSV](../docs/plan/revision_evidence/README.md#account_annualisation_v1)
    giữ stored ratios, tái tính sai số tần suất sqrt(252) từ return đã lưu, rồi
    xuất cột **conditional declared S=L=3** với sqrt(84). Không lấy stored
    ratio đã làm tròn chia sqrt(3), mà tính từ period returns lưu (vốn đã làm
@@ -312,7 +312,7 @@ là daily-close MDD; metadata ghi đúng basis.
    Không ghép accounts thành portfolio, không giả định market/calendar hay
    execution đã được exchange chứng nhận.
 
-[Calendar crosscheck](../outputs/revision/account_annualisation_v1/calendar_crosscheck.csv)
+[Calendar crosscheck](../docs/plan/revision_evidence/README.md#account_annualisation_v1)
 phân biệt sự hiện diện cục bộ với provenance của input legacy. So entry/exit
 trên snapshot giá hiện có thấy mismatch theo thứ tự BHN/CMG/FPT/HVN/MBB/MWG/
 VCB/VJC/VNM: **20/1/20/1/1/20/9/0/2** trên 20 cycles/mã. BHN có span 3/4 bars,
@@ -344,7 +344,7 @@ R5 còn phải đồng bộ ở task manuscript. D2-06 done không đồng nghĩ
 
 Ngày 03/11/2026, dependency D2-06 đã xong. [Policy](r15_execution_policy.json)
 khóa đủ 12 scenarios trước tính lượt sensitivity bổ sung; đây là phân tích
-sau inference, không confirmatory. [Release](../outputs/revision/execution_sensitivity_v1/manifest.json)
+sau inference, không confirmatory. [Release](../docs/plan/revision_evidence/README.md#execution_sensitivity_v1)
 giữ predictions/label net/cutoff/L=3, không gọi API hay sửa engine/ledger cũ.
 510 accounts =51 symbol–block scopes ×chín classifiers và continuous-hold
 price comparator. Reference tái lập net return, daily-close drawdown, orders,
