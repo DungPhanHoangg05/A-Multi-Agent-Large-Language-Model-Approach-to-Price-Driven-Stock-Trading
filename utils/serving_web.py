@@ -160,3 +160,62 @@ def control_job(identifier: str, action: str) -> Response:
         return respond({"error": "Không có job thuộc owner này"}, status=404)
     except (ValueError, KeyError, BadRequest):
         return respond({"error": "Không resume được job với identity/credential hiện tại"}, status=409)
+
+
+@serving.get('/jobs')
+def job_catalog() -> Response:
+    """Catalog owner chỉ đọc reservation/status, không inference hoặc đọc payoff."""
+    try:
+        scope,_ = owner()
+        return respond({'version':'serving_backtest_catalog_v1','runs':service().catalog(scope) if scope else []})
+    except (ValueError,KeyError,OSError):
+        return respond({'error':'Không đọc được danh mục backtest'},status=400)
+
+
+@serving.get('/jobs/<identifier>/evaluation')
+@serving.get('/jobs/<identifier>/export')
+def backtest_evaluation(identifier: str) -> Response:
+    """Filter/export chung evaluator, owner và barrier; không thay key/model trên GET."""
+    try:
+        scope,_ = owner()
+        if scope is None: raise PermissionError()
+        if any(len(request.args.getlist(key)) != 1 for key in request.args): raise ValueError('Filter trùng')
+        query = request.args.to_dict()
+        exporting = request.path.endswith('/export')
+        format_name = query.pop('format','json') if exporting else 'json'
+        table = query.pop('table','predictions') if exporting else 'predictions'
+        data = service().evaluation(identifier,scope,query)
+        if not exporting: return respond(data)
+        from utils.backtest_export import export_bytes
+        raw,mime = export_bytes(data,format_name,table)
+        return Response(raw,content_type=mime,headers={'Content-Disposition':f'attachment; filename="{identifier}-{table}.{format_name}"',
+            'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'})
+    except (PermissionError,FileNotFoundError):
+        return respond({'error':'Không có backtest thuộc owner này'},status=404)
+    except (ValueError,KeyError,OSError,AssertionError):
+        return respond({'error':'Filter hoặc bằng chứng backtest không hợp lệ'},status=400)
+
+
+@serving.get('/legacy-backtests')
+@serving.get('/legacy-backtests/<identifier>')
+@serving.get('/legacy-backtests/<identifier>/export')
+def legacy_backtests(identifier: str | None = None) -> Response:
+    """Đọc local Full/No-Alpha qua schema riêng, không đưa vào paired serving/U09."""
+    from utils import legacy_backtest
+    try:
+        root = Path(current_app.config.get('SERVING_LEGACY_ROOT',ROOT))
+        if identifier is None: return respond({'runs':legacy_backtest.catalog(root)})
+        data = legacy_backtest.read(root,identifier)
+        if not request.path.endswith('/export'):
+            if request.args: raise ValueError('Legacy không nhận filter paired')
+            return respond(data)
+        if set(request.args)-{'format','table'} or any(len(request.args.getlist(k)) != 1 for k in request.args): raise ValueError('Query không hợp lệ')
+        from utils.backtest_export import export_bytes
+        format_name,table = request.args.get('format','json'),request.args.get('table','predictions')
+        raw,mime = export_bytes(data,format_name,table)
+        return Response(raw,content_type=mime,headers={'Content-Disposition':f'attachment; filename="{identifier}-{table}.{format_name}"',
+            'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'})
+    except FileNotFoundError:
+        return respond({'error':'Không có file backtest legacy'},status=404)
+    except (ValueError,KeyError,OSError):
+        return respond({'error':'File hoặc query legacy không hợp lệ'},status=400)

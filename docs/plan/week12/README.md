@@ -47,11 +47,13 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F10**, nối backtest và trang so sánh với serving mới.
+**Bước tiếp theo: F11**, nghiệm thu tích hợp và kiểm trình duyệt đúng phạm vi.
 F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
 contract ứng dụng; F07 có viewer U09 offline, F08 có provider/runner/API job
 as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh cùng snapshot.
-F10–F12 chưa bắt đầu. **0/18 comment được chứng nhận đóng**;
+F10 đã nối backtest nhiều bản và trang thực nghiệm, filter/evaluator/export
+cùng support; adapter Full/No-Alpha riêng. F11–F12 chưa bắt đầu.
+**0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
 kiểm diff, liên kết và trạng thái khớp nhau, không chạy suite hoặc API theo
@@ -67,7 +69,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F07 — Reader U09 kiểm hash/receipt, viewer nhiều bản/hai baseline, plot/export và legacy; 46 Python + 6 DOM PASS, browser trực quan chờ F11 do host/approval.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
-- [ ] F10 — Nâng backtest và trang thực nghiệm, metrics/series động, progress/stop/resume và tương thích kết quả cũ.
+- [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
 - [ ] F11 — Kiểm thử tích hợp/leakage/caller đúng phạm vi và kiểm trình duyệt; smoke live có phạm vi nếu cần.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
@@ -436,6 +438,32 @@ nhưng **chưa kiểm trực quan desktop/mobile**: công cụ báo
 `The browser access host is unavailable`, không có browser trong inventory;
 không đánh dấu browser PASS, giữ gate này tại F11. F10–F12 tiếp tục;
 không push/deploy/submit.
+
+### F10 — Backtest nhiều bản và so sánh cùng support
+
+Hoàn tất phạm vi chức năng/offline ngày **13/11/2026**, nhánh
+`feat/variant-backtest-ui` từ develop `6666f48c`. `/backtest` mặc định serving
+as-of; `/backtest?source=legacy` giữ form/Full-No-Alpha cũ. Template đã tách
+partial/CSS/JS theo chức năng, không tiếp tục đưa thêm logic vào file lớn.
+Miền F08 giữ chín mã/58 phiên 1d/VI, ≤30 point/job, repeat1–3 và step ba phiên.
+
+- [x] Form nhiều mã/cửa sổ/IDs/model options và preflight có số point/slot/trần API attempts. Body start đúng bản request đã kiểm; đổi input hủy grant/response cũ, không POST lại mù khi mất phản hồi. UI VI/EN, report vẫn chỉ VI; key giữ phía server.
+- [x] API mới `GET /api/serving/v1/jobs` catalog owner; `jobs/<UUID>/evaluation` và `/export` đọc checkpoint/resource đã bound, không tạo model/provider. Outcome cần đủ forecast/dependency/repeat; source evaluator/runtime hoặc resource đổi thì từ chối. UUID raw response dùng lại qua slot/repeat bị chặn cả khi envelope đã được tính lại checksum.
+- [x] Evaluator tái dùng **`core.free_pilot_statistics.account` và `core.unified_analysis.analysis.classified`** của U09, đối chiếu outcome với `outcome_from_frame`/oracle nguồn VND. Daily NAV EOD/MDD và return/cycle-end MDD tách riêng, fee/slippage/turnover đúng helper; không annualize. Mỗi mã/repeat là account 50 triệu độc lập, mean không phải portfolio; classification mean theo repeat, không coi repeat là mẫu độc lập mới.
+- [x] Partial/UNKNOWN chỉ hiện forecast đã xong và coverage; giữ null, không tạo CASH cho slot thiếu. Summary/account/NAV/contrast chỉ mở khi **toàn job đủ outcome/common support**; subset rỗng không dựng metric. Filter mã/query-date/repeat tính lại account/classification trên cùng subset; baseline native/common phải thực sự có trong plan. Contrast chỉ là point estimate cùng job, không sinh CI/p-value mới hoặc ghép hai run.
+- [x] `/experiments` giữ **U09 mặc định**; thêm “Backtest mới” của owner và “Full/No-Alpha cũ” từ `backtest_result/`. Run/kind được kiểm riêng, filter/poll cũ bị hủy khi đổi run; lỗi catalog mới không làm mất viewer U09. Plot chỉ một mã/repeat cùng lúc, không cộng NAV nhiều account. Có stop/resume, counts point/slot/API, partial và error rõ ràng.
+- [x] Adapter legacy dùng `legacy_full`/`legacy_no_alpha`, **không đổi No-Alpha thành `original_common`**. Số nguồn ghi nhãn `LEGACY_DECLARED_NOT_RECERTIFIED`; thiếu là null, lỗi dù raw SHORT vẫn không thành CASH. CSS/JS cũ giữ nội dung (JS chỉ đổi JSON bootstrap); handler native/realtime/backtest Python giữ nguyên AST, chỉ bổ sung context render. Không đọc Python từ archive lên web import path.
+- [x] JSON/CSV cùng evaluator/filter/provenance/units, export summary/predictions/accounts/daily NAV/cycles/contrasts; owner và query được kiểm server, attachment/nosniff/no-store. CSV chặn công thức, số âm numeric và zero giữ nghĩa; DOM chỉ ghi text, ID/path/bootstrap được kiểm/escape; không export field key tùy ý trong file legacy.
+- [x] **156 Python PASS**, gồm **18 test mới** (9 evaluator, 9 API/page), 108 hồi quy F09, 10 scalar-oracle pilot statistics và 20 unified-analysis. Có 18 test leakage, 11 native parity, owner/cookie, stop/resume/UNKNOWN, source/runtime/raw tamper/duplicate UUID, filter/NA/economics và CSV. Ca **MWG 02/07/2026** chạy cả sáu bản qua API/provider/resource thật, tám forecast slot, sáu account được chọn/24 daily NAV row, MT eligible có raw; toàn HTTP fixture.
+- [x] **31 DOM PASS** (13 mới + 12 analysis + 6 U09), compile **13 Python**, syntax **7 JS** thay đổi PASS. Fixture CLI ban đầu thiếu root trong `sys.path` đã sửa và chạy lại; không chỉnh runtime để né test. Không chạy full unit/E2E/compileall/cold study theo AGENTS §1.2.
+- [x] **20 gói W12 + 30 archive lịch sử**, **11 output F05 + 68 nguồn manuscript**, resource manifest/QA F08 và QA F09 giữ nguyên byte. Worktree khớp **722/729** pin U09: bảy đường đã version hóa, thêm `templates/backtest.html` so với F09; F01 phục hồi đủ729. Native causal vẫn FAIL, whole-system NOT_CERTIFIED.
+
+[QA backtest](backtest_ui_checks.zip) gồm **29 member**, giữ source/runtime/test/log/syntax/integrity,
+checklist và **150 liên kết**. **0 hosted LLM, 0 market API, 0 training HMM/student/bank
+mới**; native Alpha giữ hành vi tính/selection cũ. Chưa smoke hosted mới.
+Browser tiếp tục báo `The browser access host is unavailable`, inventory không
+có browser; **chưa kiểm trực quan desktop/mobile**, giữ gate này tại F11.
+F11–F12 tiếp tục; không push/deploy/submit.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

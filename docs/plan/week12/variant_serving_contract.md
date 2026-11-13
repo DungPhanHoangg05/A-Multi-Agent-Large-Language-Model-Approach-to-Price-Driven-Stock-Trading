@@ -108,7 +108,7 @@ P&L null/NOT_EVALUATED. LONG dùng oracle kinh tế chung, SHORT=CASH có P&L 0.
 Partial/failed/unknown giữ rows đã xong, tiến độ tách point/slot/API attempts;
 không dựng slot thiếu thành CASH. Kết quả/chi tiết có raw/final, policy reason,
 requested/effective IDs, snapshot/provenance. F09 đã nối form/kết quả;
-backtest UI mới thuộc F10. F08 không sửa template hoặc endpoint native legacy.
+F10 đã nối backtest/experiments. F08 không sửa template hoặc endpoint native legacy.
 
 ## Form và kết quả từ F09
 
@@ -138,6 +138,48 @@ lại; dùng link gần nhất nếu có hoặc kiểm nhật ký server trướ
 UI serving mới dùng text DOM cho nội dung model và PNG base64 cho ảnh; không
 đọc ảnh/sessionStorage legacy. CSS/JS/partial tách theo chức năng, có layout
 mobile/focus; browser desktop/mobile chưa kiểm do host không khả dụng, giữ ở F11.
+
+## Backtest và so sánh từ F10
+
+Mở `/backtest`, chọn nhiều mã, cửa sổ query, phiên bản và repeat; model/options
+nằm trong cấu hình nâng cao. Default Hệ gốc + Bayesian v1, FPT 02–07/07/2026.
+Preflight cho biết point, Decision slot và trần API attempts trước start.
+Giới hạn vẫn ≤30 point/job, step ba phiên, 1d/VI; không tự đổi dữ liệu sang latest.
+`/backtest?run_id=<UUID>` đọc job cũ với cookie owner, có stop/resume. Link
+“Full/No-Alpha cũ” dùng `/backtest?source=legacy`, giữ endpoint/native engine cũ.
+
+`GET /api/serving/v1/jobs` trả catalog **backtest thuộc owner**, không dùng UUID
+để vượt quyền. `GET jobs/<UUID>/evaluation` đọc checkpoint, kiểm forecast/outcome
+barrier rồi mới mở giá bound để đánh giá; không chạy lại upstream/retrieval/LLM.
+Source evaluator/runtime và manifest giá phải khớp job. Metrics dùng helper account
+và classification U09, không sửa oracle Open(t+1)→Close(t+3), SHORT=CASH và phí.
+Summary/classification là mean từng repeat; return là mean account mã/repeat độc
+lập, không phải portfolio. Daily NAV EOD và return cuối chu kỳ có units riêng,
+Sharpe/Sortino không annualize. Undefined giữ null, không chuyển sang zero.
+
+Summary/NAV/contrast chỉ có khi **toàn job đủ common support và outcome**;
+partial vẫn xem được các forecast đã hoàn tất và coverage, không xếp hạng.
+Query filter đóng: `methods`, `baseline` (native/common đã chạy hoặc `none`),
+`symbol`, `repeat`, `start_date`, `end_date`. Các filter tính lại metric trên
+cùng subset; không nhận run/config/owner mới hoặc filter trùng. Contrast chỉ có
+point estimate cùng job/input/model/options/repeat, không có CI/p-value mới.
+Biểu đồ chọn một mã/repeat, không cộng NAV các account độc lập.
+
+`GET jobs/<UUID>/export` nhận cùng filter, thêm `format=json|csv` và `table`:
+`predictions|summary|accounts|daily_nav|cycles|contrasts|per_repeat`. JSON/CSV đi
+qua cùng evaluator, giữ provenance/units, attachment/nosniff/no-store và chặn
+công thức CSV. GET không tự resume, sửa resource pin hoặc xóa cap UNKNOWN.
+
+`/experiments` giữ U09 mặc định và thêm kind `serving_backtest`; có thể mở thẳng
+`/experiments?kind=serving_backtest&run_id=<UUID>`. Hai run không được ghép thành
+paired contrast. Kind `legacy_backtest` dùng adapter riêng cho file tên hợp lệ
+`backtest_result/backtest_<SYMBOL>_<YYYYMMDD>_<HHMM[SS]>.json`; API đọc tại
+`/api/serving/v1/legacy-backtests[/<ID>[/export]]`. Đây là file local từ ứng dụng
+cũ, không có owner lịch sử; không trộn vào catalog job private hoặc U09.
+Vai trò là `legacy_full`/`legacy_no_alpha`, không alias common; số liệu nguồn
+ghi `LEGACY_DECLARED_NOT_RECERTIFIED`. Thiếu/lỗi giữ NA, không suy thành CASH.
+Không chứng nhận lại economics của file cũ qua adapter. Browser desktop/mobile
+vẫn chờ F11 do host không khả dụng; kiểm offline dùng HTTP fixture.
 
 ## Lựa chọn và miền sử dụng
 

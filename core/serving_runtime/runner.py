@@ -106,6 +106,7 @@ class Runner:
         """Kết quả partial chỉ chứa slot complete; dữ liệu model để ngoài main rows cho UI nâng cao."""
         from core.prior_stage_journal import decode_output
         rows, executed, details, snapshots = [], set(), {}, {}
+        raw_ids = set()
         points_complete = 0
         for point in self.reservation["points"]:
             point_rows = []
@@ -126,6 +127,9 @@ class Runner:
                     record = decode_output(load(self.book.path(slot))["attempts"][0]["output"])
                     policy, raw = record["policy"], record["forecast"]["raw"]
                     if raw is not None:
+                        if raw['source_request_id'] in raw_ids:
+                            raise ValueError('Response nguồn bị dùng lại ở các slot/repeat')
+                        raw_ids.add(raw['source_request_id'])
                         wire = load(self.directory/"http"/(digest(slot)+".json"))
                         candidates = [row for row in wire["rows"] if row["id"] == raw["source_request_id"]]
                         if (wire["run_id"] != self.run_id or wire["slot"] != slot or len(candidates) != 1
@@ -162,3 +166,15 @@ class Runner:
                       outcome_points=sum(self.book.complete("outcome/"+p["id"]) for p in self.reservation["points"]),
                       input_snapshot_scope="SEALED_RESOURCE_AND_POINT_MANIFEST; SHARED_REPORT_HASHES_PER_POINT")
         return result
+
+    def outcomes(self) -> dict[str, dict]:
+        """Chỉ đọc outcome durable sau barrier, kiểm input/UUID/checksum qua StageBook."""
+        labels = {}
+        for point in self.reservation['points']:
+            slot = 'outcome/'+point['id']
+            if not self.book.complete(slot): continue
+            required = [slot_id(point,repeat,variant) for repeat in range(self.request['repeats']) for variant in self.plan]
+            if self.request['mode'] != 'backtest' or not all(self.book.complete(item) for item in required):
+                raise ValueError('Outcome tồn tại trước forecast barrier')
+            labels[point['id']] = self.book.execute(slot,{'slots':required},None)
+        return labels

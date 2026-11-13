@@ -190,3 +190,35 @@ class Service:
         result = runner.public(status)
         result["worker_alive"] = bool(identifier in self.tasks and self.tasks[identifier].is_alive())
         return result
+
+    def catalog(self, owner: str) -> list[dict]:
+        """Danh mục chỉ gồm backtest thuộc owner; không mở provider hoặc outcome."""
+        rows = []
+        for path in sorted(self.store.root.iterdir()):
+            if not path.is_dir(): continue
+            try:
+                reservation = self.store.reservation(path.name,owner)
+            except PermissionError:
+                continue
+            job = reservation['job']; request = job['identity']['request']
+            if request['mode'] == 'backtest':
+                rows.append({'id':job['run_id'],'kind':'serving_backtest','label':', '.join(request['symbols'])+' · '+request['start_date']+' — '+request['end_date'],
+                    'status':self.store.status(job['run_id'])['state'],'points':len(reservation['points']),'repeats':request['repeats']})
+        return rows
+
+    def evaluation(self, identifier: str, owner: str, query: dict[str,str]) -> dict:
+        """GET đánh giá thuần từ checkpoint; giá chỉ mở sau đủ common support, không inference."""
+        from core.serving_runtime.evaluation import evaluate, prices
+        reservation = self.store.reservation(identifier,owner)
+        public = self.result(identifier,owner)
+        book = Runner(self.store,reservation,None,None,read_only=True)
+        def loader() -> dict:
+            # Khóa cả code metric đã dùng khi tạo job; không tái chứng nhận job cũ bằng evaluator mới.
+            state = self.sources()
+            if state['runtime'] != reservation['source']['runtime']: raise ValueError('Runtime evaluator khác job')
+            sealed = reservation['source']['files']; current = state['files']
+            for name in ('core/serving_runtime/evaluation.py','core/free_pilot_statistics.py',
+                         'core/unified_analysis/analysis.py','core/backtest_engine.py','utils/target_contract.py'):
+                if current.get(name) != sealed.get(name): raise ValueError('Evaluator source khác job')
+            return prices(self.root,reservation,book.outcomes(),self.resources_factory(self.root))
+        return evaluate(reservation,public,book.outcomes(),query,loader)

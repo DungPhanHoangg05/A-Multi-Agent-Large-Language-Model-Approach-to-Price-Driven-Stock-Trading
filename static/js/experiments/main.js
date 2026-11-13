@@ -1,9 +1,12 @@
 import {byId} from './dom.js';
 import {renderer} from './view.js';
+import {resultController} from '../backtest/result.js';
 
 const config = JSON.parse(byId('research-config').textContent), text = config.messages;
 const render = renderer(config);
 let runs = [], offset = 0, controller = null, legacyData = null;
+const backtest = resultController({messages:config.backtestMessages,language:config.language,registry:config.registry});
+backtest.init();
 
 // Hủy request trước khi đổi run/filter để response cũ không ghi đè lựa chọn mới.
 async function json(url, signal) {
@@ -12,6 +15,8 @@ async function json(url, signal) {
   return response.json();
 }
 function clear() {
+  backtest.stop(); byId('bt-result').hidden = true;
+  byId('bt-downloads').replaceChildren();
   byId('research-result').hidden = true; byId('legacy-result').hidden = true;
   byId('downloads').replaceChildren(); byId('legacy-downloads').replaceChildren();
   byId('empty').hidden = true; byId('error').textContent = ''; legacyData = null;
@@ -34,9 +39,13 @@ async function load() {
     byId('research-result').setAttribute('aria-busy', 'false'); return;
   }
   const isResearch = run.kind === 'paper_evidence';
-  byId('research-filters').hidden = !isResearch; byId('legacy-filter').hidden = isResearch;
+  const isBacktest = ['serving_backtest','legacy_backtest'].includes(run.kind);
+  byId('research-filters').hidden = !isResearch; byId('legacy-filter').hidden = isResearch || isBacktest;
   try {
-    if (isResearch) {
+    if (isBacktest) {
+      await backtest.select(run.id,run.kind);
+      if (signal.aborted) return;
+    } else if (isResearch) {
       const query = parameters();
       const data = await json(`/api/research-results/${encodeURIComponent(run.id)}?${query}`, signal);
       if (signal.aborted) return;
@@ -46,7 +55,7 @@ async function load() {
       if (signal.aborted) return;
       legacyData = data; render.legacy(data, run.id);
     }
-    byId('state').textContent = text.complete;
+    byId('state').textContent = isBacktest ? config.backtestMessages[run.kind === 'serving_backtest' ? 'new_backtest' : run.kind] : text.complete;
   } catch (error) {
     if (error.name === 'AbortError' || signal.aborted) return;
     clear();
@@ -58,7 +67,7 @@ async function load() {
 function selectRuns(defaultId) {
   const kind = byId('kind').value, filtered = runs.filter(run => kind === 'all' || run.kind === kind);
   byId('run').replaceChildren(...filtered.map(run => {
-    const option = new Option(`${text[run.kind]} · ${run.label}`, run.id);
+      const option = new Option(`${text[run.kind] ?? config.backtestMessages?.[run.kind === 'serving_backtest' ? 'new_backtest' : run.kind]} · ${run.label}`, run.id);
     option.dataset.kind = run.kind; return option;
   }));
   if (filtered.some(r => r.id === defaultId)) byId('run').value = defaultId;
@@ -73,7 +82,12 @@ byId('next').addEventListener('click', () => { offset += 50; load(); });
 byId('variant').addEventListener('change', () => { if (legacyData) render.legacy(legacyData, byId('run').value); });
 try {
   const catalog = await json('/api/research-results/runs');
-  runs = catalog.runs; selectRuns(catalog.default);
+  const extra = await Promise.allSettled(['/api/serving/v1/jobs','/api/serving/v1/legacy-backtests'].map(url => json(url)));
+  byId('bt-catalog-error').textContent = extra.some(result => result.status === 'rejected') ? config.backtestMessages?.failed ?? text.failed : '';
+  runs = [...catalog.runs,...extra.flatMap(result => result.status === 'fulfilled' ? result.value.runs ?? [] : [])];
+  const query = new URLSearchParams(location.search);
+  if (['serving_backtest','legacy_backtest'].includes(query.get('kind'))) byId('kind').value = query.get('kind');
+  selectRuns(query.get('run_id') ?? catalog.default);
 } catch {
   clear(); byId('state').textContent = text.failed; byId('error').textContent = text.failed;
 }

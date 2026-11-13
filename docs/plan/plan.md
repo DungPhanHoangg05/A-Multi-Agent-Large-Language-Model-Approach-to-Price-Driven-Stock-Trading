@@ -42,7 +42,11 @@ so sánh cùng snapshot, raw/final/CASH, context và hai projection Alpha;
 **108 Python + 18 DOM, compile5/JS7 PASS**. Template/CSS/JS đã tách file,
 giữ đường realtime legacy riêng; UI VI/EN, báo cáo serving vẫn chỉ VI.
 Browser desktop/mobile chưa kiểm vì host không khả dụng, giữ trong F11.
-Bước tiếp theo **F10** backtest/so sánh; F10–F12 chưa bắt đầu.
+F10 đã nối backtest mới và danh mục owner vào experiments, cùng evaluator
+account/classification U09, daily NAV/cycle returns, filter/contrast cùng
+support và JSON/CSV; Full/No-Alpha legacy có adapter riêng. **156 Python +
+31 DOM, compile13/JS7 PASS**, chỉ HTTP fixture; browser visual chờ F11.
+Bước tiếp theo **F11** nghiệm thu tích hợp; F11–F12 chưa bắt đầu.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

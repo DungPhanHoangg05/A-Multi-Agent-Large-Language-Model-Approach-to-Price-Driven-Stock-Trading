@@ -4,6 +4,8 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{{ E.title }} · QuantAgent VN</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/experiments.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/serving.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/backtest/serving.css') }}">
   <script type="module" src="{{ url_for('static', filename='js/experiments/main.js') }}"></script>
 </head>
 <body>
@@ -13,9 +15,10 @@
 </header>
 <main>
   <div class="heading"><div><span class="eyebrow">{{ E.offline }}</span><h1>{{ E.title }}</h1><p>{{ E.subtitle }}</p></div><span id="state" role="status" aria-live="polite">{{ E.loading }}</span></div>
-  <p class="notice">{{ E.notice }}</p>
+  <p class="notice">U09 · {{ E.notice }}</p>
+  <p id="bt-catalog-error" role="status"></p>
   <form id="filters" class="panel">
-    <div class="filter-row"><label>{{ E.kind }}<select id="kind"><option value="all">{{ E.all }}</option><option value="paper_evidence">{{ E.paper_evidence }}</option><option value="legacy_offline">{{ E.legacy_offline }}</option></select></label>
+    <div class="filter-row"><label>{{ E.kind }}<select id="kind"><option value="all">{{ E.all }}</option><option value="paper_evidence">{{ E.paper_evidence }}</option><option value="serving_backtest">{{ B.new_backtest }}</option><option value="legacy_backtest">{{ B.legacy_backtest }}</option><option value="legacy_offline">{{ E.legacy_offline }}</option></select></label>
       <label class="grow">{{ E.run }}<select id="run" required></select></label><button type="submit" id="load">{{ E.apply }}</button></div>
     <div id="research-filters"><fieldset><legend>{{ E.methods }}</legend><div class="choices">
       {% for v in serving_registry.variants if v.group == 'main' %}<label><input type="checkbox" name="method" value="{{ v.id }}" checked>{{ v.label[LANG] }}</label>{% endfor %}
@@ -37,6 +40,7 @@
     <details class="panel"><summary>{{ E.provenance }}</summary><pre id="provenance"></pre></details>
   </div>
   <section id="legacy-result" class="panel" hidden><h2>{{ E.legacy_offline }}</h2><p class="notice">{{ E.legacy_notice }}</p><p id="legacy-support"></p><div id="legacy-downloads" class="downloads"></div><div class="scroll" tabindex="0"><table><thead><tr><th>{{ E.date }}</th><th>{{ E.raw }}</th><th>{{ E.action }}</th><th>{{ E.cycle_return }}</th><th>{{ E.policy }}</th><th>{{ E.quality }}</th></tr></thead><tbody id="legacy-rows"></tbody></table></div><p id="legacy-accounts"></p></section>
+  {% include 'backtest/results.html' %}
 </main>
-<script type="application/json" id="research-config">{{ {'messages': E, 'language': LANG, 'variants': serving_registry.variants}|tojson }}</script>
+<script type="application/json" id="research-config">{{ {'messages': E, 'backtestMessages':B, 'language': LANG, 'variants': serving_registry.variants, 'registry':serving_registry}|tojson }}</script>
 </body></html>

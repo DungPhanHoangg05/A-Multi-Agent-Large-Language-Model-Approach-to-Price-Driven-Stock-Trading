@@ -11,6 +11,7 @@ from utils.experiment_io import export_bytes, run_path
 from utils.i18n import normalize_lang
 from utils.research_i18n import messages
 from core.serving_registry import registry_document as serving_registry
+from utils.backtest_ui import messages as backtest_messages
 
 ROOT = Path(__file__).resolve().parents[1]
 experiments = Blueprint("experiments", __name__)
@@ -24,7 +25,7 @@ def experiment_page() -> str:
     language = normalize_lang(request.args.get("lang") or request.cookies.get("qa_lang")
                               or request.accept_languages.best_match(("vi", "en")))
     return render_template("experiments.html", registry=registry_document(), runs=runs,
-                           serving_registry=serving_registry(), LANG=language, E=messages(language))
+                           serving_registry=serving_registry(), LANG=language, E=messages(language), B=backtest_messages(language))
 
 
 @experiments.get("/api/experiments/registry")

@@ -1,3 +1,4 @@
 .gitattributes text eol=lf
 demo_new.html text eol=lf
 output.html text eol=lf
+backtest.html text eol=lf
