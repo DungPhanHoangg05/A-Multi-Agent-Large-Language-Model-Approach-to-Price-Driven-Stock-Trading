@@ -1,46 +1,81 @@
 {
-  "version": "serving_integration_acceptance_v1",
+  "version": "serving_integration_acceptance_v2",
   "status": "OFFLINE_PASS_BROWSER_PENDING",
-  "application_base_commit": "f96b44f2",
   "checks_package": {
-    "bytes": 24549,
-    "sha256": "b147bf9c3b5f0a936106db12feae6a3ec029a062913a8fcd8621e7567b140232"
+    "path": "docs/plan/week12/serving_live_checks.zip",
+    "bytes": 104366,
+    "sha256": "1059c873b22064c4e76eebbcb510047cb1ce7164623f5a8d1ab7cd7c5d0bbf3f"
   },
-  "new_tests": 8,
-  "reused_f10": {
-    "status": "REUSED_VERIFIED_NOT_RERUN",
-    "path": "docs/plan/week12/backtest_ui_checks.zip",
-    "bytes": 45895,
-    "sha256": "7a12b28e952dccc204f37563ff8bc5a1e3dca24517bc8f7709c029967c510b37",
-    "python_tests": 156,
-    "dom_tests": 31,
-    "suites": 19,
-    "leakage_tests": 18,
-    "native_parity_tests": 11,
-    "reason": "APP_SOURCE_RUNTIME_AND_ALL_QA_MEMBERS_MATCH; AGENTS_1_2_SCOPED_REUSE"
-  },
-  "compiled_python": 8,
-  "runtime_packages": 107,
+  "base_commit": "6ac5d7ab",
+  "python_tests": 138,
+  "dom_tests": 16,
+  "compiled_python": 19,
+  "javascript_syntax": 5,
   "browser": {
-    "status": "BLOCKED",
-    "observed_at": "2026-11-13",
-    "host_error": "The browser access host is unavailable",
-    "native_attempt": "Microsoft Edge via computer-use sky.launch_app",
-    "automatic_review_error": "Computer Use was not approved to use Microsoft Edge",
-    "additional_rejection_reason": null,
+    "status": "PENDING",
     "desktop": "NOT_RUN",
     "mobile": "NOT_RUN",
-    "required_cases": [
-      "six_main_choices",
-      "advanced_controls",
-      "offline_and_new_run",
-      "empty_error_partial_completed",
-      "stop_resume",
+    "reason": "BROWSER_HOST_UNAVAILABLE; PRIOR_EDGE_AUTOMATIC_REVIEW_REJECTED",
+    "required": [
+      "all_six_latest_analysis",
+      "advanced",
+      "frozen_reader",
+      "empty_error_partial",
       "exports",
+      "stop_resume",
       "VI_EN",
-      "desktop_mobile_layout_keyboard_focus"
+      "desktop_mobile_keyboard_focus"
     ]
   },
-  "hosted_smoke": "NOT_RUN; OFFLINE_SCOPE_NO_DEPLOYMENT",
-  "f11_complete": false
+  "historical": {
+    "frozen_packages": 20,
+    "legacy_archives": 30,
+    "f05_outputs_restored_verified": 10,
+    "f05_sources_restored_verified": 68,
+    "old_qa_preserved": [
+      "serving_resources_v1.json",
+      "serving_runner_checks.zip",
+      "analysis_ui_checks.zip",
+      "backtest_ui_checks.zip",
+      "serving_integration_checks.zip"
+    ],
+    "f10_and_f11_v1": "HISTORICAL_ONLY; CHANGED_CALLERS_RETESTED_NOT_BLINDLY_REUSED",
+    "develop_paper_unchanged": true,
+    "native_rowwise_causal_gate": "FAIL",
+    "whole_system_causal_gate": "NOT_CERTIFIED"
+  },
+  "hosted_smoke": "NOT_RUN; FIXTURE_FIRST",
+  "f11_complete": false,
+  "previous_f11_qa_preserved": "docs/plan/week12/serving_integration_checks.zip",
+  "scoped_followup": {
+    "changed_paths": [
+      "scripts/serving_acceptance/live.py",
+      "static/js/analysis/legacy_form.js",
+      "tests/js/analysis_ui.test.mjs",
+      "tests/serving_live/test_admission.py",
+      "tests/test_realtime_sources.py",
+      "utils/serving_live_web.py"
+    ],
+    "reason": "SHARE_DEFAULT_ADMISSION_LEDGER; LEGACY_ONLY_POLL; CONNECTOR_BOUNDARY",
+    "tests": [
+      "tests_serving_live_admission.log",
+      "tests_realtime_sources.log",
+      "analysis_ui.log"
+    ],
+    "prior_checks": "checks_before_admission.json",
+    "prior_dom_log": "analysis_ui_before_admission.log",
+    "unchanged_python_suites": "RETAINED_PASS_LOGS; PROVIDER_RUNNER_METHODS_UNCHANGED_AFTER_MAIN_GATE",
+    "source_guard_before_after": true
+  },
+  "scorer_followup": {
+    "changed_paths": [
+      "core/serving_live/snapshots.py",
+      "tests/serving_live/test_admission.py"
+    ],
+    "reason": "REAL_VISOBERT_LEXICON_SCORER_IDS_TO_FROZEN_ENUM; KEEP_ORIGINAL_PROVENANCE",
+    "test_log": "tests_serving_live_admission.log",
+    "prior_checks": "checks_before_scorer.json",
+    "prior_test_log": "admission_before_scorer.log",
+    "unchanged_paths": "NO_PROVIDER_RUNNER_METHOD_OR_UI_CHANGE; RETAIN_PRIOR_PASS_LOGS"
+  }
 }

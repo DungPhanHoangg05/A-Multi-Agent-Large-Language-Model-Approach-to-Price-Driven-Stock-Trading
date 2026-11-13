@@ -11,11 +11,68 @@ phương pháp và replay nghiên cứu. Không đổi expected hash/receipt l�
 qua server preflight và miền cụ thể trong mục tiếp theo. Không mở lại grant
 nghiên cứu U08, không dùng API key từ body request.
 
+Theo yêu cầu người dùng ngày **13/11/2026**, F11 bổ sung
+`serving_live_daily_v1` và `/api/serving/live/v1` cho dữ liệu mới nhất.
+Luồng live tách khỏi release frozen F08, dùng lại runner/method adapters và
+weights/bank đã khóa; không biến kết quả historical U09 thành forecast mới.
+
+## Phân tích phiên ngày mới nhất
+
+Mở `/demo`, nguồn mặc định **Realtime · phiên ngày hoàn tất mới nhất**.
+Chọn mã và một trong sáu bản chính, nhấn **Lấy dữ liệu mới nhất**, đợi kiểm
+khả dụng rồi nhấn **Phân tích**. Nút này chạy đúng bản trong dropdown;
+checkbox chỉ áp dụng khi nhấn **So sánh phiên bản**. Phần nâng cao giữ
+repeat/model options và hai dependency; fallback/bypass luôn hiển thị rõ.
+
+Miền live là chín mã như F08, **1d/VI**, nguồn VCI/KBS qua loader hiện hữu.
+Không giới hạn ngày mới trong tháng 7–9 nữa. Trước **15:30 Asia/Ho_Chi_Minh**
+loại nến ngày hiện tại; sau đó chỉ nhận phiên có cả cổ phiếu và VNINDEX.
+Giá/volume phải hợp lệ, có ít nhất 600 phiên, không nến tương lai hoặc lịch
+lệch; nguồn quá cũ trên mười ngày bị chặn. Chọn **Hệ gốc · intraday và khung
+thời gian khác** nếu cần luồng cũ; không gán model theo ngày cho nến phút.
+Tin undated bị loại, tin future bị từ chối; tin chỉ có ngày được coi là khả
+dụng từ ngày kế tiếp. Thiếu ít nhất ba score hợp lệ giữ sentiment unavailable,
+không giả thành trung tính. Sự kiện quyền live chưa có ledger độc lập; metadata
+giữ `LIVE_EVENT_LEDGER_UNAVAILABLE; VENDOR_ADJUSTMENT_RISK`.
+
+`POST /api/serving/live/v1/snapshot` nhận duy nhất `symbol`, fetch giá/tin/index
+một lần, trả `snapshot_id` SHA256, ngày dữ liệu, thời điểm capture và nguồn.
+Preflight/start nhận envelope đóng:
+
+```json
+{"version":"variant_serving_live_v1","snapshot_id":"<SHA256>","request":{"version":"variant_serving_v1","mode":"analyze","variant_ids":["MT_BICL"],"symbols":["MWG"],"start_date":"<cutoff capture>","end_date":"<cutoff capture>","timeframe":"1d","language":"vi","repeats":1,"models":"<object đủ sáu role từ /api/serving/v1/defaults>"}}
+```
+
+Ví dụ trên mô tả cấu trúc; thay `models` bằng object thật, không gửi chuỗi mô tả.
+`POST /preflight`, `POST /jobs`, `GET /jobs/<UUID>`, `POST /jobs/<UUID>/stop|resume`
+và `GET /jobs/<UUID>/export` đều dưới prefix live. Cookie owner được kiểm cả
+snapshot/job, source/config/model/key được snapshot riêng; không nhận raw key
+trong body. Service live mặc định dùng chung ledger admission as-of cho
+TPM/RPM; namespace job và input vẫn riêng. State live nằm dưới `outputs/serving_live/`, không trộn catalog
+backtest as-of hoặc kết quả U09. Export JSON và GET không fetch nguồn/model.
+Link kết quả giữ `serving_source=live`; đổi VI/EN không mất namespace job.
+
+Upstream I→P→T vẫn một lần/point; native Alpha giữ cách tính cũ. Common Alpha
+dùng top5/threshold frozen đã replay integrity rồi chuyển sang prefix live,
+có identity `live_frozen_selector_transfer_v1` và scope riêng, không nhận là
+parity dữ liệu frozen. Bayesian giữ bank/scaler2022; query features/regime
+nhận nguồn mới và lịch quan sát. MT giữ context labels mature trước 01/07/2026,
+facts historical cùng nguồn nhãn cũ, chỉ x/facts query lấy live; weights và
+HMM frozen không refit. Ba ngày t+1/t+3 trong metadata query MT chỉ là **kế hoạch
+ngày làm việc**, không phải lịch sàn/giá khớp tương lai; không đưa vào HMM,
+features hoặc oracle. Fallback/cold context được trình bày bằng policy reason.
+
+Phân tích live không có outcome/P&L t+3, không nhận mode backtest. Resume luôn
+đọc lại capture cũ theo SHA, không tự lấy giá mới và không gửi lại UNKNOWN.
+Muốn dùng dữ liệu mới hơn phải capture và tạo job mới. Báo cáo/nguồn live là
+exploratory; native causal FAIL, whole-system NOT_CERTIFIED giữ nguyên.
+
 ## Chạy serving as-of từ F08
 
 Miền công bố: **1d/VI**, BHN/CMG/FPT/HVN/MBB/MWG/VCB/VJC/VNM, **58 phiên
 01/07–23/09/2026** trong calendar đã pin. Đây là dữ liệu vendor historical
-frozen; **chưa hỗ trợ giá/tin mới nhất hiện tại, intraday hoặc EN**. Query mới
+frozen; **luồng as-of này không nhận giá/tin mới nhất, intraday hoặc EN**.
+Giá/tin mới nhất dùng luồng live riêng ở trên. Query mới
 được dựng từ giá as-of và chạy upstream/Decision mới, không lookup forecast
 hay prepared response U09. Bank CORE4/OOD fallback và MT eligible/bypass giữ
 đúng policy; “chạy được” không có nghĩa mọi nhánh luôn đủ support để gọi LLM.
@@ -115,8 +172,8 @@ F10 đã nối backtest/experiments. F08 không sửa template hoặc endpoint n
 Mở `/` hoặc `/demo`, chọn nguồn **As-of** và một mã/ngày trong miền công bố.
 Mặc định Hệ gốc; “Phân tích” chạy bản trong dropdown, “So sánh phiên bản” chạy
 các checkbox đã chọn (ít nhất hai, mặc định Hệ gốc + Bayesian v1). Các dependency
-tự chạy và hiện trong phần nâng cao. Chọn nguồn realtime legacy để dùng form
-mã/khung cũ với Hệ gốc; luồng này không nhận các bản mở rộng.
+tự chạy và hiện trong phần nâng cao. Chọn nguồn Hệ gốc intraday/khung khác
+để dùng form mã/khung cũ; nguồn Realtime phiên ngày mới nhất chạy cả sáu bản.
 
 Giao diện VI/EN không đổi ngôn ngữ report đã có. Provider mới hiện chỉ hỗ trợ
 VI; chọn report EN sẽ bị chặn thay vì tự đổi sang VI. Repeat và options của
@@ -126,7 +183,7 @@ mới bật nút; server vẫn preflight lại khi tạo job. Start có gọi Gr
 đủ tài nguyên/key; mở trang hoặc đọc kết quả không gọi inference.
 
 Kết quả mở `/output?serving_run=<UUID>`, giữ cookie owner để reload/stop/resume;
-link job gần nhất trên form chỉ lưu UUID, không lưu key hoặc raw response.
+link job gần nhất trên form lưu UUID và namespace as-of/live, không lưu key hoặc raw response.
 Các card tách raw/final/action/effective ID/reason, dependency thu gọn. Chart,
 ảnh và reports lấy từ một snapshot; Alpha native/common ghi rõ hai projection.
 Chi tiết thêm `policy_details[slot].context = {trace, aux}` từ prepare durable,
@@ -184,11 +241,13 @@ vẫn chờ F11 do host không khả dụng; kiểm offline dùng HTTP fixture.
 ## Nghiệm thu F11 và preview fixture
 
 [Receipt tích hợp](serving_integration_acceptance.json) và
-[gói QA](serving_integration_checks.zip) đang có trạng thái
-`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. Tám test mới kiểm
-HTTP hai job/provider thật đồng thời, restart trên store bền vững, support522
-và rào chắn preview. Gate F10 156 Python + 31 DOM được viện dẫn sau đối soát
-nguồn/log/runtime107, không chạy lại vì ứng dụng không đổi.
+[gói QA ban đầu](serving_integration_checks.zip) giữ bằng chứng lịch sử;
+receipt hiện hành dùng [QA live](serving_live_checks.zip), trạng thái
+`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. Gate hiện hành
+kiểm lại caller/runtime service/UI/PIT bị đổi, bổ sung capture và sáu job
+analyze chọn riêng từng bản trên phiên 12/11/2026 mô phỏng, cùng compare,
+restart không refetch và UNKNOWN. Gate F10/F11 ban đầu chỉ là lịch sử;
+không viện dẫn nguyên trạng cho code live mới.
 
 ```powershell
 py -3.13 -X utf8 scripts/check_serving_acceptance.py
@@ -197,9 +256,10 @@ py -3.13 -X utf8 scripts/serve_serving_review.py --port 5051 --seed --duration 9
 ```
 
 Lệnh đầu chỉ đối soát receipt/member/source/runtime/evidence. `--run` chạy lại
-đúng suite F11 tám test và biên dịch tám Python mới rồi ghi QA/receipt, không
-gọi hosted LLM/thị trường. Không có cờ tự đánh PASS browser. Nếu ứng dụng hoặc
-runtime khác F10, script từ chối viện dẫn; phải chọn lại test đúng phần đổi.
+đúng các suite đã chọn trong `scripts/serving_acceptance/live.py`, biên dịch
+Python đổi rồi ghi QA/receipt. Mạng thị trường/Groq dùng fixture trong test,
+không gọi hosted thật. Không có cờ tự đánh PASS browser; nguồn/runtime khác
+gói QA mới thì lệnh verify từ chối, cần kiểm lại phần bị ảnh hưởng.
 
 Preview chỉ bind `127.0.0.1`, in URL form và UUID seed backtest sáu bản.
 HTTP Groq dùng fixture, provider/resource/UI vẫn thật; native Alpha vẫn tính/

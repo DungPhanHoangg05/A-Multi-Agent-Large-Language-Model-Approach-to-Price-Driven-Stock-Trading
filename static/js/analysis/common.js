@@ -9,9 +9,9 @@ export function element(tag, text, className) {
 export function label(config, id) {
   return config.registry.variants.find(v => v.id === id)?.label[config.language] ?? id;
 }
-export function jobUrl(id, language) {
+export function jobUrl(id, language, source = 'asof') {
   if (!/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/.test(id)) throw new Error('Invalid job ID');
-  return '/output?' + new URLSearchParams({serving_run: id, lang: language});
+  return '/output?' + new URLSearchParams({serving_run: id, lang: language, ...(source === 'live' ? {serving_source:'live'} : {})});
 }
 export async function json(url, body, signal) {
   const response = await fetch(url, {signal, credentials:'same-origin', cache:'no-store',

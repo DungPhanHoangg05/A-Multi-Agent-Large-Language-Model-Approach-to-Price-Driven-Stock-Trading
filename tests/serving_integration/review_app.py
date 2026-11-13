@@ -20,8 +20,17 @@ def make_app(state_root: Path) -> tuple[Any,Any,str]:
         web = importlib.import_module('web_interface')
     app = web.app; clock = Clock()
     service = Service(ROOT,state_root=state_root,clock=clock,sender_factory=lambda _:Sender(clock))
+    from datetime import datetime
+    from core.serving_live.service import LiveService
+    from core.serving_live.snapshots import Snapshots, ZONE
+    fixture_spec = importlib.util.spec_from_file_location('live_preview_fixture',ROOT/'tests/serving_live/support.py')
+    fixture = importlib.util.module_from_spec(fixture_spec)
+    fixture_spec.loader.exec_module(fixture)
+    snapshots = Snapshots(state_root/'live-inputs',prices=fixture.prices,news=fixture.news,
+        now=lambda:datetime(2026,11,13,10,tzinfo=ZONE))
+    live_service = LiveService(ROOT,state_root=state_root/'live',snapshots=snapshots,clock=clock,sender_factory=lambda _:Sender(clock))
     app.config.update(SERVING_SERVICE=service,SERVING_API_KEY_PROVIDER=lambda:'fixture-review-key',
-                      SERVING_LEGACY_ROOT=state_root,TESTING=False)
+                      SERVING_LIVE_SERVICE=live_service,SERVING_LEGACY_ROOT=state_root,TESTING=False)
     owner_id = 'f11-loopback-review-owner'
     cookie = URLSafeTimedSerializer(service.quota.secret(),salt='serving-owner-v1').dumps(owner_id)
 
@@ -31,7 +40,7 @@ def make_app(state_root: Path) -> tuple[Any,Any,str]:
         if request.path == '/api/groq-status':
             return jsonify({'valid':True,'fixture':True,'message':'HTTP fixture; không kết nối Groq'})
         if request.path == '/api/assets': return jsonify({'assets':[],'total':0,'fixture':True})
-        if request.path.startswith('/api/') and not request.path.startswith(('/api/serving/v1/','/api/research-results/','/api/experiments/')):
+        if request.path.startswith('/api/') and not request.path.startswith(('/api/serving/v1/','/api/serving/live/v1/','/api/research-results/','/api/experiments/')):
             return jsonify({'error':'Preview fixture chặn API legacy/thị trường/cấu hình','fixture':True}),409
         return None
 

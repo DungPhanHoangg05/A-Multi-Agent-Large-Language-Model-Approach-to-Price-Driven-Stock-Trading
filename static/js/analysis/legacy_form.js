@@ -301,5 +301,5 @@
 // Chỉ tải danh sách realtime khi chọn nguồn legacy; giữ nhịp kiểm trạng thái năm phút.
 window.legacyAnalysis = {run: chayPhanTich, load: () => {
     kiemTraTrangThaiRT(); taiDanhSachMa();
-    setInterval(() => { if (document.getElementById('analysis-source').value === 'latest') kiemTraTrangThaiRT(); }, 5 * 60 * 1000);
+    setInterval(() => { if (document.getElementById('analysis-source').value === 'legacy') kiemTraTrangThaiRT(); }, 5 * 60 * 1000);
 }};

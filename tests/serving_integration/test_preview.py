@@ -23,4 +23,7 @@ class PreviewBoundaryTests(unittest.TestCase):
                 self.assertEqual(client.post(path,json={}).status_code,409)
             self.assertEqual(client.get('/api/assets?refresh=1').get_json()['assets'],[])
             self.assertTrue(client.get('/api/groq-status').get_json()['fixture'])
+            live = client.post('/api/serving/live/v1/snapshot',json={'symbol':'MWG'})
+            self.assertEqual(live.status_code,200)
+            self.assertEqual(live.get_json()['cutoff'],'2026-11-12')
             self.assertEqual(service.tasks,{})

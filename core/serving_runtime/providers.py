@@ -146,6 +146,12 @@ class AsOfProvider:
             output = book.execute(slot, {"state_sha256": digest(encode_output(inputs))}, invoke)
             state.update(output)
         state["alpha_factors"] = deepcopy(state["sentiment_data"]["alpha_results"])
+        return self.snapshot(point, state)
+
+    def snapshot(self, point: dict, state: dict) -> dict:
+        """Biên đóng snapshot chung; provider live dùng cùng upstream với nguồn riêng đã khóa."""
+        from core.causal_bridge import bind_snapshot
+        from core.unified_methods import snapshot_from_graph
         source = self.alpha["causal_sources"][point["symbol"] + "/f2026_q3"]
         price_sha = hashlib.sha256((self.root / source["prices"]).read_bytes()).hexdigest()
         prefix = self.prefix(point)

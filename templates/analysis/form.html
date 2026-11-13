@@ -1,11 +1,14 @@
 <section class="serving-ui" aria-label="{{ A.source }}">
-  <label class="serving-field">{{ A.source }}<select id="analysis-source"><option value="asof">{{ A.asof }}</option><option value="latest">{{ A.latest }}</option></select></label>
+  <label class="serving-field">{{ A.source }}<select id="analysis-source"><option value="latest" selected>{{ A.latest }}</option><option value="asof">{{ A.asof }}</option><option value="legacy">{{ A.legacy }}</option></select></label>
   <p id="legacy-note" hidden>{{ A.legacy_note }}</p>
   <div id="asof-inputs">
     <p class="serving-notice">{{ A.domain }}</p>
+    <p id="live-note" class="serving-notice">{{ A.live_note }}</p>
+    <p id="live-input-status" role="status" aria-live="polite">{{ A.live_unloaded }}</p>
+    <button id="capture-live" type="button" class="serving-button">{{ A.live_capture }}</button>
     <div class="serving-grid">
       <label class="serving-field">{{ A.symbol }}<select id="asof-symbol">{% for symbol in serving_registry.domain.released_symbols %}<option{% if symbol == 'FPT' %} selected{% endif %}>{{ symbol }}</option>{% endfor %}</select></label>
-      <label class="serving-field">{{ A.date }}<input id="asof-date" type="date" value="2026-07-02" min="{{ serving_registry.domain.released_date_ranges[0].start_date }}" max="{{ serving_registry.domain.released_date_ranges[0].end_date }}" required></label>
+      <label id="asof-date-field" class="serving-field" hidden>{{ A.date }}<input id="asof-date" type="date" value="2026-07-02" min="{{ serving_registry.domain.released_date_ranges[0].start_date }}" max="{{ serving_registry.domain.released_date_ranges[0].end_date }}" required></label>
       <label class="serving-field">{{ A.language }}<select id="report-language"><option value="vi">Tiếng Việt · VI</option><option value="en">English · EN</option></select></label>
       <label class="serving-field">{{ A.version }}<select id="analysis-version">{% for variant in serving_registry.variants if variant.group == 'main' %}<option value="{{ variant.id }}">{{ variant.label[LANG] }}</option>{% endfor %}</select></label>
     </div>

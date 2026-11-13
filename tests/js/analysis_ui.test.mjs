@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {test,beforeEach} from 'node:test';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
+import {readFileSync} from 'node:fs';
+import {runInNewContext} from 'node:vm';
 import {requestFor,jobUrl} from '../../static/js/analysis/common.js';
 import {renderer} from '../../static/js/analysis/view.js';
 
@@ -124,11 +126,11 @@ test('Đổi form hủy grant, response preflight cũ không bật lại nút; t
   assert.equal(node('analyzeBtn').disabled,true); assert.equal(node('compareBtn').disabled,true);
   assert.match(node('preflight-status').textContent,/Resource/);
 });
-test('Compare thiếu lựa chọn bị khóa riêng; latest chỉ gọi native legacy, không gửi variants giả', async () => {
+test('Compare thiếu lựa chọn bị khóa riêng; legacy chỉ gọi native, không gửi variants giả', async () => {
   selected = ['MT_BICL']; const calls = [];
   const form = formController(fixture.config,async(url,body) => { calls.push({url,body}); return url.endsWith('/defaults') ? {models:fixture.data.identity.request.models} : ready; });
   await form.init(); assert.equal(node('compareBtn').disabled,true); assert.equal(node('analyzeBtn').disabled,false);
-  node('analysis-source').value = 'latest'; form.source();
+  node('analysis-source').value = 'legacy'; form.source();
   await form.start('analyze'); await form.start('compare');
   assert.equal(legacyRuns,1); assert.equal(legacyLoads,1); assert.equal(node('asof-inputs').hidden,true);
   assert.equal(calls.filter(row => row.url.endsWith('/jobs')).length,0);
@@ -168,4 +170,76 @@ test('ID trên URL không hợp lệ bị từ chối trước API, reload khôn
   let calls = 0;
   const controller = resultController({...fixture.config,runId:'../other'},async () => { calls++; return fixture.data; });
   await controller.init(); assert.equal(calls,0); assert.equal(node('resume-job').disabled,true);
+});
+
+test('Latest phân tích một bản nâng cấp trên snapshot mới, giữ IDs/options đã preflight', async () => {
+  node('analysis-source').value = 'latest'; node('analysis-version').value = 'MT_BICL';
+  const calls = [], routes = [];
+  const snapshot = {symbol:'MWG',cutoff:'2026-11-12',snapshot_id:'a'.repeat(64),price_rows:2000,captured_at:'2026-11-13T10:00:00+07:00'};
+  const form = formController(fixture.config,async (url,body) => {
+    calls.push({url,body});
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    if (url.endsWith('/snapshot')) return snapshot;
+    if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
+    return ready;
+  },url => routes.push(url));
+  await form.init(); assert.equal(node('analyzeBtn').disabled,true);
+  await form.start('analyze'); assert.equal(calls.filter(c => c.url.endsWith('/jobs')).length,0);
+  await form.capture(); assert.equal(node('analyzeBtn').disabled,false);
+  node('decision-temperature').value = 1.;
+  await form.start('analyze');
+  const sent = calls.find(c => c.url.endsWith('/jobs'));
+  assert.equal(sent.url,'/api/serving/live/v1/jobs');
+  assert.equal(sent.body.snapshot_id,snapshot.snapshot_id);
+  assert.deepEqual(sent.body.request.variant_ids,['MT_BICL']);
+  assert.equal(sent.body.request.mode,'analyze'); assert.equal(sent.body.request.start_date,'2026-11-12');
+  assert.equal(sent.body.request.models.decision.options.temperature,0);
+  assert.match(routes[0],/serving_source=live/); assert.equal(legacyRuns,0);
+  assert.equal(node('asof-inputs').hidden,false); assert.equal(node('asof-date').disabled,true);
+});
+
+test('Đổi mã hủy capture cũ, lỗi thị trường không cho chạy và không fallback về dữ liệu frozen', async () => {
+  node('analysis-source').value = 'latest'; let resolve, signal;
+  const form = formController(fixture.config,async (url,body,current) => {
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    if (url.endsWith('/snapshot')) { signal = current; return new Promise(done => resolve = done); }
+    throw new Error('Không được preflight hoặc start khi capture chưa hợp lệ');
+  });
+  await form.init(); const pending = form.capture();
+  node('asof-symbol').value = 'FPT'; form.invalidate();
+  assert.equal(signal.aborted,true);
+  resolve({symbol:'MWG',cutoff:'2026-11-12',snapshot_id:'b'.repeat(64)}); await pending;
+  assert.equal(node('analyzeBtn').disabled,true); assert.equal(node('compareBtn').disabled,true);
+  const failed = formController(fixture.config,async url => {
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    throw new Error('market unavailable');
+  });
+  await failed.init(); await failed.capture();
+  assert.match(node('serving-form-error').textContent,/chưa gọi LLM/); assert.equal(node('analyzeBtn').disabled,true);
+});
+
+test('Reload kết quả live chỉ đọc đúng namespace, giữ nguồn và thời điểm capture', async () => {
+  const calls = [], data = structuredClone(fixture.data);
+  data.identity.request.data_source = 'live';
+  data.live_input = {captured_at:'2026-11-13T10:00:00+07:00'};
+  const controller = resultController({...fixture.config,source:'live'},async (url,body) => { calls.push({url,body}); return data; });
+  await controller.init();
+  assert.equal(calls[0].url,'/api/serving/live/v1/jobs/'+fixture.data.run_id);
+  assert.equal(calls[0].body,undefined); assert.match(node('job-meta').textContent,/Realtime/);
+  assert.match(node('job-meta').textContent,/2026-11-13T10:00:00/);
+});
+
+test('Poll trạng thái intraday chỉ chạy khi đang chọn nguồn legacy, không làm mới snapshot live', () => {
+  const registry = new Map(), calls = []; let heartbeat;
+  const mockDocument = {addEventListener(){},querySelectorAll:() => [],getElementById(id) {
+    if (!registry.has(id)) registry.set(id,{style:{},textContent:'',value:'',innerHTML:''});
+    return registry.get(id);
+  }};
+  mockDocument.getElementById('legacy-config').textContent = JSON.stringify({messages:{},language:'vi'});
+  const context = {document:mockDocument,window:{},fetch:url => { calls.push(url); return new Promise(() => {}); },
+    setInterval:callback => heartbeat = callback,localStorage:{getItem:() => null}};
+  runInNewContext(readFileSync(root+'/static/js/analysis/legacy_form.js','utf8'),context);
+  context.window.legacyAnalysis.load(); calls.length = 0;
+  mockDocument.getElementById('analysis-source').value = 'latest'; heartbeat(); assert.deepEqual(calls,[]);
+  mockDocument.getElementById('analysis-source').value = 'legacy'; heartbeat(); assert.deepEqual(calls,['/api/realtime-status']);
 });

@@ -807,6 +807,8 @@ app.register_blueprint(experiments)
 from utils.serving_web import serving
 app.config["SERVING_API_KEY_PROVIDER"] = lambda: analyzer.config.get("groq_api_key", "") or os.environ.get("GROQ_API_KEY", "")
 app.register_blueprint(serving)
+from utils.serving_live_web import live as serving_live
+app.register_blueprint(serving_live)
 from utils.research_web import research
 app.register_blueprint(research)
 

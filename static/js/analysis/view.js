@@ -57,7 +57,9 @@ export function renderer(config) {
   function render(data) {
     const request = data.identity.request, progress = data.progress;
     byId('job-state').textContent = text[data.state === 'failed' ? 'job_failed' : data.state] ?? data.state;
-    byId('job-meta').textContent = `${request.symbols.join(', ')} · ${request.start_date} · ${request.timeframe} · ${request.language.toUpperCase()} · ${data.run_id}`;
+    const source = request.data_source === 'live' ? text.live_source : text.asof_source;
+    byId('job-meta').textContent = `${source} · ${request.symbols.join(', ')} · ${request.start_date} · ${request.timeframe} · ${request.language.toUpperCase()} · ${data.run_id}`;
+    if (data.live_input) byId('job-meta').textContent += ` · ${text.live_captured}: ${data.live_input.captured_at}`;
     byId('job-progress').textContent = `${text.points}: ${progress.points_complete}/${progress.points_total} · ${text.slots}: ${progress.decision_slots_complete}/${progress.decision_slots_total} · ${text.attempts}: ${progress.api_attempts}`;
     byId('partial-note').hidden = data.state === 'completed';
     byId('retry-at').textContent = data.retry_at ? text.retry_at+': '+new Date(data.retry_at*1000).toLocaleString(config.language) : '';

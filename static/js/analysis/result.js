@@ -5,7 +5,7 @@ import {renderer} from './view.js';
 export function resultController(config,io=json,schedule=setTimeout,cancel=clearTimeout) {
   const view = renderer(config), text = config.messages;
   let generation = 0, timer, abort, controlling = false;
-  const api = '/api/serving/v1/jobs/'+encodeURIComponent(config.runId);
+  const api = (config.source === 'live' ? '/api/serving/live/v1' : '/api/serving/v1')+'/jobs/'+encodeURIComponent(config.runId);
   function clear() { cancel(timer); ++generation; abort?.abort(); }
   async function refresh() {
     clear(); const mine = generation; abort = new AbortController();

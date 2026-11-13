@@ -181,8 +181,10 @@ F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ;
 contract ứng dụng; F07 có viewer U09 offline, F08 có provider/runner/API job
 as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh cùng snapshot.
 F10 đã nối backtest nhiều bản và trang thực nghiệm, filter/evaluator/export
-cùng support; adapter Full/No-Alpha riêng. F11 offline PASS 8 test mới/compile8,
-QA F10 được đối soát và viện dẫn; browser BLOCKED, chưa hoàn tất/chưa merge.
+cùng support; adapter Full/No-Alpha riêng. F11 đã nhận develop mới và bổ sung
+phân tích phiên ngày mới nhất cho cả sáu bản, không chỉ so sánh historical.
+Service/provider/UI đã đổi nên kiểm lại caller/PIT/recovery liên quan;
+gate ban đầu giữ làm lịch sử. Browser còn chờ, chưa hoàn tất/chưa merge.
 F12 chưa bắt đầu.
 **0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
@@ -201,7 +203,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: 8 test mới/compile8 PASS; đối soát nguồn/runtime107 và viện dẫn 156 Python + 31 DOM F10, không chạy lại. Browser desktop/mobile BLOCKED, chưa hoàn tất/chưa merge; smoke live có phạm vi nếu triển khai cần.
+- [ ] F11 — Đang làm: nhận develop mới, thêm phân tích phiên ngày mới nhất qua snapshot live cho sáu bản; kiểm lại caller/service/UI/PIT/recovery bị đổi, không dùng gate cũ thay kết quả mới. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -596,7 +598,7 @@ Browser tiếp tục báo `The browser access host is unavailable`, inventory kh
 có browser; **chưa kiểm trực quan desktop/mobile**, giữ gate này tại F11.
 F11–F12 tiếp tục; không push/deploy/submit.
 
-### F11 — Nghiệm thu tích hợp, còn chờ browser
+### F11 — Nghiệm thu tích hợp ban đầu, còn chờ browser
 
 Ngày **13/11/2026**, nhánh `test/variant-serving-integration` từ develop
 `f96b44f2`. Không sửa mã ứng dụng hoặc runtime; bổ sung test, CLI preview/gate
@@ -609,13 +611,42 @@ và receipt machine-readable, tách helper khỏi script/test chính.
 - [x] **20 gói W12 + 30 archive lịch sử**, **11 output F05 + 68 nguồn manuscript**, resource manifest và QA F08/F09/F10 nguyên byte. Worktree khớp **722/729** pin U09, vẫn bảy đường đã version hóa; F01 phục hồi đủ729. Native causal giữ FAIL, whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận đóng. **0 hosted LLM, 0 market API, 0 training HMM/student/bank mới**; native Alpha vẫn tính/selection theo hành vi cũ. Không smoke hosted vì chưa có yêu cầu triển khai.
 - [ ] Browser desktop/mobile: đủ sáu lựa chọn, advanced controls, offline/new run, empty/error/partial/completed, stop/resume, exports, VI/EN, layout và keyboard/focus. Host báo `The browser access host is unavailable`; inventory không có browser. Thử mở Microsoft Edge bằng computer-use bị duyệt tự động từ chối: `Computer Use was not approved to use Microsoft Edge`, không có lý do thêm. Không thử vòng đường khác để vượt từ chối, không ghi PASS cho phần chưa quan sát.
 
-[Receipt F11](serving_integration_acceptance.json) và
-[QA tích hợp](serving_integration_checks.zip) gồm ba member, giữ nguồn/runtime,
-log tám test, đối soát evidence/QA kế thừa và trạng thái
+[QA tích hợp ban đầu](serving_integration_checks.zip) gồm ba member, giữ nguồn/runtime,
+log tám test, đối soát evidence/QA kế thừa và trạng thái tại mốc ban đầu
 **`OFFLINE_PASS_BROWSER_PENDING`, `f11_complete=false`**. Checklist F11 vẫn mở;
 đã kiểm diff, **158 liên kết/anchor local** và đồng bộ checklist PASS.
 F12 chưa bắt đầu. **Chưa merge vào develop** vì AGENTS §1.2 yêu cầu mọi kiểm tra
 áp dụng PASS; còn thiếu browser gate bắt buộc của F11. Không push/deploy/submit.
+
+### Cập nhật F11 — Phân tích phiên mới nhất với từng bản nâng cấp
+
+Theo yêu cầu bổ sung ngày **13/11/2026**, đã hợp nhất develop `4de6d1aa` vào
+`test/variant-serving-integration` qua commit `6ac5d7ab`. Giữ nguyên nguồn
+`paper/`, PDF hiện hành `outputs/paper/` và archive bằng chứng revision mới;
+không khôi phục cấu trúc paper cũ hoặc ghi đè kết quả người dùng vừa cập nhật.
+
+- [x] Form mặc định **Realtime · phiên ngày hoàn tất mới nhất**. Người dùng chọn mã, chọn riêng Hệ gốc/Bayesian v1/C2/A/B/MT-BICL, lấy dữ liệu mới nhất rồi chạy **Phân tích**; không bắt buộc so sánh. Checkbox vẫn dành cho so sánh cùng snapshot; hệ gốc intraday/khung khác và viewer historical giữ nguồn riêng.
+- [x] Backend `core/serving_live/` tách snapshot/service/provider/context. API `/api/serving/live/v1` có capture/preflight/start/read/stop/resume/export JSON; lấy OHLCV và VNINDEX VCI/KBS, tin có ngày, khóa cutoff/hash/owner trước forecast. Trước15:30VN bỏ nến hôm nay; cần ≥600 nến, lịch đồng bộ và nguồn không quá cũ; future/invalid là lỗi. Tin undated bị loại, thiếu score giữ unavailable. Ledger sự kiện quyền live chưa được tải, metadata giữ rủi ro vendor adjustment.
+- [x] Dùng lại runner DAG, durable transport/quota, key/options isolation, prompt caps và policy adapters. Service live mặc định dùng chung ledger admission với as-of để không nhân đôi TPM/RPM. I→P→T một lần/point, dependency một lần/repeat. Bank/scaler/student/HMM frozen; common Alpha có profile chuyển top5/threshold frozen sang query live với hash/scope riêng. Facts/nhãn historical giữ đúng nguồn cũ; chỉ x/facts query nhận live. Lịch t+1/t+3 trong context live là kế hoạch ngày làm việc, không phải lịch khớp/giá tương lai; không có outcome hoặc P&L query.
+- [x] UI giữ VI/EN, report VI; chuyển nguồn/đổi mã hủy capture/grant cũ, response cũ không bật nút, lỗi thị trường không tự fallback sang frozen. Link/reload/đổi ngôn ngữ giữ namespace live, cards hiển thị nguồn/cutoff/thời điểm capture và raw/final/effective/bypass. Key không đi vào browser/export. Resume giữ nguyên UUID/capture cũ, UNKNOWN không retry mù.
+- [x] Fixture thị trường mới sau tháng9 và HTTP Groq chạy qua provider thật; kiểm từng bản riêng ở mode analyze và toàn bộ sáu bản ở mode compare, GET/export không inference, snapshot/owner/date/model binding, stop/restart/UNKNOWN, nến chưa đóng/future/stale/undated. Preview fixture cũng hỗ trợ nguồn live và tiếp tục chặn API legacy/thị trường/đổi key thật.
+- [x] **138 Python + 16 DOM PASS**, không skip; compile **19 Python thay đổi**, syntax **5 JS PASS**. Gồm 14 test live mới, 8 nghiệm thu F11, hồi quy service/runtime/resource/API, analysis/backtest caller/evaluator, contract/shared snapshot, JSON, 18 leakage và 11 native parity. Gate chính130 Python/15 DOM đã PASS; sau đó sửa default ledger, poll legacy và ánh xạ tên scorer thật sang enum FrozenNews (giữ nguyên `scorer_source`), kiểm đúng 5 test admission/connector/scorer, 3 loader và DOM16/syntax liên quan, không chạy lại các suite không bị ảnh hưởng. QA giữ checks/log trước bổ sung, delta source và bằng chứng kiểm tiếp theo; không nhận là đã chạy lại toàn bộ test lần hai.
+- [ ] Browser desktop/mobile/keyboard vẫn chờ host khả dụng; không dùng HTML200/DOM test thay quan sát trực quan. Không đánh dấu F11 hoàn tất hoặc mở F12/merge khi thiếu gate này.
+
+[Receipt F11 hiện hành](serving_integration_acceptance.json) dùng
+[QA live](serving_live_checks.zip), có log kiểm lại các caller/service/PIT
+đã đổi và nguồn/runtime mới. Gói F10/F11 ban đầu giữ nguyên làm lịch sử,
+không chứng nhận code mới bằng kết quả cũ. [Runbook](variant_serving_contract.md#phân-tích-phiên-ngày-mới-nhất)
+ghi thao tác UI, miền 1d/VI/chín mã, API và giới hạn chuyển nguồn.
+Đối soát nguyên byte **20 gói W12 + 30 archive**, F05 gồm manifest cùng
+10 output/68 nguồn khôi phục từ archive mới; PDF/manifest `outputs/paper/`
+và index archive mới từ develop giữ nguyên. Gate trước giữ nguyên byte.
+Diff, **184 liên kết/anchor local** (kể cả anchor HTML trong archive index)
+và đồng bộ checklist PASS; F11 vẫn đang làm, F12 chưa bắt đầu.
+Không chạy full unit/E2E/compileall/research; không gọi Groq/thị trường thật
+trong kiểm thử, không training HMM/student/bank mới. Native Alpha vẫn giữ
+hành vi tính/selection cũ, native causal FAIL/whole-system NOT_CERTIFIED và
+0/18 reviewer comment được chứng nhận đóng không thay đổi.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

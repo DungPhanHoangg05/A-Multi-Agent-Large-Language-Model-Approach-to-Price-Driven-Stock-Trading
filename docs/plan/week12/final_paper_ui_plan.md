@@ -209,8 +209,12 @@ kiện, nếu thiếu thì nói rõ tài nguyên hay support nào thiếu.
 Mục tiêu nghiệm thu là người dùng **chạy được cả sáu bản chính trên miền đầu
 vào đã công bố**, không chỉ xem dropdown bị vô hiệu hóa. Research hiện có chỉ
 chứng minh đường daily/as-of và assets frozen; không chứng minh mọi mã/ngày
-hiện tại hay khung intraday đều được hỗ trợ. F08 phải xây provider as-of và
-đóng gói resources phục vụ inference mới. Không refit ngầm HMM/student/bank;
+hiện tại hay khung intraday đều được hỗ trợ. F08 đã xây provider as-of và
+đóng gói resources phục vụ inference mới. Theo yêu cầu bổ sung ngày 13/11/2026,
+F11 mở provider live riêng cho **phiên ngày hoàn tất mới nhất** của chín mã:
+chạy từng bản nâng cấp để phân tích thực tế, không chỉ so sánh historical.
+Giá/tin/VN-Index được capture và khóa trước forecast; intraday vẫn thuộc hệ gốc.
+Không refit ngầm HMM/student/bank;
 nếu phải đổi tài nguyên, version hóa bộ mới và giữ kết quả U09 gắn bộ cũ.
 
 ### 4.2. Luồng màn hình
@@ -356,8 +360,11 @@ so sánh cùng snapshot, raw/final/CASH, context và native/common Alpha;
 host không khả dụng, giữ ở F11. F10 đã có backtest nhiều bản, catalog owner,
 filter cùng support, account/classification chung U09, daily NAV/cycle return,
 JSON/CSV và adapter Full/No-Alpha riêng; 156 Python + 31 DOM, compile13/JS7
-PASS, toàn HTTP fixture. F11 đã PASS 8 test tích hợp mới/compile8, đối soát
-nguyên nguồn/runtime107/QA để viện dẫn 156 Python + 31 DOM F10, không chạy lại.
+PASS, toàn HTTP fixture. Gate F11 ban đầu có 8 test mới và viện dẫn F10;
+sau khi nhận develop `4de6d1aa`, F11 mở thêm dữ liệu phiên ngày mới nhất cho
+sáu bản. Mã service/provider/UI đã đổi nên kiểm lại caller/PIT/recovery liên
+quan: **138 Python + 16 DOM, compile19/JS5 PASS**; không coi gate cũ là chứng
+nhận code mới. Có kiểm default ledger chung và poll legacy đúng nguồn.
 [Receipt F11](serving_integration_acceptance.json) giữ
 `OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
 và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
@@ -379,7 +386,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Đang làm | Nghiệm thu tích hợp đúng phạm vi — `test/variant-serving-integration` | F07–F10 | 8 test mới/compile8 PASS; nguồn/runtime107/QA F10 khớp để viện dẫn 156 Python + 31 DOM, không chạy lại; HTTP đồng thời/restart/522 cửa sổ support PASS. Browser desktop/mobile BLOCKED, chưa hoàn tất/chưa merge; không đổi U09, live smoke giới hạn nếu triển khai cần |
+| F11 | ☐ Đang làm | Nghiệm thu tích hợp và phân tích phiên mới nhất — `test/variant-serving-integration` | F07–F10 | Nhận develop mới, provider snapshot live 1d/VI/chín mã, sáu bản chọn riêng để phân tích hoặc so sánh; checkpoint/owner/key/quota chung; 138 Python + 16 DOM, compile19/JS5 PASS. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy

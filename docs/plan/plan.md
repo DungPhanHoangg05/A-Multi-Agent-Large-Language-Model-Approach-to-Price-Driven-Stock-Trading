@@ -64,10 +64,16 @@ account/classification U09, daily NAV/cycle returns, filter/contrast cùng
 support và JSON/CSV; Full/No-Alpha legacy có adapter riêng. **156 Python +
 31 DOM, compile13/JS7 PASS**, chỉ HTTP fixture; browser visual chờ F11.
 **F11 đang làm**: [receipt tích hợp](week12/serving_integration_acceptance.json)
-ghi 8 test mới/compile8 PASS; đối soát nguồn ứng dụng, runtime107 và QA F10 để
-viện dẫn 156 Python + 31 DOM, không chạy lại. Hai job HTTP đồng thời, phục hồi
-service mới và 522 cửa sổ support đã kiểm bằng fixture. Browser desktop/mobile
-vẫn BLOCKED: host không khả dụng, duyệt tự động từ chối mở Edge. Chưa đạt gate
+đã có gate offline ban đầu và nay được mở rộng theo yêu cầu người dùng:
+nhánh F11 đã hợp nhất develop `4de6d1aa` qua `6ac5d7ab`, giữ bài báo/archive
+mới. Form mặc định **Realtime · phiên ngày hoàn tất mới nhất**, chọn từng bản
+trong sáu bản chính để phân tích, hoặc so sánh trên cùng snapshot mới từ VCI/KBS.
+Provider/nguồn live riêng giữ cutoff, key/options/owner, retry/checkpoint và
+không đọc payoff query. Các caller/service/UI/leakage bị đổi được kiểm lại;
+QA F10/F11 ban đầu là lịch sử, không thay kiểm thử code mới. **138 Python +
+16 DOM, compile19/JS5 PASS**, có 18 leakage/11 native parity; kiểm tiếp theo
+đúng phần default ledger/poll thay đổi, không chạy lại toàn suite. Browser desktop/mobile
+vẫn chờ: host không khả dụng, duyệt tự động đã từ chối mở Edge. Chưa đạt gate
 browser nên F11 chưa hoàn tất, nhánh tác vụ chưa merge theo AGENTS §1.2;
 **F12 chưa bắt đầu**. [Runbook nghiệm thu/preview](week12/variant_serving_contract.md#nghiệm-thu-f11-và-preview-fixture)
 giữ rõ phần còn chờ; không gọi API hosted/thị trường mới.

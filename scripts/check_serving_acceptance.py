@@ -92,4 +92,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Đối soát nghiệm thu F11, không API hosted hoặc toàn suite')
     parser.add_argument('--run',action='store_true',help='Chạy đúng suite F11 mới rồi ghi receipt')
     args = parser.parse_args()
-    print(json.dumps(run() if args.run else verify(),ensure_ascii=False))
+    # Gate cũ giữ để đọc lịch sử; nguồn live đã đổi phải kiểm lại caller thay vì viện dẫn F10.
+    from scripts.serving_acceptance import live
+    receipt = json.loads(RECEIPT.read_bytes())
+    result = live.run() if args.run else live.verify() if receipt['version'] == 'serving_integration_acceptance_v2' else verify()
+    print(json.dumps(result,ensure_ascii=False))
