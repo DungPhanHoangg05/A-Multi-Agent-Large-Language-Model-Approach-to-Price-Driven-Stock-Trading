@@ -8,9 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/legacy_output.css') }}">
     {% if results.serving_analysis %}<link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/daily_output.css') }}">{% endif %}
+{% include 'shared/preferences_head.html' %}
 </head>
 
 <body>
+{% include 'shared/preferences.html' %}
     <div class="main-container">
 
         <!-- Tiêu đề / Header -->
@@ -19,7 +21,7 @@
                 <div>
                     <div class="header-brand">
                         <div>
-                            <div class="header-title">AI Stock Investment System</div>
+                            <div class="header-title">{{ T.system_name_short }}</div>
                             <div class="header-sub">{{ T.header_sub_output }}</div>
                         </div>
                     </div>
@@ -27,7 +29,7 @@
                         {% if results.analysis_version %}<span class="meta-pill">{{ results.analysis_version }}</span>{% endif %}
                         <span class="meta-pill"><i class="fas fa-chart-candlestick"></i> {{ results.asset_name if
                             results.asset_name else 'N/A' }}</span>
-                        <span class="meta-pill"><i class="fas fa-clock"></i> {{ results.timeframe if results.timeframe
+                        <span class="meta-pill"><i class="fas fa-clock"></i> {{ display_timeframe(results.timeframe,LANG) if results.timeframe
                             else 'N/A' }}</span>
                         <span class="meta-pill"><i class="fas fa-database"></i> {{ results.data_length if
                             results.data_length else 0 }} {{ T.candles }}</span>
@@ -49,7 +51,7 @@
                 <div class="stat-label">{{ T.stat_candles }}</div>
             </div>
             <div class="stat-item">
-                <div class="stat-value">{{ results.timeframe if results.timeframe else '-' }}</div>
+                <div class="stat-value">{{ display_timeframe(results.timeframe,LANG) if results.timeframe else '-' }}</div>
                 <div class="stat-label">{{ T.stat_timeframe }}</div>
             </div>
             <div class="stat-item">
@@ -86,7 +88,7 @@
                     {% if results.final_decision and results.final_decision.confidence %}
                     <div class="decision-meta-item">
                         <i class="fas fa-signal"></i>
-                        <span>{{ T.confidence }}: <strong>{{ results.final_decision.confidence }}</strong></span>
+                        <span>{{ T.confidence }}: <strong>{{ display_confidence(results.final_decision.confidence,LANG) }}</strong></span>
                     </div>
                     {% endif %}
                 </div>
@@ -96,7 +98,7 @@
             results.final_decision.justification != 'N/A' %}
             <div class="justification-box">
                 <h5><i class="fas fa-lightbulb"></i> {{ T.justification }}</h5>
-                <p>{{ results.final_decision.justification }}</p>
+                <p data-localize data-locale-pending data-source-language="{{ results.report_language or 'vi' }}">{{ results.final_decision.justification }}</p>
             </div>
             {% endif %}
 
@@ -114,7 +116,7 @@
                 </div>
                 <div class="agent-panel-body">
                     {% if results.technical_indicators %}
-                    <div class="auto-beautify" id="indicatorContent">{{ results.technical_indicators | safe }}</div>
+                    <div class="auto-beautify" id="indicatorContent" data-localize data-markdown="true" data-locale-pending data-source-language="{{ results.report_language or 'vi' }}">{{ results.technical_indicators | safe }}</div>
                     {% else %}
                     <div style="color:var(--gray-400);text-align:center;padding:2rem;">
                         <i class="fas fa-chart-bar" style="font-size:2rem;margin-bottom:0.5rem;display:block;"></i>{{
@@ -235,7 +237,7 @@
                         {% endif %}
 
                         {% if results.sentiment_analysis %}
-                        <div class="auto-beautify sentiment-report-text" id="sentimentContent"
+                        <div class="auto-beautify sentiment-report-text" id="sentimentContent" data-localize data-markdown="true" data-locale-pending data-source-language="{{ results.report_language or 'vi' }}"
                             style="margin-bottom:0.5rem;">{{ results.sentiment_analysis | safe }}</div>
                         {% endif %}
 
@@ -344,7 +346,7 @@
                     {% endif %}
                     {% if results.common_alpha_analysis %}<h4>{{ A.native_alpha }}</h4><p class="alpha-profile-note">{{ A.alpha_profiles_note }}</p>{% endif %}
                     {% if results.alpha_analysis %}
-                    <div id="alphaContent">{{ results.alpha_analysis | safe }}</div>
+                    <div id="alphaContent" data-localize data-markdown="true" data-locale-pending data-source-language="{{ results.report_language or 'vi' }}">{{ results.alpha_analysis | safe }}</div>
                     {% else %}
                     <div style="color:var(--gray-400);text-align:center;padding:2rem;">
                         <i class="fas fa-flask" style="font-size:2rem;margin-bottom:0.5rem;display:block;"></i>{{
@@ -369,7 +371,7 @@
                         <div class="panel">
                             <h4 class="panel-title"><i class="fas fa-search"></i> {{ T.pattern_analysis }}</h4>
                             {% if results.pattern_analysis %}
-                            <div class="auto-beautify" id="patternContent">{{ results.pattern_analysis | safe }}
+                            <div class="auto-beautify" id="patternContent" data-localize data-markdown="true" data-locale-pending data-source-language="{{ results.report_language or 'vi' }}">{{ results.pattern_analysis | safe }}
                             </div>
                             {% else %}
                             <div style="color:var(--gray-400);padding:1rem;text-align:center;">{{ T.no_data }}
@@ -391,7 +393,7 @@
                                 {% endif %}
                                 <p class="chart-caption">{{ T.candlestick_chart }} - {{ results.asset_name if
                                     results.asset_name
-                                    else '' }} · {{ results.timeframe if results.timeframe else '' }}</p>
+                                    else '' }} · {{ display_timeframe(results.timeframe,LANG) if results.timeframe else '' }}</p>
                             </div>
                         </div>
                     </div>
@@ -412,7 +414,7 @@
                         <div class="panel">
                             <h4 class="panel-title"><i class="fas fa-arrow-trend-up"></i> {{ T.trend_analysis }}</h4>
                             {% if results.trend_analysis %}
-                            <div class="auto-beautify" id="trendContent">{{ results.trend_analysis | safe }}</div>
+                            <div class="auto-beautify" id="trendContent" data-localize data-markdown="true" data-locale-pending data-source-language="{{ results.report_language or 'vi' }}">{{ results.trend_analysis | safe }}</div>
                             {% else %}
                             <div style="color:var(--gray-400);padding:1rem;text-align:center;">{{ T.no_data }}
                             </div>
@@ -434,7 +436,7 @@
                                 <p class="chart-caption">
                                     <span style="color:#3b82f6;">■</span> {{ T.support }} &nbsp;
                                     <span style="color:#ef4444;">■</span> {{ T.resistance }} -
-                                    {{ results.asset_name if results.asset_name else '' }} · {{ results.timeframe if
+                                    {{ results.asset_name if results.asset_name else '' }} · {{ display_timeframe(results.timeframe,LANG) if
                                     results.timeframe else '' }}
                                 </p>
                             </div>

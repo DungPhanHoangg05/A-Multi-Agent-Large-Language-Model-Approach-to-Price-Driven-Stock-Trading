@@ -1,0 +1,7 @@
+<div class="site-preferences" aria-label="{{ P.navigation }}">
+  <div class="site-language"><a href="{{ locale_url('vi') }}" lang="vi"{% if P.language=='vi' %} aria-current="true"{% endif %}>VI</a><a href="{{ locale_url('en') }}" lang="en"{% if P.language=='en' %} aria-current="true"{% endif %}>EN</a></div>
+  <button id="theme-toggle" type="button" aria-pressed="false">{{ P.dark }}</button>
+</div>
+<p id="display-locale-status" class="display-locale-status" role="status" aria-live="polite" hidden></p>
+<script type="application/json" id="site-preferences-config">{{ P|tojson }}</script>
+<script type="module" src="{{ url_for('static',filename='js/display_locale.js') }}"></script>

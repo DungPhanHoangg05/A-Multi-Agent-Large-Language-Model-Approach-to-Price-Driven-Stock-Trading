@@ -90,7 +90,7 @@ class LiveApiTests(unittest.TestCase):
 
     def test_live_form_default_and_result_shell_preserve_source_without_inference(self) -> None:
         raw = self.client.get('/demo?lang=vi').get_data(as_text=True)
-        self.assertIn('<option value="legacy" selected>',raw)
+        self.assertNotIn('id="analysis-source"',raw)
         self.assertNotIn('<option value="latest"',raw); self.assertNotIn('<option value="asof"',raw)
         self.assertNotIn('id="capture-live"',raw); self.assertNotIn('id="compareBtn"',raw)
         self.assertIn('MT_BICL',raw); self.assertIn('data-tf="1d"',raw)

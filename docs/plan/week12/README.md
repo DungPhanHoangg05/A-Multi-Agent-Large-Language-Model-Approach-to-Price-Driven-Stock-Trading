@@ -206,7 +206,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: Realtime/1D/sáu bản; BICL trước Decision cuối, Indicator format chuẩn và Alpha Agent đầy đủ, common input riêng; sentiment đúng snapshot/PIT. **39 Python + 21 DOM, compile12/JS3 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: Realtime/1D/sáu bản, bỏ Analysis source; BICL trước Decision, báo cáo đầy đủ đúng snapshot/PIT; VI/EN và sáng/tối chung sáu layout, bản dịch cache riêng không sửa forecast. **102 Python + 44 DOM, compile23/JS7 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -752,6 +752,35 @@ giữ nguyên; native causal FAIL/NOT_CERTIFIED và 0/18 comment không đổi.
 lịch sử với phạm vi cũ. Server cần khởi động lại, sau đó tải lại trang để nạp
 Python/JS/CSS mới. Giữ nguyên hai ảnh chart người dùng sinh ngoài phạm vi task.
 Diff, **204 liên kết/anchor local** và checklist được đối soát PASS.
+
+### Sửa F11 — Đồng bộ ngôn ngữ và chế độ tối
+
+Theo yêu cầu mới, nhánh `feat/localized-dark-interface` tạo từ develop
+`4de6d1aa`, nhận fast-forward nền đã kiểm `da21d835`:
+
+- [x] Bỏ hẳn mục **Analysis source**, form luôn realtime/1D và giữ sáu bản. Original vẫn đi `/api/analyze`; ngôn ngữ đã chọn được truyền cả sang request nâng cấp, thay cho hằng `vi` cũ.
+- [x] Sáu layout phân tích/kết quả/job/backtest mới/backtest legacy/experiments dùng chung VI/EN, cookie và link giữ toàn bộ query/job/source/presentation/filter. Nhãn độ tin cậy/tín hiệu được dịch; báo cáo Indicator/Alpha/Pattern/Trend/sentiment, justification, BICL prefix và tiêu đề tin dùng bản hiển thị đúng tiếng. Markdown vẫn qua renderer text an toàn; không hiển thị lẫn VI khi trang EN chưa dịch xong hoặc dịch lỗi.
+- [x] Giữ nguyên generation nâng cấp VI và các shared snapshot/artifact nghiên cứu. API phân biệt `generation_language=vi` và `display_language`; miền hiển thị VI/EN không chứng nhận lại giao thức nghiên cứu tiếng Anh. Bản dịch Groq là cache riêng dưới `outputs/display_locales/v1`, không vào forecast/Decision/P&L hoặc export bằng chứng gốc. Browser POST khi cần đổi tiếng; GET trang/status chỉ đọc, không tự gọi model.
+- [x] Dịch dùng quota TPM/RPM và `_invoke_with_retry`/backoff/checkpoint hiện hữu, UUID riêng theo owner/source/target/credential scope. Không ghi raw key, GET kiểm owner, UNKNOWN không gửi lại mù. Kiểm nguyên số/dấu/phần trăm, mã giao dịch/nhân tố, code/công thức và URL; không chấp nhận bản EN còn nguyên câu VI phổ biến hoặc bản dịch đổi giá trị. Lượt dịch đầu dùng Groq đã cấu hình, reload cùng nguồn đọc cache; không giả fallback khi key/model không khả dụng.
+- [x] Thanh sáng/tối chung, áp dụng trước paint, lưu `qa_theme`, đồng bộ tab và theo hệ điều hành khi chưa chọn. Theme phủ form, card/bảng, báo cáo, loading, dialog và trang nghiên cứu; giữ nguyên màu ảnh/chart nguồn.
+- [x] **102 Python + 44 DOM PASS**, không skip; compile **23 Python đổi**, syntax **7 JS PASS**. Bao phủ locale/cache/owner/UNKNOWN/value guards, cookie/query cả sáu layout, theme trước paint/persistence, caller/preflight/resource/result, Original/prompt và **18 leakage**. Chỉ chọn suite bị ảnh hưởng; không chạy full unit/E2E/compileall hoặc toàn live/provider/scientific study. Không gọi thị trường/hosted LLM/HF, không refit hoặc đổi weights/bank/giá/phí/prompt nghiên cứu.
+- [ ] Browser desktop/mobile/theme contrast còn chờ: inventory tiếp tục không có browser, `The browser access host is unavailable`. Test HTML/DOM không thay nghiệm thu trực quan; F11 chưa đóng/F12 chưa mở/chưa merge develop.
+
+[Receipt v7](serving_integration_acceptance.json) khóa
+[QA ngôn ngữ/theme](serving_language_theme_checks.zip), nguồn/runtime và log
+13 suite Python/bốn file DOM. Lượt đầu **101 Python + 44 DOM PASS**; sau đó
+sửa riêng nhãn timeframe/tên hệ thống khi đổi tiếng ở kết quả đã lưu, bổ sung
+một ca giữ nguyên nguồn. Chỉ kiểm lại **24 ca analysis_ui** và compile hai
+Python liên quan, không chạy lại các suite khác; tổng **102 ca Python duy nhất**
+đã PASS. QA giữ checks/log trước delta, nguồn hiện hành và log kiểm tiếp theo.
+Khóa LF cho test contract đã đổi và test JavaScript mới để checkout Windows giữ checksum; chỉ đổi
+thuộc tính Git, byte ứng dụng/test và kết quả kiểm giữ nguyên, không chạy lại suite.
+[QA báo cáo](serving_report_checks.zip),
+[QA 1D](serving_daily_analysis_checks.zip) và các archive cũ nguyên byte;
+native causal FAIL/whole-system NOT_CERTIFIED/0 trên18 comment không đổi.
+Root README, paper/PDF và hai ảnh chart ngoài phạm vi giữ nguyên. Cần khởi
+động lại server rồi Ctrl+F5 để nạp Python/JS/CSS mới. Diff, **210 liên kết/anchor
+local**, checklist và đối soát receipt chỉ đọc PASS; không nhận là chạy lại suite.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

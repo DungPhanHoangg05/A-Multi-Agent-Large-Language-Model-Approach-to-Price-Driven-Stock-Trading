@@ -18,7 +18,7 @@
     {% else %}<p>{{ A.sent_distribution_missing }}</p>{% endif %}
   </div>
 </div>
-{% if results.sentiment_analysis %}<div id="sentimentContent" class="auto-beautify sentiment-report-text">{{ results.sentiment_analysis|safe }}</div>{% endif %}
+{% if results.sentiment_analysis %}<div id="sentimentContent" data-localize data-markdown="true" data-locale-pending data-source-language="vi" class="auto-beautify sentiment-report-text">{{ results.sentiment_analysis|safe }}</div>{% endif %}
 {% set sn = sd.sentiment_norm or {} %}
 {% if sn %}
 <div class="sentiment-norm-section">
@@ -32,7 +32,7 @@
 {% if sd.scored_articles %}
 <details class="sentiment-articles"><summary>{{ A.sent_articles }} ({{ sd.scored_articles|length }})</summary>
   <div class="report-table"><table><thead><tr><th scope="col">{{ A.article_date }}</th><th scope="col">{{ A.article_title }}</th><th scope="col">{{ A.sent_score }}</th></tr></thead><tbody>
-  {% for article in sd.scored_articles %}<tr><td>{{ article.date_parsed or A.na }}</td><td>{{ article.title or A.na }}</td><td>{{ '%+.4f'|format(article.numeric_score) }}</td></tr>{% endfor %}
+  {% for article in sd.scored_articles %}<tr><td>{{ article.date_parsed or A.na }}</td><td data-localize data-locale-pending data-source-language="vi">{{ article.title or A.na }}</td><td>{{ '%+.4f'|format(article.numeric_score) }}</td></tr>{% endfor %}
   </tbody></table></div>
 </details>
 {% endif %}

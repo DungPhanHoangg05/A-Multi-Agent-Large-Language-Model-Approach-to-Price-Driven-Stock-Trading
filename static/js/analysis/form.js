@@ -9,7 +9,6 @@ export function formController(config, io = json, navigate = url => location.ass
   function buttons() {
     const busy = starting || legacyBusy;
     byId('analyzeBtn').disabled = busy || uncertain || (byId('analysis-version').value !== 'original_fix' && !defaults);
-    byId('analysis-source').disabled = busy;
     byId('analysis-version').disabled = busy;
     byId('legacy-inputs').inert = busy;
   }
@@ -25,7 +24,7 @@ export function formController(config, io = json, navigate = url => location.ass
     if (!defaults || !window.legacyAnalysis.begin(true)) return;
     starting = true; buttons(); byId('timeframe-run-status').textContent = '';
     try {
-      const chosen = {...window.legacyAnalysis.selection(),timeframe:'1d',variant:byId('analysis-version').value,language:'vi',repeats:1};
+      const chosen = {...window.legacyAnalysis.selection(),timeframe:'1d',variant:byId('analysis-version').value,language:config.language,repeats:1};
       const result = await runTimeframe(config,chosen,structuredClone(defaults.models),io,
         value => byId('analysis-progress-message').textContent = value);
       const link = byId('last-serving-job'); link.href = result.url; link.hidden = false;
@@ -38,7 +37,6 @@ export function formController(config, io = json, navigate = url => location.ass
     } finally { starting = false; window.legacyAnalysis.end(); buttons(); }
   }
   async function init() {
-    byId('analysis-source').value = 'legacy';
     document.querySelectorAll('[data-legacy-only]').forEach(node => node.hidden = false);
     byId('legacy-inputs').hidden = false;
     window.legacyAnalysis.load();

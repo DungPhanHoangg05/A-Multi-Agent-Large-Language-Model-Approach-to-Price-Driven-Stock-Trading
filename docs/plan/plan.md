@@ -64,22 +64,28 @@ account/classification U09, daily NAV/cycle returns, filter/contrast cùng
 support và JSON/CSV; Full/No-Alpha legacy có adapter riêng. **156 Python +
 31 DOM, compile13/JS7 PASS**, chỉ HTTP fixture; browser visual chờ F11.
 **F11 đang làm**: đã nhận develop `4de6d1aa`, sửa prompt Original realtime và
-snapshot VNINDEX. Theo yêu cầu mới nhất, form phân tích chỉ còn nguồn
-**Realtime · intraday and other timeframes**, duy nhất **1D**, chọn một trong
+snapshot VNINDEX. Theo yêu cầu mới nhất, form phân tích chạy realtime,
+**bỏ hẳn mục Analysis source**, duy nhất **1D**, chọn một trong
 sáu bản rồi Phân tích. Đã xóa lựa chọn as-of/daily riêng, so sánh, repeats và
 cấu hình serving khỏi form. Original giữ pipeline hiện tại; bản nâng cấp dùng
 cùng overlay từng agent rồi mở cùng bố cục kết quả, thêm phần BICL thực tế.
 Tiến trình từ checkpoint, decision/policy/context giữ nguyên; không tính lại
 hoặc bịa kết quả khi lỗi/UNKNOWN. [Runbook hiện hành](week12/variant_serving_contract.md#form-phân-tích-hiện-hành--realtime-1d).
 [Receipt hiện hành](week12/serving_integration_acceptance.json) và
-[QA báo cáo hiện hành](week12/serving_report_checks.zip): **39 Python + 21 DOM, compile12/JS3 PASS**.
+[QA ngôn ngữ/theme hiện hành](week12/serving_language_theme_checks.zip): **102 Python + 44 DOM, compile23/JS7 PASS**.
 Đã sửa BICL đứng trước Decision cuối; khôi phục báo cáo Alpha Agent đầy đủ,
 hiển thị common Alpha riêng đúng nguồn Decision, format Indicator theo HTML
 Original tham chiếu. Tin hiển thị cùng snapshot/cutoff, thiếu metadata là NA.
-QA 1D trước đó nguyên byte, không thay kiểm renderer/PIT của bản sửa mới.
+Sáu layout dùng chung VI/EN và sáng/tối; đổi ngôn ngữ giữ query/job/filter và
+cookie. Request ghi ngôn ngữ hiển thị; báo cáo nâng cấp gốc vẫn VI, bản dịch
+Groq có cache/UUID riêng, quota/retry/checkpoint chung, kiểm số/mã/công thức và
+không sửa forecast hoặc artifact nguồn. GET chỉ đọc, không gọi model; browser
+POST rõ ràng để chuẩn bị bản dịch khi khác ngôn ngữ nguồn. Không fallback về
+VI trên trang EN khi dịch lỗi. Theme nhớ lựa chọn hoặc theo hệ điều hành.
+QA báo cáo và 1D trước đó nguyên byte, không thay kiểm tra của bản sửa mới.
 Các QA cũ giữ nguyên byte làm lịch sử; không chạy toàn suite/cold study hoặc
 gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn không khả dụng;
-F11 còn mở, nhánh `feat/analysis-report-parity` chưa merge develop theo AGENTS
+F11 còn mở, nhánh `feat/localized-dark-interface` chưa merge develop theo AGENTS
 §1.2. **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding

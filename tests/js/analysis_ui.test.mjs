@@ -150,8 +150,7 @@ test('Poll trạng thái intraday chỉ chạy khi đang chọn nguồn legacy, 
     setInterval:callback => heartbeat = callback,localStorage:{getItem:() => null}};
   runInNewContext(readFileSync(root+'/static/js/analysis/legacy_form.js','utf8'),context);
   context.window.legacyAnalysis.load(); calls.length = 0;
-  mockDocument.getElementById('analysis-source').value = 'latest'; heartbeat(); assert.deepEqual(calls,[]);
-  mockDocument.getElementById('analysis-source').value = 'legacy'; heartbeat(); assert.deepEqual(calls,['/api/realtime-status']);
+  heartbeat(); assert.deepEqual(calls,['/api/realtime-status']);
 });
 
 test('Chart kết quả intraday giữ đúng timestamp và nhãn 5m, không đổi thành đường daily', () => {
@@ -181,7 +180,7 @@ test('Capture lỗi trả đúng VNINDEX/giai đoạn trong UI, không che thàn
 test('Form chỉ realtime; Original vẫn dùng pipeline cũ và không cần defaults thành công', async () => {
   const form = formController(fixture.config,async () => { throw new Error('offline'); });
   await form.init();
-  assert.equal(node('analysis-source').value,'legacy'); assert.equal(legacyLoads,1);
+  assert.equal(legacyLoads,1);
   assert.equal(node('legacy-inputs').hidden,false); assert.equal(node('analyzeBtn').disabled,false);
   await form.start('compare'); assert.equal(legacyRuns,0);
   await form.start(); assert.equal(legacyRuns,1);

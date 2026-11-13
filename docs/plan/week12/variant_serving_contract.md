@@ -18,15 +18,14 @@ weights/bank đã khóa; không biến kết quả historical U09 thành forecas
 
 ## Form phân tích hiện hành — Realtime 1D
 
-Theo yêu cầu mới nhất của người dùng, `/demo` chỉ còn **Analysis source →
-Realtime · intraday and other timeframes** và **timeframe 1D**. Giữ nhãn nguồn
-đúng yêu cầu dù chỉ mở khung ngày. Chọn mã, một trong sáu bản rồi **Phân tích**;
+Theo yêu cầu mới nhất của người dùng, `/demo` **bỏ hẳn mục Analysis source**,
+luôn chạy realtime và chỉ có **timeframe 1D**. Chọn mã, một trong sáu bản rồi **Phân tích**;
 form không còn as-of, nguồn daily riêng, so sánh/repeats/capture thủ công hoặc
 cấu hình serving. Các phần API/miền đa khung/as-of bên dưới là hợp đồng backend
 và lịch sử, không phải lựa chọn hiện có trên form này.
 
 Original chạy `/api/analyze` như trước. Bản nâng cấp tự capture `{symbol,timeframe:"1d"}`,
-preflight rồi tạo một job analyze/repeat1; báo cáo nâng cấp vẫn VI, UI VI/EN.
+preflight rồi tạo một job analyze/repeat1; request nhận ngôn ngữ hiển thị VI/EN.
 Cùng overlay hiển thị từng agent từ `agent_progress` của checkpoint đã kiểm
 checksum, gồm render/I/P/T/Alpha/context/Decision. Thứ tự node tuân thủ DAG
 hiện có; không gọi thêm upstream để tạo hoạt ảnh hoặc làm giống số lần gọi.
@@ -49,8 +48,35 @@ một bản/một point/một repeat/1D hoàn tất; không inference/tải lạ
 HTML/link trong báo cáo model được hiển thị an toàn bằng text node; JSON
 context chi tiết nằm trong mục thu gọn, không dùng JSON thay phần giải thích chính.
 
-**39 Python + 21 DOM, compile12/JS3 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
-dùng [QA báo cáo](serving_report_checks.zip); [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte,
+VI/EN và sáng/tối dùng chung trên sáu layout. Link ngôn ngữ giữ query/job/filter,
+cookie dùng chung mọi trang; theme lưu `qa_theme`, mặc định theo hệ điều hành,
+đồng bộ tab và áp dụng trước paint. Báo cáo native mới ghi `report_language`;
+báo cáo cũ hoặc nâng cấp vẫn giữ nguyên ngôn ngữ nguồn đã lưu.
+
+### Bản dịch hiển thị, không đổi forecast nguồn
+
+Miền `support.languages=[vi,en]` là **ngôn ngữ hiển thị**; với serving nâng cấp,
+`support.generation_languages=[vi]`, kết quả ghi `generation_language=vi` và
+`display_language=request.language`. Không thay SharedSnapshot, adapter/prompt
+nghiên cứu, source manifest hoặc expected hash đã khóa. API as-of bên dưới
+cũng nhận `language=en` cho hiển thị, không chứng nhận giao thức nghiên cứu EN.
+
+Browser dùng `POST /api/display-locales` với `{target,texts}` khi cần dịch các
+đoạn báo cáo sang tiếng đã chọn; không nhận key/model/path trong body. Server
+lấy key đã cấu hình, kiểm same-origin và owner, dùng Groq qua quota/retry chung.
+Cache và checkpoint riêng dưới `outputs/display_locales/v1`, UUID bind
+owner/source/target/credential scope, không lưu raw key. `GET /<UUID>` chỉ đọc
+trạng thái/cache đúng owner, không dispatch model. UNKNOWN không replay mù.
+Đổi ngôn ngữ không chạy lại agent/Decision hoặc sửa/export ngược artifact nguồn.
+
+Kiểm số/dấu/phần trăm, mã giao dịch/nhân tố, code/công thức và URL trước khi
+hiển thị; bản EN chưa dịch hoặc đổi số bị từ chối. Khi thiếu key/model hoặc
+dịch lỗi, UI báo đúng ngôn ngữ, không fallback về báo cáo VI trên trang EN.
+Lượt dịch đầu dùng quota Groq; reload cùng nguồn đọc cache. Raw JSON/provenance
+thu gọn và export giữ nguyên bằng chứng nguồn, tên schema/ID/code không dịch.
+
+**102 Python + 44 DOM, compile23/JS7 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
+dùng [QA ngôn ngữ/theme](serving_language_theme_checks.zip); [QA báo cáo](serving_report_checks.zip), [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte,
 F11 vẫn chờ browser host khả dụng. Khởi động lại server rồi tải lại trang
 vì `web_interface.py` không bật auto-reload.
 
@@ -64,7 +90,7 @@ khả dụng rồi nhấn **Phân tích**. Nút này chạy đúng bản trong d
 checkbox chỉ áp dụng khi nhấn **So sánh phiên bản**. Phần nâng cao giữ
 repeat/model options và hai dependency; fallback/bypass luôn hiển thị rõ.
 
-Miền live là chín mã như F08, **1d/VI**, nguồn VCI/KBS qua loader hiện hữu.
+Miền live là chín mã như F08, **1d**, generation VI/hiển thị VI–EN như trên, nguồn VCI/KBS qua loader hiện hữu.
 Không giới hạn ngày mới trong tháng 7–9 nữa. Trước **15:30 Asia/Ho_Chi_Minh**
 loại nến ngày hiện tại; sau đó chỉ nhận phiên có cả cổ phiếu và VNINDEX.
 Giá/volume phải hợp lệ, có ít nhất 600 phiên, không nến tương lai hoặc lịch
@@ -144,9 +170,9 @@ khởi động lại tiến trình server hiện có và tải lại trang để
 
 ## Chạy serving as-of từ F08
 
-Miền công bố: **1d/VI**, BHN/CMG/FPT/HVN/MBB/MWG/VCB/VJC/VNM, **58 phiên
+Miền công bố: **1d**, generation VI/hiển thị VI–EN, BHN/CMG/FPT/HVN/MBB/MWG/VCB/VJC/VNM, **58 phiên
 01/07–23/09/2026** trong calendar đã pin. Đây là dữ liệu vendor historical
-frozen; **luồng as-of này không nhận giá/tin mới nhất, intraday hoặc EN**.
+frozen; **luồng as-of này không nhận giá/tin mới nhất hoặc intraday**.
 Giá/tin mới nhất dùng luồng live riêng ở trên. Query mới
 được dựng từ giá as-of và chạy upstream/Decision mới, không lookup forecast
 hay prepared response U09. Bank CORE4/OOD fallback và MT eligible/bypass giữ

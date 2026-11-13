@@ -198,6 +198,9 @@ class Service:
         if status["state"] in ("running", "partial") and self.store.control(identifier)["stop_requested"]:
             status["state"] = "stop_requested"
         result = runner.public(status)
+        # Ngôn ngữ request là ngôn ngữ hiển thị; projection nghiên cứu VI giữ nguyên byte.
+        result['generation_language'] = 'vi'
+        result['display_language'] = reservation['job']['identity']['request']['language']
         result["worker_alive"] = bool(identifier in self.tasks and self.tasks[identifier].is_alive())
         return result
 

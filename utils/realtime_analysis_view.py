@@ -45,7 +45,7 @@ def project(data: dict, language: str, *, articles: list[dict] | None = None) ->
     from utils.analysis_sentiment_view import sentiment_view
     sentiment = sentiment_view(payload.get('sentiment_data') or {},articles,row['symbol'],row['as_of_date'])
     chart = data.get('realtime_chart') or payload.get('price_prefix') or {}
-    result = {'success':True,'serving_analysis':True,'asset_name':row['symbol'],'timeframe':'1D',
+    result = {'success':True,'serving_analysis':True,'report_language':'vi','asset_name':row['symbol'],'timeframe':'1D',
         'data_length':len(chart.get('Datetime',[])), 'technical_indicators':reports['indicator'],
         'pattern_analysis':reports['pattern'],'trend_analysis':reports['trend'],'alpha_analysis':reports['alpha'],
         'pattern_chart':payload.get('pattern_image') or '', 'trend_chart':payload.get('trend_image') or '',

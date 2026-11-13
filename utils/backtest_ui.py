@@ -16,7 +16,7 @@ def messages(language: str) -> dict[str,str]:
         'symbols':('Mã trong cùng cửa sổ','Symbols in the same window'),
         'start_date':('Từ ngày query','First query date'),'end_date':('Đến ngày query','Last query date'),
         'run':('Chạy backtest','Run backtest'),'settings':('Cấu hình backtest','Backtest settings'),
-        'domain_note':('1d/VI, tối đa 30 point/job; lấy mỗi ba phiên, không chồng vòng vốn. Không dùng dữ liệu mới nhất.','Daily/VI, up to 30 points/job, every third session with non-overlapping cycles. Latest data is unavailable.'),
+        'domain_note':('1D, hiển thị VI/EN, tối đa 30 point/job; lấy mỗi ba phiên, không chồng vòng vốn. Không dùng dữ liệu mới nhất.','Daily, VI/EN display, up to 30 points/job, every third session with non-overlapping cycles. Latest data is unavailable.'),
         'select_methods':('Chọn ít nhất một phiên bản','Select at least one version'),
         'models':('Model/options đã mở','Released models/options'),
         'key_settings':('Cấu hình API key tại trang phân tích','Configure the API key on the analysis page'),

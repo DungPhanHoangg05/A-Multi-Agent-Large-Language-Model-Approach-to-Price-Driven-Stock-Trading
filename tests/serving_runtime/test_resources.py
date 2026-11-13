@@ -46,7 +46,7 @@ class ResourceTests(unittest.TestCase):
         self.assertEqual(len(resources.document()['support']['symbols']),9)
         self.assertEqual(len(resources.document()['support']['calendar']),58)
         self.assertFalse(resources.document()['support']['live_latest_supported'])
-        for field, value in (('start_date','2026-11-13'),('symbols',['AAA']),('language','en')):
+        for field, value in (('start_date','2026-11-13'),('symbols',['AAA']),('language','fr')):
             request = spec().document(); request[field] = value
             with self.subTest(field=field), self.assertRaises(ValueError): resources.points(request)
         request = spec().document(); request.update(mode='backtest',start_date=START,end_date=END)

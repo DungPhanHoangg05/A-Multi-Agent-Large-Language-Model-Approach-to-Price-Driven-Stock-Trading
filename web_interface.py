@@ -264,6 +264,7 @@ class WebTradingAnalyzer:
 
         return to_json_compatible({
             "success":              True,
+            "report_language":      lang,
             "asset_name":           results["asset_name"],
             "timeframe":            results["timeframe"],
             "data_length":          results["data_length"],
@@ -373,6 +374,7 @@ def output():
             print(f"Error parsing results: {e}")
 
     default_results = {
+        "report_language": lang,
         "asset_name": "VNM",
         "timeframe": localize_timeframe("1 day", lang),
         "data_length": 45,
@@ -824,6 +826,10 @@ from utils.serving_live_web import live as serving_live
 app.register_blueprint(serving_live)
 from utils.research_web import research
 app.register_blueprint(research)
+from utils.display_locale_web import locales as display_locales
+app.register_blueprint(display_locales)
+from utils.site_preferences import install as install_preferences
+install_preferences(app,current_lang)
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 

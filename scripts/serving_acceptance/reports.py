@@ -14,12 +14,25 @@ from scripts.serving_acceptance import repair
 from scripts.serving_acceptance.evidence import binding,runtime
 
 ROOT,DOC,RECEIPT=repair.ROOT,repair.DOC,repair.RECEIPT
-BASE='3528891f'
-PACKAGE=DOC/'serving_report_checks.zip'
-WORK=ROOT/'tmp/f11_reports'
-PLANS=[('tests/analysis_ui','test_*.py'),('tests/serving_live','test_progress.py'),
-    ('tests','test_web_json_serialization.py'),('tests','test_unified_execution_leakage.py'),
-    ('tests','test_unified_preflight_leakage.py'),('tests/unified_live','test_leakage.py')]
+BASE='da21d835'
+PACKAGE=DOC/'serving_language_theme_checks.zip'
+WORK=ROOT/'tmp/f11_language_theme'
+PLANS=[('tests/analysis_ui','test_*.py'),('tests/serving_live','test_locale_contract.py'),
+    ('tests/serving_live','test_snapshots.py'),('tests/serving_live','test_admission.py'),
+    ('tests/serving_runtime','test_api.py'),('tests/serving_runtime','test_resources.py'),
+    ('tests/backtest_ui','test_api.py'),('tests','test_variant_serving.py'),
+    ('tests','test_original_fix_parity.py'),('tests','test_realtime_decision_budget.py'),
+    ('tests','test_unified_execution_leakage.py'),('tests','test_unified_preflight_leakage.py'),
+    ('tests/unified_live','test_leakage.py')]
+NODE_FILES=['tests/js/'+name for name in ('analysis_ui.test.mjs','site_preferences.test.mjs','backtest_ui.test.mjs','research_viewer.test.mjs')]
+
+
+def sources() -> dict:
+    result=repair.sources()
+    for folder,pattern in PLANS:
+        if '*' not in pattern: result[folder+'/'+pattern]=binding((ROOT/folder/pattern).read_bytes())
+    for name in NODE_FILES: result[name]=binding((ROOT/name).read_bytes())
+    return dict(sorted(result.items()))
 
 
 def historical() -> dict:
@@ -28,7 +41,10 @@ def historical() -> dict:
     name='docs/plan/week12/serving_daily_analysis_checks.zip'
     expected=subprocess.check_output(['git','show',BASE+':'+name],cwd=ROOT)
     if (ROOT/name).read_bytes()!=expected: raise ValueError('QA 1D trước đó đã đổi')
-    return {**result,'daily_analysis_qa_unchanged':binding(expected)}
+    report='docs/plan/week12/serving_report_checks.zip'
+    previous=subprocess.check_output(['git','show',BASE+':'+report],cwd=ROOT)
+    if (ROOT/report).read_bytes()!=previous: raise ValueError('QA report cũ đã đổi')
+    return {**result,'daily_analysis_qa_unchanged':binding(expected),'report_qa_unchanged':binding(previous)}
 
 
 def suite(plan: tuple[str,str]) -> tuple[str,dict]:
@@ -45,7 +61,7 @@ def suite(plan: tuple[str,str]) -> tuple[str,dict]:
 def run() -> dict:
     """Không đổi giá/prior/LLM/phí; gate tập trung vào luồng hiển thị và leak boundary của tin."""
     WORK.mkdir(parents=True,exist_ok=True)
-    sealed=repair.sources(); environment=runtime(ROOT); integrity=historical()
+    sealed=sources(); environment=runtime(ROOT); integrity=historical()
     names=subprocess.check_output(['git','diff',BASE,'--name-only','--','*.py'],cwd=ROOT).decode().splitlines()
     names+=subprocess.check_output(['git','ls-files','--others','--exclude-standard','--','*.py'],cwd=ROOT).decode().splitlines()
     compiled=sorted(set(names))
@@ -54,19 +70,20 @@ def run() -> dict:
     with ThreadPoolExecutor(max_workers=2) as pool:
         for future in as_completed([pool.submit(suite,plan) for plan in PLANS]):
             name,row=future.result(); results[name]=row; print(name,row['passed'],row['tests'],flush=True)
-    done=subprocess.run(['node','--test','tests/js/analysis_ui.test.mjs'],cwd=ROOT,capture_output=True)
-    raw=done.stdout+b'\n'+done.stderr; (WORK/'analysis_ui.log').write_bytes(raw)
-    count=re.search(rb'(?:#|\xe2\x84\xb9) tests (\d+)',raw)
-    results['analysis_ui.log']={'passed':not done.returncode and bool(count),'tests':int(count[1]) if count else 0,'log':binding(raw)}
-    syntax=['static/js/analysis/'+name for name in ('legacy_form.js','daily_output.js','report.js')]
+    for index,name in enumerate(NODE_FILES):
+        done=subprocess.run(['node','--test',name],cwd=ROOT,capture_output=True)
+        raw=done.stdout+b'\n'+done.stderr; log='dom_'+str(index)+'.log'; (WORK/log).write_bytes(raw)
+        count=re.search(rb'(?:#|\xe2\x84\xb9) tests (\d+)',raw)
+        results[log]={'passed':not done.returncode and bool(count),'tests':int(count[1]) if count else 0,'log':binding(raw)}
+    syntax=['static/js/'+name for name in ('site_preferences.js','display_locale.js','analysis/form.js','analysis/legacy_form.js','analysis/daily_output.js','analysis/legacy_output.js','analysis/view.js')]
     for name in syntax: subprocess.run(['node','--check',name],cwd=ROOT,check=True,capture_output=True)
-    if not all(row['passed'] for row in results.values()): raise ValueError('Gate báo cáo chưa PASS; xem tmp/f11_reports')
-    if repair.sources()!=sealed or runtime(ROOT)!=environment: raise ValueError('Nguồn/runtime đổi trong gate')
-    checks={'version':'serving_report_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
+    if not all(row['passed'] for row in results.values()): raise ValueError('Gate báo cáo chưa PASS; xem tmp/f11_language_theme')
+    if sources()!=sealed or runtime(ROOT)!=environment: raise ValueError('Nguồn/runtime đổi trong gate')
+    checks={'version':'serving_language_theme_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
         'sources':sealed,'runtime':environment,'historical':integrity,'compiled_python':compiled,'javascript_syntax':syntax,
         'test_suites':results,'market_calls':0,'hosted_llm_calls':0,'f11_complete':False,
         'recorded_at':datetime.now(timezone.utc).isoformat(),
-        'scope':'BICL_BEFORE_SELECTED_DECISION; ORIGINAL_FULL_ALPHA_AND_COMMON_SEPARATE; SAFE_MARKDOWN; SNAPSHOT_NEWS_PIT',
+        'scope':'VI_EN_ALL_PAGES; IMMUTABLE_SOURCE_AND_CACHED_DISPLAY_TRANSLATION; SHARED_QUOTA_CHECKPOINT_UNKNOWN; DARK_LIGHT_PERSISTENCE; NO_SOURCE_SELECTOR',
         'browser':{'status':'PENDING','desktop':'NOT_RUN','mobile':'NOT_RUN','reason':'BROWSER_HOST_UNAVAILABLE'},
         'not_rerun':'Original/native and scientific adapters unchanged; no full live/provider replay, study, full unit or E2E'}
     members={'checks.json':(json.dumps(checks,ensure_ascii=False,indent=2)+'\n').encode()}
@@ -74,10 +91,10 @@ def run() -> dict:
     members['manifest.json']=(json.dumps({name:binding(raw) for name,raw in members.items()},indent=2)+'\n').encode()
     with zipfile.ZipFile(PACKAGE,'w',zipfile.ZIP_DEFLATED) as archive:
         for name,raw in members.items(): archive.writestr(name,raw)
-    receipt={'version':'serving_integration_acceptance_v6','status':checks['status'],'base_commit':BASE,
+    receipt={'version':'serving_integration_acceptance_v7','status':checks['status'],'base_commit':BASE,
         'checks_package':{'path':PACKAGE.relative_to(ROOT).as_posix(),**binding(PACKAGE.read_bytes())},
-        'python_tests':sum(row['tests'] for name,row in results.items() if name!='analysis_ui.log'),
-        'dom_tests':results['analysis_ui.log']['tests'],'compiled_python':len(compiled),'javascript_syntax':len(syntax),
+        'python_tests':sum(row['tests'] for name,row in results.items() if not name.startswith('dom_')),
+        'dom_tests':sum(row['tests'] for name,row in results.items() if name.startswith('dom_')),'compiled_python':len(compiled),'javascript_syntax':len(syntax),
         'scope':checks['scope'],'browser':checks['browser'],'f11_complete':False,'historical':integrity}
     RECEIPT.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     return verify()
@@ -93,6 +110,6 @@ def verify() -> dict:
         for name,expected in manifest.items():
             if binding(archive.read(name))!=expected: raise ValueError('Member QA báo cáo khác hash')
         checks=json.loads(archive.read('checks.json'))
-    if repair.sources()!=checks['sources'] or runtime(ROOT)!=checks['runtime'] or historical()!=checks['historical']: raise ValueError('Nguồn/runtime/evidence khác QA báo cáo')
+    if sources()!=checks['sources'] or runtime(ROOT)!=checks['runtime'] or historical()!=checks['historical']: raise ValueError('Nguồn/runtime/evidence khác QA báo cáo')
     if receipt['f11_complete'] is not False or receipt['status']!='OFFLINE_PASS_BROWSER_PENDING': raise ValueError('Chưa có nghiệm thu browser')
     return {key:receipt[key] for key in ('status','python_tests','dom_tests','compiled_python','javascript_syntax','f11_complete')}

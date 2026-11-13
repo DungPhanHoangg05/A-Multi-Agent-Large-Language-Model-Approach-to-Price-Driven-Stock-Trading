@@ -222,12 +222,13 @@ nếu phải đổi tài nguyên, version hóa bộ mới và giữ kết quả 
 
 ### 4.2. Luồng màn hình
 
-1. **Trang phân tích — `demo_new.html`:** theo yêu cầu mới nhất chỉ có nguồn
-   Realtime · intraday and other timeframes, duy nhất 1D và sáu lựa chọn phiên bản.
+1. **Trang phân tích — `demo_new.html`:** theo yêu cầu mới nhất bỏ mục chọn
+   Analysis source, chạy realtime, duy nhất 1D và sáu lựa chọn phiên bản.
    Chọn mã/bản rồi Phân tích; bỏ form as-of/daily riêng và so sánh. Mọi bản hiện
    cùng overlay từng agent rồi mở cùng bố cục kết quả Original; bản nâng cấp
    bổ sung BICL/context/policy. Original giữ pipeline/ngôn ngữ hiện tại;
-   năm bản nâng cấp giữ miền tài nguyên chín mã và báo cáo VI.
+   năm bản nâng cấp giữ miền tài nguyên chín mã. Báo cáo hiển thị theo VI/EN
+   đã chọn; bản dịch có cache riêng, không sửa báo cáo VI/forecast nguồn.
 2. **Kết quả — `output.html`:** giữ bố cục Original cho decision, lý do,
    báo cáo agent và ảnh của đúng snapshot. Bản nâng cấp thêm panel BICL với
    phương pháp/context/prior, baseline→final, raw/final/LONG/CASH và lý do
@@ -383,6 +384,13 @@ cửa sổ Original, thêm BICL đọc từ context/policy. **103 Python + 19 DO
 tiếp theo sửa BICL trước Decision cuối, format Indicator, khôi phục Alpha
 Agent đầy đủ và common riêng, sentiment đúng snapshot/PIT. **39 Python + 21 DOM, compile12/JS3 PASS**,
 [QA báo cáo](serving_report_checks.zip); không đổi graph/adapter/prompt/scientific artifacts.
+Yêu cầu tiếp theo bỏ hẳn Analysis source, đồng bộ ngôn ngữ trên sáu layout,
+giữ query/job/filter/cookie khi chuyển VI/EN, thêm sáng/tối nhớ lựa chọn.
+Request dùng ngôn ngữ hiển thị, generation nâng cấp vẫn VI; dịch Groq có cache
+riêng, cùng quota/retry/checkpoint, kiểm số/mã/công thức, không chạy lại quyết
+định hoặc sửa artifact nguồn. GET không inference; browser POST chuẩn bị bản
+dịch khi cần. **102 Python + 44 DOM, compile23/JS7 PASS**, không gọi thị trường/
+hosted LLM; [QA ngôn ngữ/theme](serving_language_theme_checks.zip) khóa lượt này.
 [Receipt F11](serving_integration_acceptance.json) giữ
 `OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
 và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
@@ -404,7 +412,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Đang làm | Nghiệm thu realtime và báo cáo Original/BICL — `feat/analysis-report-parity` | F07–F10 | Chỉ Realtime/1D/sáu bản; BICL trước Decision cuối, Indicator chuẩn bảng, Alpha Agent đầy đủ và common riêng, tin snapshot/PIT. **39 Python + 21 DOM, compile12/JS3 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
+| F11 | ☐ Đang làm | Nghiệm thu realtime, ngôn ngữ và theme — `feat/localized-dark-interface` | F07–F10 | Realtime/1D/sáu bản, bỏ Analysis source; BICL trước Decision, báo cáo đầy đủ đúng snapshot; VI/EN và sáng/tối chung sáu layout, bản dịch cache riêng không sửa forecast. **102 Python + 44 DOM, compile23/JS7 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy

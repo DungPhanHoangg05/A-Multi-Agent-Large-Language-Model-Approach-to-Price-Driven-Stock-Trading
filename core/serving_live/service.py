@@ -28,8 +28,8 @@ class LiveRequest:
                 or value['version'] not in ('variant_serving_live_v1','variant_serving_timeframe_v1') or not checksum(value['snapshot_id'])):
             raise ValueError('Envelope live không hợp lệ')
         request = ServingRequest.create(value['request']).document()
-        if request['mode'] not in ('analyze','compare') or request['language'] != 'vi':
-            raise ValueError('Live hiện hỗ trợ phân tích/so sánh 1d/VI')
+        if request['mode'] not in ('analyze','compare'):
+            raise ValueError('Live hỗ trợ phân tích/so sánh 1d')
         extra = {}
         if realtime:
             if value['chart_timeframe'] not in TIMEFRAMES or request['mode'] != 'analyze':
@@ -73,7 +73,7 @@ class LiveResources:
         for name in ('prices','news','calendar'):
             document['resources'][name] = {'version':VERSION+'/'+name,'sha256':digest(record[name if name != 'calendar' else 'index'])}
         document['support'] = {'symbols':[record['symbol']], 'calendar':record['index']['Datetime'],
-            'start_date':record['cutoff'],'end_date':record['cutoff'],'timeframes':['1d'],'languages':['vi'],
+            'start_date':record['cutoff'],'end_date':record['cutoff'],'timeframes':['1d'],'languages':['vi','en'],'generation_languages':['vi'],
             'snapshot_id':identifier,'source':'LIVE_CAPTURED_DAILY_CLOSED_SESSION',
             'calendar_policy':record['calendar_policy'],'scientific_status':record['scientific_status']}
         if 'chart_timeframe' in record:
@@ -87,7 +87,7 @@ class LiveResources:
         if (request.get('snapshot_id') != self.identifier or request['symbols'] != [record['symbol']]
                 or request['start_date'] != record['cutoff'] or request['end_date'] != record['cutoff']
                 or request['mode'] not in ('analyze','compare') or request['timeframe'] != '1d'
-                or request['language'] != 'vi' or request.get('chart_timeframe') != record.get('chart_timeframe')):
+                or request['language'] not in ('vi','en') or request.get('chart_timeframe') != record.get('chart_timeframe')):
             raise ValueError('Request không khớp snapshot live')
         return [{'id':record['symbol']+'-'+record['cutoff'],'symbol':record['symbol'],'cutoff':record['cutoff'],
                  'fold':'serving_live_daily','quality':'LIVE_VENDOR_SERIES_EXPLORATORY'}]

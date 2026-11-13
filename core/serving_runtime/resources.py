@@ -43,7 +43,10 @@ class Resources:
 
     def document(self) -> dict[str, Any]:
         """Bản sao của resource identity và miền đã cấp."""
-        return json.loads(self._manifest)
+        result=json.loads(self._manifest)
+        result['support']['generation_languages']=['vi']
+        result['support']['languages']=['vi','en']
+        return result
 
     def verify(self) -> None:
         """Không tin stat/mtime; thiếu/hỏng nguồn là lỗi resource, không phải fallback."""
@@ -55,7 +58,7 @@ class Resources:
     def points(self, request: dict[str, Any]) -> list[dict[str, str]]:
         """Lịch chung bất biến; backtest mỗi ba phiên, không chồng chu kỳ tài khoản."""
         support = self.document()["support"]
-        if (request["timeframe"] != "1d" or request["language"] != "vi"
+        if (request["timeframe"] != "1d" or request["language"] not in ('vi','en')
                 or not set(request["symbols"]) <= set(support["symbols"])
                 or not START <= day(request["start_date"]) <= day(request["end_date"]) <= END):
             raise ValueError("Mã/ngày/khung/ngôn ngữ ngoài miền serving đã công bố")

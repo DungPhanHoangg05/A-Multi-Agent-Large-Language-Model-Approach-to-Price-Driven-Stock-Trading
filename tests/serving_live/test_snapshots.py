@@ -56,7 +56,7 @@ class SnapshotTests(unittest.TestCase):
     def test_contract_refuses_backtest_en_intraday_and_path_ids(self) -> None:
         base = request('a'*64,'2026-11-12',['MT_BICL'])
         self.assertEqual(LiveRequest.create(base).document()['data_source'],'live')
-        for field,value in [('mode','backtest'),('language','en'),('timeframe','15m')]:
+        for field,value in [('mode','backtest'),('language','fr'),('timeframe','15m')]:
             changed = deepcopy(base); changed['request'][field] = value
             with self.assertRaises(ValueError): LiveRequest.create(changed)
         with self.assertRaises(ValueError): self.source.path('../outside')

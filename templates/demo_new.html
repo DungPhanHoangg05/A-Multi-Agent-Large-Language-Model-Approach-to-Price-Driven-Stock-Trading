@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/legacy_form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/serving.css') }}">
     <script type="module" src="{{ url_for('static', filename='js/analysis/form.js') }}"></script>
+{% include 'shared/preferences_head.html' %}
 </head>
 
 <body>
+{% include 'shared/preferences.html' %}
 
     <!-- Loading overlay - 7 steps -->
     <div class="loading-overlay" id="loadingOverlay">
@@ -47,13 +49,10 @@
 
     <!-- Hero -->
     <section class="hero-section">
-        <div class="lang-switch">
-            <a class="lang-opt {% if LANG == 'vi' %}active{% endif %}" href="?lang=vi">{{ T.lang_vi }}</a>
-            <a class="lang-opt {% if LANG == 'en' %}active{% endif %}" href="?lang=en">{{ T.lang_en }}</a>
-        </div>
+
         <div class="hero-content">
             <div style="margin-bottom:0.75rem;">
-                <span class="hero-title">AI Stock Investment System</span>
+                <span class="hero-title">{{ T.system_name_short }}</span>
             </div>
             <p class="hero-subtitle">
                 {{ T.hero_desc }}<br>
