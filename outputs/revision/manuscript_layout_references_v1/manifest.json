@@ -1,0 +1,808 @@
+{
+  "base_commit": "f96b44f2428ccb0c3c5918b4837b6aa4539d1068",
+  "baseline_manifest": "outputs/revision/manuscript_unified_final_v1/manifest.json",
+  "baseline_manifest_sha256": "8e5ce2a4ca6f3a52945047cb8e1e1e99e8c00dfcd959a6fc6cdadcd701013de9",
+  "boundaries": [
+    "Chỉ tài liệu và bố cục; số liệu và runtime nghiên cứu không đổi.",
+    "Không chạy lại inference, scoring, thống kê, unit/E2E/leakage hoặc compileall.",
+    "Các release và crosswalk reviewer cũ giữ phạm vi lịch sử; không cấp quyền công bố hoặc đóng phản biện khoa học."
+  ],
+  "created_date": "2026-11-13",
+  "outputs": [
+    {
+      "bytes": 966782,
+      "path": "main.pdf",
+      "sha256": "7b46c003658f6cbc6d4d293b857ea3b888d6e1aef3bf11c23240c6f099130115"
+    },
+    {
+      "bytes": 940031,
+      "path": "main_submit.pdf",
+      "sha256": "149b47224618037001f69589eade29886500dd9cb1f59a75919e5079532b3a84"
+    },
+    {
+      "bytes": 6679140,
+      "path": "overleaf.zip",
+      "sha256": "2c94835d0bdd2ce1d3e25d04ea7460d66f2c8d1cf4a066ffc53abc3902c5dbe9"
+    },
+    {
+      "bytes": 5956,
+      "path": "pdf_anchors.json",
+      "sha256": "9d59ffce7f906be59d4f7e824722c3f5f88334c96db4d3060e304bdb252ec7aa"
+    },
+    {
+      "bytes": 14212,
+      "path": "reference_ledger.json",
+      "sha256": "646e5bc28095783271e72dfa721976034da8be1a75dc4616a80b40850e2b36cd"
+    }
+  ],
+  "qa": {
+    "bytes": 27711377,
+    "path": "docs/plan/week12/manuscript_layout_references_checks.zip",
+    "sha256": "afd76f70501ea287f8fb630ae1026fab41b6cac399f8a62f4b32dbc81f443c5b"
+  },
+  "schema": "manuscript_layout_reference_release_v1",
+  "sha256": "e3e0ed87207542a14569e9da294d14bf66cde2e6494a5f3aeb7df9765bbbf4a6",
+  "sources": [
+    {
+      "bytes": 8,
+      "path": "paper/.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "bytes": 29462,
+      "path": "paper/elsarticle-num.bst",
+      "sha256": "0db2e53b2378cbe5815e436c1afe9dcac67123a32406fa8f11fad7978808e202"
+    },
+    {
+      "bytes": 44541,
+      "path": "paper/elsarticle.cls",
+      "sha256": "23a341acd0e35c20148c836fc6e9251549aa45b059fc1750356ca2f3f11f3cb0"
+    },
+    {
+      "bytes": 1492185,
+      "path": "paper/figs/alpha_agent_pipeline.png",
+      "sha256": "ce93ca2e80f33da49b8dba034f36007b6e9ff5fa1932fb234df54ad763d8dc4f"
+    },
+    {
+      "bytes": 145132,
+      "path": "paper/figs/backtest_BHN_20260917_1227.png",
+      "sha256": "1fdd500812ece8fa0d9b6b3bc205b7e171a1f5ecd149528836d0d092f3ab421f"
+    },
+    {
+      "bytes": 129024,
+      "path": "paper/figs/backtest_CMG_20260916_1110.png",
+      "sha256": "7351ffed0b0afcb6568d2cdae6004f9b23c0be512593bbe60c985109ba2c93de"
+    },
+    {
+      "bytes": 147841,
+      "path": "paper/figs/backtest_FPT_20260915_1458.png",
+      "sha256": "b772079e92c3d49e295439416c5456b8f20d9df1b4753123fcee98857ace9ab4"
+    },
+    {
+      "bytes": 135687,
+      "path": "paper/figs/backtest_HVN_20260916_1032.png",
+      "sha256": "ee84ba6bed88f5af8347006eeba9aa4394a4f92d50df4f9a90b133d4314e882d"
+    },
+    {
+      "bytes": 145415,
+      "path": "paper/figs/backtest_MBB_20260916_1129.png",
+      "sha256": "95f54e1f8f8398fc3473619110441e6d7ce6627324d2d40e6b3db2dc45ddea65"
+    },
+    {
+      "bytes": 148728,
+      "path": "paper/figs/backtest_MWG_20260916_1422.png",
+      "sha256": "2253a8844986d09c0fd67460b57fd8e90151a93681e35d85145329f9e9b4796d"
+    },
+    {
+      "bytes": 135665,
+      "path": "paper/figs/backtest_VCB_20260916_1337.png",
+      "sha256": "c2476a6242f3d3a440a64172cf890c93d1457db0584d97e620781eec5dfe81f7"
+    },
+    {
+      "bytes": 138084,
+      "path": "paper/figs/backtest_VJC_20260915_1542.png",
+      "sha256": "b6586b7368c04b88b1ac37dbf02720c63c2ceb8a01420753b248f9b68d290137"
+    },
+    {
+      "bytes": 141820,
+      "path": "paper/figs/backtest_VNM_20260915_1514.png",
+      "sha256": "442ab2fd645e332f3df1aef374d4a15bbb4b36cfa795ebc6a47f7280e8286aef"
+    },
+    {
+      "bytes": 1675383,
+      "path": "paper/figs/decision_agent_pipeline.png",
+      "sha256": "48c454d1540f6897e300d828c04ca56a1e03aa2d9d15b78e11a87666eb94392a"
+    },
+    {
+      "bytes": 87265,
+      "path": "paper/figs/final_calendar.png",
+      "sha256": "c79e08a03cb206a7ce429c18c7051a367d740e193faff74b837bd41f89c3b487"
+    },
+    {
+      "bytes": 2445,
+      "path": "paper/figs/final_flow.tex",
+      "sha256": "fa0645f92de4a9731536f485e4966505559c3f572b2e6e27067c73bc6ba67751"
+    },
+    {
+      "bytes": 52805,
+      "path": "paper/figs/final_pattern.png",
+      "sha256": "6e3a15ae1ad3bd417312d97b835b3558d4bcf31dc04addbe3c518cf540720f73"
+    },
+    {
+      "bytes": 72807,
+      "path": "paper/figs/final_trend.png",
+      "sha256": "265c73db2caba5a76a61ddae0678f6b27f33bcae0f7c45aeb1e28c0c4b36161d"
+    },
+    {
+      "bytes": 2126,
+      "path": "paper/figs/revised_alpha_pipeline.tex",
+      "sha256": "037aa177f188d726ec9b2ceb6a29feb4da02fbe0bd834379170ecc73ad683dc4"
+    },
+    {
+      "bytes": 2560,
+      "path": "paper/figs/revised_decision_pipeline.tex",
+      "sha256": "56b29e74a63cbf6ed4d27c6969d01fcaa57949cae7bbe014cf07b554062caa71"
+    },
+    {
+      "bytes": 2558,
+      "path": "paper/figs/revised_walkforward.tex",
+      "sha256": "b73034870c94d7f0348f35a908107da9305dd4c8e80297c5791cf9bbcfb0a05c"
+    },
+    {
+      "bytes": 1372557,
+      "path": "paper/figs/system_pipeline.png",
+      "sha256": "d02d7f971ed0778b33921fbdfd1b0e727b513adf15f6ab4655315dba4639ea70"
+    },
+    {
+      "bytes": 1457082,
+      "path": "paper/figs/walkforward_protocol.png",
+      "sha256": "9953c5eabc41523db151caa5f56b20c707754eef41bfca7cc99755118c05b229"
+    },
+    {
+      "bytes": 8,
+      "path": "paper/generated/.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "bytes": 1376,
+      "path": "paper/generated/a01_rules.tex",
+      "sha256": "61a6eb008765e3849b2952b218e2ba87050bc432ed3bfb8eaf3742c99c12d3bb"
+    },
+    {
+      "bytes": 1684,
+      "path": "paper/generated/a02_custom.tex",
+      "sha256": "3090c730b2ed21bc6e855265c04d82d001a5dcd95e6ecff0ec16bbef357c5f38"
+    },
+    {
+      "bytes": 1719,
+      "path": "paper/generated/a03_symbols.tex",
+      "sha256": "171d08707b12f03b1fba6cf727f1c74af932c80529b997132c1211f6285b2825"
+    },
+    {
+      "bytes": 1463,
+      "path": "paper/generated/a04_execution.tex",
+      "sha256": "036e2cb5f1321e263439107d4aac7709481162e682d3b1d353385a22ebd1298b"
+    },
+    {
+      "bytes": 353,
+      "path": "paper/generated/summary_numbers.tex",
+      "sha256": "63019e3643cfb5bde8030f4ca676876d01c3e73125a946e92018e7c904c62cfc"
+    },
+    {
+      "bytes": 1343,
+      "path": "paper/generated/t01_scope.tex",
+      "sha256": "8609697ad16c7fe00149ab4b850272133b2170541b70c86f69a2f8c3db5cc04d"
+    },
+    {
+      "bytes": 2124,
+      "path": "paper/generated/t02_classification.tex",
+      "sha256": "7e051d56601c485102ba112155bdae7117a07f32141561a8e172f8820c144eeb"
+    },
+    {
+      "bytes": 1373,
+      "path": "paper/generated/t03_accounts.tex",
+      "sha256": "5a1db64eececeb316f90823c31245af00aa36068acfd44143d5671880ef01f16"
+    },
+    {
+      "bytes": 2361,
+      "path": "paper/generated/t04_repeats.tex",
+      "sha256": "9e4b23e3e07a41d1ac95e13bbe9299a543cf270a64af5fd74d22651ad5088bb5"
+    },
+    {
+      "bytes": 1495,
+      "path": "paper/generated/t05_temporal.tex",
+      "sha256": "c339486847cce9f2ee2c130a09a4965b366a810710aacf808cdfb40cac30f5de"
+    },
+    {
+      "bytes": 1588,
+      "path": "paper/generated/t06_numeric.tex",
+      "sha256": "e24358207bccc22639144e7af7a0bee6017c038b0a800d848714f8401b02bd28"
+    },
+    {
+      "bytes": 802,
+      "path": "paper/generated/u09/bridge.tex",
+      "sha256": "2234c90914c84a33ddd4e4326cb4e2c0313061a7b9b3d15b4f0333557cadf48f"
+    },
+    {
+      "bytes": 1348,
+      "path": "paper/generated/u09/classification.tex",
+      "sha256": "cfdd4d09d3920ce75dc2482b2f3f9b7534d8b40364845099a15f1c650b14a322"
+    },
+    {
+      "bytes": 1487,
+      "path": "paper/generated/u09/comparison.tex",
+      "sha256": "b6e15622b80d4aa0c5978ba7756cc62309d3e67717d4b1d49e6be89d9e492747"
+    },
+    {
+      "bytes": 2242,
+      "path": "paper/generated/u09/contrasts.tex",
+      "sha256": "75fa4222b1c7516e3472c9cf2dd2458eca278662c3efc41a6993d56b956be7bf"
+    },
+    {
+      "bytes": 1503,
+      "path": "paper/generated/u09/economics.tex",
+      "sha256": "014f314c7a3d7329047c4c36b394effd7ef3cb488e66d957e96504f4965660c6"
+    },
+    {
+      "bytes": 1472,
+      "path": "paper/generated/u09/repeats.tex",
+      "sha256": "60399cbdc53124b28169e0f3df68caf7c38a43dae70300d2ee396873e0464d25"
+    },
+    {
+      "bytes": 61161,
+      "path": "paper/generated/u09/return_contrasts.png",
+      "sha256": "ec9448d436af29509830548d456dab18fb24615bb4d2ae0065c782eedc041fb6"
+    },
+    {
+      "bytes": 25313,
+      "path": "paper/generated/u09/return_contrasts.svg",
+      "sha256": "5f9a4e0a6a8e5d91d0ecf3657750ee68417eac10f404695daa7426855f2767d1"
+    },
+    {
+      "bytes": 1078,
+      "path": "paper/generated/u09/scope.tex",
+      "sha256": "324f53e6d6d9ecf6494ec09a57a3ebd34c25f1ebbece4734a6936953c89396e2"
+    },
+    {
+      "bytes": 1564,
+      "path": "paper/generated/u09/sensitivity_ba.tex",
+      "sha256": "d39469e952790cd9649a19a58df0aaaf1cd6ecaae2ba686af4b8f3a9b8cb7b5c"
+    },
+    {
+      "bytes": 2068,
+      "path": "paper/generated/u09/sensitivity_core4.tex",
+      "sha256": "292ca6931ff88ad098c3b66caebd8c1f2e5fc80d4352f0a776b510fb70c46343"
+    },
+    {
+      "bytes": 1558,
+      "path": "paper/generated/u09/sensitivity_return.tex",
+      "sha256": "7d0f45b90e5627c51842cdee91a82037e1c221637845bfd310a2cfc87f8a636e"
+    },
+    {
+      "bytes": 4782,
+      "path": "paper/generated/u09/summary_numbers.tex",
+      "sha256": "09c3ee779c8050a055ebeb95e79c56ee2ca9b0c7cd70151b9d92778ec6f84687"
+    },
+    {
+      "bytes": 1600,
+      "path": "paper/generated/u09/support.tex",
+      "sha256": "be8cada7aca6a283121e1d1bea24cd1935604eba32ed5f1e28f02723a1d4026f"
+    },
+    {
+      "bytes": 8891,
+      "path": "paper/main.tex",
+      "sha256": "0a684dd7aa37f836c92382e922527a59850201a73855698a2b33c984477ee196"
+    },
+    {
+      "bytes": 8934,
+      "path": "paper/main_submit.tex",
+      "sha256": "0e305868bdef67f658c5e9c6c5058038fe821b2de9f78cfc9ea4762217bf65c9"
+    },
+    {
+      "bytes": 1353,
+      "path": "paper/manuscript_layout.tex",
+      "sha256": "37b27cbb1cce7b818c71c96c06216bf6992e5865ba838af39ff33740a8987a9f"
+    },
+    {
+      "bytes": 20555,
+      "path": "paper/references.bib",
+      "sha256": "edccc1c59eb2aa23df5f98798aeec0e279e54e561f1d077c6d1c48374fe9f6c8"
+    },
+    {
+      "bytes": 6949,
+      "path": "paper/sections/01_introduction.tex",
+      "sha256": "b6c1602cbf536f2295f50365367d7c3f871372d198eefe3ffa6271fec96b176d"
+    },
+    {
+      "bytes": 5743,
+      "path": "paper/sections/02_related_work.tex",
+      "sha256": "c6782c723aa2f119de10f1ea9c8f2dfd0bf489721322ebce506ee6b34088a003"
+    },
+    {
+      "bytes": 28370,
+      "path": "paper/sections/03_problem_formulation.tex",
+      "sha256": "02a4294b1260ae0ffec26eb40ea0b4e429b7481559b2356e07bf91980668faa3"
+    },
+    {
+      "bytes": 15070,
+      "path": "paper/sections/04_system_architecture.tex",
+      "sha256": "363a15febe7178e83da329122658f9bf218585c4f4891a5b6cb4b07710995a43"
+    },
+    {
+      "bytes": 15829,
+      "path": "paper/sections/05_experimental_setup.tex",
+      "sha256": "8e237ed31e5f32de23b2a8d1c69a5bc1aa0b54055db7aba48d2dfd28d5f8ae6b"
+    },
+    {
+      "bytes": 13552,
+      "path": "paper/sections/06_backtest_results.tex",
+      "sha256": "7d4853601f61fd05bc18e67f039effbc5740ac696fd7d84d640f77537a8da25d"
+    },
+    {
+      "bytes": 6726,
+      "path": "paper/sections/07_limitations.tex",
+      "sha256": "dfca9342835923e4ef1a94d92a4e49902e29fbbd174a97cd349553fb3c563408"
+    },
+    {
+      "bytes": 2181,
+      "path": "paper/sections/08_conclusion.tex",
+      "sha256": "4e3167723b5f39073f1f2919286077224aa65f5cb866d2f3d2b38c994ab17024"
+    },
+    {
+      "bytes": 345,
+      "path": "paper/sections/acknowledgments.tex",
+      "sha256": "144503e0908506d64cd52bb99480fd3082c63bc63831e66299e237007f868e9c"
+    },
+    {
+      "bytes": 19145,
+      "path": "paper/sections/appendices.tex",
+      "sha256": "fbaa80e64f9d63c16bca6a9221b048f970cc3285e1ab7cc3110fb190a87608a1"
+    },
+    {
+      "bytes": 2292,
+      "path": "paper/sections/availability.tex",
+      "sha256": "ebeea63b6e37af5acff363053f2a728d93a614e7a8c991ab5e6392dea669fa4d"
+    }
+  ],
+  "status": "PASS_LOCAL_LAYOUT_AND_REFERENCE_REVISION",
+  "validation": {
+    "baseline_paper_files_match_frozen_archive": 64,
+    "bibliography_notice": "Mỗi bản có một BibTeX notice: empty pages in xie2022implicitbayes; ICLR điện tử không có số trang, giữ nguyên metadata.",
+    "equation_blocks_unchanged": 27,
+    "figure_assets_unchanged": 22,
+    "pdfs": [
+      {
+        "entrypoint": "main",
+        "overfull_or_warnings": [],
+        "pages": 50,
+        "pdf_sha256": "7b46c003658f6cbc6d4d293b857ea3b888d6e1aef3bf11c23240c6f099130115",
+        "poppler_rendered_pages": 50,
+        "reference_keys": [
+          "xiong2025quantagent",
+          "wu2023bloomberggpt",
+          "yang2023fingpt",
+          "tradingagents2024",
+          "han2023chartllama",
+          "tsantekidis2017lob",
+          "lo2000technical",
+          "murphy1999technical",
+          "kakushadze2016formulaic",
+          "harvey2016",
+          "varma2006bias",
+          "bailey2014deflated",
+          "white2000reality",
+          "holm1979multiple",
+          "nguyen2023visobert",
+          "hf5cdsentiment",
+          "tetlock2007news",
+          "araci2019finbert",
+          "rabiner1989hmm",
+          "hamilton2005regimes",
+          "xie2022implicitbayes",
+          "rubin2022retrieve",
+          "openai2025gptoss",
+          "grinold1999active",
+          "sharpe1966mutual",
+          "langgraph_docs",
+          "appel2005technical",
+          "talib_rsi_docs",
+          "talib_willr_docs",
+          "mplfinance_docs",
+          "vnstock_docs",
+          "pardo2008evaluation",
+          "pedregosa2011sklearn",
+          "brodersen2010balanced",
+          "chicco2020mcc",
+          "lahiri2003resampling",
+          "newey1987hac",
+          "sortino1994downside",
+          "vsd2022settlement",
+          "wolf2020transformers",
+          "gelman2013bayesian",
+          "dempster1977em",
+          "rubin1981bootstrap"
+        ],
+        "references": 43,
+        "table_figure_algorithm_locators": {
+          "alg:walkforward": {
+            "latex_page": "5",
+            "number": "1",
+            "pdf_page": 6
+          },
+          "fig:alpha_agent": {
+            "latex_page": "15",
+            "number": "2",
+            "pdf_page": 16
+          },
+          "fig:calendar": {
+            "latex_page": "19",
+            "number": "5",
+            "pdf_page": 20
+          },
+          "fig:charts": {
+            "latex_page": "16",
+            "number": "3",
+            "pdf_page": 17
+          },
+          "fig:decision_agent": {
+            "latex_page": "17",
+            "number": "4",
+            "pdf_page": 18
+          },
+          "fig:flow": {
+            "latex_page": "13",
+            "number": "1",
+            "pdf_page": 14
+          },
+          "fig:u09-return-contrasts": {
+            "latex_page": "27",
+            "number": "7",
+            "pdf_page": 28
+          },
+          "fig:walkforward": {
+            "latex_page": "21",
+            "number": "6",
+            "pdf_page": 22
+          },
+          "tab:accounts": {
+            "latex_page": "26",
+            "number": "4",
+            "pdf_page": 27
+          },
+          "tab:classification": {
+            "latex_page": "25",
+            "number": "3",
+            "pdf_page": 26
+          },
+          "tab:custom_definitions": {
+            "latex_page": "37",
+            "number": "C.1",
+            "pdf_page": 38
+          },
+          "tab:execution": {
+            "latex_page": "41",
+            "number": "F.2",
+            "pdf_page": 42
+          },
+          "tab:indicator_rules": {
+            "latex_page": "38",
+            "number": "D.1",
+            "pdf_page": 39
+          },
+          "tab:numeric": {
+            "latex_page": "30",
+            "number": "8",
+            "pdf_page": 31
+          },
+          "tab:repeats": {
+            "latex_page": "29",
+            "number": "6",
+            "pdf_page": 30
+          },
+          "tab:scope": {
+            "latex_page": "20",
+            "number": "1",
+            "pdf_page": 21
+          },
+          "tab:symbol_results": {
+            "latex_page": "40",
+            "number": "F.1",
+            "pdf_page": 41
+          },
+          "tab:temporal": {
+            "latex_page": "30",
+            "number": "7",
+            "pdf_page": 31
+          },
+          "tab:u09-bridge": {
+            "latex_page": "43",
+            "number": "F.7",
+            "pdf_page": 44
+          },
+          "tab:u09-classification": {
+            "latex_page": "41",
+            "number": "F.3",
+            "pdf_page": 42
+          },
+          "tab:u09-comparison": {
+            "latex_page": "26",
+            "number": "5",
+            "pdf_page": 27
+          },
+          "tab:u09-contrasts": {
+            "latex_page": "43",
+            "number": "F.6",
+            "pdf_page": 44
+          },
+          "tab:u09-economics": {
+            "latex_page": "42",
+            "number": "F.4",
+            "pdf_page": 43
+          },
+          "tab:u09-repeats": {
+            "latex_page": "42",
+            "number": "F.5",
+            "pdf_page": 43
+          },
+          "tab:u09-scope": {
+            "latex_page": "20",
+            "number": "2",
+            "pdf_page": 21
+          },
+          "tab:u09-sensitivity-ba": {
+            "latex_page": "45",
+            "number": "F.10",
+            "pdf_page": 46
+          },
+          "tab:u09-sensitivity-core4": {
+            "latex_page": "45",
+            "number": "F.11",
+            "pdf_page": 46
+          },
+          "tab:u09-sensitivity-return": {
+            "latex_page": "44",
+            "number": "F.9",
+            "pdf_page": 45
+          },
+          "tab:u09-support": {
+            "latex_page": "44",
+            "number": "F.8",
+            "pdf_page": 45
+          }
+        },
+        "type3_fonts": [],
+        "underfull_notices": 9,
+        "words_outside_page": []
+      },
+      {
+        "entrypoint": "main_submit",
+        "overfull_or_warnings": [],
+        "pages": 50,
+        "pdf_sha256": "149b47224618037001f69589eade29886500dd9cb1f59a75919e5079532b3a84",
+        "poppler_rendered_pages": 50,
+        "reference_keys": [
+          "xiong2025quantagent",
+          "wu2023bloomberggpt",
+          "yang2023fingpt",
+          "tradingagents2024",
+          "han2023chartllama",
+          "tsantekidis2017lob",
+          "lo2000technical",
+          "murphy1999technical",
+          "kakushadze2016formulaic",
+          "harvey2016",
+          "varma2006bias",
+          "bailey2014deflated",
+          "white2000reality",
+          "holm1979multiple",
+          "nguyen2023visobert",
+          "hf5cdsentiment",
+          "tetlock2007news",
+          "araci2019finbert",
+          "rabiner1989hmm",
+          "hamilton2005regimes",
+          "xie2022implicitbayes",
+          "rubin2022retrieve",
+          "openai2025gptoss",
+          "grinold1999active",
+          "sharpe1966mutual",
+          "langgraph_docs",
+          "appel2005technical",
+          "talib_rsi_docs",
+          "talib_willr_docs",
+          "mplfinance_docs",
+          "vnstock_docs",
+          "pardo2008evaluation",
+          "pedregosa2011sklearn",
+          "brodersen2010balanced",
+          "chicco2020mcc",
+          "lahiri2003resampling",
+          "newey1987hac",
+          "sortino1994downside",
+          "vsd2022settlement",
+          "wolf2020transformers",
+          "gelman2013bayesian",
+          "dempster1977em",
+          "rubin1981bootstrap"
+        ],
+        "references": 43,
+        "table_figure_algorithm_locators": {
+          "alg:walkforward": {
+            "latex_page": "5",
+            "number": "1",
+            "pdf_page": 6
+          },
+          "fig:alpha_agent": {
+            "latex_page": "15",
+            "number": "2",
+            "pdf_page": 16
+          },
+          "fig:calendar": {
+            "latex_page": "19",
+            "number": "5",
+            "pdf_page": 20
+          },
+          "fig:charts": {
+            "latex_page": "16",
+            "number": "3",
+            "pdf_page": 17
+          },
+          "fig:decision_agent": {
+            "latex_page": "17",
+            "number": "4",
+            "pdf_page": 18
+          },
+          "fig:flow": {
+            "latex_page": "13",
+            "number": "1",
+            "pdf_page": 14
+          },
+          "fig:u09-return-contrasts": {
+            "latex_page": "27",
+            "number": "7",
+            "pdf_page": 28
+          },
+          "fig:walkforward": {
+            "latex_page": "21",
+            "number": "6",
+            "pdf_page": 22
+          },
+          "tab:accounts": {
+            "latex_page": "26",
+            "number": "4",
+            "pdf_page": 27
+          },
+          "tab:classification": {
+            "latex_page": "25",
+            "number": "3",
+            "pdf_page": 26
+          },
+          "tab:custom_definitions": {
+            "latex_page": "37",
+            "number": "C.1",
+            "pdf_page": 38
+          },
+          "tab:execution": {
+            "latex_page": "41",
+            "number": "F.2",
+            "pdf_page": 42
+          },
+          "tab:indicator_rules": {
+            "latex_page": "38",
+            "number": "D.1",
+            "pdf_page": 39
+          },
+          "tab:numeric": {
+            "latex_page": "30",
+            "number": "8",
+            "pdf_page": 31
+          },
+          "tab:repeats": {
+            "latex_page": "29",
+            "number": "6",
+            "pdf_page": 30
+          },
+          "tab:scope": {
+            "latex_page": "20",
+            "number": "1",
+            "pdf_page": 21
+          },
+          "tab:symbol_results": {
+            "latex_page": "40",
+            "number": "F.1",
+            "pdf_page": 41
+          },
+          "tab:temporal": {
+            "latex_page": "30",
+            "number": "7",
+            "pdf_page": 31
+          },
+          "tab:u09-bridge": {
+            "latex_page": "43",
+            "number": "F.7",
+            "pdf_page": 44
+          },
+          "tab:u09-classification": {
+            "latex_page": "41",
+            "number": "F.3",
+            "pdf_page": 42
+          },
+          "tab:u09-comparison": {
+            "latex_page": "26",
+            "number": "5",
+            "pdf_page": 27
+          },
+          "tab:u09-contrasts": {
+            "latex_page": "43",
+            "number": "F.6",
+            "pdf_page": 44
+          },
+          "tab:u09-economics": {
+            "latex_page": "42",
+            "number": "F.4",
+            "pdf_page": 43
+          },
+          "tab:u09-repeats": {
+            "latex_page": "42",
+            "number": "F.5",
+            "pdf_page": 43
+          },
+          "tab:u09-scope": {
+            "latex_page": "20",
+            "number": "2",
+            "pdf_page": 21
+          },
+          "tab:u09-sensitivity-ba": {
+            "latex_page": "45",
+            "number": "F.10",
+            "pdf_page": 46
+          },
+          "tab:u09-sensitivity-core4": {
+            "latex_page": "45",
+            "number": "F.11",
+            "pdf_page": 46
+          },
+          "tab:u09-sensitivity-return": {
+            "latex_page": "44",
+            "number": "F.9",
+            "pdf_page": 45
+          },
+          "tab:u09-support": {
+            "latex_page": "44",
+            "number": "F.8",
+            "pdf_page": 45
+          }
+        },
+        "type3_fonts": [],
+        "underfull_notices": 9,
+        "words_outside_page": []
+      }
+    ],
+    "reference_6_link": {
+      "doi": "10.1109/CBI.2017.23",
+      "status": 200,
+      "title_authors_article_number_match": true,
+      "url": "https://pure.au.dk/portal/en/publications/forecasting-stock-prices-from-the-limit-order-book-using-convolut/",
+      "verified_date": "2026-11-13"
+    },
+    "table_panels_unchanged": 32,
+    "visual_review": {
+      "contact_sheet_pages_reviewed": {
+        "main": 50,
+        "main_submit": 50
+      },
+      "individual_poppler_pages_reviewed": {
+        "main": [
+          44,
+          46,
+          47
+        ],
+        "main_submit": [
+          41
+        ]
+      },
+      "result": "PASS",
+      "scope": "Bố cục toàn bộ hai bản; đọc riêng bảng lưới và URL reference 6; không có mất/cắt chữ quan sát được."
+    }
+  }
+}

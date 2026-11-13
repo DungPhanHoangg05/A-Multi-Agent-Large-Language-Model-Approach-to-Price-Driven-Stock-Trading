@@ -92,14 +92,14 @@ Nonfinite samples are removed while zero is retained; retained observations need
 \FloatBarrier
 \section{Software Dependencies and Reproducibility}
 \label{app:software}
-The research runtime is Python 3.13.5 with pinned numerical, graph, model-client and chart dependencies recorded in the reproducibility package. Indicator calculations use TA-Lib; chart images and numerical diagnostics have their own source hashes. Raw actual prompts, callback/error records, retry/checkpoint state, provider aliases and model/scorer assets are retained separately from scientific companion tables. Local saved-prediction replay reproduces metric calculations, not newly served model outputs or historical news availability.
+The research runtime is Python 3.13.5 with pinned numerical, graph, model-client and chart dependencies recorded in the reproducibility package. The local sentiment-model backend uses Transformers \cite{wolf2020transformers}. Indicator calculations use TA-Lib; chart images and numerical diagnostics have their own source hashes. Raw actual prompts, callback/error records, retry/checkpoint state, provider aliases and model/scorer assets are retained separately from scientific companion tables. Local saved-prediction replay reproduces metric calculations, not newly served model outputs or historical news availability.
 
 The operational installation, Flask/JSON handling, tokenizer configuration and optional endpoint routing instructions remain in the repository. Their existence does not establish that each backend was used in the frozen study. Public distribution remains conditional on rights and a real persistent identifier. No credentials or private review document belong in a public reproducibility package.
 
 \paragraph{Extension tasks, teacher and frozen student}
 The numerical context uses same-symbol 63-session tasks, up to three prior tasks and at most eight matured observations per task and target, with prior/target/query IDs and holding intervals disjoint. Four numerical coordinates encode momentum over five/twenty sessions, twenty-session volatility and relative position to the twenty-session moving average; their train-fitted scaler and clipped model representation are frozen. Factual buckets use the signs of MACD minus signal and Close minus SMA20; exact zero/missing axes produce UNKNOWN rather than a favorable bucket. Query outcomes are absent. Context is frozen before each fold's first query and excludes all 102 test IDs across folds.
 
-The explicit teacher has sixteen Beta components on $\mu\in\{0.2,0.4,0.6,0.8\}$ and $\kappa\in\{2,8,32,128\}$, with $\alpha=\mu\kappa$, $\beta=(1-\mu)\kappa$ and train-only MAP-EM mixture weights. Prior-task likelihoods preserve task boundaries; target successes/failures update the target posterior. The selected causal-mask student uses task/role markers and only observed context labels; its query label is masked. The served checkpoint is fixed at seed 42/step 3000. No checkpoint is selected from U09 returns. Utility support requires at least two prior tasks and at least five observed gains and five losses across the admitted magnitude support. Its 4,096 draws use teacher-posterior success probabilities and Bayesian-bootstrap net gain/loss magnitudes. Student $P(y=+1)$ is supplied as context, not substituted for teacher utility draws. Neither procedure is fitted again during U08 inference or manuscript generation.
+The explicit teacher uses conjugate Bayesian updating \cite{gelman2013bayesian} with sixteen Beta components on $\mu\in\{0.2,0.4,0.6,0.8\}$ and $\kappa\in\{2,8,32,128\}$, with $\alpha=\mu\kappa$, $\beta=(1-\mu)\kappa$ and train-only MAP-EM mixture weights, using expectation--maximization \cite{dempster1977em}. Prior-task likelihoods preserve task boundaries; target successes/failures update the target posterior. The selected causal-mask student uses task/role markers and only observed context labels; its query label is masked. The served checkpoint is fixed at seed 42/step 3000. No checkpoint is selected from U09 returns. Utility support requires at least two prior tasks and at least five observed gains and five losses across the admitted magnitude support. Its 4,096 draws use teacher-posterior success probabilities and Bayesian-bootstrap net gain/loss magnitudes \cite{rubin1981bootstrap}. Student $P(y=+1)$ is supplied as context, not substituted for teacher utility draws. Neither procedure is fitted again during U08 inference or manuscript generation.
 
 \begingroup\emergencystretch=2em
 \paragraph{Release identities and historical restore}
@@ -109,18 +109,13 @@ The presentation release \path{outputs/revision/u09_manuscript_assets_v1/manifes
 \par\endgroup
 
 \FloatBarrier
-\clearpage
 \setcounter{table}{0}
 \section{Additional Account and Symbol Results}
 \label{app:additional}
 These tables use the same final supports and unchanged predictions as the main results. Supplement S1 gives every baseline by symbol and both classes; S2 contains all execution rows/contrasts; S3 the complete numeric/random family; S4 all temporal/regime/HAC diagnostics. They are scientific companion tables, distinct from raw execution logs and implementation files. No additional market observation is created by these alternative tabulations.
-% Hai bảng đặt sau heading của chính appendix, không nổi ngược lên phần trước.
-\begingroup
-\let\savedappendixtable\table
-\def\table[#1]{\savedappendixtable[H]}
+% Cho phép bảng nổi trong phụ lục hiện hành để tránh khoảng trắng do cố định vị trí.
 \input{generated/a03_symbols.tex}
 \input{generated/a04_execution.tex}
-\endgroup
 \FloatBarrier
 
 \paragraph{Separate extension companions}

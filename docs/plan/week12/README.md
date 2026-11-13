@@ -37,6 +37,44 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
+## Điều chỉnh bố cục và tài liệu tham khảo của bài báo
+
+Ngày **13/11/2026**, theo yêu cầu sửa bản hiện hành tại `paper/`:
+
+- [x] Đổi vị trí bảng/hình sang `[!htb]` linh hoạt; bỏ ép `[H]` và ngắt trang
+  cứng ở phụ lục F, bỏ ngắt trang references riêng của bản submit. Giữ rào chắn
+  ở nơi đổi số phụ lục. Trang chỉ chứa float được căn đầu, không giãn khoảng giữa
+  các bảng; hai bảng bốn panel dùng lưới 2×2, không thu nhỏ phông bảng.
+- [x] Bổ sung citation thực tế cho indicator/chart, IC, Sharpe/Sortino,
+  walk-forward, BA/MCC, HAC, Holm, dependent bootstrap, HMM, teacher Bayes/EM,
+  Bayesian bootstrap và các công cụ được sử dụng. Danh mục được dẫn tăng từ
+  **21 lên 43 nguồn**, không dùng `nocite{*}` để tăng số lượng.
+- [x] Reference **[6] Tsantekidis et al.** giữ đúng bài/DOI, đủ sáu tác giả;
+  thay URL IEEE `/metrics` lỗi bằng bản ghi Đại học Aarhus đã kiểm HTTP **200**.
+  Bật ngắt URL ở dấu gạch nối để các địa chỉ dài không tràn lề.
+- [x] Build mới hai cây độc lập bằng `pdflatex → bibtex → pdflatex → pdflatex`,
+  tám lệnh exit 0; cả hai bản **50 trang**. Poppler render đủ **100 trang**;
+  xem toàn bộ bố cục qua contact sheet và xem riêng bảng lưới, trang references,
+  phụ lục của bản submit. Không Overfull, undefined reference/citation, chữ ngoài
+  trang hoặc Type3. Mỗi bản còn tám Underfull notice; BibTeX giữ một notice
+  thiếu số trang của bài ICLR điện tử Xie et al., không tự tạo số trang giả.
+- [x] Đối soát 64 nguồn trước sửa với source ZIP F05; giữ nguyên **32 panel
+  tabular, 27 khối equation/align, 22 asset hình/sơ đồ** và hai bộ macro số liệu.
+  Các kết quả, raw, receipt, source ZIP và PDF lịch sử không bị ghi đè.
+
+[Bản đầy đủ](../../../outputs/revision/manuscript_layout_references_v1/main.pdf),
+[bản submit](../../../outputs/revision/manuscript_layout_references_v1/main_submit.pdf)
+và [ZIP nguồn Overleaf](../../../outputs/revision/manuscript_layout_references_v1/overleaf.zip)
+thuộc [manifest mới](../../../outputs/revision/manuscript_layout_references_v1/manifest.json).
+[QA đóng gói](manuscript_layout_references_checks.zip) lưu nguồn công cụ kiểm,
+log, aux/bibliography, kết quả đối soát và PNG. Source ZIP F05 và crosswalk
+reviewer F05 vẫn là bằng chứng lịch sử; vị trí trang mới nằm trong
+[pdf anchors](../../../outputs/revision/manuscript_layout_references_v1/pdf_anchors.json),
+không nhận các số trang F05 là vị trí hiện tại. Bản này chỉ sửa tài liệu và
+trình bày, không chạy unit/E2E/leakage/compileall theo AGENTS §1.2 vì không đổi
+code, runtime, schema hoặc dữ liệu nghiên cứu. Không chạy lại inference,
+scoring hay thống kê và không nâng trạng thái đóng các phản biện khoa học.
+
 ## Công việc cuối cho bài báo và giao diện
 
 [Kế hoạch cuối](final_paper_ui_plan.md) được lập ngày **12/11/2026** sau audit

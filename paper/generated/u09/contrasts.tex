@@ -1,9 +1,11 @@
-\begin{table}[p]
+\begin{table}[!htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.12}
 \caption{Extension study: all twenty registered endpoint contrasts.}
 \label{tab:u09-contrasts}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
 \textbf{Return vs Native (pp)}\par\smallskip
 \begin{tabular}{lrrr}
 \hline
@@ -15,7 +17,10 @@ A pool & -0.367 & -0.867 & 0.133 \\
 B semantic & -0.377 & -0.866 & 0.111 \\
 MT-BICL & -0.601 & -1.090 & -0.111 \\
 \hline
-\end{tabular}\par\medskip
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
 \textbf{Return vs Common (pp)}\par\smallskip
 \begin{tabular}{lrrr}
 \hline
@@ -27,7 +32,10 @@ A pool & 0.005 & -0.005 & 0.016 \\
 B semantic & -0.005 & -0.016 & 0.005 \\
 MT-BICL & -0.229 & -0.576 & 0.118 \\
 \hline
-\end{tabular}\par\medskip
+\end{tabular}
+\end{minipage}\par\medskip
+\begin{minipage}[t]{0.48\textwidth}
+\centering
 \textbf{BA vs Native (pp)}\par\smallskip
 \begin{tabular}{lrrr}
 \hline
@@ -39,7 +47,10 @@ A pool & -5.662 & -11.771 & 0.446 \\
 B semantic & -6.095 & -11.629 & -0.561 \\
 MT-BICL & -8.675 & -20.239 & 2.888 \\
 \hline
-\end{tabular}\par\medskip
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
 \textbf{BA vs Common (pp)}\par\smallskip
 \begin{tabular}{lrrr}
 \hline
@@ -51,6 +62,7 @@ A pool & 0.216 & -0.235 & 0.668 \\
 B semantic & -0.216 & -0.668 & 0.235 \\
 MT-BICL & -2.797 & -11.168 & 5.575 \\
 \hline
-\end{tabular}\par\medskip
+\end{tabular}
+\end{minipage}\par\medskip
 \begin{minipage}{\textwidth}\footnotesize Differences are method minus baseline in percentage points. Bands are the recorded descriptive 95\% simultaneous standardized max-deviation bands across all twenty endpoints/contrasts, circular fold block L2, 10,000 draws, PCG64 seed 20261110. Six exposed temporal clusters do not support calibrated significance or coverage claims. NA bands remain NA; no new resampling or family selection is performed.\end{minipage}
 \end{table}

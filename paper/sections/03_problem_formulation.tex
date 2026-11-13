@@ -2,7 +2,7 @@
 \label{sec:formulation}
 
 
-\begin{algorithm}[htb]
+\begin{algorithm}[!htb]
 \small
 \caption{Walk-Forward Evaluation}
 \label{alg:walkforward}
@@ -150,7 +150,7 @@ The zscore--tanh path normalises a raw factor as
 where $\mu_{k,e}$ and $\sigma_{k,e}$ are obtained from finite values in the supplied historical prefix and $\varepsilon>0$ guards the denominator. Min--max and rank-based alternatives also occur. This equation describes one native transform, not a training-only fit guaranteed causal at every row. Prefix-dependent location/scale can change earlier values when the supplied history changes. Values are interpreted as directional scores, not calibrated probabilities.
 
 \subsection{Walk-Forward Alpha Selection}
-Let $\mathcal{A}=\{\alpha^{(1)},\ldots,\alpha^{(M)}\}$ with $M=85$. The native candidate diagnostics estimate association, orientation and ranking on the same trailing observations. They are in-sample selection statistics, not independent discoveries. For a signal row $u$, write $r^{\mathrm{net},(L)}_u=r^{\mathrm{net}}_{u+1,L}$ and $y^{(L)}_u=y_{u+1,L}$, so the diagnostic uses entry at the next bar rather than the signal bar. For each candidate's finite evaluation sample $\mathcal{T}_{\mathrm{eval}}$, the Information Coefficient is
+Let $\mathcal{A}=\{\alpha^{(1)},\ldots,\alpha^{(M)}\}$ with $M=85$. The native candidate diagnostics estimate association, orientation and ranking on the same trailing observations. They are in-sample selection statistics, not independent discoveries. For a signal row $u$, write $r^{\mathrm{net},(L)}_u=r^{\mathrm{net}}_{u+1,L}$ and $y^{(L)}_u=y_{u+1,L}$, so the diagnostic uses entry at the next bar rather than the signal bar. Using the rank-based IC convention of Grinold and Kahn \cite{grinold1999active}, for each candidate's finite evaluation sample $\mathcal{T}_{\mathrm{eval}}$, the Information Coefficient is
 
 \paragraph{Information Coefficient (IC)}
 
@@ -417,7 +417,7 @@ Directional accuracy, its paired difference, the reference cycle return and weal
 
 The paired $\Delta\mathrm{Acc}$ is a descriptive Full--Base bundle difference, not an isolated alpha treatment. BA is the primary class-aware metric and is defined with MCC in Section~\ref{sec:experimentalsetup}. In the fractional reference ledger, $a_e=1$ for LONG and zero for SHORT/CASH. Each LONG pays fee and slippage at next Open and target Close; $W_0=1$ is normalized wealth, equivalent in return to the VND50 million account initialization. Cycles do not overlap on the selected schedule. Separate accounts are not pooled portfolio capital, and settlement/capacity sensitivities retain receivables and residual shares rather than assuming the reference product always applies.
 
-For daily-close wealth $W^{\mathrm{day}}_t$ including CASH gaps and the initial anchor, let $r^{\mathrm{day}}_t=W^{\mathrm{day}}_t/W^{\mathrm{day}}_{t-1}-1$. The account risk conventions are
+For daily-close wealth $W^{\mathrm{day}}_t$ including CASH gaps and the initial anchor, let $r^{\mathrm{day}}_t=W^{\mathrm{day}}_t/W^{\mathrm{day}}_{t-1}-1$. The account risk conventions use the Sharpe risk-adjusted-return framework \cite{sharpe1966mutual} and are
 
 \begin{align}
     \mathrm{Sharpe}_{\mathrm{acct}}

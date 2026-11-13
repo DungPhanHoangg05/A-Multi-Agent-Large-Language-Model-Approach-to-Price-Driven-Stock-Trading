@@ -1,15 +1,24 @@
 % Kiểu trình bày chung; không thay giá trị thực nghiệm hoặc metadata tác giả.
 \hypersetup{pdftitle={Enhancing Multi-Agent Large Language Models for Stock Trading through Quantitative Alpha Integration}}
-\renewcommand{\topfraction}{0.9}
-\renewcommand{\bottomfraction}{0.85}
-\renewcommand{\textfraction}{0.1}
-\renewcommand{\floatpagefraction}{0.65}
-\setcounter{topnumber}{3}
-\setcounter{bottomnumber}{2}
-\setcounter{totalnumber}{4}
+% Ưu tiên ghép bảng/hình với văn bản, giữ khoảng cách vừa đủ và tránh giãn dọc trang.
+\raggedbottom
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{6}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{12pt plus 2pt minus 3pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
 % Footer trung tính, không suy rằng bản thảo đã được gửi tới tạp chí.
 \date{12 November 2026}
 \makeatletter
+% Căn đầu trang float; không kéo giãn khoảng cách giữa các bảng trên cùng trang.
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt plus 2pt minus 2pt}
+\setlength{\@fpbot}{0pt plus 1fil}
 \pdfstringdefDisableCommands{\let\orcidlink\@gobble\let\corref\@gobble\def\,{ }\let\cnotenum\@empty\let\@corref\@empty}
 \def\ps@pprintTitle{%
   \let\@oddhead\@empty

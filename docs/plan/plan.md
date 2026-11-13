@@ -5,6 +5,12 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+Ngày 13/11/2026 đã sửa bố cục và bổ sung references cho nguồn `paper/`:
+cả hai PDF 50 trang, 43 tài liệu được dẫn; reference [6] có URL thay thế đã kiểm.
+[Checklist và gói hiện hành](week12/README.md#điều-chỉnh-bố-cục-và-tài-liệu-tham-khảo-của-bài-báo)
+ghi phạm vi tài liệu, đối soát số liệu và PDF/ZIP Overleaf mới; bản F05 cùng
+crosswalk của nó giữ nguyên làm bằng chứng lịch sử.
+
 **Từ 12/11/2026, `develop` là nhánh tích hợp duy nhất cho toàn bộ công việc:**
 hệ gốc, Bayesian/MT-BICL, thực nghiệm, bài báo và phản hồi reviewer.
 Task mới tách nhánh từ develop rồi merge trở lại theo AGENTS; `fix` chỉ giữ vai

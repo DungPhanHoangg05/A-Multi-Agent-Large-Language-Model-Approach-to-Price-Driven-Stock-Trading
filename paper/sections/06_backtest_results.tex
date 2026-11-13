@@ -32,8 +32,8 @@ Figure~\ref{fig:u09-return-contrasts} displays all five extension-versus-baselin
 \begin{figure}[!htbp]
 \centering
 % Chỉ cắt khung hiển thị hai panel từ cùng PNG 1692x666, 180 dpi; không sửa byte ảnh/số liệu.
-\includegraphics[width=0.82\textwidth,trim=0bp 14.4bp 336.8bp 18bp,clip]{generated/u09/return_contrasts.png}\par\smallskip
-\includegraphics[width=0.82\textwidth,trim=340bp 14.4bp 0bp 18bp,clip]{generated/u09/return_contrasts.png}
+\includegraphics[width=0.78\textwidth,trim=0bp 14.4bp 336.8bp 18bp,clip]{generated/u09/return_contrasts.png}\par\smallskip
+\includegraphics[width=0.78\textwidth,trim=340bp 14.4bp 0bp 18bp,clip]{generated/u09/return_contrasts.png}
 \caption{Extension mean account-return contrasts against Native (top) and Common (bottom), in percentage points. The frozen two-panel image is displayed as enlarged panels with separate horizontal scales. Points and descriptive 95\% simultaneous bands come from the paired circular-fold bootstrap (10,000 draws, primary block length L2; joint family of twenty return/BA contrasts). The vertical line denotes zero difference. Bands describe sensitivity on six exposed folds, not calibrated significance or deployable profitability. Both panels retain every extension, including adverse results; uncertainty is conditional on one upstream realization.}
 \label{fig:u09-return-contrasts}
 \end{figure}
@@ -64,7 +64,7 @@ Calendar-aligned HAC accuracy effects for common-eight/recent-nine are $+3.125/+
 \subsubsection{Auxiliary numeric selector controls}
 Table~\ref{tab:numeric} is a separate numeric study, not an LLM factor-selector ablation. Causal adapters and train-only eligibility, imputation, scaling, orientation and ranking are fitted once per symbol--block scope, then retained through validation/test. Fixed custom five, dynamic train top-five, the same IDs without sign flip, and all twenty random eligible-five trials produce 2,346 predictions on the same 102 units. No random seed is selected after observing results.
 
-Dynamic-minus-fixed, dynamic-minus-random-family and dynamic-minus-no-flip BA differences are respectively $+15.84$, $+7.33$ and $+6.44$ pp. Exact six-block two-sided sign-flip values are 0.0625, 0.125 and 0.53125; Holm correction over all 23 declared hypotheses gives adjusted $p=1$ throughout. Unadjusted percentile intervals and the entire random dispersion remain visible. Positive point differences do not establish superiority, and the no-flip contrast does not identify sign-flip value inside the LLM pipeline.
+Dynamic-minus-fixed, dynamic-minus-random-family and dynamic-minus-no-flip BA differences are respectively $+15.84$, $+7.33$ and $+6.44$ pp. Exact six-block two-sided sign-flip values are 0.0625, 0.125 and 0.53125; Holm correction \cite{holm1979multiple} over all 23 declared hypotheses gives adjusted $p=1$ throughout. Unadjusted percentile intervals and the entire random dispersion remain visible. Positive point differences do not establish superiority, and the no-flip contrast does not identify sign-flip value inside the LLM pipeline.
 
 Native diagnostics separately account for 102 cutoffs, 8,670 candidate opportunities and 510 selected slots. WQ42 occurs at 52/102 cutoffs (52/510 slots); adjacent nonzero IC signs flip 1,282 times over 7,894 eligible transition pairs. These are dependent in-sample diagnostics, not out-of-sample alpha stability. Complete per-factor frequency, eligible denominators, IC signs, windows and all 21 exclusions are retained in the registry companion. Numeric controls do not repair native row-wise noncausality, provide the missing fixed/random LLM experiment, or certify original-expression equivalence.
 \input{generated/t06_numeric.tex}
