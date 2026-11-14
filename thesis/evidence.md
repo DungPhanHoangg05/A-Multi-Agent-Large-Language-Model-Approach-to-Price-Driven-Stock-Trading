@@ -580,7 +580,210 @@ Mọi ngày kiểm dưới đây là **14/11/2026**; phạm vi đọc được n
 | Nguồn thị trường Việt Nam và T+2 | Thông báo VSD 2022 chưa đọc trong lượt này; cần kiểm ngày hiệu lực và phạm vi trước khi viết nhận định về quy định. Hợp đồng mô phỏng của hệ thống vẫn lấy từ engine/evidence, không suy là pháp luật hiện hành. |
 | Bảng so sánh nghiên cứu và citation cuối cùng | Chưa hoàn tất T48–T53; chỉ trích những nhận định đã có đoạn nguồn phù hợp. Các nguồn CHUA_DOC và paper mới năm 2026 chưa được dùng để tuyên bố khoảng trống hay vượt trội. |
 
-## 5. Quy ước bổ sung sổ nguồn
+## 5. Thuật ngữ tiếng Anh, ký hiệu và quy ước diễn đạt
+
+Chốt quy ước viết ngày **14/11/2026**, từ commit
+`d2cf431aa9312add8870e06690e6e4776f624a0d`. Các định nghĩa tiếng Anh trong
+bảng dùng làm từ vựng thống nhất cho bản thảo; phần quản lý/đối chiếu nguồn
+vẫn bằng tiếng Việt. Ký hiệu là quy ước trình bày, không đổi tên field JSON,
+ID phương pháp, schema, nhãn hoặc bằng chứng đã khóa. Chưa tạo danh mục
+viết tắt hoàn chỉnh của phần đầu hay viết thay các mục lý thuyết.
+
+### 5.1. Tên phương pháp và ánh xạ ID
+
+Đối chiếu [registry](../core/variant_registry.py),
+[cấu hình thành phần](../utils/graph_setup.py) và
+[phụ thuộc/policy thống nhất](../core/unified_methods.py). Không lấy từ
+“baseline”, “original” hoặc “Full” đứng riêng để suy ra ID/profile.
+
+| Canonical manuscript name | Implementation or archive name | Meaning and scope in the thesis |
+| --- | --- | --- |
+| Full | Component study: `full`, `AS` | The price-based pipeline with alpha factors and sentiment enabled in the recorded component comparison. Its responses belong to the component study. |
+| Base | Component study: `baseline`, `B`; legacy “No-Alpha” output label | The component control with both alpha-factor and sentiment report sections disabled. The legacy label does not mean a factor-only intervention. |
+| Native | `original_fix` | The native alpha representation and native Decision profile in the historical-context study. It is not an alias for the component study's saved Full responses. |
+| Common | `original_common`; explicit archive alias `Original_common` | The foundation retaining alpha and sentiment under the causal-common alpha representation and common Decision instructions. It is not Base. |
+| Bayesian Prior v1 | `bayesian_v1` | The Common-based method using matured signal-bank history and market-regime context; unsupported cases reuse Common from the same repeat. |
+| Conditional Prior | `C2` | Conditional historical statistics with disjoint-background shrinkage and separate readiness conditions for statistics and examples. |
+| Trend-Pattern Prior | `A_tp_pool` | The alternative using relaxed Trend/Pattern matching for historical evidence. Its larger candidate pool is not automatically stronger evidence. |
+| Explicit-Count Prior | `B_semantic` | The alternative exposing historical counts, intervals and example identities. “Semantic” in the ID does not establish embedding-based retrieval. |
+| Fact Anchor | `Fact_Anchor` | The Common-dependent factual anchoring step. Its resolved action is the reference for MT revision; this step has no numerical utility veto. |
+| MT-BICL | `MT_BICL` | Multi-task Bayesian in-context learning: the method combining a frozen numerical student, task context and utility-gated revision relative to Fact Anchor. It is one evaluated method, not a synonym for every Bayesian prior. |
+| CASH control | `CASH_EVERY_CYCLE` | A registered rule that retains cash at every scheduled cycle; it has no new LLM response. |
+| Always-LONG cycles | `ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS` | A registered rule that enters and closes each scheduled LONG cycle and pays both trading legs. |
+| Continuous hold | Component economic comparator | A position held across the specified account window. Its gap exposure and costs differ from Always-LONG cycles. |
+
+**Quy tắc phạm vi:** Full/Base và Native/Common thuộc hai nghiên cứu riêng;
+không gộp raw response, support hoặc protocol thống kê. Native/Common thay cả
+biểu diễn Alpha và chỉ dẫn; chênh lệch giữa chúng không cô lập riêng tác động
+Alpha. MT-BICL là multi-task; pipeline nhiều vai trò là multi-agent — hai
+khái niệm này không thay thế nhau.
+
+Tên `Full` trong `prepare_variants(...)["contexts"]["Full"]` lại chỉ context
+MT đủ prior/target observations, không phải Full của nghiên cứu thành phần.
+Trong unified policy, reason `FALLBACK_ORIGINAL` tái dùng `original_common`,
+không chuyển sang Native. Các tên legacy “Original” phải được giải theo
+protocol/ID của đúng nghiên cứu, không tự gộp thành một alias chung.
+
+### 5.2. Từ vựng cốt lõi cho bản thảo
+
+| English term | Definition for the manuscript |
+| --- | --- |
+| Large language model (LLM) | The language model invoked for the specified report or Decision role. A named agent can instead be deterministic; an agent count is not an LLM-call count. |
+| Vision-language model (VLM) | A model receiving chart images with textual instructions. Producing a fluent report does not by itself validate visual grounding. |
+| In-context learning (ICL) | Prediction conditioned on information supplied in the current context, without updating model parameters during that inference. |
+| Bayesian in-context learning (BICL) | In-context prediction interpreted or constructed through an explicitly stated Bayesian model. Few examples in a prompt alone do not establish a validated Bayesian inference mechanism. |
+| Hidden Markov model (HMM) | The latent-state model used for market-regime estimation. Fitting, prefix inference and any fallback must retain their declared temporal boundaries. |
+| Point-in-time (PIT) | Availability of inputs and admissible historical outcomes relative to the specified decision cutoff. Outer-cutoff isolation and row-wise causality are distinct requirements. |
+| OHLCV | Open, High, Low, Close and Volume of the declared observed bar. Price basis, vendor units and availability remain part of the input contract. |
+| Bayesian Regime Prior Prefix (BRPP) | The bounded prompt block presenting the applicable historical context. Its presentation budget does not define the full statistical population or imply that all prior methods use identical evidence. |
+| Market observation / test point | One eligible stock and decision-cutoff pair. The market observation is distinct from its method-specific forecasts and repeated Decisions. |
+| Observed trading session / bar | One ordered daily vendor observation used by the protocol. A bar index is not a calendar-day offset or an authenticated exchange calendar. |
+| Decision cutoff / as-of date | The time boundary defining the admissible information for a query. Prices and eligible dated news cannot extend beyond it; historical outcome membership requires a strictly earlier exit. |
+| Candidate LONG cycle | The hypothetical entry-to-exit cycle used to define the net target for every observation, including observations on which the method ultimately retains CASH. |
+| Matured historical episode | A historical cycle whose exit precedes the query cutoff and whose recorded features, label and return may therefore be considered under the applicable eligibility rules. Maturity alone does not certify every provenance or row-wise-causality requirement. |
+| Signal memory bank | The frozen collection of cycle-level historical records used by the signal-based Bayesian priors. A record called a “historical task” in this bank is not necessarily a multi-observation MT task. |
+| MT task | A group of numerical observations associated with one stock and a calendar-block identity in the implemented MT construction. It is not an agent or an individual forecast. |
+| Prior task | A selected earlier MT task contributing matured observations to the prior-task context. Task boundaries are retained rather than replacing all tasks by one pooled count. |
+| Target task | The MT task containing the current query. Its historical observations and its unlabeled query have different information roles. |
+| Target observations | Matured observations selected from the target task before the query; they exclude the query's own label and return. |
+| Query | The current input to be predicted, with features and permitted metadata but no observed outcome supplied to inference. Scheduled entry/exit dates do not make their future prices available. |
+| MT context episode | The complete inference object containing the query, prior tasks, target observations, scaler and provenance. This container is distinct from one historical trading episode. |
+| Numerical task context | The MT membership and features used by the numerical student/teacher and utility computation. It is not interchangeable with the signal memory bank or with a few rendered examples. |
+| Market regime | A market-state assignment inferred under the specified model, feature prefix and fit cutoff. A regime name is not a trading action or a guarantee of future return. |
+| Support | The number of admissible observations relevant to a specified statistic or decision condition. The statistic, population and denominator must be named. |
+| Coverage / readiness | Coverage reports how often a specified resource or condition is available; readiness is the method's rule for whether evidence can be used. Neither term means predictive accuracy. |
+| Displayed example | A record projected into the prompt for presentation. Displayed examples can be a small subset of the observations used in numerical summaries. |
+| Numerical student | The frozen learned predictor producing a numerical estimate of the positive net label from the permitted MT input. It is distinct from the hosted Decision LLM. |
+| Bayesian teacher | The numerical hierarchical Beta-Bernoulli reference model supplying predictive quantities and posterior uncertainty under its specified assumptions. “Teacher” does not mean an additional hosted LLM call. |
+| Predictive probability | A numerical estimate of the probability that the candidate LONG net return is strictly positive. An estimate in [0,1] is not automatically calibrated out of sample. |
+| Reported confidence | A model's reported confidence field. In `TradeDecisionOutput`, `confidence` is a string; it is not automatically the student's probability, a posterior probability or an input to utility. |
+| Posterior utility | A model-based estimate of the net return of LONG relative to CASH, incorporating sign probability and gain/loss magnitudes. It is expressed as a net-return fraction, not as confidence. |
+| Factual assertion validity | Agreement with the required recorded assertion IDs and enum values. Passing this check does not verify every statement in free-text reasoning. |
+| Raw proposal | The LONG/SHORT direction returned by a new Decision response before the external action policy; it can be absent when no new response is required. |
+| Anchor action | The resolved Fact Anchor LONG/CASH action used as the reference for MT revision. An invalid anchor response resolves through its recorded Common dependency. |
+| Final action | The LONG/CASH action selected after factual, eligibility and utility conditions. Evaluation follows this action rather than assuming every raw proposal was accepted. |
+| Fallback / policy bypass | A specified reuse or retention of a dependency/anchor action when evidence conditions are not met. A technical failure or missing required response is not silently converted into a valid CASH decision. |
+| Shared upstream realization | The immutable Indicator/Pattern/Trend evidence and associated shared inputs produced once for a test point and copied to comparison branches. |
+| Decision repeat | A repeated Decision execution conditional on the same upstream realization. It does not add a new market date or an independently regenerated complete pipeline. |
+| Forecast slot / raw response / HTTP attempt | A slot is a scheduled method-point-repeat output; a raw response is an actual recorded model response; an HTTP attempt is one transport attempt, including retries. These counts are not interchangeable. |
+| Paired contrast | A difference evaluated on common eligible observations and the protocol's shared dependencies. Pairing within one study does not pair independently collected responses across studies. |
+| Stock-fold account | A separately capitalized stock/fold simulation. An average across these accounts is not one capital-constrained multi-stock portfolio. |
+| Historical credible interval | A posterior interval for a specified historical rate, conditional on the model and fitted/plug-in hyperprior. It is not a return-prediction interval or proof of query calibration. |
+| Descriptive comparison band | The recorded resampling envelope for an effect or contrast family. With exposed folds and limited dependent support, it is not described as prospective confirmation or guaranteed calibrated coverage. |
+| Missing / undefined / zero | Missing or undefined quantities remain NA/null with a reason; a genuine numerical zero remains zero. These states must not be silently interchanged. |
+
+### 5.3. Ký hiệu và đơn vị
+
+Các ký hiệu toán dưới đây là tên trình bày cho cùng đối tượng; tên field gốc
+giữ nguyên. Dùng chỉ số riêng cho tác vụ, quan sát và repeat; không dùng
+`K`, `N`, “return” hoặc “confidence” đứng riêng khi có nhiều mẫu số/đơn vị.
+
+| Symbol | Meaning | Unit / wire correspondence |
+| --- | --- | --- |
+| $t$, $e=t+1$, $L$ | Decision-bar index, exclusive window end/entry index, and holding horizon in observed bars. | $L=3$ for the study; entry at $e$, exit at $e+L-1=t+3$. |
+| $W$, $[e-W,e)$ | Chart-window length and the corresponding half-open input window. | Observed bars; separate from the longer factor-computation history. |
+| $O_{t+1}$, $C_{t+3}$ | Entry Open and exit Close of the candidate LONG cycle. | Prices on the same declared basis/unit; unavailable to the query inference. |
+| $f$, $s$ | Brokerage fee and slippage on each trading leg. | Fractions: $f=0.0025$, $s=0.001$. |
+| $r_t^{\mathrm{net}}$ | Net candidate-LONG round-trip return after both legs. | Fraction; `net_return`, context `r_net`. |
+| $y_t$ | Positive net label: $\mathbf{1}[r_t^{\mathrm{net}}>0]$. | Binary; `1` corresponds to UP, `0` to DOWN; zero net return is DOWN. |
+| $\hat d_{t,v,j}$, $a_{t,v,j}$, $a_0$ | Raw direction, final action, and resolved anchor action for method $v$/repeat $j$. | Raw: LONG/SHORT; actions: LONG/CASH. `SHORT` maps to CASH. |
+| $r_{t,v,j}^{\mathrm{strategy}}$ | Realized cycle return under the final action in the all-in LONG/CASH contract. | $\mathbf{1}[a_{t,v,j}=\mathrm{LONG}]r_t^{\mathrm{net}}$; CASH cycle return is zero. |
+| $N_{\mathrm{point}}$, $N_{\mathrm{account}}$, $n_{\mathrm{rep}}$ | Counts of market points, separately capitalized stock-fold accounts, and Decision repeats. | Historical-context study: 102, 51 and 3; report other panels with their own supports. |
+| $K_{\mathrm{ex}}$ | Number of selected/displayed signal-bank examples. | Records; a request's `k` is an upper limit, not necessarily the realized count. |
+| $K_{\mathrm{task}}$, $m$ | Number of selected prior MT tasks and number of target-task observations. | MT episode `K` and `m`; neither is a count of LLM calls or prompt characters. |
+| $n_k$, $\mathcal D_k$, $\mathcal C_q$, $\boldsymbol x_q$ | Prior-task observation count, prior-task dataset, target observations, and unlabeled query features. | Membership counts/data; query is excluded from labeled context. |
+| $\boldsymbol x_i$, $\boldsymbol z_i$ | Raw numerical feature vector and its standardized form. | Feature-specific units before scaling; dimensionless after scaling. Model clipping/projection is specified separately. |
+| $S_t$ | Market-regime state/assignment used at cutoff $t$. | Categorical; kept distinct from standardized-feature symbol $\boldsymbol z$. |
+| $n_{c,h}$, $s_{c,h}$, $n_{b,h}$, $s_{b,h}$ | Conditional/background support and success counts for historical metric $h$. | Counts in disjoint metric-specific subsets; not $K_{\mathrm{ex}}$ or global query count. |
+| $\tau$, $a_h$, $b_h$ | Shrinkage strength and resulting Beta shape parameters for conditional statistic $h$. | Model parameters; `shrink_strength`, `posterior_alpha`, `posterior_beta`. They are distinct from financial alpha factors. |
+| $p_{S,q}$, $p_{T,q}$ | Numerical student estimate and teacher predictive mean for the positive label. | Fractions in [0,1]; `numeric_probability`/branch `probability` versus `teacher_probability`/`posterior_mean_theta`. |
+| $\theta_q$, $\boldsymbol\pi$ | Target-task Bernoulli parameter and the frozen teacher's weights over its latent hyperparameter grid. | Model-based probability/weights; distinct from LLM weights and reported confidence. |
+| $g_q$, $\ell_q$ | Positive-return magnitude and nonpositive-return loss magnitude used in utility. | Nonnegative net-return fractions; zero returns belong to the nonpositive group. |
+| $U_q$, $\Delta U_q$ | Utility of LONG relative to CASH, and utility change relative to the anchor action. | Net-return fraction; $U_q=\theta_q g_q-(1-\theta_q)\ell_q$ for the posterior draws. |
+| $Q_\eta(U_q)$ | Quantile of the model-based posterior utility draws. | Net-return fraction; $Q_{0.1}$ and $Q_{0.9}$ map to `q10_U_net_fraction`/`q90_U_net_fraction`. |
+| $R_{a,j}$, $\bar R_v$ | Net return of account $a$ in repeat $j$, and the method's equally weighted mean across accounts after repeat averaging. | Define in fractions in equations; `mean_account_return_pct` is already multiplied by 100. |
+| $V_{a,d}$, MDD | Account NAV at observation date $d$, and maximum drawdown over the declared NAV path. | NAV in VND; recorded MDD in percent as a nonnegative loss magnitude. Specify daily versus cycle-end path. |
+| BA, MCC, IC | Balanced accuracy, Matthews correlation coefficient, and factor Information Coefficient. | BA is a fraction or percent as labeled; MCC and rank IC are dimensionless in [-1,1]. IC is not an account return. |
+| $\Delta_R^{\mathrm{pp}}$, $\Delta_{\mathrm{BA}}^{\mathrm{pp}}$ | Differences of mean returns or BA between the named method and named comparator. | Percentage points: multiply a difference of fractions by 100; do not multiply a difference of percent-valued fields again. |
+| $\operatorname{age}_i$, $d_i$, $\operatorname{sim}_i$ | Age, numerical distance and retrieval similarity of a specified historical item. | Age in recorded calendar days; distance/similarity use their defined score scales, not probability units. |
+
+Hai lưu ý phải giữ khi dựng bảng/hình:
+
+- `effective_K` trong artifact phân tích lấy `selected_count` của retrieval
+  khi có, còn nhánh MT lấy `utility.K`. Vì vậy, phải ghi **examples** hay
+  **prior tasks** theo phương pháp; không vẽ một trục “K” như thể cùng đơn vị.
+- Support của thống kê lịch sử tính trên population/membership hợp lệ,
+  không mặc định bằng số ví dụ đưa vào prompt. Nếu cần ký hiệu $K$ ngắn trong
+  một mục, phải định nghĩa rõ là $K_{\mathrm{ex}}$ hay $K_{\mathrm{task}}$ tại đó.
+
+### 5.4. Phân biệt đơn vị và các đại lượng dễ nhầm
+
+| Quantity / presentation rule | Correct reading |
+| --- | --- |
+| Fraction versus percent | A stored return of `0.012` is `1.2%`; a percent-valued field containing `1.2` is already `1.2%`. Do not multiply by 100 twice. |
+| Percent versus percentage points | An illustrative rate change from 50% to 55% is +5 percentage points (`pp`), or +10% relative to 50%. State which difference is reported. |
+| Basis point | 1 basis point (`bp`) = 0.01 percentage points = 0.0001 as a fraction. The fee and slippage are 25 bp and 10 bp on each leg. |
+| Brokerage/slippage cost | The approximate 0.70% round-trip drag is a shorthand. The canonical multiplicative formula, not a subtraction of exactly 0.007, defines the net label/return. |
+| Probability versus reported confidence | `numeric_probability=0.7` is a numerical positive-label estimate. A confidence string such as `HIGH` remains a reported category/text unless a separate validated mapping exists. |
+| Probability versus expected return | Illustratively, with probability 0.7, mean gain 1% and mean loss magnitude 4%, expected net return is −0.5%. A high positive-label probability alone does not imply positive utility. |
+| Student probability versus utility source | `probability_student` is recorded separately. The implemented utility uses the teacher's sign posterior and Bayesian-bootstrap magnitudes; it does not substitute the student point estimate into every utility draw. |
+| Mean utility versus utility quantile | `mean_U_net_fraction` and `MC_mean_U_net_fraction` are the analytical and Monte Carlo means. `q10`/`q90` are uncertainty quantiles, not a 10%/90% probability of trading success. |
+| Risk-reward ratio | The generated trade-setup ratio is distinct from realized net return, forecast probability and the external utility veto. It does not override the fixed entry/exit evaluator. |
+| Sentiment score versus alpha IC | A signed sentiment aggregate, an alpha factor value and its IC retain their own meanings/scales. A shared range or sign does not make them calibrated probabilities or identical signals. |
+| Return versus money P&L | Return is dimensionless; P&L and NAV carry VND units. Vendor price conversion is declared separately and applied once, not inferred from an unlabelled chart. |
+| Character budget versus token budget | Prompt characters, tokenizer tokens, requests per minute and tokens per minute are different units. A 600-character prefix bound is not a 600-token allowance. |
+
+Các số ở hai ví dụ tỷ lệ/xác suất trên chỉ **minh họa đơn vị**, không phải
+kết quả nghiên cứu hoặc tình huống thực nghiệm đã chọn. Ví dụ tình huống
+xuyên suốt và các phép tính lý thuyết đầy đủ vẫn làm ở task tương ứng.
+
+### 5.5. Quy tắc diễn đạt và nguồn đối chiếu
+
+1. Nhãn kinh tế được viết theo đúng hàm chuẩn:
+
+   $$
+   r_t^{\mathrm{net}}=\frac{C_{t+3}}{O_{t+1}}
+   \frac{(1-s)(1-f)}{(1+s)(1+f)}-1.
+   $$
+
+   `UP`/`y=1` nghĩa là return này dương; `DOWN`/`y=0` gồm zero. SHORT giữ CASH,
+   không mô tả là lợi nhuận bán khống. $t+1$, $t+3$ là phiên quan sát; tên
+   hợp đồng $T+2.5$ không được dùng thay phép đếm phiên hay quy định thị trường.
+2. Khi nói “available at the cutoff”, giữ giá/tin hợp lệ không sau cutoff,
+   historical membership có `exit_date < as_of_date`, và query không có nhãn.
+   Không đổi dấu `<` thành `<=`. Quy tắc global reserved IDs/fold context
+   của nghiên cứu vẫn giữ riêng; eligibility không đồng nghĩa đã giải quyết
+   mọi hạn chế provenance hoặc nhân quả từng hàng.
+3. Khi giải thích MT policy, giữ đúng dấu:
+   CASH→LONG đòi $Q_{0.1}(U_q)>0$; LONG→CASH đòi $-Q_{0.9}(U_q)>0$.
+   Chỉ mô tả đổi action khi nhánh đủ điều kiện và assertion hợp lệ; giá trị
+   bằng zero không vượt ngưỡng. Không dùng confidence để thay kiểm utility.
+4. Viết “historical descriptive difference”, “conditional on shared upstream”
+   và “model-based estimate” theo đúng loại bằng chứng. Không đổi band mô tả
+   thành ý nghĩa thống kê xác nhận, hoặc ghi fallback là một inference mới.
+   Support, repeat, response, HTTP attempt và tài khoản luôn có mẫu số riêng.
+5. Viết NA khi thiếu hoặc chỉ số không xác định; giữ lý do và số lượng có
+   thể tính. Không biến thiếu sentiment thành số trung tính được bịa, MCC/BA
+   không xác định thành zero, hay missing response thành một forecast đúng.
+
+Đường đối chiếu triển khai (cùng phạm vi snapshot nghiên cứu đã ghi tại §3):
+
+| Nội dung | Nguồn đã đọc để chốt quy ước |
+| --- | --- |
+| Net return, horizon và nhãn | [compute_round_trip_net_return](../core/backtest_engine.py), [target_fields/validate_target_record](../utils/target_contract.py). |
+| Native/Common/Base và fallback | [registry](../core/variant_registry.py), [ABLATION_CONFIGS](../utils/graph_setup.py), [unified methods](../core/unified_methods.py). |
+| Confidence, decision, risk-reward | [TradeDecisionOutput](../agents/decision_agent.py), [action/fact contracts](../core/mt_bicl_contracts.py). |
+| IC và thang điểm factor | [compute_metrics/rank_alphas](../core/alpha_compare.py); IC dùng Spearman, không phải return tài khoản. |
+| Population, ví dụ, counts và interval | [retriever](../core/bayesian_retriever.py), [conditional_metric](../core/prior_conditional_statistics.py). |
+| MT task/query/membership và prompt projection | [validate_episode/TaskBuilder](../core/mt_bicl_tasks.py), [context projection](../core/mt_bicl_context.py). |
+| Teacher, utility và action revision | [teacher](../core/mt_bicl_teacher.py), [posterior_utility](../core/mt_bicl_utility.py), [MT policy](../core/mt_bicl_policy.py). |
+| Field/đơn vị kết quả và effective_K | [prediction_rows](../core/unified_analysis/analysis.py), [paired estimators](../core/unified_analysis/statistics.py), [classification/account primitives](../core/free_pilot_statistics.py). |
+
+Đây là chuẩn thuật ngữ dùng chung. Bằng chứng nguồn gốc học thuật vẫn theo
+§4 và cần đọc/kiểm sâu khi viết; định nghĩa trùng với một field trong code
+không thay thế citation học thuật hoặc chứng nhận phương pháp đã hiệu chuẩn.
+
+## 6. Quy ước bổ sung sổ nguồn
 
 Tiếp tục bổ sung ánh xạ luận điểm/ô bảng, ghi chú đọc sâu, citation và danh
 mục hình/bảng vào các phần tương ứng của sổ này. Chưa tạo bibliography cuối

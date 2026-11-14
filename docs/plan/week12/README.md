@@ -61,6 +61,35 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Thuật ngữ, ký hiệu và đơn vị khóa luận
+
+Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-terminology-and-notation`
+từ develop `d2cf431aa9312add8870e06690e6e4776f624a0d` đã cập nhật remote.
+
+- **T05; `thesis/evidence.md` §5.1–§5.5;** chốt 13 tên phương pháp/đối chứng,
+  43 thuật ngữ tiếng Anh, 26 dòng ký hiệu/đơn vị và 12 quy tắc phân biệt đại
+  lượng. Giữ Native/Common/Base và hai nghiên cứu riêng; tách episode chu kỳ
+  với context episode MT, task/prior/target/query, signal bank với numeric
+  context, probability/confidence/utility và fraction/percent/pp/bp.
+- Đã đối chiếu tám ID registry, `confidence: str`, canonical labels/net return,
+  utility teacher/magnitude và ngưỡng đổi action Q10/Q90. Ghi rõ `effective_K`
+  khác đơn vị theo method, `contexts["Full"]` khác Full thành phần và reason
+  `FALLBACK_ORIGINAL` của unified policy dùng Common. Công thức/ID/field vẫn
+  giữ nguyên; các ký hiệu mới chỉ phục vụ trình bày bản thảo.
+- **Kiểm tài liệu:** 332 liên kết local/77 anchor, UTF-8 và diff whitespace
+  PASS; 18 hash file nguồn đối chiếu giữ nguyên, 84 đặc tả task không đổi và
+  checklist chỉ T01–T05 DONE. Kiểm số học các ví dụ minh họa fraction/pp/bp,
+  thay đổi tương đối và probability khác utility PASS; ví dụ được đánh nhãn
+  minh họa, không phải kết quả thực nghiệm hoặc tình huống của T07.
+- Nội dung sổ bằng chứng mục 1–4 giữ nguyên; cập nhật điều hướng tại kế hoạch,
+  README và outline. Không đổi code/test/runtime/schema, bibliography, PDF,
+  nhãn hoặc artifact nghiên cứu; không chạy compileall/unit/E2E/leakage, PDF
+  build, replay, training hoặc model/thị trường API theo AGENTS §1.2.
+  Chưa hoàn tất các mục lý thuyết, danh mục phần đầu T60 hay task viết tiếp;
+  đây là bảng thuật ngữ dùng chung, không thay citation/kiểm nguồn học thuật.
+  Ba module có lớp UI tiếp tục thuộc cùng phạm vi snapshot logic nghiên cứu
+  đã xác nhận ở T03; F11/F12 và phạm vi nghiệm thu không đổi.
+
 ### Danh sách đọc nguồn gốc và khóa trích dẫn
 
 Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-reading-register`

@@ -87,6 +87,8 @@ An initial writing budget is **65–81 pages for the six chapters**, excluding f
 - **Contents, figure list and table list:** generated from the final source.
 - **Abbreviations and notation:** LLM, VLM, ICL, BICL, MT-BICL, HMM, PIT, OHLCV, BRPP, BA, MCC and NAV; distinguish probability, confidence, utility, return and support.
 
+Use the [controlled terminology and notation](evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt) throughout drafting. Resolve Native/Common/Base and overloaded artifact names by study/profile; distinguish displayed-example counts from prior-task counts and percent from percentage points.
+
 ### Chapter 1. Introduction
 
 **Purpose:** motivate a precise problem and define the claims to be evaluated. **Budget:** 5–7 pages.

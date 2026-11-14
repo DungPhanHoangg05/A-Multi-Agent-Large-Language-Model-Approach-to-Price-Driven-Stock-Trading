@@ -13,7 +13,9 @@ phải giải thích toàn hệ thống cho giảng viên lần đầu tiếp c�
 cập nhật trạng thái ngay trong kế hoạch theo yêu cầu tác giả. Hồ sơ yêu cầu,
 phạm vi nghiên cứu và [kiểm kê hai nghiên cứu](../../thesis/evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa)
 đã có; [danh sách đọc](../../thesis/evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn)
-phân nhóm nguồn gốc, trạng thái đọc/kiểm và quy ước khóa trích dẫn. Bản xem hai
+phân nhóm nguồn gốc, trạng thái đọc/kiểm và quy ước khóa trích dẫn.
+[Thuật ngữ và ký hiệu](../../thesis/evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt)
+thống nhất tên phương pháp, cấp episode/task/query và đơn vị. Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,
 kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung
