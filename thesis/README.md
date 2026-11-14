@@ -17,6 +17,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 5. [Thuật ngữ và ký hiệu](evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt): tên tiếng Anh dùng trong bản thảo, ánh xạ ID, đơn vị và quy tắc diễn đạt thống nhất.
 6. [Danh mục hình, bảng và thuật toán](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn): 23 ID theo kế hoạch, có thông điệp, vị trí, task phụ trách, loại nguồn, provenance và đường xuất dự kiến; chưa phải các sản phẩm đã tạo.
 7. [Ví dụ xuyên suốt EX01](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết): FPT tại cutoff 03/07/2023, quy tắc chọn, nguồn từng bước và ranh giới giữa thông tin dự báo với outcome; giữ kết quả sai, fallback và giới hạn nghiên cứu.
+8. [Khung sáu chương và sổ ánh xạ](evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm): liên kết tới từng file trong `chapters/`, tiêu đề ổn định theo dàn bài và placeholder nội dung còn thiếu. Sổ nguồn này tiếp tục nhận ánh xạ luận điểm/ô bảng khi viết, không có checklist hoặc receipt riêng cho từng chương.
 
 ## Hai trang bìa
 

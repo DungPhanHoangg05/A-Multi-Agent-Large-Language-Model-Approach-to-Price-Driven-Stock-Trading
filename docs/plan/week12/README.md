@@ -61,6 +61,34 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Khung sáu chương và sổ đối soát chung
+
+Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-chapter-skeletons`
+từ develop `c6b17d58f40ffb5dd1c0043a39b390ea0abddf37` đã cập nhật remote.
+
+- **T08; [sổ chung §8](../../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm);**
+  tạo sáu file Markdown trong `thesis/chapters/` theo đường dẫn kế hoạch,
+  tiêu đề tiếng Anh từ dàn bài. Có 42 mục chính và 13 mục con (sáu agent và
+  bảy mục MT), mỗi mục có placeholder `Not yet drafted` nêu nội dung thiếu.
+  Đánh dấu rõ đây là khung, chưa có nội dung chương, kết quả hoặc kết luận
+  hoàn chỉnh; không nhận hoàn thành task viết/vẽ ở các giai đoạn sau.
+- Dùng tiếp `evidence.md`, thêm điểm vào sáu chương, mẫu ánh xạ claim/ô bảng
+  tới nguồn/phiên bản/hash/locator, đơn vị/support/phép dẫn xuất và giới hạn
+  kiểm. Bảng ánh xạ chưa có dòng claim bản thảo giả; nguồn đã kiểm ở §1–§7
+  giữ nguyên. Gom điều kiện còn thiếu bằng dẫn chiếu tới phần gốc, không
+  tạo sổ/checklist/receipt thứ hai hoặc sao chép gói bằng chứng.
+- **Đối soát PASS:** tiêu đề/thứ tự 55 mục khớp dàn bài; mỗi mục có ghi chú
+  nội dung chưa viết, thân file chương tiếng Anh, không có task ID/checklist.
+  Đối chiếu liên kết/anchor trong 11 Markdown, UTF-8 và diff whitespace;
+  84 đặc tả task giữ nguyên, checklist chỉ T01–T08 DONE. Dàn bài nguồn giữ
+  nguyên với SHA256 `c26f0120ff8a46e26247d06337a44e9c03b326a89483ad8246c87e68e2930084`.
+- **Phạm vi:** chỉ tạo/sửa Markdown; không đổi code/test/schema/runtime,
+  dữ liệu, ảnh/PDF, citation hoặc kết quả khóa. Theo AGENTS §1.2 không chạy
+  compileall/unit/E2E/leakage, PDF build, cold replay, model API hoặc refit;
+  không có số liệu thực nghiệm mới cần tái tính. T08 kết thúc phần chuẩn bị
+  P1, chưa phải nghiệm thu bản thảo, hoàn thành P2 hoặc xác nhận quy định nộp
+  còn thiếu tại §1 sổ nguồn. F11/F12 và giới hạn nghiên cứu giữ nguyên.
+
 ### Ví dụ xuyên suốt và quy tắc chọn tình huống
 
 Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-running-example`

@@ -20,7 +20,10 @@ thống nhất tên phương pháp, cấp episode/task/query và đơn vị.
 giữ 23 ID có task, vị trí, loại nguồn và provenance; sản phẩm sẽ tạo tại task
 phụ trách. [Ví dụ xuyên suốt EX01](../../thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết)
 chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối nguồn
-đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff. Bản xem hai
+đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
+[Khung sáu chương](../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
+đã có tiêu đề/placeholder tiếng Anh và quy ước dùng sổ bằng chứng chung;
+chưa có nội dung chương hoàn chỉnh hoặc kết quả mới. Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,
 kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung

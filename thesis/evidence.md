@@ -1189,10 +1189,81 @@ phí làm đổi dấu kết quả, không chọn lại một ca thắng sau khi
   NOT_CERTIFIED và các giới hạn/F11/F12 tại §3 vẫn nguyên vẹn; các kiểm tra
   thời gian cục bộ EX01 không nâng thành chứng nhận nhân quả toàn hệ thống.
 
-## 8. Quy ước bổ sung sổ nguồn
+## 8. Khung bản thảo và đối soát luận điểm
 
-Tiếp tục bổ sung ánh xạ luận điểm/ô bảng, ghi chú đọc sâu, citation và nguồn
-sản phẩm ngay trong các phần tương ứng của sổ này. Chưa tạo bibliography
-cuối hoặc bản thảo sáu chương. Trạng thái nằm duy nhất tại
+### 8.1. Điểm vào sáu chương
+
+Sáu file dưới đây là **khung Markdown**, chưa có nội dung chương hoàn chỉnh.
+Tiêu đề chương/mục giữ theo [dàn bài §C](outline.md#c-detailed-chapter-outline);
+mọi mục có block `Not yet drafted` nêu cụ thể nội dung còn thiếu. Các ghi chú
+này là hỗ trợ viết, phải được thay bằng nội dung và kiểm nguồn ở task tương
+ứng; không đưa nhãn placeholder vào bản nộp. Không suy hoàn thành các task
+viết từ việc đã có file hoặc tiêu đề.
+
+| File bản thảo | Nguồn bắt đầu trong sổ chung | Nội dung cần viết, chưa phải kết quả đã có |
+| --- | --- | --- |
+| [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
+| [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
+| [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02 | Định nghĩa, công thức, đơn vị, ví dụ minh họa và nguyên tắc đánh giá |
+| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01 | Toàn bộ đường chạy từ inputs qua agent/context/policy tới final action; sơ đồ và thuật toán |
+| [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
+| [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
+
+Không tạo sổ nguồn thứ hai, bibliography cuối, file phụ lục rỗng hoặc khung
+LaTeX toàn văn trong bước này. `evidence.md` tiếp tục là nơi giữ nguồn,
+ghi chú đọc, luận điểm, đơn vị, hình/bảng và vấn đề bằng chứng. Nội dung
+chương bằng tiếng Anh; hướng dẫn quản lý trong sổ này bằng tiếng Việt.
+
+### 8.2. Quy ước ánh xạ luận điểm và ô bảng khi viết
+
+Chưa có dòng ánh xạ **luận điểm/ô bảng của bản thảo** được nghiệm thu: sáu
+chương hiện chỉ có placeholder. Các số đã kiểm ở §3/§7 vẫn là bằng chứng
+nguồn; việc chép vào chương phải có ánh xạ cụ thể và kiểm lại cách diễn đạt.
+Thêm dòng vào bảng dưới khi một luận điểm, công thức hoặc ô bảng được viết;
+chỉ gán ID `CL001`, `CL002`, … khi có nội dung thật, không gán ID giả cho
+placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luận điểm khác.
+
+| Claim ID | Đích bản thảo và nội dung chính xác | Loại bằng chứng | Nguồn, phiên bản, hash và locator | Đơn vị, support và phép dẫn xuất | Phạm vi kiểm, giới hạn và việc còn thiếu |
+| --- | --- | --- | --- | --- | --- |
+
+Quy tắc điền bảng:
+
+1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
+   tham chiếu một vùng chung chung không đủ truy vết một con số. Nhiều ô
+   cùng nguồn/quy tắc có thể dùng chung dòng nếu kê rõ toàn bộ phạm vi.
+2. **Loại:** dùng `NGUON_HOC_THUAT`, `HOP_DONG_TRIEN_KHAI`, `DO_DUOC`,
+   `DAN_XUAT` hoặc `MINH_HOA`. Tên loại thể hiện nguồn của nhận định, không
+   thay điều kiện đã kiểm; hình/bảng tiếp tục dùng danh mục §6.
+3. **Nguồn:** nối ID §2/§3/§6/§7 hoặc khóa đọc §4, kèm đúng phiên bản/hash
+   và vị trí: ZIP/member/field, CSV row keys/column hoặc trang/section của
+   tài liệu. Nguồn đã có binding trong sổ chỉ cần dẫn binding đó và locator
+   chi tiết; không sao chép archive hoặc lấy HEAD live thay snapshot lịch sử.
+4. **Đại lượng:** ghi đơn vị, cohort, mẫu số, repeat, thứ tự tổng hợp, công
+   thức/đường dẫn phép dẫn xuất và cách làm tròn khi áp dụng. Giữ fraction,
+   %, pp và các nghĩa K riêng; giữ NA và lý do thiếu, không điền 0 để lấp ô.
+5. **Kiểm và giới hạn:** ghi đã kiểm gì, nguồn/receipt nào, giới hạn diễn
+   giải và phần chưa xác minh. Citation ứng viên chưa đọc, nguồn live giải
+   thích hoặc cold replay không tự chứng minh một kết luận thực nghiệm hay
+   gate toàn hệ. Minh họa phải có nhãn `Illustrative` trong bản thảo.
+
+Mục này là sổ ánh xạ bằng chứng, không phải checklist task thứ hai. Không
+đánh dấu một nhận định đã kiểm chỉ vì có link; mỗi mục viết xong phải đối
+chiếu nội dung/đơn vị/phạm vi với nguồn và sửa hoặc thu hẹp nếu thiếu support.
+
+### 8.3. Điều kiện còn thiếu và quy ước cập nhật
+
+| Nhóm còn thiếu | Nơi giữ thông tin gốc | Cách xử lý khi viết |
+| --- | --- | --- |
+| Yêu cầu nộp và biểu mẫu chính thức | §1 | Ghi chưa được cung cấp; chỉ để chờ phần phụ thuộc, không tự đặt hạn hoặc phê duyệt |
+| Nguồn học thuật, metadata và phạm vi trích dẫn | §4 | Tiếp tục đọc/kiểm trước khi đưa nhận định hoặc citation vào chương; bibliography hiện có chỉ là ứng viên |
+| Giới hạn dữ liệu, nhân quả, hỗ trợ lịch sử và ablation | §3, §7 | Giữ kết quả âm/fallback và nguồn chưa xác minh; thu hẹp nhận định, không tự chạy nghiên cứu để bù |
+| Hình, bảng, thuật toán, ca bổ sung và rà soát bản thảo | §6, §7 và bảng ánh xạ §8.2 | Chưa có sản phẩm hoặc nội dung thì giữ placeholder; task phụ trách tạo/kiểm sau, không coi danh mục là sản phẩm |
+
+Tiếp tục bổ sung ghi chú đọc và nguồn sản phẩm vào phần tương ứng; ánh xạ
+luận điểm/ô bảng mới vào §8.2. Mỗi vấn đề mới ghi nguồn, ảnh hưởng tới
+luận điểm/chương nào và cách giới hạn nhận định trong khi chưa giải quyết.
+Không tự sửa bằng chứng đã đóng băng. Markdown là nguồn nội dung chính
+trong giai đoạn viết; việc chuyển nguồn bản nộp sang LaTeX thuộc bước sau.
+Trạng thái công việc nằm duy nhất tại
 [checklist trong kế hoạch](plan.md#21-một-nguồn-trạng-thái-công-việc);
 lịch sử kiểm tra gộp lưu tại README tuần.

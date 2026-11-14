@@ -29,7 +29,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T05 — DONE: [thuật ngữ và ký hiệu](evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt), tên phương pháp/ID, episode/task/query, probability/confidence/utility, support/K và fraction/%/pp/bp; đối chiếu code/schema và đơn vị. Không đổi logic nghiên cứu hoặc đánh dấu phần lý thuyết/phần đầu đã viết xong.
 - [x] T06 — DONE: [danh mục có nguồn](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn), 11 hình/3 thuật toán/9 bảng; từng ID có thông điệp, vị trí, task phụ trách, loại nguồn và đường xuất dự kiến. Đã đối soát nguồn liên quan; chưa tạo sản phẩm hoặc hoàn tất các task vẽ/viết và nghiệm thu UI.
 - [x] T07 — DONE: [EX01 và quy tắc chọn tình huống](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), FPT cutoff 03/07/2023, u0/r0; nối inputs/context/proposals/policy/outcome bằng nguồn đã khóa. Chọn không dùng outcome, giữ kết quả net âm, hai nguồn regime và fallback; chưa thực hiện các task viết/vẽ hoặc chọn nhóm ca T45.
-- [ ] T08 — Tạo khung bản thảo các chương và sổ bằng chứng chung.
+- [x] T08 — DONE: [khung sáu chương và sổ chung](evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm), tiêu đề khớp dàn bài, mỗi mục ghi rõ nội dung chưa viết; dùng tiếp `evidence.md` với quy ước nối luận điểm/ô bảng tới nguồn. Chưa viết chương, tạo kết quả/hình/bảng hoặc hoàn tất task P2 trở đi.
 
 #### Cơ sở lý thuyết — P2
 
