@@ -13,7 +13,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 1. [Dàn bài khóa luận](outline.md): câu hỏi nghiên cứu, sáu chương, phụ lục và ánh xạ tới hệ thống.
 2. [Kế hoạch viết chi tiết](plan.md): các task nhỏ, phụ thuộc, đầu ra, tiêu chí nghiệm thu và lộ trình đến gói bàn giao cuối.
 3. [Checklist công việc](plan.md#21-một-nguồn-trạng-thái-công-việc): checklist 84 task nằm ngay trong kế hoạch; bằng chứng hoàn thành gộp lưu tại README tuần.
-4. [Sổ nguồn và yêu cầu](evidence.md): metadata có nguồn, thông tin còn thiếu, nguồn đối chiếu câu hỏi nghiên cứu và giới hạn bằng chứng.
+4. [Sổ nguồn và yêu cầu](evidence.md): metadata, kiểm kê hai nghiên cứu, [danh sách đọc theo chủ đề](evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), quy ước khóa trích dẫn và giới hạn bằng chứng. Trạng thái đọc/kiểm được ghi theo phạm vi, không suy từ việc có trong bibliography.
 
 ## Hai trang bìa
 

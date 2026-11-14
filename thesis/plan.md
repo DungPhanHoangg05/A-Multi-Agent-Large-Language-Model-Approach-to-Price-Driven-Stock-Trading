@@ -25,7 +25,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T01 — DONE: [hồ sơ yêu cầu](evidence.md#1-thông-tin-tác-giả-và-yêu-cầu-trình-bày), metadata có nguồn, [nội dung bìa](frontmatter.md) và bản xem hai bìa. Hạn nộp/quy định chính thức chưa có, đã ghi rõ; chưa hoàn tất các phần đầu phụ thuộc yêu cầu ngoài.
 - [x] T02 — DONE: [dàn bài §A.1–A.5](outline.md#a-research-direction), bốn RQ có so sánh/bằng chứng/giới hạn, bốn loại đóng góp và trách nhiệm sáu chương; [nguồn đối chiếu](evidence.md#2-phạm-vi-nghiên-cứu-và-ranh-giới-luận-điểm).
 - [x] T03 — DONE: [kiểm kê hai nghiên cứu](evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), phiên bản/đường dẫn/hash, support và giới hạn; xác nhận ba module có lớp UI cùng logic snapshot nghiên cứu. Đã kiểm 179 file thành phần, 810 nguồn snapshot, 286 asset và U08/U09; không replay hoặc thu thực nghiệm mới.
-- [ ] T04 — Lập danh sách đọc nguồn gốc và quy ước trích dẫn.
+- [x] T04 — DONE: [danh sách đọc và khóa trích dẫn](evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), 59 nguồn/10 nhóm, 3 đã kiểm theo phạm vi, 5 đã đọc một phần, 51 chưa đọc; giữ riêng ứng viên, ghi chú phiên bản/metadata và ưu tiên. Chưa hoàn tất T48 hoặc bibliography cuối.
 - [ ] T05 — Định nghĩa thuật ngữ tiếng Anh, ký hiệu và tên gọi.
 - [ ] T06 — Lập danh mục hình, bảng, thuật toán cùng nguồn.
 - [ ] T07 — Chọn ví dụ xuyên suốt và quy tắc chọn tình huống.

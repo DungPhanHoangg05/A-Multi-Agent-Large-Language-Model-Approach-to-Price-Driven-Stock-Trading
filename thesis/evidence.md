@@ -311,9 +311,279 @@ Chương 5/Phụ lục D–F và chỉ rõ các nhóm không có bằng chứng.
 kiểm citation nguồn gốc, chọn tình huống và dựng bảng/hình vẫn thuộc các bước
 viết tương ứng; lần kiểm kê không hoàn tất các chương hoặc mở rộng nghiệm thu.
 
-## 4. Quy ước bổ sung sổ nguồn
+## 4. Danh sách đọc nguồn gốc và quy ước khóa trích dẫn
 
-Tiếp tục bổ sung ánh xạ luận điểm/ô bảng, ghi chú kiểm nguồn gốc và danh mục
-hình/bảng vào sổ này khi viết. Chưa tạo bibliography mới hoặc bản thảo sáu
-chương. Trạng thái nằm duy nhất tại [checklist trong kế hoạch](plan.md#21-một-nguồn-trạng-thái-công-việc);
+Lập ngày **14/11/2026**, từ commit khảo sát
+`e081f0c74db199018cbe8156017cb62f44410d80`. Danh sách này phục vụ chuẩn bị
+đọc và kiểm nguồn; không phải bản Related Work hay bibliography đã chốt.
+Đã phân nhóm **57 ứng viên hiện có** và bổ sung **hai nguồn nền tảng** còn
+thiếu: MT-BICL và PFN, tổng **59 nguồn/10 nhóm**, mỗi nguồn có một khóa.
+Không nhập bibliography chủ đề khác từ `Latex/references.bib` của mẫu.
+
+### 4.1. Nguồn đầu vào và ý nghĩa trạng thái
+
+- [paper/references.bib](../paper/references.bib) có 57 khóa duy nhất, 25
+  trường DOI và 54 trường URL. SHA-256 nguyên file:
+  `9912c4fa3e2acfe5c661d69b57b6e4fa11e8ea85c89cf4ad750ff87cf1494dbc`.
+  Đây là nguồn **ứng viên**, không phải 57 nguồn đã đọc hoặc được chấp nhận.
+- [Báo cáo truy cập references cũ](../outputs/paper/reference_links.json),
+  SHA-256 `fb5d56c32c7ce1ccac09d63c9354f012626723bddb632582e0e3fd354f7806eb`,
+  chỉ ghi kết quả lần kiểm bài báo trước. Không chuyển HTTP PASS cũ thành
+  xác minh nội dung mới hoặc bằng chứng đã đọc toàn văn trong khóa luận.
+- **CHUA_DOC:** mới lấy metadata/đường dẫn từ ứng viên, chưa đọc nội dung
+  trong lượt này; cả metadata và phát biểu dự kiến còn phải kiểm nguồn gốc.
+- **DA_DOC:** đã đọc phần chỉ rõ ở §4.4, thường là abstract; chưa đủ để dùng
+  mọi công thức, so sánh hoặc chi tiết triển khai của toàn tài liệu.
+- **DA_KIEM:** đã đối chiếu metadata/phiên bản và đoạn nguồn hỗ trợ **nhận định
+  có phạm vi ghi tại §4.4**. Không có nghĩa đã đọc/kiểm mọi trang, tái lập
+  kết quả, kiểm quyền phát hành hoặc xác minh ứng dụng sang thị trường Việt Nam.
+- Trạng thái hiện tại: **3 DA_KIEM, 5 DA_DOC, 51 CHUA_DOC**. A = đọc trước
+  khi viết phương pháp/đánh giá liên quan; B = nguồn so sánh/bổ trợ; C = đọc
+  tùy mức liên quan. Ưu tiên không phải đánh giá chất lượng nghiên cứu.
+- Link trong 51 dòng CHUA_DOC là **đích cần kiểm**, không phải xác nhận đã
+  truy cập được. Nguồn có DOI dùng DOI để xác thực định danh; bản tác giả,
+  arXiv, proceedings, trang nhà xuất bản hoặc tài liệu/model card chính thức
+  được ưu tiên. HTTP 200, catalogue hoặc mục lục không chứng minh có toàn văn.
+
+### 4.2. Quy ước khóa và điều kiện đưa vào bản thảo
+
+1. Khóa mới dùng ASCII `firstauthorYYYYkeyword`, ví dụ `zhu2026multitask`,
+   `muller2022transformers`; khóa hiện có được giữ ổn định, gồm ngoại lệ
+   legacy như `tradingagents2024`, `hf5cdsentiment`, `talib_rsi_docs`.
+   Trùng tác giả/năm/chủ đề thì thêm từ khóa phân biệt hoặc hậu tố `a`, `b`
+   được ghi rõ; không để hai khóa cho cùng một tác phẩm chỉ do khác URL.
+2. Khóa, năm xuất bản và phiên bản là ba trường khác nhau. Không suy năm từ
+   khóa hoặc số arXiv: Xie dùng venue 2022 dù preprint đầu 2021; PFN dùng
+   khóa năm ICLR 2022, bản arXiv đọc là v7 năm 2024. Khi có proceedings chính
+   thức, chọn nhất quán edition được trích và ghi version nếu đọc preprint.
+3. Tại bước kiểm bibliography, đối chiếu tên/thứ tự tác giả, tiêu đề,
+   venue, năm, tập/số/trang, DOI/ISBN, URL và ngày truy cập; kiểm publication
+   record thay vì tin BibTeX cũ. Không tự tạo DOI, ngày xuất bản hoặc tuyên bố
+   đã peer review chỉ từ số arXiv hay comment tác giả.
+4. Với arXiv, lưu ID kèm `vN` đúng bản đã đọc; không âm thầm thay latest.
+   Sách lưu edition, phần/chương/trang thực đọc. Tài liệu phần mềm/model card
+   lưu tổ chức, URL, version/commit và `urldate`; không bịa năm cho nguồn không
+   ghi ngày. Các field metadata giữ tiếng Anh và đúng schema BibTeX.
+5. Khi soạn Markdown có thể dùng `[@key]`; lúc chuyển LaTeX dùng `\cite{key}`.
+   Trước khi đưa một citation vào bản thảo phải có bản ghi gồm: khóa, nguồn/
+   version, đoạn/mục/trang hỗ trợ, phát biểu dự kiến bằng tiếng Anh, giới hạn
+   và ngày kiểm. Một citation không được mở rộng sang nhận định chưa đọc.
+   Các ghi chú ở đây bằng tiếng Việt là quản lý nguồn, không phải thân khóa luận.
+6. Trích phương pháp gốc cho nguồn gốc học thuật; trích code/license và commit
+   riêng khi nói dùng lại triển khai. Receipt/hash nội bộ chứng minh provenance
+   thực nghiệm; không thay trích dẫn khoa học. Không xem lời tự nhận vượt trội
+   trong abstract là kết luận độc lập hoặc bằng chứng hệ này sinh lời.
+7. Chỉ dựng `thesis/references.bib` từ các nguồn đã kiểm cho phát biểu cụ thể ở
+   bước đọc/viết tương ứng; chưa tạo file này trong T04. Không copy cả 57 mục
+   rồi coi bibliography đã hoàn thành. Kiểu numeric/order ở mẫu vẫn chỉ là gợi
+   ý; quy định trích dẫn chính thức của trường chưa được cung cấp.
+
+### 4.3. Danh sách theo chủ đề
+
+Tiêu đề/năm ở dòng CHUA_DOC là metadata ứng viên, còn có thể sửa sau đối
+chiếu. Không lấy số lượng mục ở đây làm số tài liệu cuối cùng được trích.
+
+#### Nhóm 1. Phân tích kỹ thuật, giá và alpha
+
+Chương 2.1/3.3/4.3; phân biệt công thức gốc với phép thích nghi một mã.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `appel2005technical` | [Technical Analysis: Power Tools for Active Investors](https://www.informit.com/store/technical-analysis-power-tools-for-active-investors-9780131479029) — 2005 | A | CHUA_DOC |
+| `murphy1999technical` | [Technical Analysis of the Financial Markets](https://www.penguinrandomhouse.com/books/350647/technical-analysis-of-the-financial-markets-by-john-j-murphy/) — 1999 | A | CHUA_DOC |
+| `lane1984stochastic` | [Lane's Stochastics](https://store.traders.com/-v02-c03-lane-pdf.html) — 1984 | B | CHUA_DOC |
+| `lo2000technical` | [Foundations of Technical Analysis: Computational Algorithms, Statistical Inference, and Empirical Implementation](https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf) — 2000 | A | CHUA_DOC |
+| `grinold1999active` | [Active Portfolio Management](https://www.mheducation.com/highered/mhp/product/active-portfolio-management-quantitative-approach-producing-superior-returns-selecting-superior-returns-controlling-risk.html) — 1999 | B | CHUA_DOC |
+| `kakushadze2016formulaic` | [101 Formulaic Alphas](https://arxiv.org/abs/1601.00991v3) — 2016 | A | DA_DOC (phạm vi §4.4) |
+| `jegadeesh1993momentum` | [Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x) — 1993 | B | CHUA_DOC |
+| `fama1992crosssection` | [The Cross-Section of Expected Stock Returns](https://doi.org/10.1111/j.1540-6261.1992.tb04398.x) — 1992 | B | CHUA_DOC |
+| `hurst2017trend` | [A Century of Evidence on Trend-Following Investing](https://www.aqr.com/-/media/AQR/Documents/Insights/Journal-Article/AQR-JPM-Fall-2017.pdf) — 2017 | B | CHUA_DOC |
+| `talib_rsi_docs` | [Relative Strength Index (RSI)](https://ta-lib.github.io/ta-doc/indicator/RSI.htm) — n.d. | A | CHUA_DOC |
+| `talib_willr_docs` | [Williams' %R (WILLR)](https://ta-lib.github.io/ta-doc/indicator/WILLR.htm) — n.d. | A | CHUA_DOC |
+
+#### Nhóm 2. LLM và hệ thống đa agent tài chính
+
+Chương 2.2/4.3; nguồn kế thừa kiến trúc và các hệ so sánh; không nhập kết quả của chúng thành kết quả khóa luận.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `xiong2025quantagent` | [QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading](https://arxiv.org/abs/2509.09995v3) — 2025 | A | DA_KIEM (phạm vi §4.4) |
+| `tradingagents2024` | [TradingAgents: Multi-Agents LLM Financial Trading Framework](https://arxiv.org/abs/2412.20138v7) — 2024 | B | CHUA_DOC |
+| `fatemi2024finvision` | [FinVision: A Multi-Agent Framework for Stock Market Prediction](https://arxiv.org/abs/2411.08899v1) — 2024 | B | CHUA_DOC |
+| `wu2023bloomberggpt` | [BloombergGPT: A Large Language Model for Finance](https://arxiv.org/abs/2303.17564v3) — 2023 | B | CHUA_DOC |
+| `yang2023fingpt` | [FinGPT: Open-Source Financial Large Language Models](https://arxiv.org/abs/2306.06031v1) — 2023 | B | CHUA_DOC |
+| `xia2026agentictrading` | [Agentic Trading: When LLM Agents Meet Financial Markets](https://arxiv.org/abs/2605.19337v2) — 2026 | C | CHUA_DOC |
+| `deng2017deep` | [Deep Direct Reinforcement Learning for Financial Signal Representation and Trading](https://ieeexplore.ieee.org/abstract/document/7407387) — 2017 | B | CHUA_DOC |
+
+#### Nhóm 3. Thị giác và kiểm hiểu biểu đồ
+
+Chương 2.2/4.3/5.9; phân biệt biểu đồ thông thường, candlestick và limit-order book.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `han2023chartllama` | [ChartLlama: A Multimodal LLM for Chart Understanding and Generation](https://arxiv.org/abs/2311.16483v1) — 2023 | B | CHUA_DOC |
+| `tsantekidis2017lob` | [Forecasting Stock Prices from the Limit Order Book Using Convolutional Neural Networks](https://pure.au.dk/portal/en/publications/forecasting-stock-prices-from-the-limit-order-book-using-convolut/) — 2017 | B | CHUA_DOC |
+| `shu2026finchart` | [FinChart-Bench: Benchmarking Financial Chart Comprehension in Vision-Language Models](https://aclanthology.org/2026.acl-long.615/) — 2026 | C | CHUA_DOC |
+| `wang2026martingale` | [Martingale Doppelgänger-Eval: An Identification Framework for Auditing Candlestick Understanding in Vision-Language Models](https://arxiv.org/abs/2606.17423v1) — 2026 | C | CHUA_DOC |
+
+#### Nhóm 4. Sentiment tài chính và NLP tiếng Việt
+
+Chương 2.2/3.3/4.3; backbone, classifier, miền dữ liệu và scoring recipe là các đối tượng khác nhau.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `nguyen2023visobert` | [ViSoBERT: A Pre-Trained Language Model for Vietnamese Social Media Text Processing](https://aclanthology.org/2023.emnlp-main.315/) — 2023 | A | DA_DOC (phạm vi §4.4) |
+| `hf5cdsentiment` | [5CD-ViSoBERT for Vietnamese Sentiment Analysis](https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert) — n.d. | A | DA_KIEM (phạm vi §4.4) |
+| `araci2019finbert` | [FinBERT: Financial Sentiment Analysis with Pre-trained Language Models](https://arxiv.org/abs/1908.10063v1) — 2019 | B | CHUA_DOC |
+| `tetlock2007news` | [Giving Content to Investor Sentiment: The Role of Media in the Stock Market](https://business.columbia.edu/sites/default/files-efs/pubfiles/3097/Tetlock_Media_Sentiment_JF.pdf) — 2007 | B | CHUA_DOC |
+| `wolf2020transformers` | [Transformers: State-of-the-Art Natural Language Processing](https://aclanthology.org/2020.emnlp-demos.6/) — 2020 | B | CHUA_DOC |
+
+#### Nhóm 5. Regime, HMM và Bayes nền tảng
+
+Chương 2.3/3.4–3.6; lọc so với làm trơn, học tham số, posterior và bất định. Bayesian bootstrap chỉ dùng khi khớp phép tính thực tế.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `rabiner1989hmm` | [A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition](https://web.mit.edu/6.435/www/Rabiner89.pdf) — 1989 | A | CHUA_DOC |
+| `hamilton2005regimes` | [Regime-Switching Models](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf) — 2005 | A | CHUA_DOC |
+| `dempster1977em` | [Maximum Likelihood from Incomplete Data via the EM Algorithm](https://web.mit.edu/6.435/www/Dempster77.pdf) — 1977 | A | CHUA_DOC |
+| `gelman2013bayesian` | [Bayesian Data Analysis](https://sites.stat.columbia.edu/gelman/book/) — 2013 | A | CHUA_DOC |
+| `rubin1981bootstrap` | [The Bayesian Bootstrap](https://doi.org/10.1214/aos/1176345338) — 1981 | A | CHUA_DOC |
+
+#### Nhóm 6. ICL, truy xuất và MT-BICL
+
+Chương 2.4–2.5/3.6/4.8; tách few-shot, implicit Bayes, PFN và context đa tác vụ. Hai khóa mới là đề xuất cho bibliography khóa luận.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `xie2022implicitbayes` | [An Explanation of In-context Learning as Implicit Bayesian Inference](https://arxiv.org/abs/2111.02080v6) — 2022 | A | DA_DOC (phạm vi §4.4) |
+| `rubin2022retrieve` | [Learning To Retrieve Prompts for In-Context Learning](https://aclanthology.org/2022.naacl-main.191/) — 2022 | A | DA_DOC (phạm vi §4.4) |
+| `wei2022chain` | [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://proceedings.neurips.cc/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract.html) — 2022 | B | CHUA_DOC |
+| `zhu2026multitask` | [Multi-Task Bayesian In-Context Learning](https://arxiv.org/abs/2606.20538v1) — 2026 | A | DA_KIEM (phạm vi §4.4) |
+| `muller2022transformers` | [Transformers Can Do Bayesian Inference](https://arxiv.org/abs/2112.10510v7) — 2022 | A | DA_DOC (phạm vi §4.4) |
+
+#### Nhóm 7. Thiết kế đánh giá, chọn mô hình và phụ thuộc
+
+Chương 2.6/3.7/5.5/5.9; thiên lệch lựa chọn, nhiều so sánh, resampling phụ thuộc và backtest. Có phương pháp trong nguồn không có nghĩa nghiên cứu đã chạy phương pháp đó.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `varma2006bias` | [Bias in Error Estimation When Using Cross-Validation for Model Selection](https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-7-91.pdf) — 2006 | A | CHUA_DOC |
+| `white2000reality` | [A Reality Check for Data Snooping](https://users.ssc.wisc.edu/~behansen/718/White2000.pdf) — 2000 | A | CHUA_DOC |
+| `harvey2016` | [...and the Cross-Section of Expected Returns](https://people.duke.edu/~charvey/Research/Published_Papers/P118_and_the_cross.PDF) — 2016 | A | CHUA_DOC |
+| `bailey2014deflated` | [The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality](https://davidhbailey.com/dhbpapers/deflated-sharpe.pdf) — 2014 | B | CHUA_DOC |
+| `holm1979multiple` | [A Simple Sequentially Rejective Multiple Test Procedure](https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf) — 1979 | A | CHUA_DOC |
+| `lahiri2003resampling` | [Resampling Methods for Dependent Data](https://www.gbv.de/dms/goettingen/366100181.pdf) — 2003 | A | CHUA_DOC |
+| `newey1987hac` | [A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix](https://www.ssc.wisc.edu/~bhansen/718/NeweyWest1987.pdf) — 1987 | B | CHUA_DOC |
+| `pardo2008evaluation` | [The Evaluation and Optimization of Trading Strategies](https://www.wiley.com/en-us/-p-9780470128015) — 2008 | B | CHUA_DOC |
+
+#### Nhóm 8. Chỉ số phân loại và rủi ro tài khoản
+
+Chương 3.7/5.5; đối chiếu định nghĩa, mẫu số, tần suất và NA với evaluator đã khóa.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `brodersen2010balanced` | [The Balanced Accuracy and Its Posterior Distribution](https://www.ong-home.my/papers/brodersen10post-balacc.pdf) — 2010 | A | CHUA_DOC |
+| `chicco2020mcc` | [The Advantages of the Matthews Correlation Coefficient (MCC) over F1 Score and Accuracy in Binary Classification Evaluation](https://bmcgenomics.biomedcentral.com/counter/pdf/10.1186/s12864-019-6413-7.pdf) — 2020 | A | CHUA_DOC |
+| `sharpe1966mutual` | [Mutual Fund Performance](https://web.stanford.edu/~wfsharpe/art/mfp.pdf) — 1966 | A | CHUA_DOC |
+| `sortino1994downside` | [Performance Measurement in a Downside Risk Framework](https://www.pm-research.com/content/iijinvest/3/3/59) — 1994 | A | CHUA_DOC |
+
+#### Nhóm 9. Phần mềm, dữ liệu và model card
+
+Chương 4/5.3/Phụ lục C/F; tài liệu chính thức cần đi kèm version/commit của nghiên cứu, không thay lock bằng mặc định online.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `pedregosa2011sklearn` | [Scikit-learn: Machine Learning in Python](https://jmlr.org/papers/v12/pedregosa11a.html) — 2011 | B | CHUA_DOC |
+| `langgraph_docs` | [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) — n.d. | B | CHUA_DOC |
+| `mplfinance_docs` | [mplfinance: Financial Markets Data Visualization Using Matplotlib](https://github.com/matplotlib/mplfinance) — n.d. | B | CHUA_DOC |
+| `vnstock_docs` | [Vnstock Documentation](https://vnstocks.com/docs) — n.d. | B | CHUA_DOC |
+| `openai2025gptoss` | [gpt-oss-120b & gpt-oss-20b Model Card](https://arxiv.org/abs/2508.10925v1) — 2025 | B | CHUA_DOC |
+
+#### Nhóm 10. Bối cảnh Việt Nam và benchmark dự báo tương lai
+
+Chương 1/2.6/5.9/6; thông báo thanh toán là nguồn lịch sử cần kiểm ngày áp dụng; prediction markets khác cổ phiếu cơ sở.
+
+| Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `vo2016herdvietnam` | [Herd Behavior in Emerging Equity Markets: Evidence from Vietnam](https://digital.lib.ueh.edu.vn/handle/UEH/56589) — 2016 | C | CHUA_DOC |
+| `vsd2022settlement` | [Settlement schedule announcement (19 August 2022)](https://vsdc.vn/vi/ad/152750) — 2022 | A | CHUA_DOC |
+| `arora2026predictionmarketbench` | [PredictionMarketBench: A SWE-bench-Style Framework for Backtesting Trading Agents on Prediction Markets](https://arxiv.org/abs/2602.00133v1) — 2026 | C | CHUA_DOC |
+| `zeng2025futurexadvancedlivebenchmark` | [FutureX: An Advanced Live Benchmark for LLM Agents in Future Prediction](https://arxiv.org/abs/2508.11987v3) — 2025 | C | CHUA_DOC |
+| `zhang2026predictionarena` | [Prediction Arena: Benchmarking AI Models on Real-World Prediction Markets](https://arxiv.org/abs/2604.07355v1) — 2026 | C | CHUA_DOC |
+
+### 4.4. Ghi chú đọc và xác minh trong lượt này
+
+Mọi ngày kiểm dưới đây là **14/11/2026**; phạm vi đọc được nêu tường minh.
+
+- **`zhu2026multitask` — DA_KIEM:** kiểm tên Zhu/Oermann/Cho, năm 2026 và
+  ID v1 trên [arXiv](https://arxiv.org/abs/2606.20538v1); đọc
+  [§4](https://arxiv.org/html/2606.20538v1#S4), §5.1 và Appendix C.
+  Phần được hỗ trợ: đưa các dataset của tác vụ trước vào context để điều
+  chỉnh prior khi dự báo tác vụ đích. Giới hạn: đây là nguồn cho ý tưởng,
+  không chứng minh hiệu quả giao dịch; phải đối chiếu riêng student, teacher,
+  target và utility của hệ thống với recipe nội bộ khi viết phương pháp.
+  [Repo tác giả](https://github.com/martianmartina/multi-task-bayesian-icl/)
+  được paper liên kết, đã xem README; chưa audit hoặc khẳng định mã hiện tại
+  là bản sao repo đó.
+- **`xiong2025quantagent` — DA_KIEM:** kiểm tác giả/năm và bản v3 trên
+  [arXiv](https://arxiv.org/abs/2509.09995v3); đọc
+  [§3.1–§3.1.3](https://arxiv.org/html/2509.09995v3#S3.SS1), phần đầu §4.
+  Dùng cho nguồn gốc các vai trò và loại đầu vào biểu đồ/chỉ báo. Paper phân
+  biệt RiskAgent và DecisionAgent; không viết rằng mọi tên/vai trò/logic của
+  hệ gốc trùng pipeline hiện tại. Bài gốc xét 1h/4h, khác nghiên cứu daily
+  LONG/CASH. Bản v4 đã tồn tại nhưng lần này vẫn giữ v3 đã đọc; không tự đổi
+  version để sửa lịch sử kế thừa.
+- **`hf5cdsentiment` — DA_KIEM:** đọc model card, Dataset/Evaluation và
+  `id2label` ở revision đã khóa
+  `d7738b85200272f10ba8b048d80236c8c582b581`:
+  [README](https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert/blob/d7738b85200272f10ba8b048d80236c8c582b581/README.md),
+  [config](https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert/blob/d7738b85200272f10ba8b048d80236c8c582b581/config.json).
+  Xác nhận nhãn 0/1/2 tương ứng NEG/POS/NEU và nguồn classifier riêng của
+  5CD-AI. Card mô tả dữ liệu xã hội/review, không cung cấp kiểm định riêng
+  cho tin tài chính trong nghiên cứu này; không lấy điểm card làm độ chính
+  xác của Sentiment Agent. Chưa tải/chạy model hoặc kiểm lại weights.
+- **`muller2022transformers` — DA_DOC:** đọc abstract và metadata trên
+  [arXiv v7](https://arxiv.org/abs/2112.10510v7); dùng để mở đường đọc PFN,
+  không thay MT-BICL bằng PFN/TabPFN. Trang OpenReview forum yêu cầu browser
+  verification trong lượt này; chưa đọc bản conference ở đó, chưa đánh dấu
+  toàn văn đã kiểm.
+- **`xie2022implicitbayes` — DA_DOC:** đọc abstract/metadata
+  [v6](https://arxiv.org/abs/2111.02080v6). Tài liệu xét mô hình sinh hỗn hợp
+  HMM và dữ liệu synthetic GINC; chưa đọc chứng minh. Không dùng để chứng
+  nhận mọi LLM/prompt hoặc regime HMM tài chính thực hiện Bayesian inference.
+- **`kakushadze2016formulaic` — DA_DOC:** đọc abstract và record
+  [v3](https://arxiv.org/abs/1601.00991v3), có journal reference Wilmott 2016.
+  Chưa đối chiếu từng công thức/operator; không coi việc liệt kê 101 alpha
+  là bằng chứng các phép thích nghi một mã trong repo tương đương toán học.
+- **`nguyen2023visobert` — DA_DOC:** đọc abstract, thông tin venue/DOI và
+  export trên [ACL](https://aclanthology.org/2023.emnlp-main.315/).
+  Nguồn mô tả backbone/social-media tasks, không phải chính classifier 5CD-AI
+  và không xác minh sentiment tài chính. Tên tác giả trong export dùng dạng
+  Nam Nguyen/Thang Phan/Duc-Vu Nguyen/Kiet Nguyen, khác cách ghi mở rộng trong
+  bibliography cũ; cần đối chiếu PDF authoritative trước chuẩn hóa, chưa tự
+  sửa bibliography bài báo.
+- **`rubin2022retrieve` — DA_DOC:** đọc abstract, metadata và DOI trên
+  [ACL](https://aclanthology.org/2022.naacl-main.191/). Công trình học dense
+  retriever cho các tác vụ semantic parsing; chỉ tạo liên hệ để đọc sâu,
+  không chứng minh `B_semantic` trong hệ này dùng embedding retrieval.
+
+### 4.5. Các việc còn phải kiểm khi đọc sâu
+
+| Vấn đề | Cách xử lý ở các task viết/kiểm nguồn sau |
+| --- | --- |
+| Nguồn học thuật MT-BICL/PFN thiếu trong bibliography cũ | Giữ hai khóa đề xuất ở đây; lấy metadata từ nguồn gốc trước khi điền BibTeX. Không trình bày MT-BICL là phát minh riêng của khóa luận. |
+| Paper MT-BICL và student nội bộ khác cấu hình | Appendix C của paper synthetic dùng 8 layer/8 head, hidden 128/FF 512; recipe nội bộ khóa 2 layer/4 head, hidden 128/FF 256. “Replica” trong tên artifact nội bộ không tự chứng minh tái lập nguyên xi paper. Khi viết §4.8, đối chiếu recipe/lock, không thay checkpoint hoặc mở lại nghiên cứu. |
+| Commit recipe nội bộ và repo tác giả là hai đối tượng | `docs/plan/week11/mt_bicl_replica_full_r1.json` neo recipe tại commit repo này `00b24679f63d491c15cda6be0bc9a2c412651f93`. Đây không phải mặc nhiên là Git pin của repo tác giả. Hash protocol giữ `11146a55e347be77b4a942c67d0acc9dba8646fa1d5a0b4817e5ffb504214857`. |
+| Khóa legacy, năm đầu đăng và năm revision không trùng | Giữ khóa để tránh gãy liên kết; đối chiếu edition/year/venue khi tạo bibliography mới, đặc biệt TradingAgents. Không ghi năm chỉ theo tên khóa. |
+| Báo cáo link lịch sử, catalogue và sách preview | Không suy toàn văn đã đọc. Sách cần edition/chương/trang hỗ trợ; link challenge hoặc chỉ mục lục phải giữ trạng thái truy cập chưa đủ. |
+| Nguồn thị trường Việt Nam và T+2 | Thông báo VSD 2022 chưa đọc trong lượt này; cần kiểm ngày hiệu lực và phạm vi trước khi viết nhận định về quy định. Hợp đồng mô phỏng của hệ thống vẫn lấy từ engine/evidence, không suy là pháp luật hiện hành. |
+| Bảng so sánh nghiên cứu và citation cuối cùng | Chưa hoàn tất T48–T53; chỉ trích những nhận định đã có đoạn nguồn phù hợp. Các nguồn CHUA_DOC và paper mới năm 2026 chưa được dùng để tuyên bố khoảng trống hay vượt trội. |
+
+## 5. Quy ước bổ sung sổ nguồn
+
+Tiếp tục bổ sung ánh xạ luận điểm/ô bảng, ghi chú đọc sâu, citation và danh
+mục hình/bảng vào các phần tương ứng của sổ này. Chưa tạo bibliography cuối
+hoặc bản thảo sáu chương. Trạng thái nằm duy nhất tại
+[checklist trong kế hoạch](plan.md#21-một-nguồn-trạng-thái-công-việc);
 lịch sử kiểm tra gộp lưu tại README tuần.

@@ -61,6 +61,39 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Danh sách đọc nguồn gốc và khóa trích dẫn
+
+Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-reading-register`
+từ develop `e081f0c74db199018cbe8156017cb62f44410d80` đã cập nhật remote.
+
+- **T04; `thesis/evidence.md` §4.1–§4.5;** lập 59 nguồn/10 nhóm từ 57 khóa
+  ứng viên trong `paper/references.bib` và hai nguồn gốc còn thiếu cho MT-BICL
+  và PFN. Mỗi dòng có khóa, tiêu đề/năm ứng viên, đích nguồn, ưu tiên và trạng
+  thái; có ánh xạ nhóm sang chương cần viết. Trạng thái: ba DA_KIEM theo nhận
+  định cụ thể, năm DA_DOC một phần và 51 CHUA_DOC; không ghi đã đọc toàn bộ.
+- Đã kiểm metadata/phiên bản và đoạn nguồn liên quan của MT-BICL v1,
+  QuantAgent v3 và model card/config 5CD-AI tại revision đã khóa; ghi phạm vi
+  đọc cho PFN, Xie, Alpha101, ViSoBERT và Rubin. Giữ trường hợp OpenReview
+  forum yêu cầu browser verification và khác cách ghi tên tác giả ViSoBERT
+  để đối chiếu PDF sau; không coi HTTP hoặc export cũ là chứng minh toàn văn.
+- Quy ước khóa mới ASCII, khóa legacy ổn định, version/năm/edition tách biệt,
+  locator hỗ trợ nhận định, phần mềm/model card theo commit và ngày truy cập.
+  Ghi rõ paper MT-BICL khác cấu hình student thích nghi, recipe commit nội bộ
+  khác Git pin repo tác giả; không thay model hoặc mở lại nghiên cứu. Tên
+  “Replica” của artifact không được dùng để suy tái lập nguyên xi paper.
+- **Kiểm tài liệu:** đủ 57 ứng viên cũ + hai khóa mới, không trùng; 10 nhóm,
+  số trạng thái 3/5/51 khớp; 307 liên kết local/73 anchor PASS, hai anchor
+  mục arXiv đã đối chiếu HTML nguồn, UTF-8 và diff whitespace PASS. Bốn hash
+  bibliography/link report/protocol/PDF bìa giữ nguyên; nội dung bằng chứng
+  trước mục 4 không đổi. Đặc tả 84 task giữ nguyên; checklist hiện T01–T04 DONE.
+- **Giới hạn:** chưa dựng `thesis/references.bib`, chưa hoàn tất đọc sâu/
+  ánh xạ citation của T48–T53 hoặc viết Related Work. 51 đích CHUA_DOC chưa
+  được kiểm lại nội dung/truy cập trong lượt này; không viện dẫn kết quả HTTP
+  lịch sử như kiểm mới. Chỉ sửa Markdown, không đổi code/test/runtime/schema,
+  paper/bibliography/PDF hoặc bằng chứng đóng băng; không chạy compileall,
+  unit/E2E/leakage, PDF build, replay, training hoặc model/thị trường API
+  theo AGENTS §1.2. F11/F12 và phạm vi nghiệm thu nghiên cứu giữ nguyên.
+
 ### Checklist trong kế hoạch, bìa căn giữa và kiểm kê nguồn
 
 Ngày **14/11/2026**, trên nhánh `docs/thesis-evidence-inventory` từ develop
