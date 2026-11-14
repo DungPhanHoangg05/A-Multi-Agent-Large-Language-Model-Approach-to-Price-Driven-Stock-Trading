@@ -5,6 +5,11 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](../../theses/outline.md)
+trong `theses/`: sáu chương, câu hỏi nghiên cứu, phụ lục và ánh xạ mã nguồn/bằng chứng.
+Chỉ tham chiếu bố cục mẫu; nội dung xây dựng theo hệ hiện tại. [Ghi nhận phạm vi](week12/README.md#khởi-tạo-dàn-bài-khóa-luận)
+tách việc viết KLTN khỏi nghiệm thu UI và thực nghiệm; chưa tạo LaTeX/PDF mới.
+
 Nguồn `paper/` đã được [làm rõ đóng góp và rà liên kết](week12/README.md#làm-rõ-đóng-góp-và-rà-liên-kết-bài-báo):
 highlights/abstract mới, bảng indicator, bỏ hình lịch đánh giá cũ; hai PDF vẫn
 44 trang/43 references, 42 đích truy cập đã xác nhận và một trang nhà xuất bản
@@ -93,8 +98,8 @@ gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn kh
 Theo chỉ đạo mới của người dùng ngày14/11/2026, hợp nhất nhánh
 `feat/precomputed-bilingual-results` vào `develop`, giữ **UI/F11: PENDING**.
 Merge nguồn không phải nghiệm thu browser hoặc hoàn tất F11.
-**F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên. Bước tiếp theo chờ người dùng
-gửi khung KLTN để bắt đầu viết luận văn theo khung đó.
+**F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên. Khung KLTN đã được tiếp nhận;
+dàn bài và định hướng viết nằm tại [theses](../../theses/README.md).
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

@@ -37,6 +37,28 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
+## Khởi tạo dàn bài khóa luận
+
+Ngày **14/11/2026**, tham chiếu cấu trúc `Latex/main.tex` và PDF mẫu người dùng
+cung cấp, xây dựng [dàn bài KLTN](../../../theses/outline.md) cùng
+[hướng dẫn đọc](../../../theses/README.md) trên nhánh `docs/thesis-outline`,
+từ `develop:7a71d4da0dcccded03e46189ce42fea2896f6c80`.
+
+- [x] Giữ khung sáu chương; viết mới phạm vi, RQ1–RQ4, các mục/submục, hình/bảng và phụ lục theo hệ đang có.
+- [x] Ánh xạ agent, regime, bank, prior, MT-BICL, policy, paired protocol và evaluator tới nguồn để triển khai bản thảo.
+- [x] Tách nghiên cứu thành phần/ngữ cảnh, Native/Common/Base, kết quả đã có/ablation chưa chạy; giữ kết quả âm và causal FAIL/NOT_CERTIFIED.
+- [x] Đối chiếu công thức kinh tế, quy mô nghiên cứu, return/fallback với mã và bảng lưu; kiểm liên kết, diff và byte nguồn tham chiếu.
+
+Kiểm sáu chương chi tiết, **65 liên kết/anchor mới**, UTF-8 và diff whitespace:
+PASS. SHA256 **50/50 file nguồn tham chiếu** không đổi giữa lần ghi nhận khi
+rà soát và kiểm bàn giao; không chạy lại verifier/gate của nghiên cứu cũ.
+
+Task chỉ thêm/sửa Markdown; không chạy compileall/unit/E2E/leakage theo
+AGENTS §1.2. Không gọi API, chạy lại nghiên cứu hoặc cấp lại gate từ dàn bài.
+Nguồn mẫu không được thêm vào commit; chưa tạo `.tex`/PDF mới. UI/F11 vẫn
+PENDING, F12 chưa bắt đầu; bước kế tiếp của KLTN là duyệt dàn bài và viết nội
+dung theo thứ tự đề xuất trong `theses/outline.md`.
+
 ## Làm rõ đóng góp và rà liên kết bài báo
 
 - [x] Viết lại năm highlights theo đóng góp tích hợp alpha/tin tiếng Việt,
