@@ -5,8 +5,17 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
-Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](../../theses/outline.md)
-trong `theses/`: sáu chương, câu hỏi nghiên cứu, phụ lục và ánh xạ mã nguồn/bằng chứng.
+**Thesis writing, 14 November 2026:** the working directory is now `thesis/`.
+The [English outline](../../thesis/outline.md) and [detailed writing plan](../../thesis/plan.md)
+cover preparation through final PDF/source handover in 84 tasks. The proposed
+method must explain the complete system to lecturers encountering it for the
+first time. [The writing checklist](week12/README.md#thesis-writing-checklist)
+is the single task-status source; drafting tasks remain pending. All thesis
+prose and supporting writing material will be in English. This planning work
+does not change F11/F12 or the scope of historical research acceptance.
+
+Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](../../thesis/outline.md)
+trong `thesis/`: sáu chương, câu hỏi nghiên cứu, phụ lục và ánh xạ mã nguồn/bằng chứng.
 Chỉ tham chiếu bố cục mẫu; nội dung xây dựng theo hệ hiện tại. [Ghi nhận phạm vi](week12/README.md#khởi-tạo-dàn-bài-khóa-luận)
 tách việc viết KLTN khỏi nghiệm thu UI và thực nghiệm; chưa tạo LaTeX/PDF mới.
 
@@ -99,7 +108,7 @@ Theo chỉ đạo mới của người dùng ngày14/11/2026, hợp nhất nhán
 `feat/precomputed-bilingual-results` vào `develop`, giữ **UI/F11: PENDING**.
 Merge nguồn không phải nghiệm thu browser hoặc hoàn tất F11.
 **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên. Khung KLTN đã được tiếp nhận;
-dàn bài và định hướng viết nằm tại [theses](../../theses/README.md).
+dàn bài và định hướng viết nằm tại [thesis](../../thesis/README.md).
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

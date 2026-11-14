@@ -37,11 +37,167 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
+## Thesis writing checklist
+
+On **14 November 2026**, the user requested an end-to-end English writing plan
+and renamed the thesis directory to `thesis/`. The [outline](../../../thesis/outline.md)
+and [reader guide](../../../thesis/README.md) are now English. The
+[writing plan](../../../thesis/plan.md) defines 84 tasks, their dependencies,
+deliverables, acceptance conditions and six writing review gates.
+
+This is the **only task-status checklist** for thesis writing. All tasks below
+start as TODO; completing the plan is not completing manuscript preparation,
+drafting, review or submission. Use IN_PROGRESS/REVIEW/BLOCKED notes on unchecked
+items when useful, and check an item only after its deliverable and acceptance
+condition have been verified. Record grouped completion evidence in this section.
+
+The proposed-method chapter must explain the entire system from first principles:
+plain-English overview, one running decision example, component input/output
+contracts, offline training versus inference, priors and MT-BICL, policy,
+orchestration, recovery and later economic evaluation. The plan includes a
+specific first-time-reader review; no independent lecturer review is claimed.
+
+### Preparation — P1
+
+- [ ] T01 — Confirm requirements and personal/submission metadata.
+- [ ] T02 — Refine title, scope, research questions and contributions.
+- [ ] T03 — Inventory source versions and frozen experimental evidence.
+- [ ] T04 — Establish the primary-source reading list and citation scheme.
+- [ ] T05 — Define English terminology, notation and naming conventions.
+- [ ] T06 — Register figures, tables and algorithms with their sources.
+- [ ] T07 — Select and document the running example and case-selection rule.
+- [ ] T08 — Create chapter drafts and the shared evidence register.
+
+### Background — P2
+
+- [ ] T09 — Explain data, sessions, windows and time indexing.
+- [ ] T10 — Derive the economic contract, labels and LONG/CASH example.
+- [ ] T11 — Introduce indicators, alpha and sentiment concepts.
+- [ ] T12 — Explain HMM regimes and endpoint inference.
+- [ ] T13 — Explain Bayesian counts, shrinkage and intervals.
+- [ ] T14 — Explain multi-task context, student/teacher and utility.
+- [ ] T15 — Explain temporal validity and evaluation principles.
+
+### Proposed system — P3
+
+- [ ] T16 — Write the system overview and begin the running walkthrough.
+- [ ] T17 — Explain inputs, snapshots and component contracts.
+- [ ] T18 — Explain Indicator and the base Decision path.
+- [ ] T19 — Explain Pattern and Trend with annotated chart inputs.
+- [ ] T20 — Explain Alpha construction, selection and limitations.
+- [ ] T21 — Explain sentiment provenance, aggregation and missingness.
+- [ ] T22 — Explain Native/Common and distinguish Base.
+- [ ] T23 — Explain historical episodes, labels and bank maturity.
+- [ ] T24 — Explain regime fitting and query integration.
+- [ ] T25 — Explain Bayesian v1 retrieval, prefix and fallback.
+- [ ] T26 — Explain C2 conditional statistics and readiness.
+- [ ] T27 — Explain A_tp_pool/B_semantic and compare priors.
+- [ ] T28 — Explain MT task and context construction.
+- [ ] T29 — Explain the evaluated teacher/student training and inference.
+- [ ] T30 — Explain facts and Fact Anchor.
+- [ ] T31 — Explain utility estimation and action revision policy.
+- [ ] T32 — Explain prompt/context projection and schemas.
+- [ ] T33 — Explain the dependency DAG and complete algorithms.
+- [ ] T34 — Explain budgets, retry, checkpoints and recovery.
+- [ ] T35 — Explain the application and complete the running walkthrough.
+
+### Experiments — P4
+
+- [ ] T36 — Define the two studies and their evidence scope.
+- [ ] T37 — Document data, splits, exclusions and coverage.
+- [ ] T38 — Document frozen configuration and paired execution.
+- [ ] T39 — Specify comparators and actual interventions.
+- [ ] T40 — Specify metrics, aggregation and statistical conventions.
+- [ ] T41 — Present component-study results.
+- [ ] T42 — Present historical-context results.
+- [ ] T43 — Present contrast bands and bridge comparisons.
+- [ ] T44 — Analyze support, fallback and policy mechanisms.
+- [ ] T45 — Write traceable successful, unsupported and incorrect cases.
+- [ ] T46 — Report completed robustness and resource analyses.
+- [ ] T47 — Discuss threats, unperformed ablations and RQ answers.
+
+### Related work — P5
+
+- [ ] T48 — Verify primary sources and bibliography metadata.
+- [ ] T49 — Review technical analysis and quantitative prediction.
+- [ ] T50 — Review LLM/VLM multi-agent systems and inherited work.
+- [ ] T51 — Review regimes, Bayesian context and MT-BICL methods.
+- [ ] T52 — Review evaluation and reproducibility methods.
+- [ ] T53 — Synthesize the comparison matrix and research gap.
+
+### Introduction and conclusions — P6
+
+- [ ] T54 — Write motivation and problem statement.
+- [ ] T55 — Write RQs, boundaries, contributions and roadmap.
+- [ ] T56 — Summarize the approach and answer each RQ.
+- [ ] T57 — Write limitations and prioritized future work.
+- [ ] T58 — Reconcile the thesis argument and terminology.
+
+### Front matter and appendices — P7
+
+- [ ] T59 — Write the abstract and keywords.
+- [ ] T60 — Complete cover details, acknowledgements, declaration and lists.
+- [ ] T61 — Write Appendix A: data and temporal contracts.
+- [ ] T62 — Write Appendix B: prompts and responses.
+- [ ] T63 — Write Appendix C: algorithms and configuration.
+- [ ] T64 — Write Appendix D: extended results.
+- [ ] T65 — Write Appendix E: verification and audits.
+- [ ] T66 — Write Appendix F: reproduction and application.
+
+### Typesetting — P8
+
+- [ ] T67 — Create and compile the clean LaTeX shell.
+- [ ] T68 — Transfer foundations and proposed methods.
+- [ ] T69 — Transfer experimental results and scientific assets.
+- [ ] T70 — Transfer framing chapters, front matter and bibliography.
+- [ ] T71 — Transfer appendices and supporting references.
+- [ ] T72 — Assemble the full document and designate canonical LaTeX text.
+
+### Review — P9
+
+- [ ] T73 — Audit scientific claims and evidence scope.
+- [ ] T74 — Complete the first-time-reader comprehension review.
+- [ ] T75 — Edit English throughout the complete manuscript.
+- [ ] T76 — Check citations, attribution, rights and required disclosures.
+- [ ] T77 — Reconcile formulas, units, counts and numerical displays.
+- [ ] T78 — Clean-build and check references, pagination and document structure.
+- [ ] T79 — Inspect every rendered page and resolve layout defects.
+- [ ] T80 — Resolve received feedback and perform the final revision pass.
+
+### Handover — P10
+
+- [ ] T81 — Freeze and package self-contained manuscript sources.
+- [ ] T82 — Build from a clean extraction and verify release artifacts.
+- [ ] T83 — Deliver PDF, sources and reproduction guidance.
+- [ ] T84 — Close internal writing status and record actual external status.
+
+### Planning change and validation scope
+
+The planning change starts at `develop:05892c3ec8799a8f3d23ce2eeaaaf0778ea09070`
+on `docs/thesis-writing-plan`. It renames the directory, rewrites the outline
+and guide in English, adds the writing plan and updates active local links.
+The sample, application, research source/data and frozen evidence are unchanged.
+The first independent work can begin with T02/T03/T05/T08 while T01 information
+is collected; no deadline, identity, external feedback or approval is invented.
+
+Validation: **84 task specifications match 84 unchecked checklist items**;
+all **260 dependency edges** resolve with no cycle. The six-chapter outline,
+three English thesis documents and **76 local links, including four anchors**,
+were checked. All **50 referenced source-file SHA256 values** match the prior
+outline handover. No active `theses/` path remains; the diff contains only
+Markdown changes and the directory migration.
+
+This is documentation-only work: check local links/anchors, task/dependency
+consistency, English content, source values and the diff. Do not run compileall,
+unit, E2E or leakage suites solely for this plan, per AGENTS §1.2. No LaTeX/PDF
+is created and no hosted inference, training or research rerun occurs. F11
+remains PENDING and F12 has not started; thesis readiness does not change either.
+
 ## Khởi tạo dàn bài khóa luận
 
 Ngày **14/11/2026**, tham chiếu cấu trúc `Latex/main.tex` và PDF mẫu người dùng
-cung cấp, xây dựng [dàn bài KLTN](../../../theses/outline.md) cùng
-[hướng dẫn đọc](../../../theses/README.md) trên nhánh `docs/thesis-outline`,
+cung cấp, xây dựng [dàn bài KLTN](../../../thesis/outline.md) cùng
+[hướng dẫn đọc](../../../thesis/README.md) trên nhánh `docs/thesis-outline`,
 từ `develop:7a71d4da0dcccded03e46189ce42fea2896f6c80`.
 
 - [x] Giữ khung sáu chương; viết mới phạm vi, RQ1–RQ4, các mục/submục, hình/bảng và phụ lục theo hệ đang có.
@@ -57,7 +213,7 @@ Task chỉ thêm/sửa Markdown; không chạy compileall/unit/E2E/leakage theo
 AGENTS §1.2. Không gọi API, chạy lại nghiên cứu hoặc cấp lại gate từ dàn bài.
 Nguồn mẫu không được thêm vào commit; chưa tạo `.tex`/PDF mới. UI/F11 vẫn
 PENDING, F12 chưa bắt đầu; bước kế tiếp của KLTN là duyệt dàn bài và viết nội
-dung theo thứ tự đề xuất trong `theses/outline.md`.
+dung theo thứ tự đề xuất trong `thesis/outline.md`.
 
 ## Làm rõ đóng góp và rà liên kết bài báo
 
