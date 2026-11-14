@@ -6,7 +6,7 @@ Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng
 
 Đầu ra gồm bản thảo, phần đầu, tài liệu tham khảo, Phụ lục A–F, hình/bảng có nguồn, dự án LaTeX tự đủ, PDF đã kiểm trực quan và gói bàn giao tái lập. Việc lập kế hoạch chưa hoàn thành bất kỳ task viết nào dưới đây.
 
-Có **84 task nhỏ**, chia thành mười giai đoạn. Phụ thuộc thể hiện điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Có thể bắt đầu T02, T03, T05 và T08; đồng thời thu thập thông tin T01 mà không chặn các phần viết độc lập.
+Có **84 task nhỏ**, chia thành mười giai đoạn. Phụ thuộc thể hiện điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái từng task tại mục 2.1; thông tin ngoài còn thiếu ở T01 không chặn các phần viết độc lập.
 
 **Quy ước ngôn ngữ:** trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng **tiếng Việt**. Toàn bộ **nội dung khóa luận** dùng **tiếng Anh**, gồm phần đầu, nội dung chương, phụ lục, tiêu đề, chú thích, nhãn hình/bảng và diễn giải khoa học. Dàn bài chương mục giữ tiếng Anh làm khung bản thảo. Giữ nguyên định danh chương trình, tên tài liệu và bằng chứng trích dẫn; đoạn nguồn không phải tiếng Anh cần được giải thích bằng tiếng Anh trong khóa luận và ghi rõ nếu là bản dịch phục vụ trình bày.
 
@@ -14,11 +14,125 @@ Có **84 task nhỏ**, chia thành mười giai đoạn. Phụ thuộc thể hi�
 
 ### 2.1. Một nguồn trạng thái công việc
 
-[Checklist viết khóa luận](../docs/plan/week12/README.md#checklist-viết-khóa-luận) là nơi duy nhất quản lý tiến độ. Tài liệu này định nghĩa task, phụ thuộc và điều kiện nghiệm thu; không duy trì thêm một checklist trạng thái tại đây hoặc tạo receipt cho từng task.
+Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task viết khóa luận. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../docs/plan/week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task.
 
 Dùng `TODO` (chưa làm), `IN_PROGRESS` (đang làm), `REVIEW` (đang rà soát), `DONE` (hoàn tất) hoặc `BLOCKED` (thiếu điều kiện) khi cần. Mục được đánh dấu hoàn tất phải có đầu ra và đã kiểm điều kiện nghiệm thu. Với mục đang làm hoặc bị chặn, thêm ghi chú ngắn về file hiện tại hoặc thông tin còn thiếu. Ghi nhận hoàn thành theo mẫu `mã task; file/mục; cách kiểm; giới hạn còn lại`, gộp các task liên quan trong một cập nhật tuần. Chỉ ghi đã hoàn tất phản biện bên ngoài khi thực sự nhận và xử lý phản hồi.
 
 Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn, tách thành các task con có hậu tố chữ, giữ mã cha và điều kiện nghiệm thu. **S** là chỉnh sửa/kiểm tra nhỏ, có giới hạn rõ; **M** là một mục nội dung hoặc một nhóm hình/bằng chứng liên quan. Đây là quy mô tham khảo, không phải cam kết số giờ hay ngày hoàn thành.
+
+#### Chuẩn bị — P1
+
+- [x] T01 — DONE: [hồ sơ yêu cầu](evidence.md#1-thông-tin-tác-giả-và-yêu-cầu-trình-bày), metadata có nguồn, [nội dung bìa](frontmatter.md) và bản xem hai bìa. Hạn nộp/quy định chính thức chưa có, đã ghi rõ; chưa hoàn tất các phần đầu phụ thuộc yêu cầu ngoài.
+- [x] T02 — DONE: [dàn bài §A.1–A.5](outline.md#a-research-direction), bốn RQ có so sánh/bằng chứng/giới hạn, bốn loại đóng góp và trách nhiệm sáu chương; [nguồn đối chiếu](evidence.md#2-phạm-vi-nghiên-cứu-và-ranh-giới-luận-điểm).
+- [x] T03 — DONE: [kiểm kê hai nghiên cứu](evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), phiên bản/đường dẫn/hash, support và giới hạn; xác nhận ba module có lớp UI cùng logic snapshot nghiên cứu. Đã kiểm 179 file thành phần, 810 nguồn snapshot, 286 asset và U08/U09; không replay hoặc thu thực nghiệm mới.
+- [ ] T04 — Lập danh sách đọc nguồn gốc và quy ước trích dẫn.
+- [ ] T05 — Định nghĩa thuật ngữ tiếng Anh, ký hiệu và tên gọi.
+- [ ] T06 — Lập danh mục hình, bảng, thuật toán cùng nguồn.
+- [ ] T07 — Chọn ví dụ xuyên suốt và quy tắc chọn tình huống.
+- [ ] T08 — Tạo khung bản thảo các chương và sổ bằng chứng chung.
+
+#### Cơ sở lý thuyết — P2
+
+- [ ] T09 — Giải thích dữ liệu, phiên, cửa sổ và chỉ số thời gian.
+- [ ] T10 — Trình bày hợp đồng kinh tế, nhãn và ví dụ LONG/CASH.
+- [ ] T11 — Giới thiệu chỉ báo, alpha và sentiment.
+- [ ] T12 — Giải thích HMM và suy luận regime tại cuối prefix.
+- [ ] T13 — Giải thích counts Bayes, shrinkage và các khoảng.
+- [ ] T14 — Giải thích context đa tác vụ, student/teacher và utility.
+- [ ] T15 — Giải thích tính hợp lệ thời gian và nguyên tắc đánh giá.
+
+#### Hệ thống đề xuất — P3
+
+- [ ] T16 — Viết tổng quan hệ thống và mở đầu ví dụ xuyên suốt.
+- [ ] T17 — Giải thích đầu vào, snapshot và hợp đồng thành phần.
+- [ ] T18 — Giải thích Indicator và đường Decision cơ sở.
+- [ ] T19 — Giải thích Pattern/Trend bằng biểu đồ có chú thích.
+- [ ] T20 — Giải thích xây dựng, lựa chọn và giới hạn Alpha.
+- [ ] T21 — Giải thích nguồn, tổng hợp và thiếu sentiment.
+- [ ] T22 — Giải thích Native/Common và phân biệt Base.
+- [ ] T23 — Giải thích episode lịch sử, nhãn và điều kiện đủ thời gian.
+- [ ] T24 — Giải thích fit regime và tích hợp vào query.
+- [ ] T25 — Giải thích truy xuất Bayesian v1, prefix và fallback.
+- [ ] T26 — Giải thích thống kê điều kiện và readiness của C2.
+- [ ] T27 — Giải thích A_tp_pool/B_semantic và so sánh các prior.
+- [ ] T28 — Giải thích tạo tác vụ và context MT.
+- [ ] T29 — Giải thích huấn luyện/suy luận teacher/student thực dùng.
+- [ ] T30 — Giải thích facts và Fact Anchor.
+- [ ] T31 — Giải thích utility và policy sửa hành động.
+- [ ] T32 — Giải thích phép chiếu context vào prompt và schema.
+- [ ] T33 — Giải thích DAG phụ thuộc và thuật toán toàn trình.
+- [ ] T34 — Giải thích ngân sách, retry, checkpoint và phục hồi.
+- [ ] T35 — Giải thích ứng dụng và hoàn tất ví dụ xuyên suốt.
+
+#### Thực nghiệm — P4
+
+- [ ] T36 — Xác định hai nghiên cứu và phạm vi bằng chứng.
+- [ ] T37 — Mô tả dữ liệu, phân vùng, loại trừ và độ phủ.
+- [ ] T38 — Mô tả cấu hình đã khóa và thực thi ghép cặp.
+- [ ] T39 — Đặc tả đối chứng và can thiệp thực tế.
+- [ ] T40 — Đặc tả chỉ số, cách tổng hợp và quy ước thống kê.
+- [ ] T41 — Trình bày kết quả nghiên cứu thành phần.
+- [ ] T42 — Trình bày kết quả nghiên cứu ngữ cảnh lịch sử.
+- [ ] T43 — Trình bày band chênh lệch và các so sánh bridge.
+- [ ] T44 — Phân tích support, fallback và cơ chế policy.
+- [ ] T45 — Viết tình huống có truy vết, gồm thiếu support và quyết định sai.
+- [ ] T46 — Báo cáo phân tích độ bền và tài nguyên đã thực hiện.
+- [ ] T47 — Thảo luận giới hạn, ablation chưa làm và trả lời RQ.
+
+#### Nghiên cứu liên quan — P5
+
+- [ ] T48 — Kiểm nguồn gốc và metadata tài liệu tham khảo.
+- [ ] T49 — Tổng quan phân tích kỹ thuật và dự báo định lượng.
+- [ ] T50 — Tổng quan LLM/VLM đa agent và phần kế thừa.
+- [ ] T51 — Tổng quan regime, ngữ cảnh Bayes và MT-BICL.
+- [ ] T52 — Tổng quan phương pháp đánh giá và tái lập.
+- [ ] T53 — Tổng hợp bảng so sánh và khoảng trống nghiên cứu.
+
+#### Mở đầu và kết luận — P6
+
+- [ ] T54 — Viết động cơ và phát biểu bài toán.
+- [ ] T55 — Viết RQ, giới hạn, đóng góp và bố cục.
+- [ ] T56 — Tóm tắt phương pháp và trả lời từng RQ.
+- [ ] T57 — Viết hạn chế và hướng phát triển theo ưu tiên.
+- [ ] T58 — Đối soát mạch lập luận và thuật ngữ toàn khóa luận.
+
+#### Phần đầu và phụ lục — P7
+
+- [ ] T59 — Viết abstract và keywords.
+- [ ] T60 — Hoàn thiện bìa, lời cảm ơn, cam đoan và danh mục.
+- [ ] T61 — Viết Phụ lục A: hợp đồng dữ liệu và thời gian.
+- [ ] T62 — Viết Phụ lục B: prompt và response.
+- [ ] T63 — Viết Phụ lục C: thuật toán và cấu hình.
+- [ ] T64 — Viết Phụ lục D: kết quả mở rộng.
+- [ ] T65 — Viết Phụ lục E: kiểm tra và audit.
+- [ ] T66 — Viết Phụ lục F: tái lập và ứng dụng.
+
+#### Dàn trang — P8
+
+- [ ] T67 — Tạo và biên dịch khung LaTeX sạch.
+- [ ] T68 — Chuyển cơ sở lý thuyết và phương pháp đề xuất.
+- [ ] T69 — Chuyển kết quả thực nghiệm và hình/bảng khoa học.
+- [ ] T70 — Chuyển các chương còn lại, phần đầu và bibliography.
+- [ ] T71 — Chuyển phụ lục và các tham chiếu bổ trợ.
+- [ ] T72 — Ghép toàn văn, xác định LaTeX là nguồn bản nộp.
+
+#### Rà soát — P9
+
+- [ ] T73 — Đối soát luận điểm khoa học và phạm vi bằng chứng.
+- [ ] T74 — Rà khả năng đọc hiểu của người lần đầu tiếp cận.
+- [ ] T75 — Biên tập tiếng Anh trong toàn bộ khóa luận.
+- [ ] T76 — Kiểm trích dẫn, ghi nguồn, quyền và khai báo cần thiết.
+- [ ] T77 — Đối soát công thức, đơn vị, số lượng và cách hiển thị số.
+- [ ] T78 — Build sạch, kiểm tham chiếu, số trang và cấu trúc.
+- [ ] T79 — Kiểm từng trang render và sửa lỗi bố cục.
+- [ ] T80 — Xử lý phản hồi đã nhận và chỉnh sửa cuối.
+
+#### Bàn giao — P10
+
+- [ ] T81 — Khóa và đóng gói nguồn bản thảo tự đủ.
+- [ ] T82 — Build từ bản giải nén sạch và xác minh đầu ra.
+- [ ] T83 — Bàn giao PDF, nguồn và hướng dẫn tái lập.
+- [ ] T84 — Chốt hoàn thành nội bộ và ghi đúng trạng thái bên ngoài.
 
 ### 2.2. Cấu trúc đầu ra đề xuất
 
@@ -64,7 +178,7 @@ thesis/
 
 Trong giai đoạn viết, Markdown là nguồn nội dung chính thức. Tại T72, ghi nhận thời điểm chuyển đổi và lấy LaTeX làm nguồn bản nộp; giữ Markdown như bản thảo đã rà soát. Không âm thầm duy trì hai bản đang sửa nhưng khác nhau. `references.bib` và hình/bảng là nguồn dùng chung. Gói LaTeX phải tìm được các tài nguyên bên trong gói, không phụ thuộc mẫu gốc hoặc đường dẫn tuyệt đối trên máy.
 
-Sổ bằng chứng gồm: nguồn/phiên bản/hash và vai trò; ánh xạ luận điểm hoặc ô bảng; ghi chú đọc/trích dẫn; danh mục hình/bảng; thông tin còn thiếu và vấn đề bằng chứng chưa giải quyết. Dẫn tới các artifact đã khóa thay vì sao chép archive lớn vào thư mục khóa luận. Checklist và lịch sử hoàn thành nằm tại `docs/plan/`.
+Sổ bằng chứng gồm: nguồn/phiên bản/hash và vai trò; ánh xạ luận điểm hoặc ô bảng; ghi chú đọc/trích dẫn; danh mục hình/bảng; thông tin còn thiếu và vấn đề bằng chứng chưa giải quyết. Dẫn tới các artifact đã khóa thay vì sao chép archive lớn vào thư mục khóa luận. Checklist nằm tại mục 2.1 của kế hoạch này; lịch sử hoàn thành gộp và bằng chứng kiểm tra nằm tại `docs/plan/`.
 
 ### 2.3. Chính sách thay đổi và kiểm tra
 

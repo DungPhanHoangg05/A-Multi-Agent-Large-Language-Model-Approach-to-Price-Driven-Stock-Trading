@@ -462,6 +462,6 @@ This is a writing aid, not the final scholarly bibliography. Current paths ident
 
 ## E. Writing and review
 
-Follow the [writing plan](plan.md) and maintain task status in the [project checklist](../docs/plan/week12/README.md#checklist-viết-khóa-luận). Draft the contracts and methods before finalizing results interpretation, then finish related work, introduction, conclusions and abstract. Transfer the reviewed English manuscript into a self-contained LaTeX project and review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
+Follow the [writing plan](plan.md) and maintain task status in the [project checklist](plan.md#21-một-nguồn-trạng-thái-công-việc). Draft the contracts and methods before finalizing results interpretation, then finish related work, introduction, conclusions and abstract. Transfer the reviewed English manuscript into a self-contained LaTeX project and review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
 
 Keep task IDs, weekly progress and incident history out of the thesis body. They remain planning/provenance aids only.

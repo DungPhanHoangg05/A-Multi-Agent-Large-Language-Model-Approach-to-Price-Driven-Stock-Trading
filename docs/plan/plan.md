@@ -9,10 +9,11 @@ LLM Stock Trading in the Vietnamese Stock Market.
 [Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
 bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp
 phải giải thích toàn hệ thống cho giảng viên lần đầu tiếp cận.
-[Checklist viết khóa luận](week12/README.md#checklist-viết-khóa-luận) là nơi duy nhất
-cập nhật trạng thái; T01–T02 đã có hồ sơ yêu cầu và phạm vi nghiên cứu,
-kèm bản xem hai trang bìa theo mẫu. Hạn nộp và quy định trích dẫn/bố cục chính
-thức chưa được cung cấp; các task còn lại chưa bắt đầu. **Trao đổi với người dùng,
+[Checklist viết khóa luận](../../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc) là nơi duy nhất
+cập nhật trạng thái ngay trong kế hoạch theo yêu cầu tác giả. Hồ sơ yêu cầu,
+phạm vi nghiên cứu và [kiểm kê hai nghiên cứu](../../thesis/evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa)
+đã có, kèm bản xem hai trang bìa với Supervisor căn giữa. Hạn nộp và quy định
+trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,
 kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung
 khóa luận bằng tiếng Anh.** Việc sửa tài liệu này không đổi F11/F12 hoặc phạm vi
 nghiệm thu nghiên cứu lịch sử.

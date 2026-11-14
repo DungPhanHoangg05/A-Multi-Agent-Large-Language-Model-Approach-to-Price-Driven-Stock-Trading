@@ -12,7 +12,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 1. [Dàn bài khóa luận](outline.md): câu hỏi nghiên cứu, sáu chương, phụ lục và ánh xạ tới hệ thống.
 2. [Kế hoạch viết chi tiết](plan.md): các task nhỏ, phụ thuộc, đầu ra, tiêu chí nghiệm thu và lộ trình đến gói bàn giao cuối.
-3. [Checklist công việc](../docs/plan/week12/README.md#checklist-viết-khóa-luận): nơi duy nhất cập nhật trạng thái và bằng chứng hoàn thành; kế hoạch chỉ định nghĩa task, không lặp lại trạng thái.
+3. [Checklist công việc](plan.md#21-một-nguồn-trạng-thái-công-việc): checklist 84 task nằm ngay trong kế hoạch; bằng chứng hoàn thành gộp lưu tại README tuần.
 4. [Sổ nguồn và yêu cầu](evidence.md): metadata có nguồn, thông tin còn thiếu, nguồn đối chiếu câu hỏi nghiên cứu và giới hạn bằng chứng.
 
 ## Hai trang bìa
@@ -22,6 +22,8 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 giữ cơ sở đào tạo, logo, khung và kiểu chữ của mẫu; đề tài dài được chia năm
 dòng. Mã sinh viên nằm trong hồ sơ, không thêm vào bìa vì mẫu không có trường
 này. Hạn nộp và quy định trích dẫn/bố cục chính thức hiện chưa được cung cấp.
+Dòng Supervisor trên bìa trong được căn giữa theo trục trang theo đính chính
+của tác giả.
 
 Nguồn bản xem gồm [wrapper](latex/covers-preview.tex),
 [hai bìa](latex/frontmatter/covers.tex) và logo trong `assets/figures/`.
