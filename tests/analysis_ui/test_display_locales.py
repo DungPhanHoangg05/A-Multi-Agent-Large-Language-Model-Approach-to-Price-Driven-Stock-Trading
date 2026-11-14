@@ -63,30 +63,12 @@ class DisplayLocales(unittest.TestCase):
         another=self.service.start({'report':'Giá trị 1'},'en','a'*64,'another-key',background=False)
         self.assertNotEqual(result['id'],another['id']); self.assertEqual(another['state'],'completed')
 
-    def test_web_get_owner_and_cross_origin_never_dispatch_translation(self) -> None:
+    def test_retired_translation_routes_never_dispatch(self) -> None:
         with patch('core.realtime_loader.get_all_symbols_realtime',return_value=[]): web=importlib.import_module('web_interface')
-        with patch.dict(web.app.config,{'DISPLAY_LOCALE_SERVICE':self.service,'SERVING_API_KEY_PROVIDER':lambda:'fixture'}),patch('utils.display_locale_web.owner',return_value=('a'*64,None)):
-            client=web.app.test_client()
-            response=client.post('/api/display-locales',json={'texts':{'n0':'Giá trị 1'},'target':'en'},headers={'Origin':'https://untrusted.example'})
-            self.assertEqual(response.status_code,400); self.assertEqual(self.senders,[])
-            self.assertEqual(client.get('/api/display-locales/12345678-1234-4234-8234-123456789abc').status_code,404)
-            self.assertEqual(self.senders,[])
-
-    def test_post_translates_once_get_cache_is_readonly_and_other_owner_cannot_read(self) -> None:
-        with patch('core.realtime_loader.get_all_symbols_realtime',return_value=[]): web=importlib.import_module('web_interface')
-        with patch.dict(web.app.config,{'DISPLAY_LOCALE_SERVICE':self.service,'SERVING_API_KEY_PROVIDER':lambda:'fixture'}),patch('utils.display_locale_web.owner',return_value=('a'*64,None)):
-            client=web.app.test_client()
-            body={'texts':{'n0':'Giá trị 1.23; SHORT'},'target':'en'}
-            response=client.post('/api/display-locales',json=body)
-            self.assertIn(response.status_code,(200,202)); identifier=response.get_json()['id']
-            for worker in self.service.tasks.values(): worker.join(10); self.assertFalse(worker.is_alive())
-            count=len(self.senders[0].bodies)
-            for _ in range(2):
-                data=client.get('/api/display-locales/'+identifier).get_json()
-                self.assertEqual(data['texts']['n0'],'Value 1.23; SHORT')
-            self.assertEqual(count,len(self.senders[0].bodies))
-            with patch('utils.display_locale_web.owner',return_value=('b'*64,None)):
-                self.assertEqual(client.get('/api/display-locales/'+identifier).status_code,404)
+        client=web.app.test_client()
+        self.assertEqual(client.post('/api/display-locales',json={'texts':{'n0':'report'},'target':'en'}).status_code,404)
+        self.assertEqual(client.get('/api/display-locales/12345678-1234-4234-8234-123456789abc').status_code,404)
+        self.assertEqual(self.senders,[])
 
     def test_one_invalid_report_does_not_hide_other_translations(self) -> None:
         def translate(batch):

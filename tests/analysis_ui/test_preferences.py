@@ -63,7 +63,7 @@ class Preferences(unittest.TestCase):
             from flask import render_template
             raw=render_template('analysis/legacy_output.html',results=results,T=self.web.catalogue('en'),LANG='en',
                 A=importlib.import_module('utils.analysis_ui').messages('en'))
-        self.assertEqual(raw.count('js/display_locale.js?v=reports-v3'),1)
+        self.assertEqual(raw.count('js/display_locale.js?v=bilingual-v1'),1)
         self.assertNotIn('js/analysis/daily_output.js',raw)
         self.assertIn('css/site_theme.css?v=reports-v3',raw)
         from pathlib import Path

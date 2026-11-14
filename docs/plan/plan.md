@@ -72,31 +72,25 @@ cùng overlay từng agent rồi mở cùng bố cục kết quả, thêm phần
 Tiến trình từ checkpoint, decision/policy/context giữ nguyên; không tính lại
 hoặc bịa kết quả khi lỗi/UNKNOWN. [Runbook hiện hành](week12/variant_serving_contract.md#form-phân-tích-hiện-hành--realtime-1d).
 [Receipt hiện hành](week12/serving_integration_acceptance.json) và
-[QA hoàn tất báo cáo hiện hành](week12/serving_report_completion_checks.zip): **56 Python + 27 DOM, compile7/JS2 PASS**.
+[QA song ngữ hiện hành](week12/serving_bilingual_checks.zip): **135 Python + 24 DOM, compile23/JS2 PASS**.
 Đã sửa BICL đứng trước Decision cuối; khôi phục báo cáo Alpha Agent đầy đủ,
 hiển thị common Alpha riêng đúng nguồn Decision, format Indicator theo HTML
 Original tham chiếu. Tin hiển thị cùng snapshot/cutoff, thiếu metadata là NA.
 Sáu layout dùng chung VI/EN và sáng/tối; đổi ngôn ngữ giữ query/job/filter và
-cookie. Request ghi ngôn ngữ hiển thị; báo cáo nâng cấp gốc vẫn VI, bản dịch
-Groq có cache/UUID riêng, quota/retry/checkpoint chung, kiểm số/mã/công thức và
-không sửa forecast hoặc artifact nguồn. GET chỉ đọc, không gọi model; browser
-POST rõ ràng để chuẩn bị bản dịch khi khác ngôn ngữ nguồn. Không fallback về
-VI trên trang EN khi dịch lỗi. Bản sửa tiếp theo tách từng đoạn bắt buộc,
-giữ số/mã/công thức/cấu trúc tại server; lỗi một phần không xóa báo cáo đã
-dịch, bản gốc vẫn xem được trong mục thu gọn. Cache `display_locale_v2` thay
-cache v1 lỗi mà không xóa journal; UNKNOWN không replay. Đã tái hiện raw HTTP200
-bỏ bốn dòng cuối Indicator, không phải API key lỗi. Theme nhớ lựa chọn hoặc theo hệ điều hành.
-Incident tiếp theo xác nhận Groq400 `json_validate_failed` do hết completion
-ở cuối Alpha, làm cả Pattern/Trend chưa dịch. Bản v3 dành4.096 output token,
-chia đôi có checkpoint chỉ khi provider xác nhận cutoff, vẫn giữ quota8.000;
-seed phần đã dịch, không gọi lại forecast/UNKNOWN. UI không ẩn khung pending,
-module/CSS có version và chỉ nạp một entry. Ba phần đang lỗi đã được dịch/rà
-riêng vào cache hiển thị: đủ21/21, source/raw/journal và số/công thức giữ nguyên,
-ghi rõ `assistant_translation_review`, không nhận là Groq đã dịch xong ba phần đó.
-QA ngôn ngữ/theme, báo cáo và 1D trước đó nguyên byte, không thay kiểm tra của bản sửa mới.
+cookie. Theo yêu cầu ngày14/11/2026, profile live mới
+`live_bilingual_presentation_v1` tạo VI/EN trong cùng invocation Pattern/Trend/
+Decision; Indicator/Alpha số học dùng mẫu song ngữ từ kết quả đã tính, không
+chạy lại selector. Policy/snapshot canonical vẫn VI; sidecar trình bày riêng,
+không sửa artifact nghiên cứu. Hai bản HTML được nhúng sẵn; đổi VI/EN ngay
+tại chỗ, không reload/fetch/POST, không gọi dịch hoặc chờ quota Groq. Route
+dịch đã ngừng đăng ký. Bản ghi cũ đọc cache hoàn tất đúng owner không cần key;
+nếu chưa có tiếng còn lại thì cần phân tích lại một lần. Lượt phân tích đầu
+vẫn dùng model và có thể tăng output token, không tăng số call để đổi tiếng.
+Theme nhớ lựa chọn hoặc theo hệ điều hành. Các lần sửa dịch trước,21/21 phần
+được rà riêng và raw/journal của incident giữ nguyên ở checklist/QA lịch sử.
 Các QA cũ giữ nguyên byte làm lịch sử; không chạy toàn suite/cold study hoặc
 gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn không khả dụng;
-F11 còn mở, nhánh `feat/visible-agent-reports` chưa merge develop theo AGENTS
+F11 còn mở, nhánh `feat/precomputed-bilingual-results` chưa merge develop theo AGENTS
 §1.2. **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding

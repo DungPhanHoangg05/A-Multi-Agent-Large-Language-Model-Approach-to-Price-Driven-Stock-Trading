@@ -14,7 +14,7 @@
     <p>{{ results.asset_name }} · {{ results.bicl.cutoff }} · {{ results.bicl.captured_at }}</p>
     {% if results.bicl.prior_count is not none %}<p>{{ A.bicl_prior }}: {{ results.bicl.prior_count }}{% if results.bicl.regime %} · {{ results.bicl.regime }}{% endif %}</p>{% endif %}
     {% if results.bicl.tasks %}<ul>{% for task in results.bicl.tasks %}<li>{{ task.symbol }} · {{ task.id }} · {{ A.bicl_closed }}: {{ task.exit_date }}</li>{% endfor %}</ul>{% endif %}
-    {% if results.bicl.prefix %}<pre data-localize data-locale-pending data-source-language="vi" class="bicl-context">{{ results.bicl.prefix }}</pre>{% endif %}
+    {% if results.bicl.prefix %}<details><summary>{{ 'Raw prompt (source language)' if LANG=='en' else 'Prompt gốc (ngôn ngữ nguồn)' }}</summary><pre class="bicl-context">{{ results.bicl.prefix }}</pre></details>{% endif %}
     <details><summary>{{ A.bicl_facts if results.analysis_version == 'MT-BICL' else A.bicl_prior }}</summary><pre class="bicl-context">{{ results.bicl.evidence }}</pre></details>
     <details><summary>{{ A.bicl_details }}</summary><pre class="bicl-context">{{ results.bicl.details }}</pre></details>
   </div>

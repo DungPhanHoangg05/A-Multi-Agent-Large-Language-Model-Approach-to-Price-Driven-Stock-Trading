@@ -131,7 +131,7 @@ class AsOfProvider:
             slot = "graph/" + point["id"] + "/" + role
             node_state = self.role_state(role, state)
             def invoke(attempt: str, role: str = role, slot: str = slot) -> dict:
-                proxy = VisionProxy(calls, slot, attempt, self.models[role] if role != "full" else self.models["alpha"])
+                proxy = self.vision_proxy(role,calls,slot,attempt,self.models[role] if role != 'full' else self.models['alpha'])
                 nodes = {"indicator": lambda: create_indicator_agent(None, TechnicalTools()),
                     "pattern": lambda: create_pattern_agent(None, proxy, TechnicalTools()),
                     "trend": lambda: create_trend_agent(None, proxy, TechnicalTools()),
@@ -139,7 +139,17 @@ class AsOfProvider:
                 token = ENABLED.set(True)
                 try:
                     with invocation_scope(role):
-                        return nodes[role]()(deepcopy(node_state))
+                        from contextlib import nullcontext
+                        from core.ui_presentation.capture import capture
+                        from core.ui_presentation.reports import pair_for,sentiment_pair
+                        with capture() if getattr(self,'presentation_enabled',False) else nullcontext(None) as display:
+                            result=nodes[role]()(deepcopy(node_state))
+                            if display is not None:
+                                pairs=deepcopy(node_state.get('ui_reports',{}))
+                                pairs['alpha' if role=='full' else role]=pair_for(role,node_state,result,display)
+                                if role=='full': pairs['sentiment']=sentiment_pair(result.get('sentiment_data',{}))
+                                result['ui_reports']=pairs
+                            return result
                 finally:
                     ENABLED.reset(token)
             inputs = {k: v for k, v in node_state.items() if k not in ("point_in_time_df", "sentiment_store")}
@@ -147,7 +157,13 @@ class AsOfProvider:
             output = book.execute(slot, {"state_sha256": digest(encode_output(inputs))}, invoke)
             state.update(output)
         state["alpha_factors"] = deepcopy(state["sentiment_data"]["alpha_results"])
+        if 'ui_reports' in state:
+            book.execute('presentation/'+point['id'],{'reports_sha256':digest(state['ui_reports'])},lambda _:deepcopy(state['ui_reports']))
         return self.snapshot(point, state)
+
+    def vision_proxy(self,role: str,calls: Any,slot: str,attempt: str,model: dict) -> Any:
+        """Đường mặc định giữ nguyên wire SDK; profile live mới override tại provider riêng."""
+        return VisionProxy(calls,slot,attempt,model)
 
     def role_state(self, role: str, state: dict) -> dict:
         """Mặc định cùng state nguyên vẹn; provider đa khung có thể chiếu nguồn riêng theo role."""

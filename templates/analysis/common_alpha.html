@@ -5,6 +5,6 @@
   <div class="report-table"><table><thead><tr><th scope="col">{{ A.factor_name }}</th><th scope="col">{{ A.factor_value }}</th><th scope="col">{{ A.factor_signal }}</th><th scope="col">{{ A.factor_orientation }}</th></tr></thead><tbody>
   {% for factor in results.common_alpha_factors %}<tr><td>{{ factor.alpha_id }}</td><td>{{ '%+.6f'|format(factor.value) }}</td><td>{{ display_signal(factor.signal,LANG) }}</td><td>{{ factor.orientation }}</td></tr>{% endfor %}
   </tbody></table></div>
-  {% else %}<div id="commonAlphaContent" data-localize data-markdown="true" data-locale-pending data-source-language="vi" class="auto-beautify">{{ results.common_alpha_analysis|safe }}</div>{% endif %}
+  {% else %}<div id="commonAlphaContent" data-localize data-markdown="true" data-locale-pending data-source-language="{{ LANG }}" class="auto-beautify">{{ 'This older record has no stored English common Alpha report.' if LANG=='en' else results.common_alpha_analysis|safe }}</div>{% endif %}
   {% if results.common_alpha_selector %}<details><summary>{{ A.snapshot }}</summary><p class="alpha-selector">{{ results.common_alpha_selector }}</p></details>{% endif %}
 </section>

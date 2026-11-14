@@ -7,6 +7,7 @@ import urllib.parse
 from pathlib import Path
 from typing import Any, Dict, List
 from core.backtest_engine import BacktestEngine, required_backtest_rows
+from core.serving_runtime.quota import Failed as ServingFailure
 from dataclasses import asdict
 
 import pandas as pd
@@ -66,6 +67,11 @@ def render_localized(template: str, **ctx):
     Template nhận `T` (dict chuỗi đã dịch) và `LANG` (mã ngôn ngữ hiện tại).
     """
     lang = current_lang()
+    if template=='output.html' and ctx.get('results'):
+        from utils.paired_reports import cached_pairs,result_views
+        from utils.serving_web import owner
+        scope,_=owner()
+        ctx['localized_result_views']=result_views(ctx['results'],cached_pairs(Path(__file__).resolve().parent,scope))
     if template in ("demo_new.html", "output.html", "backtest.html"):
         from utils.analysis_ui import messages
         from core.serving_registry import registry_document
@@ -205,27 +211,30 @@ class WebTradingAnalyzer:
                 "trend_image":      t_image["trend_image"],
                 "point_in_time_df": df.tail(600).copy(),
                 # Ngôn ngữ đầu ra cho toàn bộ agent trong pipeline
-                "language":         lang,
+                "language":         'vi',
             }
 
             # Use stream() to get per-node progress updates
-            final_state = None
-            if step_callback:
-                for chunk in self.trading_graph.graph.stream(initial_state, stream_mode="updates"):
-                    for node_name in chunk:
-                        step_num = self._NODE_STEP_MAP.get(node_name)
-                        if step_num:
-                            print(f"[WebAnalyzer] Node done: {node_name} → step {step_num}")
-                            next_step = step_num + 1 if step_num < 6 else 6
-                            step_callback(next_step)
-                    # Merge chunk into final_state
-                    if final_state is None:
-                        final_state = {}
-                    for node_output in chunk.values():
-                        if isinstance(node_output, dict):
-                            final_state.update(node_output)
-            else:
-                final_state = self.trading_graph.graph.invoke(initial_state)
+            from core.ui_presentation.capture import capture
+            from core.ui_presentation.reports import pair_for,sentiment_pair
+            with capture() as presentation:
+                final_state = None
+                if step_callback:
+                    for chunk in self.trading_graph.graph.stream(initial_state, stream_mode="updates"):
+                        for node_name in chunk:
+                            step_num = self._NODE_STEP_MAP.get(node_name)
+                            if step_num:
+                                next_step = step_num + 1 if step_num < 6 else 6
+                                step_callback(next_step)
+                        if final_state is None: final_state = {}
+                        for node_output in chunk.values():
+                            if isinstance(node_output, dict): final_state.update(node_output)
+                else:
+                    final_state = self.trading_graph.graph.invoke(initial_state)
+                source={**initial_state,**final_state}
+                pairs={role:pair_for(role,source,final_state,presentation) for role in ('indicator','pattern','trend','full')}
+                pairs['alpha']=pairs.pop('full'); pairs['sentiment']=sentiment_pair(final_state.get('sentiment_data',{}))
+                pairs['decision']=presentation.get('decision')
 
             return {
                 "success":     True,
@@ -233,9 +242,10 @@ class WebTradingAnalyzer:
                 "asset_name":  asset_name,
                 "timeframe":   display_timeframe,
                 "data_length": len(df_slice),
+                "ui_report_pairs":pairs,
             }
 
-        except Exception as e:
+        except (Exception, ServingFailure) as e:
             error_msg = str(e)
             print(f"[Analysis Error] {error_msg}")
 
@@ -264,7 +274,8 @@ class WebTradingAnalyzer:
 
         return to_json_compatible({
             "success":              True,
-            "report_language":      lang,
+            "report_language":      'vi' if results.get('ui_report_pairs') else lang,
+            "ui_report_pairs":      results.get('ui_report_pairs',{}),
             "asset_name":           results["asset_name"],
             "timeframe":            results["timeframe"],
             "data_length":          results["data_length"],
@@ -826,8 +837,6 @@ from utils.serving_live_web import live as serving_live
 app.register_blueprint(serving_live)
 from utils.research_web import research
 app.register_blueprint(research)
-from utils.display_locale_web import locales as display_locales
-app.register_blueprint(display_locales)
 from utils.site_preferences import install as install_preferences
 install_preferences(app,current_lang)
 

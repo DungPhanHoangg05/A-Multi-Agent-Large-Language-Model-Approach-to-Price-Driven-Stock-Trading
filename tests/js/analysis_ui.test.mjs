@@ -95,12 +95,15 @@ test('Partial không tạo CASH cho slot thiếu; UNKNOWN khóa resume và giữ
   const pending = node('decision-cards').children.filter(child => child.textContent.includes('Chưa hoàn tất'));
   assert.ok(pending.length); assert.ok(pending.every(child => !child.textContent.includes('CASH')));
 });
-test('UI tiếng Anh giữ nguyên báo cáo VI và không diễn giải confidence thành xác suất', () => {
+test('UI tiếng Anh dùng báo cáo EN đã lưu và không diễn giải confidence thành xác suất', () => {
   const config = structuredClone(fixture.config); config.language = 'en';
   const en = JSON.parse(execFileSync('py',['-3.13','-X','utf8','-c',"from utils.analysis_ui import messages; import json; print(json.dumps(messages('en')))"],{cwd:root,encoding:'utf8'}));
-  config.messages = en; renderer(config).render(fixture.data);
+  const data=structuredClone(fixture.data);
+  data.presentations=Object.fromEntries(Object.keys(data.snapshots).map(point=>[point,Object.fromEntries(['indicator','pattern','trend','alpha','sentiment'].map(role=>[role,{vi:'Báo cáo synthetic',en:'Stored English report'}]))]));
+  config.messages = en; renderer(config).render(data);
   assert.match(node('decision-cards').textContent,/Original/); assert.match(node('decision-cards').textContent,/No outcome yet/);
-  assert.match(node('shared-reports').textContent,/Báo cáo synthetic/); assert.doesNotMatch(node('decision-cards').textContent,/100%/);
+  assert.match(node('shared-reports').textContent,/Stored English report/);
+  assert.doesNotMatch(node('shared-reports').textContent,/Báo cáo synthetic/); assert.doesNotMatch(node('decision-cards').textContent,/100%/);
 });
 test('Poll/reload chỉ GET; stop/resume body rỗng và UNKNOWN không tự retry', async () => {
   const calls = [], scheduled = [];

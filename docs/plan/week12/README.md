@@ -206,7 +206,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: Realtime/1D/sáu bản, VI/EN và sáng/tối chung; v3 sửa output cutoff bằng ngân sách/chia đôi có checkpoint, seed report hợp lệ, không giấu pending. Khôi phục21/21 phần tiếng Anh của job hiện tại bằng bản dịch được rà riêng. **56 Python + 27 DOM, compile7/JS2 PASS**. Browser còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: Realtime/1D/sáu bản, VI/EN và sáng/tối chung; sinh song ngữ trong cùng lượt agent, số liệu dùng mẫu địa phương hóa, view nhúng sẵn chuyển tiếng không mạng/LLM. Bỏ route dịch. **135 Python + 24 DOM, compile23/JS2 PASS**. Browser còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -831,6 +831,33 @@ EN đã phục hồi; khởi động lại backend để áp dụng v3 cho job s
 diff, **220 liên kết/anchor local**, checklist và receipt chỉ đọc PASS sau
 gate, không nhận là chạy lại suite. Probe đọc cache thực không có key/client
 xác nhận completed21 phần và cả Alpha/Pattern/Trend không còn chữ VI.
+
+### Sửa F11 — Báo cáo song ngữ tức thì, không dịch khi hiển thị
+
+Ngày14/11/2026, nhánh `feat/precomputed-bilingual-results` từ develop, nhận
+fast-forward nền `6ad73e7a` và thực hiện yêu cầu bỏ phụ thuộc lượt dịch Groq.
+
+- [x] Profile `live_bilingual_presentation_v1`: Pattern/Trend trả đủ VI/EN trong cùng invocation; Decision thêm ba trường giải thích EN ở schema wire của chính request đó. Policy chỉ nhận canonical VI; raw HTTP/UUID/checksum giữ đầy đủ response thật. Caller/backtest không bật context giữ prompt/schema cũ; không lấy profile live mới chứng nhận response nghiên cứu cũ.
+- [x] Indicator EN dựng đủ năm nhóm số liệu/latest/last5/MA/phân loại/đồng thuận từ kết quả Python đã tính. Alpha EN dùng metadata của đúng factor, giữ formula/value/components/IC; không chạy lại selector hoặc đoán ID theo rank. Nhận định Alpha Original, nếu có, sinh hai bản trong lời gọi đang có. Sentiment/common Alpha/BICL dùng mẫu địa phương hóa; tiêu đề tin và raw prompt giữ nguồn có nhãn rõ.
+- [x] Sidecar `presentation/<point>` nằm ngoài SharedSnapshot, checkpoint/hash cùng job. `/output` nhúng sẵn hai HTML view; VI/EN thay nội dung ngay trong DOM, cập nhật catalogue/title/cookie/query/theme, render Markdown an toàn. Không fetch/POST/reload hoặc gọi model/quota khi mở/đổi tiếng. Template lớn đã tách `analysis/report_body.html`.
+- [x] Bỏ đăng ký `/api/display-locales` (404), không worker dịch trong luồng sản phẩm. Cache lịch sử đã hoàn tất đúng owner đọc không key/client, bỏ khoảng trắng cuối do template cũ khi đối chiếu. Probe cache hiện tại xác nhận21 phần, Alpha/Pattern/Trend đều đủ EN, không còn missing và0 model call. Bản ghi cũ chưa có ngôn ngữ còn lại hiện thông báo đúng tiếng và cần phân tích lại một lần. Không giả bản EN bằng nguyên văn VI. Phân tích ban đầu vẫn cần model, output có thể dài hơn vì hai bản, không phát sinh call dịch riêng.
+- [x] **135 Python + 24 DOM, compile23/JS2 PASS**: graph Original stream với ContextVar thật kiểm một invocation/node, canonical/EN tách riêng; live provider và sáu bản qua HTTP fixture; mở VI/EN nhiều lần không thêm dispatch; DOM chuyển ngôn ngữ không fetch, giữ query/title/theme; caller, native parity, prompt backtest, retry/checkpoint/UNKNOWN và leakage đúng đường chạy. Không chạy toàn unit/E2E/compileall hoặc scientific study, không gọi thị trường/hosted LLM/HF hoặc refit.
+- [ ] Browser desktop/mobile vẫn chờ host; F11 chưa hoàn tất/F12 chưa bắt đầu/chưa merge develop. Fixture không chứng nhận nội dung response Groq mới; không thay native causal FAIL, whole-system NOT_CERTIFIED hoặc0/18 comment được chứng nhận đóng.
+
+[Receipt v10](serving_integration_acceptance.json) và [QA song ngữ](serving_bilingual_checks.zip)
+khóa nguồn/runtime/log; các QA cũ, source/raw/journal incident, paper/PDF/U09
+giữ nguyên byte. Khởi động lại backend rồi Ctrl+F5; job mới có cả hai bản,
+job cũ dùng cache hợp lệ sẵn có. Hai ảnh chart ngoài task không đưa vào commit.
+
+Phạm vi135 Python:45 analysis_ui,27 serving_live,17 transport/runtime,
+11 native parity,4 budget realtime/backtest,13 prior graph và18 leakage
+(6 execution,8 preflight,4 unified_live). DOM:21 caller/formatter và3
+locale/theme. Đã bỏ hai assertion lỗi thời yêu cầu entry JS rỗng hoặc báo
+cáo VI trên trang EN. Sau135 Python PASS chỉ sửa test DOM/gate đóng gói;
+đối soát app/test Python/runtime và log nguyên byte, chỉ chạy lại24 DOM,
+syntax2 JS và compile23 Python. `python_reuse.json` trong QA giữ binding
+nguồn trước delta và lý do viện dẫn, không ghi là chạy lại135 ca sau sửa
+test DOM. Đối soát nguồn/runtime/QA lịch sử và checklist sau gate chỉ đọc.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

@@ -13,7 +13,25 @@ sys.path[:0] = [str(ROOT),str(ROOT/'tests/serving_runtime')]
 import importlib.util
 spec = importlib.util.spec_from_file_location('serving_runtime_fixture',ROOT/'tests/serving_runtime/support.py')
 runtime = importlib.util.module_from_spec(spec); spec.loader.exec_module(runtime)
-Clock, Sender = runtime.Clock, runtime.Sender
+Clock = runtime.Clock
+
+
+class Sender(runtime.Sender):
+    """Phản hồi song ngữ trong chính HTTP fixture hiện có, không thêm lượt gọi dịch."""
+    def send(self,body: dict) -> tuple[int,bytes,dict]:
+        """Giữ một HTTP response và thêm đúng trường của profile song ngữ khi cần."""
+        status,raw,headers=super().send(body)
+        if status!=200: return status,raw,headers
+        value=json.loads(raw); message=value['choices'][0]['message']; content=message['content']
+        if 'response_format' in body and 'display_en' in body['response_format']['json_schema']['schema'].get('properties',{}):
+            reply=json.loads(content)
+            from core.display_translation import PROTECTED
+            reply['display_en']={key:'Synthetic analysis only. '+' '.join(match[0] for match in PROTECTED.finditer(reply[key])) for key in ('justification','evidence_for','evidence_against')}
+            message['content']=json.dumps(reply,ensure_ascii=False)
+        elif 'response_format' not in body:
+            english='**Pattern:** Synthetic test.\n**Trend direction:** Bullish.\n**Support level:** 100.\n**Resistance level:** 110.\n**Signal:** LONG.\n**Comment:** Synthetic pipeline test only.'
+            message['content']=json.dumps({'vi':content,'en':english},ensure_ascii=False)
+        return status,json.dumps(value,ensure_ascii=False).encode(),headers
 
 
 def prices(symbol: str) -> pd.DataFrame:

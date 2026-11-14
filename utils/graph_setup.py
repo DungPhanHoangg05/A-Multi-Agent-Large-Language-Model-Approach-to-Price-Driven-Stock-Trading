@@ -367,6 +367,7 @@ class SetGraph:
         all_agents.extend(["pattern", "trend"])
 
         agent_nodes = {}
+        from core.ui_presentation.capture import ReportClient,DecisionClient
 
         # Indicator Agent — computes MACD/RSI/etc. via Python tools
         agent_nodes["indicator"] = create_indicator_agent(self.agent_llm, self.toolkit)
@@ -374,23 +375,23 @@ class SetGraph:
         # Node đặc trưng chạy riêng Alpha, Sentiment, hoặc cả hai theo cấu hình.
         if enable_alpha or enable_sentiment:
             agent_nodes["alpha"] = create_alpha_agent(
-                self.agent_llm,
+                ReportClient(self.agent_llm,'alpha'),
                 enable_alpha,
                 enable_sentiment,
             )
 
         # Pattern Agent — vision analysis of candlestick chart
         agent_nodes["pattern"] = create_pattern_agent(
-            self.agent_llm, self.graph_llm, self.toolkit
+            ReportClient(self.agent_llm,'pattern'), ReportClient(self.graph_llm,'pattern'), self.toolkit
         )
 
         # Trend Agent — vision analysis of trendline chart
         agent_nodes["trend"] = create_trend_agent(
-            self.agent_llm, self.graph_llm, self.toolkit
+            ReportClient(self.agent_llm,'trend'), ReportClient(self.graph_llm,'trend'), self.toolkit
         )
 
         # Decision Agent — synthesises all reports → LONG/SHORT
-        decision_agent_node = create_final_trade_decider(self.agent_llm, decision_profile=self.decision_profile)
+        decision_agent_node = create_final_trade_decider(DecisionClient(self.agent_llm), decision_profile=self.decision_profile)
 
         # ── Build graph ───────────────────────────────────────────────────────
         graph = StateGraph(IndicatorAgentState)

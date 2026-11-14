@@ -16,63 +16,33 @@ test('Theme áp dụng trước paint, nhớ lựa chọn và đồng bộ tab k
   events.storage({key:'qa_theme',newValue:'dark'}); assert.equal(root.dataset.theme,'dark');
 });
 
-globalThis.document={getElementById:()=>null};
-const {localizeElements,needsTranslation}=await import('../../static/js/display_locale.js');
+globalThis.document={querySelectorAll:()=>[]};
+const {renderStoredReports,switchStoredLanguage}=await import('../../static/js/display_locale.js');
+
 class Node {
   constructor(text='',dataset={}) {this.textContent=text;this.dataset=dataset;this.attrs={};this.children=[];this.classList={add(){}};}
   setAttribute(k,v){this.attrs[k]=v;} removeAttribute(k){delete this.attrs[k];}
   append(...values){this.children.push(...values);} replaceChildren(...values){this.children=values;this.textContent='';}
+  querySelectorAll(){return [];}
 }
-const config={language:'en',preparing:'Translating',locale_failed:'Translation unavailable',locale_unknown:'Unknown translation',source_report:'View original report'};
-test('Chọn EN dịch đúng report, không thay decision và không gửi lại khi đọc trạng thái',async () => {
-  const status=new Node(),node=new Node('Giá trị 1.23; SHORT',{sourceLanguage:'vi'}),calls=[];
-  globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
-  await localizeElements([node],config,async(url,body) => {
-    calls.push({url,body});
-    return body ? {state:'running',target:'en',id:'12345678-1234-4234-8234-123456789abc'} : {state:'completed',target:'en',texts:{n0:'Value 1.23; SHORT'}};
-  },async()=>{});
-  assert.equal(node.textContent,'Value 1.23; SHORT'); assert.equal(node.dataset.localizedLanguage,'en');
-  assert.equal(calls[0].body.target,'en'); assert.equal(calls[1].body,undefined);
-  assert.equal(status.hidden,true);
-});
-test('Báo cáo EN sẵn có không gọi dịch; metadata VI trong report EN vẫn được xử lý',async () => {
-  const node=new Node('Value 1.23',{sourceLanguage:'en'});let calls=0;
-  await localizeElements([node],config,async()=>{calls++;}); assert.equal(calls,0);
-  assert.equal(needsTranslation('TĂNG mạnh', 'en','en'),true);
-});
-test('Lỗi/key thiếu không fallback về báo cáo VI trên trang EN',async () => {
-  const node=new Node('Giá trị 1.23',{sourceLanguage:'vi'}),status=new Node();
-  globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
-  await localizeElements([node],config,async()=>{throw new Error('offline');});
-  assert.equal(node.children[0].textContent,'Translation unavailable'); assert.equal(status.textContent,'Translation unavailable');
-  assert.equal(node.children[1].children[0].textContent,'View original report · VI');
-  assert.equal(node.children[1].children[1].textContent,'Giá trị 1.23');
-  assert.equal(status.hidden,false);
+
+test('Stored reports render synchronously without any translation request',()=>{
+  let network=0; globalThis.fetch=()=>{network++;throw new Error('No network allowed');};
+  const node=new Node('Already stored English report',{markdown:'false'});
+  renderStoredReports({querySelectorAll:()=>[node]});
+  assert.equal(node.textContent,'Already stored English report'); assert.equal(network,0);
+  assert.equal(node.attrs['aria-busy'],'false');
 });
 
-test('Một phần dịch lỗi không xóa report đã hoàn tất; render ngay khi đang poll',async () => {
-  const good=new Node('Giá trị 1',{sourceLanguage:'vi'}),bad=new Node('Giá trị 2',{sourceLanguage:'vi'}),status=new Node();
-  globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
-  await localizeElements([good,bad],config,async(url,body)=>body ? {state:'running',target:'en',id:'12345678-1234-4234-8234-123456789abc',texts:{n0:'Value 1'}} : {state:'partial',target:'en',texts:{n0:'Value 1'}},async()=>{
-    assert.equal(good.textContent,'Value 1');
-  });
-  assert.equal(good.textContent,'Value 1'); assert.equal(good.dataset.localizedLanguage,'en');
-  assert.equal(bad.children[1].children[1].textContent,'Giá trị 2');
-});
-
-test('Alpha Pattern Trend không bị ẩn khi POST chậm và được thay bằng tiếng Anh khi xong',async () => {
-  const nodes=['Alpha gốc','Pattern gốc','Trend gốc'].map(text=>new Node(text,{sourceLanguage:'vi'}));
-  const status=new Node(); globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
-  let complete;
-  const result=localizeElements(nodes,config,()=>new Promise(resolve=>complete=resolve));
-  for (const [index,node] of nodes.entries()) {
-    assert.equal(node.children[1].open,true);
-    assert.equal(node.children[1].children[1].textContent,['Alpha gốc','Pattern gốc','Trend gốc'][index]);
-    assert.equal(node.attrs['data-locale-pending'],undefined);
-    assert.equal(node.attrs['aria-busy'],'true');
-  }
-  complete({state:'completed',target:'en',texts:{n0:'Full Alpha report',n1:'Full Pattern report',n2:'Full Trend report'}});
-  await result;
-  assert.deepEqual(nodes.map(node=>node.textContent),['Full Alpha report','Full Pattern report','Full Trend report']);
-  assert.ok(nodes.every(node=>node.attrs['aria-busy']==='false'));
+test('Language switch uses embedded templates immediately and preserves job identity',()=>{
+  let network=0; globalThis.fetch=()=>{network++;throw new Error('No network allowed');};
+  const view=new Node(),links=[{lang:'vi',href:'http://localhost/output?job=42&lang=vi',setAttribute(){},removeAttribute(){}},{lang:'en',href:'http://localhost/output?job=42&lang=en',setAttribute(){},removeAttribute(){}}];
+  const templates={vi:{dataset:{title:'Vietnamese'},content:{cloneNode:()=>new Node('VI report')}},en:{dataset:{title:'English'},content:{cloneNode:()=>new Node('EN report')}}};
+  const doc={documentElement:{dataset:{theme:'dark'}},querySelectorAll:()=>links,getElementById:id=>id==='localized-report-view'?view:id.startsWith('report-view-')?templates[id.slice(12)]:null};
+  let updated;
+  assert.equal(switchStoredLanguage('en',doc,{replaceState:(a,b,url)=>updated=url},{href:'http://localhost/output?job=42&lang=vi'}),true);
+  assert.equal(view.children[0].textContent,'EN report'); assert.equal(doc.documentElement.lang,'en');
+  assert.equal(updated.searchParams.get('job'),'42'); assert.equal(updated.searchParams.get('lang'),'en');
+  assert.equal(switchStoredLanguage('vi',doc,{replaceState(){}},{href:'http://localhost/output?job=42&lang=en'}),true);
+  assert.equal(view.children[0].textContent,'VI report'); assert.equal(network,0);
 });

@@ -16,6 +16,7 @@ from core.serving_live.context import bind_context
 from core.serving_live.snapshots import frame
 from core.unified_contracts import digest
 from core.unified_methods import snapshot_from_graph
+from core.ui_presentation.live import LivePresentation
 
 
 class LiveSelector:
@@ -45,7 +46,7 @@ class LiveSelector:
         return {**result,'projection_sha256':digest(result)}
 
 
-class LiveProvider(AsOfProvider):
+class LiveProvider(LivePresentation,AsOfProvider):
     """Tái dùng nguyên shared I/P/T/native và MethodAdapters; chỉ thay nguồn query đã seal."""
     def __init__(self, root: Path, points: list[dict], models: dict, variants: list[str], record: dict) -> None:
         super().__init__(root,points,models,variants)

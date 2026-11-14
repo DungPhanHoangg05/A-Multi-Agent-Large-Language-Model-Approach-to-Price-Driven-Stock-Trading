@@ -79,6 +79,9 @@ class LiveResources:
         if 'chart_timeframe' in record:
             document['support'].update(chart_timeframe=record['chart_timeframe'],chart_sha256=digest(record['chart']),
                 source='REALTIME_CHART_WITH_DAILY_CONTEXT',daily_provisional=record['daily_provisional'])
+        from core.ui_presentation import PROFILE
+        document['support']['presentation_profile']=PROFILE
+        document['support']['presentation_languages']=['vi','en']
         return document
 
     def points(self, request: dict) -> list[dict]:

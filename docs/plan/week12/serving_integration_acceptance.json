@@ -1,17 +1,17 @@
 {
-  "version": "serving_integration_acceptance_v9",
+  "version": "serving_integration_acceptance_v10",
   "status": "OFFLINE_PASS_BROWSER_PENDING",
-  "base_commit": "8da3f8fc",
+  "base_commit": "6ad73e7a",
   "checks_package": {
-    "path": "docs/plan/week12/serving_report_completion_checks.zip",
-    "bytes": 34487,
-    "sha256": "246c9f67b063d930347f855a749a905b85400fcba9986e3a9fefcaab1a7bd06e"
+    "path": "docs/plan/week12/serving_bilingual_checks.zip",
+    "bytes": 73374,
+    "sha256": "69f0a279932b91973aebfe89350b8ae8a5a637eaffb7435019636fed1cda8914"
   },
-  "python_tests": 56,
-  "dom_tests": 27,
-  "compiled_python": 7,
+  "python_tests": 135,
+  "dom_tests": 24,
+  "compiled_python": 23,
   "javascript_syntax": 2,
-  "scope": "TRANSLATION_COMPLETION_BUDGET; CONFIRMED_400_SPLIT_ONLY; V3_SEED_VALID_REPORTS; VISIBLE_PENDING_REPORTS; SINGLE_VERSIONED_ENTRY; REVIEWED_CURRENT_ENGLISH_CACHE",
+  "scope": "BILINGUAL_IN_EXISTING_AGENT_INVOCATIONS; LOCAL_NUMERIC_REPORTS; CANONICAL_POLICY_ISOLATION; STORED_VIEWS_SWITCH_ZERO_NETWORK; TRANSLATION_ROUTE_RETIRED; PAIRED_PIT_UNCHANGED",
   "browser": {
     "status": "PENDING",
     "desktop": "NOT_RUN",
@@ -62,6 +62,10 @@
     "locale_repair_qa_unchanged": {
       "bytes": 57363,
       "sha256": "f1d6561df9941960feb8bad645986f25d48dc49b8cbf959cc2d00628e4009c69"
+    },
+    "report_completion_qa_unchanged": {
+      "bytes": 34487,
+      "sha256": "246c9f67b063d930347f855a749a905b85400fcba9986e3a9fefcaab1a7bd06e"
     }
   }
 }

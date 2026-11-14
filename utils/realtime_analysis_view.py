@@ -50,7 +50,10 @@ def project(data: dict, language: str, *, articles: list[dict] | None = None) ->
         'pattern_analysis':reports['pattern'],'trend_analysis':reports['trend'],'alpha_analysis':reports['alpha'],
         'pattern_chart':payload.get('pattern_image') or '', 'trend_chart':payload.get('trend_image') or '',
         'sentiment_data':sentiment,'sentiment_analysis':str(escape(payload.get('sentiment_report') or '')),
-        'final_decision':reply,'analysis_version':LABELS[variant][int(language=='en')]}
+        'final_decision':reply,'analysis_version_id':variant,'analysis_version':LABELS[variant][int(language=='en')]}
+    result['ui_report_pairs']=deepcopy(data.get('presentations',{}).get(point,{}))
+    if executed.get('display_en'):
+        result['ui_report_pairs']['decision']={'vi':reply,'en':deepcopy(executed['display_en'])}
     if variant != 'original_fix':
         common = payload.get('causal_alpha',{}).get('projection') or {}
         result.update(common_alpha_analysis=str(escape(common.get('report') or '')),
@@ -78,4 +81,8 @@ def project(data: dict, language: str, *, articles: list[dict] | None = None) ->
             'prefix':trace.get('request',{}).get('prefix'),
             'details':json.dumps({'context':detail['context'],'policy':detail['policy'],'raw_reply':detail['raw_reply']},ensure_ascii=False,indent=2),
             'evidence':json.dumps(evidence or aux,ensure_ascii=False,indent=2)}
+    if result.get('bicl'):
+        result['ui_bicl_views']={lang:{'method':METHODS[variant][index],
+            'status':(('Executed version: ' if index else 'Phiên bản thực thi: ')+LABELS[row['executed_id']][index]),
+            'application_note':('Context and policy below come from the recorded analysis.' if index else 'Ngữ cảnh và policy bên dưới lấy từ kết quả phân tích đã lưu.')} for index,lang in enumerate(('vi','en'))}
     return result

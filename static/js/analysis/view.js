@@ -42,16 +42,20 @@ export function renderer(config) {
       chart(group,data.realtime_chart ?? payload.price_prefix,point,data.live_input?.chart_timeframe ?? '1d');
       for (const role of ['indicator','pattern','trend','alpha','sentiment']) {
         const report = element('details',null,'serving-report');
-        const content=element('pre',payload[role+'_report'] ?? text.unavailable);
-        content.setAttribute('data-localize',''); content.setAttribute('data-source-language','vi'); content.setAttribute('data-locale-pending','');
+        const paired=data.presentations?.[point]?.[role]?.[config.language];
+        const content=element('pre',paired ?? (config.language==='vi' ? payload[role+'_report'] : text.unavailable) ?? text.unavailable);
+        content.setAttribute('data-localize',''); content.setAttribute('data-source-language',config.language); content.setAttribute('data-locale-pending','');
         report.append(element('summary',role === 'alpha' ? text.native_alpha : text[role+'_report']),content);
         if (role === 'pattern' || role === 'trend') image(report,payload[role+'_image'],text[role+'_report']);
         group.append(report);
       }
       if (payload.causal_alpha?.projection) {
         const common = element('details',null,'serving-report');
-        const content=element('pre',payload.causal_alpha.projection.report ?? text.unavailable);
-        content.setAttribute('data-localize',''); content.setAttribute('data-source-language','vi'); content.setAttribute('data-locale-pending','');
+        const projection=payload.causal_alpha.projection;
+        const signals={'TĂNG':'BULLISH','GIẢM':'BEARISH','TRUNG TÍNH':'NEUTRAL'};
+        const localReport=projection.factors?.map(factor=>`${factor.alpha_id}: ${factor.value}; ${config.language==='en' ? signals[factor.signal] ?? factor.signal : factor.signal}`).join('\n');
+        const content=element('pre',localReport || (config.language==='vi' ? projection.report : text.unavailable) || text.unavailable);
+        content.setAttribute('data-localize',''); content.setAttribute('data-source-language',config.language); content.setAttribute('data-locale-pending','');
         common.append(element('summary',text.common_alpha),content);
         group.append(common);
       }

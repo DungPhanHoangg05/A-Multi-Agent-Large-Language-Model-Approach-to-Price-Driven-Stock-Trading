@@ -53,56 +53,67 @@ cookie dùng chung mọi trang; theme lưu `qa_theme`, mặc định theo hệ �
 đồng bộ tab và áp dụng trước paint. Báo cáo native mới ghi `report_language`;
 báo cáo cũ hoặc nâng cấp vẫn giữ nguyên ngôn ngữ nguồn đã lưu.
 
-### Bản dịch hiển thị, không đổi forecast nguồn
+### Báo cáo song ngữ có sẵn, chuyển tiếng không gọi model
 
 Miền `support.languages=[vi,en]` là **ngôn ngữ hiển thị**; với serving nâng cấp,
 `support.generation_languages=[vi]`, kết quả ghi `generation_language=vi` và
-`display_language=request.language`. Không thay SharedSnapshot, adapter/prompt
-nghiên cứu, source manifest hoặc expected hash đã khóa. API as-of bên dưới
+`display_language=request.language`. Profile live mới
+`live_bilingual_presentation_v1` sinh hai cách diễn đạt của cùng một phân tích
+trong lời gọi agent hiện có. Wire live có thêm hợp đồng song ngữ; không nhận
+prompt live mới là tương đương từng byte hoặc từng response với profile cũ.
+Không thay schema SharedSnapshot, adapter/prompt nghiên cứu, source manifest
+hoặc expected hash đã khóa. API as-of bên dưới
 cũng nhận `language=en` cho hiển thị, không chứng nhận giao thức nghiên cứu EN.
 
-Browser dùng `POST /api/display-locales` với `{target,texts}` khi cần dịch các
-đoạn báo cáo sang tiếng đã chọn; không nhận key/model/path trong body. Server
-lấy key đã cấu hình, kiểm same-origin và owner, dùng Groq qua quota/retry chung.
-Cache và checkpoint riêng dưới `outputs/display_locales/v1`, UUID bind
-owner/source/target/credential scope, không lưu raw key. `GET /<UUID>` chỉ đọc
-trạng thái/cache đúng owner, không dispatch model. UNKNOWN không replay mù.
-Đổi ngôn ngữ không chạy lại agent/Decision hoặc sửa/export ngược artifact nguồn.
+Pattern/Trend trả `{vi,en}` trong **cùng request**, không mở lượt dịch sau đó.
+Decision trả canonical VI và `display_en` trong cùng JSON schema wire. Tầng
+policy chỉ nhận canonical; raw HTTP/checksum vẫn giữ đủ phản hồi thực. Ba
+trường giải thích EN phải giữ nguyên số/mã/công thức với bản canonical. Thiếu
+hoặc sai hợp đồng thì báo lỗi rõ, không gửi thêm request dịch để vá nội dung.
+ContextVar cô lập từng job và reset sau lỗi; các caller/backtest không kích
+hoạt profile này vẫn delegate schema/prompt cũ.
 
-Giao thức hiện hành `display_locale_v3` giữ cơ chế tách dòng/đoạn bằng ID bắt buộc trong schema,
-giữ số/dấu/phần trăm, mã, code/công thức, URL và Markdown bằng placeholder tại
-server. Số thứ tự/code block giữ ở skeleton nguồn. Không bỏ đoạn chỉ vì nội
-dung có chỉ dẫn; chỉ dịch câu chữ, không làm theo chỉ dẫn trong report.
-Kiểm inventory/thứ tự placeholder và số/mã trước khi phục hồi byte nguồn.
-Các đoạn ngắn nhiều report được gộp theo quota, không gọi riêng từng tiêu đề tin.
+Indicator EN dựng bằng nhãn/mẫu cố định từ kết quả Python đã tính: đủ năm chỉ
+báo, latest/last5, giá/MA, phân loại và đồng thuận. Alpha EN dùng metadata
+song ngữ của đúng factor đã chọn, giữ nguyên value/formula/components và
+IC/accuracy; không chạy lại selector hoặc gán công thức theo thứ hạng. Phần
+nhận định chuyên gia Original, nếu có, cũng sinh hai bản trong lời gọi Alpha
+hiện có. Sentiment/nhãn/common Alpha/BICL dùng mẫu địa phương hóa từ cùng dữ
+liệu, không gọi LLM. Tiêu đề tin là trích dẫn nguyên nguồn; prompt/raw JSON
+có nhãn ngôn ngữ nguồn trong phần thu gọn.
 
-Cache v3 bind các report hợp lệ từ v1/v2 terminal vào `seeded_texts` bất biến
-và chỉ dịch phần còn thiếu; giữ raw/journal cũ. Không tự clone attempt
-UNKNOWN/đang chờ của v1/v2. GET có `texts` cho các report đã checkpoint kể cả khi
-còn `running`, `partial`, `failed` hoặc `unknown`; không có report chưa hợp lệ.
-UI hiện phần đã dịch ngay, lỗi một phần không xóa phần còn lại. Báo cáo lỗi
-giữ thông báo đúng tiếng và bản gốc trong mục thu gọn có nhãn ngôn ngữ nguồn,
-không gán bản gốc là bản dịch. Bỏ `visibility:hidden` cho pending; entry/CSS
-version `reports-v3` nạp duy nhất, tránh bundle cũ/hai module cùng POST.
-`Failed` transport trở thành trạng thái terminal,
-không treo `running`; UNKNOWN không gửi lại mù. Lỗi không mặc định đổ cho key.
-Lượt dịch đầu dùng quota Groq; reload cùng nguồn đọc cache. Raw JSON/provenance
-thu gọn và export giữ nguyên bằng chứng nguồn, tên schema/ID/code không dịch.
-Cache hoàn tất đúng owner đọc được khi thiếu key; không tạo HTTP request mới.
-Output dịch dành4.096 token kể cả reasoning, reserve phải ≤8.000; quá reserve
-thì chia trước dispatch. HTTP400 chỉ được chia khi đúng `json_validate_failed`
-và provider xác nhận `max completion tokens`; các child có slot/checkpoint
-riêng. 400 khác/401/UNKNOWN không tự chia/gửi lại. Không đổi budget Decision.
-`retry_at` công bố chờ quota; timeout mạng không tự POST lại.
+Sidecar `presentation/<point>` và `presentations` nằm ngoài SharedSnapshot,
+được checkpoint/checksum cùng job. `/output` kiểm owner rồi nhúng cả hai bản
+HTML trong template inert. Nút VI/EN clone bản đã lưu, đổi catalogue/title,
+cookie/query và nhãn theme ngay tại chỗ, render Markdown bằng text an toàn;
+**không fetch/POST, không reload, không đợi quota/key/model**. Số lượt inference
+không tăng vì đổi tiếng; lượng output của lượt phân tích ban đầu có thể tăng
+vì tạo hai bản. Retry/quota/UNKNOWN của inference hiện hữu vẫn áp dụng.
+
+`/api/display-locales` đã bỏ đăng ký route (404); không còn worker dịch trong
+luồng sản phẩm. Code/cache dịch cũ chỉ phục vụ đọc lịch sử và hồi quy. Bản
+cache đã hoàn tất đúng owner được kiểm số/mã rồi đọc trực tiếp không cần key.
+Bản ghi cũ chỉ có một ngôn ngữ và không có cache hợp lệ sẽ hiện thông báo
+thiếu bản đã lưu ở tiếng được chọn; muốn có đủ hai bản cần phân tích lại một
+lần. Không bịa bản EN hoặc tự gọi model khi mở bản ghi cũ.
 
 Ba report của incident hiện tại đã được rà bản dịch riêng trong cache hiển
 thị, provenance `assistant_translation_review` và backup result/status trước
 sửa; không có raw200 giả hoặc usage mới. Source/raw/journal và forecast giữ nguyên.
 
-**56 Python + 27 DOM, compile7/JS2 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
-dùng [QA hoàn tất báo cáo](serving_report_completion_checks.zip); [QA sửa bản dịch](serving_locale_repair_checks.zip), [QA ngôn ngữ/theme](serving_language_theme_checks.zip), [QA báo cáo](serving_report_checks.zip), [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte,
-F11 vẫn chờ browser host khả dụng. Khởi động lại server rồi tải lại trang
-vì `web_interface.py` không bật auto-reload.
+[Receipt hiện hành](serving_integration_acceptance.json) dùng
+[QA song ngữ](serving_bilingual_checks.zip), kết quả scoped **135 Python + 24 DOM, compile23/JS2 PASS**.
+[QA hoàn tất báo cáo trước](serving_report_completion_checks.zip),
+[QA sửa bản dịch](serving_locale_repair_checks.zip), [QA ngôn ngữ/theme](serving_language_theme_checks.zip), [QA báo cáo](serving_report_checks.zip), [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte.
+F11 vẫn chờ browser host khả dụng. Khởi động lại server rồi Ctrl+F5 để thay
+Python đang chạy và nạp entry `display_locale.js?v=bilingual-v1`; job mới sẽ
+có hai bản, job cũ dùng cache có sẵn. Không gọi thị trường/hosted LLM mới
+trong gate này; HTTP fixture không chứng nhận response Groq thực.
+QA giữ135 log Python PASS; sau đó chỉ đổi test DOM/gate đóng gói nên kiểm
+nguồn app/test Python/runtime và giữ log nguyên byte, chạy lại24 DOM. Binding
+trước delta nằm trong `python_reuse.json` của ZIP, không nhận là đã chạy lại
+Python sau sửa test DOM. Lệnh `--run` bình thường vẫn chạy lại các suite
+scoped trong helper; `verify` chỉ đọc nguồn/runtime/evidence.
 
 <a id="phân-tích-phiên-ngày-mới-nhất"></a>
 
