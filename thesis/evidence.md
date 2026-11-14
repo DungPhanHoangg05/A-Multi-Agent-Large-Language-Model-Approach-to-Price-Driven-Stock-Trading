@@ -868,8 +868,9 @@ rút gọn đường dẫn cho bảng, không phải task mới hay nguồn kế
   numeric_probability,teacher_probability,utility_q10,utility_q90,trace_sha256`.
   Nối `trace_sha256` với `prior_traces.json`; nối outcome chỉ ở phần đánh giá.
   `bridge.csv` giữ `same_action_forecasts,n_forecasts` và chênh lệch return/BA.
-  `effective_K` phải ghi đơn vị examples/prior tasks theo phương pháp. T07
-  chưa chọn tình huống xuyên suốt; không tự chọn ca thắng để điền B07.
+  `effective_K` phải ghi đơn vị examples/prior tasks theo phương pháp. Tại
+  mốc T06, T07 chưa chọn tình huống xuyên suốt; lựa chọn sau đó ghi tại
+  [EX01](#7-ví-dụ-xuyên-suốt-có-truy-vết), không tự chọn ca thắng để điền B07.
 - **B04 và bảng mở rộng:** `results.json` có `coverage,telemetry,input_identity,
   per_repeat,classification_by_group,classification_by_repeat,sensitivity`;
   các CSV `accounts,cycles,daily_nav,per_repeat,classification_by_group,
@@ -964,7 +965,231 @@ ablation MT-BICL chưa chạy.
    cắt/chồng bảng/hình và xem bản render ở task tương ứng. T06 chỉ chốt danh
    mục và nguồn, chưa chạy build hoặc kiểm trực quan các sản phẩm tương lai.
 
-## 7. Quy ước bổ sung sổ nguồn
+## 7. Ví dụ xuyên suốt có truy vết
+
+### 7.1. Danh tính và quy tắc chọn
+
+**EX01 — A historical FPT decision at the 3 July 2023 cutoff.** Dùng
+`FPT-2023-07-03`, fold `b2023_h2`, upstream realization `u0`, Decision
+repeat `r0` của nghiên cứu historical-context U08/U09 tại §3. Đây là **bản
+ghi thực đã lưu**, không phải số giả định, lần chạy mới hoặc trường hợp của
+nghiên cứu component. Chất lượng nguồn giữ nguyên
+`U08_HOSTED_HISTORICAL_EXPLORATORY`; execution diễn ra ngày 10/11/2026 với
+cutoff lịch sử, không phải giao dịch đã thực hiện vào tháng 7/2023.
+
+Quy tắc biên tập `EX01_SELECTION_V1` được đặt ở T07, **sau khi nghiên cứu
+đã khóa**, không phải đăng ký trước thực nghiệm:
+
+1. Bắt đầu từ 102 `point_id` trong U09 `predictions.csv`; lấy CORE4
+   FPT/MWG/VCB/VNM để có signal memory cùng phạm vi (48 điểm).
+2. Giữ điểm có đủ tám dòng phương pháp nghiên cứu tại repeat 0 (48 điểm),
+   `MT_BICL.eligible=True` (29 điểm), và `bayesian_v1.bypass=False`
+   (vẫn 29 điểm). Bypass của các nhánh khác được giữ nguyên.
+3. Sắp tăng theo `(date, symbol)`, chọn điểm đầu tiên; cố định repeat 0,
+   không chọn lại repeat cho kết quả đẹp hơn. Kết quả là `FPT-2023-07-03`.
+   Việc lọc/xếp hạng chỉ dùng ID, ngày, mã, method, repeat, eligible và bypass;
+   không dùng label, return, raw/final action, độ đúng hoặc mức thay đổi policy.
+4. Sau khi cố định ID, nối shared/prepare/forecast/outcome và provider theo
+   §7.2; kiểm hash và thời gian trước khi diễn giải. Thiếu nguồn phải ghi NA
+   hoặc dùng minh họa có nhãn `Illustrative`, không gọi model để bù. EX01
+   hiện có đủ nguồn nên không cần một trường hợp giả định thay thế.
+
+Các bộ lọc này chủ động chọn trường hợp có context để giải thích cơ chế;
+EX01 không đại diện ngẫu nhiên cho 102 điểm và không dùng để ước lượng hiệu quả.
+
+### 7.2. Chỉ mục nguồn và đường nối
+
+Hash dưới đây là SHA256 đầy đủ. `raw member` băm byte JSON trong ZIP;
+`output_sha256` và `membership_sha256` là digest nội dung theo hợp đồng,
+không được thay thế cho nhau. Gói ngoài được khóa tại §3; T07 đã kiểm lại
+U08, U09, U06 assets v2 và acceptance U09 trước khi đọc nguồn.
+
+| ID | Gói / member / trường được dùng | SHA256 raw member |
+| --- | --- | --- |
+| EX01-P | [U09](../docs/plan/week12/unified_analysis_results.zip), `outputs/unified_integration/u09_analysis_r1/predictions.csv`; chọn bằng khóa `(point_id, method, repeat)` | `d7d5f9b90d009f3da31de64df067ae9ac4ff72ccd395debf6c7f8ff08aa1da32` |
+| EX01-C | [U06 assets v2](../docs/plan/week12/unified_comparison_assets_v2.zip), `outputs/unified_integration/u06_assets_v2/providers/FPT-2023-07-03.json`; `context` và chuẩn bị offline | `64e5d696a50b33a8f7b11cade299511e6c41c4dc458dcfeefff28100b51007c7` |
+| EX01-S | [U08](../docs/plan/week12/unified_live_research.zip), slot `shared/FPT-2023-07-03`, file `7ace396801b8666a24f23ed0aef3466aa073db80185db93ceab24d48741a9ec3.json` | `42296f5e9e1c8b5ba25730a19adf0cd8445d251486116029bc2191e3f57e79cc` |
+| EX01-O | U08, slot `outcome/FPT-2023-07-03`, file `44ee5a008ff1b2964ddf676f02420fe9ed5a3f9aadb87e8a5bc789af23822605.json`; `output.target` | `ccc7cd71bc2877ea821b372b68427c9bf2d76636c944e4c66539dea4dd839866` |
+| EX01-IP | U08, slot `render/FPT-2023-07-03/pattern`, file `6b58a30a0892e8ff6aa4e61d0486edcbe0877d3deb02cbb9cbb62060385cabb6.json` | `3138604be32bcd9bd21970a25f19a8d6e0d278455de87532c9b7be67d35e54a9` |
+| EX01-IT | U08, slot `render/FPT-2023-07-03/trend`, file `6b920deb6684e0c6d03260866aa93e3cdbff66eb0e16ed5685caad707afe2c12.json` | `d8c737cbdce366738a7e466c218a36c2955d8674a8262816941bb107dde72733` |
+
+Các file slot U08 đều nằm trong
+`outputs/unified_integration/u08_research_r1/slots/`. Đọc envelope `payload`,
+rồi `attempts[0].output`; các attempt được dùng đều `complete`. Với forecast,
+prepared context nằm tại `payload.inputs.prepared`, còn response/policy tại
+`attempts[0].output.forecast` và `.policy`. Bảng sau ánh xạ
+`forecast/FPT-2023-07-03/u0/r0/<method>` → file slot → hash byte:
+
+| Method | File slot JSON | SHA256 raw member |
+| --- | --- | --- |
+| original_fix | `416712d1d7a3ef607c0f2031ef8ded6c9509fe4221bb795d70d6c7de005edb9d.json` | `e27e0e8920e151b23bcd2c0f4d45cad395a2a061082aea859a8d4284172ea7b5` |
+| original_common | `64423caca8a47ecfcb81e2d2d7c9a9d6c6618facc1ef45e84c1e327d5f13fbe2.json` | `203a51ac6c6f79ea429b565b067f39f8283b46d10b002ab1a9fec5a9d90037da` |
+| bayesian_v1 | `f875086c494f4b35ab84f1e1df38e0fd152df7f00cbc53e4ba615fcbd2551509.json` | `366b32095f0f5f022bc9852034c28bde87521eae720449b722061b130083d0f3` |
+| C2 | `d33c4a932ddfe9a5365fe271c5b176488aff85a5cb59bb01db5cf8693becf693.json` | `104be95520b47e7bd2ad6071002d5e039b1ec3c2f3264a20636f85faacedf00a` |
+| A_tp_pool | `b199c2067d02f4c41f370f39ae0828abc1fc14a6857e641265bda184f8971e8b.json` | `eb214c58c10e72a7c874ab80a63ea7b5a7bf3877968d74dbda6ab31e54b21a41` |
+| B_semantic | `80c295792334b939858325b602e480ec1a847ee6dfb28862c7470b5d9769728e.json` | `a616a82c575600ad311b83b93c3a04c6c14baf510911d56f428cbb3e63a5433a` |
+| MT_BICL | `58d6247d4cdd587aade0b220539c197053b921d48fde462bd1e4725ee56919ad.json` | `1a490828b1596a0b605da6371f2fd4bc6f95876ce590765582441828076e6fb0` |
+| Fact_Anchor | `3fc8ef7e65fb8ae2cacb89fa3ce5bce94e98ef48a894e65cc74a48924b1b3b61.json` | `c9ebdeb3c900f5633234e7915b8f8129f5e0d919dc8115f9725da5de42109c44` |
+
+Tám forecast cùng `shared_sha256` =
+`e6c16c36dd776a804922f466af1c9742bf3ba70015d60929e4112992e269a103`,
+khớp output của EX01-S. Các nhánh fallback nối output Common cùng repeat
+`964b7aa19d16e01affa47869a62a2ad20bcc8c1a0eb204f4926abc92a9471c41`;
+MT còn nối Fact Anchor
+`49f6edd2a051b94bee3bc642f9c97f43e781ddd1a0cacf3a595562e3f9882269`.
+Không chạy lại upstream cho từng nhánh/repeat. EX01-C là nguồn **offline
+preflight**, không phải response thị trường; membership context tính lại
+theo JSON compact của `query/scaler/prior/target/advisor` khớp
+`9ed7e2a35da59ea5157fb6fe2baacd09671ebf12749943d0882bc98bc98f3cb4`
+ở EX01-C và hosted MT `prepared.aux.branch`. Chỉ nối context qua binding này,
+không dùng `probe_raw/probe_policy` offline làm kết quả LLM.
+
+### 7.3. Đầu vào ở cutoff và ranh giới thông tin
+
+| Record / availability | Giá trị đọc từ nguồn | Cách dùng khi viết |
+| --- | --- | --- |
+| Price prefix — EX01-S | 600 nến OHLCV từ 02/02/2021 đến 03/07/2023; mọi ngày ≤ cutoff | Prefix cho đường dữ liệu 600 nến; không đưa các giá entry/exit vào input |
+| Chart window — EX01-S/IP/IT | 45 nến cuối, 27/04/2023–03/07/2023 | Candlestick và support–resistance là hai view của cùng cửa sổ |
+| Numeric fact packet — hosted MT `prepared.aux.packet` | Close 48.18, SMA20 47.5675, MACD 0.6542675609756259, Signal 0.7043937016476567; `prefix_rows=45`, frame end 03/07/2023 | Đơn vị giá nguồn là nghìn VND; packet ghi MACD_SIGNAL=BELOW, MACD_ZERO=POSITIVE, PRICE_SMA20=ABOVE |
+| Upstream reports — EX01-S | Indicator ghi MACD dưới Signal; Pattern dự báo tăng, độ tin cậy thấp; Trend tăng, support 47.8/resistance 49.2 | Đây là báo cáo/đánh giá của agent, không phải nhãn giá tương lai. Khi diễn giải tiếng Anh phải ghi là bản dịch/tóm tắt |
+| Sentiment — EX01-S | `is_unavailable=True`, article_count=0, verified_article_count=0, scored_articles rỗng, news_dates rỗng | **Unavailable**, không coi là một quan sát thị trường trung tính. Mã legacy `NEUTRAL` trong signal memory không bổ sung bài báo |
+| Alpha profiles — EX01-S và forecast profile | Native giữ payload legacy; Common dùng `causal_alpha.projection`, cutoff 03/07/2023, selector đã khóa | Không gọi hai input profile là giống hệt nhau hoặc dùng một ví dụ để chứng nhận Native PIT |
+| Historical context — EX01-C và hosted prepared | Chỉ các observation đã có exit trước 03/07/2023; query không có `y/r_net` | Nhãn lịch sử đã trưởng thành là hợp lệ cho context; nhãn query thuộc §7.6 |
+
+Digest của sáu cột OHLCV 45 nến cuối, JSON UTF-8 sort keys/compact, là
+`3fc47186925157588db7b2d9d34a66ef29822087a27acdb39825fd8f0e77c908`;
+khớp `inputs.kline_sha256` của cả hai render slot. Ảnh giải mã có hash
+`d423db489a59706c4aae32e1f9de49cc63f73eded74f8e6f97c018cd1211200f`
+(pattern, 52,655 byte) và
+`93744337e0d375c04973332e4dba86c75d55d79398ed4553ad26a8d8593f3734`
+(trend, 75,628 byte). Chưa xuất ảnh mới; T19 có thể dùng đúng nguồn EX01 này.
+Cặp PNG CMG trong F04/§6 là trường hợp khác, không gắn lại nhãn thành FPT.
+
+### 7.4. Hai loại lịch sử và hai nguồn regime
+
+**Signal prior v1:** hosted `prepared.trace.retrieval` ghi regime
+`CONSOLIDATION`, same-symbol eligible_count=211, matched population=19 và
+ba example được chọn. Selected scores theo thứ tự là 1.0, 0.75, 0.75.
+
+| Episode ID | As-of → entry → exit | Net return lịch sử (%) |
+| --- | --- | --- |
+| FPT:2022-04-07 | 07/04 → 08/04 → 13/04/2022 | +0.8800636494421088 |
+| FPT:2022-04-18 | 18/04 → 19/04 → 21/04/2022 | −4.533273497129919 |
+| FPT:2022-04-13 | 13/04 → 14/04 → 18/04/2022 | −0.43895669480141786 |
+
+Không lấy ba example làm mẫu số thống kê: v1 win_rate_long=9/19;
+bull_trap_rate=9/18. C2 ghi population_count=19 dưới min_population_count=20,
+conditional_count=1 dưới min_conditional_count=5; C2/A/B đều có gate
+`INSUFFICIENT_EVIDENCE`, `LOW_POPULATION_SUPPORT`, `NO_READY_METRICS`.
+V1 có example không có nghĩa các gate của C2/A/B phải mở.
+
+**Numeric MT context:** EX01-C có `K=3` prior tasks (11 observation) và
+`m=3` target observation, tổng 14 hàng lịch sử; đây không phải ba signal
+example ở trên. Mọi ID ở bảng sau có tiền tố `FPT-` trước ngày observation.
+
+| Context group / task ID | Ngày observation được chọn | Exit muộn nhất |
+| --- | --- | --- |
+| Prior / FPT:block0011 | 2020-10-14, 2020-11-04, 2020-12-03, 2020-12-21, 2020-12-24 | 2020-12-29 |
+| Prior / FPT:block0015 | 2021-10-21, 2021-10-26, 2021-11-16, 2021-11-24 | 2021-11-29 |
+| Prior / FPT:block0013 | 2021-07-01, 2021-07-09 | 2021-07-14 |
+| Target / FPT:block0021 | 2023-06-16, 2023-06-21, 2023-06-26 | 2023-06-29 |
+
+Target exits lần lượt 21/06, 26/06 và 29/06/2023, đều strict < cutoff.
+Query `FPT-2023-07-03` thuộc task `FPT:block0021` nhưng **không có nhãn**.
+Query có entry_date/exit_date theo lịch horizon; sự hiện diện của các ngày
+lịch không cho phép đọc giá tương lai. Các ID context và scaler-fit không
+trùng 102 evaluation IDs được dành riêng.
+
+MT query regime là **BULL**, nguồn VNINDEX/HMM với feature_end_date
+03/07/2023, model_fit_cutoff/model_training_end_date 31/12/2020, model hash
+`cf711a9ce10dd1ebbccbeae048cce5bbd9f10271b9bab67a21e33aff5258541d`.
+Scaler frozen_train: fit_count=731, fit_cutoff=31/12/2020,
+fit_max_exit_date=29/12/2020. **CONSOLIDATION của v1 và BULL của MT là hai
+trường/nguồn regime khác nhau**, không đồng nhất hoặc tự sửa để kể một câu
+chuyện nhất quán. Source đã khóa quyết định cách mô tả từng đường chạy.
+
+### 7.5. Proposal, anchor và hành động thực thi
+
+Các ô NA dưới đây là không có raw response vì bypass, không phải dự báo
+SHORT/LONG ngầm định. Request ID nối trực tiếp tới response đã lưu ở U08.
+
+| Method | Raw proposal | Final action | Policy reason | Source request ID |
+| --- | --- | --- | --- | --- |
+| Native / original_fix | SHORT | CASH | RAW_DECISION | `a405af62-8faa-4d8c-bbcb-cee3f7bddb27` |
+| Common / original_common | LONG | LONG | RAW_DECISION | `e9cd5100-0f68-4677-8ca5-84a08e41386c` |
+| bayesian_v1 | LONG | LONG | RAW_DECISION | `4ccd3bbe-9004-468f-a5dd-8859a2c53c97` |
+| C2 | NA | LONG | FALLBACK_ORIGINAL | NA — dùng Common r0 |
+| A_tp_pool | NA | LONG | FALLBACK_ORIGINAL | NA — dùng Common r0 |
+| B_semantic | NA | LONG | FALLBACK_ORIGINAL | NA — dùng Common r0 |
+| MT_BICL | LONG | LONG | KEEP_PROPOSED_SAME | `cc6bf729-784a-458a-8e40-07398fac513f` |
+| Fact_Anchor | LONG | LONG | NO_NUMERIC_VETO | `f7c7664b-69c7-4bef-a075-26c2d9c0d6e2` |
+
+Có năm Decision response mới và ba bypass tại repeat này; chỉ có một realization
+upstream chung. Hai control đã đăng ký là CASH_EVERY_CYCLE=CASH và
+ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS=LONG, không có response LLM.
+Native SHORT được ánh xạ thành giữ tiền, không phải bán khống cổ phiếu.
+
+MT ghi student probability `0.38681803029367656`; teacher posterior mean
+theta `0.3777360437578734`; utility source
+`TEACHER_SIGN_BAYESIAN_BOOTSTRAP_MAGNITUDE`, mean_U_net_fraction
+`-0.00597534968574255`, Q10 `-0.01288257428075956`, Q90
+`0.0002422913686701239`; 4,096 draws, gain_count=5, loss_count=9.
+Đây là các số đã lưu trước khi đọc outcome query, không phải lợi nhuận query
+thực hiện hoặc xác suất được chứng minh calibrated. K=3/m=3 có nghĩa như §7.4.
+
+Fact assertions của MT hợp lệ và eligible=True, nhưng raw LONG đã giống
+anchor LONG nên policy giữ `KEEP_PROPOSED_SAME`; không có veto trong ca này.
+Không suy rằng mean utility âm bắt buộc chuyển CASH: điều kiện đổi hành động
+dùng Q10/Q90 theo §5, không dùng dấu của mean; Q90 ở đây vẫn dương.
+Validity của ba assertion không chứng minh toàn bộ lập luận văn xuôi đúng.
+
+### 7.6. Outcome chỉ đọc sau quyết định
+
+EX01-O ghi decision date 03/07, entry 04/07, phiên trung gian 05/07,
+exit 06/07/2023. Giá đã quy đổi VND: decision_close=48,180,
+entry_open=48,180, exit_close=48,390. LONG mua Open(t+1), bán Close(t+3),
+phí môi giới 0.25% và slippage 0.10% **mỗi chiều**, label_contract_version
+`net_cycle_v1`; label kinh tế theo oracle `compute_round_trip_net_return`.
+Không dùng Close-to-Close để thay thế.
+
+- Gross return đã lưu: `0.004358655043586568` = **+0.4358655044%**.
+- Net return đã lưu: `-0.00264731712420041` = **−0.2647317124%**;
+  label_gross=UP nhưng **label_net=DOWN**.
+- Vì vậy LONG của Common/v1/MT/Anchor và các fallback là một quyết định
+  sai theo nhãn net ở chu kỳ này; Native CASH không chịu lỗ chu kỳ LONG đó.
+  CASH control có payoff chu kỳ 0, Always-LONG nhận net return trên. Không
+  biến một payoff chu kỳ thành tổng lợi nhuận tài khoản hoặc kết quả 306 dự báo.
+
+Giá entry/exit, return và label ở mục này không thuộc đầu vào §7.3–§7.5.
+EX01 không chứng minh một phương pháp tốt hơn; giữ cả hành động sai và chi
+phí làm đổi dấu kết quả, không chọn lại một ca thắng sau khi thấy outcome.
+
+### 7.7. Cách tái sử dụng và quy tắc cho nhóm tình huống sau
+
+- Ch. 4.1/T16: mở EX01 ở cutoff, giải thích mục đích các module; chưa lộ
+  outcome. Ch. 4.3–4.5/T19/T20: inputs, hai view, missing sentiment và hai
+  loại lịch sử. Ch. 4.6–4.8/T21–T24: nối v1/C2/A/B, numeric context,
+  teacher/student và anchor/policy; giữ hai nguồn regime riêng.
+- Ch. 4.9/T25: shared u0 và các nhánh/repeat; Ch. 5.8/T45: mở outcome
+  §7.6 sau facts/proposals/actions. B07/F10 có thể dùng EX01, nhưng ví dụ
+  này không đại diện cho veto hoặc chứng minh cải thiện student riêng.
+- Quy tắc biên tập cho T45: xét repeat 0, yêu cầu nguồn/hash đầy đủ rồi
+  chọn ca đầu theo `(date, symbol)` trong từng nhóm đã định nghĩa: đủ context
+  (MT eligible và v1 không bypass), thiếu support (gate insufficient và
+  bypass), bất đồng (raw proposal khác anchor), veto (policy thực sự đổi
+  hành động), và sai (LONG với label_net=DOWN hoặc CASH với label_net=UP).
+  Công bố predicate thực dùng, mẫu số, ID và nhãn nhóm; cho phép một ca
+  thuộc nhiều nhóm. Nhóm sai dùng outcome **có chủ đích để minh họa lỗi**,
+  không dùng để ước lượng accuracy. Nhóm không có ca phù hợp ghi không có;
+  chỉ dùng minh họa gắn nhãn rõ nếu cần giải thích, không giả có veto đã đo.
+- T07 chưa chọn thêm các ca T45, viết các mục chương, tạo hình/bảng hay xây
+  UI. Không thay bằng screenshot live để làm chứng cứ dự báo lịch sử. Ba
+  module live giữ cùng logic/snapshot nghiên cứu theo xác nhận tại §3;
+  hash raw vẫn giữ để truy vết. Native causal audit FAIL, overall
+  NOT_CERTIFIED và các giới hạn/F11/F12 tại §3 vẫn nguyên vẹn; các kiểm tra
+  thời gian cục bộ EX01 không nâng thành chứng nhận nhân quả toàn hệ thống.
+
+## 8. Quy ước bổ sung sổ nguồn
 
 Tiếp tục bổ sung ánh xạ luận điểm/ô bảng, ghi chú đọc sâu, citation và nguồn
 sản phẩm ngay trong các phần tương ứng của sổ này. Chưa tạo bibliography

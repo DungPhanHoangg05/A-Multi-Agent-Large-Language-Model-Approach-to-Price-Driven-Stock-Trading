@@ -466,6 +466,8 @@ This is a writing aid, not the final scholarly bibliography. Current paths ident
 
 Use the [figure, table and algorithm catalogue](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) to track each item's message, chapter, responsible writing task, source type and provenance. Working titles and proposed output paths do not establish that an artifact has been produced or visually verified; final numbering is generated in LaTeX.
 
+Use [EX01 and its selection/source record](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) for the running example: FPT at the 3 July 2023 cutoff, upstream realization 0 and Decision repeat 0. Introduce the available inputs and historical context in Chapter 4 before revealing the subsequent outcome in Chapter 5. Preserve the separate v1 and MT regime sources, bypasses and unchanged anchor action; this case contains no veto. Its negative net outcome is part of the example, not an estimate of comparative performance.
+
 Follow the [writing plan](plan.md) and maintain task status in the [project checklist](plan.md#21-một-nguồn-trạng-thái-công-việc). Draft the contracts and methods before finalizing results interpretation, then finish related work, introduction, conclusions and abstract. Transfer the reviewed English manuscript into a self-contained LaTeX project and review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
 
 Keep task IDs, weekly progress and incident history out of the thesis body. They remain planning/provenance aids only.

@@ -61,6 +61,43 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Ví dụ xuyên suốt và quy tắc chọn tình huống
+
+Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-running-example`
+từ develop `9d7d37350d27aff6abc42054aba1278b98038d25` đã cập nhật remote.
+
+- **T07; [sổ nguồn §7.1–§7.7](../../../thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết);**
+  chọn EX01 = FPT cutoff 03/07/2023, fold b2023_h2, u0/r0 từ U08/U09.
+  Quy tắc biên tập sau khi khóa nghiên cứu: 102 điểm → 48 CORE4 có đủ tám
+  dòng research r0 → 29 MT eligible và v1 không bypass → đầu theo ngày/mã.
+  Không dùng outcome/action/độ đúng để xếp hạng; không gọi là preregistered.
+- Nối shared, hai render, offline context membership và tám forecast tới
+  prediction/outcome; giữ request ID, raw member hash và digest nội dung
+  đúng vai trò. 45 nến 27/04–03/07 khớp kline digest của hai render; ảnh giải
+  mã có hash riêng, chưa xuất hình mới. Ghi sentiment unavailable, v1 regime
+  CONSOLIDATION khác MT HMM BULL, ba signal examples khác ba prior tasks;
+  14 observation MT và scaler-fit không trùng 102 evaluation IDs, exit lịch
+  sử strict trước cutoff. Các kiểm tra này chỉ thuộc ví dụ, không nâng gate
+  nhân quả toàn hệ thống thành PASS.
+- Tại r0 có năm Decision response và ba fallback Common; MT giữ LONG giống
+  anchor, không có veto. Outcome được tách sau quyết định: entry 04/07,
+  exit 06/07, gross +0.4358655044% nhưng net −0.2647317124%, label DOWN.
+  Giữ quyết định sai; không suy hiệu quả so sánh hoặc tổng return tài khoản
+  từ một chu kỳ. Đặt predicate và quy tắc chọn nhóm ca T45, chưa chọn thêm ca.
+- **Đối soát PASS:** bốn hash gói/acceptance, 56 slot U08 theo manifest và
+  checksum output, hai member U09 khớp manifest/cold-replay acceptance,
+  một provider U06 khớp assets manifest; context membership khớp hosted MT.
+  Kiểm join, đơn vị, PIT cục bộ và arithmetic kinh tế từ số đã lưu; không
+  sinh lại forecast/metric. 84 đặc tả task nguyên vẹn, checklist chỉ T01–T07
+  DONE; sổ nguồn §1–§6 giữ nội dung ngoài một dẫn chiếu từ F10/B07 sang EX01.
+  Đã kiểm liên kết/anchor cục bộ, UTF-8 và diff whitespace.
+- **Phạm vi:** chỉ sáu Markdown; không đổi code/test/schema/config/runtime,
+  input, nguồn đã khóa, ảnh/PDF hoặc kết quả. Theo AGENTS §1.2 không chạy
+  compileall/unit/E2E/leakage, PDF build, cold replay, refit hay model/thị
+  trường API. Chưa viết chương/vẽ sản phẩm ở các task sau; F11/F12 và giới
+  hạn nghiệm thu lịch sử giữ nguyên. Checklist duy nhất tiếp tục ở
+  [thesis/plan.md §2.1](../../../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc).
+
 ### Danh mục hình, bảng và thuật toán có nguồn
 
 Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-visual-evidence-catalog`
