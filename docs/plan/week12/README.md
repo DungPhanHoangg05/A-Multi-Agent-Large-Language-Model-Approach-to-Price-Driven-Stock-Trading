@@ -47,8 +47,9 @@ giữ tiếng Anh để làm khung bản thảo; [hướng dẫn đọc](../../.
 và [kế hoạch viết](../../../thesis/plan.md) dùng tiếng Việt. Kế hoạch định nghĩa
 84 task, phụ thuộc, đầu ra, điều kiện nghiệm thu và sáu mốc rà soát.
 
-Đây là **checklist trạng thái duy nhất** cho việc viết khóa luận. Toàn bộ task
-dưới đây vẫn là TODO; hoàn thành kế hoạch chưa phải hoàn thành chuẩn bị nguồn,
+Đây là **checklist trạng thái duy nhất** cho việc viết khóa luận. T01–T02 đã
+hoàn tất phạm vi chuẩn bị nêu dưới đây; các task còn lại vẫn là TODO.
+Hoàn thành kế hoạch chưa phải hoàn thành toàn bộ chuẩn bị nguồn,
 viết, rà soát hoặc nộp. Có thể ghi IN_PROGRESS/REVIEW/BLOCKED bên mục chưa xong;
 chỉ đánh dấu hoàn tất sau khi kiểm đầu ra và điều kiện nghiệm thu. Gộp ghi nhận
 bằng chứng hoàn thành của các task liên quan tại mục này.
@@ -61,8 +62,8 @@ giảng viên phản biện độc lập.
 
 ### Chuẩn bị — P1
 
-- [ ] T01 — Xác nhận yêu cầu, thông tin cá nhân và quy định nộp.
-- [ ] T02 — Chốt phạm vi tên đề tài, câu hỏi nghiên cứu và đóng góp.
+- [x] T01 — DONE: [hồ sơ yêu cầu](../../../thesis/evidence.md#1-thông-tin-tác-giả-và-yêu-cầu-trình-bày), metadata có nguồn, [nội dung bìa](../../../thesis/frontmatter.md) và bản xem hai bìa. Hạn nộp/quy định chính thức chưa có, đã ghi rõ; chưa hoàn tất các phần đầu phụ thuộc yêu cầu ngoài.
+- [x] T02 — DONE: [dàn bài §A.1–A.5](../../../thesis/outline.md#a-research-direction), bốn RQ có so sánh/bằng chứng/giới hạn, bốn loại đóng góp và trách nhiệm sáu chương; [nguồn đối chiếu](../../../thesis/evidence.md#2-phạm-vi-nghiên-cứu-và-ranh-giới-luận-điểm).
 - [ ] T03 — Kiểm kê phiên bản nguồn và bằng chứng thực nghiệm đã khóa.
 - [ ] T04 — Lập danh sách đọc nguồn gốc và quy ước trích dẫn.
 - [ ] T05 — Định nghĩa thuật ngữ tiếng Anh, ký hiệu và tên gọi.
@@ -172,6 +173,40 @@ giảng viên phản biện độc lập.
 - [ ] T82 — Build từ bản giải nén sạch và xác minh đầu ra.
 - [ ] T83 — Bàn giao PDF, nguồn và hướng dẫn tái lập.
 - [ ] T84 — Chốt hoàn thành nội bộ và ghi đúng trạng thái bên ngoài.
+
+### Hồ sơ yêu cầu và phạm vi khóa luận
+
+Ngày **14/11/2026**, thực hiện trên nhánh
+`docs/thesis-requirements-and-research-scope` từ develop
+`896353b3e07dc3d7fbae328fb647fd3dd738c15c` đã cập nhật remote.
+
+- **T01; `thesis/evidence.md` §1 và `frontmatter.md`;** đối chiếu hai trang
+  PDF/nguồn bìa mẫu, ghi nguồn cho từng trường và phản hồi tác giả:
+  Phan Hoang Dung, MSSV 23020346, Dr. Tran Hong Viet, đề tài đã chỉ định.
+  Giữ cơ sở đào tạo, logo, ngành và HA NOI - 2026 theo yêu cầu dùng mẫu.
+  Hạn nộp và quy định trích dẫn/bố cục chính thức chưa có; không suy ra phê
+  duyệt hoặc nộp. Chưa hoàn tất lời cảm ơn/cam đoan hay toàn bộ phần đầu.
+- **T02; `thesis/outline.md` §A.1–A.5 và `evidence.md` §2;** rà registry,
+  policy, thiết kế/kết quả/hạn chế và receipt hiện có; mỗi RQ có so sánh hoặc
+  kiểu audit, nguồn dự kiến và giới hạn. Tách phần kế thừa, tích hợp, đánh giá
+  và phát hiện thực nghiệm; giữ sáu chương, hai nghiên cứu riêng, kết quả âm,
+  fallback, causal FAIL/NOT_CERTIFIED và các ablation chưa thực hiện.
+- **Kiểm tài liệu:** 292 liên kết local/65 anchor và 11 hash nguồn PASS;
+  hash ZIP phân tích khớp receipt, logo sao chép nguyên byte; đủ 84 task,
+  chỉ T01/T02 DONE, sáu chương/bốn RQ giữ nguyên; UTF-8 và diff whitespace PASS.
+- **Kiểm bìa:** `thesis/release/covers-preview.pdf` có đúng hai trang A4,
+  pdfLaTeX hai lượt cuối exit 0; log không có LaTeX warning, overfull/underfull.
+  Đã xem từng trang PNG bằng Poppler; không cắt/chồng chữ. Khung/font giống
+  mẫu, các dòng tên trường/địa điểm lệch tọa độ tối đa 0,071 pt; vị trí dọc
+  tác giả giữ nguyên, đề tài dài chia năm dòng và cân khoảng trắng bìa trong.
+  PDF SHA-256: `2aab671e43c3d6b4874b0848a2487e54c063a031fdc20aa9517040587567b667`.
+  MiKTeX cần bổ sung hai package `microtype`/`setspace`; nhắc kiểm cập nhật
+  ở stderr không làm build lỗi. Hướng dẫn/toolchain nằm tại `thesis/README.md`.
+- **Giới hạn phạm vi:** chỉ sửa tài liệu và nguồn/PDF xem bìa; không đổi
+  code/test/schema/runtime nghiên cứu. Không chạy compileall/unit/E2E/leakage,
+  replay nghiên cứu, refit hoặc API mô hình/thị trường theo AGENTS §1.2.
+  Chưa làm inventory đầy đủ của T03, chưa đánh dấu T60/T67 hoặc các task sau;
+  F11 vẫn PENDING và F12 chưa bắt đầu. Markdown vẫn là nguồn nội dung chính.
 
 ### Phạm vi thay đổi và kiểm tra kế hoạch
 

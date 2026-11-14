@@ -13,6 +13,40 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 1. [Dàn bài khóa luận](outline.md): câu hỏi nghiên cứu, sáu chương, phụ lục và ánh xạ tới hệ thống.
 2. [Kế hoạch viết chi tiết](plan.md): các task nhỏ, phụ thuộc, đầu ra, tiêu chí nghiệm thu và lộ trình đến gói bàn giao cuối.
 3. [Checklist công việc](../docs/plan/week12/README.md#checklist-viết-khóa-luận): nơi duy nhất cập nhật trạng thái và bằng chứng hoàn thành; kế hoạch chỉ định nghĩa task, không lặp lại trạng thái.
+4. [Sổ nguồn và yêu cầu](evidence.md): metadata có nguồn, thông tin còn thiếu, nguồn đối chiếu câu hỏi nghiên cứu và giới hạn bằng chứng.
+
+## Hai trang bìa
+
+[Nội dung bìa tiếng Anh](frontmatter.md) ghi thông tin tác giả, mã sinh viên,
+đề tài và người hướng dẫn đã cung cấp. [Bản xem hai trang bìa](release/covers-preview.pdf)
+giữ cơ sở đào tạo, logo, khung và kiểu chữ của mẫu; đề tài dài được chia năm
+dòng. Mã sinh viên nằm trong hồ sơ, không thêm vào bìa vì mẫu không có trường
+này. Hạn nộp và quy định trích dẫn/bố cục chính thức hiện chưa được cung cấp.
+
+Nguồn bản xem gồm [wrapper](latex/covers-preview.tex),
+[hai bìa](latex/frontmatter/covers.tex) và logo trong `assets/figures/`.
+Nguồn này chỉ dàn trang bìa, chưa phải khung LaTeX toàn văn; Markdown vẫn
+là nguồn nội dung chính. Khi đổi metadata, cập nhật cả bản trình bày LaTeX
+và kiểm lại PDF. Không cần thư mục `Latex/` mẫu để build bản xem.
+
+Từ thư mục gốc kho mã, biên dịch bằng pdfLaTeX hai lượt để định vị khung
+TikZ. Thư mục tạm nhận log/aux, chỉ PDF được chép sang thư mục bàn giao:
+
+```powershell
+New-Item -ItemType Directory -Force tmp/pdfs/thesis-covers | Out-Null
+Push-Location thesis/latex
+pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../../tmp/pdfs/thesis-covers' covers-preview.tex
+pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../../tmp/pdfs/thesis-covers' covers-preview.tex
+Pop-Location
+Copy-Item tmp/pdfs/thesis-covers/covers-preview.pdf thesis/release/covers-preview.pdf
+```
+
+Toolchain bản xem: pdfTeX 3.141592653-2.6-1.40.28, MiKTeX 25.12, LaTeX2e
+2025-11-01; font Latin Modern và các package khai báo trong wrapper. Đây là
+PDF riêng hai bìa; chưa phải `thesis.pdf` hoàn chỉnh hoặc bản đã nộp. Khi thiếu
+package, cài package được báo thiếu trước khi build; môi trường hiện tại đã
+được bổ sung `microtype` và `setspace`. MiKTeX còn nhắc kiểm tra cập nhật ở
+stderr dù build exit 0; đây không phải lỗi bố cục trong log LaTeX.
 
 Phần phương pháp đề xuất phải giúp giảng viên lần đầu tiếp cận hiểu được toàn bộ hệ thống. Người đọc cần lần theo một quyết định từ đầu vào có thời điểm xác định, các báo cáo agent, ngữ cảnh lịch sử, đề xuất của LLM, hành động sau policy đến kết quả tài khoản mà không phải mở mã nguồn.
 

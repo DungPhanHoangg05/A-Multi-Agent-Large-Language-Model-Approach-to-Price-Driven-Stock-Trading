@@ -2,7 +2,7 @@
 
 ## A. Research direction
 
-**Working title:** Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market.
+**Title:** Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market.
 
 **Language:** English throughout the thesis manuscript, including front matter, chapters, appendices, captions and figure/table labels. User communication, the writing plan, progress checklists and management guidance use Vietnamese.
 
@@ -19,12 +19,14 @@ The title identifies a research direction, not a demonstrated performance advant
 
 ### A.2. Research questions
 
-| ID | Question | Evidence needed |
-| --- | --- | --- |
-| RQ1 | How does the multi-agent system combining price, alpha and sentiment behave relative to its controls? | Full/Base comparisons, numerical controls and the completed component panels, with classification and account metrics. |
-| RQ2 | How does regime-aware historical context and conditional evidence change outcomes under the same upstream realization? | Bayesian v1, C2, A_tp_pool and B_semantic versus Common and Native; support, age, coverage and fallback analyses. |
-| RQ3 | How do Fact Anchor, MT-BICL and the utility policy affect final actions? | Common → Fact Anchor → MT-BICL comparisons, raw proposals and policy traces. Student-specific attribution requires suitable ablations. |
-| RQ4 | Which temporal, economic and operational contracts are supported by evidence, and which limitations remain? | Scoped PIT/causality audits, labels/P&L, paired execution, prompt limits, checkpointing and cold replay. |
+| ID | Question | Comparison and evidence | Interpretation boundary |
+| --- | --- | --- | --- |
+| RQ1 | How does the multi-agent system combining price, alpha and sentiment behave relative to its controls? | Component study: paired Full versus Base on 102 points; recorded numerical controls; separate nine-unit upstream and factorial panels. Report BA/MCC, both-class support, account returns and exposure using the recorded protocol. Sources: component scope/classification/accounts tables and saved panel analyses. | Full/Base changes information and prompt representation together. Panel supports differ; numerical controls do not isolate the LLM factor selector. Higher classification performance does not establish profitability. |
+| RQ2 | How does regime-aware historical context and conditional evidence change outcomes under the same upstream realization? | Historical-context study: Bayesian v1, C2, A_tp_pool and B_semantic each versus Common and versus Native on paired support. Use contrasts, prior traces, coverage, recorded example age/similarity and fallback, retaining unsupported points in primary metrics. | Native/Common also changes alpha projection and instructions. Low support limits mechanism attribution. Covered-subset results are secondary; six exposed folds yield descriptive evidence, not confirmation of a regime-specific causal effect. |
+| RQ3 | How do Fact Anchor, MT-BICL and the utility policy affect final actions? | Descriptive bridges Common → Fact Anchor → MT-BICL; compare paired final actions/metrics and inspect raw proposals, anchor validity, eligibility, bypasses, vetoes and utility quantiles. Sources: bridge table, prediction records and policy/context traces in the locked study. | These comparisons add combined interventions. Student, task context and utility effects cannot be isolated without unperformed matched ablations. Retain the observed 302/306 MT/anchor final-action agreements. |
+| RQ4 | Which temporal, economic and operational contracts are supported by evidence, and which limitations remain? | Compare contract requirements with scoped PIT/causality audits, canonical labels/P&L checks, shared-upstream identities, prompt measurements, retry/checkpoint records and cold-replay receipts. This is a contract-to-evidence audit, not a performance contrast. | Report snapshot and tested path for each check. Outer-cutoff compliance and offline replay do not certify native row-wise causality, live execution, prospective profitability or browser acceptance. |
+
+The two studies use separate response collections and statistical conventions. The historical-context design has 102 market points, 51 stock–fold accounts, three Decision repeats and eight forecast roles. Its 2,448 slots are conditional on one shared upstream realization per point. They are not 2,448 independent market observations. [The evidence ledger](evidence.md#2-phạm-vi-nghiên-cứu-và-ranh-giới-luận-điểm) records the source roles and unresolved evidence boundaries for this scope review.
 
 ### A.3. Evidence rules
 
@@ -33,6 +35,28 @@ The title identifies a research direction, not a demonstrated performance advant
 3. Keep the component study and the historical-context study separate: responses, supports and statistical conventions differ.
 4. Outer-cutoff isolation does not establish row-wise causality. At the planning baseline, native row-wise causality is `FAIL` and whole-system causality is `NOT_CERTIFIED`.
 5. Retain fallback and negative outcomes in primary results. Covered-subset analyses are explicitly secondary.
+
+### A.4. Contributions and attribution
+
+| Contribution type | Thesis-specific work to explain and assess | Inherited foundation | Evidence and claim limit |
+| --- | --- | --- | --- |
+| System adaptation | Integrate price/chart reports, alpha and dated sentiment into a Vietnamese-stock LONG/CASH research pipeline with shared inputs and explicit execution accounting. | QuantAgent-style role specialization, established indicators and adapted Alpha101 formulas. | Explain the actual graph and component contracts; use the component study for observed behavior. Do not claim invention of multi-agent trading or validated execution in the market. |
+| Historical-context and policy design | Connect matured episodes and market-state conditioning to bounded Bayesian summaries; implement alternative priors, factual anchoring and MT context with utility-gated action revision. | HMMs, Beta–Bernoulli inference, in-context learning and the referenced student–teacher methodology. | Explain implementation choices and dependencies, then evaluate paired contrasts and policy traces. System integration is distinct from theoretical novelty; primary-publication attribution still requires source verification. |
+| Evaluation and reproducibility | Preserve a common economic oracle, immutable paired upstream, distinct proposal/action/outcome records, support/fallback accounting and source/runtime-bound replay. | Standard chronological evaluation, resampling and reproducibility principles. | Use scoped receipts and archived records; keep native causal failures and incomplete data provenance visible. Engineering checks do not prove whole-system validity. |
+| Empirical findings | Report the two historical studies, including baseline-dependent differences, sparse context activation, anchor retention and negative mean returns. | Recorded observations and the protocols under which they were collected. | Treat these as bounded descriptive findings. The title does not promise an improvement, and aggregate MT results do not establish a student-specific benefit. |
+
+### A.5. Six-chapter scope and exclusions
+
+| Chapter | Responsibility in the argument | Main RQ connection | Boundary |
+| --- | --- | --- | --- |
+| 1. Introduction | Define the decision problem, motivation, questions, contribution types and study boundaries. | Introduces RQ1–RQ4. | No assumed performance advantage or completed unobserved experiment. |
+| 2. Related Work | Attribute technical analysis, multi-agent finance, regimes, Bayesian/MT context and evaluation methods; establish a source-supported gap. | Positions all four questions. | Existing bibliography entries remain candidates until primary sources are read and checked. |
+| 3. Theoretical Background and Problem Formulation | Define time indexing, economic labels, signals, HMM/Bayesian/MT concepts, utility and evaluation principles. | Supplies concepts for RQ1–RQ4, especially RQ4. | A study assumption is not a current exchange rule; probability, confidence and utility remain distinct. |
+| 4. Proposed System | Explain the entire implemented path, Native/Common, priors, MT/anchor/policy, orchestration and operational recovery. | Methods for RQ1–RQ3; mechanisms for RQ4. | Explain a method's existence separately from whether its isolated effect was measured. |
+| 5. Experiments and Discussion | Separate component and historical-context results, paired contrasts, support, policy traces, robustness and contract evidence. | Answers RQ1–RQ4 within recorded support. | No pooled response study, new model calls, refits or missing ablations introduced to fill writing gaps. |
+| 6. Conclusions and Future Work | Answer each RQ, distinguish contribution types and state limitations and needed research. | Consolidates RQ1–RQ4. | No new results; prospective confirmation, native-causality repair, isolated MT ablations and application acceptance remain separate work. |
+
+The empirical scope is daily historical evaluation on the recorded purposive Vietnamese-equity sample. It excludes high-frequency trading, actual short selling, a validated capital-constrained multi-stock portfolio and prospective deployment claims. The realtime 1D application illustrates implementation; it does not extend the financial evidence. The shared study contract remains LONG at `Open(t+1)` to `Close(t+3)`, SHORT mapped to CASH, and fees/slippage on both legs. Primary outcomes retain unsupported/fallback cases and negative results.
 
 ## B. Structure adapted from the template
 
@@ -47,7 +71,9 @@ The title identifies a research direction, not a demonstrated performance advant
 | Chapter 6 | Conclusions and Future Work. |
 | Back matter | References and Appendices A–F. |
 
-The sample uses A4, 12-point text, one-and-a-half line spacing, Roman front-matter pagination and Arabic main-text pagination. These are template observations, not verified institutional requirements. Any mandatory forms must be confirmed independently. Do not import subject-specific macros, the sample bibliography or its personal metadata.
+The author has selected the sample's first two pages as the cover presentation, retaining the institution, logo placement, major and place/year while replacing the author, title and supervisor. Confirmed metadata and unresolved requirements are recorded in [the evidence ledger](evidence.md#1-thông-tin-tác-giả-và-yêu-cầu-trình-bày), with English cover text in [front matter](frontmatter.md). The student ID is recorded there; the sample does not print it on either cover.
+
+The sample uses A4, 12-point text, one-and-a-half line spacing, Roman front-matter pagination and Arabic main-text pagination. Outside the selected cover presentation, these remain template observations rather than verified institutional requirements. No official citation/layout policy or submission deadline has been supplied. Any mandatory forms must be confirmed independently. Do not import subject-specific macros, the sample bibliography or its personal metadata.
 
 An initial writing budget is **65–81 pages for the six chapters**, excluding front matter, references and appendices. Revise it against confirmed submission rules; completeness and readability take priority over filling a page quota.
 
