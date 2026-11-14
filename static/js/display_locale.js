@@ -1,7 +1,7 @@
 import {renderReport,normalizeIndicator} from './analysis/report.js';
 
 const active=new WeakSet();
-const vietnamese=/[ăâđêôơưĂÂĐÊÔƠƯ\u1ea0-\u1ef9]/u;
+const vietnamese=/[ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯư\u1ea0-\u1ef9]/u;
 const delay=ms => new Promise(resolve => setTimeout(resolve,ms));
 
 export function needsTranslation(text,target,source) {
@@ -22,7 +22,7 @@ export async function localizeElements(nodes,config,io=request,pause=delay) {
     active.add(node);
     const raw=node.id==='indicatorContent' ? normalizeIndicator(node.textContent) : node.textContent;
     if (raw.trim() && needsTranslation(raw,config.language,node.dataset.sourceLanguage ?? 'vi')) {
-      const id='n'+pending.length; texts[id]=raw; pending.push({id,node});
+      const id='n'+pending.length; texts[id]=raw; pending.push({id,node,raw});
       node.setAttribute('data-locale-pending','');
     } else finish(node,raw,config.language);
   }
@@ -31,20 +31,30 @@ export async function localizeElements(nodes,config,io=request,pause=delay) {
   if (status) { status.hidden=false; status.textContent=config.preparing; }
   try {
     let result=await io('/api/display-locales',{target:config.language,texts});
+    const apply=() => {
+      if (result.target!==config.language) throw new Error('LOCALIZATION_FAILED');
+      for (const {id,node} of pending) {
+        if (node.dataset.localizedLanguage!==config.language && typeof result.texts?.[id]==='string') finish(node,result.texts[id],config.language);
+      }
+    };
+    apply();
     while (['queued','running'].includes(result.state)) {
       if (!/^[0-9a-f-]{36}$/.test(result.id)) throw new Error('Invalid translation ID');
       await pause(1500); result=await io('/api/display-locales/'+encodeURIComponent(result.id));
+      apply();
     }
-    if (result.state!=='completed' || result.target!==config.language || Object.keys(result.texts ?? {}).length!==pending.length) throw new Error(result.state==='unknown' ? 'UNKNOWN' : 'LOCALIZATION_FAILED');
-    for (const {id,node} of pending) {
-      if (typeof result.texts[id]!=='string') throw new Error('Incomplete translation');
-      finish(node,result.texts[id],config.language);
-    }
+    if (result.state!=='completed' || pending.some(({node}) => node.dataset.localizedLanguage!==config.language)) throw new Error(result.state==='unknown' ? 'UNKNOWN' : 'LOCALIZATION_FAILED');
     if (status) status.hidden=true;
   } catch (error) {
     if (status) { status.hidden=false; status.textContent=error.message==='UNKNOWN' ? config.locale_unknown : config.locale_failed; }
-    // Không fallback sang tiếng Việt trên trang EN khi API/key không khả dụng.
-    for (const {node} of pending) { node.textContent=config.locale_failed; node.removeAttribute('data-locale-pending'); }
+    // Giữ phần đã dịch và bản gốc trong mục thu gọn; không xóa báo cáo chỉ vì một phần lỗi.
+    for (const {node,raw} of pending) {
+      if (node.dataset.localizedLanguage===config.language) continue;
+      const message=document.createElement('p'); message.textContent=config.locale_failed;
+      const details=document.createElement('details'),summary=document.createElement('summary'),source=document.createElement('pre');
+      summary.textContent=config.source_report; source.textContent=raw;
+      details.append(summary,source); node.replaceChildren(message,details); node.removeAttribute('data-locale-pending');
+    }
   }
 }
 

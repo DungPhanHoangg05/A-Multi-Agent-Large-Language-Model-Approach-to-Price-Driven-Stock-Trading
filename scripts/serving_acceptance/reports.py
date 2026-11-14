@@ -1,4 +1,4 @@
-"""Gate scoped cho thứ tự BICL và báo cáo Indicator/Alpha, không chạy lại scientific study."""
+"""Gate scoped cho bản dịch đủ đoạn và recovery UI, không chạy lại scientific study."""
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor,as_completed
@@ -14,17 +14,11 @@ from scripts.serving_acceptance import repair
 from scripts.serving_acceptance.evidence import binding,runtime
 
 ROOT,DOC,RECEIPT=repair.ROOT,repair.DOC,repair.RECEIPT
-BASE='da21d835'
-PACKAGE=DOC/'serving_language_theme_checks.zip'
-WORK=ROOT/'tmp/f11_language_theme'
-PLANS=[('tests/analysis_ui','test_*.py'),('tests/serving_live','test_locale_contract.py'),
-    ('tests/serving_live','test_snapshots.py'),('tests/serving_live','test_admission.py'),
-    ('tests/serving_runtime','test_api.py'),('tests/serving_runtime','test_resources.py'),
-    ('tests/backtest_ui','test_api.py'),('tests','test_variant_serving.py'),
-    ('tests','test_original_fix_parity.py'),('tests','test_realtime_decision_budget.py'),
-    ('tests','test_unified_execution_leakage.py'),('tests','test_unified_preflight_leakage.py'),
-    ('tests/unified_live','test_leakage.py')]
-NODE_FILES=['tests/js/'+name for name in ('analysis_ui.test.mjs','site_preferences.test.mjs','backtest_ui.test.mjs','research_viewer.test.mjs')]
+BASE='b55a738f'
+PACKAGE=DOC/'serving_locale_repair_checks.zip'
+WORK=ROOT/'tmp/f11_locale_repair'
+PLANS=[('tests/analysis_ui','test_*.py'),('tests/serving_runtime','test_runtime.py')]
+NODE_FILES=['tests/js/'+name for name in ('analysis_ui.test.mjs','site_preferences.test.mjs')]
 
 
 def sources() -> dict:
@@ -44,11 +38,15 @@ def historical() -> dict:
     report='docs/plan/week12/serving_report_checks.zip'
     previous=subprocess.check_output(['git','show',BASE+':'+report],cwd=ROOT)
     if (ROOT/report).read_bytes()!=previous: raise ValueError('QA report cũ đã đổi')
-    return {**result,'daily_analysis_qa_unchanged':binding(expected),'report_qa_unchanged':binding(previous)}
+    locale='docs/plan/week12/serving_language_theme_checks.zip'
+    released=subprocess.check_output(['git','show',BASE+':'+locale],cwd=ROOT)
+    if (ROOT/locale).read_bytes()!=released: raise ValueError('QA locale cũ đã đổi')
+    return {**result,'daily_analysis_qa_unchanged':binding(expected),'report_qa_unchanged':binding(previous),
+        'language_theme_qa_unchanged':binding(released)}
 
 
 def suite(plan: tuple[str,str]) -> tuple[str,dict]:
-    """Chỉ caller/progress/projection/PIT bị ảnh hưởng, process/log riêng cho từng nhóm."""
+    """Chỉ caller/translation/transport bị ảnh hưởng, process/log riêng cho từng nhóm."""
     folder,pattern=plan
     command=[sys.executable,'-X','utf8','-m','unittest','discover','-s',folder,'-p',pattern,'-v']
     done=subprocess.run(command,cwd=ROOT,capture_output=True); raw=done.stdout+b'\n'+done.stderr
@@ -59,7 +57,7 @@ def suite(plan: tuple[str,str]) -> tuple[str,dict]:
 
 
 def run() -> dict:
-    """Không đổi giá/prior/LLM/phí; gate tập trung vào luồng hiển thị và leak boundary của tin."""
+    """Kiểm bản dịch/caller/checkpoint; không thay forecast, giá, prior hoặc phí."""
     WORK.mkdir(parents=True,exist_ok=True)
     sealed=sources(); environment=runtime(ROOT); integrity=historical()
     names=subprocess.check_output(['git','diff',BASE,'--name-only','--','*.py'],cwd=ROOT).decode().splitlines()
@@ -75,15 +73,15 @@ def run() -> dict:
         raw=done.stdout+b'\n'+done.stderr; log='dom_'+str(index)+'.log'; (WORK/log).write_bytes(raw)
         count=re.search(rb'(?:#|\xe2\x84\xb9) tests (\d+)',raw)
         results[log]={'passed':not done.returncode and bool(count),'tests':int(count[1]) if count else 0,'log':binding(raw)}
-    syntax=['static/js/'+name for name in ('site_preferences.js','display_locale.js','analysis/form.js','analysis/legacy_form.js','analysis/daily_output.js','analysis/legacy_output.js','analysis/view.js')]
+    syntax=['static/js/display_locale.js']
     for name in syntax: subprocess.run(['node','--check',name],cwd=ROOT,check=True,capture_output=True)
     if not all(row['passed'] for row in results.values()): raise ValueError('Gate báo cáo chưa PASS; xem tmp/f11_language_theme')
     if sources()!=sealed or runtime(ROOT)!=environment: raise ValueError('Nguồn/runtime đổi trong gate')
-    checks={'version':'serving_language_theme_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
+    checks={'version':'serving_locale_repair_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
         'sources':sealed,'runtime':environment,'historical':integrity,'compiled_python':compiled,'javascript_syntax':syntax,
         'test_suites':results,'market_calls':0,'hosted_llm_calls':0,'f11_complete':False,
         'recorded_at':datetime.now(timezone.utc).isoformat(),
-        'scope':'VI_EN_ALL_PAGES; IMMUTABLE_SOURCE_AND_CACHED_DISPLAY_TRANSLATION; SHARED_QUOTA_CHECKPOINT_UNKNOWN; DARK_LIGHT_PERSISTENCE; NO_SOURCE_SELECTOR',
+        'scope':'REQUIRED_TRANSLATION_SEGMENTS; IMMUTABLE_NUMBERS_CODES_MARKDOWN; PARTIAL_REPORT_CHECKPOINT; FAILED_CACHE_VERSION; UNKNOWN_NO_REPLAY; ORIGINAL_SOURCE_DISCLOSURE',
         'browser':{'status':'PENDING','desktop':'NOT_RUN','mobile':'NOT_RUN','reason':'BROWSER_HOST_UNAVAILABLE'},
         'not_rerun':'Original/native and scientific adapters unchanged; no full live/provider replay, study, full unit or E2E'}
     members={'checks.json':(json.dumps(checks,ensure_ascii=False,indent=2)+'\n').encode()}
@@ -91,7 +89,7 @@ def run() -> dict:
     members['manifest.json']=(json.dumps({name:binding(raw) for name,raw in members.items()},indent=2)+'\n').encode()
     with zipfile.ZipFile(PACKAGE,'w',zipfile.ZIP_DEFLATED) as archive:
         for name,raw in members.items(): archive.writestr(name,raw)
-    receipt={'version':'serving_integration_acceptance_v7','status':checks['status'],'base_commit':BASE,
+    receipt={'version':'serving_integration_acceptance_v8','status':checks['status'],'base_commit':BASE,
         'checks_package':{'path':PACKAGE.relative_to(ROOT).as_posix(),**binding(PACKAGE.read_bytes())},
         'python_tests':sum(row['tests'] for name,row in results.items() if not name.startswith('dom_')),
         'dom_tests':sum(row['tests'] for name,row in results.items() if name.startswith('dom_')),'compiled_python':len(compiled),'javascript_syntax':len(syntax),

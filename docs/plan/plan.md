@@ -72,7 +72,7 @@ cùng overlay từng agent rồi mở cùng bố cục kết quả, thêm phần
 Tiến trình từ checkpoint, decision/policy/context giữ nguyên; không tính lại
 hoặc bịa kết quả khi lỗi/UNKNOWN. [Runbook hiện hành](week12/variant_serving_contract.md#form-phân-tích-hiện-hành--realtime-1d).
 [Receipt hiện hành](week12/serving_integration_acceptance.json) và
-[QA ngôn ngữ/theme hiện hành](week12/serving_language_theme_checks.zip): **102 Python + 44 DOM, compile23/JS7 PASS**.
+[QA sửa bản dịch hiện hành](week12/serving_locale_repair_checks.zip): **49 Python + 26 DOM, compile7/JS1 PASS**.
 Đã sửa BICL đứng trước Decision cuối; khôi phục báo cáo Alpha Agent đầy đủ,
 hiển thị common Alpha riêng đúng nguồn Decision, format Indicator theo HTML
 Original tham chiếu. Tin hiển thị cùng snapshot/cutoff, thiếu metadata là NA.
@@ -81,11 +81,15 @@ cookie. Request ghi ngôn ngữ hiển thị; báo cáo nâng cấp gốc vẫn 
 Groq có cache/UUID riêng, quota/retry/checkpoint chung, kiểm số/mã/công thức và
 không sửa forecast hoặc artifact nguồn. GET chỉ đọc, không gọi model; browser
 POST rõ ràng để chuẩn bị bản dịch khi khác ngôn ngữ nguồn. Không fallback về
-VI trên trang EN khi dịch lỗi. Theme nhớ lựa chọn hoặc theo hệ điều hành.
-QA báo cáo và 1D trước đó nguyên byte, không thay kiểm tra của bản sửa mới.
+VI trên trang EN khi dịch lỗi. Bản sửa tiếp theo tách từng đoạn bắt buộc,
+giữ số/mã/công thức/cấu trúc tại server; lỗi một phần không xóa báo cáo đã
+dịch, bản gốc vẫn xem được trong mục thu gọn. Cache `display_locale_v2` thay
+cache v1 lỗi mà không xóa journal; UNKNOWN không replay. Đã tái hiện raw HTTP200
+bỏ bốn dòng cuối Indicator, không phải API key lỗi. Theme nhớ lựa chọn hoặc theo hệ điều hành.
+QA ngôn ngữ/theme, báo cáo và 1D trước đó nguyên byte, không thay kiểm tra của bản sửa mới.
 Các QA cũ giữ nguyên byte làm lịch sử; không chạy toàn suite/cold study hoặc
 gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn không khả dụng;
-F11 còn mở, nhánh `feat/localized-dark-interface` chưa merge develop theo AGENTS
+F11 còn mở, nhánh `feat/restore-english-reports` chưa merge develop theo AGENTS
 §1.2. **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding

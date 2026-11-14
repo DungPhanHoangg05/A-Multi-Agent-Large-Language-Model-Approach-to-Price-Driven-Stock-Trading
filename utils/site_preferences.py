@@ -19,7 +19,8 @@ def install(app, language) -> None:
             'language':lang,'navigation':'Navigation' if en else 'Điều hướng',
             'dark':'Dark mode' if en else 'Chế độ tối','light':'Light mode' if en else 'Chế độ sáng',
             'preparing':'Translating reports with Groq…' if en else 'Đang dịch báo cáo bằng Groq…',
-            'locale_failed':'Could not prepare the selected language. Check the API key and reload; analysis results are unchanged.' if en else 'Chưa chuẩn bị được ngôn ngữ đã chọn. Kiểm tra API key rồi tải lại; kết quả phân tích giữ nguyên.',
+            'locale_failed':'This section could not be translated. The original report is available below; analysis results are unchanged.' if en else 'Chưa dịch được phần này. Có thể xem báo cáo gốc bên dưới; kết quả phân tích giữ nguyên.',
+            'source_report':'View original report (source language)' if en else 'Xem báo cáo gốc (ngôn ngữ nguồn)',
             'locale_unknown':'Translation outcome is unknown. No request has been resent; check the server journal.' if en else 'Attempt dịch chưa rõ kết quả. Không gửi lại; cần đối soát nhật ký server.'}}
     @app.after_request
     def remember(response):

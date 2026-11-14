@@ -12,6 +12,10 @@ sys.path.insert(0,str(ROOT/'tests/serving_runtime'))
 from support import Clock
 from core.serving_runtime.quota import Quota
 from core.serving_locales import LocaleService,validate_translation,chunks
+from core.historical_evaluation_journal import load,save
+from core.unified_contracts import digest
+from uuid import uuid5,NAMESPACE_URL
+from core.display_translation import ReportPlan
 
 
 class Sender:
@@ -19,9 +23,9 @@ class Sender:
     def send(self,body):
         self.bodies.append(body); self.clock.advance()
         if isinstance(self.action,BaseException): raise self.action
-        source=body['messages'][-1]['content'].split('SOURCE DATA:\n')[-1]
-        value=self.action or source.replace('Giá trị','Value').replace('TĂNG','UP')
-        return 200,json.dumps({'choices':[{'message':{'content':json.dumps({'text':value})}}]}).encode(),{}
+        source=json.loads(body['messages'][-1]['content'])
+        value=self.action(source) if callable(self.action) else self.action or {key:text.replace('Giá trị','Value').replace('TĂNG','UP') for key,text in source.items()}
+        return 200,json.dumps({'choices':[{'message':{'content':json.dumps(value)}}]}).encode(),{}
     def close(self): pass
 
 
@@ -83,3 +87,59 @@ class DisplayLocales(unittest.TestCase):
             self.assertEqual(count,len(self.senders[0].bodies))
             with patch('utils.display_locale_web.owner',return_value=('b'*64,None)):
                 self.assertEqual(client.get('/api/display-locales/'+identifier).status_code,404)
+
+    def test_one_invalid_report_does_not_hide_other_translations(self) -> None:
+        def translate(batch):
+            return {key:'Value' if key.startswith('bad_') else text.replace('Giá trị','Value') for key,text in batch.items()}
+        self.service.sender_factory=lambda key:Sender(self.clock,translate)
+        value=self.service.start({'bad':'Giá trị 1','good':'Giá trị 2'},'en','a'*64,'fixture',background=False)
+        self.assertEqual(value['state'],'partial'); self.assertEqual(value['texts'],{'good':'Value 2'})
+        self.assertEqual(value['errors'],{'bad':'INVALID_TRANSLATION'})
+
+    def test_transport_failed_baseexception_becomes_terminal_status_without_raw_error(self) -> None:
+        sender=Sender(self.clock)
+        sender.send=lambda body:(401,b'{"error":{"message":"fixture-secret"}}',{})
+        self.service.sender_factory=lambda key:sender
+        value=self.service.start({'report':'Giá trị 1'},'en','a'*64,'fixture',background=False)
+        self.assertEqual(value['state'],'failed'); self.assertEqual(value['error_code'],'PROVIDER_FAILURE')
+        self.assertNotIn('fixture-secret',json.dumps(value))
+
+    def test_protocol_upgrade_replaces_failed_cache_without_deleting_it_or_replaying_unknown(self) -> None:
+        owner='a'*64; key='fixture'; texts={'report':'Giá trị 1'}
+        source={'version':'display_locale_v1','texts':texts,'target':'en','owner':owner,
+            'credential_scope_sha256':self.quota.credential_scope(key)}
+        old=str(uuid5(NAMESPACE_URL,digest(source))); path=self.service.path(old); path.mkdir()
+        save(path/'source.json',source); save(path/'status.json',{'state':'unknown'})
+        result=self.service.start(texts,'en',owner,key,background=False)
+        self.assertEqual(result['id'],old); self.assertEqual(result['state'],'unknown'); self.assertEqual(self.senders,[])
+        save(path/'status.json',{'state':'failed'})
+        result=self.service.start(texts,'en',owner,key,background=False)
+        self.assertNotEqual(result['id'],old); self.assertEqual(result['state'],'completed')
+        self.assertEqual(load(path/'status.json'),{'state':'failed'})
+
+    def test_real_indicator_payload_translates_through_http_schema_and_keeps_all_four_rules(self) -> None:
+        fixture=json.loads((Path(__file__).parent/'locale_regression.json').read_bytes())
+        source=ReportPlan(fixture['source']); expected=ReportPlan(fixture['expected_translation'])
+        self.assertEqual(set(source.segments),set(expected.segments))
+        def translate(batch):
+            return {key:expected.segments[key.rsplit('_',1)[1]].masked for key in batch}
+        self.service.sender_factory=lambda key:Sender(self.clock,translate)
+        value=self.service.start({'report':fixture['source']},'en','a'*64,'fixture',background=False)
+        self.assertEqual(value['state'],'completed')
+        for number in range(1,5): self.assertIn('\n'+str(number)+'. ',value['texts']['report'])
+        self.assertIn('Use EXACTLY',value['texts']['report']); self.assertIn('do not cross-reference',value['texts']['report'])
+        validate_translation(fixture['source'],value['texts']['report'],'en')
+
+    def test_resume_after_first_report_published_replays_completed_http_without_resending(self) -> None:
+        texts={'short':'Giá trị 1','long':'Giá trị 2\n'*40}
+        def crash(path,value):
+            save(path,value)
+            if path.name=='result.json' and 'short' in value: raise KeyboardInterrupt('fixture crash after publish')
+        with patch('core.serving_locales.save',side_effect=crash),self.assertRaises(KeyboardInterrupt):
+            self.service.start(texts,'en','a'*64,'fixture',background=False)
+        self.assertEqual(len(self.senders[0].bodies),1)
+        value=self.service.start(texts,'en','a'*64,'fixture')
+        for worker in self.service.tasks.values(): worker.join(10); self.assertFalse(worker.is_alive())
+        value=self.service.result(value['id'],'a'*64)
+        self.assertEqual(value['state'],'completed'); self.assertEqual(value['texts']['long'],'Value 2\n'*40)
+        self.assertEqual(len(self.senders[1].bodies),2)

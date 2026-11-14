@@ -23,13 +23,13 @@ class Node {
   setAttribute(k,v){this.attrs[k]=v;} removeAttribute(k){delete this.attrs[k];}
   append(...values){this.children.push(...values);} replaceChildren(...values){this.children=values;this.textContent='';}
 }
-const config={language:'en',preparing:'Translating',locale_failed:'Translation unavailable',locale_unknown:'Unknown translation'};
+const config={language:'en',preparing:'Translating',locale_failed:'Translation unavailable',locale_unknown:'Unknown translation',source_report:'View original report'};
 test('Chọn EN dịch đúng report, không thay decision và không gửi lại khi đọc trạng thái',async () => {
   const status=new Node(),node=new Node('Giá trị 1.23; SHORT',{sourceLanguage:'vi'}),calls=[];
   globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
   await localizeElements([node],config,async(url,body) => {
     calls.push({url,body});
-    return body ? {state:'running',id:'12345678-1234-4234-8234-123456789abc'} : {state:'completed',target:'en',texts:{n0:'Value 1.23; SHORT'}};
+    return body ? {state:'running',target:'en',id:'12345678-1234-4234-8234-123456789abc'} : {state:'completed',target:'en',texts:{n0:'Value 1.23; SHORT'}};
   },async()=>{});
   assert.equal(node.textContent,'Value 1.23; SHORT'); assert.equal(node.dataset.localizedLanguage,'en');
   assert.equal(calls[0].body.target,'en'); assert.equal(calls[1].body,undefined);
@@ -42,8 +42,20 @@ test('Báo cáo EN sẵn có không gọi dịch; metadata VI trong report EN v�
 });
 test('Lỗi/key thiếu không fallback về báo cáo VI trên trang EN',async () => {
   const node=new Node('Giá trị 1.23',{sourceLanguage:'vi'}),status=new Node();
-  globalThis.document={getElementById:()=>status};
+  globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
   await localizeElements([node],config,async()=>{throw new Error('offline');});
-  assert.equal(node.textContent,'Translation unavailable'); assert.equal(status.textContent,'Translation unavailable');
+  assert.equal(node.children[0].textContent,'Translation unavailable'); assert.equal(status.textContent,'Translation unavailable');
+  assert.equal(node.children[1].children[0].textContent,'View original report');
+  assert.equal(node.children[1].children[1].textContent,'Giá trị 1.23');
   assert.equal(status.hidden,false);
+});
+
+test('Một phần dịch lỗi không xóa report đã hoàn tất; render ngay khi đang poll',async () => {
+  const good=new Node('Giá trị 1',{sourceLanguage:'vi'}),bad=new Node('Giá trị 2',{sourceLanguage:'vi'}),status=new Node();
+  globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
+  await localizeElements([good,bad],config,async(url,body)=>body ? {state:'running',target:'en',id:'12345678-1234-4234-8234-123456789abc',texts:{n0:'Value 1'}} : {state:'partial',target:'en',texts:{n0:'Value 1'}},async()=>{
+    assert.equal(good.textContent,'Value 1');
+  });
+  assert.equal(good.textContent,'Value 1'); assert.equal(good.dataset.localizedLanguage,'en');
+  assert.equal(bad.children[1].children[1].textContent,'Giá trị 2');
 });

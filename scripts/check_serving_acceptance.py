@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # Gate cũ giữ để đọc lịch sử; nguồn live đã đổi phải kiểm lại caller thay vì viện dẫn F10.
     from scripts.serving_acceptance import live, timeframes, repair, reports
     receipt = json.loads(RECEIPT.read_bytes())
-    result = (reports.run() if args.run else reports.verify() if receipt['version'] in ('serving_integration_acceptance_v6','serving_integration_acceptance_v7')
+    result = (reports.run() if args.run else reports.verify() if receipt['version'] in ('serving_integration_acceptance_v6','serving_integration_acceptance_v7','serving_integration_acceptance_v8')
               else repair.verify() if receipt['version'] in ('serving_integration_acceptance_v4','serving_integration_acceptance_v5')
               else timeframes.verify() if receipt['version'] == 'serving_integration_acceptance_v3'
               else live.verify() if receipt['version'] == 'serving_integration_acceptance_v2' else verify())

@@ -391,6 +391,11 @@ riêng, cùng quota/retry/checkpoint, kiểm số/mã/công thức, không chạ
 định hoặc sửa artifact nguồn. GET không inference; browser POST chuẩn bị bản
 dịch khi cần. **102 Python + 44 DOM, compile23/JS7 PASS**, không gọi thị trường/
 hosted LLM; [QA ngôn ngữ/theme](serving_language_theme_checks.zip) khóa lượt này.
+Incident tiếp theo: raw HTTP200 dịch Indicator bỏ bốn dòng cuối khiến guard
+dừng cả lượt và UI thay tất cả report bằng lỗi. Sửa bằng schema đoạn bắt buộc,
+placeholder số/mã/công thức, skeleton Markdown phía server, checkpoint từng
+report và cache `display_locale_v2`; giữ phần dịch xong và bản gốc thu gọn khi
+lỗi một phần. **49 Python + 26 DOM, compile7/JS1 PASS**, [QA sửa bản dịch](serving_locale_repair_checks.zip).
 [Receipt F11](serving_integration_acceptance.json) giữ
 `OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
 và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
@@ -412,7 +417,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Đang làm | Nghiệm thu realtime, ngôn ngữ và theme — `feat/localized-dark-interface` | F07–F10 | Realtime/1D/sáu bản, bỏ Analysis source; BICL trước Decision, báo cáo đầy đủ đúng snapshot; VI/EN và sáng/tối chung sáu layout, bản dịch cache riêng không sửa forecast. **102 Python + 44 DOM, compile23/JS7 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
+| F11 | ☐ Đang làm | Nghiệm thu realtime, ngôn ngữ và theme — `feat/restore-english-reports` | F07–F10 | Realtime/1D/sáu bản, bỏ Analysis source; VI/EN và sáng/tối chung; sửa bản dịch bỏ dòng bằng schema đoạn bắt buộc, giữ số/công thức, checkpoint từng report và cache v2. **49 Python + 26 DOM, compile7/JS1 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy

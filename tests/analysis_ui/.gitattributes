@@ -1,3 +1,4 @@
 .gitattributes text eol=lf
 *.py text eol=lf
 report_reference.json -text
+locale_regression.json -text

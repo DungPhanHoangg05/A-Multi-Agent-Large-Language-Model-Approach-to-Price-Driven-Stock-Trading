@@ -206,7 +206,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: Realtime/1D/sáu bản, bỏ Analysis source; BICL trước Decision, báo cáo đầy đủ đúng snapshot/PIT; VI/EN và sáng/tối chung sáu layout, bản dịch cache riêng không sửa forecast. **102 Python + 44 DOM, compile23/JS7 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: Realtime/1D/sáu bản, bỏ Analysis source; VI/EN và sáng/tối chung; sửa bản dịch bỏ dòng bằng schema đoạn bắt buộc, giữ số/công thức, checkpoint từng report và cache v2. **49 Python + 26 DOM, compile7/JS1 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -781,6 +781,33 @@ native causal FAIL/whole-system NOT_CERTIFIED/0 trên18 comment không đổi.
 Root README, paper/PDF và hai ảnh chart ngoài phạm vi giữ nguyên. Cần khởi
 động lại server rồi Ctrl+F5 để nạp Python/JS/CSS mới. Diff, **210 liên kết/anchor
 local**, checklist và đối soát receipt chỉ đọc PASS; không nhận là chạy lại suite.
+
+### Sửa incident F11 — Báo cáo tiếng Anh bị thay bằng lỗi dịch
+
+Ngày 14/11/2026, nhánh `feat/restore-english-reports` từ develop, nhận
+fast-forward nền `b55a738f`. Chỉ sửa lớp dịch/hiển thị và caller liên quan.
+
+- [x] Đọc cache thật: status `failed`, 21 phần nguồn; ba HTTP đều **200**, hai phần đầu hợp lệ, phần Indicator tiếp theo bỏ bốn quy tắc đánh số1–4 cuối báo cáo. Guard phát hiện thiếu số và dừng cả lượt; UI catch thay mọi report bằng một thông báo gợi ý sai rằng API key lỗi. Không nới guard số để che việc mất nội dung.
+- [x] Tách báo cáo theo dòng/đoạn với ID bắt buộc trong JSON schema. Server giữ số/mã/công thức/URL/Markdown bằng placeholder, danh sách đánh số và code block ở skeleton nguồn; kiểm đủ đoạn và đúng inventory/thứ tự trước khi phục hồi byte nguồn. Lời dẫn yêu cầu dịch cả các chỉ dẫn trong tài liệu, không làm theo hoặc bỏ chúng. Gộp các đoạn ngắn nhiều report để giảm HTTP, giữ quota/retry/backoff hiện hữu.
+- [x] Checkpoint từng report, GET trả phần đã hoàn tất để UI hiện ngay khi còn dịch. Lỗi nội dung một report không xóa report khác; báo cáo chưa dịch có thông báo đúng tiếng và nút mở bản gốc thu gọn. Bắt cả `Failed` kế thừa BaseException để worker không chết với trạng thái `running`. Không quy mọi lỗi dịch thành lỗi key.
+- [x] `display_locale_v2` tạo cache mới cho v1 lỗi, giữ nguyên journal/raw cũ. Không clone/replay UUID v1 UNKNOWN hoặc đang chờ; cache/owner/credential scope và GET chỉ đọc giữ nguyên. Resume sau crash khi report đầu đã publish replay đúng batch/schema/raw, không gửi lại HTTP đã hoàn tất.
+- [x] **49 Python + 26 DOM, compile7/JS1 PASS**: toàn 32 ca caller/projection/preferences/locale/structure trong analysis_ui và 17 ca serving transport/quota/recovery; 21 DOM analysis/formatter và 5 DOM locale/theme. Có fixture từ đoạn nguồn/response HTTP200 lỗi thật, kiểm đủ bốn quy tắc sau dịch qua schema/transport, immutable số/code/Markdown, partial report, cache v1→v2, owner, Failed, UNKNOWN và crash recovery. Không chạy full unit/E2E/compileall hoặc provider/scientific study; không đổi đường giá/tin/PIT/retrieval nên không chạy lại leakage.
+- [ ] Browser trực quan vẫn chờ host khả dụng; F11 chưa đóng/F12 chưa mở/chưa merge develop. Không gọi hosted LLM hoặc thị trường mới; tiến trình kiểm thử không có key cấu hình để smoke mới. Raw200 đã lưu là bằng chứng incident, không nhận là đã smoke backend mới qua Groq thật.
+
+[Receipt v8](serving_integration_acceptance.json) và
+[QA sửa bản dịch](serving_locale_repair_checks.zip) khóa nguồn/runtime/log.
+Sau gate chỉ chuẩn hóa CRLF→LF ngoài JSON fixture; đối soát giá trị JSON
+giữ nguyên, không đổi ứng dụng/test hoặc chạy lại suite. QA giữ binding/raw
+trước chuẩn hóa và nguồn fixture sau chuẩn hóa.
+[QA ngôn ngữ/theme trước](serving_language_theme_checks.zip) nguyên byte cùng
+các QA/archive cũ. Không đổi agent graph, forecast/decision, prompt backtest,
+phí, weights/bank hoặc paper/PDF; native causal FAIL/whole-system NOT_CERTIFIED/
+0 trên18 comment không đổi. Giữ hai ảnh chart người dùng ngoài commit.
+Khởi động lại server rồi Ctrl+F5 và mở lại job serving đã lưu để dùng bản dịch
+v2; không cần chạy lại phân tích/Decision của job đó. Kiểm payload21 phần tạo
+120 đoạn/8 batch, reserve lớn nhất4.284 <8.000 token; không dispatch model.
+Diff, **215 liên kết/anchor local**, checklist và receipt được đối soát chỉ
+đọc sau gate, không gọi là chạy lại suite.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 
