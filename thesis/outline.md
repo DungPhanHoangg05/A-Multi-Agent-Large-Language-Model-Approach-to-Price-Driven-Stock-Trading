@@ -464,6 +464,8 @@ This is a writing aid, not the final scholarly bibliography. Current paths ident
 
 ## E. Writing and review
 
+Use the [figure, table and algorithm catalogue](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) to track each item's message, chapter, responsible writing task, source type and provenance. Working titles and proposed output paths do not establish that an artifact has been produced or visually verified; final numbering is generated in LaTeX.
+
 Follow the [writing plan](plan.md) and maintain task status in the [project checklist](plan.md#21-một-nguồn-trạng-thái-công-việc). Draft the contracts and methods before finalizing results interpretation, then finish related work, introduction, conclusions and abstract. Transfer the reviewed English manuscript into a self-contained LaTeX project and review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
 
 Keep task IDs, weekly progress and incident history out of the thesis body. They remain planning/provenance aids only.

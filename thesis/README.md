@@ -15,6 +15,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 3. [Checklist công việc](plan.md#21-một-nguồn-trạng-thái-công-việc): checklist 84 task nằm ngay trong kế hoạch; bằng chứng hoàn thành gộp lưu tại README tuần.
 4. [Sổ nguồn và yêu cầu](evidence.md): metadata, kiểm kê hai nghiên cứu, [danh sách đọc theo chủ đề](evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), quy ước khóa trích dẫn và giới hạn bằng chứng. Trạng thái đọc/kiểm được ghi theo phạm vi, không suy từ việc có trong bibliography.
 5. [Thuật ngữ và ký hiệu](evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt): tên tiếng Anh dùng trong bản thảo, ánh xạ ID, đơn vị và quy tắc diễn đạt thống nhất.
+6. [Danh mục hình, bảng và thuật toán](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn): 23 ID theo kế hoạch, có thông điệp, vị trí, task phụ trách, loại nguồn, provenance và đường xuất dự kiến; chưa phải các sản phẩm đã tạo.
 
 ## Hai trang bìa
 

@@ -27,7 +27,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T03 — DONE: [kiểm kê hai nghiên cứu](evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), phiên bản/đường dẫn/hash, support và giới hạn; xác nhận ba module có lớp UI cùng logic snapshot nghiên cứu. Đã kiểm 179 file thành phần, 810 nguồn snapshot, 286 asset và U08/U09; không replay hoặc thu thực nghiệm mới.
 - [x] T04 — DONE: [danh sách đọc và khóa trích dẫn](evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), 59 nguồn/10 nhóm, 3 đã kiểm theo phạm vi, 5 đã đọc một phần, 51 chưa đọc; giữ riêng ứng viên, ghi chú phiên bản/metadata và ưu tiên. Chưa hoàn tất T48 hoặc bibliography cuối.
 - [x] T05 — DONE: [thuật ngữ và ký hiệu](evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt), tên phương pháp/ID, episode/task/query, probability/confidence/utility, support/K và fraction/%/pp/bp; đối chiếu code/schema và đơn vị. Không đổi logic nghiên cứu hoặc đánh dấu phần lý thuyết/phần đầu đã viết xong.
-- [ ] T06 — Lập danh mục hình, bảng, thuật toán cùng nguồn.
+- [x] T06 — DONE: [danh mục có nguồn](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn), 11 hình/3 thuật toán/9 bảng; từng ID có thông điệp, vị trí, task phụ trách, loại nguồn và đường xuất dự kiến. Đã đối soát nguồn liên quan; chưa tạo sản phẩm hoặc hoàn tất các task vẽ/viết, T07 và nghiệm thu UI.
 - [ ] T07 — Chọn ví dụ xuyên suốt và quy tắc chọn tình huống.
 - [ ] T08 — Tạo khung bản thảo các chương và sổ bằng chứng chung.
 
@@ -389,6 +389,11 @@ Mã task là định danh quản lý ổn định, không đưa vào thân khóa
 ## 6. Danh mục hình, bảng và thuật toán cần chuẩn bị
 
 Dùng sơ đồ khái niệm để giải thích, công cụ vẽ đồ thị chuẩn cho hình khoa học. Hình/bảng đưa vào khóa luận phải có nhãn tiếng Anh, cỡ chữ đọc được khi in, caption tự đủ, đơn vị phù hợp và nguồn hoặc nhãn minh họa rõ ràng. ID dưới đây dùng quản lý; số thứ tự cuối do LaTeX sinh.
+
+[Danh mục chi tiết có nguồn](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn)
+mở đủ 23 ID cha bên dưới, gồm thông điệp, vị trí, task phụ trách, loại nguồn
+đo được/dẫn xuất/minh họa và đường xuất dự kiến. Trạng thái có nguồn không
+đồng nghĩa sản phẩm đã được soạn hoặc kiểm trực quan.
 
 | Hạng mục | Thông điệp chính | Task phụ trách | Vị trí / bằng chứng |
 | --- | --- | --- | --- |

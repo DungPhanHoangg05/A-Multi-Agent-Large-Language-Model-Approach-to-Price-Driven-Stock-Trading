@@ -61,6 +61,40 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Danh mục hình, bảng và thuật toán có nguồn
+
+Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-visual-evidence-catalog`
+từ develop `3e7a045d5a94237becef7c3f636fca267abe66d4` đã cập nhật remote.
+
+- **T06; `thesis/evidence.md` §6.1–§6.7;** mở đủ 23 ID của kế hoạch:
+  11 hình F01–F11, ba thuật toán A01–A03 và chín bảng B01–B09. Mỗi mục có
+  working title tiếng Anh, thông điệp, chương/mục, task phụ trách, loại nguồn,
+  source ID và đường xuất dự kiến. Phân loại chính: 11 minh họa, hai đo được,
+  mười dẫn xuất; 11 nhóm nguồn nối code/protocol, artifact/member/field và
+  citation inventory. Kế hoạch mục 6 giữ nguyên ID/nội dung master.
+- Đã kiểm 31 hash file nguồn trực tiếp, năm hash gói/index; sáu CSV baseline,
+  14 member U09, chín member revision và ba member lineage F02 theo binding.
+  Chín source trình bày khớp manifest paper. Cặp PNG F04 đồng nhất byte với
+  snapshot và ảnh giải mã từ chart record gốc CMG; ghi record/asset hash,
+  filename gốc và phạm vi cutoff từ caption. T19 vẫn cần nối input/prefix;
+  không lấy việc tìm ảnh làm hoàn tất chọn tình huống T07.
+- Ghi rõ F09 vẽ mười contrast return nhưng dùng band của họ đồng thời 20
+  contrast return/BA đã khóa; B06/Phụ lục D giữ đủ bảng. F10/B07 nối
+  raw/final/anchor/trace/outcome đúng vai trò, K có đơn vị theo phương pháp.
+  B08 còn chờ kiểm nội dung nguồn tại T48–T53; F11 hình có workflow nguồn
+  code, ảnh UI trực quan còn chờ nghiệm thu F11 ứng dụng. Hai ID này không
+  được nhập nhằng thành cùng một trạng thái hoàn tất.
+- **Kiểm tài liệu:** 370 liên kết local/85 anchor PASS, 23 ID duy nhất và
+  đầy đủ, task/source references hợp lệ, số phân loại nguồn khớp; UTF-8 và
+  diff whitespace PASS. 84 đặc tả task và bảng master mục 6 giữ nguyên;
+  checklist chỉ T01–T06 DONE, nội dung sổ bằng chứng mục 1–5 không đổi.
+- **Giới hạn:** chỉ chốt danh mục; chưa tạo source vẽ, plot, bảng hoặc giả mã
+  mới và không đánh dấu task sản xuất tương ứng DONE. Không đổi code/test/
+  schema/runtime, số liệu, ảnh/PDF, citation hay artifact đã khóa; không chạy
+  compileall/unit/E2E/leakage, PDF build, cold replay, refit hoặc model/thị
+  trường API theo AGENTS §1.2. Không dùng hình AI thay ảnh/đồ thị đo được;
+  F11/F12 và phạm vi nghiệm thu nghiên cứu giữ nguyên.
+
 ### Thuật ngữ, ký hiệu và đơn vị khóa luận
 
 Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-terminology-and-notation`

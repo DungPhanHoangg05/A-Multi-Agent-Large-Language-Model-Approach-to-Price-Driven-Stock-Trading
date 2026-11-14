@@ -15,7 +15,10 @@ phạm vi nghiên cứu và [kiểm kê hai nghiên cứu](../../thesis/evidence
 đã có; [danh sách đọc](../../thesis/evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn)
 phân nhóm nguồn gốc, trạng thái đọc/kiểm và quy ước khóa trích dẫn.
 [Thuật ngữ và ký hiệu](../../thesis/evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt)
-thống nhất tên phương pháp, cấp episode/task/query và đơn vị. Bản xem hai
+thống nhất tên phương pháp, cấp episode/task/query và đơn vị.
+[Danh mục hình/bảng/thuật toán](../../thesis/evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn)
+giữ 23 ID có task, vị trí, loại nguồn và provenance; sản phẩm sẽ tạo tại task
+phụ trách. Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,
 kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung

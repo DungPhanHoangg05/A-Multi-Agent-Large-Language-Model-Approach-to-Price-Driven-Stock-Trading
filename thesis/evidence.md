@@ -783,10 +783,191 @@ xuyên suốt và các phép tính lý thuyết đầy đủ vẫn làm ở task
 §4 và cần đọc/kiểm sâu khi viết; định nghĩa trùng với một field trong code
 không thay thế citation học thuật hoặc chứng nhận phương pháp đã hiệu chuẩn.
 
-## 6. Quy ước bổ sung sổ nguồn
+## 6. Danh mục hình, bảng và thuật toán có nguồn
 
-Tiếp tục bổ sung ánh xạ luận điểm/ô bảng, ghi chú đọc sâu, citation và danh
-mục hình/bảng vào các phần tương ứng của sổ này. Chưa tạo bibliography cuối
-hoặc bản thảo sáu chương. Trạng thái nằm duy nhất tại
+Lập ngày **14/11/2026**, từ commit khảo sát
+`3e7a045d5a94237becef7c3f636fca267abe66d4`, theo danh mục gốc tại
+[kế hoạch §6](plan.md#6-danh-mục-hình-bảng-và-thuật-toán-cần-chuẩn-bị).
+Giữ **23 ID cha**: F01–F11, A01–A03 và B01–B09; mở riêng các ID đã được
+gộp theo khoảng trong kế hoạch. Đây là **danh mục chuẩn bị**, chưa phải xác
+nhận hình/bảng/thuật toán đã soạn, đã render hoặc đã được phản biện.
+
+Tên tiếng Anh là working title để dùng khi soạn; thông điệp và ghi chú quản
+lý dùng tiếng Việt. ID phục vụ truy vết; số Figure/Table/Algorithm cuối và
+cross-reference do LaTeX sinh. `F11` trong danh mục hình khác mốc nghiệm thu
+ứng dụng cũng mang tên F11 tại README tuần.
+
+### 6.1. Loại nguồn và nguyên tắc sử dụng
+
+- **ĐO_ĐƯỢC:** đầu vào/quan sát, cấu hình, bản ghi thực thi hoặc ảnh đã lưu
+  trực tiếp. “Đo được” không đồng nghĩa dữ liệu đã xác thực độc lập, kết quả
+  có ý nghĩa nhân quả hoặc ảnh UI đã nghiệm thu.
+- **DẪN_XUẤT:** phép tổng hợp, bảng/đồ thị hoặc đối chiếu từ nguồn có thể truy
+  vết. Metrics đã tính trong nghiên cứu vẫn là dẫn xuất khi dựng bảng khóa
+  luận; chỉ nhập giá trị đã khóa, không thu/refit/tái ước lượng nghiên cứu.
+- **MINH_HỌA:** sơ đồ, timeline và giả mã giải thích hợp đồng/luồng xử lý từ
+  code/protocol. Hình đó không phải kết quả đo cơ chế, hiệu quả hay nhân quả.
+- Mỗi ID có **một loại nguồn chính**; panel phụ phải ghi loại/nguồn của nó.
+  Ví dụ ảnh UI thật nếu bổ sung vào F11 phải ghi version và lượt kiểm riêng,
+  không biến sơ đồ workflow thành bằng chứng nghiệm thu.
+- Đường xuất trong bảng là **đề xuất, chưa tồn tại**: các tiền tố
+  `diagrams/`, `figures/`, `tables/` nằm dưới `thesis/assets/`. Nguồn giả mã
+  A01–A03 nằm trong bản thảo Chương 4 §4.9 rồi chuyển sang LaTeX; label là
+  định danh dự kiến. Chưa tạo các thư mục/file này chỉ để lấp danh mục.
+
+### 6.2. Sổ nguồn dùng cho danh mục
+
+Định danh/hash và cách đọc archive kế thừa mục 3. Các source ID dưới đây chỉ
+rút gọn đường dẫn cho bảng, không phải task mới hay nguồn kết quả mới.
+
+| Source ID | Nguồn có thể truy cập | Vai trò và giới hạn |
+| --- | --- | --- |
+| SRC01 | [Engine](../core/backtest_engine.py), [target contract](../utils/target_contract.py), [thuật ngữ §5](#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt). | Entry/exit, label/P&L, LONG/CASH và đơn vị; công thức/hợp đồng không đổi. |
+| SRC02 | [Protocol U06 v2](../docs/plan/week12/unified_comparison_protocol_v2.json), [manifest U06 v2](../docs/plan/week12/unified_comparison_manifest_v2.json); component `final_temporal_v1/primary_dependence.json`, `final_repeats_v1/protocol.json` trong kho revision. | Lịch, split, support và frozen-resource boundaries theo đúng nghiên cứu; không thay vendor sessions bằng lịch sàn chưa xác thực. |
+| SRC03 | [Graph](../utils/graph_setup.py), [registry](../core/variant_registry.py), [unified methods](../core/unified_methods.py), [paired protocol](../core/unified_protocol.py). | Luồng, projection, dependency và outcome barrier. Lớp UI của graph vẫn cùng logic snapshot nghiên cứu theo xác nhận tác giả ở §3. |
+| SRC04 | [Retriever](../core/bayesian_retriever.py), [conditional statistics](../core/prior_conditional_statistics.py); U09 `prior_traces.json`/`predictions.csv`. | Eligibility, population/counts, matching, selection và prefix/fallback đã ghi; không gộp signal bank với numeric task context. |
+| SRC05 | [MT tasks](../core/mt_bicl_tasks.py), [context projection](../core/mt_bicl_context.py), [recipe](../docs/plan/week11/mt_bicl_replica_full_r1.json), [model lock](../docs/plan/week11/mt_bicl_replica_full_r1_model.json); teacher/student/regime resource trong snapshot đã liệt kê ở §3.4. | Prior/target/query, fit/freeze/inference; dùng cấu hình thực tế, không lấy kiến trúc trong paper gốc thay student đã đánh giá. |
+| SRC06 | [MT policy](../core/mt_bicl_policy.py), [utility](../core/mt_bicl_utility.py), dependency trong SRC03; U09 trace/bridge/predictions. | Anchor, eligibility, assertion, utility veto, bypass và hành động cuối; lỗi kỹ thuật không thành CASH im lặng. |
+| SRC07 | [Baseline còn trên đĩa](../outputs/revision/final_baselines_v1/manifest.json); [index revision](../docs/plan/revision_evidence/index.json) và [reader](../core/revision_evidence_archive.py): các nhóm `revision_minimal_final_v1`, `final_repeats_v1`, `final_temporal_v1`, `numeric_controls_v1`, `execution_final_v1`, `manuscript_rewrite_v1`. | Metrics/panels và cell lineage thành phần. Đường trong index là đường gốc đã đóng gói; xem §6.3 để chọn member, không đọc nhầm một thư mục live trùng tên. |
+| SRC08 | [ZIP kết quả U09](../docs/plan/week12/unified_analysis_results.zip), [acceptance](../docs/plan/week12/unified_analysis_acceptance.json); namespace `outputs/unified_integration/u09_analysis_r1/`. | Kết quả ngữ cảnh, contrast, coverage, policy, sensitivity và account. Member/field cụ thể ở §6.3; metrics/bands giữ nguyên. |
+| SRC09 | [Manifest trình bày paper](../outputs/paper/manifest.json), [source kiến trúc](../paper/content/system_architecture.tex), [source kết quả](../paper/content/results.tex), [hai ảnh](../paper/figures/), [source đồ thị/bảng F02](../outputs/revision/u09_manuscript_assets_v1/manifest.json). | Bản trình bày giúp đối chiếu, không thay nguồn đo. Cặp PNG khớp snapshot và chart record; lineage chi tiết ở §6.3. |
+| SRC10 | [Danh sách nguồn gốc §4](#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), [dàn bài/RQ](outline.md). | Sổ citation và câu hỏi nghiên cứu; các nguồn CHUA_DOC chưa đủ để điền bảng so sánh học thuật cuối. |
+| SRC11 | [Serving contract](../docs/plan/week12/variant_serving_contract.md), [entrypoint](../web_interface.py), [live service](../core/serving_live/service.py). | Workflow realtime 1D và cách đọc kết quả; chỉ mô tả chức năng/luồng có nguồn. Ảnh UI trực quan mới vẫn chờ nghiệm thu, không tự đóng F11 ứng dụng. |
+
+### 6.3. Member cần dùng và tình trạng bằng chứng
+
+- **Ảnh F04:** `paper/figures/candlestick.png` và `trendlines.png` khớp nguyên
+  byte với `paper/figs/final_pattern.png` và `final_trend.png` trong snapshot.
+  Đồng thời, PNG giải mã từ `pattern_image`/`trend_image` trong record gốc
+  `outputs/revision/chart_r1_run_v1/shards/org1/charts/CMG_b2023_h2_872.json`
+  khớp cả hai file hiện tại. Reader đọc record này qua index đã kiểm hash.
+  Caption paper ghi CMG/cutoff 03/07/2023; khi soạn T19 vẫn phải nối
+  `asset_hash` tới input/prefix và chú giải cụ thể, không chỉ tin filename.
+  Record SHA-256: `51e3a94026314e886a54126dac131513f5c2810ce85ac886cc6cc05c760f47ad`;
+  `asset_hash`: `d9a9edb04166ce420c1085cf4504b550bb4cc5f308e895c8417fce94f26a59f0`.
+  PNG Pattern SHA-256: `6e3a15ae1ad3bd417312d97b835b3558d4bcf31dc04addbe3c518cf540720f73`;
+  PNG Trend SHA-256: `265c73db2caba5a76a61ddae0678f6b27f33bcae0f7c45aeb1e28c0c4b36161d`.
+- **B05 thành phần:** CSV tại `final_baselines_v1/` cung cấp classification,
+  per-class/macro/account/financial. `final_repeats_v1/{protocol.json,
+  repeat_summary.csv,contrasts.csv}` dùng cho panel lặp; `final_temporal_v1/
+  primary_dependence.json`, `numeric_controls_v1/summary.json` và
+  `execution_final_v1/scenario_summary.csv` giữ từng sensitivity/control.
+  `manuscript_rewrite_v1/{generation,numeric_cells}.json` nối ô bảng cũ với
+  nguồn. Mọi đường nhóm ở đây có tiền tố gốc `outputs/revision/` qua index.
+- **B06/F09 ngữ cảnh:** U09 `summary.csv`/`results.json` là nguồn số;
+  `contrasts.csv` có `family,method,baseline,endpoint,effect_pp,
+  band95_low_pp,band95_high_pp`. F09 vẽ mười contrast return (năm extension
+  cho mỗi baseline); đủ 20 contrast return/BA được giữ ở B06/Phụ lục D.
+  Band dùng họ đồng thời 20 contrast return/BA đã khóa; không tính lại một
+  họ chỉ gồm mười contrast được vẽ để thay band gốc.
+  Không lấy hình một baseline thay cả hai. Member `return_contrasts.svg/png`
+  là figure U09 đã lưu; `paper/figures/return_comparisons.pdf` là bản trình
+  bày hiện tại để tham khảo, không phải nguồn số độc lập.
+- **F10/B07:** U09 `predictions.csv` có `point_id,method,repeat,raw_proposal,
+  final_action,reason,bypass,llm_response,anchor_action,effective_K,
+  numeric_probability,teacher_probability,utility_q10,utility_q90,trace_sha256`.
+  Nối `trace_sha256` với `prior_traces.json`; nối outcome chỉ ở phần đánh giá.
+  `bridge.csv` giữ `same_action_forecasts,n_forecasts` và chênh lệch return/BA.
+  `effective_K` phải ghi đơn vị examples/prior tasks theo phương pháp. T07
+  chưa chọn tình huống xuyên suốt; không tự chọn ca thắng để điền B07.
+- **B04 và bảng mở rộng:** `results.json` có `coverage,telemetry,input_identity,
+  per_repeat,classification_by_group,classification_by_repeat,sensitivity`;
+  các CSV `accounts,cycles,daily_nav,per_repeat,classification_by_group,
+  classification_by_repeat` giữ support/đơn vị. Phần `sensitivity` có
+  `BLOCK_LENGTH_1`, `BLOCK_LENGTH_3`, `CORE4_FIXED_SUBSET`,
+  `LEAVE_ONE_FOLD_OUT`, `LEAVE_ONE_SYMBOL_OUT`. Không dựng portfolio bằng
+  cách nối các đường vốn tài khoản độc lập.
+- **Lineage trình bày:** `outputs/revision/u09_manuscript_assets_v1/artifacts/
+  {numeric_cells.json,support.json,points.json}` đã có binding trong manifest;
+  source này giúp nối bảng U09 sang ô/đơn vị/ID. Đây là artifact dẫn xuất,
+  không làm thay lịch sử nghiên cứu hoặc cho phép chạy generator ghi đè.
+- **B08/F11:** B08 có danh sách nguồn, còn phải đọc/kiểm nội dung tại T48–T53.
+  F11 có nguồn code/contract cho sơ đồ; ảnh browser và nghiệm thu trực quan
+  chưa có trong phạm vi hiện tại. Có thể giải thích workflow không cần ảnh;
+  không dùng mockup để giả làm screenshot đã đo hoặc coi T06 hoàn tất là
+  nghiệm thu ứng dụng.
+
+### 6.4. Danh mục hình
+
+#### Hình F01–F11
+
+| ID | Tên tiếng Anh / thông điệp | Vị trí | Task phụ trách | Loại nguồn | Nguồn | Nơi soạn/xuất dự kiến |
+| --- | --- | --- | --- | --- | --- | --- |
+| F01 | **Decision cutoff, entry and exit of a trading cycle.** Thấy gì tại cutoff, vào/thoát khi nào; SHORT giữ CASH. | Ch. 3.1–3.2 | T09, T10 | MINH_HỌA | SRC01 | `diagrams/F01_trade_timeline.tex → .pdf` |
+| F02 | **Chronological partitions and historical-label maturity.** Tách fit/selection/test, purge và maturity; không đưa nhãn query vào context. | Ch. 3.7; Ch. 5.2 | T15, T37 | MINH_HỌA | SRC02, SRC05 | `diagrams/F02_temporal_partitions.tex → .pdf` |
+| F03 | **System overview from available inputs to evaluated actions.** Tách tính số, hosted inference, fit offline, policy và đánh giá. | Ch. 4.1 | T16 | MINH_HỌA | SRC03, SRC05, SRC06 | `diagrams/F03_system_overview.tex → .pdf` |
+| F04 | **Candlestick and support-resistance inputs to Pattern and Trend.** Cho thấy hai đầu vào ảnh khác nhau trên cùng điểm, không đồng nhất ảnh với diễn giải đúng. | Ch. 4.3 | T19 | ĐO_ĐƯỢC | SRC09 | `figures/F04_pattern.png; F04_trend.png; diagrams/F04_chart_pair.tex` |
+| F05 | **Matured historical episodes and Bayesian context retrieval.** Lọc PIT trước matching/statistics; tách population, ví dụ và fallback. | Ch. 4.5–4.7 | T23, T24, T25 | MINH_HỌA | SRC04, SRC08 | `diagrams/F05_memory_retrieval.tex → .pdf` |
+| F06 | **Prior tasks, target observations and frozen MT inference.** Tách task với episode/query; tách huấn luyện teacher/student khỏi inference. | Ch. 4.8 | T28, T29 | MINH_HỌA | SRC05, SRC10 | `diagrams/F06_mt_tasks_training.tex → .pdf` |
+| F07 | **Fact Anchor and utility-gated action revision.** Giữ raw proposal, anchor và final action riêng; điều kiện Q10/Q90 nghiêm ngặt. | Ch. 4.8 | T30, T31 | MINH_HỌA | SRC06 | `diagrams/F07_action_policy.tex → .pdf` |
+| F08 | **Shared upstream and within-repeat method dependencies.** Một upstream mỗi điểm; Common/anchor dependency dùng đúng repeat, fallback không tạo call giả. | Ch. 4.9 | T33 | MINH_HỌA | SRC03, SRC06 | `diagrams/F08_variant_dag.tex → .pdf` |
+| F09 | **Mean account-return differences against Native and Common.** Giữ hai baseline, năm extension mỗi baseline và band mô tả; trục dùng pp. | Ch. 5.7–5.8 | T43 | DẪN_XUẤT | SRC08, SRC09 | `figures/F09_return_contrasts.py → .svg/.pdf` |
+| F10 | **Historical-context coverage and final-action changes.** Hiện support, fallback/bypass và mức giữ anchor; không quy thay đổi gộp cho student riêng. | Ch. 5.8 | T44 | DẪN_XUẤT | SRC08 | `figures/F10_coverage_actions.py → .svg/.pdf` |
+| F11 | **Application workflow and interpretation of a recorded result.** Theo đầu vào/tiến trình/kết quả, phân biệt raw/final/CASH và bối cảnh thực dùng. | Ch. 4.10; App. F | T35 | MINH_HỌA | SRC11 | `diagrams/F11_application_flow.tex; figures/F11_ui_*.png nếu được kiểm` |
+
+### 6.5. Danh mục thuật toán
+
+Đây là giả mã trình bày cho đường đã triển khai, không phải ba thuật toán
+mới đã được chứng minh. Phải nêu input/output, điều kiện PIT, thiếu support,
+đường lỗi và điểm lưu bền vững; không cho outcome quay lại đường dự báo.
+
+#### Thuật toán A01–A03
+
+| ID | Tên tiếng Anh / thông điệp | Vị trí | Task phụ trách | Loại nguồn | Nguồn | Nơi soạn/xuất dự kiến |
+| --- | --- | --- | --- | --- | --- | --- |
+| A01 | **Construct admissible historical context.** Giữ cutoff, reserved IDs, task boundaries và trạng thái thiếu support; query không có nhãn. | Ch. 4.9 | T33 | MINH_HỌA | SRC02, SRC04, SRC05 | `§4.9; label alg:pit-context` |
+| A02 | **Run a method and resolve its final action.** Dựng prompt/schema đúng nhánh, lưu raw, xử lý dependency/facts/utility và checkpoint. | Ch. 4.9 | T33 | MINH_HỌA | SRC03, SRC06 | `§4.9; label alg:method-policy` |
+| A03 | **Execute paired forecasts and evaluate separate accounts.** Chỉ nối outcome sau forecast bền vững; giữ economics, support và thứ tự tổng hợp đúng nghiên cứu. | Ch. 4.9 | T33 | MINH_HỌA | SRC01, SRC02, SRC03, SRC07, SRC08 | `§4.9; label alg:paired-evaluation` |
+
+### 6.6. Danh mục bảng
+
+B04–B07 có thể tách panel phụ nhưng giữ ID cha và provenance của từng panel;
+không cộng support của hai nghiên cứu hoặc nhận panel thành phần thay cho
+ablation MT-BICL chưa chạy.
+
+#### Bảng B01–B09
+
+| ID | Tên tiếng Anh / thông điệp | Vị trí | Task phụ trách | Loại nguồn | Nguồn | Nơi soạn/xuất dự kiến |
+| --- | --- | --- | --- | --- | --- | --- |
+| B01 | **Notation, terminology and units.** Một đối tượng có một nghĩa; K ví dụ khác K task, fraction khác %/pp. | Front matter; Ch. 3 | T05, T60 | DẪN_XUẤT | SRC01, SRC05 | `tables/B01_notation.csv + .tex` |
+| B02 | **Component input-output and temporal contracts.** Mỗi thành phần có input/kiểu, cutoff, xử lý, output và bên dùng. | Ch. 4.2–4.4 | T17, T18, T19, T20, T21, T22 | DẪN_XUẤT | SRC01, SRC03, SRC04, SRC05, SRC06 | `tables/B02_component_contracts.csv + .tex` |
+| B03 | **Method foundations, context and policy differences.** Native/Common/Base rõ phạm vi; so sánh matching/statistics/examples, dependencies và fallback. | Ch. 4.4, 4.7, 4.9 | T22, T27, T33 | DẪN_XUẤT | SRC03, SRC04, SRC05, SRC06 | `tables/B03_method_comparison.csv + .tex` |
+| B04 | **Data, evaluation support and frozen configuration.** Tách cohort/loại trừ, bank, missingness, models, runtime và call/repeat units của hai nghiên cứu. | Ch. 5.2–5.3 | T37, T38 | ĐO_ĐƯỢC | SRC02, SRC05, SRC07, SRC08 | `tables/B04_data_configuration.csv + .tex` |
+| B05 | **Component-study results and controls.** Giữ classification/account cùng support, tách main/upstream/factorial/numeric/scenario panels. | Ch. 5.6; App. D | T41 | DẪN_XUẤT | SRC07 | `tables/B05_component_results.csv + .tex` |
+| B06 | **Historical-context results and paired comparisons.** Giữ đủ tám vai trò/hai economic controls, 20 contrast, ba bridge và sensitivity đúng nguồn. | Ch. 5.7; App. D | T42 | DẪN_XUẤT | SRC08, SRC09 | `tables/B06_context_results.csv + .tex` |
+| B07 | **Traceable contexts, proposals, policies and outcomes.** Chọn tình huống theo rule, nối facts/context/raw/final/outcome; có fallback, veto và quyết định sai. | Ch. 5.8; App. B/D | T44, T45 | DẪN_XUẤT | SRC06, SRC08 | `tables/B07_case_traces.csv + .tex` |
+| B08 | **Comparison with related research.** So sánh inputs, architecture, context/regime, PIT, economics và controls từ nguồn đã kiểm. | Ch. 2.7 | T53 | DẪN_XUẤT | SRC10 | `tables/B08_related_research.csv + .tex` |
+| B09 | **Research questions, supported answers and remaining uncertainty.** Mỗi RQ nối với quan sát, kết luận có giới hạn và bằng chứng còn thiếu. | Ch. 5.9; Ch. 6.2 | T47, T56 | DẪN_XUẤT | SRC07, SRC08, SRC10 | `tables/B09_rq_answers.csv + .tex` |
+
+### 6.7. Yêu cầu khi tạo sản phẩm ở task phụ trách
+
+1. Trước khi tạo, đọc lại source đúng namespace/hash tại §3; lưu liên kết
+   input/member/field → giá trị/đơn vị → figure/table/panel. Nhận định thiếu
+   nguồn phải bỏ, thu hẹp hoặc ghi NA; không gọi model/thu dữ liệu/refit để
+   làm đẹp danh mục. Những đường xuất dự kiến không được ghi thành file đã có.
+2. Nhãn/caption/legend bằng tiếng Anh, giải thích được khi đọc độc lập.
+   Caption của ảnh/ca thực ghi stock/cutoff, loại nguồn và ID truy vết phù
+   hợp; số minh họa phải có nhãn `Illustrative`. Dịch chú giải hoặc báo cáo
+   Việt để trình bày phải ghi rõ là bản dịch, giữ nguyên raw/hash gốc.
+3. Sơ đồ nên dùng nguồn vector có thể sửa, đồ thị khoa học dùng công cụ plot
+   chuẩn và xuất SVG/PDF. Giữ mã nguồn vẽ/bảng dẫn xuất trong gói sau; không
+   biến ảnh raster hoặc đồ thị đo được thành hình AI tái dựng. Cặp PNG F04
+   giữ nguyên byte nếu tái sử dụng; chú giải đặt ở caption/layout riêng.
+4. Khi dựng F01/F07/A02, giữ entry Open(t+1), exit Close(t+3), phí hai chiều,
+   SHORT=CASH và hai dấu strict Q10/Q90. Khi dựng F03/F08/A03, tách upstream
+   chung khỏi repeat; fallback/bypass không phải một response mới.
+5. F09/B05/B06 phải ghi support và đơn vị %/pp, estimator và loại band của
+   đúng nghiên cứu; giữ kết quả âm, NA, bootstrap undefined và fallback trong
+   tập chính. Không dùng “significant”, “calibrated” hoặc “profitable” mạnh
+   hơn bằng chứng. F10/B07 không suy hiệu quả student riêng khi thiếu ablation.
+6. Khi chuyển LaTeX, sinh references/danh mục tự động, kiểm chữ đủ đọc, không
+   cắt/chồng bảng/hình và xem bản render ở task tương ứng. T06 chỉ chốt danh
+   mục và nguồn, chưa chạy build hoặc kiểm trực quan các sản phẩm tương lai.
+
+## 7. Quy ước bổ sung sổ nguồn
+
+Tiếp tục bổ sung ánh xạ luận điểm/ô bảng, ghi chú đọc sâu, citation và nguồn
+sản phẩm ngay trong các phần tương ứng của sổ này. Chưa tạo bibliography
+cuối hoặc bản thảo sáu chương. Trạng thái nằm duy nhất tại
 [checklist trong kế hoạch](plan.md#21-một-nguồn-trạng-thái-công-việc);
 lịch sử kiểm tra gộp lưu tại README tuần.
