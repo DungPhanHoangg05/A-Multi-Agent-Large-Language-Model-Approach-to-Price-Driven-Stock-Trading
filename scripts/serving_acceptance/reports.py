@@ -14,9 +14,9 @@ from scripts.serving_acceptance import repair
 from scripts.serving_acceptance.evidence import binding,runtime
 
 ROOT,DOC,RECEIPT=repair.ROOT,repair.DOC,repair.RECEIPT
-BASE='b55a738f'
-PACKAGE=DOC/'serving_locale_repair_checks.zip'
-WORK=ROOT/'tmp/f11_locale_repair'
+BASE='8da3f8fc'
+PACKAGE=DOC/'serving_report_completion_checks.zip'
+WORK=ROOT/'tmp/f11_report_completion'
 PLANS=[('tests/analysis_ui','test_*.py'),('tests/serving_runtime','test_runtime.py')]
 NODE_FILES=['tests/js/'+name for name in ('analysis_ui.test.mjs','site_preferences.test.mjs')]
 
@@ -41,8 +41,11 @@ def historical() -> dict:
     locale='docs/plan/week12/serving_language_theme_checks.zip'
     released=subprocess.check_output(['git','show',BASE+':'+locale],cwd=ROOT)
     if (ROOT/locale).read_bytes()!=released: raise ValueError('QA locale cũ đã đổi')
+    completion='docs/plan/week12/serving_locale_repair_checks.zip'
+    prior=subprocess.check_output(['git','show',BASE+':'+completion],cwd=ROOT)
+    if (ROOT/completion).read_bytes()!=prior: raise ValueError('QA dịch trước đã đổi')
     return {**result,'daily_analysis_qa_unchanged':binding(expected),'report_qa_unchanged':binding(previous),
-        'language_theme_qa_unchanged':binding(released)}
+        'language_theme_qa_unchanged':binding(released),'locale_repair_qa_unchanged':binding(prior)}
 
 
 def suite(plan: tuple[str,str]) -> tuple[str,dict]:
@@ -73,23 +76,25 @@ def run() -> dict:
         raw=done.stdout+b'\n'+done.stderr; log='dom_'+str(index)+'.log'; (WORK/log).write_bytes(raw)
         count=re.search(rb'(?:#|\xe2\x84\xb9) tests (\d+)',raw)
         results[log]={'passed':not done.returncode and bool(count),'tests':int(count[1]) if count else 0,'log':binding(raw)}
-    syntax=['static/js/display_locale.js']
+    syntax=['static/js/display_locale.js','static/js/analysis/daily_output.js']
     for name in syntax: subprocess.run(['node','--check',name],cwd=ROOT,check=True,capture_output=True)
     if not all(row['passed'] for row in results.values()): raise ValueError('Gate báo cáo chưa PASS; xem tmp/f11_language_theme')
     if sources()!=sealed or runtime(ROOT)!=environment: raise ValueError('Nguồn/runtime đổi trong gate')
-    checks={'version':'serving_locale_repair_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
+    checks={'version':'serving_report_completion_checks_v1','status':'OFFLINE_PASS_BROWSER_PENDING','base_commit':BASE,
         'sources':sealed,'runtime':environment,'historical':integrity,'compiled_python':compiled,'javascript_syntax':syntax,
         'test_suites':results,'market_calls':0,'hosted_llm_calls':0,'f11_complete':False,
         'recorded_at':datetime.now(timezone.utc).isoformat(),
-        'scope':'REQUIRED_TRANSLATION_SEGMENTS; IMMUTABLE_NUMBERS_CODES_MARKDOWN; PARTIAL_REPORT_CHECKPOINT; FAILED_CACHE_VERSION; UNKNOWN_NO_REPLAY; ORIGINAL_SOURCE_DISCLOSURE',
+        'scope':'TRANSLATION_COMPLETION_BUDGET; CONFIRMED_400_SPLIT_ONLY; V3_SEED_VALID_REPORTS; VISIBLE_PENDING_REPORTS; SINGLE_VERSIONED_ENTRY; REVIEWED_CURRENT_ENGLISH_CACHE',
         'browser':{'status':'PENDING','desktop':'NOT_RUN','mobile':'NOT_RUN','reason':'BROWSER_HOST_UNAVAILABLE'},
         'not_rerun':'Original/native and scientific adapters unchanged; no full live/provider replay, study, full unit or E2E'}
     members={'checks.json':(json.dumps(checks,ensure_ascii=False,indent=2)+'\n').encode()}
     members.update({name:(WORK/name).read_bytes() for name in results})
+    for name in ('current_cache_repair.json','reviewed_translations.py'):
+        members[name]=(WORK/name).read_bytes()
     members['manifest.json']=(json.dumps({name:binding(raw) for name,raw in members.items()},indent=2)+'\n').encode()
     with zipfile.ZipFile(PACKAGE,'w',zipfile.ZIP_DEFLATED) as archive:
         for name,raw in members.items(): archive.writestr(name,raw)
-    receipt={'version':'serving_integration_acceptance_v8','status':checks['status'],'base_commit':BASE,
+    receipt={'version':'serving_integration_acceptance_v9','status':checks['status'],'base_commit':BASE,
         'checks_package':{'path':PACKAGE.relative_to(ROOT).as_posix(),**binding(PACKAGE.read_bytes())},
         'python_tests':sum(row['tests'] for name,row in results.items() if not name.startswith('dom_')),
         'dom_tests':sum(row['tests'] for name,row in results.items() if name.startswith('dom_')),'compiled_python':len(compiled),'javascript_syntax':len(syntax),

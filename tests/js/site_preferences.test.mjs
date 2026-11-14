@@ -45,7 +45,7 @@ test('Lỗi/key thiếu không fallback về báo cáo VI trên trang EN',async 
   globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
   await localizeElements([node],config,async()=>{throw new Error('offline');});
   assert.equal(node.children[0].textContent,'Translation unavailable'); assert.equal(status.textContent,'Translation unavailable');
-  assert.equal(node.children[1].children[0].textContent,'View original report');
+  assert.equal(node.children[1].children[0].textContent,'View original report · VI');
   assert.equal(node.children[1].children[1].textContent,'Giá trị 1.23');
   assert.equal(status.hidden,false);
 });
@@ -58,4 +58,21 @@ test('Một phần dịch lỗi không xóa report đã hoàn tất; render ngay
   });
   assert.equal(good.textContent,'Value 1'); assert.equal(good.dataset.localizedLanguage,'en');
   assert.equal(bad.children[1].children[1].textContent,'Giá trị 2');
+});
+
+test('Alpha Pattern Trend không bị ẩn khi POST chậm và được thay bằng tiếng Anh khi xong',async () => {
+  const nodes=['Alpha gốc','Pattern gốc','Trend gốc'].map(text=>new Node(text,{sourceLanguage:'vi'}));
+  const status=new Node(); globalThis.document={getElementById:()=>status,createElement:()=>new Node()};
+  let complete;
+  const result=localizeElements(nodes,config,()=>new Promise(resolve=>complete=resolve));
+  for (const [index,node] of nodes.entries()) {
+    assert.equal(node.children[1].open,true);
+    assert.equal(node.children[1].children[1].textContent,['Alpha gốc','Pattern gốc','Trend gốc'][index]);
+    assert.equal(node.attrs['data-locale-pending'],undefined);
+    assert.equal(node.attrs['aria-busy'],'true');
+  }
+  complete({state:'completed',target:'en',texts:{n0:'Full Alpha report',n1:'Full Pattern report',n2:'Full Trend report'}});
+  await result;
+  assert.deepEqual(nodes.map(node=>node.textContent),['Full Alpha report','Full Pattern report','Full Trend report']);
+  assert.ok(nodes.every(node=>node.attrs['aria-busy']==='false'));
 });

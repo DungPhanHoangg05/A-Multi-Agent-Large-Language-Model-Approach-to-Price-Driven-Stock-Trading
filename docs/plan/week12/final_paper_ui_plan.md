@@ -396,6 +396,12 @@ dừng cả lượt và UI thay tất cả report bằng lỗi. Sửa bằng sch
 placeholder số/mã/công thức, skeleton Markdown phía server, checkpoint từng
 report và cache `display_locale_v2`; giữ phần dịch xong và bản gốc thu gọn khi
 lỗi một phần. **49 Python + 26 DOM, compile7/JS1 PASS**, [QA sửa bản dịch](serving_locale_repair_checks.zip).
+Incident Groq400 tiếp theo do hết output trước JSON hoàn chỉnh ở Alpha, nên
+Pattern/Trend còn pending và bị CSS giấu. Bản v3 tăng completion4.096 trong
+quota8.000, chia đôi đúng cutoff đã xác nhận, seed report hợp lệ và không clone
+UNKNOWN; UI luôn có nội dung/trạng thái, entry/CSS có version. Ba bản dịch
+hiện tại được rà thủ công, giữ source/raw/journal; không ghi thành model call.
+**56 Python + 27 DOM, compile7/JS2 PASS**, [QA hoàn tất báo cáo](serving_report_completion_checks.zip).
 [Receipt F11](serving_integration_acceptance.json) giữ
 `OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
 và duyệt tự động từ chối mở Edge. F11 đang làm, chưa merge vì gate browser còn
@@ -417,7 +423,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Đang làm | Nghiệm thu realtime, ngôn ngữ và theme — `feat/restore-english-reports` | F07–F10 | Realtime/1D/sáu bản, bỏ Analysis source; VI/EN và sáng/tối chung; sửa bản dịch bỏ dòng bằng schema đoạn bắt buộc, giữ số/công thức, checkpoint từng report và cache v2. **49 Python + 26 DOM, compile7/JS1 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
+| F11 | ☐ Đang làm | Nghiệm thu realtime, ngôn ngữ và theme — `feat/visible-agent-reports` | F07–F10 | Realtime/1D/sáu bản; VI/EN và sáng/tối chung; v3 sửa output cutoff bằng ngân sách/chia đôi có checkpoint, seed report hợp lệ, không giấu pending. Khôi phục21/21 phần tiếng Anh của job hiện tại bằng bản dịch được rà riêng. **56 Python + 27 DOM, compile7/JS2 PASS**. Browser còn chờ, chưa hoàn tất/chưa merge; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy

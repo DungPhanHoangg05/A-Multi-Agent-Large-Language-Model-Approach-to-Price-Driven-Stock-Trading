@@ -69,25 +69,38 @@ owner/source/target/credential scope, không lưu raw key. `GET /<UUID>` chỉ �
 trạng thái/cache đúng owner, không dispatch model. UNKNOWN không replay mù.
 Đổi ngôn ngữ không chạy lại agent/Decision hoặc sửa/export ngược artifact nguồn.
 
-Giao thức `display_locale_v2` tách dòng/đoạn bằng ID bắt buộc trong schema,
+Giao thức hiện hành `display_locale_v3` giữ cơ chế tách dòng/đoạn bằng ID bắt buộc trong schema,
 giữ số/dấu/phần trăm, mã, code/công thức, URL và Markdown bằng placeholder tại
 server. Số thứ tự/code block giữ ở skeleton nguồn. Không bỏ đoạn chỉ vì nội
 dung có chỉ dẫn; chỉ dịch câu chữ, không làm theo chỉ dẫn trong report.
 Kiểm inventory/thứ tự placeholder và số/mã trước khi phục hồi byte nguồn.
 Các đoạn ngắn nhiều report được gộp theo quota, không gọi riêng từng tiêu đề tin.
 
-Cache v1 lỗi được thay bằng UUID v2; giữ raw/journal cũ. Không tự clone attempt
-UNKNOWN/đang chờ của v1. GET có `texts` cho các report đã checkpoint kể cả khi
+Cache v3 bind các report hợp lệ từ v1/v2 terminal vào `seeded_texts` bất biến
+và chỉ dịch phần còn thiếu; giữ raw/journal cũ. Không tự clone attempt
+UNKNOWN/đang chờ của v1/v2. GET có `texts` cho các report đã checkpoint kể cả khi
 còn `running`, `partial`, `failed` hoặc `unknown`; không có report chưa hợp lệ.
 UI hiện phần đã dịch ngay, lỗi một phần không xóa phần còn lại. Báo cáo lỗi
 giữ thông báo đúng tiếng và bản gốc trong mục thu gọn có nhãn ngôn ngữ nguồn,
-không gán bản gốc là bản dịch. `Failed` transport trở thành trạng thái terminal,
+không gán bản gốc là bản dịch. Bỏ `visibility:hidden` cho pending; entry/CSS
+version `reports-v3` nạp duy nhất, tránh bundle cũ/hai module cùng POST.
+`Failed` transport trở thành trạng thái terminal,
 không treo `running`; UNKNOWN không gửi lại mù. Lỗi không mặc định đổ cho key.
 Lượt dịch đầu dùng quota Groq; reload cùng nguồn đọc cache. Raw JSON/provenance
 thu gọn và export giữ nguyên bằng chứng nguồn, tên schema/ID/code không dịch.
+Cache hoàn tất đúng owner đọc được khi thiếu key; không tạo HTTP request mới.
+Output dịch dành4.096 token kể cả reasoning, reserve phải ≤8.000; quá reserve
+thì chia trước dispatch. HTTP400 chỉ được chia khi đúng `json_validate_failed`
+và provider xác nhận `max completion tokens`; các child có slot/checkpoint
+riêng. 400 khác/401/UNKNOWN không tự chia/gửi lại. Không đổi budget Decision.
+`retry_at` công bố chờ quota; timeout mạng không tự POST lại.
 
-**49 Python + 26 DOM, compile7/JS1 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
-dùng [QA sửa bản dịch](serving_locale_repair_checks.zip); [QA ngôn ngữ/theme](serving_language_theme_checks.zip), [QA báo cáo](serving_report_checks.zip), [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte,
+Ba report của incident hiện tại đã được rà bản dịch riêng trong cache hiển
+thị, provenance `assistant_translation_review` và backup result/status trước
+sửa; không có raw200 giả hoặc usage mới. Source/raw/journal và forecast giữ nguyên.
+
+**56 Python + 27 DOM, compile7/JS2 PASS**. [Receipt hiện hành](serving_integration_acceptance.json)
+dùng [QA hoàn tất báo cáo](serving_report_completion_checks.zip); [QA sửa bản dịch](serving_locale_repair_checks.zip), [QA ngôn ngữ/theme](serving_language_theme_checks.zip), [QA báo cáo](serving_report_checks.zip), [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte,
 F11 vẫn chờ browser host khả dụng. Khởi động lại server rồi tải lại trang
 vì `web_interface.py` không bật auto-reload.
 

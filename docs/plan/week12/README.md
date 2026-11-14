@@ -206,7 +206,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: Realtime/1D/sáu bản, bỏ Analysis source; VI/EN và sáng/tối chung; sửa bản dịch bỏ dòng bằng schema đoạn bắt buộc, giữ số/công thức, checkpoint từng report và cache v2. **49 Python + 26 DOM, compile7/JS1 PASS**. Browser desktop/mobile còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: Realtime/1D/sáu bản, VI/EN và sáng/tối chung; v3 sửa output cutoff bằng ngân sách/chia đôi có checkpoint, seed report hợp lệ, không giấu pending. Khôi phục21/21 phần tiếng Anh của job hiện tại bằng bản dịch được rà riêng. **56 Python + 27 DOM, compile7/JS2 PASS**. Browser còn chờ, chưa hoàn tất/chưa merge.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -808,6 +808,29 @@ v2; không cần chạy lại phân tích/Decision của job đó. Kiểm payloa
 120 đoạn/8 batch, reserve lớn nhất4.284 <8.000 token; không dispatch model.
 Diff, **215 liên kết/anchor local**, checklist và receipt được đối soát chỉ
 đọc sau gate, không gọi là chạy lại suite.
+
+### Sửa incident F11 — Hoàn tất Alpha, Pattern và Trend tiếng Anh
+
+Ngày 14/11/2026, nhánh `feat/visible-agent-reports` từ develop, nhận nền
+`8da3f8fc`; tiếp tục yêu cầu hiển thị đủ tiếng Anh, không coi fallback VI là hoàn tất.
+
+- [x] Đối chiếu cache/ảnh: có đầy đủ source ba report;18/21 phần đã dịch. HTTP cuối là **400/json_validate_failed**, `failed_generation="max completion tokens reached before generating a valid document"`. Budget2.048 hết ở batch cuối Alpha rồi Pattern; Trend chưa chạy. Trong khi pending, CSS `visibility:hidden` giấu toàn bộ nội dung mà vẫn giữ chiều cao, gây khung trắng. Không quy lỗi này thành key hay agent không sinh kết quả.
+- [x] Tách transport dịch riêng: output **4.096**, tính reserve trong quota **8.000**, chủ động chia trước dispatch nếu vượt quota. Chỉ chia đôi sau HTTP400 đã durable có đúng code/chi tiết cutoff; child slot/checkpoint riêng, replay không gửi lại parent. 400 khác/401/UNKNOWN không được chia hoặc gửi lại mù; không reset quota/cap hoặc thay Decision/backtest.
+- [x] `display_locale_v3` bind các report hợp lệ từ v1/v2 terminal vào seed bất biến, chỉ dịch phần còn thiếu. Không clone v1/v2 đang chờ/UNKNOWN. Cache hoàn tất đúng owner vẫn đọc được khi chưa cấu hình lại key, không dispatch model. Chờ quota có `retry_at` để hiển thị tiến độ; deadline mạng hữu hạn, không tự POST lại.
+- [x] Bỏ CSS giấu report; mỗi phần pending/lỗi có trạng thái rõ và bản gốc ghi đúng ngôn ngữ, không gọi nó là bản dịch. Dịch xong thay bằng tiếng đã chọn. Shared entry/CSS mang version `reports-v3`; loại import unversioned thứ hai để không tạo hai module cùng POST hoặc dùng bundle cũ.
+- [x] **Khôi phục ngay job đang lỗi**: dịch/rà riêng ba source Alpha/Pattern/Trend; guard đối soát toàn bộ số/code/công thức, đủ **21/21 phần tiếng Anh**. Chỉ công bố result/status hiển thị, giữ nguyên source, raw HTTP và journal; copy nguyên byte result/status trước sửa và receipt `assistant_translation_review` trong namespace cache riêng. Không giả Groq200, usage hoặc agent call: **0 hosted/forecast/market call mới**. QA giữ summary và nguồn thay cụm đã rà; fixture giữ đúng body/error400 và ba cặp source/English, không chứa key/owner cá nhân.
+- [x] **56 Python + 27 DOM, compile7/JS2 PASS**:39 ca analysis_ui/caller/cache/formatter và17 ca transport/quota/recovery;21 DOM caller và6 DOM locale/theme. Tái hiện đúng cutoff400, kiểm ngân sách mới, chia child đúng lỗi, không retry400 khác, seed/no-key/owner, ba report đầy đủ EN, pending không trắng, chỉ một entry versioned. Không chạy full unit/E2E/compileall hoặc scientific study/leakage vì không đổi đường giá/tin/PIT/retrieval, forecast, prompt hay kinh tế.
+- [ ] Browser trực quan vẫn chờ host; F11 chưa hoàn tất/F12 chưa bắt đầu/chưa merge develop. Kiểm HTTP fixture không phải smoke Groq mới; bản dịch phục hồi hiện tại có provenance rà riêng, không được ghi là API đã hoàn thành ba report.
+
+[Receipt v9](serving_integration_acceptance.json) khóa
+[QA hoàn tất báo cáo](serving_report_completion_checks.zip). [QA v8](serving_locale_repair_checks.zip)
+và các QA/archive/paper/PDF cũ giữ nguyên byte. Native causal FAIL,
+whole-system NOT_CERTIFIED và0/18 comment không đổi. Hai ảnh chart ngoài task
+không đưa vào commit. Job hiện tại chỉ cần tải lại cùng URL để nhận21 phần
+EN đã phục hồi; khởi động lại backend để áp dụng v3 cho job sau. Đối soát
+diff, **220 liên kết/anchor local**, checklist và receipt chỉ đọc PASS sau
+gate, không nhận là chạy lại suite. Probe đọc cache thực không có key/client
+xác nhận completed21 phần và cả Alpha/Pattern/Trend không còn chữ VI.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

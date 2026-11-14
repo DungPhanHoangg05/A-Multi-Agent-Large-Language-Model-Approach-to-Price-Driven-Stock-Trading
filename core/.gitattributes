@@ -6,3 +6,4 @@ unified_execution_providers.py text eol=lf
 realtime_index.py text eol=lf
 serving_locales.py text eol=lf
 display_translation.py text eol=lf
+translation_transport.py text eol=lf

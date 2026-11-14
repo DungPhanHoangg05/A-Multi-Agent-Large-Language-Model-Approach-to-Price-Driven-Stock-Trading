@@ -55,3 +55,17 @@ class Preferences(unittest.TestCase):
         self.assertIn('1 Day',raw); self.assertNotIn('1 Ngày',raw)
         self.assertIn('High',raw); self.assertIn('data-source-language="vi"',raw)
         self.assertEqual(results['timeframe'],'1 Ngày'); self.assertEqual(results['final_decision']['confidence'],'Cao')
+
+    def test_serving_report_loads_one_versioned_locale_module_without_hidden_pending_content(self) -> None:
+        results={'serving_analysis':True,'asset_name':'FPT','final_decision':{'decision':'SHORT'},
+            'report_language':'vi','alpha_analysis':'Alpha source','pattern_analysis':'Pattern source','trend_analysis':'Trend source'}
+        with self.web.app.test_request_context('/output?lang=en'):
+            from flask import render_template
+            raw=render_template('analysis/legacy_output.html',results=results,T=self.web.catalogue('en'),LANG='en',
+                A=importlib.import_module('utils.analysis_ui').messages('en'))
+        self.assertEqual(raw.count('js/display_locale.js?v=reports-v3'),1)
+        self.assertNotIn('js/analysis/daily_output.js',raw)
+        self.assertIn('css/site_theme.css?v=reports-v3',raw)
+        from pathlib import Path
+        css=(Path(__file__).resolve().parents[2]/'static/css/site_theme.css').read_text(encoding='utf-8')
+        self.assertNotIn('visibility:hidden',css)
