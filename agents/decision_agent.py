@@ -711,7 +711,8 @@ def create_final_trade_decider(
         if request is not None:
             from core.prior_prompt import add_prior_use_contract
             prompt = add_prior_use_contract(prompt, request, lang)
-        if is_backtest or profile == NATIVE_PROFILE:
+        # UI realtime gửi prompt gốc đầy đủ; trần 6.500 chỉ thuộc đường backtest.
+        if is_backtest:
             report_lengths = {
                 "trend": len(trend_report or ""), "pattern": len(pattern_report or ""),
                 "indicator": len(indicator_report or ""),

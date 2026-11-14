@@ -85,7 +85,7 @@ class ServingContractTests(unittest.TestCase):
         self.assertEqual(set(resources), {"prices", "news", "calendar", "bank", "regime", "facts", "context", "student"})
         self.assertLess(result["execution_plan"].index("Fact_Anchor"), result["execution_plan"].index("MT_BICL"))
         en = request_fixture(); en["language"] = "en"
-        self.assertIn("LANGUAGE_NOT_RELEASED", [b["code"] for b in preflight(ServingRequest.create(en))["blockers"]])
+        self.assertIn("SERVER_PREFLIGHT_REQUIRED", [b["code"] for b in preflight(ServingRequest.create(en))["blockers"]])
 
     def test_bad_fields_aliases_dates_modes_and_json_types_are_rejected(self) -> None:
         cases = [("version", "unified_experiment_v2"), ("mode", "hosted"), ("mode", []),

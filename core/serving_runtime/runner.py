@@ -79,19 +79,27 @@ class Runner:
                     def execute(attempt: str) -> dict:
                         raw = None
                         if prepared["request"] is not None:
-                            reply, wire = self.calls.call(slot, body_for(prepared["request"]), attempt)
+                            body=self.provider.wire_body(prepared['request']) if hasattr(self.provider,'wire_body') else body_for(prepared['request'])
+                            full_reply, wire = self.calls.call(slot, body, attempt)
+                            reply=self.provider.canonical_reply(full_reply) if hasattr(self.provider,'canonical_reply') else full_reply
                             raw = raw_record(prepared["request"], wire, reply)
-                        return {"forecast": {"variant": variant, "raw": raw},
+                        result={"forecast": {"variant": variant, "raw": raw},
                                 "policy": self.provider.resolve(variant, prepared, raw, deepcopy(deps))}
+                        if raw is not None and hasattr(self.provider,'presentation_reply'): result['display_en']=self.provider.presentation_reply(full_reply)
+                        return result
                     def validate(record: dict) -> None:
                         raw = record["forecast"]["raw"]
                         if (prepared["request"] is None) != (raw is None):
                             raise ValueError("Raw không đúng request/bypass")
                         if raw is not None:
-                            actual_reply, wire = self.calls.call(slot, body_for(prepared["request"]),
+                            body=self.provider.wire_body(prepared['request']) if hasattr(self.provider,'wire_body') else body_for(prepared['request'])
+                            full_reply, wire = self.calls.call(slot, body,
                                 load(self.book.path(slot))["attempts"][0]["attempt_id"])
+                            actual_reply=self.provider.canonical_reply(full_reply) if hasattr(self.provider,'canonical_reply') else full_reply
                             if raw != raw_record(prepared["request"], wire, actual_reply):
                                 raise ValueError("Raw/UUID không khớp wire đã durable")
+                            if hasattr(self.provider,'presentation_reply') and record.get('display_en')!=self.provider.presentation_reply(full_reply):
+                                raise ValueError('Bản trình bày không khớp raw của cùng request')
                         if record["policy"] != self.provider.resolve(variant, prepared, raw, deepcopy(deps)):
                             raise ValueError("Policy không tái lập từ raw/dependency")
                     records[variant] = self.book.execute(slot, {**parents, "prepared": prepared}, execute, validate=validate)
@@ -106,9 +114,14 @@ class Runner:
         """Kết quả partial chỉ chứa slot complete; dữ liệu model để ngoài main rows cho UI nâng cao."""
         from core.prior_stage_journal import decode_output
         rows, executed, details, snapshots = [], set(), {}, {}
+        presentations={}
         raw_ids = set()
         points_complete = 0
         for point in self.reservation["points"]:
+            presentation_slot='presentation/'+point['id']
+            if self.book.complete(presentation_slot):
+                document=load(self.book.path(presentation_slot))
+                presentations[point['id']]=self.book.execute(presentation_slot,document['inputs'],None)
             point_rows = []
             shared_slot = "shared/"+point["id"]
             if self.book.complete(shared_slot):
@@ -156,13 +169,14 @@ class Runner:
                     details[slot] = {"policy": policy, "raw_reply": raw["reply"] if raw else None,
                                      "context": {"trace": preparation.get("trace"), "aux": preparation.get("aux")},
                                      "shared_sha256": snapshots[point["id"]]["sha256"]}
+                    if 'display_en' in record: details[slot]['display_en']=record['display_en']
             rows.extend(point_rows)
             points_complete += int(len(point_rows) == len(self.plan)*self.request["repeats"])
         progress = {"points_total": len(self.reservation["points"]), "points_complete": points_complete,
                     "decision_slots_total": len(self.reservation["points"])*len(self.plan)*self.request["repeats"],
                     "decision_slots_complete": len(rows), "api_attempts": self.calls.quota.attempts(self.run_id)}
         result = result_document(self.job, status["state"], sorted(executed), progress, rows, status["error"])
-        result.update(retry_at=status.get("retry_at"), snapshots=snapshots, policy_details=details,
+        result.update(retry_at=status.get("retry_at"), snapshots=snapshots, policy_details=details, presentations=presentations,
                       outcome_points=sum(self.book.complete("outcome/"+p["id"]) for p in self.reservation["points"]),
                       input_snapshot_scope="SEALED_RESOURCE_AND_POINT_MANIFEST; SHARED_REPORT_HASHES_PER_POINT")
         return result

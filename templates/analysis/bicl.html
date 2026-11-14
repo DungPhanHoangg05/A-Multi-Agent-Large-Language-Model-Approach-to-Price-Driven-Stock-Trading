@@ -1,0 +1,21 @@
+<div class="agent-panel bicl-panel">
+  <div class="agent-panel-header">
+    <div class="agent-icon-wrap agent-icon-purple"><i class="fas fa-brain"></i></div>
+    <div><div class="agent-title">{{ A.bicl_title }}</div><div class="agent-subtitle">{{ results.analysis_version }}</div></div>
+  </div>
+  <div class="agent-panel-body">
+    <p>{{ results.bicl.method }}</p>
+    <h4>{{ A.bicl_policy }}</h4>
+    <p>{{ results.bicl.application_note }}</p>
+    <p>{{ results.bicl.status }} · {{ results.bicl.reason }}</p>
+    <p>{{ A.bicl_raw }}: {{ results.bicl.raw if results.bicl.raw is not none else A.na }} → <strong>{{ results.bicl.final }}</strong> · {{ results.bicl.action }}</p>
+    {% if results.bicl.baseline %}<p>{{ A.bicl_baseline }}: {{ results.bicl.baseline }} → {{ results.bicl.final }}</p>{% endif %}
+    <h4>{{ A.bicl_context }}</h4>
+    <p>{{ results.asset_name }} · {{ results.bicl.cutoff }} · {{ results.bicl.captured_at }}</p>
+    {% if results.bicl.prior_count is not none %}<p>{{ A.bicl_prior }}: {{ results.bicl.prior_count }}{% if results.bicl.regime %} · {{ results.bicl.regime }}{% endif %}</p>{% endif %}
+    {% if results.bicl.tasks %}<ul>{% for task in results.bicl.tasks %}<li>{{ task.symbol }} · {{ task.id }} · {{ A.bicl_closed }}: {{ task.exit_date }}</li>{% endfor %}</ul>{% endif %}
+    {% if results.bicl.prefix %}<details><summary>{{ 'Raw prompt (source language)' if LANG=='en' else 'Prompt gốc (ngôn ngữ nguồn)' }}</summary><pre class="bicl-context">{{ results.bicl.prefix }}</pre></details>{% endif %}
+    <details><summary>{{ A.bicl_facts if results.analysis_version == 'MT-BICL' else A.bicl_prior }}</summary><pre class="bicl-context">{{ results.bicl.evidence }}</pre></details>
+    <details><summary>{{ A.bicl_details }}</summary><pre class="bicl-context">{{ results.bicl.details }}</pre></details>
+  </div>
+</div>

@@ -57,9 +57,16 @@ class AnalysisPages(unittest.TestCase):
             page = Page(response.get_data(as_text=True)); config = json.loads(page.config)
             self.assertEqual(config['language'],lang)
             self.assertEqual(config['messages'],messages(lang))
-            chosen = [a['value'] for tag,a in page.nodes if a.get('name') == 'compare-method' and 'checked' in a]
-            self.assertEqual(chosen,['original_fix','bayesian_v1'])
-            self.assertEqual(len([a for tag,a in page.nodes if a.get('name') == 'compare-method']),8)
+            self.assertNotIn('name="compare-method"',response.get_data(as_text=True))
+            self.assertNotIn('id="compareBtn"',response.get_data(as_text=True))
+            raw = response.get_data(as_text=True)
+            self.assertNotIn('id="analysis-source"',raw)
+            self.assertNotIn('<option value="latest"',raw); self.assertNotIn('<option value="asof"',raw)
+            self.assertNotIn('id="asof-inputs"',raw)
+            self.assertEqual([a['data-tf'] for tag,a in page.nodes if 'data-tf' in a],['1d'])
+            self.assertEqual(len([a for tag,a in page.nodes if a.get('id') == 'step-bicl']),1)
+            self.assertLess(raw.index('id="step-bicl"'),raw.index('id="step6"'))
+            self.assertEqual(raw.count('<option value='),6)
             self.assertIn('disabled',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
             self.assertNotIn('onclick',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
             for tag,attrs in page.nodes:
@@ -122,7 +129,7 @@ class AnalysisPages(unittest.TestCase):
         for value in data['policy_details'].values(): self.assertIsInstance(value['context']['aux'],dict)
     def test_english_reports_and_missing_resources_are_blocked_before_start(self) -> None:
         request = spec().document(); request['language'] = 'en'
-        self.assertEqual(self.client.post('/api/serving/v1/jobs',json=request).status_code,409)
+        self.assertTrue(self.client.post('/api/serving/v1/preflight',json=request).get_json()['run_enabled'])
         with patch.object(self.service.resources_factory,'verify',side_effect=ValueError('fixture')):
             request['language'] = 'vi'
             self.assertFalse(self.client.post('/api/serving/v1/preflight',json=request).get_json()['run_enabled'])

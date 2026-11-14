@@ -30,6 +30,7 @@
                 } catch (e) { console.warn('sessionStorage parse error:', e); }
             }
 
+            if (document.getElementById('site-preferences-config')) return;
             // Render Markdown
             ['indicatorContent', 'patternContent', 'trendContent', 'sentimentContent'].forEach(id => {
                 const el = document.getElementById(id);

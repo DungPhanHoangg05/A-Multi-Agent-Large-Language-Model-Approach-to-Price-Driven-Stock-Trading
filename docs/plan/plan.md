@@ -63,7 +63,38 @@ F10 đã nối backtest mới và danh mục owner vào experiments, cùng evalu
 account/classification U09, daily NAV/cycle returns, filter/contrast cùng
 support và JSON/CSV; Full/No-Alpha legacy có adapter riêng. **156 Python +
 31 DOM, compile13/JS7 PASS**, chỉ HTTP fixture; browser visual chờ F11.
-Bước tiếp theo **F11** nghiệm thu tích hợp; F11–F12 chưa bắt đầu.
+**F11 đang làm**: đã nhận develop `4de6d1aa`, sửa prompt Original realtime và
+snapshot VNINDEX. Theo yêu cầu mới nhất, form phân tích chạy realtime,
+**bỏ hẳn mục Analysis source**, duy nhất **1D**, chọn một trong
+sáu bản rồi Phân tích. Đã xóa lựa chọn as-of/daily riêng, so sánh, repeats và
+cấu hình serving khỏi form. Original giữ pipeline hiện tại; bản nâng cấp dùng
+cùng overlay từng agent rồi mở cùng bố cục kết quả, thêm phần BICL thực tế.
+Tiến trình từ checkpoint, decision/policy/context giữ nguyên; không tính lại
+hoặc bịa kết quả khi lỗi/UNKNOWN. [Runbook hiện hành](week12/variant_serving_contract.md#form-phân-tích-hiện-hành--realtime-1d).
+[Receipt hiện hành](week12/serving_integration_acceptance.json) và
+[QA song ngữ hiện hành](week12/serving_bilingual_checks.zip): **135 Python + 24 DOM, compile23/JS2 PASS**.
+Đã sửa BICL đứng trước Decision cuối; khôi phục báo cáo Alpha Agent đầy đủ,
+hiển thị common Alpha riêng đúng nguồn Decision, format Indicator theo HTML
+Original tham chiếu. Tin hiển thị cùng snapshot/cutoff, thiếu metadata là NA.
+Sáu layout dùng chung VI/EN và sáng/tối; đổi ngôn ngữ giữ query/job/filter và
+cookie. Theo yêu cầu ngày14/11/2026, profile live mới
+`live_bilingual_presentation_v1` tạo VI/EN trong cùng invocation Pattern/Trend/
+Decision; Indicator/Alpha số học dùng mẫu song ngữ từ kết quả đã tính, không
+chạy lại selector. Policy/snapshot canonical vẫn VI; sidecar trình bày riêng,
+không sửa artifact nghiên cứu. Hai bản HTML được nhúng sẵn; đổi VI/EN ngay
+tại chỗ, không reload/fetch/POST, không gọi dịch hoặc chờ quota Groq. Route
+dịch đã ngừng đăng ký. Bản ghi cũ đọc cache hoàn tất đúng owner không cần key;
+nếu chưa có tiếng còn lại thì cần phân tích lại một lần. Lượt phân tích đầu
+vẫn dùng model và có thể tăng output token, không tăng số call để đổi tiếng.
+Theme nhớ lựa chọn hoặc theo hệ điều hành. Các lần sửa dịch trước,21/21 phần
+được rà riêng và raw/journal của incident giữ nguyên ở checklist/QA lịch sử.
+Các QA cũ giữ nguyên byte làm lịch sử; không chạy toàn suite/cold study hoặc
+gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn không khả dụng;
+Theo chỉ đạo mới của người dùng ngày14/11/2026, hợp nhất nhánh
+`feat/precomputed-bilingual-results` vào `develop`, giữ **UI/F11: PENDING**.
+Merge nguồn không phải nghiệm thu browser hoặc hoàn tất F11.
+**F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên. Bước tiếp theo chờ người dùng
+gửi khung KLTN để bắt đầu viết luận văn theo khung đó.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

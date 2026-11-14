@@ -3,3 +3,7 @@ test_bic_icl_input_audit_leakage.py -text
 test_unified_execution_recovery.py text eol=lf
 test_unified_execution_leakage.py text eol=lf
 .gitattributes text eol=lf
+test_realtime_index.py text eol=lf
+test_realtime_decision_budget.py text eol=lf
+test_variant_serving.py text eol=lf
+js/site_preferences.test.mjs text eol=lf

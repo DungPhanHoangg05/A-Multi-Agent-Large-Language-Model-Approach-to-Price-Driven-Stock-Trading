@@ -42,7 +42,7 @@ class Service:
         request = spec.document()
         blockers, points = [], []
         try:
-            resources = self.resources_factory(self.root)
+            resources = self.resources(request)
             resources.verify()
         except (ValueError, OSError, KeyError):
             blockers.append({"code": "RESOURCES_NOT_READY", "message": "Cần cài hoặc khôi phục đúng resource release serving"})
@@ -65,7 +65,7 @@ class Service:
         return {"version": "variant_serving_v1", "registry_version": REGISTRY_VERSION,
             "status": "blocked" if blockers else "ready", "run_enabled": not blockers,
             "request_sha256": spec.sha256, "requested_ids": request["variant_ids"], "execution_plan": plan,
-            "blockers": blockers, "points": points, "resource_version": VERSION,
+            "blockers": blockers, "points": points, "resource_version": getattr(resources, "version", VERSION),
             "support": resources.document()["support"] if resources else None,
             "planned_decision_slots": len(points)*len(plan)*request["repeats"],
             "estimated_max_api_attempts": len(points)*(2+len(plan)*request["repeats"])*3,
@@ -77,10 +77,11 @@ class Service:
         if not checked["run_enabled"]:
             raise ValueError("Preflight chưa đạt")
         source = self.sources()
-        resources = self.resources_factory(self.root).document()
         request = spec.document()
+        resource_provider = self.resources(request)
+        resources = resource_provider.document()
         config = {"version": CONFIG_VERSION, "registry_version": REGISTRY_VERSION, "runner_version": "serving_runner_v1",
-            "provider_version": VERSION, "source_sha256": digest(source), "calendar_sha256": digest(resources["support"]["calendar"]),
+            "provider_version": getattr(resource_provider, "version", VERSION), "source_sha256": digest(source), "calendar_sha256": digest(resources["support"]["calendar"]),
             "support_sha256": digest(resources["support"]), "credential_scope_sha256": self.quota.credential_scope(key),
             "resources": {name: resources["resources"][name] for name in required_resources(request["variant_ids"])},
             "prompt_versions": {**{name: "shared_upstream_v1/"+name for name in ("indicator", "pattern", "trend", "alpha", "sentiment")},
@@ -92,6 +93,15 @@ class Service:
         if background:
             self.start(identifier, key, owner)
         return identifier
+
+    def resources(self, request: dict | None = None) -> Any:
+        """Mỗi lượt kiểm dùng resource riêng; provider mới có thể bind snapshot trong request."""
+        return self.resources_factory(self.root)
+
+    def provider(self, reservation: dict) -> Any:
+        """Factory mặc định giữ ABI as-of; subclass live truyền snapshot đã khóa riêng."""
+        request = reservation["job"]["identity"]["request"]
+        return self.provider_factory(self.root, reservation["points"], request["models"], request["variant_ids"])
 
     def _guard(self, reservation: dict, resources: Any) -> None:
         """Source/resource thay đổi thì dừng trước HTTP mới, không tự cập nhật pin để resume."""
@@ -138,10 +148,10 @@ class Service:
                     raise ValueError("Credential khác identity job")
                 if resume_generation is not None:
                     self.store.control(identifier, False, expected_generation=resume_generation)
-                resources = self.resources_factory(self.root)
-                self._guard(reservation, resources)
                 request = reservation["job"]["identity"]["request"]
-                provider = self.provider_factory(self.root, reservation["points"], request["models"], request["variant_ids"])
+                resources = self.resources(request)
+                self._guard(reservation, resources)
+                provider = self.provider(reservation)
                 # Lỗi PIT/selector/facts phải được phát hiện trước vision đầu tiên.
                 for point in reservation["points"]:
                     provider.validate_point(point)
@@ -188,6 +198,9 @@ class Service:
         if status["state"] in ("running", "partial") and self.store.control(identifier)["stop_requested"]:
             status["state"] = "stop_requested"
         result = runner.public(status)
+        # Ngôn ngữ request là ngôn ngữ hiển thị; projection nghiên cứu VI giữ nguyên byte.
+        result['generation_language'] = 'vi'
+        result['display_language'] = reservation['job']['identity']['request']['language']
         result["worker_alive"] = bool(identifier in self.tasks and self.tasks[identifier].is_alive())
         return result
 
@@ -220,5 +233,5 @@ class Service:
             for name in ('core/serving_runtime/evaluation.py','core/free_pilot_statistics.py',
                          'core/unified_analysis/analysis.py','core/backtest_engine.py','utils/target_contract.py'):
                 if current.get(name) != sealed.get(name): raise ValueError('Evaluator source khác job')
-            return prices(self.root,reservation,book.outcomes(),self.resources_factory(self.root))
+            return prices(self.root,reservation,book.outcomes(),self.resources(reservation['job']['identity']['request']))
         return evaluate(reservation,public,book.outcomes(),query,loader)

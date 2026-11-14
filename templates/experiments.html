@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/serving.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/backtest/serving.css') }}">
   <script type="module" src="{{ url_for('static', filename='js/experiments/main.js') }}"></script>
+{% include 'shared/preferences_head.html' %}
 </head>
 <body>
+{% include 'shared/preferences.html' %}
 <header class="topbar"><a class="brand" href="/?lang={{ LANG }}">QuantAgent <span>VN</span></a>
-  <nav aria-label="Navigation"><a href="/?lang={{ LANG }}">{{ E.analysis }}</a><a href="/output?lang={{ LANG }}">{{ E.output }}</a><a href="/backtest?lang={{ LANG }}">{{ E.backtest }}</a><a aria-current="page" href="/experiments?lang={{ LANG }}">{{ E.research }}</a></nav>
-  <div class="languages"><a lang="vi" href="?lang=vi" {% if LANG == 'vi' %}aria-current="true"{% endif %}>VI</a><a lang="en" href="?lang=en" {% if LANG == 'en' %}aria-current="true"{% endif %}>EN</a></div>
+  <nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ E.analysis }}</a><a href="/output?lang={{ LANG }}">{{ E.output }}</a><a href="/backtest?lang={{ LANG }}">{{ E.backtest }}</a><a aria-current="page" href="/experiments?lang={{ LANG }}">{{ E.research }}</a></nav>
+
 </header>
 <main>
   <div class="heading"><div><span class="eyebrow">{{ E.offline }}</span><h1>{{ E.title }}</h1><p>{{ E.subtitle }}</p></div><span id="state" role="status" aria-live="polite">{{ E.loading }}</span></div>

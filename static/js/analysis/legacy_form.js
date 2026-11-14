@@ -12,33 +12,14 @@
         }
 
         let maDaChon = '';
-        let KHUNG_THOI_GIAN = '1d';   // updated when user picks a timeframe
+        const KHUNG_THOI_GIAN = '1d'; // Form phân tích chỉ dùng khung ngày.
         let danhSachMa = [];
         let keyDaLuu = false;
 
         // ── Timeframe selector ─────────────────────────────────────────────────────
         const TF_META = {
-            "5m": { label: "5m - " + tr('tf_5m'), desc: tr('tf_recent_candles', { n: 78 }), icon: "fas fa-stopwatch" },
-            "15m": { label: "15m - " + tr('tf_15m'), desc: tr('tf_recent_candles', { n: 60 }), icon: "fas fa-clock" },
-            "30m": { label: "30m - " + tr('tf_30m'), desc: tr('tf_recent_candles', { n: 50 }), icon: "fas fa-clock" },
-            "1h": { label: "1h - " + tr('tf_1h'), desc: tr('tf_recent_candles', { n: 45 }), icon: "fas fa-clock" },
             "1d": { label: "1D - " + tr('tf_1d'), desc: tr('tf_recent_candles', { n: 45 }), icon: "fas fa-calendar-day" },
-            "1w": { label: "1W - " + tr('tf_1w'), desc: tr('tf_recent_candles', { n: 52 }), icon: "fas fa-calendar-week" },
-            "1mo": { label: "1M - " + tr('tf_1mo'), desc: tr('tf_recent_candles', { n: 36 }), icon: "fas fa-calendar-alt" },
         };
-
-        function initTimeframeSelector() {
-            document.querySelectorAll('.tf-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    KHUNG_THOI_GIAN = btn.dataset.tf;
-                    const meta = TF_META[KHUNG_THOI_GIAN] || {};
-                    document.getElementById('tfLabel').textContent = meta.label || KHUNG_THOI_GIAN;
-                    document.getElementById('tfDesc').textContent = meta.desc || '';
-                });
-            });
-        }
 
         // ── Step tracking (7 steps) ────────────────────────────────────────────────
         const STEP_IDS = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6'];
@@ -234,9 +215,16 @@
             resetLoadingSteps();
         }
 
-        function chayPhanTich() {
-            if (!maDaChon) { hienThongBao(tr('warn_select_stock'), 'warn'); return; }
-            if (!keyDaLuu) { hienThongBao(tr('warn_save_key'), 'warn'); document.getElementById('groqApiKeyInput').focus(); return; }
+        function beginAnalysis(upgraded = false) {
+            if (!maDaChon) { hienThongBao(tr('warn_select_stock'), 'warn'); return false; }
+            if (!keyDaLuu) { hienThongBao(tr('warn_save_key'), 'warn'); document.getElementById('groqApiKeyInput').focus(); return false; }
+            const order = upgraded ? [2,4,5,3,6] : [2,3,4,5,6];
+            order.forEach((label,index) => {
+                document.getElementById('step'+(index+2)).querySelector('span').textContent = tr('load_step'+label).replaceAll('&amp;','&');
+            });
+            document.getElementById('step-bicl').hidden = !upgraded;
+            document.getElementById('step-bicl').classList.remove('active','done');
+            document.getElementById('analysis-progress-message').textContent = tr('loading_sub');
             document.dispatchEvent(new Event('analysis-legacy-start'));
             const btn = document.getElementById('analyzeBtn');
             btn.disabled = true;
@@ -249,6 +237,11 @@
             const tfMeta = TF_META[KHUNG_THOI_GIAN] || {};
             const step1El = document.getElementById('step1Text');
             if (step1El) step1El.textContent = tr('load_step1_tf', { tf: tfMeta.label || KHUNG_THOI_GIAN });
+            return true;
+        }
+
+        function chayPhanTich() {
+            if (!beginAnalysis()) return;
 
             // Gửi kèm ngôn ngữ để các tác tử trả lời đúng ngôn ngữ / send language so agents reply in it
             fetch('/api/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ asset: maDaChon, timeframe: KHUNG_THOI_GIAN, language: LANG }) })
@@ -292,14 +285,14 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            initTimeframeSelector();
             kiemTraGroq();
             if (localStorage.getItem('groq_key_set') === '1') keyDaLuu = true;
 
         });
 
 // Chỉ tải danh sách realtime khi chọn nguồn legacy; giữ nhịp kiểm trạng thái năm phút.
-window.legacyAnalysis = {run: chayPhanTich, load: () => {
+window.legacyAnalysis = {run: chayPhanTich, begin:beginAnalysis, end:resetBtn,
+    selection: () => ({symbol:maDaChon,timeframe:KHUNG_THOI_GIAN}), load: () => {
     kiemTraTrangThaiRT(); taiDanhSachMa();
-    setInterval(() => { if (document.getElementById('analysis-source').value === 'latest') kiemTraTrangThaiRT(); }, 5 * 60 * 1000);
+    setInterval(kiemTraTrangThaiRT,5 * 60 * 1000);
 }};

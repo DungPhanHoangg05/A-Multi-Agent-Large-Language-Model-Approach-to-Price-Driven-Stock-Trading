@@ -62,7 +62,7 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(self.senders,[])
         self.key = 'fixture-secret-A'
         value = spec().document(); value['language'] = 'en'
-        self.assertFalse(self.client.post('/api/serving/v1/preflight',json=value).get_json()['run_enabled'])
+        self.assertTrue(self.client.post('/api/serving/v1/preflight',json=value).get_json()['run_enabled'])
         response = self.client.post('/api/serving/v1/jobs',json=spec().document(),headers={'Origin':'https://untrusted.example'})
         self.assertEqual(response.status_code,400)
         self.assertEqual(self.senders,[])

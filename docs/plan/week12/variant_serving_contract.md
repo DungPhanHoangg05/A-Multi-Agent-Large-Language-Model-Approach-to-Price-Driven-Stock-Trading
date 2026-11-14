@@ -11,11 +11,210 @@ phương pháp và replay nghiên cứu. Không đổi expected hash/receipt l�
 qua server preflight và miền cụ thể trong mục tiếp theo. Không mở lại grant
 nghiên cứu U08, không dùng API key từ body request.
 
+Theo yêu cầu người dùng ngày **13/11/2026**, F11 bổ sung
+`serving_live_daily_v1` và `/api/serving/live/v1` cho dữ liệu mới nhất.
+Luồng live tách khỏi release frozen F08, dùng lại runner/method adapters và
+weights/bank đã khóa; không biến kết quả historical U09 thành forecast mới.
+
+## Form phân tích hiện hành — Realtime 1D
+
+Theo yêu cầu mới nhất của người dùng, `/demo` **bỏ hẳn mục Analysis source**,
+luôn chạy realtime và chỉ có **timeframe 1D**. Chọn mã, một trong sáu bản rồi **Phân tích**;
+form không còn as-of, nguồn daily riêng, so sánh/repeats/capture thủ công hoặc
+cấu hình serving. Các phần API/miền đa khung/as-of bên dưới là hợp đồng backend
+và lịch sử, không phải lựa chọn hiện có trên form này.
+
+Original chạy `/api/analyze` như trước. Bản nâng cấp tự capture `{symbol,timeframe:"1d"}`,
+preflight rồi tạo một job analyze/repeat1; request nhận ngôn ngữ hiển thị VI/EN.
+Cùng overlay hiển thị từng agent từ `agent_progress` của checkpoint đã kiểm
+checksum, gồm render/I/P/T/Alpha/context/Decision. Thứ tự node tuân thủ DAG
+hiện có; không gọi thêm upstream để tạo hoạt ảnh hoặc làm giống số lần gọi.
+Chỉ khi completed mới chuyển sang
+`/output?serving_run=<UUID>&serving_source=live&presentation=analysis&lang=<vi|en>`.
+Lỗi/UNKNOWN giữ thông báo và liên kết job, không tự POST lại; create mơ hồ khóa
+gửi lại để tránh nhân đôi inference.
+
+Kết quả dùng cùng template/CSS Original và thêm panel BICL: cách áp dụng,
+prior/context thực tế, chế độ thị trường/support nếu có, baseline→final,
+raw/final/CASH và lý do fallback/bypass. BICL nằm trước Decision cuối; common/
+Fact Anchor phụ thuộc thuộc bước BICL. Báo cáo Alpha Agent đầy đủ (native) được
+giữ nguyên, common Alpha tách riêng và ghi rõ là input Decision nâng cấp.
+Không lấy metrics/công thức native gán cho giá trị common. Indicator dựng
+heading/bảng có header và CSS như báo cáo Original tham chiếu. Tin hiển thị
+được đọc từ cùng snapshot/owner, cùng eligibility FrozenNews, không đổi score
+và normalizer đã lưu; thiếu nhãn/peers là NA, future publication bị ValueError. Báo cáo/ảnh chỉ từ snapshot cùng job;
+không lấy ảnh global hoặc session cũ. GET/reload kiểm cookie owner, chỉ chiếu
+một bản/một point/một repeat/1D hoàn tất; không inference/tải lại thị trường.
+HTML/link trong báo cáo model được hiển thị an toàn bằng text node; JSON
+context chi tiết nằm trong mục thu gọn, không dùng JSON thay phần giải thích chính.
+
+VI/EN và sáng/tối dùng chung trên sáu layout. Link ngôn ngữ giữ query/job/filter,
+cookie dùng chung mọi trang; theme lưu `qa_theme`, mặc định theo hệ điều hành,
+đồng bộ tab và áp dụng trước paint. Báo cáo native mới ghi `report_language`;
+báo cáo cũ hoặc nâng cấp vẫn giữ nguyên ngôn ngữ nguồn đã lưu.
+
+### Báo cáo song ngữ có sẵn, chuyển tiếng không gọi model
+
+Miền `support.languages=[vi,en]` là **ngôn ngữ hiển thị**; với serving nâng cấp,
+`support.generation_languages=[vi]`, kết quả ghi `generation_language=vi` và
+`display_language=request.language`. Profile live mới
+`live_bilingual_presentation_v1` sinh hai cách diễn đạt của cùng một phân tích
+trong lời gọi agent hiện có. Wire live có thêm hợp đồng song ngữ; không nhận
+prompt live mới là tương đương từng byte hoặc từng response với profile cũ.
+Không thay schema SharedSnapshot, adapter/prompt nghiên cứu, source manifest
+hoặc expected hash đã khóa. API as-of bên dưới
+cũng nhận `language=en` cho hiển thị, không chứng nhận giao thức nghiên cứu EN.
+
+Pattern/Trend trả `{vi,en}` trong **cùng request**, không mở lượt dịch sau đó.
+Decision trả canonical VI và `display_en` trong cùng JSON schema wire. Tầng
+policy chỉ nhận canonical; raw HTTP/checksum vẫn giữ đủ phản hồi thực. Ba
+trường giải thích EN phải giữ nguyên số/mã/công thức với bản canonical. Thiếu
+hoặc sai hợp đồng thì báo lỗi rõ, không gửi thêm request dịch để vá nội dung.
+ContextVar cô lập từng job và reset sau lỗi; các caller/backtest không kích
+hoạt profile này vẫn delegate schema/prompt cũ.
+
+Indicator EN dựng bằng nhãn/mẫu cố định từ kết quả Python đã tính: đủ năm chỉ
+báo, latest/last5, giá/MA, phân loại và đồng thuận. Alpha EN dùng metadata
+song ngữ của đúng factor đã chọn, giữ nguyên value/formula/components và
+IC/accuracy; không chạy lại selector hoặc gán công thức theo thứ hạng. Phần
+nhận định chuyên gia Original, nếu có, cũng sinh hai bản trong lời gọi Alpha
+hiện có. Sentiment/nhãn/common Alpha/BICL dùng mẫu địa phương hóa từ cùng dữ
+liệu, không gọi LLM. Tiêu đề tin là trích dẫn nguyên nguồn; prompt/raw JSON
+có nhãn ngôn ngữ nguồn trong phần thu gọn.
+
+Sidecar `presentation/<point>` và `presentations` nằm ngoài SharedSnapshot,
+được checkpoint/checksum cùng job. `/output` kiểm owner rồi nhúng cả hai bản
+HTML trong template inert. Nút VI/EN clone bản đã lưu, đổi catalogue/title,
+cookie/query và nhãn theme ngay tại chỗ, render Markdown bằng text an toàn;
+**không fetch/POST, không reload, không đợi quota/key/model**. Số lượt inference
+không tăng vì đổi tiếng; lượng output của lượt phân tích ban đầu có thể tăng
+vì tạo hai bản. Retry/quota/UNKNOWN của inference hiện hữu vẫn áp dụng.
+
+`/api/display-locales` đã bỏ đăng ký route (404); không còn worker dịch trong
+luồng sản phẩm. Code/cache dịch cũ chỉ phục vụ đọc lịch sử và hồi quy. Bản
+cache đã hoàn tất đúng owner được kiểm số/mã rồi đọc trực tiếp không cần key.
+Bản ghi cũ chỉ có một ngôn ngữ và không có cache hợp lệ sẽ hiện thông báo
+thiếu bản đã lưu ở tiếng được chọn; muốn có đủ hai bản cần phân tích lại một
+lần. Không bịa bản EN hoặc tự gọi model khi mở bản ghi cũ.
+
+Ba report của incident hiện tại đã được rà bản dịch riêng trong cache hiển
+thị, provenance `assistant_translation_review` và backup result/status trước
+sửa; không có raw200 giả hoặc usage mới. Source/raw/journal và forecast giữ nguyên.
+
+[Receipt hiện hành](serving_integration_acceptance.json) dùng
+[QA song ngữ](serving_bilingual_checks.zip), kết quả scoped **135 Python + 24 DOM, compile23/JS2 PASS**.
+[QA hoàn tất báo cáo trước](serving_report_completion_checks.zip),
+[QA sửa bản dịch](serving_locale_repair_checks.zip), [QA ngôn ngữ/theme](serving_language_theme_checks.zip), [QA báo cáo](serving_report_checks.zip), [QA 1D](serving_daily_analysis_checks.zip) và các QA cũ nguyên byte.
+F11 vẫn chờ browser host khả dụng. Khởi động lại server rồi Ctrl+F5 để thay
+Python đang chạy và nạp entry `display_locale.js?v=bilingual-v1`; job mới sẽ
+có hai bản, job cũ dùng cache có sẵn. Không gọi thị trường/hosted LLM mới
+trong gate này; HTTP fixture không chứng nhận response Groq thực.
+QA giữ135 log Python PASS; sau đó chỉ đổi test DOM/gate đóng gói nên kiểm
+nguồn app/test Python/runtime và giữ log nguyên byte, chạy lại24 DOM. Binding
+trước delta nằm trong `python_reuse.json` của ZIP, không nhận là đã chạy lại
+Python sau sửa test DOM. Lệnh `--run` bình thường vẫn chạy lại các suite
+scoped trong helper; `verify` chỉ đọc nguồn/runtime/evidence.
+
+Theo chỉ đạo mới ngày14/11/2026, nguồn UI được hợp nhất vào `develop` nhưng
+**UI/F11 vẫn PENDING**, receipt giữ `OFFLINE_PASS_BROWSER_PENDING` và
+`f11_complete=false`. Không dùng merge thay nghiệm thu desktop/mobile.
+Bước tiếp theo chờ khung KLTN từ người dùng để bắt đầu viết luận văn;
+F12 chưa mở, không tự push/deploy hoặc thay bằng chứng nghiên cứu.
+
+<a id="phân-tích-phiên-ngày-mới-nhất"></a>
+
+## Phân tích phiên ngày mới nhất (API và lịch sử UI)
+
+Mở `/demo`, nguồn mặc định **Realtime · phiên ngày hoàn tất mới nhất**.
+Chọn mã và một trong sáu bản chính, nhấn **Lấy dữ liệu mới nhất**, đợi kiểm
+khả dụng rồi nhấn **Phân tích**. Nút này chạy đúng bản trong dropdown;
+checkbox chỉ áp dụng khi nhấn **So sánh phiên bản**. Phần nâng cao giữ
+repeat/model options và hai dependency; fallback/bypass luôn hiển thị rõ.
+
+Miền live là chín mã như F08, **1d**, generation VI/hiển thị VI–EN như trên, nguồn VCI/KBS qua loader hiện hữu.
+Không giới hạn ngày mới trong tháng 7–9 nữa. Trước **15:30 Asia/Ho_Chi_Minh**
+loại nến ngày hiện tại; sau đó chỉ nhận phiên có cả cổ phiếu và VNINDEX.
+Giá/volume phải hợp lệ, có ít nhất 600 phiên, không nến tương lai hoặc lịch
+lệch; nguồn quá cũ trên mười ngày bị chặn. Chế độ **Realtime · intraday và
+các khung thời gian** bên dưới cũng chọn được cả sáu phiên bản.
+Tin undated bị loại, tin future bị từ chối; tin chỉ có ngày được coi là khả
+dụng từ ngày kế tiếp. Thiếu ít nhất ba score hợp lệ giữ sentiment unavailable,
+không giả thành trung tính. Sự kiện quyền live chưa có ledger độc lập; metadata
+giữ `LIVE_EVENT_LEDGER_UNAVAILABLE; VENDOR_ADJUSTMENT_RISK`.
+
+`POST /api/serving/live/v1/snapshot` nhận duy nhất `symbol`, fetch giá/tin/index
+một lần, trả `snapshot_id` SHA256, ngày dữ liệu, thời điểm capture và nguồn.
+Preflight/start nhận envelope đóng:
+
+```json
+{"version":"variant_serving_live_v1","snapshot_id":"<SHA256>","request":{"version":"variant_serving_v1","mode":"analyze","variant_ids":["MT_BICL"],"symbols":["MWG"],"start_date":"<cutoff capture>","end_date":"<cutoff capture>","timeframe":"1d","language":"vi","repeats":1,"models":"<object đủ sáu role từ /api/serving/v1/defaults>"}}
+```
+
+Ví dụ trên mô tả cấu trúc; thay `models` bằng object thật, không gửi chuỗi mô tả.
+`POST /preflight`, `POST /jobs`, `GET /jobs/<UUID>`, `POST /jobs/<UUID>/stop|resume`
+và `GET /jobs/<UUID>/export` đều dưới prefix live. Cookie owner được kiểm cả
+snapshot/job, source/config/model/key được snapshot riêng; không nhận raw key
+trong body. Service live mặc định dùng chung ledger admission as-of cho
+TPM/RPM; namespace job và input vẫn riêng. State live nằm dưới `outputs/serving_live/`, không trộn catalog
+backtest as-of hoặc kết quả U09. Export JSON và GET không fetch nguồn/model.
+Link kết quả giữ `serving_source=live`; đổi VI/EN không mất namespace job.
+
+Upstream I→P→T vẫn một lần/point; native Alpha giữ cách tính cũ. Common Alpha
+dùng top5/threshold frozen đã replay integrity rồi chuyển sang prefix live,
+có identity `live_frozen_selector_transfer_v1` và scope riêng, không nhận là
+parity dữ liệu frozen. Bayesian giữ bank/scaler2022; query features/regime
+nhận nguồn mới và lịch quan sát. MT giữ context labels mature trước 01/07/2026,
+facts historical cùng nguồn nhãn cũ, chỉ x/facts query lấy live; weights và
+HMM frozen không refit. Ba ngày t+1/t+3 trong metadata query MT chỉ là **kế hoạch
+ngày làm việc**, không phải lịch sàn/giá khớp tương lai; không đưa vào HMM,
+features hoặc oracle. Fallback/cold context được trình bày bằng policy reason.
+
+Phân tích live không có outcome/P&L t+3, không nhận mode backtest. Resume luôn
+đọc lại capture cũ theo SHA, không tự lấy giá mới và không gửi lại UNKNOWN.
+Muốn dùng dữ liệu mới hơn phải capture và tạo job mới. Báo cáo/nguồn live là
+exploratory; native causal FAIL, whole-system NOT_CERTIFIED giữ nguyên.
+
+## Chọn phiên bản ngay trong chế độ intraday và các khung thời gian
+
+Mốc đa khung trước khi thu gọn UI: chế độ trước mang nhãn **Original · intraday
+and other timeframes** nay là **Realtime · intraday and other timeframes**.
+Dropdown phiên bản luôn hiển thị ngoài vùng as-of: chọn một trong sáu bản,
+chọn mã/khung rồi nhấn **Phân tích**. Các bản nâng cấp không bị chuyển ngầm
+sang Original. Original giữ pipeline cũ; năm bản nâng cấp chạy provider/DAG
+durable riêng trên nến khung đã chọn. Hiện tài nguyên nâng cấp có chín mã như
+trên; thiếu resource/support là lỗi có thông báo, không giả thành fallback thành công.
+
+Các khung: **5m, 15m, 30m, 1h, 1d, 1w, 1mo**. Indicator/Pattern/Trend và ảnh
+dùng chart khung được chọn. Alpha/prior/facts/student/regime giữ ngữ cảnh ngày
+và mục tiêu **Open(t+1)→Close(t+3) theo phiên giao dịch**, không thay bằng ba
+nến 5m/ba tuần/ba tháng. Đây là chuyển ngữ cảnh phục vụ inference mới, không
+nhận là model đã được huấn luyện hoặc chứng nhận hiệu quả cho từng tần suất.
+
+`POST /api/serving/live/v1/snapshot` nhận `{symbol,timeframe}` trong chế độ này.
+Capture khóa cả chart timestamps và 600+ nến ngày, tin có ngày, VNINDEX. Có thể
+dùng phiên ngày đang hình thành tại thời điểm capture, ghi `daily_provisional`;
+nếu nguồn daily chưa có phiên đó, chỉ tổng hợp OHLCV từ nến intraday thực có từ
+đầu phiên. Thiếu nến đầu phiên, nến vượt capture, lịch lệch hoặc đơn vị giá
+chart/daily không nhất quán đều từ chối trước LLM, không nội suy/đổi đơn vị.
+Snapshot chỉ ngày hoàn tất hiện có vẫn giữ policy cũ, không bị nới ngầm.
+
+Preflight/start nhận `version=variant_serving_timeframe_v1`, `snapshot_id`,
+`chart_timeframe` và `request` chuẩn ngày bên trong. `request.mode=analyze`,
+`request.variant_ids=[bản đã chọn]`, `request.timeframe=1d` là ngữ cảnh/target;
+chart timeframe phải khớp snapshot và được bind trong identity/support/hash.
+Không nhận live backtest/payoff query. Kết quả giữ nguồn live, timestamp/nhãn
+chart đúng khung, daily prefix/provenance riêng, requested/effective/bypass rõ.
+Đổi lựa chọn sau click không sửa request đã khóa; lỗi create mơ hồ không tự gửi lại.
+
+Server `web_interface.py` chạy `use_reloader=False`; sau khi cập nhật code phải
+khởi động lại tiến trình server hiện có và tải lại trang để nạp cả backend/JS mới.
+
 ## Chạy serving as-of từ F08
 
-Miền công bố: **1d/VI**, BHN/CMG/FPT/HVN/MBB/MWG/VCB/VJC/VNM, **58 phiên
+Miền công bố: **1d**, generation VI/hiển thị VI–EN, BHN/CMG/FPT/HVN/MBB/MWG/VCB/VJC/VNM, **58 phiên
 01/07–23/09/2026** trong calendar đã pin. Đây là dữ liệu vendor historical
-frozen; **chưa hỗ trợ giá/tin mới nhất hiện tại, intraday hoặc EN**. Query mới
+frozen; **luồng as-of này không nhận giá/tin mới nhất hoặc intraday**.
+Giá/tin mới nhất dùng luồng live riêng ở trên. Query mới
 được dựng từ giá as-of và chạy upstream/Decision mới, không lookup forecast
 hay prepared response U09. Bank CORE4/OOD fallback và MT eligible/bypass giữ
 đúng policy; “chạy được” không có nghĩa mọi nhánh luôn đủ support để gọi LLM.
@@ -115,8 +314,9 @@ F10 đã nối backtest/experiments. F08 không sửa template hoặc endpoint n
 Mở `/` hoặc `/demo`, chọn nguồn **As-of** và một mã/ngày trong miền công bố.
 Mặc định Hệ gốc; “Phân tích” chạy bản trong dropdown, “So sánh phiên bản” chạy
 các checkbox đã chọn (ít nhất hai, mặc định Hệ gốc + Bayesian v1). Các dependency
-tự chạy và hiện trong phần nâng cao. Chọn nguồn realtime legacy để dùng form
-mã/khung cũ với Hệ gốc; luồng này không nhận các bản mở rộng.
+tự chạy và hiện trong phần nâng cao. Cả nguồn Realtime intraday/khung khác và
+nguồn Realtime phiên ngày mới nhất đều có dropdown đủ sáu bản; intraday không
+bắt người dùng chuyển sang chế độ ngày mới chọn được bản nâng cấp.
 
 Giao diện VI/EN không đổi ngôn ngữ report đã có. Provider mới hiện chỉ hỗ trợ
 VI; chọn report EN sẽ bị chặn thay vì tự đổi sang VI. Repeat và options của
@@ -126,7 +326,7 @@ mới bật nút; server vẫn preflight lại khi tạo job. Start có gọi Gr
 đủ tài nguyên/key; mở trang hoặc đọc kết quả không gọi inference.
 
 Kết quả mở `/output?serving_run=<UUID>`, giữ cookie owner để reload/stop/resume;
-link job gần nhất trên form chỉ lưu UUID, không lưu key hoặc raw response.
+link job gần nhất trên form lưu UUID và namespace as-of/live, không lưu key hoặc raw response.
 Các card tách raw/final/action/effective ID/reason, dependency thu gọn. Chart,
 ảnh và reports lấy từ một snapshot; Alpha native/common ghi rõ hai projection.
 Chi tiết thêm `policy_details[slot].context = {trace, aux}` từ prepare durable,
@@ -181,6 +381,74 @@ ghi `LEGACY_DECLARED_NOT_RECERTIFIED`. Thiếu/lỗi giữ NA, không suy thành
 Không chứng nhận lại economics của file cũ qua adapter. Browser desktop/mobile
 vẫn chờ F11 do host không khả dụng; kiểm offline dùng HTTP fixture.
 
+## Sửa lỗi decision và capture realtime ngày 13/11/2026
+
+Original realtime không áp giới hạn tổng prompt 6.500 ký tự. Guard chỉ chạy
+khi `is_backtest=True`; distill/cap báo cáo, parser/schema và retry giữ nguyên.
+Prompt EN 7.730 ký tự của incident đã đi qua serializer và tới kết quả web với
+decision đúng như phản hồi fixture. Không dùng action thay thế khi pipeline lỗi.
+Giới hạn benchmark/backtest và BRPP không đổi.
+
+VNINDEX chỉ cấp lịch và Close cho HMM; nguồn VCI/KBS có OHLC cũ mâu thuẫn dù
+Close vẫn hợp lệ. Snapshot mới ghi `index_contract=vnindex_close_v1` với hai cột
+`Datetime`, `Close`, kiểm ngày/Close nghiêm ngặt, không tạo OHLC hoặc bỏ phiên.
+Provider vẫn đọc snapshot OHLCV cũ; resource version mới thêm `/index_close_v1`
+để phân biệt hợp đồng. OHLCV cổ phiếu tiếp tục dùng validator cũ.
+Ngoài phiên, khung ngày/tuần/tháng dùng lịch VNINDEX ngày đã quan sát; chỉ cần
+feed intraday khi bổ sung Close phiên hiện tại chưa có trong nguồn ngày.
+
+HTTP409 capture trả `capture_error={code,stage,message:{vi,en},retryable}`.
+UI hiển thị thông báo và code/stage; server log cùng giai đoạn. Ví dụ
+`CAPTURE_INDEX_DAILY`/`index.daily` là lỗi lấy nguồn chỉ số;
+`CAPTURE_INDEX_VALIDATE`/`index.validate` là lỗi ngày/Close. Không ghi raw lỗi
+provider vào UI/log hoặc tự chạy Original khi bản được chọn capture thất bại.
+
+Probe giá thật FPT/VNINDEX ngày 13/11/2026 có 1.995 dòng ngày mỗi nguồn,
+snapshot200, preflight ready và C2 completed. Tin được tắt/unavailable và
+HTTP Groq dùng fixture: đây là xác minh dữ liệu/pipeline, chưa phải live LLM
+smoke hoặc chứng nhận decision giao dịch. Khởi động lại server đang chạy rồi
+tải lại trang để nạp sửa đổi; ứng dụng không bật auto-reload.
+
+## Nghiệm thu F11 và preview fixture
+
+[Receipt tích hợp](serving_integration_acceptance.json) và
+[gói QA ban đầu](serving_integration_checks.zip) giữ bằng chứng lịch sử;
+QA ngày trước đó là [QA live](serving_live_checks.zip), tiếp theo là
+[QA đa khung](serving_timeframe_checks.zip). Receipt v4 với
+[QA sửa realtime](serving_realtime_repair_checks.zip) và [QA 1D](serving_daily_analysis_checks.zip) là lịch sử.
+Receipt v6 hiện hành dùng [QA báo cáo](serving_report_checks.zip), trạng thái
+`OFFLINE_PASS_BROWSER_PENDING`, **không phải F11 hoàn tất**. **39 Python + 21 DOM, compile12/JS3 PASS**.
+Kiểm form/overlay/projection/BICL và caller/service/PIT/native bị ảnh hưởng;
+QA cũ giữ nguyên byte, không thay kiểm tra code mới. Probe giá thật/model fixture
+của incident trước đó không được coi là đã chạy lại trong lần sửa UI này.
+
+```powershell
+py -3.13 -X utf8 scripts/check_serving_acceptance.py
+py -3.13 -X utf8 scripts/check_serving_acceptance.py --run
+py -3.13 -X utf8 scripts/serve_serving_review.py --port 5051 --seed --duration 900
+```
+
+Lệnh đầu chỉ đối soát receipt/member/source/runtime/evidence. `--run` chạy lại
+đúng các suite đã chọn trong `scripts/serving_acceptance/reports.py`, biên dịch
+Python đổi rồi ghi QA/receipt. Mạng thị trường/Groq dùng fixture trong test,
+không gọi hosted thật. Không có cờ tự đánh PASS browser; nguồn/runtime khác
+gói QA mới thì lệnh verify từ chối, cần kiểm lại phần bị ảnh hưởng.
+
+Preview chỉ bind `127.0.0.1`, in URL form và UUID seed backtest sáu bản.
+HTTP Groq dùng fixture, provider/resource/UI vẫn thật; native Alpha vẫn tính/
+selection. Key cố định fixture, cookie `qa_serving_review_owner` và store dưới
+`tmp/serving_review/<UUID>` riêng, API legacy/thị trường/đổi key-model bị chặn.
+Banner **HTTP FIXTURE** giữ rõ nguồn mô phỏng; không dùng kết quả để ra quyết
+định giao dịch. Dừng bằng Ctrl+C hoặc tự thoát sau 900 giây; không reloader.
+
+Phần còn thiếu bắt buộc: browser desktop/mobile kiểm sáu lựa chọn, nâng cao,
+offline/new run, empty/error/partial/completed, stop/resume, exports, VI/EN,
+layout và keyboard/focus. Host không khả dụng và duyệt tự động từ chối mở Edge;
+HTTP200/DOM test không thay nghiệm thu trực quan. Khi có browser khả dụng, ghi
+bằng chứng quan sát thật và kiểm phần ảnh hưởng trước khi chốt F11/merge hoặc
+mở F12. Live smoke chỉ thực hiện nếu phạm vi triển khai cần; chưa gọi API thật
+trong lượt nghiệm thu offline này. Giữ U09, causal FAIL/NOT_CERTIFIED nguyên vẹn.
+
 ## Lựa chọn và miền sử dụng
 
 Nguồn tên/nhóm/dependency/fallback duy nhất cho ứng dụng là
@@ -222,7 +490,8 @@ metrics từng repeat đã seal. Xem [kết quả/giới hạn F07](README.md#f0
 
 Miền ứng viên ban đầu của runner mới là **1d/VI**. Chưa có mã/ngày nào được
 cấp cho inference mới ở F06. EN được nhận về cấu trúc để snapshot ngôn ngữ,
-nhưng preflight báo `LANGUAGE_NOT_RELEASED`. Khung intraday bị từ chối.
+nhưng preflight báo `LANGUAGE_NOT_RELEASED`. Envelope as-of `variant_serving_v1`
+chỉ nhận khung ngày; chế độ intraday dùng envelope/provider riêng đã mô tả ở trên.
 U09 chỉ có các point trong manifest lịch sử đã verify; không suy thành mọi
 ngày của chín mã. Bank CORE4/OOD fallback, HMM/student và selector phải có
 support/availability version hóa do server kiểm ở F08; không refit ngầm.

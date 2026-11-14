@@ -209,22 +209,31 @@ kiện, nếu thiếu thì nói rõ tài nguyên hay support nào thiếu.
 Mục tiêu nghiệm thu là người dùng **chạy được cả sáu bản chính trên miền đầu
 vào đã công bố**, không chỉ xem dropdown bị vô hiệu hóa. Research hiện có chỉ
 chứng minh đường daily/as-of và assets frozen; không chứng minh mọi mã/ngày
-hiện tại hay khung intraday đều được hỗ trợ. F08 phải xây provider as-of và
-đóng gói resources phục vụ inference mới. Không refit ngầm HMM/student/bank;
+hiện tại hay khung intraday đều được hỗ trợ. F08 đã xây provider as-of và
+đóng gói resources phục vụ inference mới. Theo yêu cầu bổ sung ngày 13/11/2026,
+F11 mở provider live riêng cho **phiên ngày hoàn tất mới nhất** của chín mã:
+chạy từng bản nâng cấp để phân tích thực tế, không chỉ so sánh historical.
+Giá/tin/VN-Index được capture và khóa trước forecast. Theo đính chính tiếp theo,
+ngay trong chế độ intraday/khung khác cũng chọn được sáu bản: chart/I/P/T theo
+khung chọn, ngữ cảnh Alpha/prior/MT vẫn ngày và T+2.5 theo phiên, không giả model
+đã được huấn luyện riêng trên nến phút/tuần/tháng.
+Không refit ngầm HMM/student/bank;
 nếu phải đổi tài nguyên, version hóa bộ mới và giữ kết quả U09 gắn bộ cũ.
 
 ### 4.2. Luồng màn hình
 
-1. **Trang phân tích — `demo_new.html`:** giữ form mã/khung/ngôn ngữ và cấu
-   hình hiện có; thêm lựa chọn phiên bản kèm mô tả ngắn, thông tin khả dụng,
-   nút “Phân tích” và “So sánh phiên bản”. Mặc định hệ gốc. Với so sánh, chọn
-   ít nhất hai phiên bản, mặc định hệ gốc + một mở rộng; cấu hình nâng cao thu
-   gọn, không nhét runtime hashes vào form chính.
-2. **Kết quả — `output.html`:** giữ các báo cáo agent/chart chung; thêm tên
-   phiên bản, thời điểm dữ liệu, dự báo LONG/SHORT, hành động LONG/CASH, lý do,
-   fallback/bypass. So sánh đặt các quyết định cạnh nhau dưới cùng chart/input,
-   có phần xem chi tiết khác biệt context. Ngày chưa có giá thoát chỉ có
-   quyết định; P&L/đúng-sai hiển thị “Chưa có kết quả”, không dùng giá tương lai.
+1. **Trang phân tích — `demo_new.html`:** theo yêu cầu mới nhất bỏ mục chọn
+   Analysis source, chạy realtime, duy nhất 1D và sáu lựa chọn phiên bản.
+   Chọn mã/bản rồi Phân tích; bỏ form as-of/daily riêng và so sánh. Mọi bản hiện
+   cùng overlay từng agent rồi mở cùng bố cục kết quả Original; bản nâng cấp
+   bổ sung BICL/context/policy. Original giữ pipeline/ngôn ngữ hiện tại;
+   năm bản nâng cấp giữ miền tài nguyên chín mã. Báo cáo hiển thị theo VI/EN
+   đã chọn; bản dịch có cache riêng, không sửa báo cáo VI/forecast nguồn.
+2. **Kết quả — `output.html`:** giữ bố cục Original cho decision, lý do,
+   báo cáo agent và ảnh của đúng snapshot. Bản nâng cấp thêm panel BICL với
+   phương pháp/context/prior, baseline→final, raw/final/LONG/CASH và lý do
+   fallback/bypass. Chỉ mở khi phân tích hoàn tất; GET/reload kiểm owner và
+   không gọi model. Không tạo P&L/đúng-sai query khi chưa có giá thoát.
 3. **Backtest — `backtest.html`:** cấu hình cùng cửa sổ ngày/mã và danh sách
    phiên bản; bảng và series sinh từ IDs. Giữ khả năng đọc kết quả Full/Base
    cũ bằng adapter riêng, không đổi `no_alpha` thành `original_common`.
@@ -331,7 +340,7 @@ cùng commit khi bắt đầu hoặc hoàn tất một bước. F01–F05
 hoàn tất U10; F06–F12 là phần ứng dụng bổ sung. Mỗi bước dùng nhánh tác vụ phù
 hợp từ develop, không commit trực tiếp develop.
 
-**F01–F05 và U10 đã hoàn tất phạm vi bàn giao nội bộ; F06–F10 đã xong phần tương ứng, bước tiếp theo là F11.** [Mapping và runbook historical](final_evidence_map.md)
+**F01–F05 và U10 đã hoàn tất phạm vi bàn giao nội bộ; F06–F10 đã xong phần tương ứng, F11 đang nghiệm thu.** [Mapping và runbook historical](final_evidence_map.md)
 đã chốt hai nghiên cứu, snapshot paper/revision/app và đường khôi phục
 nguồn/assets đã khóa. Smoke checkout biệt lập đã khớp nguồn và replay nguyên
 byte 15 artifact U09. F02 đã sinh 26 artifact với 798 ô có provenance trong
@@ -356,7 +365,55 @@ so sánh cùng snapshot, raw/final/CASH, context và native/common Alpha;
 host không khả dụng, giữ ở F11. F10 đã có backtest nhiều bản, catalog owner,
 filter cùng support, account/classification chung U09, daily NAV/cycle return,
 JSON/CSV và adapter Full/No-Alpha riêng; 156 Python + 31 DOM, compile13/JS7
-PASS, toàn HTTP fixture. F11–F12 chưa bắt đầu.
+PASS, toàn HTTP fixture. Gate F11 ban đầu có 8 test mới và viện dẫn F10;
+sau khi nhận develop `4de6d1aa`, F11 mở thêm dữ liệu phiên ngày mới nhất cho
+sáu bản. Mã service/provider/UI đã đổi nên kiểm lại caller/PIT/recovery liên
+quan. Mốc ngày trước đính chính có 138 Python + 16 DOM, compile19/JS5 PASS;
+đính chính mới mở sáu lựa chọn ngay trong intraday/khung khác và kiểm lại
+provider/caller/PIT: **136 Python + 19 DOM, compile14/JS7 PASS**, không coi
+gate ngày là chứng nhận code đa khung. Sửa incident tiếp theo: guard 6.500 chỉ
+áp dụng backtest, Original realtime giữ prompt gốc; VNINDEX dùng ngày/Close
+cho lịch/HMM thay vì chặn vì OHLC không được dùng. **100 Python + 20 DOM,
+compile14/JS3 PASS**, 18 leakage/11 native parity. Probe giá thật FPT ngày
+13/11: snapshot200/preflight ready/C2 completed, HTTP model fixture và tin tắt;
+không phải dự báo thật. [QA sửa realtime](serving_realtime_repair_checks.zip)
+khóa kết quả mới, QA trước đó giữ nguyên làm lịch sử. Yêu cầu UI tiếp theo
+thu gọn form còn một nguồn Realtime/1D; năm bản nâng cấp dùng cùng overlay và
+cửa sổ Original, thêm BICL đọc từ context/policy. **103 Python + 19 DOM, compile12/JS6 PASS**;
+[QA giao diện 1D](serving_daily_analysis_checks.zip) khóa mốc đó. Phản hồi UI
+tiếp theo sửa BICL trước Decision cuối, format Indicator, khôi phục Alpha
+Agent đầy đủ và common riêng, sentiment đúng snapshot/PIT. **39 Python + 21 DOM, compile12/JS3 PASS**,
+[QA báo cáo](serving_report_checks.zip); không đổi graph/adapter/prompt/scientific artifacts.
+Yêu cầu tiếp theo bỏ hẳn Analysis source, đồng bộ ngôn ngữ trên sáu layout,
+giữ query/job/filter/cookie khi chuyển VI/EN, thêm sáng/tối nhớ lựa chọn.
+Request dùng ngôn ngữ hiển thị, generation nâng cấp vẫn VI; dịch Groq có cache
+riêng, cùng quota/retry/checkpoint, kiểm số/mã/công thức, không chạy lại quyết
+định hoặc sửa artifact nguồn. GET không inference; browser POST chuẩn bị bản
+dịch khi cần. **102 Python + 44 DOM, compile23/JS7 PASS**, không gọi thị trường/
+hosted LLM; [QA ngôn ngữ/theme](serving_language_theme_checks.zip) khóa lượt này.
+Incident tiếp theo: raw HTTP200 dịch Indicator bỏ bốn dòng cuối khiến guard
+dừng cả lượt và UI thay tất cả report bằng lỗi. Sửa bằng schema đoạn bắt buộc,
+placeholder số/mã/công thức, skeleton Markdown phía server, checkpoint từng
+report và cache `display_locale_v2`; giữ phần dịch xong và bản gốc thu gọn khi
+lỗi một phần. **49 Python + 26 DOM, compile7/JS1 PASS**, [QA sửa bản dịch](serving_locale_repair_checks.zip).
+Incident Groq400 tiếp theo do hết output trước JSON hoàn chỉnh ở Alpha, nên
+Pattern/Trend còn pending và bị CSS giấu. Bản v3 tăng completion4.096 trong
+quota8.000, chia đôi đúng cutoff đã xác nhận, seed report hợp lệ và không clone
+UNKNOWN; UI luôn có nội dung/trạng thái, entry/CSS có version. Ba bản dịch
+hiện tại được rà thủ công, giữ source/raw/journal; không ghi thành model call.
+**56 Python + 27 DOM, compile7/JS2 PASS**, [QA hoàn tất báo cáo](serving_report_completion_checks.zip).
+Yêu cầu mới nhất bỏ dịch khi hiển thị: nhánh `feat/precomputed-bilingual-results`
+nhận nền `6ad73e7a`, profile live tạo hai bản trong cùng invocation agent;
+Indicator/Alpha dùng số liệu/metadata song ngữ đã tính. Hai HTML view nhúng
+sẵn, đổi VI/EN đồng bộ ngay tại chỗ không mạng/model/quota. Canonical VI tách
+khỏi sidecar/wire song ngữ mới, không nhận wire live mới là parity cũ. Route
+dịch ngừng đăng ký, cache cũ chỉ đọc đúng owner; bản ghi chỉ một tiếng cần
+chạy lại một lần nếu không có cache. **135 Python + 24 DOM, compile23/JS2 PASS**, [QA song ngữ](serving_bilingual_checks.zip).
+[Receipt F11](serving_integration_acceptance.json) giữ
+`OFFLINE_PASS_BROWSER_PENDING`: desktop/mobile chưa kiểm do host không khả dụng
+và duyệt tự động từ chối mở Edge. Theo chỉ đạo mới ngày14/11/2026, merge nguồn
+vào develop và giữ **UI/F11: PENDING**; không coi merge là nghiệm thu browser.
+F12 chưa bắt đầu. Chờ người dùng gửi khung KLTN để bắt đầu viết luận văn.
 
 Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**. Chỉ đánh ☑ khi
 đạt điều kiện hoàn thành và có kết quả kiểm tra tương ứng trong README W12.
@@ -374,7 +431,7 @@ Ký hiệu: **☑ Hoàn tất**, **☐ Chưa bắt đầu**, **☐ Đang làm**.
 | F08 | ☑ Hoàn tất | Provider và runner chọn bản/paired dùng chung — `feat/variant-serving-runner` | F06, F07 | Release as-of 188 binding/chín mã/58 phiên 1d/VI; sáu bản dùng DAG chung, dependency/fallback, owner/config isolation, quota/retry/UNKNOWN/checkpoint/stop/resume; 105 test/compile18 PASS, HTTP fixture; chưa smoke hosted mới |
 | F09 | ☑ Hoàn tất | Nâng form và trang kết quả hiện tại — `feat/variant-analysis-ui` | F08 | Chọn/chạy sáu bản qua API serving, preflight chống response cũ, paired snapshot, raw/final/CASH/coverage/context và hai Alpha; tách template/CSS/JS, giữ realtime legacy, UI VI/EN/CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11 |
 | F10 | ☑ Hoàn tất | Nâng backtest và trang so sánh — `feat/variant-backtest-ui` | F08, F09 | UI động theo IDs, cùng evaluator U09/nguồn bound, catalog owner và Full/No-Alpha riêng; daily NAV/cycle returns, filter/contrast cùng support, progress/stop/resume/JSON/CSV; 156 Python + 31 DOM, compile13/JS7 PASS, browser visual chờ F11 |
-| F11 | ☐ Chưa bắt đầu | Nghiệm thu tích hợp đúng phạm vi — `test/variant-serving-integration` | F07–F10 | Offline tests/caller/leakage/recovery liên quan PASS, kiểm browser desktop/mobile, không đổi U09; live smoke giới hạn nếu triển khai cần |
+| F11 | ☐ Đang làm | Nghiệm thu realtime, ngôn ngữ và theme — nguồn hợp nhất vào `develop` | F07–F10 | **UI PENDING**. Realtime/1D/sáu bản; VI/EN và sáng/tối chung; sinh song ngữ trong cùng lượt agent, số liệu dùng mẫu địa phương hóa, view nhúng sẵn chuyển tiếng không mạng/LLM. Bỏ route dịch. **135 Python + 24 DOM, compile23/JS2 PASS**. Merge theo chỉ đạo người dùng; browser còn chờ, F11 chưa hoàn tất; U09 giữ nguyên |
 | F12 | ☐ Chưa bắt đầu | Bàn giao ứng dụng và hướng dẫn — `docs/unified-app-handoff` | F11 | Release mới có version/assets/runbook; chỉ làm việc tiếp trên develop; paper/result/UI cùng định danh; không tự push/deploy/submit |
 
 Không gọi hoàn tất F08/F12 nếu mới thêm danh sách nhưng người dùng chưa chạy
@@ -397,7 +454,8 @@ chỉ sửa trình bày/UI; các nghiên cứu bổ sung còn thiếu vẫn ghi 
   đường bị ảnh hưởng; không chỉ kiểm happy path của UI.
 - F11: kiểm một upstream/point, dependency once/repeat, common projection,
   native parity, resource thiếu, short=CASH, net target oracle, NA, prompt
-  <6.500 ký tự/BRPP ≤600, retry/UNKNOWN/resume/stop và đồng thời hai job khác
+  backtest <6.500 ký tự/BRPP ≤600 (Original realtime bỏ trần tổng theo yêu cầu
+  người dùng), retry/UNKNOWN/resume/stop và đồng thời hai job khác
   cấu hình. Browser kiểm cả sáu lựa chọn, advanced controls, offline/new run,
   empty/error/partial, export và mobile; fixture/mock trước API thật.
 - Bốn gate lịch sử chỉ viện dẫn đúng source/runtime/receipt. Thay code thì

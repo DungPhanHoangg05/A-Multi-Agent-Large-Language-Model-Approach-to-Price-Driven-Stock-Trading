@@ -1,6 +1,8 @@
 /* UI serving riêng; các giá trị từ model được render như văn bản. */
 .serving-ui {color:#293344;line-height:1.6;font-family:'Segoe UI',sans-serif;min-width:0}
 .serving-ui [hidden],#legacy-inputs[hidden],.run-btn-wrapper [hidden],[data-legacy-only][hidden] {display:none!important}
+.loading-step[hidden] {display:none!important}
+.loading-card {max-height:90vh;overflow-y:auto}
 .panel-group:has([data-legacy-only][hidden]) {grid-template-columns:1fr}
 .serving-ui h1 {font-size:2rem}.serving-ui h2 {font-size:1.25rem;margin:0 0 .6rem}
 .serving-ui p {margin:.6rem 0}.serving-ui fieldset {border:1px solid #d9dee7;border-radius:10px;padding:1rem;margin:1rem 0}

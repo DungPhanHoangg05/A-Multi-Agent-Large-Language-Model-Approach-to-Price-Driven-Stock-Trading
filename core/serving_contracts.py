@@ -113,8 +113,6 @@ def preflight(spec: ServingRequest) -> dict[str, Any]:
     request = spec.document()
     blockers = [{"code": "SERVER_PREFLIGHT_REQUIRED", "message": "Cần kiểm resource/support/model/credential tại server",
                  "resources": required_resources(request["variant_ids"])}]
-    if request["language"] != "vi":
-        blockers.append({"code": "LANGUAGE_NOT_RELEASED", "message": "Projection mới chưa nghiệm thu tiếng Anh"})
     return {"version": CONTRACT_VERSION, "registry_version": REGISTRY_VERSION, "status": "blocked",
             "run_enabled": False, "request_sha256": spec.sha256,
             "requested_ids": request["variant_ids"], "execution_plan": execution_order(request["variant_ids"]),

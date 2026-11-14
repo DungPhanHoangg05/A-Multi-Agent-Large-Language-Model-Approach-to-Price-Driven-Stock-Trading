@@ -1,0 +1,39 @@
+{% set sd = results.sentiment_data or {} %}{% set ms = sd.main_sentiment or {} %}
+{% if ms %}
+<h4 class="sentiment-detail-title">{{ T.sentiment_data_title }}</h4>
+<div class="sentiment-summary">
+  <div class="sentiment-score-badge">
+    <div class="sentiment-score-num {{ ms.label }}">{{ '%+.3f'|format(ms.avg_score) }}</div>
+    <div class="sentiment-label-text">{{ T.sent_positive if ms.label == 'positive' else T.sent_negative if ms.label == 'negative' else T.sent_neutral }}</div>
+    <div class="visobert-badge">{{ sd.model_used or A.na }}</div>
+  </div>
+  <div class="sentiment-bar-section">
+    <div class="sentiment-bar-label">{{ T.article_distribution.replace('{n}',ms.article_count|string) }}</div>
+    {% if sd.distribution_available %}
+    <div class="sentiment-stat-row">
+      {% for key,label in [('positive',T.sent_positive),('neutral_count',T.sent_neutral),('negative',T.sent_negative)] %}
+      <div class="sentiment-stat {{ key }}"><span class="sentiment-stat-val">{{ ms[key] }}</span><span class="sentiment-stat-lbl">{{ label }}</span></div>
+      {% endfor %}
+    </div>
+    {% else %}<p>{{ A.sent_distribution_missing }}</p>{% endif %}
+  </div>
+</div>
+{% if results.sentiment_analysis %}<div id="sentimentContent" data-localize data-markdown="true" data-locale-pending data-source-language="vi" class="auto-beautify sentiment-report-text">{{ results.sentiment_analysis|safe }}</div>{% endif %}
+{% set sn = sd.sentiment_norm or {} %}
+{% if sn %}
+<div class="sentiment-norm-section">
+  <h4>{{ T.norm_title }}</h4><p>{{ A.sent_saved_norm }}</p>
+  <div class="norm-vars-grid">
+    <div class="norm-var-card"><div class="nv-name">SENT_ZSCORE</div><div class="nv-value">{{ '%+.4f'|format(sn.z_score) if sn.z_score is defined and sn.is_reliable else A.na }}</div><div class="nv-formula">{{ T.nv_zscore_formula }}</div><div class="nv-desc">{{ T.nv_zscore_desc|safe }}</div></div>
+    <div class="norm-var-card"><div class="nv-name">REL_SENTIMENT</div><div class="nv-value">{{ '%+.4f'|format(sn.rel_sentiment) if sn.rel_sentiment is defined and sd.relative_available else A.na }}</div><div class="nv-formula">{{ T.nv_rel_formula }}</div><div class="nv-desc">{% if sd.relative_available %}{{ T.nv_rel_desc|safe }}{% else %}{{ A.sent_peers_missing }}{% endif %}</div></div>
+  </div>
+</div>
+{% endif %}
+{% if sd.scored_articles %}
+<details class="sentiment-articles"><summary>{{ A.sent_articles }} ({{ sd.scored_articles|length }})</summary>
+  <div class="report-table"><table><thead><tr><th scope="col">{{ A.article_date }}</th><th scope="col">{{ A.article_title }}</th><th scope="col">{{ A.sent_score }}</th></tr></thead><tbody>
+  {% for article in sd.scored_articles %}<tr><td>{{ article.date_parsed or A.na }}</td><td data-localize data-locale-pending data-source-language="vi">{{ article.title or A.na }}</td><td>{{ '%+.4f'|format(article.numeric_score) }}</td></tr>{% endfor %}
+  </tbody></table></div>
+</details>
+{% endif %}
+{% else %}<p class="alpha-profile-note">{{ T.no_sentiment_note }}</p>{% endif %}

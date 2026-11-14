@@ -176,12 +176,20 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Bước tiếp theo: F11**, nghiệm thu tích hợp và kiểm trình duyệt đúng phạm vi.
+**UI/F11: PENDING**, còn nghiệm thu trình duyệt đúng phạm vi.
 F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
 contract ứng dụng; F07 có viewer U09 offline, F08 có provider/runner/API job
 as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh cùng snapshot.
 F10 đã nối backtest nhiều bản và trang thực nghiệm, filter/evaluator/export
-cùng support; adapter Full/No-Alpha riêng. F11–F12 chưa bắt đầu.
+cùng support; adapter Full/No-Alpha riêng. F11 đã nhận develop mới và bổ sung
+phân tích phiên ngày mới nhất cho cả sáu bản, không chỉ so sánh historical.
+Theo yêu cầu mới nhất, form chỉ còn một nguồn Realtime và khung 1D, sáu lựa
+chọn phiên bản; các bản nâng cấp hiện cùng tiến trình agent và bố cục kết quả
+Original, bổ sung giải thích BICL từ context/policy thực tế.
+Service/provider/UI đã đổi nên kiểm lại caller/PIT/recovery liên quan;
+gate ban đầu giữ làm lịch sử. Theo chỉ đạo mới ngày14/11/2026, merge nguồn
+vào develop và giữ browser/UI pending; chưa đánh dấu F11 hoàn tất.
+F12 chưa bắt đầu. Chờ người dùng gửi khung KLTN để bắt đầu viết luận văn.
 **0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
@@ -199,7 +207,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Kiểm thử tích hợp/leakage/caller đúng phạm vi và kiểm trình duyệt; smoke live có phạm vi nếu cần.
+- [ ] F11 — Đang làm: **UI PENDING**. Realtime/1D/sáu bản, VI/EN và sáng/tối chung; sinh song ngữ trong cùng lượt agent, số liệu dùng mẫu địa phương hóa, view nhúng sẵn chuyển tiếng không mạng/LLM. Bỏ route dịch. **135 Python + 24 DOM, compile23/JS2 PASS**. Merge nguồn vào develop theo chỉ đạo người dùng; browser còn chờ, F11 chưa hoàn tất.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -593,6 +601,282 @@ mới**; native Alpha giữ hành vi tính/selection cũ. Chưa smoke hosted m�
 Browser tiếp tục báo `The browser access host is unavailable`, inventory không
 có browser; **chưa kiểm trực quan desktop/mobile**, giữ gate này tại F11.
 F11–F12 tiếp tục; không push/deploy/submit.
+
+### F11 — Nghiệm thu tích hợp ban đầu, còn chờ browser
+
+Ngày **13/11/2026**, nhánh `test/variant-serving-integration` từ develop
+`f96b44f2`. Không sửa mã ứng dụng hoặc runtime; bổ sung test, CLI preview/gate
+và receipt machine-readable, tách helper khỏi script/test chính.
+
+- [x] **8 test mới PASS**, compile **8 Python mới PASS**. HTTP loopback thật với hai owner/job, provider/resource thật và chỉ mock HTTP Groq; key/model options/config/snapshot tách biệt khi chạy đồng thời. Một upstream/point, dependency một lần/repeat, hai projection native/common, prompt <6.500 ký tự và BRPP ≤600 được kiểm. Backtest sáu bản/repeat2 có 16 slot, 12 account và 12 dòng prediction export; GET evaluation/export không gọi thêm model, owner/run filter sai bị chặn.
+- [x] Tạo **Service mới** trên cùng store/journal để kiểm stop/resume giữ UUID/config/raw, crash sau fsync raw không gửi lại, deadline429/attempt ledger bền vững và UNKNOWN không retry mù/không thành CASH. Thiếu key/resource, ngôn ngữ/mã/model ngoài support đều từ chối trước dispatch. Audit riêng đủ **522 cửa sổ = chín mã × 58 phiên**, ≥600 nến PIT và lịch t+1/t+3 khớp; outcome audit không đi vào input forecast.
+- [x] **Viện dẫn, không chạy lại 156 Python + 31 DOM F10**: kiểm toàn bộ member/hash/log QA, nguồn ứng dụng nguyên `f96b44f2`, source bindings của test/JS và Python3.13.5/107 package/Node24.18.0 khớp. Bao phủ kế thừa có 18 leakage, 11 native parity, oracle/NA/CASH, prompt, DOM caller và recovery. Không chạy full unit/E2E/compileall/cold study theo AGENTS §1.2; chỉ chạy suite F11 mới vì không đổi đường chạy ứng dụng.
+- [x] Preview loopback dùng key fixture, cookie review riêng, store UUID riêng, banner rõ **HTTP FIXTURE**, chặn API legacy/thị trường/đổi key-model. Test rào chắn nằm trong tám test trên. Probe HTTP `/demo`, `/backtest`, `/experiments`, catalog và seed backtest sáu bản PASS; **không phải nghiệm thu browser**. Server preview đã dừng; [runbook](variant_serving_contract.md#nghiệm-thu-f11-và-preview-fixture) có lệnh mở lại.
+- [x] **20 gói W12 + 30 archive lịch sử**, **11 output F05 + 68 nguồn manuscript**, resource manifest và QA F08/F09/F10 nguyên byte. Worktree khớp **722/729** pin U09, vẫn bảy đường đã version hóa; F01 phục hồi đủ729. Native causal giữ FAIL, whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận đóng. **0 hosted LLM, 0 market API, 0 training HMM/student/bank mới**; native Alpha vẫn tính/selection theo hành vi cũ. Không smoke hosted vì chưa có yêu cầu triển khai.
+- [ ] Browser desktop/mobile: đủ sáu lựa chọn, advanced controls, offline/new run, empty/error/partial/completed, stop/resume, exports, VI/EN, layout và keyboard/focus. Host báo `The browser access host is unavailable`; inventory không có browser. Thử mở Microsoft Edge bằng computer-use bị duyệt tự động từ chối: `Computer Use was not approved to use Microsoft Edge`, không có lý do thêm. Không thử vòng đường khác để vượt từ chối, không ghi PASS cho phần chưa quan sát.
+
+[QA tích hợp ban đầu](serving_integration_checks.zip) gồm ba member, giữ nguồn/runtime,
+log tám test, đối soát evidence/QA kế thừa và trạng thái tại mốc ban đầu
+**`OFFLINE_PASS_BROWSER_PENDING`, `f11_complete=false`**. Checklist F11 vẫn mở;
+đã kiểm diff, **158 liên kết/anchor local** và đồng bộ checklist PASS.
+F12 chưa bắt đầu. **Chưa merge vào develop** vì AGENTS §1.2 yêu cầu mọi kiểm tra
+áp dụng PASS; còn thiếu browser gate bắt buộc của F11. Không push/deploy/submit.
+
+### Cập nhật F11 — Phân tích phiên mới nhất với từng bản nâng cấp
+
+Theo yêu cầu bổ sung ngày **13/11/2026**, đã hợp nhất develop `4de6d1aa` vào
+`test/variant-serving-integration` qua commit `6ac5d7ab`. Giữ nguyên nguồn
+`paper/`, PDF hiện hành `outputs/paper/` và archive bằng chứng revision mới;
+không khôi phục cấu trúc paper cũ hoặc ghi đè kết quả người dùng vừa cập nhật.
+
+- [x] Form mặc định **Realtime · phiên ngày hoàn tất mới nhất**. Người dùng chọn mã, chọn riêng Hệ gốc/Bayesian v1/C2/A/B/MT-BICL, lấy dữ liệu mới nhất rồi chạy **Phân tích**; không bắt buộc so sánh. Checkbox vẫn dành cho so sánh cùng snapshot; hệ gốc intraday/khung khác và viewer historical giữ nguồn riêng.
+- [x] Backend `core/serving_live/` tách snapshot/service/provider/context. API `/api/serving/live/v1` có capture/preflight/start/read/stop/resume/export JSON; lấy OHLCV và VNINDEX VCI/KBS, tin có ngày, khóa cutoff/hash/owner trước forecast. Trước15:30VN bỏ nến hôm nay; cần ≥600 nến, lịch đồng bộ và nguồn không quá cũ; future/invalid là lỗi. Tin undated bị loại, thiếu score giữ unavailable. Ledger sự kiện quyền live chưa được tải, metadata giữ rủi ro vendor adjustment.
+- [x] Dùng lại runner DAG, durable transport/quota, key/options isolation, prompt caps và policy adapters. Service live mặc định dùng chung ledger admission với as-of để không nhân đôi TPM/RPM. I→P→T một lần/point, dependency một lần/repeat. Bank/scaler/student/HMM frozen; common Alpha có profile chuyển top5/threshold frozen sang query live với hash/scope riêng. Facts/nhãn historical giữ đúng nguồn cũ; chỉ x/facts query nhận live. Lịch t+1/t+3 trong context live là kế hoạch ngày làm việc, không phải lịch khớp/giá tương lai; không có outcome hoặc P&L query.
+- [x] UI giữ VI/EN, report VI; chuyển nguồn/đổi mã hủy capture/grant cũ, response cũ không bật nút, lỗi thị trường không tự fallback sang frozen. Link/reload/đổi ngôn ngữ giữ namespace live, cards hiển thị nguồn/cutoff/thời điểm capture và raw/final/effective/bypass. Key không đi vào browser/export. Resume giữ nguyên UUID/capture cũ, UNKNOWN không retry mù.
+- [x] Fixture thị trường mới sau tháng9 và HTTP Groq chạy qua provider thật; kiểm từng bản riêng ở mode analyze và toàn bộ sáu bản ở mode compare, GET/export không inference, snapshot/owner/date/model binding, stop/restart/UNKNOWN, nến chưa đóng/future/stale/undated. Preview fixture cũng hỗ trợ nguồn live và tiếp tục chặn API legacy/thị trường/đổi key thật.
+- [x] **138 Python + 16 DOM PASS**, không skip; compile **19 Python thay đổi**, syntax **5 JS PASS**. Gồm 14 test live mới, 8 nghiệm thu F11, hồi quy service/runtime/resource/API, analysis/backtest caller/evaluator, contract/shared snapshot, JSON, 18 leakage và 11 native parity. Gate chính130 Python/15 DOM đã PASS; sau đó sửa default ledger, poll legacy và ánh xạ tên scorer thật sang enum FrozenNews (giữ nguyên `scorer_source`), kiểm đúng 5 test admission/connector/scorer, 3 loader và DOM16/syntax liên quan, không chạy lại các suite không bị ảnh hưởng. QA giữ checks/log trước bổ sung, delta source và bằng chứng kiểm tiếp theo; không nhận là đã chạy lại toàn bộ test lần hai.
+- [ ] Browser desktop/mobile/keyboard vẫn chờ host khả dụng; không dùng HTML200/DOM test thay quan sát trực quan. Không đánh dấu F11 hoàn tất hoặc mở F12/merge khi thiếu gate này.
+
+Ở mốc hỗ trợ phiên ngày, [QA live](serving_live_checks.zip) có log kiểm lại các caller/service/PIT
+đã đổi và nguồn/runtime mới. Gói F10/F11 ban đầu giữ nguyên làm lịch sử,
+không chứng nhận code mới bằng kết quả cũ. [Runbook](variant_serving_contract.md#phân-tích-phiên-ngày-mới-nhất)
+ghi thao tác UI, miền 1d/VI/chín mã, API và giới hạn chuyển nguồn.
+Đối soát nguyên byte **20 gói W12 + 30 archive**, F05 gồm manifest cùng
+10 output/68 nguồn khôi phục từ archive mới; PDF/manifest `outputs/paper/`
+và index archive mới từ develop giữ nguyên. Gate trước giữ nguyên byte.
+Diff, **184 liên kết/anchor local** (kể cả anchor HTML trong archive index)
+và đồng bộ checklist PASS; F11 vẫn đang làm, F12 chưa bắt đầu.
+Không chạy full unit/E2E/compileall/research; không gọi Groq/thị trường thật
+trong kiểm thử, không training HMM/student/bank mới. Native Alpha vẫn giữ
+hành vi tính/selection cũ, native causal FAIL/whole-system NOT_CERTIFIED và
+0/18 reviewer comment được chứng nhận đóng không thay đổi.
+
+### Đính chính F11 — Chọn bản nâng cấp trong intraday và các khung khác
+
+Theo yêu cầu làm rõ của người dùng, tiếp tục trên nhánh F11 từ `2e330c8c`:
+chế độ trước mang nhãn **Original · intraday and other timeframes** không
+còn chỉ dành cho Original. Nhãn hiện tại là **Realtime · intraday and other
+timeframes**, dropdown sáu bản luôn hiện trong chính chế độ đó.
+
+- [x] Chọn Bayesian v1/C2/A/B/MT-BICL rồi **Phân tích** gửi đúng mã/khung/ID, capture/preflight/start qua API durable; không gọi Original ngầm hoặc bắt chuyển sang nguồn ngày. Original giữ đường native đang có. Vùng chọn mã/khung bị khóa trong lúc tạo job, chống double click; thiếu mã/dữ liệu/resource hoặc POST chưa rõ kết quả không thành fallback thành công.
+- [x] Hỗ trợ **5m/15m/30m/1h/1d/1w/1mo**. I/P/T và ảnh dùng đúng nến/timestamp khung chọn; Alpha/prior/MT dùng ngữ cảnh ngày và T+2.5 theo phiên. Một I→P→T/point, dependency một lần/repeat, source/key/options/owner/checkpoint giữ riêng; không đổi oracle/phí/horizon thành ba nến intraday.
+- [x] Snapshot khóa chart và nguồn ngày/VNINDEX/tin. Có thể dùng daily provisional tại thời điểm capture, hoặc tổng hợp từ intraday thực có đầu phiên; thiếu đầu phiên, nến future, lệch lịch/đơn vị giá bị chặn trước model. Không fill giá/volume, không tự nhân/chia đơn vị và không tạo P&L query. Daily-closed mode giữ policy cũ.
+- [x] Kết quả giữ chart đúng khung và timestamp, metadata source/capture/daily context riêng, raw/final/effective/bypass rõ; mode intraday không được ghi nhãn chart 1d. Preview fixture cũng cấp nến đa khung, không rơi sang mạng thị trường thật.
+- [x] **136 Python + 19 DOM PASS**, compile **14 Python đổi**, syntax **7 JS PASS**. Có 21 ca live (gồm 7 ca đa khung mới), 8 ca nghiệm thu HTTP/recovery F11, runtime/resource/API, analysis/backtest caller, 18 leakage và 11 native parity. Chạy riêng từng bản trên nến5m qua provider thật/HTTP Groq fixture, capture đủ bảy khung, owner/timeframe binding, future/missing-open/units errors, chart timestamp/label, chống double click và không chuyển lỗi sang Original.
+- [x] Rà cuối bổ sung guard đơn vị trước khi ghép daily provisional; chỉ chạy lại bốn ca capture bị ảnh hưởng và compile hai Python, giữ log PASS các phần không đổi. SHA capture hợp lệ cả bảy khung **nguyên byte trước/sau guard**; QA giữ checks trước sửa và log/binding kiểm tiếp theo. Không chạy lại toàn bộ suite để cập nhật receipt; scalar evaluator không đổi giữ phạm vi QA ngày cũ.
+- [ ] Kiểm trực quan desktop/mobile vẫn chờ browser host; F11 chưa đóng/F12 chưa mở và chưa merge vào develop.
+
+[Receipt hiện hành](serving_integration_acceptance.json) dùng
+[QA đa khung](serving_timeframe_checks.zip); gói QA ngày và các receipt nghiên
+cứu trước đó giữ nguyên byte. Kiểm lại các provider/caller/PIT thay đổi,
+không chạy full unit/E2E/compileall hoặc gọi API thị trường/Groq thật.
+[Runbook đa khung](variant_serving_contract.md#chọn-phiên-bản-ngay-trong-chế-độ-intraday-và-các-khung-thời-gian)
+ghi cách dùng và phân biệt tần suất chart với mục tiêu T+2.5. Server đang chạy
+không auto-reload; cần khởi động lại server và tải lại trang để nạp backend/JS mới.
+Native causal FAIL, whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận
+đóng và source/PDF/archive mới từ develop giữ nguyên.
+Diff, **188 liên kết/anchor local** và đồng bộ checklist PASS.
+
+### Sửa incident F11 — Decision realtime và snapshot VNINDEX
+
+Theo yêu cầu tiếp theo của người dùng, sửa trên nhánh F11 từ `0197e35a`:
+
+- [x] Tái hiện đúng prompt EN **7.730 ký tự** với độ dài report trong log. Guard native đã áp nhầm giới hạn backtest vào Original realtime; nay chỉ guard khi `is_backtest=True`. Realtime giữ prompt gốc, distill/cap report, schema/parser/retry và trả decision từ phản hồi model; không tạo action thay thế. Backtest vẫn từ chối prompt từ 6.500 ký tự, BRPP giữ nguyên.
+- [x] Đọc nguồn thật: FPT có 1.995 nến ngày hợp lệ; VNINDEX có 1.995 phiên nhưng VCI có **4** dòng, KBS có **3** dòng vi phạm quan hệ OHLC. Lịch/HMM chỉ cần Datetime/Close. Thêm hợp đồng `vnindex_close_v1`, kiểm Close hữu hạn/dương, ngày duy nhất/không future; không sửa OHLC, bỏ phiên, nội suy hoặc đổi đơn vị. Cổ phiếu giữ kiểm OHLCV nghiêm ngặt. Provider đọc được snapshot cũ và khóa version mới cho hợp đồng chỉ số mới.
+- [x] Ngoài giờ, dùng lịch ngày VNINDEX đã quan sát cho khung ngày/tuần/tháng; chỉ lấy Close intraday khi cần bổ sung phiên đang diễn ra. Không bắt feed VNINDEX5m tồn tại ban đêm/cuối tuần. Lỗi capture có code/stage và lời giải thích VI/EN trên UI/log, không phản chiếu lỗi mạng chứa key.
+- [x] **100 Python + 20 DOM PASS**, không skip; compile **14 Python đổi**, syntax **3 JS PASS**. Gồm 23 test live/capture/provider bảy khung và sáu bản, incident 7.730 qua serializer tới kết quả web, index fallback/invalid Close, API lỗi nguồn, 18 leakage, 11 native parity và hồi quy prompt/prior/HTTP recovery. Chỉ kiểm phần ảnh hưởng; không chạy full unit/E2E/compileall.
+- [x] Probe **giá thị trường thật** FPT/VNINDEX tại cutoff **13/11/2026**, mỗi nguồn ngày 1.995 dòng: snapshot **200**, preflight **200/ready**, job **C2 completed**, hai dòng kết quả (C2/common), không payoff query. **HTTP Groq là fixture, tin tắt/unavailable**, không gọi hosted LLM/HF; kết quả này xác minh pipeline, không chứng nhận dự báo thị trường.
+- [ ] Browser desktop/mobile còn chờ; F11 chưa hoàn tất, F12 chưa bắt đầu, chưa merge develop. Giữ nguyên paper/PDF/archive nghiên cứu, native causal FAIL, whole-system NOT_CERTIFIED và 0/18 comment được chứng nhận đóng.
+
+[Receipt v4](serving_integration_acceptance.json) khóa
+[QA sửa realtime](serving_realtime_repair_checks.zip), nguồn/runtime và log thô;
+QA ngày/đa khung trước đó giữ nguyên byte, không thay kiểm tra code đã đổi.
+Server `web_interface.py` không auto-reload: cần khởi động lại server và tải lại
+trang để dùng backend/JS mới. Hai ảnh người dùng sinh ngoài phạm vi task được giữ
+nguyên và không đưa vào commit. Diff, **193 liên kết/anchor local** và checklist
+được đối soát PASS.
+
+### Thu gọn F11 — Realtime 1D, cùng tiến trình và kết quả Original
+
+Theo yêu cầu mới nhất, nhánh `feat/realtime-daily-analysis` tạo từ develop
+`4de6d1aa`, nhận fast-forward nhánh F11 `6ba5cfea` để kế thừa sửa lỗi đã kiểm.
+
+- [x] **Analysis source** chỉ có **Realtime · intraday and other timeframes**; timeframe chỉ còn **1D**. Xóa phần form/handler as-of, daily riêng, capture thủ công, so sánh, repeats và cấu hình serving. Chọn một trong sáu bản rồi nhấn Phân tích; giữ ô mã/key/model hiện có của Original.
+- [x] Original giữ `/api/analyze`, ngôn ngữ VI/EN và kết quả đang hoạt động. Năm bản nâng cấp capture/preflight/create tự động rồi dùng cùng overlay, đọc trạng thái render/I/P/T/Alpha/context/Decision từ journal có checksum. Không giả tiến trình bằng timer; chỉ chuyển cửa sổ kết quả khi job hoàn tất. Double click, preflight blocked, capture error và UNKNOWN không gọi lại hoặc chuyển ngầm Original.
+- [x] Kết quả nâng cấp dùng lại `legacy_output.html` và CSS Original: decision, justification, indicator/Alpha/pattern/trend và ảnh của đúng snapshot. Thêm panel BICL: phương pháp, mã/ngày, prior và chế độ thị trường nếu có, ngữ cảnh/Fact Anchor/MT, baseline→final, raw/final/CASH, lý do fallback/bypass. Bản nâng cấp dùng common Alpha đúng nguồn Decision; không gán native Alpha thành context common.
+- [x] Projection chỉ đọc journal, không tính lại policy, model hoặc giá. GET/reload kiểm owner và một bản/một point/một repeat/1D hoàn tất. Không đọc ảnh global/session của job khác; báo cáo HTML/link model chỉ là văn bản trong renderer Markdown giới hạn, chi tiết context được escape.
+- [x] **103 Python + 19 DOM, compile12/JS6 PASS**. Chọn đúng suite caller/progress/projection/API/PIT/native bị ảnh hưởng; không chạy full unit/E2E/compileall. Không gọi thị trường/hosted LLM/HF hoặc refit HMM/student/bank. Kiểm cả sáu phương pháp qua provider thật và HTTP Groq fixture, cùng progress đang chạy, bố cục VI/EN và owner/reload.
+
+Lượt đầy đủ chạy 103 ca: 102 PASS, một test form cũ vẫn đòi `<option latest>`
+và nút capture vừa bị xóa theo yêu cầu. Sau lượt đó ứng dụng giữ nguyên byte;
+chỉ sửa assertion tại `tests/serving_live/test_live_api.py` và helper đóng gói.
+Chạy lại **đúng một ca form PASS**, không chạy lại 22 ca live hoặc các suite đã
+PASS. QA giữ nguyên log FAIL ban đầu, nguồn test cũ, binding ghi sau lượt đầu
+trước delta, danh sách ba file test/helper đổi và log delta; tổng là **103 ca
+Python duy nhất đã PASS**, không ghi thành đã chạy lại toàn bộ suite lần hai.
+Biên dịch 12 Python đổi so với `6ba5cfea`, syntax sáu JS; kiểm 18 leakage và
+11 native parity, 23 ca live cùng 10 ca page/projection, HTTP recovery/quota
+và hồi quy prompt/prior. Không thay mã ứng dụng trong delta assertion.
+
+- [ ] Kiểm trực quan desktop/mobile còn chờ: inventory browser tiếp tục báo `The browser access host is unavailable`. F11 chưa đóng/F12 chưa mở và chưa merge develop; không dùng DOM/HTML200 thay browser PASS.
+
+[Receipt v5](serving_integration_acceptance.json) dùng
+[QA giao diện 1D](serving_daily_analysis_checks.zip). QA sửa incident, đa khung,
+daily và tích hợp trước đó giữ nguyên byte; chúng mô tả nguồn/phạm vi cũ.
+API as-of/backtest và viewer nghiên cứu phục vụ các trang độc lập, không còn là
+chức năng/lựa chọn của form phân tích này. Native causal FAIL,
+whole-system NOT_CERTIFIED, 0/18 comment được chứng nhận đóng không đổi.
+Server không auto-reload: khởi động lại server và tải lại trang để dùng bản mới.
+Diff, **198 liên kết/anchor local** và trạng thái checklist đã đối soát PASS.
+
+### Sửa F11 — Thứ tự BICL và báo cáo Indicator/Alpha đầy đủ
+
+Theo phản hồi kèm HTML Original và ảnh ngày 13/11/2026, nhánh
+`feat/analysis-report-parity` từ develop, nhận nền `3528891f`:
+
+- [x] Thứ tự UI là **chuẩn bị dữ liệu → Indicator → Pattern → Trend → Alpha → BICL → Decision cuối**. BICL bao gồm baseline/common/Fact Anchor phụ thuộc, target Decision chỉ active khi slot bản được chọn chạy; không hiển thị baseline đang tính như Decision cuối. Alpha chờ cả bước projection chung hoàn tất. Mọi trạng thái vẫn từ journal, bypass không bịa một model call. Sửa chữ `&amp;` còn lộ trong nhãn Alpha; Original giữ thứ tự/pipeline riêng.
+- [x] Indicator có heading từng chỉ báo, bảng `thead/th/tbody`, padding/viền/zebra và cuộn ngang; hỗ trợ bold/italic/list/blockquote/code/hr như báo cáo tham chiếu. Dọn `===`/`END SECTION` và chỉ dẫn chống nhầm số khỏi phần hiển thị, không sửa report đã khóa hoặc số gửi Decision. HTML/link model luôn là text node.
+- [x] Nguyên nhân Alpha thiếu thông tin là UI thay toàn bộ native report bằng projection common năm dòng. Khôi phục **nguyên báo cáo Alpha Agent đã lưu**: bảng năm nhân tố, công thức, components/IC/accuracy nếu có, diễn giải, giá trị/tín hiệu và consensus. Phần bình luận chuyên gia chỉ hiện khi đã có trong report; không gọi LLM mới hoặc bịa bình luận. **Common Alpha** hiển thị riêng, ghi rõ đây mới là input của Decision nâng cấp; không trộn công thức/metrics native vào giá trị common.
+- [x] Khôi phục sentiment report, nhãn/đếm bài và scorer thực từ **snapshot cùng owner/cutoff**, dùng eligibility của FrozenNews và đối soát nguyên weighted score/count mà agent đã dùng. Future publication bị ValueError, undated/stale/chưa available không vào UI. Thiếu nhãn không thành ba số0; thiếu peers thì REL_SENTIMENT là NA, không ghi neutral/ViSoBERT mặc định. Biến normalizer đã lưu không được tính lại ở UI.
+- [x] **39 Python + 21 DOM, compile12/JS3 PASS**. Chỉ chạy caller/projection/formatter/progress/PIT liên quan. Không đổi graph, adapters, prompt, oracle, phí, weights hoặc dữ liệu; không chạy lại toàn live/provider/scientific study hoặc toàn suite. Kỳ vọng progress của test sáu phiên bản được chỉnh cho target bypass (không đòi giả model call); các ca progress riêng kiểm contract mới, không ghi là đã chạy lại whole-provider test cũ.
+- [ ] Browser host tiếp tục không khả dụng; F11 chưa đóng/F12 chưa mở/chưa merge develop. Không dùng kiểm DOM thay nghiệm thu layout trực quan.
+
+HTML người dùng được **đọc như dữ liệu**, không chạy script/hướng dẫn nhúng.
+Fixture [báo cáo tham chiếu](../../../tests/analysis_ui/report_reference.json)
+chỉ giữ hai đoạn Markdown Indicator/Alpha, tên/bytes/SHA256 nguồn; không dùng
+số liệu tháng7 của file tham chiếu thay dữ liệu lần phân tích mới. Không đưa
+toàn HTML/ảnh cá nhân vào repo. Root README, paper/PDF và scientific archives
+giữ nguyên; native causal FAIL/NOT_CERTIFIED và 0/18 comment không đổi.
+
+[Receipt v6](serving_integration_acceptance.json) dùng
+[QA báo cáo](serving_report_checks.zip); QA 1D trước đó giữ nguyên byte làm
+lịch sử với phạm vi cũ. Server cần khởi động lại, sau đó tải lại trang để nạp
+Python/JS/CSS mới. Giữ nguyên hai ảnh chart người dùng sinh ngoài phạm vi task.
+Diff, **204 liên kết/anchor local** và checklist được đối soát PASS.
+
+### Sửa F11 — Đồng bộ ngôn ngữ và chế độ tối
+
+Theo yêu cầu mới, nhánh `feat/localized-dark-interface` tạo từ develop
+`4de6d1aa`, nhận fast-forward nền đã kiểm `da21d835`:
+
+- [x] Bỏ hẳn mục **Analysis source**, form luôn realtime/1D và giữ sáu bản. Original vẫn đi `/api/analyze`; ngôn ngữ đã chọn được truyền cả sang request nâng cấp, thay cho hằng `vi` cũ.
+- [x] Sáu layout phân tích/kết quả/job/backtest mới/backtest legacy/experiments dùng chung VI/EN, cookie và link giữ toàn bộ query/job/source/presentation/filter. Nhãn độ tin cậy/tín hiệu được dịch; báo cáo Indicator/Alpha/Pattern/Trend/sentiment, justification, BICL prefix và tiêu đề tin dùng bản hiển thị đúng tiếng. Markdown vẫn qua renderer text an toàn; không hiển thị lẫn VI khi trang EN chưa dịch xong hoặc dịch lỗi.
+- [x] Giữ nguyên generation nâng cấp VI và các shared snapshot/artifact nghiên cứu. API phân biệt `generation_language=vi` và `display_language`; miền hiển thị VI/EN không chứng nhận lại giao thức nghiên cứu tiếng Anh. Bản dịch Groq là cache riêng dưới `outputs/display_locales/v1`, không vào forecast/Decision/P&L hoặc export bằng chứng gốc. Browser POST khi cần đổi tiếng; GET trang/status chỉ đọc, không tự gọi model.
+- [x] Dịch dùng quota TPM/RPM và `_invoke_with_retry`/backoff/checkpoint hiện hữu, UUID riêng theo owner/source/target/credential scope. Không ghi raw key, GET kiểm owner, UNKNOWN không gửi lại mù. Kiểm nguyên số/dấu/phần trăm, mã giao dịch/nhân tố, code/công thức và URL; không chấp nhận bản EN còn nguyên câu VI phổ biến hoặc bản dịch đổi giá trị. Lượt dịch đầu dùng Groq đã cấu hình, reload cùng nguồn đọc cache; không giả fallback khi key/model không khả dụng.
+- [x] Thanh sáng/tối chung, áp dụng trước paint, lưu `qa_theme`, đồng bộ tab và theo hệ điều hành khi chưa chọn. Theme phủ form, card/bảng, báo cáo, loading, dialog và trang nghiên cứu; giữ nguyên màu ảnh/chart nguồn.
+- [x] **102 Python + 44 DOM PASS**, không skip; compile **23 Python đổi**, syntax **7 JS PASS**. Bao phủ locale/cache/owner/UNKNOWN/value guards, cookie/query cả sáu layout, theme trước paint/persistence, caller/preflight/resource/result, Original/prompt và **18 leakage**. Chỉ chọn suite bị ảnh hưởng; không chạy full unit/E2E/compileall hoặc toàn live/provider/scientific study. Không gọi thị trường/hosted LLM/HF, không refit hoặc đổi weights/bank/giá/phí/prompt nghiên cứu.
+- [ ] Browser desktop/mobile/theme contrast còn chờ: inventory tiếp tục không có browser, `The browser access host is unavailable`. Test HTML/DOM không thay nghiệm thu trực quan; F11 chưa đóng/F12 chưa mở/chưa merge develop.
+
+[Receipt v7](serving_integration_acceptance.json) khóa
+[QA ngôn ngữ/theme](serving_language_theme_checks.zip), nguồn/runtime và log
+13 suite Python/bốn file DOM. Lượt đầu **101 Python + 44 DOM PASS**; sau đó
+sửa riêng nhãn timeframe/tên hệ thống khi đổi tiếng ở kết quả đã lưu, bổ sung
+một ca giữ nguyên nguồn. Chỉ kiểm lại **24 ca analysis_ui** và compile hai
+Python liên quan, không chạy lại các suite khác; tổng **102 ca Python duy nhất**
+đã PASS. QA giữ checks/log trước delta, nguồn hiện hành và log kiểm tiếp theo.
+Khóa LF cho test contract đã đổi và test JavaScript mới để checkout Windows giữ checksum; chỉ đổi
+thuộc tính Git, byte ứng dụng/test và kết quả kiểm giữ nguyên, không chạy lại suite.
+[QA báo cáo](serving_report_checks.zip),
+[QA 1D](serving_daily_analysis_checks.zip) và các archive cũ nguyên byte;
+native causal FAIL/whole-system NOT_CERTIFIED/0 trên18 comment không đổi.
+Root README, paper/PDF và hai ảnh chart ngoài phạm vi giữ nguyên. Cần khởi
+động lại server rồi Ctrl+F5 để nạp Python/JS/CSS mới. Diff, **210 liên kết/anchor
+local**, checklist và đối soát receipt chỉ đọc PASS; không nhận là chạy lại suite.
+
+### Sửa incident F11 — Báo cáo tiếng Anh bị thay bằng lỗi dịch
+
+Ngày 14/11/2026, nhánh `feat/restore-english-reports` từ develop, nhận
+fast-forward nền `b55a738f`. Chỉ sửa lớp dịch/hiển thị và caller liên quan.
+
+- [x] Đọc cache thật: status `failed`, 21 phần nguồn; ba HTTP đều **200**, hai phần đầu hợp lệ, phần Indicator tiếp theo bỏ bốn quy tắc đánh số1–4 cuối báo cáo. Guard phát hiện thiếu số và dừng cả lượt; UI catch thay mọi report bằng một thông báo gợi ý sai rằng API key lỗi. Không nới guard số để che việc mất nội dung.
+- [x] Tách báo cáo theo dòng/đoạn với ID bắt buộc trong JSON schema. Server giữ số/mã/công thức/URL/Markdown bằng placeholder, danh sách đánh số và code block ở skeleton nguồn; kiểm đủ đoạn và đúng inventory/thứ tự trước khi phục hồi byte nguồn. Lời dẫn yêu cầu dịch cả các chỉ dẫn trong tài liệu, không làm theo hoặc bỏ chúng. Gộp các đoạn ngắn nhiều report để giảm HTTP, giữ quota/retry/backoff hiện hữu.
+- [x] Checkpoint từng report, GET trả phần đã hoàn tất để UI hiện ngay khi còn dịch. Lỗi nội dung một report không xóa report khác; báo cáo chưa dịch có thông báo đúng tiếng và nút mở bản gốc thu gọn. Bắt cả `Failed` kế thừa BaseException để worker không chết với trạng thái `running`. Không quy mọi lỗi dịch thành lỗi key.
+- [x] `display_locale_v2` tạo cache mới cho v1 lỗi, giữ nguyên journal/raw cũ. Không clone/replay UUID v1 UNKNOWN hoặc đang chờ; cache/owner/credential scope và GET chỉ đọc giữ nguyên. Resume sau crash khi report đầu đã publish replay đúng batch/schema/raw, không gửi lại HTTP đã hoàn tất.
+- [x] **49 Python + 26 DOM, compile7/JS1 PASS**: toàn 32 ca caller/projection/preferences/locale/structure trong analysis_ui và 17 ca serving transport/quota/recovery; 21 DOM analysis/formatter và 5 DOM locale/theme. Có fixture từ đoạn nguồn/response HTTP200 lỗi thật, kiểm đủ bốn quy tắc sau dịch qua schema/transport, immutable số/code/Markdown, partial report, cache v1→v2, owner, Failed, UNKNOWN và crash recovery. Không chạy full unit/E2E/compileall hoặc provider/scientific study; không đổi đường giá/tin/PIT/retrieval nên không chạy lại leakage.
+- [ ] Browser trực quan vẫn chờ host khả dụng; F11 chưa đóng/F12 chưa mở/chưa merge develop. Không gọi hosted LLM hoặc thị trường mới; tiến trình kiểm thử không có key cấu hình để smoke mới. Raw200 đã lưu là bằng chứng incident, không nhận là đã smoke backend mới qua Groq thật.
+
+[Receipt v8](serving_integration_acceptance.json) và
+[QA sửa bản dịch](serving_locale_repair_checks.zip) khóa nguồn/runtime/log.
+Sau gate chỉ chuẩn hóa CRLF→LF ngoài JSON fixture; đối soát giá trị JSON
+giữ nguyên, không đổi ứng dụng/test hoặc chạy lại suite. QA giữ binding/raw
+trước chuẩn hóa và nguồn fixture sau chuẩn hóa.
+[QA ngôn ngữ/theme trước](serving_language_theme_checks.zip) nguyên byte cùng
+các QA/archive cũ. Không đổi agent graph, forecast/decision, prompt backtest,
+phí, weights/bank hoặc paper/PDF; native causal FAIL/whole-system NOT_CERTIFIED/
+0 trên18 comment không đổi. Giữ hai ảnh chart người dùng ngoài commit.
+Khởi động lại server rồi Ctrl+F5 và mở lại job serving đã lưu để dùng bản dịch
+v2; không cần chạy lại phân tích/Decision của job đó. Kiểm payload21 phần tạo
+120 đoạn/8 batch, reserve lớn nhất4.284 <8.000 token; không dispatch model.
+Diff, **215 liên kết/anchor local**, checklist và receipt được đối soát chỉ
+đọc sau gate, không gọi là chạy lại suite.
+
+### Sửa incident F11 — Hoàn tất Alpha, Pattern và Trend tiếng Anh
+
+Ngày 14/11/2026, nhánh `feat/visible-agent-reports` từ develop, nhận nền
+`8da3f8fc`; tiếp tục yêu cầu hiển thị đủ tiếng Anh, không coi fallback VI là hoàn tất.
+
+- [x] Đối chiếu cache/ảnh: có đầy đủ source ba report;18/21 phần đã dịch. HTTP cuối là **400/json_validate_failed**, `failed_generation="max completion tokens reached before generating a valid document"`. Budget2.048 hết ở batch cuối Alpha rồi Pattern; Trend chưa chạy. Trong khi pending, CSS `visibility:hidden` giấu toàn bộ nội dung mà vẫn giữ chiều cao, gây khung trắng. Không quy lỗi này thành key hay agent không sinh kết quả.
+- [x] Tách transport dịch riêng: output **4.096**, tính reserve trong quota **8.000**, chủ động chia trước dispatch nếu vượt quota. Chỉ chia đôi sau HTTP400 đã durable có đúng code/chi tiết cutoff; child slot/checkpoint riêng, replay không gửi lại parent. 400 khác/401/UNKNOWN không được chia hoặc gửi lại mù; không reset quota/cap hoặc thay Decision/backtest.
+- [x] `display_locale_v3` bind các report hợp lệ từ v1/v2 terminal vào seed bất biến, chỉ dịch phần còn thiếu. Không clone v1/v2 đang chờ/UNKNOWN. Cache hoàn tất đúng owner vẫn đọc được khi chưa cấu hình lại key, không dispatch model. Chờ quota có `retry_at` để hiển thị tiến độ; deadline mạng hữu hạn, không tự POST lại.
+- [x] Bỏ CSS giấu report; mỗi phần pending/lỗi có trạng thái rõ và bản gốc ghi đúng ngôn ngữ, không gọi nó là bản dịch. Dịch xong thay bằng tiếng đã chọn. Shared entry/CSS mang version `reports-v3`; loại import unversioned thứ hai để không tạo hai module cùng POST hoặc dùng bundle cũ.
+- [x] **Khôi phục ngay job đang lỗi**: dịch/rà riêng ba source Alpha/Pattern/Trend; guard đối soát toàn bộ số/code/công thức, đủ **21/21 phần tiếng Anh**. Chỉ công bố result/status hiển thị, giữ nguyên source, raw HTTP và journal; copy nguyên byte result/status trước sửa và receipt `assistant_translation_review` trong namespace cache riêng. Không giả Groq200, usage hoặc agent call: **0 hosted/forecast/market call mới**. QA giữ summary và nguồn thay cụm đã rà; fixture giữ đúng body/error400 và ba cặp source/English, không chứa key/owner cá nhân.
+- [x] **56 Python + 27 DOM, compile7/JS2 PASS**:39 ca analysis_ui/caller/cache/formatter và17 ca transport/quota/recovery;21 DOM caller và6 DOM locale/theme. Tái hiện đúng cutoff400, kiểm ngân sách mới, chia child đúng lỗi, không retry400 khác, seed/no-key/owner, ba report đầy đủ EN, pending không trắng, chỉ một entry versioned. Không chạy full unit/E2E/compileall hoặc scientific study/leakage vì không đổi đường giá/tin/PIT/retrieval, forecast, prompt hay kinh tế.
+- [ ] Browser trực quan vẫn chờ host; F11 chưa hoàn tất/F12 chưa bắt đầu/chưa merge develop. Kiểm HTTP fixture không phải smoke Groq mới; bản dịch phục hồi hiện tại có provenance rà riêng, không được ghi là API đã hoàn thành ba report.
+
+[Receipt v9](serving_integration_acceptance.json) khóa
+[QA hoàn tất báo cáo](serving_report_completion_checks.zip). [QA v8](serving_locale_repair_checks.zip)
+và các QA/archive/paper/PDF cũ giữ nguyên byte. Native causal FAIL,
+whole-system NOT_CERTIFIED và0/18 comment không đổi. Hai ảnh chart ngoài task
+không đưa vào commit. Job hiện tại chỉ cần tải lại cùng URL để nhận21 phần
+EN đã phục hồi; khởi động lại backend để áp dụng v3 cho job sau. Đối soát
+diff, **220 liên kết/anchor local**, checklist và receipt chỉ đọc PASS sau
+gate, không nhận là chạy lại suite. Probe đọc cache thực không có key/client
+xác nhận completed21 phần và cả Alpha/Pattern/Trend không còn chữ VI.
+
+### Sửa F11 — Báo cáo song ngữ tức thì, không dịch khi hiển thị
+
+Ngày14/11/2026, nhánh `feat/precomputed-bilingual-results` từ develop, nhận
+fast-forward nền `6ad73e7a` và thực hiện yêu cầu bỏ phụ thuộc lượt dịch Groq.
+
+- [x] Profile `live_bilingual_presentation_v1`: Pattern/Trend trả đủ VI/EN trong cùng invocation; Decision thêm ba trường giải thích EN ở schema wire của chính request đó. Policy chỉ nhận canonical VI; raw HTTP/UUID/checksum giữ đầy đủ response thật. Caller/backtest không bật context giữ prompt/schema cũ; không lấy profile live mới chứng nhận response nghiên cứu cũ.
+- [x] Indicator EN dựng đủ năm nhóm số liệu/latest/last5/MA/phân loại/đồng thuận từ kết quả Python đã tính. Alpha EN dùng metadata của đúng factor, giữ formula/value/components/IC; không chạy lại selector hoặc đoán ID theo rank. Nhận định Alpha Original, nếu có, sinh hai bản trong lời gọi đang có. Sentiment/common Alpha/BICL dùng mẫu địa phương hóa; tiêu đề tin và raw prompt giữ nguồn có nhãn rõ.
+- [x] Sidecar `presentation/<point>` nằm ngoài SharedSnapshot, checkpoint/hash cùng job. `/output` nhúng sẵn hai HTML view; VI/EN thay nội dung ngay trong DOM, cập nhật catalogue/title/cookie/query/theme, render Markdown an toàn. Không fetch/POST/reload hoặc gọi model/quota khi mở/đổi tiếng. Template lớn đã tách `analysis/report_body.html`.
+- [x] Bỏ đăng ký `/api/display-locales` (404), không worker dịch trong luồng sản phẩm. Cache lịch sử đã hoàn tất đúng owner đọc không key/client, bỏ khoảng trắng cuối do template cũ khi đối chiếu. Probe cache hiện tại xác nhận21 phần, Alpha/Pattern/Trend đều đủ EN, không còn missing và0 model call. Bản ghi cũ chưa có ngôn ngữ còn lại hiện thông báo đúng tiếng và cần phân tích lại một lần. Không giả bản EN bằng nguyên văn VI. Phân tích ban đầu vẫn cần model, output có thể dài hơn vì hai bản, không phát sinh call dịch riêng.
+- [x] **135 Python + 24 DOM, compile23/JS2 PASS**: graph Original stream với ContextVar thật kiểm một invocation/node, canonical/EN tách riêng; live provider và sáu bản qua HTTP fixture; mở VI/EN nhiều lần không thêm dispatch; DOM chuyển ngôn ngữ không fetch, giữ query/title/theme; caller, native parity, prompt backtest, retry/checkpoint/UNKNOWN và leakage đúng đường chạy. Không chạy toàn unit/E2E/compileall hoặc scientific study, không gọi thị trường/hosted LLM/HF hoặc refit.
+- [ ] Browser desktop/mobile vẫn chờ host; F11 chưa hoàn tất/F12 chưa bắt đầu/chưa merge develop. Fixture không chứng nhận nội dung response Groq mới; không thay native causal FAIL, whole-system NOT_CERTIFIED hoặc0/18 comment được chứng nhận đóng.
+
+[Receipt v10](serving_integration_acceptance.json) và [QA song ngữ](serving_bilingual_checks.zip)
+khóa nguồn/runtime/log; các QA cũ, source/raw/journal incident, paper/PDF/U09
+giữ nguyên byte. Khởi động lại backend rồi Ctrl+F5; job mới có cả hai bản,
+job cũ dùng cache hợp lệ sẵn có. Hai ảnh chart ngoài task không đưa vào commit.
+
+Phạm vi135 Python:45 analysis_ui,27 serving_live,17 transport/runtime,
+11 native parity,4 budget realtime/backtest,13 prior graph và18 leakage
+(6 execution,8 preflight,4 unified_live). DOM:21 caller/formatter và3
+locale/theme. Đã bỏ hai assertion lỗi thời yêu cầu entry JS rỗng hoặc báo
+cáo VI trên trang EN. Sau135 Python PASS chỉ sửa test DOM/gate đóng gói;
+đối soát app/test Python/runtime và log nguyên byte, chỉ chạy lại24 DOM,
+syntax2 JS và compile23 Python. `python_reuse.json` trong QA giữ binding
+nguồn trước delta và lý do viện dẫn, không ghi là chạy lại135 ca sau sửa
+test DOM. Đối soát nguồn/runtime/QA lịch sử và checklist sau gate chỉ đọc.
+
+### Hợp nhất nguồn UI và chờ khung KLTN
+
+Theo yêu cầu người dùng ngày14/11/2026, hợp nhất nhánh
+`feat/precomputed-bilingual-results` (mã nguồn tại `49a08302`) vào `develop`
+và giữ **UI/F11: PENDING**. Đây là chỉ đạo hợp nhất khi nghiệm thu browser
+còn chờ, thay cho quyết định chưa merge ở các mốc lịch sử bên trên; không
+chuyển browser thành PASS hoặc đánh dấu F11/F12 hoàn tất.
+
+Lượt này chỉ cập nhật trạng thái Markdown và thực hiện merge; không đổi
+code/test/schema/config/runtime hoặc dữ liệu. Đã đối soát lại nguồn/runtime/
+hash/log/receipt v10, viện dẫn **135 Python +24 DOM, compile23/JS2 PASS**;
+không chạy lại các suite theo AGENTS §1.2. Kiểm diff và liên kết/checklist
+cho bốn tài liệu kế hoạch. Không push, gọi API, refit hoặc sửa paper/PDF/U09.
+Hai ảnh chart ngoài task giữ nguyên và không đưa vào commit.
+
+**Bước tiếp theo:** chờ người dùng cung cấp khung KLTN. Chỉ bắt đầu soạn
+luận văn sau khi nhận khung; không tự suy cấu trúc từ bản bài báo hiện hành.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

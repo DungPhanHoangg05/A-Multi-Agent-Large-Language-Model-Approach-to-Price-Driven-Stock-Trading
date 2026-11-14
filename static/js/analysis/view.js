@@ -39,16 +39,24 @@ export function renderer(config) {
     for (const [point,snapshot] of Object.entries(data.snapshots ?? {})) {
       const group = element('section'); group.append(element('h3',point));
       const payload = snapshot.payload;
-      chart(group,payload.price_prefix,point);
+      chart(group,data.realtime_chart ?? payload.price_prefix,point,data.live_input?.chart_timeframe ?? '1d');
       for (const role of ['indicator','pattern','trend','alpha','sentiment']) {
         const report = element('details',null,'serving-report');
-        report.append(element('summary',role === 'alpha' ? text.native_alpha : text[role+'_report']),element('pre',payload[role+'_report'] ?? text.unavailable));
+        const paired=data.presentations?.[point]?.[role]?.[config.language];
+        const content=element('pre',paired ?? (config.language==='vi' ? payload[role+'_report'] : text.unavailable) ?? text.unavailable);
+        content.setAttribute('data-localize',''); content.setAttribute('data-source-language',config.language); content.setAttribute('data-locale-pending','');
+        report.append(element('summary',role === 'alpha' ? text.native_alpha : text[role+'_report']),content);
         if (role === 'pattern' || role === 'trend') image(report,payload[role+'_image'],text[role+'_report']);
         group.append(report);
       }
       if (payload.causal_alpha?.projection) {
         const common = element('details',null,'serving-report');
-        common.append(element('summary',text.common_alpha),element('pre',payload.causal_alpha.projection.report ?? text.unavailable));
+        const projection=payload.causal_alpha.projection;
+        const signals={'TĂNG':'BULLISH','GIẢM':'BEARISH','TRUNG TÍNH':'NEUTRAL'};
+        const localReport=projection.factors?.map(factor=>`${factor.alpha_id}: ${factor.value}; ${config.language==='en' ? signals[factor.signal] ?? factor.signal : factor.signal}`).join('\n');
+        const content=element('pre',localReport || (config.language==='vi' ? projection.report : text.unavailable) || text.unavailable);
+        content.setAttribute('data-localize',''); content.setAttribute('data-source-language',config.language); content.setAttribute('data-locale-pending','');
+        common.append(element('summary',text.common_alpha),content);
         group.append(common);
       }
       container.append(group);
@@ -57,11 +65,13 @@ export function renderer(config) {
   function render(data) {
     const request = data.identity.request, progress = data.progress;
     byId('job-state').textContent = text[data.state === 'failed' ? 'job_failed' : data.state] ?? data.state;
-    byId('job-meta').textContent = `${request.symbols.join(', ')} · ${request.start_date} · ${request.timeframe} · ${request.language.toUpperCase()} · ${data.run_id}`;
+    const source = request.chart_timeframe ? text.timeframe_source : request.data_source === 'live' ? text.live_source : text.asof_source;
+    byId('job-meta').textContent = `${source} · ${request.symbols.join(', ')} · ${request.start_date} · ${request.chart_timeframe ?? request.timeframe} · ${request.language.toUpperCase()} · ${data.run_id}`;
+    if (data.live_input) byId('job-meta').textContent += ` · ${text.live_captured}: ${data.live_input.captured_at}`;
     byId('job-progress').textContent = `${text.points}: ${progress.points_complete}/${progress.points_total} · ${text.slots}: ${progress.decision_slots_complete}/${progress.decision_slots_total} · ${text.attempts}: ${progress.api_attempts}`;
     byId('partial-note').hidden = data.state === 'completed';
     byId('retry-at').textContent = data.retry_at ? text.retry_at+': '+new Date(data.retry_at*1000).toLocaleString(config.language) : '';
-    byId('job-error').textContent = data.state === 'unknown' ? text.unknown : data.error ? data.error.code+' · '+data.error.message : '';
+    byId('job-error').textContent = data.state === 'unknown' ? text.unknown : data.error ? data.error.code+' · '+(config.language==='en' ? text.failed : data.error.message) : '';
     byId('stop-job').disabled = !['queued','running','partial'].includes(data.state);
     byId('resume-job').disabled = ['completed','unknown','stop_requested'].includes(data.state) || data.worker_alive === true;
     byId('job-status-panel').setAttribute('aria-busy',String(['queued','running','partial'].includes(data.state)));

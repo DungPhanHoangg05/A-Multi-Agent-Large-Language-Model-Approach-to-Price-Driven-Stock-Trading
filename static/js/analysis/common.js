@@ -9,9 +9,9 @@ export function element(tag, text, className) {
 export function label(config, id) {
   return config.registry.variants.find(v => v.id === id)?.label[config.language] ?? id;
 }
-export function jobUrl(id, language) {
+export function jobUrl(id, language, source = 'asof') {
   if (!/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/.test(id)) throw new Error('Invalid job ID');
-  return '/output?' + new URLSearchParams({serving_run: id, lang: language});
+  return '/output?' + new URLSearchParams({serving_run: id, lang: language, ...(source === 'live' ? {serving_source:'live'} : {})});
 }
 export async function json(url, body, signal) {
   const response = await fetch(url, {signal, credentials:'same-origin', cache:'no-store',
@@ -30,4 +30,11 @@ export function blockerText(blocker, text) {
   const key = {CREDENTIAL_MISSING:'blocked_credential',SUPPORT_MISMATCH:'blocked_support',RESOURCES_NOT_READY:'blocked_resource',
     MODEL_NOT_RELEASED:'blocked_model',TOKENIZER_NOT_READY:'blocked_tokenizer'}[blocker.code];
   return key ? text[key] : blocker.code;
+}
+
+export function captureErrorMessage(error, config) {
+  const detail = error?.data?.capture_error;
+  const message = detail?.message?.[config.language];
+  if (typeof message !== 'string' || !/^[A-Z_]{3,80}$/.test(detail?.code ?? '') || !/^[a-z.]{3,48}$/.test(detail?.stage ?? '')) return config.messages.live_failed;
+  return `${message} [${detail.code} · ${detail.stage}]`;
 }
