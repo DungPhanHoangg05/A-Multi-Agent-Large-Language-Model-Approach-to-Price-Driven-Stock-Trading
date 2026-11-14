@@ -37,161 +37,167 @@ việc tập trung công việc không nâng causal/reviewer acceptance hay đá
 hoàn thành. Các bản README/plan cũ trong revision là tài liệu lịch sử khóa byte;
 trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại kế hoạch chung/W12.
 
-## Thesis writing checklist
+## Checklist viết khóa luận
 
-On **14 November 2026**, the user requested an end-to-end English writing plan
-and renamed the thesis directory to `thesis/`. The [outline](../../../thesis/outline.md)
-and [reader guide](../../../thesis/README.md) are now English. The
-[writing plan](../../../thesis/plan.md) defines 84 tasks, their dependencies,
-deliverables, acceptance conditions and six writing review gates.
+Ngày **14/11/2026**, người dùng yêu cầu kế hoạch viết từ đầu tới khi bàn giao
+và đổi tên thư mục thành `thesis/`. Theo đính chính ngôn ngữ sau đó,
+**trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng tiếng Việt;
+toàn bộ nội dung khóa luận dùng tiếng Anh**. [Dàn bài chương mục](../../../thesis/outline.md)
+giữ tiếng Anh để làm khung bản thảo; [hướng dẫn đọc](../../../thesis/README.md)
+và [kế hoạch viết](../../../thesis/plan.md) dùng tiếng Việt. Kế hoạch định nghĩa
+84 task, phụ thuộc, đầu ra, điều kiện nghiệm thu và sáu mốc rà soát.
 
-This is the **only task-status checklist** for thesis writing. All tasks below
-start as TODO; completing the plan is not completing manuscript preparation,
-drafting, review or submission. Use IN_PROGRESS/REVIEW/BLOCKED notes on unchecked
-items when useful, and check an item only after its deliverable and acceptance
-condition have been verified. Record grouped completion evidence in this section.
+Đây là **checklist trạng thái duy nhất** cho việc viết khóa luận. Toàn bộ task
+dưới đây vẫn là TODO; hoàn thành kế hoạch chưa phải hoàn thành chuẩn bị nguồn,
+viết, rà soát hoặc nộp. Có thể ghi IN_PROGRESS/REVIEW/BLOCKED bên mục chưa xong;
+chỉ đánh dấu hoàn tất sau khi kiểm đầu ra và điều kiện nghiệm thu. Gộp ghi nhận
+bằng chứng hoàn thành của các task liên quan tại mục này.
 
-The proposed-method chapter must explain the entire system from first principles:
-plain-English overview, one running decision example, component input/output
-contracts, offline training versus inference, priors and MT-BICL, policy,
-orchestration, recovery and later economic evaluation. The plan includes a
-specific first-time-reader review; no independent lecturer review is claimed.
+Chương phương pháp phải giải thích hệ thống từ nền tảng: tổng quan dễ hiểu,
+một ví dụ quyết định xuyên suốt, hợp đồng đầu vào/đầu ra, huấn luyện offline
+và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh giá kinh tế sau đó.
+Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
+giảng viên phản biện độc lập.
 
-### Preparation — P1
+### Chuẩn bị — P1
 
-- [ ] T01 — Confirm requirements and personal/submission metadata.
-- [ ] T02 — Refine title, scope, research questions and contributions.
-- [ ] T03 — Inventory source versions and frozen experimental evidence.
-- [ ] T04 — Establish the primary-source reading list and citation scheme.
-- [ ] T05 — Define English terminology, notation and naming conventions.
-- [ ] T06 — Register figures, tables and algorithms with their sources.
-- [ ] T07 — Select and document the running example and case-selection rule.
-- [ ] T08 — Create chapter drafts and the shared evidence register.
+- [ ] T01 — Xác nhận yêu cầu, thông tin cá nhân và quy định nộp.
+- [ ] T02 — Chốt phạm vi tên đề tài, câu hỏi nghiên cứu và đóng góp.
+- [ ] T03 — Kiểm kê phiên bản nguồn và bằng chứng thực nghiệm đã khóa.
+- [ ] T04 — Lập danh sách đọc nguồn gốc và quy ước trích dẫn.
+- [ ] T05 — Định nghĩa thuật ngữ tiếng Anh, ký hiệu và tên gọi.
+- [ ] T06 — Lập danh mục hình, bảng, thuật toán cùng nguồn.
+- [ ] T07 — Chọn ví dụ xuyên suốt và quy tắc chọn tình huống.
+- [ ] T08 — Tạo khung bản thảo các chương và sổ bằng chứng chung.
 
-### Background — P2
+### Cơ sở lý thuyết — P2
 
-- [ ] T09 — Explain data, sessions, windows and time indexing.
-- [ ] T10 — Derive the economic contract, labels and LONG/CASH example.
-- [ ] T11 — Introduce indicators, alpha and sentiment concepts.
-- [ ] T12 — Explain HMM regimes and endpoint inference.
-- [ ] T13 — Explain Bayesian counts, shrinkage and intervals.
-- [ ] T14 — Explain multi-task context, student/teacher and utility.
-- [ ] T15 — Explain temporal validity and evaluation principles.
+- [ ] T09 — Giải thích dữ liệu, phiên, cửa sổ và chỉ số thời gian.
+- [ ] T10 — Trình bày hợp đồng kinh tế, nhãn và ví dụ LONG/CASH.
+- [ ] T11 — Giới thiệu chỉ báo, alpha và sentiment.
+- [ ] T12 — Giải thích HMM và suy luận regime tại cuối prefix.
+- [ ] T13 — Giải thích counts Bayes, shrinkage và các khoảng.
+- [ ] T14 — Giải thích context đa tác vụ, student/teacher và utility.
+- [ ] T15 — Giải thích tính hợp lệ thời gian và nguyên tắc đánh giá.
 
-### Proposed system — P3
+### Hệ thống đề xuất — P3
 
-- [ ] T16 — Write the system overview and begin the running walkthrough.
-- [ ] T17 — Explain inputs, snapshots and component contracts.
-- [ ] T18 — Explain Indicator and the base Decision path.
-- [ ] T19 — Explain Pattern and Trend with annotated chart inputs.
-- [ ] T20 — Explain Alpha construction, selection and limitations.
-- [ ] T21 — Explain sentiment provenance, aggregation and missingness.
-- [ ] T22 — Explain Native/Common and distinguish Base.
-- [ ] T23 — Explain historical episodes, labels and bank maturity.
-- [ ] T24 — Explain regime fitting and query integration.
-- [ ] T25 — Explain Bayesian v1 retrieval, prefix and fallback.
-- [ ] T26 — Explain C2 conditional statistics and readiness.
-- [ ] T27 — Explain A_tp_pool/B_semantic and compare priors.
-- [ ] T28 — Explain MT task and context construction.
-- [ ] T29 — Explain the evaluated teacher/student training and inference.
-- [ ] T30 — Explain facts and Fact Anchor.
-- [ ] T31 — Explain utility estimation and action revision policy.
-- [ ] T32 — Explain prompt/context projection and schemas.
-- [ ] T33 — Explain the dependency DAG and complete algorithms.
-- [ ] T34 — Explain budgets, retry, checkpoints and recovery.
-- [ ] T35 — Explain the application and complete the running walkthrough.
+- [ ] T16 — Viết tổng quan hệ thống và mở đầu ví dụ xuyên suốt.
+- [ ] T17 — Giải thích đầu vào, snapshot và hợp đồng thành phần.
+- [ ] T18 — Giải thích Indicator và đường Decision cơ sở.
+- [ ] T19 — Giải thích Pattern/Trend bằng biểu đồ có chú thích.
+- [ ] T20 — Giải thích xây dựng, lựa chọn và giới hạn Alpha.
+- [ ] T21 — Giải thích nguồn, tổng hợp và thiếu sentiment.
+- [ ] T22 — Giải thích Native/Common và phân biệt Base.
+- [ ] T23 — Giải thích episode lịch sử, nhãn và điều kiện đủ thời gian.
+- [ ] T24 — Giải thích fit regime và tích hợp vào query.
+- [ ] T25 — Giải thích truy xuất Bayesian v1, prefix và fallback.
+- [ ] T26 — Giải thích thống kê điều kiện và readiness của C2.
+- [ ] T27 — Giải thích A_tp_pool/B_semantic và so sánh các prior.
+- [ ] T28 — Giải thích tạo tác vụ và context MT.
+- [ ] T29 — Giải thích huấn luyện/suy luận teacher/student thực dùng.
+- [ ] T30 — Giải thích facts và Fact Anchor.
+- [ ] T31 — Giải thích utility và policy sửa hành động.
+- [ ] T32 — Giải thích phép chiếu context vào prompt và schema.
+- [ ] T33 — Giải thích DAG phụ thuộc và thuật toán toàn trình.
+- [ ] T34 — Giải thích ngân sách, retry, checkpoint và phục hồi.
+- [ ] T35 — Giải thích ứng dụng và hoàn tất ví dụ xuyên suốt.
 
-### Experiments — P4
+### Thực nghiệm — P4
 
-- [ ] T36 — Define the two studies and their evidence scope.
-- [ ] T37 — Document data, splits, exclusions and coverage.
-- [ ] T38 — Document frozen configuration and paired execution.
-- [ ] T39 — Specify comparators and actual interventions.
-- [ ] T40 — Specify metrics, aggregation and statistical conventions.
-- [ ] T41 — Present component-study results.
-- [ ] T42 — Present historical-context results.
-- [ ] T43 — Present contrast bands and bridge comparisons.
-- [ ] T44 — Analyze support, fallback and policy mechanisms.
-- [ ] T45 — Write traceable successful, unsupported and incorrect cases.
-- [ ] T46 — Report completed robustness and resource analyses.
-- [ ] T47 — Discuss threats, unperformed ablations and RQ answers.
+- [ ] T36 — Xác định hai nghiên cứu và phạm vi bằng chứng.
+- [ ] T37 — Mô tả dữ liệu, phân vùng, loại trừ và độ phủ.
+- [ ] T38 — Mô tả cấu hình đã khóa và thực thi ghép cặp.
+- [ ] T39 — Đặc tả đối chứng và can thiệp thực tế.
+- [ ] T40 — Đặc tả chỉ số, cách tổng hợp và quy ước thống kê.
+- [ ] T41 — Trình bày kết quả nghiên cứu thành phần.
+- [ ] T42 — Trình bày kết quả nghiên cứu ngữ cảnh lịch sử.
+- [ ] T43 — Trình bày band chênh lệch và các so sánh bridge.
+- [ ] T44 — Phân tích support, fallback và cơ chế policy.
+- [ ] T45 — Viết tình huống có truy vết, gồm thiếu support và quyết định sai.
+- [ ] T46 — Báo cáo phân tích độ bền và tài nguyên đã thực hiện.
+- [ ] T47 — Thảo luận giới hạn, ablation chưa làm và trả lời RQ.
 
-### Related work — P5
+### Nghiên cứu liên quan — P5
 
-- [ ] T48 — Verify primary sources and bibliography metadata.
-- [ ] T49 — Review technical analysis and quantitative prediction.
-- [ ] T50 — Review LLM/VLM multi-agent systems and inherited work.
-- [ ] T51 — Review regimes, Bayesian context and MT-BICL methods.
-- [ ] T52 — Review evaluation and reproducibility methods.
-- [ ] T53 — Synthesize the comparison matrix and research gap.
+- [ ] T48 — Kiểm nguồn gốc và metadata tài liệu tham khảo.
+- [ ] T49 — Tổng quan phân tích kỹ thuật và dự báo định lượng.
+- [ ] T50 — Tổng quan LLM/VLM đa agent và phần kế thừa.
+- [ ] T51 — Tổng quan regime, ngữ cảnh Bayes và MT-BICL.
+- [ ] T52 — Tổng quan phương pháp đánh giá và tái lập.
+- [ ] T53 — Tổng hợp bảng so sánh và khoảng trống nghiên cứu.
 
-### Introduction and conclusions — P6
+### Mở đầu và kết luận — P6
 
-- [ ] T54 — Write motivation and problem statement.
-- [ ] T55 — Write RQs, boundaries, contributions and roadmap.
-- [ ] T56 — Summarize the approach and answer each RQ.
-- [ ] T57 — Write limitations and prioritized future work.
-- [ ] T58 — Reconcile the thesis argument and terminology.
+- [ ] T54 — Viết động cơ và phát biểu bài toán.
+- [ ] T55 — Viết RQ, giới hạn, đóng góp và bố cục.
+- [ ] T56 — Tóm tắt phương pháp và trả lời từng RQ.
+- [ ] T57 — Viết hạn chế và hướng phát triển theo ưu tiên.
+- [ ] T58 — Đối soát mạch lập luận và thuật ngữ toàn khóa luận.
 
-### Front matter and appendices — P7
+### Phần đầu và phụ lục — P7
 
-- [ ] T59 — Write the abstract and keywords.
-- [ ] T60 — Complete cover details, acknowledgements, declaration and lists.
-- [ ] T61 — Write Appendix A: data and temporal contracts.
-- [ ] T62 — Write Appendix B: prompts and responses.
-- [ ] T63 — Write Appendix C: algorithms and configuration.
-- [ ] T64 — Write Appendix D: extended results.
-- [ ] T65 — Write Appendix E: verification and audits.
-- [ ] T66 — Write Appendix F: reproduction and application.
+- [ ] T59 — Viết abstract và keywords.
+- [ ] T60 — Hoàn thiện bìa, lời cảm ơn, cam đoan và danh mục.
+- [ ] T61 — Viết Phụ lục A: hợp đồng dữ liệu và thời gian.
+- [ ] T62 — Viết Phụ lục B: prompt và response.
+- [ ] T63 — Viết Phụ lục C: thuật toán và cấu hình.
+- [ ] T64 — Viết Phụ lục D: kết quả mở rộng.
+- [ ] T65 — Viết Phụ lục E: kiểm tra và audit.
+- [ ] T66 — Viết Phụ lục F: tái lập và ứng dụng.
 
-### Typesetting — P8
+### Dàn trang — P8
 
-- [ ] T67 — Create and compile the clean LaTeX shell.
-- [ ] T68 — Transfer foundations and proposed methods.
-- [ ] T69 — Transfer experimental results and scientific assets.
-- [ ] T70 — Transfer framing chapters, front matter and bibliography.
-- [ ] T71 — Transfer appendices and supporting references.
-- [ ] T72 — Assemble the full document and designate canonical LaTeX text.
+- [ ] T67 — Tạo và biên dịch khung LaTeX sạch.
+- [ ] T68 — Chuyển cơ sở lý thuyết và phương pháp đề xuất.
+- [ ] T69 — Chuyển kết quả thực nghiệm và hình/bảng khoa học.
+- [ ] T70 — Chuyển các chương còn lại, phần đầu và bibliography.
+- [ ] T71 — Chuyển phụ lục và các tham chiếu bổ trợ.
+- [ ] T72 — Ghép toàn văn, xác định LaTeX là nguồn bản nộp.
 
-### Review — P9
+### Rà soát — P9
 
-- [ ] T73 — Audit scientific claims and evidence scope.
-- [ ] T74 — Complete the first-time-reader comprehension review.
-- [ ] T75 — Edit English throughout the complete manuscript.
-- [ ] T76 — Check citations, attribution, rights and required disclosures.
-- [ ] T77 — Reconcile formulas, units, counts and numerical displays.
-- [ ] T78 — Clean-build and check references, pagination and document structure.
-- [ ] T79 — Inspect every rendered page and resolve layout defects.
-- [ ] T80 — Resolve received feedback and perform the final revision pass.
+- [ ] T73 — Đối soát luận điểm khoa học và phạm vi bằng chứng.
+- [ ] T74 — Rà khả năng đọc hiểu của người lần đầu tiếp cận.
+- [ ] T75 — Biên tập tiếng Anh trong toàn bộ khóa luận.
+- [ ] T76 — Kiểm trích dẫn, ghi nguồn, quyền và khai báo cần thiết.
+- [ ] T77 — Đối soát công thức, đơn vị, số lượng và cách hiển thị số.
+- [ ] T78 — Build sạch, kiểm tham chiếu, số trang và cấu trúc.
+- [ ] T79 — Kiểm từng trang render và sửa lỗi bố cục.
+- [ ] T80 — Xử lý phản hồi đã nhận và chỉnh sửa cuối.
 
-### Handover — P10
+### Bàn giao — P10
 
-- [ ] T81 — Freeze and package self-contained manuscript sources.
-- [ ] T82 — Build from a clean extraction and verify release artifacts.
-- [ ] T83 — Deliver PDF, sources and reproduction guidance.
-- [ ] T84 — Close internal writing status and record actual external status.
+- [ ] T81 — Khóa và đóng gói nguồn bản thảo tự đủ.
+- [ ] T82 — Build từ bản giải nén sạch và xác minh đầu ra.
+- [ ] T83 — Bàn giao PDF, nguồn và hướng dẫn tái lập.
+- [ ] T84 — Chốt hoàn thành nội bộ và ghi đúng trạng thái bên ngoài.
 
-### Planning change and validation scope
+### Phạm vi thay đổi và kiểm tra kế hoạch
 
-The planning change starts at `develop:05892c3ec8799a8f3d23ce2eeaaaf0778ea09070`
-on `docs/thesis-writing-plan`. It renames the directory, rewrites the outline
-and guide in English, adds the writing plan and updates active local links.
-The sample, application, research source/data and frozen evidence are unchanged.
-The first independent work can begin with T02/T03/T05/T08 while T01 information
-is collected; no deadline, identity, external feedback or approval is invented.
+Kế hoạch ban đầu được tạo từ `develop:05892c3ec8799a8f3d23ce2eeaaaf0778ea09070`
+trên nhánh `docs/thesis-writing-plan`, gồm đổi tên thư mục, dàn bài và kế hoạch.
+Đính chính ngôn ngữ được thực hiện từ `develop:856b36d771176b71ac6e7491b17aae687356f30b`
+trên nhánh `docs/thesis-planning-language`: dịch kế hoạch, hướng dẫn và checklist
+sang tiếng Việt, giữ yêu cầu bản thảo hoàn toàn bằng tiếng Anh. Mã, quy mô,
+phụ thuộc và trạng thái của 84 task được giữ nguyên; dàn bài tiếng Anh chỉ sửa
+quy ước ngôn ngữ và liên kết checklist.
 
-Validation: **84 task specifications match 84 unchecked checklist items**;
-all **260 dependency edges** resolve with no cycle. The six-chapter outline,
-three English thesis documents and **76 local links, including four anchors**,
-were checked. All **50 referenced source-file SHA256 values** match the prior
-outline handover. No active `theses/` path remains; the diff contains only
-Markdown changes and the directory migration.
+Lượt lập kế hoạch trước đã kiểm 84 task/84 mục chưa hoàn tất, 260 quan hệ phụ
+thuộc không có chu trình, 76 liên kết local và 50 hash nguồn khớp bàn giao
+dàn bài. Đây là kết quả lịch sử, không thay việc kiểm các liên kết và câu chữ
+đã đổi trong lượt đính chính này.
 
-This is documentation-only work: check local links/anchors, task/dependency
-consistency, English content, source values and the diff. Do not run compileall,
-unit, E2E or leakage suites solely for this plan, per AGENTS §1.2. No LaTeX/PDF
-is created and no hosted inference, training or research rerun occurs. F11
-remains PENDING and F12 has not started; thesis readiness does not change either.
+Kiểm lượt đính chính: **84 task và 260 phụ thuộc** giữ nguyên mã/quy mô/thứ tự,
+**84 trạng thái** vẫn chưa hoàn tất; **72 liên kết local, gồm bốn anchor**,
+UTF-8, sáu chương dàn bài và diff whitespace đều PASS. Nội dung quản lý đã
+chuyển sang tiếng Việt; yêu cầu bản thảo tiếng Anh được ghi nhất quán.
+
+Task chỉ sửa Markdown: kiểm đối chiếu task/phụ thuộc/trạng thái, ngôn ngữ,
+liên kết/anchor và diff. Không chạy compileall/unit/E2E/leakage theo AGENTS §1.2.
+Không tạo LaTeX/PDF, gọi mô hình, thu dữ liệu hoặc chạy lại nghiên cứu.
+Mẫu, code/runtime và bằng chứng đã khóa không thay đổi; F11 vẫn PENDING,
+F12 chưa bắt đầu. Có thể bắt đầu T02/T03/T05/T08 trong khi thu thông tin T01.
 
 ## Khởi tạo dàn bài khóa luận
 

@@ -5,14 +5,15 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
-**Thesis writing, 14 November 2026:** the working directory is now `thesis/`.
-The [English outline](../../thesis/outline.md) and [detailed writing plan](../../thesis/plan.md)
-cover preparation through final PDF/source handover in 84 tasks. The proposed
-method must explain the complete system to lecturers encountering it for the
-first time. [The writing checklist](week12/README.md#thesis-writing-checklist)
-is the single task-status source; drafting tasks remain pending. All thesis
-prose and supporting writing material will be in English. This planning work
-does not change F11/F12 or the scope of historical research acceptance.
+**Viết khóa luận, ngày 14/11/2026:** thư mục làm việc là `thesis/`.
+[Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
+bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp
+phải giải thích toàn hệ thống cho giảng viên lần đầu tiếp cận.
+[Checklist viết khóa luận](week12/README.md#checklist-viết-khóa-luận) là nơi duy nhất
+cập nhật trạng thái; các task viết vẫn chưa bắt đầu. **Trao đổi với người dùng,
+kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung
+khóa luận bằng tiếng Anh.** Việc sửa tài liệu này không đổi F11/F12 hoặc phạm vi
+nghiệm thu nghiên cứu lịch sử.
 
 Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](../../thesis/outline.md)
 trong `thesis/`: sáu chương, câu hỏi nghiên cứu, phụ lục và ánh xạ mã nguồn/bằng chứng.

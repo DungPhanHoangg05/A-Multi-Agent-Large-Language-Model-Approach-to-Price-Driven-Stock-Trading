@@ -1,36 +1,36 @@
-# Detailed thesis writing plan
+# Kế hoạch chi tiết viết khóa luận
 
-## 1. Objective and completion boundary
+## 1. Mục tiêu và phạm vi hoàn thành
 
-Produce an original, complete **English-language graduation thesis** explaining and evaluating the current system under the [six-chapter outline](outline.md). A lecturer unfamiliar with the repository should understand the entire proposed system, reproduce the logic of one decision and distinguish supported findings from assumptions and open questions.
+Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng tiếng Anh**, giải thích và đánh giá hệ thống hiện tại theo [dàn bài sáu chương](outline.md). Giảng viên chưa biết kho mã phải hiểu toàn bộ phương pháp đề xuất, lần theo được logic của một quyết định và phân biệt kết luận có bằng chứng với giả định hoặc vấn đề còn mở.
 
-The deliverable includes the manuscript, front matter, references, Appendices A–F, traceable figures/tables, a self-contained LaTeX project, a visually reviewed PDF and a reproducible handover package. Preparing this plan does not complete any drafting task below.
+Đầu ra gồm bản thảo, phần đầu, tài liệu tham khảo, Phụ lục A–F, hình/bảng có nguồn, dự án LaTeX tự đủ, PDF đã kiểm trực quan và gói bàn giao tái lập. Việc lập kế hoạch chưa hoàn thành bất kỳ task viết nào dưới đây.
 
-There are **84 small tasks**, grouped into ten phases. Dependencies express content readiness rather than calendar dates. No submission deadline has been supplied. Start with T02, T03, T05 and T08; collect T01 metadata in parallel without blocking independent writing.
+Có **84 task nhỏ**, chia thành mười giai đoạn. Phụ thuộc thể hiện điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Có thể bắt đầu T02, T03, T05 và T08; đồng thời thu thập thông tin T01 mà không chặn các phần viết độc lập.
 
-All new thesis prose, planning text, headings, captions, diagram labels and explanatory notes are English. The user's language requirement supersedes the repository's general Vietnamese explanation convention for these thesis artifacts. Preserve original program identifiers, bibliographic titles and quoted source evidence accurately; explain any non-English excerpt in English.
+**Quy ước ngôn ngữ:** trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng **tiếng Việt**. Toàn bộ **nội dung khóa luận** dùng **tiếng Anh**, gồm phần đầu, nội dung chương, phụ lục, tiêu đề, chú thích, nhãn hình/bảng và diễn giải khoa học. Dàn bài chương mục giữ tiếng Anh làm khung bản thảo. Giữ nguyên định danh chương trình, tên tài liệu và bằng chứng trích dẫn; đoạn nguồn không phải tiếng Anh cần được giải thích bằng tiếng Anh trong khóa luận và ghi rõ nếu là bản dịch phục vụ trình bày.
 
-## 2. Management and file conventions
+## 2. Quản lý công việc và quy ước file
 
-### 2.1. One task-status source
+### 2.1. Một nguồn trạng thái công việc
 
-The [writing checklist](../docs/plan/week12/README.md#thesis-writing-checklist) is the single source for progress. This document holds task specifications, dependencies and acceptance conditions. Do not maintain a second changing checklist here or create a receipt for every task.
+[Checklist viết khóa luận](../docs/plan/week12/README.md#checklist-viết-khóa-luận) là nơi duy nhất quản lý tiến độ. Tài liệu này định nghĩa task, phụ thuộc và điều kiện nghiệm thu; không duy trì thêm một checklist trạng thái tại đây hoặc tạo receipt cho từng task.
 
-Use `TODO`, `IN_PROGRESS`, `REVIEW`, `DONE` or `BLOCKED` in the checklist as necessary. A checked item means `DONE`: its output exists and its acceptance condition was checked. For an active/blocked item, add one short note identifying the current file or missing input. Record completion as `task ID; artifact/section; verification; remaining limitation`, grouping related tasks in one weekly note. An external review is only complete when actual feedback has been received and addressed.
+Dùng `TODO` (chưa làm), `IN_PROGRESS` (đang làm), `REVIEW` (đang rà soát), `DONE` (hoàn tất) hoặc `BLOCKED` (thiếu điều kiện) khi cần. Mục được đánh dấu hoàn tất phải có đầu ra và đã kiểm điều kiện nghiệm thu. Với mục đang làm hoặc bị chặn, thêm ghi chú ngắn về file hiện tại hoặc thông tin còn thiếu. Ghi nhận hoàn thành theo mẫu `mã task; file/mục; cách kiểm; giới hạn còn lại`, gộp các task liên quan trong một cập nhật tuần. Chỉ ghi đã hoàn tất phản biện bên ngoài khi thực sự nhận và xử lý phản hồi.
 
-Each task is intended to fit one focused work session. Split a task into lettered subtasks if the material exceeds that scope, preserving the parent ID and its acceptance condition. **S** means a small bounded edit/check; **M** means a section or a linked visual/evidence unit. These are sizing guides, not promised hours or dates.
+Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn, tách thành các task con có hậu tố chữ, giữ mã cha và điều kiện nghiệm thu. **S** là chỉnh sửa/kiểm tra nhỏ, có giới hạn rõ; **M** là một mục nội dung hoặc một nhóm hình/bằng chứng liên quan. Đây là quy mô tham khảo, không phải cam kết số giờ hay ngày hoàn thành.
 
-### 2.2. Proposed artifact layout
+### 2.2. Cấu trúc đầu ra đề xuất
 
-Only `README.md`, `outline.md` and this plan are required at planning time. Create the following outputs when their tasks begin; paths in this block are planned, not claims that files already exist.
+Ở giai đoạn lập kế hoạch chỉ cần `README.md`, `outline.md` và tài liệu này. Tạo các đầu ra dưới đây khi bắt đầu task tương ứng; đây là đường dẫn dự kiến, không phải xác nhận file đã tồn tại.
 
 ```text
 thesis/
   README.md
   outline.md
   plan.md
-  evidence.md                  # shared source/claim, literature and asset registers
-  frontmatter.md               # editable front-matter prose and metadata
+  evidence.md                  # sổ nguồn/luận điểm, tài liệu đọc và hình/bảng chung
+  frontmatter.md               # nội dung phần đầu và thông tin bìa
   chapters/
     01_introduction.md
     02_related_work.md
@@ -47,9 +47,9 @@ thesis/
     F_reproduction.md
   references.bib
   assets/
-    diagrams/                  # editable diagram sources and exported figures
-    tables/                    # derived tables with identifiable source records
-    figures/                   # plots and traceable application images
+    diagrams/                  # nguồn sơ đồ có thể sửa và hình xuất
+    tables/                    # bảng dẫn xuất có nguồn đối chiếu
+    figures/                   # đồ thị và ảnh ứng dụng có nguồn
   latex/
     main.tex
     preamble.tex
@@ -62,273 +62,273 @@ thesis/
     manifest.json
 ```
 
-During drafting, Markdown is the authoritative prose source. At T72, record the transfer point and make LaTeX the authoritative submission text; retain Markdown as the reviewed drafting snapshot. Do not silently maintain divergent active copies. `references.bib` and assets remain shared sources. The packaged LaTeX build must resolve those resources within the package, without depending on the original sample or absolute local paths.
+Trong giai đoạn viết, Markdown là nguồn nội dung chính thức. Tại T72, ghi nhận thời điểm chuyển đổi và lấy LaTeX làm nguồn bản nộp; giữ Markdown như bản thảo đã rà soát. Không âm thầm duy trì hai bản đang sửa nhưng khác nhau. `references.bib` và hình/bảng là nguồn dùng chung. Gói LaTeX phải tìm được các tài nguyên bên trong gói, không phụ thuộc mẫu gốc hoặc đường dẫn tuyệt đối trên máy.
 
-The evidence register should contain: source/version/hash and role; claim or table-cell mapping; literature reading/citation notes; figure/table inventory; open metadata and unresolved evidence issues. Reference existing frozen artifacts rather than copying large archives into the thesis. Keep checklists and completion history in `docs/plan/`.
+Sổ bằng chứng gồm: nguồn/phiên bản/hash và vai trò; ánh xạ luận điểm hoặc ô bảng; ghi chú đọc/trích dẫn; danh mục hình/bảng; thông tin còn thiếu và vấn đề bằng chứng chưa giải quyết. Dẫn tới các artifact đã khóa thay vì sao chép archive lớn vào thư mục khóa luận. Checklist và lịch sử hoàn thành nằm tại `docs/plan/`.
 
-### 2.3. Change and verification policy
+### 2.3. Chính sách thay đổi và kiểm tra
 
-- Start a `docs/<technical-topic>` branch from updated `develop`; commit and merge after the applicable checks pass. Commit subjects describe content, without weekly/day progress codes.
-- Markdown/prose edits: check links, equations, terminology, source values and diff. No compileall, unit, E2E or leakage rerun is required solely for writing.
-- LaTeX edits: compile the affected document, resolve citations/references, inspect layout and render the final PDF. Read and apply the PDF skill when PDF work actually begins.
-- A changed table/plot generator requires appropriate scoped checks against frozen expected values. Compile only changed Python files if applicable; do not turn writing into an unsolicited runtime refactor.
-- Preserve frozen data, journals, models, receipts and negative evidence. New calculations use a separate derived output with stated provenance; they never overwrite historical evidence.
-- Do not launch hosted inference, market collection, model retraining or deferred ablations to fill a writing gap. Identify the missing evidence, narrow the claim or propose a separate research task.
+- Tạo nhánh `docs/<chủ-đề-kỹ-thuật>` từ `develop` đã cập nhật; commit và merge sau khi các kiểm tra áp dụng đạt. Commit mô tả nội dung, không chứa mã tiến độ tuần/ngày.
+- Sửa Markdown/nội dung: kiểm liên kết, công thức, thuật ngữ, số liệu nguồn và diff; không cần chạy lại compileall, unit, E2E hoặc leakage chỉ vì viết tài liệu.
+- Sửa LaTeX: biên dịch tài liệu bị ảnh hưởng, kiểm trích dẫn/tham chiếu, bố cục và PDF cuối; đọc và áp dụng kỹ năng PDF khi thực sự bắt đầu công việc PDF.
+- Sửa bộ sinh bảng/đồ thị: kiểm đúng phạm vi với giá trị đã khóa; chỉ biên dịch các file Python thay đổi nếu có. Không biến task viết thành tái cấu trúc runtime ngoài yêu cầu.
+- Giữ nguyên dữ liệu, journal, model, receipt và bằng chứng âm đã khóa. Tính toán mới phải có đầu ra dẫn xuất riêng và nguồn rõ ràng, không ghi đè bằng chứng lịch sử.
+- Không tự gọi mô hình, thu dữ liệu thị trường, huấn luyện lại hoặc chạy ablation còn thiếu để lấp chỗ trống bản thảo. Ghi rõ thiếu bằng chứng, thu hẹp kết luận hoặc đề xuất task nghiên cứu riêng.
 
-## 3. Reader-comprehension contract for the proposed method
+## 3. Yêu cầu giúp người đọc mới hiểu phương pháp
 
-Assume general undergraduate knowledge of machine learning, but no knowledge of this repository, its abbreviations or trading conventions. The chapter must explain the **complete system**, not just the new prior prefix or a list of Python modules.
+Giả định người đọc có kiến thức học máy bậc đại học nhưng chưa biết kho mã, chữ viết tắt hoặc quy ước giao dịch của hệ thống. Chương phương pháp phải giải thích **toàn bộ hệ thống**, không chỉ phần prior prefix mới hoặc danh sách module Python.
 
-### 3.1. Required teaching sequence
+### 3.1. Thứ tự giải thích bắt buộc
 
-1. Describe the practical decision in one paragraph: what is observed, what is chosen and when an outcome becomes known.
-2. Show a high-level data-flow diagram with distinct training, inference, policy and evaluation boundaries.
-3. Walk through a single stock/date example using simple named records before equations or implementation IDs.
-4. Introduce the base agents and the information each contributes, including numerical components that do not call an LLM.
-5. Explain why Native/Common differ and why historical context is added.
-6. Build from a matured episode to regime-aware retrieval, then conditional statistics and alternative priors.
-7. Introduce facts, prior/target tasks, teacher/student inference and utility step by step before the full MT-BICL policy.
-8. Explain orchestration, valid fallback, technical failure and recovery, then present complete pseudocode.
-9. Revisit the same example and identify the raw proposal, final action and later economic outcome.
+1. Mô tả quyết định thực tế bằng một đoạn ngắn: quan sát gì, chọn gì và khi nào biết kết quả.
+2. Đưa sơ đồ luồng dữ liệu tổng quan, phân biệt huấn luyện, suy luận, policy và đánh giá.
+3. Theo một ví dụ mã cổ phiếu/ngày xuyên suốt, dùng tên bản ghi dễ hiểu trước công thức hoặc ID triển khai.
+4. Giới thiệu các agent cơ sở và thông tin mỗi agent đóng góp, bao gồm các phần tính số không gọi LLM.
+5. Giải thích Native/Common khác nhau thế nào và vì sao bổ sung ngữ cảnh lịch sử.
+6. Đi từ episode đã kết thúc tới truy xuất theo regime, rồi thống kê điều kiện và các prior thay thế.
+7. Giới thiệu lần lượt facts, prior/target tasks, teacher/student và utility trước khi trình bày policy MT-BICL đầy đủ.
+8. Giải thích điều phối, fallback hợp lệ, lỗi kỹ thuật và phục hồi, rồi đưa giả mã toàn trình.
+9. Quay lại ví dụ ban đầu để phân biệt raw proposal, final action và kết quả kinh tế xuất hiện sau đó.
 
-### 3.2. Required component explanation
+### 3.2. Nội dung phải giải thích cho từng thành phần
 
-For every substantive component, answer: **Why is it needed? What enters it? What is known at that time? What calculation or inference occurs? What leaves it? Who consumes that output? What happens when evidence is missing or a request fails? What is inherited or changed?**
+Với mỗi thành phần chính, trả lời: **Vì sao cần? Đầu vào là gì? Tại thời điểm đó đã biết những gì? Phép tính hoặc suy luận nào diễn ra? Đầu ra là gì? Thành phần nào dùng đầu ra? Thiếu bằng chứng hoặc lỗi lời gọi thì xử lý thế nào? Phần nào kế thừa, phần nào thay đổi?**
 
-Provide a compact contract table with input fields/types, availability condition, output fields and consumer. Pair formulas with prose and a short example. Keep full schemas, long prompts and implementation listings in appendices, but retain enough definitions and policy rules in the main chapter for a self-contained explanation.
+Có bảng hợp đồng ngắn gọn gồm trường/kiểu đầu vào, điều kiện thời gian, trường đầu ra và bên sử dụng. Mỗi công thức đi kèm diễn giải và ví dụ ngắn. Schema đầy đủ, prompt dài và mã triển khai đặt ở phụ lục; thân chương vẫn giữ đủ định nghĩa và quy tắc policy để tự đọc hiểu được.
 
-### 3.3. Comprehension acceptance questions
+### 3.3. Câu hỏi kiểm tra mức độ dễ hiểu
 
-A reader of Chapters 3–4 should be able to answer all of the following without opening the code:
+Sau Chương 3–4, người đọc phải trả lời được các câu sau mà không mở mã nguồn:
 
-- Why does SHORT mean CASH in this study, and when are LONG entry and exit prices observed?
-- Which data can each agent see at the cutoff, and which components are deterministic, learned offline or hosted at inference time?
-- How do Pattern and Trend differ despite both consuming charts?
-- How do alpha factors differ from sentiment and from the LLM's confidence statement?
-- What changes between Native and Common, and why is Base a separate comparator?
-- When does an episode become eligible, and how are regime, similarity, sample support and `K` different?
-- What are prior tasks, target observations and the query in MT-BICL?
-- What do the teacher and student learn or estimate, and what remains frozen during evaluation?
-- Why does a high probability of a positive label not necessarily imply positive utility?
-- What does Fact Anchor contribute, and when may policy reject a different LLM proposal?
-- Why can eight forecast roles produce fewer than eight new Decision calls for a repeat?
-- How does a final action become an account return without sending the query outcome back into context?
-- Which protections are verified, and why do they not imply whole-system causal certification?
+- Vì sao SHORT là CASH trong nghiên cứu này, và khi nào quan sát được giá vào/thoát LONG?
+- Mỗi agent được nhìn dữ liệu nào tại cutoff; phần nào xác định, phần nào học offline, phần nào gọi mô hình lúc suy luận?
+- Pattern và Trend khác nhau thế nào dù đều nhận biểu đồ?
+- Alpha khác sentiment và phát biểu confidence của LLM ra sao?
+- Native/Common thay đổi gì, và vì sao Base là một đối chứng khác?
+- Khi nào episode đủ điều kiện; regime, similarity, support và `K` khác nhau thế nào?
+- Prior tasks, target observations và query trong MT-BICL là gì?
+- Teacher/student học hoặc ước lượng gì; tài nguyên nào giữ cố định khi đánh giá?
+- Vì sao xác suất nhãn dương cao chưa chắc đem lại utility dương?
+- Fact Anchor đóng góp gì, và khi nào policy từ chối đề xuất khác của LLM?
+- Vì sao tám vai trò dự báo có thể tạo ít hơn tám lời gọi Decision mới trong một repeat?
+- Hành động cuối được chuyển thành lợi nhuận tài khoản thế nào mà không đưa outcome của query ngược vào context?
+- Ràng buộc nào đã được kiểm, và vì sao vẫn chưa chứng nhận nhân quả toàn hệ?
 
-The internal review at T74 uses this checklist. An internal self-check may be recorded as such; do not report an independent lecturer review unless it actually occurred.
+T74 dùng bộ câu hỏi này để rà soát nội bộ. Có thể ghi là tự kiểm nội bộ; không ghi là đã được giảng viên phản biện độc lập nếu chưa thực sự diễn ra.
 
-## 4. Phase and milestone map
+## 4. Các giai đoạn và mốc hoàn thành
 
-| Phase | Tasks | Main output | Exit condition |
+| Giai đoạn | Task | Đầu ra chính | Điều kiện kết thúc |
 | --- | --- | --- | --- |
-| P1. Preparation | T01–T08 | Requirements, source/evidence register, notation and draft structure | Working scope and accessible evidence are clear; unresolved external requirements are explicitly recorded. |
-| P2. Foundations | T09–T15 | Chapter 3 | All concepts and contracts needed by the method are defined consistently. |
-| P3. Proposed system | T16–T35 | Chapter 4, explanatory figures and algorithms | End-to-end walkthrough and component explanations cover the complete system. |
-| P4. Experiments | T36–T47 | Chapter 5 and result assets | Each reported value and interpretation has a source and correct study scope. |
-| P5. Related work | T48–T53 | Chapter 2 and bibliography | Primary-source coverage, attribution and gap statement are checked. |
-| P6. Thesis argument | T54–T58 | Chapters 1 and 6 | Questions, contributions, findings and limitations agree. |
-| P7. Supporting material | T59–T66 | Front matter and Appendices A–F | Supporting content is complete and referenced from the main text. |
-| P8. Typesetting | T67–T72 | Complete self-contained LaTeX project | The full document builds with all text, references and assets. |
-| P9. Review | T73–T80 | Reviewed submission candidate | Scientific, English-language, visual and applicable feedback checks pass. |
-| P10. Handover | T81–T84 | Final PDF, source package and closure record | Artifacts are reproducible, identified and delivered; external submission status is explicit. |
+| P1. Chuẩn bị | T01–T08 | Yêu cầu, nguồn/bằng chứng, ký hiệu và khung bản thảo | Rõ phạm vi, nguồn truy cập được và yêu cầu bên ngoài còn thiếu. |
+| P2. Cơ sở lý thuyết | T09–T15 | Chương 3 | Định nghĩa nhất quán các khái niệm và hợp đồng cần cho phương pháp. |
+| P3. Phương pháp đề xuất | T16–T35 | Chương 4, sơ đồ giải thích và thuật toán | Ví dụ xuyên suốt và mô tả thành phần bao phủ toàn hệ thống. |
+| P4. Thực nghiệm | T36–T47 | Chương 5 và hình/bảng kết quả | Mỗi số liệu/diễn giải có nguồn và đúng phạm vi nghiên cứu. |
+| P5. Nghiên cứu liên quan | T48–T53 | Chương 2 và tài liệu tham khảo | Kiểm nguồn gốc, ghi nhận kế thừa và khoảng trống nghiên cứu. |
+| P6. Mạch lập luận | T54–T58 | Chương 1 và 6 | Câu hỏi, đóng góp, phát hiện và giới hạn thống nhất. |
+| P7. Phần bổ trợ | T59–T66 | Phần đầu và Phụ lục A–F | Nội dung đầy đủ, được tham chiếu từ thân khóa luận. |
+| P8. Dàn trang | T67–T72 | Dự án LaTeX hoàn chỉnh, tự đủ | Biên dịch đủ nội dung, tham khảo và hình/bảng. |
+| P9. Rà soát | T73–T80 | Bản dự kiến nộp đã kiểm | Đạt kiểm khoa học, tiếng Anh, trực quan và xử lý phản hồi thực có. |
+| P10. Bàn giao | T81–T84 | PDF cuối, gói nguồn và ghi nhận hoàn thành | Tái lập được, có định danh và đã bàn giao; rõ trạng thái nộp bên ngoài. |
 
-**Working order:** P1 essentials → P2 → P3 → P4 → P6 → P7 → P8 → P9 → P10. P5 source reading can begin as soon as T04 exists and should inform P2/P3; finalize the gap statement after the actual method is understood. Institutional metadata in T01 only blocks the dependent front-matter/layout decisions, not technical drafting.
+**Thứ tự làm:** phần thiết yếu P1 → P2 → P3 → P4 → P6 → P7 → P8 → P9 → P10. Đọc nguồn P5 có thể bắt đầu ngay sau T04 và phục vụ P2/P3; chốt khoảng trống nghiên cứu sau khi hiểu phương pháp thực tế. Thông tin cơ sở đào tạo ở T01 chỉ chặn các quyết định phần đầu/bố cục phụ thuộc nó, không chặn viết kỹ thuật.
 
-## 5. Task specifications
+## 5. Đặc tả các task
 
-Task IDs below are stable management identifiers and must not appear in the thesis body. Dependencies refer to prerequisite task outputs, not to another person's permission. Each row states the work, output location and a concrete acceptance condition.
+Mã task là định danh quản lý ổn định, không đưa vào thân khóa luận. Phụ thuộc là đầu ra cần có của task trước, không phải yêu cầu xin phép người khác. Mỗi dòng ghi công việc, nơi đặt đầu ra và điều kiện nghiệm thu cụ thể. Các mục/chương/phụ lục được yêu cầu viết dưới đây đều phải được soạn **bằng tiếng Anh**; tiếng Việt trong bảng chỉ dùng để quản lý công việc.
 
-### P1. Preparation and source control
+### P1. Chuẩn bị và quản lý nguồn
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T01 / S | — | Record institution, author/student ID, program, supervisor, required forms, citation/layout rules and actual deadline in the metadata section of `evidence.md`. Separate confirmed requirements from template suggestions. | Each field has a source or is explicitly unresolved; no invented identity, date or approval. Missing external information blocks only its dependent finalization. |
-| T02 / S | — | Refine the working title, RQ1–RQ4, contributions and six-chapter scope using the outline and current system. | Each RQ has an intended comparison/evidence type; inherited work and empirical claims are separated. |
-| T03 / M | T02 | Inventory current source and frozen component/context studies in `evidence.md`: versions, paths, checksums, support and limitations. | Every planned quantitative result has a reachable artifact or a recorded gap; historical source/runtime pins are distinguished from live code. |
-| T04 / M | T02 | Create a primary-source reading list and citation-key scheme; inventory the existing bibliography as a candidate list. | Sources are grouped by topic and marked unread/read/verified; no citation is treated as verified merely because it exists in `paper/`. |
-| T05 / S | T02 | Define English terminology, symbols, naming aliases and a concise style sheet in `evidence.md`. | Native/Common/Base, episode/task/query, probability/confidence/utility and percent/percentage-point units are unambiguous. |
-| T06 / S | T03, T05 | Create the figure/table/algorithm register from Section 6, including intended message and source. | Each asset has an owner task, chapter destination and provenance category: measured, derived or illustrative. |
-| T07 / M | T03, T05 | Select a traceable running example and case-selection rule. If no suitable archived case exists, define a clearly labeled illustrative example. | Cutoff, admissible inputs, source IDs and limits are recorded; illustrative values cannot be mistaken for results. |
-| T08 / S | T02 | Create the six chapter drafts with headings from the outline and a shared evidence register. | Planned sections have stable headings; placeholders identify missing content rather than pretending that prose or results exist. |
+| T01 / S | — | Ghi cơ sở đào tạo, tác giả/mã sinh viên, ngành, người hướng dẫn, biểu mẫu, quy định trích dẫn/bố cục và hạn nộp thực tế vào phần thông tin của `evidence.md`. Phân biệt quy định đã xác nhận với gợi ý từ mẫu. | Mỗi trường có nguồn hoặc ghi rõ chưa xác định; không bịa danh tính, ngày hoặc phê duyệt. Thông tin ngoài còn thiếu chỉ chặn phần hoàn thiện phụ thuộc nó. |
+| T02 / S | — | Rà tên đề tài, RQ1–RQ4, đóng góp và phạm vi sáu chương theo dàn bài và hệ hiện tại. | Mỗi RQ có kiểu so sánh/bằng chứng dự kiến; tách phần kế thừa với nhận định thực nghiệm. |
+| T03 / M | T02 | Kiểm kê nguồn hiện tại và hai nghiên cứu thành phần/ngữ cảnh đã khóa trong `evidence.md`: phiên bản, đường dẫn, hash, support và giới hạn. | Mỗi kết quả định lượng dự kiến có artifact truy cập được hoặc ghi rõ thiếu; phân biệt source/runtime lịch sử với mã live. |
+| T04 / M | T02 | Lập danh sách đọc nguồn gốc và quy ước khóa trích dẫn; coi bibliography hiện có là danh sách ứng viên. | Nguồn được nhóm theo chủ đề và đánh dấu chưa đọc/đã đọc/đã kiểm; có trong `paper/` chưa đồng nghĩa đã xác minh. |
+| T05 / S | T02 | Định nghĩa thuật ngữ tiếng Anh, ký hiệu, ánh xạ tên gọi và quy ước diễn đạt trong `evidence.md`. | Rõ Native/Common/Base, episode/task/query, probability/confidence/utility, phần trăm và điểm phần trăm. |
+| T06 / S | T03, T05 | Lập danh mục hình/bảng/thuật toán theo mục 6, kèm thông điệp và nguồn. | Mỗi mục có task phụ trách, chương sử dụng và loại nguồn: đo được, dẫn xuất hoặc minh họa. |
+| T07 / M | T03, T05 | Chọn ví dụ xuyên suốt có truy vết và quy tắc chọn trường hợp. Nếu thiếu ví dụ lưu phù hợp, dùng ví dụ giả định có nhãn rõ. | Ghi cutoff, đầu vào hợp lệ, ID nguồn và giới hạn; số minh họa không bị hiểu là kết quả thực nghiệm. |
+| T08 / S | T02 | Tạo sáu file bản thảo với tiêu đề từ dàn bài và sổ bằng chứng chung. | Có tiêu đề ổn định; chỗ trống chỉ rõ nội dung còn thiếu, không tạo cảm giác đã có nội dung/kết quả. |
 
-### P2. Theoretical background and problem formulation
+### P2. Cơ sở lý thuyết và mô hình bài toán
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T09 / M | T05, T08 | Draft §3.1: OHLCV, trading sessions, cutoff, windows, warm-up and engine index mapping; create the timing figure. | A reader can locate the last visible bar, entry and exit without confusing calendar days with observed sessions. |
-| T10 / M | T03, T09 | Draft §3.2 with the exact economic formula, zero-return label convention and a simple LONG/CASH calculation. | Formula and example agree with the oracle, including both cost legs; CASH is never described as a short-sale profit. |
-| T11 / M | T04, T05, T09 | Draft §3.3 introducing five indicators, alpha transformations/selection and separate sentiment information. | Definitions precede implementation-specific rules; ranking diagnostics and confidence are not described as calibrated forecasts. |
-| T12 / M | T04, T05 | Draft §3.4 explaining HMM states/emissions/transitions, VN-Index features and endpoint inference. | Training, scaling, state interpretation and cutoff assumptions are explicit; smoothing with future observations is not implied. |
-| T13 / M | T04, T05 | Draft §3.5: Beta–Bernoulli updates, conditional/background counts, shrinkage and a labeled illustrative posterior example. | All symbols and denominators are defined; population support is distinct from displayed `K`; interval interpretation is appropriately limited. |
-| T14 / M | T04, T05, T13 | Draft §3.6: tasks, target observations, query, teacher/student roles and probability versus return utility. | Multi-task is distinguished from multi-agent; numerical examples show why label probability and expected gain differ. |
-| T15 / M | T03, T09, T10 | Draft §3.7: PIT rules, maturity, purging, paired comparison, dependence and evaluation units. | Price/news/episode inequalities are consistent; query labels are excluded; outer cutoff and row causality are distinguished. |
+| T09 / M | T05, T08 | Viết §3.1: OHLCV, phiên giao dịch, cutoff, cửa sổ, warm-up và ánh xạ chỉ số engine; tạo hình thời gian. | Người đọc xác định được nến cuối nhìn thấy, điểm vào/thoát, không nhầm ngày lịch với phiên quan sát. |
+| T10 / M | T03, T09 | Viết §3.2 với công thức kinh tế chính xác, quy tắc nhãn khi return bằng 0 và phép tính LONG/CASH đơn giản. | Công thức/ví dụ khớp hàm chuẩn, đủ hai chiều chi phí; không mô tả CASH là lợi nhuận bán khống. |
+| T11 / M | T04, T05, T09 | Viết §3.3 giới thiệu năm chỉ báo, biến đổi/lựa chọn alpha và thông tin sentiment riêng. | Định nghĩa đi trước quy tắc triển khai; thống kê xếp hạng và confidence không được gọi là dự báo đã hiệu chuẩn. |
+| T12 / M | T04, T05 | Viết §3.4 về trạng thái/phát xạ/chuyển trạng thái HMM, đặc trưng VN-Index và suy luận tại cuối prefix. | Rõ fit, scaler, diễn giải trạng thái và cutoff; không ngầm sử dụng làm trơn với quan sát tương lai. |
+| T13 / M | T04, T05 | Viết §3.5: cập nhật Beta–Bernoulli, counts điều kiện/background, shrinkage và ví dụ posterior có nhãn minh họa. | Định nghĩa ký hiệu/mẫu số; support toàn tập khác `K` hiển thị; diễn giải khoảng đúng giới hạn. |
+| T14 / M | T04, T05, T13 | Viết §3.6: tasks, target observations, query, vai trò teacher/student và xác suất so với utility lợi nhuận. | Phân biệt đa tác vụ với đa agent; ví dụ số cho thấy xác suất nhãn và lợi ích kỳ vọng khác nhau. |
+| T15 / M | T03, T09, T10 | Viết §3.7: PIT, điều kiện episode đã kết thúc, purge, so sánh ghép cặp, tính phụ thuộc và đơn vị đánh giá. | Nhất quán bất đẳng thức thời gian giá/tin/episode; loại nhãn query; phân biệt cutoff bên ngoài với nhân quả từng hàng. |
 
-### P3. Proposed system, explained from first principles
+### P3. Giải thích toàn bộ hệ thống đề xuất từ nền tảng
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T16 / M | T06, T07, T09, T10 | Draft §4.1 in plain English; create the overview architecture and begin the running example. | Diagram separates offline fitting, inference, policy and evaluation; every major component has a purpose before technical details appear. |
-| T17 / M | T03, T15, T16 | Draft §4.2: sources, windows, snapshots, missingness and the component input/output contract table. | Each input has a time boundary and consumer; query outcomes cannot enter the forecast path. |
-| T18 / M | T11, T17 | Draft Indicator and base Decision explanations in §4.3, including votes, distillation, structured output and action mapping. | Distinguish deterministic Indicator behavior from hosted Decision inference; describe missing/error cases without equating confidence with probability. |
-| T19 / M | T11, T17 | Draft Pattern/Trend subsections and an annotated pair of chart inputs with report examples. | A novice can distinguish chart construction, VLM interpretation and numerical consistency checks; actual images retain provenance. |
-| T20 / M | T03, T11, T17 | Draft Alpha processing: candidate construction, normalization, IC orientation, ranking and selected report. | Native historical noncausality and in-sample selection are visible; adapted formulas are not claimed equivalent to their originals. |
-| T21 / M | T03, T11, T17 | Draft sentiment input/aggregation, provenance, dated availability, missingness and integration into the report path. | Explain live versus frozen-study inputs and aggregation thresholds from the actual profile; missing data is not invented neutral evidence. |
-| T22 / M | T18, T20, T21 | Draft §4.4 and the Native/Common/Base distinction table, tracing unchanged upstream versus changed alpha/prompt fields. | Reader can identify the intervention and understand why its contrast cannot isolate a single causal factor. |
-| T23 / M | T10, T15, T17 | Draft historical episode/bank construction in §4.5 with a worked record and maturity timeline. | Every field, label source and eligibility check is explained; signal bank and numerical task context remain distinct. |
-| T24 / M | T12, T17, T23 | Draft regime fitting/inference integration in §4.5 and its training-versus-query diagram. | State assignment, metadata, fit-quality fallback and frozen scaler/model identity match the evaluated route. |
-| T25 / M | T22, T23, T24 | Draft §4.6: eligible pool, retrieval score/tie-break, selected examples and annotated Bayesian v1 prefix. | The running example follows filtering before outcome summaries; `K<=3`, fallback and source IDs are explicit. |
-| T26 / M | T13, T22, T23 | Draft C2 in §4.7: disjoint populations, shrinkage, intervals and separate statistics/example readiness. | Counts can be reconstructed from the explanation; a reader understands when statistics and examples are each unavailable. |
-| T27 / M | T25, T26 | Draft A_tp_pool and B_semantic; complete the four-prior comparison table. | Differences in matching, representation, support and fallback are stated precisely; no unimplemented embedding retrieval is inferred from a name. |
-| T28 / M | T14, T15, T23 | Draft MT task/context construction in §4.8, using a diagram of prior tasks, target observations and query. | Bucket membership, feature vectors, scaling and maturity conditions are defined; query outcomes never become context observations. |
-| T29 / M | T03, T14, T28 | Draft teacher/student training and inference, including actual architecture, objective, recipe, selection and frozen checkpoint. | Every architecture/training detail traces to the evaluated implementation/lock; no placeholder model is substituted. |
-| T30 / M | T17, T22, T28 | Draft facts and Fact Anchor with an example assertion and invalid-anchor path. | Explain the Common dependency, validity checks, anchor action and provenance without implying an economic veto at this stage. |
-| T31 / M | T13, T28, T29, T30 | Draft utility estimation and revision policy; create the action decision tree and a worked veto/acceptance example. | CASH→LONG and LONG→CASH quantiles are correct; raw proposal, final action, valid bypass and technical failure are distinct. |
-| T32 / M | T18, T25, T26, T27, T29, T31 | Draft prompt/context projection and annotate the fields received by each Decision family. | Whole-membership statistics versus shown exemplars are clear; character limits and schema are checked against actual builders. |
-| T33 / M | T22, T27, T31, T32 | Draft §4.9: eight-role DAG and three end-to-end algorithms for context, method/policy and paired evaluation. | Dependencies run in order, upstream is reused, fallback does not create a fake call, and outcomes join only after forecasts are durable. |
-| T34 / M | T17, T32, T33 | Draft operational controls in §4.10: prompt budget, retry, schema repair, stage checkpoints, resume and UNKNOWN. | Show the lifecycle of a successful, unsupported and interrupted point; no technical error is silently reclassified as CASH. |
-| T35 / M | T16, T33, T34 | Draft the application workflow and close the running example from input to action and later outcome. Add versioned UI screenshots only if available and checked. | The complete system is understandable without UI images; application acceptance is reported accurately and does not imply profitable deployment. |
+| T16 / M | T06, T07, T09, T10 | Viết §4.1 bằng tiếng Anh dễ hiểu; tạo kiến trúc tổng quan và mở đầu ví dụ xuyên suốt. | Sơ đồ tách fit offline, suy luận, policy và đánh giá; nêu mục đích mỗi thành phần trước chi tiết kỹ thuật. |
+| T17 / M | T03, T15, T16 | Viết §4.2: nguồn, cửa sổ, snapshot, dữ liệu thiếu và bảng hợp đồng đầu vào/đầu ra. | Mỗi đầu vào có ranh giới thời gian và bên sử dụng; outcome query không vào đường dự báo. |
+| T18 / M | T11, T17 | Giải thích Indicator và Decision cơ sở ở §4.3: vote, rút gọn báo cáo, đầu ra có cấu trúc và ánh xạ hành động. | Phân biệt Indicator xác định với suy luận Decision; giải thích thiếu/lỗi mà không đồng nhất confidence với xác suất. |
+| T19 / M | T11, T17 | Viết các mục Pattern/Trend, cặp biểu đồ đầu vào có chú thích và ví dụ báo cáo. | Người mới phân biệt dựng biểu đồ, diễn giải VLM và kiểm nhất quán số học; ảnh thực có nguồn. |
+| T20 / M | T03, T11, T17 | Viết xử lý Alpha: xây ứng viên, chuẩn hóa, định hướng IC, xếp hạng và báo cáo được chọn. | Nêu tính không nhân quả lịch sử của native và selection trong mẫu; không khẳng định công thức thích nghi tương đương bản gốc. |
+| T21 / M | T03, T11, T17 | Viết đầu vào/tổng hợp sentiment, nguồn gốc, thời điểm khả dụng, missingness và cách nối vào báo cáo. | Phân biệt đầu vào live với nghiên cứu đã khóa, dùng ngưỡng đúng profile; thiếu dữ liệu không thành bằng chứng trung tính tự tạo. |
+| T22 / M | T18, T20, T21 | Viết §4.4 và bảng phân biệt Native/Common/Base, chỉ rõ upstream giữ nguyên và trường alpha/prompt thay đổi. | Người đọc xác định được can thiệp và vì sao so sánh đó không cô lập một nguyên nhân duy nhất. |
+| T23 / M | T10, T15, T17 | Viết cấu trúc episode/bank lịch sử ở §4.5, kèm bản ghi ví dụ và timeline đủ điều kiện. | Giải thích trường dữ liệu, nguồn nhãn và kiểm hợp lệ; signal bank khác ngữ cảnh tác vụ số. |
+| T24 / M | T12, T17, T23 | Viết tích hợp fit/suy luận regime ở §4.5 và sơ đồ huấn luyện so với query. | Gán trạng thái, metadata, fallback chất lượng fit và định danh scaler/model khớp đường đã đánh giá. |
+| T25 / M | T22, T23, T24 | Viết §4.6: tập hợp lệ, điểm truy xuất/tie-break, ví dụ được chọn và prefix Bayesian v1 có chú giải. | Ví dụ lọc trước khi tổng hợp outcome; nêu rõ `K<=3`, fallback và ID nguồn. |
+| T26 / M | T13, T22, T23 | Viết C2 ở §4.7: các tập rời nhau, shrinkage, khoảng và readiness riêng cho thống kê/ví dụ. | Từ diễn giải có thể dựng lại counts; biết khi nào thống kê hoặc ví dụ không khả dụng. |
+| T27 / M | T25, T26 | Viết A_tp_pool và B_semantic; hoàn thiện bảng bốn prior. | Rõ khác biệt matching, biểu diễn, support, fallback; không suy có embedding retrieval từ tên phương pháp. |
+| T28 / M | T14, T15, T23 | Viết tạo MT task/context ở §4.8, dùng sơ đồ prior tasks, target observations và query. | Định nghĩa membership theo bucket, vector, scaler và điều kiện thời gian; outcome query không thành observation của context. |
+| T29 / M | T03, T14, T28 | Viết huấn luyện/suy luận teacher/student: kiến trúc thực dùng, mục tiêu, recipe, lựa chọn và checkpoint đã khóa. | Mỗi chi tiết kiến trúc/huấn luyện truy về triển khai hoặc lock đã đánh giá; không thay bằng model giả định. |
+| T30 / M | T17, T22, T28 | Viết facts và Fact Anchor, ví dụ assertion và nhánh anchor không hợp lệ. | Rõ phụ thuộc Common, kiểm hợp lệ, hành động anchor và nguồn; không ngầm có veto kinh tế ở bước này. |
+| T31 / M | T13, T28, T29, T30 | Viết ước lượng utility và policy sửa quyết định; tạo cây hành động và ví dụ chấp nhận/từ chối. | Đúng phân vị CASH→LONG/LONG→CASH; phân biệt raw proposal, final action, bypass hợp lệ và lỗi kỹ thuật. |
+| T32 / M | T18, T25, T26, T27, T29, T31 | Viết phép chiếu context vào prompt; chú giải trường mỗi họ Decision nhận được. | Rõ thống kê toàn membership so với ví dụ hiển thị; kiểm trần ký tự và schema theo builder thực dùng. |
+| T33 / M | T22, T27, T31, T32 | Viết §4.9: DAG tám vai trò và ba thuật toán toàn trình cho context, phương pháp/policy, đánh giá ghép cặp. | Phụ thuộc chạy đúng thứ tự, dùng lại upstream, fallback không tạo call giả, chỉ nối outcome khi dự báo đã lưu bền vững. |
+| T34 / M | T17, T32, T33 | Viết kiểm soát vận hành ở §4.10: prompt budget, retry, sửa schema, checkpoint theo giai đoạn, resume và UNKNOWN. | Mô tả vòng đời điểm thành công, thiếu support và bị ngắt; lỗi kỹ thuật không âm thầm thành CASH. |
+| T35 / M | T16, T33, T34 | Viết luồng ứng dụng và kết thúc ví dụ từ đầu vào tới hành động rồi outcome. Chỉ thêm ảnh UI có phiên bản khi đã có và đã kiểm. | Hiểu hệ thống dù không có ảnh UI; trạng thái nghiệm thu ứng dụng đúng thực tế, không ngụ ý triển khai có lãi. |
 
-### P4. Experimental design, results and discussion
+### P4. Thiết kế thực nghiệm, kết quả và thảo luận
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T36 / M | T03, T15, T22, T33 | Draft §5.1 and the study-scope table separating component and historical-context evidence. | Study names, cohorts, responses, freeze points and exposed-history limitations are not mixed. |
-| T37 / M | T03, T17, T23, T36 | Draft §5.2 and data/split/coverage tables, including exclusions and bank/sentiment coverage. | Counts, dates, stock support, warm-up and missingness reconcile to the recorded artifacts. |
-| T38 / M | T03, T29, T33, T34, T36 | Draft §5.3 with model/runtime options, fits, repeats, scheduling and request accounting. | Distinguish 102 points, 51 accounts, three repeats, 2,448 slots, responses and HTTP attempts; use frozen study settings. |
-| T39 / M | T22, T27, T33, T36 | Draft §5.4: comparator families, bridge contrasts, numerical controls and completed component interventions. | Each contrast has a defined treatment/control and common support; Base/Common and always-LONG/continuous hold are not conflated. |
-| T40 / M | T10, T15, T36, T38, T39 | Draft §5.5 with equations, averaging order, denominators, cost/exposure metrics and paired resampling conventions. | Each study retains its own estimator and risk-ratio convention; descriptive bands are not promoted to confirmatory significance. |
-| T41 / M | T03, T37, T39, T40 | Draft §5.6 and reproduce the component-study main comparison table from existing values. | Every cell has a source; narrative matches direction, magnitude, units and support, including unfavorable outcomes. |
-| T42 / M | T03, T37, T39, T40 | Draft §5.7 and the historical-context comparison table for all roles and economic controls. | All results, support and fallback remain visible; mean account return and BA aggregation agree with the source. |
-| T43 / M | T40, T42 | Prepare the Native/Common contrast plots and associated narrative, with simultaneous descriptive bands and bridge comparisons. | Same families/indices/units as the recorded analysis; no selective family reporting or spliced independent-account equity curve. |
-| T44 / M | T25, T26, T27, T31, T42 | Draft mechanism analysis: coverage, age/similarity if recorded, fallback, anchor agreement and policy interventions. | Recorded versus unavailable diagnostics are distinguished; student-specific causal attribution is not inferred from aggregate differences. |
-| T45 / M | T07, T35, T41, T42, T44 | Write a small set of traceable cases covering supported context, insufficient support, disagreement/veto and error. | Cases follow the declared selection rule; facts/proposals/actions/outcomes are separately visible and incorrect predictions are included. |
-| T46 / M | T03, T34, T40, T41, T42 | Write robustness and resource analysis using completed panels/sensitivities and recorded usage. | Costs, latency and missing usage have correct definitions; separate panel supports and execution assumptions are preserved. |
-| T47 / M | T36, T41, T43, T44, T45, T46 | Finish §5.9 and the RQ answer matrix; enumerate unperformed ablations and material threats to validity. | Native causal failure, provenance gaps, negative returns, sample dependence and historical exposure constrain the conclusions explicitly. |
+| T36 / M | T03, T15, T22, T33 | Viết §5.1 và bảng phạm vi tách bằng chứng nghiên cứu thành phần/ngữ cảnh lịch sử. | Không trộn tên nghiên cứu, cohort, responses, mốc khóa và giới hạn dữ liệu đã quan sát. |
+| T37 / M | T03, T17, T23, T36 | Viết §5.2 và bảng dữ liệu/phân vùng/độ phủ, loại trừ, bank và sentiment. | Số lượng, ngày, support theo mã, warm-up và missingness khớp artifact đã lưu. |
+| T38 / M | T03, T29, T33, T34, T36 | Viết §5.3: model/runtime, các bước fit, repeats, lịch chạy và thống kê request. | Phân biệt 102 điểm, 51 tài khoản, ba repeat, 2.448 slot, response và HTTP attempt; dùng cấu hình nghiên cứu đã khóa. |
+| T39 / M | T22, T27, T33, T36 | Viết §5.4: họ đối chứng, bridge contrasts, đối chứng số và can thiệp thành phần đã hoàn tất. | Mỗi contrast có hai bên và support chung; không lẫn Base/Common hoặc always-LONG/continuous hold. |
+| T40 / M | T10, T15, T36, T38, T39 | Viết §5.5 với công thức, thứ tự lấy trung bình, mẫu số, chi phí/exposure và tái lấy mẫu ghép cặp. | Giữ estimator và quy ước chỉ số rủi ro riêng mỗi nghiên cứu; band mô tả không thành ý nghĩa thống kê xác nhận. |
+| T41 / M | T03, T37, T39, T40 | Viết §5.6 và dựng lại bảng so sánh chính của nghiên cứu thành phần từ số liệu hiện có. | Mỗi ô có nguồn; diễn giải đúng chiều, độ lớn, đơn vị và support, kể cả kết quả bất lợi. |
+| T42 / M | T03, T37, T39, T40 | Viết §5.7 và bảng ngữ cảnh lịch sử cho mọi vai trò cùng đối chứng kinh tế. | Giữ đủ kết quả/support/fallback; bình quân return tài khoản và BA khớp nguồn. |
+| T43 / M | T40, T42 | Dựng đồ thị contrast Native/Common và diễn giải, kèm band mô tả đồng thời và bridge. | Đúng họ/chỉ số/đơn vị đã phân tích; không chọn riêng họ đẹp hoặc ghép equity curve từ tài khoản độc lập. |
+| T44 / M | T25, T26, T27, T31, T42 | Viết phân tích cơ chế: độ phủ, tuổi/similarity nếu đã lưu, fallback, trùng anchor và can thiệp policy. | Phân biệt chỉ số có ghi với không có; không suy tác động nhân quả riêng của student từ chênh lệch tổng. |
+| T45 / M | T07, T35, T41, T42, T44 | Viết nhóm tình huống có truy vết: đủ context, thiếu support, bất đồng/veto và quyết định sai. | Theo quy tắc chọn đã nêu; tách facts/proposals/actions/outcomes và có dự báo sai. |
+| T46 / M | T03, T34, T40, T41, T42 | Viết phân tích độ bền và tài nguyên từ các panel/sensitivity đã chạy và usage đã ghi. | Đúng định nghĩa chi phí, độ trễ, usage thiếu; giữ support riêng và giả định thực thi. |
+| T47 / M | T36, T41, T43, T44, T45, T46 | Hoàn thiện §5.9 và bảng trả lời RQ; liệt kê ablation chưa làm, nguy cơ ảnh hưởng tính hợp lệ. | Kết luận bị giới hạn rõ bởi native causal FAIL, provenance, return âm, mẫu phụ thuộc và dữ liệu đã exposed. |
 
-### P5. Literature review and positioning
+### P5. Tổng quan tài liệu và định vị nghiên cứu
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T48 / M | T04 | Read/verify primary sources, maintain claim-to-citation notes and populate `references.bib`. | Referenced metadata and supporting passages are checked; unresolved/unread sources are not presented as established support. |
-| T49 / M | T11, T48 | Draft §2.1 on technical analysis, alpha construction and quantitative comparators. | Explain similarities and differences relevant to this implementation; avoid an unsupported catalog of methods. |
-| T50 / M | T16, T22, T48 | Draft §2.2 on LLM/VLM and multi-agent systems, especially inherited QuantAgent components. | Attribution identifies what was reused, adapted and added; novelty statements have a defensible scope. |
-| T51 / M | T12, T13, T14, T29, T48 | Draft §§2.3–2.5 on regimes, Bayesian context and MT-BICL/student–teacher work. | Explain connections and implementation departures without equating all retrieval or few-shot prompting with Bayesian multi-task learning. |
-| T52 / M | T15, T40, T48 | Draft §2.6 on backtesting, dependence, ablations, reproducibility and prospective evaluation. | Sources support the actual evaluation rationale and limitations, rather than implying guarantees absent from this design. |
-| T53 / M | T27, T31, T47, T49, T50, T51, T52 | Draft §2.7 and the related-work comparison/gap table. | All comparisons are source-backed, and the gap describes the implemented contribution without unsupported superiority claims. |
+| T48 / M | T04 | Đọc/kiểm nguồn gốc, ghi ánh xạ luận điểm–trích dẫn và điền `references.bib`. | Kiểm metadata và đoạn hỗ trợ; không dùng nguồn chưa đọc/chưa xác minh như bằng chứng đã chắc chắn. |
+| T49 / M | T11, T48 | Viết §2.1 về phân tích kỹ thuật, alpha và đối chứng định lượng. | Giải thích điểm giống/khác liên quan tới triển khai; tránh chỉ liệt kê phương pháp không có căn cứ. |
+| T50 / M | T16, T22, T48 | Viết §2.2 về LLM/VLM đa agent, đặc biệt phần kế thừa QuantAgent. | Rõ phần dùng lại, thích nghi và bổ sung; nhận định tính mới có phạm vi bảo vệ được. |
+| T51 / M | T12, T13, T14, T29, T48 | Viết §§2.3–2.5 về regime, ngữ cảnh Bayes và MT-BICL/student–teacher. | Giải thích liên hệ và khác biệt triển khai; không đồng nhất mọi retrieval/few-shot với học Bayes đa tác vụ. |
+| T52 / M | T15, T40, T48 | Viết §2.6 về backtest, tính phụ thuộc, ablation, tái lập và kiểm định tiền cứu. | Nguồn hỗ trợ lý do/giới hạn của thiết kế thực tế, không tạo bảo đảm mà thiết kế chưa có. |
+| T53 / M | T27, T31, T47, T49, T50, T51, T52 | Viết §2.7 và bảng so sánh/khoảng trống nghiên cứu. | Mọi so sánh có nguồn; khoảng trống gắn với đóng góp đã triển khai, không tuyên bố vượt trội thiếu bằng chứng. |
 
-### P6. Introduction, conclusions and argument consistency
+### P6. Mở đầu, kết luận và tính nhất quán lập luận
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T54 / M | T02, T10, T47, T53 | Draft §§1.1–1.2: motivation and problem statement for a general technical reader. | The reader understands the practical task, available information and evaluation target before specialist terminology. |
-| T55 / M | T02, T47, T53, T54 | Draft §§1.3–1.5: RQs, challenges, boundaries, contributions and chapter roadmap. | Each contribution points to an actual chapter/evidence item; inherited work and unperformed studies are qualified. |
-| T56 / M | T47, T55 | Draft §§6.1–6.2 with an explicit answer to each research question. | Answers agree with Chapter 5 and do not introduce new results or stronger claims. |
-| T57 / M | T47, T56 | Draft §§6.3–6.4: limitations and a prioritized future-work agenda. | Future work addresses specific missing evidence; causal repair, ablations and prospective evaluation remain separate future tasks. |
-| T58 / S | T53, T55, T56, T57 | Read the introduction–method–results–conclusion chain and revise transitions/repeated definitions. | Title, RQs, contribution list, terminology and conclusions align without unexplained scope changes. |
+| T54 / M | T02, T10, T47, T53 | Viết §§1.1–1.2: động cơ và phát biểu bài toán cho người đọc kỹ thuật nói chung. | Hiểu nhiệm vụ, thông tin sẵn có và mục tiêu đánh giá trước thuật ngữ chuyên sâu. |
+| T55 / M | T02, T47, T53, T54 | Viết §§1.3–1.5: RQ, thách thức, giới hạn, đóng góp và bố cục. | Mỗi đóng góp dẫn tới chương/bằng chứng thực có; nêu đúng phần kế thừa và nghiên cứu chưa chạy. |
+| T56 / M | T47, T55 | Viết §§6.1–6.2, trả lời tường minh từng câu hỏi nghiên cứu. | Khớp Chương 5; không đưa kết quả mới hoặc kết luận mạnh hơn. |
+| T57 / M | T47, T56 | Viết §§6.3–6.4: hạn chế và hướng phát triển theo ưu tiên. | Hướng phát triển xử lý thiếu bằng chứng cụ thể; sửa nhân quả, ablation và tiền cứu vẫn là công việc tương lai riêng. |
+| T58 / S | T53, T55, T56, T57 | Đọc chuỗi mở đầu–phương pháp–kết quả–kết luận, sửa chuyển đoạn và định nghĩa lặp. | Tên đề tài, RQ, đóng góp, thuật ngữ và kết luận khớp, không đổi phạm vi thiếu giải thích. |
 
-### P7. Front matter and appendices
+### P7. Phần đầu và phụ lục
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T59 / M | T47, T55, T56 | Write the abstract and keywords in `frontmatter.md`, within the confirmed length constraint if supplied. | Problem, method, design, principal results and limitations agree with the thesis; no fabricated benefit or prospective claim. |
-| T60 / M | T01, T05, T58 | Complete cover metadata, acknowledgements, declaration text, abbreviations and notation in `frontmatter.md`. | Personal details and required wording are confirmed; no copied sample identity, fabricated signature or unreceived endorsement. |
-| T61 / M | T10, T15, T17, T23 | Write Appendix A with compact schemas, time mapping, label rules and missingness conventions. | Examples and schema fields agree with the described version; main-text references point to the right details. |
-| T62 / M | T18, T25, T27, T30, T32 | Write Appendix B with representative prompts, BRPP, schemas and response examples. | Remove secrets; retain original request identity; English translations are marked as presentation translations, not measured English prompts. |
-| T63 / M | T20, T24, T25, T26, T29, T31, T38 | Write Appendix C with formulas, configuration, hyperparameters and training/inference settings. | Every numeric setting is source-backed and tied to the correct study/profile; defaults are not substituted for observed values. |
-| T64 / M | T41, T42, T43, T44, T46 | Write Appendix D with extended stock/fold/repeat and sensitivity tables. | Totals and denominators reconcile with main tables; studies and unavailable metrics remain distinct. |
-| T65 / M | T03, T15, T34, T47 | Write Appendix E documenting test/audit scope and retained counterexamples. | State which checks were historically run and on what source; do not infer full-system certification from passing scoped tests. |
-| T66 / M | T03, T35, T38, T65 | Write Appendix F with offline reproduction, resource prerequisites and the application workflow. | Commands refer to known artifacts and correct working directories; distinguish metric replay, fresh inference and pending UI validation. |
+| T59 / M | T47, T55, T56 | Viết abstract và keywords trong `frontmatter.md`, theo giới hạn độ dài đã xác nhận nếu có. | Bài toán, phương pháp, thiết kế, kết quả và giới hạn khớp khóa luận; không bịa lợi ích hoặc kết luận tiền cứu. |
+| T60 / M | T01, T05, T58 | Hoàn thiện thông tin bìa, lời cảm ơn, cam đoan, chữ viết tắt và ký hiệu trong `frontmatter.md`. | Thông tin cá nhân/câu chữ bắt buộc đã xác nhận; không sao chép danh tính mẫu, bịa chữ ký hoặc xác nhận chưa nhận. |
+| T61 / M | T10, T15, T17, T23 | Viết Phụ lục A: schema gọn, ánh xạ thời gian, nhãn và quy ước thiếu dữ liệu. | Ví dụ/trường schema đúng phiên bản mô tả; tham chiếu từ thân bài tới đúng chi tiết. |
+| T62 / M | T18, T25, T27, T30, T32 | Viết Phụ lục B: prompt đại diện, BRPP, schema và response mẫu. | Bỏ bí mật, giữ ID request; bản dịch tiếng Anh ghi rõ phục vụ trình bày, không giả là prompt tiếng Anh đã chạy. |
+| T63 / M | T20, T24, T25, T26, T29, T31, T38 | Viết Phụ lục C: công thức, cấu hình, siêu tham số và thiết lập huấn luyện/suy luận. | Mỗi tham số số có nguồn, đúng nghiên cứu/profile; không lấy mặc định thay giá trị quan sát. |
+| T64 / M | T41, T42, T43, T44, T46 | Viết Phụ lục D: bảng mở rộng theo mã/fold/repeat và sensitivity. | Tổng/mẫu số khớp bảng chính; tách các nghiên cứu và chỉ số không khả dụng. |
+| T65 / M | T03, T15, T34, T47 | Viết Phụ lục E về phạm vi kiểm thử/audit và phản ví dụ giữ lại. | Nêu đúng kiểm tra đã chạy trên nguồn nào; không suy chứng nhận toàn hệ từ test đúng phạm vi. |
+| T66 / M | T03, T35, T38, T65 | Viết Phụ lục F: tái lập offline, điều kiện tài nguyên và luồng ứng dụng. | Lệnh trỏ tới artifact đã biết, đúng thư mục chạy; phân biệt replay chỉ số, inference mới và UI còn chờ kiểm. |
 
-### P8. LaTeX implementation and document assembly
+### P8. Triển khai LaTeX và ghép tài liệu
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T67 / M | T01, T08 | Build a minimal clean LaTeX shell from required template conventions, with English metadata placeholders only where unresolved. Record engine/toolchain. | Minimal document compiles; sample topic/macros/personal metadata are removed; unresolved institutional rules remain listed. |
-| T68 / M | T09, T10, T11, T12, T13, T14, T15, T35, T67 | Transfer Chapters 3–4, equations and algorithms into LaTeX; attach editable diagrams. | Equations and running-example logic match reviewed prose; all symbols, floats and algorithm references resolve. |
-| T69 / M | T47, T64, T67 | Transfer Chapter 5 and result tables/plots with fixed precision and source-aware captions. | Compare every numeric table/plot value to its source; row/column labels, percent units and support notes survive typesetting. |
-| T70 / M | T53, T58, T59, T60, T67 | Transfer Chapters 1, 2 and 6 plus front matter; connect bibliography and generated lists. | Complete English front matter and all chapters render; references are ordered/styled consistently and citations resolve. |
-| T71 / M | T61, T62, T63, T64, T65, T66, T67 | Transfer Appendices A–F and connect forward/back references, figures and tables. | Appendices are legible and referenced; long schemas/prompts do not crowd the main narrative or overflow pages. |
-| T72 / S | T68, T69, T70, T71 | Assemble the full document and record the Markdown-to-LaTeX authority transfer in the README. | One canonical submission source exists; all content is included once and source paths work without the sample directory. |
+| T67 / M | T01, T08 | Dựng khung LaTeX sạch tối thiểu theo quy ước mẫu cần dùng; chỉ để chỗ trống tiếng Anh ở thông tin chưa rõ. Ghi engine/toolchain. | Biên dịch được; bỏ chủ đề/macro/thông tin cá nhân mẫu; liệt kê quy định còn chờ xác nhận. |
+| T68 / M | T09, T10, T11, T12, T13, T14, T15, T35, T67 | Chuyển Chương 3–4, công thức và thuật toán sang LaTeX; gắn sơ đồ có thể sửa. | Công thức và ví dụ khớp bản đã rà; mọi ký hiệu, hình/bảng và tham chiếu thuật toán hợp lệ. |
+| T69 / M | T47, T64, T67 | Chuyển Chương 5 và bảng/đồ thị, giữ độ chính xác và chú thích nguồn. | Đối chiếu mọi số với nguồn; nhãn hàng/cột, đơn vị phần trăm và ghi chú support đúng sau dàn trang. |
+| T70 / M | T53, T58, T59, T60, T67 | Chuyển Chương 1, 2, 6 và phần đầu; nối bibliography và các danh mục tự sinh. | Hiển thị đủ nội dung tiếng Anh; tài liệu tham khảo thống nhất thứ tự/kiểu, không lỗi citation. |
+| T71 / M | T61, T62, T63, T64, T65, T66, T67 | Chuyển Phụ lục A–F, nối tham chiếu qua lại và hình/bảng. | Phụ lục rõ, đọc được, có dẫn tới; schema/prompt dài không lấn thân bài hoặc tràn trang. |
+| T72 / S | T68, T69, T70, T71 | Ghép toàn văn, ghi thời điểm chuyển nguồn chính thức từ Markdown sang LaTeX trong README. | Có một nguồn bản nộp chính; nội dung xuất hiện đúng một lần, đường dẫn hoạt động không cần thư mục mẫu. |
 
-### P9. Scientific, language, reader and visual review
+### P9. Rà khoa học, ngôn ngữ, mức độ dễ hiểu và trực quan
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T73 / M | T72 | Audit every headline claim, contribution, result and conclusion against the evidence register. | Claims have sources and correct scope; negative findings, missing support and unperformed experiments remain explicit. |
-| T74 / M | T72 | Conduct the first-time-reader review using Section 3; repair missing explanations in Chapters 3–4. | All comprehension questions are answerable from the text. Record whether the review was internal or independent; never invent reviewer feedback. |
-| T75 / M | T72 | Edit English grammar, terminology, tense, paragraph flow, captions and abbreviation usage across all material. | Consistent academic English; no untranslated explanatory prose, unexplained acronyms, planning IDs or repository-history narration in the body. |
-| T76 / M | T72, T73 | Check bibliography, quotations, figure attribution, data/software rights and any required assistance disclosure. | Every citation is present and relevant, copied material is attributed, and unresolved rights affecting release are identified. Do not promise public distribution without permission. |
-| T77 / M | T73, T75 | Independently reconcile formulas, units, counts, percentages, risk conventions and table/plot precision. | No arithmetic/label/support mismatch; rounded display values do not change the interpretation or silently replace exact source values. |
-| T78 / M | T74, T75, T76, T77 | Clean-build the document; inspect logs, cross-references, pagination, lists, bookmarks and text extraction. | No missing citations/references/assets, clipped formulas or unresolved build errors; warnings are fixed or explicitly inspected. |
-| T79 / M | T78 | Render and visually inspect every page, including tables, plots, algorithms and appendices; fix layout and recheck affected pages. | No unreadable text, overlapping elements, broken fonts, cropped visuals or unintentional blank pages; final full-page pass uses the final build. |
-| T80 / M | T79 | Incorporate actual author/supervisor feedback if provided; otherwise record that external review has not occurred and complete an internal revision pass. | Feedback items have resolutions and locators. Changed text/assets receive relevant checks again; external review is never marked complete without evidence. |
+| T73 / M | T72 | Đối soát mọi luận điểm chính, đóng góp, kết quả và kết luận với sổ bằng chứng. | Có nguồn và đúng phạm vi; kết quả âm, thiếu support và thí nghiệm chưa chạy vẫn rõ. |
+| T74 / M | T72 | Rà theo góc nhìn người lần đầu đọc bằng mục 3; bổ sung giải thích Chương 3–4 còn thiếu. | Trả lời được toàn bộ câu hỏi từ văn bản; ghi đúng rà nội bộ hay độc lập, không bịa phản hồi người đọc. |
+| T75 / M | T72 | Biên tập ngữ pháp tiếng Anh, thuật ngữ, thì, mạch đoạn, caption và chữ viết tắt trong toàn khóa luận. | Tiếng Anh học thuật nhất quán; không còn diễn giải chưa dịch, acronym chưa giải thích, mã task hoặc nhật ký repo trong thân bài. |
+| T76 / M | T72, T73 | Kiểm bibliography, trích dẫn, nguồn hình, quyền dữ liệu/phần mềm và khai báo hỗ trợ nếu được yêu cầu. | Citation đầy đủ/phù hợp, nội dung kế thừa ghi nguồn, quyền còn thiếu ảnh hưởng phát hành được nêu; không hứa công khai khi chưa có quyền. |
+| T77 / M | T73, T75 | Đối soát độc lập công thức, đơn vị, số lượng, phần trăm, quy ước rủi ro và độ chính xác hình/bảng. | Không sai số học/nhãn/support; làm tròn không đổi diễn giải hoặc âm thầm thay số chính xác của nguồn. |
+| T78 / M | T74, T75, T76, T77 | Biên dịch sạch; kiểm log, tham chiếu, số trang, danh mục, bookmark và trích xuất văn bản. | Không thiếu citation/reference/asset, công thức bị cắt hoặc lỗi build chưa giải quyết; cảnh báo đã sửa hoặc kiểm cụ thể. |
+| T79 / M | T78 | Render và xem từng trang, gồm bảng, đồ thị, thuật toán, phụ lục; sửa bố cục và kiểm lại trang ảnh hưởng. | Không chữ khó đọc, chồng lấn, lỗi font, hình bị cắt hoặc trang trắng ngoài ý muốn; lượt rà toàn bộ dùng bản build cuối. |
+| T80 / M | T79 | Xử lý phản hồi thực nhận từ tác giả/người hướng dẫn; nếu chưa có, ghi rõ chưa phản biện bên ngoài và làm lượt chỉnh nội bộ. | Mỗi góp ý có xử lý/vị trí; phần đổi được kiểm lại phù hợp; không ghi đã phản biện ngoài khi thiếu bằng chứng. |
 
-### P10. Reproducible release and handover
+### P10. Đóng gói tái lập và bàn giao
 
-| ID / size | Depends on | Work and deliverable | Acceptance condition |
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T81 / M | T80 | Freeze the final manuscript revision and assemble a self-contained source archive, bibliography, assets and build instructions. | Package excludes credentials and unnecessary/private raw data; included resources have clear permissions; no absolute paths or untracked sample dependency. |
-| T82 / M | T81 | Extract into a clean directory, build offline where supported, and verify the PDF against the reviewed release. Record toolchain and file hashes in one manifest. | Build succeeds from the package; content/page/figure checks agree. If timestamps prevent byte-identical PDFs, document the difference rather than claiming byte identity. |
-| T83 / S | T82 | Deliver `thesis.pdf`, the source archive and concise reproduction/readme guidance; list any external approval/submission items still pending. | Delivered files exist and match the manifest. Delivery does not imply supervisor acceptance or institutional submission. |
-| T84 / S | T83 | Close the writing checklist with source commit, deliverable paths and checks. Record external submission/acceptance only if the user supplies or authorizes that event. | Internal completion is distinguishable from submitted/accepted status. No email, upload, signature or submission is performed merely because this plan exists. |
+| T81 / M | T80 | Khóa bản thảo cuối, đóng gói nguồn tự đủ, bibliography, hình/bảng và hướng dẫn build. | Không có credential hoặc raw data riêng tư/dư thừa; quyền tài nguyên rõ; không đường dẫn tuyệt đối hoặc phụ thuộc mẫu chưa theo dõi. |
+| T82 / M | T81 | Giải nén vào thư mục sạch, build offline khi được hỗ trợ, đối soát PDF với bản đã rà; ghi toolchain/hash trong một manifest. | Build từ gói thành công, nội dung/trang/hình khớp; nếu timestamp khiến PDF khác byte thì ghi rõ, không tuyên bố đồng nhất byte. |
+| T83 / S | T82 | Bàn giao `thesis.pdf`, gói nguồn và hướng dẫn tái lập ngắn; liệt kê phê duyệt/nộp bên ngoài còn chờ. | File tồn tại và khớp manifest; bàn giao không đồng nghĩa người hướng dẫn chấp thuận hoặc đã nộp trường. |
+| T84 / S | T83 | Chốt checklist bằng commit nguồn, đường dẫn đầu ra và kiểm tra; chỉ ghi nộp/chấp thuận ngoài khi người dùng cung cấp hoặc cho phép sự kiện đó. | Phân biệt hoàn thành nội bộ với đã nộp/được chấp thuận; kế hoạch không tự cho phép gửi email, upload, ký hoặc nộp. |
 
-## 6. Figure, table and algorithm production register
+## 6. Danh mục hình, bảng và thuật toán cần chuẩn bị
 
-Use conceptual diagrams for explanations and standard plotting tools for scientific charts. Every final visual needs English labels, readable print sizing, a self-contained caption, units where relevant and an explicit source or illustration designation. Stable IDs here are planning aids; final numbering is generated by LaTeX.
+Dùng sơ đồ khái niệm để giải thích, công cụ vẽ đồ thị chuẩn cho hình khoa học. Hình/bảng đưa vào khóa luận phải có nhãn tiếng Anh, cỡ chữ đọc được khi in, caption tự đủ, đơn vị phù hợp và nguồn hoặc nhãn minh họa rõ ràng. ID dưới đây dùng quản lý; số thứ tự cuối do LaTeX sinh.
 
-| Asset | Main message | Owner | Location / evidence |
+| Hạng mục | Thông điệp chính | Task phụ trách | Vị trí / bằng chứng |
 | --- | --- | --- | --- |
-| F01. Trading timeline | What is visible at `t`, entry at `t+1`, exit at `t+3` | T09–T10 | Chapter 3; engine/target contract. |
-| F02. Chronological partitions | Fit/validation/test and maturity/purge boundaries | T15, T37 | Chapters 3/5; protocol and split records. |
-| F03. System overview | Entire path, with training/inference/policy/evaluation separated | T16 | Chapter 4; graph, registry and adapters. |
-| F04. Chart inputs | Different evidence supplied to Pattern and Trend | T19 | Chapter 4; archived chart pair or labeled illustration. |
-| F05. Episode and retrieval flow | Eligible memory → matching/ranking → prefix/fallback | T23–T25 | Chapter 4; bank/retriever. |
-| F06. MT task and training flow | Prior/target/query, teacher, student and frozen inference | T28–T29 | Chapter 4; evaluated task/model locks. |
-| F07. Policy tree | Facts, support, anchor, proposal, utility veto and final action | T30–T31 | Chapter 4; policy traces. |
-| F08. Dependency DAG | Shared upstream and per-repeat role dependencies | T33 | Chapter 4; registry and protocol. |
-| F09. Contrasts | Difference estimates and descriptive bands | T43 | Chapter 5; frozen analysis artifacts. |
-| F10. Coverage and action changes | Effective context support and fallback/policy behavior | T44 | Chapter 5; traces and support records. |
-| F11. Application workflow | User input → progress → interpretable result | T35 | Chapter 4/Appendix F; verified versioned screenshots if available. |
-| A01–A03. Algorithms | PIT context; method/policy execution; paired forecast/evaluation | T33 | Chapter 4; complete inputs, outputs and error/fallback behavior. |
-| B01. Notation | Symbols and units used throughout | T05, T60 | Front matter/Chapter 3. |
-| B02. Component contracts | Component purpose, inputs, time boundaries and outputs | T17–T22 | Chapter 4. |
-| B03. Method comparison | Native/Common and historical-context differences | T22, T27, T33 | Chapter 4. |
-| B04. Data/configuration | Cohort, partitions, bank, missingness, model/runtime | T37–T38 | Chapter 5. |
-| B05–B06. Main results | Separate component and context studies | T41–T42 | Chapter 5; exact frozen values. |
-| B07. Mechanism/cases | Context, raw proposal, policy and outcome | T44–T45 | Chapter 5. |
-| B08. Literature comparison | Supported similarities, differences and research gap | T53 | Chapter 2; verified primary sources. |
-| B09. RQ answer matrix | Supported answer and remaining uncertainty | T47, T56 | Chapters 5/6. |
+| F01. Timeline giao dịch | Thấy gì tại `t`, vào `t+1`, thoát `t+3` | T09–T10 | Chương 3; engine/target contract. |
+| F02. Phân vùng thời gian | Train/validation/test và ranh giới maturity/purge | T15, T37 | Chương 3/5; protocol và bản ghi chia tập. |
+| F03. Tổng quan hệ thống | Toàn đường chạy, tách huấn luyện/suy luận/policy/đánh giá | T16 | Chương 4; graph, registry, adapters. |
+| F04. Biểu đồ đầu vào | Bằng chứng khác nhau của Pattern và Trend | T19 | Chương 4; cặp ảnh lưu hoặc minh họa có nhãn. |
+| F05. Episode và truy xuất | Memory hợp lệ → matching/ranking → prefix/fallback | T23–T25 | Chương 4; bank/retriever. |
+| F06. Tác vụ MT và huấn luyện | Prior/target/query, teacher, student và suy luận đã khóa | T28–T29 | Chương 4; lock task/model đã đánh giá. |
+| F07. Cây policy | Facts, support, anchor, proposal, utility veto và hành động cuối | T30–T31 | Chương 4; trace policy. |
+| F08. DAG phụ thuộc | Upstream chung và phụ thuộc theo repeat | T33 | Chương 4; registry/protocol. |
+| F09. So sánh chênh lệch | Ước lượng chênh lệch và band mô tả | T43 | Chương 5; artifact phân tích đã khóa. |
+| F10. Độ phủ và đổi hành động | Support context thực dùng, fallback/policy | T44 | Chương 5; traces và support. |
+| F11. Luồng ứng dụng | Đầu vào người dùng → tiến trình → kết quả có thể diễn giải | T35 | Chương 4/Phụ lục F; ảnh có phiên bản đã kiểm nếu có. |
+| A01–A03. Thuật toán | Context PIT; chạy phương pháp/policy; dự báo/đánh giá ghép cặp | T33 | Chương 4; đủ đầu vào/đầu ra và xử lý lỗi/fallback. |
+| B01. Ký hiệu | Ký hiệu và đơn vị xuyên suốt | T05, T60 | Phần đầu/Chương 3. |
+| B02. Hợp đồng thành phần | Mục đích, đầu vào, thời gian và đầu ra | T17–T22 | Chương 4. |
+| B03. So sánh phương pháp | Native/Common và các ngữ cảnh lịch sử | T22, T27, T33 | Chương 4. |
+| B04. Dữ liệu/cấu hình | Cohort, phân vùng, bank, missingness, model/runtime | T37–T38 | Chương 5. |
+| B05–B06. Kết quả chính | Tách nghiên cứu thành phần và ngữ cảnh | T41–T42 | Chương 5; số chính xác đã khóa. |
+| B07. Cơ chế/tình huống | Context, raw proposal, policy và outcome | T44–T45 | Chương 5. |
+| B08. So sánh nghiên cứu | Giống/khác có nguồn và khoảng trống | T53 | Chương 2; nguồn gốc đã kiểm. |
+| B09. Bảng trả lời RQ | Câu trả lời có bằng chứng và bất định còn lại | T47, T56 | Chương 5/6. |
 
-Do not regenerate hosted reports merely to obtain a prettier example. Translate explanatory captions, not the scientific identity of measured inputs. If an archived prompt is Vietnamese, label its English rendering as a translation.
+Không gọi mô hình lại chỉ để có ví dụ đẹp hơn. Dịch chú giải, không đổi danh tính khoa học của đầu vào đã đo. Prompt lưu bằng tiếng Việt phải ghi rõ bản tiếng Anh là bản dịch phục vụ trình bày.
 
-## 7. Milestone review gates
+## 7. Các mốc rà soát
 
-These gates organize writing checks; they are not the software system's four runtime gates and do not re-certify historical research.
+Các mốc này quản lý việc viết, không phải bốn gate runtime của hệ thống và không nghiệm thu lại nghiên cứu lịch sử.
 
-| Gate | Required work | Pass condition | If it does not pass |
+| Mốc | Công việc cần có | Điều kiện đạt | Khi chưa đạt |
 | --- | --- | --- | --- |
-| G1. Evidence-ready drafting | T02–T08; T01 issues recorded | Sources are reachable or gaps declared; terminology, scope and example are coherent. | Draft independent sections; do not invent missing evidence or personal metadata. |
-| G2. Method explanation | T09–T35 | Complete Chapter 3/4 draft, diagram contracts, worked example and policy algorithms agree. | Repair missing concepts or split oversized sections before making claims about the method. |
-| G3. Evidence-backed argument | T36–T58 | Results, related work, RQs and conclusions agree; claims stay within source scope. | Correct the narrative or narrow the claim; identify optional new research separately. |
-| G4. Complete source | T59–T72 plus resolved required T01 items | Front matter, chapters, references and appendices are assembled and compile. | Keep a visible issue list; no final release with placeholder identities or mandatory sections missing. |
-| G5. Reviewed candidate | T73–T80 | Scientific, comprehension, English, attribution, numerical and visual checks pass; actual external-review status is honest. | Reopen the affected task and its dependent checks; do not repeat unrelated runtime suites. |
-| G6. Internal completion | T81–T84 | Final PDF and self-contained sources are delivered, clean-built and identified by manifest. | State exactly what is missing. Submitted/accepted status needs separate real-world evidence. |
+| G1. Sẵn sàng viết có nguồn | T02–T08; ghi vấn đề T01 | Truy cập nguồn được hoặc nêu thiếu; thuật ngữ, phạm vi và ví dụ thống nhất. | Viết phần độc lập; không bịa bằng chứng hoặc thông tin cá nhân. |
+| G2. Giải thích phương pháp | T09–T35 | Đủ bản Chương 3/4; hợp đồng, sơ đồ, ví dụ và thuật toán policy khớp. | Bổ sung khái niệm hoặc tách mục quá lớn trước khi kết luận về phương pháp. |
+| G3. Lập luận có bằng chứng | T36–T58 | Kết quả, tổng quan, RQ và kết luận khớp; nhận định trong phạm vi nguồn. | Sửa diễn giải/thu hẹp kết luận; nêu nghiên cứu mới tùy chọn riêng. |
+| G4. Nguồn hoàn chỉnh | T59–T72 và các mục T01 bắt buộc đã rõ | Đủ phần đầu, chương, tham khảo, phụ lục và biên dịch được. | Giữ danh sách vấn đề; chưa phát hành cuối khi còn danh tính giả định hoặc phần bắt buộc thiếu. |
+| G5. Bản dự kiến nộp đã rà | T73–T80 | Đạt khoa học, dễ hiểu, tiếng Anh, ghi nguồn, số liệu và trực quan; đúng trạng thái phản biện ngoài. | Mở lại task và kiểm phụ thuộc bị ảnh hưởng; không chạy lại suite runtime không liên quan. |
+| G6. Hoàn thành nội bộ | T81–T84 | Bàn giao PDF/nguồn tự đủ, build sạch và có manifest. | Nêu chính xác còn thiếu gì; đã nộp/chấp thuận cần bằng chứng thực tế riêng. |
 
-## 8. Common blockers and scope decisions
+## 8. Vướng mắc thường gặp và cách giữ phạm vi
 
-| Issue | Action within writing scope | What must not be inferred |
+| Vấn đề | Xử lý trong phạm vi viết | Không được suy diễn |
 | --- | --- | --- |
-| Missing author, supervisor, deadline or official layout | Record in T01, request the specific information when needed and continue technical drafting. | Template metadata is not the user's identity or an institutional requirement. |
-| Frozen asset unavailable or hash differs | Use the existing restoration guide; preserve expected/actual identities and narrow unsupported claims. | A similarly named live artifact is not an equivalent source. |
-| An ablation is implemented but unrun | Document capability and move its causal question to future work. | Code existence does not supply results. |
-| Negative or inconclusive results | Report them with correct support and descriptive uncertainty. | Thesis completion does not require a profitable strategy. |
-| Native row-wise causality remains failed | Explain the failure, scope of the common projection and impact on interpretation. | Passing cutoff checks do not certify the whole system. |
-| UI/browser review remains pending | Explain the architecture and use checked assets only; report the limitation. | A documentation milestone does not close F11 or certify the application. |
-| External feedback is unavailable | Finish internal checks and clearly identify external review as not received. | An internal check is not lecturer approval. |
-| New findings arrive during drafting | Version the evidence register and assess affected chapters/claims before incorporating them. | Older result receipts do not automatically certify newer code or data. |
+| Thiếu tác giả, người hướng dẫn, hạn nộp hoặc bố cục chính thức | Ghi T01, hỏi thông tin cụ thể khi cần, tiếp tục viết kỹ thuật. | Metadata mẫu không phải danh tính người dùng hoặc quy định của trường. |
+| Thiếu artifact đã khóa hoặc hash khác | Theo hướng dẫn phục hồi hiện có; giữ expected/actual identity và thu hẹp nhận định thiếu nguồn. | Artifact live cùng tên không phải nguồn tương đương. |
+| Ablation có code nhưng chưa chạy | Mô tả khả năng và đưa câu hỏi nhân quả sang hướng phát triển. | Có mã nguồn chưa có nghĩa có kết quả. |
+| Kết quả âm hoặc chưa rõ | Báo đúng support và bất định mô tả. | Hoàn thành khóa luận không đòi hỏi chiến lược phải sinh lời. |
+| Native vẫn lỗi nhân quả từng hàng | Giải thích lỗi, phạm vi common projection và ảnh hưởng diễn giải. | Qua kiểm cutoff chưa chứng nhận toàn hệ. |
+| Chưa nghiệm thu UI/browser | Giải thích kiến trúc, chỉ dùng hình đã kiểm và nêu giới hạn. | Mốc tài liệu không đóng F11 hoặc nghiệm thu ứng dụng. |
+| Chưa có phản hồi bên ngoài | Hoàn tất kiểm nội bộ, ghi rõ chưa nhận phản biện ngoài. | Tự kiểm không phải giảng viên chấp thuận. |
+| Có kết quả mới khi đang viết | Đánh phiên bản sổ bằng chứng, đánh giá chương/nhận định ảnh hưởng trước khi đưa vào. | Receipt cũ không tự chứng nhận code hoặc dữ liệu mới. |
 
-## 9. Final definition of done
+## 9. Định nghĩa hoàn thành cuối cùng
 
-The thesis is **internally complete** only when all mandatory parts are written in English; a first-time reader can follow the complete method; every substantive claim and reported number is traceable; all material limitations are retained; citations, formulas and cross-references are correct; the final PDF has been inspected page by page; and the supplied source package builds independently of the sample directory.
+Khóa luận chỉ **hoàn thành nội bộ** khi mọi phần bắt buộc được viết bằng tiếng Anh; người mới theo được toàn phương pháp; luận điểm và số liệu quan trọng đều truy nguồn được; giữ các giới hạn trọng yếu; trích dẫn, công thức, tham chiếu đúng; PDF cuối đã kiểm từng trang; gói nguồn biên dịch được độc lập với thư mục mẫu. Quy định này áp dụng cho sản phẩm khóa luận, không yêu cầu chuyển kế hoạch, checklist hoặc trao đổi quản lý sang tiếng Anh.
 
-No placeholder content, invented metadata, missing mandatory section, unresolved material numerical error or unverified release dependency may be hidden by marking tasks done. External submission, supervisor approval and institutional acceptance are separate statuses and remain unclaimed until their actual evidence exists.
+Không che chỗ trống nội dung, thông tin bịa, phần bắt buộc thiếu, lỗi số liệu trọng yếu chưa sửa hoặc tài nguyên phát hành chưa kiểm bằng cách đánh dấu task hoàn tất. Việc nộp ra ngoài, người hướng dẫn đồng ý và cơ sở đào tạo chấp thuận là các trạng thái riêng, chỉ ghi khi có bằng chứng thực tế.

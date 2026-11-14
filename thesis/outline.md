@@ -4,7 +4,7 @@
 
 **Working title:** Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market.
 
-**Language:** English throughout the manuscript and its supporting writing documents.
+**Language:** English throughout the thesis manuscript, including front matter, chapters, appendices, captions and figure/table labels. User communication, the writing plan, progress checklists and management guidance use Vietnamese.
 
 **Central argument:** begin with a price-driven multi-agent system, construct historical context that is eligible at the decision time and conditioned on market state, introduce that context through Bayesian priors and MT-BICL, and evaluate its effect on forecasts and LONG/CASH actions under a shared economic contract.
 
@@ -436,6 +436,6 @@ This is a writing aid, not the final scholarly bibliography. Current paths ident
 
 ## E. Writing and review
 
-Follow the [writing plan](plan.md) and maintain task status in the [project checklist](../docs/plan/week12/README.md#thesis-writing-checklist). Draft the contracts and methods before finalizing results interpretation, then finish related work, introduction, conclusions and abstract. Translate reviewed content into a self-contained LaTeX project and review the rendered document before handover.
+Follow the [writing plan](plan.md) and maintain task status in the [project checklist](../docs/plan/week12/README.md#checklist-viết-khóa-luận). Draft the contracts and methods before finalizing results interpretation, then finish related work, introduction, conclusions and abstract. Transfer the reviewed English manuscript into a self-contained LaTeX project and review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
 
 Keep task IDs, weekly progress and incident history out of the thesis body. They remain planning/provenance aids only.
