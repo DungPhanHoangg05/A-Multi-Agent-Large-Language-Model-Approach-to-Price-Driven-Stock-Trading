@@ -115,6 +115,12 @@ trước delta nằm trong `python_reuse.json` của ZIP, không nhận là đã
 Python sau sửa test DOM. Lệnh `--run` bình thường vẫn chạy lại các suite
 scoped trong helper; `verify` chỉ đọc nguồn/runtime/evidence.
 
+Theo chỉ đạo mới ngày14/11/2026, nguồn UI được hợp nhất vào `develop` nhưng
+**UI/F11 vẫn PENDING**, receipt giữ `OFFLINE_PASS_BROWSER_PENDING` và
+`f11_complete=false`. Không dùng merge thay nghiệm thu desktop/mobile.
+Bước tiếp theo chờ khung KLTN từ người dùng để bắt đầu viết luận văn;
+F12 chưa mở, không tự push/deploy hoặc thay bằng chứng nghiên cứu.
+
 <a id="phân-tích-phiên-ngày-mới-nhất"></a>
 
 ## Phân tích phiên ngày mới nhất (API và lịch sử UI)

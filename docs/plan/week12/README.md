@@ -176,7 +176,7 @@ chính và A–F của bài, đưa mô tả/kết quả mở rộng chính vào 
 vào appendix. Giữ Flask và bốn trang trong `templates/`; backend dùng registry/
 adapter chung để lựa chọn thực sự chạy đúng phiên bản, không chỉ đổi nhãn UI.
 
-**Đang thực hiện F11**, nghiệm thu tích hợp và kiểm trình duyệt đúng phạm vi.
+**UI/F11: PENDING**, còn nghiệm thu trình duyệt đúng phạm vi.
 F00–F05 và U10 hoàn tất trong phạm vi bàn giao bản thảo nội bộ; F06 đã chốt
 contract ứng dụng; F07 có viewer U09 offline, F08 có provider/runner/API job
 as-of; F09 đã nối form/kết quả, chọn/chạy sáu bản và so sánh cùng snapshot.
@@ -187,8 +187,9 @@ Theo yêu cầu mới nhất, form chỉ còn một nguồn Realtime và khung 1
 chọn phiên bản; các bản nâng cấp hiện cùng tiến trình agent và bố cục kết quả
 Original, bổ sung giải thích BICL từ context/policy thực tế.
 Service/provider/UI đã đổi nên kiểm lại caller/PIT/recovery liên quan;
-gate ban đầu giữ làm lịch sử. Browser còn chờ, chưa hoàn tất/chưa merge.
-F12 chưa bắt đầu.
+gate ban đầu giữ làm lịch sử. Theo chỉ đạo mới ngày14/11/2026, merge nguồn
+vào develop và giữ browser/UI pending; chưa đánh dấu F11 hoàn tất.
+F12 chưa bắt đầu. Chờ người dùng gửi khung KLTN để bắt đầu viết luận văn.
 **0/18 comment được chứng nhận đóng**;
 không suy quyền công bố/nộp bài.
 Đợt bổ sung cột checklist trước F01 ngày 12/11/2026 chỉ đổi plan và README;
@@ -206,7 +207,7 @@ AGENTS §1.2 vì không đổi code/runtime/input hay bằng chứng.
 - [x] F08 — Resource188/chín mã/58 phiên 1d/VI, sáu bản qua runner paired chung, owner/config isolation, retry/quota/UNKNOWN/stop/resume; 105 test/compile18 PASS, HTTP fixture, chưa smoke hosted mới.
 - [x] F09 — Form/kết quả chọn/chạy sáu bản qua serving, paired snapshot, preflight, raw/final/CASH/coverage/context; UI VI/EN, CSS mobile; 108 Python + 18 DOM, compile5/JS7 PASS, browser visual chờ F11.
 - [x] F10 — Backtest/experiments nhiều bản, evaluator U09 và daily NAV/cycle returns, filter/common support, progress/stop/resume/JSON/CSV; Full/No-Alpha riêng. 156 Python + 31 DOM, compile13/JS7 PASS; browser visual chờ F11.
-- [ ] F11 — Đang làm: Realtime/1D/sáu bản, VI/EN và sáng/tối chung; sinh song ngữ trong cùng lượt agent, số liệu dùng mẫu địa phương hóa, view nhúng sẵn chuyển tiếng không mạng/LLM. Bỏ route dịch. **135 Python + 24 DOM, compile23/JS2 PASS**. Browser còn chờ, chưa hoàn tất/chưa merge.
+- [ ] F11 — Đang làm: **UI PENDING**. Realtime/1D/sáu bản, VI/EN và sáng/tối chung; sinh song ngữ trong cùng lượt agent, số liệu dùng mẫu địa phương hóa, view nhúng sẵn chuyển tiếng không mạng/LLM. Bỏ route dịch. **135 Python + 24 DOM, compile23/JS2 PASS**. Merge nguồn vào develop theo chỉ đạo người dùng; browser còn chờ, F11 chưa hoàn tất.
 - [ ] F12 — Release ứng dụng, assets/runbook và bàn giao trên develop; không tự deploy/submit.
 
 Tại mốc audit F00, paper/revision cùng blob fix và bài chưa chứa U09; F03 đã
@@ -858,6 +859,24 @@ cáo VI trên trang EN. Sau135 Python PASS chỉ sửa test DOM/gate đóng gói
 syntax2 JS và compile23 Python. `python_reuse.json` trong QA giữ binding
 nguồn trước delta và lý do viện dẫn, không ghi là chạy lại135 ca sau sửa
 test DOM. Đối soát nguồn/runtime/QA lịch sử và checklist sau gate chỉ đọc.
+
+### Hợp nhất nguồn UI và chờ khung KLTN
+
+Theo yêu cầu người dùng ngày14/11/2026, hợp nhất nhánh
+`feat/precomputed-bilingual-results` (mã nguồn tại `49a08302`) vào `develop`
+và giữ **UI/F11: PENDING**. Đây là chỉ đạo hợp nhất khi nghiệm thu browser
+còn chờ, thay cho quyết định chưa merge ở các mốc lịch sử bên trên; không
+chuyển browser thành PASS hoặc đánh dấu F11/F12 hoàn tất.
+
+Lượt này chỉ cập nhật trạng thái Markdown và thực hiện merge; không đổi
+code/test/schema/config/runtime hoặc dữ liệu. Đã đối soát lại nguồn/runtime/
+hash/log/receipt v10, viện dẫn **135 Python +24 DOM, compile23/JS2 PASS**;
+không chạy lại các suite theo AGENTS §1.2. Kiểm diff và liên kết/checklist
+cho bốn tài liệu kế hoạch. Không push, gọi API, refit hoặc sửa paper/PDF/U09.
+Hai ảnh chart ngoài task giữ nguyên và không đưa vào commit.
+
+**Bước tiếp theo:** chờ người dùng cung cấp khung KLTN. Chỉ bắt đầu soạn
+luận văn sau khi nhận khung; không tự suy cấu trúc từ bản bài báo hiện hành.
 
 ## Hợp nhất hệ gốc fix và các mở rộng develop
 

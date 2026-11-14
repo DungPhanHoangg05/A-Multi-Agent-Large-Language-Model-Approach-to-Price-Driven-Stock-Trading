@@ -90,8 +90,11 @@ Theme nhớ lựa chọn hoặc theo hệ điều hành. Các lần sửa dịch
 được rà riêng và raw/journal của incident giữ nguyên ở checklist/QA lịch sử.
 Các QA cũ giữ nguyên byte làm lịch sử; không chạy toàn suite/cold study hoặc
 gọi model/thị trường thật trong lượt sửa UI. Browser host vẫn không khả dụng;
-F11 còn mở, nhánh `feat/precomputed-bilingual-results` chưa merge develop theo AGENTS
-§1.2. **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên.
+Theo chỉ đạo mới của người dùng ngày14/11/2026, hợp nhất nhánh
+`feat/precomputed-bilingual-results` vào `develop`, giữ **UI/F11: PENDING**.
+Merge nguồn không phải nghiệm thu browser hoặc hoàn tất F11.
+**F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên. Bước tiếp theo chờ người dùng
+gửi khung KLTN để bắt đầu viết luận văn theo khung đó.
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào
