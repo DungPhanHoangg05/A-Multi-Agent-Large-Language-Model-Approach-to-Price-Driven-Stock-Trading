@@ -1,7 +1,7 @@
 # Chapter 3. Theoretical Background and Problem Formulation
 
-> **Draft status: partial chapter.** Sections 3.1–3.3 have source-checked drafts.
-> Sections 3.4–3.7 remain placeholders; the chapter has not undergone final manuscript review.
+> **Draft status: partial chapter.** Sections 3.1–3.4 have source-checked drafts.
+> Sections 3.5–3.7 remain placeholders; the chapter has not undergone final manuscript review.
 
 Writing aids: [chapter outline](../outline.md#chapter-3-theoretical-background-and-problem-formulation), [terminology and notation](../evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -326,7 +326,87 @@ empirically calibrated solely because it is numerical or confidently stated.
 
 ## 3.4. Hidden Markov models for market regimes
 
-> **Not yet drafted.** Define hidden states, emissions, transitions, fitting and endpoint inference with primary citations. Introduce the evaluated VN-Index features, scaler/model cutoffs, state interpretation and fallback; explain why future observations cannot enter endpoint inference.
+### 3.4.1. Latent states and observed features
+
+A regime is an inferred description of market conditions, not an observed
+profitable-trade label. Regime-switching models represent changing behavior
+through a latent state; [Hamilton (2005)](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf)
+provides the economic modeling context. In an HMM, hidden state $S_u$ follows
+a first-order Markov transition matrix $A$, where
+$A_{ij}=P(S_u=j\mid S_{u-1}=i)$ and each row sums to one. The initial-state
+distribution is $\boldsymbol\pi$. An emission density $b_j(\boldsymbol x_u)$
+describes the observed feature vector conditional on state $j$.
+
+The implemented detector uses four Gaussian states with diagonal covariance.
+Its VN-Index feature vector contains log return
+$\log(C_u/C_{u-1})$, the sample standard deviation of the last 20 log returns,
+and $C_u/\operatorname{SMA}_n(C)_u-1$ for $n=20,50,200$. These are index-level
+conditions, not each stock's return. The 200-bar moving average determines
+the feature warm-up; the volatility uses sample standard deviation with
+`ddof=1`.[^hmm-implementation]
+
+### 3.4.2. Fitting, scaling and naming states
+
+Feature scaling is fitted on the declared training features. Its means and
+scales are then fixed when transforming later prefixes. HMM fitting estimates
+the initial probabilities, transitions and emission parameters;
+expectation–maximization is the standard iterative approach used by the
+[hmmlearn implementation](https://hmmlearn.readthedocs.io/en/stable/tutorial.html).
+Fitting and query-time state inference are separate operations.
+
+Latent state numbers have no inherent BULL/BEAR meaning. The frozen detector
+names the state with the largest training MA200 distance BULL and the smallest
+remaining one BEAR; it distinguishes the two remaining states by volatility
+as CHOPPY and CONSOLIDATION. Training convergence, occupancy and separation
+checks can instead select a documented MULTI_FACTOR classifier based on
+moving-average distances and training volatility thresholds. That result
+must be identified as a fallback method rather than an HMM posterior. The
+mapping and fallback thresholds remain part of the frozen fitted resource.
+
+The source module permits training within 2018–2022 and registers numerical
+settings, including four states and diagonal covariance. A permitted range
+is not the actual fit cutoff of every saved model: the historical paths use
+the resource and training dates recorded in their own manifests. For example,
+EX01's numerical MT query uses a model trained through 31 December 2020.
+Its BULL assignment is distinct from the signal-prior path's recorded
+CONSOLIDATION assignment. Neither should be silently relabeled to make them
+agree.[^hmm-implementation]
+
+### 3.4.3. Endpoint inference and future observations
+
+For a fixed fitted model, let
+$\alpha_u(j)=P(\boldsymbol x_{1:u},S_u=j)$ be a forward quantity. Its recursion is
+
+$$
+\alpha_u(j)=b_j(\boldsymbol x_u)\sum_i\alpha_{u-1}(i)A_{ij},
+\qquad
+P(S_u=j\mid\boldsymbol x_{1:u})=
+\frac{\alpha_u(j)}{\sum_k\alpha_u(k)}.
+$$
+
+Filtering conditions on observations through $u$. Smoothing at an earlier
+index also conditions on subsequent observations in the supplied sequence.
+At its final index there are no subsequent observations, so endpoint
+smoothing and filtering give the same state marginal for fixed parameters.
+This follows from the forward–backward construction in
+[Rabiner (1989), Sections III.A–B](https://web.mit.edu/6.435/www/Rabiner89.pdf).
+It does not make all earlier smoothed rows point-in-time valid.
+
+The detector supplies only the permitted prefix to `predict_proba` and uses
+the **last** posterior row, followed by the saved state-name mapping.
+Thus the function may internally use forward–backward inference without
+accessing observations after the query cutoff. Taking an earlier row from
+a later, longer call would be a different operation. A Viterbi most-likely
+state path is also different from these marginal probabilities.
+
+Endpoint truncation is insufficient if fitting already used future data.
+The implementation rejects a model trained after the query date and checks
+the query history against the frozen training-prefix hash. Feature dates,
+scaler, parameter fit, state interpretation and threshold calibration all
+need appropriate temporal boundaries. No model is refitted or prediction
+regenerated to write this explanation.[^hmm-implementation]
+
+[^hmm-implementation]: Frozen `core/regime_detector.py`: `build_regime_features`, `fit`, `_regime_calibration`, `_fallback_regime` and `classify_regime`; CL012–CL013 and binding §8.6. EX01 resource dates/hash are recorded in the shared example, not inferred from module defaults.
 
 ## 3.5. Bayesian summaries of historical evidence
 

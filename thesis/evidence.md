@@ -444,8 +444,8 @@ Chương 2.3/3.4–3.6; lọc so với làm trơn, học tham số, posterior v�
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `rabiner1989hmm` | [A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition](https://web.mit.edu/6.435/www/Rabiner89.pdf) — 1989 | A | CHUA_DOC |
-| `hamilton2005regimes` | [Regime-Switching Models](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf) — 2005 | A | CHUA_DOC |
+| `rabiner1989hmm` | [A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition](https://web.mit.edu/6.435/www/Rabiner89.pdf) — 1989 | A | DA_KIEM (forward/backward §III.A–B; §8.5.3) |
+| `hamilton2005regimes` | [Regime-Switching Models](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf) — 2005 | A | DA_DOC (định nghĩa state/transition; §8.5.3) |
 | `dempster1977em` | [Maximum Likelihood from Incomplete Data via the EM Algorithm](https://web.mit.edu/6.435/www/Dempster77.pdf) — 1977 | A | CHUA_DOC |
 | `gelman2013bayesian` | [Bayesian Data Analysis](https://sites.stat.columbia.edu/gelman/book/) — 2013 | A | CHUA_DOC |
 | `rubin1981bootstrap` | [The Bayesian Bootstrap](https://doi.org/10.1214/aos/1176345338) — 1981 | A | CHUA_DOC |
@@ -1240,6 +1240,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL009 | [§3.3.1](chapters/03_background.md#331-five-deterministic-indicator-families): công thức/kwargs năm chỉ báo, heuristic khác probability | HOP_DONG_TRIEN_KHAI | Toolkit/Indicator frozen §8.6, TA-Lib official references | MACD12/26/9, RSI14, Stoch14/3/3, WILLR14, ROC10 | Đối chiếu source; current upstream không thay runtime study; không tính lại chỉ báo |
 | CL010 | [§3.3.2](chapters/03_background.md#332-alpha-transformations-and-selection): expanding normalization, IC/orientation và selector | HOP_DONG_TRIEN_KHAI | `core/causal_alpha.py` frozen §8.6, Kakushadze2016v3 cho nguồn candidate | Spearman train, ranking validation; sample std expanding | Không gộp native, không suy hiệu quả test hoặc calibrated probability |
 | CL011 | [§3.3.3](chapters/03_background.md#333-sentiment-and-missing-information): news score, availability, decay và unavailable | HOP_DONG_TRIEN_KHAI | TIME03 `FrozenNews`, EX01-S | Window90 ngày, minimum3, half-life30; date-only ngày sau | Đọc source/trace đã lưu; legacy NEUTRAL không phải tin quan sát |
+| CL012 | [§3.4.1–§3.4.2](chapters/03_background.md#341-latent-states-and-observed-features): HMM, features VN-Index, fitting/scaling/mapping/fallback | HOP_DONG_TRIEN_KHAI | Regime source frozen §8.6; Hamilton/Rabiner và hmmlearn official về khái niệm | 4 Gaussian diag states; log return/std20 ddof1/distances20/50/200 | Không fit; source default training range khác resource cutoff; giữ provenance hai nhánh EX01 |
+| CL013 | [§3.4.3](chapters/03_background.md#343-endpoint-inference-and-future-observations): endpoint filtering=smoothing với model cố định và prefix cắt đúng | DAN_XUAT | Rabiner1989 §III.A–B, `classify_regime` frozen | Chỉ posterior hàng cuối, không Viterbi hoặc hồi tố hàng trước từ chuỗi dài | Kiểm source và suy luận từ backward endpoint; không suy fit/model/scaler đã PIT chỉ vì data prefix đúng |
 
 Quy tắc điền bảng:
 
@@ -1360,6 +1362,16 @@ gốc thành kết quả hệ thống. Thống kê số nguồn đã đọc tạ
 T04, không phải tổng trạng thái đọc sau các task này. Bibliography cuối vẫn
 thuộc T48; các link primary mới ở footnote có ngày truy cập/phạm vi.
 
+#### 8.5.3. Regime và HMM
+
+T12, 15/11/2026: Rabiner §III.A–B (forward/backward và marginal), Hamilton
+phần đầu về state/transition và hmmlearn tutorial về EM/fitting được đọc
+theo phạm vi, không tuyên bố đọc toàn bộ hai paper. `classify_regime` đọc
+`predict_proba(...)[-1]`, không gọi Viterbi. Source frozen xác nhận features,
+mapping/fallback và check training-prefix hash; nguồn EX01 §7 giữ cutoff
+2020-12-31 riêng với khoảng train cho phép trong module. Không fit, không
+chạy HMM inference hoặc đổi nhãn regime trong record nghiên cứu.
+
 ### 8.6. Binding source nền tảng bổ sung
 
 Nguồn dưới được đọc từ `final_evidence_snapshot.zip` đúng byte/manifest,
@@ -1372,3 +1384,4 @@ tiện; các khác biệt UI được xác nhận ở §3 không thay nguồn ng
 | BG01 | `utils/graph_util.py` | `5a8ea82f3112932d8df7677223a433d331e5a0212c42154e3b4c648a4cb24b6a` | Live đồng nhất byte |
 | BG02 | `agents/indicator_agent.py` | `470fa5d1f4350180a23bfe40564cd6c02e00b8939cd2d90cad775776f74ee57b` | Live khác presentation; dùng member frozen, không suy hash live đồng nhất |
 | BG03 | `core/causal_alpha.py` | `6f52a344047c0e96139e389807161b7dcccfbb70e6bde13db99e9910dc4e47e6` | Live đồng nhất byte |
+| BG04 | `core/regime_detector.py` | `fba35472efafe4d5133db50d8ca24d4c57b5682960de2b8a2320a18bddf3be8b` | Live đồng nhất byte |

@@ -85,6 +85,13 @@ không tạo checklist hoặc receipt riêng.
   frozen. Kiểm links/footnotes/diff/84 đặc tả PASS; không tính lại tín hiệu,
   chạy suite/replay/API/refit hoặc build tài liệu không đổi.
 
+- **T12; §3.4, CL012–CL013, sổ §8.5.3:** nhánh `docs/thesis-hmm-foundations`;
+  trình bày HMM/feature/fit/scaler/name mapping/fallback, phân biệt posterior
+  cuối prefix với smoothing hồi tố/Viterbi. Đọc Rabiner, Hamilton và official
+  hmmlearn đúng phạm vi; source regime frozen khớp manifest. Giữ cutoff
+  resource thực và hai regime EX01. Kiểm links/footnotes/diff/84 đặc tả PASS;
+  không refit, chạy inference, suite hoặc API.
+
 ### Quan sát, chỉ số thời gian và timeline giao dịch
 
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`
