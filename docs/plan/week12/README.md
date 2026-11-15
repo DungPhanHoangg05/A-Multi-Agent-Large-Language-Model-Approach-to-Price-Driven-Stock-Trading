@@ -61,6 +61,43 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Quan sát, chỉ số thời gian và timeline giao dịch
+
+Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`
+từ develop `12508f18fc6348fdde53aff264e8e98547f4e316` đã cập nhật remote.
+
+- **T09; [Chương 3 §3.1](../../../thesis/chapters/03_background.md#31-observations-and-time-indexing);**
+  viết năm mục nhỏ bằng tiếng Anh: OHLCV/phiên quan sát, cutoff và boundary,
+  cửa sổ/warm-up, thiếu/lỗi bản ghi, EX01 theo ngày. Phân biệt date với index
+  zero-based, [e−W,e), t=e−1, entry=e, exit=e+L−1 và L=3 trong study daily;
+  reset index slice không đổi vị trí trên chuỗi mẹ. Giữ 45 nến chart nằm
+  trong prefix 600 nến và phân biệt 603 hàng tối thiểu cho một query với
+  indicator warm-up/model training. Không dùng lịch quan sát như lịch sàn
+  đã xác thực hoặc gọi hợp đồng mô phỏng là quy định thanh toán hiện hành.
+- **F01:** tạo nguồn TikZ standalone `.tex`, PDF vector một trang và PNG
+  preview trong `thesis/assets/diagrams/`; chèn preview/caption và link PDF
+  ở §3.1.5. Hình minh họa contract, không vẽ giá/return tương lai. EX01 ghi
+  t=872, e=873, window [828,873), entry 04/07 và exit 06/07/2023; nguồn ngày
+  từ saved records, chỉ số còn lại dẫn xuất số học. T10 còn công thức/net
+  label/chi phí và ví dụ kinh tế; F02/chia tập vẫn chưa tạo.
+- **Nguồn và kiểm PASS:** hai hash gói snapshot/U08, năm source member và
+  hai slot EX01 khớp manifest/raw/envelope; source đang đọc đồng nhất byte
+  snapshot cho năm module liên quan. Kiểm join point/source identity,
+  prefix 600/45 ngày, cutoff/horizon/index và số học. Bổ sung CL001–CL006
+  vào sổ chung §8.2 và TIME01–TIME06/hash sản phẩm ở §8.4; không viết lại
+  nhãn, metric, dữ liệu hoặc receipt lịch sử.
+- **Kiểm trình bày:** pdfLaTeX hai lượt build (lượt sau sửa một đường nét
+  chạm nhãn), exit 0; PDF 170×112 mm, render Poppler 1.800 px và xem toàn
+  trang cuối. Không cắt/chồng chữ, overfull/underfull, undefined reference
+  hay font Type3; MiKTeX còn nhắc cập nhật, không phải lỗi build. Kiểm
+  links/anchors, footnote, UTF-8, đặc tả 84 task và diff whitespace; chỉ
+  T01–T09 DONE, §3.2–§3.7 và các chương khác giữ placeholder như trước.
+- **Phạm vi:** nội dung Markdown và một hình minh họa có source/preview;
+  không đổi code/test/schema/config/runtime hoặc data path nghiên cứu.
+  Theo AGENTS §1.2 không chạy compileall/unit/E2E/leakage, cold replay,
+  model/thị trường API hoặc refit. Chỉ build/kiểm hình mới; chưa build PDF
+  toàn văn, đóng P2/G2 hoặc thay F11/F12/nghiệm thu nghiên cứu.
+
 ### Khung sáu chương và sổ đối soát chung
 
 Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-chapter-skeletons`

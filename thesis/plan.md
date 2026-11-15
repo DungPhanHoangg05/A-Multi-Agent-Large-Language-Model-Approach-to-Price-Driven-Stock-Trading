@@ -33,7 +33,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Cơ sở lý thuyết — P2
 
-- [ ] T09 — Giải thích dữ liệu, phiên, cửa sổ và chỉ số thời gian.
+- [x] T09 — DONE: [§3.1](chapters/03_background.md#31-observations-and-time-indexing), OHLCV/phiên quan sát/cutoff, [e−W,e), t=e−1, entry e và exit e+L−1; 45/600 nến, warm-up và thiếu dữ liệu. [F01](assets/diagrams/F01_trade_timeline.pdf) có nguồn TikZ, đã build/render/kiểm; EX01 và CL001–CL006 có binding trong sổ chung. Chưa hoàn tất T10–T15 hoặc Chương 3.
 - [ ] T10 — Trình bày hợp đồng kinh tế, nhãn và ví dụ LONG/CASH.
 - [ ] T11 — Giới thiệu chỉ báo, alpha và sentiment.
 - [ ] T12 — Giải thích HMM và suy luận regime tại cuối prefix.

@@ -5,7 +5,7 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
-**Viết khóa luận, ngày 14/11/2026:** thư mục làm việc là `thesis/`.
+**Viết khóa luận, cập nhật ngày 15/11/2026:** thư mục làm việc là `thesis/`.
 [Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
 bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp
 phải giải thích toàn hệ thống cho giảng viên lần đầu tiếp cận.
@@ -22,8 +22,10 @@ phụ trách. [Ví dụ xuyên suốt EX01](../../thesis/evidence.md#7-ví-dụ-
 chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối nguồn
 đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
 [Khung sáu chương](../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
-đã có tiêu đề/placeholder tiếng Anh và quy ước dùng sổ bằng chứng chung;
-chưa có nội dung chương hoàn chỉnh hoặc kết quả mới. Bản xem hai
+đã có tiêu đề/placeholder tiếng Anh và quy ước dùng sổ bằng chứng chung.
+P2 đã bắt đầu với [Chương 3 §3.1](../../thesis/chapters/03_background.md#31-observations-and-time-indexing)
+về quan sát/chỉ số thời gian và hình F01; chưa có chương hoàn chỉnh hoặc
+kết quả thực nghiệm mới. Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,
 kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung

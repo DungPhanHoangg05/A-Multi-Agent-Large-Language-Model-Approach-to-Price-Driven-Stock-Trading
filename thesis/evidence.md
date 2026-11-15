@@ -810,7 +810,8 @@ cross-reference do LaTeX sinh. `F11` trong danh mục hình khác mốc nghiệm
 - Mỗi ID có **một loại nguồn chính**; panel phụ phải ghi loại/nguồn của nó.
   Ví dụ ảnh UI thật nếu bổ sung vào F11 phải ghi version và lượt kiểm riêng,
   không biến sơ đồ workflow thành bằng chứng nghiệm thu.
-- Đường xuất trong bảng là **đề xuất, chưa tồn tại**: các tiền tố
+- Đường xuất trong bảng là **đề xuất tại mốc T06**; sản phẩm F01 đã tạo sau
+  đó được ghi tại §8.4, không suy các ID khác đã có sản phẩm. Các tiền tố
   `diagrams/`, `figures/`, `tables/` nằm dưới `thesis/assets/`. Nguồn giả mã
   A01–A03 nằm trong bản thảo Chương 4 §4.9 rồi chuyển sang LaTeX; label là
   định danh dự kiến. Chưa tạo các thư mục/file này chỉ để lấp danh mục.
@@ -1193,9 +1194,10 @@ phí làm đổi dấu kết quả, không chọn lại một ca thắng sau khi
 
 ### 8.1. Điểm vào sáu chương
 
-Sáu file dưới đây là **khung Markdown**, chưa có nội dung chương hoàn chỉnh.
-Tiêu đề chương/mục giữ theo [dàn bài §C](outline.md#c-detailed-chapter-outline);
-mọi mục có block `Not yet drafted` nêu cụ thể nội dung còn thiếu. Các ghi chú
+Sáu file dưới đây được khởi tạo từ **khung Markdown** tại T08; chưa có chương
+hoàn chỉnh. Chương 3 §3.1 đã có bản nháp và F01 ở T09; các mục khác còn trống.
+Tiêu đề chương/mục giữ theo [dàn bài §C](outline.md#c-detailed-chapter-outline).
+Các mục chưa viết có block `Not yet drafted` nêu cụ thể nội dung còn thiếu. Các ghi chú
 này là hỗ trợ viết, phải được thay bằng nội dung và kiểm nguồn ở task tương
 ứng; không đưa nhãn placeholder vào bản nộp. Không suy hoàn thành các task
 viết từ việc đã có file hoặc tiêu đề.
@@ -1204,7 +1206,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | --- | --- | --- |
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
-| [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02 | Định nghĩa, công thức, đơn vị, ví dụ minh họa và nguyên tắc đánh giá |
+| [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4 binding thời gian | §3.1 đã có nháp về quan sát/chỉ số thời gian và F01; §3.2–§3.7 còn thiếu |
 | [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01 | Toàn bộ đường chạy từ inputs qua agent/context/policy tới final action; sơ đồ và thuật toán |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
@@ -1216,8 +1218,9 @@ chương bằng tiếng Anh; hướng dẫn quản lý trong sổ này bằng ti
 
 ### 8.2. Quy ước ánh xạ luận điểm và ô bảng khi viết
 
-Chưa có dòng ánh xạ **luận điểm/ô bảng của bản thảo** được nghiệm thu: sáu
-chương hiện chỉ có placeholder. Các số đã kiểm ở §3/§7 vẫn là bằng chứng
+Các dòng dưới ánh xạ **luận điểm/ô bảng đã viết trong bản thảo**, hiện thuộc
+Chương 3 §3.1 và F01. Đây là đối soát nội bộ, chưa phải phản biện bản thảo
+hoặc xác nhận nhân quả toàn hệ. Các số đã kiểm ở §3/§7 vẫn là bằng chứng
 nguồn; việc chép vào chương phải có ánh xạ cụ thể và kiểm lại cách diễn đạt.
 Thêm dòng vào bảng dưới khi một luận điểm, công thức hoặc ô bảng được viết;
 chỉ gán ID `CL001`, `CL002`, … khi có nội dung thật, không gán ID giả cho
@@ -1225,6 +1228,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | Claim ID | Đích bản thảo và nội dung chính xác | Loại bằng chứng | Nguồn, phiên bản, hash và locator | Đơn vị, support và phép dẫn xuất | Phạm vi kiểm, giới hạn và việc còn thiếu |
 | --- | --- | --- | --- | --- | --- |
+| CL001 | [§3.1.1](chapters/03_background.md#311-daily-observations): trường OHLCV, ngày quan sát và ý nghĩa chỉ số hàng | HOP_DONG_TRIEN_KHAI | TIME03–TIME05 tại §8.4; `price_view`, `snapshot_payload`, `HistoricalData.prefix/state` | Một chuỗi/mã; i=0..N−1 sau khi xác định analysis view; unit/price basis giữ theo nguồn | Đối soát 15/11/2026; đây là định nghĩa dùng trong nghiên cứu, không chứng nhận lịch sàn, unit vendor hoặc thời điểm công bố thực |
+| CL002 | [§3.1.2 và bảng event/index](chapters/03_background.md#312-decision-cutoff-and-the-exclusive-window-boundary): [e−W,e), t=e−1, entry=e, exit=e+L−1 | HOP_DONG_TRIEN_KHAI | TIME01 `_prepare_window/_get_actual_direction`; TIME02 `target_fields` | Chỉ số nguyên zero-based trên chuỗi mẹ; L=3 cho daily contract, không phải cộng ba ngày lịch | Đã đối chiếu hai đường nguồn frozen; reset index cửa sổ không đổi cutoff của chuỗi mẹ; không diễn giải thành quy định thanh toán hiện hành |
+| CL003 | [§3.1.3](chapters/03_background.md#313-chart-windows-longer-history-and-warm-up): W=45, A=600, điều kiện đủ prefix/horizon và tối thiểu 603 hàng cho một query sớm nhất | DAN_XUAT | TIME01 `ALPHA_HISTORY_CANDLES/required_backtest_rows/build_walk_forward_end_indices`; TIME03 `state` | max(W,A)+L = max(45,600)+3 = 603; ba hàng cuối dùng đánh giá | Kiểm số học và slicing nguồn; không gọi engine/API; không phải ngưỡng hội tụ indicator, số hàng train hoặc bảo đảm mọi feature hợp lệ |
+| CL004 | [§3.1.4](chapters/03_background.md#314-missing-and-invalid-records): analysis view, suffix sau OHLC lỗi, thiếu prefix/horizon và UNKNOWN | HOP_DONG_TRIEN_KHAI | TIME04 `price_view`; TIME03 `prefix/state`; TIME01 `_get_actual_direction`; TIME02 `target_fields` | Kiểm ngày/finite/OHLC/volume; thiếu observation không được tự thay bằng nến giả | Chỉ mô tả đường frozen đã đọc; phân biệt helper UNKNOWN với target contract ném lỗi; không nâng thành mô tả tất cả loader hoặc chứng nhận causal |
+| CL005 | [§3.1.5](chapters/03_background.md#315-a-dated-example): dates, số nến và chỉ số hàng của EX01 | DAN_XUAT | EX01-S/EX01-O tại §7.2 và TIME06 tại §8.4; `price_prefix.Datetime`, `target.decision_bar_index`, `dates` | 600/45 quan sát; t=872 → e=873; start=e−45=828, exit=e+3−1=875; dates từ nguồn, không cộng ngày lịch | Join point/source hash và kiểm cutoff/prefix; số hàng/các ngày là dữ liệu đã lưu, indices còn lại là số học; chưa đọc giá/return vào input hoặc sinh lại outcome |
+| CL006 | [F01](assets/diagrams/F01_trade_timeline.pdf), chèn tại §3.1.5: lịch sử khả dụng, entry/exit và EX01 | MINH_HOA | TIME01–TIME03, EX01-S/O; nguồn TikZ và sản phẩm có hash tại §8.4 | Hình contract; khoảng cách không theo thời gian lịch; không hiển thị giá tương lai | PDF một trang đã build/render/xem 15/11/2026; chưa phải sơ đồ chia tập F02, công thức phí T10 hay kiểm bố cục PDF toàn văn |
 
 Quy tắc điền bảng:
 
@@ -1267,3 +1276,49 @@ trong giai đoạn viết; việc chuyển nguồn bản nộp sang LaTeX thuộ
 Trạng thái công việc nằm duy nhất tại
 [checklist trong kế hoạch](plan.md#21-một-nguồn-trạng-thái-công-việc);
 lịch sử kiểm tra gộp lưu tại README tuần.
+
+### 8.4. Binding cho quan sát và chỉ số thời gian
+
+Đối soát ngày **15/11/2026**, từ develop
+`12508f18fc6348fdde53aff264e8e98547f4e316`. TIME01–TIME05 dưới đây khớp
+byte với member cùng đường dẫn trong `final_evidence_snapshot.zip`, hash gói
+ở §3; đã kiểm `snapshot_manifest.json.source_members` cho cả năm file.
+Vì vậy link mã hiện tại ở bảng chỉ là đường đọc thuận tiện; binding tham
+chiếu vẫn là source frozen, không đổi phiên bản nghiên cứu.
+
+| Source ID | Đường đọc / member snapshot | SHA256 nguyên byte |
+| --- | --- | --- |
+| TIME01 | [core/backtest_engine.py](../core/backtest_engine.py) | `6c8f87c9ac7e15fbf67493ccfce06487c22b3a56145a5583f7fa8305d852026b` |
+| TIME02 | [utils/target_contract.py](../utils/target_contract.py) | `1b2af4f8c3a031d44334281a63e812a1b1ee6cb52216b02602601c489d10ffb7` |
+| TIME03 | [core/historical_evaluation_data.py](../core/historical_evaluation_data.py) | `96cab48918cd53b7408943157759a97477c367e3a4a07b4c98e46ecb7b039857` |
+| TIME04 | [core/historical_asset_readiness.py](../core/historical_asset_readiness.py) | `914d9cfa94696f0dec572fac0af0d6ab4ddc1e0160edcd705434b8a27d9579f1` |
+| TIME05 | [core/historical_signals.py](../core/historical_signals.py) | `26a35fa6e5421db09f5cbed5f219346e9aa72667b2a759568f0884cdcecdc7c5` |
+| TIME06 | EX01-S/EX01-O, slot U08 và raw hash tại §7.2; input `provenance.source_sha256` = outcome `source_sha256` | `1bba0057bf6b4a847b43236bef745a311ef633692202a59138e065d0a9ddca27` (source identity đã ghi, không phải raw slot hash) |
+
+EX01-S giữ 600 ngày từ 02/02/2021 tới 03/07/2023, 45 ngày cuối bắt đầu
+27/04/2023. EX01-O có decision_bar_index=872, target_horizon_bars=3, dates
+03/07, 04/07, 05/07, 06/07/2023. Đã kiểm raw hash/manifest và envelope hai
+slot, cùng point_id/source identity; chỉ đọc trường thời gian/index, không
+chạy lại labels/metrics. Chỉ số 828/873/874/875 là dẫn xuất từ index đã lưu,
+không đổi chỉ số khi slice 45/600 hàng được reset cục bộ.
+
+**Sản phẩm F01:** nhãn/caption tiếng Anh, nguồn minh họa contract, dates/index
+được truy về EX01. Nguồn TikZ standalone giữ được để sửa và chuyển vào LaTeX
+sau; PNG chỉ phục vụ xem trong Markdown, PDF là hình vector để dàn trang.
+
+| File đã tạo | SHA256 nguyên byte |
+| --- | --- |
+| [F01_trade_timeline.tex](assets/diagrams/F01_trade_timeline.tex) | `5d716830ca1c81ecb9a569306ea0260976d3dd8499088b5cfaaa6f33c3ccc9b2` |
+| [F01_trade_timeline.pdf](assets/diagrams/F01_trade_timeline.pdf) | `b4fa90e3c743863cf33031e67410133e5e08b9194e2ee1cceb398885b2a414bb` |
+| [F01_trade_timeline.png](assets/diagrams/F01_trade_timeline.png) | `b777264fe6dc820de343b6db7e24eee2c3aba047f8bca729fc0c0184cfb780d9` |
+
+Từ root repo, tạo thư mục tạm `tmp/pdfs/thesis-t09`, chạy
+`pdflatex --disable-installer --interaction=nonstopmode --halt-on-error --output-directory=tmp/pdfs/thesis-t09 thesis/assets/diagrams/F01_trade_timeline.tex`,
+rồi `pdftoppm -scale-to 1800 -singlefile -png tmp/pdfs/thesis-t09/F01_trade_timeline.pdf tmp/pdfs/thesis-t09/F01_preview`.
+Chỉ chép PDF/PNG đã kiểm sang `assets/diagrams/`. Toolchain: pdfTeX
+3.141592653-2.6-1.40.28, MiKTeX 25.12; một trang 170×112 mm. Đã xem toàn
+trang render, không cắt/chồng chữ; log không overfull/underfull hoặc undefined
+reference. MiKTeX vẫn nhắc kiểm cập nhật nhưng build exit 0. Metadata PDF có
+thể khác giữa các lần build; hash trên khóa sản phẩm đã kiểm, không cam kết
+PDF luôn byte-identical. T10 còn viết công thức phí/net label và ví dụ kinh
+tế; F01 không thay nội dung đó hoặc việc kiểm toàn văn ở các task dàn trang.
