@@ -99,7 +99,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 #### Phần đầu và phụ lục — P7
 
 - [x] T59 — DONE: [Abstract và keywords](frontmatter.md#abstract) tiếng Anh, đủ bài toán/phương pháp/hai thiết kế/kết quả/giới hạn; CL233–CL236/§13.1. Số khớp Chương 5/6, không gain/tiền cứu; giới hạn từ chính thức chưa có, bìa giữ nguyên.
-- [ ] T60 — Hoàn thiện bìa, lời cảm ơn, cam đoan và danh mục.
+- [ ] T60 — REVIEW: [phần đầu](frontmatter.md#acknowledgements) đã có metadata/bìa, lời cảm ơn tối giản, cam đoan đề xuất chưa ký, 42 chữ viết tắt và 26 dòng ký hiệu; CL237–CL241/§13.2. Chờ tác giả xác nhận câu chữ cá nhân/cam đoan; không có biểu mẫu chính thức, không bịa chữ ký/ngày/phê duyệt.
 - [ ] T61 — Viết Phụ lục A: hợp đồng dữ liệu và thời gian.
 - [ ] T62 — Viết Phụ lục B: prompt và response.
 - [ ] T63 — Viết Phụ lục C: thuật toán và cấu hình.

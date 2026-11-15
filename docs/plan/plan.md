@@ -34,7 +34,7 @@ EX01 kết thúc bằng outcome sau barrier, giữ net loss và giới hạn cau
 G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biện ngoài/dàn trang cuối.
 UI/F11 vẫn PENDING. **P4 và P5 đã đủ bản nháp Chương 5 và Chương 2**, kèm nguồn/bảng/bibliography đã đối soát.
 **P6/T54–T58:** P6 đủ bản nháp Chương 1/6 và đối soát lập luận; G3 tự kiểm nội bộ đạt đúng nguồn T36–T58, chưa review ngoài/dàn trang cuối.
-**P7/T59–T59:** Đã viết abstract và bảy keywords; T60 đang hoàn thiện các mục phần đầu còn lại, quy định chính thức chưa được cung cấp.
+**P7/T59–T60:** T59 đã viết abstract/7 keywords; T60 đủ nội dung bản nháp và danh mục, đang REVIEW phần lời cảm ơn/cam đoan cá nhân; chưa ký hoặc xác nhận biểu mẫu chính thức.
 T61 trở đi, phụ lục, rà soát khoa học và dàn trang cuối còn việc.
 Chỉ viết/đối soát nguồn; Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING không đổi.
 Bản xem hai
