@@ -314,6 +314,15 @@ Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ 
   LaTeX thuộc dàn trang sau. Kiểm artifact/counts/source/links/footnote/diff;
   không suite/refit/API/label generation vì không đổi runtime/input.
 
+- **T38; §5.3/B04c–e, CL126–CL130, ED17–ED22:**
+  `docs/thesis-experiment-configuration`; runtime/models/fits/options và
+  pairing/requests có nguồn. Component attempts649 thuộc455frozen+194new,
+  SDKtemp1e-8/output1024vision–2048Decision; context960cảhai. Giữ40order
+  mismatch/9cross-epoch và componentprovider-only khác U08. Context raw1290/
+  bypass1158/HTTP1702=1687active+15retired; UNKNOWNreserve9177, maxchars4750.
+  Kiểm counts/options/runtime107/logicalunits, footnote/links/diff; không
+  model/fit/HTTP/replay hoặc suite vì chỉ viết từ records/receipt đã khóa.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

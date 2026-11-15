@@ -1363,6 +1363,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL124 | [Coverage/B04b](chapters/05_experiments.md#523-coverage-historical-resources-and-missing-sentiment) | DO_DUOC | ED11/ED12/ED15/ED16; §10.3 | UP25/DOWN77;missing79;CORE4bank852;48/54support | Bank count khác query eligibility, numeric tasks khác signal episodes |
 | CL125 | [Missingness/transfer](chapters/05_experiments.md#523-coverage-historical-resources-and-missing-sentiment) | DO_DUOC | ED12/ED15/BG16/SYS21; §10.3 | Component verified_articles<3:79; U08 unavailable79;828return differences | Không828label flips, no missing=neutral, không loại fallback để đẹp kết quả |
 
+| CL126 | [B04c/runtime/models](chapters/05_experiments.md#531-runtime-model-identities-and-offline-fitting) | DO_DUOC | ED01/ED17/ED20–ED22/ED07; §10.4 | Python3.13.5, modelaliases, declared0/observed1e-8; outputtoken1024/2048 vs960 | No APIseed/immutable revision; current defaults không thay metadata |
+| CL127 | [Fit versus inference](chapters/05_experiments.md#531-runtime-model-identities-and-offline-fitting) | HOP_DONG_TRIEN_KHAI | ED14/ED15/ED22; TR01–TR08 §9.15; §10.4 |9selector fits/51bindings; teacher48tasks/731cycles/student42-3000 reused | Trainingfalse của U06 không nghĩa nevertrained; no LLMfinetune |
+| CL128 | [Pairing histories](chapters/05_experiments.md#532-pairing-and-execution-histories) | DO_DUOC | ED19/ED20/ED14/ED22; §10.4 | Component147groups,40order mismatch/9cross-epoch; contextu0/r0–2/topo | Component provider-only override khác U08three-attempt rule; no independent repeats |
+| CL129 | [B04d/e slot accounting](chapters/05_experiments.md#533-forecast-response-and-http-accounting) | DO_DUOC | ED03/ED17/ED18/ED08/ED09; §10.4 |375selected;2448slots1290raw1158bypass;1702HTTP=1687active+15retired | HTTP200 khác valid response; upstreamgraph408 không408LLM |
+| CL130 | [Telemetry/reserve](chapters/05_experiments.md#533-forecast-response-and-http-accounting) | DO_DUOC | ED08/ED07; §10.4 |4750maxchars,2986930observedtokens,9177UNKNOWNreserve,51accounts/repeat | Tokens khác billing, U09newAPI0 khác U08collection0; no new measurements |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2274,6 +2280,12 @@ ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc q
 | ED14 | snapshot-data | `docs/plan/week12/unified_comparison_protocol_v2.json` | `b783a0d50cd03d418fdc439ee93eba76edcd1a60be063deaecf3e8259c8bb34a` |
 | ED15 | snapshot-data | `docs/plan/week12/unified_comparison_manifest_v2.json` | `dff00745cb55d8e92570fd7a331e69971f241d06ca77815d0382006c67e8b30e` |
 | ED16 | U09 | `outputs/unified_integration/u09_analysis_r1/predictions.csv` | `d7d5f9b90d009f3da31de64df067ae9ac4ff72ccd395debf6c7f8ff08aa1da32` |
+| ED17 | revision | `outputs/revision/revision_minimal_final_v1/attempts.json` | `5323ea436d2f6fd3f023de2e16bf7fddecc1e5d172c8ec6fed8cc372126d50a9` |
+| ED18 | revision | `outputs/revision/revision_minimal_final_v1/costs.json` | `d6a682ac947c959f2d4f96ef25fc478afdc2611fe3cb5ad2a2e87589ed6b77bd` |
+| ED19 | revision | `outputs/revision/revision_minimal_final_v1/pairing.json` | `aa6eb54cfb0c7931876a1ede1cfabaddc9ace2eeace340acb806c56a96c03c0b` |
+| ED20 | revision | `outputs/revision/chart_r1_run_v1/run_manifest.json` | `487d92694d96dace807471e7c83cd30fda4d312335b14759f262998fc8e5b086` |
+| ED21 | revision | `outputs/revision/r4_value_bank_v1/manifest.json` | `6ea80ee64283fe68b15c61e5ccbc0ca30d394e4d8544f7a41946e3b90a1deca4` |
+| ED22 | U08 | `docs/plan/week12/unified_live_runtime.json` | `2a4661d43ffde54a991cb58858c4420241645ddb1feca59f00ec875fdbdde083` |
 <!-- experiment-data-end -->
 
 ### 10.2. Phạm vi hai nghiên cứu và mốc khóa
@@ -2283,3 +2295,7 @@ T36; CL117–CL120, ED01–ED09. Đã đọc74 artifact/source chọn lọc bằ
 ### 10.3. Dữ liệu, lịch, phân vùng và độ phủ
 
 T37; CL121–CL125, ED10–ED16. Table B04a/b nằm trong §5.2 Markdown, chưa tạo CSV/TeX dàn trang. Kiểm main prediction theo symbol/date khớp102 U08shared; labels25/77, BHN6/others12, accounts51, dates12/folds6. Component lineage<3verified_articles=79 và U08flag unavailable79 đọc từ hai nguồn riêng. Price-quality9×1681rawrows; BHNinvalid2022-09-13, suffix bắt đầu14/09, excluded673. Componentfolds51purgePASS/train32–318/validation18–21; finalcontext8train123/BHN85, validation54–60/BHN56,51bindings/9fits, không gán split mới cho donor cũ. U06 bank coverage211/213/215/213 tổng852, maxexit2022-12-30; chênh828 với ngưỡng1e-8percentagepoints, max.04298848884252138pp là giá trị return, không labelcount. ED14/15 raw snapshot khớp source pin; immutable source/system gate giữ nguyên. Chỉ kiểm tài liệu/hash/counts/links/84specs, không fit/compute label/pipeline/API/suite.
+
+### 10.4. Cấu hình thực dùng và đơn vị thực thi
+
+T38; CL126–CL130, ED17–ED22. Component attempt metadata649records:455frozen-source (240upstream/215Decision),194newDecision; success433/182/error22/12. Toàn SDKtemp1e-8, visionqwen3.8-27b1024 và Decisiongpt-oss-20b2048, APIseednull; protocol khai0. ED20provider-only bỏ internalcap/deadline, không áp U08cap3 cho toàn component. Pairing147groups/40order mismatch/9cross-epoch. U08config token960/960, observedwiretemp1e-8, SDKretry0; runtime analysis107packages/Python3.13.5. ED08receipt counts1702all/1687active/15retired, status2001505/429194/5031/UNKNOWN2; active2001495/429191/5031. Graph408/render204/shared102 khác số modelcalls. Slots2448/raw1290/bypass1158 và51account/repeat giữ đúng đơn vị. Tokens2986930/reserveUNKNOWN9177/maxchars4750 chép receipt, không billing estimate; U09API0 chỉ analysis. Kiểm metadata/counts/84spec/link/footnote/diff, không runtime suite, model, fit, newtelemetry hoặc replay.

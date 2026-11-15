@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Sections 5.1–5.2 define the source-checked study scope and data support; subsequent sections remain to be drafted.
+> **Draft status: partial chapter.** Sections 5.1–5.3 specify study scope, data support and recorded execution configuration; subsequent sections remain to be drafted.
 > Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -233,7 +233,145 @@ comparison.
 
 ## 5.3. Configuration and paired protocol
 
-> **Not yet drafted.** Report each study's frozen runtime, hosted-model options and source/data/model identities. Explain shared upstream, Decision repeats and role counts; distinguish market points, accounts, slots, new responses, fallback, HTTP attempts and retired records without treating repeats as independent market samples.
+### 5.3.1. Runtime, model identities and offline fitting
+
+**Table B04c. Recorded configuration of the two response collections.**
+Configuration values come from their own manifests and request telemetry,
+not the application's current defaults.
+
+| Setting | Component collection | Historical-context collection |
+| --- | --- | --- |
+| Python | 3.13.5 | 3.13.5; full locked analysis environment records 107 packages |
+| NumPy / pandas / SciPy | 2.1.2 / 2.3.3 / 1.16.1 | 2.1.2 / 2.3.3 / 1.16.1 |
+| scikit-learn / TA-Lib | 1.7.2 / 0.6.8 | 1.7.2 / 0.6.8 |
+| groq / langchain-core / langchain-groq | 0.37.1 / 1.2.17 / 1.1.2 | 0.37.1 / 1.2.17 / 1.1.2 |
+| Pydantic | 2.11.7 | 2.11.7 |
+| Hosted vision alias | `qwen/qwen3.8-27b` | `qwen/qwen3.8-27b` |
+| Hosted Decision alias | `openai/gpt-oss-20b` | `openai/gpt-oss-20b` |
+| Declared temperature / observed request temperature | 0 / $10^{-8}$ in archived SDK metadata | 0 / $10^{-8}$ in archived wire options |
+| Maximum output tokens: vision / Decision | 1,024 / 2,048 | 960 / 960 |
+| Input language / analysis timeframe | Vietnamese / 1D | Vietnamese / 1D |
+| Alpha normalization / weights | `zscore_tanh` / no supplied factor-weight vector | Same declared normalization; Common additionally uses its frozen causal selector |
+| Prompt constraints | Final Decision <6,500 characters | Final Decision, including repair, <6,500; prior/projection ≤600 |
+| Hosted reproducibility limit | Aliases and reported metadata; immutable served-weight revision unavailable | Aliases, raw requests/responses and receipts; no claim that a future call reproduces the same served weights or response |
+
+The component attempt ledger contains no observed API seed. A declared
+zero temperature or observed near-zero value does not establish deterministic
+hosted generation. In U08 the wire additionally binds `n=1`, non-streaming
+requests, on-demand tier, hidden reasoning, vision effort `none` and
+Decision effort `low`; SDK retries are zero. These are recorded study
+options, not recommendations about current provider availability.
+[^configuration-models]
+
+Offline fitting and hosted inference must be counted separately. Component
+price/logistic controls use their frozen chronological train/validation
+resources; reading the final release does not refit them. Final Common
+alpha has nine stock-specific fits and 51 scope bindings as Section 5.2
+explains. The MT teacher uses 48 historical tasks/731 train cycles and the
+student resource is the selected seed-42/step-3000 export from three
+5,000-step training seeds. The training recipe, scaler/HMM cutoffs and
+selection constraints are specified in Section 4.8.3. U06 preparation and
+U08 collection reuse those resources; `student_teacher_hmm_training=false`
+at asset preparation means **no new training in that phase**, not that the
+resources were never trained. Neither collection is a fine-tuning experiment
+on the hosted Decision LLM.
+
+### 5.3.2. Pairing and execution histories
+
+The component main comparison pairs Full/Base on the same saved upstream
+reports and market input. Its main grid has one paired pass over 102 points.
+The nine-unit upstream panel varies upstream realization across three
+executions, with the first realization's paired outputs shared with main.
+The factorial panel instead has three Decision executions on its selected
+units and fixed upstream. Three panel executions do not imply three fresh
+main-market runs. Main/upstream compact-alpha and factorial full-value
+prompts are separate families.
+
+Execution metadata also constrain the component interpretation: the
+147 paired groups record 40 mismatches between planned job listing and
+successful-request order, and nine groups cross execution epochs. Reuse,
+quota routing and longest-processing-time scheduling did not guarantee
+actual counterbalance. The final collection's provider-only execution
+amendment removes the earlier internal attempt/deadline limits while
+retaining the scientific jobs, prompts and outputs. It must not be
+described using U08's later three-attempt transport rule. Outcomes are
+retained rather than reordered or recollected to improve balance.
+[^configuration-pairing]
+
+The context study uses one accepted upstream realization per point and
+three Decision repeats, with a fresh repeat-local dependency map. Each
+repeat schedules the eight roles in Section 4.9's constrained topological
+order. Common precedes its dependent roles, and Fact Anchor precedes MT.
+The fixed organization assignment is $1+(i\bmod5)$ for global point index
+$i$; cross-point finish order may differ across queues. All 24 forecasts
+must be durable before that point's outcome is opened. There is no voting,
+best-repeat selection or response borrowing across repeats.
+
+U08's quota policy changes and explicitly authorized point/slot replacement
+generations are retained as described in Section 4.10. Ordinary resume
+preserves the active execution identity and attempt cap; authorized
+replacements preserve retired raw evidence and phase accounting. Pairing
+uses the accepted shared parent for each completed point, without denying
+that failed generations existed. The recorded source/runtime signatures,
+raw source IDs and output hashes establish lineage; they do not establish
+independent financial observations.
+
+### 5.3.3. Forecast, response and HTTP accounting
+
+**Table B04d. Context roles across all three repeats.** Every role has
+306 scheduled forecast slots on the same 102 market points. A no-request
+bypass remains in the primary action grid.
+
+| Role | Actual raw Decision responses | No-request bypass slots |
+| --- | ---: | ---: |
+| Native | 306 | 0 |
+| Common | 306 | 0 |
+| Bayesian v1 | 144 | 162 |
+| C2 | 3 | 303 |
+| A_tp_pool | 24 | 282 |
+| B_semantic | 3 | 303 |
+| Fact Anchor | 306 | 0 |
+| MT_BICL | 198 | 108 |
+| Total | 1,290 | 1,158 |
+
+These sum to 2,448 role slots. The accepted upstream work has 102 shared
+stages, 408 graph stages and 204 render stages; the graph stages include
+deterministic/combined work and therefore are not 408 hosted vision calls.
+The accepted Pattern/Trend work has 204 logical executions. The context
+controls add two sets of numerical actions, without hosted inference.
+
+**Table B04e. Recorded request-ledger scopes.** Success/status counts refer
+to the ledger named in the row, not interchangeable output denominators.
+
+| Ledger scope | HTTP attempts | Recorded success/status accounting |
+| --- | ---: | --- |
+| Component frozen-source ledger | 455 | 433 successes, 22 errors; 240 upstream and 215 Decision attempts |
+| Component release's new calls | 194 | 182 successes, 12 errors; Decision only, zero new vision calls |
+| U08 entire research ledger | 1,702 | 1,505 HTTP 200, 194 HTTP 429, one HTTP 503, two UNKNOWN |
+| U08 active ledger | 1,687 | 1,495 HTTP 200, 191 HTTP 429, one HTTP 503 |
+| U08 retired records, retained in entire ledger | 15 | Ten HTTP 200, three HTTP 429 and two UNKNOWN |
+
+An HTTP 200 is not by itself a schema-valid selected forecast: request
+attempts may include parse/repair history. Thus neither 1,505 nor 1,495
+replaces 1,290 raw Decision outputs. The U08 receipt records at most three
+attempts per active execution and a maximum final Decision text of 4,750
+characters including repair. It retains 9,177 reserved tokens for the two
+uncertain retired sends and records 2,986,930 observed tokens in the entire
+ledger. Observed tokens do not establish billing for failed/uncertain
+requests. Smoke/history carry and the numerical analysis phase have their
+own scopes; U09's `new_api_calls=0` describes analysis, not an absence of
+hosted collection in U08.[^configuration-counts]
+
+Each method has 51 account paths per repeat; the context study therefore
+has 153 method-specific account paths across three repeats, not 153
+independent accounts. Main statistical aggregation first respects those
+repeats and 51 account identities. The number of sampled market points
+remains 102, with only six exposed temporal clusters. Source counts,
+attempt counts and repeated decisions cannot be added to that denominator.
+
+[^configuration-models]: ED01 component runtime, ED17 attempt metadata, ED20/ED21 component manifests and ED22 U08 runtime; U09 input runtime in ED07; CL126–CL127, ledger §10.4. Declared temperatures are distinguished from observed SDK/wire values.
+[^configuration-pairing]: ED02/ED03 component summaries, ED19 pairing and ED20 provider-only execution policy; ED14/ED22 U08 protocol/runtime, plus Chapter 4 source bindings SYS44–SYS57; CL128. Scientific pairing and actual successful-call ordering are different facts.
+[^configuration-counts]: ED03/ED17/ED18 component completion/attempt/cost ledgers and ED08/ED09 U08 acceptance/receipt; U09 telemetry in ED07; CL129–CL130. Counts are read from archived records, including retired HTTP, without replaying requests or measuring new latency/usage.
 
 ## 5.4. Comparators and interventions
 
