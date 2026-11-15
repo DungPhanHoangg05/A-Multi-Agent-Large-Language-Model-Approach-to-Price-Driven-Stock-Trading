@@ -50,7 +50,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T20 — DONE: [§4.3.4](chapters/04_proposed_system.md#434-alpha), candidate adaptations, công thức thực thi/normalization/IC/ranking/report và Native/Common riêng. CL043–CL047 khớp source và EX01 selector/projection đã khóa; giữ Native row-wise FAIL, in-sample diagnostics và symmetric Sharpe khác CASH. Không refit, sửa runtime hoặc nhận công thức thích nghi bằng bản gốc.
 - [x] T21 — DONE: [§4.3.5](chapters/04_proposed_system.md#435-sentiment), live/component-cache/context FrozenNews riêng, scorer/availability/decay và min3/reliable8. CL048–CL050 giữ EX01 unavailable/null khác zero/neutral; không crawl, chạy scorer hoặc sửa nghiên cứu đã khóa.
 - [x] T22 — DONE: [§4.4 và B03 phần foundation](chapters/04_proposed_system.md#44-native-and-common-foundations), delta field/selector/instruction/caps; Native/Common khác Full/Base. CL051–CL054 đối chiếu envelope EX01 và paired code; không nhận bridge là ablation một nguyên nhân hoặc bảng prior đã hoàn tất.
-- [ ] T23 — Giải thích episode lịch sử, nhãn và điều kiện đủ thời gian.
+- [x] T23 — DONE: [§4.5.1–§4.5.3](chapters/04_proposed_system.md#451-a-completed-signal-episode), schema/oracle/bull trap, saved JSON và timeline strict maturity; bank852 CORE4 khác context số/fold freeze/reserved102. CL055–CL058 nối manifest/U08, giữ transfer giá bank/query; regime tích hợp viết ở T24.
 - [ ] T24 — Giải thích fit regime và tích hợp vào query.
 - [ ] T25 — Giải thích truy xuất Bayesian v1, prefix và fallback.
 - [ ] T26 — Giải thích thống kê điều kiện và readiness của C2.

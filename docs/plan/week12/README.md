@@ -141,6 +141,15 @@ receipt/checklist, không đổi code/runtime/schema/input hoặc bằng chứng
   và diff PASS; không chạy suite/API/replay vì chỉ sửa tài liệu. Các hàng
   prior của B03 hoàn thiện theo task tiếp sau.
 
+- **T23; §4.5.1–4.5.3, CL055–CL058 và sổ §9.9:** nhánh
+  `docs/thesis-historical-episodes`; fields/schema/oracle/bull trap, saved JSON
+  và timeline có boundary minh họa rõ. Bank852 CORE4, maxexit2022-12-30,
+  legacy schema CRLF và raw/query transfer giữ đúng identity; không relabel.
+  Phân biệt signal211→19→3 với numeric3tasks/14observations, foldfreeze và
+  reserved102. Kiểm 44 SYS/BG, 4 EP, counts852 và ba record by-ID, 438 liên
+  kết/166 anchor, 17 footnote/84 đặc tả/diff PASS; không chạy suite, bank QA,
+  regenerate labels hoặc model vì chỉ sửa tài liệu. T24 còn viết regime.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

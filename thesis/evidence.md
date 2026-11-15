@@ -1283,6 +1283,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL052 | [EX01 profile trace](chapters/04_proposed_system.md#443-what-the-bridge-can-establish): envelope bằng nhau, messages khác | DO_DUOC | Hai forecast EX01 Native/Common, §7.2, §9.8 | Tất cả non-message request fields bằng nhau; prompt3699/4186; SHORT/CASH và LONG | Không kết luận riêng thay đổi nào gây response khác, không đọc outcome vào input |
 | CL053 | [§4.4.2/B03](chapters/04_proposed_system.md#442-full-and-base-in-the-component-study): Full/Base và hai switch | HOP_DONG_TRIEN_KHAI | SYS01 ABLATION_CONFIGS/compile, TIME01 paired path; §9.8 | Full(true,true), Base(false,false); upstream một lần/deepcopy | Joint bundle khác alpha-only; cấu hình tồn tại không chứng minh panel đã chạy |
 | CL054 | [§4.4.3](chapters/04_proposed_system.md#443-what-the-bridge-can-establish): giới hạn can thiệp | DAN_XUAT | Delta field/builder từ CL051–CL053 và identity hai nghiên cứu §3 | B03 foundation portion viết inline Markdown; variant rows tiếp ở các mục sau | Không coi Native/Common là ablation một thành phần hoặc gán lợi ích student riêng |
+| CL055 | [§4.5.1](chapters/04_proposed_system.md#451-a-completed-signal-episode): fields/schema/oracle và bull trap | HOP_DONG_TRIEN_KHAI | SYS19, TIME01, EP04 schema; §9.9 | Net_pct=100×oracle; strict>0; T/P bullish và net≤0; exact fields/types/calendar | LOSS_IF_LONG khác CASH loss; không gán label theo báo cáo hoặc hướng Close-to-Close |
+| CL056 | [EX01 record/timeline](chapters/04_proposed_system.md#452-temporal-eligibility-and-frozen-membership): 3 record đã lưu và boundary | DO_DUOC | EP01 original bank và U08 v1 trace; §9.9 | Exact JSON FPT:2022-04-07; 3 exit năm2022 < query2023-07-03 | Hai boundary rows có nhãn Illustrative; không giả ID hoặc đọc giá query tương lai |
+| CL057 | [Bank provenance](chapters/04_proposed_system.md#452-temporal-eligibility-and-frozen-membership): 852 CORE4 và transfer | DO_DUOC | EP01–EP03, SYS21, BG16; §9.9 | FPT211/MWG213/VCB215/VNM213; max_exit2022-12-30 | Bank raw khác donor query; QA cũ không phải chứng nhận raw signal journal mới; không relabel |
+| CL058 | [§4.5.2–4.5.3](chapters/04_proposed_system.md#453-signal-memory-versus-numerical-context-in-ex01): freeze/reserved và hai loại context | HOP_DONG_TRIEN_KHAI | BG16/BG17/BG23, EX01-C/S/hosted v1; §7.4/§9.9 | Signal211→19→3; numeric3tasks/11prior+3target=14rows; reserved102 | Không đồng nhất 3examples với 3tasks, không coi maturity theo từngquery là fold-frozen protocol |
 
 Quy tắc điền bảng:
 
@@ -1528,6 +1532,9 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS16 | `core/historical_signals.py` | `26a35fa6e5421db09f5cbed5f219346e9aa72667b2a759568f0884cdcecdc7c5` | Live đồng nhất byte |
 | SYS17 | `core/decision_profiles.py` | `49f3e313734e4cd2117008e004bb25dc925dfcbc327eba2eb360afadfd9ee93f` | Live đồng nhất byte |
 | SYS18 | `core/mt_bicl_prompt.py` | `93519b6951a6d5c4df18a420eaf080af33ee9448422dcda3903b7809840c90c2` | Live đồng nhất byte |
+| SYS19 | `core/bayesian_memory.py` | `d78482b4b1e014ee1bfa916cddc911ef9573217a0225738bf3ced7d639d201f9` | Live đồng nhất byte |
+| SYS20 | `core/historical_evaluation_prior.py` | `89e67d53acad3634d1309584c4d5e16990f59089fa807c18ec7c7e8b997d912a` | Live đồng nhất byte |
+| SYS21 | `core/free_pilot_assets.py` | `4b4f8c748ea851dba55fc281938550b0f6eb3e75ace011ed7d22dcead51837d7` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1725,3 +1732,32 @@ sentiment-only là cấu hình được định nghĩa, actual panel phải nố
 selector/normalization/history/report/instruction/caps cùng lúc; Full/Base
 thay bundle. Không suy riêng Alpha, prompt hoặc student causal effect.
 Chỉ kiểm source/record/diff/liên kết, không replay hoặc chạy runtime suite.
+
+### 9.9. Episode/bank, schema và timeline hợp lệ
+
+T23; CL055–CL058. SYS19–SYS21 dùng source snapshot; memory schema/oracle,
+CORE4 frozen bank và context freeze/reserved đọc riêng, không chạy loader
+pipeline. Các file dưới có binding `snapshot_manifest.json.source_members`;
+đối chiếu nguyên byte và by-ID với ba tasks trong U08 EX01 v1:
+
+| ID | Member snapshot | SHA256 nguyên byte |
+| --- | --- | --- |
+| EP01 | `data_manager/regime_memory_store.json` | `09b48c6192a092b562173e8b3b7eceb44025c6e02454093e34214a730a460949` |
+| EP02 | `data_manager/regime_memory_store.manifest.json` | `70ea72a41a518fc4e3ab57ebdac99506710733edc41fececbb6d832e39fdfb88` |
+| EP03 | `docs/plan/week2/memory_bank_audit.json` | `c6368f7483191d5023cf5c74f305393b119864f2148c66a2fb7b09000f14eb54` |
+| EP04 | `docs/plan/week1/historical_task_record.schema.json` | `ad718fa19e424046ece7529cd3dfa44c4506bd551cae096b3ed74f5ed4f0a948` |
+
+EP02/03 bank_sha256 bằng EP01 raw byte hash;852unique ID, counts211/213/215/213,
+first_as_of2020-06-01/latestexit2022-12-30. QA legacy schema_sha256 là
+`77954798615a5075ccca1c4f7817a33bc58eac1e398ec0460114bc46eca39148`
+của biến thể CRLF; source schema EP04 là LF. BG16 kiểm dựng đúng biến thể
+CRLF, không sửa schema hoặc lấy LFrawhash thay legacyexpected. Bản ghi
+FPT:2022-04-07 và hai record13/18April khớp nguyên nội dung saved retrieval.
+Timeline có hai boundary minh họa được gắn nhãn, không là records mới.
+
+Loader memory exact schema/dates/types, duplicate/overlap, event/price và
+oracle rồi strict exit<cutoff. Bank852 giữ raw-execution source khác query
+donor series; không tính lại nhãn trên donor. Numeric context dùng foldfreeze
+trước queryđầu và reserved102 trước label API; K3prior/11rows+3target là
+context khác3signal examples. Chỉ source/manifest/record/diff checks, không
+chạy lại bank QA, oracle toàn bank, model hoặc benchmark.

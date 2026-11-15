@@ -732,7 +732,132 @@ caused the response difference, nor does it reveal the later query outcome.
 
 ## 4.5. Historical memory and market regimes
 
-> **Not yet drafted.** Define episode fields, canonical labels, maturity filtering, reserved IDs and bank provenance. Explain HMM/scaler fitting and query-time regime assignment. Distinguish signal memory from numerical task context, retaining EX01's separate regime sources.
+Historical evidence has two representations. Signal memory stores completed
+trading cycles with categorical agent conclusions. Numerical MT context
+groups price-derived observations into tasks. Both require mature labels,
+but they have different fields, membership rules and sources; a count of
+signal examples cannot be substituted for a count of tasks or observations.
+
+### 4.5.1. A completed signal episode
+
+A signal episode contains an ID, stock, decision/entry/exit dates, a regime
+label, five agent signals and the candidate-LONG outcome. Signals describe
+what the agents concluded at the historical decision; the outcome describes
+what subsequently happened under the fixed economic contract. A bullish
+signal is not retrospectively changed to bearish because the trade lost.
+[^episode-contract]
+
+| Field group | Meaning and validation |
+| --- | --- |
+| `episode_id`, `symbol` | Stable identity and admitted stock; duplicate IDs or duplicate stock/decision cycles are rejected. |
+| `as_of_date`, `entry_date`, `exit_date` | Exact ISO dates on the source's observed-session calendar: decision, next open, third future close. Dates must increase and execution-price/event checks must admit the cycle. |
+| `regime` | Stored category BULL, BEAR, CHOPPY or CONSOLIDATION; it is not the candidate trade's future label. |
+| `agent_signals` | Nonempty `trend`, `pattern`, `alpha_consensus`, `indicator_consensus`, `sentiment`; retrieval additionally validates declared aliases instead of searching arbitrary prose for a direction. |
+| `outcome` | Finite `net_return_pct`, UP/DOWN, WIN_IF_LONG/LOSS_IF_LONG, and Boolean `was_bull_trap`; all must agree with canonical execution arithmetic. |
+
+The memory validator obtains the admissible entry/exit prices and calls
+`compute_round_trip_net_return`, then expresses its result as a percentage.
+UP and WIN_IF_LONG require a strictly positive return; nonpositive values,
+including zero, are DOWN and LOSS_IF_LONG. Bull trap means that at least one
+of Trend or Pattern was bullish while the candidate LONG return was
+nonpositive. It is a retrospective label of this convention, not proof of
+market manipulation. LOSS_IF_LONG does not mean that a CASH action lost
+money. The loader rejects missing/extra fields, invalid dates/types,
+inconsistent economics, duplicate cycles and overlapping holding intervals
+for a stock; it does not silently repair a malformed bank.
+
+**Saved record example.** The first EX01 signal example is reproduced with
+its original field names and numerical precision:
+
+```json
+{
+  "episode_id": "FPT:2022-04-07",
+  "symbol": "FPT",
+  "as_of_date": "2022-04-07",
+  "entry_date": "2022-04-08",
+  "exit_date": "2022-04-13",
+  "regime": "CONSOLIDATION",
+  "agent_signals": {
+    "trend": "BULLISH",
+    "pattern": "BULLISH",
+    "indicator_consensus": "BEARISH",
+    "alpha_consensus": "BULLISH",
+    "sentiment": "NEUTRAL"
+  },
+  "outcome": {
+    "actual_direction": "UP",
+    "net_return_pct": 0.8800636494421088,
+    "was_bull_trap": false,
+    "result": "WIN_IF_LONG"
+  }
+}
+```
+
+The sentiment code preserves the bank's categorical representation. It does
+not establish that reliable news existed for this record, or replace the
+query's unavailable news. The bank's recorded sentiment-reliability coverage
+remains a separate limitation.
+
+### 4.5.2. Temporal eligibility and frozen membership
+
+An episode can be a historical observation at cutoff $t$ only when its
+exit is **strictly before** $t$. A decision date before $t$ is insufficient
+if the holding interval still crosses $t$. Outcomes may be aggregated only
+after this maturity filter; the query's outcome remains outside forecast
+inputs. Memory returns independent copies of eligible records so a branch
+cannot mutate another branch's evidence.
+
+| Timeline example at EX01 cutoff 3 July 2023 | Decision → entry → exit | Eligibility |
+| --- | --- | --- |
+| Saved `FPT:2022-04-07` | 7 April → 8 April → 13 April 2022 | Mature: exit precedes cutoff. |
+| Saved `FPT:2022-04-13` | 13 April → 14 April → 18 April 2022 | Mature, although its candidate LONG lost. Eligibility does not depend on winning. |
+| Saved `FPT:2022-04-18` | 18 April → 19 April → 21 April 2022 | Mature, with a stored bullish-trap label. |
+| **Illustrative boundary**, not an archived episode | Any earlier decision with exit on 3 July 2023 | Excluded: equality is not strict precedence. |
+| **Illustrative boundary**, not an archived episode | Any earlier decision with exit after 3 July 2023 | Excluded: outcome is not yet admissible. |
+
+The evaluated signal bank contains 852 completed records for FPT, MWG, VCB
+and VNM, with the latest exit on 30 December 2022. Its manifest and published
+QA bind the records, schema and provenance. The context-study adapter reuses
+this frozen bank; it does not append later query outcomes or manufacture
+same-stock memory for the other five query stocks. Source prices used to
+validate bank labels differ from the query vendor series. This explicit
+transfer is retained, including recorded label-basis discrepancies; the
+bank is not relabeled using query prices to make the sources appear equal.
+Published QA and normalized signals do not imply a newly recovered raw
+signal-call journal.[^bank-provenance]
+
+Numerical MT context is separately frozen before the first query of a fold.
+Its observation stream admits only exits before that boundary, and all
+102 reserved evaluation IDs are withheld before historical labels can enter
+context construction. Later queries can have new unlabeled features while
+the fold's admitted labeled history remains fixed. This is stricter than
+simply appending every cycle that has become mature by each later query.
+The fitted scaler and its membership are separate frozen resources.
+
+### 4.5.3. Signal memory versus numerical context in EX01
+
+EX01's signal retrieval starts from 211 admissible FPT records, with 19 in
+the requested regime and at most three displayed examples. The three saved
+IDs in the timeline belong to that signal bank. The numerical context
+instead has three prior tasks containing 11 observations and three target
+observations: 14 labeled historical rows in total. Its query belongs to
+the target task but has no `y` or realized return in the context. These
+groups are not the three signal episodes above; task construction and
+numerical feature scaling are detailed in Section 4.8.
+
+Signal memory's CONSOLIDATION and numerical context's BULL also come from
+different regime resources. Their provenance is explained next; the labels
+must not be silently unified for this example. IDs, sources and membership
+checks establish traceability, while frozen-resource integrity alone cannot
+certify the validity of every historical signal or hosted-model training
+exposure.
+
+[^episode-contract]: SYS19 `bayesian_memory`, TIME01 economic oracle, and the frozen HistoricalTaskRecord schema; CL055–CL056 in ledger §9.9. The saved example is joined by ID to both the original bank and the U08 retrieval trace, not reconstructed from a model narrative.
+[^bank-provenance]: SYS21 `free_pilot_assets.FrozenBank`, BG16 `FrozenStudyBank/FrozenStudyStream`, BG17 execution-provider freeze, SYS20 historical signal adapter and BG23 context gates. CL057–CL058 preserve CORE4 membership, raw-bank/query transfer, reserved IDs and numerical-context distinctions.
+
+### 4.5.4. Regime fitting and query-time assignment
+
+> **Not yet drafted.** Explain the evaluated regime resources, fitting/scaler metadata, quality fallback and frozen query inference, keeping signal-bank/v1 and numerical MT regime sources separate.
 
 ## 4.6. Bayesian Prior v1
 
