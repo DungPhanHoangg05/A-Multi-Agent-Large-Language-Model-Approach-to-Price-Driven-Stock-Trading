@@ -1480,6 +1480,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL212 | [Bounded contribution](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | DAN_XUAT | CL025–CL028/CL064–CL101/CL145–CL187; §11.6 | Source-bound integration, context/fallback, teacher/student, policy và pairedaccounting | Không globalfirst/noveltheorem/firstvisualmultiagent hoặc returnadvantage |
 | CL213 | [Remaining research gap](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | DAN_XUAT | CL155–CL187/CL198–CL209; §11.6 | Baseline/readiness dependent, MTmostlyanchor, eightnegative means, NativeFAIL vàmissingmatchedablations | Gap về reliablevalue chưa được giải quyết bằng implementation; G3/T54–58 vẫn còn |
 
+| CL214 | [Motivation](chapters/01_introduction.md#11-context-and-motivation) | DAN_XUAT | R01/R02/R04/R16/R22, §11.1; §§2.1–2.7 | Price/chart/news roles, completed context and distinct multi-task/multi-agent meanings motivate a controlled question | No assumed return advantage, new foundational invention or market-rule claim |
+| CL215 | [Decision problem](chapters/01_introduction.md#12-problem-statement) | DAN_XUAT | CL025–CL034/CL104–CL117; §§3.1/4.7–4.9 | Available input, mature history, proposal/fallback/action and shared economic labels match existing method | Intended cutoff is not Native row-wise causal certification; SHORT means CASH |
+| CL216 | [Input/output schematic and evaluation](chapters/01_introduction.md#12-problem-statement) | SO_DO_DAN_XUAT | F01/F02/F03/F07, CL112–CL117; §12.1 | Inline English Mermaid separates forecasting from future-price evaluation | No new empirical figure/data, independent observation, portfolio or live-fill claim |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2662,3 +2666,11 @@ T53; CL210–CL213. B08a từng hàng/cột: QuantAgentR04§3–§4 cho inputs/c
 B08b từng hàng: XieR13§2–§4 cho latentconcept/mixture-HMM/GINC; RubinR14§3–§4 cho LM-supervised dense retrieval/semanticparsing; PFNR15§3–§4/Algorithm1 cho prior-dataNLL và predictiveapproximation; MTR16§4/§5.1/§5.5 cho taskboundaries/priorprefix/hierarchicalobjective và regression/ERA5. Rowthesis dùng numerical/hosted/policy tách biệt, teacher/student khác originalrecipe và giới hạn hiệu quả từ Chương5. Không đánh mọi ô theo cùng một financialbenchmark khi nguồn không có. Cả hai panel B08 nằm trong Markdown, CSV/LaTeX và rà soát kích thước bảng ở T70/T74 sau; chưa tạo bảng LaTeX hoặc PDF toàn văn.
 
 Khoảng trống được định vị cho tích hợp và phép đo đã triển khai, không surveyexhaustive/globalpriority. Kết quả không bị viết lại để khớp narrative: tám returnngữcảnh âm, v1 phụ thuộc baseline/support, MTgiữanchor, NativeFAIL, provenance và missingablations còn nguyên. Kiểm từngcâu/ô/citation/key/locator so nguồn và các chương đã khóa; 84spec giữnguyên, không code/runtime/test/config/schema/input/model/receipt đổi. P5 đủ bản nhápChương2/bibliography, chưaG3toànbộ doT54–T58 chưaviết, chưaphảnbiệnngoài hoặc dàntrangcuối. Docs-only không compileall/unit/E2E/leakage/fit/API LLM/replay.
+
+## 12. Mở đầu, kết luận và đối soát lập luận
+
+### 12.1. Động cơ và bài toán
+
+T54 viết §§1.1–1.2 cho người đọc kỹ thuật chung. CL214–CL216 nối nguồn gốc R01/R02/R04/R16/R22 đã đọc tại §11.1 với hợp đồng §§3.1/4.7–4.9 và hai nghiên cứu Chương 5. Chỉ dùng các luận điểm/phiên bản đã kiểm, bibliography giữ nguyên 22 mục. Sơ đồ Mermaid inline là sơ đồ bài toán dẫn xuất từ F01/F02/F03/F07, không thêm ID vào danh mục 23 hình/bảng/thuật toán, không phải dữ liệu hoặc hình thực nghiệm mới. Đầu vào tương lai chỉ nối tới evaluator sau forecast barrier; fallback và lỗi kỹ thuật tách biệt. Giữ 3 phiên, hai chiều phí/slippage, candidate-LONG UP/DOWN khác CASH, intended PIT khác Native causal FAIL. Chưa dàn trang sơ đồ; việc chuyển LaTeX và kiểm hiển thị cuối thuộc P8/P9.
+
+Đối soát câu/nguồn, RQ theo outline, liên kết/anchor, footnote, citation-key, 84 đặc tả bất biến và diff theo phạm vi. Chỉ tài liệu nên không chạy compileall/unit/E2E/leakage; không fit/API LLM/replay/bootstrap hoặc sửa input/receipt.

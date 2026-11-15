@@ -466,6 +466,12 @@ README đúng pin. Bibliography SHA-256 theo LF:
 Chương 1/3/4/5/6, root README, code, runtime, input và hình giữ nguyên.
 P5 đủ bản nháp; còn T54 trở đi, G3 toàn bộ và rà soát/dàn trang cuối.
 
+### Mở đầu, kết luận và đối soát P6
+
+Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. Chỉ viết/biên tập và kiểm nguồn, không thay code nghiên cứu, test, runtime, schema, cấu hình hoặc input; không compileall/unit/E2E/leakage suite theo AGENTS §1.2, không fit/API LLM/replay/bootstrap. Ghi chú và ánh xạ luận điểm giữ chung tại sổ bằng chứng §12.
+
+**T54 — `docs/thesis-introduction-problem`:** viết §§1.1–1.2/CL214–CL216 và sổ §12.1. Giới thiệu bài toán trước thuật ngữ, sơ đồ input/output tách future outcomes khỏi dự báo, proposal/fallback khỏi LONG/CASH; nguồn R01/R02/R04/R16/R22 đã kiểm. Giữ ba phiên và phí hai chiều, Native FAIL và không suy lợi nhuận/portfolio/live fills. QA tài liệu theo phạm vi; chưa dàn trang sơ đồ.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

@@ -90,7 +90,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Mở đầu và kết luận — P6
 
-- [ ] T54 — Viết động cơ và phát biểu bài toán.
+- [x] T54 — DONE: [§§1.1–1.2](chapters/01_introduction.md#11-context-and-motivation): động cơ, thông tin tại cutoff, proposal/fallback/action và sơ đồ input/output; CL214–CL216/§12.1. Giữ hợp đồng kinh tế và giới hạn nhân quả; không kết quả mới.
 - [ ] T55 — Viết RQ, giới hạn, đóng góp và bố cục.
 - [ ] T56 — Tóm tắt phương pháp và trả lời từng RQ.
 - [ ] T57 — Viết hạn chế và hướng phát triển theo ưu tiên.
