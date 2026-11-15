@@ -446,6 +446,8 @@ Ngày **16/11/2026**, thực hiện T48–T53 theo yêu cầu. Mỗi task dùng 
 
 **T49 — `docs/thesis-technical-related-work`:** viết §2.1 với Lo–Mamaysky–Wang, Alpha101, scikit-learn và selection-bias study của Varma–Simon; CL189–CL192/sổ §11.2. Phân biệt cross-sectional/temporal operators, typical-price proxy/VWAP, feature/report/action và numerical controls/LLM-selector ablation. Citation chỉ dùng nguồn đã kiểm; recipe và kết quả Việt Nam vẫn lấy bằng chứng nội bộ, không gán cho bài gốc. Kiểm keys/footnotes/links/spec/diff PASS, không suite/compileall hoặc nghiên cứu mới.
 
+**T50 — `docs/thesis-multiagent-related-work`:** viết §2.2/CL193–CL197 với QuantAgent paper v3 và source comparison92519f8 tách biệt, TradingAgents/FinVision, chart understanding và nguồn sentiment Việt Nam. Rõ phần kế thừa agent/tools/graph/UI, phần thích nghi và bổ sung; Risk/Decision của paper không đồng nhất với oracle fixed-horizon daily. Không suy best-system ranking từ returns khác study, không coi chartQA/card scores là chứng nhận trading. Kiểm citation/keys/locators/links/footnotes/spec/diff PASS; docs-only, không suite hoặc nghiên cứu mới.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

@@ -77,7 +77,81 @@ was actually observed under this contract.
 
 ## 2.2. LLMs, VLMs and multi-agent financial systems
 
-> **Not yet drafted.** Compare role specialization, shared state, report synthesis and visual inputs. Attribute QuantAgent and other relevant systems, identify adaptations made here, and discuss chart grounding, explanations and hosted-model reproducibility without treating fluent output as validated evidence.
+Financial agent systems can assign different inputs and responsibilities
+to separate model calls, then combine their reports through shared state
+or dialogue. This architecture makes intermediate decisions inspectable,
+but the number of roles alone says little about predictive value. The
+important comparisons concern which information each role receives, how
+reports are combined and which actions and costs the evaluator records.
+
+QuantAgent is the direct architectural predecessor of this system.
+Xiong et al.'s version 3 uses price-derived inputs with Indicator, Pattern,
+Trend and Risk roles; its method section separately describes the final
+DecisionAgent. Numerical indicators, candlestick interpretation and
+trendline views contribute complementary reports. The paper evaluates
+one-hour and four-hour bar benchmarks and predicts short-horizon
+direction. Its RiskAgent introduces stop-loss/take-profit boundaries,
+whereas its DecisionAgent produces the directional recommendation.
+Those responsibilities should be attributed according to the source
+rather than inferred from the names used in this repository.
+[@xiong2025quantagent]
+
+The implementation inheritance is also concrete: state/agent contracts,
+chart tools, parts of the LangGraph orchestration and web interface are
+adapted from the upstream source. The comparison snapshot is commit
+`92519f806286192345e940e7ab77496462d662b7`; the originally adopted commit
+was not recorded. This distinction is retained in the repository's
+[third-party notices](../../THIRD_PARTY_NOTICES.md). The current upstream
+name QuantHarness does not change the versioned QuantAgent paper used
+for methodological attribution. [@yresearch2026quantagentcode]
+
+Relative to that foundation, this thesis adds Vietnamese-market data and
+sentiment handling, an alpha representation/selection path, distinct
+Native/Common profiles, historical-context methods, numerical MT context
+and an anchor-relative policy. It evaluates daily LONG/CASH outcomes with
+a fixed three-session net economic oracle. A predicted risk–reward ratio
+or price level in an explanation does not replace that evaluator with
+live stop-loss/take-profit orders. The inherited visual specialists and
+multi-agent structure are therefore part of the starting point; the
+integration and source-bound comparisons define the work evaluated here.
+Neither the upstream title nor its reported results establish high-frequency
+execution performance for this daily study.[^agent-inheritance]
+
+TradingAgents explores a different organization inspired by a trading
+firm. Fundamental, sentiment, news and technical analysis feed research
+debate, trading and risk-management teams, with structured communication
+alongside natural-language interactions. Its stated simulation uses
+historical US technology stocks and buy/sell/hold recommendations. This
+provides a useful comparison for role specialization and communication,
+but does not supply the same input profiles, temporal protections or
+LONG/CASH economic contract as the present experiments. Its own reported
+performance is not a head-to-head benchmark result for this thesis.
+[@tradingagents2024]
+
+FinVision combines news summaries and visual technical analysis with
+textual and visual reflection before producing a trading recommendation.
+Its reflection module makes past signals and outcomes an explicit source
+of feedback. This is related to the use of history, but a reflection
+report does not by itself specify a Bayesian generative model, a posterior
+update or a numerical multi-task learner. These mechanisms should be
+compared at the level of the information retained and the decision rule
+applied. [@fatemi2024finvision]
+
+Two additional distinctions concern the input modalities. ChartLlama
+studies chart instruction data and tasks such as question answering,
+description and extraction; it illustrates that chart understanding has
+its own evaluation problem. Such capability evidence does not establish
+correct candlestick reasoning or profitable actions in a different model.
+This system does not use ChartLlama's weights. [@han2023chartllama]
+For Vietnamese sentiment, ViSoBERT supplies a social-media language-model
+backbone, while the pinned 5CD resource supplies the downstream
+three-label classifier. Their source domains and resources are distinct;
+neither their reported task scores nor fluent agent explanations validate
+the study's news availability, financial sentiment accuracy or probability
+calibration. Missing news therefore remains visible in the method and
+results. [@nguyen2023visobert] [@hf5cdsentiment]
+
+[^agent-inheritance]: Internal attribution and implemented differences: THIRD_PARTY_NOTICES, CL025–CL028, CL039–CL050 and Chapters 4–5. The comparison pin is evidence of the source comparison, not a recovered adoption date or an immutable hosted-model version. Native row-wise causality and application acceptance retain the limitations reported in Section 5.9.
 
 ## 2.3. Market regime detection
 
