@@ -61,6 +61,21 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Viết phương pháp từ tổng quan tới Alpha
+
+Ngày **15/11/2026**, người dùng yêu cầu làm kỹ lần lượt T16–T20. Mỗi task
+được đối chiếu nguồn/đầu ra trên nhánh docs riêng rồi commit/merge; tiến độ
+duy nhất vẫn ở thesis/plan.md, không tạo receipt riêng.
+
+- **T16; Chương 4 §4.1, CL026–CL028, sổ §9.1–§9.2:** nhánh
+  `docs/thesis-system-overview` từ develop `bfb3035a`; mở EX01 trước outcome,
+  giải thích mục đích/luồng, offline/numeric/hosted/policy/evaluation. F03
+  source TikZ/PDF/PNG group theo compute type, text ghi thứ tự chạy thật;
+  Indicator backtest không có hosted interpretation. Build/render/xem PDF
+  một trang 180×150 mm, không cắt/chồng/Type3 hoặc lỗi log. Kiểm source
+  frozen, EX01, links/footnotes/84 đặc tả PASS; không đổi runtime/data hoặc
+  gọi model/fit/replay/suite. F11/F12 và giới hạn nghiên cứu giữ nguyên.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

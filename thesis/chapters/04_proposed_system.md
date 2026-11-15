@@ -1,13 +1,101 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: structural skeleton only.** Component explanations, diagrams and algorithms have not been written.
-> Each placeholder identifies missing content; a named component does not establish that its isolated effect was measured.
+> **Draft status: partial chapter.** Section 4.1 has a source-checked draft and overview figure.
+> The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
 ## 4.1. System overview and one-decision walkthrough
 
-> **Not yet drafted.** Introduce the decision problem in plain English and open EX01 at its historical cutoff without revealing its later outcome. Create the overview figure separating deterministic processing, hosted inference, offline training, external policy and post-decision evaluation; introduce readable record names before implementation IDs.
+### 4.1.1. What the system decides
+
+At the end of an observed daily bar, the system summarizes admissible price
+and textual information and proposes whether to enter the next candidate
+LONG cycle. As defined in Chapter 3, execution is LONG or CASH, with entry
+at the next observed open and exit at the third future observed close.
+The explanation accompanying a proposal is useful for tracing evidence;
+it is not a substitute for the subsequent economic outcome.
+
+The proposed system adds historical context to a price-driven multi-agent
+pipeline. Its purpose is to present relevant completed experience and
+explicit numerical evidence when synthesizing current reports. That purpose
+does not imply that every query has sufficient history or that adding
+context improves profitability. The component and historical-context studies
+remain separate evidence collections, as introduced in the research scope.
+
+### 4.1.2. Computation, interpretation and external policy
+
+Figure F03 distinguishes four kinds of work. **Offline fitting and selection**
+produce versioned resources: the Common alpha selector, market-regime
+models/scalers and numerical teacher/student. Their permitted fit cutoffs
+are checked separately from the price cutoff of each forecast. Query-time
+conditioning or retrieval uses these resources without refitting them.
+
+**Deterministic processing** prepares price windows and chart images,
+computes indicator values/votes and processes alpha/news inputs. In the
+historical path, Indicator returns the computed report directly; it does not
+request an additional LLM interpretation. **Hosted interpretation** is used
+for Pattern and Trend and for eligible Decision requests. A role name is
+therefore not a count of hosted calls.[^overview-source]
+
+The historical execution order is Indicator, Pattern, Trend, followed by
+the joint alpha/sentiment stage. F03 groups processing by type rather than
+reproducing that node sequence. The resulting **shared snapshot** is a
+versioned bundle of reports, visible inputs and provenance. All compared
+branches receive protected copies of the same upstream realization. Common
+alpha projection and historical/numerical context are subsequently resolved
+for the appropriate profile; sharing the parent does not mean every branch
+receives an identical final prompt.
+
+The Decision family includes Native/Common foundations, historical-prior
+variants and the Fact Anchor/MT path. Dependencies are resolved within the
+same repeat. Some branches issue a new request; unsupported branches can
+reuse a documented dependency. In the MT path, the numerical student is a
+separate model from the hosted Decision LLM. Context and utility estimates
+are numerical inputs rather than free-form claims invented by that LLM.
+
+**External resolution** validates the reply, maps LONG/SHORT to executable
+actions and, where applicable, keeps or revises an anchor under the utility
+rule. Thus a raw proposal and the final action can differ. Technical failure
+is recorded as failure, not silently recoded as a legitimate CASH decision.
+Only after the forecast/policy record is durable does the evaluation path
+join the query outcome and compute classification/account measures. No query
+outcome flows back into its forecasting context.[^overview-source]
+
+![System overview separating offline resources, numerical processing, hosted interpretation, policy and later evaluation.](../assets/diagrams/F03_system_overview.png)
+
+*Figure F03. System overview from available inputs to evaluated actions.
+This is an Illustrative architecture of the locked historical research path.
+The grouped processing boxes distinguish computation types; the text gives
+the actual upstream order. Same-repeat dependencies and bypasses remain
+explicit, and later outcome data enter evaluation only. Colors do not imply
+measured latency, isolated benefits or live acceptance.*
+[Vector PDF](../assets/diagrams/F03_system_overview.pdf).
+
+### 4.1.3. Opening the FPT example
+
+The running case, EX01, is FPT at the **3 July 2023** cutoff, with upstream
+realization 0 and Decision repeat 0. The saved price prefix ends on that date.
+Its final 45 bars supply the chart/Indicator window, while a 600-bar prefix
+supports the longer-history path. The case is a saved historical research
+execution, not evidence that a trade was executed in July 2023.[^overview-case]
+
+The snapshot reports MACD below its signal line while remaining positive,
+and a close above SMA20. Pattern and Trend provide visual interpretations;
+news is explicitly unavailable. A reader can now ask which observations
+support the reports, whether matured context exists, and how a proposed
+action would be resolved. The following sections answer those questions
+without treating missing news as observed neutrality.
+
+For this case, the scheduled entry and exit observations are 4 and 6 July.
+Their realized prices and net result are deliberately not used to explain
+what was known at the cutoff; Chapter 5 will reveal the outcome. The same
+case will connect input contracts, report interpretation, context and policy,
+with distinct IDs for each saved record rather than a reconstructed successful
+example.
+
+[^overview-source]: Frozen graph, unified providers/methods/contracts, alpha projection and MT policy, bound in the shared ledger §9.1 and the earlier BG/TIME source tables. The live graph/Indicator/Decision presentation changes are accepted by the author as logic-equivalent; this does not replace frozen byte identities or complete application acceptance.
+[^overview-case]: EX01-S and the declared EX01 selection/source record in the shared ledger §7. CL026–CL028 map this overview, the figure and the case opening; no new inference or market data were collected.
 
 ## 4.2. Input preparation and shared state
 

@@ -1254,6 +1254,9 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL023 | [§3.7.3](chapters/03_background.md#373-pairing-and-units-of-evidence): paired immutable parent, repeat/slot/bypass/market support | HOP_DONG_TRIEN_KHAI | Unified providers/methods frozen §8.6, §3 U08/U09 | 102×3×8=2448 slots conditional trên cùng upstream | Không independent market n=2448; không gộp Full/Base với Native/Common hoặc suy isolated MT ablation |
 | CL024 | [§3.7.4](chapters/03_background.md#374-metrics-denominators-and-dependence): metrics, NA, account/NAV và frequency | HOP_DONG_TRIEN_KHAI | Free pilot/unified analysis/risk helper frozen §8.6, official BA/MCC/CV docs | BA hai class; MCC zero denominator NA; sample/pop SD và LPM2 khác nhau | Không annualize tùy tiện, pooled portfolio, significance/coverage claims hoặc sửa study convention |
 | CL025 | [F02](assets/diagrams/F02_temporal_partitions.pdf), §3.7.2 | MINH_HOA | Source TikZ/hash §8.5.6, CL021–CL022 | Schematic split/purge/maturity, không ngày/độ dài fold thật | Đã build/render/xem một trang; không phải cohort schedule T37 hoặc causal acceptance |
+| CL026 | [§4.1.1–§4.1.2](chapters/04_proposed_system.md#411-what-the-system-decides): mục đích, loại xử lý, shared parent và thứ tự thật | HOP_DONG_TRIEN_KHAI | BG02/BG14/BG17/BG18 và source §9.1 | Indicator→Pattern→Trend→joint alpha/news; profile/context sau shared parent | Không gọi mỗi role là một hosted call hoặc shared parent là final prompt giống nhau |
+| CL027 | [F03](assets/diagrams/F03_system_overview.pdf), §4.1.2 | MINH_HOA | Source TikZ/hash §9.2; CL026 và offline resources đã khóa | Group theo compute type, không phải strict node sequence hoặc latency chart | Build/render/xem; outcome chỉ vào evaluation; chưa phải DAG/thuật toán chi tiết T33 |
+| CL028 | [§4.1.3](chapters/04_proposed_system.md#413-opening-the-fpt-example): mở EX01 bằng input và lịch | DO_DUOC | EX01-S, selection/source §7, TIME01–03 | FPT cutoff03/07/2023,u0/r0; 45/600 bars; chưa lộ realized prices/return | Kiểm saved records, không thu lại dữ liệu hoặc chọn lại ca theo thành tích |
 
 Quy tắc điền bảng:
 
@@ -1469,3 +1472,43 @@ tiện; các khác biệt UI được xác nhận ở §3 không thay nguồn ng
 | BG21 | `core/unified_analysis/statistics.py` | `4446fa0a77fce1a74a38d94918ae64c1c379c9a6a997b60a8d5df40dfff85b12` | Live đồng nhất byte |
 | BG22 | `utils/account_risk.py` | `487a50fe28397130a93a92c3f2cd79b5184e5cc1a546b9b21ea7ab7a976cd829` | Live đồng nhất byte |
 | BG23 | `core/historical_evaluation_context.py` | `9c9e0e8bce652582ead55a71c1f7faaac534b79aaef02830d99cd541b372ec91` | Live đồng nhất byte |
+
+## 9. Nguồn giải thích hệ thống đề xuất
+
+### 9.1. Binding source bổ sung
+
+Dùng cùng snapshot/source commit tại §3. Các hash dưới là member frozen
+đã kiểm với `snapshot_manifest.json`; không lấy UI/live thay nguồn lịch sử.
+BG/TIME đã có thì viện dẫn lại. Ba module graph/Indicator/Decision có lớp UI
+giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân biệt đúng byte.
+
+| Source ID | Member snapshot | SHA256 frozen | Đối chiếu live |
+| --- | --- | --- | --- |
+| SYS01 | `utils/graph_setup.py` | `61bc18bad7bf83a96ee2a862589fba20d5e5b398124132a8fb815d0771c13acf` | Live có presentation khác; dùng frozen theo phạm vi §3 |
+| SYS02 | `agents/decision_agent.py` | `a7ed07e310652cfc0de1b1d15ec2bad1a03eeebd6be6a4144b5146c52df118a9` | Live có presentation khác; dùng frozen theo phạm vi §3 |
+| SYS03 | `agents/alpha_agent.py` | `04ee4e42dbe30f8b12dd21181c031888f779eae093597f90facec2f66b863158` | Live đồng nhất byte |
+| SYS04 | `core/unified_contracts.py` | `ae1051f1ae0b86f7a4abfb5ed331870d0841d6815df6e67247974f2d100647c1` | Live đồng nhất byte |
+| SYS05 | `core/causal_bridge.py` | `0ca009cc8b5d361535a0efc4635977c18b8213307c92be9145c649c7f5fc70ef` | Live đồng nhất byte |
+| SYS06 | `agents/agent_state.py` | `0dc8621ab971df9438a5601385f616d2eee495382e12d6a4aca2bb0a54eeff76` | Live đồng nhất byte |
+<!-- system-source-end -->
+
+### 9.2. Tổng quan, EX01 và F03
+
+T16, ngày 15/11/2026: đối chiếu historical provider chạy Indicator → Pattern
+→ Trend → full(alpha/news), rồi đóng parent/bind Common projection. Sơ đồ
+group theo loại tính toán, không giả các node đều gọi LLM hoặc mọi nhánh
+dùng một final prompt. Source lớp UI chỉ tương đương logic đã được người
+dùng xác nhận, không đổi byte binding. Mở EX01 ở input, giữ realized
+prices/return cho Chương 5. Chưa viết thay nội dung chi tiết T17–T35.
+
+| Sản phẩm F03 | SHA256 (source theo blob LF, PDF/PNG nguyên byte) |
+| --- | --- |
+| [F03_system_overview.tex](assets/diagrams/F03_system_overview.tex) | `130a57abca720735af1148df87213f107a6c4f52445e22379c4deca5efb48b34` |
+| [F03_system_overview.pdf](assets/diagrams/F03_system_overview.pdf) | `6ffb441b584445bf06494558844d8512428d7a6abe88847669ef05571479e11e` |
+| [F03_system_overview.png](assets/diagrams/F03_system_overview.png) | `abf0f57e4845899d82fe8a34e51eca2eb556a5fdd958a2296a95a9f9c9274293` |
+
+Build như F01/F02, basename `F03_system_overview`, thư mục tạm
+`tmp/pdfs/thesis-t16`. pdfLaTeX/Poppler hiện có; PDF một trang 180×150 mm,
+render1.900px và xem toàn trang sau sửa wrap/type labels; không cắt/chồng
+chữ/Type3/overfull/underfull/undefined. Không build PDF toàn văn. Source
+TikZ có thể sửa, PNG để xem Markdown, PDF vector cho dàn trang sau.
