@@ -1356,10 +1356,138 @@ to estimate the utility gate's isolated performance effect. Similarly,
 the near-anchor final actions cannot identify a separate student benefit.
 The bridge is descriptive of the implemented combined system.
 
-> **Case studies and robustness remain in progress.** The following tasks add the declared case selection and saved sensitivity/resource analyses.
-
 [^context-mechanism-support]: ED16 prediction fields linked by `trace_sha256` to ED40; ED07 support summaries; CL163–CL165, ledger §10.10. Descriptor summaries are direct counts/median/range of stored fields, not new forecasts or performance estimates. Missing fields and overlapping gate reasons are preserved.
 [^context-mechanism-policy]: ED07 `summary.MT_BICL.policy_reasons`, `calibration`, ED16 slot-level actions/flags/quantiles and the Chapter 4 policy contract; CL166–CL168, ledger §10.10. The 302/306 agreement includes bypasses and rejected changes; no causal decomposition or matched-probability comparison is claimed.
+
+### 5.8.3. Traceable cases selected by the declared rule
+
+The case study applies the editorial rule in ledger Section 7.7 after the
+study was frozen. It fixes repeat 0 and verifies complete shared,
+prepare, forecast and outcome sources before selection. All 102 points
+have the required records for all eight research roles. Within each group,
+the first point in ascending `(date, symbol)` order is selected. This is
+an explanatory selection rule, not a preregistered performance analysis.
+
+**Table B07d. Case selection and candidate denominators.** Sufficient
+context requires MT eligibility and no v1 bypass. Insufficient support
+requires a bypass and explicit INSUFFICIENT_EVIDENCE status in at least
+one of C2/A_tp_pool/B_semantic; ties use that stated method order.
+Disagreement requires a raw MT proposal mapped to LONG/CASH to differ
+from its anchor. A veto requires the recorded utility rejection to change
+that mapped raw proposal to the final action. An incorrect case has a
+LONG/DOWN or CASH/UP final action in at least one research role; ties use
+the role order in B06a. Only the last predicate uses outcomes, deliberately
+to illustrate an error.[^case-selection]
+
+| Declared group | Candidate points | Selected point | Displayed role |
+| --- | --- | --- | --- |
+| Sufficient context | 29 | FPT-2023-07-03 | MT-BICL |
+| Insufficient conditional support | 47 | FPT-2023-07-03 | C2 |
+| Proposal / anchor disagreement | 5 | HVN-2024-07-01 | MT-BICL |
+| Policy veto of raw proposal | 2 | MWG-2024-09-20 | MT-BICL |
+| Incorrect final action | 52 | CMG-2023-07-03 | Native |
+
+The groups overlap: EX01 is the first sufficient-context case and the
+first conditional-insufficiency case. The 52-point incorrect-case
+denominator counts points where any research role errs at repeat 0; it
+is not an error count for one method or for all three repeats. Likewise,
+the two veto cases are the repeat-0 subset, distinct from the five rejected
+MT changes across all repeats in B07c.
+
+**Table B07e. Cutoff facts from the recorded numerical audit packets.**
+Prices and moving averages use the packet's source unit, thousand VND.
+All packets end at the stated cutoff, use 45 bars and record missing
+sentiment. For the Native error case, this packet is an associated audit
+view; Native did not receive the MT fact-packet interface. The table does
+not assert identical prompts across profiles.[^case-chains]
+
+| Point | Close | SMA20 | MACD / Signal | MACD / zero | Price / SMA20 | Sentiment |
+| --- | --- | --- | --- | --- | --- | --- |
+| CMG-2023-07-03 | 29.740 | 29.380 | BELOW | POSITIVE | ABOVE | Unavailable |
+| FPT-2023-07-03 | 48.180 | 47.568 | BELOW | POSITIVE | ABOVE | Unavailable |
+| HVN-2024-07-01 | 27.190 | 24.952 | BELOW | POSITIVE | ABOVE | Unavailable |
+| MWG-2024-09-20 | 65.140 | 65.521 | BELOW | POSITIVE | BELOW | Unavailable |
+
+**Table B07f. Raw proposals, anchors and final actions.** Every row is
+repeat 0. SHORT maps to CASH. NA denotes no raw response or no applicable
+anchor; a fallback's final LONG is not an invented raw LONG response.
+The full policy reason and request identity are retained in the ledger.
+Query outcomes were joined only after all twenty-four research forecasts
+for the point had completed durably.[^case-chains]
+
+| Point | Role | Raw | Anchor | Final | Recorded policy path |
+| --- | --- | --- | --- | --- | --- |
+| FPT-2023-07-03 | MT-BICL | LONG | LONG | LONG | Keep same |
+| FPT-2023-07-03 | C2 | NA | NA | LONG | Reuse Common |
+| HVN-2024-07-01 | MT-BICL | LONG | CASH | LONG | Accept change |
+| MWG-2024-09-20 | MT-BICL | LONG | CASH | CASH | Veto change |
+| CMG-2023-07-03 | Native | SHORT | NA | CASH | Raw decision |
+
+**Table B07g. Outcomes disclosed after facts and actions.** Entry is
+Open(t+1), exit is Close(t+3), both in VND. Gross/net candidate-LONG
+returns and labels are the saved canonical outcomes; they are not returns
+earned by a CASH action. A final CASH action earns 0% under this reference
+contract. These single-cycle outcomes are not account or portfolio
+returns.[^case-chains]
+
+| Point | Entry date | Exit date | Entry open (VND) | Exit close (VND) | Gross (%) | Net (%) | Net label |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| CMG-2023-07-03 | 2023-07-04 | 2023-07-06 | 29740 | 30000 | 0.874 | 0.171 | UP |
+| FPT-2023-07-03 | 2023-07-04 | 2023-07-06 | 48180 | 48390 | 0.436 | -0.265 | DOWN |
+| HVN-2024-07-01 | 2024-07-02 | 2024-07-04 | 27190 | 26950 | -0.883 | -1.574 | DOWN |
+| MWG-2024-09-20 | 2024-09-23 | 2024-09-25 | 65140 | 65810 | 1.029 | 0.324 | UP |
+
+**EX01, FPT at 3 July 2023.** This is the running example introduced before
+its outcome in Chapter 4. Its v1 context contains three examples, while
+C2 has only nineteen population observations, below twenty, and one
+conditional observation, below five. C2 therefore reuses the same-repeat
+Common LONG without a new raw response. MT has K=3 numerical prior tasks
+and three target observations, meets eligibility and proposes the same
+LONG as Fact Anchor; no change-quantile test is needed. The recorded
+MT Q10(U) is negative, but KEEP_PROPOSED_SAME is the applicable branch.
+The two regime sources remain CONSOLIDATION for v1 and BULL for numerical
+MT. Its positive gross return of 0.436% becomes **−0.265% net**, making
+the LONG incorrect under the actual economic label. Sufficient context
+and valid fact assertions do not guarantee a correct or profitable action.
+
+**HVN at 1 July 2024: an accepted disagreement that loses.** The packet
+places MACD below Signal, MACD above zero and price above SMA20. MT has
+supported numerical context even though HVN has no same-symbol signal
+bank; the two memory systems have different domains. Its raw LONG differs
+from anchor CASH. The recorded Q10 of the CASH→LONG utility change is
+0.0027822661645950566, above zero, so policy accepts LONG. The later
+candidate-LONG return is **−1.574% net**. This case follows the declared
+disagreement predicate and illustrates that a positive model-based lower
+quantile is not an ex-post profit guarantee. It cannot establish how the
+student would perform without the rest of the pipeline.
+
+**MWG at 20 September 2024: a genuine veto with a missed UP outcome.**
+The packet records MACD below Signal and price below SMA20. MT is eligible
+and proposes LONG against anchor CASH, but its recorded change Q10 is
+−0.020861640105904133. Policy rejects the change and retains CASH. The
+later candidate-LONG outcome is **+0.324% net**, so CASH is a classification
+error and a missed positive cycle, while its realized reference return
+is zero. The veto did not incur a trading loss in this case, and it did
+not improve the realized label decision. This distinction prevents a
+mechanically conservative gate from being described as uniformly helpful.
+
+**CMG at 3 July 2023: the first incorrect-action case.** Native proposes
+SHORT, which maps to CASH; the later candidate-LONG label is UP with
+**+0.171% net**. This is a missed opportunity under the forecast contract,
+not a short sale or a negative CASH return. The associated audit packet
+has the same three categorical fact relations as EX01, but the symbol,
+source reports and Native profile differ. Similar fact categories therefore
+do not imply identical prompts, a common hidden cause or an appropriate
+counterfactual comparison between these two points.
+
+These cases expose an active context that fails, an explicit support
+fallback, an accepted but losing change, a veto that misses a gain and a
+baseline error. Their inclusion explains observed paths; it does not
+estimate their frequencies, demonstrate policy benefit or replace the
+complete-cohort results.
+
+[^case-selection]: Selection rule EX01_SELECTION_V1 and ledger §7.7; ED16/40 plus U08 source chains in §10.11; CL169. All sources were checked before applying the five predicates; no favorable repeat or outcome-based selection outside the declared error group.
+[^case-chains]: U08 raw member/hash bindings CT01–CT30 in ledger §10.11, linked to ED16 predictions by point/method/repeat, shared output, policy and request IDs; EX01 details also in §7.2–§7.6. CL170–CL173. Prepared packets are inputs/audit views, forecast policies precede the outcome barrier, and outcome returns retain the canonical two-way costs.
 
 ## 5.9. Unperformed ablations and threats to validity
 

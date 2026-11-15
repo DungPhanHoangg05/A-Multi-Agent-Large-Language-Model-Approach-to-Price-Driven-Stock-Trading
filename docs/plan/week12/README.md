@@ -383,6 +383,8 @@ Ngày **15/11/2026**, tiếp tục T42–T47 theo yêu cầu, mỗi task dùng n
 
 **T44**, `docs/thesis-context-mechanisms`: §5.8.1–§5.8.2/B07a–c/F10, CL163–CL168/ED40. Đếm bank48/OOD54, READY1/8/1, visibleexamples0 ở conditional; v1 age/similarity/regime từ trường đã lưu, thiếu MTexport/regret giữNA. MT108bypass/189same/5reject/4accept, 302/306giữanchor; phân biệt Q10(U) với Q10(deltaU) và support Brier. F10 xuất source/vector/PDF/PNG, biên dịch đúngscript, renderPoppler và xemPNG; số/link/spec/diff PASS. Không policyreplay/fit/API/bootstrap/suite runtime, không studentcausalclaim. Cases/robustness/threats tiếp tục T45–T47.
 
+**T45**, `docs/thesis-case-studies`: §5.8.3/B07d–g và CT01–CT30, CL169–CL173. Áp dụng §7.7/r0/firstdate-symbol trên102điểm đủnguồn; candidates29/47/5/2/52 chọnFPT/FPT/HVN/MWG/CMG, chỉ nhóm sai dùngoutcome. Đối soát toànrecord, forecastshared/outputdigest/request/policy và outcome sau cả24forecast/point. GiữFPTnetloss, HVNacceptthua, MWGveto bỏlỡUP và CMGNativeCASHmissgain; packetCMG chỉauditview. Source/ô/unit/count/links/footnotes/spec/diff PASS; docs-only không suite/compileall/API/fit/replay/bootstrap. T46–T47 còn việc.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

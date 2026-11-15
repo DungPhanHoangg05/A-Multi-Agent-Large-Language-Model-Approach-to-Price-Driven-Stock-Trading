@@ -937,7 +937,7 @@ ablation MT-BICL chưa chạy.
 | B04 | **Data, evaluation support and frozen configuration.** Tách cohort/loại trừ, bank, missingness, models, runtime và call/repeat units của hai nghiên cứu. | Ch. 5.2–5.3 | T37, T38 | ĐO_ĐƯỢC | SRC02, SRC05, SRC07, SRC08 | `tables/B04_data_configuration.csv + .tex` |
 | B05 | **Component-study results and controls.** B05a–g: main, confusion/exposure, stock/block, numeric/inference, upstream/factorial và bảy contrast; scenario để phân tích độ bền T46. | [Ch. 5.6](chapters/05_experiments.md#56-component-study-results); App. D | T41 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | ED24/25/28/29/32–37; §10.7 | Bảng trong chương có đối soát từng ô; CSV/LaTeX dự kiến ở T69, chưa xuất |
 | B06 | **Historical-context results and paired comparisons.** Giữ đủ tám vai trò/hai economic controls, 20 contrast, ba bridge và sensitivity đúng nguồn. | Ch. 5.7; App. D | T42/T43 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | ED07/16/38/39; §10.8 | B06a–c trong §5.7; contrast theo T43, CSV/LaTeX ở T69 |
-| B07 | **Traceable contexts, proposals, policies and outcomes.** Chọn tình huống theo rule, nối facts/context/raw/final/outcome; có fallback, veto và quyết định sai. | Ch. 5.8; App. B/D | T44, T45 | DẪN_XUẤT | SRC06, SRC08 | `tables/B07_case_traces.csv + .tex` |
+| B07 | **Traceable contexts, proposals, policies and outcomes.** Chọn tình huống theo rule, nối facts/context/raw/final/outcome; có fallback, veto và quyết định sai. | Ch. 5.8; App. B/D | T44/T45 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | ED07/16/40, CT01–CT30; §10.10–§10.11 | B07a–g trong §5.8; CSV/LaTeX ở T69 |
 | B08 | **Comparison with related research.** So sánh inputs, architecture, context/regime, PIT, economics và controls từ nguồn đã kiểm. | Ch. 2.7 | T53 | DẪN_XUẤT | SRC10 | `tables/B08_related_research.csv + .tex` |
 | B09 | **Research questions, supported answers and remaining uncertainty.** Mỗi RQ nối với quan sát, kết luận có giới hạn và bằng chứng còn thiếu. | Ch. 5.9; Ch. 6.2 | T47, T56 | DẪN_XUẤT | SRC07, SRC08, SRC10 | `tables/B09_rq_answers.csv + .tex` |
 
@@ -1411,6 +1411,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL166 | [MT policy counts](chapters/05_experiments.md#582-anchor-relative-revisions-and-probability-outputs) | DO_DUOC | ED07/16; §10.10 | 48feature+60utilitybypass+189same+5reject+4accept=306; final=anchor302 | Flagfalse108bypass không phải108reply sai; eligible66points |
 | CL167 | [Direction of utility gate](chapters/05_experiments.md#582-anchor-relative-revisions-and-probability-outputs) | HOP_DONG_TRIEN_KHAI | Chapter4.8.6/BG18; ED16; §10.10 | CASH→LONG Q10U; LONG→CASH −Q90U, strict>0 | Không gọi utility_q10 là deltaquantile cho mọi chiều |
 | CL168 | [Probability support](chapters/05_experiments.md#582-anchor-relative-revisions-and-probability-outputs) | DO_DUOC | ED07calibration/ED16; §10.10 | numericBrier.205811/258slot86points, teacher.212024/198slot66points | Support khác không xếp hạng; không LLMconfidencecalibration/studentcausalclaim |
+
+| CL169 | [Case selection](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule) | DAN_XUAT | §7.7, ED16/40, CT01–CT30; §10.11 | r0,102điểm đủ nguồn; candidates29/47/5/2/52, chọnngày/mãđầu; tieorder công bố | Chỉ nhóm sai dùng outcome; overlap cho phép, không errorrate/causaleffect |
+| CL170 | [EX01 support and loss](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule) | DO_DUOC | EX01/CT; §10.11 | FPT03Jul2023: đủMT/v1 nhưngC2insufficient, rawMTLONG=anchor, gross+.436%→net−.265% | Giữ hai nguồnregime, samebranchkhôngquantiletest; khôngveto giả |
+| CL171 | [Accepted losing change](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule) | DO_DUOC | HVN CT, ED16; §10.11 | HVN01Jul2024: anchorCASH/rawLONG/acceptLONG, Q10delta+.0027822661645950566; net−1.574% | Modelutility không profitguarantee; signalbank khác numericcontext |
+| CL172 | [Veto and missed gain](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule) | DO_DUOC | MWG CT, ED16; §10.11 | MWG20Sep2024: anchorCASH/rawLONG/vetoCASH, Q10delta−.020861640105904133; candidate net+.324% | CASH0 khôngloss; labelerror/missedgain, không policybenefitclaim |
+| CL173 | [Native error](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule) | DO_DUOC | CMG CT, ED16; §10.11 | CMG03Jul2023: NativeSHORT→CASH, candidate net+.171%/UP | Packet là auditview, không Nativeinput tương đươngMT; không actualshort |
 
 Quy tắc điền bảng:
 
@@ -2420,3 +2426,54 @@ T44; CL163–CL168, ED07/16/40. B07a lọc ED16 repeat0, nối ED40 qua `trace_s
 - `thesis/assets/figures/F10_coverage_actions.pdf`: `5982a4696c317097780bc35bc01a6c3209511f27d6e5bafd6681b2906bcd17d7`.
 - `thesis/assets/figures/F10_coverage_actions.svg`: `ad3cfd5afa55eba381f5bb8c2330a5702e037c17d4b04be31b5838e1d8ad06c8`.
 - `thesis/assets/figures/F10_coverage_actions.png`: `f263b153da1db2fdb665d86739cd9dfe9de646908f177e9050a0511eaf3e61f0`.
+
+### 10.11. Quy tắc và nguồn nhóm ca T45
+
+T45; CL169–CL173. Giữ §7.7, không đặt rule sau khi chọn ca đẹp: repeat0, nguồn đầy đủ trước, sort(date,symbol). Toàn102điểm/816forecast r0 có shared/prepare/forecast/outcome; rawmember đối chiếu manifest trong U08 outerpin §3, envelope và outputdigest. Kiểm outcome.started_at sau completed_at của cả24forecast/point, không chỉ nhánh minh họa. Nhóm đủcontext: MT eligible và v1 khôngbypass→29; thiếu: bất kỳC2/A/B gateINSUFFICIENT_EVIDENCE vàbypass→47, tieC2,A,B; bấtđồngMT rawmapped≠anchor→5; vetoMT reasonREJECT_NONPOSITIVE_Q10_DELTA_U vàrawmapped≠final→2; sai: bất kỳ8role LONG/DOWN hoặcCASH/UP→52, tiemethodorder B06a. Chọnđầu mỗi nhóm cho FPT/FPT/HVN/MWG/CMG, không đổi r0. Chỉ nhóm sai dùnglabel cóchủđích, không suyaccuracy từ mẫu này.
+
+B07d là count/ID/predicate; B07e lấy `prepare/forecast/<id>/u0/r0/Fact_Anchor.output.aux.packet.numeric/assertions`, unit nghìnVND, prefix45, sentiment từ shared. PacketCMG chỉ là auditview, không Nativeinput. B07f lấy ED16 raw/anchor/final và policyforecast, giữ NA khi bypass; fullreason/requestID bảng dưới. B07g lấy outcome.output.target và dates[1]/dates[3], VND, gross/net fraction×100, labelgiữnguyên; không relabel hoặc accountreplay. Longcycle thấtbại khác CASHmissedgain; hai CASHcase realized0 theo contract. FPT MT K3/m3 vàC2 population19/conditional1 liên kết EX01 §7.4–§7.6; regimekhácnguồn khônggộp.
+
+Mọi basename dưới thuộc `outputs/unified_integration/u08_research_r1/slots/` trong U08ZIP đã pin. CT là locator nguồn tại sổ chung, không tạo receipt riêng. Mỗi hàng chỉ băm rawmember; outputdigest và contextmembership không thay thế rawhash.
+
+| Binding | Logical slot | Member basename | SHA-256 raw member |
+| --- | --- | --- | --- |
+| `CT01` | `forecast/CMG-2023-07-03/u0/r0/Fact_Anchor` | `2f56c53019a165e530b49e0f0c88a650d842debcf3270c2ffdcc0963ec6f342b.json` | `f585f448d86aa593301f8c6a8535f5a92ab80a1a733fc091dfca4cca2bc5fefb` |
+| `CT02` | `forecast/CMG-2023-07-03/u0/r0/original_fix` | `f1ea2a568b54540be5f64d06cbc0d5a37074a73cb3618b8339444eb4db07c73b.json` | `0097369bceaa448ad108631c4ddb0fd004cf7928abcf82cb354f32f234204f1a` |
+| `CT03` | `forecast/FPT-2023-07-03/u0/r0/C2` | `d33c4a932ddfe9a5365fe271c5b176488aff85a5cb59bb01db5cf8693becf693.json` | `104be95520b47e7bd2ad6071002d5e039b1ec3c2f3264a20636f85faacedf00a` |
+| `CT04` | `forecast/FPT-2023-07-03/u0/r0/Fact_Anchor` | `3fc8ef7e65fb8ae2cacb89fa3ce5bce94e98ef48a894e65cc74a48924b1b3b61.json` | `c9ebdeb3c900f5633234e7915b8f8129f5e0d919dc8115f9725da5de42109c44` |
+| `CT05` | `forecast/FPT-2023-07-03/u0/r0/MT_BICL` | `58d6247d4cdd587aade0b220539c197053b921d48fde462bd1e4725ee56919ad.json` | `1a490828b1596a0b605da6371f2fd4bc6f95876ce590765582441828076e6fb0` |
+| `CT06` | `forecast/FPT-2023-07-03/u0/r0/bayesian_v1` | `f875086c494f4b35ab84f1e1df38e0fd152df7f00cbc53e4ba615fcbd2551509.json` | `366b32095f0f5f022bc9852034c28bde87521eae720449b722061b130083d0f3` |
+| `CT07` | `forecast/FPT-2023-07-03/u0/r0/original_common` | `64423caca8a47ecfcb81e2d2d7c9a9d6c6618facc1ef45e84c1e327d5f13fbe2.json` | `203a51ac6c6f79ea429b565b067f39f8283b46d10b002ab1a9fec5a9d90037da` |
+| `CT08` | `forecast/HVN-2024-07-01/u0/r0/Fact_Anchor` | `5529ea4025966f7bf36443e2c4c32e322ef5b5a309464585945928c5dafad3f7.json` | `8bb7ff3c3f1031b8febb3ea2656924cc8aa004de6e31acffb979cb66965afd27` |
+| `CT09` | `forecast/HVN-2024-07-01/u0/r0/MT_BICL` | `c8c71c657cf74869b599b410bcbdb6dbf7a6d1d6c10dc1419832ca6a3eedaf22.json` | `4a7d29b6805d968cf9a8b7afed66930e3046953686e4f83d6738ea66825f5b04` |
+| `CT10` | `forecast/MWG-2024-09-20/u0/r0/Fact_Anchor` | `2e633ea731688ed0063cc805f4a850a04c3115fe2db3b828edb8c825d38bf05d.json` | `2a23fcfeb31b5f802f63cc61bfc00af13b87de2a89b7eb66f10d4e53ac940a8b` |
+| `CT11` | `forecast/MWG-2024-09-20/u0/r0/MT_BICL` | `ea1bfdaaeb4d92aac3ce4307ff4fdfa4a26ffd7a487cf30b3f7a429ebf111c6f.json` | `cb8cba18703d4628cf57dbbbb45becf17710934b5ba94b0e1923b84c7976b906` |
+| `CT12` | `outcome/CMG-2023-07-03` | `ca988293ec4fb389ad474ab0801dfeae295d0b7fc2471cc1e68f9c25f987682f.json` | `cd7045cf5964a4bfb393f21b0540c33a76e0b9e4f7f014cab2ee19b23dd996ac` |
+| `CT13` | `outcome/FPT-2023-07-03` | `44ee5a008ff1b2964ddf676f02420fe9ed5a3f9aadb87e8a5bc789af23822605.json` | `ccc7cd71bc2877ea821b372b68427c9bf2d76636c944e4c66539dea4dd839866` |
+| `CT14` | `outcome/HVN-2024-07-01` | `436c55af493bff35c023ee42b6f319a3a03971282a5c2cd12b128054cf00e827.json` | `a4600ff7a09cb4bf9743237d933648cffcc88e4f551c999658445e4072e5a161` |
+| `CT15` | `outcome/MWG-2024-09-20` | `06dd15ab154bdf46ba6c03d14f28664554c503c143d7d402d4a3f29855d13b58.json` | `b0fb8fa988a8bc88636fec3b9d4af5258b37ce90a9f3284e2a546d87f8f57118` |
+| `CT16` | `prepare/forecast/CMG-2023-07-03/u0/r0/Fact_Anchor` | `709f1f7a0393e8f2457d3ec17ecc8e6ae119bdddda5b811b9b230aa994d1f165.json` | `c475baae656171560ac9cde55a41674dafe4c2ed1a0bae63a57790a43522df5e` |
+| `CT17` | `prepare/forecast/CMG-2023-07-03/u0/r0/original_fix` | `4e8cb9d5467eaef8497df63ce982d909a4a53dc468044f4e3961122f4ed3e15f.json` | `7ac1a7a49958fec08808545b4f2e26eaee88c636a229426f913caadff1a25cab` |
+| `CT18` | `prepare/forecast/FPT-2023-07-03/u0/r0/C2` | `01e15b9af24cc5221d7c0a52aea7d0d75f57dfb27bf9399bc44d0d4f7f3f2111.json` | `3be9c1af7b82643958fbcb71e4bc5a2abd0f458ad94fea5e931815c304d179d2` |
+| `CT19` | `prepare/forecast/FPT-2023-07-03/u0/r0/Fact_Anchor` | `6c8a29ac75aeb061c98d24cf6bcd99b9a90300b8fb06d71d787e028a2ff95266.json` | `baa0a9cb15eb9c121254cdf57d76c00dd1d6ada39a603279547f42489845ae4f` |
+| `CT20` | `prepare/forecast/FPT-2023-07-03/u0/r0/MT_BICL` | `08ff81cfe2d64902d2f366e3668e9fdd3e87e8c6bc08c9d3288fc87feeee96aa.json` | `613707509fb6e579cf4f534a86a5040d13142d5b5a254c0b57da272dc69fd1e3` |
+| `CT21` | `prepare/forecast/FPT-2023-07-03/u0/r0/bayesian_v1` | `738d6fb060b83cc5e47bd90ba1270e0f23f2a145731e49b41c0d621c724f5e22.json` | `6cb5f8473fb07138da22b84274be792453d5cd4e551f4e9a70cfada5dda1b202` |
+| `CT22` | `prepare/forecast/FPT-2023-07-03/u0/r0/original_common` | `e32175e16f4bc276326e727e178368a385cac23dc5b26bcacc92d39a7c3adaf5.json` | `253af331cdaf7ee2b9435b5faf52bd6fa1ed372ad41f2bd128a071bc8484241b` |
+| `CT23` | `prepare/forecast/HVN-2024-07-01/u0/r0/Fact_Anchor` | `45d938cae699a0d4b1884c0a7a70518017fbbbae556bdff03e45fef0a95bb71b.json` | `ec2fb64306c327795af77d6ef5e98fa56d05a757fbe94f9b8f5d2943d540c627` |
+| `CT24` | `prepare/forecast/HVN-2024-07-01/u0/r0/MT_BICL` | `1b542349cfdd4274bd0bd8164e8b74022b70576f0c8cbc0d2cc9f53ef9d8ad88.json` | `faf10f90334f163bac733da4722a6aef738741e2ba8f7b007ed613c2395fa087` |
+| `CT25` | `prepare/forecast/MWG-2024-09-20/u0/r0/Fact_Anchor` | `863134e8d4f1be77db19ff6d00d0f5e474e7d296d177e1a2c12e9b3f79f25e29.json` | `cae093c1f5abf112181b495900978556b7f2230b2d3d5203596507d371e127fa` |
+| `CT26` | `prepare/forecast/MWG-2024-09-20/u0/r0/MT_BICL` | `4a55c8701b576f691c2d9c897fa4255fc5c928e18224b7e0361cb5630c6cc2da.json` | `475824088486aaffcc554655392808be110de88b7ea2c986e60cad26587eea07` |
+| `CT27` | `shared/CMG-2023-07-03` | `bb5386de16154e9c9c4f5c97bfc5bebea7c1100a52c83a522e78b133c3565552.json` | `5d1deb264c9d73edcac4b93b66d28017b7c8ee2f83acdda8dd5dd4e1d2d404fa` |
+| `CT28` | `shared/FPT-2023-07-03` | `7ace396801b8666a24f23ed0aef3466aa073db80185db93ceab24d48741a9ec3.json` | `42296f5e9e1c8b5ba25730a19adf0cd8445d251486116029bc2191e3f57e79cc` |
+| `CT29` | `shared/HVN-2024-07-01` | `8d955df4cc7f6de4697c3d94b9856f1fa230ab1e65cf07a82358588f5c5643fb.json` | `6103bce1f0f20ca901122bd9d67e790d7b80789586af88ad5908a824678444b8` |
+| `CT30` | `shared/MWG-2024-09-20` | `3ec26085d0deba6658532f7a00eb7616ecae86c5a27211a934fc2381322dfb20.json` | `627cc4f5f14c744faca5362d2f4783c89ec4e72cc863b6d22ee6d4bc894a2b5d` |
+
+| Point | Role | Source request ID | Saved Q10(delta U), fraction |
+| --- | --- | --- | --- |
+| FPT-2023-07-03 | MT-BICL | `cc6bf729-784a-458a-8e40-07398fac513f` | NA |
+| FPT-2023-07-03 | C2 | `NA (bypass)` | NA |
+| HVN-2024-07-01 | MT-BICL | `ecf988b6-57a5-4601-98f8-ee7e9c64fe73` | 0.0027822661645950566 |
+| MWG-2024-09-20 | MT-BICL | `80f57fde-498b-4fd3-975d-25ebc5973822` | -0.020861640105904133 |
+| CMG-2023-07-03 | Native | `1493f745-e2fa-49bf-b0db-c7eb474ef9f1` | NA |
+
+Kiểm từng ô facts/actions/outcomes, unit×100/×1000 khi trình bày, request/shared/policy/barrier, nguồnselection/support, links/footnotes/spec/diff. Docs-only không compileall/unit/E2E/leakage; không API/fit/replay/bootstrap. Không chọnoutcome cho nhóm đủ/thiếu/disagree/veto, không thêm giả lập để thay ca thật.

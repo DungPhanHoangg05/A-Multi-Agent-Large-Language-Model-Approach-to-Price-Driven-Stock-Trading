@@ -75,7 +75,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T42 — DONE: [§5.7/B06a–c](chapters/05_experiments.md#57-historical-context-results), đủ tám vai trò/hai control, kết quả/support/raw/bypass và cả ba repeat. CL155–CL158, ED07/16/38/39; giữ return âm/NA và fallback trong primary, phân biệt mean51account với repeatSD. Đối soát nguồn/ô/links; T43–T47 tiếp tục riêng.
 - [x] T43 — DONE: [§5.7.4–§5.7.5](chapters/05_experiments.md#574-paired-contrasts-against-both-baselines), B06d đủ20contrast/B06e ba bridge và F09 SVG/PDF/PNG/source. CL159–CL162; đúng Native/Common, pp và joint descriptive band; kiểm số và render, không redraw bootstrap.
 - [x] T44 — DONE: [§5.8.1–§5.8.2](chapters/05_experiments.md#581-historical-support-and-recorded-context), B07a–c/F10; CL163–CL168, ED40. Tách bank/gate/reply/action, age/similarity đã lưu và missing, Brier khác support, MT302/306giữanchor; Q10U khác deltaquantile khi đổi chiều. Kiểm nguồn/count/render; không suy student causal.
-- [ ] T45 — Viết tình huống có truy vết, gồm thiếu support và quyết định sai.
+- [x] T45 — DONE: [§5.8.3/B07d–g](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule), năm nhóm/4điểm theo §7.7, candidates29/47/5/2/52; CT01–CT30/CL169–CL173. Kiểm sourcehash/shared/request/policy/outcomebarrier; có ca đủcontextthua, acceptthua, veto bỏlỡUP và Native sai; CASH0 khác netcandidate.
 - [ ] T46 — Báo cáo phân tích độ bền và tài nguyên đã thực hiện.
 - [ ] T47 — Thảo luận giới hạn, ablation chưa làm và trả lời RQ.
 
