@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Sections 5.1–5.4 specify study scope, data support, configuration and comparators; subsequent sections remain to be drafted.
+> **Draft status: partial chapter.** Sections 5.1–5.5 specify the source-checked experimental design and metrics. Results and discussion in Sections 5.6–5.9 remain to be drafted.
 > Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -505,7 +505,216 @@ utility gate alone explains a performance difference.
 
 ## 5.5. Metrics and statistical analysis
 
-> **Not yet drafted.** Define classification metrics, account returns, exposure, turnover, NAV and drawdown with units and denominators. Preserve study-specific aggregation, frequency and undefined-value rules. Describe the recorded paired bootstrap, contrast families, descriptive bands and sensitivities without promising confirmatory significance or calibrated coverage.
+### 5.5.1. Classification, support and undefined values
+
+Evaluation uses the **final** action: LONG predicts UP and CASH predicts
+DOWN, where $y=1$ iff the canonical net LONG return is strictly positive.
+Zero is DOWN. A raw SHORT proposal is an executable CASH action, not a
+negative payoff from selling stock short. Let TP/FN count UP cases and
+TN/FP count DOWN cases; $N=TP+FN+TN+FP$. The reported classification
+definitions are
+
+$$
+\mathrm{Accuracy}=\frac{TP+TN}{N},\qquad
+\mathrm{BA}=\frac12\left(\frac{TP}{TP+FN}+\frac{TN}{TN+FP}\right),
+$$
+
+$$
+\mathrm{MCC}=\frac{TP\,TN-FP\,FN}
+ {\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}},\qquad
+\mathrm{LONG\ rate}=\frac{TP+FP}{N}.
+$$
+
+For UP, precision is $TP/(TP+FP)$, recall is $TP/(TP+FN)$ and
+$F1_{UP}=2TP/(2TP+FP+FN)$. Swap UP/DOWN to obtain the negative-class
+metrics; macro-F1 is $(F1_{UP}+F1_{DOWN})/2$ when both are defined.
+“Macro-F1” across classes is different from a macro average across stocks.
+Classification fractions are converted to percent only where the output
+field/caption says percent; a difference between percentages is in
+**percentage points (pp)**, not relative percent improvement.
+[^classification-contract]
+
+Zero denominators produce null/NA with reasons. BA is undefined without
+both true classes; constant predictions can make MCC undefined even when
+accuracy and BA are defined. F1 can equal zero when its denominator is
+positive, but a zero denominator is not silently replaced with zero.
+For example, the all-CASH rule on the stated 25-UP/77-DOWN support has
+accuracy $77/102$ and BA $0.5$, while MCC is undefined. This arithmetic
+illustrates class imbalance, rather than introducing a newly measured
+result. VNM has no UP labels, so stock-level BA is undefined; a macro-stock
+summary must report its defined-stock denominator instead of averaging
+an invented VNM score.
+
+Component main classification pools its 102 points once per method and
+also reports per-stock/per-block and macro-stock summaries with planned,
+defined and undefined counts. Context classification first computes each
+repeat's metric on the full 102-point pool, then averages the three metric
+values. It does not select the best repeat or compute an uncertainty sample
+as if 306 forecasts were independent market outcomes. A context summary
+metric is null if any required repeat value is undefined; subgroup reports
+retain their own missing-class reasons. Sample SD across three repeat
+summaries (`ddof=1`) measures conditional response variability, not market
+sampling uncertainty.
+
+For recorded numerical probabilities, supported-only Brier score is
+$N_p^{-1}\sum_{i\in\mathcal P}(p_i-y_i)^2$, accompanied by $N_p$ forecast
+count and the number of distinct points. Undefined/unsupported probabilities
+are not filled with 0.5. This is a restricted numerical-target diagnostic;
+LLM confidence labels are not mapped to probabilities and no calibrated
+LLM-confidence claim follows from it.
+
+### 5.5.2. Net economics, account aggregation and risk conventions
+
+The canonical candidate LONG payoff is
+
+$$r_i=\frac{C_{t_i+3}}{O_{t_i+1}}
+ \frac{(1-0.001)(1-0.0025)}{(1+0.001)(1+0.0025)}-1.$$
+
+This includes slippage and brokerage on both sides. For action indicator
+$a_i=\mathbf1\{\mathrm{LONG}\}$, strategy return per cycle is $z_i=a_i r_i$;
+CASH is zero. The gross diagnostic and execution scenarios do not replace
+the fixed net labels. The target audit records seven gross/net label
+disagreements and 65 cases where entry Open differs from decision Close;
+neither Close-to-Close nor an unverified legacy price alias substitutes for
+the specified oracle.
+
+Reference accounts start with VND 50 million, use fractional all-in LONG
+positions and retain CASH between nonoverlapping sampled cycles. For
+account $q$ and method/repeat $(m,r)$,
+
+$$R_{qmr}=\prod_{i\in q}(1+z_{imr})-1.$$
+
+Primary component financial comparisons take an equal mean of the 51
+stock/fold account returns for a method. Primary context return is
+
+$$\bar R_m^{(\%)}=\frac{100}{51}\sum_{q=1}^{51}
+ \left[\frac13\sum_{r=0}^{2}R_{qmr}\right].$$
+
+Thus repeats are averaged within account before accounts are averaged.
+The implementation's mean over all 153 complete account paths is
+algebraically identical on this balanced grid. A contrast is the difference
+of these method estimators, in pp. It is not the average one-cycle payoff,
+a single capital stream across folds, or a market portfolio.
+The separate 23-strategy panel's headline `mean_symbol_return_pct` averages
+its **nine stock-level accounts**, with cycles compounded across each
+stock's recorded schedule; its 51 scope accounts remain separate outputs.
+That statistic must not be silently relabeled the primary 51-account mean.
+[^economic-estimators]
+
+Daily NAV marks stock at the observed close and cash after exit costs,
+including a starting-capital anchor. Maximum drawdown is reported as a
+nonnegative percentage,
+
+$$\mathrm{MDD}=100\max_d\left(1-\frac{V_d}{\max_{u\le d}V_u}\right).$$
+
+Full EOD NAV drawdown differs from drawdown computed only at cycle ends.
+The context account spans the first query through the last exit, including
+the first query's initial cash observation. The component reference daily
+ledger starts at its first entry with a separate initial-capital anchor.
+Both retain intervening cash sessions. Mean account MDD and worst-account
+MDD are different summaries; neither is the drawdown of a constructed
+portfolio. Fractional accounting, immediate reference cash availability
+and daily marks do not certify settlement, round-lot capacity, taxes,
+dividends or actual fills.
+
+| Quantity | Component reference | Context reference |
+| --- | --- | --- |
+| Costs | Sum recorded brokerage/slippage in VND; already included in net returns | Same distinction between VND costs and net return fractions |
+| Held-session fraction | Sessions with an intraday holding, including exit session, divided by recorded account sessions | Same held-session indicator, on the context account's query-to-exit window |
+| Close exposure | Position survives that session's close; exit close is cash | Kept distinct from held-session fraction; do not infer an unrecorded close-exposure field |
+| Turnover | Daily buy/sell quoted notional divided by preceding NAV, then summed/averaged as labeled | Sum quoted buy/sell notional in VND and divide by initial capital for `turnover_over_initial` |
+| Orders versus exposure | Two orders per completed LONG cycle; no orders for CASH | Action/holding counts differ from API calls and from traded notional |
+
+**Risk ratios keep their recorded conventions.** Component daily risk
+artifacts use daily NAV returns $d_j$, population SD (`ddof=0`), zero
+risk-free/MAR and nominal 252-period scaling. The reported Sharpe is
+$\sqrt{252}\,\bar d/\mathrm{SD}_{pop}(d)$. Its legacy Sortino denominator
+is the population SD of the **negative-return subset**, not downside RMS:
+$\sqrt{252}\,\bar d/\mathrm{SD}_{pop}(d\mid d<0)$.
+A denominator no larger than $10^{-12}$ is undefined. The separate sparse
+cycle-frequency audit can leave annualized ratios null when the schedule
+is insufficient or gapped. Nominal daily scaling in a recorded artifact
+does not validate annualizing the two sampled cycle returns as daily data.
+
+Context primary ratios are **unannualized cycle diagnostics**:
+
+$$\mathrm{Sharpe}_{cycle}=\frac{\bar z}{s_z},\quad s_z:\mathrm{ddof}=1;
+\qquad
+\mathrm{Sortino}_{LPM2}=\frac{\bar z}
+ {\sqrt{N^{-1}\sum_i\min(z_i,0)^2}}.$$
+
+Here the downside denominator uses all scheduled cycles, including zeros,
+with MAR=0. Zero denominators remain null. Account-level and per-repeat
+pooled-cycle ratios have their stated scopes; averaging ratios is not
+the same as recomputing a ratio on an invented portfolio. The context
+summary leaves annualized metrics null. Ratios from these two studies
+must not be ranked as though they shared a frequency or downside definition.
+[^risk-conventions]
+
+### 5.5.3. Paired resampling and descriptive uncertainty
+
+All reported resampling operates on saved predictions/actions and outcomes,
+with the same sampled blocks applied to compared methods. It does not
+rerun hosted models, refit selectors or replace invalid draws until a
+desired interval appears. The procedures are study-specific:
+
+| Evidence family | Recorded paired procedure | Interpretation retained |
+| --- | --- | --- |
+| Component main | 10,000 whole-market-block draws across six blocks, seed 20261102; pool confusion within each draw; percentile intervals on finite draws | Preserve all symbols/dates/methods in a drawn block; report missing-class/undefined draws |
+| Component upstream/factorial | Saved block and execution resampling weights, 10,000 draws, seed 20261102; retain three-execution structure | Small selected-panel conditional variability, not new market replications |
+| Factorial seven-BA family | Centered maximum absolute deviation across the seven contrasts on their jointly finite draws | Unstandardized descriptive sensitivity envelope; not calibrated simultaneous coverage |
+| Numerical factor-selection family | Paired six-block bootstrap, 10,000 draws, seed 0; exact $2^6=64$ block sign assignments and Holm over all 23 BA contrasts | Diagnostic symmetry/exchangeability assumptions remain unverified; no confirmatory LLM ablation |
+| Context main 20-cell family | Circular moving-block bootstrap across six chronological folds, length 2, 10,000 draws, PCG64 seed 20261110; shared indices for both endpoints and all methods/repeats | Max-standardized descriptive band conditional on six exposed clusters |
+
+The component main intervals and the factorial seven-contrast envelope
+are not the context joint band. In the factorial artifact 6,986 draws are
+jointly finite and 3,014 are undefined; its recorded envelope conditions
+on those finite draws. It does not satisfy or use the context-specific
+9,500-draw admission rule. Numerical-control `dynamic_vs_random_mean`
+compares the dynamic score with the mean score over all 20 trials,
+not an ensemble or the best random trial. Its sign-flip statistic uses
+fixed full-support class weights; its bootstrap recomputes class support
+for each sampled block set. Holm preserves the 23-contrast family even
+when a value is undefined.[^component-uncertainty]
+
+For the context band, let $\hat\delta_j$, $j=1,\ldots,20$, denote the ten
+account-return contrasts followed by the ten BA contrasts. Circular
+length-two blocks select six fold positions per draw. All stocks and
+both endpoints within a fold remain paired; sampled copies retain
+account resets rather than compounding separate folds together. Account
+support, including BHN's structural absence in early folds, determines
+the account-mean denominator in each draw. BA is pooled separately per
+repeat and then averaged, as for the point estimator.
+
+With $s_j$ the bootstrap sample SD on the **jointly finite** draws, define
+
+$$M_b=\max_j\frac{|\delta^*_{bj}-\hat\delta_j|}{s_j},\quad
+c=Q_{.95}^{\mathrm{higher}}(M),\quad
+\mathcal B_j=[\hat\delta_j-cs_j,\hat\delta_j+cs_j].$$
+
+The band is admitted only if at least 9,500 of 10,000 draws are jointly
+finite, point estimates are finite and every column has finite nonzero SD.
+Otherwise the **whole family** has null bands and explicit reasons;
+zero-variance contrasts are not dropped to open a more favorable family.
+The saved primary U09 family has 10,000 finite draws and no zero-SD
+columns. This is a reported finite-sample sensitivity construction, not
+a proof of 95% coverage, statistical superiority, power or generalizable
+profitability.
+
+Recorded context sensitivities use block lengths 1 and 3, CORE4,
+leave-one-fold-out and leave-one-stock-out. Component common-eight/
+recent-nine, leave-one-block, circular-block and panel-HAC diagnostics
+retain their own definitions and are secondary. They do not create
+additional independent datasets or a license to choose the narrowest
+band. With six historical clusters, shared dates, reused inputs and prior
+exposure, stronger causal or confirmatory claims would require evidence
+beyond these reported comparisons.[^context-uncertainty]
+
+[^classification-contract]: ES04/ES06 context classification and ES07/ES09 component metric definitions; ED07/ED11 saved support; CL137–CL138, ledger §10.6. NA/defined counts are part of the metric contract, not omitted observations.
+[^economic-estimators]: ES04–ES06 account estimator, ES01 reference ledger, ED07 definitions and ED30 target audit; ED24 separate numeric headline; CL139–CL140. Labels and economic mappings retain the canonical two-way costs and source units.
+[^risk-conventions]: ES06 context `cycle_ratios/account`, ES07 recorded component daily-risk recipe, ES10 legacy risk/frequency convention and ED31 risk audit; CL141. No ratio is silently recomputed under another study's denominator or annualization.
+[^component-uncertainty]: ED28 primary dependence, ED29 seven-BA family, ED05 panel protocol, ED25/ED27 numerical family and ES07/ES08 procedures; CL142. Stored draws/intervals are read, not regenerated.
+[^context-uncertainty]: ES05 `indices/estimates/bands`, ED07 joint-family metadata and sensitivities; CL143–CL144. The 20-cell band includes both baselines/endpoints and preserves its predeclared scope; no bootstrap is newly executed for this text.
 
 ## 5.6. Component-study results
 

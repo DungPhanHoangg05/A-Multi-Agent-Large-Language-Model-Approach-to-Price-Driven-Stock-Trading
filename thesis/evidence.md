@@ -1210,7 +1210,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
 | [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | P3 đủ bản nháp §4.1–§4.10, kèm F03/F04/F05/F05a/F06/F07/F08/F11, B03 và A01–A03; G2 tự kiểm nội bộ, UI/F11 vẫn PENDING, chưa rà soát/dàn trang cuối |
-| [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
+| [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 EX01; §10 thiết kế | §5.1–§5.5 có bản nháp thiết kế/metric và B04a–e; §5.6–§5.9 kết quả/thảo luận còn placeholder, chưa hoàn tất P4 |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
 
 Không tạo sổ nguồn thứ hai, bibliography cuối, file phụ lục rỗng hoặc khung
@@ -1375,6 +1375,15 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL134 | [Economic controls/scenarios](chapters/05_experiments.md#542-separate-factor-selection-and-economic-controls) | HOP_DONG_TRIEN_KHAI | ED26/ED14, componentfinancial§3.2; §10.5 | CycleLONG/CASH vscontinuoushold price-only;12scenariofixedlabels | Unified excludescontinuous;scenario notcertifiedfills/worstcasebound |
 | CL135 | [Context families/bridges](chapters/05_experiments.md#543-context-baseline-families-bridges-and-absent-ablations) | DO_DUOC | ED14/ED07; §10.5 |5extensions×2baselines×2endpoints=20;3bridges;102/3/51support | Fallback retained; Common khácBase; bridgepackage khácisolatedcause |
 | CL136 | [Absent ablations](chapters/05_experiments.md#543-context-baseline-families-bridges-and-absent-ablations) | DO_DUOC | ED14/ED07 deferred_panels; §10.5 | Retrieval/prior/MT plannedpanel deferred | Có builder/componentpanel không có unified response; no causalstudent claim |
+
+| CL137 | [Classification definitions](chapters/05_experiments.md#551-classification-support-and-undefined-values) | HOP_DONG_TRIEN_KHAI | ES04/ES06/ES07/ES09; §10.6 | FinalLONG→UP/CASH→DOWN; confusion/Acc/BA/MCC/F1/LONG-rate, NA | Zero-F1 có denominator khác undefined; macroclass khác macrostocks |
+| CL138 | [Aggregation/Brier](chapters/05_experiments.md#551-classification-support-and-undefined-values) | HOP_DONG_TRIEN_KHAI | ES04/ES06/ES07/ED07; §10.6 | Component pooled102; contextperrepeat102→mean3; Briersupportedonly/uniqueN | No306independent, no confidence→probability hoặc fill0.5 |
+| CL139 | [Net/account estimators](chapters/05_experiments.md#552-net-economics-account-aggregation-and-risk-conventions) | HOP_DONG_TRIEN_KHAI | ES01/ES04–ES06/ED07/ED24/ED30; §10.6 | Multiplicative2sidescost; component51mean; contextmean3repeat/account→mean51; numeric9symbolheadline | Cycle/account/portfolio khác,65entry≠decisionClose/7grossnet flips giữsource |
+| CL140 | [NAV/MDD/exposure/turnover](chapters/05_experiments.md#552-net-economics-account-aggregation-and-risk-conventions) | HOP_DONG_TRIEN_KHAI | ES01/ES04/ES06; §10.6 | Initialanchor/EODvscycleMDD;heldvsclose;componentprevNAV/contextinitialturnover | Query-to-exit context khác componententry-to-exit; nofills certification |
+| CL141 | [Risk conventions](chapters/05_experiments.md#552-net-economics-account-aggregation-and-risk-conventions) | HOP_DONG_TRIEN_KHAI | ES06/ES07/ES10/ED31; §10.6 | Componentdaily252/popSD/negative-subsetSD; contextcycleunannualized/sampleSD/LPM2 | No sharedSortino denominator; sparsecyclefrequency auditcanNA; noinventannualization |
+| CL142 | [Component uncertainty](chapters/05_experiments.md#553-paired-resampling-and-descriptive-uncertainty) | DO_DUOC | ED05/ED25/ED27–ED29/ES07/ES08; §10.6 | Main/panel seed20261102; factorialjoint6986/undefined3014; numericseed0/sign64/Holm23 | Conditionalfinite envelope không context9500rule; no confirmatory symmetry/coverage |
+| CL143 | [Context joint band](chapters/05_experiments.md#553-paired-resampling-and-descriptive-uncertainty) | HOP_DONG_TRIEN_KHAI | ES05/ED07; §10.6 | PCG64/seed20261110/L2/10000/20joint, SDddof1/higherquantile/threshold9500 | Wholefamily nullifdegenerate, no dropcolumns/redraw; no calibrated95claim |
+| CL144 | [Recorded sensitivity scope](chapters/05_experiments.md#553-paired-resampling-and-descriptive-uncertainty) | DO_DUOC | ED07/ED28/ED29; §10.6 | L1/L3/CORE4/leavefold/leavesymbol; metadata finite counts/indexhash | Fewexposedclusters, no selectnarrowestband or extraindependentcohort |
 
 Quy tắc điền bảng:
 
@@ -2301,6 +2310,17 @@ ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc q
 | ES01 | snapshot | `core/revision_baselines.py` | `b6c0e05d62154c31a6fec387b68d6c6f875b1125a4115046d2e978de1b2ed6c5` |
 | ES02 | snapshot | `core/revision72_analysis.py` | `6586c5e9d78988e408cf55672fce30cdcff2d7475bf9059eb9b2f54edb69eec8` |
 | ES03 | snapshot | `core/revision_numeric_design.py` | `ee2f36416efbda4c5237c55a882f7da3f836db66da7cd9135cbdeccbc1b8131e` |
+| ED28 | revision | `outputs/revision/final_temporal_v1/primary_dependence.json` | `e3486057da26a875f621cd3062bb74c256900a7f2401f37a947d842d27b043fc` |
+| ED29 | revision | `outputs/revision/final_repeats_v1/ba_family.json` | `05c22e2c93c35dc3aa357080ee480368dd9d7befd3cf604a2ce8c65f859423bd` |
+| ED30 | revision | `outputs/revision/final_contracts_v1/targets.json` | `244e60604a0924ee884afa364dbeed298ccf1c19c9ef080d151ee36bbb7574ab` |
+| ED31 | revision | `outputs/revision/final_contracts_v1/report.json` | `d70a70952ffbf32e3a2f7e995b95eff4a672efbb6dbce50f2dbb8d0e5b9c75bf` |
+| ES04 | snapshot | `core/unified_analysis/analysis.py` | `e805460aa47b8d36f563d936b0e52322968f65485537c16fdd94525955179a85` |
+| ES05 | snapshot | `core/unified_analysis/statistics.py` | `4446fa0a77fce1a74a38d94918ae64c1c379c9a6a997b60a8d5df40dfff85b12` |
+| ES06 | snapshot | `core/free_pilot_statistics.py` | `097cf88e3068126c1f668da3022109649aeaff4f8e22a2a319639a9fa9bcd7fb` |
+| ES07 | snapshot | `core/revision_clean_metrics.py` | `f7aaa809cf2d1422f60b1210f7546e0503eea2dab6721f33cacbffeea6f60f75` |
+| ES08 | snapshot | `core/revision_numeric_statistics.py` | `22d4a54e23d26fdd3c2985c942c5403a804c3969aa471e72827657bdb47b61e7` |
+| ES09 | snapshot | `utils/statistical_tests.py` | `5d1096fbf63d9428efc9f6b13ed611fc2324e4ed1281e3c61f1cc9246e54b314` |
+| ES10 | snapshot | `utils/account_risk.py` | `487a50fe28397130a93a92c3f2cd79b5184e5cc1a546b9b21ea7ab7a976cd829` |
 <!-- experiment-data-end -->
 
 ### 10.2. Phạm vi hai nghiên cứu và mốc khóa
@@ -2318,3 +2338,7 @@ T38; CL126–CL130, ED17–ED22. Component attempt metadata649records:455frozen-
 ### 10.5. Đối chứng, panel và can thiệp có/không có bằng chứng
 
 T39; CL131–CL136, ED23–ED27/ES01–ES03. Mainprediction9variants gồmAS/B+7numeric; giữrecipe/provenance frozen, không refit. ES01logisticvalidationgrids/median/scale/refit vàfactorvote; ES03fixedfive IDs/currentcustom, noflipkhôngrerank, threshold.1/strictmeanvote. Numericrun23strategies×102=2346,51scopes/20random; eligible_train_range=[85,85] là số eligiblefactor, không85trainrows. Factorial9units/3exec/5variants và7contrasts riêng compactpromptmain/upstream. ED26scenario12, labels/predictionsfixed; continuoushold_price_only componentfinancial khác cycleLONG và unifiedprotocol excludescontinuous. ED07/14 xác nhận20maincontrastcells và3bridges, support102/3/51 giữfallback; deferredretrieval/prior/MTpanel không tạo thêmresponse. Chỉ source/hash/IDs/count/math/links/84spec/diff, không numericalreplay, fit, API hoặc suite.
+
+### 10.6. Metric, aggregation và resampling theo từng nguồn
+
+T40; CL137–CL144, ED28–ED31/ES04–ES10. Đọc sourcefrozen, runtime/source không đổi. Metric ví dụCASH trên25UP/77DOWN kiểmAcc77/102/BA.5/MCCnull/F1UP0; missing-class toy giữnull. CycleSharpe/SortinoLPM2 trên ba return giả định kiểm ddof1/RMS, không tính lại performance thật. Targetaudit7grossnetflip/65entry≠Close chépED30, không relabel. Primarycomponent51accounts/contextmean3repeatwithinaccount→mean51 khác numericfactorheadline9symbolaccounts. NAV initialanchor/EODvscycle và held/close/turnover denominator táchđúngsource. Componentriskdaily252/popSD/negative-subsetSD khác contextcycleunannualized/sampleSD/LPM2; sparsecyclegate không được suy252. Componentmain/panel seed20261102, factorialjointfinite6986/undefined3014 khác U09threshold9500; numericfamily23/64signassignments/seed0/10000draws. U09joint20/L2/PCG64seed20261110/10000finite/nozeroSD, indexhash09374ae6e221b701c9b2b88241135fd70a701e611e752a8b8ec5bf82b669b9a7, lấymetadatađãlưu; không redraw/bootstrap/risk/accountreplay. Brier chỉsupportednumeric, không LLMconfidencecalibration. Giữ undefined/rationale và descriptive-only/NativeFAIL/NOT_CERTIFIED/UIpending. Kiểm ED/ESrawhash/counts/math/84spec/link/footnote/diff; docs-only không compileall/unit/E2E/leakage hoặc acceptance/replay/API/fit. §5.1–§5.5 đủ bản nháp thiết kế, §5.6–§5.9 chưa viết/P4 chưa xong; bảngLaTeX/phảnbiệncuối vẫn giai đoạn sau.

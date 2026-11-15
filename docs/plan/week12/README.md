@@ -332,6 +332,20 @@ Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ 
   counts/protocol/source/links/footnote/diff; không fit/strategy replay/suite/API
   do chỉ sửa đặc tả tài liệu và đọc bằng chứng đã khóa.
 
+- **T40; §5.5, CL137–CL144, ED28–ED31/ES04–ES10:**
+  `docs/thesis-metrics-statistics`; công thức/NA, accountmean51 khác numeric
+  headline9symbol, meanrepeat trước account, dailyNAV/MDD và turnover đúng
+  denominator. Riskcomponentdaily252/popSD/negative-subsetSD khác context
+  unannualizedcycle/sampleSD/LPM2; không normalize lại bằng chứng cũ.
+  Tách componentmain/panel/factorial finite6986 và numericseed0/Holm23 với
+  U09seed20261110/L2/20joint/threshold9500. Kiểm arithmetic nhỏ bằng hàm thuần
+  trích source, metadata draw/targets/IDs/hash/links/footnote/spec/diff; không
+  sinh bootstrap, chạy risk/account replay, fit, API hoặc suite. Cập nhật
+  README/plan/sổ: đủ bản nháp thiết kế §5.1–§5.5, T41 trở đi chưa đánh dấu.
+  Chốt PASS: 41 binding ED/ES, 84 đặc tả không đổi, 17 footnote,
+  550 liên kết/270 anchor; các chương khác và phần kết quả §5.6–§5.9
+  giữ nguyên. Đây là kiểm tài liệu/số học, không phải nghiệm thu lại nghiên cứu.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
