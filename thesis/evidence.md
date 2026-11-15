@@ -1276,6 +1276,9 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL045 | [Native limitations](chapters/04_proposed_system.md#434-alpha): full-window/backfill/global volume/length windows và same-sample selection | HOP_DONG_TRIEN_KHAI | SYS11/SYS12; §9.6 và audit W12 đã khóa | Native row-wise FAIL khác outer-cutoff PASS và PASS_DETECTION | Chỉ đọc source/audit cũ, không chạy lại suite/counterexample hoặc nâng thành Zero-Leakage |
 | CL046 | [Common Alpha](chapters/04_proposed_system.md#434-alpha): namespace/operator changes, train orientation/validation ranking/freeze | HOP_DONG_TRIEN_KHAI | BG03; artifact EX01-AS, §9.6 | 300-bar volume mask; normalizer20; support60/30/5; threshold .05/.10/.20; strict split exits | Loader verification có tái lập fit trong implementation; đợt viết này không fit, Alpha scope không chứng nhận toàn hệ |
 | CL047 | [EX01 Common Alpha](chapters/04_proposed_system.md#434-alpha): IDs/signs/values/threshold/lịch | DO_DUOC | EX01-AS/AP trong U06 assets v2, projection khớp U08 EX01-S | Threshold.05; origin2020-01-02; fit_end2023-06-30; train/validation theo artifact | Số bản thảo làm tròn6 decimals, raw vẫn giữ; không coi U06 preparation là hosted response hoặc so sánh chỉ đổi prior |
+| CL048 | [§4.3.5](chapters/04_proposed_system.md#435-sentiment): live scorer/fallback và component frozen cache | HOP_DONG_TRIEN_KHAI | SYS13/SYS15/SYS16; §9.7 | Arithmetic mean, strict±.10; historical dated90 days/min3; scorer/backend/fallback riêng | Không lấy code model ID làm chứng cứ backend thực dùng hoặc fallback neutral làm market evidence |
+| CL049 | [FrozenNews](chapters/04_proposed_system.md#435-sentiment): availability, decay, missingness | HOP_DONG_TRIEN_KHAI | SYS14, FrozenNews.get_sentiment_at; §9.7 | available≥publication-day+1, 90days theo available; exp(-ln2×age/30), min3 | Scorer tag/verified count là contract, không chứng nhận tin đúng/đủ hoặc thời điểm gốc; không gán±.10 của live vào provider này |
+| CL050 | [EX01 news/normalizer](chapters/04_proposed_system.md#435-sentiment): unavailable và reliability khác neutral | DO_DUOC | EX01-S, SYS03; §9.7 | Count0, score null, min3 vs reliable8; delta_1d_proxy=z/2 | Không gọi proxy là biến động1ngày thực hoặc tin thành input dynamic factor chỉ từ tên SFA |
 
 Quy tắc điền bảng:
 
@@ -1515,6 +1518,10 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS10 | `utils/alpha_selector.py` | `a8fcf575385805debb2a30b00cb946f8ab2a55bad7c94df4fa369b3f76c12323` | Live đồng nhất byte |
 | SYS11 | `core/alpha_compare.py` | `b9b0419d93541f49837ab4cabffad13a6771e5aaea74561f1070fe7c2d1166bd` | Live đồng nhất byte |
 | SYS12 | `core/revision_alpha_contract.py` | `deb310e091b4fa60e2d1fa4e343f42b5c96ae1a6c483eab53169f56ea1b92b1e` | Live đồng nhất byte |
+| SYS13 | `agents/sentiment_agent.py` | `4470e6a6937a9e49ca0c573ea1da75346e449eca7b3b4f84db841a71cd0cf9fc` | Live đồng nhất byte |
+| SYS14 | `core/historical_evaluation_data.py` | `96cab48918cd53b7408943157759a97477c367e3a4a07b4c98e46ecb7b039857` | Live đồng nhất byte |
+| SYS15 | `data_manager/sentiment_cache.py` | `d2fee68ca6cc7ee1386eeafca408d939dcd91e2ac2ce20cef453bbb0bc82355d` | Live đồng nhất byte |
+| SYS16 | `core/historical_signals.py` | `26a35fa6e5421db09f5cbed5f219346e9aa72667b2a759568f0884cdcecdc7c5` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1665,3 +1672,28 @@ Nguồn SYS12 giữ `native_rowwise_causal_gate=FAIL` và `PASS_DETECTION`;
 không sửa Native hoặc whole-system NOT_CERTIFIED. Không chạy compileall,
 unit/E2E/leakage vì đợt này chỉ đổi nội dung tài liệu; F03/F04 giữ hash đã
 kiểm khi tạo, không build lại cho T20.
+
+### 9.7. Sentiment: đường live và hai provider lịch sử
+
+T21; CL048–CL050. SYS13–SYS16 đối chiếu member snapshot và byte live.
+Live `run_sentiment_for_alpha/_score_text/_lexicon_fallback/_aggregate_sentiment`
+có backend/fallback riêng, title/snippet scoring và mean round4, label strict±.10;
+không kiểm API hoặc tải model để viết. Cache component dùng
+FrozenSentimentSnapshot→SentimentCache.get_at(strict=True,min_articles=3,
+window_days=90); date_parsed inclusive≤cutoff, không mượn tin không ngày.
+Sparse giữ mã neutral/score0 và reliability false, không phải observed neutral.
+
+Context FrozenNews giữ available≥published.normalize()+1day; cutoff ở
+23:59:59, cửa sổ90ngày theo available timestamp, age theo available, decay
+half-life30ngày. Score hữu hạn±1, scorer tag visobert/lexicon; dưới3 score
+trả avg_score=null, main.article_count=0 nhưng verified_article_count giữ
+count thực. Không có list scored_articles hoặc peers để suy z/relative
+sentiment từ dữ liệu không hiện hữu; không áp label±.10 của live cho provider.
+Normalizer SYS03 compute từ3/main reliable8, proxy delta=z×.5. Threshold
+reliability của cache và normalizer khác nhau, không dùng một cờ thay tất cả.
+
+EX01-S đã pin §7: unavailable true, verified_count/article_count0,
+avg_score null, list rỗng và normalized reliability false. Full sentiment
+report có thông báo thiếu3score; các zero normalized không thay mask.
+Chỉ đối soát source/saved output, không tính lại sentiment hoặc nâng gate
+nghiên cứu. Đợt thuần tài liệu không chạy suite/runtime/API theo AGENTS§1.2.

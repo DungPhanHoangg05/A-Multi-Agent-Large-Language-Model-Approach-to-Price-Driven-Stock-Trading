@@ -117,6 +117,20 @@ duy nhất vẫn ở thesis/plan.md, không tạo receipt riêng.
   code/runtime/input/bằng chứng nghiên cứu. T21 trở đi chưa đánh dấu xong;
   Chương 4/P3 còn thiếu Sentiment, profile/context/policy/điều phối và rà soát.
 
+### Viết tiếp sentiment, hồ sơ so sánh và Bayesian v1
+
+Ngày **15/11/2026**, thực hiện lần lượt T21–T25 trên nhánh docs riêng từ
+develop cập nhật; trạng thái duy nhất vẫn tại thesis/plan.md. Không tạo thêm
+receipt/checklist, không đổi code/runtime/schema/input hoặc bằng chứng nghiên cứu.
+
+- **T21; §4.3.5, CL048–CL050 và sổ §9.7:** nhánh
+  `docs/thesis-sentiment-provenance`; phân biệt live/component-cache/context
+  FrozenNews, scorer/fallback, publication/availability, mean/decay, sparse và
+  min3/reliable8. EX01 unavailable/null và zero normalized giữ riêng. Kiểm
+  39 source SYS/BG, 56 slot manifest/envelope/output, 428 liên kết/156 anchor,
+  84 đặc tả, 13 footnote/diff PASS; không chạy suite hoặc crawl/score/API vì
+  chỉ sửa tài liệu.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

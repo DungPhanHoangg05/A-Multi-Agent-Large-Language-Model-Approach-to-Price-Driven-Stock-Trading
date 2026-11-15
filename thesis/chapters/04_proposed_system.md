@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.2 and the Indicator, Pattern, Trend, Alpha and Decision parts of 4.3 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.3 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -504,7 +504,84 @@ must be disclosed when interpreting Native/Common comparisons.
 
 ### 4.3.5. Sentiment
 
-> **Not yet drafted.** Explain dated articles or frozen aggregates, scoring provenance, aggregation and coverage. Describe explicit unavailability and its relationship to Alpha; preserve EX01's missing news rather than interpreting it as observed neutral sentiment.
+Sentiment supplies textual evidence alongside price-derived reports. Its
+source, scoring procedure, temporal availability and coverage must be known
+before a number can be interpreted. The live entry point and the two
+historical adapters have different contracts; a current crawler response
+cannot replace a frozen historical input.[^sentiment-paths]
+
+**Live collection and scoring.** The general agent collects CafeF articles
+and checks ticker/company relevance, although it retains the original group
+when the relevance filter finds no matches. It scores title/snippet text
+through a configured endpoint/local sentiment backend, with lexicon fallback.
+The configured classifier identifier is
+`5CD-AI/Vietnamese-Sentiment-visobert`; an identifier in code is not proof
+that this backend produced every archived score. Returned records identify
+the scorer, backend and fallback status. The classifier path multiplies a
+negative/neutral/positive sign by its confidence; lexicon fallback instead
+uses its own bounded keyword score. These are different measurement recipes.
+
+The live aggregate is an arithmetic mean, rounded to four decimals. It is
+labeled positive above 0.10, negative below −0.10, and neutral otherwise.
+Related-company discovery and optional narrative analysis belong to the
+live path. Their output is not assumed to exist in historical providers.
+Empty live collection can produce a zero/neutral fallback in the general
+code. This is an implementation fallback, not observed evidence of balanced
+market sentiment or historical point-in-time validity.
+
+**Historical adapters.** The following distinction prevents a threshold or
+aggregation rule from being transferred to the wrong study.
+
+| Path | Admissible news and aggregation | Insufficient coverage |
+| --- | --- | --- |
+| Component-study frozen signal adapter | Dated, pre-scored cache entries with publication date at or before cutoff and within 90 calendar days; undated/future items excluded. Strict cache aggregation uses the arithmetic mean and ±0.10 label thresholds. | Fewer than three dated items yields an explicit insufficient-history, neutral-coded fallback with reliability false. Retained items support provenance, not a claim of neutral market evidence. |
+| Context-study `FrozenNews` | Pinned records; availability cannot precede the day after a date-only publication. A declared later `available_at` is respected. Available timestamp must fall within the 90-day window ending at cutoff-day 23:59:59. Scores must be finite in [−1,1] with an admitted `visobert` or `lexicon` scorer tag. | Fewer than three admitted scores sets `is_unavailable=True`, aggregate score null and downstream article count zero; `verified_article_count` preserves the admitted count. |
+
+For the context provider, let $A_t$ be the admitted records and $d_a$ the
+age in days since **availability**, including fractional days. When
+$|A_t|\ge3$, its aggregate is
+
+$$
+\bar s_t=\frac{\sum_{a\in A_t}e^{-(\log2)d_a/30}s_a}
+{\sum_{a\in A_t}e^{-(\log2)d_a/30}}.
+$$
+
+Thus the weighting has a 30-day half-life. This provider returns an aggregate
+and count without a per-article display list or peer aggregate, and it does
+not apply the live positive/negative label thresholds to manufacture a new
+label. Its “verified” count means admitted under the stored-field contract;
+it does not independently verify a publication's truth, completeness or
+original release timestamp. The stricter availability rule also differs
+from the component adapter's inclusive publication-date filter.
+
+**Connection to Alpha and Decision.** The Alpha node obtains the selected
+provider's data/report and carries sentiment as a separate report. The
+historical dynamic factor ranking described in Section 4.3.4 uses price and
+volume; a system-specific candidate named Sentiment-Flow uses a technical
+proxy in that registry. The name does not show that observed news entered
+the selected numerical score. General fixed-factor fallback code has other
+inputs, so it must not be substituted for the historical dynamic path.
+
+The downstream normalizer requires three articles to compute its ordinary
+summary and marks main sentiment reliable only from eight articles. These
+are distinct from the context provider's three-score availability gate. It
+can carry a finite aggregate while reliability is false. When the provider
+does not expose individual scores or peers, within-article z-score and peer
+contrast remain placeholders; they are not newly observed neutral signals.
+The field called `delta_1d_proxy` is half a normalized score, not an observed
+day-on-day news change. Decision receives the capped sentiment report, not
+an invented article list.[^sentiment-normalization]
+
+**EX01.** The saved context-study input has zero admitted articles,
+`is_unavailable=True`, null aggregate score, empty scored-article/peer lists
+and reliability false. Its report explicitly states that sentiment is
+unavailable because fewer than three verified scores exist. Normalized
+display fields are zero, but no observed neutral sentiment is inferred.
+The signal-bank's legacy `NEUTRAL` code, discussed below, cannot supply the
+missing news or authorize a retrospective crawl.
+
+[^sentiment-paths]: Frozen `agents/sentiment_agent.py`, `data_manager/sentiment_cache.py`, `core/historical_signals.py` and `core/historical_evaluation_data.py`, bound as SYS13–SYS16; CL048–CL049 in ledger §9.7. This is a description of the saved implementation and providers, not a new live collection or classifier evaluation.
+[^sentiment-normalization]: Frozen Alpha node and `_normalize_sentiment_scores`, SYS03; EX01-S `sentiment_data/sentiment_report`, CL050. Availability, reliability, stored score, report projection and scorer provenance are separate fields.
 
 ### 4.3.6. Decision
 
