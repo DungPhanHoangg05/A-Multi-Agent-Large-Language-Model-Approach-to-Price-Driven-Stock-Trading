@@ -1,7 +1,7 @@
 # Chapter 3. Theoretical Background and Problem Formulation
 
-> **Draft status: partial chapter.** Sections 3.1–3.2 have source-checked drafts.
-> Sections 3.3–3.7 remain placeholders; the chapter has not undergone final manuscript review.
+> **Draft status: partial chapter.** Sections 3.1–3.3 have source-checked drafts.
+> Sections 3.4–3.7 remain placeholders; the chapter has not undergone final manuscript review.
 
 Writing aids: [chapter outline](../outline.md#chapter-3-theoretical-background-and-problem-formulation), [terminology and notation](../evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -244,7 +244,85 @@ historical studies.
 
 ## 3.3. Technical, alpha and sentiment signals
 
-> **Not yet drafted.** Introduce MACD, RSI, Stochastic, Williams %R and ROC before report rules. Define alpha transformations, normalization, orientation and selection; explain dated sentiment and missingness separately. Distinguish votes, confidence, selection diagnostics and calibrated probabilities.
+### 3.3.1. Five deterministic indicator families
+
+Indicators transform admissible prices into descriptions of momentum or
+position within a recent range. They do not supply the future net label.
+Let $\operatorname{SMA}_n$ be a trailing mean, $\operatorname{EMA}_n$ an
+exponential moving average with update weight $2/(n+1)$ after initialization,
+and $H_t^{(n)},L_t^{(n)}$ the highest high and lowest low in the last $n$ bars.
+The configured families are as follows.[^signal-formulas]
+
+| Indicator | Definition and configured lookback |
+| --- | --- |
+| MACD (12,26,9) | $M_t=\operatorname{EMA}_{12}(C)_t-\operatorname{EMA}_{26}(C)_t$, signal $\operatorname{EMA}_9(M)_t$, histogram $M_t-\operatorname{EMA}_9(M)_t$. The histogram measures separation from the signal, not from zero. |
+| RSI (14) | For gains $g_t=\max(C_t-C_{t-1},0)$ and losses $\ell_t=\max(C_{t-1}-C_t,0)$, Wilder-smoothed averages $G_t,D_t$ give $100G_t/(G_t+D_t)$ when the denominator is nonzero. After initialization, the smoothing weight is $1/14$. The usual range is 0–100. |
+| Slow Stochastic (14,3,3) | Raw $k_t=100(C_t-L_t^{(14)})/(H_t^{(14)}-L_t^{(14)})$; slow %K is $\operatorname{SMA}_3(k)$ and %D is $\operatorname{SMA}_3(\text{slow %K})$. These are range oscillators, not MACD histograms. |
+| Williams %R (14) | $-100(H_t^{(14)}-C_t)/(H_t^{(14)}-L_t^{(14)})$, in [−100,0] for a valid nonflat range. It locates the close relative to the recent high. |
+| ROC (10) | $100(C_t/C_{t-10}-1)$, a percentage change over ten observed bars, distinct from the net execution return. |
+
+Library initialization and flat-range handling are part of an actual series.
+The frozen toolkit calls TA-Lib with these settings; its recorded runtime,
+rather than current upstream code, determines historical values. Missing
+warm-up values and calculation failures differ from a finite value of zero.
+
+The Indicator role computes values and heuristic classifications in Python.
+For example, MACD crossover rules have priority over histogram rules. The
+other oscillators have their own range and direction conditions. A bullish
+vote means a configured heuristic fired, not that the probability of a
+profitable LONG is known. Votes derived from the same prices are not
+independent observations. Chapter 4 will detail the implemented priorities
+after these definitions.[^signal-runtime]
+
+### 3.3.2. Alpha transformations and selection
+
+An alpha factor is a numerical transformation intended to describe a
+potential predictive relation; its value need not be a probability or a
+return. The [Alpha101 collection](https://arxiv.org/abs/1601.00991v3) is an
+inherited source of candidates. Adapting a cross-sectional operation to a
+single-stock time series changes the operation; a shared formula name alone
+does not establish equivalent implementations.
+
+In the causal-common profile, value $a_u$ is normalized with its expanding
+prefix mean $\mu_u$ and sample standard deviation $\sigma_u$:
+
+$$
+\widetilde a_u=\tanh\!\left((a_u-\mu_u)/\sigma_u\right).
+$$
+
+A near-constant finite prefix is handled as zero, while missingness is
+retained. Training information coefficient (IC) is a Spearman correlation
+between factor values and candidate-LONG net returns. Its sign determines
+orientation; declared validation support selects factors and thresholds
+before the selector is frozen. Orientation and ranking are fitted choices,
+not evidence of future profitability. Native construction and its row-wise
+causality limits remain distinct.[^signal-alpha]
+
+### 3.3.3. Sentiment and missing information
+
+Sentiment summarizes textual evidence separately from price-derived alpha.
+A language-model backbone, sentiment classifier, score and aggregation
+recipe are different objects. A bounded score is not automatically the
+probability that a stock price will rise.
+
+The frozen historical provider uses verified scores in [−1,1], a
+90-calendar-day availability window and a minimum of three eligible scores.
+It averages them with weights proportional to $\exp[-(\log 2)a/30]$ for age
+$a$ days, a 30-day half-life. Under its conservative date-only policy, an
+article is unavailable before the day following publication. Undated and
+future information is excluded. Fewer than three eligible scores produces
+unavailable sentiment, not an observed neutral value.[^signal-news]
+
+EX01 has no eligible verified articles. A zero-filled display or legacy
+NEUTRAL code cannot supply the missing evidence. LLM confidence categories,
+IC, indicator votes and sentiment scores must all remain separate from the
+numerical label probabilities introduced in Section 3.6. None is called
+empirically calibrated solely because it is numerical or confidently stated.
+
+[^signal-formulas]: Official computational references consulted 15 November 2026: TA-Lib [MACD](https://raw.githubusercontent.com/TA-Lib/ta-lib/main/src/ta_func/ta_MACD.c), [RSI](https://raw.githubusercontent.com/TA-Lib/ta-lib/main/src/ta_func/ta_RSI.c), [STOCH](https://raw.githubusercontent.com/TA-Lib/ta-lib/main/src/ta_func/ta_STOCH.c), [WILLR](https://raw.githubusercontent.com/TA-Lib/ta-lib/main/src/ta_func/ta_WILLR.c) and [ROC](https://raw.githubusercontent.com/TA-Lib/ta-lib/main/src/ta_func/ta_ROC.c). These references do not replace the frozen study runtime.
+[^signal-runtime]: Frozen `utils/graph_util.py`, `Toolkit.compute_*`, and Indicator calculation/classification; CL009. Live Indicator presentation changes were accepted as logic-equivalent by the author; the historical binding remains frozen.
+[^signal-alpha]: Frozen `core/causal_alpha.py`, `normalize` and `fit_selector`; CL010.
+[^signal-news]: Frozen `core/historical_evaluation_data.py`, `FrozenNews.get_sentiment_at`; TIME03/CL011. EX01 unavailability has its own saved-source binding.
 
 ## 3.4. Hidden Markov models for market regimes
 

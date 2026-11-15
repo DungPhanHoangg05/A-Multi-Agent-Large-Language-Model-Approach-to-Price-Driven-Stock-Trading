@@ -76,6 +76,15 @@ không tạo checklist hoặc receipt riêng.
   Kiểm links/footnotes, UTF-8, diff và 84 đặc tả; chỉ tăng trạng thái T10.
   Không đổi runtime, không chạy suite/replay/API/refit hoặc build lại F01.
 
+- **T11; §3.3, CL009–CL011, sổ §8.5.2/§8.6:** nhánh
+  `docs/thesis-signals-foundations`; định nghĩa năm chỉ báo/kwargs, normalization
+  Common/IC/selection và sentiment availability/decay/missingness riêng.
+  Đọc primary TA-Lib và nguồn Alpha101; ghi phạm vi/ngày truy cập, không lấy
+  upstream thay runtime. Ba source frozen khớp manifest; Indicator live có
+  presentation được chấp nhận logic-equivalent, không ghi hash live giống
+  frozen. Kiểm links/footnotes/diff/84 đặc tả PASS; không tính lại tín hiệu,
+  chạy suite/replay/API/refit hoặc build tài liệu không đổi.
+
 ### Quan sát, chỉ số thời gian và timeline giao dịch
 
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`

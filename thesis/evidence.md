@@ -398,8 +398,8 @@ Chương 2.1/3.3/4.3; phân biệt công thức gốc với phép thích nghi m�
 | `jegadeesh1993momentum` | [Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x) — 1993 | B | CHUA_DOC |
 | `fama1992crosssection` | [The Cross-Section of Expected Stock Returns](https://doi.org/10.1111/j.1540-6261.1992.tb04398.x) — 1992 | B | CHUA_DOC |
 | `hurst2017trend` | [A Century of Evidence on Trend-Following Investing](https://www.aqr.com/-/media/AQR/Documents/Insights/Journal-Article/AQR-JPM-Fall-2017.pdf) — 2017 | B | CHUA_DOC |
-| `talib_rsi_docs` | [Relative Strength Index (RSI)](https://ta-lib.github.io/ta-doc/indicator/RSI.htm) — n.d. | A | CHUA_DOC |
-| `talib_willr_docs` | [Williams' %R (WILLR)](https://ta-lib.github.io/ta-doc/indicator/WILLR.htm) — n.d. | A | CHUA_DOC |
+| `talib_rsi_docs` | [Relative Strength Index (RSI)](https://ta-lib.github.io/ta-doc/indicator/RSI.htm) — n.d. | A | DA_KIEM (phạm vi §8.5.2) |
+| `talib_willr_docs` | [Williams' %R (WILLR)](https://ta-lib.github.io/ta-doc/indicator/WILLR.htm) — n.d. | A | DA_KIEM (phạm vi §8.5.2) |
 
 #### Nhóm 2. LLM và hệ thống đa agent tài chính
 
@@ -1237,6 +1237,9 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL006 | [F01](assets/diagrams/F01_trade_timeline.pdf), chèn tại §3.1.5: lịch sử khả dụng, entry/exit và EX01 | MINH_HOA | TIME01–TIME03, EX01-S/O; nguồn TikZ và sản phẩm có hash tại §8.4 | Hình contract; khoảng cách không theo thời gian lịch; không hiển thị giá tương lai | PDF một trang đã build/render/xem 15/11/2026; chưa phải sơ đồ chia tập F02, công thức phí T10 hay kiểm bố cục PDF toàn văn |
 | CL007 | [§3.2.1–§3.2.2](chapters/03_background.md#321-a-candidate-long-cycle): công thức hai chiều, nhãn strict >0, SHORT=CASH và payoff theo action | HOP_DONG_TRIEN_KHAI | TIME01/TIME02, hàm oracle/accounts/target_fields; §8.5.1 | Fraction trong công thức, % khi hiển thị; không dùng số làm tròn sinh nhãn | Đối chiếu nguồn frozen; giả định nghiên cứu, không phải quy định sàn hoặc xác nhận giao dịch thật |
 | CL008 | [§3.2.3](chapters/03_background.md#323-illustrative-calculation): entry 100, exit 100/103 và biên break-even | MINH_HOA | Oracle TIME01; phép tính tại §8.5.1 | Net −0.6975568073%/+2.2815164885%, hiển thị 6 chữ số; CASH=0 | Đã kiểm bằng hàm oracle trích AST; số giả định có nhãn Illustrative, không phải kết quả nghiên cứu |
+| CL009 | [§3.3.1](chapters/03_background.md#331-five-deterministic-indicator-families): công thức/kwargs năm chỉ báo, heuristic khác probability | HOP_DONG_TRIEN_KHAI | Toolkit/Indicator frozen §8.6, TA-Lib official references | MACD12/26/9, RSI14, Stoch14/3/3, WILLR14, ROC10 | Đối chiếu source; current upstream không thay runtime study; không tính lại chỉ báo |
+| CL010 | [§3.3.2](chapters/03_background.md#332-alpha-transformations-and-selection): expanding normalization, IC/orientation và selector | HOP_DONG_TRIEN_KHAI | `core/causal_alpha.py` frozen §8.6, Kakushadze2016v3 cho nguồn candidate | Spearman train, ranking validation; sample std expanding | Không gộp native, không suy hiệu quả test hoặc calibrated probability |
+| CL011 | [§3.3.3](chapters/03_background.md#333-sentiment-and-missing-information): news score, availability, decay và unavailable | HOP_DONG_TRIEN_KHAI | TIME03 `FrozenNews`, EX01-S | Window90 ngày, minimum3, half-life30; date-only ngày sau | Đọc source/trace đã lưu; legacy NEUTRAL không phải tin quan sát |
 
 Quy tắc điền bảng:
 
@@ -1341,3 +1344,31 @@ Các số là minh họa độc lập với EX01. F01 không build lại chỉ v
 thức; PDF/PNG giữ nguyên byte. Git checkout Windows chuyển source TikZ sang
 CRLF: binding source §8.4 đối chiếu blob Git/LF, không nhầm newline đổi với
 đổi hình. Không ghi source working-tree CRLF có cùng raw hash với blob LF.
+
+#### 8.5.2. Tín hiệu giá, alpha và tin
+
+T11, ngày 15/11/2026: đọc toolkit và Indicator, đối chiếu kwargs với công
+thức năm họ chỉ báo; đọc normalization/IC/orientation/selection của Common
+và `FrozenNews` (TIME03). Binding source bổ sung ở §8.6; không import graph
+hoặc sinh lại indicator/alpha/sentiment của nghiên cứu. Kiểm tài liệu TA-Lib
+RSI/WILLR theo phạm vi định nghĩa và official source MACD/RSI/STOCH/WILLR/ROC
+đã link ở footnote chương, không coi phiên bản upstream hiện tại là runtime
+đã khóa. Hai entry TA-Lib ở §4 cập nhật DA_KIEM theo phạm vi; không tuyên bố
+đã đọc sách Wilder/Appel/Lane. Alpha101 v3 kiểm lại trang tác giả/metadata,
+giữ ghi chú đọc cũ về cross-sectional adaptation, không nhập kết quả paper
+gốc thành kết quả hệ thống. Thống kê số nguồn đã đọc tại T04 là lịch sử mốc
+T04, không phải tổng trạng thái đọc sau các task này. Bibliography cuối vẫn
+thuộc T48; các link primary mới ở footnote có ngày truy cập/phạm vi.
+
+### 8.6. Binding source nền tảng bổ sung
+
+Nguồn dưới được đọc từ `final_evidence_snapshot.zip` đúng byte/manifest,
+hash gói giữ ở §3. Cột hash là **member frozen**, không phải fingerprint
+library hoặc hash của mã upstream trên web. Mã live chỉ dùng kiểm thuận
+tiện; các khác biệt UI được xác nhận ở §3 không thay nguồn nghiên cứu.
+
+| Source ID | Member snapshot | SHA256 frozen | Phạm vi đối chiếu live |
+| --- | --- | --- | --- |
+| BG01 | `utils/graph_util.py` | `5a8ea82f3112932d8df7677223a433d331e5a0212c42154e3b4c648a4cb24b6a` | Live đồng nhất byte |
+| BG02 | `agents/indicator_agent.py` | `470fa5d1f4350180a23bfe40564cd6c02e00b8939cd2d90cad775776f74ee57b` | Live khác presentation; dùng member frozen, không suy hash live đồng nhất |
+| BG03 | `core/causal_alpha.py` | `6f52a344047c0e96139e389807161b7dcccfbb70e6bde13db99e9910dc4e47e6` | Live đồng nhất byte |
