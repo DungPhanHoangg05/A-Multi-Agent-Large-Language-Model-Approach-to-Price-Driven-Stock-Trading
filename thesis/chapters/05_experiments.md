@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Sections 5.1–5.3 specify study scope, data support and recorded execution configuration; subsequent sections remain to be drafted.
+> **Draft status: partial chapter.** Sections 5.1–5.4 specify study scope, data support, configuration and comparators; subsequent sections remain to be drafted.
 > Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -375,7 +375,133 @@ attempt counts and repeated decisions cannot be added to that denominator.
 
 ## 5.4. Comparators and interventions
 
-> **Not yet drafted.** Specify the actual Full/Base and numerical controls in the component study, then the Native/Common comparison families, bridges and economic controls in the historical-context study. State support for each panel and distinguish cyclic Always-LONG from continuous holding; do not count component panels as unified MT ablations.
+### 5.4.1. Component main controls and response interventions
+
+The main component grid contains Full (`AS`), Base (`B`) and seven numerical
+controls, each evaluated on the same 102 units and net labels. Full adds
+the alpha and sentiment report sections to the shared price-report pipeline;
+Base removes those report sections. Remaining decision rules may still
+mention alpha or sentiment, so this is a report/routing intervention, not
+the removal of every related concept from the model's instructions.
+
+| Main component control | Recorded rule or fitted input | Interpretation |
+| --- | --- | --- |
+| `constant_down_cash` | Always predict SHORT and retain CASH | Majority-class/economic inactivity reference; no short sale |
+| `constant_up_cycles` | LONG on each registered cycle, with full entry/exit costs | Cycle timing/cost reference |
+| `train_majority` | LONG only if the training positive-label share exceeds 0.5; otherwise CASH | Train-only class-frequency rule; ties do not become LONG |
+| `momentum_20` | LONG iff trailing 20-session price return is positive | Simple price-direction rule |
+| `logistic_price` | Logistic model on recorded price-derived features | Numerical price-information reference |
+| `logistic_matched_market_inputs` | Logistic model on the recorded numerical market-feature bundle, including factor/sentiment and missingness inputs | Broader numerical-information reference; not access to image interpretations or all LLM reasoning |
+| `factor_only_vote` | Median-center factor values and estimate orientations on train; LONG iff the oriented sign-vote mean is positive | Fixed factor-universe numerical vote, distinct from dynamic top-five LLM input |
+
+The logistic recipe chooses $C\in\{0.01,0.1,1,10\}$ and threshold in the
+ordered grid $(0.5,0.4,0.6)$ by validation balanced accuracy; ties retain
+the first encountered setting. Median imputation with missing indicators
+and standardization are fitted inside the training pipeline, then refitted
+with the chosen model on train plus validation. The solver is lbfgs with
+maximum 3,000 iterations. Frozen predictions/models are reused where the
+recorded provenance permits it; this thesis does not train them again or
+claim the broader numerical model exactly matches the LLM's information
+processing.[^component-comparators]
+
+The **upstream panel** has nine selected units, two branches and three
+realizations, giving 54 paired cells with 18 outputs shared with main.
+It examines variability conditional on that small selected panel, not
+the variance of all 102 main predictions.
+
+The **factorial/placebo panel** uses nine selected units, five branches and
+three Decision executions, giving 135 outputs on eight stocks/four dates.
+Its branches are B (neither report), A (current alpha), S (current sentiment),
+AS (both), and P (sentiment plus a past-donor alpha-value control). The
+full-value prompt family differs from compact-alpha main/upstream prompts.
+The donor intervention retains current names/headings/schema/missingness
+but replaces the scalar/sign/skill values using one past donor rank-vector;
+it is not an independent per-factor shuffle or an identity-matched donor
+covariance experiment.
+
+The seven factorial contrasts are AS−B, A−B, AS−S, S−B, AS−A, AS−P and
+$\mathrm{AS}-\mathrm{A}-\mathrm{S}+\mathrm{B}$. The last is a factorial
+contrast of recorded scores, not proof of causal synergy. The final panel
+selection is round-robin by stock and increasing date using locked metadata.
+Its shared support and prompt family remain explicit; results from a larger
+parent panel are not substituted into the selected nine-unit report.
+
+### 5.4.2. Separate factor-selection and economic controls
+
+The separate **numerical factor-selection experiment** has 23 strategies
+on the same 102 test units: fixed custom five, dynamic train-selected top
+five, the same dynamic five without sign flipping, and 20 random eligible
+five-factor sets (`random_seed_00`–`random_seed_19`). It produces
+$23\times102=2,346$ test actions across 51 fit scopes, with no hosted calls.
+Random sets are drawn within each scope from its train-eligible factors;
+the 20 trials are all retained rather than selecting the best seed.
+
+The fixed set is CURRENT_1_FDM, CURRENT_2_SFA, CURRENT_3_LVR,
+CURRENT_4_BFE and CURRENT_5_OFE. Train statistics determine imputation,
+scaling, eligibility, ranking and sign orientation. Each selected normalized
+factor contributes −1/0/+1 using the strict ±0.1 threshold; a positive
+mean of the five votes yields LONG, ties CASH. Ineligible fixed slots
+abstain instead of being replaced. The no-flip strategy preserves the
+selected IDs while removing orientation flips; it does not rerank a new
+set. These train-only numerical rules differ from the Native per-cutoff
+selector and cannot be reported as matched LLM selector ablations.
+[^factor-controls]
+
+Economic references also require distinct names. **Always-LONG cycles**
+enters/exits on each sampled cycle and stays in CASH between cycles,
+incurring two-way costs each time. **Continuous holding** carries exposure
+through the gaps and therefore has a different schedule and turnover.
+The component financial report includes `continuous_hold_price_only` as
+a separately labeled price-only benchmark, not another classification
+prediction on 102 entries. The unified context study explicitly excludes
+continuous holding from its registered controls; it contains only
+CASH_EVERY_CYCLE and ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS on the same
+canonical cycle outcomes.
+
+The component execution extension contains 12 recorded scenarios, varying
+cost/settlement/financing/lot/participation or fill proxies under its locked
+policy. Predictions, labels and original support remain fixed; only the
+economic mapping is varied. It is not a new Decision experiment or a
+venue-certified worst-case bound. In particular, a no-fill screen can
+avoid a loss or miss a gain; it does not establish that the strategy knew
+the ex-post daily-bar condition at entry. These scenario results belong
+to their own support/assumption panel, not the canonical label definition.
+
+### 5.4.3. Context baseline families, bridges and absent ablations
+
+For every context extension $E$ in {Bayesian v1, C2, A_tp_pool, B_semantic,
+MT_BICL}, the study retains both baselines:
+
+| Contrast family | Compared outputs on common support | What the contrast can describe |
+| --- | --- | --- |
+| System | $E-\mathrm{Native}$ | Whole package, including declared alpha/report/prompt/context/policy differences |
+| Method | $E-\mathrm{Common}$ | Added method package conditional on the Common foundation |
+| Bridge 1 | Common − Native | Foundation/report/prompt transformation |
+| Bridge 2 | Fact Anchor − Common | Factual anchoring plus changed instructions/response format |
+| Bridge 3 | MT_BICL − Fact Anchor | Context/student/utility/proposal/policy package relative to its anchor |
+
+Every main family uses all 102 points, three repeats and 51 accounts per
+repeat. A fallback stays in the denominator, and a paired comparison does
+not select only points where both methods issued fresh LLM calls. The two
+main families have five extension contrasts each for **two endpoints**,
+balanced accuracy and mean account return: 20 main endpoint/contrast cells.
+The three bridges are reported separately. Fact Anchor is both a recorded
+role and a dependency, not one of the five extensions used to enlarge the
+main family after seeing results.[^context-comparators]
+
+The unified response collection does **not** contain matched
+random/recent/similarity/Bayesian retrieval interventions, statistics-only/
+examples-only/no-regime interventions, or the planned Plain_revision,
+No_utility, No_target, Stats_only and Utility_only panel. The protocol and
+result artifact mark them deferred. Existing builders, component factorial
+experiments or the 23 numerical strategies do not supply those missing
+responses. The Anchor ladder can describe the observed package differences,
+but cannot isolate a causal student contribution or certify that the
+utility gate alone explains a performance difference.
+
+[^component-comparators]: ED11 main variant grid, ED05 final repeat protocol, ED20 component configuration; ES01/ES02 numerical recipe/source and archived provenance §3.2; CL131–CL132, ledger §10.5. Definitions do not substitute newly fitted controls for frozen predictions.
+[^factor-controls]: ED23–ED25 factor-control run/summary/inference, ED27 protocol and ES03 design source; ED26 execution scenario policy; CL133–CL134. Source field `eligible_train_range` counts eligible factors, not training rows. Continuous-hold interpretation also follows the component financial artifact inventoried in §3.2.
+[^context-comparators]: ED14 family/control registration, ED07 U09 `contrasts/bridge/deferred_panels`; CL135–CL136. Common differs from component Base, and each bridge is a package contrast rather than a single-cause ablation.
 
 ## 5.5. Metrics and statistical analysis
 

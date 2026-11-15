@@ -1369,6 +1369,13 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL129 | [B04d/e slot accounting](chapters/05_experiments.md#533-forecast-response-and-http-accounting) | DO_DUOC | ED03/ED17/ED18/ED08/ED09; §10.4 |375selected;2448slots1290raw1158bypass;1702HTTP=1687active+15retired | HTTP200 khác valid response; upstreamgraph408 không408LLM |
 | CL130 | [Telemetry/reserve](chapters/05_experiments.md#533-forecast-response-and-http-accounting) | DO_DUOC | ED08/ED07; §10.4 |4750maxchars,2986930observedtokens,9177UNKNOWNreserve,51accounts/repeat | Tokens khác billing, U09newAPI0 khác U08collection0; no new measurements |
 
+| CL131 | [Component main controls](chapters/05_experiments.md#541-component-main-controls-and-response-interventions) | HOP_DONG_TRIEN_KHAI | ED11/ED20/ES01/ES02; §10.5 | AS/B+7numeric, trainmajority/momentum/logistic/factorvote recipes | Broader numericinputs không bằng toàn LLM reasoning; no new fit |
+| CL132 | [Panel interventions](chapters/05_experiments.md#541-component-main-controls-and-response-interventions) | DO_DUOC | ED02/ED05/ED21; §10.5 | Upstream9×3×2, factorial9×3×5, sevencontrasts/donor rankvector | Compact/fullvalue families riêng, interaction không causal synergy |
+| CL133 | [23 factor controls](chapters/05_experiments.md#542-separate-factor-selection-and-economic-controls) | DO_DUOC | ED23–ED25/ED27/ES03; §10.5 | fixed/dynamic/noflip/20random,2346actions,51scopes,threshold.1 | Train-only numerical design khác Native selector/LLMablation; keep all seeds |
+| CL134 | [Economic controls/scenarios](chapters/05_experiments.md#542-separate-factor-selection-and-economic-controls) | HOP_DONG_TRIEN_KHAI | ED26/ED14, componentfinancial§3.2; §10.5 | CycleLONG/CASH vscontinuoushold price-only;12scenariofixedlabels | Unified excludescontinuous;scenario notcertifiedfills/worstcasebound |
+| CL135 | [Context families/bridges](chapters/05_experiments.md#543-context-baseline-families-bridges-and-absent-ablations) | DO_DUOC | ED14/ED07; §10.5 |5extensions×2baselines×2endpoints=20;3bridges;102/3/51support | Fallback retained; Common khácBase; bridgepackage khácisolatedcause |
+| CL136 | [Absent ablations](chapters/05_experiments.md#543-context-baseline-families-bridges-and-absent-ablations) | DO_DUOC | ED14/ED07 deferred_panels; §10.5 | Retrieval/prior/MT plannedpanel deferred | Có builder/componentpanel không có unified response; no causalstudent claim |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2286,6 +2293,14 @@ ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc q
 | ED20 | revision | `outputs/revision/chart_r1_run_v1/run_manifest.json` | `487d92694d96dace807471e7c83cd30fda4d312335b14759f262998fc8e5b086` |
 | ED21 | revision | `outputs/revision/r4_value_bank_v1/manifest.json` | `6ea80ee64283fe68b15c61e5ccbc0ca30d394e4d8544f7a41946e3b90a1deca4` |
 | ED22 | U08 | `docs/plan/week12/unified_live_runtime.json` | `2a4661d43ffde54a991cb58858c4420241645ddb1feca59f00ec875fdbdde083` |
+| ED23 | revision | `outputs/revision/numeric_controls_v1/run.json` | `372b9c02a145d2fb1dc356170f589a32a819d5b71c0ce5c35ce6c7261052529c` |
+| ED24 | revision | `outputs/revision/numeric_controls_v1/summary.json` | `d7a9217e9c61edb8a88de1e6f87098b0bf6729ae2232afee63065fb1d8c5c85d` |
+| ED25 | revision | `outputs/revision/numeric_controls_v1/inference.json` | `2f5eb5db8fe0fb2fb6de298c6361b6d4c892be9fbcf51672a4224bb66dd504f8` |
+| ED26 | revision | `outputs/revision/execution_final_v1/policy.json` | `c020b42211a2afc6672d8bd570b7eabbe6cdc2d1477c97855cefd23cdf894a0c` |
+| ED27 | snapshot-data | `revision/numeric_controls_protocol.json` | `9615814a62e0a0aa72dfda99c3c55d45c4abaaa5e2a8362591e1cb2cb6343eaf` |
+| ES01 | snapshot | `core/revision_baselines.py` | `b6c0e05d62154c31a6fec387b68d6c6f875b1125a4115046d2e978de1b2ed6c5` |
+| ES02 | snapshot | `core/revision72_analysis.py` | `6586c5e9d78988e408cf55672fce30cdcff2d7475bf9059eb9b2f54edb69eec8` |
+| ES03 | snapshot | `core/revision_numeric_design.py` | `ee2f36416efbda4c5237c55a882f7da3f836db66da7cd9135cbdeccbc1b8131e` |
 <!-- experiment-data-end -->
 
 ### 10.2. Phạm vi hai nghiên cứu và mốc khóa
@@ -2299,3 +2314,7 @@ T37; CL121–CL125, ED10–ED16. Table B04a/b nằm trong §5.2 Markdown, chưa 
 ### 10.4. Cấu hình thực dùng và đơn vị thực thi
 
 T38; CL126–CL130, ED17–ED22. Component attempt metadata649records:455frozen-source (240upstream/215Decision),194newDecision; success433/182/error22/12. Toàn SDKtemp1e-8, visionqwen3.8-27b1024 và Decisiongpt-oss-20b2048, APIseednull; protocol khai0. ED20provider-only bỏ internalcap/deadline, không áp U08cap3 cho toàn component. Pairing147groups/40order mismatch/9cross-epoch. U08config token960/960, observedwiretemp1e-8, SDKretry0; runtime analysis107packages/Python3.13.5. ED08receipt counts1702all/1687active/15retired, status2001505/429194/5031/UNKNOWN2; active2001495/429191/5031. Graph408/render204/shared102 khác số modelcalls. Slots2448/raw1290/bypass1158 và51account/repeat giữ đúng đơn vị. Tokens2986930/reserveUNKNOWN9177/maxchars4750 chép receipt, không billing estimate; U09API0 chỉ analysis. Kiểm metadata/counts/84spec/link/footnote/diff, không runtime suite, model, fit, newtelemetry hoặc replay.
+
+### 10.5. Đối chứng, panel và can thiệp có/không có bằng chứng
+
+T39; CL131–CL136, ED23–ED27/ES01–ES03. Mainprediction9variants gồmAS/B+7numeric; giữrecipe/provenance frozen, không refit. ES01logisticvalidationgrids/median/scale/refit vàfactorvote; ES03fixedfive IDs/currentcustom, noflipkhôngrerank, threshold.1/strictmeanvote. Numericrun23strategies×102=2346,51scopes/20random; eligible_train_range=[85,85] là số eligiblefactor, không85trainrows. Factorial9units/3exec/5variants và7contrasts riêng compactpromptmain/upstream. ED26scenario12, labels/predictionsfixed; continuoushold_price_only componentfinancial khác cycleLONG và unifiedprotocol excludescontinuous. ED07/14 xác nhận20maincontrastcells và3bridges, support102/3/51 giữfallback; deferredretrieval/prior/MTpanel không tạo thêmresponse. Chỉ source/hash/IDs/count/math/links/84spec/diff, không numericalreplay, fit, API hoặc suite.

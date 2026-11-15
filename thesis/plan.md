@@ -69,7 +69,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T36 — DONE: [§5.1](chapters/05_experiments.md#51-studies-and-evidence-scope), bảng phạm vi hai response collection, units/reuse, queue freeze và receipts/giới hạn. CL117–CL120 có ED01–ED09; kiểm accounting375/2448, timestamps và nguồn khóa, không nhận holdout tiền cứu hoặc ablation chưa chạy.
 - [x] T37 — DONE: [§5.2/B04a–b](chapters/05_experiments.md#52-data-and-evaluation-support), lịch12ngày/6fold, support theo9mã, BHN suffix/loại trừ, split hai nghiên cứu và bank/missingness. CL121–CL125 kiểm labels25/77,51account,79missing,51selectorbinding/9fit và828 return-value differences; bảng nguồn Markdown, chưa dàn trang LaTeX.
 - [x] T38 — DONE: [§5.3/B04c–e](chapters/05_experiments.md#53-configuration-and-paired-protocol), runtime/model/options quan sát, offline fit, pairing/order và response/HTTP ledger hai collection. CL126–CL130 kiểm SDK nhiệt độ1e-8/token1024–2048 khác U08 960,40order/9epoch,1290reply/1158bypass/1702HTTP/15retired; không suy response thành market N hoặc gọi log cũ là chạy mới.
-- [ ] T39 — Đặc tả đối chứng và can thiệp thực tế.
+- [x] T39 — DONE: [§5.4](chapters/05_experiments.md#54-comparators-and-interventions), component9main/7numeric, upstream/factorial/placebo,23factor controls/12economic scenarios và contexthai baseline/3bridge. CL131–CL136 kiểmsupport/family/strategy IDs, cyclic LONG khác continuous hold; ablation deferred không nhận là đã chạy hoặc tách causal student.
 - [ ] T40 — Đặc tả chỉ số, cách tổng hợp và quy ước thống kê.
 - [ ] T41 — Trình bày kết quả nghiên cứu thành phần.
 - [ ] T42 — Trình bày kết quả nghiên cứu ngữ cảnh lịch sử.

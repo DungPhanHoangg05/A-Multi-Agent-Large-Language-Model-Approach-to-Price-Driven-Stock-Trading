@@ -323,6 +323,15 @@ Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ 
   Kiểm counts/options/runtime107/logicalunits, footnote/links/diff; không
   model/fit/HTTP/replay hoặc suite vì chỉ viết từ records/receipt đã khóa.
 
+- **T39; §5.4, CL131–CL136, ED23–ED27/ES01–ES03:**
+  `docs/thesis-comparators`; tách9main/7numeric, hai responsepanel nhỏ,
+  23factorcontrols và12scenarios. Context giữ5extensions×2baselines×2endpoint,
+  ba bridges; fallback không mất denominator, controls chu kỳ kháccontinuous.
+  Plannedretrieval/prior/MT ablation vẫn deferred, không dùng component
+  factorial/numerical thay response unified. Kiểmvariant/strategy/family IDs,
+  counts/protocol/source/links/footnote/diff; không fit/strategy replay/suite/API
+  do chỉ sửa đặc tả tài liệu và đọc bằng chứng đã khóa.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
