@@ -1352,6 +1352,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL115 | [EX01 complete walkthrough](chapters/04_proposed_system.md#4105-closing-ex01-after-the-forecasting-barrier) | DO_DUOC | U08 shared/24 forecasts/outcome, TIME01/TIME06; §7/§9.21 | Entry48180/exit48390, gross+.4358655%/net−.2647317%, DOWN; r0 actions | Outcome chỉ sau barrier; cycle không portfolio; không thay ca sai bằng ca thắng |
 | CL116 | [Application acceptance](chapters/04_proposed_system.md#4104-application-workflow-and-interpretation) | DO_DUOC | AP16/AP17; §9.21 | OFFLINE_PASS_BROWSER_PENDING/f11false;135Python/24DOM recorded, 403 nguồn khớp | Không chạy lại suite/browser/market/API, không chứng nhận deployment/lợi nhuận |
 
+| CL117 | [Two studies](chapters/05_experiments.md#511-two-response-collections-and-two-questions) | DO_DUOC | ED01–ED03/ED06–ED09; §10.2 | Main102/51 accounts riêng response collection; Full/Base khác Native/Common | Không trộn cohort support với execution/response count |
+| CL118 | [Execution accounting](chapters/05_experiments.md#511-two-response-collections-and-two-questions) | DO_DUOC | ED02/ED03 và records/panels; §10.2 | 204+54+135−18=375; reused193/new182/attempt194/errors12 | New là release-relative, không tổng tất cả donor/vision |
+| CL119 | [Freezes/exposure](chapters/05_experiments.md#512-what-was-frozen-and-what-acceptance-establishes) | DO_DUOC | ED01/ED04/ED05/ED08/ED09; §10.2 | Component freeze giữa first/last request; U08 seal/accept UTC khác financial dates | Post-inference, served revision null, không preregistered/untouched holdout |
+| CL120 | [Acceptance boundary](chapters/05_experiments.md#512-what-was-frozen-and-what-acceptance-establishes) | HOP_DONG_TRIEN_KHAI | ED04/ED07–ED09; §3/§10.2 | PASS scopes, Native FAIL/whole-system NOT_CERTIFIED/UI pending | Không new replay/API hoặc lấy component factorial thay unified ablation |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2238,3 +2243,26 @@ Hash sản phẩm F11_application_flow (source chuẩn hóa LF; PDF/PNG nguyên 
 - `F11_application_flow.tex`: `c6da57e7b215605f8ceb4254c97bf961c6da5ac68c767c037e0708144bb0de0e`.
 - `F11_application_flow.pdf`: `a6a53ed05199d14f4d224d80e79d8a8d575162e706527ff95deb380f849446af`.
 - `F11_application_flow.png`: `27bbef8c7762bd232a9f307492d97b7a23000ecacc735040aabe7448a7cf0b9b`.
+
+## 10. Nguồn thiết kế thực nghiệm
+
+### 10.1. Binding artifact và source đã khóa
+
+ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc qua index/chunk đã kiểm (§3.2); U08/U09 và snapshot dùng outer/member pin tại §3.4. Không chạy code trong ZIP, không tái phân tích hoặc gọi model.
+
+| Binding | Nơi lưu | Member/đường dẫn gốc | SHA-256 nguyên byte |
+| --- | --- | --- | --- |
+| ED01 | revision | `outputs/revision/revision_minimal_final_v1/manifest.json` | `5ccb426ab41088a7ff3956e229802a3a8e8c23a9980db93be602c9499d9279f1` |
+| ED02 | revision | `outputs/revision/revision_minimal_final_v1/summary.json` | `46782716a0770c9589056fbcf499b60f738c7243647e9a378f91e01656c04299` |
+| ED03 | revision | `outputs/revision/revision_minimal_final_v1/completion.json` | `6ddc1ae726bdf6a35b59d685cb2e76090a06ffbb27ec3d1507ab129234c7cfb6` |
+| ED04 | revision | `outputs/revision/final_temporal_v1/contamination.json` | `4f0b8c2c3008dabf5e2b44354e960c75f21be9d4514a7bbca58ee9906a89207e` |
+| ED05 | revision | `outputs/revision/final_repeats_v1/protocol.json` | `282ca8743076b1bd48266160a78b8fe0a74f2301f2d133c018a4554df7e87357` |
+| ED06 | U09 | `outputs/unified_integration/u09_analysis_r1/receipt.json` | `b1b73325718f7343c8c9457f35a31d5a391335f2b28d1e4c55792abc19ccbc2b` |
+| ED07 | U09 | `outputs/unified_integration/u09_analysis_r1/results.json` | `3136ab9bdeab377196236e1a01402646257ec3beb251877702dbc86e1e67e31f` |
+| ED08 | U08 | `acceptance/u08_acceptance.json` | `b7271af5ea56b07ea5616465f974101c3a69935546e8e69ef8443996e7b1b50e` |
+| ED09 | U08 | `outputs/unified_integration/u08_research_r1/receipt.json` | `2e0ec8bf9a7c57cac8621597e1b88220ca72499dec2dfad5c8306c1a8eb2dd49` |
+<!-- experiment-data-end -->
+
+### 10.2. Phạm vi hai nghiên cứu và mốc khóa
+
+T36; CL117–CL120, ED01–ED09. Đã đọc74 artifact/source chọn lọc bằng EvidenceArchive.read và consumer U09 chỉ đọc; không analyze, restore ghi đè, cold replay hoặc thực thi code ZIP. Index/chunk/member/outer/envelope/receipt khớp pin §3; reader U09 kiểm15 artifact với acceptance. Component records375 job_id duy nhất, main204/upstream36 mới tính trong release/factorial135; nominal upstream54 có18 reuse main. Reused193/new182/194 attempts/12errors không là tất cả historical calls. Context raw1290+bypass1158=2448;102points/51accounts/sixfolds/12dates không biến thành2448 độc lập. ED04 first-request2026-11-02→queuefreeze2026-11-03→last2026-11-04, prospectivefalse/servedrevisionnull. U08 seal2026-11-12T03:10:18.266468Z/accept03:17:37.298613UTC; source/hash không chứng minh unseen holdout. Kiểm số đếm/timestamps/84 đặc tả/footnote/links/diff; không chạy suite do docs-only, không đổi runtime/input hoặc gate khoa học.

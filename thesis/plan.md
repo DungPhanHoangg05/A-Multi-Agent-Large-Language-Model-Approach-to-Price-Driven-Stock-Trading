@@ -66,7 +66,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Thực nghiệm — P4
 
-- [ ] T36 — Xác định hai nghiên cứu và phạm vi bằng chứng.
+- [x] T36 — DONE: [§5.1](chapters/05_experiments.md#51-studies-and-evidence-scope), bảng phạm vi hai response collection, units/reuse, queue freeze và receipts/giới hạn. CL117–CL120 có ED01–ED09; kiểm accounting375/2448, timestamps và nguồn khóa, không nhận holdout tiền cứu hoặc ablation chưa chạy.
 - [ ] T37 — Mô tả dữ liệu, phân vùng, loại trừ và độ phủ.
 - [ ] T38 — Mô tả cấu hình đã khóa và thực thi ghép cặp.
 - [ ] T39 — Đặc tả đối chứng và can thiệp thực tế.

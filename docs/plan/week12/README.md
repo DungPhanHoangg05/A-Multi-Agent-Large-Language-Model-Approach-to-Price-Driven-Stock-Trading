@@ -290,6 +290,21 @@ cứu hoặc chạy lại suite. Checklist duy nhất tiếp tục ở thesis/pl
   đạt kiểm font/bbox/log/hash và quan sát PNG2000px. Không chạy suite,
   browser/app/capture/market/LLM/replay/forward vì chỉ đổi tài liệu/hình.
 
+### Viết thiết kế thực nghiệm từ hai nghiên cứu đã khóa
+
+Ngày **15/11/2026**, tiếp tục P4/T36–T40, mỗi task trên nhánh docs riêng
+từ develop cập nhật. Chỉ đọc archive/receipt/source và kiểm số học nguồn;
+không chạy analyze, fit, model/API, cold replay hoặc tạo kết quả nghiên cứu.
+Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ §10.
+
+- **T36; §5.1, CL117–CL120, ED01–ED09:** `docs/thesis-study-scope`;
+  tách hai collection, bảng support/response và mốc freeze/acceptance.
+  Reader chỉ đọc kiểm74 artifact/source chọn từ revision/U08/U09/snapshot,
+  kiểm index/chunk/outer/member/envelope; accounting375 và2448 khớp.
+  Nêu queue freeze sau first request, exposed cohort và ablation chưa có.
+  Kiểm spec84, footnote/links/diff; không chạy suite vì chỉ sửa tài liệu,
+  không đổi code/runtime/schema/input hoặc nâng receipt lịch sử thành PASS mới.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
