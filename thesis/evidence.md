@@ -898,7 +898,7 @@ rút gọn đường dẫn cho bảng, không phải task mới hay nguồn kế
 | F01 | **Decision cutoff, entry and exit of a trading cycle.** Thấy gì tại cutoff, vào/thoát khi nào; SHORT giữ CASH. | Ch. 3.1–3.2 | T09, T10 | MINH_HỌA | SRC01 | `diagrams/F01_trade_timeline.tex → .pdf` |
 | F02 | **Chronological partitions and historical-label maturity.** Tách fit/selection/test, purge và maturity; không đưa nhãn query vào context. | Ch. 3.7; Ch. 5.2 | T15, T37 | MINH_HỌA | SRC02, SRC05 | `diagrams/F02_temporal_partitions.tex → .pdf` |
 | F03 | **System overview from available inputs to evaluated actions.** Tách tính số, hosted inference, fit offline, policy và đánh giá. | Ch. 4.1 | T16 | MINH_HỌA | SRC03, SRC05, SRC06 | `diagrams/F03_system_overview.tex → .pdf` |
-| F04 | **Candlestick and support-resistance inputs to Pattern and Trend.** Cho thấy hai đầu vào ảnh khác nhau trên cùng điểm, không đồng nhất ảnh với diễn giải đúng. | Ch. 4.3 | T19 | ĐO_ĐƯỢC | SRC09 | `figures/F04_pattern.png; F04_trend.png; diagrams/F04_chart_pair.tex` |
+| F04 | **Candlestick and support-resistance inputs to Pattern and Trend.** Cho thấy hai đầu vào ảnh khác nhau trên cùng điểm, không đồng nhất ảnh với diễn giải đúng. | Ch. 4.3 | T19 | ĐO_ĐƯỢC | SRC09 (nguồn có sẵn T06); EX01-IP/IT (sản phẩm T19, §9.5) | `figures/F04_pattern.png; F04_trend.png; diagrams/F04_chart_pair.tex` |
 | F05 | **Matured historical episodes and Bayesian context retrieval.** Lọc PIT trước matching/statistics; tách population, ví dụ và fallback. | Ch. 4.5–4.7 | T23, T24, T25 | MINH_HỌA | SRC04, SRC08 | `diagrams/F05_memory_retrieval.tex → .pdf` |
 | F06 | **Prior tasks, target observations and frozen MT inference.** Tách task với episode/query; tách huấn luyện teacher/student khỏi inference. | Ch. 4.8 | T28, T29 | MINH_HỌA | SRC05, SRC10 | `diagrams/F06_mt_tasks_training.tex → .pdf` |
 | F07 | **Fact Anchor and utility-gated action revision.** Giữ raw proposal, anchor và final action riêng; điều kiện Q10/Q90 nghiêm ngặt. | Ch. 4.8 | T30, T31 | MINH_HỌA | SRC06 | `diagrams/F07_action_policy.tex → .pdf` |
@@ -1266,6 +1266,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL035 | [§4.3.6](chapters/04_proposed_system.md#436-decision): caps, budget, schema và action | HOP_DONG_TRIEN_KHAI | SYS02 frozen helpers/builders/schema | Native900/900/900/1200/600; integrated800/800/800/1100/500; prompt<6500 | Chars khác tokens; schema không xác thực văn xuôi; prior/MT chi tiết T32 |
 | CL036 | [EX01 projection](chapters/04_proposed_system.md#436-decision): heading mismatch bỏ count lines | DO_DUOC | EX01-S và Native/Common inputs.prepared.request.messages; SYS02, §9.4 | Raw3661; fragment899/798; prompt3699/4186 characters | Exact substring kiểm trong saved request, không tạo forecast/prompt mới |
 | CL037 | [EX01 proposal/action](chapters/04_proposed_system.md#436-decision): Native SHORT/high/RR1.5, Common LONG/high/RR2.5 | DO_DUOC | Raw.reply/policy hai forecast r0 §7.2 | LONG/SHORT khác LONG/CASH; confidence text, RR không phải order | Không nhận “short position” hoặc expected profit trong model prose là hành vi/outcome đã xác thực |
+| CL038 | [§4.3.2](chapters/04_proposed_system.md#432-pattern): candlestick rendering, six-field report và local verifier | HOP_DONG_TRIEN_KHAI | Pattern/renderer source §9.1, EX01 render+graph slots | 45 bars; image khác report; text fallback là đường có điều kiện | Không gọi image/format check là pattern validity hoặc future-direction proof |
+| CL039 | [EX01 Pattern](chapters/04_proposed_system.md#432-pattern): upward/low và warning; final5 có4 C<O | DO_DUOC | Saved Pattern processed report, shared 45-bar prefix, §9.5 | Dịch tiếng Anh có nhãn; levels47.5/46.5 là report prose | Không suy warning bác bỏ mọi trend dài hạn, không kích hoạt stop-order trong engine |
+| CL040 | [§4.3.3](chapters/04_proposed_system.md#433-trend): renderer Close-lines và verifier mean/slope | HOP_DONG_TRIEN_KHAI | Trend/static_util/BG01 frozen, §9.1 | Blue/red Close fits khác high/low fits và model-stated horizontal levels | Verifier không xác thực mọi level/width/prose; high confidence không phải calibrated probability |
+| CL041 | [EX01 geometry](chapters/04_proposed_system.md#433-trend): report says widening nhưng Close gap giảm | DAN_XUAT | Frozen fit_trendlines_single/check_trend_line/optimize_slope, Close45 saved; §9.5 | Gap1.8857842646→1.4561850893; slopes .1128526497/.1030890321 | Helper số trích AST, không render lại ảnh, gọi VLM hoặc thay report/metric nghiên cứu |
+| CL042 | [F04](assets/diagrams/F04_chart_pair.pdf), source và annotations | DO_DUOC | Hai bitmap EX01-IP/IT nguyên byte; layout hash §9.5 | A1–B2 chú thích mới bên ngoài ảnh; PDF180×250mm một trang | Raw images khác annotation/derived check; không relabel CMG hoặc sinh ảnh AI |
 
 Quy tắc điền bảng:
 
@@ -1499,6 +1504,9 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS04 | `core/unified_contracts.py` | `ae1051f1ae0b86f7a4abfb5ed331870d0841d6815df6e67247974f2d100647c1` | Live đồng nhất byte |
 | SYS05 | `core/causal_bridge.py` | `0ca009cc8b5d361535a0efc4635977c18b8213307c92be9145c649c7f5fc70ef` | Live đồng nhất byte |
 | SYS06 | `agents/agent_state.py` | `0dc8621ab971df9438a5601385f616d2eee495382e12d6a4aca2bb0a54eeff76` | Live đồng nhất byte |
+| SYS07 | `agents/pattern_agent.py` | `0b343ad7cd1d8c1e7c3781d22c8b843430c5ce35226088f336fad0cc1b2e7d49` | Live đồng nhất byte |
+| SYS08 | `agents/trend_agent.py` | `5b610eec0e78768e5d4bd31b2f61f14660e67345334852643ea42d6126193803` | Live đồng nhất byte |
+| SYS09 | `utils/static_util.py` | `d2ff7865be9e08f831e1a254d3c85ae2141c7f1cf26181bbf4d9e0f2708597ca` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1547,3 +1555,44 @@ hạn thật của representation, không âm thầm sửa source hoặc thay pr
 Native request ID `a405af62-8faa-4d8c-bbcb-cee3f7bddb27`, Common
 `e9cd5100-0f68-4677-8ca5-84a08e41386c`; raw reply/policy khớp §7.5. Không
 dùng model prose làm chứng cứ short selling/expected realized profit.
+
+### 9.5. Pattern/Trend, ảnh FPT và giới hạn grounding
+
+T19: copy hai PNG giải mã trực tiếp EX01-IP/IT trong U08, không render lại
+chart hoặc sửa bitmap. Hai graph slot chứa processed report được định danh
+trong manifest U08 (cùng thư mục `outputs/unified_integration/u08_research_r1/slots/`):
+
+| Slot | Tên member JSON | SHA256 nguyên byte |
+| --- | --- | --- |
+| `graph/FPT-2023-07-03/pattern` | `0fdfe0d1396815148689043d40432c0f9bcaefeab663ec3a0be3e642a3999b51.json` | `f8729661926b913e0b91c2beaa35e1ac10f4a7b843ca67c3294e23563ca9fb66` |
+| `graph/FPT-2023-07-03/trend` | `1ba306f11f9f41211c0d8dc9151e3b92415b78f4bf7a56315772fb00c319f654.json` | `150b33c76c076090ca8ce7aacaa0bb9cffce7e738a66088df813ec384146f797` |
+
+Hai processed report được dịch/tóm tắt tiếng Anh có nhãn, không
+gọi là raw response trước repair/verification. Pattern giữ warning/low;
+Trend giữ high và widening assertion dù geometry Close-fit không khớp.
+
+Helper số `fit_trendlines_single/check_trend_line/optimize_slope` trích AST
+từ BG01, input Close45 của EX01-S. Derived support slope/intercept:
+0.11285264971385098 / 43.09714735028615; resistance:
+0.1030890320923232 / 44.982931614892124. X=0..44 cho khoảng cách đầu
+1.8857842646059737, cuối1.456185089258753. Đây là derivation mới dùng giải
+thích geometry, **không** metrics/backtest/vision mới; giữ source/input
+locator và không sửa report nghiên cứu. Four bearish candles trong last5
+kiểm trực tiếp Open/Close ở dates27/06,28/06,29/06,30/06,03/07.
+
+| File F04 | SHA256 (source blob LF, ảnh/PDF nguyên byte) |
+| --- | --- |
+| [F04_pattern.png](assets/figures/F04_pattern.png) | `d423db489a59706c4aae32e1f9de49cc63f73eded74f8e6f97c018cd1211200f` |
+| [F04_trend.png](assets/figures/F04_trend.png) | `93744337e0d375c04973332e4dba86c75d55d79398ed4553ad26a8d8593f3734` |
+| [F04_chart_pair.tex](assets/diagrams/F04_chart_pair.tex) | `50cdc69679accd2bcdcc3660fa9361bebc67cabba54880c0e4accd689b19eb4c` |
+| [F04_chart_pair.pdf](assets/diagrams/F04_chart_pair.pdf) | `8cef4378a418adffab6a69cb43a75262228b2e282696d4cc70a89eb0318450a9` |
+| [F04_chart_pair.png](assets/diagrams/F04_chart_pair.png) | `aea3f8b1a0550eecba5bf12bdd98958d1cb800a2aaa83aa8269ee6aff9e1e2c9` |
+
+Ảnh CMG ở §6.3/paper là nguồn có sẵn tại T06, vẫn giữ identity cũ; sản phẩm
+F04 đã chọn FPT/EX01, không relabel ảnh CMG. A1–B2 là annotation ở ngoài
+bitmap trên layout LaTeX mới, không nói chúng là đầu vào VLM lúc nghiên cứu.
+PDF180×250mm, một trang sau chỉnh kích thước ảnh; source dùng article chuẩn
+để tránh dependency extarticle thiếu. Render2.100px cuối đã xem toàn trang,
+không cắt/chồng chữ/Type3 hoặc lỗi log. Build từ root như F03, đổi basename
+`F04_chart_pair` và thư mục tạm `tmp/pdfs/thesis-t19`; tài nguyên ảnh nằm
+trong thesis/assets. Không gọi AI để vẽ lại ảnh nghiên cứu.

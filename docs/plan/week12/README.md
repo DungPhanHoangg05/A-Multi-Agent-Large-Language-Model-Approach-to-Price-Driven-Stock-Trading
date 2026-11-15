@@ -93,6 +93,16 @@ duy nhất vẫn ở thesis/plan.md, không tạo receipt riêng.
   khớp exact archived requests, không tạo forecast mới. Kiểm sources/case,
   links/footnotes/84 đặc tả/diff PASS; không sửa runtime hoặc khóa nghiên cứu.
 
+- **T19; §4.3.2–4.3.3, F04, CL038–CL042 và sổ §9.5:** nhánh
+  `docs/thesis-visual-agent-evidence`; giải mã nguyên byte hai ảnh FPT từ U08,
+  không render lại chart/gọi vision. F04 dùng chú thích bên ngoài bitmap,
+  PDF một trang 180×250mm đã render/xem toàn trang. Giữ Pattern warning/low;
+  công khai Trend high/widening không khớp khoảng cách Close-fit thu hẹp
+  1.885784→1.456185. Phép kiểm số trích helper frozen, không sửa báo cáo hay
+  tính metric nghiên cứu mới. Đối soát 56 slot EX01, 9 source SYS,
+  hash/geometry/report, 418 liên kết/146 anchor, footnote, 84 đặc tả và
+  diff PASS; không chạy suite vì chỉ đổi tài liệu/ảnh dẫn giải.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

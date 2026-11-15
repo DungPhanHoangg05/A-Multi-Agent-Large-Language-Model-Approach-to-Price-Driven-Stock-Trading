@@ -1,0 +1,34 @@
+% Hai bitmap EX01 giữ nguyên byte; chú giải ngoài ảnh thuộc layout mới.
+% Chạy từ root repo để tìm đúng tài nguyên, không phụ thuộc mẫu LaTeX gốc.
+\documentclass[10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[paperwidth=180mm,paperheight=250mm,margin=4mm]{geometry}
+\usepackage{graphicx,xcolor}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\hyphenpenalty=10000
+\definecolor{ink}{HTML}{1F3445}
+\begin{document}
+\fontsize{9pt}{10.5pt}\selectfont
+\color{ink}
+{\large\bfseries EX01: two visual inputs, one historical cutoff}\par
+FPT; 45 observed daily bars, 27 April--3 July 2023. Saved images are unchanged.
+\par\vspace{1mm}
+{\bfseries A. Pattern input: candlesticks without fitted boundaries}\par
+\centerline{\includegraphics[width=160mm]{thesis/assets/figures/F04_pattern.png}}\par
+{\footnotesize\textbf{A1.} Bodies encode open/close; wicks encode the high/low range.
+\textbf{A2.} At the right edge, four of the final five candles close below their opens.
+The saved Pattern report has low confidence and a local bullish-pattern warning.}\par
+\vspace{2mm}
+{\bfseries B. Trend input: the same candles with fitted boundaries}\par
+\centerline{\includegraphics[width=160mm]{thesis/assets/figures/F04_trend.png}}\par
+{\footnotesize\textbf{B1.} Blue/red colored boundaries are fitted to Close, not identical to every
+support/resistance level stated by the model. \textbf{B2.} Their endpoint gap narrows
+from about 1.886 to 1.456 price units; the saved report instead says it widens.}\par
+\vspace{1mm}
+{\scriptsize Sources: U08 saved render slots, EX01 shared 45-bar prefix and report slots.
+Annotations A1--B2 are presentation/derived checks, not text supplied to the original vision model.
+No future candle, realized return or newly generated model report appears here.}
+\end{document}

@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.2 and the Indicator/Decision parts of 4.3 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.2 and the Indicator, Pattern, Trend and Decision parts of 4.3 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -246,11 +246,101 @@ the Vietnamese archive, not a guarantee that every line reached Decision.
 
 ### 4.3.2. Pattern
 
-> **Not yet drafted.** Explain candlestick rendering, the visual evidence requested, report fields and consistency-check limits. Use the archived EX01 image with source identity and English annotations when produced; distinguish the chart from the model's interpretation.
+Pattern asks what price-action structure is visible in the current window.
+Its input is a candlestick image of the same 45 admissible bars used by
+Indicator. A body shows the open-to-close interval and a wick the high/low
+range; colors distinguish upward and downward candles. The renderer supplies
+axes, date labels and the window title. Rendering these observations is a
+deterministic operation, distinct from recognizing a pattern in them.
+
+The historical runner renders once and supplies the saved image to the
+Pattern node; the node can render an image when one is not supplied in other
+paths. A hosted vision request asks for six fields: pattern, confidence,
+directional bias, evidence, key candles and trading implication. The saved
+report passes formatting/field handling and an OHLCV consistency check before
+downstream use. General agent code also has text fallback paths. Their
+existence is not evidence that the fallback was used for every archived case.
+Image, execution path and saved report must be traced separately.
+[^pattern-source]
+
+The local verifier inspects recent candle bodies/ranges, including the final
+five observations. It can flag a bullish claim opposed by a strongly bearish
+last candle or a predominantly bearish recent group, and symmetrically for
+a bearish claim. A detected conflict adds a warning and can lower confidence.
+This is a limited consistency rule: it does not establish a correct pattern
+taxonomy, validate all prose, or prove the direction of the next cycle.
+
+**EX01 saved-report example, translated for presentation.** The report calls
+the pattern an upward trend, gives low confidence and an upward directional
+bias, cites higher highs/lows from roughly 43 to 48, and identifies the green
+27 June candle. It suggests buying on a pullback around 47.5 with a stop
+below 46.5. It also preserves the warning: “Actual candle structure contradicts
+the bullish pattern.” Four of the final five saved candles close below their
+opens. A rising full window and a bearish recent subgroup can coexist; the
+warning does not by itself disprove every longer-window trend statement.
+The pullback/stop suggestion is report prose, not an order that changes the
+fixed execution contract.
+
+Figure F04-A uses the exact archived image. The labels outside the image are
+new explanatory annotations; they were not part of the original vision
+input. No future candle or realized return is appended.
 
 ### 4.3.3. Trend
 
-> **Not yet drafted.** Explain the separate support/resistance chart, geometric construction and requested trend report. Contrast its contribution with Pattern and separate geometric checks from the semantic correctness of a forecast.
+Trend instead asks how the price window relates to fitted support/resistance
+geometry. It receives the same candles with additional lines. The blue and
+red boundaries in the saved chart are fitted to **Close** values. The helper
+starts from a linear fit, selects residual pivots and adjusts a slope under
+support/resistance constraints. The renderer also computes high/low-based
+fits and line segments. The colored Close boundaries are not claims that
+every intraday wick must stay inside them, nor are they automatically equal
+to horizontal levels later named by the model.[^trend-source]
+
+The vision report provides trend direction, support, resistance, line slope,
+price relation to support, analysis, forecast and confidence. Formatting
+helpers can populate missing fields from numerical price summaries. The
+direction verifier compares the reported direction with short/long price
+means and slopes. For a 45-bar window, the nominal long-window comparison
+uses the available history rather than pretending that 50 bars exist.
+It can flag an obviously opposed directional claim; it does not verify every
+claimed level, breakout, pattern name or change in channel width.
+
+**EX01 saved-report example, translated for presentation.** Trend reports
+an upward direction, support 47.8, resistance 49.2, increasing slope, a bounce
+from support and high confidence. Its narrative says the two boundaries
+are widening and predicts a possible break above 49.2. These are archived
+report assertions, not independently established geometric facts or realized
+price movements.
+
+A source-bound geometric check exposes a limitation. Applying only the frozen
+Close-line fitting primitive to the 45 saved closes gives support/resistance
+values of about 43.097/44.983 at the first plotted position and
+48.063/49.519 at the final position. The fitted gap decreases from 1.885784
+to 1.456185 price units. Thus the widening statement is inconsistent with
+these colored boundaries, despite the saved high confidence. This calculation
+is a new explanatory derivation from saved inputs, not a rerendered research
+chart, replacement report or new forecast. The report's 47.8/49.2 level fields
+must not be relabeled as exact endpoints of those fitted lines.
+
+![Archived FPT Pattern and Trend inputs with external presentation annotations.](../assets/diagrams/F04_chart_pair.png)
+
+*Figure F04. Two saved visual inputs for FPT at the 3 July 2023 cutoff,
+covering 27 April–3 July. Panel A shows candlesticks; panel B adds fitted
+Close boundaries. Original PNGs are preserved byte-for-byte. A1–B2 are
+external presentation notes and documented derived checks, not material
+shown to the original vision model. The case retains the Pattern warning
+and the Trend geometry inconsistency; no future result is displayed.*
+[Vector-layout PDF](../assets/diagrams/F04_chart_pair.pdf).
+
+The paired views explain why Pattern and Trend are distinct roles while
+remaining dependent on the same prices. Reusing a shared upstream prevents
+new vision randomness across comparison branches; it does not establish
+correct visual grounding. Neither formatting success, a local verifier nor
+high stated confidence can substitute for comparison with saved OHLCV and
+the actual image geometry.
+
+[^pattern-source]: Frozen Pattern node, `_verify_pattern_against_ohlcv` and renderer; saved EX01 render/pattern graph slots. CL038–CL039 and §9.5 in the shared ledger distinguish original bitmap, processed report and English translation.
+[^trend-source]: Frozen Trend node, `_compute_levels/_verify_trend_against_ohlcv`, `static_util.generate_trend_image` and toolkit line-fitting primitives. CL040–CL042 bind the saved image/report and separate geometric derivation; the old CMG illustration is not relabeled as this FPT case.
 
 ### 4.3.4. Alpha
 
