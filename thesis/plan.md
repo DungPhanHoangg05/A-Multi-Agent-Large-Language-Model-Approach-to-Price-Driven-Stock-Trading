@@ -59,7 +59,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T29 — DONE: [§4.8.3](chapters/04_proposed_system.md#483-teacher-and-student), teacher/grid/counts, simulator, paired37/271873params/queryloss, optimizer và selection thực dùng. CL083–CL088 nối recipe/10receipts/60assessment/export; seed42-step3000 và psaved EX01, không train/loadweights/forward hoặc gọi resource cũ là release toàn hệ.
 - [x] T30 — DONE: [§4.8.1](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor), facts45bars/3assertions, Commondependency/schema/proof/a0 và invalidanchor branch có nhãn Illustrative. CL089–CL092 nối EX013916chars/NO_NUMERIC_VETO, giữ giới hạn validenum khác prosegrounding; utilitypolicy đầy đủ chờ T31.
 - [x] T31 — DONE: [§4.8.4/§4.8.6–§4.8.7](chapters/04_proposed_system.md#484-utility), teacher sign/ bootstrap magnitude, support, strict Q10/Q90 và trace riêng; F07 có nguồn/PDF/PNG đã kiểm. CL093–CL097 nối EX01 giữ LONG; bốn ví dụ chấp nhận/từ chối có nhãn Illustrative, không thêm thực nghiệm.
-- [ ] T32 — Giải thích phép chiếu context vào prompt và schema.
+- [x] T32 — DONE: [§4.8.5](chapters/04_proposed_system.md#485-context-projection), toàn membership khác exemplar, bảng input/schema từng họ, bản dịch prefix EX01 có chú giải. CL098–CL101 kiểm 14→4, 437/4586 ký tự, source card và full-precision policy; không giả prompt C2/A/B đã gửi hoặc can thiệp chưa đo.
 - [ ] T33 — Giải thích DAG phụ thuộc và thuật toán toàn trình.
 - [ ] T34 — Giải thích ngân sách, retry, checkpoint và phục hồi.
 - [ ] T35 — Giải thích ứng dụng và hoàn tất ví dụ xuyên suốt.

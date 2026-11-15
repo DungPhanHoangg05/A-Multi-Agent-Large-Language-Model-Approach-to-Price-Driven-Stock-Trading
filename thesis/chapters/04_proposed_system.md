@@ -1780,7 +1780,101 @@ ledger; writing this section does not regenerate the draws.[^utility-example]
 
 ### 4.8.5. Context projection
 
-> **Not yet drafted.** Explain complete membership summaries, representative examples, numerical estimates and bounded prompt projection. Distinguish the underlying context from the material displayed to the LLM; provide a source-bound annotated prompt excerpt when prepared.
+The numerical model consumes all admitted observations in the structured
+context. The hosted model receives a bounded textual projection of that
+context alongside current reports, the fact card and anchor reference.
+These are different interfaces. Projection does not delete observations
+from numerical inference or turn displayed examples into the denominator
+of historical statistics.[^context-projection]
+
+For each selected prior task and the target, the projection records
+`n/w/l/r`: full group size, positive/nonpositive label counts and mean net
+return fraction. Its age range is measured in calendar days since the
+historical exit. At most one exemplar per nonempty group is displayed:
+smallest query-feature distance, then latest decision date, then ID. The
+target exemplar follows this projection rule even though target membership
+was selected by recency. The audit retains the exemplar's actual ID, vector,
+label, return and age; the short text uses the group label rather than
+printing every ID.
+
+Displayed feature codes are $q_j=\operatorname{clip}(\operatorname{rint}(2v_j),
+-8,8)$, with ties rounded to even. They coarsen the four clipped standardized
+features; they are neither new indicators nor the tensor received by the
+student. `Q` has its vector code but no outcome label or realized return.
+The `small_target` marker flags $m\leq3$; it does not fabricate more target
+observations. The MT prefix includes the student probability rounded to
+three decimals, analytical/Monte Carlo utility means, Q10/Q90 and magnitude
+support counts. A legend distinguishes fractions, ages, group summaries,
+exemplars and probability from expected return.
+
+**Annotated EX01 projection.** The original Vietnamese prefix has exactly
+437 characters, including newlines, and is an exact substring of the
+4,586-character saved request. The following is an **English presentation
+translation**, not the original request or a newly submitted prompt:
+
+```text
+MT3 K3 m3 small p=0.387
+P1 n5 w4 l1 r+0.0109 a916..987 e(0,0,-2,0)>1,r+0.0335,a987
+P2 n4 w0 l4 r-0.0155 a581..615 e(0,0,-2,0)>0,r-0.011,a581
+P3 n2 w0 l2 r-0.0399 a719..727 e(2,1,-1,2)>0,r-0.0327,a727
+T n3 w1 l2 r-0.00194 a4..12 e(0,1,-3,0)>0,r-0.00118,a4
+U(mean,MC,Q10,Q90)=-0.00598/-0.00608/-0.0129/+0.000242 n+5 n-9
+Q(0,0,-3,0)
+q=(mom5,mom20,vol20,ma20) approximately 2z; y=1: net>0;
+r,U: net fractions; a: age in days; n/w/l/r: full group;
+e: displayed exemplar; p=P(y=1), not expected return
+```
+
+For example, P1's four wins describe all five admitted P1 observations,
+not just its single displayed winning exemplar. The four displayed
+exemplars are FPT-2020-10-14, FPT-2021-11-24, FPT-2021-07-01 and
+FPT-2023-06-26, respectively. The last is only one of three target
+observations. Full group means and ages are retained in `projection.summary`;
+rounded prompt numbers are not substituted into policy's full-precision
+utility values.[^projection-example]
+
+**What each Decision family receives.** All rows retain the fixed economic
+contract; report selection and instruction differences remain those of
+Sections 4.3–4.4. Historical labels in a prior are permitted only after
+maturity; none of these interfaces receives the query label.
+
+| Family | Historical/factual material added to current reports | Reply and downstream use |
+| --- | --- | --- |
+| Native | No historical prefix; Native alpha/report profile | Base trade schema; map LONG/SHORT to LONG/CASH |
+| Common | Common instruction, no historical prefix | Same base schema; durable dependency for priors/anchor |
+| Bayesian v1 | Population rates and up to three signal examples, Section 4.6 | Base schema; Common fallback if retrieval unavailable |
+| C2 / A / B | Only ready statistics/examples; matching and presentation as Section 4.7 | Base schema; independent readiness, Common fallback when neither ready |
+| Fact Anchor | Numeric fact card and required fact citations; no MT projection, p or U | Extended fact reply, NOT_APPLICABLE; resolve reference action |
+| MT_BICL | Facts, anchor reference and bounded task projection with p/U | Extended fact reply, SUPPORTED; external revision policy |
+
+The request envelope binds point/repeat, model, options, complete messages
+and structured schema. The final MT prompt also carries a short `a0=LONG`
+source reference. On the causal-alpha path the adapter derives a
+`pit_anchor_card_v1` content digest from the Common request, facts and raw
+Common/anchor replies, replacing the short proof reference in the prompt.
+For EX01 its prefix is `c2cf28588843ea3e`; the complete policy proof hash
+remains separate. These digests identify content; they do not certify the
+truth of free-text reasoning.[^projection-contract]
+
+At $K=3$ the MT projection must be at most 600 characters. The fact card
+has its separate 700-character cap, the anchor card 80, and the **final**
+assembled Decision text must be below 6,500. Overflow raises an error;
+counts, legends and membership are not silently cut to fit. The complete
+EX01 r0 request lengths are Native 3,699, Common 4,186, v1 4,556,
+Fact Anchor 3,916 and MT 4,586. C2/A/B have no sent request at this point,
+so they have no observed prompt length to fill with a hypothetical request.
+
+Registered component projections additionally support `Stats_only`
+(no exemplars), `No_target` (remove target, then recompute probability and
+utility), `No_utility` (no U) and `Plain_revision` (no p or U).
+Plain_revision/No_utility retain the Full support mask and membership,
+despite omitting fields from the hosted request. These interventions are
+not all roles in the unified study, and availability of a builder alone
+does not establish a completed performance comparison.
+
+[^context-projection]: SYS43 `project_context/prepare_variants`, BG09 task distances/ages and SYS33 contracts; CL098–CL099, ledger §9.18. All-member summaries and exemplar selection are different operations.
+[^projection-example]: U08 EX01 MT `aux.branch.projection` and request; CL100. Original prefix, exemplar IDs, full summaries and membership hash are retained; the displayed translation does not inherit the original character count.
+[^projection-contract]: SYS42 prompt/schema builder, SYS18 Common instruction, BG18 causal source card and final guard; CL101. Envelope/request hashes retain source language and model options, not a presentation translation.
 
 ### 4.8.6. External policy
 

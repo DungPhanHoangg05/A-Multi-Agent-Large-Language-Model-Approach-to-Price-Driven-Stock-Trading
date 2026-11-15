@@ -248,6 +248,14 @@ cứu hoặc chạy lại suite. Checklist duy nhất tiếp tục ở thesis/pl
   font/bbox/log hình đã kiểm. Không chạy suite vì chỉ sửa tài liệu/hình;
   không sampling, forward, API hoặc nâng gate lịch sử.
 
+- **T32; §4.8.5, CL098–CL101, sổ §9.18:**
+  `docs/thesis-prompt-projection`; summary toàn group khác exemplar, lượng tử
+  feature và input/schema từng họ; chú giải prefix EX01 bằng bản dịch có nhãn.
+  Kiểm U06 context với U08 MT: 14 hàng/4 exemplar, counts/means/age/rank,
+  437 ký tự prefix/4586 request, source card, mean utility giải tích và liên kết
+  PASS. Không dựng prompt hoặc chạy renderer/model; chỉ đọc nguồn, tính số
+  từ dữ liệu đã lưu. Không chạy suite vì không đổi hành vi/runtime/input.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

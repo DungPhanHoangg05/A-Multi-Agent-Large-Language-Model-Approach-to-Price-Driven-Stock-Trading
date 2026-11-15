@@ -1328,6 +1328,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL096 | [Policy/trace](chapters/04_proposed_system.md#486-external-policy) | HOP_DONG_TRIEN_KHAI | BG14/BG18/SYS33; §9.17 | facts→same action→strict Q10 delta; invalid/unsupported/error riêng | EX01 KEEP_PROPOSED_SAME, không có veto; component paths khác unified roles |
 | CL097 | [F07 và bốn ví dụ](chapters/04_proposed_system.md#486-external-policy) | MINH_HOA | BG14, arithmetic; §9.17 | CASH→LONG Q10U>0; LONG→CASH −Q90U>0, equality reject | Ví dụ giả định có nhãn, không tạo response/kết quả nghiên cứu |
 
+| CL098 | [Projection membership](chapters/04_proposed_system.md#485-context-projection) | HOP_DONG_TRIEN_KHAI | SYS43/BG09; §9.18 | n/w/l/r toàn group, age từ exit; exemplar nearest/latest/ID | Không đổi membership hoặc lấy exemplar làm mẫu số |
+| CL099 | [Feature code/interventions](chapters/04_proposed_system.md#485-context-projection) | HOP_DONG_TRIEN_KHAI | SYS43/SYS42; §9.18 | rint(2v), clip±8; Plain/NoU cùng Full mask; No_target tính lại | Tên builder không chứng minh thực nghiệm hoặc unified role |
+| CL100 | [EX01 projection](chapters/04_proposed_system.md#485-context-projection) | DO_DUOC | U08 MT aux.branch/projection/request, U06 context; §9.18 | 14 rows/4 exemplar, prefix437/request4586, summary/count/mean/age/code | English translation không là request gốc; query không y/r_net |
+| CL101 | [Input/schema/budget](chapters/04_proposed_system.md#485-context-projection) | HOP_DONG_TRIEN_KHAI | BG18/SYS42/SYS18; U08; §9.18 | Six family rows, fact/anchor/projection guards; causal content card | Short content digest khác proof; C2/A/B bypass không có prompt quan sát |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -1596,6 +1601,7 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS40 | `core/mt_bicl_replica_learner.py` | `4fcc849d3c606eb3495de1dff218a0ca83b888ef5ee11fd3b3e1a03c9f5201d0` | Live đồng nhất byte |
 | SYS41 | `core/mt_bicl_replica_metrics.py` | `7548b420869f04ccde35e6c3734c77605164e80c44b710c332d36bf94ff65010` | Live đồng nhất byte |
 | SYS42 | `core/mt_bicl_decision.py` | `2c02c0c9886a4f556444003d5fe39a2c0165eb3710318b82d9eb4e43e4d4c435` | Live đồng nhất byte |
+| SYS43 | `core/mt_bicl_context.py` | `cf61434f719b43fb908711fd17972fe33ef6db3c3031df2f69671980f0e38c1e` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -2093,3 +2099,7 @@ Hash sản phẩm F07_action_policy (source chuẩn hóa LF; PDF/PNG nguyên byt
 - `F07_action_policy.tex`: `dac92bcdc0ba13b632aeb79fea6c38c0727c7bbcf2c6a4a6551d0f656cc0ac65`.
 - `F07_action_policy.pdf`: `db6db61add3d79c6f7fcfeafdea29fe49dfcf2b5b6ac55911146b01a8105af39`.
 - `F07_action_policy.png`: `863c361205bd7c8beef9495550f52da78afb643bc3a0cd4bc0a4ae9e11f5d358`.
+
+### 9.18. Projection, schema và prompt đã lưu
+
+T32; CL098–CL101. SYS43 là core/mt_bicl_context.py frozen; BG09/SYS42/SYS18/BG18 giữ đúng builder. U06 provider EX01 raw hash 64e5…07c7 (§9.14) nối full membership 9ed7…fcb4 với U08 MT. Kiểm số học summary 5/4/2/3, wins4/0/0/1, exemplar/rank/age và mean utility từ 5 gain/9 loss; không gọi project_context hoặc sampler. Prefix gốc 437 ký tự nằm nguyên trong request4586; các request Native/Common/v1/Anchor có 3699/4186/4556/3916 ký tự, C2/A/B null. Source card c2cf28588843ea3ee339bccec6e08f445495863de839d6fe727a5e9459a220c0 khớp trace/request; proof giữ riêng. Bản dịch tiếng Anh phục vụ trình bày, không nhận độ dài/hash của bản gốc. Kiểm nguồn, số liệu, 84 đặc tả, liên kết/footnote/diff; không sửa runtime, chạy suite/API/forward hoặc đánh giá mới.
