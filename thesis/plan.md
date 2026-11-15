@@ -57,7 +57,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T27 — DONE: [§4.7.2/B03 phần bốn prior](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles), AconditionT/P, Bpresentation giữ C2evidence, selector/gate/prefix/fallback rõ. CL074–CL077 kiểm EX01 A14/5, C2/B identical và ba bypass; semantic không embedding, bảng nguồn Markdown chưa xuất CSV/TeX.
 - [x] T28 — DONE: [§4.8 mở đầu và §4.8.2](chapters/04_proposed_system.md#482-task-construction), vector/scaler/bucket/63sessiontask/ranking/foldfreeze; F06 và bảng EX01 K3/14rows/queryunlabeled. CL078–CL082 nối fullmembership/hosted preparation, không tạo context hoặc fit mới.
 - [x] T29 — DONE: [§4.8.3](chapters/04_proposed_system.md#483-teacher-and-student), teacher/grid/counts, simulator, paired37/271873params/queryloss, optimizer và selection thực dùng. CL083–CL088 nối recipe/10receipts/60assessment/export; seed42-step3000 và psaved EX01, không train/loadweights/forward hoặc gọi resource cũ là release toàn hệ.
-- [ ] T30 — Giải thích facts và Fact Anchor.
+- [x] T30 — DONE: [§4.8.1](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor), facts45bars/3assertions, Commondependency/schema/proof/a0 và invalidanchor branch có nhãn Illustrative. CL089–CL092 nối EX013916chars/NO_NUMERIC_VETO, giữ giới hạn validenum khác prosegrounding; utilitypolicy đầy đủ chờ T31.
 - [ ] T31 — Giải thích utility và policy sửa hành động.
 - [ ] T32 — Giải thích phép chiếu context vào prompt và schema.
 - [ ] T33 — Giải thích DAG phụ thuộc và thuật toán toàn trình.

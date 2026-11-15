@@ -26,10 +26,11 @@ chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối ng
 P2 đã có [bản nháp Chương 3 §3.1–§3.7](../../thesis/chapters/03_background.md),
 từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
 kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
-nghiệm mới. P3 đã có bản nháp [Chương 4 §4.1–4.6](../../thesis/chapters/04_proposed_system.md):
+nghiệm mới. P3 đã có bản nháp [Chương 4 §4.1–4.7 và một phần §4.8](../../thesis/chapters/04_proposed_system.md):
 tổng quan/hợp đồng/các agent, Native/Common khác Full/Base, episode/regime
-và Bayesian v1, kèm F03/F04/F05/F05a. EX01 giữ riêng input/report/context/outcome;
-C2/A/B và MT/policy/điều phối/ứng dụng còn placeholder, các chương còn lại
+và Bayesian v1/C2/A/B, Fact Anchor, tác vụ MT và teacher–student, kèm F03/F04/F05/F05a/F06.
+EX01 giữ riêng input/report/context/outcome; utility/projection/chính sách sửa action/
+traceability/điều phối/ứng dụng còn placeholder, các chương còn lại
 giữ khung. Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,

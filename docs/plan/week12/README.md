@@ -221,6 +221,19 @@ duy nhất ở thesis/plan.md; không tạo receipt hoặc kết quả nghiên c
   forward, chạy suite/API/coldreplay hoặc nâng resourceacceptance thành
   release/causal gate toàn hệ; chỉ source/hash/receipt/packing/arithmetic.
 
+- **T30; §4.8.1, CL089–CL092 và sổ §9.16:** nhánh
+  `docs/thesis-fact-anchor`; facts45bars/fullprecision, card .8g/700chars,
+  schema và ba assertion tách khỏi diễn giải văn xuôi. FA01 raw hash khớp
+  snapshot/live/SYS33. EX01 packet/prefix/proof/raw/Common/MT dependency,
+  prompt3916chars, LONG/valid/NO_NUMERIC_VETO/nullquantile được đối chiếu.
+  Phản ví dụ SHORT/assertionNEGATIVE chỉ là minh họa schema-valid, không tạo
+  response nghiên cứu hoặc gọi policy. Nêu rõ giới hạn prose và can thiệp
+  đồng thời facts/instruction/schema so với Common. Kiểm 65 SYS/BG, 56 slot,
+  495 liên kết/207 anchor, 38 footnote/84 đặc tả/diff PASS; cập nhật trạng thái
+  ba tài liệu tổng hợp, T31 trở đi chưa đánh dấu. Không compileall/unit/E2E/
+  leakage vì chỉ đổi tài liệu; không TA-Lib/fit/loadweights/forward/replay/API.
+  Hash nguồn và F06 giữ nguyên; không nâng các gate lịch sử thành PASS mới.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

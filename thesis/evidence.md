@@ -1208,7 +1208,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
-| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | §4.1–4.6 đã có bản nháp và F03/F04/F05/F05a; C2/A/B, MT/policy/điều phối/ứng dụng còn placeholder |
+| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | §4.1–4.7 và Fact Anchor/tác vụ/teacher–student của §4.8 đã có bản nháp, kèm F03/F04/F05/F05a/F06; utility/projection/chính sách sửa action/traceability/điều phối/ứng dụng còn placeholder |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
 
@@ -1317,6 +1317,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL086 | [Recipe table](chapters/04_proposed_system.md#483-teacher-and-student): optimizer/sampling/checkpoint | DO_DUOC | TR01/02, SYS35/40, training/pilotreceipts; §9.15 | seeds17/42/73×5000steps,batch128,640000episodes/seed;AdamW/schedule/clip1 | Recorded physical128 khác OOMoptions128/64/32; không metricearlystop hoặc fit runtime mới |
 | CL087 | [Selection](chapters/04_proposed_system.md#483-teacher-and-student): gates/2021rank/seed42step3000 | DO_DUOC | SYS41, TR01/05–08 and60assessmenthashes; §9.15 | Eligibilitysynthetic/swap/control then2021macroLL/Brier,step,seed; selectedtensorc60a… | Read receipts/hash/rankkhớp, không chạy lại evaluation/gates; 2021selection dùng labels dù optimizersynthetic |
 | CL088 | [Frozen inference/EX01](chapters/04_proposed_system.md#483-teacher-and-student): adapter/resources/p | DO_DUOC | SYS36/37, BG23; TR01/03/04, U08MTaux.branch; §9.15 | candidate exporta6f0… khác resumable9414…; CPUeval/nograd; psaved.38681803029367656 | Không loadweights/forward hoặc nâng gate/calibration; p khác utility/LLMconfidence/return |
+| CL089 | [§4.8.1](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor): facts numeric/provenance/assertions | HOP_DONG_TRIEN_KHAI | BG10/SYS33, source45barsEX01; §9.16 | MACD12/26/9/SMA20, rawdiff/strictrelations, bucket và prefixhash | Packet/selfhash không tự chứng minh nguồn; warnings không hardfacts hoặc endpointsign là crossing |
+| CL090 | [Fact request/reply](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor): Common reports/factcard/schema | HOP_DONG_TRIEN_KHAI | SYS42/SYS33/BG18; FA01schema, §9.16 | NoMTprojection/p/U; threeuniqueIDs/enums/contextNOTAPPLICABLE; card≤700,total<6500 | Factcard khác BRPP600; schema khác semanticcorrectness; không implicitutilityveto |
+| CL091 | [Anchor validity/failure branch](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor): resolveda0/Commondependency/proof | HOP_DONG_TRIEN_KHAI | BG14/BG18; §9.16 | Exactassertions+NOTAPPLICABLE; invalid→Common, reason/valid/bypass khác nhau | Illustrative schema-validSHORT/NEGATIVE chưa là rawcase; technicalfailureraise, Commonfallback không được cấp fakefacts |
+| CL092 | [EX01 fact table/reply](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor): packet/numbers/prompt/source/prose | DO_DUOC | U08Fact_Anchor/Common r0 §7.2 và §9.16 | MACD.65426756<Signal.7043937 nhưng>0; Close48.18>SMA47.5675; prompt3916; LONG/RR1.5/NO_NUMERIC_VETO | fact_assertions_validtrue không kiểm “bullish momentum”/“positive zero crossing”; q10null, không gọi là veto |
 
 Quy tắc điền bảng:
 
@@ -1585,6 +1589,7 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS39 | `core/mt_bicl_oracle.py` | `01b4202a996765399add9056405266d9805f69daa89a3a29e8d3d45d2d725579` | Live đồng nhất byte |
 | SYS40 | `core/mt_bicl_replica_learner.py` | `4fcc849d3c606eb3495de1dff218a0ca83b888ef5ee11fd3b3e1a03c9f5201d0` | Live đồng nhất byte |
 | SYS41 | `core/mt_bicl_replica_metrics.py` | `7548b420869f04ccde35e6c3734c77605164e80c44b710c332d36bf94ff65010` | Live đồng nhất byte |
+| SYS42 | `core/mt_bicl_decision.py` | `2c02c0c9886a4f556444003d5fe39a2c0165eb3710318b82d9eb4e43e4d4c435` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -2027,3 +2032,38 @@ Packing source train BG12/runtimeSYS37 cùng kiếntrúcpaired37; counttham số
 .38681803029367656 tại U08MTaux.branch. F06 giữ nguyên hash đã kiểm T28,
 không build lại cho task viết. Không training, syntheticgeneration, predict,
 coldreplay, API hoặc suite; chỉ source/hash/receipt/packing/arithmetic checks.
+
+### 9.16. Facts, Fact Anchor và nhánh assertion không hợp lệ
+
+T30; CL089–CL092. BG10/SYS33/SYS42/BG14/BG18 lấy từ snapshot; không chạy hàm
+tạo facts, TA-Lib, bộ dựng prompt hoặc LLM. Fact_Anchor của EX01 trong U08
+dùng packet, reply, policy/proof tại slot/hash đã ghi ở §7.2.
+MACD/Signal/Close/SMA20 và hiệu số được chép đủ độ chính xác; ba assertion là
+BELOW/POSITIVE/ABOVE, bucket là MACD_NEG_PRICE_POS.
+Hash của prefix PIT gốc (dates/columns/values, 45 bar) là
+`83263839c601360faea0017da5362741a1fa5d068903fd0ceafe8cedfec60ba2`;
+hash nội dung packet là `c6f7d2919729c53215a263f3e106ea6c33704f6afc50702804527865ce7227ba`.
+Thẻ facts định dạng .8g được kiểm bằng chuỗi con trong prompt đã lưu dài
+3.916 ký tự; không dựng request mới.
+
+Digest dependency Common là `964b7aa19d16e01affa47869a62a2ad20bcc8c1a0eb204f4926abc92a9471c41`;
+digest đối tượng raw của anchor là `25c472eae6d4d3285fc05cd4886ed35cdd20431903211505d24e616aca637220`.
+Hash đối tượng proof là `1b4a5846922443657bae8e91d68c7489dfd58ea92688bdce007cb29b14f70049`;
+request ID là `f7c7664b-69c7-4bef-a075-26c2d9c0d6e2`.
+Assertion hợp lệ, context_reason=NOT_APPLICABLE; raw LONG, confidence=Cao,
+R:R=1.5; a0/final=LONG, reason=NO_NUMERIC_VETO, q10=null và bypass=false.
+`prepared.aux.anchor` của MT khớp proof/output này và dependency Fact_Anchor
+cùng repeat. Không diễn giải p_student thấp thành veto số của anchor.
+
+Giữ giới hạn văn xuôi: reply đã lưu nói “MACD below Signal indicates bullish
+momentum” và “positive zero crossing”; hợp đồng enum không kiểm các luận điểm
+đó. Packet chỉ xác nhận quan hệ tại điểm cuối, không chứng minh giao cắt.
+Phản ví dụ minh họa hợp lệ về schema đổi decision=SHORT/MACD_ZERO=NEGATIVE
+được gắn nhãn Illustrative; so sánh sai dẫn đến Common LONG/valid=false.
+Không chạy policy/model để tạo response hoặc gọi đó là bản ghi nghiên cứu.
+
+FA01 là schema wire `docs/plan/week11/mt_bicl.schema.json`, 13.541 byte,
+raw SHA-256 `0ff8ae6d4c58b33a1672ad45b3a852d650fd32c95fd20da2ae6e33dcf8861dc8`,
+khớp snapshot manifest, bản live và SYS33 `SCHEMA_SHA256`. Chỉ schema/enum/proof/source/hash/link checks;
+không compileall/unit/E2E/leakage vì không đổi code/runtime/input, không
+fit/forward/replay/API. Utility/policy đầy đủ vẫn chờ T31.

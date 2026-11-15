@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.7 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.7 and the Fact Anchor, task-construction and teacher/student parts of 4.8 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -1317,7 +1317,119 @@ not authorize an action change.
 
 ### 4.8.1. Fact packet and Fact Anchor
 
-> **Not yet drafted.** Define numeric facts, assertions, Common dependency and anchor validation/failure behavior. Explain the limited scope of assertion validity and identify the anchor action before evaluating a proposed revision.
+Fact Anchor establishes the reference action $a_0$ for the later revision
+stage. It combines source-bound numerical facts with the Common-profile
+reports, then checks a small structured assertion contract in the returned
+reply. It has a declared dependency on Common from the same point and
+repeat. It does not compute a return threshold or apply a utility veto.
+[^facts-anchor]
+
+**Facts from the admissible price prefix.** `make_fact_packet` takes the
+last 45 observed OHLCV bars ending at the query cutoff. It obtains MACD
+(12,26,9) from TA-Lib and the last-20-close mean, retaining full-precision
+numbers and their differences. It emits three assertion IDs:
+
+| Assertion ID | Relationship checked | Admitted values |
+| --- | --- | --- |
+| `MACD_SIGNAL` | MACD line relative to its Signal | ABOVE, BELOW, EQUAL or UNKNOWN |
+| `MACD_ZERO` | MACD line relative to zero | POSITIVE, NEGATIVE, ZERO or UNKNOWN |
+| `PRICE_SMA20` | Last Close relative to SMA20 | ABOVE, BELOW, EQUAL or UNKNOWN |
+
+These are distinct relationships: being below Signal does not mean MACD
+is below zero. Comparisons use stored unrounded numbers, and exact equality
+is distinct from unavailable data. The packet also carries point/cutoff,
+frame end, prefix length, horizon, bucket and a hash of the actual input
+prefix. Fewer than 45 bars or a window ending before cutoff does not permit
+finite numerical facts to be asserted as if the complete window existed.
+Invalid OHLCV or inconsistent fields are errors.
+
+The packet validator checks schema, dates, raw numerical differences and
+the assertion/bucket relations. The source adapter must still establish
+the price prefix's identity; a self-consistent packet or self-recomputed
+hash is not independent evidence that its source is authentic. Optional
+report warnings are labeled as report statements, not promoted to hard
+numerical assertions.
+
+Matching UNKNOWN likewise does not supply a missing observation or satisfy
+the later context-support gate.
+
+**Prompt and structured reply.** The Fact Anchor request includes the fact
+card and the same Common-projected reports. It does not include an MT task
+projection, student probability or utility distribution. The instruction
+asks the model to cite all three IDs/assertions and use
+`context_reason=NOT_APPLICABLE`. Fact-card numbers are displayed with eight
+significant digits, while validation retains the original values and enums.
+The fact card has its own 700-character bound; the final assembled request
+remains strictly below 6,500 characters. It is not a 600-character BRPP.
+The branch also changes instructions and the output schema; a comparison
+with Common therefore combines fact presentation and response-format changes.
+
+The reply schema retains decision, horizon, confidence, R:R and explanatory
+fields, and adds a version, the three unique `fact_ids`, a
+`fact_assertions` object and `context_reason`. Citation completeness is
+checked as a set, so changing ID order alone does not invalidate the reply.
+Schema validity only establishes allowed fields and values; it does not
+prove that the returned values agree with the packet.
+
+**Resolve the anchor before any action revision.** The policy compares the
+reply's assertion object exactly with the packet and requires the
+Fact Anchor context reason to be NOT_APPLICABLE. If both checks pass,
+$a_0$ is the reply's decision mapped to LONG/CASH. A valid SHORT reply
+therefore yields CASH under the economic contract. If a schema-valid reply
+has incorrect assertions or context reason, the resolver instead uses
+the already completed Common reply and records
+`ANCHOR_INVALID_USE_ORIGINAL`. This fallback does not certify the Common
+reply's prose or supply it with new fact assertions.
+
+The proof retains the packet hash, Common source/output hash, anchor source
+hash, raw replies, validity flag and request ID. The selected reference
+action can be reconstructed from those fields. An invalid completed anchor
+still has a real request/raw reply and `bypass=False` for that anchor call.
+Its validity flag remains false; a later anchored revision is bypassed
+rather than sending a new revision request based on an invalid anchor.
+A missing response, malformed schema, corrupt provenance or transport
+failure is a technical failure, not a completed invalid assertion reply
+that can silently be replaced with CASH.[^anchor-resolution]
+
+**EX01 numerical assertions.** The saved packet records:
+
+| Quantity / assertion | Stored value |
+| --- | --- |
+| MACD / Signal | 0.6542675609756259 / 0.7043937016476567 |
+| MACD − Signal | −0.050126140672030806; `MACD_SIGNAL=BELOW` |
+| MACD relative to zero | `MACD_ZERO=POSITIVE` |
+| Close / SMA20 | 48.18 / 47.5675 |
+| Close − SMA20 | 0.6124999999999972; `PRICE_SMA20=ABOVE` |
+| Facts bucket | `MACD_NEG_PRICE_POS` |
+
+The anchor reply cites all three matching assertions with
+NOT_APPLICABLE, proposes LONG, states high confidence and R:R 1.5. Its
+reference/final action is LONG with `NO_NUMERIC_VETO`; the utility-quantile
+field is null. Common's separate reply also proposes LONG, but with R:R
+2.5. The anchor request has 3,916 characters and its source request ID
+begins `f7c7664b-69c7`; the ledger binds the full ID and source hashes.
+
+This valid structured reply nevertheless illustrates the check's limit.
+Its prose calls MACD below Signal bullish momentum and refers to a positive
+zero crossing. The equality of the three returned enums does not validate
+that interpretation, and an endpoint-positive MACD does not by itself
+establish a crossing event. `fact_assertions_valid=True` must therefore be
+read as the limited citation/enum contract, not a certificate that all prose,
+trading logic or future profit is correct.[^anchor-example]
+
+**Illustrative invalid-anchor branch, not an archived response.** Suppose
+a schema-valid reply on the EX01 packet proposes SHORT but returns
+`MACD_ZERO=NEGATIVE`. The packet's positive MACD makes the assertion
+comparison fail. The resolver records the raw SHORT proposal while taking
+$a_0=\mathrm{LONG}$ from the saved Common reply, with validity false and
+ANCHOR_INVALID_USE_ORIGINAL. The later revision path retains that reference
+without a new revision call. No return estimate or quantile comparison is
+needed to explain this branch; utility-based acceptance or rejection belongs
+to Section 4.8.6.
+
+[^facts-anchor]: BG10 fact-packet construction, SYS33 fact/wire validator, SYS42 fact-card/anchored builder and BG18 Common dependency. CL089–CL090 and ledger §9.16 distinguish raw prefix provenance, numerical consistency and reply schema.
+[^anchor-resolution]: BG14 `facts_match/resolve_anchor/validate_anchor/apply_revision` and BG18 `prepare/resolve`; CL091. The invalid example is explicitly illustrative and does not add a new research response or replace a transport failure.
+[^anchor-example]: EX01 U08 Fact_Anchor prepared packet/request, raw reply and policy/proof, linked to Common r0; CL092. Exact assertions, source identity, prompt length and the saved prose limitation are checked without rerunning TA-Lib or a model.
 
 ### 4.8.2. Task construction
 
