@@ -1,6 +1,6 @@
 # Front matter
 
-> **Draft status:** the cover metadata follows the author-confirmed brief. The abstract, abbreviation list and notation have been checked against the manuscript. Acknowledgements and declaration are proposed, unsigned text for author review. No institutional abstract word limit or prescribed declaration/front-matter rules have been supplied.
+> **Draft status:** the cover metadata follows the author-confirmed brief. The abstract, abbreviation list and notation have been checked against the manuscript. The author has confirmed the acknowledgement and declaration wording; the declaration remains unsigned. No institutional abstract word limit or prescribed declaration/front-matter rules have been supplied.
 
 ## Cover metadata
 
@@ -103,7 +103,7 @@ Vietnamese stock market; multi-agent systems; large language models; regime-awar
 
 ## Acknowledgements
 
-> **Proposed wording for author review.** This draft names only the
+> **Author-confirmed wording.** This draft names only the
 > supervisor supplied by the author and claims no unverified contribution,
 > funding, endorsement or institutional approval.
 
@@ -111,7 +111,7 @@ I thank my supervisor, Dr. Tran Hong Viet.
 
 ## Declaration
 
-> **Proposed wording for author review; unsigned.** No prescribed
+> **Author-confirmed wording; unsigned.** No prescribed
 > institutional declaration has been supplied. This text is not an
 > institution-approved form or an assertion that the author has signed it.
 
