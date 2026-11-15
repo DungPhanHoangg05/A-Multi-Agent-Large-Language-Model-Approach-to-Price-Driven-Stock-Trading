@@ -1208,7 +1208,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
-| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | §4.1–4.2 và Indicator/Pattern/Trend/Alpha/Decision đã có bản nháp; các phần context/policy/điều phối còn placeholder |
+| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | §4.1–4.6 đã có bản nháp và F03/F04/F05/F05a; C2/A/B, MT/policy/điều phối/ứng dụng còn placeholder |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
 
@@ -1292,6 +1292,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL061 | [Frozen inference/F05a](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): model/scaler resources và endpoint | HOP_DONG_TRIEN_KHAI | RG01/RG02, SYS22/SYS23/BG23/SYS24; §9.10 | Historical episode-prefix khác query2022/MT2020; prefix endpoint khác historical smoothing | Không reassign bank hoặc suy state dưới model mới là state PIT cũ |
 | CL062 | [EX01 assignments](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): CONSOLIDATION vs BULL và fit metadata | DO_DUOC | RG01/RG02/EX01-C/hosted v1; §9.10 | 1251/1052rows end2022 vs752/553rows end2020; HMM/no fallback reasons | Không phân loại lại/fit model để làm hai label giống nhau; rawhash khác semantic parameter fingerprint |
 | CL063 | [MT scaler identity/F05a](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): 4-feature context khác HMM scaler | DO_DUOC | EX01-C.context.scaler, §9.10 | fit731, cutoff2020-12-31, maxexit2020-12-29; full-scaler digest và fit-ID hash | Không lấy731 làm training_rows HMM hoặc nhận hình khái niệm là mới chạy thực nghiệm |
+| CL064 | [§4.6.1](chapters/04_proposed_system.md#461-filtering-and-ranking-without-outcome-based-selection): E/P, four-signal score và tie-break | HOP_DONG_TRIEN_KHAI | BG07, BG16, SYS20, §9.11 | Same symbol, exit<cutoff, same regime; .25 per T/P/A/I; score↓/exit↓/ID↑, K≤3 | Sentiment alias hợp lệ nhưng không vào score; seed42 không là RNG trong deterministic mode; kiểm integrity outcome khác dùng outcome để rank |
+| CL065 | [§4.6.2](chapters/04_proposed_system.md#462-population-statistics-and-the-displayed-examples): population empirical rates | HOP_DONG_TRIEN_KHAI | BG07._compute_statistics và format; §9.11 | LONGwin trên P; trap trên T∨P; TrendFail/PatternFail mẫu số riêng;0/0NA | Tên Bayesian không biến ratio v1 thành Beta posterior/credible interval hoặc calibrated query probability |
+| CL066 | [EX01 selected list/counts](chapters/04_proposed_system.md#462-population-statistics-and-the-displayed-examples): 211→19→3 và scores | DO_DUOC | EP01 original bank + U08 EX01 v1 trace; §9.11 | q=+++-; IDsApr7/18/13, scores1/.75/.75; 9/19,9/18,7/14,9/18 | Kiểm arithmetic từ saved fields sau filter, không chạy forecast/retrieval pipeline mới; examples1win không làm n=3 |
+| CL067 | [§4.6.3](chapters/04_proposed_system.md#463-the-bounded-prefix): BRPP có chú giải và prompt delta | DO_DUOC | Exact substring U08 request, BG07 format, SYS18; §9.11 | Original prefix369chars, Common4186→v14556=+370 inclnewline; caps600/<6500 | English translation có nhãn, không giả nó là prompt đã chạy hoặc cắt task để vừa cap |
+| CL068 | [§4.6.4](chapters/04_proposed_system.md#464-partial-support-bypass-and-traceability): status/fallback/error khác nhau | HOP_DONG_TRIEN_KHAI | BG07 selection, BG16 wrapper, BG18 prepare/resolve | No-bank same-point/repeat Common reuse; raw/request/response null; reason/bypass riêng | Partial/empty status không tự thành wrapperfallback, không gán C2min20 cho v1, technicalerror không thành CASH |
+| CL069 | [FB01/F05](chapters/04_proposed_system.md#464-partial-support-bypass-and-traceability): HVN no-bank trace và hình | DO_DUOC | FB01 v1/Common U08 members, §9.11; source TikZ | HVN2023-07-03,u0/r0,dep digestkhớp, inheritedLONG | Không gọi inheritedaction là forecast mới hoặc suy thiếu prior có evidenceLONG; F05 khái niệm có source |
 
 Quy tắc điền bảng:
 
@@ -1813,3 +1819,52 @@ cập nhật nhưng build exit0. Không sửa output regime hoặc receipt nghi�
 | [Source TikZ](assets/diagrams/F05a_regime_training.tex) | `916c693586d23dbd1ea14994f15001f88854a34f216883dab91eb65d2a48a8ce` |
 | [PDF](assets/diagrams/F05a_regime_training.pdf) | `18832b0099f0d7b72894861dbfb0a6998a27dd0b8941f103841944565e5b7f1f` |
 | [PNG](assets/diagrams/F05a_regime_training.png) | `717618e7f47b319911cfb75f36bee9e41ff5044938c10c1a3d5a6120e586f74a` |
+
+### 9.11. Bayesian v1: ranking, population, prefix và fallback đã lưu
+
+T25; CL064–CL069. BG07/BG16/BG18/SYS20/SYS18 dùng snapshot. Từ EP01 lọc
+sameFPT và exit<2023-07-03 trước, được211; lọcCONSOLIDATION được19.
+QueryCommon signals từ saved reports + causal5factor majority + newsnull:
+T/P/A/I=+++-; score .25×số trùng4fields. Sắp score↓/exit↓/episode_id↑ cho
+Apr7/Apr18/Apr13, scores1/.75/.75, khớp U08 trace metadata và record nguyên
+nội dung. Chỉ tính số học trên archive, không import retriever/run benchmark.
+Stats trên19: wins9/19, trap9/18, TrendFail7/14, PatternFail9/18; không dùng
+top3 làm denominator hoặc gọi các rate này posterior Beta. Chưa có gate
+min20 ở v1, không chuyển threshold C2 vào branch này.
+
+Original BRPP là substring từ `[BRPP v1]` tới trước `\n### [1]` trong U08
+EX01 v1 request:369Unicode chars,6lines. Bỏ prefix+newline khôi phục chính
+xác Common request4186chars từ v1request4556chars. Bản tiếng Anh trong
+manuscript ghi rõ translationforpresentation. Format max3tasks, NFC,
+prefix≤600; requestguard<6500; overflowraise, không drop/cut examples.
+V1T/P/A/I only, legendS=thiếu tin không thêm sentiment vào score. Render
+không tự kiểm PIT/provenance thay caller.
+
+FB01 bổ sung chỉ minh họa no-bank fallback, không thay EX01 hoặc chọn nhóm
+case T45. Hai member dưới trong U08/slots cùng prefixthưmục §7.2, đã kiểm
+manifest/rawhash/envelope/complete-attempt/outputdigest:
+
+| FB01 slot | Tên member JSON | SHA256 nguyên byte |
+| --- | --- | --- |
+| `forecast/HVN-2023-07-03/u0/r0/original_common` | `8c89c0bdd588379a50a81a98ed5d460b120c26c691a7950b8fcfc39efc5c1c28.json` | `06d91dcc4ce3e939dfe81d449e3d866cd9ff896338a05305acd9f658d3750de3` |
+| `forecast/HVN-2023-07-03/u0/r0/bayesian_v1` | `cd2d43b940bdd66156d4784a981804bc9b23322c5612605f74deb6947f776b2b.json` | `02afc84eac423c8ca10e35be824b30bf6f0c3760c8a2cea3bd6b9c8abf2e5ced` |
+
+FB01v1 trace reasonNO_SAME_SYMBOL_FROZEN_BANK_OOD/fallbacktrue, tasks[],
+statsnull/prepared.requestnull; forecastraw/requestsha/responsesha null,
+policy raw_proposalnull,bypasstrue,reasonFALLBACK_ORIGINAL,finalLONG.
+Dependency `original_common` digest
+`2a09ec453ec637941229c7457b6bf7630f8c1cb531640e71a8e88f1ec0d2fa06`
+khớp complete output Common cùng point/u0/r0; Common requestID
+`a24b7410-5e45-490a-9e1a-f9d51d554749`. Không gọi đây là raw v1 forecast.
+
+F05 nguồn TikZ/PDF/PNG minh họa membership→rank/statistics→prefix/bypass.
+Build từ root bằng pdflatex như F03, outputtạm tmp/pdfs/thesis-t25;
+PDF1trang180×190mm, PNGmax2000px. Đã render/xem toàn trang, không cắt/chồng
+chữ/Type3 hoặc lỗi log. Không chạy suite/API/refit/replay vì chỉ sửa tài liệu
+và hình giải thích, không thay code/runtime/input.
+
+| Artifact F05 | SHA256 (source LF, PDF/PNG nguyên byte) |
+| --- | --- |
+| [Source TikZ](assets/diagrams/F05_memory_retrieval.tex) | `59bf81a1006faaa6e4ec69d4d764dfbe5b80d7722bc27defd8b0834b4a938371` |
+| [PDF](assets/diagrams/F05_memory_retrieval.pdf) | `717a1d01c2757e7b1f6210db7b9f9dbe245281a6bfdaffad535e06ad743861d4` |
+| [PNG](assets/diagrams/F05_memory_retrieval.png) | `3d8dc9b0af0554cb6aa3fe4d2356ff11231031b664110c46493c9129b7bbd41b` |

@@ -161,6 +161,20 @@ receipt/checklist, không đổi code/runtime/schema/input hoặc bằng chứng
   449 liên kết/172 anchor, 19 footnote/84 đặc tả/diff PASS. Không chạy
   suite/API vì chỉ đổi tài liệu và sơ đồ giải thích, không đổi runtime/receipt.
 
+- **T25; §4.6/F05, CL064–CL069 và sổ §9.11:** nhánh
+  `docs/thesis-bayesian-retrieval`; same-stock/maturity/regime trước stats,
+  four-signal score và tie-break, population khác top3. EX01 211→19→3,
+  counts9/19,9/18,7/14,9/18; v1 là empirical rates, không Beta posterior.
+  BRPP369chars, prompt4186→4556; English translation có nhãn. FB01 HVN
+  kiểm no-bank/requestnull/rawnull/bypass và exact Common dependency cùng
+  point/repeat; inheritedLONG không thành forecast v1 mới. F05 có TikZ/PDF
+  một trang180×190mm/PNG2000px, đã render/xem; kiểm hash/log/font/bbox.
+  Kiểm 47 SYS/BG, 4 EP/2 RG, 56 slot EX01+2 FB01, ranking/count arithmetic,
+  exact prefix/dependency, 462 liên kết/179 anchor, 22 footnote/84 đặc tả
+  và diff PASS; 11 placeholder từ §4.7 trở đi giữ nguyên.
+  Chỉ số học từ saved records và string helpers, không chạy retriever pipeline,
+  suite/benchmark/API/refit hoặc sửa nguồn nghiên cứu. T26 trở đi còn chờ.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

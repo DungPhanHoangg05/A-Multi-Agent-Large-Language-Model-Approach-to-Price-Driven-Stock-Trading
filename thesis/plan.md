@@ -52,7 +52,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T22 — DONE: [§4.4 và B03 phần foundation](chapters/04_proposed_system.md#44-native-and-common-foundations), delta field/selector/instruction/caps; Native/Common khác Full/Base. CL051–CL054 đối chiếu envelope EX01 và paired code; không nhận bridge là ablation một nguyên nhân hoặc bảng prior đã hoàn tất.
 - [x] T23 — DONE: [§4.5.1–§4.5.3](chapters/04_proposed_system.md#451-a-completed-signal-episode), schema/oracle/bull trap, saved JSON và timeline strict maturity; bank852 CORE4 khác context số/fold freeze/reserved102. CL055–CL058 nối manifest/U08, giữ transfer giá bank/query; regime tích hợp viết ở T24.
 - [x] T24 — DONE: [§4.5.4](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment), fit/scaler/mapping/quality fallback và query frozen; F05a phân biệt model2022/2020 và scaler4feature MT. CL059–CL063 nối artifact/EX01, giữ CONSOLIDATION khác BULL; không refit hoặc nâng gate toàn hệ.
-- [ ] T25 — Giải thích truy xuất Bayesian v1, prefix và fallback.
+- [x] T25 — DONE: [§4.6](chapters/04_proposed_system.md#46-bayesian-prior-v1), lọc eligibility trước tổng hợp outcome, score/tie-break, population khác top3, BRPP có chú giải và F05. CL064–CL069 khớp EX01 cùng FB01 no-bank; prefix369/request4556chars, fallback dùng Common cùng repeat; không gán v1 empirical rate là Beta posterior hoặc chạy forecast mới.
 - [ ] T26 — Giải thích thống kê điều kiện và readiness của C2.
 - [ ] T27 — Giải thích A_tp_pool/B_semantic và so sánh các prior.
 - [ ] T28 — Giải thích tạo tác vụ và context MT.

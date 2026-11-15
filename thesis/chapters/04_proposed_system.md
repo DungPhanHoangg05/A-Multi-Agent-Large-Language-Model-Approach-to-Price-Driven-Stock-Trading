@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.5 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.6 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -954,7 +954,160 @@ validity.[^regime-artifacts]
 
 ## 4.6. Bayesian Prior v1
 
-> **Not yet drafted.** Explain the purpose of same-stock historical retrieval, temporal filtering, regime/signal matching, ranking and tie-breaking under the evaluated protocol. Annotate a bounded BRPP and explain unsupported-case reuse of the same-repeat Common result; use EX01's recorded examples and support without substituting displayed counts for population size.
+Bayesian Prior v1 adds a compact description of completed, regime-matched
+history to the Common decision request. It asks whether similar agent
+conclusions in that market state previously supported a profitable
+candidate LONG. Retrieval is categorical and deterministic in this mode;
+it is not an embedding search or a new learned trading model. The version's
+name also does not mean that its displayed rates are Beta-posterior
+probabilities: this implementation reports empirical counts and ratios.
+[^v1-retrieval]
+
+### 4.6.1. Filtering and ranking without outcome-based selection
+
+Let $E_t$ be the verified same-stock episodes with exit strictly before
+cutoff $t$. The evaluated request fixes `scope=same_symbol` and
+`mode=bayesian_regime`. Its candidate population is
+
+$$
+P_t=\{e\in E_t:\operatorname{regime}(e)=r_t\},
+$$
+
+where $r_t$ is the signal-prior query regime from Section 4.5.4. Bank
+identity, exact record contents, date/scope/regime and signal aliases are
+validated. A corrupted or out-of-cutoff record is an error, not a candidate
+to be silently accepted or repaired.
+Checking a stored outcome for economic consistency is an integrity check;
+it does not allow its value to determine similarity or ranking.
+
+The query uses the stored Trend, Pattern and Indicator conclusion fields,
+the majority direction of Common's five causal Alpha factors, and the
+declared sentiment code. The extraction adapter uses the sign of an
+available sentiment aggregate, while null/zero becomes its legacy NEUTRAL
+code. This differs from live sentiment's ±0.10 labeling and does not convert
+missing news into observed evidence. Sentiment must be a valid alias but
+does not contribute to v1's similarity score.
+
+For the four scored fields $F=\{T,P,A,I\}$, normalized to categorical
+directions, similarity is
+
+$$
+\operatorname{sim}(e,q)=\frac14\sum_{f\in F}\mathbf{1}
+\{s_f(e)=s_f(q)\}.
+$$
+
+Scores therefore lie in $\{0,0.25,0.50,0.75,1\}$. Candidates sort by
+descending score, then descending exit date, then ascending episode ID.
+The selected list has at most $k\le3$ records; the evaluated setting requests
+three. No return, win/loss label or bull-trap outcome enters this ranking.
+The seed field is retained in metadata, but this deterministic mode has no
+effective random seed. Random/recent/general-similarity controls are
+different modes and must not be inferred from this setting.
+
+### 4.6.2. Population statistics and the displayed examples
+
+After eligibility and matching, statistics use **all of $P_t$**, not just
+the selected list. LONG win rate counts positive-net candidate cycles over
+the full population. Bull-trap rate counts nonpositive-net cycles among
+episodes where Trend or Pattern was bullish. Trend-failure and
+Pattern-failure rates each use their own bullish subset as denominator.
+Trend and Pattern subsets can overlap; their denominators must not be
+added as independent evidence. A zero denominator is undefined and appears
+as `0/0(N/A)`, not an estimated zero risk.
+
+These are unsmoothed descriptive rates; v1 does not compute a credible
+interval or fit a Beta posterior here. The LLM may compare this history
+with current evidence under the Common instruction. Neither a majority
+of winning examples nor a population rate establishes a calibrated query
+probability, expected return or compulsory LONG action.
+
+**EX01 selection.** The pinned bank supplies 211 mature FPT episodes;
+19 match CONSOLIDATION. The current scored tuple is bullish Trend,
+bullish Pattern, bullish Common Alpha and bearish Indicator. Filtering the
+bank first and ranking its 19 matches gives:
+
+| Rank / episode ID | T/P/A/I | Similarity | Exit | Saved candidate-LONG result |
+| --- | --- | --- | --- | --- |
+| 1 / `FPT:2022-04-07` | `+++-` | 1.00 | 13 April 2022 | WIN_IF_LONG, +0.8800636494% |
+| 2 / `FPT:2022-04-18` | `++0-` | 0.75 | 21 April 2022 | LOSS_IF_LONG, −4.5332734971% |
+| 3 / `FPT:2022-04-13` | `++--` | 0.75 | 18 April 2022 | LOSS_IF_LONG, −0.4389566948% |
+
+The equal-score pair is ordered by the later exit, not by its return.
+The selected list has one win, but the population LONG win rate is
+**9/19**, not 1/3. Its other saved counts are bull trap 9/18, Trend failure
+7/14 and Pattern failure 9/18. These are archived-context quantities,
+distinct from EX01's later outcome.[^v1-example]
+
+### 4.6.3. The bounded prefix
+
+The BRPP renderer emits population/support fields, a legend and the
+selected historical lines. The following is an **English translation for
+presentation** of EX01's saved Vietnamese prefix, not the language sent to
+the original request:
+
+```text
+[BRPP v1] R=CONSOLIDATION; n=19; k=3
+LONGwin=9/19(47.4%); Trap=9/18(50.0%); TrendFail=7/14(50.0%); PatternFail=9/18(50.0%)
+T/P/A/I: + bullish, - bearish, 0 neutral; W/L=net LONG after costs; SHORT=CASH; S=missing news.
+FPT@2022-04-07 R=CONSOLIDATION T/P/A/I=+++- W +0.88%
+FPT@2022-04-18 R=CONSOLIDATION T/P/A/I=++0- L -4.53%
+FPT@2022-04-13 R=CONSOLIDATION T/P/A/I=++-- L -0.44%
+```
+
+`R` identifies the matched regime; `n` is population size and `k` the number
+of examples. Counts retain their denominators even when percentages are
+rounded. T/P/A/I refer to historical conclusions, W/L to the subsequent
+candidate LONG after costs, and signed returns use percentage units. The
+legend's missing-news notation does not add a fifth scored signal: each
+example line displays only T/P/A/I. The v1 formatter accepts this frozen
+bank's neutral-coded sentiment, not arbitrary replacement news labels.
+
+The actual saved prefix has **369 characters**. Insertion plus one newline
+changes the EX01 Common prompt from 4,186 to 4,556 characters; removing that
+exact substring recovers the archived Common message. The prefix is bounded
+at 600 characters and the assembled request must be strictly below 6,500.
+Overflow raises an error rather than silently truncating selected examples
+or changing support. The renderer checks formatting and count consistency;
+the caller must already have verified membership, PIT and provenance.
+
+### 4.6.4. Partial support, bypass and traceability
+
+The low-level retriever can return fewer than three examples, with a
+`partial` status, or an empty set with a recorded reason. It does not fill
+the list with future, other-regime or undeclared cross-stock episodes.
+Its `k=0` path disables retrieval. Common directly builds an empty-prefix
+request and need not load memory merely to represent that control.
+
+A retriever status is distinct from the evaluated wrapper's **fallback
+flag**. For stocks outside the four-stock frozen signal bank, the wrapper
+records `NO_SAME_SYMBOL_FROZEN_BANK_OOD`, empty tasks/null statistics and an
+empty prefix. The method adapter verifies equality with the empty-prefix
+Common request, then bypasses an additional hosted call. Resolution reuses
+the completed **same-point, same-repeat Common** final action, records
+`FALLBACK_ORIGINAL`, and leaves raw proposal/request/response absent.
+Transport, parsing, provenance and cutoff errors still raise; they are not
+legitimate evidence-based fallbacks.[^v1-fallback]
+
+For example, the saved HVN cutoff 3 July 2023, realization 0/repeat 0 trace
+has that no-bank reason, null request and null raw v1 response. It points to
+the completed Common dependency and retains Common's LONG action. This is
+not a second LLM prediction or evidence that the unavailable prior favored
+LONG. EX01 FPT itself does not bypass v1. Its population of 19 also does
+not trigger the separate minimum-population rule of C2; the following
+section distinguishes that readiness logic.
+
+![Eligibility, ranking, population statistics and fallback in Bayesian v1.](../assets/diagrams/F05_memory_retrieval.png)
+
+*Figure F05. Frozen signal memory to Bayesian v1 context. Membership and
+maturity are checked before outcomes are summarized. Population statistics
+and at most three ranked examples have separate branches into the prefix.
+The declared no-bank path reuses Common from the same point/repeat without
+a new hosted response. Counts illustrate the saved FPT EX01 trace; the
+diagram does not add a new experiment.* [PDF](../assets/diagrams/F05_memory_retrieval.pdf).
+
+[^v1-retrieval]: BG07 `prepare_query/_select_similarity/select_prior_tasks/_compute_statistics`, BG16 `FrozenStudyBank`, SYS20 `signals`; CL064–CL065 in ledger §9.11. Source describes matching/ranking without economic labels; the mathematical notation is a presentation of that implementation.
+[^v1-example]: EP01 frozen bank and EX01 U08 v1 retrieval/request; CL066–CL067. Selection/count arithmetic is checked from saved records, with no model call or benchmark replay. The English prefix is labeled as a translation; the original bytes remain archived.
+[^v1-fallback]: BG16 request wrapper and BG18 `prepare/resolve`, plus FB01 HVN v1/Common U08 slots; CL068–CL069. Dependency hash, missing raw response and bypass are checked separately from the inherited action. F05's source and rendered outputs are bound in ledger §9.11.
 
 ## 4.7. Conditional and alternative priors
 
