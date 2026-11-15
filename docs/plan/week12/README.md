@@ -448,6 +448,8 @@ Ngày **16/11/2026**, thực hiện T48–T53 theo yêu cầu. Mỗi task dùng 
 
 **T50 — `docs/thesis-multiagent-related-work`:** viết §2.2/CL193–CL197 với QuantAgent paper v3 và source comparison92519f8 tách biệt, TradingAgents/FinVision, chart understanding và nguồn sentiment Việt Nam. Rõ phần kế thừa agent/tools/graph/UI, phần thích nghi và bổ sung; Risk/Decision của paper không đồng nhất với oracle fixed-horizon daily. Không suy best-system ranking từ returns khác study, không coi chartQA/card scores là chứng nhận trading. Kiểm citation/keys/locators/links/footnotes/spec/diff PASS; docs-only, không suite hoặc nghiên cứu mới.
 
+**T51 — `docs/thesis-bayesian-related-work`:** viết §§2.3–2.5/CL198–CL204, R11–R16. Tách latent regimes và descriptive strata, implicit-Bayes theory và learned retrieval, PFN và task-structured MT. Nêu sự khác nhau giữa sourcepaper và teacher/student thực: Beta16, synthetic soft-target tạiQ, feature/label generation và student2block4head; hosted Decision và policy là bước riêng. Kiểm metadata/đoạn/citation và binding Chương4, không refit hoặc gọi model; links/footnotes/spec/diff PASS. Không tuyên bố regime/MT có hiệu quả nhân quả hay calibration chỉ từ cơ sở lý thuyết.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

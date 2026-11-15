@@ -155,15 +155,147 @@ results. [@nguyen2023visobert] [@hf5cdsentiment]
 
 ## 2.3. Market regime detection
 
-> **Not yet drafted.** Review HMMs and relevant trend/volatility alternatives with verified citations. Explain frozen fitting and prefix-only inference; distinguish a regime used for retrieval from a demonstrated profitable signal.
+A regime model represents changes in the data-generating process through
+state-dependent behavior. Hamilton describes economic regime-switching
+models in which a latent state changes according to transition
+probabilities. This provides a way to model persistent changes without
+equating a manually drawn trend category with an observed economic truth.
+The selected source here is the dated 2005 author manuscript.
+[@hamilton2005regimes]
+
+Rabiner's HMM tutorial separates the transition model, observation
+likelihoods and the problems of evaluation, state inference and parameter
+estimation. Its forward and backward constructions also clarify why the
+information set matters: a historical state's inference can incorporate
+later observations when smoothing over a complete sequence. Fitting a
+model and inferring a state are different operations. In a trading study,
+both the model/scaler fitting period and the observations supplied at
+inference must therefore be identified. [@rabiner1989hmm]
+
+The implementation uses frozen resources and a VN-Index feature prefix
+for numerical regime inference. Other descriptive categories in the
+study use price/SMA thresholds or train-relative volatility/liquidity
+proxies. These are alternative definitions with different purposes and
+should not be treated as interchangeable labels. The signal-bank regime
+and numerical MT regime likewise retain separate source identities and
+can disagree for the same query.[^regime-related-implementation]
+
+A regime can condition a historical candidate set or affect task ranking
+without directly determining an action. Whether this conditioning improves
+prediction is a separate empirical question requiring matched alternatives.
+For example, changing the bank, similarity representation and support gate
+at the same time would not isolate a regime effect. The HMM literature
+motivates a representation of nonstationarity; it does not establish that
+the named regimes are stable, that a fitted state is a tradable signal or
+that the system has overcome its documented native causality limitation.
+
+[^regime-related-implementation]: CL012–CL013/CL061–CL063 and Section 4.5.4 bind numerical HMM/scaler resources and endpoint inference; CL165/CL177 distinguish signal-bank regimes and descriptive component strata. No HMM or scaler is refitted in the writing process.
 
 ## 2.4. In-context learning and Bayesian historical context
 
-> **Not yet drafted.** Explain example retrieval and few-shot prompting separately from weight updates. Review priors, posteriors and finite historical evidence, distinguishing interventions on examples, statistics and task context.
+In-context learning conditions a fixed predictor on a context at inference,
+whereas training changes the predictor's parameters. A new prompt can
+alter a hosted LLM's response without performing a weight update. This
+operational distinction does not specify which learning or inference
+algorithm, if any, the model has implemented internally.
+
+Xie et al. analyze an implicit Bayesian explanation under a pretraining
+distribution built from a mixture of HMMs. A shared latent concept supplies
+the connection between examples, and the theoretical result depends on
+explicit assumptions about that distribution and distinguishability.
+Their synthetic GINC experiments help study the phenomenon in a controlled
+setting. This is an explanation with a specified model, rather than a
+certificate that any financial prompt performs Bayesian inference. The
+HMM in this account concerns document generation and is distinct from a
+VN-Index regime detector. [@xie2022implicitbayes]
+
+Retrieval addresses which examples enter the context. Rubin, Herzig and
+Berant train a dense prompt retriever using supervision derived from a
+language model's conditional output probabilities, evaluated on semantic
+parsing. This shows that example choice can be an explicit learned
+component. It does not make every similarity heuristic a learned dense
+retriever, nor does selecting similar examples establish a Bayesian
+posterior. The implementation named B_semantic in this thesis has its
+own documented selector and rendering contract; its name does not imply
+Rubin et al.'s architecture. [@rubin2022retrieve]
+
+Historical context in the present system takes several forms. Bayesian
+v1 presents selected signal episodes and population-level empirical rates;
+the name does not turn those rates into Beta-posterior means. C2 introduces
+specified count-based Beta summaries and readiness checks, while A_tp_pool
+and B_semantic change the evidence construction or representation. These
+counts, rendered examples and numerical task datasets have different
+denominators and roles. Their admissibility additionally requires matured
+historical outcomes and explicit missing-support behavior.
+[^historical-context-implementation]
+
+Accordingly, a favorable context/no-context result would still require
+care in interpretation. It could reflect additional information, a
+different representation, prompt length or which queries reached the
+active branch. Separating examples, statistics, regime conditions and
+fallbacks makes such questions testable. Chapter 5 reports the actual
+coverage and marks the matched interventions that remain unperformed;
+the Bayesian interpretation is not used as a substitute for those tests.
+
+[^historical-context-implementation]: CL064–CL075 and Sections 4.6–4.7 specify v1 empirical populations, C2 plug-in Beta summaries, A/B selection/rendering and same-repeat Common fallback. CL163–CL165 bind observed readiness and descriptor availability. These are implementation statements, separate from claims about the cited ICL theories.
 
 ## 2.5. Multi-task Bayesian ICL and student–teacher methods
 
-> **Not yet drafted.** Identify and verify the source methodology for prior tasks, target observations, teacher targets, student training and frozen query inference. State the actual implementation differences; multiple examples alone are insufficient to establish multi-task Bayesian inference.
+Prior-Data Fitted Networks make a Bayesian objective explicit at training
+time. Müller et al. repeatedly sample supervised datasets from a specified
+prior and train a predictor with a prior-data negative log-likelihood.
+The resulting network approximates a posterior predictive mapping from
+context to query distributions in a forward pass. The ability to sample
+the training prior is central to that construction. This is a trained
+numerical inference method, and its guarantees or approximation behavior
+do not automatically transfer to an arbitrary pretrained language model.
+[@muller2022transformers]
+
+Zhu, Oermann and Cho extend the context to multiple datasets that inform
+a shared prior, followed by observations from a target task and an
+unlabeled target query. Their hierarchical construction retains task
+boundaries, allowing prior datasets to change the predictive distribution
+without pooling all labels into one task. The paper trains a transformer
+on target-task predictive likelihoods and studies synthetic regression
+families as well as a temperature-prediction application. Its results
+motivate task-structured prior adaptation; they are not stock-trading
+evidence. [@zhu2026multitask]
+
+The thesis adopts this task distinction in a different numerical and
+economic setting. Earlier same-stock blocks supply prior tasks; mature
+observations from the current block supply target context. Bucket
+filtering, regime-prioritized ranking and frozen resource constraints
+determine the context actually admitted. A small numerical student and
+a probabilistic teacher operate before a hosted Decision LLM sees a text
+projection. Multi-task refers to these datasets; multi-agent refers to
+the separate reporting and decision roles.[^mt-related-implementation]
+
+The differences from the source paper are substantive. The registered
+teacher here is a fitted mixture of sixteen Beta components with
+task-specific Bernoulli rates. Its predictive calculation uses visible
+label counts under that model, not a feature-conditional regression
+likelihood. Synthetic distillation trains the student on teacher soft
+probabilities at the query; sampled feature vectors are independent of
+the synthetic latent rates and labels. This differs from treating the
+source paper's generative regression tasks and target-observation
+likelihood objective as the exact implementation used here. The local
+student also has two attention blocks and four heads, whereas the source
+paper's synthetic setup specifies eight layers and eight heads. Resource
+names containing “replica” therefore identify local artifacts, not proof
+of an exact replication.[^mt-related-implementation]
+
+At market inference the numerical parameters are frozen, while the visible
+context can change. A separate magnitude model and utility gate determine
+whether a hosted proposal may replace Fact Anchor. An approximate
+teacher probability, the hosted LLM's verbal confidence and the final
+LONG/CASH action are distinct outputs. Synthetic teacher agreement is
+evidence about that approximation task; it does not establish calibrated
+market probabilities or the causal value of the student, target context
+or utility policy separately. Those contributions require the matched
+interventions identified in Section 5.9, beyond the combined bridge that
+was actually observed.
+
+[^mt-related-implementation]: Sections 4.8.2–4.8.6 and CL078–CL101 bind task membership, the sixteen-component teacher, synthetic sampling, paired numerical packing, two-block/four-head student, selected weights, text projection and external policy. Source-paper comparison uses R16 §4/§5.1/Appendix C; local recipe and outcomes remain independently source-bound.
 
 ## 2.6. Evaluation of trading systems using LLMs
 
