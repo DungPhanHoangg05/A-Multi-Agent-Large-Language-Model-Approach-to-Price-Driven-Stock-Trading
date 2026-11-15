@@ -476,6 +476,8 @@ Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng 
 
 **T56 — `docs/thesis-conclusion-answers`:** viết §§6.1–6.2/CL221–CL226, nối B09 và trả lời nguyên văn bốn RQ. Đối soát BA/return/pp/bands, baseline và estimator; giữ v1 phụ thuộc baseline, cả tám mean âm, MT 302/306 giữ anchor, causal/provenance/UI limits. Kiểm nguyên byte U09 ZIP/ED07/revision index/baseline manifest và component summary/cohorts; hashes ở sổ §12.3. Đây là đọc nguồn, không rerun suite/analysis. QA citation/footnote/links/spec/diff PASS.
 
+**T57 — `docs/thesis-limitations-future-work`:** hoàn tất §§6.3–6.4/CL227–CL230. Giới hạn giữ causal/provenance/exposed dependence, sparse context/missing ablations và execution/UI. Năm ưu tiên nêu đúng bằng chứng cần thêm; causal repair/new-study không viết lại frozen results, prospective/UI/portfolio không coi đã làm. Chương 6 đủ bản nháp; đối soát nguồn/links/footnotes/spec/diff PASS, không suite hoặc thực nghiệm mới.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

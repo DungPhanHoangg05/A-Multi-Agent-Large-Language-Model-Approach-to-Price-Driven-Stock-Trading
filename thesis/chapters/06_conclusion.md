@@ -1,6 +1,6 @@
 # Chapter 6. Conclusions and Future Work
 
-> **Draft status: partial chapter.** Sections 6.1–6.2 synthesize the approach and answers; limitations and future-work priorities remain in progress.
+> **Draft status: complete chapter draft.** The answers, limitations and future-work priorities synthesize Chapters 2–5; no new experiment is introduced.
 > Conclusions retain the recorded support, adverse outcomes and unresolved causal and execution limits.
 
 Writing aids: [chapter outline](../outline.md#chapter-6-conclusions-and-future-work) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -142,8 +142,140 @@ requires turning a negative result into a trading advantage.
 
 ## 6.3. Limitations
 
-> **Not yet drafted.** Summarize the limitations that materially restrict the final conclusions, cross-checking the shared ledger and discussion. Retain unresolved causality, provenance and application-acceptance qualifications unless later evidence actually resolves them.
+**Temporal construction and source provenance limit the validity of the
+historical conclusions.** The Native row-wise causality failure remains
+unresolved. An outer cutoff at the query date cannot establish that
+earlier rows were computed causally, and the Common alpha projection
+does not certify every inherited feature or resource. The signal bank
+and query prices also have different provenance. The audit finds
+numerical return differences in 828 of 852 bank records; this is not a
+count of changed labels. The unavailable original raw signal journals
+prevent complete independent reconstruction of signal generation.
+Membership hashes identify stored records but cannot authenticate their
+original production. Historical news dates, adjusted prices, corporate
+actions, volume units and point-in-time membership are likewise not
+independently verified throughout the collection (§5.9.2). These gaps
+affect the interpretation of the existing results, not merely the
+convenience of reproducing them.
+
+**The empirical support is small, dependent and previously exposed.**
+The purposive nine-stock sample and six examined temporal folds do not
+provide an untouched evaluation of the wider Vietnamese market. BHN's
+shorter eligible history further limits uniformity. Three Decision
+repeats share one upstream realization at each point; they do not test
+independent chart-report variability. The component and context studies
+have separate responses and statistical conventions. Their bootstrap,
+joint-band and sensitivity constructions are descriptive; the L1/L2
+difference shows why a favorable band cannot be treated as a stable
+confirmatory result. Hosted aliases also leave served-weight identity
+and foundation-model historical training overlap unresolved. Local
+source and weight hashes cannot answer those external questions.
+
+**Coverage and combined interventions limit mechanism attribution.**
+Missing news and incomplete historical context change what the system
+can use. Unavailable sentiment is not neutral sentiment, and a fallback
+is not a new contextual model response. Sparse conditional activation
+means that a full-cohort comparison may mostly describe retained
+baseline actions. Full/Base and Native/Common also change representation
+or instructions along with information. The small factorial panel and
+the Common–Anchor–MT bridge do not fill the missing matched comparisons
+listed in §5.9.1. Numerical assertions inspect consistency with a fact
+packet; they do not independently validate the financial interpretation
+of every report. The observed MT/anchor agreement therefore does not
+identify whether the student, context, teacher or utility gate would be
+responsible for a different result under another protocol.
+
+**Economic and application evidence stop short of deployment.** The
+reference ledger uses daily bars and separately capitalized stock–fold
+accounts. It does not establish available liquidity, queue priority,
+actual partial fills, market impact or jointly feasible portfolio
+funding. The twelve saved execution scenarios apply hypothetical
+assumptions to fixed predictions; they do not constitute certified fills
+or guaranteed worst-case bounds. Zero CASH return belongs to that
+reference contract. Lower drawdown or lower exposure does not remove
+the negative research-method returns. Finally, the realtime interface
+and the author's research-snapshot statement do not establish browser
+acceptance or profitable prospective operation. UI/F11 remains PENDING;
+external review and submission acceptance are separate activities.
+
+These limitations leave a useful but bounded outcome: a traceable
+implementation and an exploratory account of how its recorded decisions
+change. They restrict causal, financial and deployment claims together.
+The next research steps must add the specific evidence that is missing.
 
 ## 6.4. Future work
 
-> **Not yet drafted.** Prioritize separately versioned causality/provenance repair, authenticated coverage, chart/news validation, registered matched ablations, prospective evaluation, execution/portfolio modeling and application acceptance. Explain what evidence each step would add; do not describe planned work as completed.
+The following priorities follow the dependencies among validity,
+attribution and external evaluation. They are proposed work, not
+completed repairs, additional results or retrospective changes to the
+locked studies.[^future-scope]
+
+1. **Repair temporal construction and establish provenance.** A separately
+   versioned study should first make Native feature construction causal
+   at every row, with explicit fit periods and resource identities. Bank
+   and query inputs should be reconciled against authenticated source
+   series, original signal journals and date-specific news availability.
+   Label generation must continue to use the common economic oracle and
+   exclude examples whose exits are not strictly before the cutoff.
+   Evidence should include row-wise prefix-invariance checks, cutoff and
+   maturity violations that fail explicitly, complete source manifests
+   and an audit of bank/query return differences. This would establish
+   what the repaired study can claim. It must not overwrite frozen
+   predictions or reclassify the current Native FAIL as a historical pass.
+
+2. **Improve and validate usable context coverage.** On the repaired
+   foundation, expand the authenticated historical bank and dated news
+   coverage, then measure readiness and missingness across stocks, dates
+   and regimes. Chart/report grounding needs independent checks of
+   reported features; sentiment needs validation for the financial domain
+   and the actual news-selection path. Wider coverage is useful only if
+   its eligibility and meaning are verified. The required evidence is a
+   coverage audit with source availability, example maturity, fallback
+   reasons and domain-validation results, retaining the full-cohort
+   endpoint alongside clearly secondary covered-subset analyses.
+
+3. **Identify mechanisms with registered matched interventions.** Hold
+   the bank, feature projection, prompt format/budget and support fixed
+   while comparing random, recent, similarity and Bayesian retrieval,
+   and statistics-only, examples-only and no-regime conditions. For MT,
+   include the missing plain-revision, no-target, no-utility and
+   student–teacher comparisons. Record raw proposals and final actions
+   separately so that retrieval, numerical inference and policy effects
+   can be distinguished. Each comparison should share its upstream
+   realization; independent upstream repetitions should additionally
+   measure upstream variability. Predeclared contrasts, support rules,
+   endpoint families and uncertainty procedures would make the resulting
+   attribution stronger than the present combined bridges. Implemented
+   builders alone cannot supply that evidence.
+
+4. **Evaluate a fixed protocol on previously unexposed periods.** After
+   repairs and design decisions are frozen, collect a prospective or
+   otherwise genuinely unexposed evaluation with source/model/time
+   identities and interruption records. Plan its duration and precision
+   around dependent temporal support, rather than counting repeated
+   prompts as independent market samples. Retain CASH and numerical
+   controls, unfavorable outcomes, missing-context paths and all
+   predeclared contrasts. Classification, exposure and net account
+   economics should remain separate endpoints. Such evidence is needed
+   to assess transfer beyond the exposed folds; choosing a different
+   retrospective interval or favorable subset cannot provide it.
+
+5. **Validate execution, portfolio constraints and application behavior.**
+   Deployment research requires venue- and date-specific evidence for
+   trading units, auctions, costs, settlement, liquidity and fill behavior.
+   A capital-constrained multi-stock ledger should explicitly model
+   overlapping positions, available cash and reconciliation before its
+   return is described as a portfolio outcome. Application acceptance
+   should verify the displayed branch, source identity, prompt/policy
+   path, fallback/error states and checkpoint recovery against recorded
+   results, including the three modules covered by the author's snapshot
+   statement. Completing UI/F11 would establish the tested application
+   behavior; evidence of prospective execution and profitability would
+   still require its own evaluation.
+
+The current thesis ends with these evidence requirements open. Its
+implemented mechanisms and historical findings provide a basis for that
+work, while the causal failure, adverse financial outcomes and unresolved
+deployment limits remain part of the record.
+
+[^future-scope]: Limitations and missing interventions are carried from §§5.8–5.9/B06h/B09 and evidence ledger §12.4/CL227–CL230. Priority order is a research recommendation derived from those dependencies, not evidence that any listed experiment, repair or acceptance activity has been completed.
