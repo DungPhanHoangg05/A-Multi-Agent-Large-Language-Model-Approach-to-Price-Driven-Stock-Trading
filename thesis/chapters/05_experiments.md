@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Sections 5.1–5.6 cover design and component results. Section 5.7 reports historical-context results; Sections 5.8–5.9 remain in progress.
+> **Draft status: partial chapter.** Sections 5.1–5.7 cover design and both result collections. Section 5.8 is being completed; Section 5.9 remains in progress.
 > Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -1223,7 +1223,143 @@ the MT result.
 
 ## 5.8. Mechanisms, case studies and robustness
 
-> **Not yet drafted.** Analyze recorded support/readiness, age/similarity, fallback and Common–Anchor–MT bridges, separating raw proposals from policy actions. Apply the declared case-selection rules, reveal EX01's later outcome here, and include unsupported or incorrect cases. Report only recorded robustness/resource fields; mark absent costs, usage, latency or ablations as unavailable.
+### 5.8.1. Historical support and recorded context
+
+The coverage analysis separates bank availability, a method's readiness
+gate, a new raw response and a change in final action. These stages are
+not interchangeable. The frozen same-symbol signal bank covers the 48
+CORE4 points; the other 54 points have no same-symbol bank. The latter
+reuse Common at the same repeat for all four signal-prior methods.
+
+**Table B07a. Signal-prior support, counted once per point at repeat 0.**
+All three repeats have the same support partition. “Ready” is the recorded
+conditional request status; v1 does not apply the C2 quality gate. Visible
+examples count what the request exposes, not every eligible historical
+record. Bank-covered insufficient points and no-bank points are distinct
+fallback reasons.[^context-mechanism-support]
+
+| Signal prior | Bank-covered | No same-symbol bank | Conditional READY | Covered insufficient | Points with new reply | Visible examples |
+| --- | --- | --- | --- | --- | --- | --- |
+| Bayesian v1 | 48 | 54 | Not applied | Not applied | 48 | 3 on 48 points |
+| C2 | 48 | 54 | 1 | 47 | 1 | 0 on all 48 points |
+| A_tp_pool | 48 | 54 | 8 | 40 | 8 | 0 on all 48 points |
+| B_semantic | 48 | 54 | 1 | 47 | 1 | 0 on all 48 points |
+
+Bayesian v1 retrieves three examples on each of its 48 active points.
+Among those points, its recorded retrieval regime is CONSOLIDATION for
+40, BULL for four and CHOPPY for four. These are the signal-retrieval
+regimes; they must not be relabeled as the separate VN-Index/HMM regimes
+used by numerical MT context. The same inputs can have different regime
+labels from the two implemented sources, as EX01 demonstrates.
+
+For C2 and B_semantic, only one point is READY; A_tp_pool has eight.
+Their READY requests have zero visible examples and expose ready
+statistics. Thus a conditional call here does not establish that a
+full three-example prompt was used. Among the 48 bank-covered points,
+LOW_POPULATION_SUPPORT appears in forty request reason lists for each
+conditional method; QUERY_FEATURE_UNAVAILABLE appears in ten. These
+reason counts overlap and do not partition the cohort. No-bank coverage
+and conditional readiness explain why metrics in Section 5.7 can remain
+close to Common without showing that two fully active methods behave
+identically.
+
+**Table B07b. Available context descriptors and probability outputs.**
+Age/similarity are summaries of recorded per-point fields, counted once
+at repeat 0 and checked unchanged across repeats. Age is the recorded
+mean example age in calendar days; similarity follows the signal scorer,
+not a calibrated probability. The MT rows describe a different context
+representation. NA means that the indicated cohort field is not available
+in the U09 prediction export, rather than a numerical zero.[^context-mechanism-support]
+
+| Recorded quantity | Unique-point support | Saved-field summary |
+| --- | --- | --- |
+| v1 effective K | 48 | 3 on every active point |
+| v1 mean example age (days) | 48 | median 1291.833; range [441.667, 2026.000] |
+| v1 mean similarity | 48 | median 0.833; range [0.500, 1.000] |
+| MT effective K | 102 | 3 on 86 points; 0 on 16 points |
+| MT mean age / similarity (U09 export) | 0 | NA / NA |
+| MT numeric probability | 86 | 258 slots; supported-only Brier 0.205811 |
+| MT teacher probability | 66 | 198 slots; supported-only Brier 0.212024 |
+| Prior regret (U09 export) | 0 | NA: NOT_RECORDED_IN_LOCKED_TRACE |
+
+The v1 age range, extending beyond five years for some point-level means,
+shows that temporal maturity does not ensure recency or relevance. Its
+similarity values belong to the recorded signal-match rule. Neither
+those values nor the observed regime labels alone demonstrate a regime
+mechanism: matched no-regime/recent/random retrieval results are absent
+from this hosted collection. The MT age/similarity cells in this export
+are left unavailable; the detailed numerical-context example in Chapter 4
+does not supply a cohort summary for those missing export fields. Prior
+regret is also not recorded in the locked prediction fields and is not
+invented as an explanation of performance.
+
+### 5.8.2. Anchor-relative revisions and probability outputs
+
+![Figure F10. New-response coverage and MT policy counts with their separate denominators.](../assets/figures/F10_coverage_actions.svg)
+
+**Figure F10. Response coverage and final-action retention.** The left
+panel counts unique points; the right counts 306 MT forecast slots.
+All bypasses remain in primary metrics. The chart is drawn from saved
+summary counts, with [PDF](../assets/figures/F10_coverage_actions.pdf),
+[PNG](../assets/figures/F10_coverage_actions.png) and
+[plotting source](../assets/figures/F10_coverage_actions.py).
+
+**Table B07c. Complete MT policy path counts.** The five mutually exclusive
+reason categories sum to 306 slots. A support bypass has no new revision
+response; it is not a rejected malformed response. Counts below are the
+actual saved reason counts.[^context-mechanism-policy]
+
+| Saved reason | Forecast slots | Final-action relationship |
+| --- | --- | --- |
+| BYPASS_QUERY_FEATURE_UNAVAILABLE | 48 | Retain anchor; no revision reply |
+| BYPASS_UTILITY_UNSUPPORTED | 60 | Retain anchor; no revision reply |
+| KEEP_PROPOSED_SAME | 189 | Proposal already equals anchor |
+| REJECT_NONPOSITIVE_Q10_DELTA_U | 5 | Reject change; retain anchor |
+| ACCEPT_POSITIVE_Q10_DELTA_U | 4 | Change from anchor |
+
+Numerical features are available on 86 points, but only 66 are eligible
+for a hosted MT revision: twenty further points lack supported utility.
+The sixteen feature-unavailable points and twenty utility-unsupported
+points produce 48 and 60 bypass slots, respectively. The recorded
+effective K is three on 86 points and zero on sixteen; K alone therefore
+does not certify eligibility or a raw revision response.
+
+Fact Anchor records valid fact assertions in all 306 slots and no numeric
+veto. Among the 198 eligible MT responses, fact assertions are also valid
+in every slot: 189 proposals map to the existing anchor action, and nine
+differ. The utility policy rejects five of those nine changes and accepts
+four, leaving 302/306 final actions equal to the anchor. The MT export's
+false assertion-validity flag on 108 bypass slots is not evidence of
+108 malformed responses: those slots have no new revision response.
+
+As defined in Section 4.8.6, a CASH→LONG change needs Q10(U)>0, whereas
+a LONG→CASH change needs −Q90(U)>0. U09's `utility_q10` and `utility_q90`
+are utility-distribution fields, not automatically Q10 of the
+anchor-relative change. Consequently, an accepted switch to CASH can
+coexist with a negative recorded Q10(U); the upper quantile supplies the
+relevant test. The case analysis below checks both action direction and
+the policy record rather than inferring a veto from a quantile's sign.
+
+The saved numeric-probability Brier score is 0.205811 on 258 supported
+slots representing 86 unique points. The teacher-probability score is
+0.212024 on 198 slots representing 66 points. These are different support
+sets and numerical outputs; the two scores do not establish that one
+predictor outperforms the other on matched support. Repeated points are
+not independent calibration samples, and no LLM verbal confidence is
+mapped into a probability. Unsupported observations remain in the main
+action results, although Brier is defined only on the recorded supported
+probabilities.[^context-mechanism-policy]
+
+The observed policy suppresses most deviations from Fact Anchor, but
+the collection has no matched hosted No_utility or Plain_revision panel
+to estimate the utility gate's isolated performance effect. Similarly,
+the near-anchor final actions cannot identify a separate student benefit.
+The bridge is descriptive of the implemented combined system.
+
+> **Case studies and robustness remain in progress.** The following tasks add the declared case selection and saved sensitivity/resource analyses.
+
+[^context-mechanism-support]: ED16 prediction fields linked by `trace_sha256` to ED40; ED07 support summaries; CL163–CL165, ledger §10.10. Descriptor summaries are direct counts/median/range of stored fields, not new forecasts or performance estimates. Missing fields and overlapping gate reasons are preserved.
+[^context-mechanism-policy]: ED07 `summary.MT_BICL.policy_reasons`, `calibration`, ED16 slot-level actions/flags/quantiles and the Chapter 4 policy contract; CL166–CL168, ledger §10.10. The 302/306 agreement includes bypasses and rejected changes; no causal decomposition or matched-probability comparison is claimed.
 
 ## 5.9. Unperformed ablations and threats to validity
 

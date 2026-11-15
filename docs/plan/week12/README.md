@@ -381,6 +381,8 @@ Ngày **15/11/2026**, tiếp tục T42–T47 theo yêu cầu, mỗi task dùng n
 
 **T43**, `docs/thesis-context-contrasts`: B06d đủ20contrast/2endpoint/2baseline, B06e ba bridge và F09 vector/source/PDF/PNG. Sổ §10.9 ghi locator và hash; figure đọc trực tiếp ô saved, không tạo bootstrap. Dùng skill pdf để render Poppler và xem hình; cùng scale, giữ adverse bands, đủ10returncontrast. Chỉ biên dịch script hình mới, không compileall/unit/E2E/leakage vì không thay runtime nghiên cứu. Đối soát20cell/bridge/support/link/footnote/spec/diff PASS; không nâng banddescriptive thành confirmatory, không xác nhận student effect.
 
+**T44**, `docs/thesis-context-mechanisms`: §5.8.1–§5.8.2/B07a–c/F10, CL163–CL168/ED40. Đếm bank48/OOD54, READY1/8/1, visibleexamples0 ở conditional; v1 age/similarity/regime từ trường đã lưu, thiếu MTexport/regret giữNA. MT108bypass/189same/5reject/4accept, 302/306giữanchor; phân biệt Q10(U) với Q10(deltaU) và support Brier. F10 xuất source/vector/PDF/PNG, biên dịch đúngscript, renderPoppler và xemPNG; số/link/spec/diff PASS. Không policyreplay/fit/API/bootstrap/suite runtime, không studentcausalclaim. Cases/robustness/threats tiếp tục T45–T47.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

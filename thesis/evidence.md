@@ -904,7 +904,7 @@ rút gọn đường dẫn cho bảng, không phải task mới hay nguồn kế
 | F07 | **Fact Anchor and utility-gated action revision.** Giữ raw proposal, anchor và final action riêng; điều kiện Q10/Q90 nghiêm ngặt. | Ch. 4.8 | T30, T31 | MINH_HỌA | SRC06 | `diagrams/F07_action_policy.tex → .pdf` |
 | F08 | **Shared upstream and within-repeat method dependencies.** Một upstream mỗi điểm; Common/anchor dependency dùng đúng repeat, fallback không tạo call giả. | Ch. 4.9 | T33 | MINH_HỌA | SRC03, SRC06 | `diagrams/F08_variant_dag.tex → .pdf` |
 | F09 | **Mean account-return differences against Native and Common.** Giữ hai baseline, năm extension mỗi baseline và band mô tả; trục dùng pp. | Ch. 5.7–5.8 | T43 | ĐÃ_CÓ_VECTOR_RENDER_ĐÃ_XEM | ED07; §10.9 | [Source](assets/figures/F09_return_contrasts.py), SVG/PDF/PNG; rawpins đầu vào và hash đầu ra §10.9 |
-| F10 | **Historical-context coverage and final-action changes.** Hiện support, fallback/bypass và mức giữ anchor; không quy thay đổi gộp cho student riêng. | Ch. 5.8 | T44 | DẪN_XUẤT | SRC08 | `figures/F10_coverage_actions.py → .svg/.pdf` |
+| F10 | **Historical-context coverage and final-action changes.** Hiện support, fallback/bypass và mức giữ anchor; không quy thay đổi gộp cho student riêng. | Ch. 5.8 | T44 | ĐÃ_CÓ_VECTOR_RENDER_ĐÃ_XEM | ED07/16/40; §10.10 | [Source](assets/figures/F10_coverage_actions.py), SVG/PDF/PNG; hash §10.10 |
 | F11 | **Application workflow and interpretation of a recorded result.** Theo đầu vào/tiến trình/kết quả, phân biệt raw/final/CASH và bối cảnh thực dùng. | Ch. 4.10; App. F | T35 | MINH_HỌA | SRC11 | `diagrams/F11_application_flow.tex; figures/F11_ui_*.png nếu được kiểm` |
 
 ### 6.5. Danh mục thuật toán
@@ -1404,6 +1404,13 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL160 | [Baseline-dependent v1 result](chapters/05_experiments.md#574-paired-contrasts-against-both-baselines) | DAN_XUAT | ED07; §10.9 | v1−Common return+.327pp[.067,.586], BA+4.130pp[2.011,6.249]; soNative return−.045/BA−1.749 | Common-based cải thiện không thành vượtNative hoặc cólãi, banddescriptive |
 | CL161 | [Adverse contrast outcomes](chapters/05_experiments.md#574-paired-contrasts-against-both-baselines) | DO_DUOC | ED07; §10.9 | MT−Native return−.601pp[−1.090,−.111]; C2/BnativeBAband<0 | Endpoint khác nhau; không chọn riêng family/metric thuận lợi |
 | CL162 | [Three bridges](chapters/05_experiments.md#575-descriptive-bridge-to-anchor-and-mt-policy) | DO_DUOC | ED07/16; §10.9 | Common−Native−.372pp/−5.879pp; Anchor−Common−.262/−3.229; MT−Anchor+.033/+.433; same273/273/302of306 | Khôngbridgebandmới hoặc táchcausalstudent/policy |
+
+| CL163 | [Coverage and gates](chapters/05_experiments.md#581-historical-support-and-recorded-context) | DO_DUOC | ED07/16/40; §10.10 | Bank48/OOD54; C2/B READY1, A READY8; insufficient47/40/47; READY không có visible examples | READY khác truy xuất3; reason chồng nhau, primary giữ fallback |
+| CL164 | [Recorded age and similarity](chapters/05_experiments.md#581-historical-support-and-recorded-context) | DO_DUOC | ED16/40; §10.10 | v1 có48điểm K3; age median1291.833d/range441.667–2026; similarity median.833/range.5–1 | Tổng hợp trường đã lưu, không retrieval mới; MT age/sim export và regret thiếu giữNA |
+| CL165 | [Regime sources](chapters/05_experiments.md#581-historical-support-and-recorded-context) | DO_DUOC | ED40/EX01; §10.10 | v1 active48 regime CONSOLIDATION40/BULL4/CHOPPY4 | Không ánh xạ thành MT HMM regime hoặc hiệu ứng nhân quả regime |
+| CL166 | [MT policy counts](chapters/05_experiments.md#582-anchor-relative-revisions-and-probability-outputs) | DO_DUOC | ED07/16; §10.10 | 48feature+60utilitybypass+189same+5reject+4accept=306; final=anchor302 | Flagfalse108bypass không phải108reply sai; eligible66points |
+| CL167 | [Direction of utility gate](chapters/05_experiments.md#582-anchor-relative-revisions-and-probability-outputs) | HOP_DONG_TRIEN_KHAI | Chapter4.8.6/BG18; ED16; §10.10 | CASH→LONG Q10U; LONG→CASH −Q90U, strict>0 | Không gọi utility_q10 là deltaquantile cho mọi chiều |
+| CL168 | [Probability support](chapters/05_experiments.md#582-anchor-relative-revisions-and-probability-outputs) | DO_DUOC | ED07calibration/ED16; §10.10 | numericBrier.205811/258slot86points, teacher.212024/198slot66points | Support khác không xếp hạng; không LLMconfidencecalibration/studentcausalclaim |
 
 Quy tắc điền bảng:
 
@@ -2349,6 +2356,7 @@ ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc q
 | ED37 | revision | `outputs/revision/final_repeats_v1/panels.json` | `814f47d11502c2dfb3c30a64f0ef0a14dd6dff39e965bd5fc5e36f8b8c9f5fab` |
 | ED38 | U09 | `outputs/unified_integration/u09_analysis_r1/per_repeat.csv` | `71f54c70b71672d3e8b2d2e4bdb56281e932f1764dfa24d0bd79c15c9a1f236e` |
 | ED39 | U09 | `outputs/unified_integration/u09_analysis_r1/classification_by_group.csv` | `cd0c12b3363c7466ec9e167ffdacb3daf05db6e6fae125f94e2e08413c449cbb` |
+| ED40 | U09 | `outputs/unified_integration/u09_analysis_r1/prior_traces.json` | `dff668d4841a1ff9e36bb13ae4e09f8a54e612f264cf1b9cedb94281824dea3e` |
 <!-- experiment-data-end -->
 
 ### 10.2. Phạm vi hai nghiên cứu và mốc khóa
@@ -2403,3 +2411,12 @@ T43; CL159–CL162. B06d: ED07 `contrasts`, khóa `(baseline,method,endpoint)` �
 - `thesis/assets/figures/F09_return_contrasts.pdf`: `fc216e18a06ddd3878f62d1d314ec2f740f8999bdacde02f721cd0a77c789efc`.
 - `thesis/assets/figures/F09_return_contrasts.svg`: `5639b47b8f659deccb6a4470ef58420d4c270a4649e53eed5aefe1925832f00e`.
 - `thesis/assets/figures/F09_return_contrasts.png`: `f192f4cf5bf89e4eea412c471aad133a3700ca7a45151e4a652759a1da9e2a0d`.
+
+### 10.10. Độ phủ, descriptor và can thiệp policy
+
+T44; CL163–CL168, ED07/16/40. B07a lọc ED16 repeat0, nối ED40 qua `trace_sha256`; `trace_reason=NO_SAME_SYMBOL_FROZEN_BANK_OOD` tách54điểm. Trên48điểm cóbank, `request.trace.status`, `visible_k` và `reason_codes` xác nhận READY1/8/1, insufficient47/40/47, visible_k0; reason LOW_POPULATION_SUPPORT40/QUERY_FEATURE_UNAVAILABLE10 đếm có chồng, không cộng thành102. V1 `retrieval.metadata.current_regime` đếm40/4/4 trên48active; không thay MT HMM. B07b age/sim median/min/max của ED16 `prior_mean_age_days/prior_mean_similarity` trên48v1point r0, kiểm bằng nhau qua3repeat; đây là tổng hợp trường đã lưu, không retrieval/bootstrap hoặc performance mới. MT `effective_K`3×86/0×16, numericprob86, teacher66; age/sim và prior_regret exportrỗng giữNA. B07c ED07 `policy_reasons` năm mục đầy đủ48/60/189/5/4, khớp từng ED16 `reason`; 302final=anchor. Brier chép `calibration` với đủslot/unique-point support, không so trên supportkhác. F10 đọc summary từ U09pin, raw/bypass chia3 để đếmpoint; kiểm các repeat có cùngmask, policy dùng slot306. Script mới đã biên dịch đúngfile; Poppler renderPDF và xemPNG rõ, không cắt/chồng. Không chạy policy, fit, API, replay hoặc suite runtime. Hash sản phẩm F10:
+
+- `thesis/assets/figures/F10_coverage_actions.py`: `377edf2825c632e5efa85ad109b8d17e7ad022848b22f2744699f307f9ce073b`.
+- `thesis/assets/figures/F10_coverage_actions.pdf`: `5982a4696c317097780bc35bc01a6c3209511f27d6e5bafd6681b2906bcd17d7`.
+- `thesis/assets/figures/F10_coverage_actions.svg`: `ad3cfd5afa55eba381f5bb8c2330a5702e037c17d4b04be31b5838e1d8ad06c8`.
+- `thesis/assets/figures/F10_coverage_actions.png`: `f263b153da1db2fdb665d86739cd9dfe9de646908f177e9050a0511eaf3e61f0`.
