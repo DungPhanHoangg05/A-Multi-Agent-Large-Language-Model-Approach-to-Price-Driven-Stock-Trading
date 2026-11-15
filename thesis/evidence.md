@@ -1302,6 +1302,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL071 | [C2 examples](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness): signal/price/age/diversity | HOP_DONG_TRIEN_KHAI | SYS26/SYS27; saved EX01 metadata §9.12 | .5S+.5/(1+RMSdist); decay365; age≤730, base≥.625, gap≥5sessions, K≤3 | Selection filters không cắt statisticalP; không dùng return hoặc random bù ví dụ |
 | CL072 | [C2 split gate](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness): stats/examples/view readiness | HOP_DONG_TRIEN_KHAI | BG06, SYS25/BG18; §9.12 | nP≥20, metricnC≥5,width≤.75; examples có query/scaler/list riêng; stats=any ready | Không đồng nhất retrieved/visibleK, không biến missingartifact thành evidencefallback |
 | CL073 | [EX01 C2 table](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness): 4 metrics/groups/gate/bypass | DO_DUOC | U08 C2 slot §7.2, EP01; §9.12 | P19/C1/B18; counts9/19=1/1+8/18, etc; posterior table round6; retrieved3/visible0 | Bảng audit không phải prompt đã thấy; LOW_POPULATION và LOW_CONDITIONAL dù widths<.75 |
+| CL074 | [§4.7.2](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles): A đổi condition T/P, B đổi renderer | HOP_DONG_TRIEN_KHAI | SYS25/SYS28/BG06; §9.13 | A same-stock/regime P, C matchTP; ranking4signals giữ; B=C2evidence, wording khác | Pool không cross-stock, semantic không embeddings, C2 cũng đã hiện counts/CrI |
+| CL075 | [B03 prior portion](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles): so sánh bốn prior | DAN_XUAT | BG07/05/06, SYS25–28 và CL064–074 | Matching/statistics/examples/prefix/readiness/Commondependency; basefull_prior khác registered contentmodes | Bảng inline nguồn Markdown; chưa xuất CSV/TeX hoặc hoàn tất orchestrationT33 |
+| CL076 | [EX01 A table](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles): counts P19/C14/B5, posterior | DO_DUOC | U08 Atrace.statistics, EP01; §9.13 | win7/14+2/5; trap/pattern7/14+2/4; trend7/14+0/0; meansround6 | nBcycle5 không là denominator metric; 0/0trendbackground dùng fixedsymmetricprior |
+| CL077 | [EX01 C2/A/B contrast](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles): identical C2/B evidence và bypass | DO_DUOC | U08 ba prepared/request/forecast/policy records; §9.13 | C2/Bbasehash0092…e2a; Abasehash2d11…f5a8; same3IDs; prefix[]/rawnull/depCommon | Không nói B wording đã tới model khi bypass hoặc kế thừaLONG là ba forecast mới |
 
 Quy tắc điền bảng:
 
@@ -1556,6 +1560,9 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS25 | `core/improvement_prior.py` | `a6ddb54f2a54c14cdd09c05e4191c3e694df7cf28a76f2e3e8006d18bc6110a7` | Live đồng nhất byte |
 | SYS26 | `core/prior_example_selection.py` | `ca59b7df58f25c470d3949b2ef297640790b15df7465bf3244ebb3dedb277eae` | Live đồng nhất byte |
 | SYS27 | `core/prior_price_similarity.py` | `0c008b756d60473f03a597fd8e7b91fdd8fb3c107ce8c85672d938bfe2b9e347` | Live đồng nhất byte |
+| SYS28 | `core/prior_prompt.py` | `6866493d426ebfe138b9cf5c43a0c16a14e188849dfd01c0d337adb7a93e2bdd` | Live đồng nhất byte |
+| SYS29 | `core/pit_price_features.py` | `35e5042a49aa2d1c3854150925389c6c3a79260eecaa99851ae6bea2a43794dc` | Live đồng nhất byte |
+| SYS30 | `core/price_feature_index.py` | `2809fc1c6e5ba1253feacfc715a839368aeaf1de5b24a7c968ef639818ff8d4b` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1898,3 +1905,27 @@ posterior hoặc ba selected records đã vào hosted prompt C2.
 
 Đợt thuần tài liệu: kiểm source/manifest/record/count/quantile/link/diff,
 không compileall/unit/E2E/leakage, refit, model/API hoặc replay nghiên cứu.
+
+### 9.13. A/B và bảng so sánh bốn prior
+
+T27; CL074–CL077, B03 phần prior viết inline ở §4.7.2 nối foundation §4.4;
+CSV/TeX và DAG đầy đủ thuộc các task dàn trang/điều phối sau. SYS25/SYS28
+phân biệt AconditionTP, Bpresentation; selectorSYS26/27 vẫn4signals+price.
+Đọc PROFILES/PREFIXES và basefull_prior, không coi registeredcontentmodes
+là panel đã chạy. C2 renderer vốn có counts/CrI; B đổi notation/semantics,
+không thêm embedding/modelsearch. Thêm binding SYS29/30 phục vụ giải thích
+4-dimensional rawfeatures/scalerindex, không dùng chúng thay scalerMT.
+
+EX01: A.population19/conditional14/background5, counts P/C/B:
+win9/19,7/14,2/5; trap9/18,7/14,2/4; trend7/14,7/14,0/0;
+pattern9/18,7/14,2/4. Posterior means .4841269841/.5/.5/.5.
+C2 và B toàn bộ evidence object bằng nhau, base_evidence_sha256
+`0092e7def660273b8dc86e8de3393a91e6dd0d5a75a59fafb882687458332e2a`;
+A khác, `2d11cd0e3b7a76150375d3593638cf6cc435902495d507648114bd83a434f5a8`.
+SelectionIDs cả ba Apr7/Mar25/Mar4; requestedprefixversionsv3/v3_tp/vsemantic
+nhưng actualprefix''/preparedrequestnull; policybypass/FALLBACK_ORIGINAL
+finalLONG có dependency đúng Commonr0. Không dựng prefix giả rồi gọi đó là
+request nghiên cứu; so sánh base evidence khác so sánh nội dung model đã thấy.
+
+Chỉ kiểm snapshot/hash/group/count/mean/linkedrecord/Markdown, không chạy
+suite, production renderer/retriever/API hoặc tính performance mới.

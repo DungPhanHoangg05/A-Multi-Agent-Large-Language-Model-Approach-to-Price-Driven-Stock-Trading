@@ -54,7 +54,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T24 — DONE: [§4.5.4](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment), fit/scaler/mapping/quality fallback và query frozen; F05a phân biệt model2022/2020 và scaler4feature MT. CL059–CL063 nối artifact/EX01, giữ CONSOLIDATION khác BULL; không refit hoặc nâng gate toàn hệ.
 - [x] T25 — DONE: [§4.6](chapters/04_proposed_system.md#46-bayesian-prior-v1), lọc eligibility trước tổng hợp outcome, score/tie-break, population khác top3, BRPP có chú giải và F05. CL064–CL069 khớp EX01 cùng FB01 no-bank; prefix369/request4556chars, fallback dùng Common cùng repeat; không gán v1 empirical rate là Beta posterior hoặc chạy forecast mới.
 - [x] T26 — DONE: [§4.7.1](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness), P/C/B rời nhau, masks/counts, shrinkage/CrI và gate stats/examples riêng. CL070–CL073 khớp EX01 P19/C1/B18; retrieved3 khác visible0, posterior audit không là nội dung prompt đã chạy.
-- [ ] T27 — Giải thích A_tp_pool/B_semantic và so sánh các prior.
+- [x] T27 — DONE: [§4.7.2/B03 phần bốn prior](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles), AconditionT/P, Bpresentation giữ C2evidence, selector/gate/prefix/fallback rõ. CL074–CL077 kiểm EX01 A14/5, C2/B identical và ba bypass; semantic không embedding, bảng nguồn Markdown chưa xuất CSV/TeX.
 - [ ] T28 — Giải thích tạo tác vụ và context MT.
 - [ ] T29 — Giải thích huấn luyện/suy luận teacher/student thực dùng.
 - [ ] T30 — Giải thích facts và Fact Anchor.

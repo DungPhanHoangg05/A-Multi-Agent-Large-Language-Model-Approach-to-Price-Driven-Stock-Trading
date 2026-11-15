@@ -190,6 +190,15 @@ duy nhất ở thesis/plan.md; không tạo receipt hoặc kết quả nghiên c
   184 anchor, 25 footnote/84 đặc tả/diff PASS; không chạy suite, API, refit
   hoặc pipeline vì chỉ sửa tài liệu.
 
+- **T27; §4.7.2/B03 bốn prior, CL074–CL077 và sổ §9.13:** nhánh
+  `docs/thesis-alternative-priors`; AconditionTP khác C2conditionTPAI, B giữ
+  C2evidence và đổi wording/notation. Không cross-stock pooling/embedding.
+  EX01 A14/5/counts/means, C2=B exact evidence, same selectedIDs và ba bypass
+  đối chiếu archive; không giả prefix chưa tới LLM. B03 viết inline, export
+  LaTeX và DAG vẫn thuộc task sau. Kiểm 53 SYS/BG, 56 slot, counts/mean,
+  evidence equality/dependency, 472 liên kết/189 anchor, 27 footnote/84 đặc tả/
+  diff PASS; không chạy suite/API/refit/renderer pipeline vì chỉ sửa tài liệu.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

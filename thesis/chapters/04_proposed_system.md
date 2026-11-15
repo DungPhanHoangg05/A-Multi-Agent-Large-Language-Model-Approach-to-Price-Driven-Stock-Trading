@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.6 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.7 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -1225,7 +1225,85 @@ seen by that Decision request.[^c2-example]
 
 ### 4.7.2. Alternative conditional and presentation profiles
 
-> **Not yet drafted.** Explain A_tp_pool and B_semantic, then compare all four prior families by matching, statistics, examples, representation and fallback without implying embedding retrieval.
+**A: pool the conditional statistics by Trend/Pattern.** `A_tp_pool` keeps
+the same same-stock/same-regime population $\mathcal P$, but defines
+$\mathcal C_A$ by exact T/P agreement alone. Alpha and Indicator no longer
+split the statistical condition; the disjoint background remains
+$\mathcal P\setminus\mathcal C_A$. The metric masks, strength-four plug-in
+update and split readiness thresholds remain those of C2. “Pool” here
+does not mean pooling other stocks, regimes or future observations.
+[^alternative-priors]
+
+The example selector is unchanged: it still uses T/P/A/I plus numerical
+price similarity, recency and session diversity. Loosening the statistical
+condition does not loosen its four-signal score or replace examples with
+all T/P matches. A recomputes its conditional statistics, gate and visible
+content views, then marks the compact prefix as a T/P profile. The base
+evidence hash therefore changes when statistical membership changes.
+
+**B: change presentation while retaining C2 evidence.** `B_semantic` reuses
+C2's statistical partition, posterior, example selection and readiness.
+It changes the bounded renderer: short event labels W/BT/TF/PF are paired
+with definitions, conditional success/support counts, posterior mean and
+95% interval, and an explicit warning that the values are historical rates,
+not query probability or expected return. Historical example lines retain
+their IDs and outcomes. C2's renderer already includes counts and intervals;
+B reorganizes their wording and notation rather than introducing those
+quantities for the first time.
+
+The name “semantic” refers to this presentation profile. There is no
+embedding encoder, vector search over report meaning or language-model
+retrieval step in this implementation. C2 and B have the same base-evidence
+hash for the same query/settings. Their rendered prefix/request identities
+can differ when content is visible. In a bypassed case both prefixes can
+be empty, so the archived trace must be checked before claiming that a
+presentation contrast actually reached the model.
+
+*Table B03, prior-family portion. Together with the foundation portion in
+Section 4.4, this identifies the four historical-prior interventions. All
+use verified mature same-stock evidence and the Common decision foundation;
+the final orchestration/dependency table appears in Section 4.9.*
+
+| Family | Statistical population and conditioning | Examples | Visible representation | Support and dependency |
+| --- | --- | --- | --- | --- |
+| v1 (`bayesian_v1`) | Same regime; unsmoothed population ratios, no exact-signal conditional posterior | Four-signal score; exit/ID tie-break, at most three | `compact_brpp_v1`: population counts, legend and historical lines | Retriever can be partial/empty; declared no-bank wrapper bypass reuses same-repeat Common. C2 floors do not apply. |
+| C2 | Same regime; exact T/P/A/I conditional set and disjoint background; plug-in Beta summaries | Signal/price similarity, recency, age/similarity bounds and five-session diversity | `compact_brpp_v3`: ready conditional counts, mean/interval and/or ready examples | Split metric/example gate; no visible block or no same-stock bank reuses same-repeat Common |
+| A (`A_tp_pool`) | Same regime; exact T/P conditional set and disjoint background; same shrinkage recipe | Identical four-signal/price selector to C2 | `compact_brpp_v3_tp_v1`: C2-style content labeled as T/P conditioning | Recompute split gate after changing statistics; Common dependency when no visible block |
+| B (`B_semantic`) | Identical to C2, including its base evidence | Identical to C2 | `compact_brpp_semantic_v1`: short event names with explicit meanings/counts and plug-in disclaimer | Identical readiness to C2; changed wording can reach Decision only when a block is visible |
+
+The base profiles in this study request `full_prior`: ready statistics
+and/or examples. Registered stats-only and examples-only content modes
+project the same base evidence; they do not select a new statistical
+population. Their availability and actual execution belong to the protocol
+of the panel using them. Every prefix remains bounded at 600 characters,
+with overflow treated as an error rather than dropping evidence.
+
+**EX01 comparison.** A enlarges the conditional set from one to 14 cycles,
+leaving five background cycles. Its saved counts are:
+
+| Metric | A conditional success/support | A background success/support | A posterior mean |
+| --- | --- | --- | --- |
+| LONG win | 7/14 | 2/5 | 0.484127 |
+| Bull trap | 7/14 | 2/4 | 0.500000 |
+| Trend failure | 7/14 | 0/0 | 0.500000 |
+| Pattern failure | 7/14 | 2/4 | 0.500000 |
+
+The Trend background denominator is zero even though the background group
+has five cycles: none had bullish Trend. Its symmetric prior is therefore
+metric-specific. The population counts still equal the C2 population
+counts. Selected example IDs also remain 7 April, 25 March and 4 March
+2022. C2 and B retain the same 1/18 conditional/background split and the
+same base-evidence fingerprint. A has a different fingerprint.
+
+All three nevertheless fail EX01's population floor, since 19 is below
+20. Their visible prefixes are empty, their own raw responses are absent
+and their final actions inherit the same-repeat Common LONG. The example
+demonstrates different evidence construction with a shared bypass, not an
+observed LLM response to A's broader statistics or B's alternative wording.
+[^alternative-example]
+
+[^alternative-priors]: SYS25 `tp_statistics/build_evidence/render_prefix/PROFILES`, SYS28 C2 renderer, BG06 split views and SYS26/SYS27 selector; CL074–CL075 and ledger §9.13. The table describes evaluated base profiles and separates their registered content modes.
+[^alternative-example]: EX01 C2/A/B prepared evidence/request and dependency/policy records in U08, joined to EP01 bank; CL076–CL077. Exact C2/B evidence equality, A counts and empty visible content are verified without rendering a new research request or invoking an LLM.
 
 ## 4.8. MT-BICL and action revision
 
