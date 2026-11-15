@@ -1220,7 +1220,7 @@ viết từ việc đã có file hoặc tiêu đề.
 
 | File bản thảo | Nguồn bắt đầu trong sổ chung | Nội dung cần viết, chưa phải kết quả đã có |
 | --- | --- | --- |
-| [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
+| [01_introduction.md](chapters/01_introduction.md) | §1 metadata; outline §A; CL214–CL220/§12.1–12.2 | Đủ bản nháp §§1.1–1.5: động cơ/bài toán, bốn RQ, phạm vi, attribution và mạch sáu chương; chưa review/dàn trang cuối |
 | [02_related_work.md](chapters/02_related_work.md) | §4 discovery register; §11 nguồn/version/claim; §6 B08 | P5/T48–T53 đủ bản nháp§2.1–§2.7/B08a–b, bibliography22nguồn; còn ràsoátliênchương/G3toànbộ vàdàntrangcuối |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
 | [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | P3 đủ bản nháp §4.1–§4.10, kèm F03/F04/F05/F05a/F06/F07/F08/F11, B03 và A01–A03; G2 tự kiểm nội bộ, UI/F11 vẫn PENDING, chưa rà soát/dàn trang cuối |
@@ -1481,8 +1481,13 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL213 | [Remaining research gap](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | DAN_XUAT | CL155–CL187/CL198–CL209; §11.6 | Baseline/readiness dependent, MTmostlyanchor, eightnegative means, NativeFAIL vàmissingmatchedablations | Gap về reliablevalue chưa được giải quyết bằng implementation; G3/T54–58 vẫn còn |
 
 | CL214 | [Motivation](chapters/01_introduction.md#11-context-and-motivation) | DAN_XUAT | R01/R02/R04/R16/R22, §11.1; §§2.1–2.7 | Price/chart/news roles, completed context and distinct multi-task/multi-agent meanings motivate a controlled question | No assumed return advantage, new foundational invention or market-rule claim |
-| CL215 | [Decision problem](chapters/01_introduction.md#12-problem-statement) | DAN_XUAT | CL025–CL034/CL104–CL117; §§3.1/4.7–4.9 | Available input, mature history, proposal/fallback/action and shared economic labels match existing method | Intended cutoff is not Native row-wise causal certification; SHORT means CASH |
+| CL215 | [Decision problem](chapters/01_introduction.md#12-problem-statement) | DAN_XUAT | CL025–CL034/CL104–CL117; §§3.1–3.2/4.7–4.10 | Available input, mature history, proposal/fallback/action and shared economic labels match existing method | Intended cutoff is not Native row-wise causal certification; SHORT means CASH |
 | CL216 | [Input/output schematic and evaluation](chapters/01_introduction.md#12-problem-statement) | SO_DO_DAN_XUAT | F01/F02/F03/F07, CL112–CL117; §12.1 | Inline English Mermaid separates forecasting from future-price evaluation | No new empirical figure/data, independent observation, portfolio or live-fill claim |
+
+| CL217 | [RQ objectives and evidence map](chapters/01_introduction.md#13-objectives-and-research-questions) | DAN_XUAT | Outline §A.2; B09/CL187; §12.2 | Four questions copied verbatim, compared on distinct study/control/support identities | Audit RQ4 is not a performance contrast; no assumed advantage |
+| CL218 | [Challenges and scope](chapters/01_introduction.md#14-challenges-and-boundaries) | DAN_XUAT | CL181–CL186; §§5.1/5.9 | Nonstationarity, coverage, exposed dependence, provenance, hosted scope and UI limits retained | 2448 slots are not independent observations; Native FAIL/NOT_CERTIFIED/UI PENDING |
+| CL219 | [Contribution attribution](chapters/01_introduction.md#15-contributions-and-thesis-organization) | DAN_XUAT | Outline §A.4; CL198–CL213; Chapters4–5; §12.2 | Four contribution types bind implementation to evidence and inherited foundations | No foundational invention, MT-specific isolated gain or prospective advantage |
+| CL220 | [Six-chapter argument](chapters/01_introduction.md#15-contributions-and-thesis-organization) | DAN_XUAT | Outline §A.5; six chapter sources; §12.2 | Questions lead through literature/concepts/method to two studies and bounded answers | Unperformed work is future work, not a completed intervention |
 
 Quy tắc điền bảng:
 
@@ -2671,6 +2676,12 @@ Khoảng trống được định vị cho tích hợp và phép đo đã triể
 
 ### 12.1. Động cơ và bài toán
 
-T54 viết §§1.1–1.2 cho người đọc kỹ thuật chung. CL214–CL216 nối nguồn gốc R01/R02/R04/R16/R22 đã đọc tại §11.1 với hợp đồng §§3.1/4.7–4.9 và hai nghiên cứu Chương 5. Chỉ dùng các luận điểm/phiên bản đã kiểm, bibliography giữ nguyên 22 mục. Sơ đồ Mermaid inline là sơ đồ bài toán dẫn xuất từ F01/F02/F03/F07, không thêm ID vào danh mục 23 hình/bảng/thuật toán, không phải dữ liệu hoặc hình thực nghiệm mới. Đầu vào tương lai chỉ nối tới evaluator sau forecast barrier; fallback và lỗi kỹ thuật tách biệt. Giữ 3 phiên, hai chiều phí/slippage, candidate-LONG UP/DOWN khác CASH, intended PIT khác Native causal FAIL. Chưa dàn trang sơ đồ; việc chuyển LaTeX và kiểm hiển thị cuối thuộc P8/P9.
+T54 viết §§1.1–1.2 cho người đọc kỹ thuật chung. CL214–CL216 nối nguồn gốc R01/R02/R04/R16/R22 đã đọc tại §11.1 với hợp đồng §§3.1–3.2/4.7–4.10 và hai nghiên cứu Chương 5. Chỉ dùng các luận điểm/phiên bản đã kiểm, bibliography giữ nguyên 22 mục. Sơ đồ Mermaid inline là sơ đồ bài toán dẫn xuất từ F01/F02/F03/F07, không thêm ID vào danh mục 23 hình/bảng/thuật toán, không phải dữ liệu hoặc hình thực nghiệm mới. Đầu vào tương lai chỉ nối tới evaluator sau forecast barrier; fallback và lỗi kỹ thuật tách biệt. Giữ 3 phiên, hai chiều phí/slippage, candidate-LONG UP/DOWN khác CASH, intended PIT khác Native causal FAIL. Chưa dàn trang sơ đồ; việc chuyển LaTeX và kiểm hiển thị cuối thuộc P8/P9.
 
 Đối soát câu/nguồn, RQ theo outline, liên kết/anchor, footnote, citation-key, 84 đặc tả bất biến và diff theo phạm vi. Chỉ tài liệu nên không chạy compileall/unit/E2E/leakage; không fit/API LLM/replay/bootstrap hoặc sửa input/receipt.
+
+### 12.2. Câu hỏi, phạm vi và đóng góp
+
+T55 viết §§1.3–1.5/CL217–CL220. Bốn câu hỏi lấy nguyên văn outline §A.2; bảng overview chỉ là bản đồ câu hỏi–phép so–bằng chứng, không thêm kết quả hoặc ID hình/bảng. RQ1 giữ Base và controls/panels riêng; RQ2 giữ hai đối chứng Native/Common, readiness và fallback; RQ3 là combined bridge, chưa tách student/target/utility; RQ4 là đối soát hợp đồng. Bốn loại đóng góp khớp outline §A.4, mỗi loại có vị trí triển khai, nguồn kế thừa và kết quả/giới hạn. Đối soát đúng mục chương và source, không suy lý thuyết mới hoặc hoàn thành ablation còn thiếu. §1.4 giữ chín cổ phiếu/sáu fold đã lộ, một upstream mỗi điểm, 2448 slots có phụ thuộc, các trạng thái FAIL/NOT_CERTIFIED/PENDING.
+
+Chương 1 đủ bản nháp, chưa phản biện ngoài/dàn trang cuối. QA source/citation/RQ/links/spec/diff; runtime và bibliography không đổi, không suite hoặc nghiên cứu mới.

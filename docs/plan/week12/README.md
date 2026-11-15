@@ -472,6 +472,8 @@ Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng 
 
 **T54 — `docs/thesis-introduction-problem`:** viết §§1.1–1.2/CL214–CL216 và sổ §12.1. Giới thiệu bài toán trước thuật ngữ, sơ đồ input/output tách future outcomes khỏi dự báo, proposal/fallback khỏi LONG/CASH; nguồn R01/R02/R04/R16/R22 đã kiểm. Giữ ba phiên và phí hai chiều, Native FAIL và không suy lợi nhuận/portfolio/live fills. QA tài liệu theo phạm vi; chưa dàn trang sơ đồ.
 
+**T55 — `docs/thesis-introduction-questions`:** hoàn tất §§1.3–1.5/CL217–CL220. Bốn RQ nguyên văn, evidence map phân biệt hai nghiên cứu và các đối chứng; đóng góp nối cơ chế/kết quả/nguồn kế thừa, không nhận phần nền tảng là phát minh mới. Chương 1 đủ bản nháp; phạm vi/mẫu/phụ thuộc/causal/provenance/UI không đổi. Đã đối soát mục chương, citation/RQ/link/84 spec/diff; không suite hoặc nghiên cứu mới.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

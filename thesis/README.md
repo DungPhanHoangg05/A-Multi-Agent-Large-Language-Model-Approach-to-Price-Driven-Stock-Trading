@@ -25,7 +25,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 12. [Chương 2 — tổng quan tài liệu](chapters/02_related_work.md): T48–T53; P5/T48–T53 đã đủ bản nháp §2.1–§2.7, B08a–b và bibliography 22 nguồn đã kiểm theo phạm vi. T54 trở đi, G3 toàn bộ và rà soát/dàn trang cuối còn việc. [Bibliography riêng](references.bib) và [sổ nguồn P5](evidence.md#11-nguồn-tổng-quan-tài-liệu-và-định-vị) giữ phiên bản, đoạn hỗ trợ và giới hạn.
 
-13. [Mở đầu](chapters/01_introduction.md) và [kết luận](chapters/06_conclusion.md): T54–T54; Đã viết động cơ và bài toán; §§1.3–1.5 và Chương 6 còn đang thực hiện. [Sổ P6](evidence.md#12-mở-đầu-kết-luận-và-đối-soát-lập-luận) giữ nguồn và phạm vi tự kiểm.
+13. [Mở đầu](chapters/01_introduction.md) và [kết luận](chapters/06_conclusion.md): T54–T55; Chương 1 đủ bản nháp; Chương 6 và tự kiểm mạch G3 còn đang thực hiện. [Sổ P6](evidence.md#12-mở-đầu-kết-luận-và-đối-soát-lập-luận) giữ nguồn và phạm vi tự kiểm.
 
 ## Hai trang bìa
 

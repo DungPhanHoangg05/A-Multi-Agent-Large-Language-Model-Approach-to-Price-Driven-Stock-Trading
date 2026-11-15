@@ -33,7 +33,7 @@ ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có 
 EX01 kết thúc bằng outcome sau barrier, giữ net loss và giới hạn causal.
 G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biện ngoài/dàn trang cuối.
 UI/F11 vẫn PENDING. **P4 và P5 đã đủ bản nháp Chương 5 và Chương 2**, kèm nguồn/bảng/bibliography đã đối soát.
-**P6/T54–T54:** Đã viết động cơ và bài toán; §§1.3–1.5 và Chương 6 còn đang thực hiện.
+**P6/T54–T55:** Chương 1 đủ bản nháp; Chương 6 và tự kiểm mạch G3 còn đang thực hiện.
 P7 trở đi, phần đầu/phụ lục, rà soát khoa học và dàn trang cuối còn việc.
 Chỉ viết/đối soát nguồn; Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING không đổi.
 Bản xem hai
