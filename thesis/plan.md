@@ -92,7 +92,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 - [x] T54 — DONE: [§§1.1–1.2](chapters/01_introduction.md#11-context-and-motivation): động cơ, thông tin tại cutoff, proposal/fallback/action và sơ đồ input/output; CL214–CL216/§12.1. Giữ hợp đồng kinh tế và giới hạn nhân quả; không kết quả mới.
 - [x] T55 — DONE: [§§1.3–1.5](chapters/01_introduction.md#13-objectives-and-research-questions): bốn RQ nguyên văn outline và evidence map, giới hạn, bốn loại đóng góp có attribution và bố cục sáu chương; CL217–CL220/§12.2. Chương 1 đủ bản nháp; không nâng mức bằng chứng.
-- [ ] T56 — Tóm tắt phương pháp và trả lời từng RQ.
+- [x] T56 — DONE: [§§6.1–6.2](chapters/06_conclusion.md#61-summary-of-the-approach): phương pháp, bốn câu trả lời RQ và đóng góp cùng mức bằng chứng với B09/Chương 5; CL221–CL226/§12.3. Kiểm lại hash nguồn; không kết quả/LLM/fit/resampling mới.
 - [ ] T57 — Viết hạn chế và hướng phát triển theo ưu tiên.
 - [ ] T58 — Đối soát mạch lập luận và thuật ngữ toàn khóa luận.
 

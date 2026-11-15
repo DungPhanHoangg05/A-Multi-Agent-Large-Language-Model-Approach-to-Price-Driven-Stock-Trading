@@ -474,6 +474,8 @@ Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng 
 
 **T55 — `docs/thesis-introduction-questions`:** hoàn tất §§1.3–1.5/CL217–CL220. Bốn RQ nguyên văn, evidence map phân biệt hai nghiên cứu và các đối chứng; đóng góp nối cơ chế/kết quả/nguồn kế thừa, không nhận phần nền tảng là phát minh mới. Chương 1 đủ bản nháp; phạm vi/mẫu/phụ thuộc/causal/provenance/UI không đổi. Đã đối soát mục chương, citation/RQ/link/84 spec/diff; không suite hoặc nghiên cứu mới.
 
+**T56 — `docs/thesis-conclusion-answers`:** viết §§6.1–6.2/CL221–CL226, nối B09 và trả lời nguyên văn bốn RQ. Đối soát BA/return/pp/bands, baseline và estimator; giữ v1 phụ thuộc baseline, cả tám mean âm, MT 302/306 giữ anchor, causal/provenance/UI limits. Kiểm nguyên byte U09 ZIP/ED07/revision index/baseline manifest và component summary/cohorts; hashes ở sổ §12.3. Đây là đọc nguồn, không rerun suite/analysis. QA citation/footnote/links/spec/diff PASS.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
