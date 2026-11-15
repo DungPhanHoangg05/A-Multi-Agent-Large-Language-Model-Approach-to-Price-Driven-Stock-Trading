@@ -1447,6 +1447,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL188 | [Bibliography và phạm vi nguồn](references.bib) | NGUON_HOC_THUAT | R01–R22; §11.1 | 22 mục có metadata/version/đoạn hỗ trợ, tách discovery register và bibliography | Không 62 nguồn đều đã đọc; không suy paper method thành hiệu quả hệ thống hoặc nguồn chưa đọc thành citation hợp lệ |
 
+| CL189 | [Technical analysis as empirical hypothesis](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction) | NGUON_HOC_THUAT | R01/lo2000technical; §11.1–§11.2 | Pattern recognition và conditional return distributions là hướng kiểm tra thực nghiệm | Không suy mọi indicator/market adaptation sinh lời |
+| CL190 | [Formula operators and adaptation](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction) | NGUON_HOC_THUAT | R02/kakushadze2016formulaic AppendixA; CL043–CL047 | Cross-sectional rank/group neutralization khác temporal operators; single-asset và typical-price proxy là thích nghi | Không gọi registry hiện tại tương đương nguyên xi101alpha hoặc VWAP thật |
+| CL191 | [Quantitative controls](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction) | DAN_XUAT | R03/pedregosa2011sklearn; CL131–CL136 | Thư viện cung cấp môi trường; recipe/controls của nghiên cứu lấy từ artifacts | Không gán hyperparameter hay hiệu quả study cho paper thư viện |
+| CL192 | [Selection versus independent assessment](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction) | NGUON_HOC_THUAT | R17/varma2006bias; CL149–CL150 | Optimized CV score có thể lạc quan; numerical factor rules khác LLM-selector ablation | Không áp kết quả microarray thành theorem về mọi time-series split |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2603,3 +2608,7 @@ Hash bản đọc để truy vết, không thay version/metadata và không ch�
 Config5CD cùng revision d7738b8 có id2label0/1/2=NEG/POS/NEU; bản đọc rawconfig SHA-256 `04499fbdf5bb3ff5c93abf63c845670387485fdd16e9472847f1168a5dda102b`. Metadata Crossref đối chiếu Lo journal record (nhưng bibliography dùng NBER7613), Newey–West, Politis–Romano, Varma–Simon và Arnott et al.; nội dung nghiên cứu vẫn lấy bài gốc, không lấy Crossref làm bằng chứng phương pháp. Arnott/Harvey/Markowitz dùng bản tác giả29Oct2018, gắn record journal2019 được kiểm; DOI/volume/pages giữ đúng record.
 
 Kiểm BibTeX bằng parser BibTeX thực trong thư mục tạm, keys duy nhất/cân bằng và metadata bắt buộc; không tạo PDF toàn văn. Không chép `paper/references.bib` hoặc bibliography mẫu. T48 không sửa Chương3–5, runtime hoặc artifact thực nghiệm; không compileall/unit/E2E/leakage suite, không fit/API/replay. Các kết luận mạnh hơn locator cần đọc và đối chiếu thêm, không suy từ trạng thái DA_KIEM.
+
+### 11.2. Phân tích kỹ thuật, alpha và đối chứng
+
+T49; CL189–CL192, R01–R03/R17. §2.1 phân biệt feature/report/action và chứng cứ ngoài mẫu; attribution Alpha101 dựa AppendixA, phần thích nghi dựa CL043–CL047/SYS/BG đã khóa. Lo et al. là nguồn empirical pattern testing, không chứng minh strategy Việt Nam. Paper scikit-learn chỉ nhận diện software environment; recipe logistic/factor controls vẫn theo Chương5. Varma–Simon hỗ trợ cảnh báo selection bias, không biến nested random CV thành nghiệm thu temporal protocol. So sánh phương pháp thay vì liệt kê công thức; không thêm số kết quả, citations chưa đọc hoặc tài liệu runtime mới. Kiểm keys/locators, placeholder còn lại, footnote/link/84spec/diff; chỉ tài liệu nên không compileall/unit/E2E/leakage hoặc study replay.

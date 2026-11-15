@@ -444,6 +444,8 @@ Ngày **16/11/2026**, thực hiện T48–T53 theo yêu cầu. Mỗi task dùng 
 
 **T48 — `docs/thesis-verified-bibliography`:** tạo `thesis/references.bib` với 22 nguồn và sổ §11.1/R01–R22 (metadata, locator, phiên bản, phát biểu hỗ trợ, giới hạn, hash bản đọc). Danh sách khám phá có 62 mục, không đồng nhất với 22 nguồn được nhận vào bibliography. Đối chiếu PDF gốc và arXiv/ACL/journal metadata; xác nhận TradingAgents v7 năm2025 và tên tác giả, ViSoBERT theo PDF, PFN venue2022/v7 sửa2024. Repo QuantAgent pin92519f8 là mốc đối chiếu, adopted commit vẫn unknown. Xem scan gốc cho Holm/Newey–West/Politis–Romano; không phân phối toàn văn tải trong Git. Kiểm BibTeX/keys/links/84spec/diff; không suite/runtime/fit/API/replay.
 
+**T49 — `docs/thesis-technical-related-work`:** viết §2.1 với Lo–Mamaysky–Wang, Alpha101, scikit-learn và selection-bias study của Varma–Simon; CL189–CL192/sổ §11.2. Phân biệt cross-sectional/temporal operators, typical-price proxy/VWAP, feature/report/action và numerical controls/LLM-selector ablation. Citation chỉ dùng nguồn đã kiểm; recipe và kết quả Việt Nam vẫn lấy bằng chứng nội bộ, không gán cho bài gốc. Kiểm keys/footnotes/links/spec/diff PASS, không suite/compileall hoặc nghiên cứu mới.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

@@ -33,7 +33,7 @@ ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có 
 EX01 kết thúc bằng outcome sau barrier, giữ net loss và giới hạn causal.
 G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biện ngoài/dàn trang cuối.
 UI/F11 vẫn PENDING. **P4: T36–T47 đã có bản nháp [Chương 5](../../thesis/chapters/05_experiments.md)**.
-P4/T36–T47 đã đủ bản nháp §5.1–§5.9. **P5/T48–T48:** Đã kiểm 22 nguồn và lập bibliography/ánh xạ luận điểm; nội dung Chương2 tiếp tục T49–T53, P5 chưa hoàn tất.
+P4/T36–T47 đã đủ bản nháp §5.1–§5.9. **P5/T48–T49:** Đã có bibliography 22 nguồn và §2.1; §2.2–§2.7 tiếp tục T50–T53, P5 chưa hoàn tất.
 T54 trở đi, G3 toàn bộ, phụ lục, phản biện và dàn trang cuối còn việc.
 Chỉ viết/đối soát nguồn; Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING không đổi.
 Bản xem hai

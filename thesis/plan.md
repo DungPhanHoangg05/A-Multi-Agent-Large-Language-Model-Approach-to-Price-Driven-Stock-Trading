@@ -82,7 +82,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 #### Nghiên cứu liên quan — P5
 
 - [x] T48 — DONE: [Bibliography 22 nguồn](references.bib) và [sổ §11.1](evidence.md#111-phạm-vi-đọc-metadata-và-luận-điểm-được-hỗ-trợ), metadata/version/đoạn hỗ trợ/hash bản đọc và giới hạn; CL188. Đối chiếu PDF/nguồn gốc, sửa phân biệt edition và tên tác giả; giữ 62 mục discovery riêng, không giả đã đọc toàn bộ. Kiểm BibTeX và links, không chạy nghiên cứu.
-- [ ] T49 — Tổng quan phân tích kỹ thuật và dự báo định lượng.
+- [x] T49 — DONE: [§2.1](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction), tín hiệu kỹ thuật/Alpha101 và khác biệt thích nghi một mã, controls/selection versus assessment. CL189–CL192, R01–R03/R17; không suy công thức gốc hay diagnostic thành hiệu quả giao dịch. Kiểm citation, nguồn, liên kết và phạm vi.
 - [ ] T50 — Tổng quan LLM/VLM đa agent và phần kế thừa.
 - [ ] T51 — Tổng quan regime, ngữ cảnh Bayes và MT-BICL.
 - [ ] T52 — Tổng quan phương pháp đánh giá và tái lập.

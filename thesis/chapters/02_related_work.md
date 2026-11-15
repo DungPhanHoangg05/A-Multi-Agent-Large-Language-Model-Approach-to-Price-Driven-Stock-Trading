@@ -7,7 +7,73 @@ Writing aids: [chapter outline](../outline.md#chapter-2-related-work), [reading 
 
 ## 2.1. Technical analysis and quantitative stock prediction
 
-> **Not yet drafted.** Review indicators, alpha factors and quantitative prediction controls using checked primary sources. Explain Alpha101 inheritance and the limits of single-asset adaptations; distinguish selection diagnostics from out-of-sample investment performance.
+Technical analysis turns price and volume histories into hypotheses about
+future behavior. For a computational study, the useful distinction is
+between an observable feature, a decision rule built from that feature and
+evidence that the rule remains useful outside its development sample.
+Lo, Mamaysky and Wang formalize chart-pattern recognition and compare
+conditional with unconditional return distributions. Their work provides
+an empirical way to study patterns that might otherwise be identified
+subjectively. It does not establish that every familiar indicator, visual
+interpretation or market adaptation is profitable. [@lo2000technical]
+
+The present system uses indicators and rendered charts as complementary
+representations of an admissible price prefix. Indicator rules, chart
+interpretation and the final action are separate stages. An RSI category
+or MACD relationship is therefore an input to analysis, rather than the
+future label itself. Chapter 3 defines the implemented indicators;
+Chapter 4 explains how their reports are produced and shortened before
+the Decision request. This distinction matters because an interpretation
+can change through the reporting interface even when the underlying
+price feature has not changed.[^technical-implementation]
+
+Formulaic alphas offer another way to construct features systematically.
+Kakushadze publishes a library of explicit expressions and defines its
+operators. In particular, cross-sectional `rank` and group neutralization
+operate across securities, whereas temporal operators operate over a
+security's history. A single-security implementation cannot silently
+replace the former with the latter and still claim mathematical identity.
+The source also distinguishes volume-weighted price inputs from ordinary
+OHLC values. [@kakushadze2016formulaic]
+
+This thesis accordingly treats its adapted formula library and five
+system-specific factors as an implementation family with its own
+definitions. A typical-price proxy is not authenticated intraday VWAP,
+and a temporal-rank adaptation is not the original cross-sectional rank.
+The native and Common alpha paths additionally differ in normalization,
+orientation, selection and report projection. The source attribution
+belongs to the formula library, while the consequences of those choices
+must be evaluated using the actual implementation. Merely adding more
+candidate formulas does not establish new independent information or a
+causal improvement in trading.[^technical-implementation]
+
+Quantitative controls help locate where the agent system adds behavior.
+A constant action reveals class imbalance and cash exposure; a momentum
+rule supplies a simple directional heuristic; logistic controls test
+whether an ordinary supervised classifier can use price or matched market
+features. Scikit-learn supplies a common software environment for such
+models, but its general library description does not determine the
+fitting recipe or hyperparameters of this study. Those are specified
+from the locked artifacts in Chapter 5. [@pedregosa2011sklearn]
+
+Feature selection also belongs inside the evaluated procedure. Varma and
+Simon show how optimizing a classifier on a cross-validation score and
+then reporting that same score can bias error estimation; their
+experiments concern classification rather than financial time-series
+purging. The relevant lesson here is to distinguish a selection diagnostic
+from an independent performance assessment. The numerical factor-control
+panel likewise evaluates its own fixed, train-ranked and random rules;
+it is not an isolated experiment on an LLM selector. [@varma2006bias]
+
+Finally, an indicator or classifier predicts the thesis's specified net
+candidate-LONG label, while the executed action selects LONG or CASH.
+The entry/exit schedule, two-way costs and account aggregation determine
+the economic outcome. A classification improvement can therefore coexist
+with a lower mean return. Related work motivates feature and control
+choices; the separate component results in Section 5.6 determine what
+was actually observed under this contract.
+
+[^technical-implementation]: Thesis implementation evidence CL009–CL010 and CL043–CL047; frozen source cards SYS03/SYS10/SYS11/BG03, with the alpha registry and native/Common differences in Sections 3.3 and 4.3.4. These internal bindings establish the implemented adaptations, not the original paper's trading performance.
 
 ## 2.2. LLMs, VLMs and multi-agent financial systems
 
