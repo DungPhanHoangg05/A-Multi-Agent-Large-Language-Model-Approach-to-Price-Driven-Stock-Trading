@@ -1298,6 +1298,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL067 | [§4.6.3](chapters/04_proposed_system.md#463-the-bounded-prefix): BRPP có chú giải và prompt delta | DO_DUOC | Exact substring U08 request, BG07 format, SYS18; §9.11 | Original prefix369chars, Common4186→v14556=+370 inclnewline; caps600/<6500 | English translation có nhãn, không giả nó là prompt đã chạy hoặc cắt task để vừa cap |
 | CL068 | [§4.6.4](chapters/04_proposed_system.md#464-partial-support-bypass-and-traceability): status/fallback/error khác nhau | HOP_DONG_TRIEN_KHAI | BG07 selection, BG16 wrapper, BG18 prepare/resolve | No-bank same-point/repeat Common reuse; raw/request/response null; reason/bypass riêng | Partial/empty status không tự thành wrapperfallback, không gán C2min20 cho v1, technicalerror không thành CASH |
 | CL069 | [FB01/F05](chapters/04_proposed_system.md#464-partial-support-bypass-and-traceability): HVN no-bank trace và hình | DO_DUOC | FB01 v1/Common U08 members, §9.11; source TikZ | HVN2023-07-03,u0/r0,dep digestkhớp, inheritedLONG | Không gọi inheritedaction là forecast mới hoặc suy thiếu prior có evidenceLONG; F05 khái niệm có source |
+| CL070 | [§4.7.1](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness): P=C∪B, counts và shrinkage | HOP_DONG_TRIEN_KHAI | BG05/BG07; §9.12 | C exactT/P/A/I, B=P\C; metric masks riêng; strength4, background mean(s+1)/(n+2) | Không double-count C trong background; nC=0 không hiện posterior từ prior đơn thuần, CrI plug-in khác query probability |
+| CL071 | [C2 examples](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness): signal/price/age/diversity | HOP_DONG_TRIEN_KHAI | SYS26/SYS27; saved EX01 metadata §9.12 | .5S+.5/(1+RMSdist); decay365; age≤730, base≥.625, gap≥5sessions, K≤3 | Selection filters không cắt statisticalP; không dùng return hoặc random bù ví dụ |
+| CL072 | [C2 split gate](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness): stats/examples/view readiness | HOP_DONG_TRIEN_KHAI | BG06, SYS25/BG18; §9.12 | nP≥20, metricnC≥5,width≤.75; examples có query/scaler/list riêng; stats=any ready | Không đồng nhất retrieved/visibleK, không biến missingartifact thành evidencefallback |
+| CL073 | [EX01 C2 table](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness): 4 metrics/groups/gate/bypass | DO_DUOC | U08 C2 slot §7.2, EP01; §9.12 | P19/C1/B18; counts9/19=1/1+8/18, etc; posterior table round6; retrieved3/visible0 | Bảng audit không phải prompt đã thấy; LOW_POPULATION và LOW_CONDITIONAL dù widths<.75 |
 
 Quy tắc điền bảng:
 
@@ -1549,6 +1553,9 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS22 | `core/historical_evaluation_runner.py` | `e2025fcdb2fe069e68a92e1be72d0dea97039479ba38db38164e90b27f9cb11a` | Live đồng nhất byte |
 | SYS23 | `core/mt_bicl_regimes.py` | `6d036cb93c0ca3a965e536145fe2074fc2e27064c21cae0c2d7de637fcada704` | Live đồng nhất byte |
 | SYS24 | `core/historical_runner.py` | `778099c2d413b81ec6f2803f15d1a8b5ccd769db2b862067ca92d74b457d0ecf` | Live đồng nhất byte |
+| SYS25 | `core/improvement_prior.py` | `a6ddb54f2a54c14cdd09c05e4191c3e694df7cf28a76f2e3e8006d18bc6110a7` | Live đồng nhất byte |
+| SYS26 | `core/prior_example_selection.py` | `ca59b7df58f25c470d3949b2ef297640790b15df7465bf3244ebb3dedb277eae` | Live đồng nhất byte |
+| SYS27 | `core/prior_price_similarity.py` | `0c008b756d60473f03a597fd8e7b91fdd8fb3c107ce8c85672d938bfe2b9e347` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1868,3 +1875,26 @@ và hình giải thích, không thay code/runtime/input.
 | [Source TikZ](assets/diagrams/F05_memory_retrieval.tex) | `59bf81a1006faaa6e4ec69d4d764dfbe5b80d7722bc27defd8b0834b4a938371` |
 | [PDF](assets/diagrams/F05_memory_retrieval.pdf) | `717a1d01c2757e7b1f6210db7b9f9dbe245281a6bfdaffad535e06ad743861d4` |
 | [PNG](assets/diagrams/F05_memory_retrieval.png) | `3d8dc9b0af0554cb6aa3fe4d2356ff11231031b664110c46493c9129b7bbd41b` |
+
+### 9.12. C2: partition, posterior và gate tách block
+
+T26; CL070–CL073. BG05/BG06/BG07 và SYS25–27 đọc đúng snapshot/rawhash.
+EX01 C2 dùng slot/hash tại §7.2, prepared.trace.evidence: P19, C1 duy nhất
+FPT:2022-04-07, B18; IDs disjoint/union khớp bankEP01 đã lọc same-symbol/
+regime/exit trước cutoff. Metric counts P/C/B tương ứng: win9/19,1/1,8/18;
+trap9/18,0/1,9/17; trend7/14,0/1,7/13; pattern9/18,0/1,9/17.
+Đối soát mean/prior/posterior và Beta2.5/97.5% bằng số học trên counts saved,
+không chạy production stats/retriever. Table6decimals giữ raw fields nguồn.
+
+Settings observed: shrink4; selector.5signal, decay365calendar days, age730,
+gap5sessions, minbase.625, requested3. Stats P không áp age/feature/diversity
+filters. Quality split nP≥20/nCmetric≥5/width≤.75, statsanymetric; examples
+query/scaleravailable+nonemptylist và nP≥20 riêng. EX01 widths .7486954120,
+.7444316222,.7458184921,.7444316222 dưới .75 nhưng fail floors19/1.
+Selection IDs Apr7/Mar25/Mar4, retrieved3; examples gate false/effective0,
+tasks visible[], prefixrỗng; prepared.request/rawC2null, policybypasstrue
+reasonFALLBACK_ORIGINAL, finalLONG từ Common cùng point/repeat. Không nói
+posterior hoặc ba selected records đã vào hosted prompt C2.
+
+Đợt thuần tài liệu: kiểm source/manifest/record/count/quantile/link/diff,
+không compileall/unit/E2E/leakage, refit, model/API hoặc replay nghiên cứu.

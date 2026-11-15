@@ -175,6 +175,21 @@ receipt/checklist, không đổi code/runtime/schema/input hoặc bằng chứng
   Chỉ số học từ saved records và string helpers, không chạy retriever pipeline,
   suite/benchmark/API/refit hoặc sửa nguồn nghiên cứu. T26 trở đi còn chờ.
 
+### Viết C2, A/B, tác vụ MT, teacher/student và Fact Anchor
+
+Ngày **15/11/2026**, tiếp tục T26–T30 theo thứ tự, mỗi task trên nhánh docs
+riêng từ develop cập nhật, kiểm phạm vi rồi commit/merge local. Checklist
+duy nhất ở thesis/plan.md; không tạo receipt hoặc kết quả nghiên cứu mới.
+
+- **T26; §4.7.1, CL070–CL073 và sổ §9.12:** nhánh
+  `docs/thesis-conditional-prior`; P/C/B rời nhau, masks và shrinkage/CrI,
+  examples selection không làm giảm P, stats/examples readiness tách riêng.
+  EX01 P19/C1/B18, retrieved3/visible0; widths<.75 vẫn fail population và
+  conditional support, posterior audit không là nội dung prompt. Kiểm
+  50 SYS/BG, 56 slot, membership/count/quantile/gate/dependency, 467 liên kết/
+  184 anchor, 25 footnote/84 đặc tả/diff PASS; không chạy suite, API, refit
+  hoặc pipeline vì chỉ sửa tài liệu.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

@@ -1111,7 +1111,121 @@ diagram does not add a new experiment.* [PDF](../assets/diagrams/F05_memory_retr
 
 ## 4.7. Conditional and alternative priors
 
-> **Not yet drafted.** Explain C2's disjoint conditional/background counts, shrinkage and separate readiness gates; contrast Trend/Pattern pooling and explicit-count presentation. Create the comparison table for filtering, statistics, examples, prompt content and fallback. Do not infer embedding search from the name B_semantic; preserve EX01's recorded bypasses.
+The conditional family separates historical-rate estimation from selecting
+examples for the prompt. C2 makes that separation explicit; A and B change
+specific parts of its evidence or presentation rather than replacing the
+whole pipeline. All retain the temporal/source checks of Section 4.5.
+
+### 4.7.1. C2: disjoint shrinkage and separate readiness
+
+**Population and partition.** Start with the complete verified same-stock,
+same-regime population $\mathcal P$ whose exits precede the cutoff. C2
+defines $\mathcal C$ by exact agreement with the query's four categorical
+signals T/P/A/I; sentiment is validated but is not part of this condition.
+The disjoint background is $\mathcal B=\mathcal P\setminus\mathcal C$.
+No top-$k$, age, numerical-feature-availability or example-diversity filter
+shrinks these statistical sets. Membership IDs are retained so their
+disjointness, completeness and source identity can be checked.
+[^c2-statistics]
+
+Each metric applies its own event mask inside these same groups. LONG win
+counts positive-net candidate cycles over all cycles. Bull-trap support is
+the union of bullish Trend or Pattern episodes; success means a
+nonpositive-net candidate LONG. Trend/Pattern failure each uses its own
+bullish subset. Consequently group cycle counts need not equal a metric's
+support counts. For each metric $h$, both success and support obey
+$s_{p,h}=s_{c,h}+s_{b,h}$ and $n_{p,h}=n_{c,h}+n_{b,h}$.
+
+**Shrinkage and interval.** As derived in Section 3.5, C2 forms
+
+$$
+\mu_{b,h}=\frac{s_{b,h}+1}{n_{b,h}+2},\quad
+a_h=4\mu_{b,h},\quad b_h=4(1-\mu_{b,h}),\quad
+\theta_h\mid\mathcal C\sim
+\operatorname{Beta}(a_h+s_{c,h},b_h+n_{c,h}-s_{c,h}).
+$$
+
+Only conditional counts enter the likelihood; background counts determine
+the plug-in prior mean, with strength four. An empty background gives the
+fixed symmetric Beta(2,2) prior. An empty **conditional metric support**
+instead leaves posterior shapes, mean and interval absent, with
+`NO_CONDITIONAL_HISTORY`; a prior alone is not displayed as observed
+conditional evidence. Nonempty support gives a mean and equal-tailed
+2.5%/97.5% Beta quantiles. These intervals condition on the estimated
+hyperprior and historical event convention. They do not integrate all
+hyperparameter uncertainty, establish calibrated query probabilities or
+predict net-return magnitudes.
+
+**Example selection is independent of the statistical partition.** C2
+selects from $\mathcal P$ using four-signal agreement and four-dimensional
+price-feature proximity under a source-bound frozen stock/fold scaler.
+For standardized vectors $z_e,z_q$,
+
+$$
+d(e,q)=\sqrt{\tfrac14\sum_{j=1}^4(z_{e,j}-z_{q,j})^2},\quad
+P(e,q)=\frac1{1+d(e,q)},\quad
+B(e,q)=0.5S(e,q)+0.5P(e,q).
+$$
+
+Here $S$ is the v1 four-signal match fraction, while $B$ denotes a base
+similarity, not the background set $\mathcal B$. Ranking uses
+$B(e,q)2^{-\mathrm{age}/365}$, with age measured from the historical
+decision date in calendar days. Candidates need available numerical
+features, age at most 730 days and base similarity at least 0.625. Greedy
+selection accepts at most three with at least five VN-Index sessions
+between decision dates. Ties use later exit, then ascending ID; no random
+backfill repairs a short list. Returns do not enter this score. These
+selection restrictions do not delete cycles from the rate population.
+[^c2-selection]
+
+**Readiness is evaluated before projection.** A metric can be visible when
+population size is at least 20, that metric's conditional support is at
+least five, and its 95% interval width is at most 0.75. Equality passes
+each bound; calculations use unrounded values. `stats_ready` means at
+least one metric passes, not that all four pass. Examples require the same
+population floor, available query features and scaler, and a nonempty
+selected list. They do not require five exact T/P/A/I matches or a narrow
+rate interval. Thus either block can be ready while the other is unavailable.
+
+The full-prior view exposes whichever blocks pass. Stats-only and
+examples-only views can fallback independently when their requested block
+is absent. No visible block means an empty prefix and reuse of the
+same-repeat Common result; missing/corrupt artifacts are technical errors,
+not low-evidence fallbacks. Disabling the prior or setting $k=0$ skips
+statistical/index selection work under an explicit disabled state.
+
+**EX01 counts and withheld content.** Its population has 19 episodes.
+Only `FPT:2022-04-07` matches the query's T/P/A/I tuple, so $|\mathcal C|=1$
+and $|\mathcal B|=18$. The saved evidence contains:
+
+| Metric | Population success/support | Conditional success/support | Background success/support | Posterior mean | 95% interval |
+| --- | --- | --- | --- | --- | --- |
+| LONG win | 9/19 | 1/1 | 8/18 | 0.560000 | [0.163553, 0.912248] |
+| Bull trap | 9/18 | 0/1 | 9/17 | 0.421053 | [0.077883, 0.822315] |
+| Trend failure | 7/14 | 0/1 | 7/13 | 0.426667 | [0.080748, 0.826566] |
+| Pattern failure | 9/18 | 0/1 | 9/17 | 0.421053 | [0.077883, 0.822315] |
+
+For LONG win, $(8+1)/(18+2)=0.45$ yields prior shapes (1.8,2.2)
+and posterior (2.8,2.2). These stored estimates are auditable even though
+they are not ready for the prompt. All four widths are below 0.75, but
+population 19 is below 20 and every conditional support is one, below five.
+The numerical selector separately finds three records: 7 April,
+25 March and 4 March 2022. They are not the v1 displayed list, and they
+are not all in $\mathcal C$.
+
+C2's `retrieved_k=3` therefore coexists with `effective_k=0`, no ready
+metric IDs, no visible examples, an empty prefix and no additional hosted
+C2 response. EX01 retains Common's LONG via `FALLBACK_ORIGINAL`. It would
+be incorrect to describe the posterior table above as content actually
+seen by that Decision request.[^c2-example]
+
+[^c2-statistics]: BG05 `compute_conditional_statistics/conditional_metric`, with metric masks from BG07; CL070 in ledger §9.12 binds the disjoint groups and plug-in update. Source validation distinguishes outcome consistency from outcome-based retrieval.
+[^c2-selection]: SYS26/SYS27 example selection and signal/price scoring, BG06 split quality gate; CL071–CL072. The evaluated settings are confirmed in EX01's saved selection metadata; no index or scaler is refitted here.
+[^c2-example]: U08 EX01 C2 prepared trace, raw groups/metrics, selection, request and policy; CL073. Counts and Beta arithmetic are checked against saved evidence; this is not a new forecast or a rerun of the statistical pipeline.
+
+### 4.7.2. Alternative conditional and presentation profiles
+
+> **Not yet drafted.** Explain A_tp_pool and B_semantic, then compare all four prior families by matching, statistics, examples, representation and fallback without implying embedding retrieval.
 
 ## 4.8. MT-BICL and action revision
 
