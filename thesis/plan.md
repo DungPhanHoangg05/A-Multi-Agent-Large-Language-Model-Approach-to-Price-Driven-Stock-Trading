@@ -61,7 +61,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T31 — DONE: [§4.8.4/§4.8.6–§4.8.7](chapters/04_proposed_system.md#484-utility), teacher sign/ bootstrap magnitude, support, strict Q10/Q90 và trace riêng; F07 có nguồn/PDF/PNG đã kiểm. CL093–CL097 nối EX01 giữ LONG; bốn ví dụ chấp nhận/từ chối có nhãn Illustrative, không thêm thực nghiệm.
 - [x] T32 — DONE: [§4.8.5](chapters/04_proposed_system.md#485-context-projection), toàn membership khác exemplar, bảng input/schema từng họ, bản dịch prefix EX01 có chú giải. CL098–CL101 kiểm 14→4, 437/4586 ký tự, source card và full-precision policy; không giả prompt C2/A/B đã gửi hoặc can thiệp chưa đo.
 - [x] T33 — DONE: [§4.9](chapters/04_proposed_system.md#49-variant-orchestration-and-complete-algorithms), B03 tám vai trò, F08 DAG và A01–A03 có nguồn; cùng u0, dependencies đúng repeat, counterbalance và barrier24. CL102–CL105 kiểm timestamps/parents/UUID của EX01; pseudocode không phải runner mới hoặc replay.
-- [ ] T34 — Giải thích ngân sách, retry, checkpoint và phục hồi.
+- [x] T34 — DONE: [§4.10.1–§4.10.3](chapters/04_proposed_system.md#4101-prompt-admission-and-bounded-repair), caps/final guard, retry owner, schema repair, lifecycle/UNKNOWN và amendment quota/restart thực tế. CL106–CL110 kiểm source, OP01–OP04, năm raw HTTP EX01 và arithmetic cooldown; không chạy lại crash/recovery hoặc suite.
 - [ ] T35 — Giải thích ứng dụng và hoàn tất ví dụ xuyên suốt.
 
 #### Thực nghiệm — P4

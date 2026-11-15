@@ -1338,6 +1338,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL104 | [A01–A03](chapters/04_proposed_system.md#492-algorithms-and-outcome-barrier) | MINH_HOA | BG16/BG17/BG18/SYS46/SYS47; §9.19 | PIT context, method/policy và paired evaluation pseudocode | Không source replacement/new run; resource fit offline; exposure cũ không biến mất |
 | CL105 | [EX01 barrier](chapters/04_proposed_system.md#492-algorithms-and-outcome-barrier) | DO_DUOC | U08 24 prepare/forecast slots + shared/outcome; §9.19 | All timestamp order, parent digests, same-repeat deps; r0 five replies/three bypass | Không cold replay hoặc nâng Native FAIL/whole-system NOT_CERTIFIED |
 
+| CL106 | [Budget](chapters/04_proposed_system.md#4101-prompt-admission-and-bounded-repair) | HOP_DONG_TRIEN_KHAI | SYS02/SYS18/SYS42/SYS48/SYS52/BG18; §9.20 | cap từng report, prefix600/facts700/anchor80/final<6500 kể cả repair | Ký tự khác token; cap có thể mất nội dung giữa |
+| CL107 | [Retry/format](chapters/04_proposed_system.md#4102-one-retry-owner-and-durable-http-evidence) | HOP_DONG_TRIEN_KHAI | SYS48/SYS49/SYS02; §9.20 | One owner, ≤3 HTTP active execution, raw trước parse, schema repair khác semantic | Legacy delay cap60 khác durable max provider waits; không nhân retry |
+| CL108 | [Quota epochs](chapters/04_proposed_system.md#4102-one-retry-owner-and-durable-http-evidence) | DO_DUOC | SYS48/SYS53/SYS54; OP01/OP02; §9.20 | Pooled→org/model tại487→provider response tại591 | Không mô tả toàn U08 bằng policy đầu; không suy quota hiện hành |
+| CL109 | [Checkpoint/UNKNOWN](chapters/04_proposed_system.md#4103-checkpoint-lifecycle-and-recovery) | HOP_DONG_TRIEN_KHAI | SYS48/SYS50/SYS51/SYS46; §9.20 | Identity/intent/raw/stage hashes; ambiguoussend dừng, NOT_SENT có evidence | Lifecycle interrupted mô tả source, không nhận chạy crash test mới |
+| CL110 | [Authorized replacements](chapters/04_proposed_system.md#4103-checkpoint-lifecycle-and-recovery) | DO_DUOC | SYS55–SYS57; OP03/OP04; §9.20 | Two point generations/one exhausted slot, retired12→15 giữ ledger/cost | Ngoại lệ có backup/grant; không reset ngầm hoặc bỏ valid response để chọn action |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -1611,6 +1617,16 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS45 | `core/unified_protocol.py` | `5ae2bf413afc257c49c441517e828337e9cc7a41fdf0d9974cf9d29b9a302109` | Live đồng nhất byte |
 | SYS46 | `core/unified_live/execution.py` | `2bc419ccada9b67810201a78b462a9b93c85d57f13a3d43bd4c8957ccc66272c` | Live đồng nhất byte |
 | SYS47 | `core/unified_experiment.py` | `a4f2e2859ba4a32a3c6961cfd9c430f5d4b7594e4226d4872e94f18a6b450cd0` | Live đồng nhất byte |
+| SYS48 | `core/unified_execution_transport.py` | `ec170ced17bdfc8595ac0df3aea3f1384f9b1372ccf22850db5eded02120faf2` | Live đồng nhất byte |
+| SYS49 | `core/research_invocation.py` | `0f49ca85d0c17ae8d65f8cf78bd469bc612af992d47e1814871fc477c860d18e` | Live đồng nhất byte |
+| SYS50 | `core/unified_execution.py` | `e3e415d1af3a0bb4a9caddf49bbb629fd69a57f9cf623923ad64409591663708` | Live đồng nhất byte |
+| SYS51 | `core/historical_evaluation_journal.py` | `9791555e200032532ff22f0a51ae7c9e4fae643b178c58dcc4f08ffdbd206f17` | Live đồng nhất byte |
+| SYS52 | `core/mt_bicl_prompt_limits.py` | `588d801af508201bf5ee93f390516aed2ac06a30a09057487ebaba2da55f0003` | Live đồng nhất byte |
+| SYS53 | `core/unified_model_quota/policy.py` | `f81b6e7eb4416ca2bda83ef7765b506a3a2d19cb4f21dfe21e36735a9cfb03ad` | Live đồng nhất byte |
+| SYS54 | `core/unified_provider_quota/policy.py` | `8a6ac44b255b65ec38a3a68249c1b0fe2a5743e962d135fa714777e65dd9a80c` | Live đồng nhất byte |
+| SYS55 | `core/unified_point_restart/wire.py` | `2510bedc81e662940777e1860a00c6ab819ebd33433e0deab58fd4b2e2c1cf6f` | Live đồng nhất byte |
+| SYS56 | `core/unified_point_restart/runtime.py` | `9ec9e84a3526107c19efbc304334a4c0a0907e01ff22900f99845889f4d78c1e` | Live đồng nhất byte |
+| SYS57 | `core/unified_slot_restart/runtime.py` | `0ae30e3d4ce97f6e3f28cd9805c928531dc546a067b4c20106529638fca89b83` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -2122,3 +2138,16 @@ Hash sản phẩm F08_variant_dag (source chuẩn hóa LF; PDF/PNG nguyên byte)
 - `F08_variant_dag.tex`: `702c693829cdfd547ad40db565a6ee4e1446c096b54af75a1ff563d57e1741f2`.
 - `F08_variant_dag.pdf`: `90741562af5cb5c24dd5e51e178448f636cf15278ddc2d4170ff0009c0a79517`.
 - `F08_variant_dag.png`: `0be37326955cc6b2e9f7bfd3d75cc5844384bad81d5591571276204e4bd946af`.
+
+### 9.20. Ngân sách, retry, stage/HTTP checkpoint và amendment
+
+T34; CL106–CL110. SYS48–SYS57 khớp snapshot/live theo §9.1; SYS02 frozen phân biệt bản live trình bày. Chỉ đọc source/records, không chạy transport hoặc recovery. Kiểm số học cooldown: provider wait1200 không bị cắt theo cap exponential900, còn wrapper legacy cap60; mô tả rõ hai đường. EX01 năm response r0 nối raw HTTP200, đúng stage attempt UUID/body/hash; không gửi request mới. Ordinary resume giữ active execution cap3, UNKNOWN không resend. Nguồn U08 thực tế có amendment quota/restart, không suy mọi HTTP dùng policy đầu. Các binding sau là member U08 (outer hash §3.4), đã kiểm manifest/envelope; OP03 có12 retired, OP04 có15, không sinh reset mới.
+
+| Binding | Member U08 | SHA-256 nguyên byte | Phạm vi |
+| --- | --- | --- | --- |
+| OP01 | `docs/plan/week12/unified_model_quota_runtime.json` | `9a94c795df76ae2e74687d36555d4dd063026a102c38620a6b201b961c9e66d1` | org/model từ sequence487 |
+| OP02 | `docs/plan/week12/unified_provider_quota_runtime.json` | `6ee886350077e972588af39396b9a55dbdfbd2ae1bd327d53328f076c96e28c2` | provider response từ sequence591 |
+| OP03 | `docs/plan/week12/unified_point_restart_runtime.json` | `550cdc887077131c8208993d0d9f800c7ebc15db66a76fff1b13d0c1bbda093c` | VCB-2026-04-01 và VJC-2025-12-19 generation1 |
+| OP04 | `docs/plan/week12/unified_slot_restart_runtime.json` | `00d6cdca4526d0f1685a0261b374a662cef15e329f4e8f05e4176f5c07b5852e` | VCB-2026-09-23 r2 MT slot, retired map15 |
+
+Kiểm hash/source/84 đặc tả/links/footnotes/diff PASS; không compileall/unit/E2E/leakage vì không đổi runtime, code, schema hoặc dữ liệu. Không cold replay, tái thu hoặc nâng gate lịch sử.

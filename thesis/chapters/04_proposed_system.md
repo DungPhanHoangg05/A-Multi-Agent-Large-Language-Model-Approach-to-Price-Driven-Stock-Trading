@@ -2116,4 +2116,145 @@ outcome, without putting that outcome in A01 or the hosted prompt.
 
 ## 4.10. Prompt limits, recovery and application
 
-> **Not yet drafted.** Explain report distillation/capping, BRPP and complete-prompt character limits, retry/backoff, schema handling, checkpoints, resume and UNKNOWN reconciliation. Separate support fallback from technical errors, describe the realtime 1D application with versioned context, and revisit EX01 through final action before explaining when evaluation becomes possible. Application demonstration must retain its actual acceptance limits.
+### 4.10.1. Prompt admission and bounded repair
+
+Report compression is part of the model's input contract. `_distill_report`
+selects summaries according to report type: alpha keeps its numerical
+summary, sentiment removes the article-list/prose section, and Indicator
+prefers its convergence summary when the recognized heading exists.
+`_cap_report` then retains roughly 70% of the available character budget
+from the head and the rest from the tail, with a visible truncation marker.
+If a heading is not recognized, the cap can remove informative middle
+content; Section 4.3's EX01 example records this limitation rather than
+assuming the full report reached Decision.
+
+| Report | Backtest cap (characters) | General live cap (characters) |
+| --- | ---: | ---: |
+| Trend | 800 | 900 |
+| Pattern | 800 | 900 |
+| Indicator | 800 | 900 |
+| Alpha | 1,100 | 1,200 |
+| Sentiment | 500 | 600 |
+
+Common-based study requests use the backtest limits. The live column
+describes a separate default cap dictionary, not evidence that a serving
+variant may ignore its own final guard. Prefixes are bounded at 600,
+the fact card at 700 and the anchor card at 80. The final assembled text,
+including instructions, reports, separators and the response example,
+must have **fewer than 6,500 characters**. The unified adapter checks again
+after adding the Common instruction and causal source card. A format-repair
+suffix also passes a final length check. Overflow fails before dispatch;
+it does not trigger removal of historical members or a weaker schema.
+These are character limits, not token counts. Transport separately reserves
+estimated request/output tokens and applies quota admission.[^operational-budget]
+
+### 4.10.2. One retry owner and durable HTTP evidence
+
+Agent invocation goes through `_invoke_with_retry`. In a research invocation
+scope it delegates one attempt to `invoke_once`, leaving retry ownership
+to the durable transport. Nested agent/SDK retry loops must not multiply
+the execution budget; the recorded request sets SDK retries to zero.
+The legacy unscoped wrapper has its own bounded retry loop and caps its
+delay at 60 seconds; it must not be described as the hosted runner's
+complete recovery policy.
+
+In the unified durable path, each active logical execution has at most three
+HTTP attempts in total, including transient failures, confirmed NOT_SENT
+attempts and Decision schema repair. Ordinary resume preserves this count;
+the explicitly authorized replacement generations below are separate. For
+HTTP 429/500/502/503/504, the transport computes the next eligible time
+from the maximum of capped exponential backoff $\min(900,5\,2^j)$,
+`retry-after`, and a parsed `retry after X s` response message. Header/body
+waits are not truncated to the exponential term's cap. The schedule is
+reconstructed from persisted raw evidence after interruption.
+
+A 200 response is persisted before JSON/schema parsing. An invalid
+Decision JSON/schema may request the fixed format-repair suffix within
+the same total attempt budget. A vision parse failure does not silently
+regenerate the image interpretation. Semantic disagreement, low confidence,
+an unwanted action, or a schema-valid mismatch with facts is not a format
+repair criterion. Such a mismatch reaches the explicit policy in Section
+4.8.6. Unsupported context bypasses before transport and consumes no
+request attempt.[^operational-retry]
+
+**Versioned admission, not one timeless quota rule.** U08 began with pooled
+per-organization accounting across models, rolling windows, carried usage
+and provider headers. From HTTP sequence 487 the locked amendment uses
+`per_org_model_v1`, separating admission buckets by organization/model.
+From sequence 591 it uses `provider_response_v1`: admission follows actual
+provider transient-error cooldown for that organization/model, not local
+count windows or successful-response remaining headers. Request-budget and
+phase-attempt caps remain. These are zero-based sequence boundaries recorded
+in the runtime manifests, not newly inferred provider entitlements.
+Deferral yields a future eligible time; exhaustion or an ambiguous send
+retains evidence and blocks that execution.
+The cooperative runner can continue other ready queues while preserving
+the fixed assignment of each point. Historical quota settings are not a
+claim about the provider's current limits or an instruction to collect
+new data.
+
+### 4.10.3. Checkpoint lifecycle and recovery
+
+The run identity binds the source/protocol/runtime/resource inputs and run
+UUID. A deterministic slot name identifies point, realization, repeat and
+role. `StageBook` checkpoints render/graph/shared, preparation, forecast
+and outcome stages; durable transport separately checkpoints each HTTP
+intent and raw response. Each stage retains inputs, parent digests,
+attempt UUID, status, output and output digest in an atomic envelope.
+Completion is validated before it can satisfy a dependency or the outcome
+barrier.[^operational-checkpoint]
+
+| State or interruption | Recovery behavior | What must remain separate |
+| --- | --- | --- |
+| Stage complete and hashes valid | Return the validated saved output; no new model call | Reuse within the same identity versus a fresh repeat response |
+| Preparation complete, forecast not complete | Resume the forecast with the same stage identity and transport history | Prepared request versus completed reply |
+| HTTP 200 raw durable, stage completion interrupted | Parse/validate that saved response, then complete the stage | Local reconstruction versus a new HTTP request |
+| Transient response durable | Honor persisted cooldown/quota and remaining attempt budget | Deferral versus valid policy bypass |
+| HTTP intent UNKNOWN after possible send | Stop automatic dispatch for that UUID; reconcile delivery evidence | Unknown delivery versus missing statistical support |
+| Confirmed not sent | Record NOT_SENT with evidence; retain history/reservation and consumed attempt | Reconciliation versus resetting the attempt cap |
+| Corrupt envelope, changed request/parent/run identity | Raise; do not reuse the output under altered inputs | Integrity failure versus an ordinary resume |
+
+UNKNOWN is written before sending because a process can fail after the
+provider receives the request but before the response is durably saved.
+It is unsafe to infer from a missing local response that no call occurred.
+`reconcile_not_sent` requires an explicit unique UUID and evidence; it does
+not mark an uncertain response as successful. The stage wrapper may reenter
+an incomplete local callback under the same attempt, but transport refuses
+to resend an unresolved UNKNOWN. It reuses a validated raw 200 instead.
+The hosted path does not use the older generic journal reconciliation to
+invent a new stage UUID and reset HTTP accounting.
+
+**Recorded replacements are explicit exceptions to ordinary resume.**
+The frozen run includes user-authorized replacement generations for
+VCB-2026-04-01 and VJC-2025-12-19, and a later replacement of the exhausted
+`forecast/VCB-2026-09-23/u0/r2/MT_BICL` slot. The manifests bind backups,
+retired HTTP digests, affected stages and preserved completed outputs.
+The point replacements can regenerate affected upstream stages under a
+new generation; the single-slot replacement retains its shared preparation.
+The final retirement map contains 15 old HTTP records. They remain in
+the complete ledger and phase cost/attempt accounting, while active
+forecast verification uses the replacement generation. A valid completed
+response may not be retired merely to seek a preferred action. This is
+neither automatic UNKNOWN replay nor an invisible reset of scientific
+history. Pairing refers to each point's accepted shared parent; it does
+not imply that no failed generation ever existed.[^operational-amendments]
+
+These rules give three distinct point lifecycles. A successful point saves
+shared input, all preparations and forecasts, then opens the outcome.
+A support-limited point still completes a provenance-bearing inherited
+action for the affected slot, with no fake request, and can cross the
+barrier when all roles finish. An interrupted point remains incomplete
+until delivery/integrity is resolved; its missing slot keeps the outcome
+closed. A receipt cannot count the third lifecycle as a valid CASH
+forecast merely to reach the planned sample size.
+
+EX01's saved stages illustrate the completed lifecycle and three prior
+bypasses, not a new interruption experiment. The UNKNOWN/recovery rows
+above describe source-defined behavior; writing them does not dispatch a
+request, simulate a crash or rerun a cold acceptance test. The application
+workflow and final EX01 outcome follow in the next two subsections.
+
+[^operational-budget]: SYS02 distill/cap/guard, SYS18/SYS42/BG18 assembly, SYS52 final length guard and SYS48 repair admission; CL106, ledger §9.20. Live UI presentation differs from the frozen Decision byte identity as declared in §3 of the ledger.
+[^operational-retry]: SYS48 `DurableCalls.call/cooldown/ready`, SYS49 invocation scope, SYS02 wrapper and frozen U08 transport; CL107–CL108. Standalone legacy retry and durable research recovery are different paths.
+[^operational-checkpoint]: SYS50 `StageBook`, SYS51 journal save/load, SYS48 HTTP evidence/reconciliation and SYS46 hosted barrier; CL109. This section describes source contracts and reads existing EX01 records; no recovery execution is newly claimed.
+[^operational-amendments]: SYS53–SYS57 model/provider admission and point/slot replacement contracts; U08 frozen runtime manifests OP01–OP04, ledger §9.20; CL110. Sequence boundaries, targets and retired counts come from the archived manifests. No replacement is performed while writing this chapter.
