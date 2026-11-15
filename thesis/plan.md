@@ -56,7 +56,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T26 — DONE: [§4.7.1](chapters/04_proposed_system.md#471-c2-disjoint-shrinkage-and-separate-readiness), P/C/B rời nhau, masks/counts, shrinkage/CrI và gate stats/examples riêng. CL070–CL073 khớp EX01 P19/C1/B18; retrieved3 khác visible0, posterior audit không là nội dung prompt đã chạy.
 - [x] T27 — DONE: [§4.7.2/B03 phần bốn prior](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles), AconditionT/P, Bpresentation giữ C2evidence, selector/gate/prefix/fallback rõ. CL074–CL077 kiểm EX01 A14/5, C2/B identical và ba bypass; semantic không embedding, bảng nguồn Markdown chưa xuất CSV/TeX.
 - [x] T28 — DONE: [§4.8 mở đầu và §4.8.2](chapters/04_proposed_system.md#482-task-construction), vector/scaler/bucket/63sessiontask/ranking/foldfreeze; F06 và bảng EX01 K3/14rows/queryunlabeled. CL078–CL082 nối fullmembership/hosted preparation, không tạo context hoặc fit mới.
-- [ ] T29 — Giải thích huấn luyện/suy luận teacher/student thực dùng.
+- [x] T29 — DONE: [§4.8.3](chapters/04_proposed_system.md#483-teacher-and-student), teacher/grid/counts, simulator, paired37/271873params/queryloss, optimizer và selection thực dùng. CL083–CL088 nối recipe/10receipts/60assessment/export; seed42-step3000 và psaved EX01, không train/loadweights/forward hoặc gọi resource cũ là release toàn hệ.
 - [ ] T30 — Giải thích facts và Fact Anchor.
 - [ ] T31 — Giải thích utility và policy sửa hành động.
 - [ ] T32 — Giải thích phép chiếu context vào prompt và schema.

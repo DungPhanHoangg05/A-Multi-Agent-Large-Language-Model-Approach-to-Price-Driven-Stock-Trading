@@ -210,6 +210,17 @@ duy nhất ở thesis/plan.md; không tạo receipt hoặc kết quả nghiên c
   model/API, refit, benchmark hoặc suite vì chỉ đổi tài liệu/hình, không đổi
   runtime/input hoặc receipt nghiên cứu.
 
+- **T29; §4.8.3, CL083–CL088 và sổ §9.15:** nhánh
+  `docs/thesis-teacher-student`; teacher16component/48tasks/731cycles/237EM,
+  syntheticindependentx/labels, paired37/271873params/softqueryloss và recipe
+  thực dùng. Kiểm TR01–TR08, 10receipts/2exports/60assessmenthashes và ranking
+  savedmetrics khớp seed42/step3000, không re-evaluate. Packing EX01 19tokens,
+  querypos18/maskedtail và psaved.386818 đối chiếu riêng; actualphysical128
+  khác OOMoptions. 64 SYS/BG, 56 slot, 490 liên kết/202 anchor, 35 footnote/
+  84 đặc tả/diff PASS. F06 giữ byte, không build lại. Không train/loadweights/
+  forward, chạy suite/API/coldreplay hoặc nâng resourceacceptance thành
+  release/causal gate toàn hệ; chỉ source/hash/receipt/packing/arithmetic.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

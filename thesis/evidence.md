@@ -1311,6 +1311,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL080 | [Task membership](chapters/04_proposed_system.md#482-task-construction): same-symbol63sessionblocks và bucket | HOP_DONG_TRIEN_KHAI | BG09/BG10, SYS33; §9.14 | i//63; facts45bars MACD−Signal/Close−SMA20 strictsign,zeroUNKNOWN | MACDNEG là quan hệ Signal, không MACDzero; bucket khác regime, query không nhãn |
 | CL081 | [Selection/freeze/F06](chapters/04_proposed_system.md#482-task-construction): task/row ranking và proof | HOP_DONG_TRIEN_KHAI | BG09/BG16/BG17/BG23, SYS33; §9.14 | Regimematchpriority, centroidfullpool, distance/latestexit/ID; K≤3, 2–8rows/prior, m≤8latesttarget | Allhistoryexit<cutoff và foldfreeze/reserved; membershiphashfullobjects, không chỉ displayedIDs |
 | CL082 | [EX01 context/table/F06](chapters/04_proposed_system.md#482-task-construction): vectors/taskcounts/dates | DO_DUOC | EX01-C.context và hostedMT membership; §9.14 | eligible30, K3 counts5/4/2+m3=14; index1372/block21; round6vectors | Ba signalexamples khác ba numerictasks; không sinh lại context/model hoặc xemqueryfutureprices |
+| CL083 | [§4.8.3](chapters/04_proposed_system.md#483-teacher-and-student): resource/teacher fit/conditioning | HOP_DONG_TRIEN_KHAI | BG11, TR01–03; §9.15 | Grid16 mu×kappa; MAPEMDirichlet2; 48tasks/731cycles;237iters; countlikelihood/noqueryx | Posterior conditioning khác refit; teacher không dùng featurevalues hoặc gộp priorcounts vào θtarget |
+| CL084 | [Synthetic training](chapters/04_proposed_system.md#483-teacher-and-student): generator/domains/loss target | HOP_DONG_TRIEN_KHAI | SYS34/SYS38/TR02; §9.15 | K0–3,n2–8,m0–8, pool731vectors independentlatents/labels, fixed5000corpora/500stress | Không gọi source labels là syntheticlabels hoặc teacheragreement là marketcalibration |
+| CL085 | [Packing/architecture/loss](chapters/04_proposed_system.md#483-teacher-and-student): paired tokens/causal/query-only | HOP_DONG_TRIEN_KHAI | BG12, SYS37/36/40, TR02 | 6→128,2layers/4heads/FF256/GELU/dropout0/preLN;271873params;37max/EX0119tokens | Teacherq detachedsidecar, queryy/latent/rnet không token; 69packing diagnostic không production |
+| CL086 | [Recipe table](chapters/04_proposed_system.md#483-teacher-and-student): optimizer/sampling/checkpoint | DO_DUOC | TR01/02, SYS35/40, training/pilotreceipts; §9.15 | seeds17/42/73×5000steps,batch128,640000episodes/seed;AdamW/schedule/clip1 | Recorded physical128 khác OOMoptions128/64/32; không metricearlystop hoặc fit runtime mới |
+| CL087 | [Selection](chapters/04_proposed_system.md#483-teacher-and-student): gates/2021rank/seed42step3000 | DO_DUOC | SYS41, TR01/05–08 and60assessmenthashes; §9.15 | Eligibilitysynthetic/swap/control then2021macroLL/Brier,step,seed; selectedtensorc60a… | Read receipts/hash/rankkhớp, không chạy lại evaluation/gates; 2021selection dùng labels dù optimizersynthetic |
+| CL088 | [Frozen inference/EX01](chapters/04_proposed_system.md#483-teacher-and-student): adapter/resources/p | DO_DUOC | SYS36/37, BG23; TR01/03/04, U08MTaux.branch; §9.15 | candidate exporta6f0… khác resumable9414…; CPUeval/nograd; psaved.38681803029367656 | Không loadweights/forward hoặc nâng gate/calibration; p khác utility/LLMconfidence/return |
 
 Quy tắc điền bảng:
 
@@ -1571,6 +1577,14 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS31 | `core/mt_bicl_scaler.py` | `f960bd8efae36c641cff2cca9e444877f1b44debddeee985cb84d12de615d27e` | Live đồng nhất byte |
 | SYS32 | `core/mt_bicl_stream.py` | `d87b67432ea415ef60fb12eb96c8658565ee672de801273512d0ddc53454cd4b` | Live đồng nhất byte |
 | SYS33 | `core/mt_bicl_contracts.py` | `cb155d306aacb5ec3172fd9d54da2ee344b47ddb1ceafcc2fd50410f2e6eb432` | Live đồng nhất byte |
+| SYS34 | `core/mt_bicl_replica_sampling.py` | `fd5a314ef3cf72e837030d824193450ec5344544d4507f4a8bc25c45b127f5bf` | Live đồng nhất byte |
+| SYS35 | `core/mt_bicl_replica_training.py` | `f806849b71669a8e2c4be9b686ddd7b5293a7823d36993dac167d9ecd0044449` | Live đồng nhất byte |
+| SYS36 | `core/mt_bicl_adapter.py` | `7b4b217771b9e6445ae1be17d15ca2c50403e197a95e58c61d1f679c669aa98b` | Live đồng nhất byte |
+| SYS37 | `core/mt_bicl_student.py` | `fa2a7c783177f8c19fcebecaa320ac92d71c219fccbedb37a641ed658e56a885` | Live đồng nhất byte |
+| SYS38 | `core/mt_bicl_inputs.py` | `5a273a32bab9d15e6404c200c8a7d89206d6ebbe9dab4df5eece7e5be7dc7b61` | Live đồng nhất byte |
+| SYS39 | `core/mt_bicl_oracle.py` | `01b4202a996765399add9056405266d9805f69daa89a3a29e8d3d45d2d725579` | Live đồng nhất byte |
+| SYS40 | `core/mt_bicl_replica_learner.py` | `4fcc849d3c606eb3495de1dff218a0ca83b888ef5ee11fd3b3e1a03c9f5201d0` | Live đồng nhất byte |
+| SYS41 | `core/mt_bicl_replica_metrics.py` | `7548b420869f04ccde35e6c3734c77605164e80c44b710c332d36bf94ff65010` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1968,3 +1982,48 @@ rebuild như các hình trước; source binding theo LF, sản phẩm theo raw 
 | [Source TikZ](assets/diagrams/F06_mt_tasks_training.tex) | `bb2e84e3d86e738e0c3243beec7dd88daba55e86743c915c794154d7837f94b2` |
 | [PDF](assets/diagrams/F06_mt_tasks_training.pdf) | `b0ceb9356163864de8debd57b4e588c60fc2f020efb9b81c4559935a0de569db` |
 | [PNG](assets/diagrams/F06_mt_tasks_training.png) | `30ea056f1794df5790e59a461053583eaa2d647b46014acc9dc6ac3938ba4d2d` |
+
+### 9.15. Teacher/student recipe, checkpoint và inference đã khóa
+
+T29; CL083–CL088. BG11/BG12 và SYS34–41 đối chiếu snapshot byte. Các
+artifact training được nối từ TR01 modelmanifest frozen; file receipt local
+chỉ dùng sau khớp bytes/hash trong manifest. Không lấy tên full/final làm
+định danh hoặc import/khởi tạo model để kiểm. TR01 semantic envelope hash
+`0bffee83801e59b257c2fb6bb7bb352a7d9ca2721647824cb2cab3061af8aec3`.
+
+| ID | Nguồn/locator | SHA256 nguyên byte |
+| --- | --- | --- |
+| TR01 | Snapshot `docs/plan/week11/mt_bicl_replica_full_r1_model.json` | `9937e1bdd0dbe7d9ca1156265cab027ead6dc1318caa542cdba1e81f28c95182` |
+| TR02 | `docs/plan/week11/mt_bicl_replica_full_r1.json`, pin TR01.protocol | `11146a55e347be77b4a942c67d0acc9dba8646fa1d5a0b4817e5ffb504214857` |
+| TR03 | Snapshot `outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/model/teacher.json` | `c0a39f327bacd8636fd7edff2f19b30799581bd144ac28176a7cd97fe9dbc335` |
+| TR04 | Snapshot cùng namespace `model/candidate.pt`, TR01.artifact_trees | `a6f0d294b6f731bfc630fe58631b921ec2f0877338745a84e9459ec6a248e702` |
+| TR05 | Cùng namespace `training/selection.json`, TR01.receipts | `ebc0f4e3fa14731f5dfc4ee47e32ee9a0c53e64b07483da20ceae4150d8939a5` |
+| TR06 | Cùng namespace `training/state.json`, TR01.receipts | `77954c590e667c6f84604627e49f1b7da6582a4c2e3fa50e69362cbe4961e13e` |
+| TR07 | Cùng namespace `training/seed42/checkpoint-03000.pt`, TR01.training.selected_checkpoint | `94145f90c5da6e0c8ab0daec439474b653769c47db09024de61d7f9303fd5932` |
+| TR08 | Cùng namespace `training/seed42/checkpoint-03000.assessment.json`, TR05 global candidate report | `d12f01c705f6813f1375a0609f0868a68391e811e6f4883ae7f21b09b203dfc5` |
+
+Đối soát10receipts trong TR01 và hai exportedcomponents nguyên byte, protocol
+rawhash và semantic signature `1939d2095b8be52aa0956aa99d33409ea74548e4b56d01f8b76ec1c0e8402f79`.
+TR03teacher16pi positive/sum1,48unique tasks/731cycles, converged237iters;
+nguồnkhôngxétxvalue ởlikelihood. Simulator mu.2/.4/.6/.8×kappa2/8/32/128,
+K0–3,m0–8,n2–8,731trainvectors independentlabelgen. Recipe các stream5000
+syntheticvalidation/test có500stress; train640000/seed,5000steps,128batch.
+Pilot/state physical128; sourceOOMoptions không phải giátrị đã chạy.
+
+TR06 có60checkpoint/report pointers đủ20steps/seed17/42/73. Kiểm hash của
+60assessmentfiles và envelope, chọn theo saved eligible/2021macroLL/Brier/
+step/seed-order khớp TR05 và TR01:seed42/step3000. Selectedcheckpoint raw
+hashkhớp TR07; exportedcandidate rawhash khác vì không chứa optimizer/RNG.
+Tensorfingerprint được receipt ghi
+`c60ae9695dde6f308ff30b0f4de7e40539ea5e8353cc7b1e0acb3d57a11f471c`;
+không tự tính lại tensorhash bằng loadmodel. Số market2021/validation trong
+receipt dùng kiểm selection, không táiước lượng hoặc đưa performance mới
+vào Chương4. Các acceptance flags READY_FOR_H03_BINDING/inference_releasedfalse
+ở manifest là mốc resource trước U08, không đổi release/gate hiện hành.
+
+Packing source train BG12/runtimeSYS37 cùng kiếntrúcpaired37; counttham số
+271873 kiểm bằng kích thước layers/embeddings, không modelinit. EX01tokens
+14obs+4markers+1query=19,pos18, maskedquerytail[0,1]; p_student saved
+.38681803029367656 tại U08MTaux.branch. F06 giữ nguyên hash đã kiểm T28,
+không build lại cho task viết. Không training, syntheticgeneration, predict,
+coldreplay, API hoặc suite; chỉ source/hash/receipt/packing/arithmetic checks.

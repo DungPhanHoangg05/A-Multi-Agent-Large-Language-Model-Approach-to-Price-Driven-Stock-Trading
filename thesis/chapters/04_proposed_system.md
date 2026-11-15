@@ -1442,7 +1442,151 @@ training details follow in Section 4.8.3.*
 
 ### 4.8.3. Teacher and student
 
-> **Not yet drafted.** Describe the actual locked architecture, teacher targets, training objective, sampling and checkpoint selection with verified attribution. Separate fitting from frozen inference and identify what the student predicts; do not replace the evaluated resource with a generic architecture.
+This stage trains a small numerical student offline to approximate a
+registered Bayesian teacher on structured task contexts. The evaluated
+resource is `MT_BICL_replica_full_r1`. The hosted Decision LLM consumes a
+later text projection; it is not the student whose weights are trained
+here. The theoretical motivation in Section 3.6 does not substitute for
+this implementation's architecture, training distribution or selected
+checkpoint.[^student-resource]
+
+**Teacher fit.** The teacher has 16 fixed Beta components, formed by
+$\mu\in\{0.2,0.4,0.6,0.8\}$ and
+$\kappa\in\{2,8,32,128\}$, with $a_h=\mu_h\kappa_h$ and
+$b_h=(1-\mu_h)\kappa_h$. Only mixture weights $\pi_h$ are fitted. The
+saved fit uses 731 available training cycles in 48 unique stock/block tasks,
+with exits through end-2020. Each task contributes its label counts once;
+reusing the same task at several queries does not duplicate its fitting
+weight. Labels are checked against the canonical net-return oracle.
+
+For task counts $(s,f)$ the likelihood is
+$L_h(s,f)=B(a_h+s,b_h+f)/B(a_h,b_h)$. MAP-EM starts with uniform weights,
+uses a symmetric $\operatorname{Dirichlet}(2,\ldots,2)$ prior, and updates
+$\pi_h=(\sum_j\gamma_{jh}+1)/(N_{\mathrm{tasks}}+16)$.
+The grid is fixed; there is no search for new component shapes on query
+data. The registered limit is 1,000 iterations with maximum weight change
+below $10^{-10}$ required for convergence. The saved teacher converged in
+237 iterations. Nonconvergence would stop preparation, not substitute a
+uniform teacher.[^teacher-recipe]
+
+**Conditioning at inference.** A latent family is shared across prior and
+target tasks in the teacher's episode model, with separate task-specific
+Bernoulli rates given that family. For visible prior-task counts
+$(s_j,f_j)$ and target counts $(s_T,f_T)$,
+
+$$
+w_h\propto\pi_h\left[\prod_{j=1}^{K}L_h(s_j,f_j)\right]
+L_h(s_T,f_T),\qquad
+q=\sum_h w_h\frac{a_h+s_T}{a_h+b_h+s_T+f_T}.
+$$
+
+The weights $w_h$ normalize over the 16 families. Prior labels update the
+shared family posterior; they are not pooled into the target's success
+count. Target labels update both the family posterior and target-rate
+predictive. The query's label is absent. The teacher validates numerical
+inputs but does **not** use their feature values in this likelihood.
+Changing the posterior with new visible context is conditioning under
+fixed parameters, not refitting $\pi$.
+
+**Synthetic distillation episodes.** Training samples $K$ uniformly from
+0–3, each prior size from 2–8, and target size $m$ from 0–8. A family is
+drawn from the fitted mixture, each task receives an independent Beta rate
+given that family, and its labels are Bernoulli draws. Whole four-feature
+vectors are sampled with replacement from the 731-row frozen training
+pool. Their within-vector dependence is retained, but the sampled vectors
+are independent of synthetic family/rate/label draws; source-market
+outcomes are not copied as synthetic labels. Prior-task order is permuted.
+
+RNG domains and fixed stream IDs separate structure, latent variables,
+features, labels and permutations. A synthetic query label, where generated,
+is a sidecar unused by the input and loss. Fixed validation/test corpora
+contain 5,000 episodes each, including a registered 500-case stress portion;
+the training stream uses generative episodes. This design teaches the
+registered context-to-probability relation. It does not itself demonstrate
+that a feature value causes a stock return or that synthetic agreement
+establishes market calibration.[^student-sampling]
+
+**The evaluated packing and architecture.** Production uses `PAIRED_37`.
+Each prior task and the target start with marker $(0,0,0,0,-1,1)$.
+A labeled observation is $(v_1,v_2,v_3,v_4,y,0)$; Q is
+$(v_{q,1},v_{q,2},v_{q,3},v_{q,4},0,1)$, explicitly marking the missing
+query label. Role embeddings distinguish prior, target and query; four
+task slots distinguish up to three priors and the shared target/query slot.
+IDs, dates, return magnitudes and true latent variables are not numerical
+token coordinates. Teacher probability $q$ is a detached loss sidecar.
+
+A six-to-128 linear projection is added to learned role, slot and absolute
+position embeddings. Two pre-normalized self-attention blocks use hidden
+size 128, four heads, feed-forward width 256, GELU and zero dropout, followed
+by final LayerNorm and a scalar linear head. The implementation uses
+`TransformerEncoder` blocks with a strictly causal attention mask and a
+right-padding key mask. It has **271,873 parameters** and operates in FP32.
+The maximum length is 37 numerical tokens, not 37 text tokens or all the
+source history. EX01 has 14 labeled observations, four task markers and Q:
+19 tokens, with Q at zero-based position 18.
+
+The older 69-token split-X/Y packing was a diagnostic pilot. Its weights
+were discarded; it is not the evaluated production architecture or an
+ensemble member. The frozen runtime's paired implementation loads the
+selected paired weights under the pinned adapter contract.
+[^student-architecture]
+
+**Loss and training recipe.** For query logit $\ell_Q$, each episode's loss is
+
+$$
+\mathcal L=-q\log\sigma(\ell_Q)
+-(1-q)\log(1-\sigma(\ell_Q)).
+$$
+
+Loss is applied only at Q and averaged over the effective batch. It uses
+the teacher's visible-context posterior predictive, not a sampled latent
+rate, realized synthetic query label or market BCE term. The recorded
+production recipe is:
+
+| Setting | Locked value |
+| --- | --- |
+| Model seeds / training length | 17, 42, 73; fresh weights per seed; 5,000 optimizer steps per seed |
+| Batch / stream size | Effective batch 128; recorded physical batch 128; 640,000 synthetic episodes per seed |
+| Optimizer | AdamW, betas (0.9,0.999), epsilon $10^{-8}$, weight decay 0.01 |
+| Learning rate | Linear warm-up for 250 steps to $3\times10^{-4}$, then cosine decay to $3\times10^{-5}$ at step 5,000 |
+| Gradient / precision | Global norm clipping at 1.0; FP32; AMP and TF32 disabled |
+| Checkpoints | Every 250 steps: 20 per seed, 60 total; no metric-based early stopping |
+
+**Selection and the artifact actually served.** All 60 checkpoint reports
+are required. Eligibility first checks registered synthetic approximation
+and prior-label-swap gates, including mean KL at most 0.02 nats, 95th
+percentile absolute error at most 0.10, at least 200 eligible swap pairs
+and sign agreement at least 0.90, plus the constant-control and technical
+checks. Among eligible checkpoints, ranking uses 2021 market macro log
+loss, then macro Brier score, each rounded to 12 decimals, then earlier
+step and registered seed order. Thus 2021 market labels influence model
+selection even though optimizer loss is synthetic-only. Test corpora and
+2022 market evaluation open after the immutable selection seal; they do
+not justify reselection after a failed test.
+
+The recorded global choice is **seed 42, step 3,000**, not the final
+step-5,000 checkpoint. The exported candidate has its own byte hash;
+the resumable training checkpoint also contains optimizer/RNG state and
+has a different hash. The selected tensor fingerprint begins
+`c60ae9695dde`; source/checkpoint/export bindings are in ledger §9.15.
+This draft checks stored reports and identities without training, loading
+weights or rerunning their old forward/evaluation gates.
+
+At query time the adapter verifies component hashes, loads fixed weights
+on CPU, disables gradients, enters evaluation/inference mode and reads
+the sigmoid-transformed query logit. Fingerprint checks detect weight
+changes. There is no optimizer update on the market query and no silent
+replacement probability after failure. EX01's saved student probability
+is 0.38681803029367656. It is a numerical prediction under this distilled
+resource, distinct from LLM confidence, a teacher interval, utility or the
+later realized return. Utility and action revision require the separate
+contracts below.[^student-selection]
+
+[^student-resource]: Frozen model-asset manifest TR01 and recipe TR02 identify the evaluated replica, rather than module defaults or the earlier model release. BG23/BG16/BG17 bind reuse in the context study. CL083–CL088 and ledger §9.15 distinguish recorded resource acceptance from whole-system certification.
+[^teacher-recipe]: BG11 teacher likelihood/fit/predict and TR03 saved teacher; 48 tasks/731 cycles/237 iterations are artifact values. The Bayesian derivation in Section 3.6 describes this convention; it does not claim generic equivalence to an external architecture.
+[^student-sampling]: SYS34 synthetic sampler, SYS38 input contract and TR02 corpus recipe. Source feature labels, synthetic labels, latent sidecars and teacher targets are separate objects.
+[^student-architecture]: BG12 training student/packer and SYS37 runtime paired student, plus SYS36 adapter. Shape/parameter/packing checks use source and saved context; no neural forward is performed to write this section.
+[^student-selection]: SYS35/SYS40/SYS41 recipe, learner and selection logic; TR04–TR08 checkpoint/export/selection/state/assessment bindings. Sixty saved assessment hashes and the ranking choice are checked from receipts, not reevaluated. EX01 student probability is read from U08 MT preparation.
 
 ### 4.8.4. Utility
 
