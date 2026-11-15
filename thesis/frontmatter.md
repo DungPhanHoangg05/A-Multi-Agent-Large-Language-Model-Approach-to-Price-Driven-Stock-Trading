@@ -1,5 +1,7 @@
 # Front matter
 
+> **Draft status:** the cover metadata follows the author-confirmed brief. The abstract is a source-checked draft; no institutional abstract word limit or final front-matter rules have been supplied. Acknowledgements, declaration and reference lists remain in preparation.
+
 ## Cover metadata
 
 | Field | Text |
@@ -55,3 +57,46 @@ BACHELOR'S GRADUATION THESIS
 **Supervisor:** Dr. Tran Hong Viet
 
 HA NOI - 2026
+
+## Abstract
+
+Historical context may help a trading system interpret conflicting
+reports, but its value depends on temporal eligibility, coverage and the
+policy that converts evidence into an action. This thesis adapts a
+price-driven multi-agent pipeline for Vietnamese stocks, combining
+indicator and chart reports, alpha signals and dated sentiment with
+regime-aware historical context. Bayesian prior variants summarize
+completed episodes, while multi-task Bayesian in-context learning
+(MT-BICL) adds numerical task context and a frozen student/teacher path.
+Factual anchoring and an external utility policy distinguish a model's
+proposal from the final LONG/CASH action.
+
+Two historical exploratory studies use a recorded schedule of 102 market
+points across nine stocks and six exposed temporal blocks/folds, with
+51 separately capitalized stock–fold accounts. Their response collections
+and statistical conventions remain distinct. The historical-context study
+compares eight roles over three Decision repeats conditional on one
+shared upstream realization per point; its 2,448 forecast slots are not
+independent market observations. The common study contract enters LONG
+at the next session's open, exits at the third following session's close
+and charges costs on both legs; SHORT maps to CASH.
+
+In the component study, the combined system (Full) exceeds its control
+without alpha and sentiment (Base) by 3.247 percentage points (pp) in
+balanced accuracy but has a mean net account-return difference of
+−0.047 pp. Bayesian v1 exceeds the common-profile baseline (Common) by
+0.327 pp in mean return, whereas its difference from the native-profile
+baseline (Native) is −0.045 pp. These comparisons are
+descriptive, baseline-dependent and sensitive to support and dependence
+assumptions. MT-BICL retains Fact Anchor's final action in 302 of 306
+slots; the combined comparison does not identify an isolated student or
+utility-policy benefit. All eight context research methods have negative
+mean net account returns. The Native row-wise causality audit remains
+FAIL, and whole-system causality is not certified; provenance, execution
+and application-acceptance limitations remain unresolved. The contribution
+is a traceable system integration and bounded historical assessment,
+with no established prospective profitability.
+
+## Keywords
+
+Vietnamese stock market; multi-agent systems; large language models; regime-aware historical context; multi-task Bayesian in-context learning; LONG/CASH evaluation; point-in-time validity.

@@ -27,6 +27,8 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 13. [Mở đầu](chapters/01_introduction.md) và [kết luận](chapters/06_conclusion.md): T54–T58; P6 đủ bản nháp Chương 1/6 và đối soát lập luận; G3 tự kiểm nội bộ đạt đúng nguồn T36–T58, chưa review ngoài/dàn trang cuối. [Sổ P6](evidence.md#12-mở-đầu-kết-luận-và-đối-soát-lập-luận) giữ nguồn và phạm vi tự kiểm.
 
+14. [Phần đầu](frontmatter.md): T59–T59; Đã viết abstract và bảy keywords; T60 đang hoàn thiện các mục phần đầu còn lại, quy định chính thức chưa được cung cấp. [Sổ P7](evidence.md#13-phần-đầu-và-phụ-lục) giữ nguồn, đối soát và yêu cầu chính thức chưa có.
+
 ## Hai trang bìa
 
 [Nội dung bìa tiếng Anh](frontmatter.md) ghi thông tin tác giả, mã sinh viên,

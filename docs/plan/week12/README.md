@@ -466,6 +466,12 @@ README đúng pin. Bibliography SHA-256 theo LF:
 Chương 1/3/4/5/6, root README, code, runtime, input và hình giữ nguyên.
 P5 đủ bản nháp; còn T54 trở đi, G3 toàn bộ và rà soát/dàn trang cuối.
 
+### Phần đầu khóa luận: abstract và danh mục
+
+Ngày **16/11/2026**, tiếp tục P7/T59–T60 theo yêu cầu. Nội dung tiếng Anh nằm trong `thesis/frontmatter.md`; metadata bìa đã xác nhận được giữ nguyên. Mỗi task dùng nhánh docs từ develop và merge sau QA tài liệu. Không thay code/test/runtime/config/schema/input/model/asset hoặc receipt; không compileall/unit/E2E/leakage theo AGENTS §1.2 vì không đổi hành vi chạy. Không fit/API LLM/bootstrap/replay. Trạng thái duy nhất ở checklist kế hoạch; nguồn và giới hạn gộp tại sổ bằng chứng §13.
+
+**T59 — `docs/thesis-abstract-keywords`:** viết abstract/7 keywords tiếng Anh, CL233–CL236/sổ §13.1. Hai nghiên cứu/estimators/đơn vị tách biệt; giữ BA tăng nhưng return giảm, v1 phụ thuộc baseline, MT302/306 giữ anchor, tám means âm và causal/provenance/execution/UI limits. Chưa có word limit chính thức, không tự gán chuẩn trường. Đối soát Chương 5/6 và hash U09/member, metadata/bìa/citation-source giữ nguyên; QA độ dài/links/spec/diff, không suite hoặc nghiên cứu mới.
+
 ### Mở đầu, kết luận và đối soát P6
 
 Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. Chỉ viết/biên tập và kiểm nguồn, không thay code nghiên cứu, test, runtime, schema, cấu hình hoặc input; không compileall/unit/E2E/leakage suite theo AGENTS §1.2, không fit/API LLM/replay/bootstrap. Ghi chú và ánh xạ luận điểm giữ chung tại sổ bằng chứng §12.

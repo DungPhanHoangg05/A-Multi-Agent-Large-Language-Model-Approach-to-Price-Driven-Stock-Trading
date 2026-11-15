@@ -98,7 +98,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Phần đầu và phụ lục — P7
 
-- [ ] T59 — Viết abstract và keywords.
+- [x] T59 — DONE: [Abstract và keywords](frontmatter.md#abstract) tiếng Anh, đủ bài toán/phương pháp/hai thiết kế/kết quả/giới hạn; CL233–CL236/§13.1. Số khớp Chương 5/6, không gain/tiền cứu; giới hạn từ chính thức chưa có, bìa giữ nguyên.
 - [ ] T60 — Hoàn thiện bìa, lời cảm ơn, cam đoan và danh mục.
 - [ ] T61 — Viết Phụ lục A: hợp đồng dữ liệu và thời gian.
 - [ ] T62 — Viết Phụ lục B: prompt và response.

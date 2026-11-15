@@ -1504,6 +1504,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL231 | [Cross-chapter argument](chapters/01_introduction.md#13-objectives-and-research-questions) | DAN_XUAT | Outline §A; §§1.1–1.5/2.7/3.2/3.6–3.7/4.1/4.5–4.10/5.1/5.6–5.9/6.1–6.4; §12.5 | Same title direction, four verbatim RQs, four contribution types, action/label/context meanings and study boundaries form one traceable chain | Editorial consistency is not independent scientific review, causal certification or final typesetting |
 | CL232 | [G3 internal self-review scope](plan.md#7-các-mốc-rà-soát) | DAN_XUAT | T36–T58 outputs, CL117–CL231; §12.5 | Results/literature/RQs/conclusions align within existing sources; future studies remain proposed and historical failures retained | No external acceptance, whole-system runtime rerun, deployment certification or finished thesis claim |
 
+| CL233 | [Abstract: problem and approach](frontmatter.md#abstract) | DAN_XUAT | §§1.1–1.5/4.1/4.5–4.9/6.1; CL214–CL221; §13.1 | Source-bound agent/context/MT/policy synthesis, proposal differs from final action | No new foundational invention or assumed benefit |
+| CL234 | [Abstract: design](frontmatter.md#abstract) | DAN_XUAT | §§5.1–5.5; CL117–CL144/CL218; §13.1 | 102 points, nine stocks, six exposed blocks/folds, 51 accounts; context eight roles/three repeats/2448 dependent slots | Two response collections/estimators distinct; account mean is not a shared-capital portfolio |
+| CL235 | [Abstract: principal results](frontmatter.md#abstract) | DAN_XUAT | B05a–b/B06a–e/B07c/B09; CL222–CL224; §13.1 | Full−Base BA +3.247 pp/return −0.047 pp; v1−Common +0.327 pp but v1−Native −0.045 pp; 302/306 MT/anchor actions agree; all eight means negative | Descriptive, support/baseline/dependence qualified; no isolated student/utility effect |
+| CL236 | [Abstract limits and keywords](frontmatter.md#abstract) | DAN_XUAT | §§1.4/5.9/6.2–6.4; CL225–CL230; §13.1 | Causal failure and provenance/execution/application limits retained; seven indexing terms describe the research subject | No prospective profitability, whole-system causal certificate or application acceptance |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2734,3 +2739,11 @@ T58 đọc nối câu hỏi/mục tiêu §§1.1–1.5 → định vị §2.7 →
 QA cuối: 84 dòng đặc tả giữ nguyên; checklist T01–T58, T59 trở đi chưa đánh dấu; bốn RQ đối chiếu nguyên văn, title metadata/covers giữ nguyên; citation keys/bibliography, footnote và local links/anchors hợp lệ. Bảng/công thức/JSON/pseudocode/số liệu nguồn Chương 2–5 bất biến; chỉ chuyển đoạn văn ở Chương 3/5. Hash U09/member/revision/baseline kiểm tại §12.3, không sửa archive/receipts/models/inputs/code/runtime. Tài liệu thuần túy nên không compileall/unit/E2E/leakage suite, không fit/API LLM/resampling/replay. Hình và Mermaid chưa được dàn trang/kiểm trong PDF toàn văn, thuộc P8/P9.
 
 **Số kiểm P6 cuối:** 84 đặc tả bất biến; CL001–CL232 liên tục; 117 footnote/6 chương; 777 liên kết local và 401 anchor hợp lệ; 22 bibliography entries giữ nguyên. Bốn RQ nguyên văn và title/covers metadata khớp; số tóm tắt v1/bridge/policy/BA đối chiếu nguồn đã khóa. Chỉ 9 file Markdown được sửa; Chương 2/4, mọi bảng/math/code block Chương 2–5 và toàn bộ code/runtime/asset/receipt giữ nguyên. Không chạy suite theo phạm vi tài liệu.
+
+## 13. Phần đầu và phụ lục
+
+### 13.1. Abstract và keywords
+
+T59 viết abstract tiếng Anh và bảy keywords trong `frontmatter.md`; CL233–CL236 ánh xạ tới các chương đã hoàn tất. Chưa có giới hạn từ chính thức; độ dài hiện tại là lựa chọn biên tập, không gán thành quy định trường. Abstract tự đứng được, không citation/footnote/task ID, nêu bài toán → phương pháp → hai thiết kế/đơn vị → kết quả chính → giới hạn/đóng góp. Không đổi phần bìa hoặc metadata đã xác nhận, không thêm kết quả hoặc trích dẫn nguồn mới.
+
+Đối soát số tóm tắt với §§5.6–5.9/B09 và §§6.1–6.4, giữ pp khác %, paired repeats có phụ thuộc, Full/Base khác Native/Common, account means khác portfolio; +3.247 BA không thành return gain, v1 phụ thuộc baseline, MT mostly-anchor và cả tám mean âm. Kiểm lại nguyên byte U09 ZIP/ED07 theo hash §12.3 và giữ nguyên sáu chương/bibliography; không tính lại thống kê hoặc chạy nghiên cứu. Native FAIL/whole-system NOT_CERTIFIED/UI F11 PENDING không đổi. QA word count/keywords, liên kết/anchor, metadata, 84 đặc tả và diff; chỉ tài liệu nên không suite/compileall/API/fit/bootstrap/replay. Phần đầu chưa là bản nộp/đã ký hoặc dàn trang cuối.
