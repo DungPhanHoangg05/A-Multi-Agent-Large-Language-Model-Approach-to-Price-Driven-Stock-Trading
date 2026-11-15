@@ -1245,6 +1245,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL014 | [§3.5.1](chapters/03_background.md#351-counts-and-a-conjugate-update): Beta conjugacy và minh họa 7/10 | MINH_HOA | Beta density/algebra; Stan author case study; SciPy quantiles | Beta2,2→9,5; mean9/14; CrI [.385738,.861421] | Kiểm số học, có nhãn Illustrative; không phải nghiên cứu thị trường |
 | CL015 | [§3.5.2](chapters/03_background.md#352-conditional-evidence-with-a-disjoint-background): background plug-in rời C và toy posterior | HOP_DONG_TRIEN_KHAI | Conditional statistics frozen §8.6, ví dụ §8.5.4 | B=11/18,C=3/4,tau4→Beta5.4,2.6 mean.675; CrI [.339435,.928893] | Kiểm AST hàm thuần và quantile; không tích phân uncertainty background; zero-support giữ NA |
 | CL016 | [§3.5.3](chapters/03_background.md#353-interval-meaning-readiness-and-example-counts): CrI, support và K riêng | HOP_DONG_TRIEN_KHAI | Prior gate/retriever frozen §8.6 | Population≥20, conditional≥5,width≤.75; example readiness độc lập | Không suy gate giao dịch/CASH từ gate evidence hoặc interval coverage được hiệu chuẩn |
+| CL017 | [§3.6.1](chapters/03_background.md#361-prior-tasks-target-observations-and-the-query): multi-task khác multi-agent, task/target/query | HOP_DONG_TRIEN_KHAI | MT bank/tasks/features frozen §8.6; Zhu2026 §4/PFN concept | Block63 reference-calendar observations, không phải elapsed days; K≤3, m≤8 | Kiểm source/membership; không dùng nhãn query hoặc nhập performance paper nguồn |
+| CL018 | [§3.6.2](chapters/03_background.md#362-a-frozen-teacher-and-a-learned-student): teacher mixture count, frozen student/distillation và LLM riêng | HOP_DONG_TRIEN_KHAI | MT teacher/replica student frozen §8.6; recipe §3.4 | Prior tasks reweight component, target counts update target Beta; soft CE query mask | Không chạy student/teacher inference hoặc fit; teacher không hồi quy continuous query feature |
+| CL019 | [§3.6.3](chapters/03_background.md#363-from-sign-probability-to-net-return-utility): U=theta*g−(1−theta)*loss và toy −.004 | MINH_HOA | Utility source frozen §8.6; phép tính §8.5.5 | p=.8,g=.01,loss=.06 → −.4%; utility source teacher, student log riêng | Kiểm toán học; không chạy 4096 draws hoặc sinh lại utility study |
+| CL020 | [§3.6.4](chapters/03_background.md#364-anchor-relative-action-revision): strict Q10 delta utility, anchor/fallback | HOP_DONG_TRIEN_KHAI | MT policy frozen §8.6 | CASH→LONG Q10U>0, LONG→CASH −Q90U>0; equality reject | Kiểm source và dấu; lỗi kỹ thuật không thành bypass; quantile không bảo đảm lợi nhuận |
 
 Quy tắc điền bảng:
 
@@ -1387,6 +1391,21 @@ nội dung sách chưa truy cập. Giữ ứng viên đó CHUA_DOC, dùng nguồ
 đã truy cập và phép nhân density trình bày rõ trong chương. Chưa cần chốt
 khóa citation mới vào bibliography cuối của T48.
 
+#### 8.5.5. Context đa tác vụ, teacher/student và utility
+
+T14, 15/11/2026: đọc Zhu2026v1 §4 và PFN abstract theo phạm vi khái niệm,
+không tái dùng kiến trúc/kết quả paper làm triển khai đã đo. Kiểm frozen
+bank/tasks/features/teacher/student/utility/policy, phân biệt 63 reference
+calendar observations với 63 ngày lịch; target query không nhãn. Teacher
+count-only khác student feature input; utility lấy theta teacher, không
+student. Ví dụ .8×.01−.2×.06=−.004 và dấu hai hướng policy đã đối chiếu.
+Rubin DOI/ProjectEuclid không mở được nội dung đầy đủ, giữ CHUA_DOC;
+không dùng trang Stan bagging làm bằng chứng đã đọc Rubin hoặc coi bagging
+posterior là phép weighting trong code. Chương ghi trực tiếp normalized
+exponential-weight construction; nguồn gốc học thuật còn kiểm tại T48.
+Không torch load/forward, teacher inference, fit, utility sampling hoặc
+thêm ablation để bù nội dung.
+
 ### 8.6. Binding source nền tảng bổ sung
 
 Nguồn dưới được đọc từ `final_evidence_snapshot.zip` đúng byte/manifest,
@@ -1403,3 +1422,10 @@ tiện; các khác biệt UI được xác nhận ở §3 không thay nguồn ng
 | BG05 | `core/prior_conditional_statistics.py` | `7d5fbde8a9639d94026aa1b855e81db40f61d7ce3fb961284dfa21043cc9e534` | Live đồng nhất byte |
 | BG06 | `core/prior_quality_gate.py` | `00814586220357ba447ced38f91a8551edd2d0558a516fdaaed91929e48efdd5` | Live đồng nhất byte |
 | BG07 | `core/bayesian_retriever.py` | `0c71c4508e89355acb3430faee6c95ceea53e2657d3d696bce17b9ce519b8d98` | Live đồng nhất byte |
+| BG08 | `core/mt_bicl_bank.py` | `e537efa9f2049e4de217ee13a0aa28bb6ab100953438de0cb24aae3f26dcdb47` | Live đồng nhất byte |
+| BG09 | `core/mt_bicl_tasks.py` | `0e8fdd0ce442ceb567f2650780dc812b9c3686d527be139957733bbeb41f72f1` | Live đồng nhất byte |
+| BG10 | `core/mt_bicl_features.py` | `8c3fb1d4d4557bd976af13c79fd12e5025d83432eceb194c172a4c282ea8331e` | Live đồng nhất byte |
+| BG11 | `core/mt_bicl_teacher.py` | `423dc73be34113634b473ca391c293c1520b046be2e157a9ad8b2ba22734d151` | Live đồng nhất byte |
+| BG12 | `core/mt_bicl_replica_student.py` | `0a7a18066f8874ff1d21417f6e46c3b93782e0c6f4836b6f48a942c8d0616ecb` | Live đồng nhất byte |
+| BG13 | `core/mt_bicl_utility.py` | `7678ff30ad5cb8f563628f41e3ba7f42415c035df02d0cab1833da6ccdef87b2` | Live đồng nhất byte |
+| BG14 | `core/mt_bicl_policy.py` | `301525c36c150e21f09a1971101d53d5927cf38c1d2921017c477441e097b488` | Live đồng nhất byte |

@@ -1,7 +1,7 @@
 # Chapter 3. Theoretical Background and Problem Formulation
 
-> **Draft status: partial chapter.** Sections 3.1–3.5 have source-checked drafts.
-> Sections 3.6–3.7 remain placeholders; the chapter has not undergone final manuscript review.
+> **Draft status: partial chapter.** Sections 3.1–3.6 have source-checked drafts.
+> Section 3.7 remains a placeholder; the chapter has not undergone final manuscript review.
 
 Writing aids: [chapter outline](../outline.md#chapter-3-theoretical-background-and-problem-formulation), [terminology and notation](../evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -506,7 +506,120 @@ are distinct stages.
 
 ## 3.6. Multi-task context and utility
 
-> **Not yet drafted.** Define prior tasks, matured target observations, an unlabeled query, factual buckets and teacher/student roles. Explain why sign probability differs from expected net return, introduce gain/loss magnitudes and utility differences relative to an anchor, and give a clearly labeled numerical illustration.
+### 3.6.1. Prior tasks, target observations and the query
+
+Multi-task context concerns several datasets; multi-agent orchestration
+concerns several computational roles. They are different forms of plurality.
+Write a prior task as $\mathcal D_k=\{(\boldsymbol x_{ki},y_{ki})\}_{i=1}^{n_k}$,
+the matured target context as $\mathcal C_q=\{(\boldsymbol x_j,y_j)\}_{j=1}^{m}$,
+and the current query as $\boldsymbol x_q$ **without** $y_q$. The desired
+predictive quantity conditions on the query, target context and prior tasks:
+$p(y_q\mid\boldsymbol x_q,\mathcal C_q,\mathcal D_{1:K})$.
+
+[Zhu et al. (2026), Section 4](https://arxiv.org/html/2606.20538v1#S4)
+represent prior information as marked datasets preceding a target task.
+The [PFN work](https://arxiv.org/abs/2112.10510v7) likewise motivates learning
+a predictive mapping from datasets. These are inherited ideas; the stock
+implementation below is an adaptation, not a reproduction of the source
+paper's experiments or a demonstrated transfer of its performance.
+
+In this implementation, a numerical task is a stock within a block of 63
+observations of the declared reference calendar, not 63 elapsed calendar
+days. Selected prior tasks preserve task boundaries and may contain several
+observations; the target context contains completed cycles from the query's
+task. Retrieval admits up to three prior tasks and up to eight observations
+per selected task/target context. Feature, factual-bucket and maturity rules
+further restrict eligibility. These numerical tasks are not the three
+signal-bank examples displayed by Bayesian v1. EX01 has three prior tasks
+and three target observations, while its query remains unlabeled.[^mt-context]
+
+### 3.6.2. A frozen teacher and a learned student
+
+The numerical teacher models task-specific sign probabilities with a mixture
+of Beta priors. Let $h$ index a grid component with shapes $(a_h,b_h)$ and
+fixed mixture weight $\pi_h$. For task $k$, positive/nonpositive counts are
+$(s_k,f_k)$. Its component likelihood factor is
+$B(a_h+s_k,b_h+f_k)/B(a_h,b_h)$, where $B$ is the Beta function.
+At inference the implementation reweights components using the product of
+these factors over prior tasks **and** target context. If $\lambda_h$ are
+the normalized weights and $(s_q,f_q)$ are target-context counts, then
+
+$$
+p_{T,q}=\sum_h\lambda_h
+\frac{a_h+s_q}{a_h+b_h+s_q+f_q}.
+$$
+
+Prior observations inform the shared component; they are not pooled into
+the target task's Beta success/failure counts. Mixture weights $\pi_h$ were
+fitted offline on training tasks and stay fixed; conditioning to obtain
+$\lambda_h$ is not a refit. The implemented teacher likelihood uses sign
+counts, not continuous query-feature regression. Features still affect
+context selection and the student input.[^mt-teacher]
+
+The student is a separate frozen numerical transformer receiving marked
+prior/target data and query features. Its query label is masked. Offline
+distillation uses the teacher probability as a soft target, with binary
+cross-entropy $-p_T\log p_S-(1-p_T)\log(1-p_S)$. Query-time inference returns
+$p_{S,q}$ without changing weights. It is distinct from the hosted Decision
+LLM: placing numerical summaries in an LLM prompt does not train that LLM.
+Teacher probability, student probability and an LLM confidence phrase must
+be logged and interpreted separately. Neither distillation nor agreement
+with a teacher establishes empirical calibration or a student-specific
+trading benefit without the relevant ablation.[^mt-teacher]
+
+### 3.6.3. From sign probability to net-return utility
+
+Let $g$ denote positive net-return magnitude and $\ell$ nonnegative loss
+magnitude conditional on the nonpositive class. For a sign probability
+$\theta$, the modeled LONG utility relative to CASH is
+
+$$
+U=\theta g-(1-\theta)\ell.
+$$
+
+It is measured in net-return fractions; transaction costs are already in
+the historical returns. **Illustrative:** $\theta=0.8$, $g=0.01$ and
+$\ell=0.06$ give $U=0.8(0.01)-0.2(0.06)=-0.004$, or −0.4%.
+An 80% chance of a positive label can therefore coexist with negative
+expected utility. These numbers are invented, not an experiment or a
+calibrated prediction.
+
+The actual utility component draws sign probabilities from the **teacher**
+mixture posterior and randomizes gain/loss magnitudes over unique eligible
+historical observations. Within each sign group, independent exponential
+weights are normalized to form weighted magnitude means, a Bayesian-bootstrap
+style construction. It records 4,096 utility draws, their mean and Q10/Q90,
+alongside an analytic mean and the separately logged student probability.
+The student probability does not replace the teacher sign draw. Support
+requires an available, known-bucket query, at least two prior tasks and at
+least five positive and five nonpositive magnitude observations; zero net
+returns belong to the latter group. These are registered support rules,
+not proof of a well-specified market model.[^mt-utility]
+
+### 3.6.4. Anchor-relative action revision
+
+The Fact Anchor resolves an action from Common plus checked factual
+assertions. Let $a_0$ be that anchor, and consider a different proposed
+action. Its improvement is $\Delta U=U$ for CASH→LONG and $\Delta U=-U$ for
+LONG→CASH. The external policy accepts a factually valid, eligible revision
+only if $Q_{0.1}(\Delta U)>0$. Equivalently:
+
+| Proposed change | Strict acceptance condition |
+| --- | --- |
+| CASH → LONG | $Q_{0.1}(U)>0$ |
+| LONG → CASH | $-Q_{0.9}(U)>0$ |
+
+Equality does not pass. Missing support or invalid revision assertions keeps
+the resolved anchor; a proposal already equal to it is retained. Invalid
+anchor assertions follow the documented Common fallback, not an invented
+new action. The negative mean alone is not the revision criterion. A
+utility quantile is a model-based policy input, not a measured guarantee;
+technical failures must remain distinguishable from valid bypasses.
+Chapter 4 will detail these contracts and dependencies.[^mt-utility]
+
+[^mt-context]: Frozen `core/mt_bicl_bank.py`, `core/mt_bicl_tasks.py`, `core/mt_bicl_features.py` and context contracts; CL017. The saved EX01 membership is bound separately in the shared ledger.
+[^mt-teacher]: Frozen `core/mt_bicl_teacher.py`, `BetaBernoulliTeacher.predict_counts`, and `core/mt_bicl_replica_student.py`, packing/query-mask and distillation path; CL018. The actual evaluated recipe/checkpoint remains the resource described in the source inventory.
+[^mt-utility]: Frozen `core/mt_bicl_utility.py` and `core/mt_bicl_policy.py`; CL019–CL020. The magnitude estimator and support rules here describe the implemented construction, separately from the source paper's theoretical framework.
 
 ## 3.7. Temporal validity and evaluation principles
 

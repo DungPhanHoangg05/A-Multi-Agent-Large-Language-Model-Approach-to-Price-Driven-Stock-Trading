@@ -99,6 +99,13 @@ không tạo checklist hoặc receipt riêng.
   và SciPy; BDA3 quá lớn cho web nên không ghi đã đọc Gelman. Kiểm tài liệu
   PASS, không tính lại prior study, chạy suite/replay/API/refit.
 
+- **T14; §3.6, CL017–CL020, sổ §8.5.5:** nhánh
+  `docs/thesis-multitask-utility-foundations`; prior/target/query, count teacher,
+  masked-query student/soft CE, hosted LLM và utility/policy riêng. Nguồn
+  frozen khớp manifest; đọc Zhu §4/PFN concept, giữ Rubin chưa đọc do không
+  truy cập full text. Kiểm toy U=−.004 và dấu strict Q10/Q90, links/footnotes/
+  84 đặc tả PASS; không model load/forward, sampling, fit hoặc suite/API.
+
 ### Quan sát, chỉ số thời gian và timeline giao dịch
 
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`

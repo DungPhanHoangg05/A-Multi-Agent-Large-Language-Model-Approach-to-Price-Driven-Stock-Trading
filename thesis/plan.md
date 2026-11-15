@@ -38,7 +38,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T11 — DONE: [§3.3](chapters/03_background.md#33-technical-alpha-and-sentiment-signals), năm chỉ báo trước heuristic; alpha/normalization/IC/selection và sentiment/availability/missingness riêng. CL009–CL011 có nguồn; không gọi vote, IC hoặc confidence là xác suất đã hiệu chuẩn.
 - [x] T12 — DONE: [§3.4](chapters/03_background.md#34-hidden-markov-models-for-market-regimes), state/emission/transition, VN-Index features, fit/scaler/mapping/fallback và endpoint posterior. CL012–CL013 tách filtering/smoothing, cutoff model thực dùng và hai nguồn regime EX01; không refit hoặc chứng nhận causal toàn hệ.
 - [x] T13 — DONE: [§3.5](chapters/03_background.md#35-bayesian-summaries-of-historical-evidence), Beta–Bernoulli, disjoint background shrinkage, mẫu số/K, credible interval/readiness và hai ví dụ Illustrative. CL014–CL016 kiểm counts/quantiles; không gọi posterior là calibrated query probability hoặc return interval.
-- [ ] T14 — Giải thích context đa tác vụ, student/teacher và utility.
+- [x] T14 — DONE: [§3.6](chapters/03_background.md#36-multi-task-context-and-utility), prior/target/query, teacher/student/LLM và sign probability/utility riêng; ví dụ Illustrative 80% nhưng U=−0.4%, hai dấu strict Q10/Q90 và anchor. CL017–CL020 có nguồn; không suy lợi ích student riêng từ pipeline gộp.
 - [ ] T15 — Giải thích tính hợp lệ thời gian và nguyên tắc đánh giá.
 
 #### Hệ thống đề xuất — P3
