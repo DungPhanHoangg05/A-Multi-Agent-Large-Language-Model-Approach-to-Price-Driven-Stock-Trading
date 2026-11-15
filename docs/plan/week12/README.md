@@ -274,6 +274,22 @@ cứu hoặc chạy lại suite. Checklist duy nhất tiếp tục ở thesis/pl
   bằng hàm số học trích source, links/footnotes/diff PASS. Không gọi transport,
   sleep/retry, crash simulation, model/API hoặc suite vì chỉ sửa tài liệu.
 
+- **T35; §4.10.4–§4.10.5/F11, CL111–CL116, sổ §9.21:**
+  `docs/thesis-application-walkthrough`; form sáu bản/Realtime1D/repeat1,
+  snapshot/preflight/owner/job/result, frozen transfer và bilingual canonical
+  riêng. Phân biệt current timeframe capture có daily_provisional với endpoint
+  daily-closed cũ. F11 là schematic đã render/xem, không screenshot nghiệm thu.
+  EX01 kết thúc bằng action r0 và outcome sau24 slot, gross dương/net âm đúng
+  oracle/đơn vị. AP01–AP17 pin riêng với Git c432fef2; receipt/13 member QA/
+  403 source khớp, 135 Python/24 DOM là log đã lưu, không chạy lại. UI/F11
+  OFFLINE_PASS_BROWSER_PENDING/f11false, Native FAIL/whole-system NOT_CERTIFIED
+  giữ nguyên. Cập nhật trạng thái tổng hợp, tự kiểm G2 theo13 câu hỏi đọc hiểu;
+  P3 đủ bản nháp, chưa phản biện ngoài/dàn trang cuối và T36 chưa đánh dấu.
+  Chốt PASS: 80 binding nguồn nghiên cứu, 17 binding ứng dụng, 56 slot EX01,
+  533 liên kết/236 anchor, 53 footnote và 84 đặc tả không đổi; ba PDF một trang
+  đạt kiểm font/bbox/log/hash và quan sát PNG2000px. Không chạy suite,
+  browser/app/capture/market/LLM/replay/forward vì chỉ đổi tài liệu/hình.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

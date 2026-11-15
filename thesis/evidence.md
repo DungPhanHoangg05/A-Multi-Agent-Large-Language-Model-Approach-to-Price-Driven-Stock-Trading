@@ -1168,11 +1168,12 @@ phí làm đổi dấu kết quả, không chọn lại một ca thắng sau khi
 ### 7.7. Cách tái sử dụng và quy tắc cho nhóm tình huống sau
 
 - Ch. 4.1/T16: mở EX01 ở cutoff, giải thích mục đích các module; chưa lộ
-  outcome. Ch. 4.3–4.5/T19/T20: inputs, hai view, missing sentiment và hai
-  loại lịch sử. Ch. 4.6–4.8/T21–T24: nối v1/C2/A/B, numeric context,
+  outcome. Ch. 4.3–4.5/T18–T24: inputs, hai view, missing sentiment và hai
+  loại lịch sử. Ch. 4.6–4.8/T25–T32: nối v1/C2/A/B, numeric context,
   teacher/student và anchor/policy; giữ hai nguồn regime riêng.
-- Ch. 4.9/T25: shared u0 và các nhánh/repeat; Ch. 5.8/T45: mở outcome
-  §7.6 sau facts/proposals/actions. B07/F10 có thể dùng EX01, nhưng ví dụ
+- Ch. 4.9/T33: shared u0 và các nhánh/repeat; Ch. 4.10/T35: mở outcome
+  §7.6 sau facts/proposals/actions; Ch. 5.8/T45 phân tích ca trong kết quả rộng hơn.
+  B07/F10 có thể dùng EX01, nhưng ví dụ
   này không đại diện cho veto hoặc chứng minh cải thiện student riêng.
 - Quy tắc biên tập cho T45: xét repeat 0, yêu cầu nguồn/hash đầy đủ rồi
   chọn ca đầu theo `(date, symbol)` trong từng nhóm đã định nghĩa: đủ context
@@ -1208,7 +1209,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
-| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | §4.1–4.7 và Fact Anchor/tác vụ/teacher–student của §4.8 đã có bản nháp, kèm F03/F04/F05/F05a/F06; utility/projection/chính sách sửa action/traceability/điều phối/ứng dụng còn placeholder |
+| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | P3 đủ bản nháp §4.1–§4.10, kèm F03/F04/F05/F05a/F06/F07/F08/F11, B03 và A01–A03; G2 tự kiểm nội bộ, UI/F11 vẫn PENDING, chưa rà soát/dàn trang cuối |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
 
@@ -1343,6 +1344,13 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL108 | [Quota epochs](chapters/04_proposed_system.md#4102-one-retry-owner-and-durable-http-evidence) | DO_DUOC | SYS48/SYS53/SYS54; OP01/OP02; §9.20 | Pooled→org/model tại487→provider response tại591 | Không mô tả toàn U08 bằng policy đầu; không suy quota hiện hành |
 | CL109 | [Checkpoint/UNKNOWN](chapters/04_proposed_system.md#4103-checkpoint-lifecycle-and-recovery) | HOP_DONG_TRIEN_KHAI | SYS48/SYS50/SYS51/SYS46; §9.20 | Identity/intent/raw/stage hashes; ambiguoussend dừng, NOT_SENT có evidence | Lifecycle interrupted mô tả source, không nhận chạy crash test mới |
 | CL110 | [Authorized replacements](chapters/04_proposed_system.md#4103-checkpoint-lifecycle-and-recovery) | DO_DUOC | SYS55–SYS57; OP03/OP04; §9.20 | Two point generations/one exhausted slot, retired12→15 giữ ledger/cost | Ngoại lệ có backup/grant; không reset ngầm hoặc bỏ valid response để chọn action |
+
+| CL111 | [Current application form](chapters/04_proposed_system.md#4104-application-workflow-and-interpretation) | HOP_DONG_TRIEN_KHAI | AP01/AP03/AP13–AP15; §9.21 | Six main versions/1D/one analyze repeat; Original legacy, enhanced capture/preflight/job | Backend modes không là form hiện hành; MT closure3 khác study8 |
+| CL112 | [Capture/identity](chapters/04_proposed_system.md#4104-application-workflow-and-interpretation) | HOP_DONG_TRIEN_KHAI | AP04–AP07/AP10/AP11; §9.21 | Timeframe envelope1d có daily_provisional; owner/hash/freshness/PIT, GET đọc capture | Không đồng nhất older daily-closed path; no future prices/false CASH |
+| CL113 | [Live resource transfer](chapters/04_proposed_system.md#4104-application-workflow-and-interpretation) | HOP_DONG_TRIEN_KHAI | AP08/AP09; §9.21 | Frozen selector/top5/scaler/HMM/student, labels before2026-07-01; querylive | Transfer không refit/parity vendor; planned weekdays không lịch sàn |
+| CL114 | [Presentation/result](chapters/04_proposed_system.md#4104-application-workflow-and-interpretation) | HOP_DONG_TRIEN_KHAI | AP02/AP12–AP15/AP17; §9.21 | Same-job reports/context; bilingual existing invocations/canonicalpolicy/stored switch | Logic-equivalent UI không cùng raw bytes; confidence/RR khác actual P&L |
+| CL115 | [EX01 complete walkthrough](chapters/04_proposed_system.md#4105-closing-ex01-after-the-forecasting-barrier) | DO_DUOC | U08 shared/24 forecasts/outcome, TIME01/TIME06; §7/§9.21 | Entry48180/exit48390, gross+.4358655%/net−.2647317%, DOWN; r0 actions | Outcome chỉ sau barrier; cycle không portfolio; không thay ca sai bằng ca thắng |
+| CL116 | [Application acceptance](chapters/04_proposed_system.md#4104-application-workflow-and-interpretation) | DO_DUOC | AP16/AP17; §9.21 | OFFLINE_PASS_BROWSER_PENDING/f11false;135Python/24DOM recorded, 403 nguồn khớp | Không chạy lại suite/browser/market/API, không chứng nhận deployment/lợi nhuận |
 
 Quy tắc điền bảng:
 
@@ -2151,3 +2159,82 @@ T34; CL106–CL110. SYS48–SYS57 khớp snapshot/live theo §9.1; SYS02 frozen 
 | OP04 | `docs/plan/week12/unified_slot_restart_runtime.json` | `00d6cdca4526d0f1685a0261b374a662cef15e329f4e8f05e4176f5c07b5852e` | VCB-2026-09-23 r2 MT slot, retired map15 |
 
 Kiểm hash/source/84 đặc tả/links/footnotes/diff PASS; không compileall/unit/E2E/leakage vì không đổi runtime, code, schema hoặc dữ liệu. Không cold replay, tái thu hoặc nâng gate lịch sử.
+
+### 9.21. Ứng dụng hiện hành, EX01 hoàn chỉnh và tự kiểm G2
+
+T35; CL111–CL116. Nguồn ứng dụng sau snapshot nghiên cứu được giữ **riêng**:
+AP01–AP17 dưới đây là byte checkout hiện hành, đối chiếu Git `c432fef2`
+(nội dung source chuẩn hóa LF khớp blob). Không gán chúng vào snapshot
+nghiên cứu hoặc đổi expected hash cũ. Code/app/receipt không sửa trong T31–T35.
+Đã đọc contract phần form hiện hành và source dispatch thực: form 1D dùng
+timeframe envelope/capture, có daily_provisional; endpoint daily-closed cũ
+khác đường này. Không bỏ chi tiết đó để kể ứng dụng như luôn có nến đóng.
+
+| Binding | File hiện hành | Byte | SHA-256 checkout | Nguồn trong QA ứng dụng |
+| --- | --- | ---: | --- | --- |
+| AP01 | `docs/plan/week12/variant_serving_contract.md` | 46710 | `81e74eba95001603609297fe3e17369afdc63a26296f69fe6e4e9ec620a70548` | Đọc và pin riêng, không nhận là QA source |
+| AP02 | `web_interface.py` | 37164 | `240972a503099144993c77aa3fd9a97826655b0d3b781c1c1500eb66b02566d6` | Khớp QA |
+| AP03 | `core/serving_registry.py` | 4985 | `21746b6717da86de7b22b066429fc784574495f96547af4680929aabb4c6c230` | Khớp QA |
+| AP04 | `core/serving_live/service.py` | 8129 | `b117b100465a208efe027190155ec0b3b31a3bc60c9a99cbf6c36970bc24837a` | Khớp QA |
+| AP05 | `core/serving_live/snapshots.py` | 8918 | `0ccfe21a40e18a5b9e2c02fdd6f4503c939c2c55ffe1e166d86e42bbb68fc7ac` | Khớp QA |
+| AP06 | `core/serving_live/timeframes.py` | 8556 | `16aa0058308bcac38d09dc870cc64007fa5c705d999ca0aa8f16d179136f37e3` | Khớp QA |
+| AP07 | `core/serving_live/timeframe_provider.py` | 2026 | `3415bf105adc677867ce03f73f61434ef13c015d5d6324b65903620fcb098b73` | Khớp QA |
+| AP08 | `core/serving_live/provider.py` | 7036 | `4c4588c658bdf4d62223f39735799a480f10662f6ecd63a5d1798e200b7b42f2` | Khớp QA |
+| AP09 | `core/serving_live/context.py` | 2680 | `5a8c370cc101df0ae6db037b482782ca1e45884cb3b0b36d277fcbbd59ab9d3e` | Khớp QA |
+| AP10 | `core/serving_runtime/service.py` | 14630 | `505a1fe9bd697372a5550367b5e82a60df8c4462d670c0fb79846bd18d7d7686` | Khớp QA |
+| AP11 | `core/serving_runtime/runner.py` | 13143 | `0c8b1f3e99f383ec61b2ac1f5c665941123308593da457ec29c69cf1a1ab31b6` | Khớp QA |
+| AP12 | `core/ui_presentation/live.py` | 2027 | `51c6a7407b8533faff15ceb3c410fb9ea8cc3c9064816869d33e710d48ea793c` | Khớp QA |
+| AP13 | `static/js/analysis/form.js` | 3080 | `7fcda3d851c96465e9464a309a7f850bbd5f8bd046cbd692f3db70937bb4bbe2` | Khớp QA |
+| AP14 | `static/js/analysis/timeframe.js` | 1683 | `b2ce603fcb767c4b7799d528fdf5fe2342e6f9798fb8681e63febb223f483efc` | Khớp QA |
+| AP15 | `templates/analysis/form.html` | 499 | `68ae0b1f0affa200d5ad1b6848a42d7746ff30a610802100352a04386d910ebf` | Khớp QA |
+| AP16 | `docs/plan/week12/serving_integration_acceptance.json` | 2503 | `1fc3a65af3a8301a9c884dd19e1f2cbb3510ad5e584a760bf0e737a68971c5be` | Đọc và pin riêng, không nhận là QA source |
+| AP17 | `docs/plan/week12/serving_bilingual_checks.zip` | 73374 | `69f0a279932b91973aebfe89350b8ae8a5a637eaffb7435019636fed1cda8914` | Đọc và pin riêng, không nhận là QA source |
+
+AP16 là serving_integration_acceptance_v10, status
+OFFLINE_PASS_BROWSER_PENDING, f11_complete=false, desktop/mobile NOT_RUN.
+AP17 có 13 member được kiểm hash/bytes với manifest và receipt. 403 source
+bindings hiện hành khớp QA; 135 Python/24 DOM là kết quả **đã lưu**, không
+chạy lại. Đọc python_reuse.json để giữ nguồn kế thừa/delta DOM; không nhận là
+mọi suite đã chạy lại sau sửa DOM. Receipt/QA ghi market_calls=0 và
+hosted_llm_calls=0 trong gate đó. Không mở browser, app, capture hoặc model
+trong task viết; trạng thái F11/F12 và gate khoa học giữ nguyên.
+
+EX01 outcome lấy riêng sau barrier24 đã kiểm §9.19: decision03/07, entry04/07,
+exit06/07/2023; VND48180→48390; gross+.4358655044%, net−.2647317124%, DOWN.
+Kiểm oracle số học theo TIME01, bốn yếu tố phí/slippage, source identity
+TIME06 và bảng tám raw/final/reason r0. Không đọc outcome vào context/request,
+không chạy lại tài khoản hoặc chọn ca thắng. F11 schematic một trang180×185mm,
+đã render/xem PNG2000px; không screenshot giả hoặc browser acceptance mới.
+
+**G2 — tự kiểm nội bộ phạm vi viết P2/P3**, không phải bốn gate runtime,
+giảng viên phê duyệt hay hoàn tất T74. Chương3/4 không còn block chưa viết;
+các câu hỏi đọc hiểu ở plan §3.3 được nối như sau:
+
+| Câu hỏi đọc hiểu | Nơi giải thích | Giới hạn cần giữ |
+| --- | --- | --- |
+| SHORT/CASH và giá vào/thoát | Ch.3 §3.2; Ch.4 §4.2/§4.10.5 | Không bán khống; giá tương lai chỉ mở sau forecast |
+| Agent nhìn gì, deterministic/offline/hosted | Ch.4 §4.1/§4.2/§4.3 và F03 | Role khác số call |
+| Pattern khác Trend | Ch.4 §4.3.2/§4.3.3 và F04 | Format/heuristic không chứng minh prose đúng |
+| Alpha/sentiment/confidence | Ch.3 §3.3; Ch.4 §4.3.4/§4.3.5 | Missing khác neutral; confidence không calibrated p |
+| Native/Common khác Base | Ch.4 §4.4 và B03 | Bridge nhiều thay đổi, không single-cause ablation |
+| Episode/regime/similarity/support/K | Ch.4 §4.5–§4.7, F05/F05a | Strict maturity, population khác examples |
+| Prior/target/query MT | Ch.4 §4.8.2 và F06 | Query không nhãn; frozen fold pool/reserved IDs |
+| Teacher/student/resources | Ch.4 §4.8.3 | Seed42/step3000 có nguồn; no query optimizer update |
+| p cao nhưng utility âm | Ch.3 §3.6; Ch.4 §4.8.4 | Teacher sign + bootstrap magnitude; p_student riêng |
+| Anchor/veto | Ch.4 §4.8.1/§4.8.6, F07 | Strict Q10/Q90, equality reject; enum khác prose |
+| Tám role ít hơn tám reply | Ch.4 §4.9.1, F08 | Dependency cùng repeat/bypass không fake request |
+| Account và barrier outcome | Ch.4 §4.9.2 A03/§4.10.5 | Cycle khác account; paired khác independent n |
+| Đã kiểm gì, causal vẫn thiếu | Ch.4 §4.9.2/§4.10.4; sổ §3 | Native FAIL, whole-system NOT_CERTIFIED, UI PENDING |
+
+P3 hoàn tất **bản nháp** T16–T35: F07/F08/F11, B03 tám role, A01–A03 và
+walkthrough có outcome. Không nhận toàn luận văn/citation/LaTeX hoặc phản biện
+ngoài đã xong. T36 trở đi chưa đánh dấu; bảng LaTeX, phụ lục và rà soát cuối
+tiếp tục theo plan. Chỉ kiểm nguồn/hash/số học/link/footnote/spec/diff và bố
+cục hình. Không compileall/unit/E2E/leakage vì không đổi runtime/code/schema/
+input, không chạy lại acceptance, replay, fit/forward/sampling/API.
+
+Hash sản phẩm F11_application_flow (source chuẩn hóa LF; PDF/PNG nguyên byte):
+
+- `F11_application_flow.tex`: `c6da57e7b215605f8ceb4254c97bf961c6da5ac68c767c037e0708144bb0de0e`.
+- `F11_application_flow.pdf`: `a6a53ed05199d14f4d224d80e79d8a8d575162e706527ff95deb380f849446af`.
+- `F11_application_flow.png`: `27bbef8c7762bd232a9f307492d97b7a23000ecacc735040aabe7448a7cf0b9b`.

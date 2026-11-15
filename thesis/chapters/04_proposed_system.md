@@ -1,7 +1,7 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.7 and the Fact Anchor, task-construction and teacher/student parts of 4.8 have source-checked drafts.
-> The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
+> **Draft status: complete method draft.** Sections 4.1–4.10 cover the source-checked method, execution and application workflow.
+> Internal evidence/layout checks do not replace final thesis editing, independent review or application browser acceptance; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -89,7 +89,8 @@ without treating missing news as observed neutrality.
 
 For this case, the scheduled entry and exit observations are 4 and 6 July.
 Their realized prices and net result are deliberately not used to explain
-what was known at the cutoff; Chapter 5 will reveal the outcome. The same
+what was known at the cutoff; Section 4.10.5 reveals the outcome after the
+forecasting barrier, and Chapter 5 provides the broader evaluation. The same
 case will connect input contracts, report interpretation, context and policy,
 with distinct IDs for each saved record rather than a reconstructed successful
 example.
@@ -2258,3 +2259,166 @@ workflow and final EX01 outcome follow in the next two subsections.
 [^operational-retry]: SYS48 `DurableCalls.call/cooldown/ready`, SYS49 invocation scope, SYS02 wrapper and frozen U08 transport; CL107–CL108. Standalone legacy retry and durable research recovery are different paths.
 [^operational-checkpoint]: SYS50 `StageBook`, SYS51 journal save/load, SYS48 HTTP evidence/reconciliation and SYS46 hosted barrier; CL109. This section describes source contracts and reads existing EX01 records; no recovery execution is newly claimed.
 [^operational-amendments]: SYS53–SYS57 model/provider admission and point/slot replacement contracts; U08 frozen runtime manifests OP01–OP04, ledger §9.20; CL110. Sequence boundaries, targets and retired counts come from the archived manifests. No replacement is performed while writing this chapter.
+
+### 4.10.4. Application workflow and interpretation
+
+The Flask application exposes the method through a **Realtime 1D analysis
+form**. A user selects a stock and one of six main versions: Original,
+Bayesian v1, C2, A, B or MT-BICL, then starts analysis. The current form
+does not expose an as-of source selector, comparison/repeat controls or
+multiple timeframes. Backend capabilities and earlier UI modes must not
+be mistaken for controls on this form. Original delegates to the legacy
+analysis route; enhanced versions use a captured live snapshot, preflight
+and one analysis job with one repeat.[^application-workflow]
+
+For an enhanced selection, the client captures `{symbol,timeframe:"1d"}`,
+validates the returned snapshot identity and submits the same locked
+selection to preflight and job creation. The current form uses the
+versioned timeframe envelope even for 1D. It is distinct from the backend's
+older **latest completed daily session** capture, which excludes today's
+bar before 15:30 local time. The current timeframe path may include a
+forming daily observation and records `daily_provisional`. During the
+session it can extend daily context from observed intraday stock/index
+data; outside the session it uses the available daily index calendar.
+Provisional data are not silently described as an exchange-certified close.
+
+The capture validates positive/consistent OHLCV, timestamps, source freshness,
+at least 600 daily stock/index observations, matching cutoff and calendar
+membership. It preserves the chart separately from the daily context and
+rejects future timestamps or inconsistent units. News without publication
+dates is excluded; future publication is rejected. Date-only publication
+is admitted conservatively from the following day. Insufficient verified
+scores remain unavailable, not neutral. The snapshot records source,
+capture time, units, provisional status and vendor/corporate-action limits.
+It is hashed and bound to the owner before forecasting.
+
+Preflight verifies resources, supported domain, request/model/options and
+dependency plan. Selecting MT schedules Common→Fact Anchor→MT for that
+point/repeat; it does not schedule all eight study roles or three research
+repeats. The requested version, executed dependencies and an inherited
+fallback action remain distinguishable. Job identity binds the capture,
+configuration, model/prompt/resource versions and owner scope; secrets stay
+on the server. Reload/resume reads the old capture under its hash. Newer
+market data require a new capture/job, rather than altering an existing
+job's source midway.
+
+![F11. Application analysis workflow](../assets/diagrams/F11_application_flow.png)
+
+**Figure F11.** Source-defined Realtime 1D workflow with a legacy Original
+branch and a snapshot-bound enhanced branch. The result is read from the
+same job; an uncertain create/send is not automatically repeated. This is
+an explanatory schematic, not a screenshot or browser acceptance result.
+Source: application bindings AP01–AP15 in the ledger.
+[PDF](../assets/diagrams/F11_application_flow.pdf) ·
+[TikZ source](../assets/diagrams/F11_application_flow.tex).
+
+**Frozen resources applied to a new query.** Enhanced live inference reuses
+the historical bank, feature scaler, HMM and student weights. Common alpha
+transfers the frozen top-five selection/orientations/threshold to the new
+price prefix under `live_frozen_selector_transfer_v1`; it does not refit
+the selector on the query. MT historical labels remain frozen before
+1 July 2026. Historical facts keep the label source; only query features
+and facts use the captured live data. Planned weekday $t+1/t+3$ metadata
+do not supply future prices or a verified exchange settlement calendar.
+The target remains daily Open($t+1$)→Close($t+3$), not three intraday bars.
+The live vendor transfer and unavailable independent corporate-action
+ledger remain scientific limitations.
+
+**Progress and result reading.** The overlay follows checkpointed agent
+progress, including dependency/context work; it does not rerun agents for
+animation. Completed enhanced jobs open the result page with a live-source
+job identifier. Reports and images come from that job's checked snapshot,
+not global images or a previous session. The BICL panel explains actual
+context/support, reference→final action and bypass/rejection reasons before
+the final Decision display. Native alpha and Common alpha are labeled
+separately because the upgraded Decision input is not the native report.
+
+Interpret raw proposal as the model's output, final LONG/CASH as the policy
+action, and null metrics as unavailable/pending. A support bypass explains
+inheritance; a failed or UNKNOWN job is not a completed CASH forecast.
+An ambiguous create response disables blind resubmission and retains the
+job link when available. GET/export/reload read recorded results without
+market capture or model inference. The enhanced live analyze path has no
+query outcome or realized $t+3$ P&L; a stated confidence/R:R is not such an
+outcome.
+
+The current presentation profile `live_bilingual_presentation_v1` stores
+VI/EN views with the job. Pattern/Trend and Decision obtain presentation
+text within their existing invocation; canonical fields alone feed policy.
+Numerical report labels use deterministic localization. Changing the
+display language reads stored views and does not send a translation
+request or change the canonical forecast. This presentation contract has
+its own wire identity: the author's accepted equivalence of the live
+modules' research logic does not mean their raw source/request bytes are
+identical to the historical snapshot.[^application-boundaries]
+
+The recorded application receipt is **OFFLINE_PASS_BROWSER_PENDING** with
+`f11_complete=false`; desktop/mobile visual acceptance has not run.
+It reports 135 Python and 24 DOM checks, with Python evidence reused under
+source bindings and the documented DOM delta, rather than claiming every
+check ran again after every edit. These are recorded fixture/scoped checks,
+not newly executed tests here, live fills, prospective validation or proof
+of profitable deployment. No UI screenshot is presented as accepted. The
+diagram and workflow text let the method be understood while preserving
+this outstanding acceptance boundary.
+
+### 4.10.5. Closing EX01 after the forecasting barrier
+
+Return to FPT at the 3 July 2023 cutoff. Its 600-bar shared prefix contains
+the 45-bar analysis window; sentiment is unavailable. Pattern's low
+confidence/warning and Trend's interpretation remain recorded observations,
+not independently verified chart truth. The signal-prior regime is
+CONSOLIDATION, while the separately sourced MT regime is BULL. These labels
+are not edited to match. V1 supplies three signal examples; C2/A/B fail
+readiness and inherit Common. MT uses three prior tasks and three target
+observations, 14 labeled historical rows in total, with the query unlabeled.
+
+The saved r0 actions complete the walkthrough before outcome access:
+
+| Role | Raw proposal | Final action | Recorded resolution |
+| --- | --- | --- | --- |
+| Native | SHORT | CASH | RAW_DECISION |
+| Common | LONG | LONG | RAW_DECISION |
+| Bayesian v1 | LONG | LONG | RAW_DECISION |
+| C2 | None | LONG | FALLBACK_ORIGINAL |
+| A | None | LONG | FALLBACK_ORIGINAL |
+| B | None | LONG | FALLBACK_ORIGINAL |
+| Fact Anchor | LONG | LONG | NO_NUMERIC_VETO |
+| MT-BICL | LONG | LONG | KEEP_PROPOSED_SAME |
+
+The five raw replies and three bypass outputs refer to the same upstream
+realization, but their role-specific requests are different. Across all
+three repeats, every required slot is durable before the outcome stage
+starts. **Only after that barrier** does the separate EX01 outcome record
+expose entry Open on 4 July and exit Close on 6 July, with 5 July the middle
+session. Entry is VND 48,180 and exit VND 48,390, after the declared unit
+conversion from the source series.
+
+The canonical oracle gives
+
+$$
+r^{\mathrm{net}}=\frac{48{,}390}{48{,}180}
+ \frac{(1-0.001)(1-0.0025)}{(1+0.001)(1+0.0025)}-1
+=-0.00264731712420041.
+$$
+
+Gross return is +0.4358655044%, but net return is **−0.2647317124%** and the
+economic label is DOWN. Each LONG action receives that one-cycle loss;
+Native's CASH receives zero under the stated comparator contract, without
+opening a short position. This does not establish that Native is superior
+over the study, or that a negative estimated mean forced MT's action.
+EX01 intentionally retains an incorrect net-label LONG decision rather
+than replacing it with a winning illustration.[^walkthrough-outcome]
+
+Account returns require the full chronological sequence of nonoverlapping
+cycles and the registered account/repeat aggregation. This single payoff
+is not the study's portfolio return. Entry/exit prices, realized return and
+net label remain in the evaluation record, outside the earlier reports,
+context, projection and model requests. The chapter has followed one
+decision from admissible inputs through agents, historical context and
+policy to its later economic outcome; Chapter 5 evaluates those decisions
+on the locked cohorts and reports the limitations of the two studies.
+
+[^application-workflow]: AP01 contract, AP03 registry, AP04–AP11 live capture/provider/runtime and AP13–AP15 form sources, pinned separately from the research snapshot in ledger §9.21; CL111–CL113. Current form and older/backend daily-closed capabilities are explicitly distinguished.
+[^application-boundaries]: AP02 output route, AP12 presentation mixin, AP16 receipt and AP17 QA archive; CL114/CL116. The archived checks, source bindings and pending browser status are inspected without opening an application session or rerunning tests.
+[^walkthrough-outcome]: EX01 U08 shared/prepared/raw/policy/outcome members in ledger §7 and §9.21; TIME01 canonical oracle and TIME06 source identity; CL115. Numbers and timestamps are read from locked records; no historical model call or portfolio evaluation is rerun.
