@@ -271,8 +271,8 @@ For example, MACD crossover rules have priority over histogram rules. The
 other oscillators have their own range and direction conditions. A bullish
 vote means a configured heuristic fired, not that the probability of a
 profitable LONG is known. Votes derived from the same prices are not
-independent observations. Chapter 4 will detail the implemented priorities
-after these definitions.[^signal-runtime]
+independent observations. Section 4.3.1 specifies the implemented
+priorities for these indicator rules.[^signal-runtime]
 
 ### 3.3.2. Alpha transformations and selection
 
@@ -615,7 +615,8 @@ anchor assertions follow the documented Common fallback, not an invented
 new action. The negative mean alone is not the revision criterion. A
 utility quantile is a model-based policy input, not a measured guarantee;
 technical failures must remain distinguishable from valid bypasses.
-Chapter 4 will detail these contracts and dependencies.[^mt-utility]
+Sections 4.8–4.9 specify the corresponding policy contracts and
+same-repeat dependencies.[^mt-utility]
 
 [^mt-context]: Frozen `core/mt_bicl_bank.py`, `core/mt_bicl_tasks.py`, `core/mt_bicl_features.py` and context contracts; CL017. The saved EX01 membership is bound separately in the shared ledger.
 [^mt-teacher]: Frozen `core/mt_bicl_teacher.py`, `BetaBernoulliTeacher.predict_counts`, and `core/mt_bicl_replica_student.py`, packing/query-mask and distillation path; CL018. The actual evaluated recipe/checkpoint remains the resource described in the source inventory.
@@ -758,8 +759,9 @@ aggregation order and paired block/fold resampling family; do not substitute
 independent-row error bars or recompute results to improve a presentation.
 With the small, historically exposed fold set, the registered bands support
 descriptive sensitivity analysis, not a claim of confirmatory significance,
-calibrated coverage or prospective profitability. Chapter 5 will report the
-actual estimators and their limits.
+calibrated coverage or prospective profitability. Chapter 4 now connects
+these definitions to the implemented decision path; §5.5 specifies the
+recorded estimators, and §§5.8–5.9 examine their limits.
 
 [^validity-contracts]: Frozen `core/causal_alpha.py` split masks, `core/historical_evaluation_protocol.py` maturity/purge checks, `HistoricalData`/`FrozenNews`, and unified context providers/reserved-ID exclusions; CL021–CL022. F02 illustrates these rules without inventing a study calendar.
 [^validity-pairing]: Frozen `core/unified_execution_providers.py`, `core/unified_methods.py`, unified protocol/contracts and saved U08/U09 support; CL023. The immutable parent and same-repeat dependencies are part of the comparison contract.

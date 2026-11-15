@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: complete chapter draft.** Sections 5.1–5.9 report the locked evidence, mechanisms, case studies, sensitivity analyses and bounded answers to the research questions. Scientific review, final cross-chapter editing and typesetting remain pending.
+> **Draft status: complete chapter draft.** Sections 5.1–5.9 report the locked evidence, mechanisms, case studies, sensitivity analyses and bounded answers to the research questions. An internal argument-consistency review is recorded; independent scientific review, final language editing and typesetting remain pending.
 > This chapter reports locked historical evidence. It does not add new experiments or change the existing causal, execution or application acceptance statuses.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -83,7 +83,7 @@ The available component factorial/placebo evidence must not fill gaps in
 the context study. A matched retrieval-only/statistics-only/no-target/
 no-utility/student-versus-policy decomposition is absent from the unified
 response collection. Builder support in code is not a measured ablation.
-Sections 5.6–5.9 will distinguish observed effects, mechanisms and remaining
+Sections 5.6–5.9 distinguish observed effects, mechanisms and remaining
 evidence needs; the design specified here does not anticipate a favorable
 result or claim that adding historical context makes trading profitable.
 
@@ -1855,9 +1855,10 @@ The chapter supports an implemented, traceable comparison under explicit
 historical contracts and exposes where the proposed mechanisms are
 weakly exercised or confounded. Its empirical conclusions remain
 baseline-dependent, include negative financial outcomes and preserve
-the unresolved causal and execution limitations. Chapter 6 can therefore
-separate the engineering contribution from the additional evidence needed
-for a claim of trading advantage.
+the unresolved causal and execution limitations. Sections 6.1–6.2
+consolidate the same four answers and contribution types introduced in
+§§1.3–1.5; §§6.3–6.4 state the limits and evidence still required for a
+claim of trading advantage.
 
 [^unperformed-panels]: ED07 `deferred_panels`, completed intervention scopes ED05/37 and Chapter 4 method contracts; CL181, ledger §10.13. Implemented builders, offline tests and separate component panels are distinguished from matched hosted performance observations.
 [^validity-audits]: ED15 `native_rowwise_causal_gate`, `whole_system_causal_gate`, `quality_limits`, `provider_support.bank_audit`; ED04 exposure timing; ED08 historical acceptance; ED07 limitations and snapshot cold receipt in ledger §3.4; CL182–CL186, ledger §10.13. Prior receipts are cited within their scope, not described as suites rerun during writing.

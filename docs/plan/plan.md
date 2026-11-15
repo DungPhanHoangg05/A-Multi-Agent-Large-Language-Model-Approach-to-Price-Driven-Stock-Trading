@@ -22,7 +22,7 @@ phụ trách. [Ví dụ xuyên suốt EX01](../../thesis/evidence.md#7-ví-dụ-
 chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối nguồn
 đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
 [Khung sáu chương](../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
-đã có tiêu đề/placeholder tiếng Anh và quy ước dùng sổ bằng chứng chung.
+đã đủ bản nháp nội dung tiếng Anh và dùng sổ bằng chứng chung; phần đầu/phụ lục, rà soát và dàn trang cuối tiếp tục ở P7–P10.
 P2 đã có [bản nháp Chương 3 §3.1–§3.7](../../thesis/chapters/03_background.md),
 từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
 kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
@@ -33,7 +33,7 @@ ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có 
 EX01 kết thúc bằng outcome sau barrier, giữ net loss và giới hạn causal.
 G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biện ngoài/dàn trang cuối.
 UI/F11 vẫn PENDING. **P4 và P5 đã đủ bản nháp Chương 5 và Chương 2**, kèm nguồn/bảng/bibliography đã đối soát.
-**P6/T54–T57:** Chương 1 và Chương 6 đủ bản nháp; còn T58 đối soát toàn mạch và tự kiểm G3 nội bộ.
+**P6/T54–T58:** P6 đủ bản nháp Chương 1/6 và đối soát lập luận; G3 tự kiểm nội bộ đạt đúng nguồn T36–T58, chưa review ngoài/dàn trang cuối.
 P7 trở đi, phần đầu/phụ lục, rà soát khoa học và dàn trang cuối còn việc.
 Chỉ viết/đối soát nguồn; Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING không đổi.
 Bản xem hai

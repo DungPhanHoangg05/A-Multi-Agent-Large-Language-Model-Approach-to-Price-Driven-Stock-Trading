@@ -75,13 +75,14 @@ not assume a successful trading strategy.
 
 ## 1.2. Problem statement
 
-For a stock and a daily decision cutoff \(t\), the system receives a
+For a stock and a daily decision cutoff $t$, the system receives a
 price/volume history and the analysis resources assigned to its experimental
 branch. The intended point-in-time input contains price rows dated no
-later than \(t\). News is admitted only with an eligible recorded
-publication date no later than \(t\); undated or unavailable news does not
-become an observed neutral opinion. Historical examples must have
-completed their outcome window strictly before \(t\). An example that is
+later than $t$. News requires both a recorded publication
+date and protocol-defined availability no later than $t$; a publication
+date alone is insufficient. Undated or unavailable news does not become
+an observed neutral opinion. Historical examples must have
+completed their outcome window strictly before $t$. An example that is
 still open at the cutoff cannot supply a known outcome. Fitting periods,
 resource versions and the construction of earlier feature rows require
 additional checks beyond this outer input cutoff.
@@ -109,8 +110,8 @@ flowchart LR
     U["Held-out prices at t+1 through t+3"] -->|evaluation only| E
 ```
 
-Under the common evaluator, LONG enters at \(Open(t+1)\) and exits at
-\(Close(t+3)\): three observed trading sessions, not three calendar days.
+Under the common evaluator, LONG enters at $Open(t+1)$ and exits at
+$Close(t+3)$: three observed trading sessions, not three calendar days.
 Brokerage of 0.25% and slippage of 0.10% apply on each leg. The resulting
 candidate-LONG net return defines an **UP** label when strictly positive
 and **DOWN** otherwise, including zero. These labels ask whether the
@@ -163,16 +164,11 @@ the comparison column specifies the intended unit of interpretation.
 | **RQ3.** How do Fact Anchor, MT-BICL and the utility policy affect final actions? | Explain how the combined revision path changes actions through the Common → Fact Anchor → MT-BICL bridge. | Sections 5.7.5 and 5.8.2: proposals, fact assertions, eligibility, bypasses, accepted/rejected changes and utility traces. No separate student, target-task or utility benefit is identified. |
 | **RQ4.** Which temporal, economic and operational contracts are supported by evidence, and which limitations remain? | Audit temporal, economic and operational requirements against the scoped records and receipts. | Sections 5.1, 5.3 and 5.8–5.9: cutoff/maturity, canonical labels/P&L, shared inputs, prompts, retry/checkpoints and cold replay. This is a contract-to-evidence audit; failures and uncertified paths remain explicit. |
 
-For RQ1, a numerical control is informative about the performance of its
-own rule, but does not isolate the language model's factor selection.
-For RQ2, comparing an extension with Common and with Native is necessary
-because those baselines differ in alpha projection and instructions.
-For RQ3, the final policy action can differ from the raw reply; an action
-agreement alone cannot identify which internal mechanism mattered.
-RQ4 therefore complements the performance questions by asking whether
-the recorded predictions and outcomes have the claimed temporal,
-economic and operational interpretation. Table B09 in §5.9 and §6.2
-return to these same questions with bounded answers.
+The questions move from the combined system to historical context, then
+to action resolution and the validity of the comparison itself. Chapter 3
+defines their common economic and temporal terms; Chapter 4 specifies
+the implementations. Chapter 5 keeps the two studies separate before
+Table B09 (§5.9.3) and §6.2 return to these questions with bounded answers.
 
 ## 1.4. Challenges and boundaries
 

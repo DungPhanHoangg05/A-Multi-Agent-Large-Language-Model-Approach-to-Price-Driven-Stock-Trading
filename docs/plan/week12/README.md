@@ -478,6 +478,12 @@ Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng 
 
 **T57 — `docs/thesis-limitations-future-work`:** hoàn tất §§6.3–6.4/CL227–CL230. Giới hạn giữ causal/provenance/exposed dependence, sparse context/missing ablations và execution/UI. Năm ưu tiên nêu đúng bằng chứng cần thêm; causal repair/new-study không viết lại frozen results, prospective/UI/portfolio không coi đã làm. Chương 6 đủ bản nháp; đối soát nguồn/links/footnotes/spec/diff PASS, không suite hoặc thực nghiệm mới.
 
+**T58 — `docs/thesis-narrative-consistency`:** đối soát chuỗi §§1.1–1.5 → §2.7 → §§3.1–3.2/3.6–3.7 → §§4.1/4.5–4.10 → §§5.1–5.9/B09 → §§6.1–6.4; CL231–CL232/sổ §12.5 giữ ma trận. Chỉnh chuyển đoạn Chương 3/5, dẫn mục đã có, làm rõ news availability theo protocol ở §1.2, rút định nghĩa và diễn giải RQ lặp. Cùng title direction, bốn RQ nguyên văn, bốn contribution types, hai studies/controls/estimators riêng và mọi giới hạn; bảng/công thức/số liệu/pseudocode nguồn không đổi.
+
+**P6/T54–T58 hoàn tất bản nháp và đối soát lập luận. G3 tự kiểm nội bộ đạt theo nguồn T36–T58**, không là duyệt giảng viên/hội đồng hoặc nghiệm thu runtime/triển khai. Native FAIL, whole-system NOT_CERTIFIED, UI/F11 PENDING; P7–P10, review ngoài và typesetting cuối còn việc. Đã kiểm 84 spec bất biến, checklist, RQ/title, citation/footnote/links/anchors và diff; đối soát nguyên byte nguồn tại §12.3, không suite hoặc nghiên cứu mới. Không sửa code/runtime/test/config/schema/input/model/archive/receipt/root README hoặc bìa, không tạo PDF toàn văn.
+
+**Số kiểm P6 cuối:** 84 đặc tả bất biến; CL001–CL232 liên tục; 117 footnote/6 chương; 777 liên kết local và 401 anchor hợp lệ; 22 bibliography entries giữ nguyên. Bốn RQ nguyên văn và title/covers metadata khớp; số tóm tắt v1/bridge/policy/BA đối chiếu nguồn đã khóa. Chỉ 9 file Markdown được sửa; Chương 2/4, mọi bảng/math/code block Chương 2–5 và toàn bộ code/runtime/asset/receipt giữ nguyên. Không chạy suite theo phạm vi tài liệu.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

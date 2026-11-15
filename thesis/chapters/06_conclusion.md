@@ -21,13 +21,12 @@ bounded Bayesian count summaries, conditional or alternative priors,
 and numerical historical tasks for MT-BICL. The MT path combines a
 factual anchor, a numerical student/teacher resource, a hosted proposal
 and a utility-based revision policy. Its final action can retain the
-anchor even when a new proposal is present. Historical multi-task
-datasets and specialized analysis agents therefore have distinct roles;
-neither term is a substitute for the other.
+anchor even when a new proposal is present. Section 4.8 details the numerical
+context and its interface with the hosted decision stage.
 
-The common economic contract enters LONG at the next session's open,
-exits at the third following session's close and charges brokerage and
-slippage on both legs. SHORT maps to CASH. Forecasts, policy actions and
+The common economic contract is the candidate-LONG rule defined in §3.2
+and introduced in §1.2, including the entry/exit schedule, two-sided costs
+and SHORT-to-CASH mapping. Forecasts, policy actions and
 future outcomes remain separate records, and paired context branches
 reuse the same upstream realization. These choices make the recorded
 comparisons inspectable; they do not resolve every inherited causal or
@@ -135,7 +134,7 @@ is supported by the implemented graph and component records;
 historical-context/policy design by the specified mechanisms and traces;
 evaluation/reproducibility by the paired accounting and scoped receipts;
 and empirical findings by the two bounded historical studies. The
-contribution types introduced in §1.5 survive with these limits. None
+contribution types introduced in §1.5 are supported within these limits. None
 requires turning a negative result into a trading advantage.
 
 [^conclusion-evidence]: This chapter synthesizes Chapter 5, especially B05a–b, B06a–e, the policy decomposition in §5.8.2 and B09. Evidence ledger §12.3/CL221–CL226 maps the answers to CL145–CL187 and the unchanged archived sources. No fitting, new model calls, resampling or execution replay is introduced.

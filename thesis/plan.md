@@ -94,7 +94,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T55 — DONE: [§§1.3–1.5](chapters/01_introduction.md#13-objectives-and-research-questions): bốn RQ nguyên văn outline và evidence map, giới hạn, bốn loại đóng góp có attribution và bố cục sáu chương; CL217–CL220/§12.2. Chương 1 đủ bản nháp; không nâng mức bằng chứng.
 - [x] T56 — DONE: [§§6.1–6.2](chapters/06_conclusion.md#61-summary-of-the-approach): phương pháp, bốn câu trả lời RQ và đóng góp cùng mức bằng chứng với B09/Chương 5; CL221–CL226/§12.3. Kiểm lại hash nguồn; không kết quả/LLM/fit/resampling mới.
 - [x] T57 — DONE: [§§6.3–6.4](chapters/06_conclusion.md#63-limitations): giới hạn material và năm ưu tiên có bằng chứng cần bổ sung; CL227–CL230/§12.4. Repair/ablation/tiền cứu/execution/UI vẫn là công việc tương lai version riêng, không ghi đè lịch sử.
-- [ ] T58 — Đối soát mạch lập luận và thuật ngữ toàn khóa luận.
+- [x] T58 — DONE: [§12.5](evidence.md#125-đối-soát-toàn-mạch-và-tự-kiểm-g3): đối soát title/RQ/attribution/đóng góp/kinh tế/temporal/policy/limits, chỉnh chuyển đoạn và định nghĩa lặp; CL231–CL232. P6 đủ bản nháp; G3 tự kiểm nội bộ đạt đúng phạm vi, chưa phản biện ngoài hoặc dàn trang cuối.
 
 #### Phần đầu và phụ lục — P7
 
