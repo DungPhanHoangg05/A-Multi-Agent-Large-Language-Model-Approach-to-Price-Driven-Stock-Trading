@@ -1261,6 +1261,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL030 | [B02, §4.2.2](chapters/04_proposed_system.md#422-component-inputoutput-contracts): interface/type/cutoff/output/consumer/failure | HOP_DONG_TRIEN_KHAI | Các source TIME/BG/SYS được dẫn ở §9.3 | 10 interfaces; bảng tóm tắt, schema đầy đủ phụ lục sau | Nội dung bảng đã viết; CSV/TeX dự kiến chưa xuất, không giả artifact đã có |
 | CL031 | [§4.2.3](chapters/04_proposed_system.md#423-working-state-versus-a-sealed-shared-snapshot): immutable bytes/copy/whitelist/query-target barrier | HOP_DONG_TRIEN_KHAI | SYS04 SharedSnapshot, SYS05 causal bridge, BG18 | Producer600 rows khác constructor≤600; prior labels cấp qua interface riêng | Validation/hash chỉ integrity; không chứng nhận semantics/causal hoặc final prompts đồng nhất |
 | CL032 | [§4.2.4](chapters/04_proposed_system.md#424-identity-and-explicit-absence-in-ex01): semantic shared hash và unavailable | DO_DUOC | EX01-S, tám forecast u0/r0 §7.2 | Shared hash e6c16…103 khác raw member/source/projection/membership | Kiểm nguyên byte/envelope/joins; không có observed neutral news tự tạo |
+| CL033 | [§4.3.1](chapters/04_proposed_system.md#431-indicator): priorities, counts/confidence và error-neutral paths | HOP_DONG_TRIEN_KHAI | BG01/BG02 frozen, §9.4 | 5 emitted entries; missing/error khác numeric zero nhưng có thể neutral vote | Không gọi 5 entry là 5 tín hiệu hữu hạn/độc lập hoặc confidence calibrated |
+| CL034 | [EX01 Indicator](chapters/04_proposed_system.md#431-indicator): 2 bullish/3 bearish/0 neutral, bearish-medium | DO_DUOC | EX01-S indicator_report | Tóm tắt tiếng Anh của báo cáo Việt nguyên byte | Full report khác fragment LLM thực thấy |
+| CL035 | [§4.3.6](chapters/04_proposed_system.md#436-decision): caps, budget, schema và action | HOP_DONG_TRIEN_KHAI | SYS02 frozen helpers/builders/schema | Native900/900/900/1200/600; integrated800/800/800/1100/500; prompt<6500 | Chars khác tokens; schema không xác thực văn xuôi; prior/MT chi tiết T32 |
+| CL036 | [EX01 projection](chapters/04_proposed_system.md#436-decision): heading mismatch bỏ count lines | DO_DUOC | EX01-S và Native/Common inputs.prepared.request.messages; SYS02, §9.4 | Raw3661; fragment899/798; prompt3699/4186 characters | Exact substring kiểm trong saved request, không tạo forecast/prompt mới |
+| CL037 | [EX01 proposal/action](chapters/04_proposed_system.md#436-decision): Native SHORT/high/RR1.5, Common LONG/high/RR2.5 | DO_DUOC | Raw.reply/policy hai forecast r0 §7.2 | LONG/SHORT khác LONG/CASH; confidence text, RR không phải order | Không nhận “short position” hoặc expected profit trong model prose là hành vi/outcome đã xác thực |
 
 Quy tắc điền bảng:
 
@@ -1527,3 +1532,18 @@ forecast r0; price/source/raw/projection/membership hash được giữ đúng v
 Source frozen đã bind ở TIME/BG/SYS, không thay bằng annotation TypedDict
 legacy khi runtime check có hợp đồng chặt hơn. Không sửa schema/runtime,
 không thu dữ liệu, gọi model, chạy suite hoặc build hình nguyên vẹn.
+
+### 9.4. Indicator và Decision cơ sở
+
+T18: đọc priorities `_classify_signals`, clean/round4, error-neutral và
+consensus/confidence; bản report EX01 có2/5 tăng,3/5 giảm,0/5 trung tính,
+bearish/medium. Kiểm schema base và helper distillation/caps của SYS02.
+Trích AST **chỉ** constants và `_distill_report/_cap_report`, áp trên report
+đã lưu rồi tìm exact fragment trong request archive; không gọi prompt
+builder/node/LLM hoặc replay nghiên cứu. Raw Indicator=3661 chars; heading
+không thuộc `_CONVERGENCE_HEADINGS`; Native fragment899, Common798, cả hai
+không giữ count lines2/5–3/5. Prompts archived3699/4186 chars. Đây là giới
+hạn thật của representation, không âm thầm sửa source hoặc thay prompt.
+Native request ID `a405af62-8faa-4d8c-bbcb-cee3f7bddb27`, Common
+`e9cd5100-0f68-4677-8ca5-84a08e41386c`; raw reply/policy khớp §7.5. Không
+dùng model prose làm chứng cứ short selling/expected realized profit.

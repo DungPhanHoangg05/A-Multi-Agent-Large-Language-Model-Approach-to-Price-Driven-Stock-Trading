@@ -85,6 +85,14 @@ duy nhất vẫn ở thesis/plan.md, không tạo receipt riêng.
   kiểm để nhận HTML anchors có sẵn; không sửa nội dung cũ để lấp lỗi tool.
   Không chạy suite/replay/API hoặc build lại hình không đổi.
 
+- **T18; §4.3.1/§4.3.6 và mở §4.3, CL033–CL037, sổ §9.4:** nhánh
+  `docs/thesis-indicator-decision`; viết priorities, clean/round/missingness,
+  vote/confidence, caps/schema và proposal/action. Phát hiện EX01 heading
+  mismatch trong distiller: count lines không tới Indicator fragment; ghi
+  đúng raw3661/fragment899–798/prompt3699–4186 chars. Helper string trích AST
+  khớp exact archived requests, không tạo forecast mới. Kiểm sources/case,
+  links/footnotes/84 đặc tả/diff PASS; không sửa runtime hoặc khóa nghiên cứu.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

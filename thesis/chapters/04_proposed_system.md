@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.2 have source-checked drafts and an overview figure.
+> **Draft status: partial chapter.** Sections 4.1–4.2 and the Indicator/Decision parts of 4.3 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -199,11 +199,50 @@ and image records will be kept alongside these limitations.[^input-snapshot]
 
 ## 4.3. The base multi-agent pipeline
 
-> **Not yet drafted.** Introduce the shared reports and the path to the base decision. For every role below, explain its purpose, admissible inputs, processing, outputs, consumer, missing-evidence/error behavior and inherited versus adapted elements.
+The base pipeline turns one observation window into complementary reports.
+Indicator provides numerical momentum/range summaries; Pattern interprets
+candlestick structure; Trend interprets support/resistance. Alpha and
+sentiment contribute different quantitative/textual context. Reports can
+disagree, and a majority vote does not guarantee profitability. Each component
+below is explained through its inputs, processing, outputs and limitations.
 
 ### 4.3.1. Indicator
 
-> **Not yet drafted.** Explain deterministic indicator calculation, priority rules, heuristic votes and missing values. Ground the explanation in the numeric input/report contract and EX01; distinguish computation from hosted inference.
+Indicator receives the 45-bar OHLCV dictionary, calls the five TA-Lib
+families in Section 3.3 and classifies them in Python. The historical
+`is_backtest=True` path returns the computed table and classification text
+directly. Optional live prose interpretation is a separate path, not an
+extra historical response or a recalculation of the votes.[^indicator-contract]
+
+The rule order matters. This table summarizes usable numerical inputs;
+initialization and edge handling remain bound to the frozen source.
+
+| Family | Classifier priority |
+| --- | --- |
+| MACD | Recent upward/downward MACD–signal crossover first; otherwise histogram sign and strengthening/contraction. With insufficient crossover history, available histogram sign is used. |
+| RSI | ≥70 bearish; ≤30 bullish; otherwise ≥55 bullish and ≤45 bearish. Inside (45,55), compare latest with third-last available value when present. |
+| ROC | Above +0.5% bullish, below −0.5% bearish, otherwise neutral. This is ROC's ten-bar change, not candidate-LONG net return. |
+| Stochastic | Recent %K/%D crossover first; otherwise %K≥80 bearish, %K≤20 bullish, then the available relation between %K and %D in the middle range; otherwise neutral. |
+| Williams %R | ≥−20 bearish, ≤−80 bullish; in the middle compare latest with third-last available value. Insufficient history leaves neutral. |
+
+The classifier counts bullish, bearish and neutral entries. A dominant
+direction with three votes has medium confidence, increased to high at
+four or more; a smaller directional majority is low confidence and a tie
+is mixed/low. These are heuristic agreement labels, not probabilities.
+The denominator counts emitted classifications, not independent observations.
+
+Finite zero is retained as a value; missing/nonfinite values are filtered,
+and retained values are rounded to four decimal places by the classification
+helper. Its last-value comparisons use the cleaned sequence, so availability
+at the original last row cannot be inferred merely from a returned number.
+Some error or insufficient-data paths emit neutral classifications with an
+error/missing annotation, and these entries can enter the summary. Neutral
+therefore does not certify a successfully observed neutral market signal.
+
+In EX01, MACD, Stochastic and Williams %R are bearish; RSI and ROC are
+bullish. The full saved report records 2/5 bullish, 3/5 bearish, 0/5 neutral
+and bearish/medium consensus. This is an English presentation summary of
+the Vietnamese archive, not a guarantee that every line reached Decision.
 
 ### 4.3.2. Pattern
 
@@ -223,7 +262,59 @@ and image records will be kept alongside these limitations.[^input-snapshot]
 
 ### 4.3.6. Decision
 
-> **Not yet drafted.** Explain report condensation, evidence priorities, the structured response and proposal-to-action mapping. Show how a base proposal is formed without assuming one hosted call per named role; keep confidence separate from a calibrated probability.
+Decision synthesizes report text under a declared profile; it does not
+recompute indicators or read future prices. Its compact historical request
+states the LONG/CASH economic contract, with Trend/Pattern for direction
+and timing, Indicator for momentum confirmation, Alpha for quantitative
+evidence and sentiment at the lowest priority. These instructions do not
+prove that every response obeys them. Native/Common projections and
+instructions are separated in Section 4.4.[^decision-contract]
+
+Deterministic helpers distill each report and enforce character caps. Alpha
+condensation retains its leading table and final summary when the expected
+separators exist; sentiment removes the article-list/prose tail. Indicator
+condensation searches for recognized convergence headings. If none matches,
+generic capping keeps leading/trailing portions with a truncation marker,
+potentially dropping meaningful middle content.
+
+| Report | Native/general cap | Integrated backtest cap in the common base builder |
+| --- | --- | --- |
+| Trend / Pattern / Indicator, each | 900 characters | 800 characters |
+| Alpha | 1,200 characters | 1,100 characters |
+| Sentiment | 600 characters | 500 characters |
+
+The complete backtest prompt must be strictly below 6,500 characters; the
+historical-prior prefix has its own 600-character bound. Characters are not
+tokens. A final assembled-prompt check is still necessary. Prior/MT wrappers
+and schemas will be explained separately, rather than assumed to have the
+base request's shape.
+
+**Observed EX01 projection limitation.** Its full Indicator report has 3,661
+characters, but its summary heading does not match the frozen distiller's
+convergence headings. The Native/Common Indicator fragments consequently
+use head/tail truncation and contain 899/798 characters. The 2/5–3/5 count
+lines are absent from these fragments. The exact fragments occur in the
+archived requests, with full prompt lengths 3,699/4,186 characters. These
+are measurements of saved requests, not new forecasts. The evidence does
+not support saying that Decision saw the entire numerical summary.
+
+The base structured output contains binary `decision`, `forecast_horizon`,
+textual `confidence`, `risk_reward_ratio` constrained to [1,5], evidence
+for/against and justification. Confidence is not a calibrated probability;
+R:R is not an executable order or a validated target-price estimate.
+Schema/binary parsing validates output form. Unrecoverable direction/schema
+or transport failures are surfaced by the execution contract, not replaced
+with a newly invented valid SHORT/CASH response.
+
+At EX01 repeat 0, Native returned SHORT/high stated confidence/R:R 1.5;
+Common returned LONG/high stated confidence/R:R 2.5. SHORT executes as CASH.
+The Native prose uses “short position”, but this does not change execution.
+Common's expected-profit explanation is also a model claim, not a verified
+outcome. Proposals, final actions, request IDs and later realized results
+remain separate records.
+
+[^indicator-contract]: Frozen Indicator `_compute_all_indicators/_classify_signals/_clean/create_indicator_agent`, BG02, and toolkit BG01. EX01-S preserves the full report; CL033–CL034 map priorities, missingness and the translated case summary.
+[^decision-contract]: Frozen Decision SYS02, `TradeDecisionOutput`, `_distill_report/_cap_report`, compact builders and final guard; EX01 Native/Common request records. CL035–CL037 map schema and measured projection. Pure string-helper verification neither calls the model nor replays the study.
 
 ## 4.4. Native and Common foundations
 

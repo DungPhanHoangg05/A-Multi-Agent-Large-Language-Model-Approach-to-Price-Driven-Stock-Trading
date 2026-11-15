@@ -45,7 +45,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 - [x] T16 — DONE: [§4.1](chapters/04_proposed_system.md#41-system-overview-and-one-decision-walkthrough), mục đích/luồng toàn hệ và mở EX01 trước outcome. F03 có TikZ/PDF/PNG đã kiểm, tách offline/numerical/hosted/policy/evaluation và thứ tự chạy thật; CL026–CL028 có nguồn, chưa nhận hoàn tất các mục phương pháp còn lại.
 - [x] T17 — DONE: [§4.2](chapters/04_proposed_system.md#42-input-preparation-and-shared-state), nguồn/cửa sổ/missingness, B02 hợp đồng, state/shared/context riêng và hash EX01. CL029–CL032 có nguồn; bảng hiện nằm trong Markdown, chưa xuất bảng LaTeX hoặc chứng nhận dữ liệu/causal toàn hệ.
-- [ ] T18 — Giải thích Indicator và đường Decision cơ sở.
+- [x] T18 — DONE: [Indicator/Decision §4.3](chapters/04_proposed_system.md#43-the-base-multi-agent-pipeline), priorities/vote/missingness, distillation/caps, base schema và LONG/CASH; CL033–CL037 có nguồn. EX01 count lines bị cap khỏi Indicator prompt fragment, đã ghi rõ thay vì giả toàn summary tới LLM; không sửa runtime/forecast frozen.
 - [ ] T19 — Giải thích Pattern/Trend bằng biểu đồ có chú thích.
 - [ ] T20 — Giải thích xây dựng, lựa chọn và giới hạn Alpha.
 - [ ] T21 — Giải thích nguồn, tổng hợp và thiếu sentiment.
