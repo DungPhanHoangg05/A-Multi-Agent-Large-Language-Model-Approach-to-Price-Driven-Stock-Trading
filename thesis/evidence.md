@@ -1333,6 +1333,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL100 | [EX01 projection](chapters/04_proposed_system.md#485-context-projection) | DO_DUOC | U08 MT aux.branch/projection/request, U06 context; §9.18 | 14 rows/4 exemplar, prefix437/request4586, summary/count/mean/age/code | English translation không là request gốc; query không y/r_net |
 | CL101 | [Input/schema/budget](chapters/04_proposed_system.md#485-context-projection) | HOP_DONG_TRIEN_KHAI | BG18/SYS42/SYS18; U08; §9.18 | Six family rows, fact/anchor/projection guards; causal content card | Short content digest khác proof; C2/A/B bypass không có prompt quan sát |
 
+| CL102 | [B03/F08](chapters/04_proposed_system.md#491-eight-roles-on-one-shared-parent) | HOP_DONG_TRIEN_KHAI | SYS44–SYS46/BG18; §9.19 | Eight roles, registry dependencies và fallback, shared u0 | Shared input khác forecast dependency; Fact Anchor là role dependency |
+| CL103 | [Order/repeats](chapters/04_proposed_system.md#491-eight-roles-on-one-shared-parent) | HOP_DONG_TRIEN_KHAI | SYS45–SYS46; U08 EX01; §9.19 | ordered_branches(3i+r), topo/rotation/Native insertion; output map mới mỗi repeat | Slot/response/HTTP khác nhau; không làm lại upstream |
+| CL104 | [A01–A03](chapters/04_proposed_system.md#492-algorithms-and-outcome-barrier) | MINH_HOA | BG16/BG17/BG18/SYS46/SYS47; §9.19 | PIT context, method/policy và paired evaluation pseudocode | Không source replacement/new run; resource fit offline; exposure cũ không biến mất |
+| CL105 | [EX01 barrier](chapters/04_proposed_system.md#492-algorithms-and-outcome-barrier) | DO_DUOC | U08 24 prepare/forecast slots + shared/outcome; §9.19 | All timestamp order, parent digests, same-repeat deps; r0 five replies/three bypass | Không cold replay hoặc nâng Native FAIL/whole-system NOT_CERTIFIED |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -1602,6 +1607,10 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS41 | `core/mt_bicl_replica_metrics.py` | `7548b420869f04ccde35e6c3734c77605164e80c44b710c332d36bf94ff65010` | Live đồng nhất byte |
 | SYS42 | `core/mt_bicl_decision.py` | `2c02c0c9886a4f556444003d5fe39a2c0165eb3710318b82d9eb4e43e4d4c435` | Live đồng nhất byte |
 | SYS43 | `core/mt_bicl_context.py` | `cf61434f719b43fb908711fd17972fe33ef6db3c3031df2f69671980f0e38c1e` | Live đồng nhất byte |
+| SYS44 | `core/variant_registry.py` | `30067f05c3b59c8fc3a44bdc3cd55f9adeb3796b21ee2b39c129355781938ae8` | Live đồng nhất byte |
+| SYS45 | `core/unified_protocol.py` | `5ae2bf413afc257c49c441517e828337e9cc7a41fdf0d9974cf9d29b9a302109` | Live đồng nhất byte |
+| SYS46 | `core/unified_live/execution.py` | `2bc419ccada9b67810201a78b462a9b93c85d57f13a3d43bd4c8957ccc66272c` | Live đồng nhất byte |
+| SYS47 | `core/unified_experiment.py` | `a4f2e2859ba4a32a3c6961cfd9c430f5d4b7594e4226d4872e94f18a6b450cd0` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -2103,3 +2112,13 @@ Hash sản phẩm F07_action_policy (source chuẩn hóa LF; PDF/PNG nguyên byt
 ### 9.18. Projection, schema và prompt đã lưu
 
 T32; CL098–CL101. SYS43 là core/mt_bicl_context.py frozen; BG09/SYS42/SYS18/BG18 giữ đúng builder. U06 provider EX01 raw hash 64e5…07c7 (§9.14) nối full membership 9ed7…fcb4 với U08 MT. Kiểm số học summary 5/4/2/3, wins4/0/0/1, exemplar/rank/age và mean utility từ 5 gain/9 loss; không gọi project_context hoặc sampler. Prefix gốc 437 ký tự nằm nguyên trong request4586; các request Native/Common/v1/Anchor có 3699/4186/4556/3916 ký tự, C2/A/B null. Source card c2cf28588843ea3ee339bccec6e08f445495863de839d6fe727a5e9459a220c0 khớp trace/request; proof giữ riêng. Bản dịch tiếng Anh phục vụ trình bày, không nhận độ dài/hash của bản gốc. Kiểm nguồn, số liệu, 84 đặc tả, liên kết/footnote/diff; không sửa runtime, chạy suite/API/forward hoặc đánh giá mới.
+
+### 9.19. Tám vai trò, DAG và thuật toán ghép cặp
+
+T33; CL102–CL105. SYS44 registry/SYS45 order/SYS46 hosted runner/SYS47 evaluation đều khớp frozen/live theo bảng §9.1. B03 hoàn thiện ở Markdown; F08 tách shared-input relation với dependency giữa output. A01–A03 là pseudocode có nguồn, không chạy mới. Kiểm EX01 24 slot prepare/forecast, ba repeat, parent shared e6c16…a103, dependency Common/Anchor đúng output digest cùng repeat; mọi stage hoàn tất trước outcome bắt đầu 2026-11-10T06:56:01.840159Z. Request ID không trùng giữa các reply; r0 có năm response và ba bypass. Barrier không xóa donor exposure; Native FAIL/whole-system NOT_CERTIFIED giữ nguyên. F08 một trang180×155mm, PNG2000px, font/bbox/log/hash kiểm PASS. Không runtime/code/input changes, suite, cold replay, model hoặc API.
+
+Hash sản phẩm F08_variant_dag (source chuẩn hóa LF; PDF/PNG nguyên byte):
+
+- `F08_variant_dag.tex`: `702c693829cdfd547ad40db565a6ee4e1446c096b54af75a1ff563d57e1741f2`.
+- `F08_variant_dag.pdf`: `90741562af5cb5c24dd5e51e178448f636cf15278ddc2d4170ff0009c0a79517`.
+- `F08_variant_dag.png`: `0be37326955cc6b2e9f7bfd3d75cc5844384bad81d5591571276204e4bd946af`.

@@ -1964,7 +1964,155 @@ labels are joined only after the forecasting barrier in Section 4.9.
 
 ## 4.9. Variant orchestration and complete algorithms
 
-> **Not yet drafted.** Present the eight-role dependency table/DAG, one shared upstream realization per point and same-repeat dependency resolution. Distinguish forecast slots, bypasses and actual hosted calls. Write the three algorithms for PIT preparation, method/policy execution and paired forecasting followed by outcome/account joining.
+### 4.9.1. Eight roles on one shared parent
+
+The unified study schedules eight roles for every point/repeat, including
+Fact_Anchor as an explicit dependency role. It does not run eight separate
+upstream pipelines. One Indicator→Pattern→Trend realization, with the
+recorded alpha/sentiment preparation, forms an immutable shared snapshot
+$u0$ for that point. Variant-specific projections use deep copies and keep
+the shared parent digest. Native/Common differences in Section 4.4 remain
+declared transformations of this parent, not a reason to regenerate vision.
+
+**Table B03, complete unified-role interface.** Sections 4.4 and 4.7 provide
+the foundation and four-prior deltas. This table adds execution dependencies
+and the distinction between a new response and an inherited action.
+
+| Role / identifier | Added resources or context | Same-repeat forecast dependencies | No-request path / final-action rule |
+| --- | --- | --- | --- |
+| Native / `original_fix` | Native report profile | None | New base reply; raw action mapped to LONG/CASH |
+| Common / `original_common` | Common report profile/instruction | None | New base reply; supplies durable fallback/reference input |
+| Bayesian v1 / `bayesian_v1` | Mature signal bank, regime, v1 prefix | Common | Retrieval fallback inherits Common; otherwise mapped reply |
+| C2 | Signal bank, disjoint conditional statistics and ready examples | Common | Neither view ready: inherit Common; otherwise mapped reply |
+| A / `A_tp_pool` | T/P conditional pool | Common | Same readiness contract; otherwise mapped reply |
+| B / `B_semantic` | C2 evidence, alternative presentation | Common | Same readiness contract; otherwise mapped reply |
+| Fact Anchor / `Fact_Anchor` | PIT numerical fact packet | Common | Completed invalid assertions select Common; missing response is an error |
+| MT / `MT_BICL` | Facts, frozen task/student resources, utility projection | Common and Fact Anchor | Ineligible/invalid anchor: retain resolved reference without revision request; otherwise apply Section 4.8.6 |
+
+![F08. Shared parent and within-repeat dependencies](../assets/diagrams/F08_variant_dag.png)
+
+**Figure F08.** One shared upstream realization feeds eight roles; Common
+and Fact Anchor are durable outputs of the same repeat. Arrows among roles
+are forecast dependencies, distinct from the shared-input relation. Source:
+SYS44–SYS46/BG18. This DAG specifies prerequisites rather than elapsed time
+or performance. [PDF](../assets/diagrams/F08_variant_dag.pdf) ·
+[TikZ source](../assets/diagrams/F08_variant_dag.tex).
+
+The runner counterbalances order subject to this DAG. For global point
+index $i$ and repeat $r$, it uses `ordered_branches(3i+r)`: rotate the six
+Common-dependent tail priorities every eight indices, select only roles
+whose dependencies are complete, and insert Native at position $(3i+r)
+\bmod8$. Native has no Common prerequisite. Common always precedes its
+dependents; Fact Anchor precedes MT. A dictionary of outputs is newly
+created for each repeat, preventing reuse of a different repeat's Common
+or anchor. A stage's parents bind the shared digest and exact dependency
+output digests.[^paired-orchestration]
+
+There are three Decision repeats conditional on one upstream realization.
+Eight roles therefore produce 24 forecast **slots** per point, even when
+some have no hosted request. A response is an actual completed model reply;
+an HTTP attempt includes retries and format repair. EX01 r0 has eight
+forecast slots, five Decision responses and three C2/A/B bypasses. A bypass
+keeps a provenance-bearing output but adds neither a response nor a new
+vision realization. Numerical controls such as always-LONG and always-CASH
+are evaluated separately and are not additional hosted roles.
+
+### 4.9.2. Algorithms and outcome barrier
+
+The following pseudocode summarizes the frozen implementation contracts.
+It describes logical operations rather than replacing the source with a
+new runner. Resource fitting is a separate offline step. Smoke/control
+execution does not open a research query payoff.
+
+<a id="alg:pit-context"></a>
+**Algorithm A01. Construct admissible historical context.**
+
+```text
+Input: point (symbol, cutoff), registered fold/reserved IDs,
+       authenticated price/news prefixes and frozen resource identities
+Output: shared-input data, fact packet, signal-prior evidence,
+        numerical context/utility with explicit support status
+1. Validate source identity, observed calendar and horizon contract.
+   Select only price rows through cutoff and admissibly dated news.
+   Preserve missingness; reject invalid required inputs.
+2. Construct current reports/images from the allowed analysis window.
+   Retain full-source, window and report/projection identities separately.
+3. For signal priors: admit same-stock mature bank episodes with exit<cutoff;
+   apply the relevant regime/matching/statistics/selection/readiness rules.
+   Keep population, selected and displayed counts separate.
+4. For numerical tasks: use the pre-query fold pool and reserved-ID exclusion;
+   enforce block/partition boundaries and strict historical exit cutoff.
+   Use the frozen scaler, bucket filter and task/observation ranking.
+5. Create the unlabeled query vector and numerical fact packet from PIT data.
+   Validate complete membership, uniqueness, dates and source hashes.
+6. Obtain frozen student probability and teacher/bootstrap utility as specified
+   in Sections 4.8.3-4.8.4; record support reasons without manufacturing data.
+7. Return artifacts and hashes; never attach query entry/exit prices or label.
+   Required artifact/model/provenance failure raises instead of returning CASH.
+```
+
+The runner may prepare numerical resources on demand and reuse them across
+repeats; A01's grouping does not imply a refit or a new stochastic upstream
+call for every role. The signal-bank and numerical-context boundaries
+remain different, as Section 4.5 explains.
+
+<a id="alg:method-policy"></a>
+**Algorithm A02. Prepare one role and resolve its final action.**
+
+```text
+Input: shared snapshot, role, repeat, durable same-repeat dependencies
+Output: durable forecast/raw/policy record
+1. Validate the role/profile and prerequisite output digests.
+2. Prepare a deep-copied role projection, request/schema and auxiliary proof;
+   validate the final prompt budget and persist preparation before invocation.
+3. If preparation prescribes no request, require raw=None:
+   signal-prior fallback inherits Common; MT bypass retains resolved anchor.
+4. Otherwise invoke through durable transport with the stage attempt identity;
+   retain actual request/response identity and raw bytes before parsing.
+   Schema repair/retry follows Section 4.10, not an action-agreement rule.
+5. Resolve base action, Fact Anchor or MT revision using its declared policy.
+   Keep raw proposal, validity, eligibility, bypass, reason and action separate.
+6. Validate the record against request, shared parent and dependencies;
+   persist completion/hash. On technical uncertainty keep the incomplete stage.
+```
+
+<a id="alg:paired-evaluation"></a>
+**Algorithm A03. Execute paired forecasts, then join outcomes.**
+
+```text
+Input: locked cohort, resources, run identity and three-repeat protocol
+Output: completed forecasts, separate outcomes and method/account summaries
+1. For each planned point, resume or create its one durable shared u0 snapshot.
+2. For r=0,1,2, start an empty dependency-output map.
+   Visit all eight roles in the registered counterbalanced topological order;
+   run/resume A02 and put each complete output in that repeat's map.
+3. Require all 24 forecast slots complete and validated for the point.
+   Only then invoke the research outcome oracle and persist its separate stage.
+   Smoke/control stages retain an explicit no-query-payoff marker instead.
+4. Join saved final LONG/CASH actions to the canonical LONG payoff and net label.
+   Preserve source identity, units, fixed Open(t+1)/Close(t+3) and two-way costs.
+5. Rebuild chronological accounts separately by method/repeat/symbol/fold,
+   validating nonoverlap and the registered support before compounding.
+6. Compute classification, account and paired summaries on their defined units;
+   distinguish forecast slots from distinct market points and accounts.
+```
+
+The logical barrier prevents outcome access during this forecasting run.
+It does not erase previous donor-data exposure or prove that the entire
+study is a previously untouched causal holdout. The Native row-wise audit
+FAIL and whole-system NOT_CERTIFIED limitations remain those of the locked
+evidence. Pairing controls current upstream variation; it does not remove
+all uncertainty or isolate the student from the rest of the pipeline.
+[^paired-algorithms]
+
+For EX01 the archived outcome stage lists the 24 required slots. Each
+forecast/prepare stage is complete before the outcome starts, with Common
+and anchor dependencies matching the corresponding repeat's output hash.
+Section 4.10 returns to these records to explain recovery and the final
+outcome, without putting that outcome in A01 or the hosted prompt.
+
+[^paired-orchestration]: SYS44 registry, SYS45 `ordered_branches`, SYS46 hosted runner and BG18 method adapters; CL102–CL103, ledger §9.19. The fixed research protocol has one realization/three repeats; component Full/Base remains a separate study.
+[^paired-algorithms]: BG16/BG17 providers, SYS46 hosted barrier and SYS47 outcome/evaluation functions; CL104–CL105. A01–A03 are source-bound pseudocode, not newly executed algorithms. EX01 validation reads timestamps/dependency hashes from the archive only.
 
 ## 4.10. Prompt limits, recovery and application
 

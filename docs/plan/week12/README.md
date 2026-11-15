@@ -256,6 +256,15 @@ cứu hoặc chạy lại suite. Checklist duy nhất tiếp tục ở thesis/pl
   PASS. Không dựng prompt hoặc chạy renderer/model; chỉ đọc nguồn, tính số
   từ dữ liệu đã lưu. Không chạy suite vì không đổi hành vi/runtime/input.
 
+- **T33; §4.9, B03/F08/A01–A03, CL102–CL105, sổ §9.19:**
+  `docs/thesis-paired-orchestration`; bảng tám role, DAG và ba thuật toán
+  PIT/context, method/policy, paired forecast→outcome/account. Kiểm registry
+  frozen, EX01 24 prepare/forecast: shared hash, dependency đúng repeat,
+  timestamp trước outcome, UUID response duy nhất; r0 năm reply/ba bypass.
+  F08 render/xem và kiểm font/bbox/log/hash; sửa đường nối/nhãn trước chốt.
+  Không chạy runner/replay/API/suite vì chỉ đổi tài liệu/hình; giới hạn causal
+  giữ nguyên, bảng LaTeX toàn luận văn thuộc giai đoạn dàn trang sau.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
