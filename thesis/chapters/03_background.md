@@ -1,7 +1,7 @@
 # Chapter 3. Theoretical Background and Problem Formulation
 
-> **Draft status: partial chapter.** Sections 3.1–3.4 have source-checked drafts.
-> Sections 3.5–3.7 remain placeholders; the chapter has not undergone final manuscript review.
+> **Draft status: partial chapter.** Sections 3.1–3.5 have source-checked drafts.
+> Sections 3.6–3.7 remain placeholders; the chapter has not undergone final manuscript review.
 
 Writing aids: [chapter outline](../outline.md#chapter-3-theoretical-background-and-problem-formulation), [terminology and notation](../evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -410,7 +410,99 @@ regenerated to write this explanation.[^hmm-implementation]
 
 ## 3.5. Bayesian summaries of historical evidence
 
-> **Not yet drafted.** Derive Beta–Bernoulli updates, posterior means and credible intervals, then explain disjoint background shrinkage. Define every count and denominator, separate population support from displayed examples, and add an explicitly illustrative posterior calculation with appropriately limited interval interpretation.
+### 3.5.1. Counts and a conjugate update
+
+A binary historical event may be modeled as $Y_i\mid\theta\sim
+\operatorname{Bernoulli}(\theta)$. For $n$ conditionally independent events
+with $s$ successes, the likelihood is proportional to
+$\theta^s(1-\theta)^{n-s}$. Multiplying by a
+$\operatorname{Beta}(a,b)$ prior gives
+
+$$
+\theta\mid Y_{1:n}\sim\operatorname{Beta}(a+s,b+n-s),\qquad
+E[\theta\mid Y]=\frac{a+s}{a+b+n}.
+$$
+
+This follows by collecting powers in the Beta density. The
+[Stan conjugate Bernoulli example](https://mc-stan.org/learn-stan/case-studies/mle-params.html)
+illustrates this update for a uniform prior. The event and denominator must
+be stated: a win rate counts profitable candidate LONG cycles, whereas a
+bull-trap rate is conditional on the specified bullish reports. Those
+denominators need not match.
+
+**Illustrative:** a Beta(2,2) prior and seven successes in ten trials yield
+Beta(9,5), mean $9/14\approx0.642857$, rather than the raw rate 0.7.
+Using Beta quantiles gives an equal-tailed 95% interval of approximately
+[0.385738,0.861421]. These are invented counts for explaining inference,
+not a result for a stock or method.
+
+### 3.5.2. Conditional evidence with a disjoint background
+
+The implemented conditional prior first forms an eligible same-stock,
+same-regime historical population $\mathcal P$ at the query cutoff. A signal
+condition defines $\mathcal C\subseteq\mathcal P$; the background is
+$\mathcal B=\mathcal P\setminus\mathcal C$. These sets are disjoint. For
+metric $h$, write $(s_{c,h},n_{c,h})$ and $(s_{b,h},n_{b,h})$ for success and
+support counts under that metric's event definition.
+
+The plug-in background mean and prior shapes are
+
+$$
+\mu_{b,h}=\frac{s_{b,h}+1}{n_{b,h}+2},\quad
+a_h=\tau\mu_{b,h},\quad b_h=\tau(1-\mu_{b,h}),
+$$
+
+where $\tau=4$ is the registered shrinkage strength. Only conditional counts
+enter the subsequent likelihood:
+
+$$
+\theta_h\mid\mathcal C,\widehat\mu_{b,h}
+\sim\operatorname{Beta}(a_h+s_{c,h},b_h+n_{c,h}-s_{c,h}).
+$$
+
+Thus the same conditional episode is not counted once in a whole-population
+prior and again as conditional data. Background observations influence a
+plug-in prior mean, not an additional likelihood term. This construction
+does not integrate uncertainty in the estimated background mean.
+With no background, the rule gives mean 0.5; with no conditional observations,
+the implementation reports NO_CONDITIONAL_HISTORY and leaves its conditional
+posterior fields unavailable rather than reporting an observed zero rate.
+[^bayes-implementation]
+
+**Illustrative:** take background support 18 with 11 successes and conditional
+support 4 with 3 successes. Then $\mu_b=12/20=0.6$, $(a,b)=(2.4,1.6)$ and
+the posterior is Beta(5.4,2.6), with mean 0.675. Its 95% interval is
+approximately [0.339435,0.928893]. Population support is 22; it is not the
+number of displayed examples. Despite having a computable posterior, this
+metric fails the registered minimum conditional support of five.
+
+### 3.5.3. Interval meaning, readiness and example counts
+
+For positive Beta shapes, an equal-tailed interval uses quantiles at 0.025
+and 0.975. The computational convention is documented by
+[SciPy's Beta reference](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.beta.html).
+It is a model-conditional credible interval for a historical event rate.
+It is not a net-return prediction interval, a confidence statement about
+an LLM explanation, or proof of calibrated query probabilities. Dependence
+between cycles, changing regimes and plug-in hyperparameters limit that
+interpretation further.
+
+Readiness adds engineering evidence requirements beyond obtaining a posterior.
+In the split gate, population support must be at least 20; a statistic needs
+conditional support at least five and interval width at most 0.75. Example
+readiness is checked separately using feature/scaler availability and
+qualified selections. Gate failure triggers the documented fallback path;
+it does not mean that a numerical posterior is zero or that a trade should
+automatically be CASH.[^bayes-implementation]
+
+Finally, $K_{\mathrm{ex}}\leq3$ bounds examples shown in a signal-prior prompt.
+It is neither $|\mathcal P|$ nor a metric-specific denominator. Bayesian v1
+reports empirical counts/rates from its eligible population; that display
+must not be silently described as the conditional shrinkage construction
+above. Counts, posterior estimates, displayed examples and action policy
+are distinct stages.
+
+[^bayes-implementation]: Frozen `core/prior_conditional_statistics.py`, `conditional_metric/compute_conditional_statistics`; `core/prior_quality_gate.py`, `THRESHOLDS/_readiness`; and `core/bayesian_retriever.py` for v1 counts/denominators. CL014–CL016 and source bindings are in the shared ledger. All numerical examples in this section are explicitly illustrative.
 
 ## 3.6. Multi-task context and utility
 

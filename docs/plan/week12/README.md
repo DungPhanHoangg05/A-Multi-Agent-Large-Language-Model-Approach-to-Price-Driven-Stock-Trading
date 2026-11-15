@@ -92,6 +92,13 @@ không tạo checklist hoặc receipt riêng.
   resource thực và hai regime EX01. Kiểm links/footnotes/diff/84 đặc tả PASS;
   không refit, chạy inference, suite hoặc API.
 
+- **T13; §3.5, CL014–CL016, sổ §8.5.4:** nhánh `docs/thesis-bayesian-evidence`;
+  Beta conjugacy, C/B rời nhau, plug-in background, interval/readiness/K và
+  hai ví dụ Illustrative. Source frozen/statistics/gate/retriever khớp
+  manifest; kiểm counts/quantiles bằng hàm thuần và SciPy. Đọc primary Stan
+  và SciPy; BDA3 quá lớn cho web nên không ghi đã đọc Gelman. Kiểm tài liệu
+  PASS, không tính lại prior study, chạy suite/replay/API/refit.
+
 ### Quan sát, chỉ số thời gian và timeline giao dịch
 
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`

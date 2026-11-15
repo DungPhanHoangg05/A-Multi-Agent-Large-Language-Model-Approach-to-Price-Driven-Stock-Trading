@@ -1242,6 +1242,9 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL011 | [§3.3.3](chapters/03_background.md#333-sentiment-and-missing-information): news score, availability, decay và unavailable | HOP_DONG_TRIEN_KHAI | TIME03 `FrozenNews`, EX01-S | Window90 ngày, minimum3, half-life30; date-only ngày sau | Đọc source/trace đã lưu; legacy NEUTRAL không phải tin quan sát |
 | CL012 | [§3.4.1–§3.4.2](chapters/03_background.md#341-latent-states-and-observed-features): HMM, features VN-Index, fitting/scaling/mapping/fallback | HOP_DONG_TRIEN_KHAI | Regime source frozen §8.6; Hamilton/Rabiner và hmmlearn official về khái niệm | 4 Gaussian diag states; log return/std20 ddof1/distances20/50/200 | Không fit; source default training range khác resource cutoff; giữ provenance hai nhánh EX01 |
 | CL013 | [§3.4.3](chapters/03_background.md#343-endpoint-inference-and-future-observations): endpoint filtering=smoothing với model cố định và prefix cắt đúng | DAN_XUAT | Rabiner1989 §III.A–B, `classify_regime` frozen | Chỉ posterior hàng cuối, không Viterbi hoặc hồi tố hàng trước từ chuỗi dài | Kiểm source và suy luận từ backward endpoint; không suy fit/model/scaler đã PIT chỉ vì data prefix đúng |
+| CL014 | [§3.5.1](chapters/03_background.md#351-counts-and-a-conjugate-update): Beta conjugacy và minh họa 7/10 | MINH_HOA | Beta density/algebra; Stan author case study; SciPy quantiles | Beta2,2→9,5; mean9/14; CrI [.385738,.861421] | Kiểm số học, có nhãn Illustrative; không phải nghiên cứu thị trường |
+| CL015 | [§3.5.2](chapters/03_background.md#352-conditional-evidence-with-a-disjoint-background): background plug-in rời C và toy posterior | HOP_DONG_TRIEN_KHAI | Conditional statistics frozen §8.6, ví dụ §8.5.4 | B=11/18,C=3/4,tau4→Beta5.4,2.6 mean.675; CrI [.339435,.928893] | Kiểm AST hàm thuần và quantile; không tích phân uncertainty background; zero-support giữ NA |
+| CL016 | [§3.5.3](chapters/03_background.md#353-interval-meaning-readiness-and-example-counts): CrI, support và K riêng | HOP_DONG_TRIEN_KHAI | Prior gate/retriever frozen §8.6 | Population≥20, conditional≥5,width≤.75; example readiness độc lập | Không suy gate giao dịch/CASH từ gate evidence hoặc interval coverage được hiệu chuẩn |
 
 Quy tắc điền bảng:
 
@@ -1372,6 +1375,18 @@ mapping/fallback và check training-prefix hash; nguồn EX01 §7 giữ cutoff
 2020-12-31 riêng với khoảng train cho phép trong module. Không fit, không
 chạy HMM inference hoặc đổi nhãn regime trong record nghiên cứu.
 
+#### 8.5.4. Counts, shrinkage và khoảng
+
+T13, 15/11/2026: đối chiếu `conditional_metric` và split gate; kiểm ví dụ
+Beta(9,5) và Beta(5.4,2.6) bằng SciPy `beta.ppf`, đối chiếu counts/mean bằng
+hàm thuần trích AST (không import retriever/graph). Tất cả counts ví dụ là
+Illustrative, không phân tích lại study. Đọc Stan author case study về Beta
+conjugacy và SciPy official về density/quantile. Web không mở được BDA3.pdf
+do vượt giới hạn dung lượng; **không** đánh dấu Gelman đã đọc hoặc viện dẫn
+nội dung sách chưa truy cập. Giữ ứng viên đó CHUA_DOC, dùng nguồn primary
+đã truy cập và phép nhân density trình bày rõ trong chương. Chưa cần chốt
+khóa citation mới vào bibliography cuối của T48.
+
 ### 8.6. Binding source nền tảng bổ sung
 
 Nguồn dưới được đọc từ `final_evidence_snapshot.zip` đúng byte/manifest,
@@ -1385,3 +1400,6 @@ tiện; các khác biệt UI được xác nhận ở §3 không thay nguồn ng
 | BG02 | `agents/indicator_agent.py` | `470fa5d1f4350180a23bfe40564cd6c02e00b8939cd2d90cad775776f74ee57b` | Live khác presentation; dùng member frozen, không suy hash live đồng nhất |
 | BG03 | `core/causal_alpha.py` | `6f52a344047c0e96139e389807161b7dcccfbb70e6bde13db99e9910dc4e47e6` | Live đồng nhất byte |
 | BG04 | `core/regime_detector.py` | `fba35472efafe4d5133db50d8ca24d4c57b5682960de2b8a2320a18bddf3be8b` | Live đồng nhất byte |
+| BG05 | `core/prior_conditional_statistics.py` | `7d5fbde8a9639d94026aa1b855e81db40f61d7ce3fb961284dfa21043cc9e534` | Live đồng nhất byte |
+| BG06 | `core/prior_quality_gate.py` | `00814586220357ba447ced38f91a8551edd2d0558a516fdaaed91929e48efdd5` | Live đồng nhất byte |
+| BG07 | `core/bayesian_retriever.py` | `0c71c4508e89355acb3430faee6c95ceea53e2657d3d696bce17b9ce519b8d98` | Live đồng nhất byte |
