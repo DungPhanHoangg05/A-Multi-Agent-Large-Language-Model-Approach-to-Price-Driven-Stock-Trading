@@ -21,7 +21,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 9. [Chương 3 — cơ sở lý thuyết](chapters/03_background.md): đã có bản nháp §3.1–§3.7, [F01](assets/diagrams/F01_trade_timeline.pdf)/[F02](assets/diagrams/F02_temporal_partitions.pdf) vector/source TikZ và ví dụ có nguồn hoặc nhãn Illustrative. Nguồn/claim đối soát tại §8 sổ chung; chưa phải bản đã qua rà soát khoa học, citation và bố cục cuối.
 10. [Chương 4 — hệ thống đề xuất](chapters/04_proposed_system.md): P3 đã đủ bản nháp §4.1–§4.10, gồm utility/policy, projection, bảng tám vai trò, ba thuật toán và luồng ứng dụng; kèm F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn. [Sổ chung §9](evidence.md#9-nguồn-giải-thích-hệ-thống-đề-xuất) giữ binding và tự kiểm G2 nội bộ. EX01 kết thúc bằng outcome sau barrier; UI/F11 vẫn PENDING. Chưa rà soát toàn văn, phản biện ngoài hoặc dàn trang cuối.
 
-11. [Chương 5 — thực nghiệm và thảo luận](chapters/05_experiments.md): T36–T46; Đã có §5.1–§5.8, kết quả/cơ chế/ca/độbền/tàinguyên cónguồn; T47/§5.9 còn tổnghợp threats/RQ, P4 chưa hoàn tất. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ nguồn/claim. Bảng Markdown chưa chuyển CSV/LaTeX; chưa rà soát toàn văn hoặc phản biện ngoài.
+11. [Chương 5 — thực nghiệm và thảo luận](chapters/05_experiments.md): T36–T47; P4/T36–T47 đã đủ bản nháp §5.1–§5.9, F09/F10 và B04/B05/B06/B07/B09. T48 trở đi, G3 toàn bộ, phụ lục, phản biện và dàn trang cuối còn việc; trạng thái nghiên cứu/ứng dụng không đổi. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ nguồn/claim. Bảng Markdown chưa chuyển CSV/LaTeX; chưa rà soát toàn văn hoặc phản biện ngoài.
 
 ## Hai trang bìa
 

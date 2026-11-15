@@ -1,7 +1,7 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Sections 5.1–5.7 cover design and both result collections. Section 5.8 is being completed; Section 5.9 remains in progress.
-> Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
+> **Draft status: complete chapter draft.** Sections 5.1–5.9 report the locked evidence, mechanisms, case studies, sensitivity analyses and bounded answers to the research questions. Scientific review, final cross-chapter editing and typesetting remain pending.
+> This chapter reports locked historical evidence. It does not add new experiments or change the existing causal, execution or application acceptance statuses.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -1704,4 +1704,161 @@ scope limits already reported.
 
 ## 5.9. Unperformed ablations and threats to validity
 
-> **Not yet drafted.** Identify missing matched ablations and limits involving native causality, input authentication, bank/query provenance, coverage, dependence, historical exposure, model contamination, sampling and execution assumptions. Distinguish numerical return discrepancies from label changes. Conclude with the research-question/observation/supported-answer/remaining-evidence table; do not fill it before reviewing the actual results.
+### 5.9.1. Interventions without a completed matched result
+
+The implementation contains more builders and research options than the
+eight hosted roles evaluated here. The completed component panel and the
+Common–Anchor–MT bridge do not fill those experimental gaps. Table B06h
+records what remains unmeasured so that method descriptions in Chapter 4
+are not read as evidence of isolated performance gains.[^unperformed-panels]
+
+**Table B06h. Missing matched interventions.** “Unperformed” refers to a
+matched hosted comparison in the locked historical-context collection,
+not a claim that no related code, offline check or separate component
+experiment exists. These are remaining research questions, not experiments
+conducted during thesis writing.
+
+| Intervention | Recorded status / related evidence | Effect not identified |
+| --- | --- | --- |
+| Random / recent / similarity / Bayesian retrieval, matched bank and budget | DEFERRED; zero matched hosted retrieval-ablation slots | Retrieval ranking and regime conditioning alone |
+| Signal-prior statistics only / examples only / no regime | DEFERRED; conditional methods have different readiness masks | Incremental value of examples, statistics or regime labels |
+| Plain_revision / no numerical prior | No matched hosted role; builders do not supply a response comparison | Added numerical historical context under the same revision interface |
+| No_utility / Utility_only | DEFERRED matched panel; combined MT policy and bridge observed | Isolated utility-policy performance effect |
+| No_target / Stats_only and student–teacher separation | DEFERRED matched MT panel; offline model evidence is separate | Target-task and student/teacher contributions to final trading actions |
+| Full-scale alpha / sentiment / placebo with matched prompt format | Separate nine-unit factorial and numerical panels only | 102-point isolated component effects without representation confounding |
+| Alternative horizons / prospective execution study | No L=5/10 or prospective live-fill result in this collection | Horizon optimization, live profitability or deployment acceptance |
+
+In particular, the four signal-prior branches differ in readiness,
+representation and content. Their aggregate comparisons do not isolate
+retrieval ranking or regime information while holding all other inputs
+fixed. Similarly, only four MT final slots differ from the anchor, but
+the study does not observe the alternate hosted outcomes required to
+attribute this pattern to the student, target context or utility gate
+separately. The numerical factor rules and small factorial panel answer
+their own narrower questions.
+
+### 5.9.2. Limits on causal, statistical and external validity
+
+**Temporal causality and provenance.** The recorded native row-wise
+causality gate is **FAIL**, and the whole-system status remains
+**NOT_CERTIFIED_HISTORICAL_EXPLORATORY**. Cutting the input dataframe at
+the query date does not ensure that every earlier feature row was
+constructed using only its own past. The Common projection addresses a
+specific alpha path; it does not certify all inherited inputs, news,
+memory features or Native behavior. The frozen result must retain this
+limitation rather than silently replacing its inputs with a repaired
+implementation.[^validity-audits]
+
+The signal bank and query prices have different recorded provenance.
+The audit reports numerical return differences above its threshold in
+**828 of 852 bank records**, with maximum absolute difference
+0.04298848884252138 pp. This is a return-value comparison, **not a count
+of 828 changed labels**. It does not establish that 828 forecast outcomes
+are wrong, and it does not justify retroactively relabeling the bank.
+The source manifest also records that the original raw signal journals
+are unavailable. Membership hashes prove which stored records were used;
+they do not independently authenticate how the original bank signals
+were generated. Transfer between these sources therefore remains an
+explicit limitation.
+
+The study reconstructs historical prices and news from stored vendor and
+cache material, rather than independently authenticated contemporaneous
+captures at every cutoff. An admissibility check on recorded dates is distinct from independent
+authentication that the same content and adjusted series were available
+at each historical decision. News content PIT is not certified, and
+79/102 points have unavailable sentiment under the recorded study flag.
+Missing sentiment is retained rather than treated as observed neutral
+news. Numerical fact assertions can be checked against a packet, but
+neither that check nor a chart's presence supplies independent financial
+ground truth for an agent's explanation.
+
+**Historical exposure and model uncertainty.** The six folds had already
+been examined during development. Analysis and case-selection rules
+disclosed after inference do not create an untouched holdout. The
+component queue freeze also occurred between its first and last requests;
+that timestamp cannot establish a fully prospective evaluation. The
+hosted model aliases do not supply an immutable served-weight revision,
+and the foundation model's training overlap with these historical periods
+is not established. Frozen local student/HMM weights and source hashes
+support offline traceability, but do not prove absence of foundation-model
+contamination or guarantee byte-identical future hosted replies.
+
+**Dependence, prompts and estimands.** Nine stocks and three Decision
+repeats do not multiply the six exposed temporal clusters into a large
+independent sample. Pairing removes avoidable differences in upstream
+inputs; it does not supply independent upstream realizations in the
+context study or eliminate cross-stock dependence. Descriptive bands
+depend on the saved resampling rules, as the L1/L2 difference illustrates.
+The small factorial panel has substantial undefined bootstrap support,
+and the numerical sign diagnostics rely on unverified symmetry and
+exchangeability. These constructions do not establish calibrated coverage,
+statistical power or a generalizable causal effect.
+
+Full/Base and Native/Common alter representation and instructions along
+with information. Component request order also includes forty paired
+order mismatches and nine groups spanning execution epochs; the records
+do not establish perfect counterbalancing. Comparisons across studies
+add different response collections, estimators, risk definitions and
+support. Consequently, neither a classification gain nor lower exposure
+can be translated into an isolated information effect, a stronger risk
+ratio or a profitable strategy by changing the reporting convention.
+
+**Sampling and market execution.** The nine-stock sample is purposive;
+complete point-in-time index membership and market representativeness
+are unresolved. BHN has the shorter eligible history already disclosed.
+Corporate actions, dividend treatment, adjusted prices and vendor volume
+units have not been independently authenticated for all venue/date
+combinations. Daily bars do not reproduce auctions, order-book queues,
+partial fills, market impact or actual borrowing/settlement services.
+The twelve scenarios are useful stress assumptions with fixed predictions,
+but zero execution-certified fills remain zero. Separate 50-million-VND
+accounts are not a validated shared-capital portfolio, and SHORT means
+CASH throughout. No conclusion extends to actual short selling,
+high-frequency execution or a different holding horizon.
+
+**Acceptance and reproducibility scope.** The historical U08 acceptance
+records 718 verified source pins, an observed maximum Decision request
+length of 4,750 characters including repair, and at most three HTTP
+attempts per execution for that profile. It also explicitly records that
+the suite was not rerun at that acceptance step. These observations
+support the specific recorded protocol and its prompt/retry accounting;
+they do not certify all future profiles or turn a guard into evidence
+that every external dependency was causal. The U09 cold-replay receipt
+supports offline artifact reproduction with zero new inference. It is
+not fresh hosted inference, prospective trading or proof of live
+execution quality.[^validity-audits]
+
+The live application retains the research computation according to the
+author's snapshot statement, with presentation changes in the three
+identified modules; raw file identities remain distinct and traceable.
+This thesis does not infer browser acceptance from that statement.
+UI/F11 remains **PENDING**, and external review, final typesetting and
+submission acceptance are separate unfinished activities. The work
+reported in this chapter changes none of those research or application
+audit statuses.
+
+### 5.9.3. Supported answers to the research questions
+
+**Table B09. Research questions, observations, bounded answers and remaining
+evidence.** Values summarize the source-checked tables above. Each answer
+is conditional on its study and support; a request to collect remaining
+evidence is not a claim that the experiment has already been run.[^rq-answers]
+
+| RQ | Recorded observation | Supported answer | Evidence still needed |
+| --- | --- | --- | --- |
+| RQ1: combined system versus controls | Component Full−Base BA +3.247 pp, mean return −0.047 pp; price logistic has higher BA; factorial AS loses to B/P | Some observed classification gains coexist with negative returns and representation/support dependence; no general alpha–sentiment advantage | Repair native causality, match information/format and collect independent prospective support |
+| RQ2: regime-aware historical context | v1−Common return +0.327 pp [0.067, 0.586], versus Native −0.045 pp [−0.362, 0.271]; L1 Common band crosses zero; C2/B each only 3 new replies | The observed comparison depends on baseline, readiness and dependence assumptions; no isolated regime effect or profitability claim | Matched bank/retrieval/no-regime ablations, broader coverage and an unexposed evaluation |
+| RQ3: anchor, MT and policy | MT/anchor final agreement 302/306; 189 same proposals, 108 bypasses, 5 rejected and 4 accepted changes; MT−anchor return +0.033 pp | The combined system is mostly anchor-retaining; the recorded path is explainable, but isolated student/target/utility benefit is unmeasured | Matched Plain_revision/No_target/No_utility and student–teacher interventions on identical support |
+| RQ4: temporal, economic and operational contracts | Canonical LONG/CASH targets and two-way costs recorded; shared upstream and forecast barrier checked; historical U08 request max 4,750 chars/3 attempts; Native FAIL, whole system NOT_CERTIFIED | The frozen artifacts support specific engineering contracts and offline replay; they do not certify whole-system causality, data authenticity, live fills or UI acceptance | Native row-wise repair, authenticated bank/query/news provenance, venue/date execution evidence and outstanding application acceptance |
+
+The chapter supports an implemented, traceable comparison under explicit
+historical contracts and exposes where the proposed mechanisms are
+weakly exercised or confounded. Its empirical conclusions remain
+baseline-dependent, include negative financial outcomes and preserve
+the unresolved causal and execution limitations. Chapter 6 can therefore
+separate the engineering contribution from the additional evidence needed
+for a claim of trading advantage.
+
+[^unperformed-panels]: ED07 `deferred_panels`, completed intervention scopes ED05/37 and Chapter 4 method contracts; CL181, ledger §10.13. Implemented builders, offline tests and separate component panels are distinguished from matched hosted performance observations.
+[^validity-audits]: ED15 `native_rowwise_causal_gate`, `whole_system_causal_gate`, `quality_limits`, `provider_support.bank_audit`; ED04 exposure timing; ED08 historical acceptance; ED07 limitations and snapshot cold receipt in ledger §3.4; CL182–CL186, ledger §10.13. Prior receipts are cited within their scope, not described as suites rerun during writing.
+[^rq-answers]: RQ definitions in the outline; component CL145–CL154, context CL155–CL162, mechanisms/cases CL163–CL173, sensitivity/resources CL174–CL180 and limits CL181–CL187; ledger §10.13. RQ4 distinguishes canonical evaluation outcomes, checked availability/shared-input paths and source-scoped operational receipts from whole-system causality and live execution certification.

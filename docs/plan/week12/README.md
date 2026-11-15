@@ -377,15 +377,66 @@ các chương khác và §5.7–§5.9 nguyên trạng so với `develop:944e023d
 
 ### Kết quả ngữ cảnh và thảo luận P4
 
-Ngày **15/11/2026**, tiếp tục T42–T47 theo yêu cầu, mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. **T42**, nhánh `docs/thesis-context-results`: §5.7/B06a–c đủ8role+2control, mean51account, BA mean3repeat, MDD, repeatSD, LONG/raw/bypass và cả30method–repeat. CL155–CL158/ED38–ED39 và sổ §10.8 giữ locator từng ô. Kiểm lại archive/receipt/member/support bằng consumer chỉ đọc; không chạy phân tích. Đối soát bảng, links, footnotes, 84spec và diff; tài liệu-only không suite/compileall/API/fit/replay/bootstrap. Giữ8return âm, undefined và fallback; §5.8–§5.9 chưa xong, NativeFAIL/NOT_CERTIFIED/UIPENDING không đổi.
+Ngày **15/11/2026**, thực hiện T42–T47 theo yêu cầu. Mỗi task dùng một
+nhánh docs riêng từ `develop`, đối soát theo phạm vi rồi commit và merge.
 
-**T43**, `docs/thesis-context-contrasts`: B06d đủ20contrast/2endpoint/2baseline, B06e ba bridge và F09 vector/source/PDF/PNG. Sổ §10.9 ghi locator và hash; figure đọc trực tiếp ô saved, không tạo bootstrap. Dùng skill pdf để render Poppler và xem hình; cùng scale, giữ adverse bands, đủ10returncontrast. Chỉ biên dịch script hình mới, không compileall/unit/E2E/leakage vì không thay runtime nghiên cứu. Đối soát20cell/bridge/support/link/footnote/spec/diff PASS; không nâng banddescriptive thành confirmatory, không xác nhận student effect.
+- **T42 — `docs/thesis-context-results`:** viết §5.7/B06a–c cho đủ tám vai
+  trò và hai đối chứng kinh tế, gồm kết quả, support, số phản hồi/bypass
+  và cả ba repeat. CL155–CL158, ED38–ED39 và sổ §10.8 giữ locator từng ô.
+  Đọc lại archive/receipt/member bằng consumer chỉ đọc; giữ tám return âm,
+  NA và fallback. Phân biệt trung bình 51 tài khoản với SD giữa ba repeat.
+- **T43 — `docs/thesis-context-contrasts`:** viết B06d đủ 20 contrast,
+  B06e ba bridge và F09 với source Python, SVG, PDF, PNG. Sổ §10.9 giữ
+  nguồn và hash; hình đọc estimate/band đã lưu, dùng cùng thang đo cho hai
+  baseline. Render bằng Poppler và xem PNG; giữ cả band bất lợi. Chỉ
+  biên dịch script hình mới; không sinh bootstrap hoặc equity curve ghép.
+- **T44 — `docs/thesis-context-mechanisms`:** viết §5.8.1–§5.8.2/B07a–c,
+  F10 và CL163–CL168/ED40. Tách 48 điểm có bank với 54 điểm ngoài bank;
+  conditional READY có 1/8/1 điểm, không có example hiển thị. Tuổi,
+  similarity và regime của v1 lấy từ trường đã lưu; trường thiếu giữ NA.
+  MT có 108 bypass, 189 proposal trùng anchor, năm rejection và bốn thay
+  đổi được chấp nhận; 302/306 hành động cuối giữ anchor. Phân biệt Q10(U)
+  với Q10(delta U) và support của hai Brier score. F10 đã biên dịch đúng
+  script, render Poppler và xem PNG.
+- **T45 — `docs/thesis-case-studies`:** viết §5.8.3/B07d–g và CT01–CT30,
+  CL169–CL173. Áp dụng §7.7 trên repeat 0 của 102 điểm đủ nguồn; năm nhóm
+  có 29/47/5/2/52 ứng viên, chọn FPT/FPT/HVN/MWG/CMG theo ngày/mã đầu.
+  Chỉ nhóm minh họa lỗi dùng outcome. Đối chiếu shared/request/policy và
+  outcome barrier sau đủ 24 forecast của từng điểm. Giữ ca FPT net loss,
+  HVN được accept nhưng lỗ, MWG bị veto nên bỏ lỡ UP và Native CASH bỏ lỡ
+  UP ở CMG. Packet CMG là audit view; CASH bằng 0 khác candidate-LONG net.
+- **T46 — `docs/thesis-robustness-resources`:** viết §5.8.4–§5.8.6,
+  B06f/g giữ đủ 20 contrast cho L1/L3/CORE4/LOFO/LOSO; B05h–j giữ cohort,
+  strata và 12 scenario; B07h giữ usage/thời lượng. ED41–ED47/CL174–CL180
+  và sổ §10.12 truy nguồn từng ô. Band v1−Common tại L1 chứa 0; CORE4
+  đổi population. HTTP có 1.702 attempt, 2.986.930 token quan sát, 1.700
+  thời lượng đầy đủ và hai UNKNOWN. Tổng 4.056,744 giây khác wall-clock;
+  loại 503 bản ghi carry. Không có hóa đơn để suy chi phí tiền.
+- **T47 — `docs/thesis-results-limitations`:** viết §5.9/B06h/B09 và
+  CL181–CL187, sổ §10.13. Giữ các ablation chưa có matched hosted result,
+  Native FAIL/whole-system NOT_CERTIFIED, 828/852 return khác số không phải
+  828 nhãn đổi, cùng các giới hạn về exposure, phụ thuộc, provenance,
+  coverage, corporate actions và fills. B09 trả lời đủ RQ1–RQ4 với bằng
+  chứng còn thiếu. Receipt U08/U09 chỉ được viện dẫn đúng phạm vi lịch sử;
+  không ghi là đã chạy lại suite, inference hoặc nghiệm thu ứng dụng.
 
-**T44**, `docs/thesis-context-mechanisms`: §5.8.1–§5.8.2/B07a–c/F10, CL163–CL168/ED40. Đếm bank48/OOD54, READY1/8/1, visibleexamples0 ở conditional; v1 age/similarity/regime từ trường đã lưu, thiếu MTexport/regret giữNA. MT108bypass/189same/5reject/4accept, 302/306giữanchor; phân biệt Q10(U) với Q10(deltaU) và support Brier. F10 xuất source/vector/PDF/PNG, biên dịch đúngscript, renderPoppler và xemPNG; số/link/spec/diff PASS. Không policyreplay/fit/API/bootstrap/suite runtime, không studentcausalclaim. Cases/robustness/threats tiếp tục T45–T47.
+**P4/T36–T47 đã đủ bản nháp Chương 5.** T48 trở đi, G3 toàn bộ, phụ lục,
+phản biện và dàn trang cuối còn việc. Native causal FAIL, whole-system
+NOT_CERTIFIED và UI/F11 PENDING không đổi. Bảng hiện ở Markdown;
+CSV/LaTeX cho dàn trang thuộc T69.
 
-**T45**, `docs/thesis-case-studies`: §5.8.3/B07d–g và CT01–CT30, CL169–CL173. Áp dụng §7.7/r0/firstdate-symbol trên102điểm đủnguồn; candidates29/47/5/2/52 chọnFPT/FPT/HVN/MWG/CMG, chỉ nhóm sai dùngoutcome. Đối soát toànrecord, forecastshared/outputdigest/request/policy và outcome sau cả24forecast/point. GiữFPTnetloss, HVNacceptthua, MWGveto bỏlỡUP và CMGNativeCASHmissgain; packetCMG chỉauditview. Source/ô/unit/count/links/footnotes/spec/diff PASS; docs-only không suite/compileall/API/fit/replay/bootstrap. T46–T47 còn việc.
+Đối soát: từng ô/locator, hash nguồn, support, đơn vị, NA, 84 đặc tả task,
+footnote, liên kết và diff. Hai script hình mới được biên dịch riêng và
+kiểm render. Không đổi code nghiên cứu, test, schema, cấu hình, runtime
+hay dữ liệu đầu vào; theo AGENTS §1.2 không chạy compileall/unit/E2E/
+leakage suite. Không gọi API, fit, sinh bootstrap hoặc replay tài khoản.
 
-**T46**, `docs/thesis-robustness-resources`: §5.8.4–§5.8.6, B06f/g đủ20cell sensitivity L1/L3/CORE4/LOFO/LOSO; B05h–j componentcohort/strata/12scenario; B07husage/latency. ED41–47/CL174–CL180/sổ§10.12 giữ nguồn/ô. V1−CommonL1band chứa0, CORE4khácpopulation; componentreturnorderingđổi theo subset/cost. Context1702HTTP/2986930observedtokens, 1700timed/2UNKNOWN, sum4056.744s khácwallclock, loại503carry; moneykhôngcó. Kiểm rawmember/hash/index/count/unit/arrays/tables/links/spec/diff PASS, không suite/compileall/API/fit/bootstrap/ledgerreplay. NativeFAIL/NOT_CERTIFIED/UIpending giữnguyên; còn T47.
+Chốt đối soát **PASS**: 20 bảng bổ sung khớp nguồn, 57 binding ED/ES và
+30 CT, CL001–CL187 liên tục, 37 footnote, 613 liên kết/323 anchor và 84
+đặc tả task giữ nguyên. U08/U09/snapshot/acceptance, 15 artifact và 11
+export thành phần khớp pin/receipt. Hai PDF mỗi hình một trang, chữ nằm
+trong khung và bản render đã xem; source Python băm theo LF như blob Git,
+PDF/SVG/PNG băm nguyên byte. Các chương khác và root README giữ nguyên.
 
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
