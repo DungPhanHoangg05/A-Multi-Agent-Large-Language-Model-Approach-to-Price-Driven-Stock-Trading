@@ -317,7 +317,7 @@ Lập ngày **14/11/2026**, từ commit khảo sát
 `e081f0c74db199018cbe8156017cb62f44410d80`. Danh sách này phục vụ chuẩn bị
 đọc và kiểm nguồn; không phải bản Related Work hay bibliography đã chốt.
 Đã phân nhóm **57 ứng viên hiện có** và bổ sung **hai nguồn nền tảng** còn
-thiếu: MT-BICL và PFN, tổng **59 nguồn/10 nhóm**, mỗi nguồn có một khóa.
+thiếu: MT-BICL và PFN, tổng **59 nguồn/10 nhóm** tại T04. P5 bổ sung ba nguồn, thành 62 mục discovery; bibliography chỉ nhận 22 nguồn đã kiểm theo §11.1.
 Không nhập bibliography chủ đề khác từ `Latex/references.bib` của mẫu.
 
 ### 4.1. Nguồn đầu vào và ý nghĩa trạng thái
@@ -337,7 +337,7 @@ Không nhập bibliography chủ đề khác từ `Latex/references.bib` của m
 - **DA_KIEM:** đã đối chiếu metadata/phiên bản và đoạn nguồn hỗ trợ **nhận định
   có phạm vi ghi tại §4.4**. Không có nghĩa đã đọc/kiểm mọi trang, tái lập
   kết quả, kiểm quyền phát hành hoặc xác minh ứng dụng sang thị trường Việt Nam.
-- Trạng thái hiện tại: **3 DA_KIEM, 5 DA_DOC, 51 CHUA_DOC**. A = đọc trước
+- Tại mốc T04: **3 DA_KIEM, 5 DA_DOC, 51 CHUA_DOC**. Cập nhật P5 tại §11.1 ghi 22 nguồn đã kiểm cho bibliography riêng và thêm ba ứng viên; không coi toàn bộ danh sách là đã đọc. A = đọc trước
   khi viết phương pháp/đánh giá liên quan; B = nguồn so sánh/bổ trợ; C = đọc
   tùy mức liên quan. Ưu tiên không phải đánh giá chất lượng nghiên cứu.
 - Link trong 51 dòng CHUA_DOC là **đích cần kiểm**, không phải xác nhận đã
@@ -392,9 +392,9 @@ Chương 2.1/3.3/4.3; phân biệt công thức gốc với phép thích nghi m�
 | `appel2005technical` | [Technical Analysis: Power Tools for Active Investors](https://www.informit.com/store/technical-analysis-power-tools-for-active-investors-9780131479029) — 2005 | A | CHUA_DOC |
 | `murphy1999technical` | [Technical Analysis of the Financial Markets](https://www.penguinrandomhouse.com/books/350647/technical-analysis-of-the-financial-markets-by-john-j-murphy/) — 1999 | A | CHUA_DOC |
 | `lane1984stochastic` | [Lane's Stochastics](https://store.traders.com/-v02-c03-lane-pdf.html) — 1984 | B | CHUA_DOC |
-| `lo2000technical` | [Foundations of Technical Analysis: Computational Algorithms, Statistical Inference, and Empirical Implementation](https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf) — 2000 | A | CHUA_DOC |
+| `lo2000technical` | [Foundations of Technical Analysis: Computational Algorithms, Statistical Inference, and Empirical Implementation](https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf) — 2000 | A | DA_KIEM (phạm vi §11.1) |
 | `grinold1999active` | [Active Portfolio Management](https://www.mheducation.com/highered/mhp/product/active-portfolio-management-quantitative-approach-producing-superior-returns-selecting-superior-returns-controlling-risk.html) — 1999 | B | CHUA_DOC |
-| `kakushadze2016formulaic` | [101 Formulaic Alphas](https://arxiv.org/abs/1601.00991v3) — 2016 | A | DA_DOC (phạm vi §4.4) |
+| `kakushadze2016formulaic` | [101 Formulaic Alphas](https://arxiv.org/abs/1601.00991v3) — 2016 | A | DA_KIEM (phạm vi §11.1) |
 | `jegadeesh1993momentum` | [Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x) — 1993 | B | CHUA_DOC |
 | `fama1992crosssection` | [The Cross-Section of Expected Stock Returns](https://doi.org/10.1111/j.1540-6261.1992.tb04398.x) — 1992 | B | CHUA_DOC |
 | `hurst2017trend` | [A Century of Evidence on Trend-Following Investing](https://www.aqr.com/-/media/AQR/Documents/Insights/Journal-Article/AQR-JPM-Fall-2017.pdf) — 2017 | B | CHUA_DOC |
@@ -407,9 +407,9 @@ Chương 2.2/4.3; nguồn kế thừa kiến trúc và các hệ so sánh; khôn
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `xiong2025quantagent` | [QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading](https://arxiv.org/abs/2509.09995v3) — 2025 | A | DA_KIEM (phạm vi §4.4) |
-| `tradingagents2024` | [TradingAgents: Multi-Agents LLM Financial Trading Framework](https://arxiv.org/abs/2412.20138v7) — 2024 | B | CHUA_DOC |
-| `fatemi2024finvision` | [FinVision: A Multi-Agent Framework for Stock Market Prediction](https://arxiv.org/abs/2411.08899v1) — 2024 | B | CHUA_DOC |
+| `xiong2025quantagent` | [QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading](https://arxiv.org/abs/2509.09995v3) — 2025 | A | DA_KIEM (phạm vi §11.1) |
+| `tradingagents2024` | [TradingAgents: Multi-Agents LLM Financial Trading Framework](https://arxiv.org/abs/2412.20138v7) — 2025 (v7; khóa legacy2024) | B | DA_KIEM (phạm vi §11.1) |
+| `fatemi2024finvision` | [FinVision: A Multi-Agent Framework for Stock Market Prediction](https://arxiv.org/abs/2411.08899v1) — 2024 | B | DA_KIEM (phạm vi §11.1) |
 | `wu2023bloomberggpt` | [BloombergGPT: A Large Language Model for Finance](https://arxiv.org/abs/2303.17564v3) — 2023 | B | CHUA_DOC |
 | `yang2023fingpt` | [FinGPT: Open-Source Financial Large Language Models](https://arxiv.org/abs/2306.06031v1) — 2023 | B | CHUA_DOC |
 | `xia2026agentictrading` | [Agentic Trading: When LLM Agents Meet Financial Markets](https://arxiv.org/abs/2605.19337v2) — 2026 | C | CHUA_DOC |
@@ -421,7 +421,7 @@ Chương 2.2/4.3/5.9; phân biệt biểu đồ thông thường, candlestick v�
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `han2023chartllama` | [ChartLlama: A Multimodal LLM for Chart Understanding and Generation](https://arxiv.org/abs/2311.16483v1) — 2023 | B | CHUA_DOC |
+| `han2023chartllama` | [ChartLlama: A Multimodal LLM for Chart Understanding and Generation](https://arxiv.org/abs/2311.16483v1) — 2023 | B | DA_KIEM (phạm vi §11.1) |
 | `tsantekidis2017lob` | [Forecasting Stock Prices from the Limit Order Book Using Convolutional Neural Networks](https://pure.au.dk/portal/en/publications/forecasting-stock-prices-from-the-limit-order-book-using-convolut/) — 2017 | B | CHUA_DOC |
 | `shu2026finchart` | [FinChart-Bench: Benchmarking Financial Chart Comprehension in Vision-Language Models](https://aclanthology.org/2026.acl-long.615/) — 2026 | C | CHUA_DOC |
 | `wang2026martingale` | [Martingale Doppelgänger-Eval: An Identification Framework for Auditing Candlestick Understanding in Vision-Language Models](https://arxiv.org/abs/2606.17423v1) — 2026 | C | CHUA_DOC |
@@ -432,8 +432,8 @@ Chương 2.2/3.3/4.3; backbone, classifier, miền dữ liệu và scoring recip
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `nguyen2023visobert` | [ViSoBERT: A Pre-Trained Language Model for Vietnamese Social Media Text Processing](https://aclanthology.org/2023.emnlp-main.315/) — 2023 | A | DA_DOC (phạm vi §4.4) |
-| `hf5cdsentiment` | [5CD-ViSoBERT for Vietnamese Sentiment Analysis](https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert) — n.d. | A | DA_KIEM (phạm vi §4.4) |
+| `nguyen2023visobert` | [ViSoBERT: A Pre-Trained Language Model for Vietnamese Social Media Text Processing](https://aclanthology.org/2023.emnlp-main.315/) — 2023 | A | DA_KIEM (phạm vi §11.1) |
+| `hf5cdsentiment` | [5CD-ViSoBERT for Vietnamese Sentiment Analysis](https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert) — n.d. | A | DA_KIEM (phạm vi §11.1) |
 | `araci2019finbert` | [FinBERT: Financial Sentiment Analysis with Pre-trained Language Models](https://arxiv.org/abs/1908.10063v1) — 2019 | B | CHUA_DOC |
 | `tetlock2007news` | [Giving Content to Investor Sentiment: The Role of Media in the Stock Market](https://business.columbia.edu/sites/default/files-efs/pubfiles/3097/Tetlock_Media_Sentiment_JF.pdf) — 2007 | B | CHUA_DOC |
 | `wolf2020transformers` | [Transformers: State-of-the-Art Natural Language Processing](https://aclanthology.org/2020.emnlp-demos.6/) — 2020 | B | CHUA_DOC |
@@ -444,8 +444,8 @@ Chương 2.3/3.4–3.6; lọc so với làm trơn, học tham số, posterior v�
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `rabiner1989hmm` | [A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition](https://web.mit.edu/6.435/www/Rabiner89.pdf) — 1989 | A | DA_KIEM (forward/backward §III.A–B; §8.5.3) |
-| `hamilton2005regimes` | [Regime-Switching Models](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf) — 2005 | A | DA_DOC (định nghĩa state/transition; §8.5.3) |
+| `rabiner1989hmm` | [A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition](https://web.mit.edu/6.435/www/Rabiner89.pdf) — 1989 | A | DA_KIEM (phạm vi §11.1) |
+| `hamilton2005regimes` | [Regime-Switching Models](https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf) — 2005 | A | DA_KIEM (phạm vi §11.1) |
 | `dempster1977em` | [Maximum Likelihood from Incomplete Data via the EM Algorithm](https://web.mit.edu/6.435/www/Dempster77.pdf) — 1977 | A | CHUA_DOC |
 | `gelman2013bayesian` | [Bayesian Data Analysis](https://sites.stat.columbia.edu/gelman/book/) — 2013 | A | CHUA_DOC |
 | `rubin1981bootstrap` | [The Bayesian Bootstrap](https://doi.org/10.1214/aos/1176345338) — 1981 | A | CHUA_DOC |
@@ -456,11 +456,11 @@ Chương 2.4–2.5/3.6/4.8; tách few-shot, implicit Bayes, PFN và context đa 
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `xie2022implicitbayes` | [An Explanation of In-context Learning as Implicit Bayesian Inference](https://arxiv.org/abs/2111.02080v6) — 2022 | A | DA_DOC (phạm vi §4.4) |
-| `rubin2022retrieve` | [Learning To Retrieve Prompts for In-Context Learning](https://aclanthology.org/2022.naacl-main.191/) — 2022 | A | DA_DOC (phạm vi §4.4) |
+| `xie2022implicitbayes` | [An Explanation of In-context Learning as Implicit Bayesian Inference](https://arxiv.org/abs/2111.02080v6) — 2022 | A | DA_KIEM (phạm vi §11.1) |
+| `rubin2022retrieve` | [Learning To Retrieve Prompts for In-Context Learning](https://aclanthology.org/2022.naacl-main.191/) — 2022 | A | DA_KIEM (phạm vi §11.1) |
 | `wei2022chain` | [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://proceedings.neurips.cc/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract.html) — 2022 | B | CHUA_DOC |
-| `zhu2026multitask` | [Multi-Task Bayesian In-Context Learning](https://arxiv.org/abs/2606.20538v1) — 2026 | A | DA_KIEM (phạm vi §4.4) |
-| `muller2022transformers` | [Transformers Can Do Bayesian Inference](https://arxiv.org/abs/2112.10510v7) — 2022 | A | DA_DOC (phạm vi §4.4) |
+| `zhu2026multitask` | [Multi-Task Bayesian In-Context Learning](https://arxiv.org/abs/2606.20538v1) — 2026 | A | DA_KIEM (phạm vi §11.1) |
+| `muller2022transformers` | [Transformers Can Do Bayesian Inference](https://arxiv.org/abs/2112.10510v7) — 2022 | A | DA_KIEM (phạm vi §11.1) |
 
 #### Nhóm 7. Thiết kế đánh giá, chọn mô hình và phụ thuộc
 
@@ -468,13 +468,13 @@ Chương 2.6/3.7/5.5/5.9; thiên lệch lựa chọn, nhiều so sánh, resampli
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `varma2006bias` | [Bias in Error Estimation When Using Cross-Validation for Model Selection](https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-7-91.pdf) — 2006 | A | CHUA_DOC |
-| `white2000reality` | [A Reality Check for Data Snooping](https://users.ssc.wisc.edu/~behansen/718/White2000.pdf) — 2000 | A | CHUA_DOC |
+| `varma2006bias` | [Bias in Error Estimation When Using Cross-Validation for Model Selection](https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-7-91.pdf) — 2006 | A | DA_KIEM (phạm vi §11.1) |
+| `white2000reality` | [A Reality Check for Data Snooping](https://users.ssc.wisc.edu/~behansen/718/White2000.pdf) — 2000 | A | DA_KIEM (phạm vi §11.1) |
 | `harvey2016` | [...and the Cross-Section of Expected Returns](https://people.duke.edu/~charvey/Research/Published_Papers/P118_and_the_cross.PDF) — 2016 | A | CHUA_DOC |
 | `bailey2014deflated` | [The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality](https://davidhbailey.com/dhbpapers/deflated-sharpe.pdf) — 2014 | B | CHUA_DOC |
-| `holm1979multiple` | [A Simple Sequentially Rejective Multiple Test Procedure](https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf) — 1979 | A | CHUA_DOC |
+| `holm1979multiple` | [A Simple Sequentially Rejective Multiple Test Procedure](https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf) — 1979 | A | DA_KIEM (phạm vi §11.1) |
 | `lahiri2003resampling` | [Resampling Methods for Dependent Data](https://www.gbv.de/dms/goettingen/366100181.pdf) — 2003 | A | CHUA_DOC |
-| `newey1987hac` | [A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix](https://www.ssc.wisc.edu/~bhansen/718/NeweyWest1987.pdf) — 1987 | B | CHUA_DOC |
+| `newey1987hac` | [A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix](https://www.ssc.wisc.edu/~bhansen/718/NeweyWest1987.pdf) — 1987 | B | DA_KIEM (phạm vi §11.1) |
 | `pardo2008evaluation` | [The Evaluation and Optimization of Trading Strategies](https://www.wiley.com/en-us/-p-9780470128015) — 2008 | B | CHUA_DOC |
 
 #### Nhóm 8. Chỉ số phân loại và rủi ro tài khoản
@@ -494,7 +494,7 @@ Chương 4/5.3/Phụ lục C/F; tài liệu chính thức cần đi kèm version
 
 | Khóa trích dẫn | Nguồn gốc/ứng viên và năm | Ưu tiên | Trạng thái đọc |
 | --- | --- | --- | --- |
-| `pedregosa2011sklearn` | [Scikit-learn: Machine Learning in Python](https://jmlr.org/papers/v12/pedregosa11a.html) — 2011 | B | CHUA_DOC |
+| `pedregosa2011sklearn` | [Scikit-learn: Machine Learning in Python](https://jmlr.org/papers/v12/pedregosa11a.html) — 2011 | B | DA_KIEM (phạm vi §11.1) |
 | `langgraph_docs` | [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) — n.d. | B | CHUA_DOC |
 | `mplfinance_docs` | [mplfinance: Financial Markets Data Visualization Using Matplotlib](https://github.com/matplotlib/mplfinance) — n.d. | B | CHUA_DOC |
 | `vnstock_docs` | [Vnstock Documentation](https://vnstocks.com/docs) — n.d. | B | CHUA_DOC |
@@ -511,6 +511,17 @@ Chương 1/2.6/5.9/6; thông báo thanh toán là nguồn lịch sử cần ki�
 | `arora2026predictionmarketbench` | [PredictionMarketBench: A SWE-bench-Style Framework for Backtesting Trading Agents on Prediction Markets](https://arxiv.org/abs/2602.00133v1) — 2026 | C | CHUA_DOC |
 | `zeng2025futurexadvancedlivebenchmark` | [FutureX: An Advanced Live Benchmark for LLM Agents in Future Prediction](https://arxiv.org/abs/2508.11987v3) — 2025 | C | CHUA_DOC |
 | `zhang2026predictionarena` | [Prediction Arena: Benchmarking AI Models on Real-World Prediction Markets](https://arxiv.org/abs/2604.07355v1) — 2026 | C | CHUA_DOC |
+
+
+#### Bổ sung cho P5
+
+Ba nguồn sau được nhận sau danh sách T04; không thay lịch sử 59 ứng viên ban đầu.
+
+| Khóa trích dẫn | Nguồn gốc và năm | Ưu tiên | Trạng thái đọc |
+| --- | --- | --- | --- |
+| `politis1994stationary` | [The Stationary Bootstrap](https://doi.org/10.1080/01621459.1994.10476870) — 1994 | A | DA_KIEM (phạm vi §11.1) |
+| `arnott2019backtesting` | [A Backtesting Protocol in the Era of Machine Learning](https://doi.org/10.3905/jfds.2019.1.064) — 2019 | A | DA_KIEM (phạm vi §11.1) |
+| `yresearch2026quantagentcode` | [QuantAgent source comparison snapshot](https://github.com/Y-Research-SBU/QuantHarness/tree/92519f806286192345e940e7ab77496462d662b7) — 2026 | A | DA_KIEM (phạm vi §11.1) |
 
 ### 4.4. Ghi chú đọc và xác minh trong lượt này
 
@@ -1433,6 +1444,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL185 | [Dependence and confounding](chapters/05_experiments.md#592-limits-on-causal-statistical-and-external-validity) | DAN_XUAT | CL126–CL144/CL174–177; §10.13 | Sixclusters, oneupstream/contextpoint, promptprofile/ordermismatches40/epochs9, L1band sensitivity | Khôngcalibratedcoverage/power hoặc pooledstudy/causaleffect |
 | CL186 | [Acceptance scope](chapters/05_experiments.md#592-limits-on-causal-statistical-and-external-validity) | DO_DUOC | ED08/15/07; snapshotcoldreceipt§3.4; §10.13 | U08pins718/maxprompt4750/maxattempt3/suite_rerunFalse; historicalcoldreplay/0inference | Không gatechạymới, futurehostedidenticalresponse hoặc đóng F11/UI/externalreview |
 | CL187 | [RQ synthesis](chapters/05_experiments.md#593-supported-answers-to-the-research-questions) | DAN_XUAT | CL145–CL186; §10.13 | B09 đủRQ1–4 vớiobservation/answer/remainingevidence | P4đủbảnnháp, khôngG3toànbộ/T48–58 hoặcnghiêncứu/phảnbiệnngoàiđãxong |
+
+| CL188 | [Bibliography và phạm vi nguồn](references.bib) | NGUON_HOC_THUAT | R01–R22; §11.1 | 22 mục có metadata/version/đoạn hỗ trợ, tách discovery register và bibliography | Không 62 nguồn đều đã đọc; không suy paper method thành hiệu quả hệ thống hoặc nguồn chưa đọc thành citation hợp lệ |
 
 Quy tắc điền bảng:
 
@@ -2524,3 +2537,69 @@ T47; CL181–CL187. B06h đối chiếu ED07 `deferred_panels`: retrieval random
 Audit source ED15 rawpin: `native_rowwise_causal_gate=FAIL`, `whole_system_causal_gate=NOT_CERTIFIED_HISTORICAL_EXPLORATORY`; `provider_support.bank_audit.records=852`, `donor_label_difference.count_above_1e_8=828`, `max_abs_percentage_points=.04298848884252138`, `raw_signal_journals_available=false`. Không diễn giải thành828nhãnđổi, khôngauthenticity từhash. ED15qualitylimits giữ NEWS_CONTENT_PIT_NOT_CERTIFIED/BANK_QUERY_SOURCE_TRANSFER/vendorlimits. ED04first/queuefreeze/lastrequest giữ historicalexposure; ED22SDK/modeloptions không suy immutableweights. ED08 `source_pins_verified=718`, `max_decision_prompt_characters_including_repair=4750`, `max_http_attempts_per_execution=3`, `suite_rerun=false`, `new_inference_requests=0`; scopeU08 khôngáp sangcomponentprovider-onlyoverride. U09coldreceipt §3.4 chỉofflinebyteidenticalreplay/0newAPI, phiên viết chỉ kiểmpin/receipt, không chạy lại replay. UI/F11 PENDING/F12chưađóng, không phảnbiệnngoài/nghiệmthunộp.
 
 Tự kiểm P4: đủ§5.1–§5.9, nguồn hai collection vàscope/mean/account/repeat/bands/missing/fallback táchđúng; đủF09/F10source/vector/render đãxem, B04/B05/B06/B07/B09 cólocator. Đối soát84spec/checkedT01–T47, CLliêntục, footnotes/links/units/sourcehash/diff. Bảng cònMarkdown, App.D/T64 vàCSV/LaTeX/T69 chưa triểnkhai. Không đánhG3hoàntất vìT48–T58còntổngquan/introduction/conclusion; P4đủbảnnháp không đồngnghĩa khóa luận/nguồncuối/acceptance hoànthành. Khôngthayruntime/test/config/schema/input/sourcearchive; không compileall/unit/E2E/leakage/fit/API/bootstrap/executionreplay. Hai script mới phục vụhình được biên dịchriêng tạiT43/T44.
+
+## 11. Nguồn tổng quan tài liệu và định vị
+
+### 11.1. Phạm vi đọc, metadata và luận điểm được hỗ trợ
+
+Ngày **16/11/2026**, T48: tạo [thesis/references.bib](references.bib) gồm **22 nguồn** được đối chiếu metadata và đoạn hỗ trợ dưới đây. Đây là tập được nhận vào bibliography cho phần viết, không phải toàn bộ ứng viên đều đã đọc. Nguồn học thuật dùng bản tác giả/arXiv có version hoặc proceedings/journal gốc; các mirror đại học chứa bản bài báo gốc, không dùng bình luận thứ cấp thay nội dung. Chỉ các phần ghi ở cột locator đã được dùng để kiểm phát biểu; không tuyên bố kiểm toàn bộ proof/thực nghiệm/quyền phát hành. PDF scan Holm pp65–67, Newey–West p703 và Politis–Romano p1303 được xem ảnh trực tiếp; tải thành công không tự thành trạng thái đã đọc. Các bản tải để đọc nằm ở tmp, không phân phối toàn văn trong Git.
+
+Khóa `tradingagents2024` giữ ổn định nhưng edition được trích là v7 năm2025; `muller2022transformers` dùng năm venue ICLR2022, ghi rõ văn bản kiểm là arXivv7 sửa năm2024. MT-BICL trích preprintv1; không suy final pagination từ footer/comment ICML. Hamilton dùng manuscript18May2005, không trộn metadata edition Palgrave khác. ViSoBERT dùng tên trên PDF (Quoc-Nam Nguyen, Thang Chau Phan, Duc-Vu Nguyen, Kiet Van Nguyen); ACL export dùng dạng rút gọn. TradingAgents PDF/abs xác nhận Xiao/Sun/Luo/Wang; tên Einstein/Tesla/Newton/Rus trong HTML thử nghiệm là nội dung template, không đưa vào bibliography. DOI chỉ điền khi đã có định danh xác thực; không tạo DOI cho Holm/White từ phỏng đoán. Trang catalogue hoặc OpenReview challenge không được ghi là đã đọc toàn văn tại đó.
+
+Nguồn phần mềm QuantAgent trích riêng paper: commit92519f8 là mốc đối chiếu, ngày08May2026, không phải adopted commit đã biết. README root và THIRD_PARTY_NOTICES giữ nguyên; không áp license cho additions/datasets/weights chỉ từ MIT của upstream. Model card 5CD pin cả README và config, không tải/chạy weights. Key/metadata/locator/scope/limit dưới đây là ánh xạ luận điểm–trích dẫn; cite dùng `[@key]`, chuyển sang LaTeX ở giai đoạn sau.
+
+| ID / khóa | Nguồn gốc đã kiểm | Edition/version | Đoạn hỗ trợ | Phát biểu được hỗ trợ (English) | Giới hạn |
+| --- | --- | --- | --- | --- | --- |
+| R01 / `lo2000technical` | [Foundations of Technical Analysis: Computational Algorithms, Statistical Inference, and Empirical Implementation](<https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf>) | 2000 | Trang bìa, abstract, Introduction và mô tả nhận dạng pattern tự động; NBER Working Paper 7613, March 2000. | Technical patterns can be defined algorithmically and studied through conditional return distributions. | Không chuyển phát hiện thống kê ở mẫu Mỹ thành lợi nhuận hay bằng chứng Việt Nam. |
+| R02 / `kakushadze2016formulaic` | [101 Formulaic Alphas](<https://arxiv.org/abs/1601.00991v3>) | 1601.00991v3 | §2–§3 và Appendix A, nhất là rank/correlation/indneutralize và ts operators; record arXiv v3 có journal reference. | Formulaic alphas distinguish cross-sectional operators from temporal operators. | Bản một mã là phép thích nghi; không đồng nhất proxy VWAP hay temporal rank với công thức gốc. |
+| R03 / `pedregosa2011sklearn` | [Scikit-learn: Machine Learning in Python](<https://jmlr.org/papers/v12/pedregosa11a.html>) | 2011 | PDF trang 1–3: author list, abstract, §1–§3; publication record JMLR12/2825–2830. | Scikit-learn provides a common implementation environment for supervised learning controls. | Paper thư viện không xác định hyperparameter/version của thí nghiệm đã khóa. |
+| R04 / `xiong2025quantagent` | [QuantAgent: Price-Driven Multi-Agent LLMs for High-Frequency Trading](<https://arxiv.org/abs/2509.09995v3>) | 2509.09995v3 | PDF §3/§3.1.1–§3.1.3, Fig.2–3, §4: price-only, chart roles, Risk/Decision và benchmark1h/4h. | QuantAgent supplies the price-driven specialist-agent foundation; its reported task differs from daily LONG/CASH evaluation. | Không lấy title HFT làm mô tả tốc độ hệ hiện tại, không nhận vai trò thị giác/đa agent là mới. |
+| R05 / `yresearch2026quantagentcode` | [QuantAgent source repository: comparison snapshot](<https://github.com/Y-Research-SBU/QuantHarness/tree/92519f806286192345e940e7ab77496462d662b7>) | 92519f806286192345e940e7ab77496462d662b7 | Git object commit92519f8, README/agent/tool paths; THIRD_PARTY_NOTICES và LICENSES/QuantAgent-MIT.txt; raw README tải đúng pin. | Agent, chart-tool and orchestration code is adapted from the upstream comparison snapshot. | Mốc đối chiếu khác commit thật đã tiếp nhận; rename QuantHarness không thay paper v3. |
+| R06 / `tradingagents2024` | [TradingAgents: Multi-Agents LLM Financial Trading Framework](<https://arxiv.org/abs/2412.20138v7>) | 2412.20138v7 | PDF title page, §3–§4, §5.1: teams/debate/communication và simulation; arXiv abs author/version. | TradingAgents organizes financial analysis, debate, trading and risk management through specialized teams. | HTML thử nghiệm có tên template; dùng bốn tác giả của PDF/abs. Không nhập returns của bài vào bảng thesis. |
+| R07 / `fatemi2024finvision` | [FinVision: A Multi-Agent Framework for Stock Market Prediction](<https://arxiv.org/abs/2411.08899v1>) | 2411.08899v1 | PDF §3.1–§3.4, §4.1–§4.2: news, charts, textual/visual reflection, BUY/SELL/HOLD và evaluation. | FinVision combines news, chart analysis and reflection before a trading recommendation. | Reflection không tự là Bayesian posterior hay task-aware student; simulation khác hợp đồng thesis. |
+| R08 / `han2023chartllama` | [ChartLlama: A Multimodal LLM for Chart Understanding and Generation](<https://arxiv.org/abs/2311.16483v1>) | 2311.16483v1 | Abstract, §3 data/instruction construction, §4.2 benchmark/tasks; arXiv v1. | Chart understanding can be studied as its own data, instruction and evaluation problem. | Không coi chart benchmark là kiểm định candlestick trading; thesis không dùng ChartLlama weights. |
+| R09 / `nguyen2023visobert` | [ViSoBERT: A Pre-Trained Language Model for Vietnamese Social Media Text Processing](<https://aclanthology.org/2023.emnlp-main.315/>) | 2023 | PDF trang5191/§3–§4 corpus/tasks; ACL venue/pages/DOI; tên đầy đủ theo PDF, không mở rộng từ suy đoán. | ViSoBERT is a Vietnamese social-media backbone, distinct from the downstream 5CD sentiment classifier. | Không chuyển social-media task scores thành độ chính xác tin tài chính của Sentiment Agent. |
+| R10 / `hf5cdsentiment` | [Vietnamese-Sentiment-visobert: Model Card and Configuration](<https://huggingface.co/5CD-AI/Vietnamese-Sentiment-visobert/blob/d7738b85200272f10ba8b048d80236c8c582b581/README.md>) | d7738b85200272f10ba8b048d80236c8c582b581 | README Dataset/Evaluation và config.id2label đúng revision d7738b8; không tải/chạy weights. | The pinned classifier supplies three sentiment labels from a separate fine-tuning resource. | Card không chứng nhận financial-domain calibration, news availability hoặc quyền toàn hệ. |
+| R11 / `rabiner1989hmm` | [A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition](<https://web.mit.edu/6.435/www/Rabiner89.pdf>) | 1989 | §II/§III.A–C: state/transition/emissions, forward/backward, decoding và model reestimation; title/page metadata. | HMMs separate latent state transitions, observation likelihoods and inference or fitting problems. | Nguồn speech HMM không xác nhận số state, tên regime hoặc tác dụng giao dịch của VN-Index model. |
+| R12 / `hamilton2005regimes` | [Regime-Switching Models](<https://econweb.ucsd.edu/~jhamilto/palgrav1.pdf>) | 2005 | Manuscript18May2005, phần mô hình/transition/filtering và maximum-likelihood recursion, eqs.1–10. | Economic regimes can be modeled as latent states with state-dependent time-series behavior. | Dùng đúng manuscript2005, không gán metadata edition sách chưa đối chiếu; không chứng minh state tài chính thật. |
+| R13 / `xie2022implicitbayes` | [An Explanation of In-context Learning as Implicit Bayesian Inference](<https://arxiv.org/abs/2111.02080v6>) | 2111.02080v6 | §2 assumptions, §3.1–§3.3 statement/interpretation, §4 GINC; không khẳng định đã kiểm lại toàn bộ proof. | An implicit-Bayes account is established under a mixture-of-HMMs pretraining setting with explicit assumptions. | Không dùng theorem này để chứng nhận arbitrary LLM prompt, finance HMM hoặc calibration. |
+| R14 / `rubin2022retrieve` | [Learning To Retrieve Prompts for In-Context Learning](<https://aclanthology.org/2022.naacl-main.191/>) | 2022 | PDF abstract/§2–§3 retriever training và §4 semantic-parsing setup; ACL metadata. | Example retrieval can itself be learned using language-model-based supervision. | Không gọi B_semantic trong repo là dense retriever của Rubin; không suy hiệu quả trong tài chính. |
+| R15 / `muller2022transformers` | [Transformers Can Do Bayesian Inference](<https://arxiv.org/abs/2112.10510v7>) | 2112.10510v7 | Title page/§3 Algorithm1 prior-data NLL/§4 architecture; record arXivv7 đối chiếu nămvenue2022 và revision2024. | PFNs amortize predictive inference by training on datasets sampled from a chosen prior. | Không đồng nhất PFN với generic LLM hoặc coi PFN này là checkpoint tài chính của thesis. |
+| R16 / `zhu2026multitask` | [Multi-Task Bayesian In-Context Learning](<https://arxiv.org/abs/2606.20538v1>) | 2606.20538v1 | §4 representation/objective, §5.1 synthetic setup, §5.5 ERA5 và AppendixC GPT2 config. | Prior datasets and target observations are represented separately to adapt hierarchical predictive inference across priors. | Nguồn ý tưởng MT-BICL, không nguồn cho stock-return guarantee; paperconfig8/8 khác student2/4 nội bộ. |
+| R17 / `varma2006bias` | [Bias in Error Estimation When Using Cross-Validation for Model Selection](<https://link.springer.com/article/10.1186/1471-2105-7-91>) | 2006 | Abstract, Background, Results/Discussion, Conclusion; publisher DOI và PDF8trang. | Using the same cross-validation score for tuning and evaluation can produce optimistic error estimates. | Microarray experiments không chứng minh nested random CV hợp lệ cho mọi time series; thesis không chạy lại nestedCV. |
+| R18 / `white2000reality` | [A Reality Check for Data Snooping](<https://users.ssc.wisc.edu/~behansen/718/White2000.pdf>) | 2000 | Abstract/§1 và phần bootstrap testing setup; PDF journal copy pp1097–1126. | Specification search requires accounting for data reuse when evaluating predictive superiority. | Không gọi band mô tả hiện có là đã chạy White Reality Check hoặc có adjusted confirmation. |
+| R19 / `politis1994stationary` | [The Stationary Bootstrap](<https://users.ssc.wisc.edu/~bhansen/718/Politis%20Romano.pdf>) | 1994 | Scan xem trực tiếp p1303: abstract/§1/đầu§2; publisher DOI/Crossref cho metadata. | Dependent-data resampling uses blocks under stationarity and weak-dependence assumptions; stationary bootstrap has random block lengths. | Chỉ đọc phần nêu trên, không claim proof được kiểm; fixed-length circular blocks của thesis khác stationary bootstrap. |
+| R20 / `holm1979multiple` | [A Simple Sequentially Rejective Multiple Test Procedure](<https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf>) | 1979 | Scan xem trực tiếp pp65–67: §1–§2/Scheme1/Theorem1 và proof bằng Boole. | The sequential Bonferroni procedure controls family-wise error when the individual tests satisfy their validity requirements. | Holm không sửa p-values sinh từ symmetry/exchangeability chưa xác nhận; không tự xác nhận family23 của thesis. |
+| R21 / `newey1987hac` | [A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix](<https://www.ssc.wisc.edu/~bhansen/718/NeweyWest1987.pdf>) | 1987 | Scan xem trực tiếp p703/eqs.1–4: covariance/regularity motivation; Crossref DOI metadata. | HAC covariance estimation addresses heteroskedasticity and autocorrelation under regularity conditions. | Không claim đã đọc toàn theorem/proof hoặc finite-sample calibration cho6exposedfolds. |
+| R22 / `arnott2019backtesting` | [A Backtesting Protocol in the Era of Machine Learning](<https://people.duke.edu/~charvey/Research/Published_Papers/SSRN-id3275654.pdf>) | 2019 | Author version abstract/protocol categories, implementation shortfall và structural changes; Crossref journal record2019. | Financial research protocols should address selection, implementation costs and nonstationarity before deployment claims. | Đây là căn cứ thiết kế/giới hạn, không phải chứng nhận prospective hay receipt lịch sử của hệ này. |
+
+Hash bản đọc để truy vết, không thay version/metadata và không chứng nhận nội dung nguồn:
+
+| Khóa | Dạng bản đọc | Byte | SHA-256 nguyên byte |
+| --- | --- | --- | --- |
+| `lo2000technical` | PDF | 676351 | `df3cb4ceddc3e23dd4833f0871bd556c19fa661027ed03facce00f6a72ccdb74` |
+| `kakushadze2016formulaic` | PDF | 244416 | `1f9c21afe32dcb3ee77b31548acdaea00451fbfa1c0ee10c907867bcc736fce9` |
+| `pedregosa2011sklearn` | PDF | 42310 | `1c338a6b3c6c1dcafda3990a8098b8b50dd6c77616361396fb75f6822c6e0778` |
+| `xiong2025quantagent` | PDF | 4767772 | `05652d9dd2887c86bf470fdb424c49e5bb12ca1e839510968eb43fb6a4b55760` |
+| `yresearch2026quantagentcode` | pinned README | 12109 | `e5732eef7ee52ad96b8d70629632f3067616175d76e5a8b05520f87086df70d2` |
+| `tradingagents2024` | PDF | 1903362 | `431d0c39365b4c46b43162371fa15b3dcf8d142b377d642b3e5925dc81f3487b` |
+| `fatemi2024finvision` | PDF | 770109 | `8483714696f009ffecd5e818ce2b8937e88be03343476bb23344b4f38b080921` |
+| `han2023chartllama` | PDF | 2627897 | `a3d947e6ba338d2de546f49ddb5ad4da45a3137b27dab1459dfac24d64790a37` |
+| `nguyen2023visobert` | PDF | 521767 | `72a802681a6f4a83fb909a4779c67e8700a20ad6acd0e4048ea91776b33b08a1` |
+| `hf5cdsentiment` | pinned README | 14326 | `2ce2dbf61f24751136f7af2080f88efe5dd823389e9873206e8f59ea662333cc` |
+| `rabiner1989hmm` | PDF | 2754043 | `d5cb7e282741d6ace368bab6260acc5eb5a4decbc6b984a7f0f1a73c9c22517c` |
+| `hamilton2005regimes` | PDF | 158535 | `447e3fa98699bddfa1bc5692c2949ae0a8c3ed6406eb44b189dcf40a5d826721` |
+| `xie2022implicitbayes` | PDF | 1240973 | `ad9be01798fcf4fdc66ff3630f7a6f1cc157c04d51d0821d7798e028cb175c4b` |
+| `rubin2022retrieve` | PDF | 1115072 | `0b88f05530aa4e233a1560ea96844c068d6a56d5938b0cf0a7e8b64ccfdfc2a1` |
+| `muller2022transformers` | PDF | 1271614 | `9736e7789e7f4b7dd7401b6017602be87410eb15c1b11f94065d88ba7fec5a9b` |
+| `zhu2026multitask` | PDF | 7576663 | `35e78229b2a7c89507f218901114baeb2385e2bcf566ec6166e0ef83f4080e0f` |
+| `varma2006bias` | PDF | 243814 | `573198025179f340870428087dd3a980a5c2cbdab890ace3d155e0cf8fcd6e1b` |
+| `white2000reality` | PDF | 259584 | `675eb3226dee3af4dfa8089410f9bbf0a2798c7b58985c8334c42fb4983a9743` |
+| `politis1994stationary` | PDF | 1984053 | `269f5437920af4861360d4e1a74a77f3aa6a3d3f070cd52a9f0e8502822a5c35` |
+| `holm1979multiple` | PDF | 533148 | `eb4b0014bcb5e8d371092035c31a873b2ee55bdcdcbbc4a7ff7b508d9787884c` |
+| `newey1987hac` | PDF | 539596 | `64cca3ea37246ab27f8d5a537cd101a2adb9d1463091b29c23f1127eff5fd192` |
+| `arnott2019backtesting` | PDF | 291336 | `2ebced0662e2ced12d8ab28297e1f7a97bda597d350ca86b774f5de7a3ba4144` |
+
+Config5CD cùng revision d7738b8 có id2label0/1/2=NEG/POS/NEU; bản đọc rawconfig SHA-256 `04499fbdf5bb3ff5c93abf63c845670387485fdd16e9472847f1168a5dda102b`. Metadata Crossref đối chiếu Lo journal record (nhưng bibliography dùng NBER7613), Newey–West, Politis–Romano, Varma–Simon và Arnott et al.; nội dung nghiên cứu vẫn lấy bài gốc, không lấy Crossref làm bằng chứng phương pháp. Arnott/Harvey/Markowitz dùng bản tác giả29Oct2018, gắn record journal2019 được kiểm; DOI/volume/pages giữ đúng record.
+
+Kiểm BibTeX bằng parser BibTeX thực trong thư mục tạm, keys duy nhất/cân bằng và metadata bắt buộc; không tạo PDF toàn văn. Không chép `paper/references.bib` hoặc bibliography mẫu. T48 không sửa Chương3–5, runtime hoặc artifact thực nghiệm; không compileall/unit/E2E/leakage suite, không fit/API/replay. Các kết luận mạnh hơn locator cần đọc và đối chiếu thêm, không suy từ trạng thái DA_KIEM.

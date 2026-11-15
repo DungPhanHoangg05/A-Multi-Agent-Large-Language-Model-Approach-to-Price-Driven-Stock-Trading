@@ -81,7 +81,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Nghiên cứu liên quan — P5
 
-- [ ] T48 — Kiểm nguồn gốc và metadata tài liệu tham khảo.
+- [x] T48 — DONE: [Bibliography 22 nguồn](references.bib) và [sổ §11.1](evidence.md#111-phạm-vi-đọc-metadata-và-luận-điểm-được-hỗ-trợ), metadata/version/đoạn hỗ trợ/hash bản đọc và giới hạn; CL188. Đối chiếu PDF/nguồn gốc, sửa phân biệt edition và tên tác giả; giữ 62 mục discovery riêng, không giả đã đọc toàn bộ. Kiểm BibTeX và links, không chạy nghiên cứu.
 - [ ] T49 — Tổng quan phân tích kỹ thuật và dự báo định lượng.
 - [ ] T50 — Tổng quan LLM/VLM đa agent và phần kế thừa.
 - [ ] T51 — Tổng quan regime, ngữ cảnh Bayes và MT-BICL.

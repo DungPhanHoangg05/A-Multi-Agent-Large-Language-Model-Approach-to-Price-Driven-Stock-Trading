@@ -5,7 +5,7 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
-**Viết khóa luận, cập nhật ngày 15/11/2026:** thư mục làm việc là `thesis/`.
+**Viết khóa luận, cập nhật ngày 16/11/2026:** thư mục làm việc là `thesis/`.
 [Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
 bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp
 phải giải thích toàn hệ thống cho giảng viên lần đầu tiếp cận.
@@ -33,8 +33,9 @@ ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có 
 EX01 kết thúc bằng outcome sau barrier, giữ net loss và giới hạn causal.
 G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biện ngoài/dàn trang cuối.
 UI/F11 vẫn PENDING. **P4: T36–T47 đã có bản nháp [Chương 5](../../thesis/chapters/05_experiments.md)**.
-P4/T36–T47 đã đủ bản nháp §5.1–§5.9, F09/F10 và B04/B05/B06/B07/B09. T48 trở đi, G3 toàn bộ, phụ lục, phản biện và dàn trang cuối còn việc; trạng thái nghiên cứu/ứng dụng không đổi.
-Chỉ đối soát nguồn đã khóa, không tạo nghiên cứu mới; trạng thái nghiệm thu hệ thống không đổi.
+P4/T36–T47 đã đủ bản nháp §5.1–§5.9. **P5/T48–T48:** Đã kiểm 22 nguồn và lập bibliography/ánh xạ luận điểm; nội dung Chương2 tiếp tục T49–T53, P5 chưa hoàn tất.
+T54 trở đi, G3 toàn bộ, phụ lục, phản biện và dàn trang cuối còn việc.
+Chỉ viết/đối soát nguồn; Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING không đổi.
 Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,

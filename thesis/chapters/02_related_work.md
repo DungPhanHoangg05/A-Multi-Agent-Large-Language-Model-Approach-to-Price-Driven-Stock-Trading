@@ -1,7 +1,7 @@
 # Chapter 2. Related Work
 
-> **Draft status: structural skeleton only.** Chapter prose and the literature synthesis have not been written.
-> The placeholders below identify missing content; bibliography candidates are not verified citations.
+> **Draft status: sources checked; prose in progress.** The scoped bibliography and reading register are established; unfinished sections remain explicitly marked.
+> Only sources admitted to the thesis bibliography support citations here. Unread discovery candidates remain separate in the reading register.
 
 Writing aids: [chapter outline](../outline.md#chapter-2-related-work), [reading register](../evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
