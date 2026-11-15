@@ -61,6 +61,21 @@ và suy luận, prior/MT-BICL, policy, điều phối, phục hồi và đánh g
 Kế hoạch có bước kiểm khả năng đọc hiểu cho người mới; chưa tuyên bố đã được
 giảng viên phản biện độc lập.
 
+### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
+
+Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
+nhánh docs riêng từ develop cập nhật, kiểm theo phạm vi rồi commit/merge;
+không tạo checklist hoặc receipt riêng.
+
+- **T10; §3.2, CL007–CL008 và sổ §8.5.1:** nhánh
+  `docs/thesis-economic-contract` từ `94b0177600f76a4472dfcd91108561fd423a6b0a`.
+  Viết công thức multiplicative hai chiều, zero=DOWN, forecast/action/payoff,
+  break-even và bảng LONG/CASH có nhãn Illustrative. Kiểm arithmetic bằng
+  hàm oracle trích AST từ source nguyên vẹn; TIME01/TIME02 và PDF/PNG F01 giữ
+  raw hash, source TikZ đối chiếu blob LF do Git checkout Windows đổi CRLF.
+  Kiểm links/footnotes, UTF-8, diff và 84 đặc tả; chỉ tăng trạng thái T10.
+  Không đổi runtime, không chạy suite/replay/API/refit hoặc build lại F01.
+
 ### Quan sát, chỉ số thời gian và timeline giao dịch
 
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`

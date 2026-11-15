@@ -1,7 +1,7 @@
 # Chapter 3. Theoretical Background and Problem Formulation
 
-> **Draft status: partial chapter.** Section 3.1 has an initial source-checked draft and timeline.
-> Sections 3.2–3.7 remain placeholders; the chapter has not undergone final manuscript review.
+> **Draft status: partial chapter.** Sections 3.1–3.2 have source-checked drafts.
+> Sections 3.3–3.7 remain placeholders; the chapter has not undergone final manuscript review.
 
 Writing aids: [chapter outline](../outline.md#chapter-3-theoretical-background-and-problem-formulation), [terminology and notation](../evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -156,7 +156,91 @@ or an authenticated exchange calendar.* [Vector PDF](../assets/diagrams/F01_trad
 
 ## 3.2. Economic contract and prediction target
 
-> **Not yet drafted.** Present the canonical multiplicative net-return equation and both-leg fees/slippage from the shared economic source. Explain LONG entry/exit, SHORT-to-CASH mapping, the strict positive-return label and zero-return handling. Add a clearly labeled illustrative LONG/CASH calculation without changing frozen legacy evidence.
+### 3.2.1. A candidate LONG cycle
+
+For a decision at bar $t$, consider the candidate trade that buys at the next
+observed open $O_{t+1}$ and closes at $C_{t+3}$. These are the entry and exit
+defined in Section 3.1. Let $f=0.0025$ denote the brokerage fee and $s=0.001$
+the proportional slippage on **each** leg. Buying one unit requires
+$O_{t+1}(1+s)(1+f)$ of capital; selling it yields
+$C_{t+3}(1-s)(1-f)$. The canonical net return is therefore
+
+$$
+r_t^{\mathrm{net}}=
+\frac{C_{t+3}}{O_{t+1}}
+\frac{(1-s)(1-f)}{(1+s)(1+f)}-1.
+$$
+
+This is the equation implemented by the shared economic oracle,
+`compute_round_trip_net_return`; canonical historical labels use the same
+oracle. The numerator includes selling costs and the denominator includes
+buying costs. Subtracting a fixed 0.70 percentage points from the gross return
+is only an approximation and is not the calculation used here.
+Entry/exit prices must be positive and finite. The date convention and costs
+are study assumptions, not a statement of current exchange settlement rules
+or proof of executable fills.[^economic-oracle]
+
+For comparison, the cost-free return is
+$r_t^{\mathrm{gross}}=C_{t+3}/O_{t+1}-1$. Net break-even requires a price ratio
+of $(1+s)(1+f)/[(1-s)(1-f)]$, approximately 1.00702457 under these costs.
+A small positive gross move can consequently have a negative net result.
+
+### 3.2.2. Label, proposal and execution action
+
+The supervised target describes the candidate LONG trade, regardless of the
+action eventually taken:
+
+$$
+y_t=\mathbf{1}\{r_t^{\mathrm{net}}>0\}.
+$$
+
+UP means $y_t=1$; DOWN includes every nonpositive return, **including zero**.
+The canonical implementation compares the unrounded net return with zero;
+a rounded displayed value must not replace that comparison. A cost-free
+direction, a close-to-close return, or the LLM's stated confidence is a
+different quantity.[^economic-oracle]
+
+The raw forecast is LONG or SHORT. In this long-only research contract,
+SHORT maps to the execution action CASH; it does not open a short position.
+Let $a_t\in\{\mathrm{LONG},\mathrm{CASH}\}$ be the action after any external
+policy. The cycle payoff fraction is
+
+$$
+r_t^{\mathrm{strategy}}=
+\mathbf{1}\{a_t=\mathrm{LONG}\}\,r_t^{\mathrm{net}}.
+$$
+
+CASH keeps the simulated capital unchanged over that cycle, with no
+short-sale profit or modeled interest. Correctly choosing CASH when the
+candidate LONG label is DOWN can improve classification without earning a
+positive cycle return. Conversely, an UP label does not mean that an account
+which stayed in CASH earned that candidate return. Account aggregation over
+several cycles is a separate evaluation operation.
+
+### 3.2.3. Illustrative calculation
+
+The following numbers are **Illustrative**: they are chosen for arithmetic,
+not taken from EX01 or from an experimental performance table. Prices use
+one consistent arbitrary unit and both rows use the costs above.
+
+| Entry Open | Exit Close | Gross return | Canonical net return | Net label | LONG payoff | CASH payoff |
+| --- | --- | --- | --- | --- | --- | --- |
+| 100 | 100 | 0.000000% | −0.697557% | DOWN | −0.697557% | 0% |
+| 100 | 103 | +3.000000% | +2.281516% | UP | +2.281516% | 0% |
+
+For the second row, the purchase cost is $100(1.001)(1.0025)=100.35025$,
+and sale proceeds are $103(0.999)(0.9975)=102.6397575$. Their ratio minus
+one is approximately 0.022815164885. At exact mathematical break-even,
+$C_{t+3}=O_{t+1}(1+s)(1+f)/[(1-s)(1-f)]$, the net return is zero and belongs
+to DOWN; this is a symbolic boundary, not a claim that rounded floating-point
+prices necessarily produce an exactly zero machine value.
+
+These examples explain the contract. They neither regenerate frozen labels
+nor resolve discrepancies in legacy evidence. Recorded bank/query price-basis
+differences remain a validity limitation to disclose when interpreting the
+historical studies.
+
+[^economic-oracle]: Frozen `core/backtest_engine.py`, `compute_round_trip_net_return` and `compute_account_metrics`, and `utils/target_contract.py`, `target_fields`; bindings TIME01/TIME02 in the shared ledger. Illustrative arithmetic and scope are mapped as CL007–CL008.
 
 ## 3.3. Technical, alpha and sentiment signals
 

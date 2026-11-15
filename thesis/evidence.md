@@ -1195,7 +1195,8 @@ phí làm đổi dấu kết quả, không chọn lại một ca thắng sau khi
 ### 8.1. Điểm vào sáu chương
 
 Sáu file dưới đây được khởi tạo từ **khung Markdown** tại T08; chưa có chương
-hoàn chỉnh. Chương 3 §3.1 đã có bản nháp và F01 ở T09; các mục khác còn trống.
+hoàn chỉnh. Chương 3 đang được viết lần lượt trong P2; phạm vi đã đối soát
+ghi tại §8.2, các mục chưa viết vẫn có placeholder.
 Tiêu đề chương/mục giữ theo [dàn bài §C](outline.md#c-detailed-chapter-outline).
 Các mục chưa viết có block `Not yet drafted` nêu cụ thể nội dung còn thiếu. Các ghi chú
 này là hỗ trợ viết, phải được thay bằng nội dung và kiểm nguồn ở task tương
@@ -1206,7 +1207,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | --- | --- | --- |
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
-| [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4 binding thời gian | §3.1 đã có nháp về quan sát/chỉ số thời gian và F01; §3.2–§3.7 còn thiếu |
+| [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp P2 viết lần lượt; các claim đã đối soát ở §8.2, mục chưa viết có placeholder |
 | [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01 | Toàn bộ đường chạy từ inputs qua agent/context/policy tới final action; sơ đồ và thuật toán |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
@@ -1219,7 +1220,7 @@ chương bằng tiếng Anh; hướng dẫn quản lý trong sổ này bằng ti
 ### 8.2. Quy ước ánh xạ luận điểm và ô bảng khi viết
 
 Các dòng dưới ánh xạ **luận điểm/ô bảng đã viết trong bản thảo**, hiện thuộc
-Chương 3 §3.1 và F01. Đây là đối soát nội bộ, chưa phải phản biện bản thảo
+Chương 3 và hình kèm theo. Đây là đối soát nội bộ, chưa phải phản biện bản thảo
 hoặc xác nhận nhân quả toàn hệ. Các số đã kiểm ở §3/§7 vẫn là bằng chứng
 nguồn; việc chép vào chương phải có ánh xạ cụ thể và kiểm lại cách diễn đạt.
 Thêm dòng vào bảng dưới khi một luận điểm, công thức hoặc ô bảng được viết;
@@ -1234,6 +1235,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL004 | [§3.1.4](chapters/03_background.md#314-missing-and-invalid-records): analysis view, suffix sau OHLC lỗi, thiếu prefix/horizon và UNKNOWN | HOP_DONG_TRIEN_KHAI | TIME04 `price_view`; TIME03 `prefix/state`; TIME01 `_get_actual_direction`; TIME02 `target_fields` | Kiểm ngày/finite/OHLC/volume; thiếu observation không được tự thay bằng nến giả | Chỉ mô tả đường frozen đã đọc; phân biệt helper UNKNOWN với target contract ném lỗi; không nâng thành mô tả tất cả loader hoặc chứng nhận causal |
 | CL005 | [§3.1.5](chapters/03_background.md#315-a-dated-example): dates, số nến và chỉ số hàng của EX01 | DAN_XUAT | EX01-S/EX01-O tại §7.2 và TIME06 tại §8.4; `price_prefix.Datetime`, `target.decision_bar_index`, `dates` | 600/45 quan sát; t=872 → e=873; start=e−45=828, exit=e+3−1=875; dates từ nguồn, không cộng ngày lịch | Join point/source hash và kiểm cutoff/prefix; số hàng/các ngày là dữ liệu đã lưu, indices còn lại là số học; chưa đọc giá/return vào input hoặc sinh lại outcome |
 | CL006 | [F01](assets/diagrams/F01_trade_timeline.pdf), chèn tại §3.1.5: lịch sử khả dụng, entry/exit và EX01 | MINH_HOA | TIME01–TIME03, EX01-S/O; nguồn TikZ và sản phẩm có hash tại §8.4 | Hình contract; khoảng cách không theo thời gian lịch; không hiển thị giá tương lai | PDF một trang đã build/render/xem 15/11/2026; chưa phải sơ đồ chia tập F02, công thức phí T10 hay kiểm bố cục PDF toàn văn |
+| CL007 | [§3.2.1–§3.2.2](chapters/03_background.md#321-a-candidate-long-cycle): công thức hai chiều, nhãn strict >0, SHORT=CASH và payoff theo action | HOP_DONG_TRIEN_KHAI | TIME01/TIME02, hàm oracle/accounts/target_fields; §8.5.1 | Fraction trong công thức, % khi hiển thị; không dùng số làm tròn sinh nhãn | Đối chiếu nguồn frozen; giả định nghiên cứu, không phải quy định sàn hoặc xác nhận giao dịch thật |
+| CL008 | [§3.2.3](chapters/03_background.md#323-illustrative-calculation): entry 100, exit 100/103 và biên break-even | MINH_HOA | Oracle TIME01; phép tính tại §8.5.1 | Net −0.6975568073%/+2.2815164885%, hiển thị 6 chữ số; CASH=0 | Đã kiểm bằng hàm oracle trích AST; số giả định có nhãn Illustrative, không phải kết quả nghiên cứu |
 
 Quy tắc điền bảng:
 
@@ -1320,5 +1323,21 @@ Chỉ chép PDF/PNG đã kiểm sang `assets/diagrams/`. Toolchain: pdfTeX
 trang render, không cắt/chồng chữ; log không overfull/underfull hoặc undefined
 reference. MiKTeX vẫn nhắc kiểm cập nhật nhưng build exit 0. Metadata PDF có
 thể khác giữa các lần build; hash trên khóa sản phẩm đã kiểm, không cam kết
-PDF luôn byte-identical. T10 còn viết công thức phí/net label và ví dụ kinh
+PDF luôn byte-identical. Tại mốc T09, T10 còn viết công thức phí/net label và ví dụ kinh
 tế; F01 không thay nội dung đó hoặc việc kiểm toàn văn ở các task dàn trang.
+
+### 8.5. Nguồn và phép tính cho các phần nền tảng tiếp theo
+
+#### 8.5.1. Kinh tế và nhãn
+
+T10, ngày 15/11/2026: TIME01/TIME02 giữ hash §8.4 và byte snapshot; chỉ
+trích AST hai hàm `_validate_account_costs` và `compute_round_trip_net_return`
+để kiểm số minh họa, không import graph hoặc tạo lại label thực nghiệm.
+Entry=100, exit=100 cho r_net=−0.006975568072824623; exit=103 cho
+r_net=0.02281516488499058; tỷ lệ tăng giá break-even=0.007024568428076972.
+Giá vốn mua=100.35025, thu bán ở exit=103 là 102.6397575. Có cả phí/slippage
+hai chiều; nhãn zero đối chiếu trực tiếp điều kiện `net > 0` ở TIME02.
+Các số là minh họa độc lập với EX01. F01 không build lại chỉ vì viết công
+thức; PDF/PNG giữ nguyên byte. Git checkout Windows chuyển source TikZ sang
+CRLF: binding source §8.4 đối chiếu blob Git/LF, không nhầm newline đổi với
+đổi hình. Không ghi source working-tree CRLF có cùng raw hash với blob LF.

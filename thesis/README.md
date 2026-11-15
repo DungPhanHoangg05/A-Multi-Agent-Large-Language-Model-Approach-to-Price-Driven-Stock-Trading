@@ -18,7 +18,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 6. [Danh mục hình, bảng và thuật toán](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn): 23 ID theo kế hoạch, có thông điệp, vị trí, task phụ trách, loại nguồn, provenance và đường xuất dự kiến; chưa phải các sản phẩm đã tạo.
 7. [Ví dụ xuyên suốt EX01](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết): FPT tại cutoff 03/07/2023, quy tắc chọn, nguồn từng bước và ranh giới giữa thông tin dự báo với outcome; giữ kết quả sai, fallback và giới hạn nghiên cứu.
 8. [Các chương và sổ ánh xạ](evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm): liên kết tới từng file trong `chapters/`, tiêu đề ổn định và placeholder cho mục chưa viết; sổ chung nhận ánh xạ luận điểm/ô bảng khi viết, không có checklist hoặc receipt riêng cho từng chương.
-9. [Quan sát và chỉ số thời gian §3.1](chapters/03_background.md#31-observations-and-time-indexing): bản nháp đầu tiên của P2, có [hình F01 vector](assets/diagrams/F01_trade_timeline.pdf), source TikZ và ví dụ EX01. Phần còn lại Chương 3 chưa viết; nguồn/hình được đối soát tại [§8.4 sổ nguồn](evidence.md#84-binding-cho-quan-sát-và-chỉ-số-thời-gian).
+9. [Chương 3 — cơ sở lý thuyết](chapters/03_background.md): bản nháp P2 viết lần lượt, có [hình F01 vector](assets/diagrams/F01_trade_timeline.pdf), source TikZ và ví dụ EX01. Các mục chưa viết giữ placeholder; nguồn/claim được đối soát tại §8 sổ nguồn.
 
 ## Hai trang bìa
 
