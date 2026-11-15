@@ -899,7 +899,7 @@ rút gọn đường dẫn cho bảng, không phải task mới hay nguồn kế
 | F02 | **Chronological partitions and historical-label maturity.** Tách fit/selection/test, purge và maturity; không đưa nhãn query vào context. | Ch. 3.7; Ch. 5.2 | T15, T37 | MINH_HỌA | SRC02, SRC05 | `diagrams/F02_temporal_partitions.tex → .pdf` |
 | F03 | **System overview from available inputs to evaluated actions.** Tách tính số, hosted inference, fit offline, policy và đánh giá. | Ch. 4.1 | T16 | MINH_HỌA | SRC03, SRC05, SRC06 | `diagrams/F03_system_overview.tex → .pdf` |
 | F04 | **Candlestick and support-resistance inputs to Pattern and Trend.** Cho thấy hai đầu vào ảnh khác nhau trên cùng điểm, không đồng nhất ảnh với diễn giải đúng. | Ch. 4.3 | T19 | ĐO_ĐƯỢC | SRC09 (nguồn có sẵn T06); EX01-IP/IT (sản phẩm T19, §9.5) | `figures/F04_pattern.png; F04_trend.png; diagrams/F04_chart_pair.tex` |
-| F05 | **Matured historical episodes and Bayesian context retrieval.** Lọc PIT trước matching/statistics; tách population, ví dụ và fallback. | Ch. 4.5–4.7 | T23, T24, T25 | MINH_HỌA | SRC04, SRC08 | `diagrams/F05_memory_retrieval.tex → .pdf` |
+| F05 | **Matured historical episodes and Bayesian context retrieval.** Lọc PIT trước matching/statistics; tách population, ví dụ và fallback. F05a giải thích resource regime riêng. | Ch. 4.5–4.7 | T23, T24, T25 | MINH_HỌA | SRC04, SRC08, RG01/RG02 và EX01 (§9.10) | `diagrams/F05_memory_retrieval.tex; F05a_regime_training.tex → .pdf` |
 | F06 | **Prior tasks, target observations and frozen MT inference.** Tách task với episode/query; tách huấn luyện teacher/student khỏi inference. | Ch. 4.8 | T28, T29 | MINH_HỌA | SRC05, SRC10 | `diagrams/F06_mt_tasks_training.tex → .pdf` |
 | F07 | **Fact Anchor and utility-gated action revision.** Giữ raw proposal, anchor và final action riêng; điều kiện Q10/Q90 nghiêm ngặt. | Ch. 4.8 | T30, T31 | MINH_HỌA | SRC06 | `diagrams/F07_action_policy.tex → .pdf` |
 | F08 | **Shared upstream and within-repeat method dependencies.** Một upstream mỗi điểm; Common/anchor dependency dùng đúng repeat, fallback không tạo call giả. | Ch. 4.9 | T33 | MINH_HỌA | SRC03, SRC06 | `diagrams/F08_variant_dag.tex → .pdf` |
@@ -1287,6 +1287,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL056 | [EX01 record/timeline](chapters/04_proposed_system.md#452-temporal-eligibility-and-frozen-membership): 3 record đã lưu và boundary | DO_DUOC | EP01 original bank và U08 v1 trace; §9.9 | Exact JSON FPT:2022-04-07; 3 exit năm2022 < query2023-07-03 | Hai boundary rows có nhãn Illustrative; không giả ID hoặc đọc giá query tương lai |
 | CL057 | [Bank provenance](chapters/04_proposed_system.md#452-temporal-eligibility-and-frozen-membership): 852 CORE4 và transfer | DO_DUOC | EP01–EP03, SYS21, BG16; §9.9 | FPT211/MWG213/VCB215/VNM213; max_exit2022-12-30 | Bank raw khác donor query; QA cũ không phải chứng nhận raw signal journal mới; không relabel |
 | CL058 | [§4.5.2–4.5.3](chapters/04_proposed_system.md#453-signal-memory-versus-numerical-context-in-ex01): freeze/reserved và hai loại context | HOP_DONG_TRIEN_KHAI | BG16/BG17/BG23, EX01-C/S/hosted v1; §7.4/§9.9 | Signal211→19→3; numeric3tasks/11prior+3target=14rows; reserved102 | Không đồng nhất 3examples với 3tasks, không coi maturity theo từngquery là fold-frozen protocol |
+| CL059 | [§4.5.4](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): fit/features/naming | HOP_DONG_TRIEN_KHAI | BG04/SYS22–24/BG23; §9.10 | 5features,4states, seed42/maxiter500/tol.001/mincov.001; train-only mapping/scaler | Generic2018–2022bounds không thay cutoff artifact; category ID khác latent state |
+| CL060 | [Quality fallback](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): MULTI_FACTOR khác UNKNOWN/error | HOP_DONG_TRIEN_KHAI | BG04 calibration/fallback và SYS23 timeline | Occupancy≥5%, separation, vol ratio1.1, gain criterion; <499price rows UNKNOWN | Không coi existence fallback là EX01 đã fallback; missing artifact dừng, không fit ngầm |
+| CL061 | [Frozen inference/F05a](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): model/scaler resources và endpoint | HOP_DONG_TRIEN_KHAI | RG01/RG02, SYS22/SYS23/BG23/SYS24; §9.10 | Historical episode-prefix khác query2022/MT2020; prefix endpoint khác historical smoothing | Không reassign bank hoặc suy state dưới model mới là state PIT cũ |
+| CL062 | [EX01 assignments](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): CONSOLIDATION vs BULL và fit metadata | DO_DUOC | RG01/RG02/EX01-C/hosted v1; §9.10 | 1251/1052rows end2022 vs752/553rows end2020; HMM/no fallback reasons | Không phân loại lại/fit model để làm hai label giống nhau; rawhash khác semantic parameter fingerprint |
+| CL063 | [MT scaler identity/F05a](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment): 4-feature context khác HMM scaler | DO_DUOC | EX01-C.context.scaler, §9.10 | fit731, cutoff2020-12-31, maxexit2020-12-29; full-scaler digest và fit-ID hash | Không lấy731 làm training_rows HMM hoặc nhận hình khái niệm là mới chạy thực nghiệm |
 
 Quy tắc điền bảng:
 
@@ -1535,6 +1540,9 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS19 | `core/bayesian_memory.py` | `d78482b4b1e014ee1bfa916cddc911ef9573217a0225738bf3ced7d639d201f9` | Live đồng nhất byte |
 | SYS20 | `core/historical_evaluation_prior.py` | `89e67d53acad3634d1309584c4d5e16990f59089fa807c18ec7c7e8b997d912a` | Live đồng nhất byte |
 | SYS21 | `core/free_pilot_assets.py` | `4b4f8c748ea851dba55fc281938550b0f6eb3e75ace011ed7d22dcead51837d7` | Live đồng nhất byte |
+| SYS22 | `core/historical_evaluation_runner.py` | `e2025fcdb2fe069e68a92e1be72d0dea97039479ba38db38164e90b27f9cb11a` | Live đồng nhất byte |
+| SYS23 | `core/mt_bicl_regimes.py` | `6d036cb93c0ca3a965e536145fe2074fc2e27064c21cae0c2d7de637fcada704` | Live đồng nhất byte |
+| SYS24 | `core/historical_runner.py` | `778099c2d413b81ec6f2803f15d1a8b5ccd769db2b862067ca92d74b457d0ecf` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1761,3 +1769,47 @@ donor series; không tính lại nhãn trên donor. Numeric context dùng foldfr
 trước queryđầu và reserved102 trước label API; K3prior/11rows+3target là
 context khác3signal examples. Chỉ source/manifest/record/diff checks, không
 chạy lại bank QA, oracle toàn bank, model hoặc benchmark.
+
+### 9.10. Regime: resource/scaler, quality fallback và F05a
+
+T24; CL059–CL063. Source SYS22/SYS23/SYS24, BG04/BG23 và providerBG16/17
+được đối soát snapshot; chỉ đọc fit/inference implementation. Hai artifact
+dưới có raw hash khớp `snapshot_manifest.json.source_members`:
+
+| ID | Member snapshot | SHA256 nguyên byte |
+| --- | --- | --- |
+| RG01 | `data_manager/regime_model.json` | `7c1749752d449844cd458b71bb3fe5f276961b794e1bc8d1f1b90d8bddac026e` |
+| RG02 | `outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/regime_models.json` | `5df0307a70b3df177a43faba8be04a72c00dabcb422c0b1c66a4b76cd84e724d` |
+
+RG01 envelope semantic hash
+`e8274ad3271f6e35a794a9f931a2aacf66297b923c00e2acde304ef6048b0747`;
+payload chứa cả HMM/scaler/metadata, train2018-01-02..2022-12-30,
+price1251/features1052, methodHMM/reasons[], iterations41. RG02 entry
+2020-12-31 có parameters content hash
+`cf711a9ce10dd1ebbccbeae048cce5bbd9f10271b9bab67a21e33aff5258541d`,
+train2018-01-02..2020-12-31, price752/features553, methodHMM/reasons[],
+iterations29. HMM5-feature StandardScaler nằm trong từng artifact, không
+lấy4-feature scaler numericalMT thay. Không refit, gọi predict_proba hoặc
+classify lại EX01; tên regime đọc từ trace và EX01-C.
+
+EX01-C đã pin §7.2: regime=CONSOLIDATION; context.query.regime.name=BULL,
+modelhash khớp RG02entry2020, feature_end=2023-07-03. Context4-feature scaler
+modefrozen_train, fit731/cutoff2020-12-31/maxexit2020-12-29,
+fit_ids_sha256 `25893eaad08b599103e7f4f1121c99e237d0eb8b6c008fa3a5e617e141f83f90`.
+Digest mới để định danh chính object scaler đã lưu (JSON compact/sortkeys):
+`5067ce86a04bc43f34c6c53cb3f7d8f1ceb23cab301b6bde6f313d56ce5dec2c`;
+đây không là modelhash hoặc phép fit mới. Membership EX01-C nối hosted MT
+bằng binding §7, không coi preparation thành forecast.
+
+F05a là child của danh mục F05, sơ đồ fit/query hai resource và lưu ý scaler
+MT riêng. Source TikZ/PDF/PNG tại assets/diagrams, build từ root với pdflatex
+như F03, output tạm tmp/pdfs/thesis-t24. PDF1trang180×167mm, PNGmax2000px;
+đã render/xem toàn trang sau dời label tránh đường nối, không cắt/chồng chữ,
+fontType3 hoặc warning/overfull/underfull/undefined trong log. MiKTeX nhắc
+cập nhật nhưng build exit0. Không sửa output regime hoặc receipt nghiên cứu.
+
+| Artifact F05a | SHA256 (source LF, PDF/PNG nguyên byte) |
+| --- | --- |
+| [Source TikZ](assets/diagrams/F05a_regime_training.tex) | `916c693586d23dbd1ea14994f15001f88854a34f216883dab91eb65d2a48a8ce` |
+| [PDF](assets/diagrams/F05a_regime_training.pdf) | `18832b0099f0d7b72894861dbfb0a6998a27dd0b8941f103841944565e5b7f1f` |
+| [PNG](assets/diagrams/F05a_regime_training.png) | `717618e7f47b319911cfb75f36bee9e41ff5044938c10c1a3d5a6120e586f74a` |

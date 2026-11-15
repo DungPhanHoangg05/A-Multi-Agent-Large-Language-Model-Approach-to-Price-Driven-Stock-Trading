@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.4 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.5 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -857,7 +857,100 @@ exposure.
 
 ### 4.5.4. Regime fitting and query-time assignment
 
-> **Not yet drafted.** Explain the evaluated regime resources, fitting/scaler metadata, quality fallback and frozen query inference, keeping signal-bank/v1 and numerical MT regime sources separate.
+Regime is a description of the market state used to organize historical
+evidence. It is computed from VN-Index, not from the query's eventual trade
+outcome. The feature definitions and HMM interpretation were introduced in
+Section 3.4. Here the important distinction is between **fitting a resource**
+and applying an already frozen resource to the admissible query prefix.
+[^regime-integration]
+
+**Offline fitting and naming.** The primitive constructs five features:
+log return, 20-session return volatility and relative distances to the
+20/50/200-session moving averages. It needs 200 observed sessions for the
+longest moving average and at least 300 feature rows to fit. A train-only
+StandardScaler feeds a four-state diagonal Gaussian HMM. The configured
+seed is 42, iteration ceiling 500, convergence tolerance 0.001 and minimum
+covariance 0.001. These settings describe the evaluated implementation;
+the effective date range comes from each artifact, not the generic
+2018–2022 fitting bounds in the class.
+
+Latent state numbers have no intrinsic BULL/BEAR meaning. Train posterior
+weights produce state feature means and occupancies. The highest mean
+distance to MA200 names BULL, the lowest remaining mean names BEAR, and the
+higher-volatility state among the two remaining states names CHOPPY. The
+last state names CONSOLIDATION; deterministic state-index tie-breaking makes
+the mapping reproducible. Mapping and calibration are stored with the
+model, scaler, source/runtime versions and training-data hash.
+
+**Fit-quality fallback.** The primitive checks its registered EM convergence
+criterion, posterior occupancy of at least 5% per state, BULL/BEAR means on
+opposite sides of MA200, sufficient separation relative to train MA200
+dispersion, and a CHOPPY volatility mean at least 1.1 times the remaining
+neutral state's mean. If a check fails, metadata records reasons and sets
+`classification_method=MULTI_FACTOR`. The deterministic fallback uses
+MA50/MA200 distances with a train-derived trend threshold, followed by an
+upper-train-volatility-quantile rule; otherwise it returns CONSOLIDATION.
+It does not silently refit on the query or claim a reliable HMM posterior.
+Missing/invalid artifacts and malformed price prefixes are technical errors,
+not reasons to fabricate a market regime.
+
+**Frozen query inference.** At a query date, feature construction rejects
+rows after cutoff and requires the model's training prefix/hash to match.
+It transforms with the stored scaler, then either maps the final-prefix
+HMM posterior's largest component or applies the declared fallback. The
+posterior at the prefix endpoint has no later observed rows; retrospective
+states inside an extended prefix must not be mistaken for the state known
+at each earlier decision. Query inference does not re-estimate the scaler,
+transition/emission parameters, naming rule or fallback thresholds.
+
+The model also returns source symbol, feature end date, volatility level
+and trend strength. These are descriptive outputs. A regime ID is an index
+into the named categories, not necessarily the original latent component
+number, a calibrated profitable-trade probability or a recommendation.
+
+**Resources actually used.** The evaluated paths must be kept distinct:
+
+| Use | Fitted resource and application |
+| --- | --- |
+| Historical signal-bank episode regime | The memory-building contract uses a VN-Index prefix artifact ending at that episode's decision date. Stored episode labels are retained, not reassigned using the later query model. Published bank QA remains the evidence scope. |
+| Signal-prior query regime | `Regimes` loads the frozen end-2022 resource and verifies its training-data hash. EX01 uses the artifact trained 2 January 2018–30 December 2022: 1,251 price rows, 1,052 feature rows, HMM method. |
+| Numerical MT task/query regime | `RegimeTimeline` uses block-prefix fits no later than end-2020. Queries after 2020 use the final 31 December 2020 resource: 752 price rows, 553 feature rows, HMM method. `FrozenTimeline` hydrates saved parameters and fails if a required artifact is missing; it does not launch a new fit. |
+
+For early MT prefixes shorter than 499 price rows, the timeline explicitly
+returns UNKNOWN for insufficient regime history. This is a different path
+from a fitted model's MULTI_FACTOR fallback. A task's block-start metadata
+also differs from a query's current-prefix assignment. These distinctions
+prevent an end-2022 model from being retroactively attached to an earlier
+task or to the evaluated end-2020 MT resource.
+
+![Separate frozen regime resources and query-time transformations.](../assets/diagrams/F05a_regime_training.png)
+
+*Figure F05a. Fitting versus query inference for EX01. Each column retains
+its own train-only five-feature HMM scaler, model and calibration. The
+current VN-Index prefix can be transformed by either frozen resource without
+refitting it. The separate four-feature MT context scaler is not either
+HMM scaler. Historical episode-prefix artifacts are a third provenance
+path. The diagram describes computation and source identity, not a new fit
+or isolated causal effect.* [PDF](../assets/diagrams/F05a_regime_training.pdf).
+
+**EX01 identity and assignment.** The signal-prior trace records
+CONSOLIDATION from the end-2022 query path; the numeric query records BULL
+with feature end date 3 July 2023 and end-2020 model fingerprint beginning
+`cf711a9ce10d`. Both artifacts record HMM method and no quality-fallback
+reasons. The model/scaler fingerprints are bound separately in ledger §9.10;
+the labels are preserved even though they differ.
+
+The MT context's four-feature scaler is another resource. EX01 records
+`mode=frozen_train`, 731 fitted observations, cutoff 31 December 2020 and
+latest fitted exit 29 December 2020. This scaler normalizes context
+momentum/volatility/MA-distance observations, not the HMM's five-feature
+vector. Its fit-ID hash and full scaler fingerprint distinguish it from the
+HMM scalers. Neither model integrity nor a successful regime assignment
+resolves the recorded price-basis limitations or certifies overall causal
+validity.[^regime-artifacts]
+
+[^regime-integration]: BG04 `regime_detector`, SYS22 `historical_evaluation_runner.Regimes`, SYS23 `mt_bicl_regimes.RegimeTimeline`, BG23 `hydrate/FrozenTimeline`, and SYS24 historical prefix provider. CL059–CL061 and ledger §9.10 bind settings, mapping, fallback and the absence of query-time fitting.
+[^regime-artifacts]: RG01–RG02 frozen model packages, EX01-C and U08 v1 trace; CL062–CL063. The end-2020 fingerprint hashes serialized metadata/model/scaler parameters, while a ZIP-member hash identifies the enclosing artifact bytes. The four-feature context scaler has its own identity; no model or scaler was refitted for this draft.
 
 ## 4.6. Bayesian Prior v1
 

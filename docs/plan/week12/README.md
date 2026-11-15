@@ -150,6 +150,17 @@ receipt/checklist, không đổi code/runtime/schema/input hoặc bằng chứng
   kết/166 anchor, 17 footnote/84 đặc tả/diff PASS; không chạy suite, bank QA,
   regenerate labels hoặc model vì chỉ sửa tài liệu. T24 còn viết regime.
 
+- **T24; §4.5.4/F05a, CL059–CL063 và sổ §9.10:** nhánh
+  `docs/thesis-regime-integration`; fit/naming/quality fallback và frozen
+  query, phân biệt episode-prefix/model2022/MT2020. EX01 giữ CONSOLIDATION
+  khác BULL, HMM5-feature scaler khác context4-feature fit731. RG01/RG02
+  raw/envelope/serialized parameter fingerprints và nguồn/scaler/projection
+  được đối chiếu; không fit/classify/predict lại. F05a có TikZ/PDF1trang
+  180×167mm/PNG2000px, đã render/xem/chỉnh label tránh đường nối; kiểm
+  log/font/bbox/hash PASS; 47 SYS/BG, 4 EP/2 RG, 56 slot EX01,
+  449 liên kết/172 anchor, 19 footnote/84 đặc tả/diff PASS. Không chạy
+  suite/API vì chỉ đổi tài liệu và sơ đồ giải thích, không đổi runtime/receipt.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

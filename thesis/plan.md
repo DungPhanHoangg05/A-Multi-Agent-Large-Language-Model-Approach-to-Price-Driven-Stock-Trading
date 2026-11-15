@@ -51,7 +51,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T21 — DONE: [§4.3.5](chapters/04_proposed_system.md#435-sentiment), live/component-cache/context FrozenNews riêng, scorer/availability/decay và min3/reliable8. CL048–CL050 giữ EX01 unavailable/null khác zero/neutral; không crawl, chạy scorer hoặc sửa nghiên cứu đã khóa.
 - [x] T22 — DONE: [§4.4 và B03 phần foundation](chapters/04_proposed_system.md#44-native-and-common-foundations), delta field/selector/instruction/caps; Native/Common khác Full/Base. CL051–CL054 đối chiếu envelope EX01 và paired code; không nhận bridge là ablation một nguyên nhân hoặc bảng prior đã hoàn tất.
 - [x] T23 — DONE: [§4.5.1–§4.5.3](chapters/04_proposed_system.md#451-a-completed-signal-episode), schema/oracle/bull trap, saved JSON và timeline strict maturity; bank852 CORE4 khác context số/fold freeze/reserved102. CL055–CL058 nối manifest/U08, giữ transfer giá bank/query; regime tích hợp viết ở T24.
-- [ ] T24 — Giải thích fit regime và tích hợp vào query.
+- [x] T24 — DONE: [§4.5.4](chapters/04_proposed_system.md#454-regime-fitting-and-query-time-assignment), fit/scaler/mapping/quality fallback và query frozen; F05a phân biệt model2022/2020 và scaler4feature MT. CL059–CL063 nối artifact/EX01, giữ CONSOLIDATION khác BULL; không refit hoặc nâng gate toàn hệ.
 - [ ] T25 — Giải thích truy xuất Bayesian v1, prefix và fallback.
 - [ ] T26 — Giải thích thống kê điều kiện và readiness của C2.
 - [ ] T27 — Giải thích A_tp_pool/B_semantic và so sánh các prior.
