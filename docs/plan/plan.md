@@ -23,9 +23,10 @@ chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối ng
 đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
 [Khung sáu chương](../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
 đã có tiêu đề/placeholder tiếng Anh và quy ước dùng sổ bằng chứng chung.
-P2 đã bắt đầu với [Chương 3 §3.1](../../thesis/chapters/03_background.md#31-observations-and-time-indexing)
-về quan sát/chỉ số thời gian và hình F01; chưa có chương hoàn chỉnh hoặc
-kết quả thực nghiệm mới. Bản xem hai
+P2 đã có [bản nháp Chương 3 §3.1–§3.7](../../thesis/chapters/03_background.md),
+từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
+kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
+nghiệm mới; các chương khác còn khung. Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,
 kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung

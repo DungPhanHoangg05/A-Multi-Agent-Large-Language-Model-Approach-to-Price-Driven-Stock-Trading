@@ -1,7 +1,7 @@
 # Chapter 3. Theoretical Background and Problem Formulation
 
-> **Draft status: partial chapter.** Sections 3.1–3.6 have source-checked drafts.
-> Section 3.7 remains a placeholder; the chapter has not undergone final manuscript review.
+> **Draft status: initial complete chapter draft.** Sections 3.1–3.7 have source-checked drafts.
+> This is internal drafting verification; final scientific, citation, language and layout reviews remain pending.
 
 Writing aids: [chapter outline](../outline.md#chapter-3-theoretical-background-and-problem-formulation), [terminology and notation](../evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
 
@@ -623,4 +623,144 @@ Chapter 4 will detail these contracts and dependencies.[^mt-utility]
 
 ## 3.7. Temporal validity and evaluation principles
 
-> **Not yet drafted.** State the price/news cutoffs, exclusion of undated news, strict historical-exit condition and reserved-ID rules. Explain purging, row-wise causality versus outer-cutoff compliance, paired upstream and repeated decisions. Define classification/account evaluation units and undefined-denominator handling; add the chronological partition diagram.
+### 3.7.1. Availability at a query cutoff
+
+A forecast must be constructed from information admissible at its cutoff,
+before its own outcome is joined for evaluation. Let $d_t$ be the date of
+the last observed query bar and $d^{\mathrm{exit}}_i$ the exit date of a
+candidate historical cycle. The contracts distinguish several boundaries:
+
+| Object | Availability requirement |
+| --- | --- |
+| Price prefix | Every included observation date is at or before $d_t$; the expected final query bar must exist. |
+| Dated news | Publication and protocol-defined availability are at or before the cutoff; undated articles are excluded. The historical date-only policy can impose a later availability date than publication. |
+| Labeled historical cycle | $d^{\mathrm{exit}}_i<d_t$, strictly; exit on the query date is excluded. |
+| Fitted resource | Parameters, scaler, selector, mapping and calibration use only their declared earlier fit/selection data. The resource version must match the protocol. |
+| Query target | The query's label and realized entry/exit prices are excluded from the forecast/context input, then joined only for evaluation. |
+
+Maturity is necessary, not sufficient. A candidate also has to satisfy the
+declared universe, feature, task/bucket and identity rules. The unified study
+excludes all reserved evaluation IDs from context even after those cycles
+would have matured. This prevents a later query from quietly consuming an
+earlier reserved evaluation label.[^validity-contracts]
+
+In the unified numerical-context path, the historical label pool is frozen
+before the first query of each fold, an additional restriction beyond
+exit-before-current-query. Later query features can advance to their own
+cutoff, but the pool does not accumulate newly matured labels during that
+fold. The recorded freeze boundary must therefore accompany a maturity
+statement.
+
+Outer-cutoff compliance concerns the supplied window. Row-wise causality
+asks a further question: could the value stored for an earlier row have been
+computed using observations later than that row? A full-prefix normalization
+or retrospective selection can violate the latter while the final window
+still ends at $d_t$. Correct prefix truncation does not repair such a value.
+The recorded native row-wise causal audit remains FAIL and whole-system
+causality NOT_CERTIFIED. Local source/contract checks in this chapter do not
+supersede those findings.
+
+### 3.7.2. Chronological partitions and purging
+
+Training fits resources; validation selects configurations; evaluation measures
+the frozen choices on the declared later support. Chronological order is
+appropriate when nearby observations are dependent, as explained in the
+[scikit-learn time-series evaluation guide](https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation-of-time-series-data).
+The actual study uses its own frozen schedule, not an assumed library split.
+
+A decision before a partition boundary can still have an outcome extending
+beyond it. For a next-partition boundary $b$, the implemented alpha split
+rule admits a fitting/selection cycle only when its exit is strictly before
+$b$. Cycles with exit equal to or later than $b$ are purged from that split.
+This label-overlap rule differs from the separate query-time maturity test
+and from the global reserved-ID exclusion. Nor does purging require erasing
+admissible past price observations needed for a later feature window.
+
+![Illustrative chronological partitions, purging and strict historical-label maturity.](../assets/diagrams/F02_temporal_partitions.png)
+
+*Figure F02. Chronological partitions and historical-label maturity. The
+upper panel illustrates cycles retained or purged at subsequent partition
+boundaries; the lower panel illustrates the strict exit-before-query rule.
+The layout is Illustrative: no actual fold dates, sizes or untouched holdout
+are asserted. Global reserved IDs remain excluded even after maturity.*
+[Vector PDF](../assets/diagrams/F02_temporal_partitions.pdf).
+
+Exact boundaries, resource freezes and exclusions must be reported separately
+for the component and historical-context studies in Chapter 5. Previously
+exposed historical folds remain exploratory; neither this diagram nor a new
+name turns them into a previously untouched holdout.[^validity-contracts]
+
+### 3.7.3. Pairing and units of evidence
+
+Paired comparison holds the market point, upstream realization, economic
+target and relevant input contract fixed while changing the declared branch.
+The upstream reports are produced once per point/realization and deep-copied
+to dependent branches. Re-running a vision model independently for each
+method would change both the intervention and its random input.
+
+Decision repeats are downstream stochastic realizations conditional on that
+shared upstream. A forecast slot, a new hosted response, a bypass and an
+HTTP retry are different units. For the historical-context study,
+$102\times3\times8=2,448$ research slots do not constitute 2,448 independent
+market observations. A fallback reuses the appropriate same-repeat result
+and remains in the primary comparison; it is not a new LLM response.
+Stock–fold accounts, market dates and repeated decisions also remain distinct
+from one another.[^validity-pairing]
+
+Matched interventions must be interpreted as actually implemented. Native
+versus Common changes alpha representation and instructions; Full versus
+Base belongs to a separate response collection. Common→Anchor→MT combines
+several changes. Neither pairing nor an observed bridge difference isolates
+the numerical student, retrieval, statistics and utility without the matched
+ablations required to do so.
+
+### 3.7.4. Metrics, denominators and dependence
+
+With UP as the positive label, define TP/TN as correct positive/negative
+predictions and FP/FN as the corresponding errors. When classification is
+based on execution actions, LONG is positive and CASH is negative; raw
+proposals remain a separate record. Accuracy is $(TP+TN)/n$, while
+
+$$
+\operatorname{BA}=\tfrac12\left[\frac{TP}{TP+FN}+\frac{TN}{TN+FP}\right],
+\qquad
+\operatorname{MCC}=\frac{TP\,TN-FP\,FN}
+{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}.
+$$
+
+[Official BA](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html)
+and [MCC](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.matthews_corrcoef.html)
+documentation supplies the general metric interpretation. The study's
+explicit undefined-value policy is additionally important: its unified
+consumer retains BA as unavailable if a truth class is missing and MCC as
+unavailable if its denominator is zero. Undefined precision/F1 or risk-ratio
+denominators are likewise not silently replaced by successful-looking zeros.
+Always show the applicable class support and denominator.[^validity-metrics]
+
+Account return compounds the realized LONG/CASH cycle payoffs within a
+declared account. Averaging separately capitalized stock–fold accounts does
+not simulate a shared-capital multi-stock portfolio. Net asset value (NAV)
+also depends on when a position is marked; daily versus cycle-end maximum
+drawdown can differ. Exposure and turnover describe trading activity rather
+than classification correctness.
+
+Risk ratios require an explicit sampling frequency and dispersion convention.
+The historical-context consumer uses sample-standard-deviation cycle Sharpe
+and an all-cycle lower-partial-second-moment Sortino. The legacy component
+risk helper uses population standard deviation and the standard deviation
+of the negative subset for its Sortino denominator. These conventions are
+not interchangeable. Irregular sparse schedules must not be annualized by
+assuming that every recorded return is a daily return.[^validity-metrics]
+
+Temporal dependence, common market dates, repeated decisions and overlapping
+labels constrain uncertainty analysis. Preserve each study's recorded
+aggregation order and paired block/fold resampling family; do not substitute
+independent-row error bars or recompute results to improve a presentation.
+With the small, historically exposed fold set, the registered bands support
+descriptive sensitivity analysis, not a claim of confirmatory significance,
+calibrated coverage or prospective profitability. Chapter 5 will report the
+actual estimators and their limits.
+
+[^validity-contracts]: Frozen `core/causal_alpha.py` split masks, `core/historical_evaluation_protocol.py` maturity/purge checks, `HistoricalData`/`FrozenNews`, and unified context providers/reserved-ID exclusions; CL021–CL022. F02 illustrates these rules without inventing a study calendar.
+[^validity-pairing]: Frozen `core/unified_execution_providers.py`, `core/unified_methods.py`, unified protocol/contracts and saved U08/U09 support; CL023. The immutable parent and same-repeat dependencies are part of the comparison contract.
+[^validity-metrics]: Frozen `core/free_pilot_statistics.py`, unified analysis consumer/statistics and `utils/account_risk.py`; CL024. General library documentation does not override a recorded study's undefined-value or risk-frequency convention.

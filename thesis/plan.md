@@ -39,7 +39,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T12 — DONE: [§3.4](chapters/03_background.md#34-hidden-markov-models-for-market-regimes), state/emission/transition, VN-Index features, fit/scaler/mapping/fallback và endpoint posterior. CL012–CL013 tách filtering/smoothing, cutoff model thực dùng và hai nguồn regime EX01; không refit hoặc chứng nhận causal toàn hệ.
 - [x] T13 — DONE: [§3.5](chapters/03_background.md#35-bayesian-summaries-of-historical-evidence), Beta–Bernoulli, disjoint background shrinkage, mẫu số/K, credible interval/readiness và hai ví dụ Illustrative. CL014–CL016 kiểm counts/quantiles; không gọi posterior là calibrated query probability hoặc return interval.
 - [x] T14 — DONE: [§3.6](chapters/03_background.md#36-multi-task-context-and-utility), prior/target/query, teacher/student/LLM và sign probability/utility riêng; ví dụ Illustrative 80% nhưng U=−0.4%, hai dấu strict Q10/Q90 và anchor. CL017–CL020 có nguồn; không suy lợi ích student riêng từ pipeline gộp.
-- [ ] T15 — Giải thích tính hợp lệ thời gian và nguyên tắc đánh giá.
+- [x] T15 — DONE: [§3.7](chapters/03_background.md#37-temporal-validity-and-evaluation-principles), giá/tin/episode/resource/query boundaries, purge/reserved IDs, paired protocol/dependence và metric/support/NA. F02 có TikZ/PDF/PNG đã kiểm; CL021–CL025 có nguồn. P2 có bản nháp Chương 3, chưa hoàn tất phương pháp P3/G2 hoặc rà soát cuối.
 
 #### Hệ thống đề xuất — P3
 

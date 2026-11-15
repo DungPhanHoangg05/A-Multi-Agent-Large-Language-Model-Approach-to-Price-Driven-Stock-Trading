@@ -810,8 +810,8 @@ cross-reference do LaTeX sinh. `F11` trong danh mục hình khác mốc nghiệm
 - Mỗi ID có **một loại nguồn chính**; panel phụ phải ghi loại/nguồn của nó.
   Ví dụ ảnh UI thật nếu bổ sung vào F11 phải ghi version và lượt kiểm riêng,
   không biến sơ đồ workflow thành bằng chứng nghiệm thu.
-- Đường xuất trong bảng là **đề xuất tại mốc T06**; sản phẩm F01 đã tạo sau
-  đó được ghi tại §8.4, không suy các ID khác đã có sản phẩm. Các tiền tố
+- Đường xuất trong bảng là **đề xuất tại mốc T06**; sản phẩm F01/F02 tạo sau
+  đó được ghi tại §8.4/§8.5.6, không suy các ID khác đã có sản phẩm. Các tiền tố
   `diagrams/`, `figures/`, `tables/` nằm dưới `thesis/assets/`. Nguồn giả mã
   A01–A03 nằm trong bản thảo Chương 4 §4.9 rồi chuyển sang LaTeX; label là
   định danh dự kiến. Chưa tạo các thư mục/file này chỉ để lấp danh mục.
@@ -1194,9 +1194,9 @@ phí làm đổi dấu kết quả, không chọn lại một ca thắng sau khi
 
 ### 8.1. Điểm vào sáu chương
 
-Sáu file dưới đây được khởi tạo từ **khung Markdown** tại T08; chưa có chương
-hoàn chỉnh. Chương 3 đang được viết lần lượt trong P2; phạm vi đã đối soát
-ghi tại §8.2, các mục chưa viết vẫn có placeholder.
+Sáu file dưới đây được khởi tạo từ **khung Markdown** tại T08. Chương 3 nay
+có bản nháp §3.1–§3.7, chưa qua rà soát toàn văn; các chương khác vẫn có
+placeholder. Phạm vi đối soát nội bộ ghi tại §8.2.
 Tiêu đề chương/mục giữ theo [dàn bài §C](outline.md#c-detailed-chapter-outline).
 Các mục chưa viết có block `Not yet drafted` nêu cụ thể nội dung còn thiếu. Các ghi chú
 này là hỗ trợ viết, phải được thay bằng nội dung và kiểm nguồn ở task tương
@@ -1207,7 +1207,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | --- | --- | --- |
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
-| [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp P2 viết lần lượt; các claim đã đối soát ở §8.2, mục chưa viết có placeholder |
+| [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
 | [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01 | Toàn bộ đường chạy từ inputs qua agent/context/policy tới final action; sơ đồ và thuật toán |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
@@ -1249,6 +1249,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL018 | [§3.6.2](chapters/03_background.md#362-a-frozen-teacher-and-a-learned-student): teacher mixture count, frozen student/distillation và LLM riêng | HOP_DONG_TRIEN_KHAI | MT teacher/replica student frozen §8.6; recipe §3.4 | Prior tasks reweight component, target counts update target Beta; soft CE query mask | Không chạy student/teacher inference hoặc fit; teacher không hồi quy continuous query feature |
 | CL019 | [§3.6.3](chapters/03_background.md#363-from-sign-probability-to-net-return-utility): U=theta*g−(1−theta)*loss và toy −.004 | MINH_HOA | Utility source frozen §8.6; phép tính §8.5.5 | p=.8,g=.01,loss=.06 → −.4%; utility source teacher, student log riêng | Kiểm toán học; không chạy 4096 draws hoặc sinh lại utility study |
 | CL020 | [§3.6.4](chapters/03_background.md#364-anchor-relative-action-revision): strict Q10 delta utility, anchor/fallback | HOP_DONG_TRIEN_KHAI | MT policy frozen §8.6 | CASH→LONG Q10U>0, LONG→CASH −Q90U>0; equality reject | Kiểm source và dấu; lỗi kỹ thuật không thành bypass; quantile không bảo đảm lợi nhuận |
+| CL021 | [§3.7.1](chapters/03_background.md#371-availability-at-a-query-cutoff): PIT/maturity/resource/reserved/query và row-wise causality | HOP_DONG_TRIEN_KHAI | TIME03, alpha/MT/unified provider frozen §8.6; giới hạn §3 | Giá≤d_t,tin availability≤cutoff,cycle exit<d_t; reserved IDs loại toàn cục | Không ghi toàn hệ causal PASS; không dùng outer cutoff sửa giá trị hàng lịch sử |
+| CL022 | [§3.7.2](chapters/03_background.md#372-chronological-partitions-and-purging): purge labels tại boundary | HOP_DONG_TRIEN_KHAI | Causal alpha/protocol frozen §8.6; sklearn guide về temporal evaluation | Exit<b cho split trước; exit=b hoặc >b purge, không xóa toàn history giá | Không tự đặt actual fold dates hoặc gọi exposed folds untouched holdout |
+| CL023 | [§3.7.3](chapters/03_background.md#373-pairing-and-units-of-evidence): paired immutable parent, repeat/slot/bypass/market support | HOP_DONG_TRIEN_KHAI | Unified providers/methods frozen §8.6, §3 U08/U09 | 102×3×8=2448 slots conditional trên cùng upstream | Không independent market n=2448; không gộp Full/Base với Native/Common hoặc suy isolated MT ablation |
+| CL024 | [§3.7.4](chapters/03_background.md#374-metrics-denominators-and-dependence): metrics, NA, account/NAV và frequency | HOP_DONG_TRIEN_KHAI | Free pilot/unified analysis/risk helper frozen §8.6, official BA/MCC/CV docs | BA hai class; MCC zero denominator NA; sample/pop SD và LPM2 khác nhau | Không annualize tùy tiện, pooled portfolio, significance/coverage claims hoặc sửa study convention |
+| CL025 | [F02](assets/diagrams/F02_temporal_partitions.pdf), §3.7.2 | MINH_HOA | Source TikZ/hash §8.5.6, CL021–CL022 | Schematic split/purge/maturity, không ngày/độ dài fold thật | Đã build/render/xem một trang; không phải cohort schedule T37 hoặc causal acceptance |
 
 Quy tắc điền bảng:
 
@@ -1406,6 +1411,32 @@ exponential-weight construction; nguồn gốc học thuật còn kiểm tại T
 Không torch load/forward, teacher inference, fit, utility sampling hoặc
 thêm ablation để bù nội dung.
 
+#### 8.5.6. Tính hợp lệ thời gian và đánh giá
+
+T15, 15/11/2026: đọc source purge/label admission/reserved-ID providers,
+paired deep-copy và metrics/ratios; kiểm nguồn frozen qua §8.6. Tách xếp
+thời gian feature/fit/query/history, exit strict trước boundary hoặc query,
+labels reserved không tái dùng. Diễn giải BA/MCC/CV dựa thêm official sklearn
+docs đã đọc đúng mục, không lấy sklearn behavior thay NA policy trong source
+study. Không chạy lại classification/accounts/bootstrap. F02 là layout
+Illustrative, không tự tạo các ngày chia tập hoặc gọi exposed folds là
+untouched holdout. Numerical-context pool frozen trước query đầu fold,
+không tự nhập nhãn mới trong fold; query feature vẫn tới cutoff tương ứng.
+Ngày/độ dài/cohort thực tế vẫn viết ở T37/Chương 5.
+
+| File F02 | SHA256 byte sản phẩm đã kiểm (source theo blob LF) |
+| --- | --- |
+| [F02_temporal_partitions.tex](assets/diagrams/F02_temporal_partitions.tex) | `f2dbfdaa2a4a48438b90d8126237b6756913a61638be8307bd1526ed89a1f575` |
+| [F02_temporal_partitions.pdf](assets/diagrams/F02_temporal_partitions.pdf) | `0531acba3e263efe0af0cd244315a617bf4bf1dc0326310253f138190713b2e6` |
+| [F02_temporal_partitions.png](assets/diagrams/F02_temporal_partitions.png) | `82b8142baebf840e059cc3666847bef5dd3c7389aec6dd9d57d921127be8d029` |
+
+Build tương tự F01, đổi basename thành `F02_temporal_partitions` và thư mục
+tạm thành `tmp/pdfs/thesis-t15`. pdfLaTeX một lượt exit0, một trang 170×118 mm,
+Poppler render1.800px đã xem toàn trang, không cắt/chồng chữ/Type3 hoặc lỗi
+overfull/underfull/undefined. MiKTeX còn nhắc cập nhật; không phải lỗi build.
+PNG để xem Markdown, PDF vector để dàn trang, source TikZ để chỉnh sửa; không
+build toàn văn. Metadata PDF có thể khác khi rebuild như ghi chú F01.
+
 ### 8.6. Binding source nền tảng bổ sung
 
 Nguồn dưới được đọc từ `final_evidence_snapshot.zip` đúng byte/manifest,
@@ -1429,3 +1460,12 @@ tiện; các khác biệt UI được xác nhận ở §3 không thay nguồn ng
 | BG12 | `core/mt_bicl_replica_student.py` | `0a7a18066f8874ff1d21417f6e46c3b93782e0c6f4836b6f48a942c8d0616ecb` | Live đồng nhất byte |
 | BG13 | `core/mt_bicl_utility.py` | `7678ff30ad5cb8f563628f41e3ba7f42415c035df02d0cab1833da6ccdef87b2` | Live đồng nhất byte |
 | BG14 | `core/mt_bicl_policy.py` | `301525c36c150e21f09a1971101d53d5927cf38c1d2921017c477441e097b488` | Live đồng nhất byte |
+| BG15 | `core/historical_evaluation_protocol.py` | `9b8233f60554201cf861dc39f7326720f907ef9930fea01ebefa235073df2345` | Live đồng nhất byte |
+| BG16 | `core/unified_asset_providers.py` | `dfd88f386e458fa1716095bf2964cc603952086c5abd2bada6a167f36ca70147` | Live đồng nhất byte |
+| BG17 | `core/unified_execution_providers.py` | `987563e6a5855a56b817de995682326f5d8d1e39c688176a9a5fb59849997a23` | Live đồng nhất byte |
+| BG18 | `core/unified_methods.py` | `db8f320dc64d590fc5348e9faec967e2acd2a097547e3d8478bb685dd8061c87` | Live đồng nhất byte |
+| BG19 | `core/free_pilot_statistics.py` | `097cf88e3068126c1f668da3022109649aeaff4f8e22a2a319639a9fa9bcd7fb` | Live đồng nhất byte |
+| BG20 | `core/unified_analysis/analysis.py` | `e805460aa47b8d36f563d936b0e52322968f65485537c16fdd94525955179a85` | Live đồng nhất byte |
+| BG21 | `core/unified_analysis/statistics.py` | `4446fa0a77fce1a74a38d94918ae64c1c379c9a6a997b60a8d5df40dfff85b12` | Live đồng nhất byte |
+| BG22 | `utils/account_risk.py` | `487a50fe28397130a93a92c3f2cd79b5184e5cc1a546b9b21ea7ab7a976cd829` | Live đồng nhất byte |
+| BG23 | `core/historical_evaluation_context.py` | `9c9e0e8bce652582ead55a71c1f7faaac534b79aaef02830d99cd541b372ec91` | Live đồng nhất byte |

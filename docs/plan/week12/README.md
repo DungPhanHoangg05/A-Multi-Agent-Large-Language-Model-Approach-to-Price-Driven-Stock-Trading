@@ -106,6 +106,24 @@ không tạo checklist hoặc receipt riêng.
   truy cập full text. Kiểm toy U=−.004 và dấu strict Q10/Q90, links/footnotes/
   84 đặc tả PASS; không model load/forward, sampling, fit hoặc suite/API.
 
+- **T15; §3.7, CL021–CL025, sổ §8.5.6:** nhánh
+  `docs/thesis-temporal-evaluation-foundations`; PIT giá/tin/history/resource,
+  pool frozen trước query đầu fold, reserved-ID/purge, shared parent/repeats,
+  metrics/support/NA, NAV/frequency và phụ thuộc. Tạo F02 TikZ/PDF/PNG như
+  schematic có nhãn Illustrative; không tạo actual split dates hoặc untouched
+  holdout. Đọc sklearn official đúng mục; nguồn frozen khớp manifest.
+  PDF 170×118 mm một trang, build một lượt exit0, render1.800px và xem toàn
+  trang PASS; không Type3/chữ ngoài trang/overfull/underfull/undefined.
+  Đối soát sáu task, 84 đặc tả, claim/footnotes/links và diff PASS. P2 có
+  bản nháp §3.1–§3.7, chưa hoàn tất P3/G2 hoặc rà soát khoa học/citation cuối.
+- **Phạm vi chung T10–T15:** chỉ Markdown và F02 có source/preview. Không
+  đổi code/test/schema/runtime/input hoặc metric/forecast đã khóa; không
+  chạy compileall/unit/E2E/leakage, cold replay, model/thị trường API, fit,
+  sampling utility hay ablation. Các phép tính mới chỉ minh họa có nhãn rõ;
+  chỉ build hình mới. F01 giữ PDF/PNG byte và source blob LF. Các giới hạn
+  native FAIL/whole-system NOT_CERTIFIED/F11/F12 và điều kiện nộp còn thiếu
+  giữ nguyên; checklist duy nhất ở thesis/plan.md.
+
 ### Quan sát, chỉ số thời gian và timeline giao dịch
 
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`
