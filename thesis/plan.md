@@ -47,7 +47,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T17 — DONE: [§4.2](chapters/04_proposed_system.md#42-input-preparation-and-shared-state), nguồn/cửa sổ/missingness, B02 hợp đồng, state/shared/context riêng và hash EX01. CL029–CL032 có nguồn; bảng hiện nằm trong Markdown, chưa xuất bảng LaTeX hoặc chứng nhận dữ liệu/causal toàn hệ.
 - [x] T18 — DONE: [Indicator/Decision §4.3](chapters/04_proposed_system.md#43-the-base-multi-agent-pipeline), priorities/vote/missingness, distillation/caps, base schema và LONG/CASH; CL033–CL037 có nguồn. EX01 count lines bị cap khỏi Indicator prompt fragment, đã ghi rõ thay vì giả toàn summary tới LLM; không sửa runtime/forecast frozen.
 - [x] T19 — DONE: [§4.3.2–§4.3.3](chapters/04_proposed_system.md#432-pattern), hai PNG FPT nguyên byte từ U08 và F04 có chú giải ngoài ảnh, PDF/PNG/source đã kiểm. CL038–CL042 giữ Pattern warning/low confidence và Trend widening trái geometry Close-fit; dịch report có nhãn, không coi kiểm format/heuristic là grounding hoặc forecast đúng.
-- [ ] T20 — Giải thích xây dựng, lựa chọn và giới hạn Alpha.
+- [x] T20 — DONE: [§4.3.4](chapters/04_proposed_system.md#434-alpha), candidate adaptations, công thức thực thi/normalization/IC/ranking/report và Native/Common riêng. CL043–CL047 khớp source và EX01 selector/projection đã khóa; giữ Native row-wise FAIL, in-sample diagnostics và symmetric Sharpe khác CASH. Không refit, sửa runtime hoặc nhận công thức thích nghi bằng bản gốc.
 - [ ] T21 — Giải thích nguồn, tổng hợp và thiếu sentiment.
 - [ ] T22 — Giải thích Native/Common và phân biệt Base.
 - [ ] T23 — Giải thích episode lịch sử, nhãn và điều kiện đủ thời gian.

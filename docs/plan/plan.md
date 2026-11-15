@@ -26,9 +26,11 @@ chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối ng
 P2 đã có [bản nháp Chương 3 §3.1–§3.7](../../thesis/chapters/03_background.md),
 từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
 kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
-nghiệm mới. P3 đã bắt đầu [Chương 4](../../thesis/chapters/04_proposed_system.md)
-với tổng quan và F03, mở ví dụ EX01 trước outcome; các mục tiếp theo đang
-viết, các chương còn lại giữ khung. Bản xem hai
+nghiệm mới. P3 đã có bản nháp [Chương 4 §4.1–4.2 và các phần
+Indicator/Pattern/Trend/Alpha/Decision](../../thesis/chapters/04_proposed_system.md),
+kèm F03/F04 và EX01 giữ riêng input/report/geometry/outcome. Sentiment và
+các mục profile/context/policy/điều phối còn placeholder; các chương còn lại
+giữ khung. Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
 trích dẫn/bố cục chính thức chưa được cung cấp. **Trao đổi với người dùng,
 kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; toàn bộ nội dung

@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.2 and the Indicator, Pattern, Trend and Decision parts of 4.3 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.2 and the Indicator, Pattern, Trend, Alpha and Decision parts of 4.3 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -344,7 +344,163 @@ the actual image geometry.
 
 ### 4.3.4. Alpha
 
-> **Not yet drafted.** Explain candidate transformations, orientation, ranking and report selection, with formulas and verified attribution. Disclose in-sample diagnostics and native causality limits, keeping the native and causal-common paths distinct.
+Alpha supplies numerical transformations of price and volume, followed by a
+declared selection procedure. Its factor values summarize transformed market
+observations; neither their magnitude nor their historical accuracy is a
+calibrated probability of the next profitable trade. The historical numerical
+stage does not request an additional LLM interpretation. Native and Common
+use different transformations and selectors, as explained below.
+[^alpha-native]
+
+**Candidate construction and attribution.** The registry contains 85
+candidates: five system-specific factors and 80 single-stock adaptations
+named after entries in the [Alpha101 collection](https://arxiv.org/abs/1601.00991v3).
+They combine returns, candle bodies, moving averages, lagged differences,
+rolling ranks/correlations and decays. The code's VWAP input is the
+typical-price proxy $(H+L+C)/3$, not an observed volume-weighted transaction
+price. Rolling time-series comparisons replace operations that originally
+ranked a cross-section; industry-neutralized information is not recreated
+from one stock's OHLCV. These are adapted candidates, not a replication of
+all 101 original formulas or their reported performance.
+
+For example, the implemented WQ18 handler computes
+
+$$
+x_{18,i}=-R_{20}^{\mathrm{ts}}\left[
+\operatorname{Std}_5(|C-O|)+(C-O)+\operatorname{Corr}_{10}(C,O)
+\right]_i.
+$$
+
+Here $R_{20}^{\mathrm{ts}}$ is the implementation's trailing comparison of
+the current value with prior values in the window, using strict greater-than
+comparisons and partial-window rules. It is not a cross-stock rank. The
+report's short formula field comes from a display template; the executable
+handler and its bound source determine the calculation. An abbreviated
+template containing ellipses, such as the saved WQ29 description, cannot
+serve as a complete executable specification.
+
+**Native selection on the current historical prefix.** The selector copies
+the supplied historical frame, applies the cutoff and retains at most 600
+bars. Backtest mode requires this frame and cannot fall through to the live
+loader. Every candidate is evaluated over that same prefix. Its default
+normalization is
+
+$$
+z_{j,i}=\tanh\!\left(\frac{\widetilde{x}_{j,i}-\mu_{j,D}}
+{s_{j,D}}\right),
+$$
+
+where $D$ is the entire supplied selection window, nonfinite raw values are
+first replaced with zero, and the standard deviation uses the sample
+convention. A near-constant series returns zero. Alternative native modes
+use full-window min–max scaling or full-window ranks; none of these is the
+Common expanding normalizer.
+
+For daily data, ranking labels are net returns from Open$(i+1)$ to
+Close$(i+3)$ with the same two-sided fee/slippage factors as Section 3.2.
+This native helper expresses the arithmetic directly; the Common selector
+below calls the canonical scalar oracle. Unmatured tail labels are missing.
+Spearman IC is computed on finite signal/label pairs. Diagnostic accuracy
+uses signals stronger than 0.05 after orienting by IC; economic UP is a
+strictly positive net return. The native ranking score is
+
+$$
+S_j=0.40\,N(|\mathrm{IC}_j|)+0.35\,N(\mathrm{Accuracy}_j)
++0.25\,N(\mathrm{Sharpe}^{\mathrm{diag}}_j),
+$$
+
+for the default weights, where $N$ rescales a metric across candidates to
+[0,1] and returns 0.5 for a constant metric. Long-only accuracy is reported
+but does not enter this score. The Sharpe diagnostic uses
+$\operatorname{sign}(z^{\mathrm{oriented}})r^{\mathrm{net}}$ on overlapping
+historical rows. A negative signal can therefore earn a positive diagnostic
+return when the candidate LONG return is negative. This is a symmetric
+ranking diagnostic, not the implemented CASH payoff or an account equity
+curve. Minimum-support paths also use default diagnostic values; a ranking
+row is not a certificate of adequate predictive support.
+
+The top five scores determine the report. Their latest normalized values
+are flipped when the stored IC is negative; that stored IC is rounded to
+four decimals. Values above 0.10 are bullish, below −0.10 bearish, and the
+remaining values neutral, including the boundaries. The agent rounds values
+to four decimals for output and summarizes bullish/bearish counts; the
+signal is assigned before this display rounding. A nonfinite latest value
+is coerced to zero, so a neutral output alone does not certify availability.
+An empty dynamic selection stops a historical point. Strict research mode
+propagates selected-handler errors; the general five-factor fallback is not
+a substitute for a failed historical selection.
+
+**Native validity limitation.** Selecting, orienting and reporting accuracy
+on the same history produces in-sample diagnostics. Moreover, a cutoff at
+the end of $D$ does not make every historical row causal: full-window
+normalization can change old values when later rows are appended. Native
+lag backfilling, the whole-window real-volume/proxy decision and
+length-dependent factor windows introduce additional row-wise problems.
+The recorded native row-wise causal gate remains **FAIL**. This differs from
+claiming that the outer query read prices after its cutoff; passing that
+outer-cutoff check does not repair the historical transformations or
+selection bias.[^alpha-validity]
+
+**Common: prefix transformations and a frozen selector.** The separate
+`causal_common_v1` profile retains the candidate identities in its own
+namespace while replacing the affected operators: expanding-prefix
+normalization, lagging without backward filling, observed volume without
+a range proxy, and fixed versions of six length-dependent window
+expressions. A 300-bar observed-volume mask, the normalizer's minimum of
+20 observations and finite-value requirements govern availability. Common
+preserves a fixed history origin instead of resetting to Native's 600 bars.
+An unavailable selected query factor raises an error; it is not filled with
+zero or replaced by another candidate.[^alpha-common]
+
+Orientation is estimated on train Spearman IC against labels from
+`compute_round_trip_net_return`. Validation then chooses five factors and
+one threshold from 0.05, 0.10 and 0.20 by mean LONG/CASH return on common
+finite support. Each candidate must meet train support with nondegenerate
+signal and return series; validation requires
+at least 30 common observations and five LONGs per admitted candidate.
+Training requires at least 60 valid pairs. Three-session decision grids and
+strict exit-before-next-split boundaries separate orientation, selection and
+test. Ranking ties use alpha ID; threshold-search ties prefer the smaller
+threshold. This validation choice remains model selection, not test evidence.
+
+The artifact freezes IDs, signs, threshold, schedule, source/runtime and
+price hashes. Loading verifies it by reproducing the train/validation fit;
+prediction does not select again or use the query outcome. The verification
+is part of the recorded implementation, not a new fit performed for this
+manuscript. This profile's scoped checks do not turn the Native gate into
+PASS or certify the whole system as causal.
+
+**EX01 selected-report example, translated for presentation.** The saved
+Native table is:
+
+| Selected factor | Oriented displayed value | Signal | Stored IC | Historical accuracy | Composite score |
+| --- | --- | --- | --- | --- | --- |
+| WQ18, Std + Body + Corr Rank | −0.2871 | Bearish | +0.1266 | 56.9% | 0.8509 |
+| WQ29, Nested Rank Log | −0.2071 | Bearish | −0.1312 | 54.1% | 0.8217 |
+| WQ57, VWAP Argmax Decay | −0.0133 | Neutral | +0.1024 | 55.2% | 0.7575 |
+| WQ42, VWAP-Close Ratio | −0.2701 | Bearish | +0.0718 | 60.1% | 0.7514 |
+| LVR, Liquidity Void Reversion | +0.7355 | Bullish | +0.1269 | 52.7% | 0.7239 |
+
+The archived consensus is bearish: one bullish, three bearish and one
+neutral. WQ29 explicitly records the negative-IC flip. These accuracies and
+scores describe the selector's historical sample, not EX01's future outcome.
+The full report contains the table, display formulas, metrics and consensus;
+Decision receives a distilled, capped projection rather than all detail.
+
+For the same shared parent, the saved Common projection instead contains
+WQ57 (−0.033616, neutral), WQ52 (+0.861779, bullish), WQ02 (+0.758270,
+bullish), WQ21 (+0.874219, bullish) and WQ83 (−0.086067, bearish).
+Its frozen threshold is **0.05**, not Native's 0.10; WQ52/WQ02 have negative
+orientations. The EX01 artifact fits through 30 June 2023 with history
+origin 2 January 2020, train 14 April 2021–30 September 2022 and validation
+6 October 2022–27 June 2023, before the 3 July query. Values here are
+rounded for presentation; the saved full-precision projection and hashes
+remain the evidence. This change of both factors and selection procedure
+must be disclosed when interpreting Native/Common comparisons.
+
+[^alpha-native]: Frozen `agents/alpha_agent.py`, `utils/alpha_selector.py` and `core/alpha_compare.py`: registry, features, normalization, execution-return helper, metrics, ranking and report assembly. CL043–CL044 in the shared ledger bind implementation statements and EX01's saved Native factors. Alpha101 attribution uses the version read for Section 3.3, not a claim of formula equivalence.
+[^alpha-validity]: Frozen `core/revision_alpha_contract.py` and the recorded audit scope; CL045. PASS_DETECTION and an outer-cutoff PASS differ from the native row-wise FAIL. No counterexample suite or research run was repeated to write this section.
+[^alpha-common]: Frozen `core/causal_alpha.py`, BG03, and EX01's selector/projection in U06 assets v2, checked against U08's saved Common projection. CL046–CL047 and ledger §9.6 distinguish artifact verification from new training, and Common Alpha scope from whole-system certification.
 
 ### 4.3.5. Sentiment
 

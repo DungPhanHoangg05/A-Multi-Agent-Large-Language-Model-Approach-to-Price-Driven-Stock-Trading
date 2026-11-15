@@ -103,6 +103,20 @@ duy nhất vẫn ở thesis/plan.md, không tạo receipt riêng.
   hash/geometry/report, 418 liên kết/146 anchor, footnote, 84 đặc tả và
   diff PASS; không chạy suite vì chỉ đổi tài liệu/ảnh dẫn giải.
 
+- **T20; §4.3.4, CL043–CL047 và sổ §9.6:** nhánh
+  `docs/thesis-alpha-methodology`; viết 85 candidates, formula thực thi khác
+  template, Native full-window normalization/IC/rank/default weights/report,
+  in-sample và symmetric diagnostic khác LONG/CASH. Giữ row-wise FAIL,
+  không suy outer-cutoff PASS thành Zero-Leakage. Common giữ namespace riêng,
+  train orientation/validation top5+threshold/frozen query. Năm dòng Native
+  và U06 selector/projection EX01 khớp manifest/digest/source/config/lịch và
+  projection U08; threshold thực dùng.05, không giả.10 hoặc fit lại theo query.
+  Đối soát 12 SYS, BG03, 56 slot EX01, 85 registry IDs, toàn bộ bảng Alpha,
+  424 liên kết/152 anchor, 11 footnote, 84 đặc tả/diff và hash/layout F03/F04
+  PASS. Không build lại hình cho T20, chạy suite/refit/replay/API hoặc đổi
+  code/runtime/input/bằng chứng nghiên cứu. T21 trở đi chưa đánh dấu xong;
+  Chương 4/P3 còn thiếu Sentiment, profile/context/policy/điều phối và rà soát.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

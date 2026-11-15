@@ -1208,7 +1208,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
-| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01 | Toàn bộ đường chạy từ inputs qua agent/context/policy tới final action; sơ đồ và thuật toán |
+| [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | §4.1–4.2 và Indicator/Pattern/Trend/Alpha/Decision đã có bản nháp; các phần context/policy/điều phối còn placeholder |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 ca EX01 | Thiết kế, số liệu chính xác, ô bảng có nguồn, phân tích/band/ca sai và giới hạn |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
 
@@ -1220,7 +1220,7 @@ chương bằng tiếng Anh; hướng dẫn quản lý trong sổ này bằng ti
 ### 8.2. Quy ước ánh xạ luận điểm và ô bảng khi viết
 
 Các dòng dưới ánh xạ **luận điểm/ô bảng đã viết trong bản thảo**, hiện thuộc
-Chương 3 và hình kèm theo. Đây là đối soát nội bộ, chưa phải phản biện bản thảo
+Chương 3–4 và hình kèm theo. Đây là đối soát nội bộ, chưa phải phản biện bản thảo
 hoặc xác nhận nhân quả toàn hệ. Các số đã kiểm ở §3/§7 vẫn là bằng chứng
 nguồn; việc chép vào chương phải có ánh xạ cụ thể và kiểm lại cách diễn đạt.
 Thêm dòng vào bảng dưới khi một luận điểm, công thức hoặc ô bảng được viết;
@@ -1271,6 +1271,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL040 | [§4.3.3](chapters/04_proposed_system.md#433-trend): renderer Close-lines và verifier mean/slope | HOP_DONG_TRIEN_KHAI | Trend/static_util/BG01 frozen, §9.1 | Blue/red Close fits khác high/low fits và model-stated horizontal levels | Verifier không xác thực mọi level/width/prose; high confidence không phải calibrated probability |
 | CL041 | [EX01 geometry](chapters/04_proposed_system.md#433-trend): report says widening nhưng Close gap giảm | DAN_XUAT | Frozen fit_trendlines_single/check_trend_line/optimize_slope, Close45 saved; §9.5 | Gap1.8857842646→1.4561850893; slopes .1128526497/.1030890321 | Helper số trích AST, không render lại ảnh, gọi VLM hoặc thay report/metric nghiên cứu |
 | CL042 | [F04](assets/diagrams/F04_chart_pair.pdf), source và annotations | DO_DUOC | Hai bitmap EX01-IP/IT nguyên byte; layout hash §9.5 | A1–B2 chú thích mới bên ngoài ảnh; PDF180×250mm một trang | Raw images khác annotation/derived check; không relabel CMG hoặc sinh ảnh AI |
+| CL043 | [§4.3.4](chapters/04_proposed_system.md#434-alpha): registry, WQ18 thực thi, Native normalization/IC/ranking/report | HOP_DONG_TRIEN_KHAI | SYS03/SYS10/SYS11 frozen; §9.6; nguồn Alpha101 đọc tại §8.5.2 | 85=5 system-specific+80 adapted; weights mặc định .40/.35/.25; symmetric diagnostic khác CASH | Không đồng nhất template với executable formula, typical-price proxy với VWAP thật, adapted với original hoặc score với probability |
+| CL044 | [EX01 Native Alpha](chapters/04_proposed_system.md#434-alpha): năm dòng/value/signal/IC/accuracy/composite và consensus | DO_DUOC | EX01-S alpha_factors/alpha_report; §9.6 | Values4 decimals; metrics là in-sample; 1 bullish/3 bearish/1 neutral | Chép saved fields, không chạy selection lại hoặc suy từ diagnostic tới future profit |
+| CL045 | [Native limitations](chapters/04_proposed_system.md#434-alpha): full-window/backfill/global volume/length windows và same-sample selection | HOP_DONG_TRIEN_KHAI | SYS11/SYS12; §9.6 và audit W12 đã khóa | Native row-wise FAIL khác outer-cutoff PASS và PASS_DETECTION | Chỉ đọc source/audit cũ, không chạy lại suite/counterexample hoặc nâng thành Zero-Leakage |
+| CL046 | [Common Alpha](chapters/04_proposed_system.md#434-alpha): namespace/operator changes, train orientation/validation ranking/freeze | HOP_DONG_TRIEN_KHAI | BG03; artifact EX01-AS, §9.6 | 300-bar volume mask; normalizer20; support60/30/5; threshold .05/.10/.20; strict split exits | Loader verification có tái lập fit trong implementation; đợt viết này không fit, Alpha scope không chứng nhận toàn hệ |
+| CL047 | [EX01 Common Alpha](chapters/04_proposed_system.md#434-alpha): IDs/signs/values/threshold/lịch | DO_DUOC | EX01-AS/AP trong U06 assets v2, projection khớp U08 EX01-S | Threshold.05; origin2020-01-02; fit_end2023-06-30; train/validation theo artifact | Số bản thảo làm tròn6 decimals, raw vẫn giữ; không coi U06 preparation là hosted response hoặc so sánh chỉ đổi prior |
 
 Quy tắc điền bảng:
 
@@ -1507,6 +1512,9 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS07 | `agents/pattern_agent.py` | `0b343ad7cd1d8c1e7c3781d22c8b843430c5ce35226088f336fad0cc1b2e7d49` | Live đồng nhất byte |
 | SYS08 | `agents/trend_agent.py` | `5b610eec0e78768e5d4bd31b2f61f14660e67345334852643ea42d6126193803` | Live đồng nhất byte |
 | SYS09 | `utils/static_util.py` | `d2ff7865be9e08f831e1a254d3c85ae2141c7f1cf26181bbf4d9e0f2708597ca` | Live đồng nhất byte |
+| SYS10 | `utils/alpha_selector.py` | `a8fcf575385805debb2a30b00cb946f8ab2a55bad7c94df4fa369b3f76c12323` | Live đồng nhất byte |
+| SYS11 | `core/alpha_compare.py` | `b9b0419d93541f49837ab4cabffad13a6771e5aaea74561f1070fe7c2d1166bd` | Live đồng nhất byte |
+| SYS12 | `core/revision_alpha_contract.py` | `deb310e091b4fa60e2d1fa4e343f42b5c96ae1a6c483eab53169f56ea1b92b1e` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1596,3 +1604,64 @@ PDF180×250mm, một trang sau chỉnh kích thước ảnh; source dùng articl
 không cắt/chồng chữ/Type3 hoặc lỗi log. Build từ root như F03, đổi basename
 `F04_chart_pair` và thư mục tạm `tmp/pdfs/thesis-t19`; tài nguyên ảnh nằm
 trong thesis/assets. Không gọi AI để vẽ lại ảnh nghiên cứu.
+
+### 9.6. Alpha: ứng viên, chấm điểm Native và selector Common đã khóa
+
+T20: §4.3.4, CL043–CL047. Đọc SYS03/SYS10/SYS11/SYS12 và BG03 từ
+snapshot, đối chiếu manifest/source byte; không import pipeline, chạy
+selector, tính lại factor, kiểm thử counterexample hoặc fit. AST registry
+xác nhận85 ID duy nhất:5 CURRENT và80 WQ adaptations. WQ18 thực thi dùng
+`-ts_rank(std5 + close-open + corr10,20)`; template report viết rank rút gọn,
+WQ29 có ellipsis. Không nhận các chuỗi display là specification chính xác.
+Nguồn Alpha101 giữ metadata/phạm vi đọc §8.5.2, không trích công thức gốc
+để giả chúng bằng implementation single-stock.
+
+Native: selection tối đa600 bars đã cutoff; daily lookahead3. Hàm
+`build_forward_execution_returns` viết trực tiếp phép tính net cùng phí
+.0025/slippage.001 hai chiều, khác việc gọi oracle scalar của Common.
+Không đổi nhãn prior tasks hoặc economic engine. Normalize full-window
+(sample std cho zscore_tanh), nonfinite→0; `delay` bfill, global volume branch,
+cửa sổ phụ thuộc length và selection cùng mẫu giữ giới hạn causal. IC dùng
+Spearman, metric orientation trước rounding; alpha agent định hướng bằng
+IC đã lưu4 decimals. Rank default norm01(|IC|/accuracy/Sharpe diagnostic),
+trọng số.40/.35/.25, không long_acc. Sharpe sign(signal)×net return trên
+hàng overlap là diagnostic đối xứng, không execution SHORT hoặc account.
+Native query signal dùng strict±.10 trước round value4. Empty dynamic
+backtest selection dừng; nonfinite last value vẫn có thể về0 ngay cả strict
+mode. Historical alpha không gọi LLM reason. EX01 năm dòng khớp saved
+alpha_factors/report, gồm WQ29 negative-IC flip; consensus1/3/1. Không suy
+accuracy56.9% hoặc score.8509 là xác suất hay lợi nhuận tương lai.
+
+Gói [U06 assets v2](../docs/plan/week12/unified_comparison_assets_v2.zip)
+SHA256 `d5c4f1bc31c1a95d9e685a9cc13d1f86ce2d3cc0105b9023561fd5f567e2d8c4`.
+Hai member dưới thư mục `outputs/unified_integration/u06_assets_v2/` được
+đối chiếu `assets_manifest.json.members` (bytes/hash), không tái tạo:
+
+| ID | Member tương đối | SHA256 nguyên byte |
+| --- | --- | --- |
+| EX01-AS | `frozen_selectors/FPT_b2023_h2.json` | `25a580cfb1999a2868ded4007091c993068db7e12c6fe244cccb25ee665e75b8` |
+| EX01-AP | `frozen_alpha/FPT-2023-07-03.json` | `f59e4bebb8b2b86f7f2c87f7f5ca262263d96c8be2116111ce2f88d77dae5108` |
+
+AS envelope semantic digest `35c16d6c5d39e22f53b2f769a835ac99d1fd36b04f451308e18800ac7bddfeb4`
+khớp AP.selector_sha256; AP.projection_sha256
+`024b8f3d633cff6a378d543ef886da00464780d5fffc8b518f2d029d9992315d`
+khớp compact sorted JSON (bỏ trường digest). AP nguyên nội dung bằng
+EX01-S.payload.causal_alpha.projection từ U08, không lấy preparation U06
+làm bằng chứng hosted forecast. Source native/causal/economics trong AS
+khớp SYS11/BG03/TIME01; config bằng CONFIG source frozen.
+
+AS giữ history_origin2020-01-02, fit_end2023-06-30; train2021-04-14..2022-09-30,
+validation2022-10-06..2023-06-27; test2023-07-03..2026-09-23. Có123 ngày
+train-grid và55 ngày validation common support; tập dùng cho IC từng candidate
+còn lọc finite, không nhận123 là mọi train_n. Boundary validation_end không
+đồng nghĩa ngày cuối common support: ngày cuối được lưu là23/06/2023.
+Không tự đổi lịch theo tên b2023_h2 hoặc nhận mỗi query được fit lại.
+Đối soát chọn max validation-search score và tie-break từ giá trị đã lưu,
+threshold.05, ID/sign đúng năm factor AP; không chạy validation mới.
+Các value6 decimals trong bản thảo là round từ AP, signal theo full precision.
+
+Nguồn SYS12 giữ `native_rowwise_causal_gate=FAIL` và `PASS_DETECTION`;
+đọc lại source không phải chạy lại audit. Common scoped checks/receipt cũ
+không sửa Native hoặc whole-system NOT_CERTIFIED. Không chạy compileall,
+unit/E2E/leakage vì đợt này chỉ đổi nội dung tài liệu; F03/F04 giữ hash đã
+kiểm khi tạo, không build lại cho T20.

@@ -19,7 +19,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 7. [Ví dụ xuyên suốt EX01](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết): FPT tại cutoff 03/07/2023, quy tắc chọn, nguồn từng bước và ranh giới giữa thông tin dự báo với outcome; giữ kết quả sai, fallback và giới hạn nghiên cứu.
 8. [Các chương và sổ ánh xạ](evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm): liên kết tới từng file trong `chapters/`, tiêu đề ổn định và placeholder cho mục chưa viết; sổ chung nhận ánh xạ luận điểm/ô bảng khi viết, không có checklist hoặc receipt riêng cho từng chương.
 9. [Chương 3 — cơ sở lý thuyết](chapters/03_background.md): đã có bản nháp §3.1–§3.7, [F01](assets/diagrams/F01_trade_timeline.pdf)/[F02](assets/diagrams/F02_temporal_partitions.pdf) vector/source TikZ và ví dụ có nguồn hoặc nhãn Illustrative. Nguồn/claim đối soát tại §8 sổ chung; chưa phải bản đã qua rà soát khoa học, citation và bố cục cuối.
-10. [Chương 4 — hệ thống đề xuất](chapters/04_proposed_system.md): P3 đang viết từ tổng quan, hợp đồng tới từng thành phần. Nguồn bổ sung tại [sổ chung §9](evidence.md#9-nguồn-giải-thích-hệ-thống-đề-xuất); mục chưa viết giữ placeholder, không coi hình tổng quan là đã hoàn tất toàn phương pháp.
+10. [Chương 4 — hệ thống đề xuất](chapters/04_proposed_system.md): đã có bản nháp tổng quan, hợp đồng và Indicator/Pattern/Trend/Alpha/Decision, kèm F03/F04 có nguồn. Nguồn bổ sung tại [sổ chung §9](evidence.md#9-nguồn-giải-thích-hệ-thống-đề-xuất); Sentiment và các phần profile/context/policy/điều phối còn placeholder. Chưa hoàn tất P3 hoặc rà soát toàn văn.
 
 ## Hai trang bìa
 
