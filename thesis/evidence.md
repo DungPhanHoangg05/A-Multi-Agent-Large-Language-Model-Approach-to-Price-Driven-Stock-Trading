@@ -1279,6 +1279,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL048 | [§4.3.5](chapters/04_proposed_system.md#435-sentiment): live scorer/fallback và component frozen cache | HOP_DONG_TRIEN_KHAI | SYS13/SYS15/SYS16; §9.7 | Arithmetic mean, strict±.10; historical dated90 days/min3; scorer/backend/fallback riêng | Không lấy code model ID làm chứng cứ backend thực dùng hoặc fallback neutral làm market evidence |
 | CL049 | [FrozenNews](chapters/04_proposed_system.md#435-sentiment): availability, decay, missingness | HOP_DONG_TRIEN_KHAI | SYS14, FrozenNews.get_sentiment_at; §9.7 | available≥publication-day+1, 90days theo available; exp(-ln2×age/30), min3 | Scorer tag/verified count là contract, không chứng nhận tin đúng/đủ hoặc thời điểm gốc; không gán±.10 của live vào provider này |
 | CL050 | [EX01 news/normalizer](chapters/04_proposed_system.md#435-sentiment): unavailable và reliability khác neutral | DO_DUOC | EX01-S, SYS03; §9.7 | Count0, score null, min3 vs reliable8; delta_1d_proxy=z/2 | Không gọi proxy là biến động1ngày thực hoặc tin thành input dynamic factor chỉ từ tên SFA |
+| CL051 | [§4.4.1](chapters/04_proposed_system.md#441-native-and-common-in-the-context-study): Native/Common bridge và request | HOP_DONG_TRIEN_KHAI | SYS01/02/05/17/18, BG18; §9.8 | Common thay top-level alpha_report/alpha_factors; preserved raw parent; instruction/caps đổi; empty prefix | Không nhận whole nested payload identical, Native=Base hoặc Common không có Alpha |
+| CL052 | [EX01 profile trace](chapters/04_proposed_system.md#443-what-the-bridge-can-establish): envelope bằng nhau, messages khác | DO_DUOC | Hai forecast EX01 Native/Common, §7.2, §9.8 | Tất cả non-message request fields bằng nhau; prompt3699/4186; SHORT/CASH và LONG | Không kết luận riêng thay đổi nào gây response khác, không đọc outcome vào input |
+| CL053 | [§4.4.2/B03](chapters/04_proposed_system.md#442-full-and-base-in-the-component-study): Full/Base và hai switch | HOP_DONG_TRIEN_KHAI | SYS01 ABLATION_CONFIGS/compile, TIME01 paired path; §9.8 | Full(true,true), Base(false,false); upstream một lần/deepcopy | Joint bundle khác alpha-only; cấu hình tồn tại không chứng minh panel đã chạy |
+| CL054 | [§4.4.3](chapters/04_proposed_system.md#443-what-the-bridge-can-establish): giới hạn can thiệp | DAN_XUAT | Delta field/builder từ CL051–CL053 và identity hai nghiên cứu §3 | B03 foundation portion viết inline Markdown; variant rows tiếp ở các mục sau | Không coi Native/Common là ablation một thành phần hoặc gán lợi ích student riêng |
 
 Quy tắc điền bảng:
 
@@ -1522,6 +1526,8 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS14 | `core/historical_evaluation_data.py` | `96cab48918cd53b7408943157759a97477c367e3a4a07b4c98e46ecb7b039857` | Live đồng nhất byte |
 | SYS15 | `data_manager/sentiment_cache.py` | `d2fee68ca6cc7ee1386eeafca408d939dcd91e2ac2ce20cef453bbb0bc82355d` | Live đồng nhất byte |
 | SYS16 | `core/historical_signals.py` | `26a35fa6e5421db09f5cbed5f219346e9aa72667b2a759568f0884cdcecdc7c5` | Live đồng nhất byte |
+| SYS17 | `core/decision_profiles.py` | `49f3e313734e4cd2117008e004bb25dc925dfcbc327eba2eb360afadfd9ee93f` | Live đồng nhất byte |
+| SYS18 | `core/mt_bicl_prompt.py` | `93519b6951a6d5c4df18a420eaf080af33ee9448422dcda3903b7809840c90c2` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1697,3 +1703,25 @@ avg_score null, list rỗng và normalized reliability false. Full sentiment
 report có thông báo thiếu3score; các zero normalized không thay mask.
 Chỉ đối soát source/saved output, không tính lại sentiment hoặc nâng gate
 nghiên cứu. Đợt thuần tài liệu không chạy suite/runtime/API theo AGENTS§1.2.
+
+### 9.8. Hồ sơ Native/Common và Full/Base
+
+T22; CL051–CL054, B03 phần foundation inline tại §4.4. Chưa xuất CSV/TeX
+hoặc hoàn tất bảng các prior ở T27. Source SYS17/SYS18 bổ sung; SYS05/BG18
+và TIME01/SYS01/SYS02 dùng binding cũ, không lấy live UI làm nguồn frozen.
+Native `original_fix_serving_v1` capture factory invocation; Common canonical
+builder dùng integrated caps/COMMON_INSTRUCTION/prefix rỗng. Bridge đổi đúng
+hai top-level fields alpha_report/alpha_factors; raw nested provenance còn
+Native, không nói toàn JSON chuyển thành Common. Kiểm hai EX01 request:
+point/repeat/model/temperature/max_tokens/client_max_retries/client_options/
+service_tier/structured bằng nhau; messages khác, prompt3699/4186 chars.
+Các số Alpha và raw/action dùng §9.6/§7, không sinh request mới.
+
+Component TIME01 `_run_ablation_variants`: upstream.invoke một lần,
+variant_input=deepcopy(upstream_state), config bật/tắt hai cờ; Full bật cả
+hai, Base tắt cả hai, không vào Alpha node nếu cả hai false. Alpha-only và
+sentiment-only là cấu hình được định nghĩa, actual panel phải nối protocol
+§3.2; không dùng sự tồn tại của code để bổ sung run. Native/Common thay
+selector/normalization/history/report/instruction/caps cùng lúc; Full/Base
+thay bundle. Không suy riêng Alpha, prompt hoặc student causal effect.
+Chỉ kiểm source/record/diff/liên kết, không replay hoặc chạy runtime suite.

@@ -49,7 +49,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T19 — DONE: [§4.3.2–§4.3.3](chapters/04_proposed_system.md#432-pattern), hai PNG FPT nguyên byte từ U08 và F04 có chú giải ngoài ảnh, PDF/PNG/source đã kiểm. CL038–CL042 giữ Pattern warning/low confidence và Trend widening trái geometry Close-fit; dịch report có nhãn, không coi kiểm format/heuristic là grounding hoặc forecast đúng.
 - [x] T20 — DONE: [§4.3.4](chapters/04_proposed_system.md#434-alpha), candidate adaptations, công thức thực thi/normalization/IC/ranking/report và Native/Common riêng. CL043–CL047 khớp source và EX01 selector/projection đã khóa; giữ Native row-wise FAIL, in-sample diagnostics và symmetric Sharpe khác CASH. Không refit, sửa runtime hoặc nhận công thức thích nghi bằng bản gốc.
 - [x] T21 — DONE: [§4.3.5](chapters/04_proposed_system.md#435-sentiment), live/component-cache/context FrozenNews riêng, scorer/availability/decay và min3/reliable8. CL048–CL050 giữ EX01 unavailable/null khác zero/neutral; không crawl, chạy scorer hoặc sửa nghiên cứu đã khóa.
-- [ ] T22 — Giải thích Native/Common và phân biệt Base.
+- [x] T22 — DONE: [§4.4 và B03 phần foundation](chapters/04_proposed_system.md#44-native-and-common-foundations), delta field/selector/instruction/caps; Native/Common khác Full/Base. CL051–CL054 đối chiếu envelope EX01 và paired code; không nhận bridge là ablation một nguyên nhân hoặc bảng prior đã hoàn tất.
 - [ ] T23 — Giải thích episode lịch sử, nhãn và điều kiện đủ thời gian.
 - [ ] T24 — Giải thích fit regime và tích hợp vào query.
 - [ ] T25 — Giải thích truy xuất Bayesian v1, prefix và fallback.

@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Sections 4.1–4.3 have source-checked drafts.
+> **Draft status: partial chapter.** Sections 4.1–4.4 have source-checked drafts.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -641,7 +641,94 @@ remain separate records.
 
 ## 4.4. Native and Common foundations
 
-> **Not yet drafted.** Identify shared inputs and the changes to alpha projection, selector fitting and common instructions. Explain the Native/Common profile bridge and distinguish it from the Full/Base intervention in the separate component study.
+There are two different comparison designs. The context study compares a
+Native serving path with a Common foundation and extensions of that
+foundation. The component study instead compares the presence of the
+Alpha/Sentiment bundle. Calling both controls “baseline” would hide what
+actually changes.[^profile-bridge]
+
+### 4.4.1. Native and Common in the context study
+
+Native, archived as `original_fix`, uses `original_fix_serving_v1` and the
+existing Decision factory. Its prompt is captured at the invocation
+boundary, preserving the native report condensation, instructions and
+guards. It is a comparator with Alpha and Sentiment enabled, not a
+three-report control with those components removed.
+
+Common, archived as `original_common`, starts from the same sealed parent.
+The bridge preserves price prefix, images, Indicator/Pattern/Trend reports
+and sentiment. It replaces the top-level `alpha_report` and `alpha_factors`
+with the verified `causal_common_v1` projection. The raw Native material and
+its parent identity remain available for provenance; this is not a rewrite
+of every nested field in the saved snapshot. Common factors retain the
+anchored history and frozen selector described in Section 4.3.4.
+
+The Common builder also changes the Decision presentation. It uses the
+integrated backtest report caps, inserts `COMMON_INSTRUCTION`, and accepts
+a separately bounded historical-context prefix. That instruction explains
+prior/target/query notation, permits disagreement with context, separates
+net-positive probability from expected return and R:R, and restates
+SHORT=CASH and the fixed exit schedule. Common itself supplies an **empty
+context prefix**; mentioning prior-task notation in an instruction does not
+create historical examples or a posterior for that control.
+
+Both requests use the common serving envelope for point/repeat, model,
+sampling/output settings, client options and structured-output schema.
+Sharing this envelope does not make the prompts identical. A same-repeat
+Common result is also the declared dependency for unsupported prior
+branches, so reuse must refer to that completed result rather than a new
+Native call or a fabricated SHORT response.
+
+### 4.4.2. Full and Base in the component study
+
+The separate component study's Full branch enables both Alpha factors and
+Sentiment. Base, implemented as `baseline`, disables both. Indicator,
+Pattern and Trend run once for a paired point; the engine deep-copies that
+upstream state to each branch. A Base decision then proceeds without the
+feature-preparation node, while Full prepares its additional reports before
+Decision. Thus a Full/Base difference concerns the **joint bundle** and
+the prompt it supplies, not Alpha alone.[^component-control]
+
+The implementation also defines `alpha_only` and `sentiment_only` switches.
+Their existence does not establish that a particular archived panel ran
+them, and their results must be tied to that panel's own protocol. Likewise,
+component Full is not silently relabeled as a new context-study Native
+execution: the studies have separate request records and evidence versions.
+
+*Table B03, foundation portion. Controls and interventions; historical-context
+variants are described in the following sections. These rows define inputs
+and procedures, not isolated causal effects or performance results.*
+
+| Study / role | Shared material | Alpha / Sentiment presented to Decision | Decision presentation and intervention |
+| --- | --- | --- | --- |
+| Context / Native (`original_fix`) | The point's single sealed upstream realization and pinned source prefix | Native dynamic Alpha report; saved sentiment report | Native factory/profile; native caps; no added historical prefix |
+| Context / Common (`original_common`) | Same parent, images, three upstream reports and sentiment | Frozen causal-common Alpha replaces the two top-level Alpha fields; sentiment preserved | Common instruction and integrated caps; empty context prefix |
+| Component / Full (`full`) | Deep copy of the paired point's Indicator/Pattern/Trend state | Both Alpha and Sentiment enabled | Component protocol's Decision path with both added reports |
+| Component / Base (`baseline`) | The same paired upstream state | Both disabled | Component Decision receives the three upstream reports without the added bundle; this is not Common |
+
+### 4.4.3. What the bridge can establish
+
+Native/Common changes factor construction/normalization, selector fitting,
+history origin, selected factors, report representation, report caps and
+instructions together. It does not isolate a causal-common normalizer,
+prompt wording or any single factor. Holding the visual upstream fixed
+removes repeated vision sampling as one source of variation, while hosted
+response variation and the declared input differences remain. Comparisons
+of a later extension with Common answer a different question from
+comparisons with Native. Neither should be presented as a pure
+student-only effect or as proof of whole-system causal validity.
+
+**EX01 trace.** Native and Common repeat 0 have identical non-message
+serving-envelope fields, including the model/output schema, but different
+archived prompts of 3,699 and 4,186 characters. The saved Native report has
+one bullish/three bearish/one neutral Alpha; Common's projection has three
+bullish/one bearish/one neutral factors and a different threshold. Native
+returns SHORT, executed as CASH; Common returns LONG. This single contrast
+illustrates the declared profile change. It does not identify which change
+caused the response difference, nor does it reveal the later query outcome.
+
+[^profile-bridge]: SYS05 `decision_payload/bind_snapshot`, SYS17 profile constants, SYS18 `build_prompt/canonical_request/COMMON_INSTRUCTION`, SYS02 Native factory and BG18 `native_request/MethodAdapters`. CL051–CL052 and ledger §9.8 bind field preservation, changed inputs and saved EX01 requests.
+[^component-control]: Frozen graph SYS01 `ABLATION_CONFIGS/compile_upstream/compile_decision` and TIME01 `_run_ablation_variants/_run_paired_point`; component evidence identity at ledger §3.2. CL053–CL054 distinguish switches, actual paired execution and study-level interpretation.
 
 ## 4.5. Historical memory and market regimes
 
