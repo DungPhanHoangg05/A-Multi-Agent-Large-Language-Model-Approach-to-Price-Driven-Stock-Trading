@@ -1357,6 +1357,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL119 | [Freezes/exposure](chapters/05_experiments.md#512-what-was-frozen-and-what-acceptance-establishes) | DO_DUOC | ED01/ED04/ED05/ED08/ED09; §10.2 | Component freeze giữa first/last request; U08 seal/accept UTC khác financial dates | Post-inference, served revision null, không preregistered/untouched holdout |
 | CL120 | [Acceptance boundary](chapters/05_experiments.md#512-what-was-frozen-and-what-acceptance-establishes) | HOP_DONG_TRIEN_KHAI | ED04/ED07–ED09; §3/§10.2 | PASS scopes, Native FAIL/whole-system NOT_CERTIFIED/UI pending | Không new replay/API hoặc lấy component factorial thay unified ablation |
 
+| CL121 | [Data provenance/exclusion](chapters/05_experiments.md#521-vendor-data-admissible-views-and-exclusions) | DO_DUOC | ED10/ED11/ED13; §10.3 | 9 raw files1681rows, BHN673prefix excluded,102/108cells | Vendor reconstruction khác authenticated snapshot; no synthetic repair |
+| CL122 | [Schedule/B04a](chapters/05_experiments.md#522-main-schedule-and-chronological-partitions) | DO_DUOC | ED11/ED13/ED16, U08 shared; §10.3 | 12dates/6folds/102points/51accounts; component train32–318/validation18–21 | Hai endpoints/fold không continuous daily backtest |
+| CL123 | [Final context split](chapters/05_experiments.md#522-main-schedule-and-chronological-partitions) | DO_DUOC | ED14/ED15 alpha_support; §10.3 | 51bindings/9selectors,8×123train/BHN85;validation54–60/BHN56 | Amended firewall không xóa prototype/exposure; component splits khác |
+| CL124 | [Coverage/B04b](chapters/05_experiments.md#523-coverage-historical-resources-and-missing-sentiment) | DO_DUOC | ED11/ED12/ED15/ED16; §10.3 | UP25/DOWN77;missing79;CORE4bank852;48/54support | Bank count khác query eligibility, numeric tasks khác signal episodes |
+| CL125 | [Missingness/transfer](chapters/05_experiments.md#523-coverage-historical-resources-and-missing-sentiment) | DO_DUOC | ED12/ED15/BG16/SYS21; §10.3 | Component verified_articles<3:79; U08 unavailable79;828return differences | Không828label flips, no missing=neutral, không loại fallback để đẹp kết quả |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2261,8 +2267,19 @@ ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc q
 | ED07 | U09 | `outputs/unified_integration/u09_analysis_r1/results.json` | `3136ab9bdeab377196236e1a01402646257ec3beb251877702dbc86e1e67e31f` |
 | ED08 | U08 | `acceptance/u08_acceptance.json` | `b7271af5ea56b07ea5616465f974101c3a69935546e8e69ef8443996e7b1b50e` |
 | ED09 | U08 | `outputs/unified_integration/u08_research_r1/receipt.json` | `2e0ec8bf9a7c57cac8621597e1b88220ca72499dec2dfad5c8306c1a8eb2dd49` |
+| ED10 | revision | `outputs/revision/revision_minimal_final_v1/price_quality.json` | `610e03c180adf5221a9a52b997cac10e03a43d1a9d61fac2fff6c4c1c304ea86` |
+| ED11 | revision | `outputs/revision/revision_minimal_final_v1/main_predictions.json` | `1e9e0bd1803e1f243734dc79c7ad4834d823f2b042c1daca2cada9e11ffe6840` |
+| ED12 | revision | `outputs/revision/revision_minimal_final_v1/lineage.json` | `11ff03d51dfdd72e2f908f3cbe387f1e7863b8cbb0697f783878913eb6421626` |
+| ED13 | revision | `outputs/revision/final_temporal_v1/folds.csv` | `3cafd3eea9d752b8a65aba6774b422c98616c78177f66a13898b2861db8121ba` |
+| ED14 | snapshot-data | `docs/plan/week12/unified_comparison_protocol_v2.json` | `b783a0d50cd03d418fdc439ee93eba76edcd1a60be063deaecf3e8259c8bb34a` |
+| ED15 | snapshot-data | `docs/plan/week12/unified_comparison_manifest_v2.json` | `dff00745cb55d8e92570fd7a331e69971f241d06ca77815d0382006c67e8b30e` |
+| ED16 | U09 | `outputs/unified_integration/u09_analysis_r1/predictions.csv` | `d7d5f9b90d009f3da31de64df067ae9ac4ff72ccd395debf6c7f8ff08aa1da32` |
 <!-- experiment-data-end -->
 
 ### 10.2. Phạm vi hai nghiên cứu và mốc khóa
 
 T36; CL117–CL120, ED01–ED09. Đã đọc74 artifact/source chọn lọc bằng EvidenceArchive.read và consumer U09 chỉ đọc; không analyze, restore ghi đè, cold replay hoặc thực thi code ZIP. Index/chunk/member/outer/envelope/receipt khớp pin §3; reader U09 kiểm15 artifact với acceptance. Component records375 job_id duy nhất, main204/upstream36 mới tính trong release/factorial135; nominal upstream54 có18 reuse main. Reused193/new182/194 attempts/12errors không là tất cả historical calls. Context raw1290+bypass1158=2448;102points/51accounts/sixfolds/12dates không biến thành2448 độc lập. ED04 first-request2026-11-02→queuefreeze2026-11-03→last2026-11-04, prospectivefalse/servedrevisionnull. U08 seal2026-11-12T03:10:18.266468Z/accept03:17:37.298613UTC; source/hash không chứng minh unseen holdout. Kiểm số đếm/timestamps/84 đặc tả/footnote/links/diff; không chạy suite do docs-only, không đổi runtime/input hoặc gate khoa học.
+
+### 10.3. Dữ liệu, lịch, phân vùng và độ phủ
+
+T37; CL121–CL125, ED10–ED16. Table B04a/b nằm trong §5.2 Markdown, chưa tạo CSV/TeX dàn trang. Kiểm main prediction theo symbol/date khớp102 U08shared; labels25/77, BHN6/others12, accounts51, dates12/folds6. Component lineage<3verified_articles=79 và U08flag unavailable79 đọc từ hai nguồn riêng. Price-quality9×1681rawrows; BHNinvalid2022-09-13, suffix bắt đầu14/09, excluded673. Componentfolds51purgePASS/train32–318/validation18–21; finalcontext8train123/BHN85, validation54–60/BHN56,51bindings/9fits, không gán split mới cho donor cũ. U06 bank coverage211/213/215/213 tổng852, maxexit2022-12-30; chênh828 với ngưỡng1e-8percentagepoints, max.04298848884252138pp là giá trị return, không labelcount. ED14/15 raw snapshot khớp source pin; immutable source/system gate giữ nguyên. Chỉ kiểm tài liệu/hash/counts/links/84specs, không fit/compute label/pipeline/API/suite.

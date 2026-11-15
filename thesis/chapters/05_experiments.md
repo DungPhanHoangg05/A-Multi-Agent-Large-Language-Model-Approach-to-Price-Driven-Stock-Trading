@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Section 5.1 defines the source-checked study scope; subsequent sections remain to be drafted.
+> **Draft status: partial chapter.** Sections 5.1–5.2 define the source-checked study scope and data support; subsequent sections remain to be drafted.
 > Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -93,7 +93,143 @@ result or claim that adding historical context makes trading profitable.
 
 ## 5.2. Data and evaluation support
 
-> **Not yet drafted.** Describe the recorded stocks, selected dates, folds, exclusions, accounts, window/warm-up requirements, bank coverage and sentiment missingness using source-bound counts. Explain training/validation/evaluation partitions and data provenance; a sampled schedule is not a continuous daily backtest.
+### 5.2.1. Vendor data, admissible views and exclusions
+
+The reconstructed price-quality record identifies vnstock/VCI daily series
+requested for 1 January 2020–30 September 2026. Each of the nine raw stock
+files has 1,681 observed rows, from 2 January 2020 to 30 September 2026.
+Retrieval was recorded on 1 November 2026. The record explicitly labels
+these as a **new retrieval, not an authenticated historical-run snapshot**.
+Observed vendor sessions are not an independently certified exchange
+calendar; a complete action/dividend adjustment ledger is unavailable.
+Consistent units allow the stated return calculation but do not resolve
+these provenance limitations.[^data-provenance]
+
+BHN's 13 September 2022 row has Open 43.55 below Low 43.96. The analysis
+view retains the raw file but discards the prefix through that contradiction:
+673 rows are excluded and the valid suffix starts on 14 September 2022.
+It does not synthesize a corrected candle. BHN consequently contributes
+only the last three evaluation blocks; its six absent earlier stock/date
+cells are structural input exclusions, not losses or model failures.
+The nine-stock/twelve-date rectangular frame would contain 108 market
+cells, but actual eligible support is 102. In the component nine-strategy
+grid this is 972 potential cells versus 918 admitted predictions; the 54
+absent strategy cells are not additional missing market points.
+
+Each admitted test decision requires 600 historical bars for alpha
+preparation, a 45-bar chart/indicator window and three later observed
+sessions for the economic label. Longer warm-up requirements of individual
+indicators/resources are respected within their own history. Invalid or
+unavailable required history is not filled with future data. A retrospective
+loader's ability to read future outcome prices is separate from what the
+forecast snapshot is allowed to contain.
+
+### 5.2.2. Main schedule and chronological partitions
+
+**Table B04a. Actual market schedule, shared by the two main studies.**
+Each admitted stock/fold has two evaluated endpoints. These are selected
+decision dates, not every daily decision in the intervening interval.
+
+| Block/fold | First decision | Second decision | Stocks | Points | Stock/fold accounts per method/repeat |
+| --- | --- | --- | ---: | ---: | ---: |
+| b2023_h2 | 2023-07-03 | 2023-09-22 | 8 | 16 | 8 |
+| b2024_h2 | 2024-07-01 | 2024-09-20 | 8 | 16 | 8 |
+| b2025_h1 | 2025-01-02 | 2025-03-31 | 8 | 16 | 8 |
+| f2025_q4 | 2025-10-01 | 2025-12-19 | 9 | 18 | 9 |
+| f2026_q2 | 2026-04-01 | 2026-06-24 | 9 | 18 | 9 |
+| f2026_q3 | 2026-07-01 | 2026-09-23 | 9 | 18 | 9 |
+| Total | 12 distinct dates | — | 9 distinct stocks | 102 | 51 |
+
+The component numerical-control schedule is chronological and purged.
+For example, CMG in b2023_h2 has 70 training cycles and 19 validation
+cycles: its last training label is dated 31 March 2023, first validation
+decision 5 April, last validation label 28 June and first test decision
+3 July. It has two test endpoints and 89 final-refit cycles. Across the
+51 component scopes, recorded train counts range from 32 to 318 and
+validation counts from 18 to 21; the source audit reports all 51 purge
+checks passing. These are the component controls' recorded schedules,
+not the final Common-alpha split in the second study.[^data-partitions]
+
+The historical-context study retains all 102 donor endpoints but freezes
+one Common-alpha selector per stock **before that stock's earliest test**.
+The final eight non-BHN selectors use training decisions from 14 April
+2021 to 30 September 2022 and validation decisions from 6 October 2022
+to 27 June 2023. Each has 123 admitted train cycles; common validation
+support varies from 54 to 60. BHN instead uses 20 December 2023–26 December
+2024 for training and 2 January–25 September 2025 for validation, with
+85 train and 56 common validation cycles. Labels must mature before the
+next partition; these date ranges are decision bounds, not permission to
+fit on labels before their exits.
+
+There are 51 selector bindings but only **nine unique fitted selectors**;
+later folds reuse each stock's frozen selector. The amended design discloses
+an unused expanding-split prototype that computed earlier-fold query
+labels, and a support amendment replacing an empty-target global context
+freeze with pre-query fold freezes. Final assets exclude all 102 reserved
+query IDs before historical label construction. These amendments constrain
+the final path but do not erase prior exposure or convert this into a fresh
+test. F02 in Chapter 3 illustrates the temporal rules; the table above
+provides the actual sampled dates.
+
+### 5.2.3. Coverage, historical resources and missing sentiment
+
+**Table B04b. Main market support and resource coverage.** UP/DOWN are
+canonical net-return labels. Missing sentiment is counted once per point
+from the context study's saved shared snapshot, before expanding repeats.
+The bank column describes stored signal episodes, not eligible episodes
+for every query or numerical MT observations.
+
+| Stock | Main points | Net UP / DOWN | Context sentiment unavailable | Stored signal-bank episodes |
+| --- | ---: | ---: | ---: | ---: |
+| BHN | 6 | 1 / 5 | 5 | 0 |
+| CMG | 12 | 3 / 9 | 12 | 0 |
+| FPT | 12 | 2 / 10 | 11 | 211 |
+| HVN | 12 | 2 / 10 | 8 | 0 |
+| MBB | 12 | 5 / 7 | 8 | 0 |
+| MWG | 12 | 4 / 8 | 11 | 213 |
+| VCB | 12 | 4 / 8 | 9 | 215 |
+| VJC | 12 | 4 / 8 | 8 | 0 |
+| VNM | 12 | 0 / 12 | 7 | 213 |
+| Total | 102 | 25 / 77 | 79 | 852 |
+
+The signal bank covers CORE4 (FPT/MWG/VCB/VNM), whose main support is
+48 points; the other five stocks contribute 54. No same-stock bank means
+the declared Common fallback, not cross-stock synthetic episodes. The
+bank's latest exit is 30 December 2022. Its prices and the query vendor
+series have different provenance: the saved audit records 828 of 852
+return values differing by more than $10^{-8}$ percentage points, with maximum absolute
+difference 0.04298848884252138 percentage points. That is a **return-value
+comparison**, not a count of changed binary labels. Original records are
+retained rather than relabeled to hide the transfer.
+
+Numerical MT context can cover all nine stocks and is a different resource.
+It uses mature cycles frozen before each fold's first query, with all
+evaluation IDs withheld, and retains prior/target/query task boundaries.
+The HMM, four-feature scaler and teacher/student cutoffs in Section 4.8
+must not be substituted with the 2022 signal-bank cutoff. Query-local
+support can still fail even where historical data exist.
+
+Context sentiment is unavailable at 79/102 points (approximately 77.45%);
+its 23 available points do not establish independent financial sentiment
+validation. Component lineage also records fewer than three verified
+articles at 79 of its 102 main units. The two counts have different source
+fields: article-count metadata versus the shared `is_unavailable` flag.
+Neither justifies treating missing text as a neutral score or excluding
+those points from the primary comparison. Date metadata and conservative
+next-day admission of date-only news enforce the local contract, while
+content authenticity and historical availability remain limitations.
+[^data-coverage]
+
+The 96-point common-eight and 54-point recent-nine component cohorts are
+overlapping sensitivity subsets of the 102, not new independent cohorts.
+Likewise, CORE4 is a declared secondary context subset. Main results retain
+unsupported/fallback points and their planned denominators; eligibility
+must not be chosen after observing returns to create a better-looking
+comparison.
+
+[^data-provenance]: ED10 price-quality record, ED11 main predictions and ED13 fold audit; CL121. The raw nine files and BHN valid suffix have distinct identities; vendor data are not certified venue fills.
+[^data-partitions]: ED13 component `folds.csv`, ED14 final U06 protocol and ED15 asset manifest `alpha_support.scopes`; CL122–CL123. Earlier component control training and the amended fixed-per-symbol Common selector have different schedules.
+[^data-coverage]: ED11/ED12 main labels/lineage, ED15 bank audit/provider support and U08 shared-point metadata checked by the read-only U09 consumer; ED16 prediction grid; CL124–CL125. B04 panels use saved fields and direct counts, not a new signal, label or model evaluation.
 
 ## 5.3. Configuration and paired protocol
 

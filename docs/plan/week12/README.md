@@ -305,6 +305,15 @@ Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ 
   Kiểm spec84, footnote/links/diff; không chạy suite vì chỉ sửa tài liệu,
   không đổi code/runtime/schema/input hoặc nâng receipt lịch sử thành PASS mới.
 
+- **T37; §5.2/B04a–b, CL121–CL125, ED10–ED16:**
+  `docs/thesis-data-support`; bảng ngày/fold và theo mã/class/missing/bank.
+  Kiểm cohort102, labels25/77,51account, BHN673suffix/sáu điểm; sentiment79
+  từ hai field riêng. Phân biệt component51split với context51binding/9fit,
+  train/validation thực, reserved-ID/fold freeze và prototype exposure.
+  828 là chênh return theo pp, không suy label flips. Bảng nguồn ở Markdown,
+  LaTeX thuộc dàn trang sau. Kiểm artifact/counts/source/links/footnote/diff;
+  không suite/refit/API/label generation vì không đổi runtime/input.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

@@ -67,7 +67,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 #### Thực nghiệm — P4
 
 - [x] T36 — DONE: [§5.1](chapters/05_experiments.md#51-studies-and-evidence-scope), bảng phạm vi hai response collection, units/reuse, queue freeze và receipts/giới hạn. CL117–CL120 có ED01–ED09; kiểm accounting375/2448, timestamps và nguồn khóa, không nhận holdout tiền cứu hoặc ablation chưa chạy.
-- [ ] T37 — Mô tả dữ liệu, phân vùng, loại trừ và độ phủ.
+- [x] T37 — DONE: [§5.2/B04a–b](chapters/05_experiments.md#52-data-and-evaluation-support), lịch12ngày/6fold, support theo9mã, BHN suffix/loại trừ, split hai nghiên cứu và bank/missingness. CL121–CL125 kiểm labels25/77,51account,79missing,51selectorbinding/9fit và828 return-value differences; bảng nguồn Markdown, chưa dàn trang LaTeX.
 - [ ] T38 — Mô tả cấu hình đã khóa và thực thi ghép cặp.
 - [ ] T39 — Đặc tả đối chứng và can thiệp thực tế.
 - [ ] T40 — Đặc tả chỉ số, cách tổng hợp và quy ước thống kê.
