@@ -32,8 +32,8 @@ MT/teacher–student, facts/utility/policy, projection, tám vai trò/ba thuật
 ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn;
 EX01 kết thúc bằng outcome sau barrier, giữ net loss và giới hạn causal.
 G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biện ngoài/dàn trang cuối.
-UI/F11 vẫn PENDING. **P4: T36–T42 đã có bản nháp [Chương 5](../../thesis/chapters/05_experiments.md)**.
-Đã có §5.1–§5.7 và B04/B05/B06a–c; §5.8–§5.9 và T43–T47 chưa hoàn tất, P4 còn việc.
+UI/F11 vẫn PENDING. **P4: T36–T43 đã có bản nháp [Chương 5](../../thesis/chapters/05_experiments.md)**.
+Đã có §5.1–§5.7, B06a–e và F09 cho hai baseline; T44–T47/§5.8–§5.9 còn việc, P4 chưa hoàn tất.
 Chỉ đối soát nguồn đã khóa, không tạo nghiên cứu mới; trạng thái nghiệm thu hệ thống không đổi.
 Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định

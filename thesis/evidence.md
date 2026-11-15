@@ -903,7 +903,7 @@ rút gọn đường dẫn cho bảng, không phải task mới hay nguồn kế
 | F06 | **Prior tasks, target observations and frozen MT inference.** Tách task với episode/query; tách huấn luyện teacher/student khỏi inference. | Ch. 4.8 | T28, T29 | MINH_HỌA | SRC05, SRC10 | `diagrams/F06_mt_tasks_training.tex → .pdf` |
 | F07 | **Fact Anchor and utility-gated action revision.** Giữ raw proposal, anchor và final action riêng; điều kiện Q10/Q90 nghiêm ngặt. | Ch. 4.8 | T30, T31 | MINH_HỌA | SRC06 | `diagrams/F07_action_policy.tex → .pdf` |
 | F08 | **Shared upstream and within-repeat method dependencies.** Một upstream mỗi điểm; Common/anchor dependency dùng đúng repeat, fallback không tạo call giả. | Ch. 4.9 | T33 | MINH_HỌA | SRC03, SRC06 | `diagrams/F08_variant_dag.tex → .pdf` |
-| F09 | **Mean account-return differences against Native and Common.** Giữ hai baseline, năm extension mỗi baseline và band mô tả; trục dùng pp. | Ch. 5.7–5.8 | T43 | DẪN_XUẤT | SRC08, SRC09 | `figures/F09_return_contrasts.py → .svg/.pdf` |
+| F09 | **Mean account-return differences against Native and Common.** Giữ hai baseline, năm extension mỗi baseline và band mô tả; trục dùng pp. | Ch. 5.7–5.8 | T43 | ĐÃ_CÓ_VECTOR_RENDER_ĐÃ_XEM | ED07; §10.9 | [Source](assets/figures/F09_return_contrasts.py), SVG/PDF/PNG; rawpins đầu vào và hash đầu ra §10.9 |
 | F10 | **Historical-context coverage and final-action changes.** Hiện support, fallback/bypass và mức giữ anchor; không quy thay đổi gộp cho student riêng. | Ch. 5.8 | T44 | DẪN_XUẤT | SRC08 | `figures/F10_coverage_actions.py → .svg/.pdf` |
 | F11 | **Application workflow and interpretation of a recorded result.** Theo đầu vào/tiến trình/kết quả, phân biệt raw/final/CASH và bối cảnh thực dùng. | Ch. 4.10; App. F | T35 | MINH_HỌA | SRC11 | `diagrams/F11_application_flow.tex; figures/F11_ui_*.png nếu được kiểm` |
 
@@ -1399,6 +1399,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL156 | [Context slots/fallback](chapters/05_experiments.md#572-response-coverage-and-retained-fallbacks) | DO_DUOC | ED07/16; §10.8 | B06b 306slot/method, raw+bypass306; nghiên cứu1290raw+1158bypass=2448 | Bypass vẫn ở primary; hai noLLM controls không fallbackCommon |
 | CL157 | [All repeats](chapters/05_experiments.md#573-repeat-dispersion-and-secondary-support) | DO_DUOC | ED07/38; §10.8 | B06c đủ30method/repeat, không best run; các return nghiên cứu âm ở cả3repeat | Một upstream/point, baDecisionrepeat không độc lập thị trường |
 | CL158 | [Secondary support boundaries](chapters/05_experiments.md#573-repeat-dispersion-and-secondary-support) | DAN_XUAT | ED07/39; §10.8 | Stock/fold/CORE4 thuộc sensitivity, VNM/b2025_h1 BA NA | Không covered-only thay102primary hoặc chọn favorable subset |
+
+| CL159 | [Joint contrast family](chapters/05_experiments.md#574-paired-contrasts-against-both-baselines) | DO_DUOC | ED07; §10.9 | B06d đủ20cell; F09 đủ10returncontrast, pp, cùngscale | Giữ toànfamily20/finite10000; không vẽ equitycurve nốiaccount |
+| CL160 | [Baseline-dependent v1 result](chapters/05_experiments.md#574-paired-contrasts-against-both-baselines) | DAN_XUAT | ED07; §10.9 | v1−Common return+.327pp[.067,.586], BA+4.130pp[2.011,6.249]; soNative return−.045/BA−1.749 | Common-based cải thiện không thành vượtNative hoặc cólãi, banddescriptive |
+| CL161 | [Adverse contrast outcomes](chapters/05_experiments.md#574-paired-contrasts-against-both-baselines) | DO_DUOC | ED07; §10.9 | MT−Native return−.601pp[−1.090,−.111]; C2/BnativeBAband<0 | Endpoint khác nhau; không chọn riêng family/metric thuận lợi |
+| CL162 | [Three bridges](chapters/05_experiments.md#575-descriptive-bridge-to-anchor-and-mt-policy) | DO_DUOC | ED07/16; §10.9 | Common−Native−.372pp/−5.879pp; Anchor−Common−.262/−3.229; MT−Anchor+.033/+.433; same273/273/302of306 | Khôngbridgebandmới hoặc táchcausalstudent/policy |
 
 Quy tắc điền bảng:
 
@@ -2389,3 +2394,12 @@ Quy ước hiển thị: ba chữ số thập phân, exact p năm chữ số, kh
 ### 10.8. Kết quả ngữ cảnh B06a–c
 
 T42; CL155–CL158. Đọc lại U08/U09, snapshot và acceptance bằng consumer read-only `core/manuscript_u09/sources.load`, kiểm outer pins, từng member, 15 artifact/receipt và support, không gọi hàm phân tích hoặc replay. ED07 `results.json` là nguồn cho B06a/b: mười hàng theo `summary[].method` (Native=`original_fix`, Common=`original_common`), các cột lần lượt `accuracy×100,balanced_accuracy_pct,mcc,macro_f1,mean_account_return_pct,repeat_return_sd_ddof1,mean_daily_mdd_pct`; B06b dùng `n_points,n_forecasts,long_forecasts,raw_decision_responses,bypass_forecasts`. B06c lấy `per_repeat` tại khóa `(method,repeat=0/1/2)`, cột `mean_account_return_pct,balanced_accuracy_pct`, khớp export ED38. ED39 giữ đủ grouped classification; VNM/b2025_h1 thiếu UP nên BA NA. Tất cả ô hiển thị3decimals, fraction chỉ nhân100 ở accuracy; BA/return đã là% nên không nhân lại. Count nguyên, MCC controlnull→NA. Mean51account, mean3repeat và repeatSDddof1 giữ nguồn; không gộp306slot làm306điểm. Bypass/noLLM denominator khác nhau về ý nghĩa được nêu ngay caption. Bảng Markdown chưa xuất CSV/LaTeX (T69). Chỉ sửa tài liệu; không compileall/unit/E2E/leakage hoặc chạy lại API/fit/bootstrap.
+
+### 10.9. Contrast, bridge và F09
+
+T43; CL159–CL162. B06d: ED07 `contrasts`, khóa `(baseline,method,endpoint)` đầy đủ20cell; cột `effect_pp,band95_low_pp,band95_high_pp` đã làpp, không nhân100. Mỗi hàng bảng ghép đúng hai endpoint cùng baseline/method. B06e: ED07 `bridge`, ba khóa `(original_common,original_fix)/(Fact_Anchor,original_common)/(MT_BICL,Fact_Anchor)`, các cột `return_difference_pp,BA_difference_pp,same_action_forecasts,n_forecasts`. Ba chữ số thập phân, không làm tròn trung gian hoặc thêm bridge band. F09 vẽ đủ10returncontrast từ cùng nguồn, đọc ZIP/member theo rawpins trong source; cùngxscale[-1.22,.72], zeroline, CI không tái lấy mẫu. 20cell liên kết đúng jointfamily, không familyriêng cho hình. Source Python chỉ phục vụ hình, đã biên dịch đúngfile; PDF render bằng Poppler và xem PNG, nhãn/trục/band không cắt/chồng. Không compileall/unit/E2E/leakage hoặc bootstrap/API/fit. Hash sản phẩm hình:
+
+- `thesis/assets/figures/F09_return_contrasts.py`: `2a7b1fa2a983ad5835a358c3496d97fa5361bbedbf971d86b1a15f7fe62e6bc4`.
+- `thesis/assets/figures/F09_return_contrasts.pdf`: `fc216e18a06ddd3878f62d1d314ec2f740f8999bdacde02f721cd0a77c789efc`.
+- `thesis/assets/figures/F09_return_contrasts.svg`: `5639b47b8f659deccb6a4470ef58420d4c270a4649e53eed5aefe1925832f00e`.
+- `thesis/assets/figures/F09_return_contrasts.png`: `f192f4cf5bf89e4eea412c471aad133a3700ca7a45151e4a652759a1da9e2a0d`.

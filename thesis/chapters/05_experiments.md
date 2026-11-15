@@ -1135,6 +1135,92 @@ without replacing the main results with a covered-only estimate.
 [^context-result-cells]: ED07 `summary`/`coverage`, with support and raw/bypass identities checked against ED16; CL155–CL156, ledger §10.8. All ten roles and negative research-role results are retained; values are formatted from saved estimators, not recomputed.
 [^context-repeat-cells]: ED38 `per_repeat.csv` and ED07 `per_repeat`, keys `(method, repeat)` for all thirty rows; grouped support ED39; CL157–CL158, ledger §10.8. Means, SDs and NA conventions remain those of Section 5.5.
 
+### 5.7.4. Paired contrasts against both baselines
+
+**Table B06d. Complete primary historical-context contrast family.** Each
+cell reports the saved difference followed by its joint descriptive band,
+in pp, with the extension minus the stated baseline. The family comprises
+five extensions × two baselines × two endpoints = twenty cells. It uses
+the paired 102-point, three-repeat, 51-account support and the joint
+construction specified in Section 5.5; these are not twenty separately
+selected intervals.[^context-contrast-cells]
+
+| Baseline | Extension | Return difference [band] (pp) | BA difference [band] (pp) |
+| --- | --- | --- | --- |
+| Native | Bayesian v1 | -0.045 [-0.362, 0.271] | -1.749 [-6.374, 2.876] |
+| Native | C2 | -0.377 [-0.866, 0.111] | -6.095 [-11.629, -0.561] |
+| Native | A_tp_pool | -0.367 [-0.867, 0.133] | -5.662 [-11.771, 0.446] |
+| Native | B_semantic | -0.377 [-0.866, 0.111] | -6.095 [-11.629, -0.561] |
+| Native | MT-BICL | -0.601 [-1.090, -0.111] | -8.675 [-20.239, 2.888] |
+| Common | Bayesian v1 | 0.327 [0.067, 0.586] | 4.130 [2.011, 6.249] |
+| Common | C2 | -0.005 [-0.016, 0.005] | -0.216 [-0.668, 0.235] |
+| Common | A_tp_pool | 0.005 [-0.005, 0.016] | 0.216 [-0.235, 0.668] |
+| Common | B_semantic | -0.005 [-0.016, 0.005] | -0.216 [-0.668, 0.235] |
+| Common | MT-BICL | -0.229 [-0.576, 0.118] | -2.797 [-11.168, 5.575] |
+
+![Figure F09. Paired mean account-return contrasts against Native and Common, with saved joint-family descriptive bands.](../assets/figures/F09_return_contrasts.svg)
+
+**Figure F09. Paired mean account-return differences.** Both panels use
+the same horizontal pp scale. Positive differences favor the extension.
+All ten return contrasts are shown; their BA counterparts are retained in
+B06d. The plotted estimates and band endpoints are read directly from
+the locked result, without new resampling. Editable plotting source,
+[vector PDF](../assets/figures/F09_return_contrasts.pdf) and
+[PNG preview](../assets/figures/F09_return_contrasts.png) accompany the
+[SVG/source code](../assets/figures/F09_return_contrasts.py).
+
+Bayesian v1 improves on Common by **+0.327 pp** in mean account return
+with band [0.067, 0.586] pp, and by **+4.130 pp** in BA with band
+[2.011, 6.249] pp. Against Native, however, its return difference is
+−0.045 pp with band [−0.362, 0.271] pp, and BA difference is −1.749 pp
+with band [−6.374, 2.876] pp. Thus the favorable Common-based comparison
+does not establish an advantage over Native. It also does not establish
+profitability: the Bayesian v1 mean return remains negative.
+
+The small C2/A_tp_pool/B_semantic return differences against Common have
+bands crossing zero and mostly reflect retained fallback slots. C2 and
+B_semantic have adverse BA bands against Native, entirely below zero at
+displayed precision. MT-BICL's return difference against Native is
+−0.601 pp with band [−1.090, −0.111] pp; its BA band spans zero.
+Against Common, both MT-BICL bands span zero. These unfavorable and
+endpoint-dependent results remain visible. A band excluding zero here
+is a feature of a saved descriptive sensitivity construction on six
+exposed folds, not a calibrated confirmatory test, a causal effect or a
+forecast of future trading performance.
+
+### 5.7.5. Descriptive bridge to anchor and MT policy
+
+**Table B06e. Native → Common → Fact Anchor → MT-BICL bridge.** Each row
+is the method minus the stated predecessor, over 306 paired final-action
+slots on the same 102 points. Returns use 51 accounts and three repeats;
+BA uses the within-repeat estimator. Agreement is a count of identical
+final actions, not independent market observations. No unrecorded bridge
+band is added.[^context-bridge-cells]
+
+| Predecessor | Method | Return difference (pp) | BA difference (pp) | Same final actions |
+| --- | --- | --- | --- | --- |
+| Native | Common | -0.372 | -5.879 | 273/306 |
+| Common | Fact Anchor | -0.262 | -3.229 | 273/306 |
+| Fact Anchor | MT-BICL | 0.033 | 0.433 | 302/306 |
+
+Moving from Native to Common changes both the alpha projection and the
+prompt instructions. The return and BA decrease in this bridge, while
+273/306 final actions agree. Adding Fact Anchor to Common is associated
+with further decreases and the same agreement count, 273/306. These are
+combined comparisons involving recorded responses, not isolated numeric
+veto effects.
+
+MT-BICL improves on Fact Anchor by only +0.033 pp in return and +0.433 pp
+in BA, with **302/306 identical final actions**. The final-action system
+is therefore very close to the anchor on this collection. This observation
+does not identify how much is attributable separately to the student,
+historical tasks, teacher or utility policy. Section 5.8 examines the
+recorded bypasses and proposal–anchor disagreements before interpreting
+the MT result.
+
+[^context-contrast-cells]: ED07 `contrasts` and `primary_joint_family`; CL159–CL161, ledger §10.9. The complete twenty-cell identity, baseline, endpoint, effect and saved band are checked together; no bootstrap is newly drawn.
+[^context-bridge-cells]: ED07 `bridge` and ED16 final actions; CL162, ledger §10.9. Only saved bridge differences and agreement counts are shown; no causal student decomposition or fabricated bridge interval.
+
 ## 5.8. Mechanisms, case studies and robustness
 
 > **Not yet drafted.** Analyze recorded support/readiness, age/similarity, fallback and Common–Anchor–MT bridges, separating raw proposals from policy actions. Apply the declared case-selection rules, reveal EX01's later outcome here, and include unsupported or incorrect cases. Report only recorded robustness/resource fields; mark absent costs, usage, latency or ablations as unavailable.

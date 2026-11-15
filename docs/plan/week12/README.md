@@ -379,6 +379,8 @@ các chương khác và §5.7–§5.9 nguyên trạng so với `develop:944e023d
 
 Ngày **15/11/2026**, tiếp tục T42–T47 theo yêu cầu, mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. **T42**, nhánh `docs/thesis-context-results`: §5.7/B06a–c đủ8role+2control, mean51account, BA mean3repeat, MDD, repeatSD, LONG/raw/bypass và cả30method–repeat. CL155–CL158/ED38–ED39 và sổ §10.8 giữ locator từng ô. Kiểm lại archive/receipt/member/support bằng consumer chỉ đọc; không chạy phân tích. Đối soát bảng, links, footnotes, 84spec và diff; tài liệu-only không suite/compileall/API/fit/replay/bootstrap. Giữ8return âm, undefined và fallback; §5.8–§5.9 chưa xong, NativeFAIL/NOT_CERTIFIED/UIPENDING không đổi.
 
+**T43**, `docs/thesis-context-contrasts`: B06d đủ20contrast/2endpoint/2baseline, B06e ba bridge và F09 vector/source/PDF/PNG. Sổ §10.9 ghi locator và hash; figure đọc trực tiếp ô saved, không tạo bootstrap. Dùng skill pdf để render Poppler và xem hình; cùng scale, giữ adverse bands, đủ10returncontrast. Chỉ biên dịch script hình mới, không compileall/unit/E2E/leakage vì không thay runtime nghiên cứu. Đối soát20cell/bridge/support/link/footnote/spec/diff PASS; không nâng banddescriptive thành confirmatory, không xác nhận student effect.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
