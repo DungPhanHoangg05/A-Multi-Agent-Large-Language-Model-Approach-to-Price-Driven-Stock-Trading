@@ -385,6 +385,8 @@ Ngày **15/11/2026**, tiếp tục T42–T47 theo yêu cầu, mỗi task dùng n
 
 **T45**, `docs/thesis-case-studies`: §5.8.3/B07d–g và CT01–CT30, CL169–CL173. Áp dụng §7.7/r0/firstdate-symbol trên102điểm đủnguồn; candidates29/47/5/2/52 chọnFPT/FPT/HVN/MWG/CMG, chỉ nhóm sai dùngoutcome. Đối soát toànrecord, forecastshared/outputdigest/request/policy và outcome sau cả24forecast/point. GiữFPTnetloss, HVNacceptthua, MWGveto bỏlỡUP và CMGNativeCASHmissgain; packetCMG chỉauditview. Source/ô/unit/count/links/footnotes/spec/diff PASS; docs-only không suite/compileall/API/fit/replay/bootstrap. T46–T47 còn việc.
 
+**T46**, `docs/thesis-robustness-resources`: §5.8.4–§5.8.6, B06f/g đủ20cell sensitivity L1/L3/CORE4/LOFO/LOSO; B05h–j componentcohort/strata/12scenario; B07husage/latency. ED41–47/CL174–CL180/sổ§10.12 giữ nguồn/ô. V1−CommonL1band chứa0, CORE4khácpopulation; componentreturnorderingđổi theo subset/cost. Context1702HTTP/2986930observedtokens, 1700timed/2UNKNOWN, sum4056.744s khácwallclock, loại503carry; moneykhôngcó. Kiểm rawmember/hash/index/count/unit/arrays/tables/links/spec/diff PASS, không suite/compileall/API/fit/bootstrap/ledgerreplay. NativeFAIL/NOT_CERTIFIED/UIpending giữnguyên; còn T47.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

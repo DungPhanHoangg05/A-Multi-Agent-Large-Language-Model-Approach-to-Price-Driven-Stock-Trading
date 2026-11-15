@@ -76,7 +76,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T43 — DONE: [§5.7.4–§5.7.5](chapters/05_experiments.md#574-paired-contrasts-against-both-baselines), B06d đủ20contrast/B06e ba bridge và F09 SVG/PDF/PNG/source. CL159–CL162; đúng Native/Common, pp và joint descriptive band; kiểm số và render, không redraw bootstrap.
 - [x] T44 — DONE: [§5.8.1–§5.8.2](chapters/05_experiments.md#581-historical-support-and-recorded-context), B07a–c/F10; CL163–CL168, ED40. Tách bank/gate/reply/action, age/similarity đã lưu và missing, Brier khác support, MT302/306giữanchor; Q10U khác deltaquantile khi đổi chiều. Kiểm nguồn/count/render; không suy student causal.
 - [x] T45 — DONE: [§5.8.3/B07d–g](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule), năm nhóm/4điểm theo §7.7, candidates29/47/5/2/52; CT01–CT30/CL169–CL173. Kiểm sourcehash/shared/request/policy/outcomebarrier; có ca đủcontextthua, acceptthua, veto bỏlỡUP và Native sai; CASH0 khác netcandidate.
-- [ ] T46 — Báo cáo phân tích độ bền và tài nguyên đã thực hiện.
+- [x] T46 — DONE: [§5.8.4–§5.8.6](chapters/05_experiments.md#584-sensitivity-to-support-and-dependence-assumptions), B06f/g đầy đủ20contrast sensitivity; B05h–j cohort/strata/12scenario và B07husage/latency. CL174–CL180/ED41–47, giữ missing/differentdenominators; bandv1CommonL1 chứa0. Chỉ đọc số/trường đãlưu, không replay/fit/API/bootstrap.
 - [ ] T47 — Thảo luận giới hạn, ablation chưa làm và trả lời RQ.
 
 #### Nghiên cứu liên quan — P5

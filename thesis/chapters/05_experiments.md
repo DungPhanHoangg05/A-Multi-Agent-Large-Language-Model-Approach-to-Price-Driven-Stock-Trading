@@ -1489,6 +1489,219 @@ complete-cohort results.
 [^case-selection]: Selection rule EX01_SELECTION_V1 and ledger §7.7; ED16/40 plus U08 source chains in §10.11; CL169. All sources were checked before applying the five predicates; no favorable repeat or outcome-based selection outside the declared error group.
 [^case-chains]: U08 raw member/hash bindings CT01–CT30 in ledger §10.11, linked to ED16 predictions by point/method/repeat, shared output, policy and request IDs; EX01 details also in §7.2–§7.6. CL170–CL173. Prepared packets are inputs/audit views, forecast policies precede the outcome barrier, and outcome returns retain the canonical two-way costs.
 
+### 5.8.4. Sensitivity to support and dependence assumptions
+
+The sensitivity analyses reuse saved predictions and retain each study's
+estimators. They do not add independent market observations or repair
+historical exposure. In the context study, circular block lengths 1 and
+3 supplement the primary length-2 construction. Each saved sensitivity
+family retains all twenty contrasts and 10,000 jointly finite draws.
+CORE4 is a fixed 48-point, 24-account subset, not an alternative primary
+cohort. Leaving out one fold or stock changes the included support;
+the resulting point estimates are diagnostic perturbations, not new
+confirmatory estimates.
+
+**Table B06f. Context return sensitivity for every extension and baseline.**
+Units are pp. L1/L3 are saved bands around the full-cohort point estimates
+in B06d. CORE4 cells give their own estimate [band]. LOFO/LOSO cells give
+the minimum and maximum of the six/nine saved leave-one-out point
+differences, not confidence intervals. All five extensions and both
+baselines are retained.[^context-sensitivity-cells]
+
+| Baseline | Extension | L1 band | L3 band | CORE4 estimate [band] | LOFO point range | LOSO point range |
+| --- | --- | --- | --- | --- | --- | --- |
+| Native | Bayesian v1 | [-0.476, 0.385] | [-0.314, 0.223] | 0.350 [-0.024, 0.725] | [-0.145, 0.107] | [-0.162, 0.133] |
+| Native | C2 | [-0.865, 0.110] | [-0.720, -0.035] | -0.355 [-0.843, 0.132] | [-0.453, -0.206] | [-0.447, -0.243] |
+| Native | A_tp_pool | [-0.861, 0.127] | [-0.722, -0.011] | -0.333 [-0.852, 0.186] | [-0.441, -0.193] | [-0.435, -0.231] |
+| Native | B_semantic | [-0.865, 0.110] | [-0.720, -0.035] | -0.355 [-0.843, 0.132] | [-0.453, -0.206] | [-0.447, -0.243] |
+| Native | MT-BICL | [-1.077, -0.124] | [-0.949, -0.252] | -0.459 [-0.975, 0.057] | [-0.725, -0.471] | [-0.675, -0.432] |
+| Common | Bayesian v1 | [-0.019, 0.672] | [0.144, 0.509] | 0.694 [0.132, 1.257] | [0.218, 0.397] | [0.197, 0.370] |
+| Common | C2 | [-0.018, 0.007] | [-0.013, 0.002] | -0.011 [-0.034, 0.011] | [-0.006, 0.000] | [-0.006, 0.000] |
+| Common | A_tp_pool | [-0.007, 0.018] | [-0.002, 0.013] | 0.011 [-0.011, 0.034] | [0.000, 0.006] | [0.000, 0.006] |
+| Common | B_semantic | [-0.018, 0.007] | [-0.013, 0.002] | -0.011 [-0.034, 0.011] | [-0.006, 0.000] | [-0.006, 0.000] |
+| Common | MT-BICL | [-0.578, 0.120] | [-0.469, 0.012] | -0.115 [-0.205, -0.026] | [-0.312, -0.130] | [-0.260, -0.192] |
+
+**Table B06g. Corresponding BA sensitivity, in pp.** The same family
+identities, support and display conventions apply. Undefined grouped BA
+is never filled with zero or used to remove a primary observation.
+
+| Baseline | Extension | L1 band | L3 band | CORE4 estimate [band] | LOFO point range | LOSO point range |
+| --- | --- | --- | --- | --- | --- | --- |
+| Native | Bayesian v1 | [-7.081, 3.584] | [-5.258, 1.760] | -0.351 [-10.475, 9.773] | [-2.694, 0.284] | [-3.231, -0.414] |
+| Native | C2 | [-11.682, -0.508] | [-10.054, -2.137] | -9.474 [-20.432, 1.484] | [-7.344, -4.119] | [-7.152, -4.683] |
+| Native | A_tp_pool | [-11.434, 0.110] | [-10.200, -1.125] | -8.596 [-20.969, 3.776] | [-6.798, -3.598] | [-6.718, -4.186] |
+| Native | B_semantic | [-11.682, -0.508] | [-10.054, -2.137] | -9.474 [-20.432, 1.484] | [-7.344, -4.119] | [-7.152, -4.683] |
+| Native | MT-BICL | [-20.362, 3.012] | [-17.868, 0.518] | -15.000 [-28.388, -1.612] | [-12.483, -4.820] | [-9.897, -6.453] |
+| Common | Bayesian v1 | [0.323, 7.937] | [2.092, 6.168] | 8.684 [4.472, 12.896] | [2.910, 5.038] | [2.277, 5.280] |
+| Common | C2 | [-0.781, 0.348] | [-0.528, 0.095] | -0.439 [-1.361, 0.484] | [-0.273, 0.000] | [-0.249, 0.000] |
+| Common | A_tp_pool | [-0.348, 0.781] | [-0.095, 0.528] | 0.439 [-0.484, 1.361] | [0.000, 0.273] | [0.000, 0.249] |
+| Common | B_semantic | [-0.781, 0.348] | [-0.528, 0.095] | -0.439 [-1.361, 0.484] | [-0.273, 0.000] | [-0.249, 0.000] |
+| Common | MT-BICL | [-12.059, 6.466] | [-9.588, 3.995] | -5.965 [-9.604, -2.326] | [-5.601, 0.572] | [-4.186, -0.759] |
+
+Bayesian v1's return difference against Common stays positive under every
+saved leave-one-fold-out perturbation, from +0.218 to +0.397 pp, and every
+leave-one-stock-out perturbation, from +0.197 to +0.370 pp. Its L1 band,
+however, is **[−0.019, 0.672] pp**, crossing zero, whereas the primary L2
+band is [0.067, 0.586] pp and L3 gives [0.144, 0.509] pp. Thus even the
+zero-exclusion description depends on the dependence construction; the
+narrower L3 display is not a reason to select it as the principal result.
+Against Native, the v1 leave-one-out return differences change sign.
+
+On CORE4, v1 minus Common is +0.694 pp [0.132, 1.257], while v1 minus
+Native is +0.350 pp [−0.024, 0.725]. This subset contains the signal-bank
+domain and changes the comparator population. MT-BICL remains below both
+baselines in all saved full-cohort leave-one-out return differences. Its
+CORE4 comparison against Common has a negative band, despite the
+full-cohort primary band crossing zero. These variations reinforce the
+need to specify baseline and population, rather than claiming a general
+regime-aware or MT improvement.
+
+**Table B05h. Component support sensitivities.** These overlapping cohorts
+retain the recorded Full/Base predictions and the component account
+estimator. They do not share response collections with the context study.
+BA is a percentage, return is a percentage and financial means use the
+stated number of accounts.[^component-sensitivity-cells]
+
+| Component cohort | Points | Accounts | Full BA (%) | Base BA (%) | Full return (%) | Base return (%) |
+| --- | --- | --- | --- | --- | --- | --- |
+| all_102 | 102 | 51 | 52.961 | 49.714 | -0.797 | -0.750 |
+| common_eight_96 | 96 | 48 | 50.694 | 48.611 | -0.853 | -0.701 |
+| recent_nine_54 | 54 | 27 | 53.077 | 46.667 | -0.728 | -0.953 |
+
+Removing BHN gives a 96-point common-eight cohort, with Full's mean return
+below Base; restricting to the recent three blocks gives 54 points and
+reverses that financial ordering. All six saved component leave-one-block
+Full-minus-Base BA differences remain positive, ranging from +0.820 to
++4.918 pp, but their small supports do not establish a stable financial
+gain. The stored component circular-block BA intervals for Full minus
+Base at lengths 1, 2 and 3 all cross zero. The six panel-HAC accuracy
+intervals for the common-eight/recent-nine cohorts at lags 0–2 also all
+cross zero. These are different diagnostic constructions and endpoints;
+their small-sample reference assumptions are not newly validated here.
+
+**Table B05i. Recorded component descriptive strata on all 102 points.**
+Trend uses Close/SMA60 with ±2% thresholds. Volatility and liquidity-proxy
+groups use trailing 20-session quantities compared with each stock/fold's
+train-only median. The latter two stratifications were added after
+inference. Rows within a dimension partition the sample; dimensions
+overlap. These labels are distinct from the numerical HMM regimes.
+
+| Descriptive stratum | Points | Full BA (%) | Base BA (%) |
+| --- | --- | --- | --- |
+| trend: bear | 35 | 43.333 | 41.667 |
+| trend: bull | 33 | 47.917 | 53.472 |
+| trend: sideways | 34 | 59.486 | 46.245 |
+| volatility: high | 33 | 46.538 | 50.385 |
+| volatility: low | 69 | 57.018 | 48.465 |
+| liquidity_proxy: high | 80 | 49.167 | 48.333 |
+| liquidity_proxy: low | 22 | 67.059 | 55.294 |
+
+Full is below Base in the bull and high-volatility strata, while it is
+above Base in the sideways and low-volatility strata. This heterogeneity
+does not demonstrate an optimized regime-switching strategy: no strategy
+was rerun by selecting the favorable strata. Liquidity uses vendor
+Close×Volume units and is a proxy rather than authenticated tradable
+capacity. Its target-session exposure summaries also exclude the cash
+gaps present in full-ledger exposure, so those quantities are not silently
+substituted into B05b.
+
+### 5.8.5. Recorded economic execution scenarios
+
+**Table B05j. Component Full/Base outcomes in all twelve saved scenarios.**
+Each branch/scenario has 51 separate accounts on the original 102-point
+schedule. Predictions, original net labels and the fixed three-session
+horizon remain unchanged; only execution/account assumptions vary. Return
+is mean account return (%). Blocked values count attempts, not necessarily
+unique missed market points. Pending and residual columns count accounts
+at the terminal window.[^execution-sensitivity-cells]
+
+| Scenario | Full return (%) | Base return (%) | Blocked Full/Base | Pending Full/Base | Residual stock Full/Base |
+| --- | --- | --- | --- | --- | --- |
+| reference | -0.797 | -0.750 | 0/0 | 0/0 | 0/0 |
+| pending_t2 | -0.797 | -0.750 | 0/0 | 0/0 | 0/0 |
+| advance_on_demand | -0.797 | -0.750 | 0/0 | 0/0 | 0/0 |
+| advance_auto | -0.840 | -0.803 | 0/0 | 0/0 | 0/0 |
+| lower_cost | -0.612 | -0.526 | 0/0 | 0/0 | 0/0 |
+| higher_cost | -1.211 | -1.249 | 0/0 | 0/0 | 0/0 |
+| sell_charge_10bp | -0.843 | -0.805 | 0/0 | 0/0 | 0/0 |
+| no_fill_proxy | -0.803 | -0.659 | 1/3 | 0/0 | 0/0 |
+| delayed_proxy | -0.766 | -0.621 | 2/4 | 0/1 | 0/0 |
+| lot100_cap1pct | -0.745 | -0.602 | 1/3 | 0/0 | 0/0 |
+| combined | -1.166 | -1.074 | 3/9 | 0/0 | 0/0 |
+| all_entries_missed | 0.000 | 0.000 | 24/29 | 0/0 | 0/0 |
+
+Pending settlement and on-demand advance match the reference returns
+in this recorded schedule; that equality is not a general claim that
+settlement constraints never matter. Automatic advance adds a hypothetical
+financing charge. The lower-cost scenario uses 0.10% brokerage and 0.05%
+slippage per leg; the higher-cost scenario uses 0.50% and 0.30%, respectively.
+The reference remains 0.25% and 0.10% per leg. The higher-cost scenario
+reverses the Full/Base return ordering, illustrating the interaction
+between selected actions, exposure and costs.
+
+No-fill and delayed-fill scenarios use zero-volume or single-price daily
+bars as ex-post feasibility proxies. The lot/cap scenario assumes lots
+of 100 and a 1% cap on lagged trailing-20-session mean vendor Volume.
+These are hypothetical planning constraints, not authenticated partial
+fills or evidence that a strategy knew queue conditions at the open.
+Financing assumes 15% annually on an ACT/365 basis; it is a stress input,
+not a current broker quote. The same account window includes at most five
+observed tail sessions; missing maturity dates are not manufactured.
+
+For Base, the delayed proxy leaves one account with pending cash. Full
+and Base have no residual stock accounts in these displayed scenarios;
+other variants retain their own saved terminal states. The all-entries-
+missed control returns zero by avoiding all purchases, not by predicting
+successfully. A no-fill screen can avoid losses or miss gains, so its
+scenario envelope is not a mathematical worst-case bound. The execution
+report retains **zero execution-certified fills**. This component
+sensitivity does not validate venue rules for every historical date or
+supply a corresponding execution study for the hosted context methods.
+
+### 5.8.6. Recorded resource use and unavailable costs
+
+**Table B07h. Resource ledgers with their original scopes.** The component
+source ledger includes inherited requests beyond the selected minimal
+responses, so it must not be added to the new-request row as the measured
+cost of exactly 375 Decision executions. Tokens are SDK-observed usage;
+missing error usage is not imputed as zero billed usage. Latency sums are
+recorded request durations, not experiment wall-clock time or a matched
+method-level speed comparison.[^resource-cells]
+
+| Ledger scope | Attempts | Success / HTTP 200 | Errors / other status | Observed prompt / completion tokens | Duration sum (s) |
+| --- | --- | --- | --- | --- | --- |
+| Component new requests | 194 | 182 | 12 | 293,885 / 158,161 | 375.304 |
+| Component inherited source ledger | 455 | 433 | 22 | 769,443 / 182,575 | 987.375 |
+| Context research HTTP | 1702 | 1505 | 197 non-200 / UNKNOWN | 2,986,930 total observed | 4056.744 |
+
+The context ledger has 1,702 HTTP attempts: 1,505 status-200, 194 status-429,
+one status-503 and two UNKNOWN records. HTTP successes are not the same
+denominator as the 1,290 retained raw Decision responses. The observed
+token total is 2,986,930; the 9,177 tokens reserved for UNKNOWN attempts
+are accounting headroom, not observed generation. The 503 carried
+historical ledger entries are excluded from these research-attempt
+counts and timings.
+
+Of the 1,702 context attempts, 1,700 have both recorded start and completion
+timestamps. Their elapsed-duration sum is 4,056.744 seconds, median
+1.715 seconds and range [0.554, 31.819] seconds; the two UNKNOWN attempts
+have no complete duration. These direct timestamp summaries include the
+recorded HTTP scopes and do not measure end-to-end scheduling, cooldowns,
+offline training, data acquisition or an isolated method's latency.
+
+Monetary API bills, verified per-role billed usage and a matched end-to-end
+latency comparison are unavailable. No currency cost is inferred from
+current pricing or token reservations. The saved analysis itself records
+zero new API calls; reading and formatting these artifacts also adds no
+inference. Resource reuse and checkpointability are engineering properties,
+while financial usefulness remains subject to the negative returns and
+scope limits already reported.
+
+[^context-sensitivity-cells]: ED07 `sensitivity` arrays use the exact twenty-cell identity order in `contrasts`; CL174–CL175, ledger §10.12. L1/L3/CORE4 bands and leave-one-out point vectors are read, not regenerated; min/max summarize saved vectors only.
+[^component-sensitivity-cells]: ED33–ED35 cohort exports; ED28 leave-one-block results; ED41 circular-block rows, ED42 panel-HAC, ED45 strata and ED47 definitions; CL176–CL177, ledger §10.12. Cohorts and stratifications are overlapping, descriptive and retain their recorded endpoints.
+[^execution-sensitivity-cells]: ED26 policy and ED43/ED44 execution summary/report; CL178, ledger §10.12. All twelve scenario IDs are retained; support, blocked attempts and pending/residual states are copied from saved rows, without relabeling or ledger replay.
+[^resource-cells]: ED18 component costs, ED07 telemetry and ED46 U08 wire index with its hashed HTTP members; CL179–CL180, ledger §10.12. Duration summaries use finite saved timestamps, exclude carry, preserve two untimed UNKNOWN attempts and provide no billing or deployment certification.
+
 ## 5.9. Unperformed ablations and threats to validity
 
 > **Not yet drafted.** Identify missing matched ablations and limits involving native causality, input authentication, bank/query provenance, coverage, dependence, historical exposure, model contamination, sampling and execution assumptions. Distinguish numerical return discrepancies from label changes. Conclude with the research-question/observation/supported-answer/remaining-evidence table; do not fill it before reviewing the actual results.

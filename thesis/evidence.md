@@ -1418,6 +1418,14 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL172 | [Veto and missed gain](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule) | DO_DUOC | MWG CT, ED16; §10.11 | MWG20Sep2024: anchorCASH/rawLONG/vetoCASH, Q10delta−.020861640105904133; candidate net+.324% | CASH0 khôngloss; labelerror/missedgain, không policybenefitclaim |
 | CL173 | [Native error](chapters/05_experiments.md#583-traceable-cases-selected-by-the-declared-rule) | DO_DUOC | CMG CT, ED16; §10.11 | CMG03Jul2023: NativeSHORT→CASH, candidate net+.171%/UP | Packet là auditview, không Nativeinput tương đươngMT; không actualshort |
 
+| CL174 | [Context sensitivity family](chapters/05_experiments.md#584-sensitivity-to-support-and-dependence-assumptions) | DO_DUOC | ED07; §10.12 | B06f/g đủ5extension×2baseline×return/BA; L1/L3/CORE4 saved20cell/finite10000, LOFO6/LOSO9ranges | Không tạo draw hoặc chọn bandhẹp, range khôngCI |
+| CL175 | [Baseline and support sensitivity](chapters/05_experiments.md#584-sensitivity-to-support-and-dependence-assumptions) | DAN_XUAT | ED07; §10.12 | v1−CommonL1return[−.019,.672]khác L2[.067,.586]; CORE4v1−Native+.350[−.024,.725] | Zero-exclusion khôngrobusttoblocklength; subset48/24khácprimary102/51 |
+| CL176 | [Component cohorts and dependence](chapters/05_experiments.md#584-sensitivity-to-support-and-dependence-assumptions) | DO_DUOC | ED28/34/35/41/42; §10.12 | Common8 96/48account, recent9 54/27account; returnorderingđổi; LOO BA+.820..4.918pp, CBB/HAC intervals chứa0 | HACaccuracy khácBA, khôngconfirmatory hoặcfinancialgain |
+| CL177 | [Component strata](chapters/05_experiments.md#584-sensitivity-to-support-and-dependence-assumptions) | DO_DUOC | ED45/47; §10.12 | Trend35/33/34, volatility33/69, liquidity80/22; B05i giữ adversegroup | Proxy/thresholdpostinference, khácHMMregime; không strategychọnstrata |
+| CL178 | [Twelve economic scenarios](chapters/05_experiments.md#585-recorded-economic-execution-scenarios) | DO_DUOC | ED26/43/44; §10.12 | B05j12scenario×AS/B51account, fixedprediction/labels; Base delayedpending1, uncertifiedfills0 | Assumptions không broker/venuequote; nofill không worstcasebound hoặcqueryforesight |
+| CL179 | [Recorded resource scopes](chapters/05_experiments.md#586-recorded-resource-use-and-unavailable-costs) | DO_DUOC | ED18/07/46; §10.12 | Component194new/455sourceattempts; context1702HTTP, observed2986930tokens/UNKNOWNreserve9177 | Không cộng thành bill375outputs, reservekhácusage, missingkhác0billed |
+| CL180 | [Latency and missing costs](chapters/05_experiments.md#586-recorded-resource-use-and-unavailable-costs) | DAN_XUAT | ED46 và HTTPmembers; §10.12 | 1700timed/2untimed, sum4056.744s/median1.715/range.554–31.819; loại503carry | Timestamp durations khácwallclock/perrolematchedlatency, không monetarybill |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2363,6 +2371,13 @@ ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc q
 | ED38 | U09 | `outputs/unified_integration/u09_analysis_r1/per_repeat.csv` | `71f54c70b71672d3e8b2d2e4bdb56281e932f1764dfa24d0bd79c15c9a1f236e` |
 | ED39 | U09 | `outputs/unified_integration/u09_analysis_r1/classification_by_group.csv` | `cd0c12b3363c7466ec9e167ffdacb3daf05db6e6fae125f94e2e08413c449cbb` |
 | ED40 | U09 | `outputs/unified_integration/u09_analysis_r1/prior_traces.json` | `dff668d4841a1ff9e36bb13ae4e09f8a54e612f264cf1b9cedb94281824dea3e` |
+| ED41 | revision | `outputs/revision/final_temporal_v1/block_sensitivity.json` | `4233ce33073c343acf8df8a0fff1b346ccbaa7e32648c6b77980d51d5d5fa822` |
+| ED42 | revision | `outputs/revision/final_temporal_v1/panel_hac.json` | `9ad67cf77df631e11f71ddc6e3874a495812963e91201565ec5f8764dd4b287b` |
+| ED43 | revision | `outputs/revision/execution_final_v1/scenario_summary.csv` | `89cf353e5499aa5e14d3f3322224ff7288ac5754b1d906f715fd7a88bb36aa92` |
+| ED44 | revision | `outputs/revision/execution_final_v1/report.json` | `0faec26af37be228ff1863926c778ff6910d4aff39d3c476ef6123a60112882c` |
+| ED45 | revision | `outputs/revision/final_temporal_v1/stratified_metrics.json` | `313a17af07e951d228ce01081510f36b83c4e19ae85041a69505f653df28fefd` |
+| ED46 | U08 | `outputs/unified_integration/u08_research_r1/wire.json` | `f7a5894f2576211c03dfd190428679bcdf1e5ee7be8d5909bbca4e27efa9eb6c` |
+| ED47 | revision | `outputs/revision/final_temporal_v1/protocol.json` | `7f8f3cead7d95a00c3967c43e60b3332430a4fc54e630bd0929807c56bae2449` |
 <!-- experiment-data-end -->
 
 ### 10.2. Phạm vi hai nghiên cứu và mốc khóa
@@ -2477,3 +2492,15 @@ Mọi basename dưới thuộc `outputs/unified_integration/u08_research_r1/slot
 | CMG-2023-07-03 | Native | `1493f745-e2fa-49bf-b0db-c7eb474ef9f1` | NA |
 
 Kiểm từng ô facts/actions/outcomes, unit×100/×1000 khi trình bày, request/shared/policy/barrier, nguồnselection/support, links/footnotes/spec/diff. Docs-only không compileall/unit/E2E/leakage; không API/fit/replay/bootstrap. Không chọnoutcome cho nhóm đủ/thiếu/disagree/veto, không thêm giả lập để thay ca thật.
+
+### 10.12. Sensitivity, thực thi và tài nguyên đã ghi
+
+T46; CL174–CL180. B06f/g dùng ED07 `sensitivity`, cùng index20cột như `contrasts`: endpoint return/BA, baselineNative/Common và đủ5extension. L1/L3 `ci95[i]`, CORE4 `point[i]/ci95[i]` đãpp; LOFO/LOSO lấy min/max của6/9savedvector đúngindex, khôngCI/khôngredraw. CORE4points48/accounts24; L1/L3primary102/51. Mọi20cell/sensitivityfinite10000, không chỉ giữ vài contrast tốt. Các support và estimator giữ §5.5.
+
+B05h ED35 pooled AS/B theo3cohort, ED34 n_accounts/return; n96/48account và54/27account không thayprimary102/51. ED28 `leave_one_block_out.AS_B_BA_delta` min/max×100 thànhpp. ED41 chọnall_102/AS-B/BA, lengths1/2/3 vàsavedpercentile; ED42 đủ6panel-HAC rows accuracy, lags0/1/2 trên96/54 cohorts, không nhầm vớiBA. B05i ED45 all_102/AS/B, khóa(dimension,stratum), cột n_units/metrics.balanced_accuracy×100. ED47 giữ SMA60±.02/trailing20/trainmedian vàpostinferencevol/liquidity; không suy HMM switching performance. Fullwidth summaries/higherdiagnostics vẫn có nguồn để mở App.D/T64, không chạy mới.
+
+B05j ED43 đủ12scenario trong ED26 policy, AS/B n_accounts51, cột `mean_account_net_return_pct,blocked_attempts,pending_cash_accounts,residual_stock_accounts`. Returnđã%, countnguyên, cả120rows/10variants giữsource. ED44 zero certifiedfills vàevent/account audit; labels/predictionskhôngđổi. Các giảđịnhfee/slip/lot100/cap1%/advance15%/ACT365 đọc ED26, không tuyên bố pháp luật/quote hiện hành hoặc nofill bounds.
+
+B07h ED18 `new/frozen_source` giữ attempts/successes/errors/prompt/completion/latency_seconds_sum; ledger ngoài375selectedoutputs được ghi rõ. Context ED07telemetry matched ED46wire `rows`1702, không lấy503carry. Mỗi HTTPmember tại `outputs/unified_integration/u08_research_r1/http/<id>.json` khớp rawmanifest và envelope.sha256 trong wire. Status1505/194/1/2; tổngobserved_tokens2986930, UNKNOWNreserve9177 khôngusage. Chỉ1700cặp completed_at/started_at hữu hạn: trừ timestamp để lấy duration, sum4056.744243621826s, median1.7145425081253052s, min.5543968677520752/max31.819045066833496; hai UNKNOWNuntimed giữmissing. Đây là thống kê trực tiếp trường đãlưu, không benchmark latency mới. Money/perrolebilledusage/wallclockmatched khôngcó, giữNA trongdiễngiải.
+
+Đối soát toàn bộ ô/identity/unit/denominator, nguyênhash archive/source, links/footnotes/84spec/diff. Docs-only không compileall/unit/E2E/leakage, không execution/accountreplay, statisticalbootstrap, API hoặcfit. Các sốmin/max/median chỉ tổng hợp số đãlưu, không tínhlại estimatorperformance. T47 còn tổnghợpgiớihạn; không nâng trạngthái NativeFAIL/NOT_CERTIFIED/UIpending.
