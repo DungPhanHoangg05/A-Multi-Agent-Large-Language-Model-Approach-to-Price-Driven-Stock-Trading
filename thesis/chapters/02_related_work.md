@@ -1,6 +1,6 @@
 # Chapter 2. Related Work
 
-> **Draft status: sources checked; prose in progress.** The scoped bibliography and reading register are established; unfinished sections remain explicitly marked.
+> **Draft status: complete chapter draft.** The literature synthesis and comparison matrix use scoped, version-checked primary sources. Cross-chapter review and final typesetting remain pending.
 > Only sources admitted to the thesis bibliography support citations here. Unread discovery candidates remain separate in the reading register.
 
 Writing aids: [chapter outline](../outline.md#chapter-2-related-work), [reading register](../evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -375,4 +375,72 @@ itself establishes input authenticity, live fills or profitable deployment.
 
 ## 2.7. Research gap and position of the thesis
 
-> **Not yet drafted.** Build the comparison matrix from publications actually read and checked, covering inputs, architecture, context, regimes, temporal protections, economics and controls. Derive a bounded research gap from that matrix and the implemented system; do not fill unsupported cells or assume novelty from a method name.
+The selected literature establishes specialist financial agents, visual
+analysis and reflection as existing ideas, while the Bayesian-ICL
+literature provides explicit models for learning from datasets in context.
+The question addressed here is how these ingredients behave when combined
+under a particular historical information boundary, action contract and
+paired evaluation. It is an integration and measurement problem with
+unresolved empirical components, rather than a claim to have invented
+multi-agent trading, chart reasoning or multi-task Bayesian inference.
+
+**Table B08a. Selected financial-agent systems and the thesis.** Each
+publication row summarizes the inspected method/evaluation sections,
+identified by its versioned citation. A reported availability rule is an
+author-stated protocol, not an independent PIT or venue audit conducted
+for this review. Different assets, schedules and economic contracts
+prevent ranking the systems by their separately reported returns.
+
+| System / source | Inputs and visual representation | Reasoning / historical context | Reported evaluation and economic scope |
+| --- | --- | --- | --- |
+| QuantAgent v3 [@xiong2025quantagent] | Price-derived indicators, candlestick and trendline views | Indicator/Pattern/Trend/Risk with a final DecisionAgent | One-hour/four-hour segments with future bars withheld; LONG/SHORT forecasts and risk bounds; not the thesis daily LONG/CASH oracle |
+| TradingAgents v7 [@tradingagents2024] | Fundamental, news, sentiment and technical inputs | Analyst, researcher/debate, trader and risk teams; structured communication | Historical US technology-stock simulation; authors state day-available inputs; buy/sell/hold under their own backtest |
+| FinVision v1 [@fatemi2024finvision] | News, candlestick and technical-indicator images | News summary, technical analysis, textual/visual reflection and final recommendation | Dated historical news/charts/signals in the method; BUY/SELL/HOLD and position size; own simulation rather than the thesis fixed net-cycle label |
+| This thesis (Chapters 4–5) | Price, adapted alpha, Vietnamese sentiment and two chart views | Inherited report chain, signal priors, numerical prior/target tasks, Fact Anchor and utility policy | Daily LONG/CASH, Open(t+1)→Close(t+3), two-way costs and separate accounts; checked prefixes/bindings retain Native causal FAIL and whole-system NOT_CERTIFIED |
+
+**Table B08b. Historical context and Bayesian inference are different
+methodological objects.** Validation domain identifies what the cited
+work studied, without extending its conclusions to Vietnamese stock
+trading. The thesis row describes the implemented path and its recorded
+limits; it does not claim the source theories' guarantees.
+
+| Method / source | Context or prior representation | Learned / inferred object | Validation domain and relevance |
+| --- | --- | --- | --- |
+| Implicit-Bayes ICL [@xie2022implicitbayes] | Examples share a latent concept in a specified pretraining model | Concept inference analyzed under mixture-of-HMMs assumptions | Theory and synthetic GINC; conceptual explanation, not proof for the hosted trading LLM |
+| Learned prompt retrieval [@rubin2022retrieve] | Selected input–output examples | Dense retriever trained from LM-based supervision | Semantic parsing; example selection mechanism, not a financial posterior or the implementation named B_semantic |
+| PFN [@muller2022transformers] | A context dataset drawn from a specified training prior | Amortized posterior-predictive approximation via prior-data NLL | Prior-defined supervised inference tasks; neither generic LLM prompting nor the thesis checkpoint |
+| Multi-task Bayesian ICL [@zhu2026multitask] | Marked prior datasets, target observations and an unlabeled query | Hierarchical predictive adaptation across priors with task boundaries | Synthetic regression families and ERA5 temperature prediction; intellectual source for task-structured context |
+| This thesis numerical/hosted path | Mature same-stock prior/target tasks selected with buckets/regimes; later text projection | Fitted count-based teacher, distilled frozen student, hosted proposal and external utility policy | Recorded Vietnamese-equity study; altered model/objective/architecture, mostly anchor-retaining final actions and missing isolated ablations |
+
+These comparisons identify three concrete requirements for the thesis.
+First, historical evidence needs an explicit unit: a selected signal
+episode, a population statistic and a task dataset must remain
+distinguishable. Second, the proposal must remain separate from the
+executed action: a numerical posterior summary, a fact-checked LLM reply
+and an anchor-relative utility decision are not equivalent outputs.
+Third, a comparison needs common market support and a fixed economic
+oracle, with unsupported cases and adverse outcomes retained. The cited
+publications motivate these distinctions but do not supply a matched
+benchmark for this repository's frozen queries.[^research-position]
+
+The implemented contribution is consequently a source-bound synthesis:
+an adapted multi-agent reporting path, matured historical-context
+construction with explicit fallback, a numerical task/teacher/student
+path, external action resolution and paired research accounting. Chapters
+4–5 explain those mechanisms and measure the combinations that were
+actually run. This position credits the inherited architecture and
+inference ideas while making the added interfaces, constraints and audit
+evidence assessable.
+
+Its empirical scope remains limited. The context results depend on the
+chosen baseline and readiness; MT final actions mostly retain Fact
+Anchor; all eight research roles have negative mean returns. Native
+row-wise causality remains FAIL and whole-system causality remains
+NOT_CERTIFIED. Missing matched retrieval, prior and MT ablations prevent
+isolated mechanism claims. Thus the open research gap is whether the
+proposed conditioning and revision mechanisms add reliable value under
+repaired temporal provenance and independent evaluation. This thesis
+provides an implementation and a bounded historical assessment of that
+question, while the stronger claim remains future work.
+
+[^research-position]: B08 publication cells map to R04/R06/R07 and R13–R16 in ledger §11.1/§11.6. Implementation cells map to Chapters 4–5, CL025–CL028/CL064–CL101/CL145–CL187 and the source cards cited there. The selected comparison is not an exhaustive literature search or a claim of global priority, superiority, independently certified PIT or profitable execution.

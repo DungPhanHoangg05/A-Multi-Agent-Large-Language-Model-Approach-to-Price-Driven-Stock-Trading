@@ -335,12 +335,15 @@ Không nhập bibliography chủ đề khác từ `Latex/references.bib` của m
 - **DA_DOC:** đã đọc phần chỉ rõ ở §4.4, thường là abstract; chưa đủ để dùng
   mọi công thức, so sánh hoặc chi tiết triển khai của toàn tài liệu.
 - **DA_KIEM:** đã đối chiếu metadata/phiên bản và đoạn nguồn hỗ trợ **nhận định
-  có phạm vi ghi tại §4.4**. Không có nghĩa đã đọc/kiểm mọi trang, tái lập
+  có phạm vi ghi tại §4.4, §8.5 hoặc §11.1**. Không có nghĩa đã đọc/kiểm mọi trang, tái lập
   kết quả, kiểm quyền phát hành hoặc xác minh ứng dụng sang thị trường Việt Nam.
 - Tại mốc T04: **3 DA_KIEM, 5 DA_DOC, 51 CHUA_DOC**. Cập nhật P5 tại §11.1 ghi 22 nguồn đã kiểm cho bibliography riêng và thêm ba ứng viên; không coi toàn bộ danh sách là đã đọc. A = đọc trước
   khi viết phương pháp/đánh giá liên quan; B = nguồn so sánh/bổ trợ; C = đọc
   tùy mức liên quan. Ưu tiên không phải đánh giá chất lượng nghiên cứu.
-- Link trong 51 dòng CHUA_DOC là **đích cần kiểm**, không phải xác nhận đã
+- Sau P5, danh sách có **62 mục**: **24 DA_KIEM theo phạm vi** (22 mục của
+  bibliography và hai trang TA-Lib tại §8.5.2), **38 CHUA_DOC**. Không có
+  mục DA_DOC còn lại sau các lần đối chiếu đã ghi.
+- Link trong 38 dòng CHUA_DOC là **đích cần kiểm**, không phải xác nhận đã
   truy cập được. Nguồn có DOI dùng DOI để xác thực định danh; bản tác giả,
   arXiv, proceedings, trang nhà xuất bản hoặc tài liệu/model card chính thức
   được ưu tiên. HTTP 200, catalogue hoặc mục lục không chứng minh có toàn văn.
@@ -949,7 +952,7 @@ ablation MT-BICL chưa chạy.
 | B05 | **Component results and sensitivities.** B05a–g kết quả, B05h–j cohort/strata/12scenario. | Ch.5.6/5.8; App.D | T41/T46 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | §10.7/§10.12 | Mọi ô có nguồn; CSV/LaTeX ởT69 |
 | B06 | **Context results, contrasts and sensitivities.** B06a–h đủ8role/2control, repeats, 20contrast, bridge, sensitivity và missingpanel. | Ch.5.7–5.9; App.D | T42/T43/T46/T47 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | §10.8/§10.9/§10.12/§10.13 | Mọi ô có nguồn; CSV/LaTeX ởT69 |
 | B07 | **Context, policy, cases and resources.** B07a–h giữ coverage/NA/302of306anchor, rulecases và usage/timing. | Ch.5.8; App.B/D | T44/T45/T46 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | §10.10–§10.12, CT01–CT30 | Mọi ô có nguồn; CSV/LaTeX ởT69 |
-| B08 | **Comparison with related research.** So sánh inputs, architecture, context/regime, PIT, economics và controls từ nguồn đã kiểm. | Ch. 2.7 | T53 | DẪN_XUẤT | SRC10 | `tables/B08_related_research.csv + .tex` |
+| B08 | **Comparison with related research.** B08a tài chính đa agent; B08b context/Bayes/MT; từng hàng/cột có nguồn, giữ các giới hạn PIT/economics/novelty. | [Ch.2.7](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | T53 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | R04/R06/R07/R13–R16 và binding nội bộ; §11.6 | Bảng trong chương; CSV/LaTeX ở T70, chưa dàn trang cuối |
 | B09 | **Research questions and remaining evidence.** ĐủRQ1–4, observations, boundedanswers và missingevidence. | Ch.5.9; Ch.6.2/T56chưaviết | T47/T56 | ĐÃ_CÓ_BẢN_NHÁP_CHƯƠNG5 | CL145–CL187; §10.13 | Bảng trong§5.9, chưa chuyển CSV/LaTeX |
 
 ### 6.7. Yêu cầu khi tạo sản phẩm ở task phụ trách
@@ -1218,7 +1221,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | File bản thảo | Nguồn bắt đầu trong sổ chung | Nội dung cần viết, chưa phải kết quả đã có |
 | --- | --- | --- |
 | [01_introduction.md](chapters/01_introduction.md) | §1 metadata; §2 và outline §A về RQ/đóng góp; §3 giới hạn | Bối cảnh, bài toán, câu hỏi, giới hạn, đóng góp và mạch sáu chương |
-| [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
+| [02_related_work.md](chapters/02_related_work.md) | §4 discovery register; §11 nguồn/version/claim; §6 B08 | P5/T48–T53 đủ bản nháp§2.1–§2.7/B08a–b, bibliography22nguồn; còn ràsoátliênchương/G3toànbộ vàdàntrangcuối |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
 | [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | P3 đủ bản nháp §4.1–§4.10, kèm F03/F04/F05/F05a/F06/F07/F08/F11, B03 và A01–A03; G2 tự kiểm nội bộ, UI/F11 vẫn PENDING, chưa rà soát/dàn trang cuối |
 | [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 EX01; §10 nguồn/ô/claim | P4/T36–T47 đủ bản nháp§5.1–§5.9, F09/F10/B04/B05/B06/B07/B09; còn App.D, ràsoát/G3toànbộ vàdàntrangcuối, khôngđổi acceptance nghiêncứu/UI |
@@ -1471,6 +1474,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL207 | [Dependence methods and assumptions](chapters/02_related_work.md#26-evaluation-of-trading-systems-using-llms) | NGUON_HOC_THUAT | R19/R21; §11.5 | Stationary bootstrap randomlength và HAC có giả định; fixedcircular/fold của thesis khác | Không chuyển asymptotic motivation thành nominalcoverage sáu exposedfolds |
 | CL208 | [Multiplicity and valid tests](chapters/02_related_work.md#26-evaluation-of-trading-systems-using-llms) | NGUON_HOC_THUAT | R20/Holm pp65–67; CL142–CL144/CL150 | Sequential adjustment cần validindividualtests; giữ family đầy đủ và undefined rules | Holm không sửa symmetry/exchangeability chưa kiểm hoặc xác nhận exploratory |
 | CL209 | [Reproducibility versus confirmation](chapters/02_related_work.md#26-evaluation-of-trading-systems-using-llms) | DAN_XUAT | R22, CL179–CL186; §11.5 | Source/input/prompt/reply/checkpoint/offlinereplay khác freshhostedinference/prospective/livefills | Không suy authenticity, wholecausal hoặcprofit từhash/fluentexplanation/replay |
+
+| CL210 | [Financial-agent comparison](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | DAN_XUAT | B08a/R04/R06/R07, Chapters4–5; §11.6 | Inputs, roles/history, temporal protocol/economics được so theo đúngversion/đoạn | Không xếp hạng khácstudy, authorstatement khác independentPIT/venueaudit |
+| CL211 | [Context/inference comparison](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | DAN_XUAT | B08b/R13–R16 và CL064–CL101; §11.6 | Contextunit/prior/learner/domain tách implicitBayes/retrieval/PFN/MT và localpath | Không synonymfewshot=MT, không coi validationdomain của paper là tradingevidence |
+| CL212 | [Bounded contribution](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | DAN_XUAT | CL025–CL028/CL064–CL101/CL145–CL187; §11.6 | Source-bound integration, context/fallback, teacher/student, policy và pairedaccounting | Không globalfirst/noveltheorem/firstvisualmultiagent hoặc returnadvantage |
+| CL213 | [Remaining research gap](chapters/02_related_work.md#27-research-gap-and-position-of-the-thesis) | DAN_XUAT | CL155–CL187/CL198–CL209; §11.6 | Baseline/readiness dependent, MTmostlyanchor, eightnegative means, NativeFAIL vàmissingmatchedablations | Gap về reliablevalue chưa được giải quyết bằng implementation; G3/T54–58 vẫn còn |
 
 Quy tắc điền bảng:
 
@@ -2627,7 +2635,7 @@ Hash bản đọc để truy vết, không thay version/metadata và không ch�
 
 Config5CD cùng revision d7738b8 có id2label0/1/2=NEG/POS/NEU; bản đọc rawconfig SHA-256 `04499fbdf5bb3ff5c93abf63c845670387485fdd16e9472847f1168a5dda102b`. Metadata Crossref đối chiếu Lo journal record (nhưng bibliography dùng NBER7613), Newey–West, Politis–Romano, Varma–Simon và Arnott et al.; nội dung nghiên cứu vẫn lấy bài gốc, không lấy Crossref làm bằng chứng phương pháp. Arnott/Harvey/Markowitz dùng bản tác giả29Oct2018, gắn record journal2019 được kiểm; DOI/volume/pages giữ đúng record.
 
-Kiểm BibTeX bằng parser BibTeX thực trong thư mục tạm, keys duy nhất/cân bằng và metadata bắt buộc; không tạo PDF toàn văn. Không chép `paper/references.bib` hoặc bibliography mẫu. T48 không sửa Chương3–5, runtime hoặc artifact thực nghiệm; không compileall/unit/E2E/leakage suite, không fit/API/replay. Các kết luận mạnh hơn locator cần đọc và đối chiếu thêm, không suy từ trạng thái DA_KIEM.
+Kiểm BibTeX bằng parser BibTeX thực trong thư mục tạm, keys duy nhất/cân bằng và metadata bắt buộc; không tạo PDF toàn văn. Không chép `paper/references.bib` hoặc bibliography mẫu. T48 không sửa Chương3–5, runtime hoặc artifact thực nghiệm; không compileall/unit/E2E/leakage suite, không fit/API LLM/replay. Các kết luận mạnh hơn locator cần đọc và đối chiếu thêm, không suy từ trạng thái DA_KIEM.
 
 ### 11.2. Phân tích kỹ thuật, alpha và đối chứng
 
@@ -2645,4 +2653,12 @@ T51; CL198–CL204, R11–R16. §§2.3–2.5 trình bày HMM/Markov-switching nh
 
 ### 11.5. Backtest, phụ thuộc và tái lập
 
-T52; CL205–CL209, R17–R22 và hợp đồng nội bộ. §2.6 dùng Arnott/Harvey/Markowitz cho research-protocol/implementation-cost rationale, White cho data snooping/specification search, Varma–Simon cho optimistic error after tuning. Không gán purging theo holdinginterval của repo thành thuật toán đã chứng minh bởi bài microarray, và không nói đã chạy White Reality Check. Politis–Romano p1303 nêu stationarybootstrap với randomgeometriclength và weakstationarity; fixedcircular/wholefold đang lưu khác cách dựng đó. Newey–West p703 chỉ được dùng cho HAC motivation/regularity, không claim đã kiểm toànproof hoặc coverage6folds. Holm pp65–67/Scheme1/Theorem1 yêu cầu valid tests, không tự sửa underlying sign-exchangeability. Phần pairing/ablation và source/input/checkpoint/replay dùng binding nội bộ Chương3–5, giữ NativeFAIL và các giới hạn lịch sử. Kiểm citation/key/locator/footnote/link/spec/diff; docs-only không compileall/unit/E2E/leakage/bootstrap/API/fit/replay.
+T52; CL205–CL209, R17–R22 và hợp đồng nội bộ. §2.6 dùng Arnott/Harvey/Markowitz cho research-protocol/implementation-cost rationale, White cho data snooping/specification search, Varma–Simon cho optimistic error after tuning. Không gán purging theo holdinginterval của repo thành thuật toán đã chứng minh bởi bài microarray, và không nói đã chạy White Reality Check. Politis–Romano p1303 nêu stationarybootstrap với randomgeometriclength và weakstationarity; fixedcircular/wholefold đang lưu khác cách dựng đó. Newey–West p703 chỉ được dùng cho HAC motivation/regularity, không claim đã kiểm toànproof hoặc coverage6folds. Holm pp65–67/Scheme1/Theorem1 yêu cầu valid tests, không tự sửa underlying sign-exchangeability. Phần pairing/ablation và source/input/checkpoint/replay dùng binding nội bộ Chương3–5, giữ NativeFAIL và các giới hạn lịch sử. Kiểm citation/key/locator/footnote/link/spec/diff; docs-only không compileall/unit/E2E/leakage/bootstrap/API LLM/fit/replay.
+
+### 11.6. B08 và định vị đóng góp
+
+T53; CL210–CL213. B08a từng hàng/cột: QuantAgentR04§3–§4 cho inputs/charts/Indicator–Pattern–Trend–Risk/Decision, 1h/4h/futurebars và directional contract; TradingAgentsR06§3–§5.1 cho teams/debate/structured communication, UStech/backtest/actions và author-stated availability; FinVisionR07§3.1–§4.2 cho news/chart/reflection/dates/BUY-SELL-HOLD/size. Các trường temporal/economic chỉ mô tả nội dung đọc, không đánh PASS/FAIL cho paper khác hoặc suy không có guard từ sự vắng mặt trong đoạn đọc. Rowthesis theo CL025–CL028/CL064–CL101 và Chương5, giữ oracle/cost/account và NativeFAIL/NOT_CERTIFIED.
+
+B08b từng hàng: XieR13§2–§4 cho latentconcept/mixture-HMM/GINC; RubinR14§3–§4 cho LM-supervised dense retrieval/semanticparsing; PFNR15§3–§4/Algorithm1 cho prior-dataNLL và predictiveapproximation; MTR16§4/§5.1/§5.5 cho taskboundaries/priorprefix/hierarchicalobjective và regression/ERA5. Rowthesis dùng numerical/hosted/policy tách biệt, teacher/student khác originalrecipe và giới hạn hiệu quả từ Chương5. Không đánh mọi ô theo cùng một financialbenchmark khi nguồn không có. Cả hai panel B08 nằm trong Markdown, CSV/LaTeX và rà soát kích thước bảng ở T70/T74 sau; chưa tạo bảng LaTeX hoặc PDF toàn văn.
+
+Khoảng trống được định vị cho tích hợp và phép đo đã triển khai, không surveyexhaustive/globalpriority. Kết quả không bị viết lại để khớp narrative: tám returnngữcảnh âm, v1 phụ thuộc baseline/support, MTgiữanchor, NativeFAIL, provenance và missingablations còn nguyên. Kiểm từngcâu/ô/citation/key/locator so nguồn và các chương đã khóa; 84spec giữnguyên, không code/runtime/test/config/schema/input/model/receipt đổi. P5 đủ bản nhápChương2/bibliography, chưaG3toànbộ doT54–T58 chưaviết, chưaphảnbiệnngoài hoặc dàntrangcuối. Docs-only không compileall/unit/E2E/leakage/fit/API LLM/replay.

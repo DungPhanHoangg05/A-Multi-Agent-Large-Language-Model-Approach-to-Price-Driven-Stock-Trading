@@ -452,6 +452,20 @@ Ngày **16/11/2026**, thực hiện T48–T53 theo yêu cầu. Mỗi task dùng 
 
 **T52 — `docs/thesis-evaluation-related-work`:** viết §2.6/CL205–CL209 với Arnott et al., White, Varma–Simon, Politis–Romano, Holm và Newey–West. Tách mục đích phương pháp và giả định khỏi estimator/receipt thực tế; không gán purging cho microarray paper hoặc gọi fixedcircular là stationarybootstrap. Holm không sửa p-values chưa có giả định hợp lệ. Phân biệt replay/sourcehash với prospective/live-fill/authenticity; không ghi đã chạy White/nestedCV hoặc suite mới. Citation/locator/keys/links/footnotes/spec/diff PASS; không runtime hoặc dữ liệu thay đổi.
 
+**T53 — `docs/thesis-research-position`:** viết §2.7/B08a–b và CL210–CL213/sổ §11.6. Bảng tài chính giữ nguồn inputs/roles/history/temporal/economics; bảng inference giữ contextunit/prior/objective/validationdomain. Author-stated PIT khác independentaudit, NR/thiếu chứng cứ không bị biến thành FAIL của paper khác. Khoảng trống gắn với tích hợp và đánh giá thực tế, không globalfirst hoặc vượt trội; giữ returnâm/NativeFAIL/NOT_CERTIFIED/UIpending và thiếu matchedablations. P5/T48–T53 đủ bản nháp Chương2/bibliography, còn T54trởđi/G3toànbộ và review/typesetting. Kiểm citation/từngô/source/keys/footnotes/link/spec/diff, không suite hoặc nghiên cứu mới.
+
+Chốt đối soát **P5 PASS**: bibliography có 22 mục, 22 khóa được trích đều
+được nhận theo R01–R22; BibTeX thực đọc đủ 22 bibitem, không lỗi hoặc cảnh
+báo thiếu trường. Discovery register có 62 khóa duy nhất: 24 đã kiểm theo
+phạm vi (gồm hai trang TA-Lib đã kiểm trước), 38 chưa đọc; không nâng trạng
+thái các mục chưa đọc. Chương 2 có đủ bảy section, B08a–b và bảy footnote,
+khoảng 4.005 từ; 643 liên kết/355 anchor hợp lệ trong tập file kiểm,
+84 đặc tả task không đổi, CL001–CL213 liên tục. Hash 20 bản PDF đọc và hai
+README đúng pin. Bibliography SHA-256 theo LF:
+`42d8a4637ae8a362a169d370965428acae94586958a06e0f617f950cb772e24f`.
+Chương 1/3/4/5/6, root README, code, runtime, input và hình giữ nguyên.
+P5 đủ bản nháp; còn T54 trở đi, G3 toàn bộ và rà soát/dàn trang cuối.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
