@@ -450,6 +450,8 @@ Ngày **16/11/2026**, thực hiện T48–T53 theo yêu cầu. Mỗi task dùng 
 
 **T51 — `docs/thesis-bayesian-related-work`:** viết §§2.3–2.5/CL198–CL204, R11–R16. Tách latent regimes và descriptive strata, implicit-Bayes theory và learned retrieval, PFN và task-structured MT. Nêu sự khác nhau giữa sourcepaper và teacher/student thực: Beta16, synthetic soft-target tạiQ, feature/label generation và student2block4head; hosted Decision và policy là bước riêng. Kiểm metadata/đoạn/citation và binding Chương4, không refit hoặc gọi model; links/footnotes/spec/diff PASS. Không tuyên bố regime/MT có hiệu quả nhân quả hay calibration chỉ từ cơ sở lý thuyết.
 
+**T52 — `docs/thesis-evaluation-related-work`:** viết §2.6/CL205–CL209 với Arnott et al., White, Varma–Simon, Politis–Romano, Holm và Newey–West. Tách mục đích phương pháp và giả định khỏi estimator/receipt thực tế; không gán purging cho microarray paper hoặc gọi fixedcircular là stationarybootstrap. Holm không sửa p-values chưa có giả định hợp lệ. Phân biệt replay/sourcehash với prospective/live-fill/authenticity; không ghi đã chạy White/nestedCV hoặc suite mới. Citation/locator/keys/links/footnotes/spec/diff PASS; không runtime hoặc dữ liệu thay đổi.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

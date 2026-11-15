@@ -299,7 +299,79 @@ was actually observed.
 
 ## 2.6. Evaluation of trading systems using LLMs
 
-> **Not yet drafted.** Review chronological evaluation, purging, transaction costs, paired comparisons, numerical controls, ablations and inference for dependent observations. Explain the difference between exploratory historical analysis and prospective confirmation, supported by primary methodological sources.
+Evaluation must separate information available at the decision cutoff,
+choices made during development and economic outcomes produced by a
+specified execution contract. Arnott, Harvey and Markowitz discuss a
+financial research protocol that addresses data limitations, selection,
+implementation shortfall and changing market behavior. This motivates
+reporting costs and implementation assumptions alongside prediction
+metrics, rather than treating a favorable historical score as deployment
+evidence. [@arnott2019backtesting]
+
+Chronological ordering is necessary for the recorded decision problem,
+but ordering row timestamps alone is insufficient. A training example's
+label may require prices after its decision date; the relevant boundary
+is when its outcome has matured. The thesis therefore states entry and
+exit dates, purges inadmissible holding intervals and binds model/scaler
+fitting periods separately from query prefixes. News requires its own
+availability evidence. These are explicit implementation contracts, and
+the unresolved native row-wise and news-provenance limits remain visible
+rather than being inferred away from a chronological split.
+[^evaluation-implementation]
+
+Selection and repeated inspection create another problem. White's Reality
+Check addresses predictive comparison after specification search and
+explains how repeated data use can produce apparently attractive results.
+Varma and Simon's classification study similarly shows the danger of
+using an optimized validation score as its own independent error estimate.
+Together these motivate separating fitting, selection and assessment,
+while retaining the assumptions of each source. The thesis does not claim
+to have run White's procedure or to have established the time-series
+validity of nested random cross-validation. [@white2000reality]
+[@varma2006bias]
+
+For an LLM system, the comparison unit also includes stochastic model
+responses and their upstream inputs. A paired comparison can preserve
+one recorded upstream realization for all methods at a point, instead
+of asking each branch to obtain a different chart interpretation.
+Repeating the final Decision call then probes conditional response
+variation, not a new market history. Matched ablations should preserve
+the comparison support and other inputs when isolating an intervention.
+A comparison that jointly changes projection, instructions and information
+cannot identify their separate effects merely because its final actions
+were paired.[^evaluation-implementation]
+
+Dependence-aware uncertainty methods retain assumptions of their own.
+Politis and Romano develop a stationary bootstrap with random-length
+blocks for weakly dependent stationary observations. The fixed-length
+circular blocks and whole-fold resampling recorded in this thesis are
+different constructions. The reference motivates preserving dependence;
+it does not certify the chosen block lengths or nominal coverage with
+six exposed folds. [@politis1994stationary] Newey and West's covariance
+estimation work likewise addresses heteroskedasticity and autocorrelation
+under regularity conditions; a stored panel-HAC diagnostic is not a
+finite-sample guarantee for this dataset. [@newey1987hac]
+
+Multiplicity must be considered with the validity of the underlying
+comparisons. Holm's sequential procedure controls family-wise error when
+the individual tests meet their validity requirements. Applying its
+adjustment does not repair an unverified block-sign symmetry assumption
+or turn post-inference analysis into prospective confirmation. The
+component numerical diagnostics and the context study's joint descriptive
+bands therefore retain their separate constructions, full contrast
+families and undefined-value rules. [@holm1979multiple]
+
+Finally, reproducibility has several levels. Versioned sources, inputs,
+prompts, responses and checkpoints can make a stored analysis traceable;
+offline reproduction can check the published artifacts. A new hosted call
+may still differ because the served model or service behavior changes.
+Prospective confirmation additionally requires evidence collected under
+a fixed, previously unexposed protocol. The historical receipts and
+descriptive sensitivities in Chapter 5 establish only their stated scope.
+Neither a fluent explanation, a successful replay nor a source hash by
+itself establishes input authenticity, live fills or profitable deployment.
+
+[^evaluation-implementation]: Sections 3.7, 4.9–4.10 and 5.1–5.5 bind event-time maturity, outcome barriers, shared upstream, pairing, prompt/retry/checkpoint handling and each estimator; CL021–CL024/CL126–CL144/CL182–CL186. These internal contracts and historical audit limits are distinguished from the methodological results of the cited publications.
 
 ## 2.7. Research gap and position of the thesis
 

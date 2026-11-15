@@ -85,7 +85,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T49 — DONE: [§2.1](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction), tín hiệu kỹ thuật/Alpha101 và khác biệt thích nghi một mã, controls/selection versus assessment. CL189–CL192, R01–R03/R17; không suy công thức gốc hay diagnostic thành hiệu quả giao dịch. Kiểm citation, nguồn, liên kết và phạm vi.
 - [x] T50 — DONE: [§2.2](chapters/02_related_work.md#22-llms-vlms-and-multi-agent-financial-systems), QuantAgent paper/code attribution, TradingAgents/FinVision và giới hạn chart/sentiment. CL193–CL197, R04–R10; phân biệt kế thừa, thích nghi, bổ sung; pin đối chiếu khác adopted commit. Không tuyên bố vượt trội hoặc HFT cho study daily.
 - [x] T51 — DONE: [§§2.3–2.5](chapters/02_related_work.md#23-market-regime-detection), regime/HMM, ICL/Bayes/retrieval, PFN và MT-BICL; CL198–CL204/R11–R16. Nêu đúng giả định và khác biệt teacher16Beta/query-soft-target/student2block4head của triển khai so với bài gốc; không đồng nhất few-shot với multi-task Bayes hoặc synthetic agreement với hiệu quả thị trường.
-- [ ] T52 — Tổng quan phương pháp đánh giá và tái lập.
+- [x] T52 — DONE: [§2.6](chapters/02_related_work.md#26-evaluation-of-trading-systems-using-llms), chronological maturity/purging, pairing/ablation, costs, data snooping, dependent resampling/HAC/Holm và tái lập/tiền cứu. CL205–CL209/R17–R22; giữ giả định, không gọi band hiện tại là xác nhận hoặc nói đã chạy phương pháp chưa làm.
 - [ ] T53 — Tổng hợp bảng so sánh và khoảng trống nghiên cứu.
 
 #### Mở đầu và kết luận — P6

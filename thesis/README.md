@@ -23,7 +23,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 11. [Chương 5 — thực nghiệm và thảo luận](chapters/05_experiments.md): T36–T47; P4/T36–T47 đã đủ bản nháp §5.1–§5.9, F09/F10 và B04/B05/B06/B07/B09. T48 trở đi, G3 toàn bộ, phụ lục, phản biện và dàn trang cuối còn việc; trạng thái nghiên cứu/ứng dụng không đổi. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ nguồn/claim. Bảng Markdown chưa chuyển CSV/LaTeX; chưa rà soát toàn văn hoặc phản biện ngoài.
 
-12. [Chương 2 — tổng quan tài liệu](chapters/02_related_work.md): T48–T51; Đã có §2.1–§2.5 và bibliography; §2.6–§2.7 tiếp tục T52–T53, P5 chưa hoàn tất. [Bibliography riêng](references.bib) và [sổ nguồn P5](evidence.md#11-nguồn-tổng-quan-tài-liệu-và-định-vị) giữ phiên bản, đoạn hỗ trợ và giới hạn.
+12. [Chương 2 — tổng quan tài liệu](chapters/02_related_work.md): T48–T52; Đã có §2.1–§2.6 và bibliography; còn §2.7/bảng định vị ở T53, P5 chưa hoàn tất. [Bibliography riêng](references.bib) và [sổ nguồn P5](evidence.md#11-nguồn-tổng-quan-tài-liệu-và-định-vị) giữ phiên bản, đoạn hỗ trợ và giới hạn.
 
 ## Hai trang bìa
 
