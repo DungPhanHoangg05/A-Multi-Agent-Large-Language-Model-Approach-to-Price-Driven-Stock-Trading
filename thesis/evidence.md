@@ -1306,6 +1306,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL075 | [B03 prior portion](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles): so sánh bốn prior | DAN_XUAT | BG07/05/06, SYS25–28 và CL064–074 | Matching/statistics/examples/prefix/readiness/Commondependency; basefull_prior khác registered contentmodes | Bảng inline nguồn Markdown; chưa xuất CSV/TeX hoặc hoàn tất orchestrationT33 |
 | CL076 | [EX01 A table](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles): counts P19/C14/B5, posterior | DO_DUOC | U08 Atrace.statistics, EP01; §9.13 | win7/14+2/5; trap/pattern7/14+2/4; trend7/14+0/0; meansround6 | nBcycle5 không là denominator metric; 0/0trendbackground dùng fixedsymmetricprior |
 | CL077 | [EX01 C2/A/B contrast](chapters/04_proposed_system.md#472-alternative-conditional-and-presentation-profiles): identical C2/B evidence và bypass | DO_DUOC | U08 ba prepared/request/forecast/policy records; §9.13 | C2/Bbasehash0092…e2a; Abasehash2d11…f5a8; same3IDs; prefix[]/rawnull/depCommon | Không nói B wording đã tới model khi bypass hoặc kế thừaLONG là ba forecast mới |
+| CL078 | [§4.8.2](chapters/04_proposed_system.md#482-task-construction): observation/vector/oracle | HOP_DONG_TRIEN_KHAI | SYS29/32, BG08; §9.14 | 21bars, momentum5/20, std20logreturns ddof0, MA20distance; y=net>0 | r_net sidecar không thành coordinate, không đồng nhất std với HMMddof1 |
+| CL079 | [MT scaling](chapters/04_proposed_system.md#482-task-construction): raw/z/clip và resource | HOP_DONG_TRIEN_KHAI | SYS31/BG23, EX01-Cscaler; §9.10/9.14 | populationvariance, zeroVarScale1, clip±4; frozen2020/fit731 | Không dùng scalerC2stock/fold hoặc HMM, không refit600bars/query |
+| CL080 | [Task membership](chapters/04_proposed_system.md#482-task-construction): same-symbol63sessionblocks và bucket | HOP_DONG_TRIEN_KHAI | BG09/BG10, SYS33; §9.14 | i//63; facts45bars MACD−Signal/Close−SMA20 strictsign,zeroUNKNOWN | MACDNEG là quan hệ Signal, không MACDzero; bucket khác regime, query không nhãn |
+| CL081 | [Selection/freeze/F06](chapters/04_proposed_system.md#482-task-construction): task/row ranking và proof | HOP_DONG_TRIEN_KHAI | BG09/BG16/BG17/BG23, SYS33; §9.14 | Regimematchpriority, centroidfullpool, distance/latestexit/ID; K≤3, 2–8rows/prior, m≤8latesttarget | Allhistoryexit<cutoff và foldfreeze/reserved; membershiphashfullobjects, không chỉ displayedIDs |
+| CL082 | [EX01 context/table/F06](chapters/04_proposed_system.md#482-task-construction): vectors/taskcounts/dates | DO_DUOC | EX01-C.context và hostedMT membership; §9.14 | eligible30, K3 counts5/4/2+m3=14; index1372/block21; round6vectors | Ba signalexamples khác ba numerictasks; không sinh lại context/model hoặc xemqueryfutureprices |
 
 Quy tắc điền bảng:
 
@@ -1563,6 +1568,9 @@ giữ logic nghiên cứu theo xác nhận người dùng; hash vẫn phân bi�
 | SYS28 | `core/prior_prompt.py` | `6866493d426ebfe138b9cf5c43a0c16a14e188849dfd01c0d337adb7a93e2bdd` | Live đồng nhất byte |
 | SYS29 | `core/pit_price_features.py` | `35e5042a49aa2d1c3854150925389c6c3a79260eecaa99851ae6bea2a43794dc` | Live đồng nhất byte |
 | SYS30 | `core/price_feature_index.py` | `2809fc1c6e5ba1253feacfc715a839368aeaf1de5b24a7c968ef639818ff8d4b` | Live đồng nhất byte |
+| SYS31 | `core/mt_bicl_scaler.py` | `f960bd8efae36c641cff2cca9e444877f1b44debddeee985cb84d12de615d27e` | Live đồng nhất byte |
+| SYS32 | `core/mt_bicl_stream.py` | `d87b67432ea415ef60fb12eb96c8658565ee672de801273512d0ddc53454cd4b` | Live đồng nhất byte |
+| SYS33 | `core/mt_bicl_contracts.py` | `cb155d306aacb5ec3172fd9d54da2ee344b47ddb1ceafcc2fd50410f2e6eb432` | Live đồng nhất byte |
 <!-- system-source-end -->
 
 ### 9.2. Tổng quan, EX01 và F03
@@ -1929,3 +1937,34 @@ request nghiên cứu; so sánh base evidence khác so sánh nội dung model đ
 
 Chỉ kiểm snapshot/hash/group/count/mean/linkedrecord/Markdown, không chạy
 suite, production renderer/retriever/API hoặc tính performance mới.
+
+### 9.14. MT task/context và F06
+
+T28; CL078–CL082. BG08/09/10, SYS29/31/32/33 và BG16/17/23 giữ nguồn
+snapshot. Features21bars, volatilityddof0; scalerpopulationvariance/clip±4
+khác HMM. Task63sessionblocks, same-symbol, bucket45bars trước taskselection;
+centroidtừfulladmittedblock, priorregimematchpriority không hardfilter;
+closest8prior/last8target. Foldfrozen/historyreserved giữ theo §9.9.
+
+EX01-C member/hash §7.2 đọc qua U06assetsv2 manifest. ContextK3,m3,
+eligible30; priorblocks11/15/13 chứa5/4/2rows, targetblock21 chứa3rows.
+Queryindex1372/block21, raw/modelvectors round6 trong manuscript từ object
+saved; scalerfit731. TargetdatesJun16/21/26 và exitsJun21/26/29;
+queryentry/exit chỉ lịch, khôngr_net/y. Fullmembershipdigest
+`9ed7e2a35da59ea5157fb6fe2baacd09671ebf12749943d0882bc98bc98f3cb4`
+hash query/scaler/prior/target/advisor, nối U08 MT aux.branch đã pin §7.
+Mọi selectedID/centroidID có factsbucket cùng query, không đọc labels để rank.
+
+F06sourceTikZ/PDF/PNG giải thích taskcounts và offline/query boundary.
+Build từ root bằng pdflatex như F03, outputtạm tmp/pdfs/thesis-t28;
+PDF1trang180×185mm/PNGmax2000px đã render/xem và chỉnh điểm nối arrow,
+không cắt/chồng chữ/Type3 hoặc warning/overfull/underfull/undefined trong log.
+Không gọi feature/context/fit/predict pipeline; chỉ arithmetic từ saved
+vectors, membership và source/record checks. Metadata PDF có thể khác khi
+rebuild như các hình trước; source binding theo LF, sản phẩm theo raw bytes.
+
+| Artifact F06 | SHA256 (source LF, PDF/PNG nguyên byte) |
+| --- | --- |
+| [Source TikZ](assets/diagrams/F06_mt_tasks_training.tex) | `bb2e84e3d86e738e0c3243beec7dd88daba55e86743c915c794154d7837f94b2` |
+| [PDF](assets/diagrams/F06_mt_tasks_training.pdf) | `b0ceb9356163864de8debd57b4e588c60fc2f020efb9b81c4559935a0de569db` |
+| [PNG](assets/diagrams/F06_mt_tasks_training.png) | `30ea056f1794df5790e59a461053583eaa2d647b46014acc9dc6ac3938ba4d2d` |

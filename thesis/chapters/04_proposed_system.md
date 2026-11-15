@@ -1307,7 +1307,13 @@ observed LLM response to A's broader statistics or B's alternative wording.
 
 ## 4.8. MT-BICL and action revision
 
-> **Not yet drafted.** Introduce the numerical context and action-revision path before its details. Separate resources trained offline, numerical inference, hosted proposals and external policy, using the source-bound EX01 records.
+MT-BICL adds a numerical context built from mature historical observations,
+not a collection of new LLM agents trained on query outcomes. Task selection,
+frozen numerical teacher/student inference, hosted language-model proposals
+and external action resolution are separate operations. The following
+subsections explain their inputs and boundaries before describing utility
+and the complete revision policy. An available numerical context alone does
+not authorize an action change.
 
 ### 4.8.1. Fact packet and Fact Anchor
 
@@ -1315,7 +1321,124 @@ observed LLM response to A's broader statistics or B's alternative wording.
 
 ### 4.8.2. Task construction
 
-> **Not yet drafted.** Explain factual buckets, prior tasks, target observations, query vectors, scaling and membership cutoffs. Use EX01 to distinguish task counts from observation counts and displayed signal examples; keep the query unlabeled.
+**An observation and its four-dimensional input.** A numerical observation
+is one completed candidate LONG cycle. Its feature vector is computed at
+the historical decision from a valid 21-session price segment:
+
+$$
+x_i=\left(
+\frac{C_i}{C_{i-5}}-1,\quad
+\frac{C_i}{C_{i-20}}-1,\quad
+\operatorname{Std}_{\mathrm{pop}}\{\log(C_u/C_{u-1})\}_{u=i-19}^{i},\quad
+\frac{C_i}{\operatorname{SMA}_{20}(C)_i}-1
+\right).
+$$
+
+The volatility uses population standard deviation (`ddof=0`), distinct
+from the HMM's sample-volatility feature. Missing sessions, invalid prices
+or a relevant corporate-action barrier can make the segment unavailable;
+the pipeline does not fill a missing session with a synthetic candle.
+The cycle's historical label is $y_i=\mathbf1\{r_i^{\mathrm{net}}>0\}$,
+using the canonical execution oracle and costs. The saved `r_net` is a
+sidecar for historical utility/evidence, not an extra coordinate in $x_i$.
+[^mt-observations]
+
+The four-feature scaler uses admitted closed training observations, with
+population variance per coordinate. Zero-variance coordinates use scale
+one. The model receives $v_i=\operatorname{clip}((x_i-\mu)/\sigma,-4,4)$;
+raw $x_i$ and unclipped standardized $z_i$ remain in the record. Early
+training-prefix construction respects its own strict exit cutoff; after
+2020 the evaluated path reuses the frozen end-2020 scaler, not a scaler
+refitted on each query's 600 bars. This is also distinct from the
+stock/fold scaler of C2 example retrieval and from either HMM scaler.
+
+**A task is a stock/block group.** VN-Index's observed-session calendar is
+anchored on 2 January 2018. For zero-based calendar index $i$, block
+$b=\lfloor i/63\rfloor$ defines task `symbol:blockNNNN`. Candidate cycles
+follow a three-session grid and must stay within their admitted block and
+partition. A prior task comes from an earlier block of the **same stock**;
+target observations come from the query's own block. This grouping permits
+within-task context while retaining differences across historical blocks.
+It does not assert that a market process resets every 63 sessions.
+
+**Filter by a numerical facts bucket before task selection.** The evaluated
+`BucketTaskBuilder` first restricts mature available candidates to the
+query's factual bucket. Its axes are the signs of MACD minus Signal and
+Close minus SMA20, computed on each decision's own 45-bar prefix with the
+same definitions as the query. Strict positive/negative comparisons are
+made before rounding. A zero or missing axis gives UNKNOWN; that query
+has no selected bucket context. These are price-derived buckets, not the
+directions asserted in a generated report, and they are distinct from the
+VN-Index HMM regime.[^mt-membership]
+
+For each earlier block with at least two admitted observations, the builder
+computes a centroid using **all** its eligible clipped model vectors. Tasks
+rank first by a known regime match to the query, then by smaller Euclidean
+centroid distance, later latest exit and task ID. Regime agreement is a
+priority, not an absolute filter that forbids every unmatched task.
+At most three prior tasks are kept. Within each, at most eight observations
+are chosen by distance to the query, with more recent decision date and
+ID breaking ties, then presented chronologically. Target context instead
+keeps the latest at most eight eligible observations in the current block;
+it is not selected by the prior-task nearest-neighbor rule.
+
+Every selected historical exit must strictly precede the query, and
+observation IDs and holding intervals must remain disjoint. In the context
+study, the labeled stream is additionally frozen before the first query
+of each fold and withholds the reserved evaluation IDs, as described in
+Section 4.5.2. Query features and bucket can change at later cutoffs, but
+that does not admit new within-fold labels. Data shortage has explicit
+reasons such as a cold target or fewer prior tasks; no winning examples
+are inserted to improve a selected context.
+
+The context preserves full membership, selected-by-distance IDs,
+centroid-fit IDs, scaler, raw facts and regime proofs. Its membership hash
+binds query/scaler/prior/target/advisor objects, not only a short displayed
+ID list. Facts for the centroid population are retained even when some
+population observations are not among the eight encoded examples.
+The network input projection preserves task boundaries and labeled
+historical pairs, while keeping the query unlabeled; its packing is
+explained next.
+
+**EX01 numerical context.** The query's calendar index is 1,372, giving
+block 21 and task `FPT:block0021`. Its bucket is
+`MACD_NEG_PRICE_POS`. This means MACD is below its Signal while Close is
+above SMA20; it does not mean that MACD itself is negative. Its raw vector
+is approximately (0.007107, 0.016456, 0.007498, 0.012876), and the model
+vector is (0.109634, 0.101272, −1.290443, 0.215713). No coordinate is clipped
+in this case. The scaler has 731 fitted observations and the identity
+already recorded in Section 4.5.4.
+
+| Context group | Task | Selected observations | Latest selected exit |
+| --- | --- | --- | --- |
+| Prior P1 | `FPT:block0011` | 5 | 29 December 2020 |
+| Prior P2 | `FPT:block0015` | 4 | 29 November 2021 |
+| Prior P3 | `FPT:block0013` | 2 | 14 July 2021 |
+| Target T | `FPT:block0021` | 3 | 29 June 2023 |
+| Query Q | `FPT:block0021` | One unlabeled feature vector | No observed outcome in context |
+
+Thirty eligible bucket-filtered observations precede selection. The selected
+context has $K=3$ prior tasks containing 11 observations, plus $m=3$ target
+observations: 14 labeled rows, not three rows. The target decision dates
+are 16, 21 and 26 June 2023, with exits on 21, 26 and 29 June. Calendar
+entry/exit dates attached to Q specify the horizon; they do not expose its
+future execution prices or label. The saved context's membership hash
+begins `9ed7e2a35da5` and is linked to the hosted MT preparation.
+[^mt-context-example]
+
+![Task membership, masked query and frozen numerical inference.](../assets/diagrams/F06_mt_tasks_training.png)
+
+*Figure F06. Numerical context and the offline/query boundary. P1–P3 and T
+contain distinct mature labeled observations; Q supplies only its feature
+vector. Task selection and numerical inference use frozen resources, while
+the later hosted decision and action policy are separate. EX01 counts come
+from the saved membership, not a regenerated model run. Teacher/student
+training details follow in Section 4.8.3.*
+[PDF](../assets/diagrams/F06_mt_tasks_training.pdf).
+
+[^mt-observations]: SYS29 PIT feature primitive, BG08 numerical bank, SYS31 scaler and SYS32 stream, with BG23's frozen-resource adapter; CL078–CL079 in ledger §9.14. Pinned source and artifact determine the evaluated feature and scaling conventions.
+[^mt-membership]: BG09 task builder, BG10 bucket/facts view, SYS33 membership validator and BG16/BG17 freeze/reserved adapters; CL080–CL081. Matching uses admissible numerical facts before selection, while metadata validation is separate from scientific certification.
+[^mt-context-example]: EX01-C and the U08 MT preparation, source identity in §7 and scaler identity in §9.10; CL082. The illustrative F06 layout uses those saved counts and no query outcome.
 
 ### 4.8.3. Teacher and student
 

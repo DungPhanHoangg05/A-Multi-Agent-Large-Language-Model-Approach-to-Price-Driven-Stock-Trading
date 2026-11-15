@@ -199,6 +199,17 @@ duy nhất ở thesis/plan.md; không tạo receipt hoặc kết quả nghiên c
   evidence equality/dependency, 472 liên kết/189 anchor, 27 footnote/84 đặc tả/
   diff PASS; không chạy suite/API/refit/renderer pipeline vì chỉ sửa tài liệu.
 
+- **T28; §4.8 mở đầu/§4.8.2/F06, CL078–CL082 và sổ §9.14:** nhánh
+  `docs/thesis-multitask-context`; feature21bars/stdpop, scalerfrozen2020,
+  bucket45bars, task63sessions và rank/centroidfullpool/closestprior/latesttarget.
+  EX01eligible30/K3/11prior+3target/queryunlabeled, raw/z/clip và fullmembership
+  nối hosted MT được kiểm; HMM/bucket/scalerC2/MT không đồng nhất. F06 có
+  source/PDF1trang180×185mm/PNG2000px, đã render/xem/chỉnh arrow; kiểm
+  log/font/bbox/hash PASS; 56 SYS/BG, 56 slot, context/vector/scaler/membership,
+  483 liên kết/195 anchor, 30 footnote/84 đặc tả/diff PASS. Không gọi context/
+  model/API, refit, benchmark hoặc suite vì chỉ đổi tài liệu/hình, không đổi
+  runtime/input hoặc receipt nghiên cứu.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
