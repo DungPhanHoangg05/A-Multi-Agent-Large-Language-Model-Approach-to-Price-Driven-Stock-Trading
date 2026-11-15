@@ -234,6 +234,20 @@ duy nhất ở thesis/plan.md; không tạo receipt hoặc kết quả nghiên c
   leakage vì chỉ đổi tài liệu; không TA-Lib/fit/loadweights/forward/replay/API.
   Hash nguồn và F06 giữ nguyên; không nâng các gate lịch sử thành PASS mới.
 
+### Hoàn thiện phương pháp, điều phối và ứng dụng
+
+Ngày **15/11/2026**, tiếp tục T31–T35 trên từng nhánh docs từ develop cập nhật.
+Chỉ viết từ source/receipt/trace có sẵn; không sửa runtime, tạo kết quả nghiên
+cứu hoặc chạy lại suite. Checklist duy nhất tiếp tục ở thesis/plan.md.
+
+- **T31; §4.8.4/§4.8.6–§4.8.7, CL093–CL097, sổ §9.17:**
+  `docs/thesis-utility-policy`; teacher sign và bootstrap magnitude tách p_student;
+  support, hai chiều strict Q10 delta, bypass/error/trace rõ. F07 có TikZ/PDF/PNG
+  đã render/xem; bốn ví dụ giả định kiểm dấu và equality, EX01 giữ LONG.
+  Hash nguồn/56 slot, wire utility/policy, 84 đặc tả, footnote/link/diff và
+  font/bbox/log hình đã kiểm. Không chạy suite vì chỉ sửa tài liệu/hình;
+  không sampling, forward, API hoặc nâng gate lịch sử.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

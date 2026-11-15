@@ -1322,6 +1322,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL091 | [Anchor validity/failure branch](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor): resolveda0/Commondependency/proof | HOP_DONG_TRIEN_KHAI | BG14/BG18; §9.16 | Exactassertions+NOTAPPLICABLE; invalid→Common, reason/valid/bypass khác nhau | Illustrative schema-validSHORT/NEGATIVE chưa là rawcase; technicalfailureraise, Commonfallback không được cấp fakefacts |
 | CL092 | [EX01 fact table/reply](chapters/04_proposed_system.md#481-fact-packet-and-fact-anchor): packet/numbers/prompt/source/prose | DO_DUOC | U08Fact_Anchor/Common r0 §7.2 và §9.16 | MACD.65426756<Signal.7043937 nhưng>0; Close48.18>SMA47.5675; prompt3916; LONG/RR1.5/NO_NUMERIC_VETO | fact_assertions_validtrue không kiểm “bullish momentum”/“positive zero crossing”; q10null, không gọi là veto |
 
+| CL093 | [Utility/support](chapters/04_proposed_system.md#484-utility) | HOP_DONG_TRIEN_KHAI | BG13/BG11/SYS33; §9.17 | 45 bar, bucket biết, K≥2, ≥5 mỗi dấu; thiếu support trả null/0 draws | Không cân bằng nhãn hoặc fallback teacher khi student lỗi |
+| CL094 | [Sampler/mean](chapters/04_proposed_system.md#484-utility) | HOP_DONG_TRIEN_KHAI | BG13; §9.17 | 4096 draw, family posterior/target Beta, bootstrap magnitude theo ID; CRN/linear quantile | p_student không thay theta; giả định pooling magnitude khác PIT |
+| CL095 | [EX01 utility](chapters/04_proposed_system.md#484-utility) | DO_DUOC | U08 MT aux.branch.utility; §7.5/§9.17 | 5 gain/9 loss, mean/MC/Q10/Q90/draw hash đúng wire | Không sinh lại draws hoặc gọi interval là coverage đã hiệu chuẩn |
+| CL096 | [Policy/trace](chapters/04_proposed_system.md#486-external-policy) | HOP_DONG_TRIEN_KHAI | BG14/BG18/SYS33; §9.17 | facts→same action→strict Q10 delta; invalid/unsupported/error riêng | EX01 KEEP_PROPOSED_SAME, không có veto; component paths khác unified roles |
+| CL097 | [F07 và bốn ví dụ](chapters/04_proposed_system.md#486-external-policy) | MINH_HOA | BG14, arithmetic; §9.17 | CASH→LONG Q10U>0; LONG→CASH −Q90U>0, equality reject | Ví dụ giả định có nhãn, không tạo response/kết quả nghiên cứu |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2067,3 +2073,23 @@ raw SHA-256 `0ff8ae6d4c58b33a1672ad45b3a852d650fd32c95fd20da2ae6e33dcf8861dc8`,
 khớp snapshot manifest, bản live và SYS33 `SCHEMA_SHA256`. Chỉ schema/enum/proof/source/hash/link checks;
 không compileall/unit/E2E/leakage vì không đổi code/runtime/input, không
 fit/forward/replay/API. Utility/policy đầy đủ vẫn chờ T31.
+
+### 9.17. Utility, policy và trace hành động
+
+T31; CL093–CL097 dùng BG11/BG13/BG14/BG18/SYS33 đã khóa.
+Wire U08 EX01 MT có K3/m3, 5 gain/9 loss, 4096 draw; source
+TEACHER_SIGN_BAYESIAN_BOOTSTRAP_MAGNITUDE. Mean/MC/Q10/Q90 chép đúng §7.5
+và wire; MC mean = −0.006077377243185831. Draw hash
+`d48fa67a94dd615f360d57051dfd47e4cdbcb2f2f25a52ae64010006ef755a0e` là giá trị
+đã lưu, không tái tạo draw để viết. EX01 raw/anchor/final LONG,
+KEEP_PROPOSED_SAME, delta quantile null; không diễn giải mean âm thành veto.
+Bốn hàng giả định kiểm arithmetic và dấu strict, không gọi policy/LLM.
+F07 một trang 180×183 mm, render/xem PNG 2000px, kiểm font/bbox/log/hash.
+Không thay code/schema/runtime/input; không chạy compileall/unit/E2E/leakage,
+API, sampling, model forward hoặc đánh giá lại nghiên cứu.
+
+Hash sản phẩm F07_action_policy (source chuẩn hóa LF; PDF/PNG nguyên byte):
+
+- `F07_action_policy.tex`: `dac92bcdc0ba13b632aeb79fea6c38c0727c7bbcf2c6a4a6551d0f656cc0ac65`.
+- `F07_action_policy.pdf`: `db6db61add3d79c6f7fcfeafdea29fe49dfcf2b5b6ac55911146b01a8105af39`.
+- `F07_action_policy.png`: `863c361205bd7c8beef9495550f52da78afb643bc3a0cd4bc0a4ae9e11f5d358`.

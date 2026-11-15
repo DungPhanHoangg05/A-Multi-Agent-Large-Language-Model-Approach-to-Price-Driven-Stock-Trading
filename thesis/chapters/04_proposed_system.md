@@ -1702,7 +1702,81 @@ contracts below.[^student-selection]
 
 ### 4.8.4. Utility
 
-> **Not yet drafted.** Explain posterior sampling of sign and gain/loss magnitude, support requirements, mean/quantiles and insufficient-evidence behavior. Separate student probability, teacher estimates, utility and realized query return; use the recorded EX01 utility values only with their source and units.
+The sign model predicts whether the canonical net return is positive.
+Utility additionally needs the magnitudes of gains and losses. It is
+measured in **net-return fractions relative to CASH**, with transaction
+costs already included in each historical return. Costs are not subtracted
+a second time, and neither LLM confidence nor its stated R:R supplies a
+magnitude estimate.[^utility-construction]
+
+**Support before sampling.** The context must be AVAILABLE, with a complete
+45-bar factual window ending at cutoff, a known bucket, at least two prior
+tasks, and at least five positive and five nonpositive historical returns.
+Counts use each selected observation once across prior and target groups;
+zero belongs to the nonpositive group. The implementation does not balance
+labels, widen the bucket or add distant observations to reach the threshold.
+An unsupported utility wire records counts and its reason, zero draws and
+null estimates. Missing or invalid student output for a supported context
+is an error, not permission to substitute the teacher silently.
+
+**Teacher sign posterior and bootstrap magnitudes.** Let $w_j$ be the
+teacher's posterior family weights from Section 4.8.3 and $(s_T,f_T)$ the
+target counts. For each of 4,096 draws,
+
+$$
+J^{(b)}\sim\operatorname{Categorical}(w),\qquad
+\theta^{(b)}\sim\operatorname{Beta}(\alpha_{J^{(b)}}+s_T,
+                                      \beta_{J^{(b)}}+f_T).
+$$
+
+Prior counts affect $w$ through their separate task likelihoods. They are
+not pooled into the target's Beta counts. For the selected positive-return
+set $G$ and nonpositive-return set $L$, independent exponential weights give
+
+$$
+g^{(b)}=\frac{\sum_{i\in G}E_i^{(b)}r_i}{\sum_{i\in G}E_i^{(b)}},\qquad
+\ell^{(b)}=\frac{\sum_{i\in L}E_i^{(b)}|r_i|}{\sum_{i\in L}E_i^{(b)}},
+\quad E_i^{(b)}\sim\operatorname{Exp}(1),
+$$
+
+$$U^{(b)}=\theta^{(b)}g^{(b)}-(1-\theta^{(b)})\ell^{(b)}.$$
+
+Thus sign inference retains task boundaries, while magnitude estimation
+uses the admitted observations pooled by sign. There is no extra
+similarity or age weighting in this magnitude bootstrap. Its exchangeability
+and transfer assumptions are modeling assumptions, not consequences of PIT.
+Student probability is recorded alongside these estimates; it does not
+replace $\theta^{(b)}$ in the implemented utility.
+
+The analytical mean is $\bar\theta\,\bar g-(1-\bar\theta)\bar\ell$;
+the Monte Carlo mean is the mean of the saved utility draws. They need not
+be identical in a finite simulation. Q10 and Q90 use linear empirical
+quantiles. The audit records draw/membership hashes and Monte Carlo error.
+Deterministic component streams depend on protocol, point and component,
+including the observation ID for magnitude weights, but not branch/repeat.
+This supplies common random numbers on overlapping subsets; each subset
+still renormalizes its weights. It does not make repeated LLM responses
+independent market observations.
+
+**EX01, recorded estimates.** Its 14 observations contain five gains and
+nine nonpositive returns, with $K=3,m=3$, so support is sufficient.
+
+| Recorded quantity | Net-return fraction, unless indicated |
+| --- | --- |
+| Student sign probability | 0.38681803029367656 (probability) |
+| Teacher posterior mean $\theta$ | 0.3777360437578734 (probability) |
+| Analytical mean utility | −0.00597534968574255 |
+| Monte Carlo mean utility | −0.006077377243185831 |
+| Q10 / Q90 utility | −0.01288257428075956 / +0.0002422913686701239 |
+
+The mean is approximately −0.598%, while Q90 is approximately +0.0242%.
+These are model-based estimates from historical context, not the query's
+realized return, a calibrated coverage guarantee, or a recommendation
+forced by the sign of the mean. The recorded draw hash is bound in the
+ledger; writing this section does not regenerate the draws.[^utility-example]
+
+[^utility-construction]: BG13 `support_reason/posterior_utility/common_uniforms`, BG11 teacher posterior and SYS33 wire validation; CL093–CL094, ledger §9.17. The sampler and its assumptions are described from the frozen source.
+[^utility-example]: U08 EX01 MT preparation `aux.branch.utility`, membership shared with Section 4.8.2; CL095. Source is `TEACHER_SIGN_BAYESIAN_BOOTSTRAP_MAGNITUDE`; draws=4096. Quantities are read from the saved wire, not a new simulation.
 
 ### 4.8.5. Context projection
 
@@ -1710,11 +1784,89 @@ contracts below.[^student-selection]
 
 ### 4.8.6. External policy
 
-> **Not yet drafted.** Define anchor retention, eligibility, assertion checks and the strict utility conditions for accepting a different action, including both action directions. Create the policy diagram and distinguish invalid proposals from technical failures; EX01 illustrates retention, not a veto.
+The hosted revision produces a **raw proposal**. External deterministic
+policy decides whether its mapped LONG/CASH action may replace the anchor
+$a_0$. Eligibility means sufficient numerical support and a valid anchor;
+it does not mean the proposal is profitable. An invalid anchor or
+unsupported context bypasses the revision request and retains $a_0$.
+Required malformed, missing or inconsistent artifacts raise an error;
+technical failure does not become a completed CASH prediction.
+
+For an eligible completed response, the policy first checks all three fact
+assertions and requires `context_reason=SUPPORTED`. Failure retains the
+anchor with `REJECT_FACT_ASSERTIONS`. A valid proposal equal to the anchor
+is kept with `KEEP_PROPOSED_SAME`, without a quantile test. Only a valid
+different action reaches the utility gate:
+
+$$
+\Delta U=\begin{cases}
+U,&a_0=\mathrm{CASH},\ a=\mathrm{LONG},\\
+-U,&a_0=\mathrm{LONG},\ a=\mathrm{CASH}.
+\end{cases}
+$$
+
+For MT_BICL, accept the change **only if** $Q_{0.1}(\Delta U)>0$.
+CASH→LONG therefore requires Q10($U$)>0; LONG→CASH requires
+−Q90($U$)>0, equivalently Q90($U$)<0. Equality rejects the change.
+The latter direction uses the upper utility quantile, not −Q10($U$).
+Rejection retains $a_0$ with `REJECT_NONPOSITIVE_Q10_DELTA_U`; acceptance
+records `ACCEPT_POSITIVE_Q10_DELTA_U`. The fixed entry/exit and fees remain
+unchanged.[^revision-policy]
+
+![F07. Anchor-relative action revision](../assets/diagrams/F07_action_policy.png)
+
+**Figure F07.** The implemented MT_BICL revision path separates support
+bypass, invalid response assertions, same-action retention and the strict
+quantile gate. Technical errors stop execution with recoverable evidence.
+The Fact Anchor is resolved before this tree. Source: BG14/BG18 and SYS33;
+schematic, not measured transition frequencies.
+[PDF](../assets/diagrams/F07_action_policy.pdf) ·
+[TikZ source](../assets/diagrams/F07_action_policy.tex).
+
+**Illustrative gate examples, not additional research responses.** Assume
+a valid anchor, supported context and a matching structured response.
+All intervals below are hypothetical net-return fractions.
+
+| Anchor → proposal | Q10($U$) | Q90($U$) | Q10($\Delta U$) | Result |
+| --- | ---: | ---: | ---: | --- |
+| CASH → LONG | +0.002 | +0.010 | +0.002 | Accept LONG |
+| CASH → LONG | 0 | +0.010 | 0 | Retain CASH |
+| LONG → CASH | −0.012 | −0.001 | +0.001 | Accept CASH |
+| LONG → CASH | −0.012 | +0.001 | −0.001 | Retain LONG |
+
+These examples explain the rule, without generating LLM replies or
+reevaluating research cases. A negative mean alone is insufficient for a
+LONG→CASH revision. EX01's raw LONG already equals anchor LONG, so its
+actual reason is KEEP_PROPOSED_SAME and its delta-quantile field is null.
+Even a hypothetical CASH proposal using that interval would fail because
+Q90 is positive. EX01 therefore illustrates retention, not an observed veto.
+
+The implemented component interventions `Plain_revision` and `No_utility`
+omit the numeric veto: an eligible, fact-valid different action is accepted
+with `NO_NUMERIC_VETO`. `Utility_only` is a separate numerical comparator,
+LONG iff support exists and Q10($U$)>0; it does not consume an LLM action.
+These registered component paths are distinct from the eight roles of the
+unified hosted study and must not be counted as additional unified methods.
+
+[^revision-policy]: BG14 `apply_revision/utility_only`, BG18 `resolve`, SYS33 action/schema contracts; CL096–CL097 and ledger §9.17. F07 and the four gate rows are explanatory artifacts, not new experimental evidence.
 
 ### 4.8.7. Traceability
 
-> **Not yet drafted.** Trace raw proposal, anchor, validity, eligibility, bypass, reason and final action as separate records. Identify decisions attributable to the LLM versus external policy and connect them to EX01 without revealing outcome labels as inputs.
+Each forecast retains a request hash, raw response/request ID, shared parent
+and dependency hashes. Policy is a separate record: raw proposal, anchor,
+fact validity, eligibility, bypass, reason, delta-utility quantile and final
+action. A proposal of SHORT maps to CASH; the raw SHORT string remains
+available. A bypass has no revision response/request ID. A completed but
+invalid assertion response has raw evidence and is not a bypass.
+
+For EX01 MT_BICL, request `cc6bf729-784a-458a-8e40-07398fac513f` proposes
+LONG. The same-repeat Fact_Anchor proof supplies LONG; eligibility and
+assertion validity are true, bypass is false, reason is
+KEEP_PROPOSED_SAME, and final action is LONG. The anchor proof hash is
+`1b4a5846922443657bae8e91d68c7489dfd58ea92688bdce007cb29b14f70049`.
+This attributes the proposal to the hosted model and retention to policy;
+it does not attribute the action to the student alone. Query prices and
+labels are joined only after the forecasting barrier in Section 4.9.
 
 ## 4.9. Variant orchestration and complete algorithms
 
