@@ -375,6 +375,10 @@ Chốt đối soát tài liệu **PASS**: 47 binding ED/ES, bảy bảng khớp 
 84 đặc tả task giữ nguyên, 22 footnote, 565 liên kết/285 anchor hợp lệ;
 các chương khác và §5.7–§5.9 nguyên trạng so với `develop:944e023d`.
 
+### Kết quả ngữ cảnh và thảo luận P4
+
+Ngày **15/11/2026**, tiếp tục T42–T47 theo yêu cầu, mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. **T42**, nhánh `docs/thesis-context-results`: §5.7/B06a–c đủ8role+2control, mean51account, BA mean3repeat, MDD, repeatSD, LONG/raw/bypass và cả30method–repeat. CL155–CL158/ED38–ED39 và sổ §10.8 giữ locator từng ô. Kiểm lại archive/receipt/member/support bằng consumer chỉ đọc; không chạy phân tích. Đối soát bảng, links, footnotes, 84spec và diff; tài liệu-only không suite/compileall/API/fit/replay/bootstrap. Giữ8return âm, undefined và fallback; §5.8–§5.9 chưa xong, NativeFAIL/NOT_CERTIFIED/UIPENDING không đổi.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

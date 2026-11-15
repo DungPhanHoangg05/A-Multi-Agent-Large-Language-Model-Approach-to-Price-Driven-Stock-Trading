@@ -72,7 +72,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T39 — DONE: [§5.4](chapters/05_experiments.md#54-comparators-and-interventions), chín phương pháp chính thành phần, các panel nhỏ, 23 đối chứng factor/12 kịch bản kinh tế; hai baseline/ba bridge ngữ cảnh. CL131–CL136 kiểm support và ID; LONG theo chu kỳ khác giữ liên tục, ablation deferred chưa có kết quả hoặc phân tách nhân quả student.
 - [x] T40 — DONE: [§5.5](chapters/05_experiments.md#55-metrics-and-statistical-analysis), công thức/NA, gộp tài khoản và repeat, NAV/MDD/turnover/exposure và quy ước rủi ro riêng. CL137–CL144 kiểm số học, source và metadata tái lấy mẫu; không sinh lại bootstrap. §5.1–§5.5 đủ bản nháp thiết kế, kết quả T41 trở đi chưa viết.
 - [x] T41 — DONE: [§5.6 và B05a–g](chapters/05_experiments.md#56-component-study-results), kết quả chính, confusion/exposure, mã/block, đối chứng số và hai panel lặp. CL145–CL154 truy từng ô tới ED24/25/28/29/32–37; giữ return âm, NA và Full thua Base/placebo trong panel factorial. Đối soát hash/số/đơn vị/support, không chạy lại nghiên cứu; T42 trở đi chưa hoàn tất.
-- [ ] T42 — Trình bày kết quả nghiên cứu ngữ cảnh lịch sử.
+- [x] T42 — DONE: [§5.7/B06a–c](chapters/05_experiments.md#57-historical-context-results), đủ tám vai trò/hai control, kết quả/support/raw/bypass và cả ba repeat. CL155–CL158, ED07/16/38/39; giữ return âm/NA và fallback trong primary, phân biệt mean51account với repeatSD. Đối soát nguồn/ô/links; T43–T47 tiếp tục riêng.
 - [ ] T43 — Trình bày band chênh lệch và các so sánh bridge.
 - [ ] T44 — Phân tích support, fallback và cơ chế policy.
 - [ ] T45 — Viết tình huống có truy vết, gồm thiếu support và quyết định sai.

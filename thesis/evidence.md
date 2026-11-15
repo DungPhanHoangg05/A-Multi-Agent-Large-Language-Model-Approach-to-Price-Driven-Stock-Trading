@@ -936,7 +936,7 @@ ablation MT-BICL chưa chạy.
 | B03 | **Method foundations, context and policy differences.** Native/Common/Base rõ phạm vi; so sánh matching/statistics/examples, dependencies và fallback. | Ch. 4.4, 4.7, 4.9 | T22, T27, T33 | DẪN_XUẤT | SRC03, SRC04, SRC05, SRC06 | `tables/B03_method_comparison.csv + .tex` |
 | B04 | **Data, evaluation support and frozen configuration.** Tách cohort/loại trừ, bank, missingness, models, runtime và call/repeat units của hai nghiên cứu. | Ch. 5.2–5.3 | T37, T38 | ĐO_ĐƯỢC | SRC02, SRC05, SRC07, SRC08 | `tables/B04_data_configuration.csv + .tex` |
 | B05 | **Component-study results and controls.** B05a–g: main, confusion/exposure, stock/block, numeric/inference, upstream/factorial và bảy contrast; scenario để phân tích độ bền T46. | [Ch. 5.6](chapters/05_experiments.md#56-component-study-results); App. D | T41 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | ED24/25/28/29/32–37; §10.7 | Bảng trong chương có đối soát từng ô; CSV/LaTeX dự kiến ở T69, chưa xuất |
-| B06 | **Historical-context results and paired comparisons.** Giữ đủ tám vai trò/hai economic controls, 20 contrast, ba bridge và sensitivity đúng nguồn. | Ch. 5.7; App. D | T42 | DẪN_XUẤT | SRC08, SRC09 | `tables/B06_context_results.csv + .tex` |
+| B06 | **Historical-context results and paired comparisons.** Giữ đủ tám vai trò/hai economic controls, 20 contrast, ba bridge và sensitivity đúng nguồn. | Ch. 5.7; App. D | T42/T43 | ĐÃ_CÓ_BẢN_NHÁP_MARKDOWN | ED07/16/38/39; §10.8 | B06a–c trong §5.7; contrast theo T43, CSV/LaTeX ở T69 |
 | B07 | **Traceable contexts, proposals, policies and outcomes.** Chọn tình huống theo rule, nối facts/context/raw/final/outcome; có fallback, veto và quyết định sai. | Ch. 5.8; App. B/D | T44, T45 | DẪN_XUẤT | SRC06, SRC08 | `tables/B07_case_traces.csv + .tex` |
 | B08 | **Comparison with related research.** So sánh inputs, architecture, context/regime, PIT, economics và controls từ nguồn đã kiểm. | Ch. 2.7 | T53 | DẪN_XUẤT | SRC10 | `tables/B08_related_research.csv + .tex` |
 | B09 | **Research questions, supported answers and remaining uncertainty.** Mỗi RQ nối với quan sát, kết luận có giới hạn và bằng chứng còn thiếu. | Ch. 5.9; Ch. 6.2 | T47, T56 | DẪN_XUẤT | SRC07, SRC08, SRC10 | `tables/B09_rq_answers.csv + .tex` |
@@ -1210,7 +1210,7 @@ viết từ việc đã có file hoặc tiêu đề.
 | [02_related_work.md](chapters/02_related_work.md) | §4 reading register/khóa citation; §5 thuật ngữ; §6 B08 | Kiểm nguồn gốc, tổng hợp tài liệu, ghi nhận kế thừa và khoảng trống có căn cứ |
 | [03_background.md](chapters/03_background.md) | §3 nguồn hợp đồng; §4 tài liệu phương pháp; §5 ký hiệu; §6 F01/F02; §8.4–§8.5 binding nền tảng | Bản nháp §3.1–§3.7; claim đối soát nội bộ ở §8.2; chưa rà soát khoa học/trích dẫn/toàn văn cuối |
 | [04_proposed_system.md](chapters/04_proposed_system.md) | §3 source/runtime; §5 tên/ID; §6 danh mục; §7 EX01; §9 nguồn phương pháp | P3 đủ bản nháp §4.1–§4.10, kèm F03/F04/F05/F05a/F06/F07/F08/F11, B03 và A01–A03; G2 tự kiểm nội bộ, UI/F11 vẫn PENDING, chưa rà soát/dàn trang cuối |
-| [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 EX01; §10 thiết kế/kết quả | §5.1–§5.6 có bản nháp thiết kế/metric và kết quả thành phần B04a–e/B05a–g; §5.7–§5.9 còn placeholder, chưa hoàn tất P4 |
+| [05_experiments.md](chapters/05_experiments.md) | §3 hai nghiên cứu; §6 bảng/hình; §7 EX01; §10 thiết kế/kết quả | §5.1–§5.7 có bản nháp thiết kế và hai collection kết quả B04/B05/B06a–c; §5.8–§5.9 còn việc, chưa hoàn tất P4 |
 | [06_conclusion.md](chapters/06_conclusion.md) | §2 RQ/đóng góp và giới hạn §3; kết quả Ch. 5 sau khi viết | Trả lời RQ, đóng góp có giới hạn, hạn chế và hướng phát triển; không thêm kết quả mới |
 
 Không tạo sổ nguồn thứ hai, bibliography cuối, file phụ lục rỗng hoặc khung
@@ -1394,6 +1394,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL152 | [Factorial outcomes](chapters/05_experiments.md#564-upstream-variation-and-alphasentimentplacebo-panel) | DO_DUOC | ED05/37; §10.7 | 9điểm,8mã,8account/execution; ASBA19.048%<B28.571%<P30.952%; năm branch return âm | Full-value khác compact-alpha; không khẳng định tác dụng thuần alpha/sentiment hoặc placebo causal |
 | CL153 | [Seven BA contrasts](chapters/05_experiments.md#564-upstream-variation-and-alphasentimentplacebo-panel) | DO_DUOC | ED29/37; §10.7 | B05g bảy contrast, finite6986/undefined3014, radius27.619pp; cả bảy envelope chứa0 | Joint-finite max-absolute-deviation, không standardized U09 band hoặc calibrated coverage |
 | CL154 | [Answer to RQ1](chapters/05_experiments.md#565-bounded-answer-to-rq1) | DAN_XUAT | CL145–CL153; §3 native audit; §10.7 | Full tăng BA nhưng return thấp hơn Base; panel khác support/representation; kết quả adverse giữ nguyên | Native row-wise FAIL/NOT_CERTIFIED/UIpending giữ nguyên; không profitability/causal/generalization claim |
+
+| CL155 | [Context main results](chapters/05_experiments.md#571-overall-results-on-the-complete-cohort) | DO_DUOC | ED07/38; §10.8 | B06a đủ8role+2control, BA mean3repeat, return mean3withinaccount→mean51; return8role đều âm | Không pooled306 hoặc portfolio; CASH0, dailyMDD dương, repeatSD không market uncertainty |
+| CL156 | [Context slots/fallback](chapters/05_experiments.md#572-response-coverage-and-retained-fallbacks) | DO_DUOC | ED07/16; §10.8 | B06b 306slot/method, raw+bypass306; nghiên cứu1290raw+1158bypass=2448 | Bypass vẫn ở primary; hai noLLM controls không fallbackCommon |
+| CL157 | [All repeats](chapters/05_experiments.md#573-repeat-dispersion-and-secondary-support) | DO_DUOC | ED07/38; §10.8 | B06c đủ30method/repeat, không best run; các return nghiên cứu âm ở cả3repeat | Một upstream/point, baDecisionrepeat không độc lập thị trường |
+| CL158 | [Secondary support boundaries](chapters/05_experiments.md#573-repeat-dispersion-and-secondary-support) | DAN_XUAT | ED07/39; §10.8 | Stock/fold/CORE4 thuộc sensitivity, VNM/b2025_h1 BA NA | Không covered-only thay102primary hoặc chọn favorable subset |
 
 Quy tắc điền bảng:
 
@@ -2337,6 +2342,8 @@ ED là dữ liệu/receipt nguyên byte; ES là source frozen. Revision đọc q
 | ED35 | root-export | `outputs/revision/final_baselines_v1/classification.csv` | `5fdce7ee034756102a76f9aba8e3f8f4c60e563b16e1426aacca2271a4d26643` |
 | ED36 | root-export | `outputs/revision/final_baselines_v1/macro.csv` | `0d9b2e38a49a20509b680d666cd22c75ded41f238d5997facb7cb359a986f6a7` |
 | ED37 | revision | `outputs/revision/final_repeats_v1/panels.json` | `814f47d11502c2dfb3c30a64f0ef0a14dd6dff39e965bd5fc5e36f8b8c9f5fab` |
+| ED38 | U09 | `outputs/unified_integration/u09_analysis_r1/per_repeat.csv` | `71f54c70b71672d3e8b2d2e4bdb56281e932f1764dfa24d0bd79c15c9a1f236e` |
+| ED39 | U09 | `outputs/unified_integration/u09_analysis_r1/classification_by_group.csv` | `cd0c12b3363c7466ec9e167ffdacb3daf05db6e6fae125f94e2e08413c449cbb` |
 <!-- experiment-data-end -->
 
 ### 10.2. Phạm vi hai nghiên cứu và mốc khóa
@@ -2378,3 +2385,7 @@ T41; CL145–CL154. Bản nháp [§5.6](chapters/05_experiments.md#56-component-
 | Các chênh lệch và diễn giải còn lại | CL145–CL153; đúng các ô chưa làm tròn ở trên; ED35 cho đếm nhóm tốt/xấu/tie | Full−Base BA+3.247pp, Acc+4.902pp, return−0.047pp; UP recall=7/25×100=28.000%. Năm mã BA cao hơn/hai thấp hơn/một tie/một NA; ba block cao hơn/hai tie/một NA; không tính thêm performance |
 
 Quy ước hiển thị: ba chữ số thập phân, exact p năm chữ số, không làm tròn trung gian; dấu âm, NA, percent/pp và thứ tự mean đều giữ đúng nguồn. Mỗi hàng/cột chung locator được liệt kê đầy đủ, không dùng dẫn nguồn chung chung cho bảng. Kiểm khớp toàn văn bảy bảng với các ô đã định dạng từ nguồn, hỗ trợ count/NA, 84 dòng đặc tả nguyên trạng, links/anchors/footnotes và diff. Chỉ sửa sáu file Markdown; không cần compileall, unit, E2E hay leakage suite theo AGENTS §1.2. Native causal FAIL, NOT_CERTIFIED và UI/F11 PENDING không đổi. T42–T47/P4 còn việc; chưa phản biện ngoài hay dàn trang cuối.
+
+### 10.8. Kết quả ngữ cảnh B06a–c
+
+T42; CL155–CL158. Đọc lại U08/U09, snapshot và acceptance bằng consumer read-only `core/manuscript_u09/sources.load`, kiểm outer pins, từng member, 15 artifact/receipt và support, không gọi hàm phân tích hoặc replay. ED07 `results.json` là nguồn cho B06a/b: mười hàng theo `summary[].method` (Native=`original_fix`, Common=`original_common`), các cột lần lượt `accuracy×100,balanced_accuracy_pct,mcc,macro_f1,mean_account_return_pct,repeat_return_sd_ddof1,mean_daily_mdd_pct`; B06b dùng `n_points,n_forecasts,long_forecasts,raw_decision_responses,bypass_forecasts`. B06c lấy `per_repeat` tại khóa `(method,repeat=0/1/2)`, cột `mean_account_return_pct,balanced_accuracy_pct`, khớp export ED38. ED39 giữ đủ grouped classification; VNM/b2025_h1 thiếu UP nên BA NA. Tất cả ô hiển thị3decimals, fraction chỉ nhân100 ở accuracy; BA/return đã là% nên không nhân lại. Count nguyên, MCC controlnull→NA. Mean51account, mean3repeat và repeatSDddof1 giữ nguồn; không gộp306slot làm306điểm. Bypass/noLLM denominator khác nhau về ý nghĩa được nêu ngay caption. Bảng Markdown chưa xuất CSV/LaTeX (T69). Chỉ sửa tài liệu; không compileall/unit/E2E/leakage hoặc chạy lại API/fit/bootstrap.

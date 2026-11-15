@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Sections 5.1–5.5 specify the source-checked experimental design and metrics; Section 5.6 reports component-study results. Historical-context results and discussion in Sections 5.7–5.9 remain to be drafted.
+> **Draft status: partial chapter.** Sections 5.1–5.6 cover design and component results. Section 5.7 reports historical-context results; Sections 5.8–5.9 remain in progress.
 > Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -1007,7 +1007,133 @@ pending. None of the component results changes those audit statuses.
 
 ## 5.7. Historical-context results
 
-> **Not yet drafted.** Import exact values for all research roles and economic controls, showing support, response/bypass counts and repeat dispersion. Present the Native and Common contrast families separately and label secondary subset analyses. Retain negative outcomes and baseline-dependent conclusions; no figures or summary estimates have been inserted here.
+### 5.7.1. Overall results on the complete cohort
+
+The historical-context study evaluates eight research roles and two
+economic controls on 102 points, 51 stock–fold accounts and three Decision
+repeats. Every repeat has 25 UP and 77 DOWN outcomes. Unsupported and
+bypassed forecasts remain in the primary cohort. Native and Common are
+the two baselines defined in Section 5.4; they are distinct input and
+instruction profiles. Neither is the component study's Base comparator.
+
+**Table B06a. Historical-context results on the complete cohort.**
+Classification metrics are pooled within each 102-point repeat and then
+averaged across three repeats. Account returns first average the three
+repeats within each stock–fold account and then average the 51 accounts.
+Repeat SD is the sample SD of three repeat-level mean returns, in pp;
+it is not a confidence interval for market performance. MDD is the mean
+positive-magnitude daily NAV drawdown under the recorded reference ledger.
+Acc. and BA are percentages, MCC/macro-F1 are unitless, and return/MDD
+are percentages. NA preserves an undefined metric.[^context-result-cells]
+
+| Role/control | Acc. (%) | BA (%) | MCC | Macro-F1 | Mean return (%) | Repeat SD (pp) | Mean daily MDD (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Native | 65.359 | 51.844 | 0.037 | 0.518 | -0.653 | 0.093 | 1.186 |
+| Common | 57.843 | 45.965 | -0.076 | 0.461 | -1.025 | 0.098 | 1.647 |
+| Bayesian v1 | 63.399 | 50.095 | 0.002 | 0.501 | -0.698 | 0.050 | 1.321 |
+| C2 | 57.516 | 45.749 | -0.080 | 0.459 | -1.030 | 0.090 | 1.653 |
+| A_tp_pool | 58.170 | 46.182 | -0.072 | 0.463 | -1.019 | 0.098 | 1.642 |
+| B_semantic | 57.516 | 45.749 | -0.080 | 0.459 | -1.030 | 0.090 | 1.653 |
+| MT-BICL | 52.941 | 43.169 | -0.124 | 0.433 | -1.253 | 0.100 | 1.853 |
+| Fact Anchor | 52.288 | 42.736 | -0.131 | 0.429 | -1.286 | 0.070 | 1.883 |
+| CASH | 75.490 | 50.000 | NA | 0.430 | 0.000 | 0.000 | 0.000 |
+| Always-LONG cycles | 24.510 | 50.000 | NA | 0.197 | -3.000 | 0.000 | 4.523 |
+
+All eight research roles have negative mean account returns. Native has
+the least negative research-role mean, −0.653%, while Common records
+−1.025%. Bayesian v1 is at −0.698%, between the two baselines. C2 and
+B_semantic each record −1.030%; A_tp_pool records −1.019%. MT-BICL and
+Fact Anchor have the most negative research-role means, −1.253% and
+−1.286%, respectively. CASH preserves its zero-return reference; the
+fully costed cycle-LONG control records −3.000%. These are means of
+separate accounts, not returns of a multi-stock capital allocation.
+
+Native also has higher mean BA than all other research roles, at
+51.844%. Bayesian v1 reaches 50.095%, above Common's 45.965% but below
+Native. C2, A_tp_pool and B_semantic remain close to Common. MT-BICL's
+43.169% BA is only slightly above Fact Anchor's 42.736%. The constant
+controls each have BA of 50.000%, with undefined MCC. CASH's 75.490%
+accuracy reflects the predominance of DOWN outcomes; it does not identify
+UP outcomes. The paired differences and their joint descriptive bands
+are presented separately below so that rankings are not mistaken for
+established effects.
+
+### 5.7.2. Response coverage and retained fallbacks
+
+**Table B06b. Actions and response coverage.** Every row contains 102
+unique points × three repeats = 306 final forecast slots. LONG is the
+total count over those slots. A bypass reuses a recorded dependency or
+follows a policy path without a new Decision response; for the two
+economic controls the last column means registered no-LLM slots, not a
+fallback to Common. A raw reply counts a retained Decision response,
+not an HTTP attempt or an independent market observation.[^context-result-cells]
+
+| Role/control | Points | Final slots | LONG slots | Raw replies | Bypass/no-LLM slots |
+| --- | --- | --- | --- | --- | --- |
+| Native | 102 | 306 | 69 | 306 | 0 |
+| Common | 102 | 306 | 88 | 306 | 0 |
+| Bayesian v1 | 102 | 306 | 73 | 144 | 162 |
+| C2 | 102 | 306 | 89 | 3 | 303 |
+| A_tp_pool | 102 | 306 | 87 | 24 | 282 |
+| B_semantic | 102 | 306 | 89 | 3 | 303 |
+| MT-BICL | 102 | 306 | 105 | 198 | 108 |
+| Fact Anchor | 102 | 306 | 107 | 306 | 0 |
+| CASH | 102 | 306 | 0 | 0 | 306 |
+| Always-LONG cycles | 102 | 306 | 306 | 0 | 306 |
+
+The eight research roles contain 1,290 retained raw Decision replies and
+1,158 bypasses, totaling 2,448 completed slots with no active failures or
+input exclusions. The controls add their own deterministic 306 slots
+each and are outside that eight-role total. Bayesian v1 supplies 144 raw
+responses and falls back in 162 slots. C2 and B_semantic each supply only
+three new raw responses; A_tp_pool supplies twenty-four. Their overall
+metrics therefore describe mostly fallback behavior. Low response
+coverage is a material part of the result, rather than a reason to remove
+unsupported observations or to claim that the conditional methods were
+fully exercised. MT-BICL has 198 responses and 108 bypasses; its final
+actions also depend on the anchor and utility policy examined in
+Section 5.8.
+
+### 5.7.3. Repeat dispersion and secondary support
+
+**Table B06c. All repeat-level returns and BA.** Each return averages 51
+accounts and each BA pools 102 points. The repeated control values are
+retained to show the complete ten-role schedule; deterministic controls
+do not supply stochastic replications.[^context-repeat-cells]
+
+| Role/control | Return r0 (%) | Return r1 (%) | Return r2 (%) | BA r0 (%) | BA r1 (%) | BA r2 (%) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Native | -0.726 | -0.684 | -0.548 | 52.961 | 52.312 | 50.260 |
+| Common | -0.930 | -1.019 | -1.125 | 47.714 | 47.065 | 43.117 |
+| Bayesian v1 | -0.642 | -0.715 | -0.738 | 50.312 | 50.312 | 49.662 |
+| C2 | -0.946 | -1.019 | -1.125 | 47.065 | 47.065 | 43.117 |
+| A_tp_pool | -0.930 | -1.003 | -1.125 | 47.714 | 47.714 | 43.117 |
+| B_semantic | -0.946 | -1.019 | -1.125 | 47.065 | 47.065 | 43.117 |
+| MT-BICL | -1.175 | -1.220 | -1.366 | 43.818 | 43.169 | 42.519 |
+| Fact Anchor | -1.234 | -1.259 | -1.366 | 43.169 | 42.519 | 42.519 |
+| CASH | 0.000 | 0.000 | 0.000 | 50.000 | 50.000 | 50.000 |
+| Always-LONG cycles | -3.000 | -3.000 | -3.000 | 50.000 | 50.000 | 50.000 |
+
+Every research role has a negative mean return in each of the three
+repeats. Bayesian v1 has the smallest recorded return SD among the
+research roles, 0.050 pp; the other research-role SDs range from 0.070 pp
+to 0.100 pp at displayed precision. This dispersion is conditional on the
+same shared upstream realization and the recorded inputs. It does not
+measure variation across independent upstream runs, different model
+versions or future market samples. No repeat is selected as a best run.
+
+Stock, fold and bank-domain analyses retain their separate support in
+the saved grouped results and sensitivity analysis. In particular, VNM
+and the `b2025_h1` block have no UP outcomes, so their BA is undefined;
+they remain in the primary return and classification accounting. CORE4
+and bank-supported comparisons are secondary to the complete 102-point
+cohort. Restricting to the stocks for which a historical bank exists
+changes the population as well as the method's opportunity to act.
+The later robustness analysis therefore reports these subsets explicitly,
+without replacing the main results with a covered-only estimate.
+
+[^context-result-cells]: ED07 `summary`/`coverage`, with support and raw/bypass identities checked against ED16; CL155–CL156, ledger §10.8. All ten roles and negative research-role results are retained; values are formatted from saved estimators, not recomputed.
+[^context-repeat-cells]: ED38 `per_repeat.csv` and ED07 `per_repeat`, keys `(method, repeat)` for all thirty rows; grouped support ED39; CL157–CL158, ledger §10.8. Means, SDs and NA conventions remain those of Section 5.5.
 
 ## 5.8. Mechanisms, case studies and robustness
 
