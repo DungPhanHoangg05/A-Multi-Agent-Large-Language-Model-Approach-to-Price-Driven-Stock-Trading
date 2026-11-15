@@ -1257,6 +1257,10 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL026 | [§4.1.1–§4.1.2](chapters/04_proposed_system.md#411-what-the-system-decides): mục đích, loại xử lý, shared parent và thứ tự thật | HOP_DONG_TRIEN_KHAI | BG02/BG14/BG17/BG18 và source §9.1 | Indicator→Pattern→Trend→joint alpha/news; profile/context sau shared parent | Không gọi mỗi role là một hosted call hoặc shared parent là final prompt giống nhau |
 | CL027 | [F03](assets/diagrams/F03_system_overview.pdf), §4.1.2 | MINH_HOA | Source TikZ/hash §9.2; CL026 và offline resources đã khóa | Group theo compute type, không phải strict node sequence hoặc latency chart | Build/render/xem; outcome chỉ vào evaluation; chưa phải DAG/thuật toán chi tiết T33 |
 | CL028 | [§4.1.3](chapters/04_proposed_system.md#413-opening-the-fpt-example): mở EX01 bằng input và lịch | DO_DUOC | EX01-S, selection/source §7, TIME01–03 | FPT cutoff03/07/2023,u0/r0; 45/600 bars; chưa lộ realized prices/return | Kiểm saved records, không thu lại dữ liệu hoặc chọn lại ca theo thành tích |
+| CL029 | [§4.2.1](chapters/04_proposed_system.md#421-preparing-a-query-without-its-outcome): nguồn giá/index/news và windows | HOP_DONG_TRIEN_KHAI | TIME03/TIME04, BG17, EX01-S | Query exact cutoff; 45/600 bars; event barriers không splice donor series | Không gọi vendor/live thay historical input, không chứng nhận adjustment/units chỉ từ field names |
+| CL030 | [B02, §4.2.2](chapters/04_proposed_system.md#422-component-inputoutput-contracts): interface/type/cutoff/output/consumer/failure | HOP_DONG_TRIEN_KHAI | Các source TIME/BG/SYS được dẫn ở §9.3 | 10 interfaces; bảng tóm tắt, schema đầy đủ phụ lục sau | Nội dung bảng đã viết; CSV/TeX dự kiến chưa xuất, không giả artifact đã có |
+| CL031 | [§4.2.3](chapters/04_proposed_system.md#423-working-state-versus-a-sealed-shared-snapshot): immutable bytes/copy/whitelist/query-target barrier | HOP_DONG_TRIEN_KHAI | SYS04 SharedSnapshot, SYS05 causal bridge, BG18 | Producer600 rows khác constructor≤600; prior labels cấp qua interface riêng | Validation/hash chỉ integrity; không chứng nhận semantics/causal hoặc final prompts đồng nhất |
+| CL032 | [§4.2.4](chapters/04_proposed_system.md#424-identity-and-explicit-absence-in-ex01): semantic shared hash và unavailable | DO_DUOC | EX01-S, tám forecast u0/r0 §7.2 | Shared hash e6c16…103 khác raw member/source/projection/membership | Kiểm nguyên byte/envelope/joins; không có observed neutral news tự tạo |
 
 Quy tắc điền bảng:
 
@@ -1512,3 +1516,14 @@ Build như F01/F02, basename `F03_system_overview`, thư mục tạm
 render1.900px và xem toàn trang sau sửa wrap/type labels; không cắt/chồng
 chữ/Type3/overfull/underfull/undefined. Không build PDF toàn văn. Source
 TikZ có thể sửa, PNG để xem Markdown, PDF vector cho dàn trang sau.
+
+### 9.3. Hợp đồng input và shared snapshot
+
+T17: đối chiếu `HistoricalData`, `price_view`, `SharedSnapshot.create/document`,
+`forecast_only/json_bytes`, `snapshot_from_graph` và `decision_payload`.
+B02 tại §4.2.2 gồm 10 interface có type/cutoff/output/consumer/failure;
+chưa tạo CSV/TeX của đường xuất dự kiến. EX01 shared output hash khớp tám
+forecast r0; price/source/raw/projection/membership hash được giữ đúng vai.
+Source frozen đã bind ở TIME/BG/SYS, không thay bằng annotation TypedDict
+legacy khi runtime check có hợp đồng chặt hơn. Không sửa schema/runtime,
+không thu dữ liệu, gọi model, chạy suite hoặc build hình nguyên vẹn.

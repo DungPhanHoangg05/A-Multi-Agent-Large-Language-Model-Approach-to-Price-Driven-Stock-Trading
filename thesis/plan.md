@@ -44,7 +44,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 #### Hệ thống đề xuất — P3
 
 - [x] T16 — DONE: [§4.1](chapters/04_proposed_system.md#41-system-overview-and-one-decision-walkthrough), mục đích/luồng toàn hệ và mở EX01 trước outcome. F03 có TikZ/PDF/PNG đã kiểm, tách offline/numerical/hosted/policy/evaluation và thứ tự chạy thật; CL026–CL028 có nguồn, chưa nhận hoàn tất các mục phương pháp còn lại.
-- [ ] T17 — Giải thích đầu vào, snapshot và hợp đồng thành phần.
+- [x] T17 — DONE: [§4.2](chapters/04_proposed_system.md#42-input-preparation-and-shared-state), nguồn/cửa sổ/missingness, B02 hợp đồng, state/shared/context riêng và hash EX01. CL029–CL032 có nguồn; bảng hiện nằm trong Markdown, chưa xuất bảng LaTeX hoặc chứng nhận dữ liệu/causal toàn hệ.
 - [ ] T18 — Giải thích Indicator và đường Decision cơ sở.
 - [ ] T19 — Giải thích Pattern/Trend bằng biểu đồ có chú thích.
 - [ ] T20 — Giải thích xây dựng, lựa chọn và giới hạn Alpha.

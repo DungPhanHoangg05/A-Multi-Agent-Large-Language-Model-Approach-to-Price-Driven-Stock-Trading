@@ -1,6 +1,6 @@
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-> **Draft status: partial chapter.** Section 4.1 has a source-checked draft and overview figure.
+> **Draft status: partial chapter.** Sections 4.1–4.2 have source-checked drafts and an overview figure.
 > The remaining placeholders identify missing content; naming a component does not establish its isolated effect.
 
 Writing aids: [chapter outline](../outline.md#chapter-4-proposed-system-regime-aware-bayesian-context-for-multi-agent-trading), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết), [artifact catalogue](../evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -99,7 +99,103 @@ example.
 
 ## 4.2. Input preparation and shared state
 
-> **Not yet drafted.** Explain price, VN-Index and news provenance, windows, temporal availability, missingness and snapshot identity. Build the component input/output contract table, keeping query outcomes outside forecast inputs and introducing serialization/provenance only where needed to understand reproducibility.
+### 4.2.1. Preparing a query without its outcome
+
+Input preparation answers three questions before an agent runs: which stock
+and cutoff are being analyzed, which observations are admissible, and which
+versioned resources belong to the study. The historical-data provider reads
+the pinned price series and applies its declared clean-suffix view. Separate
+raw/event evidence supplies corporate-action barriers; it is not silently
+spliced into the donor price series. This separation preserves reproducibility
+without claiming independently authenticated adjustment histories.
+
+For the daily path, the provider requires an exact cutoff bar and at least
+600 clean observations through it. The final 45 form the chart/Indicator
+input; the final 600 form the longer-history input. VN-Index history has a
+separate role in regime features and the reference calendar. Its fitted
+resource metadata must not be replaced by the stock chart's window dates.
+The dated-news store applies publication and conservative availability rules
+before aggregation, returning unavailable sentiment when support is missing.
+These are the frozen research interfaces; a fresh live API response is not
+an interchangeable historical input.[^input-source]
+
+All these objects refer to the same query identity. A date label alone is
+insufficient: the price source, window end, resource and upstream realization
+must agree. In EX01, the final chart bar and longer prefix both end on
+3 July 2023. The observed close is 48.18 in the stored price unit. Unit
+conversion for economic accounting must be declared separately and applied
+consistently; changing units inside one agent while retaining another's
+support/resistance values would break their common reference frame.
+
+### 4.2.2. Component input/output contracts
+
+Table B02 summarizes the interfaces used in this chapter. Types are readable
+contract descriptions, not a replacement for the complete schemas. The
+cutoff conditions apply to the data, not merely to the date printed in a
+report. Every component should be understood in terms of its input,
+processing, output and downstream consumer.
+
+| Interface | Input and temporal requirement | Output and consumer | Missingness or failure contract |
+| --- | --- | --- | --- |
+| Query preparation | Stock/cutoff strings, ordered pinned OHLCV; exact last bar and sufficient past history | 45-bar `kline_data` and 600-bar `point_in_time_df`; chart/indicator and Alpha paths | Insufficient history or absent cutoff is an error; no borrowed future warm-up |
+| Chart rendering | Same 45-bar OHLCV dictionary, no target fields | PNG/base64 images plus descriptions; Pattern and Trend | Image identity is traced independently of the model's report |
+| Indicator | Numeric OHLCV lists through cutoff | Indicator table, per-indicator signals and consensus text; shared reports/Decision | Nonfinite/missing values and tool errors are not silently counted as numeric zero |
+| Pattern / Trend | Their respective saved chart; chart metadata and permitted report context | Structured report text; shared reports/Decision | Fallback or repair must retain its path; successful formatting is not proof of visual correctness |
+| Alpha / news | Declared longer prefix, stock/cutoff, frozen news store; profile-specific selector | `alpha_report`, factor records, sentiment data/report; snapshot and Decision | Strict historical errors propagate; missing news is unavailable, not manufactured neutrality |
+| Regime resources | Prefix VN-Index features and fitted model/scaler with admissible training dates | Regime state and provenance; historical-context builders | Fit-quality fallback has its own method label; invalid resource identity is an error |
+| Shared snapshot | Query identity, five report strings, optional images/price prefix/causal projection and provenance | Sealed JSON bytes; fresh document copy for each branch | Whitelist, primitive numeric/date and forbidden-target checks; no branch owns a mutable reference to the sealed parent |
+| Historical / numerical context | Query facts plus the permitted frozen/matured history and resource identities | Selected examples/statistics or task membership and utility; branch preparation | Reserved IDs and temporal/support checks apply; valid insufficiency can cause explicit bypass |
+| Decision request | Profile projection of shared reports and permitted context; same-repeat dependencies | Versioned messages/schema/request identity; hosted Decision | A bypass has no new request; a technical failure is not a fabricated valid response |
+| Resolution and evaluation | Saved proposal and policy inputs; query outcome joined only after durable forecasting | Final LONG/CASH record, then classification/account artifacts | Keep proposal/action/outcome distinct and preserve undefined values and failure reasons |
+
+*Table B02. Component input/output and availability contracts for the locked
+historical path. A role may expose different live presentation behavior;
+the historical evidence remains tied to its frozen source/profile.*
+
+### 4.2.3. Working state versus a sealed shared snapshot
+
+The graph's working state accumulates reports and operational fields during
+execution. The shared snapshot is a narrower projection intended for paired
+forecasting. It contains the stock/cutoff identity, report payload, upstream
+realization and provenance. Its constructor checks required nonempty report
+strings, primitive finite JSON values, allowed fields and matching query
+metadata. A price-prefix payload must have aligned OHLCV arrays, ordered
+unique dates, a matching final cutoff and no more than 600 rows; the producer
+requires the complete 600-bar history for this study.[^input-snapshot]
+
+The snapshot is stored as immutable bytes. Calling its document interface
+decodes a new dictionary, so changing one branch's copy cannot change the
+sealed parent or another branch's input. A bridge can bind the Common alpha
+projection to a specific native parent. The branch obtains the appropriate
+projection without rerunning Pattern or Trend. This is input sharing, not
+a promise that all prompts, dependencies or actions are identical.
+
+The contract recursively excludes query outcomes, realized entry/exit prices,
+query labels and prior/Decision material from this base snapshot. Historical
+context is supplied later through its own checked interface, where matured
+historical labels have a legitimate role. That exception never authorizes
+the current query's label. Numeric/date validation and checksums establish
+internal consistency and identity; they do not authenticate the economic
+meaning of every upstream observation or certify row-wise causality.
+
+### 4.2.4. Identity and explicit absence in EX01
+
+EX01's shared-snapshot content hash is
+`e6c16c36dd776a804922f466af1c9742bf3ba70015d60929e4112992e269a103`.
+This identifies the parent used by its eight research branches. It differs
+from the raw ZIP-member hash, the original price-source hash, a causal-alpha
+projection hash and a numerical-context membership hash. Those hashes bind
+different objects and cannot be substituted for one another.
+
+The same snapshot records no eligible verified news, with
+`is_unavailable=True`. An unavailable observation is an explicit part of the
+input contract, not a reason to invent a score. Similarly, a nonempty report
+can contain warnings or uncertain interpretations; the presence of text does
+not certify the content. In the following sections, the actual EX01 report
+and image records will be kept alongside these limitations.[^input-snapshot]
+
+[^input-source]: Frozen `HistoricalData.prefix/state`, `FrozenNews`, price-view and event/barrier path; TIME03/TIME04 and BG17 in the ledger. This section explains input preparation, not independent verification of historical vendor data.
+[^input-snapshot]: Frozen `SharedSnapshot.create/document`, `forecast_only`, `json_bytes`, `snapshot_from_graph` and `causal_bridge.decision_payload`; SYS04/SYS05, BG18 and EX01-S. CL029–CL032 map the table, identity and failure/absence distinctions.
 
 ## 4.3. The base multi-agent pipeline
 

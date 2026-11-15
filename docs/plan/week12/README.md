@@ -76,6 +76,15 @@ duy nhất vẫn ở thesis/plan.md, không tạo receipt riêng.
   frozen, EX01, links/footnotes/84 đặc tả PASS; không đổi runtime/data hoặc
   gọi model/fit/replay/suite. F11/F12 và giới hạn nghiên cứu giữ nguyên.
 
+- **T17; §4.2, B02, CL029–CL032 và sổ §9.3:** nhánh
+  `docs/thesis-input-contracts`; 10 interface, nguồn/window/missingness,
+  working state/sealed parent/branch context, whitelist và primitive JSON,
+  producer600 khác constructor≤600. Kiểm source và EX01 identity/joins,
+  links/anchors/footnotes/84 đặc tả PASS; không coi hash là xác thực dữ liệu
+  hoặc schema check là causal acceptance. T16 đã kiểm lại PASS sau sửa bộ
+  kiểm để nhận HTML anchors có sẵn; không sửa nội dung cũ để lấp lỗi tool.
+  Không chạy suite/replay/API hoặc build lại hình không đổi.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng
