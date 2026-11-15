@@ -21,7 +21,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 9. [Chương 3 — cơ sở lý thuyết](chapters/03_background.md): đã có bản nháp §3.1–§3.7, [F01](assets/diagrams/F01_trade_timeline.pdf)/[F02](assets/diagrams/F02_temporal_partitions.pdf) vector/source TikZ và ví dụ có nguồn hoặc nhãn Illustrative. Nguồn/claim đối soát tại §8 sổ chung; chưa phải bản đã qua rà soát khoa học, citation và bố cục cuối.
 10. [Chương 4 — hệ thống đề xuất](chapters/04_proposed_system.md): P3 đã đủ bản nháp §4.1–§4.10, gồm utility/policy, projection, bảng tám vai trò, ba thuật toán và luồng ứng dụng; kèm F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn. [Sổ chung §9](evidence.md#9-nguồn-giải-thích-hệ-thống-đề-xuất) giữ binding và tự kiểm G2 nội bộ. EX01 kết thúc bằng outcome sau barrier; UI/F11 vẫn PENDING. Chưa rà soát toàn văn, phản biện ngoài hoặc dàn trang cuối.
 
-11. [Chương 5 — thiết kế thực nghiệm](chapters/05_experiments.md): đã viết §5.1–§5.5 cho T36–T40, tách hai nghiên cứu, B04a–e, đối chứng, metric/aggregation và resampling có nguồn. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ ED/ES/claim; chưa viết kết quả/thảo luận §5.6–§5.9 hoặc hoàn tất P4. Bảng nguồn hiện ở Markdown, chưa dàn trang LaTeX.
+11. [Chương 5 — thiết kế và kết quả thành phần](chapters/05_experiments.md): đã viết §5.1–§5.6 cho T36–T41, tách hai nghiên cứu, B04a–e và B05a–g; đối chứng, metric/aggregation, resampling và từng ô kết quả có nguồn. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ ED/ES/claim; chưa viết kết quả ngữ cảnh/thảo luận §5.7–§5.9 hoặc hoàn tất P4. Bảng hiện ở Markdown, chưa xuất CSV/LaTeX cho dàn trang cuối.
 
 ## Hai trang bìa
 

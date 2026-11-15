@@ -1,6 +1,6 @@
 # Chapter 5. Experiments and Discussion
 
-> **Draft status: partial chapter.** Sections 5.1–5.5 specify the source-checked experimental design and metrics. Results and discussion in Sections 5.6–5.9 remain to be drafted.
+> **Draft status: partial chapter.** Sections 5.1–5.5 specify the source-checked experimental design and metrics; Section 5.6 reports component-study results. Historical-context results and discussion in Sections 5.7–5.9 remain to be drafted.
 > Result placeholders do not establish comparative performance. This chapter reports locked historical evidence, not newly collected experiments.
 
 Writing aids: [chapter outline](../outline.md#chapter-5-experiments-and-discussion), [locked study inventory](../evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa), [EX01](../evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) and [shared evidence ledger](../evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm).
@@ -718,7 +718,292 @@ beyond these reported comparisons.[^context-uncertainty]
 
 ## 5.6. Component-study results
 
-> **Not yet drafted.** Import exact values from locked component artifacts and map every result cell to its source. Present main, numerical, upstream and factorial/placebo panels with their own supports; retain classification–return differences, prompt confounding and native causality limits when answering the first research question.
+The full component system improves some classification measures over Base
+on the recorded main sample, but its mean account return is slightly
+lower. Price-only logistic regression has higher pooled BA than Full,
+and CASH has a higher mean return than every active main comparator.
+The small upstream and factorial panels give different rankings. Together,
+these observations support a conditional description of the system's
+behavior, rather than a general advantage from adding alpha and sentiment.
+All results below use the locked component collection introduced in
+Section 5.1. They are separate from the historical-context results in
+Section 5.7.
+
+### 5.6.1. Main comparison and economic outcomes
+
+**Table B05a. Main component comparison.** Classification uses the same
+102 points, with 25 UP and 77 DOWN labels, nine stocks, twelve dates and
+six blocks. Each financial mean uses 51 separate stock–fold accounts.
+Acc., BA and LONG rate are percentages; MCC and macro-F1 are unitless.
+Returns and positive-magnitude EOD maximum drawdowns are percentages,
+averaged equally across accounts under the fractional reference ledger.
+The continuous-hold control has no pointwise classification output:
+its classification entries are NA, while its recorded financial
+support is 51 accounts. Display precision is three decimals; contrasts
+use the saved unrounded values.[^component-main-results]
+
+| Method | Acc. (%) | BA (%) | MCC | Macro-F1 | LONG (%) | Mean return (%) | Mean MDD (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Full | 65.686 | 52.961 | 0.060 | 0.530 | 23.529 | -0.797 | 1.367 |
+| Base | 60.784 | 49.714 | -0.005 | 0.496 | 28.431 | -0.750 | 1.453 |
+| CASH | 75.490 | 50.000 | NA | 0.430 | 0.000 | 0.000 | 0.000 |
+| Train-majority | 75.490 | 50.000 | NA | 0.430 | 0.000 | 0.000 | 0.000 |
+| Always-LONG cycles | 24.510 | 50.000 | NA | 0.197 | 100.000 | -3.000 | 4.523 |
+| Momentum 20 | 49.020 | 47.325 | -0.046 | 0.449 | 48.039 | -1.636 | 2.576 |
+| Logistic price | 67.647 | 55.610 | 0.114 | 0.557 | 23.529 | -0.683 | 1.177 |
+| Logistic matched inputs | 60.784 | 52.416 | 0.044 | 0.518 | 32.353 | -1.105 | 1.602 |
+| Factor vote | 51.961 | 51.974 | 0.034 | 0.483 | 49.020 | -1.457 | 2.488 |
+| Continuous hold (price only) | NA | NA | NA | NA | NA | -2.127 | 12.939 |
+
+Full's pooled BA is 52.961%, compared with 49.714% for Base: a difference
+of **+3.247 percentage points (pp)**. Accuracy increases by 4.902 pp and
+MCC moves from a small negative value to 0.060. This gain does not imply
+strong UP detection. Table B05b shows that both methods identify only
+7 of the 25 UP outcomes, giving UP recall of 28.000%. Full has five fewer
+false positives in aggregate, while retaining the same true-positive
+count; this is an aggregate confusion comparison, not a claim that
+exactly five individual actions changed.
+
+**Table B05b. Full/Base confusion counts and recorded exposure.** TP/FN
+refer to UP; TN/FP refer to DOWN. LONG/CASH counts sum to 102. Exposure
+columns are means of the 51 account fractions over the ledger calendar,
+including cash gaps; they are distinct from the fraction of scheduled
+decisions classified LONG.[^component-main-results]
+
+| Method | TP | FN | TN | FP | LONG | CASH | Held sessions (%) | Close exposure (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Full | 7 | 18 | 60 | 17 | 24 | 78 | 2.353 | 1.569 |
+| Base | 7 | 18 | 55 | 22 | 29 | 73 | 2.843 | 1.895 |
+
+The majority DOWN class explains why CASH and train-majority reach
+75.490% accuracy despite BA of 50.000%, no UP detections and undefined
+MCC. They retain their NA values rather than being assigned zero MCC.
+Full's BA exceeds these constant controls by only 2.961 pp. Logistic
+price reaches BA of 55.610% and MCC of 0.114, both above Full. The matched
+input logistic control reaches BA of 52.416%, slightly below Full, while
+the factor vote reaches 51.974%. These are observed rankings under their
+recorded representations and fitting protocols, not evidence that all
+comparators received identical information in identical form.
+
+The saved six-block percentile interval for Full minus Base BA is
+**[−1.176, 8.125] pp**, from 10,000 draws with no undefined draws. All
+eight saved main BA intervals comparing Full with the other classification
+methods include zero. As specified in Section 5.5, these are descriptive
+historical block-bootstrap intervals, not evidence of confirmed
+superiority or calibrated coverage.[^component-main-uncertainty]
+
+Full's mean net account return is −0.797%, compared with −0.750% for
+Base. The unrounded difference is **−0.047 pp**, so the classification
+improvement does not translate into a higher mean return. Full does have
+lower average drawdown and lower held-session exposure than Base, but
+both returns remain negative. Among active main comparators, logistic
+price has the least negative mean return, −0.683%; CASH and train-majority
+remain at 0.000%. Always-LONG cycles lose 3.000% on average. The
+continuous-hold result, −2.127%, belongs to a different holding rule and
+cannot be treated as an always-LONG classification strategy.
+
+The divergence between BA and return is expected to be possible under
+the estimators in Section 5.5: classification counts outcomes, whereas
+account returns depend on the magnitude and sequence of selected net
+cycles. Lower exposure can reduce losses and drawdown without establishing
+a profitable signal. These account averages are neither an investable
+multi-stock portfolio return nor an execution-certified performance
+record.
+
+### 5.6.2. Stock and temporal-block patterns
+
+**Table B05c. Full/Base BA on every recorded stock and block.** Each row
+uses its own shared Full/Base support; stock rows and block rows are two
+overlapping partitions of the same 102 points. NA means that BA is
+undefined because one outcome class is absent. The rows must not be
+summed together or treated as independent replications.[^component-groups]
+
+| Group | Points | UP/DOWN | Full BA (%) | Base BA (%) |
+| --- | --- | --- | --- | --- |
+| symbol: BHN | 6 | 1/5 | 100.000 | 80.000 |
+| symbol: CMG | 12 | 3/9 | 44.444 | 61.111 |
+| symbol: FPT | 12 | 2/10 | 40.000 | 30.000 |
+| symbol: HVN | 12 | 2/10 | 60.000 | 60.000 |
+| symbol: MBB | 12 | 5/7 | 48.571 | 55.714 |
+| symbol: MWG | 12 | 4/8 | 56.250 | 50.000 |
+| symbol: VCB | 12 | 4/8 | 50.000 | 37.500 |
+| symbol: VJC | 12 | 4/8 | 43.750 | 37.500 |
+| symbol: VNM | 12 | 0/12 | NA | NA |
+| block: b2023_h2 | 16 | 3/13 | 38.462 | 34.615 |
+| block: b2024_h2 | 16 | 7/9 | 49.206 | 49.206 |
+| block: b2025_h1 | 16 | 0/16 | NA | NA |
+| block: f2025_q4 | 18 | 7/11 | 59.740 | 55.195 |
+| block: f2026_q2 | 18 | 6/12 | 45.833 | 45.833 |
+| block: f2026_q3 | 18 | 2/16 | 62.500 | 50.000 |
+
+The aggregate result is heterogeneous. Full has higher BA on five stocks,
+lower BA on CMG and MBB, and the same BA on HVN. VNM has no UP outcome,
+so its BA is undefined for both methods. BHN's apparently perfect Full
+BA comes from only six observations with one UP outcome, over its shorter
+admissible history. It therefore cannot support a broad stock-specific
+performance claim. Full's BA is below 50% on CMG, FPT, MBB and VJC.
+
+Among the five blocks with defined BA, Full exceeds Base in three and
+ties it in two. The remaining block, `b2025_h1`, contains sixteen DOWN
+outcomes and no UP outcomes. Full is itself below 50% BA in three of the
+five defined blocks. These small, uneven supports explain why pooled
+and equal-stock summaries answer different questions. No stock or block
+is removed from the primary result because its outcome is unfavorable
+or its BA is undefined. Additional cohort and dependence sensitivities
+belong to the later robustness analysis.
+
+### 5.6.3. Separate numerical factor controls
+
+**Table B05d. Numerical five-factor controls.** Each strategy is evaluated
+on the same 102 points with 25 UP and 77 DOWN outcomes. The 23 strategies
+comprise three named rules and all twenty random-factor trials. The last
+row reports the mean of the twenty trial metrics, not an ensemble's
+actions. Unlike B05a, the return column is the saved mean of **nine
+stock-level account returns**, not the mean of 51 stock–fold accounts;
+its level should not be ranked directly against B05a.[^component-numeric-results]
+
+| Numerical strategy | Acc. (%) | BA (%) | MCC | LONG (%) | Mean stock return (%) |
+| --- | --- | --- | --- | --- | --- |
+| Fixed five | 49.020 | 39.221 | -0.193 | 36.275 | -8.653 |
+| Train-ranked five | 62.745 | 55.065 | 0.093 | 32.353 | -5.648 |
+| Same five, no sign flip | 50.980 | 48.623 | -0.024 | 46.078 | -7.608 |
+| Random five (mean of 20) | 51.275 | 47.738 | -0.039 | 44.216 | -8.097 |
+
+Train-ranked factors improve pooled BA over the fixed set by 15.844 pp,
+over the random-trial mean by 7.327 pp, and over the same selected IDs
+without sign flipping by 6.442 pp. Their mean stock return is nevertheless
+negative at −5.648%. All twenty random trials also have negative mean
+stock returns. The saved random BA dispersion is 47.738% ± 5.377 pp
+(mean ± trial SD), with range [37.974%, 57.169%]; mean stock return is
+−8.097% ± 1.404 pp, with range [−10.414%, −5.537%]. These are variations
+across retained random factor sets, not confidence intervals over future
+markets. No favorable seed is selected.
+
+**Table B05e. Three declared numerical contrasts within the full family
+of 23 diagnostics.** BA differences and saved percentile intervals are
+in pp. The exact two-sided diagnostics use all 64 block-sign assignments;
+Holm adjustment uses all 23 contrasts, including the twenty individual
+random-trial comparisons.[^component-numeric-results]
+
+| Recorded contrast | BA difference (pp) | Percentile interval (pp) | Exact p | Holm p (23) |
+| --- | --- | --- | --- | --- |
+| dynamic_vs_fixed | 15.844 | [6.817, 25.217] | 0.06250 | 1.000 |
+| dynamic_vs_random_mean | 7.327 | [0.567, 13.748] | 0.12500 | 1.000 |
+| dynamic_vs_no_flip | 6.442 | [-10.932, 20.263] | 0.53125 | 1.000 |
+
+The first two percentile intervals exclude zero, whereas their exact
+diagnostic p-values exceed 0.05 and their Holm-adjusted values are 1.000.
+These procedures have different constructions and should be reported
+together rather than selecting the favorable output. There are zero
+Holm rejections in the full recorded family. With only six exposed
+blocks and unverified symmetry/exchangeability, none of these diagnostics
+establishes a confirmatory effect. This panel compares numerical factor
+rules; it does not isolate the LLM factor selector or show that the
+full agent system benefits causally from train-ranked factors.
+
+### 5.6.4. Upstream variation and alpha–sentiment–placebo panel
+
+**Table B05f. Separate small panels, with all three realizations retained.**
+Entries are the saved mean ± sample SD of three execution-level metrics;
+the SD is in the displayed metric's units. Each execution uses nine
+points with two UP and seven DOWN outcomes across three blocks. The
+upstream panel covers nine stocks/three dates and nine accounts per
+branch/execution; the factorial panel covers eight stocks/four dates and
+eight accounts per branch/execution. Returns are execution-level means
+of those accounts, then summarized over executions. The panels' supports
+are different from one another and from the main sample.[^component-panel-results]
+
+| Panel | Branch | BA (%) | MCC | LONG (%) | Mean account return (%) |
+| --- | --- | --- | --- | --- | --- |
+| upstream | AS | 95.238 ± 4.124 | 0.837 ± 0.141 | 29.630 ± 6.415 | 0.496 ± 0.222 |
+| upstream | B | 90.476 ± 10.911 | 0.745 ± 0.261 | 37.037 ± 16.973 | 0.371 ± 0.378 |
+| factorial | A | 19.048 ± 4.124 | -0.518 ± 0.069 | 48.148 ± 6.415 | -2.034 ± 0.314 |
+| factorial | AS | 19.048 ± 10.911 | -0.537 ± 0.196 | 48.148 ± 16.973 | -2.228 ± 0.632 |
+| factorial | B | 28.571 ± 7.143 | -0.381 ± 0.096 | 33.333 ± 11.111 | -1.699 ± 0.551 |
+| factorial | P | 30.952 ± 4.124 | -0.347 ± 0.053 | 29.630 ± 6.415 | -1.415 ± 0.331 |
+| factorial | S | 14.286 ± 0.000 | -0.598 ± 0.000 | 55.556 ± 0.000 | -2.342 ± 0.220 |
+
+In the upstream panel, Full averages 95.238% BA and 0.496% account return,
+compared with Base's 90.476% and 0.371%. The Full minus Base BA difference
+is +4.762 pp; the saved conditional percentile interval is [0.000,
+10.000] pp, with 6,986 finite and 3,014 undefined draws. The mean pairwise
+action-disagreement rates across the three realizations are 7.407% for
+Full and 22.222% for Base. The 54 panel decisions include eighteen main
+decisions also used in this panel, so they are not 54 additional
+independent observations. These favorable small-panel outcomes do not
+replace the negative main financial result. They also do not estimate
+separate upstream and Decision variance components.
+
+In the factorial panel, `B` removes the alpha/sentiment report sections,
+`A` supplies alpha, `S` supplies sentiment, `AS` supplies both, and `P`
+combines sentiment with the past-donor alpha-value control defined in
+Section 5.4. All five branches have mean BA below 50%, negative MCC and
+negative mean account returns. Full (`AS`) has BA of 19.048%, below
+Base's 28.571%, and mean return of −2.228%, below Base's −1.699%.
+The placebo branch has BA of 30.952% and mean return of −1.415%, both
+above Full within this panel. These adverse comparisons remain in the
+result. The positive interaction contrast below does not imply that Full
+beats Base or placebo, or that the combined information is beneficial.
+
+**Table B05g. Complete seven-contrast factorial BA family.** Differences
+are computed from the saved unrounded execution means. The last row is
+`AS − A − S + B`. Envelopes are the saved joint-finite maximum-absolute-
+deviation sensitivity construction, converted to pp; they are not the
+historical-context study's standardized simultaneous bands.[^component-panel-results]
+
+| Factorial BA contrast | Difference (pp) | Joint-finite sensitivity envelope (pp) |
+| --- | --- | --- |
+| AS-B | -9.524 | [-37.143, 18.095] |
+| A-B | -9.524 | [-37.143, 18.095] |
+| AS-S | 4.762 | [-22.857, 32.381] |
+| S-B | -14.286 | [-41.905, 13.333] |
+| AS-A | 0.000 | [-27.619, 27.619] |
+| AS-P | -11.905 | [-39.524, 15.714] |
+| interaction | 14.286 | [-13.333, 41.905] |
+
+All seven envelopes include zero. Their shared radius is 27.619 pp,
+conditional on 6,986 jointly finite draws; 3,014 of the 10,000 draws are
+undefined. These counts and the three-block/three-execution support
+preclude interpreting the display as calibrated simultaneous coverage
+or evidence of a statistically established interaction. In particular,
+the AS minus placebo difference is −11.905 pp, not a demonstrated
+advantage from the current alpha values.
+
+Prompt representation limits attribution across these comparisons.
+The main and upstream Full/Base results use compact-alpha reports,
+whereas the factorial study uses the full-value prompt family. Removing
+reports also changes text, prompt length and information, and may leave
+instructions referring to absent sections. Placebo changes donor values
+under the recorded rank-vector procedure rather than supplying an
+identity-matched counterfactual. Consequently, differences between the
+panels cannot identify a pure prompt-format effect, an alpha-only causal
+effect or a population alpha–sentiment interaction.
+
+### 5.6.5. Bounded answer to RQ1
+
+On the recorded 102-point component sample, the combined system has
+higher BA than Base with the same UP recall and fewer false positives
+in aggregate. It does not have the best classification result among
+the controls, and its mean account return is negative and slightly worse
+than Base. The numerical panel favors train-ranked factors descriptively,
+but supplies no isolated LLM-selection effect. The upstream and factorial
+panels show that observed rankings depend on support and representation;
+the latter contains unfavorable Full/Base and Full/placebo comparisons.
+The evidence therefore does not establish a general profitability or
+causal advantage from adding alpha and sentiment.
+
+This answer retains the previously reported native row-wise causality
+**FAIL**: outer point-in-time input checks do not repair noncausal
+historical alpha normalization. Previously exposed folds, provider/model
+uncertainty and the small dependent sample further limit generalization.
+Whole-system status remains **NOT_CERTIFIED** and UI acceptance remains
+pending. None of the component results changes those audit statuses.
+
+[^component-main-results]: Main B05a/b cells: root exports ED32–ED34, classification support ED35; CL145–CL147 and ledger §10.7. Continuous hold retains zero classification units and 51 financial accounts. Original artifact values are retained at source precision; displayed rounding changes no estimator.
+[^component-main-uncertainty]: ED28 `cohorts.all_102.intervals`, eight contrasts, 10,000 draws each; CL145, ledger §10.7. The displayed Full/Base difference is direct arithmetic on ED33, not a new bootstrap.
+[^component-groups]: ED35 `classification.csv`, `all_102`/`symbol` and `block`, paired `AS`/`B` rows; ED36 retains equal-stock macro denominators; CL148, ledger §10.7. One-class rows remain visible as NA.
+[^component-numeric-results]: ED24 `headline`, `random_family`, `holm_rejections`; ED25 `contrasts`, full family and draw metadata; CL149–CL150, ledger §10.7. This is the separate 23-rule numerical panel, not the factor-vote row of B05a.
+[^component-panel-results]: ED37 `upstream`/`factorial` summaries, support, disagreement and statistics; ED29 complete BA family, ED05 intervention protocol; CL151–CL154, ledger §10.7. All realizations and unfavorable contrasts are retained; no response, fitting or resampling is newly generated.
 
 ## 5.7. Historical-context results
 

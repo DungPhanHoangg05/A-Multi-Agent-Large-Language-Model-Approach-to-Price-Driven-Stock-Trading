@@ -346,6 +346,35 @@ Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ 
   550 liên kết/270 anchor; các chương khác và phần kết quả §5.6–§5.9
   giữ nguyên. Đây là kiểm tài liệu/số học, không phải nghiệm thu lại nghiên cứu.
 
+### Viết kết quả nghiên cứu thành phần từ số đã khóa
+
+Ngày **15/11/2026**, thực hiện **T41** trên nhánh
+`docs/thesis-component-results` từ develop đã cập nhật origin. Đã viết
+[§5.6](../../../thesis/chapters/05_experiments.md#56-component-study-results)
+và bảy bảng B05a–g trong Markdown: main/confusion/exposure, mã/block,
+23 đối chứng số, ba diagnostic chính với Holm23, hai panel lặp và đủ bảy
+contrast factorial. [Sổ chung §10.7](../../../thesis/evidence.md#107-kết-quả-thành-phần-và-ánh-xạ-từng-ô-b05)
+giữ CL145–CL154, ED32–ED37 và locator/field/đơn vị/support từng ô.
+Chưa xuất CSV/LaTeX; bảng cho dàn trang cuối thuộc T69.
+
+Full tăng BA so Base **+3.247 điểm phần trăm**, nhưng mean51 account return
+thấp hơn **−0.047 điểm phần trăm**. Giữ đầy đủ return âm, stock/block NA,
+trung bình9mã riêng panel số và Full thua Base/placebo trong factorial.
+Không chọn seed/run, không diễn giải envelope thành ý nghĩa xác nhận;
+Native causal FAIL, NOT_CERTIFIED và UI/F11 PENDING giữ nguyên.
+
+Phạm vi kiểm: hash manifest và đủ11 export; đọc lại6 member revision qua
+index/part/chunk/member; đối soát từng ô bảy bảng và số diễn giải, support,
+NA, 84 dòng đặc tả, links/anchors/footnotes và diff. Chỉ sửa sáu Markdown,
+không đổi code/test/schema/config/runtime/input, nên **không chạy compileall,
+unit/E2E/leakage suite** theo AGENTS §1.2. Không fit, API, account replay
+hoặc sinh bootstrap; không coi đây là nghiệm thu lại nghiên cứu. T42 trở đi
+và §5.7–§5.9 vẫn chờ, P4 chưa hoàn tất.
+
+Chốt đối soát tài liệu **PASS**: 47 binding ED/ES, bảy bảng khớp ô nguồn,
+84 đặc tả task giữ nguyên, 22 footnote, 565 liên kết/285 anchor hợp lệ;
+các chương khác và §5.7–§5.9 nguyên trạng so với `develop:944e023d`.
+
 ### Viết tiếp nền tảng theo thứ tự kinh tế, tín hiệu, regime, Bayes và đánh giá
 
 Ngày **15/11/2026**, người dùng yêu cầu làm tuần tự T10–T15. Mỗi task dùng

@@ -32,10 +32,11 @@ MT/teacher–student, facts/utility/policy, projection, tám vai trò/ba thuật
 ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn;
 EX01 kết thúc bằng outcome sau barrier, giữ net loss và giới hạn causal.
 G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biện ngoài/dàn trang cuối.
-UI/F11 vẫn PENDING. **P4 đã có bản nháp [Chương 5 §5.1–§5.5](../../thesis/chapters/05_experiments.md)**
-qua T36–T40: phạm vi hai collection, dữ liệu/lịch/split, B04a–e và cấu hình,
-đối chứng, metric/aggregation/NA và paired resampling riêng mỗi nghiên cứu.
-Chỉ đối soát bằng chứng đã khóa, không tạo kết quả mới; §5.6–§5.9/T41 trở đi
+UI/F11 vẫn PENDING. **P4 đã có bản nháp [Chương 5 §5.1–§5.6](../../thesis/chapters/05_experiments.md)**
+qua T36–T41: phạm vi hai collection, dữ liệu/lịch/split, B04a–e và cấu hình,
+đối chứng, metric/aggregation/NA, paired resampling và B05a–g cho kết quả
+thành phần; giữ các kết quả bất lợi và support riêng từng panel.
+Chỉ đối soát bằng chứng đã khóa, không tạo kết quả mới; §5.7–§5.9/T42 trở đi
 và các chương còn lại giữ trạng thái hiện có, chưa hoàn tất P4.
 Bản xem hai
 trang bìa có Supervisor căn giữa. Hạn nộp và quy định
