@@ -307,7 +307,7 @@
   ],
   "current_revision": {
     "date": "2026-11-16",
-    "scope": "T73a-T73l concise portrait edit; final review T74-T80 and packaging remain pending",
+    "scope": "T74-T78 internal reader, English, citation, arithmetic and clean-build review; visual/feedback review T79-T80 and P10 pending",
     "pages": 60,
     "frontmatter_pages": 10,
     "chapter_pages": [
@@ -334,23 +334,23 @@
     },
     {
       "path": "latex/chapters/02_related_work.tex",
-      "lf_sha256": "292a42349761d025b1a79c3a072b194969f602a78ed7f87dfd345f467d54ba59"
+      "lf_sha256": "1f8270eea97fb64f8f070488c7a0b3b2a1e37b4cf6f7c47700cc77d79f29b0e6"
     },
     {
       "path": "latex/chapters/03_background.tex",
-      "lf_sha256": "697f34194be537d91ad89bb4f4b211ced3a751cebf4c6e64a42ae2f76586ffd0"
+      "lf_sha256": "c788e16dc32ab918fd6166595c7fe7fb19bdd0e85e163b12b25af7036add3875"
     },
     {
       "path": "latex/chapters/04_proposed_system.tex",
-      "lf_sha256": "df45f0dbe52ddcf87ca815231566f9da4e46accea9da0f43dd555ed47bf96f68"
+      "lf_sha256": "4d2e411631215f7b2dd5b8409d734955ed9723d47349711d0be28c850cffc0ba"
     },
     {
       "path": "latex/chapters/05_experiments.tex",
-      "lf_sha256": "2c4654ebd87c9ca9ffc758272cdc24039367ad9010d4b7ddbb066ec0458cbc76"
+      "lf_sha256": "9f6c6d01d41a6561ba7ab7db55e3f84992d18e9e578bb7c9e304147447e8bb15"
     },
     {
       "path": "latex/chapters/06_conclusion.tex",
-      "lf_sha256": "14331fb2326be1dcf42852dce574b39db5b5b679caae14e382917100bc28364d"
+      "lf_sha256": "7c652d781332b6460146b98c261770fb26fb9f9328d003fd95b84cd455c5ff46"
     },
     {
       "path": "latex/covers-preview.tex",
@@ -358,7 +358,7 @@
     },
     {
       "path": "latex/frontmatter/content.tex",
-      "lf_sha256": "b70b52db2dabb328bdc8ea3a7a7ee412a14ac8c3de00aa6d73ccf575cf879607"
+      "lf_sha256": "de577ad7b31f87010249986829bea0fc9213e0d80b4c770cff3813ea0df77059"
     },
     {
       "path": "latex/frontmatter/covers.tex",
@@ -366,7 +366,7 @@
     },
     {
       "path": "latex/frontmatter/reference_lists.tex",
-      "lf_sha256": "7f7abd788ca0bf4cfbca5e925a91bccf0db60340890041cb730e569dd19591dc"
+      "lf_sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
     },
     {
       "path": "latex/main.tex",
@@ -374,19 +374,181 @@
     },
     {
       "path": "latex/preamble.tex",
-      "lf_sha256": "8575eb43627ee4638e31241c522e7e136b527037d559cbedacccf345bc85d805"
+      "lf_sha256": "c9602e821760bb5ff69395cd93be93b004fb2090f6061452c2cada23deee04a1"
     }
   ],
-  "current_references_lf_sha256": "42d8a4637ae8a362a169d370965428acae94586958a06e0f617f950cb772e24f",
+  "current_references_lf_sha256": "590989dcef820914c0a0efc238f841276459125af8ebcb65d0ea2547db9bafe3",
   "reviewed_pdf": {
     "path": "release/thesis.pdf",
-    "sha256": "704a149251e44ac6a0cb89b3db45288072802a6be9f3185a16af7b8f6be73118",
+    "sha256": "2b59b9da9cc95ef80be1c2b0c9aa10e1918e9d8dd531d2341192ecc011265250",
     "pages": 60,
-    "status": "T73_EDITED_DRAFT_NOT_FINAL_ACCEPTANCE",
-    "clean_build": "four LuaLaTeX passes and Biber; no Markdown/archive/template inputs",
+    "status": "T78_CLEAN_BUILD_PENDING_T79_T80_INTERNAL_REVIEW",
+    "clean_build": "Four LuaLaTeX passes and Biber in fresh tmp/pdfs/thesis-t78-clean-v2/thesis; recorder confirms no original-checkout/Markdown/archive/template inputs.",
     "rotation": 0,
     "overfull_boxes": 0,
     "undefined_references_or_citations": 0,
-    "missing_glyphs": 0
-  }
+    "missing_glyphs": 0,
+    "bytes": 675307,
+    "internal_links": 130,
+    "external_links": 54,
+    "bookmarks": 50,
+    "figures": 5,
+    "tables": 17,
+    "bibliography_entries": 22,
+    "underfull_hboxes": 0,
+    "biber_warnings": 0
+  },
+  "review_history": [
+    {
+      "git_commit": "b3a060ed",
+      "scope": "T73 concise edit before T74-T80",
+      "current_revision": {
+        "date": "2026-11-16",
+        "scope": "T73a-T73l concise portrait edit; final review T74-T80 and packaging remain pending",
+        "pages": 60,
+        "frontmatter_pages": 10,
+        "chapter_pages": [
+          3,
+          4,
+          6,
+          19,
+          13,
+          2
+        ],
+        "references_pages": 3,
+        "portrait_only": true,
+        "rotation": 0,
+        "appendices": 0,
+        "body_font_pt": 12,
+        "line_spacing": 1.5,
+        "numeric_source_rows": 68,
+        "joint_family_cells": 20
+      },
+      "current_latex": [
+        {
+          "path": "latex/chapters/01_introduction.tex",
+          "lf_sha256": "4fffab2a16d9694a44ebec0107f75fbc62ffae3280249ee69af43b0f714dd138"
+        },
+        {
+          "path": "latex/chapters/02_related_work.tex",
+          "lf_sha256": "292a42349761d025b1a79c3a072b194969f602a78ed7f87dfd345f467d54ba59"
+        },
+        {
+          "path": "latex/chapters/03_background.tex",
+          "lf_sha256": "697f34194be537d91ad89bb4f4b211ced3a751cebf4c6e64a42ae2f76586ffd0"
+        },
+        {
+          "path": "latex/chapters/04_proposed_system.tex",
+          "lf_sha256": "df45f0dbe52ddcf87ca815231566f9da4e46accea9da0f43dd555ed47bf96f68"
+        },
+        {
+          "path": "latex/chapters/05_experiments.tex",
+          "lf_sha256": "2c4654ebd87c9ca9ffc758272cdc24039367ad9010d4b7ddbb066ec0458cbc76"
+        },
+        {
+          "path": "latex/chapters/06_conclusion.tex",
+          "lf_sha256": "14331fb2326be1dcf42852dce574b39db5b5b679caae14e382917100bc28364d"
+        },
+        {
+          "path": "latex/covers-preview.tex",
+          "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+        },
+        {
+          "path": "latex/frontmatter/content.tex",
+          "lf_sha256": "b70b52db2dabb328bdc8ea3a7a7ee412a14ac8c3de00aa6d73ccf575cf879607"
+        },
+        {
+          "path": "latex/frontmatter/covers.tex",
+          "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+        },
+        {
+          "path": "latex/frontmatter/reference_lists.tex",
+          "lf_sha256": "7f7abd788ca0bf4cfbca5e925a91bccf0db60340890041cb730e569dd19591dc"
+        },
+        {
+          "path": "latex/main.tex",
+          "lf_sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
+        },
+        {
+          "path": "latex/preamble.tex",
+          "lf_sha256": "8575eb43627ee4638e31241c522e7e136b527037d559cbedacccf345bc85d805"
+        }
+      ],
+      "current_references_lf_sha256": "42d8a4637ae8a362a169d370965428acae94586958a06e0f617f950cb772e24f",
+      "reviewed_pdf": {
+        "path": "release/thesis.pdf",
+        "sha256": "704a149251e44ac6a0cb89b3db45288072802a6be9f3185a16af7b8f6be73118",
+        "pages": 60,
+        "status": "T73_EDITED_DRAFT_NOT_FINAL_ACCEPTANCE",
+        "clean_build": "four LuaLaTeX passes and Biber; no Markdown/archive/template inputs",
+        "rotation": 0,
+        "overfull_boxes": 0,
+        "undefined_references_or_citations": 0,
+        "missing_glyphs": 0
+      }
+    }
+  ],
+  "current_build_tools": [
+    {
+      "path": "latex/tools/build.py",
+      "lf_sha256": "e1386f48db9eb76d45cdbd5d8719af204aa9a7ce740bf934a19bb5454929abb0"
+    },
+    {
+      "path": "latex/tools/check.py",
+      "lf_sha256": "5516cdbf424108c1117b8a6a1fca6a199ebadcb7198276da809484db70095735"
+    }
+  ],
+  "current_notices": [
+    {
+      "path": "latex/licenses/QuantAgent-MIT.txt",
+      "sha256": "fd88b41d9a41ecbb0e813a76564ec8c281b65e187e4ca464ea0f787b141f2525",
+      "upstream_copyright": "Copyright (c) 2025 Y-Research @SBU",
+      "scope": "Attributed QuantAgent software only; no blanket rights to market data, news, weights or cover logo."
+    }
+  ],
+  "build_review": {
+    "toolchain": {
+      "engine": "LuaHBTeX 1.24.0 (MiKTeX 25.12)",
+      "latex": "LaTeX2e 2025-11-01",
+      "biber": "2.21"
+    },
+    "page_ranges_physical": {
+      "covers_and_frontmatter": [
+        1,
+        10
+      ],
+      "chapter_1": [
+        11,
+        13
+      ],
+      "chapter_2": [
+        14,
+        17
+      ],
+      "chapter_3": [
+        18,
+        23
+      ],
+      "chapter_4": [
+        24,
+        42
+      ],
+      "chapter_5": [
+        43,
+        55
+      ],
+      "chapter_6": [
+        56,
+        57
+      ],
+      "references": [
+        58,
+        60
+      ]
+    },
+    "warnings": [],
+    "limits": "Document checks only; no new runtime gate, external review, submission or institutional-format approval.",
+    "environment_notice": "MiKTeX stdout reminder: updates not checked; exit 0. Not a manuscript/log warning; no environment upgrade performed."
+  },
+  "current_build_attributes_lf_sha256": "d9f3b3b7b2c23012f2bdf163cc4502af5e56c6724a8c0c068eb4bb6ca0ee0478"
 }

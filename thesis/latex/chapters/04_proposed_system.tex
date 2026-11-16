@@ -398,6 +398,7 @@ the results into bounded text. External policy, rather than the hosted
 model alone, determines whether the action changes.
 
 \subsection{Facts and the reference action}\label{s:20f38305181c1972}
+\begingroup\raggedright
 A deterministic 45-bar packet checks three relationships:
 \texttt{MACD\_SIGNAL} (ABOVE/BELOW/EQUAL), \texttt{MACD\_ZERO}
 (POSITIVE/NEGATIVE/ZERO), and \texttt{PRICE\_SMA20} (ABOVE/BELOW/EQUAL),
@@ -406,7 +407,7 @@ unrounded values. Being below Signal does not mean MACD is negative;
 being positive does not prove a recent zero crossing. The packet binds
 stock/cutoff, frame end, prefix identity and the derived facts bucket.
 A shorter/misaligned window cannot assert complete-window facts. A
-consistent packet/hash alone does not authenticate its source.
+consistent packet/hash alone does not authenticate its source.\par\endgroup
 
 Fact Anchor receives Common-projected reports and a fact card, without
 MT tasks, probability or utility. The card is capped at 700 characters,
@@ -515,12 +516,13 @@ original market labels are not copied. Separate random streams govern structure,
 5,000 episodes, including 500 stress cases. Synthetic query labels and
 latent variables are excluded from the input and loss.
 
+\begingroup\raggedright
 The paired packing uses a task marker $(0,0,0,0,-1,1)$, observation token
 $(v_1,v_2,v_3,v_4,y,0)$ and query token $(v_{q1},v_{q2},v_{q3},v_{q4},0,1)$.
 Role embeddings distinguish prior/target/query, and four slots identify
 up to three priors plus target/query. Dates, IDs, returns and the true
 query label are not coordinates. Maximum length is 37 numerical tokens;
-FPT uses 19 (14 observations, four markers and query).
+FPT uses 19 (14 observations, four markers and query).\par\endgroup
 
 The six-to-128 projection plus role/slot/position embeddings feeds two
 pre-normalized attention blocks, four heads, feed-forward width 256,

@@ -171,7 +171,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T75 — DONE: Biên tập tiếng Anh và chuẩn hóa thuật ngữ toàn văn; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T76 — DONE: Rà bibliography, attribution và quyền tài nguyên; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T77 — DONE: Đối soát số học từ dự báo và NAV nguồn; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T78 — Build sạch, kiểm tham chiếu, số trang và cấu trúc.
+- [x] T78 — DONE: Clean build 60 trang và khóa hash nguồn hiện hành; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T79 — Kiểm từng trang render và sửa lỗi bố cục.
 - [ ] T80 — Xử lý phản hồi đã nhận và chỉnh sửa cuối.
 

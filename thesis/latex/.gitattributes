@@ -3,3 +3,5 @@
 *.py text eol=lf
 *.json text eol=lf
 *.md text eol=lf
+# Giữ nguyên byte notice MIT khi checkout trên Windows.
+licenses/*.txt -text
