@@ -6,9 +6,9 @@ Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng
 
 **Yêu cầu hiện hành ngày 16/11/2026:** bản nộp khoảng **60–70 trang, không có phụ lục**, gồm phần đầu, sáu chương, tài liệu tham khảo và hình/bảng cần thiết. Bảng phải đọc được trên trang dọc, không xoay cả trang. Giữ nội dung cốt lõi và giải thích đủ phương pháp cho giảng viên lần đầu tiếp cận hệ thống.
 
-**P9 đã hoàn tất T73a–T73l và T73–T80 trong phạm vi rà soát nội bộ.** Bản đã rà có 60 trang, không phụ lục và toàn trang dọc; mốc P8 259 trang/hash/ánh xạ vẫn giữ trong sổ §15. P10/T81–T84 còn mở; chưa nhận phản biện ngoài, chưa ký/nộp hoặc được trường chấp thuận. 66 trang là dự toán, không phải số trang bắt buộc chính xác.
+**Cập nhật ngày 17/11/2026: P9 mở lại để xử lý lượt rà soát bản 60 trang.** T73a–T73l và T73–T80 giữ ghi nhận DONE của lượt biên tập trước; bổ sung **T80a–T80l, tất cả TODO**, theo đặc tả P9.5. G5 chưa chốt lại sau các phát hiện mới; T81 phải chờ T80l. Bước hiện tại chỉ cập nhật kế hoạch, không sửa LaTeX/PDF hoặc chạy thực nghiệm. Bản hiện hành vẫn 60 trang, không phụ lục, toàn trang dọc; mốc P8 và lịch sử kiểm trước vẫn được giữ. Chưa có phản biện ngoài, chữ ký/nộp hoặc chấp thuận của trường.
 
-Có **84 task cha** qua mười giai đoạn; P9 bổ sung **12 task con T73a–T73l** để quản lý đợt rút gọn trước lượt rà soát cuối. T01–T72 ghi nhận lịch sử bản đầu tiên; T61–T66 và T71 đã hoàn thành theo phạm vi cũ, không còn là yêu cầu giữ phụ lục trong bản nộp mới. Phụ thuộc là điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái tại mục 2.1.
+Có **84 task cha** qua mười giai đoạn và **24 task con P9**: T73a–T73l cho đợt rút gọn, T80a–T80l cho đợt bổ sung sau rà soát. T01–T72 ghi nhận lịch sử bản đầu tiên; T61–T66 và T71 đã hoàn thành theo phạm vi cũ, không còn là yêu cầu giữ phụ lục trong bản nộp mới. Phụ thuộc là điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái tại mục 2.1.
 
 **Quy ước ngôn ngữ:** trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng **tiếng Việt**. Toàn bộ **nội dung khóa luận** dùng **tiếng Anh**, gồm phần đầu, nội dung chương, tiêu đề, chú thích, nhãn hình/bảng và diễn giải khoa học. Dàn bài chương mục giữ tiếng Anh làm khung bản thảo. Giữ nguyên định danh chương trình, tên tài liệu và bằng chứng trích dẫn; đoạn nguồn không phải tiếng Anh cần được giải thích bằng tiếng Anh trong khóa luận và ghi rõ nếu là bản dịch phục vụ trình bày.
 
@@ -30,6 +30,8 @@ Quy ước lập kế hoạch: **60–70 là tổng số trang vật lý của P
 
 Khoảng từng phần đã tính hình/bảng/công thức nằm trong phần đó. Có thể chuyển ngân sách giữa các phần nếu vẫn đạt tổng 60–70 và mục 3; không rút mất lời giải thích phương pháp để nhường chỗ cho bảng kiểm nội bộ. Giữ nền trình bày 12 pt, giãn dòng 1,5 và lề hiện hành trong lúc biên tập; ưu tiên bỏ lặp, gộp luận điểm và chọn bảng, không ép trang bằng chữ quá nhỏ hoặc lề hẹp.
 
+Đợt T80a–T80l xuất phát từ bản 60 trang: dự kiến bổ sung khoảng 4–7 trang nội dung thiết yếu, đồng thời gộp các đoạn giới hạn lặp và xử lý trang thưa. Mốc làm việc vẫn khoảng 66 trang, **không bắt buộc tăng trang cho đủ dự toán**. Bảng kiểm chứng student/regime, cơ sở thiết kế và diễn giải cơ chế được ưu tiên; không khôi phục phụ lục. Số trang cuối phải đo lại sau build, không suy từ dự toán cộng trang.
+
 ### 1.2. Mốc đối chiếu và nguyên tắc cắt gọn
 
 Khảo sát đọc trực tiếp PDF P8: **259 trang, 30 trang có thuộc tính xoay**, phần đầu 19 trang, sáu chương 175 trang, tài liệu tham khảo 3 trang và phụ lục 62 trang. Chương 4 dài 66 trang, Chương 5 dài 63 trang. Chỉ bỏ phụ lục vẫn còn **197 trang**, nên phải biên tập thân bài và danh mục, không chỉ thay cấu hình bảng.
@@ -45,7 +47,7 @@ Khảo sát đọc trực tiếp PDF P8: **259 trang, 30 trang có thuộc tính
 
 ### 2.1. Một nguồn trạng thái công việc
 
-Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task cha và 12 task con rút gọn. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../docs/plan/week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task. Các ghi nhận DONE dưới P1–P8 là lịch sử bản đầu tiên, không chứng nhận bản rút gọn đã hoàn thành.
+Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task cha và 24 task con P9. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../docs/plan/week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task. DONE của các lượt trước là lịch sử đúng snapshot, không chứng nhận các phát hiện mới đã được xử lý.
 
 Dùng `TODO` (chưa làm), `IN_PROGRESS` (đang làm), `REVIEW` (đang rà soát), `DONE` (hoàn tất) hoặc `BLOCKED` (thiếu điều kiện) khi cần. Mục được đánh dấu hoàn tất phải có đầu ra và đã kiểm điều kiện nghiệm thu. Với mục đang làm hoặc bị chặn, thêm ghi chú ngắn về file hiện tại hoặc thông tin còn thiếu. Ghi nhận hoàn thành theo mẫu `mã task; file/mục; cách kiểm; giới hạn còn lại`, gộp các task liên quan trong một cập nhật tuần. Chỉ ghi đã hoàn tất phản biện bên ngoài khi thực sự nhận và xử lý phản hồi.
 
@@ -177,6 +179,21 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 **Đính chính bố cục theo tác giả:** trang đánh số 15 và 26 đã ghép hình với văn bản; build/render kiểm lại, vẫn 60 trang. Mốc T80 trước sửa được giữ trong history của source map; chi tiết ở sổ P9, không mở thêm task hay thay đặc tả P10.
 
+**Bổ sung sau lượt rà soát bản 60 trang — ngày 17/11/2026:** các mục dưới đây thay trạng thái “sẵn sàng sang P10”; chưa áp dụng vào bản thảo. Đây là rà soát của trợ lý theo yêu cầu tác giả, không phải phản biện của giảng viên.
+
+- [ ] T80a — TODO: Bổ sung kết quả kiểm chứng thực tế của student từ artifact đã lưu.
+- [ ] T80b — TODO: Làm rõ vai trò đặc trưng và lý do dùng student thay/đi cùng teacher.
+- [ ] T80c — TODO: Giải thích tiêu chí chọn cổ phiếu, ngày đánh giá và phạm vi mẫu.
+- [ ] T80d — TODO: Bổ sung phân bố regime và kiểm tra tài nguyên HMM thực dùng.
+- [ ] T80e — TODO: Ghi cơ sở, thời điểm chốt tham số và đánh đổi support/readiness.
+- [ ] T80f — TODO: Minh họa lỗi nhân quả và ánh xạ ảnh hưởng tới các kết luận.
+- [ ] T80g — TODO: Thêm đầu mối code, dữ liệu/bằng chứng và tái lập có phiên bản.
+- [ ] T80h — TODO: Bổ sung thảo luận cơ chế cho ba kết quả chính, giảm đoạn giới hạn lặp.
+- [ ] T80i — TODO: Cải thiện sơ đồ phân nhánh và hình kết quả/support từ bằng chứng hiện có.
+- [ ] T80j — TODO: Sửa đích bookmark/mục lục, trang thưa và khoảng cách cột bảng.
+- [ ] T80k — TODO: Chuẩn hóa độ chính xác số, bibliography và hoàn thiện phần đầu đúng xác nhận tác giả.
+- [ ] T80l — TODO: Đối soát bổ sung, clean build và kiểm toàn bộ PDF cuối trước khi chốt lại G5.
+
 #### Bàn giao — P10
 
 - [ ] T81 — Khóa và đóng gói nguồn bản thảo tự đủ.
@@ -285,10 +302,10 @@ T74 dùng bộ câu hỏi này để rà soát nội bộ. Có thể ghi là t�
 | P6. Mạch lập luận | T54–T58 | Chương 1 và 6 | Câu hỏi, đóng góp, phát hiện và giới hạn thống nhất. |
 | P7. Phần bổ trợ (lịch sử bản đầu) | T59–T66 | Phần đầu và Phụ lục A–F đã viết | T61–T66 giữ lịch sử; nội dung phụ lục sẽ được chọn lọc rồi bỏ khỏi bản nộp ở P9. |
 | P8. Dàn trang | T67–T72 | Dự án LaTeX hoàn chỉnh, tự đủ | Biên dịch đủ nội dung, tham khảo và hình/bảng. |
-| P9. Rút gọn và rà soát | T73a–T73l, T73–T80 | Bản 60–70 trang, không phụ lục, toàn trang dọc | Đạt kiểm khoa học, dễ hiểu, tiếng Anh, số liệu, trực quan và phản hồi thực có. |
+| P9. Rút gọn và rà soát | T73a–T73l, T73–T80, T80a–T80l | Bản 60–70 trang, không phụ lục, toàn trang dọc | Xử lý lượt rà soát mới, đủ bằng chứng/giải thích, kiểm lại điều hướng và trực quan; G5 chốt ở T80l. |
 | P10. Bàn giao | T81–T84 | PDF cuối, gói nguồn và ghi nhận hoàn thành | Tái lập được, có định danh và đã bàn giao; rõ trạng thái nộp bên ngoài. |
 
-**Thứ tự còn lại:** P8 đã có bản đầu → T73a lập ánh xạ → T73b–T73j biên tập theo phụ thuộc → T73k bỏ phụ lục → T73l hoàn thiện bố cục → T73–T80 rà soát → P10 bàn giao. Thông tin cơ sở đào tạo ở T01 chỉ chặn các quyết định thực sự phụ thuộc nó.
+**Thứ tự còn lại:** bản 60 trang sau T80 → T80a–T80g bổ sung bằng chứng/giải thích và T80j sửa lỗi điều hướng → T80h–T80i diễn giải/trực quan → T80k biên tập cuối → T80l kiểm lại/G5 → P10 bàn giao. Phụ thuộc cụ thể ở P9.5; có thể xử lý phần độc lập trước. Thông tin tác giả/trường chỉ chặn phần thực sự phụ thuộc nó. Bước cập nhật kế hoạch không thực hiện chuỗi biên tập này.
 
 ## 5. Đặc tả các task
 
@@ -465,11 +482,42 @@ Không chuyển nguyên cả phụ lục lên thân bài. Chỉ giữ phần tr�
 | T79 / M | T78 | Render và xem từng trang, gồm bảng, đồ thị, công thức và thuật toán; sửa bố cục và kiểm lại trang ảnh hưởng. | Không chữ khó đọc, chồng lấn, ô/caption bị cắt, bảng ngắn bị đẩy ra trang riêng vô lý hoặc trang trắng ngoài ý muốn. Lượt rà toàn bộ dùng PDF cuối 60–70 trang; nếu sửa đổi số trang phải kiểm lại T78. |
 | T80 / M | T79 | Xử lý phản hồi thực nhận từ tác giả/người hướng dẫn; nếu chưa có, ghi rõ chưa phản biện bên ngoài và làm lượt chỉnh nội bộ. | Mỗi góp ý có xử lý/vị trí; phần đổi được kiểm lại phù hợp; không ghi đã phản biện ngoài khi thiếu bằng chứng. |
 
+#### P9.5. Bổ sung theo rà soát bản 60 trang
+
+**Mốc rà soát:** [PDF hiện hành](release/thesis.pdf) tại nguồn `7a1b77f1`, SHA-256 `2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922`. Các số trang dưới đây là **trang vật lý PDF tính từ bìa**, không phải số in trong thân bài; vị trí có thể đổi khi biên tập. Lượt rà đã đọc nội dung và xem render, chưa tái kiểm thực nghiệm hoặc xác minh lại mọi tài liệu tham khảo bên ngoài. Khi triển khai phải kiểm lại hash mốc và lập ánh xạ vị trí mới nếu PDF đã đổi.
+
+Ưu tiên cao là T80a–T80g và lỗi cụ thể T80j; T80h–T80i nâng chất lượng diễn giải/trực quan; T80k–T80l hoàn thiện bản nộp. Mỗi task chỉ dùng bằng chứng đã có hoặc phép tổng hợp minh bạch từ bản ghi đã khóa, không tự gọi API, refit, sinh dự báo, bootstrap hay chạy nghiên cứu mới. Nếu nguồn không đủ, ghi rõ thiếu và thu hẹp kết luận; không điền số hoặc dựng lý do lựa chọn sau khi biết kết quả. Việc hoàn thành task phải ghi sản phẩm thực có và giới hạn còn lại.
+
+| Mã / quy mô | Phụ thuộc | Phát hiện và công việc | Đầu ra / điều kiện nghiệm thu |
+| --- | --- | --- | --- |
+| T80a / M | T80 | PDF 35–37 chỉ nêu recipe/ngưỡng, chưa có bảng kết quả kiểm chứng student; PDF 52 có Brier teacher/student trên support khác nhau. Đối soát artifact checkpoint đã chọn và bổ sung synthetic KL, sai số phân vị 95%, kiểm tra đổi nhãn prior, log loss/Brier chọn năm 2021 và đánh giá năm 2022 nếu đã lưu. | Một bảng khoảng nửa trang ở Chương 5, phân biệt giá trị đo với ngưỡng, train/selection/assessment và N/đơn vị. Giữ seed42/step3000 nếu đúng nguồn. Không xếp hạng Brier trên hai tập khác nhau; nếu chỉ có support khác nhau thì giữ giới hạn, không giả có so sánh matched. Mỗi ô truy được source/checkpoint. |
+| T80b / M | T80a | PDF 22, 35–38: teacher dùng count likelihood, synthetic features độc lập với nhãn. Giải thích vai trò feature ở retrieval/task selection và inference; xác định student đang xấp xỉ phép tính nào, lý do dùng Transformer khi teacher 16 thành phần có thể tính trực tiếp. | Đoạn giải thích trong §4.8, phân biệt động cơ thiết kế với lợi ích đã đo. Không suy khả năng học trực tiếp quan hệ giá–lợi nhuận từ việc nhận feature, hoặc tuyên bố nhanh/tốt hơn teacher khi chưa có benchmark. |
+| T80c / M | T80 | PDF 43–44: thiếu lý do chọn chín mã/12 ngày/sáu giai đoạn và các khoảng bỏ qua. Đọc protocol/lịch sử để nêu tiêu chí, thời điểm chốt, giới hạn nguồn lực nếu có bằng chứng và loại trừ BHN. | Khoảng nửa trang ở §5.2; phân biệt chọn có chủ đích với ngẫu nhiên/đại diện. Rõ đánh giá điểm được chọn, không backtest liên tục 2023–2026; thiếu nguồn lý do thì nêu thiếu, không hồi tố thành preregistration. |
+| T80d / M | T80 | PDF 30–31 chủ yếu minh họa regime bằng FPT. Tổng hợp trạng thái BULL/BEAR/CHOPPY/CONSOLIDATION, UNKNOWN/fallback trên tập đánh giá và trạng thái fit-quality của hai tài nguyên từ metadata/trace đã lưu. | Bảng nhỏ ở Chương 4/5 có N, mẫu số, nguồn và cutoff của từng tài nguyên; không đếm ba repeat thành ba điểm thị trường. Phân biệt query-state frequency với training occupancy, signal-bank regime với MT regime, fallback với UNKNOWN. Không refit hoặc tự lấp state thiếu. |
+| T80e / M | T80c, T80d | PDF 32–38: cần cơ sở population20, conditional5, width0,75, block63, K3, Q10/Q90, 4.096 draws. Ghi nguồn lựa chọn: kế thừa, giả định thiết kế, giới hạn kỹ thuật hay validation; nêu thời điểm chốt khi xác minh được. | Bảng tham số–lý do–nguồn/thời điểm chốt và đoạn đánh đổi độ tin cậy/độ phủ. Liên hệ C2/B chỉ có 3/306 phản hồi mới; không gọi ngưỡng là tối ưu khi chưa có khảo sát hoặc thay ngưỡng để cải thiện kết quả cũ. |
+| T80f / M | T80 | PDF 54–55 có nhãn FAIL nhưng thiếu minh họa ảnh hưởng cụ thể. Lấy một phản ví dụ row-wise causality đã lưu, mô tả giá trị quá khứ thay đổi khi nối prefix, rồi ánh xạ thành phần → nhánh sử dụng → kết luận được/không được rút ra. | Ví dụ ngắn và bảng phạm vi ở §5.9, dẫn đúng source/audit. Phân biệt đánh giá hành vi triển khai với hiệu quả dự báo hợp lệ; Common sửa đúng đường nào phải nêu rõ. Không sửa runtime hoặc nâng Native FAIL/whole-system NOT_CERTIFIED/UI PENDING bằng biên tập. |
+| T80g / S | T80 | PDF 13, 41, 43, 52 nhắc kho bằng chứng nhưng thiếu đầu mối truy cập cụ thể. Bổ sung mục ngắn “Code, Data and Reproducibility”: URL hoặc cách nhận gói thực tế, commit/tag, phiên bản kết quả, entrypoint hướng dẫn và giới hạn tài nguyên. | Người đọc biết tìm gì/ở đâu và phần nào không phân phối. Kiểm đích trỏ đúng phiên bản; không hứa public data/model khi chưa rõ quyền, không đưa credential hoặc danh sách hash dài vào thân bài. Không cần phụ lục. |
+| T80h / M | T80a–T80f | PDF 48–55 nhiều số liệu và giới hạn lặp. Phân tích ba hiện tượng: Full tăng BA nhưng return kém Base; v1 hơn Common nhưng không hơn Native; MT có198 raw replies nhưng chỉ4 final changes. | Khoảng một trang thảo luận theo quan sát → giải thích khả dĩ → đối chứng còn thiếu. Tách tác động exposure/cost/support khỏi suy luận nhân quả; giữ logistic control, adverse cases và đủ family20. Đồng bộ abstract/kết luận nếu cách diễn giải thay đổi. |
+| T80i / M | T80d, T80h | Chương 5 thiếu biểu đồ kết quả; sơ đồ tuần tự chưa thể hiện rõ dependencies. Đánh giá tái dùng F08/F09/F10 và nguồn dữ liệu hiện có: DAG Native/Common → priors/Anchor → MT; chênh lệch với hai baseline; phân rã306 MT slots. | Hình gọn thay đoạn lặp khi hữu ích, cùng đơn vị/band/N với bảng. Phân rã108 bypass +189 giữ nguyên +5 veto +4 chấp nhận =306; không đánh đồng9 đề xuất khác với4 thay đổi được nhận. Đối chiếu lại artifact, không vẽ đường vốn liên tục từ mẫu điểm rời rạc. Ghi quyết định giữ/gộp hình, không thêm mọi hình máy móc. |
+| T80j / M | T80 | Sửa đích bookmark/link mục lục lệch; trang PDF42 chỉ có khoảng5 dòng kết EX01; cột Return/SD Bảng5.6 ở PDF50 sát nhau. Các đích sai đã thấy: §1.2 11→12, §3.6 21→22, §3.7 22→23, §4.9 38→39, §5.7 49→50, §5.8 51→52. | Sửa nguyên nhân tạo anchor, không hard-code số trang. Bấm/đối soát đích của toàn bộ bookmark và liên kết mục lục tới tiêu đề thật; không chỉ kiểm đích tồn tại. Ghép đoạn EX01 hợp lý, tăng khoảng cột/định dạng số để phân biệt Return–SD; rà lại sau mọi thay đổi dồn trang ở T80l. |
+| T80k / M | T80a–T80j | Chuẩn hóa số quá nhiều chữ thập phân ở PDF31/37/42; bỏ ghi chú kiểm toán metadata/legacy citation key khỏi References (58–60) nhưng giữ nguồn/version cần thiết. Hoàn thiện Declaration (PDF4) và Acknowledgements (PDF3) theo nội dung thực tế tác giả. | Quy tắc làm tròn chỉ áp dụng hiển thị, không đổi số nguồn/nhãn/gate. Giữ metadata/version/citation đúng, chuyển ghi chú nội bộ về sổ bằng chứng. Câu chữ đã được xác nhận chỉ thay khi có xác nhận phù hợp; nếu chưa có thì giữ nội dung và ghi giới hạn. Không bịa lời cảm ơn, chữ ký/ngày hay chuẩn trường; chữ ký/phê duyệt ngoài là hạng mục chờ tác giả, không giả hoàn tất. |
+| T80l / M | T80a–T80k | Đối soát đủ10 nhóm nhận xét, nguồn các bảng/hình mới, mạch RQ và tiếng Anh; build sạch, kiểm toàn bộ link/bookmark và render từng trang cuối. Ghi các mục được bổ sung, thu hẹp do thiếu nguồn hoặc còn chờ tác giả. | PDF60–70 trang tính cả bìa/tham khảo, toàn portrait/rotation0, không phụ lục; không lỗi citation/reference, anchor sai, cột dính, trang thưa vô lý hoặc chữ khó đọc. Cập nhật source-map/hash đúng mốc mới và giữ lịch sử. Chỉ chốt lại G5 theo phạm vi tự rà nội bộ; việc ký/nộp/phản biện ngoài ghi riêng. Không lấy PASS của T78–T80 cũ thay kiểm bản mới. |
+
+#### P9.6. Đề xuất nghiên cứu tách khỏi đợt biên tập
+
+Các mục sau là **đề xuất chưa triển khai, không tự chạy và không là điều kiện bắt buộc để khóa luận có giá trị**. Nếu thiếu dữ liệu so sánh tương ứng, phải giữ phần giới hạn/thảo luận thay vì viết như đã có kết quả. Chỉ mở nghiên cứu có phiên bản và phạm vi riêng khi người dùng yêu cầu; không thay đổi snapshot/receipt lịch sử.
+
+| Đề xuất | Câu hỏi cần trả lời | Ranh giới với T80a–T80l |
+| --- | --- | --- |
+| Retrieval có/không regime, random/recent/similarity; statistics-only/examples-only | Cải thiện đến từ regime, lựa chọn ví dụ hay thống kê? | Bảng phân bố trạng thái và support ở T80d/T80e không phải ablation này. |
+| Teacher so với student trên cùng cohort và benchmark tài nguyên | Student xấp xỉ tốt đến đâu; có lợi ích calibration/chi phí/tốc độ nào? | T80a chỉ báo artifact đã có; chỉ so matched nếu cùng point IDs, labels, resource/split được xác minh. Tính thống kê từ dự báo đã khóa phải ghi nguồn/phạm vi; thiếu dự báo không tự chạy inference mới. |
+| MT có/không prior, target hoặc utility; tách anchor/student/policy | Thành phần nào gây đổi hành động và tác động kinh tế? | Bridge Common–Anchor–MT và phân rã306 slots không nhận diện riêng các hiệu ứng này. |
+
 ### P10. Đóng gói tái lập và bàn giao
 
 | Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T81 / M | T80 | Khóa bản thảo cuối, đóng gói nguồn tự đủ, bibliography, hình/bảng và hướng dẫn build. | Không có credential hoặc raw data riêng tư/dư thừa; quyền tài nguyên rõ; không đường dẫn tuyệt đối hoặc phụ thuộc mẫu chưa theo dõi. |
+| T81 / M | T80l; G5 chốt lại | Khóa bản thảo cuối sau xử lý rà soát mới, đóng gói nguồn tự đủ, bibliography, hình/bảng và hướng dẫn build. | Không còn phát hiện nội dung/bố cục chưa xử lý hoặc chưa nêu giới hạn; không credential/data riêng tư dư thừa; quyền và hạng mục còn chờ tác giả rõ, không phụ thuộc mẫu/đường dẫn máy. |
 | T82 / M | T81 | Giải nén vào thư mục sạch, build offline khi được hỗ trợ, đối soát PDF với bản đã rà; ghi toolchain/hash trong một manifest. | Build từ gói thành công, nội dung/trang/hình khớp; nếu timestamp khiến PDF khác byte thì ghi rõ, không tuyên bố đồng nhất byte. |
 | T83 / S | T82 | Bàn giao `thesis.pdf`, gói nguồn và hướng dẫn tái lập ngắn; liệt kê phê duyệt/nộp bên ngoài còn chờ. | File tồn tại và khớp manifest; bàn giao không đồng nghĩa người hướng dẫn chấp thuận hoặc đã nộp trường. |
 | T84 / S | T83 | Chốt checklist bằng commit nguồn, đường dẫn đầu ra và kiểm tra; chỉ ghi nộp/chấp thuận ngoài khi người dùng cung cấp hoặc cho phép sự kiện đó. | Phân biệt hoàn thành nội bộ với đã nộp/được chấp thuận; kế hoạch không tự cho phép gửi email, upload, ký hoặc nộp. |
@@ -518,7 +566,7 @@ Các mốc này quản lý việc viết, không phải bốn gate runtime của
 | G2. Giải thích phương pháp | T09–T35 | Đủ bản Chương 3/4; hợp đồng, sơ đồ, ví dụ và thuật toán policy khớp. | Bổ sung khái niệm hoặc tách mục quá lớn trước khi kết luận về phương pháp. |
 | G3. Lập luận có bằng chứng | T36–T58 | Kết quả, tổng quan, RQ và kết luận khớp; nhận định trong phạm vi nguồn. | Sửa diễn giải/thu hẹp kết luận; nêu nghiên cứu mới tùy chọn riêng. |
 | G4. Nguồn hoàn chỉnh | T59–T72, cập nhật cấu trúc T73a–T73l và các mục T01 bắt buộc đã rõ | Bản mới đủ phần đầu, sáu chương và tham khảo; không phụ lục; nguồn LaTeX tự đủ. P8 chỉ chứng minh bản đầu đã ghép. | Giữ danh sách vấn đề; chưa phát hành cuối khi còn danh tính giả định hoặc phần bắt buộc thiếu. |
-| G5. Bản dự kiến nộp đã rà | T73a–T73l, T73–T80 | PDF 60–70 trang tính toàn bộ file, portrait/rotation=0, không phụ lục; đạt khoa học, dễ hiểu, tiếng Anh, ghi nguồn, số liệu và trực quan; đúng trạng thái phản biện ngoài. | Mở lại task nội dung/bố cục liên quan nếu vượt trang hoặc mất ý cốt lõi; không chạy lại suite runtime không liên quan. |
+| G5. Bản dự kiến nộp đã rà | T73a–T73l, T73–T80; chốt lại sau T80a–T80l | Đang mở lại theo rà soát17/11. Bản cuối60–70 trang, portrait/rotation0, không phụ lục; đủ giải thích/bằng chứng, đúng citation/số liệu, đích link/bookmark và trực quan; ghi đúng trạng thái phản biện/chữ ký ngoài. | Chưa chuyển T81 chỉ dựa trên DONE lịch sử. Mở lại phần bị ảnh hưởng; không chạy suite runtime không liên quan hoặc nghiên cứu mới để đóng checklist. |
 | G6. Hoàn thành nội bộ | T81–T84 | Bàn giao PDF/nguồn tự đủ, build sạch và có manifest. | Nêu chính xác còn thiếu gì; đã nộp/chấp thuận cần bằng chứng thực tế riêng. |
 
 ## 8. Vướng mắc thường gặp và cách giữ phạm vi

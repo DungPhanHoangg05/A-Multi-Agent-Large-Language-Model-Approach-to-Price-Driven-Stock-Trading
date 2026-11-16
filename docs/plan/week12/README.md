@@ -39,6 +39,33 @@ trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại
 
 ## Checklist viết khóa luận
 
+### Kế hoạch bổ sung sau rà soát bản 60 trang
+
+Ngày **17/11/2026**, theo yêu cầu “cập nhật vào plan”, đã đưa đủ mười nhóm nhận
+xét vào [P9.5 của kế hoạch viết](../../../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang),
+chia thành 12 task T80a–T80l có ưu tiên, phụ thuộc, đầu ra và tiêu chí nghiệm thu;
+mọi task mới còn TODO tại checklist duy nhất của kế hoạch. Giữ ghi nhận DONE
+T73a–T73l/T73–T80 của lượt trước, mở lại G5 và đổi điều kiện vào T81 sang T80l.
+Đây là tiếp nhận rà soát của trợ lý theo yêu cầu tác giả, không phải giảng viên
+phản biện hoặc xác nhận các thiếu sót đã được sửa.
+
+Phạm vi bổ sung gồm kết quả kiểm chứng student, vai trò feature/teacher/student,
+tiêu chí chọn mẫu, regime/support, cơ sở tham số, ảnh hưởng lỗi nhân quả, đầu mối
+tái lập, diễn giải cơ chế, hình/DAG và lỗi bookmark/bảng/trang thưa/phần đầu.
+Các đích sai trong PDF được ghi theo số trang vật lý của mốc đã rà để xử lý lại
+anchor, không hard-code số trang. Ngân sách vẫn 60–70 trang toàn file, không phụ
+lục, trang dọc; đề xuất ablation/benchmark mới ghi riêng ở P9.6, không tự thực
+hiện hoặc lấy việc viết tài liệu thay bằng chứng chưa có.
+
+Mốc nguồn trước tác vụ `7a1b77f1`; PDF SHA-256
+`2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922`.
+Chỉ cập nhật `thesis/plan.md`, kế hoạch tổng và README tuần này. Kiểm PASS diff,
+bốn liên kết/anchor mới hoặc thay đổi, 12 task TODO khớp 12 đặc tả và phụ thuộc
+không có vòng lặp, phạm vi đúng ba file và PDF nguyên byte so với Git;
+không sửa LaTeX/PDF, source-map, dữ liệu, model hoặc receipt. Không build,
+compileall/unit/E2E/leakage theo AGENTS §1.2 vì đây là thay đổi thuần kế hoạch;
+không inference, huấn luyện, bootstrap hoặc tái chạy nghiên cứu.
+
 ### Cập nhật kế hoạch rút gọn khóa luận
 
 Ngày **16/11/2026**, theo yêu cầu đã làm rõ của người dùng, bước này **chỉ sửa
