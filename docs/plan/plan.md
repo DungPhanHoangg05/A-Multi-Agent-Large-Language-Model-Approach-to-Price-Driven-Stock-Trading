@@ -6,15 +6,11 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ## Trạng thái hiện hành
 
 **Viết khóa luận, cập nhật ngày 16/11/2026:** thư mục làm việc là `thesis/`.
-**Điều chỉnh phạm vi mới nhất — chỉ lập kế hoạch:** bản nộp đích có **60–70 trang
-tính cả bìa, phần đầu và tài liệu tham khảo**, không phụ lục, không trang bảng bị
-xoay ngang. [Kế hoạch rút gọn](../../thesis/plan.md#p9-rút-gọn-xuống-6070-trang-và-rà-soát-bản-nộp)
-chia thành 12 task con T73a–T73l, tất cả còn TODO; mục tiêu phân bổ là 66 trang.
-Phần thiết yếu của phụ lục sẽ chuyển vào Chương 3–5; chương phương pháp vẫn phải
-giải thích đủ toàn hệ thống cho người mới. LaTeX/PDF hiện tại được giữ nguyên ở
-bản 259 trang; chưa thực hiện biên tập, xóa phụ lục hoặc build mới. Yêu cầu này
-thay thế ngân sách và yêu cầu phụ lục trong dàn bài cũ; việc đồng bộ dàn bài/README
-thuộc T73a khi triển khai. Các ghi nhận P1–P8 dưới đây là lịch sử bản đầu.
+**P9 đang triển khai:** bản nộp đích 60–70 trang tính toàn bộ PDF, mục tiêu 66,
+không phụ lục và toàn trang dọc. T73a đã khóa mốc P8 259 trang, ánh xạ giữ/gộp/bỏ
+và đồng bộ dàn bài; theo dõi T73a–T73l trong checklist chung. LaTeX là nguồn
+duy nhất để biên tập bản nộp; sổ bằng chứng §15 ghi phạm vi và đối soát.
+Các ghi nhận P1–P8 bên dưới là lịch sử bản đầu.
 
 [Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
 bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp

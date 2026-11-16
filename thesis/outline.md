@@ -4,7 +4,7 @@
 
 **Title:** Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market.
 
-**Language:** English throughout the thesis manuscript, including front matter, chapters, appendices, captions and figure/table labels. User communication, the writing plan, progress checklists and management guidance use Vietnamese.
+**Language:** English throughout the thesis manuscript, including front matter, chapters, captions and figure/table labels. User communication, the writing plan, progress checklists and management guidance use Vietnamese.
 
 **Central argument:** begin with a price-driven multi-agent system, construct historical context that is eligible at the decision time and conditioned on market state, introduce that context through Bayesian priors and MT-BICL, and evaluate its effect on forecasts and LONG/CASH actions under a shared economic contract.
 
@@ -69,13 +69,13 @@ The empirical scope is daily historical evaluation on the recorded purposive Vie
 | Chapter 4 | Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading. |
 | Chapter 5 | Experiments and Discussion. |
 | Chapter 6 | Conclusions and Future Work. |
-| Back matter | References and Appendices A–F. |
+| Back matter | References only; no appendices in the submission. |
 
 The author has selected the sample's first two pages as the cover presentation, retaining the institution, logo placement, major and place/year while replacing the author, title and supervisor. Confirmed metadata and unresolved requirements are recorded in [the evidence ledger](evidence.md#1-thông-tin-tác-giả-và-yêu-cầu-trình-bày), with English cover text in [front matter](frontmatter.md). The student ID is recorded there; the sample does not print it on either cover.
 
 The sample uses A4, 12-point text, one-and-a-half line spacing, Roman front-matter pagination and Arabic main-text pagination. Outside the selected cover presentation, these remain template observations rather than verified institutional requirements. No official citation/layout policy or submission deadline has been supplied. Any mandatory forms must be confirmed independently. Do not import subject-specific macros, the sample bibliography or its personal metadata.
 
-An initial writing budget is **65–81 pages for the six chapters**, excluding front matter, references and appendices. Revise it against confirmed submission rules; completeness and readability take priority over filling a page quota.
+The working budget is **66 physical PDF pages**, within **60–70 including covers, front matter and references**: front matter 10; Chapters 1–6 respectively 3/5/7/20/15/3; references 3. Retain 12 pt, 1.5 spacing and existing margins. The submission has no appendices and no rotated pages. Evidence archives support traceability without replacing essential method explanations.
 
 ## C. Detailed chapter outline
 
@@ -91,7 +91,7 @@ Use the [controlled terminology and notation](evidence.md#5-thuật-ngữ-tiến
 
 ### Chapter 1. Introduction
 
-**Purpose:** motivate a precise problem and define the claims to be evaluated. **Budget:** 5–7 pages.
+**Purpose:** motivate a precise problem and define the claims to be evaluated. **Budget:** 3–4 pages.
 
 #### 1.1. Context and motivation
 
@@ -128,7 +128,7 @@ Use the [controlled terminology and notation](evidence.md#5-thuật-ngữ-tiến
 
 ### Chapter 2. Related Work
 
-**Purpose:** establish the intellectual context and identify what is inherited, adapted and evaluated. **Budget:** 8–10 pages.
+**Purpose:** establish the intellectual context and identify what is inherited, adapted and evaluated. **Budget:** 4–5 pages.
 
 #### 2.1. Technical analysis and quantitative stock prediction
 
@@ -175,7 +175,7 @@ Use the [controlled terminology and notation](evidence.md#5-thuật-ngữ-tiến
 
 ### Chapter 3. Theoretical Background and Problem Formulation
 
-**Purpose:** supply the concepts and notation needed to understand the method without repository knowledge. **Budget:** 10–12 pages.
+**Purpose:** supply the concepts and notation needed to understand the method without repository knowledge. **Budget:** 6–7 pages.
 
 #### 3.1. Observations and time indexing
 
@@ -236,7 +236,7 @@ $$
 
 ### Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
-**Purpose:** let a lecturer reconstruct how the complete system works from the chapter alone. **Budget:** 18–22 pages, adjustable if essential explanations need more space.
+**Purpose:** let a lecturer reconstruct how the complete system works from the chapter alone. **Budget:** 19–21 pages.
 
 **Explanatory pattern for every component:** motivation → plain-English intuition → inputs available at the cutoff → processing → outputs → downstream consumer → failure/fallback → implementation/source evidence. Introduce each symbol before its equation and each acronym before its repeated use. File names belong in provenance notes or appendices, not in place of an explanation.
 
@@ -329,7 +329,7 @@ $$
 
 ### Chapter 5. Experiments and Discussion
 
-**Purpose:** answer RQ1–RQ4 using identifiable evidence. **Budget:** 20–24 pages.
+**Purpose:** answer RQ1–RQ4 using identifiable evidence. **Budget:** 14–16 pages.
 
 #### 5.1. Studies and evidence scope
 
@@ -398,7 +398,7 @@ $$
 
 ### Chapter 6. Conclusions and Future Work
 
-**Purpose:** conclude at the strength supported by the work. **Budget:** 4–6 pages.
+**Purpose:** conclude at the strength supported by the work. **Budget:** 2–3 pages.
 
 #### 6.1. Summary of the approach
 
@@ -431,16 +431,9 @@ $$
 - Attribute inherited methods, adapted code and figures accurately. Internal receipts establish provenance, not the scholarly origin of a method.
 - Verify any market-rule claim against a source applicable to the study period; a backtest assumption does not establish current law.
 
-### Appendices
+### Submission boundary and archived evidence
 
-| Appendix | Content |
-| --- | --- |
-| A. Data and temporal contracts | Episode/state schema, point identity, notation, cutoff/entry/exit mapping, missingness and label contract. |
-| B. Prompts and responses | Prompt families, BRPP, schemas, redacted examples, English presentation translations and budget measurements. |
-| C. Algorithms and configurations | Indicator/factor details, HMM, retrieval, conditional statistics, MT student/teacher, utility and locked hyperparameters. |
-| D. Extended results | Stock/fold/repeat tables, confusion, sensitivity and support, separated by study. |
-| E. Verification and audits | PIT, paired, economics, prompt/retry/checkpoint checks, native counterexamples and scoped receipts. |
-| F. Reproduction and application | Source/runtime/data/model identities, offline commands, artifacts, resource prerequisites and application workflow. |
+No appendices are included in the submission or build package. Transfer essential temporal contracts to Chapter 3; schemas, prompts, configurations and recovery logic to Chapter 4; results, uncertainty, audit findings and reproducibility limits to Chapter 5. Full prompts, extended result matrices, commands and hashes remain traceable in the external evidence repository and Git history. The editing map is maintained in the shared evidence ledger, Section 15.
 
 ## D. Implementation and evidence map
 
@@ -468,6 +461,6 @@ Use the [figure, table and algorithm catalogue](evidence.md#6-danh-mục-hình-b
 
 Use [EX01 and its selection/source record](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) for the running example: FPT at the 3 July 2023 cutoff, upstream realization 0 and Decision repeat 0. Introduce the available inputs and historical context in Chapter 4 before revealing the subsequent outcome in Chapter 5. Preserve the separate v1 and MT regime sources, bypasses and unchanged anchor action; this case contains no veto. Its negative net outcome is part of the example, not an estimate of comparative performance.
 
-Follow the [writing plan](plan.md) and maintain task status in the [project checklist](plan.md#21-một-nguồn-trạng-thái-công-việc). Draft the contracts and methods before finalizing results interpretation, then finish related work, introduction, conclusions and abstract. Transfer the reviewed English manuscript into a self-contained LaTeX project and review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
+Follow the [writing plan](plan.md) and maintain task status in the [project checklist](plan.md#21-một-nguồn-trạng-thái-công-việc). Draft the contracts and methods and keep the reduced LaTeX manuscript as the single submission source. Preserve RQ1–RQ4, adverse results and validity limits while removing repetition. Review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
 
 Keep task IDs, weekly progress and incident history out of the thesis body. They remain planning/provenance aids only.

@@ -21,8 +21,9 @@ mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã thử trong bản sao chỉ gồm
 assets và bibliography; build thiếu file bắt buộc sẽ dừng, không lặng lẽ bỏ chương.
 
 Hạn nộp, giới hạn trang/từ và biểu mẫu chính thức chưa được cung cấp.
-Số trang thực tế vượt dự toán viết ban đầu; P9 sẽ rà độ gọn và trình bày,
-không bỏ bằng chứng hoặc đổi kết quả chỉ để ép số trang. G4 chưa được coi
+P9 biên tập theo yêu cầu mới: tổng 60–70 trang, mục tiêu 66, không phụ lục,
+toàn trang dọc; giữ 12 pt, giãn dòng 1,5 và lề hiện hành. Mốc 259 trang và
+ánh xạ giữ/gộp/bỏ ở [sổ §15](evidence.md#15-rút-gọn-và-đối-soát-p9). G4 chưa được coi
 là nghiệm thu yêu cầu chính thức khi các mục bắt buộc bên ngoài còn chưa rõ.
 
 ## Quy ước ngôn ngữ

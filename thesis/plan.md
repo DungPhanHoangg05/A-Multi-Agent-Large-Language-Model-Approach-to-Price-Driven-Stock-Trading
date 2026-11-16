@@ -6,7 +6,7 @@ Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng
 
 **Yêu cầu hiện hành ngày 16/11/2026:** bản nộp khoảng **60–70 trang, không có phụ lục**, gồm phần đầu, sáu chương, tài liệu tham khảo và hình/bảng cần thiết. Bảng phải đọc được trên trang dọc, không xoay cả trang. Giữ nội dung cốt lõi và giải thích đủ phương pháp cho giảng viên lần đầu tiếp cận hệ thống.
 
-**Phạm vi bước hiện tại chỉ là cập nhật kế hoạch.** Chưa áp dụng việc rút gọn vào bản thảo, chưa xóa phụ lục, chưa đổi LaTeX hoặc biên dịch lại PDF. Các task rút gọn ở P9 đều còn TODO. Bản PDF 259 trang là mốc trước biên tập, không phải kết quả đã rút còn 60–70 trang.
+**P9 đang triển khai theo yêu cầu tác giả.** Mốc PDF 259 trang được khóa trong sổ bằng chứng §15; trạng thái từng task ở mục 2.1. Không coi dự toán 66 trang là số trang đã đạt trước khi build.
 
 Có **84 task cha** qua mười giai đoạn; P9 bổ sung **12 task con T73a–T73l** để quản lý đợt rút gọn trước lượt rà soát cuối. T01–T72 ghi nhận lịch sử bản đầu tiên; T61–T66 và T71 đã hoàn thành theo phạm vi cũ, không còn là yêu cầu giữ phụ lục trong bản nộp mới. Phụ thuộc là điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái tại mục 2.1.
 
@@ -39,7 +39,7 @@ Khảo sát đọc trực tiếp PDF P8: **259 trang, 30 trang có thuộc tính
 - Ưu tiên bảng trả lời RQ hoặc giải thích cơ chế. Bỏ bảng lặp, bảng chỉ chứa path/hash/UUID và nhật ký kiểm; các nguồn này vẫn nằm trong kho bằng chứng ngoài bản nộp.
 - Giữ cả kết quả âm, hai baseline Native/Common, control, độ phủ, bypass, đơn vị phân tích và bất định. Không chọn riêng hàng thuận lợi để giảm trang.
 - Giữ phương pháp tự đủ để người đọc hiểu từ bản PDF; kho bằng chứng dùng truy vết sâu, không thay thế công thức, giả định, quy tắc policy hoặc mô tả thiết kế cần thiết.
-- Yêu cầu mới ở mục 1 và P9 thay thế dự toán **65–81 trang riêng sáu chương** và yêu cầu phụ lục trong dàn bài cũ. T73a sẽ đồng bộ `outline.md` và các README khi bắt đầu triển khai; bước này không sửa bản thảo hay tái lập bản PDF.
+- Yêu cầu mới ở mục 1 và P9 thay thế dự toán **65–81 trang riêng sáu chương** và yêu cầu phụ lục trong dàn bài cũ. T73a đã đồng bộ `outline.md` và README; mốc trước biên tập và ánh xạ nằm trong sổ bằng chứng §15.
 
 ## 2. Quản lý công việc và quy ước file
 
@@ -149,9 +149,9 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Rà soát — P9
 
-**Đợt rút gọn trước rà soát cuối — chưa triển khai:**
+**Đợt rút gọn trước rà soát cuối — đang triển khai:**
 
-- [ ] T73a — TODO: Khóa mốc đối chiếu, lập ánh xạ giữ/gộp/bỏ và đồng bộ dàn bài/ngân sách trang.
+- [x] T73a — DONE: Khóa mốc và ánh xạ biên tập theo ngân sách 66 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T73b — TODO: Rút Chương 1–2, giữ RQ, đóng góp, nguồn kế thừa và khoảng trống nghiên cứu.
 - [ ] T73c — TODO: Rút Chương 3, giữ nền tảng và hợp đồng cần để hiểu phương pháp.
 - [ ] T73d — TODO: Rút phần tổng quan, dữ liệu, các agent và Native/Common trong Chương 4.
@@ -286,7 +286,7 @@ T74 dùng bộ câu hỏi này để rà soát nội bộ. Có thể ghi là t�
 | P9. Rút gọn và rà soát | T73a–T73l, T73–T80 | Bản 60–70 trang, không phụ lục, toàn trang dọc | Đạt kiểm khoa học, dễ hiểu, tiếng Anh, số liệu, trực quan và phản hồi thực có. |
 | P10. Bàn giao | T81–T84 | PDF cuối, gói nguồn và ghi nhận hoàn thành | Tái lập được, có định danh và đã bàn giao; rõ trạng thái nộp bên ngoài. |
 
-**Thứ tự còn lại:** P8 đã có bản đầu → T73a lập ánh xạ → T73b–T73j biên tập theo phụ thuộc → T73k bỏ phụ lục → T73l hoàn thiện bố cục → T73–T80 rà soát → P10 bàn giao. Không thực hiện chuỗi này trong bước chỉ cập nhật kế hoạch. Thông tin cơ sở đào tạo ở T01 chỉ chặn các quyết định thực sự phụ thuộc nó.
+**Thứ tự còn lại:** P8 đã có bản đầu → T73a lập ánh xạ → T73b–T73j biên tập theo phụ thuộc → T73k bỏ phụ lục → T73l hoàn thiện bố cục → T73–T80 rà soát → P10 bàn giao. Thông tin cơ sở đào tạo ở T01 chỉ chặn các quyết định thực sự phụ thuộc nó.
 
 ## 5. Đặc tả các task
 

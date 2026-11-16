@@ -3269,3 +3269,10 @@ PASS trên nhánh tích hợp nền trước khi merge phần mã nguồn đó v
 Repeats không tăng N thị trường và kết quả historical không cấp
 bằng chứng prospective. Bàn giao giữ source/runtime/data/model hashes,
 raw requests/responses, checkpoints, labels và report tái lập.
+
+
+### Biên tập bản nộp P9
+
+Chỉ biên tập tài liệu và công cụ build tài liệu; không đổi runtime/input/model/receipt nghiên cứu, không API/fit/replay/bootstrap hoặc chạy lại suite nghiên cứu. Kiểm nguồn, diff, số liệu, build/PDF theo phần thay đổi; sổ chung §15 giữ ánh xạ và giới hạn.
+
+- **T73a:** Khóa mốc và ánh xạ biên tập theo ngân sách 66 trang. Mốc trước biên tập: commit `38437142` (kế hoạch mới), nội dung/PDF P8 tại `d025facb`; PDF 259 trang có SHA-256 `eeff3f0b09996d031a296fafc97f9042b711134d05628a5ab6c6264b55ef9826`. Có thể đối chiếu nguyên byte bằng `git show d025facb:thesis/release/thesis.pdf` và nguồn cùng commit. Không ghi đè lịch sử hoặc receipt nghiên cứu. Ngân sách hiện hành: phần đầu 10, Chương 1–6 lần lượt 3/5/7/20/15/3, references 3, tổng mục tiêu 66 trang trong khoảng 60–70; 12 pt/giãn 1,5/lề giữ nguyên. Các bảng chi tiết/hash/prompt dài nằm ngoài bản nộp, phần giải thích phương pháp phải tự đủ.
