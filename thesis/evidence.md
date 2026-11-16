@@ -1515,6 +1515,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL240 | [Notation](frontmatter.md#list-of-symbols) | DAN_XUAT | Evidence §5.3; §§3.1–3.7/4.5–4.8/5.5; §13.2 | 26 controlled-notation rows with units; local symbol overloads and teacher/component roles explicit | Examples/tasks/support, percent/pp, probability/confidence/utility remain distinct |
 | CL241 | [Reading conventions](frontmatter.md#reading-conventions) | DAN_XUAT | Evidence §5.1–5.5; §§1.2/3.2/3.7/4.9/5.1/5.5/5.9; §13.2 | Study/profile names, proposal/action/target, missingness and validity scopes align with six chapters | No portfolio, short sale, row-wise causal certificate, input authenticity or live/UI acceptance claim |
 
+| CL242 | [A.1 shared identity/schema](appendices/A_contracts.md#a1-identity-working-state-and-sealed-input) | DAN_XUAT | Frozen unified_contracts/BG16–18/SYS44–47; EX01 shared member; §13.4 | Whitelist/forbidden fields, point/provenance/version and exact identity projection | Causal version string is not a whole-system causal certificate |
+| CL243 | [A.2 historical schemas/example](appendices/A_contracts.md#a2-a-completed-historical-episode) | DAN_XUAT | Frozen historical-task-record:1, memory member FPT:2022-04-07, MT contracts; §13.4 | CORE4 enum, required field groups and complete stored episode; numerical tasks distinct | JSON schema alone does not enforce maturity/economics or nine-stock coverage |
+| CL244 | [A.3 timeline/label](appendices/A_contracts.md#a3-time-mapping-and-economic-labels) | DAN_XUAT | CL001–CL007/CL021–CL024/CL115; canonical oracle/EX01 dates; §13.4 | Cutoff/availability/maturity/barrier, t+1/t+3, per-leg costs and fraction/percent label meanings | No law/live-fill/portfolio claim or query outcome in shared input |
+| CL245 | [A.4 absence and failure](appendices/A_contracts.md#a4-missingness-failure-and-serialization) | DAN_XUAT | CL029–CL031/CL104–CL114; §§3.7/4.2/4.9; §13.4 | Unavailable/undefined/zero, fallback/bypass/technical failure and primitive finite JSON remain distinct | Local contract checks preserve Native FAIL/NOT_CERTIFIED |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2771,3 +2776,11 @@ Trong phản hồi tiếp theo, tác giả trả lời trực tiếp hai câu h�
 T60 chuyển REVIEW → DONE; T59–T60 hoàn tất bản nháp phần đầu. Xác nhận câu chữ không phải chữ ký, ngày ký, duyệt biểu mẫu của trường hoặc trạng thái nộp: các trường ký/ngày vẫn để tác giả điền, quy định chính thức vẫn chưa được cung cấp như hồ sơ §1. Không yêu cầu xác nhận lại thông tin đã được tác giả chốt.
 
 QA theo thay đổi: so nguyên nội dung Acknowledgements/Declaration (bỏ nhãn blockquote) với bản trước phản hồi, metadata/bìa/abstract/keywords/42 abbreviations/26 symbol rows và sáu chương giữ nguyên; đối soát 84 đặc tả, checklist T01–T60, liên kết/anchor và diff. Chỉ sửa trạng thái/nguồn xác nhận trong 6 file Markdown nên không chạy compileall/unit/E2E/leakage, không kiểm lại hash hay chạy analysis/replay/fit/API đã không đổi. Nguồn kiểm T59–T60 tại §13.1–13.2 tiếp tục có đúng phạm vi cũ; code/runtime/models/assets/archives/receipts không đổi.
+
+### 13.4. Phụ lục A: hợp đồng dữ liệu và thời gian
+
+T61 viết `appendices/A_contracts.md`/CL242–CL245, nối tham chiếu từ §4.2. Dùng source frozen và schema `urn:kltn:historical-task-record:1`; CORE4 enum bốn mã không bị suy thành coverage chín mã. Hai JSON gồm projection identity shared EX01 và nguyên record FPT:2022-04-07 từ bank snapshot; parse và so equality với dữ liệu nguồn. `shared_snapshot_causal_v1`, point id và content hash giữ đúng wire, không là causal certificate. Query outcome/entry-exit dates thuộc evaluation, không cho vào sealed payload.
+
+Đầu lượt appendix đã đọc lại U08/U09 bằng reader chỉ đọc: kiểm outer pins, member/envelope/receipt, 15 artifact cold-replay identities và 56 stage EX01 khớp nguồn. Source commit lịch sử `384725a66fec074700963fac67c358b28b842092`; archive/member pins vẫn tại §3.4/§12.3. Nguồn schema/contracts/model trích tạm đều kiểm member hash của snapshot đã pin. Không chạy cold replay hoặc inference; đây là kiểm danh tính/đọc record. Appendix tables A1 và các bảng hỗ trợ không thêm ID vào danh mục 23 asset chính; LaTeX/numbering sau.
+
+QA: JSON hợp lệ, source equality, ngày/nhãn/đơn vị/giới hạn khớp Chương 3/4, links/anchors/footnote/84 spec/diff; thân bài chỉ thêm cross-reference, bảng/công thức/kết quả cũ không sửa. Không suite/compileall/API/fit/bootstrap/replay theo phạm vi tài liệu. Appendix E sẽ viết ở bước tương ứng; tham chiếu tên bằng prose trong A chưa tạo liên kết tới file chưa tồn tại.

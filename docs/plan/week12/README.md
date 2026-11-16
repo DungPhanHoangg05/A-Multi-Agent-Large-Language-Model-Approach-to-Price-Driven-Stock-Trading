@@ -478,6 +478,12 @@ Ngày **16/11/2026**, tiếp tục P7/T59–T60 theo yêu cầu. Nội dung ti�
 
 **Hoàn tất T60 — `docs/thesis-confirm-frontmatter`:** đã nhận tác giả xác nhận dùng lời cảm ơn tối giản và giữ câu chữ Declaration hiện tại. Ghi nguồn phản hồi tại sổ §13.3/CL238, đổi nhãn trạng thái và checklist T60 sang DONE; giữ nguyên nội dung đã chốt, chữ ký/ngày ký vẫn để tác giả điền, không nhận biểu mẫu chính thức/đã nộp. T59–T60 đủ bản nháp phần đầu. Đối soát nội dung cũ, metadata/danh mục/84 spec/checklist/links/diff theo phạm vi tài liệu; không chạy suite hoặc nghiên cứu mới, không đổi code/runtime/assets/receipts.
 
+### Sáu phụ lục và nguồn tái lập P7
+
+Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và nối tham chiếu từ thân bài. Mỗi task dùng nhánh docs riêng từ develop, commit/merge sau QA. Sổ chung §13.4–13.9 ghi nguồn/locator; không tạo receipt riêng cho từng task. Chỉ tài liệu nên không compileall/unit/E2E/leakage theo AGENTS §1.2; không gọi model/fit/bootstrap/replay hoặc sửa code/runtime/config/schema/input/models/archives/receipts. Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING giữ nguyên.
+
+**T61 — `docs/thesis-appendix-contracts`:** viết Appendix A/CL242–CL245, field/version contract, schema CORE4, hai JSON EX01/bank, timeline/economic labels và missingness/failure; nối §4.2. Kiểm nguồn U08/U09/snapshot/stage hash và JSON equality, không replay; QA source/units/links/spec/diff PASS. Native FAIL và provenance limits giữ nguyên.
+
 ### Mở đầu, kết luận và đối soát P6
 
 Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. Chỉ viết/biên tập và kiểm nguồn, không thay code nghiên cứu, test, runtime, schema, cấu hình hoặc input; không compileall/unit/E2E/leakage suite theo AGENTS §1.2, không fit/API LLM/replay/bootstrap. Ghi chú và ánh xạ luận điểm giữ chung tại sổ bằng chứng §12.

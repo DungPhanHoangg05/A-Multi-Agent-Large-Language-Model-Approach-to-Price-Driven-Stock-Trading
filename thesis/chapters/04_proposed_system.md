@@ -100,6 +100,8 @@ example.
 
 ## 4.2. Input preparation and shared state
 
+[Appendix A](../appendices/A_contracts.md#a1-identity-working-state-and-sealed-input) gives the versioned field contract, stored examples, time mapping and missingness rules behind the interfaces in this section.
+
 ### 4.2.1. Preparing a query without its outcome
 
 Input preparation answers three questions before an agent runs: which stock
