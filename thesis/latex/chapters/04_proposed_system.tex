@@ -1,889 +1,181 @@
-% Chuyển một lần từ bản nháp đã khóa; sửa nguồn LaTeX sau mốc T72.
-\chapter{Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading}\chaptermark{Proposed System}\label{s:9cf7f167cee0404f}
-
+% Phương pháp tự đủ; trace dài được giữ trong kho bằng chứng.
+\chapter{Proposed System}\label{s:9cf7f167cee0404f}
 \section{System overview and one-decision walkthrough}\label{s:d04d6247a77e8f69}
-
-\subsection{What the system decides}\label{s:d7769c6ac6ca768a}
-
-At the end of an observed daily bar, the system summarizes admissible price
-and textual information and proposes whether to enter the next candidate
-LONG cycle. As defined in Chapter 3, execution is LONG or CASH, with entry
-at the next observed open and exit at the third future observed close.
-The explanation accompanying a proposal is useful for tracing evidence;
-it is not a substitute for the subsequent economic outcome.
-
-The proposed system adds historical context to a price-driven multi-agent
-pipeline. Its purpose is to present relevant completed experience and
-explicit numerical evidence when synthesizing current reports. That purpose
-does not imply that every query has sufficient history or that adding
-context improves profitability. The component and historical-context studies
-remain separate evidence collections, as introduced in the research scope.
-
-\subsection{Computation, interpretation and external policy}\label{s:182611c064a71b16}
-
-Figure F03 distinguishes four kinds of work. \textbf{Offline fitting and selection}
-produce versioned resources: the Common alpha selector, market-regime
-models/scalers and numerical teacher/student. Their permitted fit cutoffs
-are checked separately from the price cutoff of each forecast. Query-time
-conditioning or retrieval uses these resources without refitting them.
-
-\textbf{Deterministic processing} prepares price windows and chart images,
-computes indicator values/votes and processes alpha/news inputs. In the
-historical path, Indicator returns the computed report directly; it does not
-request an additional LLM interpretation. \textbf{Hosted interpretation} is used
-for Pattern and Trend and for eligible Decision requests. A role name is
-therefore not a count of hosted calls.\footnote{Frozen graph, unified providers/methods/contracts, alpha projection and MT policy, bound in the shared ledger §9.1 and the earlier BG/TIME source tables. The live graph/Indicator/Decision presentation changes are accepted by the author as logic-equivalent; this does not replace frozen byte identities or complete application acceptance.}
-
-The historical execution order is Indicator, Pattern, Trend, followed by
-the joint alpha/sentiment stage. F03 groups processing by type rather than
-reproducing that node sequence. The resulting \textbf{shared snapshot} is a
-versioned bundle of reports, visible inputs and provenance. All compared
-branches receive protected copies of the same upstream realization. Common
-alpha projection and historical/numerical context are subsequently resolved
-for the appropriate profile; sharing the parent does not mean every branch
-receives an identical final prompt.
-
-The Decision family includes Native/Common foundations, historical-prior
-variants and the Fact Anchor/MT path. Dependencies are resolved within the
-same repeat. Some branches issue a new request; unsupported branches can
-reuse a documented dependency. In the MT path, the numerical student is a
-separate model from the hosted Decision LLM. Context and utility estimates
-are numerical inputs rather than free-form claims invented by that LLM.
-
-\textbf{External resolution} validates the reply, maps LONG/SHORT to executable
-actions and, where applicable, keeps or revises an anchor under the utility
-rule. Thus a raw proposal and the final action can differ. Technical failure
-is recorded as failure, not silently recoded as a legitimate CASH decision.
-Only after the forecast/policy record is durable does the evaluation path
-join the query outcome and compute classification/account measures. No query
-outcome flows back into its forecasting context.\footnote{Frozen graph, unified providers/methods/contracts, alpha projection and MT policy, bound in the shared ledger §9.1 and the earlier BG/TIME source tables. The live graph/Indicator/Decision presentation changes are accepted by the author as logic-equivalent; this does not replace frozen byte identities or complete application acceptance.}
+At the end of an observed daily bar, the system summarizes the available
+price and textual evidence, then proposes whether to enter the next LONG
+cycle. Figure~\ref{fig:F03} separates offline fitting, deterministic
+processing, hosted interpretation, external action policy and later
+evaluation. The historical execution order is Indicator, Pattern, Trend,
+then the joint alpha/sentiment stage. The figure groups computation types
+rather than specifying that node order.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F03_system_overview.pdf}
-\caption{System overview separating offline resources, numerical processing, hosted interpretation, policy and later evaluation.}\label{fig:F03}\end{figure}
+\includegraphics[width=\linewidth,height=.45\textheight,keepaspectratio]{../assets/diagrams/F03_system_overview.pdf}
+\caption{The historical research path: frozen resources, shared reports,
+context, hosted proposals and external policy. Query outcomes enter only
+later evaluation. This is an architectural schematic, not a measured
+benefit or evidence of live acceptance.}\label{fig:F03}
+\end{figure}
 
-\emph{Figure F03. System overview from available inputs to evaluated actions.
-This is an Illustrative architecture of the locked historical research path.
-The grouped processing boxes distinguish computation types; the text gives
-the actual upstream order. Same-repeat dependencies and bypasses remain
-explicit, and later outcome data enter evaluation only. Colors do not imply
-measured latency, isolated benefits or live acceptance.}
-\href{../assets/diagrams/F03_system_overview.pdf}{Vector PDF}.
+Offline resources comprise the Common alpha selector, regime models and
+scalers, and numerical teacher/student. Query inference does not refit
+them. Indicator and numerical alpha processing are deterministic;
+Pattern and Trend use hosted visual interpretation. Eligible Decision
+branches obtain hosted responses, while documented bypasses reuse a
+dependency. The numerical MT student is distinct from the hosted LLM.
 
-\subsection{Opening the FPT example}\label{s:05d03ad9510ad823}
-
-The running case, EX01, is FPT at the \textbf{3 July 2023} cutoff, with upstream
-realization 0 and Decision repeat 0. The saved price prefix ends on that date.
-Its final 45 bars supply the chart/Indicator window, while a 600-bar prefix
-supports the longer-history path. The case is a saved historical research
-execution, not evidence that a trade was executed in July 2023.\footnote{EX01-S and the declared EX01 selection/source record in the shared ledger §7. CL026--CL028 map this overview, the figure and the case opening; no new inference or market data were collected.}
-
-The snapshot reports MACD below its signal line while remaining positive,
-and a close above SMA20. Pattern and Trend provide visual interpretations;
-news is explicitly unavailable. A reader can now ask which observations
-support the reports, whether matured context exists, and how a proposed
-action would be resolved. The following sections answer those questions
-without treating missing news as observed neutrality.
-
-For this case, the scheduled entry and exit observations are 4 and 6 July.
-Their realized prices and net result are deliberately not used to explain
-what was known at the cutoff; Section 4.10.5 reveals the outcome after the
-forecasting barrier, and Chapter 5 provides the broader evaluation. The same
-case will connect input contracts, report interpretation, context and policy,
-with distinct IDs for each saved record rather than a reconstructed successful
-example.
+One running case connects the stages: FPT at the \textbf{3 July 2023}
+cutoff, upstream realization 0 and Decision repeat 0. Its 45-bar chart
+and 600-bar prefix end at that cutoff; close is 48.18 in the stored price
+unit, MACD is positive but below its signal, and close exceeds SMA20.
+Verified news is unavailable. Entry/exit are scheduled for 4/6 July,
+whose prices are withheld until the forecast path is complete. This is
+a saved historical execution, not a trade shown to have occurred then.
 
 \section{Input preparation and shared state}\label{s:26daba2236295e19}
+The historical provider requires an exact cutoff and 600 clean
+observations through it. It supplies the final 45 as chart/Indicator
+input and the longer prefix to alpha. Pinned donor prices and separate
+corporate-action event/barrier evidence retain their identities; the
+barrier is not silently spliced into the donor series. VN-Index has its
+own feature/calendar and fitted-resource identities. Historical news
+uses the dated availability rule in Chapter 3; live crawler output is
+not an interchangeable historical input.
 
-\hyperref[s:b4ac772905cdfa8c]{Appendix A} gives the versioned field contract, stored examples, time mapping and missingness rules behind the interfaces in this section.
+Table~\ref{tab:contracts} gives the minimum interface needed to follow a
+decision. Identity includes stock, cutoff, source and resource versions,
+upstream realization and, later, Decision repeat. OHLCV arrays must align,
+dates be ordered/unique, and the final row match the cutoff. Numbers
+crossing the state boundary must be finite primitive JSON types or
+explicitly unavailable; a missing value is not an observed zero.
 
-\subsection{Preparing a query without its outcome}\label{s:bd1c88b6ce62d3fc}
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption{Compact input/output contracts. Temporal restrictions apply to
+the underlying data, not only to the report's printed date.}\label{tab:contracts}
+\begin{tabular}{@{}p{.20\linewidth}p{.38\linewidth}p{.35\linewidth}@{}}\toprule
+Stage & Admissible input and processing & Output / absence contract\\\midrule
+Preparation & Stock/date; pinned OHLCV and available news through cutoff & 45/600-row views; absent cutoff/history is an error\\
+Shared analysis & Numeric inputs and saved chart images; no query target & Five reports, images/provenance; absence remains explicit\\
+Historical context & Facts and mature history; frozen resources & Examples/statistics or marked tasks; support failure may bypass\\
+Decision & Profile reports/context and same-repeat dependencies & Structured proposal or explicit reuse; failed calls remain failures\\
+Policy/evaluation & Saved proposal and valid anchor; later outcome join & Final LONG/CASH, then labels/accounts; separate records\\\bottomrule
+\end{tabular}\end{table}
 
-Input preparation answers three questions before an agent runs: which stock
-and cutoff are being analyzed, which observations are admissible, and which
-versioned resources belong to the study. The historical-data provider reads
-the pinned price series and applies its declared clean-suffix view. Separate
-raw/event evidence supplies corporate-action barriers; it is not silently
-spliced into the donor price series. This separation preserves reproducibility
-without claiming independently authenticated adjustment histories.
-
-For the daily path, the provider requires an exact cutoff bar and at least
-600 clean observations through it. The final 45 form the chart/Indicator
-input; the final 600 form the longer-history input. VN-Index history has a
-separate role in regime features and the reference calendar. Its fitted
-resource metadata must not be replaced by the stock chart's window dates.
-The dated-news store applies publication and conservative availability rules
-before aggregation, returning unavailable sentiment when support is missing.
-These are the frozen research interfaces; a fresh live API response is not
-an interchangeable historical input.\footnote{Frozen \texttt{HistoricalData.\allowbreak{}prefix/\allowbreak{}state}, \texttt{FrozenNews}, price-view and event/barrier path; TIME03/TIME04 and BG17 in the ledger. This section explains input preparation, not independent verification of historical vendor data.}
-
-All these objects refer to the same query identity. A date label alone is
-insufficient: the price source, window end, resource and upstream realization
-must agree. In EX01, the final chart bar and longer prefix both end on
-3 July 2023. The observed close is 48.18 in the stored price unit. Unit
-conversion for economic accounting must be declared separately and applied
-consistently; changing units inside one agent while retaining another's
-support/resistance values would break their common reference frame.
-
-\subsection{Component input/output contracts}\label{s:d6a522ec6f1df785}
-
-Table B02 summarizes the interfaces used in this chapter. Types are readable
-contract descriptions, not a replacement for the complete schemas. The
-cutoff conditions apply to the data, not merely to the date printed in a
-report. Every component should be understood in terms of its input,
-processing, output and downstream consumer.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
-\caption{Table B02 summarizes the interfaces used in this chapter. Types are readable contract descriptions, not a replacement for the complete schemas.}\label{tab:04_proposed_system:1}\tabularnewline
-\toprule\noalign{}
-Interface
- & Input and temporal requirement
- & Output and consumer
- & Missingness or failure contract
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Interface
- & Input and temporal requirement
- & Output and consumer
- & Missingness or failure contract
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Query preparation & Stock/cutoff strings, ordered pinned OHLCV; exact last bar and sufficient past history & 45-bar \texttt{kline\_\allowbreak{}data} and 600-bar \texttt{point\_\allowbreak{}in\_\allowbreak{}time\_\allowbreak{}df}; chart/indicator and Alpha paths & Insufficient history or absent cutoff is an error; no borrowed future warm-up \\
-Chart rendering & Same 45-bar OHLCV dictionary, no target fields & PNG/base64 images plus descriptions; Pattern and Trend & Image identity is traced independently of the model's report \\
-Indicator & Numeric OHLCV lists through cutoff & Indicator table, per-indicator signals and consensus text; shared reports/Decision & Nonfinite/missing values and tool errors are not silently counted as numeric zero \\
-Pattern / Trend & Their respective saved chart; chart metadata and permitted report context & Structured report text; shared reports/Decision & Fallback or repair must retain its path; successful formatting is not proof of visual correctness \\
-Alpha / news & Declared longer prefix, stock/cutoff, frozen news store; profile-specific selector & \texttt{alpha\_\allowbreak{}report}, factor records, sentiment data/report; snapshot and Decision & Strict historical errors propagate; missing news is unavailable, not manufactured neutrality \\
-Regime resources & Prefix VN-Index features and fitted model/scaler with admissible training dates & Regime state and provenance; historical-context builders & Fit-quality fallback has its own method label; invalid resource identity is an error \\
-Shared snapshot & Query identity, five report strings, optional images/price prefix/causal projection and provenance & Sealed JSON bytes; fresh document copy for each branch & Whitelist, primitive numeric/date and forbidden-target checks; no branch owns a mutable reference to the sealed parent \\
-Historical / numerical context & Query facts plus the permitted frozen/matured history and resource identities & Selected examples/statistics or task membership and utility; branch preparation & Reserved IDs and temporal/support checks apply; valid insufficiency can cause explicit bypass \\
-Decision request & Profile projection of shared reports and permitted context; same-repeat dependencies & Versioned messages/schema/request identity; hosted Decision & A bypass has no new request; a technical failure is not a fabricated valid response \\
-Resolution and evaluation & Saved proposal and policy inputs; query outcome joined only after durable forecasting & Final LONG/CASH record, then classification/account artifacts & Keep proposal/action/outcome distinct and preserve undefined values and failure reasons \\
-\end{longtable}
-
-\endgroup
-
-\emph{Table B02. Component input/output and availability contracts for the locked
-historical path. A role may expose different live presentation behavior;
-the historical evidence remains tied to its frozen source/profile.}
-
-\subsection{Working state versus a sealed shared snapshot}\label{s:74516e4137f83825}
-
-The graph's working state accumulates reports and operational fields during
-execution. The shared snapshot is a narrower projection intended for paired
-forecasting. It contains the stock/cutoff identity, report payload, upstream
-realization and provenance. Its constructor checks required nonempty report
-strings, primitive finite JSON values, allowed fields and matching query
-metadata. A price-prefix payload must have aligned OHLCV arrays, ordered
-unique dates, a matching final cutoff and no more than 600 rows; the producer
-requires the complete 600-bar history for this study.\footnote{Frozen \texttt{SharedSnapshot.\allowbreak{}create/\allowbreak{}document}, \texttt{forecast\_\allowbreak{}only}, \texttt{json\_\allowbreak{}bytes}, \texttt{snapshot\_\allowbreak{}from\_\allowbreak{}graph} and \texttt{causal\_\allowbreak{}bridge.\allowbreak{}decision\_\allowbreak{}payload}; SYS04/SYS05, BG18 and EX01-S. CL029--CL032 map the table, identity and failure/absence distinctions.}
-
-The snapshot is stored as immutable bytes. Calling its document interface
-decodes a new dictionary, so changing one branch's copy cannot change the
-sealed parent or another branch's input. A bridge can bind the Common alpha
-projection to a specific native parent. The branch obtains the appropriate
-projection without rerunning Pattern or Trend. This is input sharing, not
-a promise that all prompts, dependencies or actions are identical.
-
-The contract recursively excludes query outcomes, realized entry/exit prices,
-query labels and prior/Decision material from this base snapshot. Historical
-context is supplied later through its own checked interface, where matured
-historical labels have a legitimate role. That exception never authorizes
-the current query's label. Numeric/date validation and checksums establish
-internal consistency and identity; they do not authenticate the economic
-meaning of every upstream observation or certify row-wise causality.
-
-\subsection{Identity and explicit absence in EX01}\label{s:08ae4eb5b9438ee3}
-
-EX01's shared-snapshot content hash is
-\texttt{e6c16c36\allowbreak{}dd776a80\allowbreak{}4922f466\allowbreak{}af1c9742\allowbreak{}bf3ba700\allowbreak{}15d60929\allowbreak{}e4112992\allowbreak{}e269a103}.
-This identifies the parent used by its eight research branches. It differs
-from the raw ZIP-member hash, the original price-source hash, a causal-alpha
-projection hash and a numerical-context membership hash. Those hashes bind
-different objects and cannot be substituted for one another.
-
-The same snapshot records no eligible verified news, with
-\texttt{is\_\allowbreak{}unavailable=True}. An unavailable observation is an explicit part of the
-input contract, not a reason to invent a score. Similarly, a nonempty report
-can contain warnings or uncertain interpretations; the presence of text does
-not certify the content. In the following sections, the actual EX01 report
-and image records will be kept alongside these limitations.\footnote{Frozen \texttt{SharedSnapshot.\allowbreak{}create/\allowbreak{}document}, \texttt{forecast\_\allowbreak{}only}, \texttt{json\_\allowbreak{}bytes}, \texttt{snapshot\_\allowbreak{}from\_\allowbreak{}graph} and \texttt{causal\_\allowbreak{}bridge.\allowbreak{}decision\_\allowbreak{}payload}; SYS04/SYS05, BG18 and EX01-S. CL029--CL032 map the table, identity and failure/absence distinctions.}
+The working graph accumulates intermediate fields; paired comparison uses
+a narrower sealed snapshot with five report strings, query identity,
+price prefix, optional images/projections and provenance. It is serialized
+as immutable bytes; each branch decodes a fresh document, preventing
+cross-branch mutation. The snapshot excludes the query label, future
+entry/exit prices, realized return and Decision/prior material. Matured
+historical labels enter through separate checked context interfaces.
+Checksums bind identity and consistency, not economic authenticity or
+row-wise causal validity.
 
 \section{The base multi-agent pipeline}\label{s:b15ca1cf7b81c6ca}
-
-The base pipeline turns one observation window into complementary reports.
-Indicator provides numerical momentum/range summaries; Pattern interprets
-candlestick structure; Trend interprets support/resistance. Alpha and
-sentiment contribute different quantitative/textual context. Reports can
-disagree, and a majority vote does not guarantee profitability. Each component
-below is explained through its inputs, processing, outputs and limitations.
-
-\subsection{Indicator}\label{s:d9e74c82df4eaf97}
-
-Indicator receives the 45-bar OHLCV dictionary, calls the five TA-Lib
-families in Section 3.3 and classifies them in Python. The historical
-\texttt{is\_\allowbreak{}backtest=True} path returns the computed table and classification text
-directly. Optional live prose interpretation is a separate path, not an
-extra historical response or a recalculation of the votes.\footnote{Frozen Indicator \texttt{\_\allowbreak{}compute\_\allowbreak{}all\_\allowbreak{}indicators/\allowbreak{}\_\allowbreak{}classify\_\allowbreak{}signals/\allowbreak{}\_\allowbreak{}clean/\allowbreak{}create\_\allowbreak{}indicator\_\allowbreak{}agent}, BG02, and toolkit BG01. EX01-S preserves the full report; CL033--CL034 map priorities, missingness and the translated case summary.}
-
-The rule order matters. This table summarizes usable numerical inputs;
-initialization and edge handling remain bound to the frozen source.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
-\caption{Indicator - supporting detail}\label{tab:04_proposed_system:2}\tabularnewline
-\toprule\noalign{}
-Family
- & Classifier priority
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Family
- & Classifier priority
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-MACD & Recent upward/downward MACD--signal crossover first; otherwise histogram sign and strengthening/contraction. With insufficient crossover history, available histogram sign is used. \\
-RSI & \ensuremath{\geq}70 bearish; \ensuremath{\leq}30 bullish; otherwise \ensuremath{\geq}55 bullish and \ensuremath{\leq}45 bearish. Inside (45,55), compare latest with third-last available value when present. \\
-ROC & Above +0.5\% bullish, below \ensuremath{-}0.5\% bearish, otherwise neutral. This is ROC's ten-bar change, not candidate-LONG net return. \\
-Stochastic & Recent \%K/\%D crossover first; otherwise \%K\ensuremath{\geq}80 bearish, \%K\ensuremath{\leq}20 bullish, then the available relation between \%K and \%D in the middle range; otherwise neutral. \\
-Williams \%R & \ensuremath{\geq}\ensuremath{-}20 bearish, \ensuremath{\leq}\ensuremath{-}80 bullish; in the middle compare latest with third-last available value. Insufficient history leaves neutral. \\
-\end{longtable}
-
-\endgroup
-
-The classifier counts bullish, bearish and neutral entries. A dominant
-direction with three votes has medium confidence, increased to high at
-four or more; a smaller directional majority is low confidence and a tie
-is mixed/low. These are heuristic agreement labels, not probabilities.
-The denominator counts emitted classifications, not independent observations.
-
-Finite zero is retained as a value; missing/nonfinite values are filtered,
-and retained values are rounded to four decimal places by the classification
-helper. Its last-value comparisons use the cleaned sequence, so availability
-at the original last row cannot be inferred merely from a returned number.
-Some error or insufficient-data paths emit neutral classifications with an
-error/missing annotation, and these entries can enter the summary. Neutral
-therefore does not certify a successfully observed neutral market signal.
-
-In EX01, MACD, Stochastic and Williams \%R are bearish; RSI and ROC are
-bullish. The full saved report records 2/5 bullish, 3/5 bearish, 0/5 neutral
-and bearish/medium consensus. This is an English presentation summary of
-the Vietnamese archive, not a guarantee that every line reached Decision.
-
-\subsection{Pattern}\label{s:03b6f38a4717c4e7}
-
-Pattern asks what price-action structure is visible in the current window.
-Its input is a candlestick image of the same 45 admissible bars used by
-Indicator. A body shows the open-to-close interval and a wick the high/low
-range; colors distinguish upward and downward candles. The renderer supplies
-axes, date labels and the window title. Rendering these observations is a
-deterministic operation, distinct from recognizing a pattern in them.
-
-The historical runner renders once and supplies the saved image to the
-Pattern node; the node can render an image when one is not supplied in other
-paths. A hosted vision request asks for six fields: pattern, confidence,
-directional bias, evidence, key candles and trading implication. The saved
-report passes formatting/field handling and an OHLCV consistency check before
-downstream use. General agent code also has text fallback paths. Their
-existence is not evidence that the fallback was used for every archived case.
-Image, execution path and saved report must be traced separately.
-\footnote{Frozen Pattern node, \texttt{\_\allowbreak{}verify\_\allowbreak{}pattern\_\allowbreak{}against\_\allowbreak{}ohlcv} and renderer; saved EX01 render/pattern graph slots. CL038--CL039 and §9.5 in the shared ledger distinguish original bitmap, processed report and English translation.}
-
-The local verifier inspects recent candle bodies/ranges, including the final
-five observations. It can flag a bullish claim opposed by a strongly bearish
-last candle or a predominantly bearish recent group, and symmetrically for
-a bearish claim. A detected conflict adds a warning and can lower confidence.
-This is a limited consistency rule: it does not establish a correct pattern
-taxonomy, validate all prose, or prove the direction of the next cycle.
-
-\textbf{EX01 saved-report example, translated for presentation.} The report calls
-the pattern an upward trend, gives low confidence and an upward directional
-bias, cites higher highs/lows from roughly 43 to 48, and identifies the green
-27 June candle. It suggests buying on a pullback around 47.5 with a stop
-below 46.5. It also preserves the warning: ``Actual candle structure contradicts
-the bullish pattern.'' Four of the final five saved candles close below their
-opens. A rising full window and a bearish recent subgroup can coexist; the
-warning does not by itself disprove every longer-window trend statement.
-The pullback/stop suggestion is report prose, not an order that changes the
-fixed execution contract.
-
-Figure F04-A uses the exact archived image. The labels outside the image are
-new explanatory annotations; they were not part of the original vision
-input. No future candle or realized return is appended.
-
-\subsection{Trend}\label{s:98aa2db2d6d02b3b}
-
-Trend instead asks how the price window relates to fitted support/resistance
-geometry. It receives the same candles with additional lines. The blue and
-red boundaries in the saved chart are fitted to \textbf{Close} values. The helper
-starts from a linear fit, selects residual pivots and adjusts a slope under
-support/resistance constraints. The renderer also computes high/low-based
-fits and line segments. The colored Close boundaries are not claims that
-every intraday wick must stay inside them, nor are they automatically equal
-to horizontal levels later named by the model.\footnote{Frozen Trend node, \texttt{\_\allowbreak{}compute\_\allowbreak{}levels/\allowbreak{}\_\allowbreak{}verify\_\allowbreak{}trend\_\allowbreak{}against\_\allowbreak{}ohlcv}, \texttt{static\_\allowbreak{}util.\allowbreak{}generate\_\allowbreak{}trend\_\allowbreak{}image} and toolkit line-fitting primitives. CL040--CL042 bind the saved image/report and separate geometric derivation; the old CMG illustration is not relabeled as this FPT case.}
-
-The vision report provides trend direction, support, resistance, line slope,
-price relation to support, analysis, forecast and confidence. Formatting
-helpers can populate missing fields from numerical price summaries. The
-direction verifier compares the reported direction with short/long price
-means and slopes. For a 45-bar window, the nominal long-window comparison
-uses the available history rather than pretending that 50 bars exist.
-It can flag an obviously opposed directional claim; it does not verify every
-claimed level, breakout, pattern name or change in channel width.
-
-\textbf{EX01 saved-report example, translated for presentation.} Trend reports
-an upward direction, support 47.8, resistance 49.2, increasing slope, a bounce
-from support and high confidence. Its narrative says the two boundaries
-are widening and predicts a possible break above 49.2. These are archived
-report assertions, not independently established geometric facts or realized
-price movements.
-
-A source-bound geometric check exposes a limitation. Applying only the frozen
-Close-line fitting primitive to the 45 saved closes gives support/resistance
-values of about 43.097/44.983 at the first plotted position and
-48.063/49.519 at the final position. The fitted gap decreases from 1.885784
-to 1.456185 price units. Thus the widening statement is inconsistent with
-these colored boundaries, despite the saved high confidence. This calculation
-is a new explanatory derivation from saved inputs, not a rerendered research
-chart, replacement report or new forecast. The report's 47.8/49.2 level fields
-must not be relabeled as exact endpoints of those fitted lines.
-
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F04_chart_pair.pdf}
-\caption{Archived FPT Pattern and Trend inputs with external presentation annotations.}\label{fig:F04}\end{figure}
-
-\emph{Figure F04. Two saved visual inputs for FPT at the 3 July 2023 cutoff,
-covering 27 April--3 July. Panel A shows candlesticks; panel B adds fitted
-Close boundaries. Original PNGs are preserved byte-for-byte. A1--B2 are
-external presentation notes and documented derived checks, not material
-shown to the original vision model. The case retains the Pattern warning
-and the Trend geometry inconsistency; no future result is displayed.}
-\href{../assets/diagrams/F04_chart_pair.pdf}{Vector-layout PDF}.
-
-The paired views explain why Pattern and Trend are distinct roles while
-remaining dependent on the same prices. Reusing a shared upstream prevents
-new vision randomness across comparison branches; it does not establish
-correct visual grounding. Neither formatting success, a local verifier nor
-high stated confidence can substitute for comparison with saved OHLCV and
-the actual image geometry.
-
-\subsection{Alpha}\label{s:5e3b8355c9ddf0b0}
-
-Alpha supplies numerical transformations of price and volume, followed by a
-declared selection procedure. Its factor values summarize transformed market
-observations; neither their magnitude nor their historical accuracy is a
-calibrated probability of the next profitable trade. The historical numerical
-stage does not request an additional LLM interpretation. Native and Common
-use different transformations and selectors, as explained below.
-\footnote{Frozen \texttt{agents/\allowbreak{}alpha\_\allowbreak{}agent.\allowbreak{}py}, \texttt{utils/\allowbreak{}alpha\_\allowbreak{}selector.\allowbreak{}py} and \texttt{core/\allowbreak{}alpha\_\allowbreak{}compare.\allowbreak{}py}: registry, features, normalization, execution-return helper, metrics, ranking and report assembly. CL043--CL044 in the shared ledger bind implementation statements and EX01's saved Native factors. Alpha101 attribution uses the version read for Section 3.3, not a claim of formula equivalence.}
-
-\textbf{Candidate construction and attribution.} The registry contains 85
-candidates: five system-specific factors and 80 single-stock adaptations
-named after entries in the \href{https://arxiv.org/abs/1601.00991v3}{Alpha101 collection}.
-They combine returns, candle bodies, moving averages, lagged differences,
-rolling ranks/correlations and decays. The code's VWAP input is the
-typical-price proxy \((H+L+C)/3\), not an observed volume-weighted transaction
-price. Rolling time-series comparisons replace operations that originally
-ranked a cross-section; industry-neutralized information is not recreated
-from one stock's OHLCV. These are adapted candidates, not a replication of
-all 101 original formulas or their reported performance.
-
-For example, the implemented WQ18 handler computes
-
-\[
-x_{18,i}=-R_{20}^{\mathrm{ts}}\left[
-\operatorname{Std}_5(|C-O|)+(C-O)+\operatorname{Corr}_{10}(C,O)
-\right]_i.
-\]
-
-Here \(R_{20}^{\mathrm{ts}}\) is the implementation's trailing comparison of
-the current value with prior values in the window, using strict greater-than
-comparisons and partial-window rules. It is not a cross-stock rank. The
-report's short formula field comes from a display template; the executable
-handler and its bound source determine the calculation. An abbreviated
-template containing ellipses, such as the saved WQ29 description, cannot
-serve as a complete executable specification.
-
-\textbf{Native selection on the current historical prefix.} The selector copies
-the supplied historical frame, applies the cutoff and retains at most 600
-bars. Backtest mode requires this frame and cannot fall through to the live
-loader. Every candidate is evaluated over that same prefix. Its default
-normalization is
-
-\[
-z_{j,i}=\tanh\!\left(\frac{\widetilde{x}_{j,i}-\mu_{j,D}}
-{s_{j,D}}\right),
-\]
-
-where \(D\) is the entire supplied selection window, nonfinite raw values are
-first replaced with zero, and the standard deviation uses the sample
-convention. A near-constant series returns zero. Alternative native modes
-use full-window min--max scaling or full-window ranks; none of these is the
-Common expanding normalizer.
-
-For daily data, ranking labels are net returns from Open\((i+1)\) to
-Close\((i+3)\) with the same two-sided fee/slippage factors as Section 3.2.
-This native helper expresses the arithmetic directly; the Common selector
-below calls the canonical scalar oracle. Unmatured tail labels are missing.
-Spearman IC is computed on finite signal/label pairs. Diagnostic accuracy
-uses signals stronger than 0.05 after orienting by IC; economic UP is a
-strictly positive net return. The native ranking score is
-
-\[
-S_j=0.40\,N(|\mathrm{IC}_j|)+0.35\,N(\mathrm{Accuracy}_j)
-+0.25\,N(\mathrm{Sharpe}^{\mathrm{diag}}_j),
-\]
-
-for the default weights, where \(N\) rescales a metric across candidates to
-{[}0,1{]} and returns 0.5 for a constant metric. Long-only accuracy is reported
-but does not enter this score. The Sharpe diagnostic uses
-\(\operatorname{sign}(z^{\mathrm{oriented}})r^{\mathrm{net}}\) on overlapping
-historical rows. A negative signal can therefore earn a positive diagnostic
-return when the candidate LONG return is negative. This is a symmetric
-ranking diagnostic, not the implemented CASH payoff or an account equity
-curve. Minimum-support paths also use default diagnostic values; a ranking
-row is not a certificate of adequate predictive support.
-
-The top five scores determine the report. Their latest normalized values
-are flipped when the stored IC is negative; that stored IC is rounded to
-four decimals. Values above 0.10 are bullish, below \ensuremath{-}0.10 bearish, and the
-remaining values neutral, including the boundaries. The agent rounds values
-to four decimals for output and summarizes bullish/bearish counts; the
-signal is assigned before this display rounding. A nonfinite latest value
-is coerced to zero, so a neutral output alone does not certify availability.
-An empty dynamic selection stops a historical point. Strict research mode
-propagates selected-handler errors; the general five-factor fallback is not
-a substitute for a failed historical selection.
-
-\textbf{Native validity limitation.} Selecting, orienting and reporting accuracy
-on the same history produces in-sample diagnostics. Moreover, a cutoff at
-the end of \(D\) does not make every historical row causal: full-window
-normalization can change old values when later rows are appended. Native
-lag backfilling, the whole-window real-volume/proxy decision and
-length-dependent factor windows introduce additional row-wise problems.
-The recorded native row-wise causal gate remains \textbf{FAIL}. This differs from
-claiming that the outer query read prices after its cutoff; passing that
-outer-cutoff check does not repair the historical transformations or
-selection bias.\footnote{Frozen \texttt{core/\allowbreak{}revision\_\allowbreak{}alpha\_\allowbreak{}contract.\allowbreak{}py} and the recorded audit scope; CL045. PASS\_\allowbreak{}DETECTION and an outer-cutoff PASS differ from the native row-wise FAIL. No counterexample suite or research run was repeated to write this section.}
-
-\textbf{Common: prefix transformations and a frozen selector.} The separate
-\texttt{causal\_\allowbreak{}common\_\allowbreak{}v1} profile retains the candidate identities in its own
-namespace while replacing the affected operators: expanding-prefix
-normalization, lagging without backward filling, observed volume without
-a range proxy, and fixed versions of six length-dependent window
-expressions. A 300-bar observed-volume mask, the normalizer's minimum of
-20 observations and finite-value requirements govern availability. Common
-preserves a fixed history origin instead of resetting to Native's 600 bars.
-An unavailable selected query factor raises an error; it is not filled with
-zero or replaced by another candidate.\footnote{Frozen \texttt{core/\allowbreak{}causal\_\allowbreak{}alpha.\allowbreak{}py}, BG03, and EX01's selector/projection in U06 assets v2, checked against U08's saved Common projection. CL046--CL047 and ledger §9.6 distinguish artifact verification from new training, and Common Alpha scope from whole-system certification.}
-
-Orientation is estimated on train Spearman IC against labels from
-\texttt{compute\_\allowbreak{}round\_\allowbreak{}trip\_\allowbreak{}net\_\allowbreak{}return}. Validation then chooses five factors and
-one threshold from 0.05, 0.10 and 0.20 by mean LONG/CASH return on common
-finite support. Each candidate must meet train support with nondegenerate
-signal and return series; validation requires
-at least 30 common observations and five LONGs per admitted candidate.
-Training requires at least 60 valid pairs. Three-session decision grids and
-strict exit-before-next-split boundaries separate orientation, selection and
-test. Ranking ties use alpha ID; threshold-search ties prefer the smaller
-threshold. This validation choice remains model selection, not test evidence.
-
-The artifact freezes IDs, signs, threshold, schedule, source/runtime and
-price hashes. Loading verifies it by reproducing the train/validation fit;
-prediction does not select again or use the query outcome. The verification
-is part of the recorded implementation, not a new fit performed for this
-manuscript. This profile's scoped checks do not turn the Native gate into
-PASS or certify the whole system as causal.
-
-\textbf{EX01 selected-report example, translated for presentation.} The saved
-Native table is:
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
-\caption{Alpha - supporting detail}\label{tab:04_proposed_system:3}\tabularnewline
-\toprule\noalign{}
-Selected factor
- & Oriented displayed value
- & Signal
- & Stored IC
- & Historical accuracy
- & Composite score
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Selected factor
- & Oriented displayed value
- & Signal
- & Stored IC
- & Historical accuracy
- & Composite score
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-WQ18, Std + Body + Corr Rank & \ensuremath{-}0.2871 & Bearish & +0.1266 & 56.9\% & 0.8509 \\
-WQ29, Nested Rank Log & \ensuremath{-}0.2071 & Bearish & \ensuremath{-}0.1312 & 54.1\% & 0.8217 \\
-WQ57, VWAP Argmax Decay & \ensuremath{-}0.0133 & Neutral & +0.1024 & 55.2\% & 0.7575 \\
-WQ42, VWAP-Close Ratio & \ensuremath{-}0.2701 & Bearish & +0.0718 & 60.1\% & 0.7514 \\
-LVR, Liquidity Void Reversion & +0.7355 & Bullish & +0.1269 & 52.7\% & 0.7239 \\
-\end{longtable}
-
-\endgroup
-
-The archived consensus is bearish: one bullish, three bearish and one
-neutral. WQ29 explicitly records the negative-IC flip. These accuracies and
-scores describe the selector's historical sample, not EX01's future outcome.
-The full report contains the table, display formulas, metrics and consensus;
-Decision receives a distilled, capped projection rather than all detail.
-
-For the same shared parent, the saved Common projection instead contains
-WQ57 (\ensuremath{-}0.033616, neutral), WQ52 (+0.861779, bullish), WQ02 (+0.758270,
-bullish), WQ21 (+0.874219, bullish) and WQ83 (\ensuremath{-}0.086067, bearish).
-Its frozen threshold is \textbf{0.05}, not Native's 0.10; WQ52/WQ02 have negative
-orientations. The EX01 artifact fits through 30 June 2023 with history
-origin 2 January 2020, train 14 April 2021--30 September 2022 and validation
-6 October 2022--27 June 2023, before the 3 July query. Values here are
-rounded for presentation; the saved full-precision projection and hashes
-remain the evidence. This change of both factors and selection procedure
-must be disclosed when interpreting Native/Common comparisons.
-
-\subsection{Sentiment}\label{s:bdffc08ba8571999}
-
-Sentiment supplies textual evidence alongside price-derived reports. Its
-source, scoring procedure, temporal availability and coverage must be known
-before a number can be interpreted. The live entry point and the two
-historical adapters have different contracts; a current crawler response
-cannot replace a frozen historical input.\footnote{Frozen \texttt{agents/\allowbreak{}sentiment\_\allowbreak{}agent.\allowbreak{}py}, \texttt{data\_\allowbreak{}manager/\allowbreak{}sentiment\_\allowbreak{}cache.\allowbreak{}py}, \texttt{core/\allowbreak{}historical\_\allowbreak{}signals.\allowbreak{}py} and \texttt{core/\allowbreak{}historical\_\allowbreak{}evaluation\_\allowbreak{}data.\allowbreak{}py}, bound as SYS13--SYS16; CL048--CL049 in ledger §9.7. This is a description of the saved implementation and providers, not a new live collection or classifier evaluation.}
-
-\textbf{Live collection and scoring.} The general agent collects CafeF articles
-and checks ticker/company relevance, although it retains the original group
-when the relevance filter finds no matches. It scores title/snippet text
-through a configured endpoint/local sentiment backend, with lexicon fallback.
-The configured classifier identifier is
-\texttt{5CD-\allowbreak{}AI/\allowbreak{}Vietnamese-\allowbreak{}Sentiment-\allowbreak{}visobert}; an identifier in code is not proof
-that this backend produced every archived score. Returned records identify
-the scorer, backend and fallback status. The classifier path multiplies a
-negative/neutral/positive sign by its confidence; lexicon fallback instead
-uses its own bounded keyword score. These are different measurement recipes.
-
-The live aggregate is an arithmetic mean, rounded to four decimals. It is
-labeled positive above 0.10, negative below \ensuremath{-}0.10, and neutral otherwise.
-Related-company discovery and optional narrative analysis belong to the
-live path. Their output is not assumed to exist in historical providers.
-Empty live collection can produce a zero/neutral fallback in the general
-code. This is an implementation fallback, not observed evidence of balanced
-market sentiment or historical point-in-time validity.
-
-\textbf{Historical adapters.} The following distinction prevents a threshold or
-aggregation rule from being transferred to the wrong study.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Sentiment - supporting detail}\label{tab:04_proposed_system:4}\tabularnewline
-\toprule\noalign{}
-Path
- & Admissible news and aggregation
- & Insufficient coverage
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Path
- & Admissible news and aggregation
- & Insufficient coverage
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Component-study frozen signal adapter & Dated, pre-scored cache entries with publication date at or before cutoff and within 90 calendar days; undated/future items excluded. Strict cache aggregation uses the arithmetic mean and \ensuremath{\pm}0.10 label thresholds. & Fewer than three dated items yields an explicit insufficient-history, neutral-coded fallback with reliability false. Retained items support provenance, not a claim of neutral market evidence. \\
-Context-study \texttt{FrozenNews} & Pinned records; availability cannot precede the day after a date-only publication. A declared later \texttt{available\_\allowbreak{}at} is respected. Available timestamp must fall within the 90-day window ending at cutoff-day 23:59:59. Scores must be finite in {[}\ensuremath{-}1,1{]} with an admitted \texttt{visobert} or \texttt{lexicon} scorer tag. & Fewer than three admitted scores sets \texttt{is\_\allowbreak{}unavailable=True}, aggregate score null and downstream article count zero; \texttt{verified\_\allowbreak{}article\_\allowbreak{}count} preserves the admitted count. \\
-\end{longtable}
-
-\endgroup
-
-For the context provider, let \(A_t\) be the admitted records and \(d_a\) the
-age in days since \textbf{availability}, including fractional days. When
-\(|A_t|\ge3\), its aggregate is
-
-\[
-\bar s_t=\frac{\sum_{a\in A_t}e^{-(\log2)d_a/30}s_a}
-{\sum_{a\in A_t}e^{-(\log2)d_a/30}}.
-\]
-
-Thus the weighting has a 30-day half-life. This provider returns an aggregate
-and count without a per-article display list or peer aggregate, and it does
-not apply the live positive/negative label thresholds to manufacture a new
-label. Its ``verified'' count means admitted under the stored-field contract;
-it does not independently verify a publication's truth, completeness or
-original release timestamp. The stricter availability rule also differs
-from the component adapter's inclusive publication-date filter.
-
-\textbf{Connection to Alpha and Decision.} The Alpha node obtains the selected
-provider's data/report and carries sentiment as a separate report. The
-historical dynamic factor ranking described in Section 4.3.4 uses price and
-volume; a system-specific candidate named Sentiment-Flow uses a technical
-proxy in that registry. The name does not show that observed news entered
-the selected numerical score. General fixed-factor fallback code has other
-inputs, so it must not be substituted for the historical dynamic path.
-
-The downstream normalizer requires three articles to compute its ordinary
-summary and marks main sentiment reliable only from eight articles. These
-are distinct from the context provider's three-score availability gate. It
-can carry a finite aggregate while reliability is false. When the provider
-does not expose individual scores or peers, within-article z-score and peer
-contrast remain placeholders; they are not newly observed neutral signals.
-The field called \texttt{delta\_\allowbreak{}1d\_\allowbreak{}proxy} is half a normalized score, not an observed
-day-on-day news change. Decision receives the capped sentiment report, not
-an invented article list.\footnote{Frozen Alpha node and \texttt{\_\allowbreak{}normalize\_\allowbreak{}sentiment\_\allowbreak{}scores}, SYS03; EX01-S \texttt{sentiment\_\allowbreak{}data/\allowbreak{}sentiment\_\allowbreak{}report}, CL050. Availability, reliability, stored score, report projection and scorer provenance are separate fields.}
-
-\textbf{EX01.} The saved context-study input has zero admitted articles,
-\texttt{is\_\allowbreak{}unavailable=True}, null aggregate score, empty scored-article/peer lists
-and reliability false. Its report explicitly states that sentiment is
-unavailable because fewer than three verified scores exist. Normalized
-display fields are zero, but no observed neutral sentiment is inferred.
-The signal-bank's legacy \texttt{NEUTRAL} code, discussed below, cannot supply the
-missing news or authorize a retrospective crawl.
-
-\subsection{Decision}\label{s:1af789db30a4f735}
-
-Decision synthesizes report text under a declared profile; it does not
-recompute indicators or read future prices. Its compact historical request
-states the LONG/CASH economic contract, with Trend/Pattern for direction
-and timing, Indicator for momentum confirmation, Alpha for quantitative
-evidence and sentiment at the lowest priority. These instructions do not
-prove that every response obeys them. Native/Common projections and
-instructions are separated in Section 4.4.\footnote{Frozen Decision SYS02, \texttt{TradeDecisionOutput}, \texttt{\_\allowbreak{}distill\_\allowbreak{}report/\allowbreak{}\_\allowbreak{}cap\_\allowbreak{}report}, compact builders and final guard; EX01 Native/Common request records. CL035--CL037 map schema and measured projection. Pure string-helper verification neither calls the model nor replays the study.}
-
-Deterministic helpers distill each report and enforce character caps. Alpha
-condensation retains its leading table and final summary when the expected
-separators exist; sentiment removes the article-list/prose tail. Indicator
-condensation searches for recognized convergence headings. If none matches,
-generic capping keeps leading/trailing portions with a truncation marker,
-potentially dropping meaningful middle content.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Decision - supporting detail}\label{tab:04_proposed_system:5}\tabularnewline
-\toprule\noalign{}
-Report
- & Native/general cap
- & Integrated backtest cap in the common base builder
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Report
- & Native/general cap
- & Integrated backtest cap in the common base builder
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Trend / Pattern / Indicator, each & 900 characters & 800 characters \\
-Alpha & 1,200 characters & 1,100 characters \\
-Sentiment & 600 characters & 500 characters \\
-\end{longtable}
-
-\endgroup
-
-The complete backtest prompt must be strictly below 6,500 characters; the
-historical-prior prefix has its own 600-character bound. Characters are not
-tokens. A final assembled-prompt check is still necessary. Prior/MT wrappers
-and schemas will be explained separately, rather than assumed to have the
-base request's shape.
-
-\textbf{Observed EX01 projection limitation.} Its full Indicator report has 3,661
-characters, but its summary heading does not match the frozen distiller's
-convergence headings. The Native/Common Indicator fragments consequently
-use head/tail truncation and contain 899/798 characters. The 2/5--3/5 count
-lines are absent from these fragments. The exact fragments occur in the
-archived requests, with full prompt lengths 3,699/4,186 characters. These
-are measurements of saved requests, not new forecasts. The evidence does
-not support saying that Decision saw the entire numerical summary.
-
-The base structured output contains binary \texttt{decision}, \texttt{forecast\_\allowbreak{}horizon},
-textual \texttt{confidence}, \texttt{risk\_\allowbreak{}reward\_\allowbreak{}ratio} constrained to {[}1,5{]}, evidence
-for/against and justification. Confidence is not a calibrated probability;
-R:R is not an executable order or a validated target-price estimate.
-Schema/binary parsing validates output form. Unrecoverable direction/schema
-or transport failures are surfaced by the execution contract, not replaced
-with a newly invented valid SHORT/CASH response.
-
-At EX01 repeat 0, Native returned SHORT/high stated confidence/R:R 1.5;
-Common returned LONG/high stated confidence/R:R 2.5. SHORT executes as CASH.
-The Native prose uses ``short position'', but this does not change execution.
-Common's expected-profit explanation is also a model claim, not a verified
-outcome. Proposals, final actions, request IDs and later realized results
-remain separate records.
+\paragraph{Indicator.}
+Python computes MACD, RSI, slow stochastic, Williams \%R and ROC using
+the Chapter 3 settings. It applies priority-ordered heuristics and
+aggregates bullish/bearish votes; MACD crossover rules precede histogram
+rules. There is no extra historical LLM call for this role. Its numeric
+table, categories and consensus feed shared reports and Decision. Warm-up,
+nonfinite values and tool errors remain distinguishable from neutral
+measurements. Correlated indicator votes are not independent trials.
+
+\paragraph{Pattern and Trend.}
+Pattern receives the 45-bar candlestick image, describing pattern,
+confidence, bias, evidence, key candles and implication. A local OHLCV
+check can flag conflict with recent candle bodies, including the last
+five observations, and reduce confidence. It cannot validate every
+pattern name or future prediction. Trend instead receives candles plus
+fitted support/resistance geometry. Its colored boundaries are fitted
+to Close values using residual pivots and constrained slopes; additional
+high/low fits are separate. It returns direction, levels, slope, price
+relation, explanation and forecast. A direction/price-summary verifier
+does not certify every level or geometric assertion. Formatting and text
+fallback paths retain their execution provenance.
+
+The FPT case illustrates their distinction. The saved Pattern report
+has low-confidence upward bias and retains a contradiction warning:
+four of the final five candles close below their opens. Trend reports
+upward direction and high confidence, support 47.8 and resistance 49.2.
+Its widening-channel claim disagrees with the saved-input geometric
+check: the colored Close-line gap decreases from 1.885784 to 1.456185
+price units. Those named levels are not the exact fitted endpoints.
+These are presentation summaries of stored reports, not new forecasts.
+Suggested stops/pullbacks in prose do not replace the fixed execution
+contract. The two chart views carry different information despite
+sharing the same underlying bars.
+
+\paragraph{Alpha.}
+The registry has 85 candidates: five system-specific factors and 80
+single-stock Alpha101 adaptations. The price proxy $(H+L+C)/3$ is not
+observed VWAP, and temporal ranks do not recreate cross-stock ranks.
+\autocite{kakushadze2016formulaic} Native evaluates candidates on at most
+600 cutoff-limited rows, with full-window normalization and IC-based
+orientation. Its default score combines normalized absolute Spearman IC,
+accuracy and diagnostic Sharpe with weights .40/.35/.25; the top five
+feed its report. Its symmetric sign-return diagnostic is a ranking
+device, not the LONG/CASH account payoff. Latest oriented values above
+.10 or below $-.10$ become bullish/bearish, with neutral boundaries.
+In-sample selection and whole-window transformations mean that an outer
+cutoff does not certify historical feature causality.
+
+Common replaces affected operations with expanding-prefix normalization,
+lags without backward filling, observed volume and fixed versions of six
+length-dependent expressions. A 300-bar volume mask, 20-observation
+normalizer minimum and finite-value requirements determine availability.
+Train Spearman IC fixes orientation; validation selects five factors and
+one threshold from .05/.10/.20 by LONG/CASH return on common finite
+support. Minimums are 60 train pairs, 30 validation observations and five
+LONGs per admitted candidate. Alpha-ID ties and the smaller threshold
+resolve equal scores. Three-session grids and strict maturity separate
+splits. IDs/signs/threshold are frozen; prediction does not reselect.
+Unavailable selected query factors raise errors rather than being filled
+or substituted. This scoped Common repair does not certify the whole
+system, and Native's recorded row-wise gate remains FAIL.
+
+\paragraph{Sentiment.}
+The live agent collects CafeF title/snippet text, checks company relevance
+and records backend/fallback provenance. The configured ViSoBERT-based
+three-label classifier uses signed confidence; lexicon fallback uses a
+different keyword score. Historical adapters consume frozen aggregates
+or verified dated scores instead. The context study uses the 90-day,
+three-score, 30-day-half-life rule; missingness cannot become neutral
+financial evidence. Alpha and sentiment are produced together in the
+graph but summarize different sources. No new article collection or
+classifier validation is implied by this integration.
+
+\paragraph{Decision.}
+The request prioritizes Trend/Pattern for direction/timing, Indicator for
+momentum, Alpha for numerical evidence and sentiment last. The LLM
+synthesizes condensed reports rather than recalculating them. Structured
+output contains LONG/SHORT, horizon, textual confidence, risk--reward
+ratio in $[1,5]$, evidence and justification. Confidence and risk--reward
+are report claims, not calibrated probabilities or executable orders.
+The external resolver maps SHORT to CASH and can retain an anchor after
+inspecting a proposal. Schema/transport failure cannot silently create
+a valid SHORT/CASH result.
 
 \section{Native and Common foundations}\label{s:34c72d872d464412}
+The context study's Native uses the recorded native serving factory,
+alpha report and compact request. Common starts from the same sealed
+parent, preserving images, Indicator/Pattern/Trend, sentiment and price
+prefix while replacing the top-level alpha projection with its verified
+causal-common profile. Raw Native fields remain available for provenance.
+Common also changes report caps and instructions: prior/target/query
+notation, probability versus utility and SHORT=CASH are explicit. Common
+itself supplies an \emph{empty} history prefix; mentioning task notation
+does not create context. The shared serving envelope fixes point/repeat,
+model/options and schema, not identical prompt content.
 
-There are two different comparison designs. The context study compares a
-Native serving path with a Common foundation and extensions of that
-foundation. The component study instead compares the presence of the
-Alpha/Sentiment bundle. Calling both controls ``baseline'' would hide what
-actually changes.\footnote{SYS05 \texttt{decision\_\allowbreak{}payload/\allowbreak{}bind\_\allowbreak{}snapshot}, SYS17 profile constants, SYS18 \texttt{build\_\allowbreak{}prompt/\allowbreak{}canonical\_\allowbreak{}request/\allowbreak{}COMMON\_\allowbreak{}INSTRUCTION}, SYS02 Native factory and BG18 \texttt{native\_\allowbreak{}request/\allowbreak{}MethodAdapters}. CL051--CL052 and ledger §9.8 bind field preservation, changed inputs and saved EX01 requests.}
-
-\subsection{Native and Common in the context study}\label{s:8f8cc2e97a36ab22}
-
-Native, archived as \texttt{original\_\allowbreak{}fix}, uses \texttt{original\_\allowbreak{}fix\_\allowbreak{}serving\_\allowbreak{}v1} and the
-existing Decision factory. Its prompt is captured at the invocation
-boundary, preserving the native report condensation, instructions and
-guards. It is a comparator with Alpha and Sentiment enabled, not a
-three-report control with those components removed.
-
-Common, archived as \texttt{original\_\allowbreak{}common}, starts from the same sealed parent.
-The bridge preserves price prefix, images, Indicator/Pattern/Trend reports
-and sentiment. It replaces the top-level \texttt{alpha\_\allowbreak{}report} and \texttt{alpha\_\allowbreak{}factors}
-with the verified \texttt{causal\_\allowbreak{}common\_\allowbreak{}v1} projection. The raw Native material and
-its parent identity remain available for provenance; this is not a rewrite
-of every nested field in the saved snapshot. Common factors retain the
-anchored history and frozen selector described in Section 4.3.4.
-
-The Common builder also changes the Decision presentation. It uses the
-integrated backtest report caps, inserts \texttt{COMMON\_\allowbreak{}INSTRUCTION}, and accepts
-a separately bounded historical-context prefix. That instruction explains
-prior/target/query notation, permits disagreement with context, separates
-net-positive probability from expected return and R:R, and restates
-SHORT=CASH and the fixed exit schedule. Common itself supplies an \textbf{empty
-context prefix}; mentioning prior-task notation in an instruction does not
-create historical examples or a posterior for that control.
-
-Both requests use the common serving envelope for point/repeat, model,
-sampling/output settings, client options and structured-output schema.
-Sharing this envelope does not make the prompts identical. A same-repeat
-Common result is also the declared dependency for unsupported prior
-branches, so reuse must refer to that completed result rather than a new
-Native call or a fabricated SHORT response.
-
-\subsection{Full and Base in the component study}\label{s:167694198a0ee964}
-
-The separate component study's Full branch enables both Alpha factors and
-Sentiment. Base, implemented as \texttt{baseline}, disables both. Indicator,
-Pattern and Trend run once for a paired point; the engine deep-copies that
-upstream state to each branch. A Base decision then proceeds without the
-feature-preparation node, while Full prepares its additional reports before
-Decision. Thus a Full/Base difference concerns the \textbf{joint bundle} and
-the prompt it supplies, not Alpha alone.\footnote{Frozen graph SYS01 \texttt{ABLATION\_\allowbreak{}CONFIGS/\allowbreak{}compile\_\allowbreak{}upstream/\allowbreak{}compile\_\allowbreak{}decision} and TIME01 \texttt{\_\allowbreak{}run\_\allowbreak{}ablation\_\allowbreak{}variants/\allowbreak{}\_\allowbreak{}run\_\allowbreak{}paired\_\allowbreak{}point}; component evidence identity at ledger §3.2. CL053--CL054 distinguish switches, actual paired execution and study-level interpretation.}
-
-The implementation also defines \texttt{alpha\_\allowbreak{}only} and \texttt{sentiment\_\allowbreak{}only} switches.
-Their existence does not establish that a particular archived panel ran
-them, and their results must be tied to that panel's own protocol. Likewise,
-component Full is not silently relabeled as a new context-study Native
-execution: the studies have separate request records and evidence versions.
-
-\emph{Table B03, foundation portion. Controls and interventions; historical-context
-variants are described in the following sections. These rows define inputs
-and procedures, not isolated causal effects or performance results.}
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
-\caption{Table B03, foundation portion. Controls and interventions; historical-context variants are described in the following sections.}\label{tab:04_proposed_system:6}\tabularnewline
-\toprule\noalign{}
-Study / role
- & Shared material
- & Alpha / Sentiment presented to Decision
- & Decision presentation and intervention
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Study / role
- & Shared material
- & Alpha / Sentiment presented to Decision
- & Decision presentation and intervention
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Context / Native (\texttt{original\_\allowbreak{}fix}) & The point's single sealed upstream realization and pinned source prefix & Native dynamic Alpha report; saved sentiment report & Native factory/profile; native caps; no added historical prefix \\
-Context / Common (\texttt{original\_\allowbreak{}common}) & Same parent, images, three upstream reports and sentiment & Frozen causal-common Alpha replaces the two top-level Alpha fields; sentiment preserved & Common instruction and integrated caps; empty context prefix \\
-Component / Full (\texttt{full}) & Deep copy of the paired point's Indicator/Pattern/Trend state & Both Alpha and Sentiment enabled & Component protocol's Decision path with both added reports \\
-Component / Base (\texttt{baseline}) & The same paired upstream state & Both disabled & Component Decision receives the three upstream reports without the added bundle; this is not Common \\
-\end{longtable}
-
-\endgroup
-
-\subsection{What the bridge can establish}\label{s:decbc4a749733725}
-
-Native/Common changes factor construction/normalization, selector fitting,
-history origin, selected factors, report representation, report caps and
-instructions together. It does not isolate a causal-common normalizer,
-prompt wording or any single factor. Holding the visual upstream fixed
-removes repeated vision sampling as one source of variation, while hosted
-response variation and the declared input differences remain. Comparisons
-of a later extension with Common answer a different question from
-comparisons with Native. Neither should be presented as a pure
-student-only effect or as proof of whole-system causal validity.
-
-\textbf{EX01 trace.} Native and Common repeat 0 have identical non-message
-serving-envelope fields, including the model/output schema, but different
-archived prompts of 3,699 and 4,186 characters. The saved Native report has
-one bullish/three bearish/one neutral Alpha; Common's projection has three
-bullish/one bearish/one neutral factors and a different threshold. Native
-returns SHORT, executed as CASH; Common returns LONG. This single contrast
-illustrates the declared profile change. It does not identify which change
-caused the response difference, nor does it reveal the later query outcome.
+The separate component study compares Full, enabling alpha and sentiment,
+with Base, omitting their joint bundle. Indicator--Pattern--Trend run once
+and are deep-copied to both branches. Full/Base therefore changes both
+information and prompt representation. It is not Native/Common and does
+not isolate Alpha or Sentiment alone. Likewise, a Native/Common bridge
+cannot attribute a difference solely to normalization, instructions or
+context; several ingredients change together. Extensions below reuse
+the same-repeat Common result when their documented support gate fails.
 
 \section{Historical memory and market regimes}\label{s:caa6b0b420cdae1c}
 
