@@ -486,6 +486,10 @@ Thực hiện T67–T72 theo yêu cầu: mỗi task nhánh docs từ develop, ki
 
 Đã bổ sung package thiếu theo lỗi build; build tắt auto-installer/shell-escape, dùng Biber trên bản sao bcf/bib tại thư mục tạm để tránh lỗi Perl với đường dẫn Unicode Windows. Python build.py chỉ compile chính file thay đổi và chạy đúng build tài liệu; không unit/E2E/leakage nghiên cứu. LuaLaTeX/Biber thành công, PDF khung2trang; warning MiKTeX chưa kiểm cập nhật và locale Perl không đổi kết quả. Tại mốc này mới khung; thân bài đang chuyển, chưa G4 hoặc bản nộp.
 
+**T68 — Chương 3–4 đã chuyển LaTeX và gắn sơ đồ:** T68 chuyển 84 heading, 29 bảng/139 dòng, 28 display equations, ba thuật toán và 10 hình vector nguồn sẵn có. Tên/đơn vị/mẫu số được giữ; tự sinh số chương/section/table/figure, ID nguồn như F01/B03 vẫn dùng để đối chiếu. Công thức BA/MCC tách hai dòng để đọc được, không đổi biểu thức; escape ký tự phần trăm trong công thức, xử lý path/hash dài bằng điểm ngắt hợp lệ. TikZ source và PDF đi cùng trong cây thesis.
+
+Đối soát tất cả token số theo từng hàng bảng và toàn bộ display equations với Markdown PASS; equations chỉ khác layout/escape. Build LuaLaTeX/Biber thành công, PDF ghép tạm88trang gồm hai bìa/Chương3–4, render kiểm phương pháp/hình/bảng/BA-MCC/thuật toán. Còn cảnh báo ngắt trang longtable/footnote không gây mất nội dung và hbox nhỏ dưới1pt; sẽ rà lại trên bản ghép cuối, không ghi là PDF đã hoàn tất. Liên kết tới chương/phụ lục chưa chuyển chờ T69–T71. Không sửa Markdown đã khóa, input hoặc code nghiên cứu; không chạy runtime suite/API/fit/replay.
+
 ### Sáu phụ lục và nguồn tái lập P7
 
 Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và nối tham chiếu từ thân bài. Mỗi task dùng nhánh docs riêng từ develop, commit/merge sau QA. Sổ chung §13.4–13.9 ghi nguồn/locator; không tạo receipt riêng cho từng task. Chỉ tài liệu nên không compileall/unit/E2E/leakage theo AGENTS §1.2; không gọi model/fit/bootstrap/replay hoặc sửa code/runtime/config/schema/input/models/archives/receipts. Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING giữ nguyên.

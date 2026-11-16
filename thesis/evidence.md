@@ -1548,6 +1548,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL267 | [LaTeX foundation](latex/README.md) | DAN_XUAT | Frontmatter/cover brief; existing covers.tex; LuaLaTeX/Biber build logs; §14.1 | Clean report/A4/12pt framework, local assets/bibliography, Roman/Arabic numbering hooks and source-only build command | Observed sample conventions are not official rules; no new runtime or submission acceptance |
 
+| CL268 | [Methods in LaTeX](latex/chapters/04_proposed_system.tex) | DAN_XUAT | Markdown Chapters3–4 at e4e31daf, 10 existing vector figure assets, migration math/table QA and PDF build; §14.2 | 84 headings, 29 tables/139 data rows, 28 display equations and three pseudocode algorithms transferred | Typesetting edits preserve operands/values; partial-build cross-references to later chapters are resolved at integration |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2875,3 +2877,10 @@ QA đường dẫn/cờ lệnh, cú pháp Python tĩnh, danh tính asset đã pi
 T67 dựng main/preamble/build guide trong thesis/latex, không dùng macro/chủ đề/danh tính mẫu. Hai bìa dùng nguồn đã chốt nguyên nội dung; render hai trang kiểm trực quan, Supervisor căn giữa và không tràn. LuaHBTeX 1.24.0 (MiKTeX 25.12), Latin Modern, report12pt/A4, lề 2,5cm ngang/3cm trên dưới, giãn1,5; bibliography numeric theo thứ tự hiện tại, chưa là chuẩn trường.
 
 Đã bổ sung package thiếu theo lỗi build; build tắt auto-installer/shell-escape, dùng Biber trên bản sao bcf/bib tại thư mục tạm để tránh lỗi Perl với đường dẫn Unicode Windows. Python build.py chỉ compile chính file thay đổi và chạy đúng build tài liệu; không unit/E2E/leakage nghiên cứu. LuaLaTeX/Biber thành công, PDF khung2trang; warning MiKTeX chưa kiểm cập nhật và locale Perl không đổi kết quả. Tại mốc này mới khung; thân bài đang chuyển, chưa G4 hoặc bản nộp.
+
+
+### 14.2. Chương 3–4 đã chuyển LaTeX và gắn sơ đồ
+
+T68 chuyển 84 heading, 29 bảng/139 dòng, 28 display equations, ba thuật toán và 10 hình vector nguồn sẵn có. Tên/đơn vị/mẫu số được giữ; tự sinh số chương/section/table/figure, ID nguồn như F01/B03 vẫn dùng để đối chiếu. Công thức BA/MCC tách hai dòng để đọc được, không đổi biểu thức; escape ký tự phần trăm trong công thức, xử lý path/hash dài bằng điểm ngắt hợp lệ. TikZ source và PDF đi cùng trong cây thesis.
+
+Đối soát tất cả token số theo từng hàng bảng và toàn bộ display equations với Markdown PASS; equations chỉ khác layout/escape. Build LuaLaTeX/Biber thành công, PDF ghép tạm88trang gồm hai bìa/Chương3–4, render kiểm phương pháp/hình/bảng/BA-MCC/thuật toán. Còn cảnh báo ngắt trang longtable/footnote không gây mất nội dung và hbox nhỏ dưới1pt; sẽ rà lại trên bản ghép cuối, không ghi là PDF đã hoàn tất. Liên kết tới chương/phụ lục chưa chuyển chờ T69–T71. Không sửa Markdown đã khóa, input hoặc code nghiên cứu; không chạy runtime suite/API/fit/replay.
