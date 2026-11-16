@@ -4,17 +4,48 @@
 
 Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng tiếng Anh**, giải thích và đánh giá hệ thống hiện tại theo [dàn bài sáu chương](outline.md). Giảng viên chưa biết kho mã phải hiểu toàn bộ phương pháp đề xuất, lần theo được logic của một quyết định và phân biệt kết luận có bằng chứng với giả định hoặc vấn đề còn mở.
 
-Đầu ra gồm bản thảo, phần đầu, tài liệu tham khảo, Phụ lục A–F, hình/bảng có nguồn, dự án LaTeX tự đủ, PDF đã kiểm trực quan và gói bàn giao tái lập. Việc lập kế hoạch chưa hoàn thành bất kỳ task viết nào dưới đây.
+**Yêu cầu hiện hành ngày 16/11/2026:** bản nộp khoảng **60–70 trang, không có phụ lục**, gồm phần đầu, sáu chương, tài liệu tham khảo và hình/bảng cần thiết. Bảng phải đọc được trên trang dọc, không xoay cả trang. Giữ nội dung cốt lõi và giải thích đủ phương pháp cho giảng viên lần đầu tiếp cận hệ thống.
 
-Có **84 task nhỏ**, chia thành mười giai đoạn. Phụ thuộc thể hiện điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái từng task tại mục 2.1; thông tin ngoài còn thiếu ở T01 không chặn các phần viết độc lập.
+**Phạm vi bước hiện tại chỉ là cập nhật kế hoạch.** Chưa áp dụng việc rút gọn vào bản thảo, chưa xóa phụ lục, chưa đổi LaTeX hoặc biên dịch lại PDF. Các task rút gọn ở P9 đều còn TODO. Bản PDF 259 trang là mốc trước biên tập, không phải kết quả đã rút còn 60–70 trang.
 
-**Quy ước ngôn ngữ:** trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng **tiếng Việt**. Toàn bộ **nội dung khóa luận** dùng **tiếng Anh**, gồm phần đầu, nội dung chương, phụ lục, tiêu đề, chú thích, nhãn hình/bảng và diễn giải khoa học. Dàn bài chương mục giữ tiếng Anh làm khung bản thảo. Giữ nguyên định danh chương trình, tên tài liệu và bằng chứng trích dẫn; đoạn nguồn không phải tiếng Anh cần được giải thích bằng tiếng Anh trong khóa luận và ghi rõ nếu là bản dịch phục vụ trình bày.
+Có **84 task cha** qua mười giai đoạn; P9 bổ sung **12 task con T73a–T73l** để quản lý đợt rút gọn trước lượt rà soát cuối. T01–T72 ghi nhận lịch sử bản đầu tiên; T61–T66 và T71 đã hoàn thành theo phạm vi cũ, không còn là yêu cầu giữ phụ lục trong bản nộp mới. Phụ thuộc là điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái tại mục 2.1.
+
+**Quy ước ngôn ngữ:** trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng **tiếng Việt**. Toàn bộ **nội dung khóa luận** dùng **tiếng Anh**, gồm phần đầu, nội dung chương, tiêu đề, chú thích, nhãn hình/bảng và diễn giải khoa học. Dàn bài chương mục giữ tiếng Anh làm khung bản thảo. Giữ nguyên định danh chương trình, tên tài liệu và bằng chứng trích dẫn; đoạn nguồn không phải tiếng Anh cần được giải thích bằng tiếng Anh trong khóa luận và ghi rõ nếu là bản dịch phục vụ trình bày.
+
+### 1.1. Ngân sách trang cho bản rút gọn
+
+Quy ước lập kế hoạch: **60–70 là tổng số trang vật lý của PDF**, tính cả hai bìa, phần đầu, danh mục, sáu chương và tài liệu tham khảo; không chỉ tính trang đánh số Ả Rập. Đây là cách tính để triển khai yêu cầu người dùng, chưa phải xác nhận quy định chính thức của trường. Mục tiêu làm việc là **66 trang** để còn khoảng điều chỉnh khi build.
+
+| Phần | Mục tiêu | Khoảng phân bổ | Nội dung ưu tiên |
+| --- | ---: | ---: | --- |
+| Hai bìa và phần đầu | 10 | 9–10 | Thông tin đã xác nhận; abstract, lời cảm ơn/cam đoan, mục lục và danh mục gọn. |
+| 1. Introduction | 3 | 3–4 | Bài toán, RQ1–RQ4, phạm vi và đóng góp có giới hạn. |
+| 2. Related Work | 5 | 4–5 | Tổng hợp theo nhóm phương pháp; kế thừa và khoảng trống liên quan trực tiếp. |
+| 3. Background and Problem Formulation | 7 | 6–7 | Hợp đồng kinh tế/thời gian, ký hiệu và khái niệm cần để đọc Chương 4. |
+| 4. Proposed System | 20 | 19–21 | Toàn luồng hệ thống, prior/regime, MT/teacher/student, facts/utility/policy và EX01. |
+| 5. Experiments and Discussion | 15 | 14–16 | Thiết kế, hai nghiên cứu, kết quả chính, support/bypass, bất định và hạn chế. |
+| 6. Conclusions and Future Work | 3 | 2–3 | Trả lời RQ, kết luận đúng bằng chứng và hướng phát triển. |
+| References | 3 | 3–4 | Nguồn thực sự được trích dẫn và attribution cần thiết. |
+| **Tổng** | **66** | **60–70** | **Không có Appendix, kể cả phụ lục đổi tên thành chương bổ sung.** |
+
+Khoảng từng phần đã tính hình/bảng/công thức nằm trong phần đó. Có thể chuyển ngân sách giữa các phần nếu vẫn đạt tổng 60–70 và mục 3; không rút mất lời giải thích phương pháp để nhường chỗ cho bảng kiểm nội bộ. Giữ nền trình bày 12 pt, giãn dòng 1,5 và lề hiện hành trong lúc biên tập; ưu tiên bỏ lặp, gộp luận điểm và chọn bảng, không ép trang bằng chữ quá nhỏ hoặc lề hẹp.
+
+### 1.2. Mốc đối chiếu và nguyên tắc cắt gọn
+
+Khảo sát đọc trực tiếp PDF P8: **259 trang, 30 trang có thuộc tính xoay**, phần đầu 19 trang, sáu chương 175 trang, tài liệu tham khảo 3 trang và phụ lục 62 trang. Chương 4 dài 66 trang, Chương 5 dài 63 trang. Chỉ bỏ phụ lục vẫn còn **197 trang**, nên phải biên tập thân bài và danh mục, không chỉ thay cấu hình bảng.
+
+- Mỗi khái niệm định nghĩa đầy đủ một lần; nơi khác dẫn lại và giải thích phần mới. Chương 3 trình bày nền tảng, Chương 4 trình bày cách triển khai, Chương 5 đánh giá bằng chứng.
+- Giữ một ví dụ xuyên suốt EX01 và những tình huống bổ sung thực sự cần để giải thích failure/fallback/policy; không chép lại toàn trace ở nhiều mục.
+- Ưu tiên bảng trả lời RQ hoặc giải thích cơ chế. Bỏ bảng lặp, bảng chỉ chứa path/hash/UUID và nhật ký kiểm; các nguồn này vẫn nằm trong kho bằng chứng ngoài bản nộp.
+- Giữ cả kết quả âm, hai baseline Native/Common, control, độ phủ, bypass, đơn vị phân tích và bất định. Không chọn riêng hàng thuận lợi để giảm trang.
+- Giữ phương pháp tự đủ để người đọc hiểu từ bản PDF; kho bằng chứng dùng truy vết sâu, không thay thế công thức, giả định, quy tắc policy hoặc mô tả thiết kế cần thiết.
+- Yêu cầu mới ở mục 1 và P9 thay thế dự toán **65–81 trang riêng sáu chương** và yêu cầu phụ lục trong dàn bài cũ. T73a sẽ đồng bộ `outline.md` và các README khi bắt đầu triển khai; bước này không sửa bản thảo hay tái lập bản PDF.
 
 ## 2. Quản lý công việc và quy ước file
 
 ### 2.1. Một nguồn trạng thái công việc
 
-Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task viết khóa luận. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../docs/plan/week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task.
+Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task cha và 12 task con rút gọn. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../docs/plan/week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task. Các ghi nhận DONE dưới P1–P8 là lịch sử bản đầu tiên, không chứng nhận bản rút gọn đã hoàn thành.
 
 Dùng `TODO` (chưa làm), `IN_PROGRESS` (đang làm), `REVIEW` (đang rà soát), `DONE` (hoàn tất) hoặc `BLOCKED` (thiếu điều kiện) khi cần. Mục được đánh dấu hoàn tất phải có đầu ra và đã kiểm điều kiện nghiệm thu. Với mục đang làm hoặc bị chặn, thêm ghi chú ngắn về file hiện tại hoặc thông tin còn thiếu. Ghi nhận hoàn thành theo mẫu `mã task; file/mục; cách kiểm; giới hạn còn lại`, gộp các task liên quan trong một cập nhật tuần. Chỉ ghi đã hoàn tất phản biện bên ngoài khi thực sự nhận và xử lý phản hồi.
 
@@ -118,7 +149,24 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Rà soát — P9
 
-- [ ] T73 — Đối soát luận điểm khoa học và phạm vi bằng chứng.
+**Đợt rút gọn trước rà soát cuối — chưa triển khai:**
+
+- [ ] T73a — TODO: Khóa mốc đối chiếu, lập ánh xạ giữ/gộp/bỏ và đồng bộ dàn bài/ngân sách trang.
+- [ ] T73b — TODO: Rút Chương 1–2, giữ RQ, đóng góp, nguồn kế thừa và khoảng trống nghiên cứu.
+- [ ] T73c — TODO: Rút Chương 3, giữ nền tảng và hợp đồng cần để hiểu phương pháp.
+- [ ] T73d — TODO: Rút phần tổng quan, dữ liệu, các agent và Native/Common trong Chương 4.
+- [ ] T73e — TODO: Rút phần memory, regime và các prior trong Chương 4.
+- [ ] T73f — TODO: Rút phần facts, MT-BICL, teacher/student và utility/policy trong Chương 4.
+- [ ] T73g — TODO: Gộp điều phối, vận hành, tái lập và hoàn thiện ví dụ EX01 trong Chương 4.
+- [ ] T73h — TODO: Rút thiết kế thực nghiệm và cấu hình trong Chương 5.
+- [ ] T73i — TODO: Rút bảng kết quả/thảo luận Chương 5, giữ bằng chứng chính và kết quả bất lợi.
+- [ ] T73j — TODO: Rút Chương 6 và phần đầu, đồng bộ abstract với kết quả giữ lại.
+- [ ] T73k — TODO: Xóa toàn bộ phụ lục khỏi bản nộp và nguồn build sau khi chuyển nội dung thiết yếu.
+- [ ] T73l — TODO: Chuyển toàn bộ bảng sang bố cục trang dọc và xử lý khoảng trắng/hình/bảng.
+
+**Rà soát bản đã rút gọn:**
+
+- [ ] T73 — Đối soát luận điểm khoa học, phạm vi bằng chứng và nội dung còn đủ sau T73a–T73l.
 - [ ] T74 — Rà khả năng đọc hiểu của người lần đầu tiếp cận.
 - [ ] T75 — Biên tập tiếng Anh trong toàn bộ khóa luận.
 - [ ] T76 — Kiểm trích dẫn, ghi nguồn, quyền và khai báo cần thiết.
@@ -136,7 +184,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 ### 2.2. Cấu trúc đầu ra đề xuất
 
-Ở giai đoạn lập kế hoạch chỉ cần `README.md`, `outline.md` và tài liệu này. Tạo các đầu ra dưới đây khi bắt đầu task tương ứng; đây là đường dẫn dự kiến, không phải xác nhận file đã tồn tại.
+Cây dưới đây mô tả **đầu ra đích sau rút gọn**, không phải trạng thái hiện tại. LaTeX đã là nguồn chính từ T72. Thư mục phụ lục hiện vẫn được giữ nguyên trong bước lập kế hoạch; việc loại bỏ khỏi bản nộp và xử lý nguồn lưu trữ thuộc T73k.
 
 ```text
 thesis/
@@ -144,7 +192,7 @@ thesis/
   outline.md
   plan.md
   evidence.md                  # sổ nguồn/luận điểm, tài liệu đọc và hình/bảng chung
-  frontmatter.md               # nội dung phần đầu và thông tin bìa
+  frontmatter.md               # bản nháp lịch sử, không dùng build
   chapters/
     01_introduction.md
     02_related_work.md
@@ -152,13 +200,6 @@ thesis/
     04_proposed_system.md
     05_experiments.md
     06_conclusion.md
-  appendices/
-    A_contracts.md
-    B_prompts.md
-    C_configuration.md
-    D_results.md
-    E_verification.md
-    F_reproduction.md
   references.bib
   assets/
     diagrams/                  # nguồn sơ đồ có thể sửa và hình xuất
@@ -169,14 +210,13 @@ thesis/
     preamble.tex
     frontmatter/
     chapters/
-    appendices/
   release/
     thesis.pdf
     thesis-source.zip
     manifest.json
 ```
 
-Trong giai đoạn viết, Markdown là nguồn nội dung chính thức. Tại T72, ghi nhận thời điểm chuyển đổi và lấy LaTeX làm nguồn bản nộp; giữ Markdown như bản thảo đã rà soát. Không âm thầm duy trì hai bản đang sửa nhưng khác nhau. `references.bib` và hình/bảng là nguồn dùng chung. Gói LaTeX phải tìm được các tài nguyên bên trong gói, không phụ thuộc mẫu gốc hoặc đường dẫn tuyệt đối trên máy.
+Trước T72, Markdown là nguồn nội dung chính thức; **hiện tại chỉ biên tập bản nộp trong LaTeX**, không sinh lại từ các bản Markdown chương/phần đầu đã lưu trữ. Kế hoạch và sổ bằng chứng vẫn dùng Markdown. T73k phải xử lý minh bạch các bản phụ lục lịch sử, hash và liên kết trước khi xóa nguồn phụ lục; không sửa hash mốc chuyển để che thay đổi. `references.bib` và hình/bảng là nguồn dùng chung. Gói LaTeX phải tìm được tài nguyên bên trong gói, không phụ thuộc mẫu gốc hoặc đường dẫn tuyệt đối trên máy.
 
 Sổ bằng chứng gồm: nguồn/phiên bản/hash và vai trò; ánh xạ luận điểm hoặc ô bảng; ghi chú đọc/trích dẫn; danh mục hình/bảng; thông tin còn thiếu và vấn đề bằng chứng chưa giải quyết. Dẫn tới các artifact đã khóa thay vì sao chép archive lớn vào thư mục khóa luận. Checklist nằm tại mục 2.1 của kế hoạch này; lịch sử hoàn thành gộp và bằng chứng kiểm tra nằm tại `docs/plan/`.
 
@@ -209,7 +249,7 @@ Giả định người đọc có kiến thức học máy bậc đại học nh
 
 Với mỗi thành phần chính, trả lời: **Vì sao cần? Đầu vào là gì? Tại thời điểm đó đã biết những gì? Phép tính hoặc suy luận nào diễn ra? Đầu ra là gì? Thành phần nào dùng đầu ra? Thiếu bằng chứng hoặc lỗi lời gọi thì xử lý thế nào? Phần nào kế thừa, phần nào thay đổi?**
 
-Có bảng hợp đồng ngắn gọn gồm trường/kiểu đầu vào, điều kiện thời gian, trường đầu ra và bên sử dụng. Mỗi công thức đi kèm diễn giải và ví dụ ngắn. Schema đầy đủ, prompt dài và mã triển khai đặt ở phụ lục; thân chương vẫn giữ đủ định nghĩa và quy tắc policy để tự đọc hiểu được.
+Có bảng hợp đồng ngắn gọn gồm trường/kiểu đầu vào, điều kiện thời gian, trường đầu ra và bên sử dụng. Mỗi công thức đi kèm diễn giải; dùng EX01 để minh họa nhiều bước thay vì lặp nhiều ví dụ. Thân chương giữ đủ định nghĩa, schema thiết yếu và quy tắc policy để tự đọc hiểu được. Schema đầy đủ, prompt dài, hash/UUID và mã triển khai được dẫn tới nguồn bằng chứng trong repository, **không tạo phụ lục thay thế**. Phần thiết yếu của phụ lục cũ được chuyển theo bảng ở P9.
 
 ### 3.3. Câu hỏi kiểm tra mức độ dễ hiểu
 
@@ -241,16 +281,16 @@ T74 dùng bộ câu hỏi này để rà soát nội bộ. Có thể ghi là t�
 | P4. Thực nghiệm | T36–T47 | Chương 5 và hình/bảng kết quả | Mỗi số liệu/diễn giải có nguồn và đúng phạm vi nghiên cứu. |
 | P5. Nghiên cứu liên quan | T48–T53 | Chương 2 và tài liệu tham khảo | Kiểm nguồn gốc, ghi nhận kế thừa và khoảng trống nghiên cứu. |
 | P6. Mạch lập luận | T54–T58 | Chương 1 và 6 | Câu hỏi, đóng góp, phát hiện và giới hạn thống nhất. |
-| P7. Phần bổ trợ | T59–T66 | Phần đầu và Phụ lục A–F | Nội dung đầy đủ, được tham chiếu từ thân khóa luận. |
+| P7. Phần bổ trợ (lịch sử bản đầu) | T59–T66 | Phần đầu và Phụ lục A–F đã viết | T61–T66 giữ lịch sử; nội dung phụ lục sẽ được chọn lọc rồi bỏ khỏi bản nộp ở P9. |
 | P8. Dàn trang | T67–T72 | Dự án LaTeX hoàn chỉnh, tự đủ | Biên dịch đủ nội dung, tham khảo và hình/bảng. |
-| P9. Rà soát | T73–T80 | Bản dự kiến nộp đã kiểm | Đạt kiểm khoa học, tiếng Anh, trực quan và xử lý phản hồi thực có. |
+| P9. Rút gọn và rà soát | T73a–T73l, T73–T80 | Bản 60–70 trang, không phụ lục, toàn trang dọc | Đạt kiểm khoa học, dễ hiểu, tiếng Anh, số liệu, trực quan và phản hồi thực có. |
 | P10. Bàn giao | T81–T84 | PDF cuối, gói nguồn và ghi nhận hoàn thành | Tái lập được, có định danh và đã bàn giao; rõ trạng thái nộp bên ngoài. |
 
-**Thứ tự làm:** phần thiết yếu P1 → P2 → P3 → P4 → P6 → P7 → P8 → P9 → P10. Đọc nguồn P5 có thể bắt đầu ngay sau T04 và phục vụ P2/P3; chốt khoảng trống nghiên cứu sau khi hiểu phương pháp thực tế. Thông tin cơ sở đào tạo ở T01 chỉ chặn các quyết định phần đầu/bố cục phụ thuộc nó, không chặn viết kỹ thuật.
+**Thứ tự còn lại:** P8 đã có bản đầu → T73a lập ánh xạ → T73b–T73j biên tập theo phụ thuộc → T73k bỏ phụ lục → T73l hoàn thiện bố cục → T73–T80 rà soát → P10 bàn giao. Không thực hiện chuỗi này trong bước chỉ cập nhật kế hoạch. Thông tin cơ sở đào tạo ở T01 chỉ chặn các quyết định thực sự phụ thuộc nó.
 
 ## 5. Đặc tả các task
 
-Mã task là định danh quản lý ổn định, không đưa vào thân khóa luận. Phụ thuộc là đầu ra cần có của task trước, không phải yêu cầu xin phép người khác. Mỗi dòng ghi công việc, nơi đặt đầu ra và điều kiện nghiệm thu cụ thể. Các mục/chương/phụ lục được yêu cầu viết dưới đây đều phải được soạn **bằng tiếng Anh**; tiếng Việt trong bảng chỉ dùng để quản lý công việc.
+Mã task là định danh quản lý ổn định, không đưa vào thân khóa luận. Phụ thuộc là đầu ra cần có của task trước, không phải yêu cầu xin phép người khác. Mỗi dòng ghi công việc, nơi đặt đầu ra và điều kiện nghiệm thu. **P1–P8 là đặc tả lịch sử đã dùng để tạo bản đầu; yêu cầu viết phụ lục ở T61–T66/T71 đã được thay thế bởi P9**, không thực hiện lại. Nội dung bản nộp tiếp tục dùng tiếng Anh; tiếng Việt trong bảng chỉ dùng quản lý công việc.
 
 ### P1. Chuẩn bị và quản lý nguồn
 
@@ -364,17 +404,63 @@ Mã task là định danh quản lý ổn định, không đưa vào thân khóa
 | T71 / M | T61, T62, T63, T64, T65, T66, T67 | Chuyển Phụ lục A–F, nối tham chiếu qua lại và hình/bảng. | Phụ lục rõ, đọc được, có dẫn tới; schema/prompt dài không lấn thân bài hoặc tràn trang. |
 | T72 / S | T68, T69, T70, T71 | Ghép toàn văn, ghi thời điểm chuyển nguồn chính thức từ Markdown sang LaTeX trong README. | Có một nguồn bản nộp chính; nội dung xuất hiện đúng một lần, đường dẫn hoạt động không cần thư mục mẫu. |
 
-### P9. Rà khoa học, ngôn ngữ, mức độ dễ hiểu và trực quan
+### P9. Rút gọn xuống 60–70 trang và rà soát bản nộp
+
+#### P9.1. Các task biên tập cần thực hiện
+
+Tất cả task dưới đây còn **TODO**. Đầu ra sẽ nằm trong `latex/chapters/`, `latex/frontmatter/`, cấu trúc build và tài liệu quản lý liên quan; không viết lại các bản Markdown chương đã lưu trữ. Ngân sách ở mục 1.1 là cho bản PDF cuối, không phải số trang bảo đảm trước khi biên dịch.
 
 | Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
-| T73 / M | T72 | Đối soát mọi luận điểm chính, đóng góp, kết quả và kết luận với sổ bằng chứng. | Có nguồn và đúng phạm vi; kết quả âm, thiếu support và thí nghiệm chưa chạy vẫn rõ. |
-| T74 / M | T72 | Rà theo góc nhìn người lần đầu đọc bằng mục 3; bổ sung giải thích Chương 3–4 còn thiếu. | Trả lời được toàn bộ câu hỏi từ văn bản; ghi đúng rà nội bộ hay độc lập, không bịa phản hồi người đọc. |
-| T75 / M | T72 | Biên tập ngữ pháp tiếng Anh, thuật ngữ, thì, mạch đoạn, caption và chữ viết tắt trong toàn khóa luận. | Tiếng Anh học thuật nhất quán; không còn diễn giải chưa dịch, acronym chưa giải thích, mã task hoặc nhật ký repo trong thân bài. |
-| T76 / M | T72, T73 | Kiểm bibliography, trích dẫn, nguồn hình, quyền dữ liệu/phần mềm và khai báo hỗ trợ nếu được yêu cầu. | Citation đầy đủ/phù hợp, nội dung kế thừa ghi nguồn, quyền còn thiếu ảnh hưởng phát hành được nêu; không hứa công khai khi chưa có quyền. |
+| T73a / M | T72 | Ghi commit/hash nguồn và PDF trước biên tập; lập bảng ánh xạ mục/hình/bảng theo quyết định giữ, gộp, rút hoặc bỏ khỏi PDF trong sổ bằng chứng chung. Đồng bộ `outline.md` và README với ngân sách mới, không phụ lục. | Mọi mục cốt lõi có nơi đến; phân biệt tài liệu bản nộp với bằng chứng lưu trữ; dự toán tổng 66 trang và khoảng 60–70 thay thế ngân sách cũ. Không tạo receipt riêng cho từng task. |
+| T73b / M | T73a | Biên tập Chương 1 còn 3–4 trang và Chương 2 còn 4–5 trang. Gộp động cơ/đóng góp lặp; tổng hợp nghiên cứu theo vấn đề thay vì mô tả dài từng bài; chỉ giữ bảng so sánh giúp định vị đề tài. | Còn đầy đủ RQ1–RQ4, phạm vi, attribution và khoảng trống có nguồn. Không bỏ nguồn cần thiết hoặc cường điệu tính mới để rút văn bản. |
+| T73c / M | T73a | Biên tập Chương 3 còn 6–7 trang. Giữ ký hiệu cần dùng, timeline, công thức net return, nền tảng HMM/Beta–Bernoulli/MT/utility và nguyên tắc PIT/paired. Chuyển chi tiết cấu hình sang đúng mục Chương 4–5. | Một định nghĩa chuẩn cho mỗi khái niệm; không lặp nguyên phần triển khai; SHORT=CASH, phí hai chiều, `exit_date < as_of_date` và nhãn zero=DOWN không đổi. |
+| T73d / M | T73a, T73c | Biên tập phần tổng quan/dữ liệu/các agent/Native–Common của Chương 4, dự toán khoảng 5 trang trong ngân sách chương. Giữ F03, giải thích Pattern khác Trend và bảng hợp đồng ngắn; gộp cấu trúc lặp của các agent. | Người mới theo được input → báo cáo → Decision, biết thành phần xác định/học offline/gọi LLM; phân biệt Full/Base với Native/Common và giới hạn causality. |
+| T73e / M | T73d | Biên tập memory, regime, v1, C2/A/B, dự toán khoảng 5 trang. Giữ điều kiện maturity, fit/fallback regime, similarity/ranking, thống kê population khác top-K, disjoint shrinkage và readiness/bypass. | Có công thức và đầu vào/đầu ra đủ tái hiểu phương pháp; không gọi v1 là Beta posterior, không nhầm B_semantic với embedding hoặc gộp hai nguồn regime. |
+| T73f / M | T73d, T73e | Biên tập facts, numerical tasks, teacher/student, training/selection và utility/policy, dự toán khoảng 7 trang. Giữ sơ đồ task/training và policy nếu không trùng thông điệp; gom cấu hình thiết yếu vào bảng nhỏ. | Rõ prior/target/query, nguồn nhãn, frozen resources, teacher mixture, student representation/loss/selection, support và dấu strict Q10/Q90. Phân biệt student với hosted LLM, giữ anchor với chấp nhận thay đổi, xác suất với utility. |
+| T73g / M | T73d, T73e, T73f | Biên tập điều phối, prompt/retry/checkpoint, ứng dụng/tái lập và kết thúc EX01, dự toán khoảng 3 trang. Gộp giả mã lặp thành một luồng tổng quát; chuyển phần thiết yếu của A/B/C/F vào đúng vị trí. | Tổng Chương 4 hướng 20 trang và còn trả lời đủ mục 3; paired upstream chạy một lần, outcome barrier, fallback khác failure và giới hạn prompt còn rõ. EX01 giữ cả kết quả lỗ sau phí và trạng thái UI chưa nghiệm thu. |
+| T73h / M | T73a, T73g | Rút phần thiết kế/cấu hình/metrics của Chương 5, dự toán khoảng 4 trang. Gộp bảng cohort, partition, coverage và cấu hình quan trọng; giữ khác biệt hai nghiên cứu và tài nguyên huấn luyện/đánh giá. | Rõ 102 points, 51 accounts, 25 UP/77 DOWN, sáu fold, ba Decision repeats; 2.448 slots không phải quan sát độc lập. Mỗi estimator, baseline, uncertainty family và đơn vị được định nghĩa đủ. |
+| T73i / M | T73h | Rút kết quả/thảo luận/limitations Chương 5, dự toán khoảng 11 trang. Giữ hai bảng kết quả chính riêng; trình bày gọn đủ family 20 contrast qua bảng hẹp theo baseline/endpoint hoặc hình cộng diễn giải. Gộp support/bypass/action bridge và tình huống điển hình; chọn kết luận sensitivity từ artifact đã có. | Không bỏ adverse outcomes, control, NA hoặc fallback để làm đẹp kết quả. Giữ uncertainty, scope, sample support; giữ 302/306 MT–anchor agreement, kết quả baseline-dependent, Native FAIL/NOT_CERTIFIED và ablation chưa chạy. Bảng chi tiết theo stock/fold/repeat chỉ bỏ khỏi PDF sau khi giữ nguồn truy vết. |
+| T73j / M | T73b, T73g, T73i | Rút Chương 6 còn 2–3 trang; phần đầu còn 9–10 trang tính cả hai bìa. Trả lời RQ bằng đoạn ngắn; gộp quy ước đọc và ký hiệu trùng; rút abstract theo kết quả còn giữ. | Hai bìa và câu chữ đã xác nhận không bị thay danh tính; không bịa chữ ký. Abstract/kết luận không thêm kết quả mới; danh mục tự sinh, không bỏ định nghĩa cần để đọc phương pháp. |
+| T73k / M | T73g, T73i, T73j | Áp dụng bảng chuyển phụ lục ở P9.2; bỏ `\appendix`, mọi input phụ lục và nguồn phụ lục khỏi cây bản nộp/gói build. Xử lý bản Markdown phụ lục lịch sử qua Git/archive nguyên byte, cập nhật link và kiểm tra source-map nếu cần. | Không còn Appendix trong PDF/TOC/bookmark hoặc tham chiếu treo. Nội dung thiết yếu đã có trong sáu chương. Giữ lịch sử nguồn/hash, không sửa receipt để che việc xóa; gói nộp không chứa phụ lục hay yêu cầu phục hồi phụ lục để build. |
+| T73l / M | T73b–T73k | Áp dụng quy tắc bảng dọc P9.3; chuyển/split/gộp bảng, bỏ môi trường xoay, điều chỉnh float, caption và khoảng trắng; phân bổ lại hình chỉ khi cần cho lập luận. | Mọi trang là portrait và rotation=0; không bảng ngang nằm một mình trên trang bị xoay. Không ép fit bằng chữ quá nhỏ; mọi ô/caption đọc được, tổng trang hướng 60–70. Việc xác nhận bản build cuối thuộc T78–T79. |
+
+Các task T73d–T73g chia **20 trang Chương 4**, T73h–T73i chia **15 trang Chương 5**, đã gồm hình/bảng. Đây là phân bổ tham khảo để ưu tiên nội dung; không chèn ngắt trang hoặc kéo dài văn bản để khớp từng số máy móc. Có thể kiểm build cục bộ khi biên tập để phát hiện vượt ngân sách, nhưng chỉ T78–T79 xác nhận PDF cuối.
+
+#### P9.2. Xử lý nội dung phụ lục trước khi xóa
+
+Không chuyển nguyên cả phụ lục lên thân bài. Chỉ giữ phần trực tiếp cần để hiểu phương pháp, diễn giải kết quả hoặc nhận diện hạn chế; chi tiết kiểm toán vẫn được bảo toàn trong kho bằng chứng ngoài bản nộp.
+
+| Phụ lục cũ | Nội dung thiết yếu chuyển vào thân bài | Nội dung bỏ khỏi PDF, giữ nguồn trong repository | Task |
+| --- | --- | --- | --- |
+| A. Data and Temporal Contracts | Chương 3: timing/nhãn/PIT; Chương 4: schema tối thiểu và missingness/consumer. | JSON đầy đủ, bảng trường lặp, path/hash và bản ghi nguyên văn. | T73c, T73d, T73g, T73k |
+| B. Prompts and Responses | Chương 4: cấu trúc request/response, BRPP/facts, validation/fallback và một trích đoạn ngắn nếu thật sự giúp hiểu EX01. | Toàn văn prompt/response, bảng UUID và trace dài. Bản dịch trình bày vẫn phải có nhãn nếu sử dụng. | T73e–T73g, T73k |
+| C. Algorithms and Configurations | Chương 4: tham số quyết định thuật toán/teacher/student/policy; Chương 5: cấu hình thực nghiệm và resource selection thực dùng. | Dump cấu hình, inventory và bảng mặc định không liên quan trực tiếp. | T73e–T73h, T73k |
+| D. Extended Results | Chương 5: kết quả chính, đủ 20 contrast trong family đã công bố, sensitivity quan trọng và kết quả bất lợi cần cho kết luận. | Các bảng chi tiết lặp theo stock/fold/repeat, toàn ma trận scenario nếu không cần trong lập luận chính. Giữ locator/hash nguồn. | T73i, T73k |
+| E. Verification and Audits | Chương 5: bảng ngắn hợp đồng/kiểm chứng/giới hạn, Native row-wise FAIL, scope của Common và các gate chưa đạt. | Nhật ký kiểm thử, receipt và hash dài; không nâng test phát hiện lỗi thành chứng nhận causal. | T73i, T73k |
+| F. Reproduction and Application | Chương 4: vận hành/recovery/UI; Chương 5: điều kiện tái lập và giới hạn provenance. | Command log, hướng dẫn khôi phục đầy đủ, liệt kê asset; tiếp tục dẫn tới tài liệu vận hành hiện có. | T73g, T73h, T73k |
+
+#### P9.3. Quy tắc bảng, hình và trang dọc
+
+1. Mỗi bảng phải có mục đích và đoạn dẫn/diễn giải gần bảng. Bỏ bảng trùng thông điệp trước khi chỉnh kích thước.
+2. Với bảng nhiều cột: bỏ cột quản lý không cần cho người đọc; chuyển ghi chú chung ra caption/note; tách theo baseline, endpoint hoặc nhóm chỉ số với nhãn/đơn vị rõ. Không tách để che hàng bất lợi hay làm mất cặp so sánh.
+3. Dùng bảng có độ rộng theo trang như `tabularx` hoặc cột ngắt dòng. Chỉ dùng `longtable` dọc khi cần qua trang và phải lặp header; bảng ngắn dùng float phù hợp để nằm gần đoạn giải thích.
+4. Không dùng `landscape`, `sidewaystable`, `rotatebox` hoặc cấu hình PDF xoay trang. Không lấy `resizebox` thu nhỏ toàn bảng làm cách giải quyết mặc định; cỡ chữ bảng mục tiêu từ 10 pt trở lên và phải đọc được khi in A4.
+5. Không cưỡng ép mỗi bảng lên một trang riêng bằng ngắt trang/float page. Nếu bảng hoặc hình toàn trang thực sự cần để đọc, giữ trang dọc và giải thích lý do trong rà soát; không lấp khoảng trắng bằng nội dung dư thừa.
+6. F03, phần giải thích MT/training và policy là ưu tiên; hình timeline, chart pair, retrieval, DAG hoặc application chỉ giữ/gộp khi có thông tin riêng. Không phải mọi ID hình cũ đều bắt buộc xuất hiện trong bản rút gọn.
+7. Sau khi build: kiểm cả rotation và kích thước trang, overfull box, ô/caption bị cắt, trang trắng, trang chỉ có mẩu bảng, danh mục và liên kết. Render toàn bộ PDF cuối, xem từng trang; kiểm lại các trang ảnh hưởng sau sửa.
+
+#### P9.4. Rà soát và nghiệm thu sau biên tập
+
+| Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
+| --- | --- | --- | --- |
+| T73 / M | T73l | Đối soát mọi luận điểm chính, đóng góp, kết quả và kết luận với sổ bằng chứng và ánh xạ trước/sau. | Có nguồn và đúng phạm vi; không mất nội dung cốt lõi khi bỏ phụ lục; kết quả âm, thiếu support và thí nghiệm chưa chạy vẫn rõ. |
+| T74 / M | T73l | Rà theo góc nhìn người lần đầu đọc bằng mục 3; sửa giải thích Chương 3–4 còn thiếu trong ngân sách trang. | Trả lời được toàn bộ câu hỏi từ PDF, không bắt người đọc mở phụ lục hoặc mã nguồn để hiểu luồng chính; ghi đúng tự kiểm hay phản biện độc lập. |
+| T75 / M | T73l | Biên tập ngữ pháp tiếng Anh, thuật ngữ, thì, mạch đoạn, caption và chữ viết tắt trong toàn khóa luận. | Tiếng Anh nhất quán; không acronym chưa giải thích, mã task/nhật ký repo hoặc các đoạn lặp được chèn trở lại làm vượt ngân sách. |
+| T76 / M | T73l, T73 | Kiểm bibliography, trích dẫn, nguồn hình, quyền dữ liệu/phần mềm và khai báo cần thiết; cập nhật tham chiếu sau bỏ phụ lục. | Citation đầy đủ/phù hợp; không link/section/table reference treo hoặc mục bibliography mất attribution; quyền còn thiếu được nêu. |
 | T77 / M | T73, T75 | Đối soát độc lập công thức, đơn vị, số lượng, phần trăm, quy ước rủi ro và độ chính xác hình/bảng. | Không sai số học/nhãn/support; làm tròn không đổi diễn giải hoặc âm thầm thay số chính xác của nguồn. |
-| T78 / M | T74, T75, T76, T77 | Biên dịch sạch; kiểm log, tham chiếu, số trang, danh mục, bookmark và trích xuất văn bản. | Không thiếu citation/reference/asset, công thức bị cắt hoặc lỗi build chưa giải quyết; cảnh báo đã sửa hoặc kiểm cụ thể. |
-| T79 / M | T78 | Render và xem từng trang, gồm bảng, đồ thị, thuật toán, phụ lục; sửa bố cục và kiểm lại trang ảnh hưởng. | Không chữ khó đọc, chồng lấn, lỗi font, hình bị cắt hoặc trang trắng ngoài ý muốn; lượt rà toàn bộ dùng bản build cuối. |
+| T78 / M | T74, T75, T76, T77 | Biên dịch sạch; kiểm log, số trang vật lý, danh mục, bookmark, orientation/rotation và trích xuất văn bản; ghi số trang từng phần. | Tổng **60–70 trang**, đủ sáu chương và tham khảo, **không phụ lục, không trang xoay/ngang**; không thiếu citation/reference/asset hoặc cảnh báo chưa được xử lý/kiểm cụ thể. Nếu vượt, quay về task biên tập liên quan thay vì thu nhỏ toàn tài liệu. |
+| T79 / M | T78 | Render và xem từng trang, gồm bảng, đồ thị, công thức và thuật toán; sửa bố cục và kiểm lại trang ảnh hưởng. | Không chữ khó đọc, chồng lấn, ô/caption bị cắt, bảng ngắn bị đẩy ra trang riêng vô lý hoặc trang trắng ngoài ý muốn. Lượt rà toàn bộ dùng PDF cuối 60–70 trang; nếu sửa đổi số trang phải kiểm lại T78. |
 | T80 / M | T79 | Xử lý phản hồi thực nhận từ tác giả/người hướng dẫn; nếu chưa có, ghi rõ chưa phản biện bên ngoài và làm lượt chỉnh nội bộ. | Mỗi góp ý có xử lý/vị trí; phần đổi được kiểm lại phù hợp; không ghi đã phản biện ngoài khi thiếu bằng chứng. |
 
 ### P10. Đóng gói tái lập và bàn giao
@@ -388,7 +474,7 @@ Mã task là định danh quản lý ổn định, không đưa vào thân khóa
 
 ## 6. Danh mục hình, bảng và thuật toán cần chuẩn bị
 
-Dùng sơ đồ khái niệm để giải thích, công cụ vẽ đồ thị chuẩn cho hình khoa học. Hình/bảng đưa vào khóa luận phải có nhãn tiếng Anh, cỡ chữ đọc được khi in, caption tự đủ, đơn vị phù hợp và nguồn hoặc nhãn minh họa rõ ràng. ID dưới đây dùng quản lý; số thứ tự cuối do LaTeX sinh.
+Dùng sơ đồ khái niệm để giải thích, công cụ vẽ đồ thị chuẩn cho hình khoa học. Hình/bảng đưa vào khóa luận phải có nhãn tiếng Anh, cỡ chữ đọc được khi in, caption tự đủ, đơn vị phù hợp và nguồn hoặc nhãn minh họa rõ ràng. ID dưới đây là danh mục của bản đầu, **không phải yêu cầu đưa toàn bộ vào bản rút gọn**. T73a ghi quyết định giữ/gộp/bỏ; T73l áp dụng bố cục dọc theo P9.3. ID dùng quản lý; số thứ tự cuối do LaTeX sinh.
 
 [Danh mục chi tiết có nguồn](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn)
 mở đủ 23 ID cha bên dưới, gồm thông điệp, vị trí, task phụ trách, loại nguồn
@@ -407,7 +493,7 @@ mở đủ 23 ID cha bên dưới, gồm thông điệp, vị trí, task phụ t
 | F08. DAG phụ thuộc | Upstream chung và phụ thuộc theo repeat | T33 | Chương 4; registry/protocol. |
 | F09. So sánh chênh lệch | Ước lượng chênh lệch và band mô tả | T43 | Chương 5; artifact phân tích đã khóa. |
 | F10. Độ phủ và đổi hành động | Support context thực dùng, fallback/policy | T44 | Chương 5; traces và support. |
-| F11. Luồng ứng dụng | Đầu vào người dùng → tiến trình → kết quả có thể diễn giải | T35 | Chương 4/Phụ lục F; ảnh có phiên bản đã kiểm nếu có. |
+| F11. Luồng ứng dụng | Đầu vào người dùng → tiến trình → kết quả có thể diễn giải | T35, T73g | Chương 4 nếu cần; không còn Phụ lục F trong bản nộp mới. |
 | A01–A03. Thuật toán | Context PIT; chạy phương pháp/policy; dự báo/đánh giá ghép cặp | T33 | Chương 4; đủ đầu vào/đầu ra và xử lý lỗi/fallback. |
 | B01. Ký hiệu | Ký hiệu và đơn vị xuyên suốt | T05, T60 | Phần đầu/Chương 3. |
 | B02. Hợp đồng thành phần | Mục đích, đầu vào, thời gian và đầu ra | T17–T22 | Chương 4. |
@@ -429,8 +515,8 @@ Các mốc này quản lý việc viết, không phải bốn gate runtime của
 | G1. Sẵn sàng viết có nguồn | T02–T08; ghi vấn đề T01 | Truy cập nguồn được hoặc nêu thiếu; thuật ngữ, phạm vi và ví dụ thống nhất. | Viết phần độc lập; không bịa bằng chứng hoặc thông tin cá nhân. |
 | G2. Giải thích phương pháp | T09–T35 | Đủ bản Chương 3/4; hợp đồng, sơ đồ, ví dụ và thuật toán policy khớp. | Bổ sung khái niệm hoặc tách mục quá lớn trước khi kết luận về phương pháp. |
 | G3. Lập luận có bằng chứng | T36–T58 | Kết quả, tổng quan, RQ và kết luận khớp; nhận định trong phạm vi nguồn. | Sửa diễn giải/thu hẹp kết luận; nêu nghiên cứu mới tùy chọn riêng. |
-| G4. Nguồn hoàn chỉnh | T59–T72 và các mục T01 bắt buộc đã rõ | Đủ phần đầu, chương, tham khảo, phụ lục và biên dịch được. | Giữ danh sách vấn đề; chưa phát hành cuối khi còn danh tính giả định hoặc phần bắt buộc thiếu. |
-| G5. Bản dự kiến nộp đã rà | T73–T80 | Đạt khoa học, dễ hiểu, tiếng Anh, ghi nguồn, số liệu và trực quan; đúng trạng thái phản biện ngoài. | Mở lại task và kiểm phụ thuộc bị ảnh hưởng; không chạy lại suite runtime không liên quan. |
+| G4. Nguồn hoàn chỉnh | T59–T72, cập nhật cấu trúc T73a–T73l và các mục T01 bắt buộc đã rõ | Bản mới đủ phần đầu, sáu chương và tham khảo; không phụ lục; nguồn LaTeX tự đủ. P8 chỉ chứng minh bản đầu đã ghép. | Giữ danh sách vấn đề; chưa phát hành cuối khi còn danh tính giả định hoặc phần bắt buộc thiếu. |
+| G5. Bản dự kiến nộp đã rà | T73a–T73l, T73–T80 | PDF 60–70 trang tính toàn bộ file, portrait/rotation=0, không phụ lục; đạt khoa học, dễ hiểu, tiếng Anh, ghi nguồn, số liệu và trực quan; đúng trạng thái phản biện ngoài. | Mở lại task nội dung/bố cục liên quan nếu vượt trang hoặc mất ý cốt lõi; không chạy lại suite runtime không liên quan. |
 | G6. Hoàn thành nội bộ | T81–T84 | Bàn giao PDF/nguồn tự đủ, build sạch và có manifest. | Nêu chính xác còn thiếu gì; đã nộp/chấp thuận cần bằng chứng thực tế riêng. |
 
 ## 8. Vướng mắc thường gặp và cách giữ phạm vi
@@ -448,6 +534,6 @@ Các mốc này quản lý việc viết, không phải bốn gate runtime của
 
 ## 9. Định nghĩa hoàn thành cuối cùng
 
-Khóa luận chỉ **hoàn thành nội bộ** khi mọi phần bắt buộc được viết bằng tiếng Anh; người mới theo được toàn phương pháp; luận điểm và số liệu quan trọng đều truy nguồn được; giữ các giới hạn trọng yếu; trích dẫn, công thức, tham chiếu đúng; PDF cuối đã kiểm từng trang; gói nguồn biên dịch được độc lập với thư mục mẫu. Quy định này áp dụng cho sản phẩm khóa luận, không yêu cầu chuyển kế hoạch, checklist hoặc trao đổi quản lý sang tiếng Anh.
+Khóa luận chỉ **hoàn thành nội bộ** khi mọi phần bắt buộc được viết bằng tiếng Anh; người mới theo được toàn phương pháp; luận điểm và số liệu quan trọng đều truy nguồn được; giữ các giới hạn trọng yếu; trích dẫn, công thức, tham chiếu đúng; PDF cuối có **60–70 trang vật lý, không phụ lục, toàn trang dọc và rotation=0**, đã kiểm từng trang; gói nguồn biên dịch được độc lập với thư mục mẫu. Không đạt yêu cầu bằng cách làm chữ/hình/bảng khó đọc hoặc chuyển toàn bộ phụ lục thành chương bổ sung. Quy định này áp dụng cho sản phẩm khóa luận, không yêu cầu chuyển kế hoạch, checklist hoặc trao đổi quản lý sang tiếng Anh.
 
 Không che chỗ trống nội dung, thông tin bịa, phần bắt buộc thiếu, lỗi số liệu trọng yếu chưa sửa hoặc tài nguyên phát hành chưa kiểm bằng cách đánh dấu task hoàn tất. Việc nộp ra ngoài, người hướng dẫn đồng ý và cơ sở đào tạo chấp thuận là các trạng thái riêng, chỉ ghi khi có bằng chứng thực tế.

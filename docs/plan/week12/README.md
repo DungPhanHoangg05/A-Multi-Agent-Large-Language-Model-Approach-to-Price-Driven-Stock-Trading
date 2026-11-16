@@ -39,6 +39,33 @@ trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại
 
 ## Checklist viết khóa luận
 
+### Cập nhật kế hoạch rút gọn khóa luận
+
+Ngày **16/11/2026**, theo yêu cầu đã làm rõ của người dùng, bước này **chỉ sửa
+kế hoạch**, chưa thực hiện việc rút gọn. [Kế hoạch viết](../../../thesis/plan.md)
+bổ sung 12 task con T73a–T73l (đều TODO), ngân sách mục tiêu 66 trang trong
+khoảng **60–70 trang tính toàn bộ PDF**, bảng chuyển nội dung thiết yếu của
+phụ lục vào Chương 3–5, quy tắc bảng trang dọc và tiêu chí nghiệm thu tương ứng.
+T61–T66/T71 giữ trạng thái lịch sử bản đầu; không còn là yêu cầu giữ phụ lục
+trong bản nộp mới. Chương phương pháp vẫn phải tự đủ cho giảng viên mới tiếp cận.
+
+Khảo sát chỉ đọc PDF P8: 259 trang, 30 trang có thuộc tính xoay; phần đầu 19,
+sáu chương 175, tài liệu tham khảo 3 và phụ lục 62 trang. Bỏ riêng phụ lục vẫn
+còn 197 trang; Chương 4/5 chiếm 66/63 trang nên cần rút cả thân bài. Các chỉnh
+sửa thử ở Chương 1–3 trước khi người dùng làm rõ phạm vi đã được hoàn tác.
+Nguồn bản thảo, phụ lục, assets, bibliography, source-map và PDF giữ nguyên
+so với mốc trước tác vụ; không công bố bản PDF rút gọn hoặc task biên tập DONE.
+
+Đã kiểm PASS: diff whitespace, ba liên kết/anchor local mới hoặc thay đổi,
+tổng ngân sách 60/66/70 trang, 12 task TODO khớp 12 đặc tả và phụ thuộc.
+Đối chiếu Git xác nhận 84 file khác trong `thesis/` không đổi (văn bản so nội
+dung chuẩn hóa LF, PDF/ảnh so byte); SHA-256 của PDF vẫn là
+`eeff3f0b09996d031a296fafc97f9042b711134d05628a5ab6c6264b55ef9826`.
+Chỉ cập nhật ba tài liệu quản lý:
+`thesis/plan.md`, `docs/plan/plan.md`, README tuần này. Không chạy build LaTeX,
+compileall, unit, E2E hoặc leakage vì nguồn bản nộp và runtime không đổi
+(AGENTS §1.2); không inference, huấn luyện hoặc sinh lại kết quả thực nghiệm.
+
 Ngày **14/11/2026**, người dùng yêu cầu kế hoạch viết từ đầu tới khi bàn giao
 và đổi tên thư mục thành `thesis/`. Theo đính chính ngôn ngữ sau đó,
 **trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng tiếng Việt;
