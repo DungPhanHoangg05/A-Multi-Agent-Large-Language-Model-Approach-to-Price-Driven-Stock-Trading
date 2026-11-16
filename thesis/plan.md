@@ -175,6 +175,8 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T79 — DONE: Xem đủ 60 trang render cuối và kiểm bố cục; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T80 — DONE: Đối chiếu yêu cầu tác giả và hoàn tất lượt chỉnh nội bộ; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 
+**Đính chính bố cục theo tác giả:** trang đánh số 15 và 26 đã ghép hình với văn bản; build/render kiểm lại, vẫn 60 trang. Mốc T80 trước sửa được giữ trong history của source map; chi tiết ở sổ P9, không mở thêm task hay thay đặc tả P10.
+
 #### Bàn giao — P10
 
 - [ ] T81 — Khóa và đóng gói nguồn bản thảo tự đủ.

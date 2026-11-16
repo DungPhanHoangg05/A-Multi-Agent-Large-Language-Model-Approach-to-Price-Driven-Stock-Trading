@@ -69,7 +69,11 @@ nhắc bảo trì môi trường, không phải lỗi bản thảo. Không cập
 để xóa lời nhắc. Hash PDF/nguồn và số trang từng phần ở `source-map.json`.
 T79 đã xem đủ mọi trang render; T80 xử lý yêu cầu tác giả đã nhận và hoàn
 tất lượt chỉnh nội bộ, kiểm lại build/trang ảnh hưởng. Hash hiện hành ở
-source map là bản sau T80; các mốc T73/T78–T79 được giữ riêng trong lịch sử.
+source map là bản sau T80 và đính chính bố cục theo tác giả: sơ đồ ở trang
+đánh số 15/26 có văn bản đi cùng, cặp biểu đồ lân cận cũng giữ phần chữ.
+Chỉ đổi vị trí float; không đổi kích thước hay nội dung hình. Đã build lại
+bốn lượt/Biber và render kiểm các trang đổi; tổng vẫn 60 trang. Các mốc
+T73/T78–T79/T80 trước đính chính được giữ riêng trong lịch sử.
 Chưa có phản biện mới của người hướng dẫn, chưa ký/nộp bên ngoài. Đóng gói
 nguồn tự đủ và build từ gói giải nén thuộc P10/T81–T84.
 

@@ -9,7 +9,8 @@ evaluation. The historical execution order is Indicator, Pattern, Trend,
 then the joint alpha/sentiment stage. The figure groups computation types
 rather than specifying that node order.
 
-\begin{figure}[htbp]\centering
+% Ưu tiên đầu trang cùng phần diễn giải, không tạo trang chỉ có sơ đồ.
+\begin{figure}[!t]\centering
 \begin{tikzpicture}[>=Stealth,node distance=5mm,
 box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.88\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
 \node[box] (input) {\textbf{Available at cutoff $t$}\\
@@ -148,7 +149,8 @@ explain the view and were not part of the vision request. The first view
 supports candle-structure claims; the second adds line geometry. This
 comparison is needed to interpret why apparently similar role reports can
 disagree or make claims unsupported by their own image.
-\begin{figure}[htbp]\centering
+% Cặp biểu đồ vẫn chia trang với văn bản sau khi các sơ đồ được dồn lại.
+\begin{figure}[!t]\centering
 {\small\textbf{(a) Pattern: saved candles without fitted boundaries}}\par
 \includegraphics[width=\linewidth,height=.28\textheight,keepaspectratio]{../assets/figures/F04_pattern.png}\par
 {\small Four of the final five candles close below their opens; the saved
@@ -474,7 +476,8 @@ observations; target block 21 contributes three, with latest target exit
 examples. Its query remains unlabeled. The model vector is approximately
 (0.109634,0.101272,$-1.290443$,0.215713), without clipping in this case.
 Figure~\ref{fig:F06} separates the context and offline/query boundaries.
-\begin{figure}[htbp]\centering
+% Giữ sơ đồ MT ở đầu trang có văn bản thay vì một float page riêng.
+\begin{figure}[!t]\centering
 \begin{tikzpicture}[>=Stealth,node distance=5mm,
 box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.88\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
 \node[box] (fit) {\textbf{Offline: historical training tasks through 2020}\\

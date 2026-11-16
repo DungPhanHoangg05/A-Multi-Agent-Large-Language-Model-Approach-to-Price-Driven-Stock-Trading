@@ -307,7 +307,7 @@
   ],
   "current_revision": {
     "date": "2026-11-16",
-    "scope": "T73a-T80 internal manuscript review complete; P10 packaging and external/institutional approval remain pending",
+    "scope": "P9 internal review plus author-requested figure/text placement correction; P10 and external approval remain pending",
     "pages": 60,
     "frontmatter_pages": 10,
     "chapter_pages": [
@@ -342,7 +342,7 @@
     },
     {
       "path": "latex/chapters/04_proposed_system.tex",
-      "lf_sha256": "e0dbc3779a6752ad1becda4cfb316c733a86b98e06e46a390a64c4791c06b429"
+      "lf_sha256": "9b6966a42d4a4525cd452cd24c0c4e4a94bc3521d02a7701c881429a3631ff29"
     },
     {
       "path": "latex/chapters/05_experiments.tex",
@@ -380,15 +380,15 @@
   "current_references_lf_sha256": "590989dcef820914c0a0efc238f841276459125af8ebcb65d0ea2547db9bafe3",
   "reviewed_pdf": {
     "path": "release/thesis.pdf",
-    "sha256": "e6012d04fa4887162e66021dc9b55dbb96f436b67bad710c3dbbf931e1e57f04",
+    "sha256": "2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922",
     "pages": 60,
-    "status": "P9_T80_INTERNALLY_REVIEWED_P10_AND_EXTERNAL_APPROVAL_PENDING",
-    "clean_build": "Four LuaLaTeX passes and Biber in fresh tmp/pdfs/thesis-t80-clean/thesis; no original-checkout/Markdown/archive/template inputs.",
+    "status": "P9_AUTHOR_LAYOUT_CORRECTION_REVIEWED_P10_EXTERNAL_APPROVAL_PENDING",
+    "clean_build": "Fresh auxiliary directory tmp/pdfs/thesis-diagram-flow-final; four LuaLaTeX passes and Biber using tracked LaTeX, assets and bibliography; no Markdown/archive/template input.",
     "rotation": 0,
     "overfull_boxes": 0,
     "undefined_references_or_citations": 0,
     "missing_glyphs": 0,
-    "bytes": 675323,
+    "bytes": 675438,
     "internal_links": 130,
     "external_links": 54,
     "bookmarks": 50,
@@ -652,6 +652,189 @@
         "method": "15 consecutive four-page sheets covering every page; individual full-resolution views of pages 22, 28, 36 and 50. No print proof or independent external review.",
         "layout_changes_after_render": false
       }
+    },
+    {
+      "git_commit": "c1886edc",
+      "scope": "Reviewed T80 draft before author correction of figure-only printed pages 15 and 26",
+      "current_revision": {
+        "date": "2026-11-16",
+        "scope": "T73a-T80 internal manuscript review complete; P10 packaging and external/institutional approval remain pending",
+        "pages": 60,
+        "frontmatter_pages": 10,
+        "chapter_pages": [
+          3,
+          4,
+          6,
+          19,
+          13,
+          2
+        ],
+        "references_pages": 3,
+        "portrait_only": true,
+        "rotation": 0,
+        "appendices": 0,
+        "body_font_pt": 12,
+        "line_spacing": 1.5,
+        "numeric_source_rows": 68,
+        "joint_family_cells": 20
+      },
+      "current_latex": [
+        {
+          "path": "latex/chapters/01_introduction.tex",
+          "lf_sha256": "4fffab2a16d9694a44ebec0107f75fbc62ffae3280249ee69af43b0f714dd138"
+        },
+        {
+          "path": "latex/chapters/02_related_work.tex",
+          "lf_sha256": "1f8270eea97fb64f8f070488c7a0b3b2a1e37b4cf6f7c47700cc77d79f29b0e6"
+        },
+        {
+          "path": "latex/chapters/03_background.tex",
+          "lf_sha256": "c788e16dc32ab918fd6166595c7fe7fb19bdd0e85e163b12b25af7036add3875"
+        },
+        {
+          "path": "latex/chapters/04_proposed_system.tex",
+          "lf_sha256": "e0dbc3779a6752ad1becda4cfb316c733a86b98e06e46a390a64c4791c06b429"
+        },
+        {
+          "path": "latex/chapters/05_experiments.tex",
+          "lf_sha256": "9f6c6d01d41a6561ba7ab7db55e3f84992d18e9e578bb7c9e304147447e8bb15"
+        },
+        {
+          "path": "latex/chapters/06_conclusion.tex",
+          "lf_sha256": "7c652d781332b6460146b98c261770fb26fb9f9328d003fd95b84cd455c5ff46"
+        },
+        {
+          "path": "latex/covers-preview.tex",
+          "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+        },
+        {
+          "path": "latex/frontmatter/content.tex",
+          "lf_sha256": "de577ad7b31f87010249986829bea0fc9213e0d80b4c770cff3813ea0df77059"
+        },
+        {
+          "path": "latex/frontmatter/covers.tex",
+          "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+        },
+        {
+          "path": "latex/frontmatter/reference_lists.tex",
+          "lf_sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
+        },
+        {
+          "path": "latex/main.tex",
+          "lf_sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
+        },
+        {
+          "path": "latex/preamble.tex",
+          "lf_sha256": "c9602e821760bb5ff69395cd93be93b004fb2090f6061452c2cada23deee04a1"
+        }
+      ],
+      "current_references_lf_sha256": "590989dcef820914c0a0efc238f841276459125af8ebcb65d0ea2547db9bafe3",
+      "reviewed_pdf": {
+        "path": "release/thesis.pdf",
+        "sha256": "e6012d04fa4887162e66021dc9b55dbb96f436b67bad710c3dbbf931e1e57f04",
+        "pages": 60,
+        "status": "P9_T80_INTERNALLY_REVIEWED_P10_AND_EXTERNAL_APPROVAL_PENDING",
+        "clean_build": "Four LuaLaTeX passes and Biber in fresh tmp/pdfs/thesis-t80-clean/thesis; no original-checkout/Markdown/archive/template inputs.",
+        "rotation": 0,
+        "overfull_boxes": 0,
+        "undefined_references_or_citations": 0,
+        "missing_glyphs": 0,
+        "bytes": 675323,
+        "internal_links": 130,
+        "external_links": 54,
+        "bookmarks": 50,
+        "figures": 5,
+        "tables": 17,
+        "bibliography_entries": 22,
+        "underfull_hboxes": 0,
+        "biber_warnings": 0
+      },
+      "visual_review": {
+        "status": "T79_ALL_PAGES_PLUS_T80_CHANGED_PAGES_REVIEWED_PASS",
+        "pdf_sha256": "e6012d04fa4887162e66021dc9b55dbb96f436b67bad710c3dbbf931e1e57f04",
+        "physical_pages_reviewed": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60
+        ],
+        "renderer": "Poppler pdftoppm, 120 dpi",
+        "method": "15 consecutive four-page sheets covering every page; individual full-resolution views of pages 22, 28, 36 and 50. No print proof or independent external review.",
+        "layout_changes_after_render": false,
+        "parent_pdf_sha256": "2b59b9da9cc95ef80be1c2b0c9aa10e1918e9d8dd531d2341192ecc011265250",
+        "changed_pages_after_t80": [
+          34,
+          38
+        ],
+        "unchanged_poppler_png_pages": 58,
+        "comparison": "All 60 pages re-rendered at 120 dpi after T80; 58 PNGs byte-identical to T79, changed pages 34/38 viewed individually."
+      },
+      "feedback_review": {
+        "external_feedback_received": false,
+        "reviewer_approval": false,
+        "signed": false,
+        "submitted": false,
+        "official_deadline_and_format_rules": "not supplied",
+        "internal_followup": "RNG expanded and leading zero restored in Signal; no number value or policy changed.",
+        "author_instructions_received": true,
+        "external_feedback_scope": "No new supervisor/independent academic review received; actual author instructions are tracked in thesis/evidence.md T80."
+      }
     }
   ],
   "current_build_tools": [
@@ -718,8 +901,11 @@
   },
   "current_build_attributes_lf_sha256": "d9f3b3b7b2c23012f2bdf163cc4502af5e56c6724a8c0c068eb4bb6ca0ee0478",
   "visual_review": {
-    "status": "T79_ALL_PAGES_PLUS_T80_CHANGED_PAGES_REVIEWED_PASS",
-    "pdf_sha256": "e6012d04fa4887162e66021dc9b55dbb96f436b67bad710c3dbbf931e1e57f04",
+    "status": "AUTHOR_LAYOUT_CORRECTION_CHANGED_PAGES_REVIEWED_PASS",
+    "pdf_sha256": "2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922",
+    "parent_pdf_sha256": "e6012d04fa4887162e66021dc9b55dbb96f436b67bad710c3dbbf931e1e57f04",
+    "renderer": "Poppler pdftoppm 120 dpi",
+    "layout_changes_after_render": false,
     "physical_pages_reviewed": [
       1,
       2,
@@ -782,16 +968,31 @@
       59,
       60
     ],
-    "renderer": "Poppler pdftoppm, 120 dpi",
-    "method": "15 consecutive four-page sheets covering every page; individual full-resolution views of pages 22, 28, 36 and 50. No print proof or independent external review.",
-    "layout_changes_after_render": false,
-    "parent_pdf_sha256": "2b59b9da9cc95ef80be1c2b0c9aa10e1918e9d8dd531d2341192ecc011265250",
-    "changed_pages_after_t80": [
+    "changed_physical_pages_reviewed": [
+      7,
+      8,
+      9,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
       34,
-      38
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42
     ],
-    "unchanged_poppler_png_pages": 58,
-    "comparison": "All 60 pages re-rendered at 120 dpi after T80; 58 PNGs byte-identical to T79, changed pages 34/38 viewed individually."
+    "unchanged_poppler_png_pages": 39,
+    "method": "Rendered all 60 pages at 120 dpi. Viewed all 21 changed pages in six four-page sheets; 39 PNGs byte-identical to the fully reviewed T80 render. Printed pages 15/26 have figure plus body prose; nearby chart pair also shares a page with prose."
   },
   "feedback_review": {
     "external_feedback_received": false,
@@ -801,6 +1002,8 @@
     "official_deadline_and_format_rules": "not supplied",
     "internal_followup": "RNG expanded and leading zero restored in Signal; no number value or policy changed.",
     "author_instructions_received": true,
-    "external_feedback_scope": "No new supervisor/independent academic review received; actual author instructions are tracked in thesis/evidence.md T80."
+    "external_feedback_scope": "No new supervisor/independent academic review received; actual author instructions are tracked in thesis/evidence.md T80.",
+    "author_layout_request": "Printed pages 15 and 26 must contain both figure and prose.",
+    "layout_resolution": "F03/F06 use top-of-text-page placement; F04 follows the same placement to retain nearby text after reflow. Only float specifiers/comments changed; no font/image scaling or added prose."
   }
 }
