@@ -3188,3 +3188,7 @@ Bổ sung §4.8.3: feature phục vụ eligibility/matching/representation; teac
 ### T80c. Nêu nguồn chọn cohort/lịch điểm và giới hạn lý do còn thiếu
 
 Bổ sung §5.2 từ frozen unified protocol v2 và r1 protocol: kế thừa endpoint51 scopes tại donor9efd23f, không random/continuous; CORE4 bank và5no-bank phân biệt coverage. Khóa trước context response collection không xóa exposure lịch sử; queuefreeze component muộn giữ rõ. Không có hồ sơ screen9mã hay lý do từng cửa sổ/nguồn lực đủ xác minh nên nêu thiếu, không bịa liquidity/sector/preregistration. BHN suffix và6structural cells vẫn nguyên. Chỉ đọc protocol/hợp đồng và kiểm số 51×2=102,57 observed sessions; không suite hoặc thực nghiệm mới.
+
+### T80d. Đếm regime đã lưu và nêu rõ khoảng trống MT query proof
+
+Đọc hash/envelope204prepare slots r0 trong U08 archive: signal4BULL/0BEAR/4CHOPPY/40CONSOLIDATION/0UNKNOWN,54not-recorded trên102points;48observedpoints tương ứng12dates, không đếm repeats. MT102prepare contracts không giữ query regime proof nên NR, không chạy detector/tái dựng. RG01/RG02 metadata HMM hội tụ41/29iterations,1052/553features,cutoff2022/2020,fit fallback reasons rỗng; occupancy train phân biệtqueryfrequency. §5.2 có bảng và giới hạn cụ thể; thiếu MTfrequency/fallbackrate không được suy từ FPT hay feature bypass. Kiểm count/source/hash/108spec/diff; không modelrun hoặc suite.

@@ -84,6 +84,46 @@ Common fallback. Numerical task context is separately frozen per fold,
 with reserved evaluation IDs excluded. Missing support/news stays in
 primary results.
 
+\paragraph{Observed regime support and resource quality.}
+Table~\ref{tab:regime-support} counts saved query states once per
+stock/cutoff, using repeat 0. The 48 signal-bank-covered points span
+twelve dates shared by four stocks: BULL occurs on one date, CHOPPY on
+one, and CONSOLIDATION on ten. These are query-state frequencies, not
+training occupancy or independent market replications. The 54 other
+points bypass the same-stock signal-bank path and have no saved state
+in that trace; absence is not an UNKNOWN detector output.
+
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption[Recorded query-regime support]{Recorded query-regime support on 102 unique stock/cutoff points. NR means not retained in the inspected runtime contract; it is not a zero count. Repeats do not enlarge the denominator.}\label{tab:regime-support}
+\begin{tabular}{@{}P{.42\linewidth}rr@{}}\toprule
+Query state / availability & Signal bank & MT task regime\\\midrule
+BULL & 4 & NR\\
+BEAR & 0 & NR\\
+CHOPPY & 4 & NR\\
+CONSOLIDATION & 40 & NR\\
+UNKNOWN recorded & 0 & NR\\
+State not retained in inspected trace & 54 & 102\\\bottomrule
+\end{tabular}\end{table}
+
+The frozen signal resource ends on 30 December 2022, with 1,052 feature
+rows; its metadata report HMM convergence in 41 iterations and no
+fit-quality fallback reasons. Training occupancies, ordered
+BULL/BEAR/CHOPPY/CONSOLIDATION, are 32.8/11.1/23.5/32.5\%.
+The MT query resource ends on 31 December 2020, with 553 feature rows,
+convergence in 29 iterations and no fit-quality fallback reasons; its
+corresponding occupancies are 27.9/8.9/25.3/37.9\%. These metadata
+describe different training resources, not the frequency of their
+states in the evaluation cohort.
+
+The inspected MT preparation records preserve membership identifiers,
+projection and support reasons, but not the query-regime proof needed
+for a complete state-frequency table. The known FPT BULL example cannot
+fill the other cells. Nor can an unavailable feature, UNKNOWN facts
+bucket or unsupported utility be relabeled as a regime fallback.
+No detector was rerun to fill this reporting gap; MT query frequencies
+and query-time fallback rates remain unverified, despite successful
+fit-quality metadata for its frozen resource.
+
 Component controls use 51 chronological purged scopes (32--318 train and
 18--21 validation cycles); all 51 recorded purge checks pass. Context
 instead has nine unique fixed-per-stock Common selectors, referenced by
