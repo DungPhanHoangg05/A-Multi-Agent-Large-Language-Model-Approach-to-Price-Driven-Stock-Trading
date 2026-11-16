@@ -80,7 +80,8 @@ The working budget is **66 physical PDF pages**, within **60–70 including cove
 The edited draft after T73 has **60 pages**: front matter 10; Chapters 1–6
 3/4/6/19/13/2; references 3. The budgets guide emphasis rather than requiring
 padding. The scope below can be merged into fewer final subsections; the
-LaTeX table of contents gives the current structure. T74–T80 remain pending.
+LaTeX table of contents gives the current structure. T74–T80 are complete
+as an internal review; external review and P10 packaging remain pending.
 
 ## C. Detailed chapter outline
 
@@ -464,7 +465,7 @@ This is a writing aid, not the final scholarly bibliography. Current paths ident
 
 Use the [figure, table and algorithm catalogue](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn) to track each item's message, chapter, responsible writing task, source type and provenance. Working titles and proposed output paths do not establish that an artifact has been produced or visually verified; final numbering is generated in LaTeX.
 
-Use [EX01 and its selection/source record](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) for the running example: FPT at the 3 July 2023 cutoff, upstream realization 0 and Decision repeat 0. Introduce the available inputs and historical context in Chapter 4 before revealing the subsequent outcome in Chapter 5. Preserve the separate v1 and MT regime sources, bypasses and unchanged anchor action; this case contains no veto. Its negative net outcome is part of the example, not an estimate of comparative performance.
+Use [EX01 and its selection/source record](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết) for the running example: FPT at the 3 July 2023 cutoff, upstream realization 0 and Decision repeat 0. Introduce the available inputs and historical context before revealing the subsequent outcome at the end of Chapter 4; Chapter 5 assesses the complete cohort. Preserve the separate v1 and MT regime sources, bypasses and unchanged anchor action; this case contains no veto. Its negative net outcome is part of the example, not an estimate of comparative performance.
 
 Follow the [writing plan](plan.md) and maintain task status in the [project checklist](plan.md#21-một-nguồn-trạng-thái-công-việc). Draft the contracts and methods and keep the reduced LaTeX manuscript as the single submission source. Preserve RQ1–RQ4, adverse results and validity limits while removing repetition. Review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
 

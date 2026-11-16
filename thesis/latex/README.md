@@ -67,7 +67,11 @@ overfull box, glyph thiếu, reference/citation treo, glue-splitting note hay
 warning Biber. MiKTeX vẫn nhắc chưa kiểm cập nhật ở stdout; exit 0, đây là
 nhắc bảo trì môi trường, không phải lỗi bản thảo. Không cập nhật runtime
 để xóa lời nhắc. Hash PDF/nguồn và số trang từng phần ở `source-map.json`.
-T79–T80 tiếp tục kiểm trực quan và phản hồi; chưa phản biện/nộp bên ngoài.
+T79 đã xem đủ mọi trang render; T80 xử lý yêu cầu tác giả đã nhận và hoàn
+tất lượt chỉnh nội bộ, kiểm lại build/trang ảnh hưởng. Hash hiện hành ở
+source map là bản sau T80; các mốc T73/T78–T79 được giữ riêng trong lịch sử.
+Chưa có phản biện mới của người hướng dẫn, chưa ký/nộp bên ngoài. Đóng gói
+nguồn tự đủ và build từ gói giải nén thuộc P10/T81–T84.
 
 Notice `licenses/QuantAgent-MIT.txt` giữ nguyên byte notice upstream. Không
 suy quyền phân phối data/news/model weights/logo trường từ license phần mềm;

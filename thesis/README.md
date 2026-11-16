@@ -14,9 +14,9 @@ giữ nguyên byte 13 bản Markdown cùng nguồn LaTeX tại mốc cũ;
 [source map](latex/source-map.json) lưu hash LF và ánh xạ mốc chuyển.
 Kế hoạch, sổ bằng chứng và README quản lý vẫn tiếp tục cập nhật bằng Markdown.
 
-[PDF biên tập T73](release/thesis.pdf) hiện có **60 trang**, toàn A4 dọc,
+[PDF đã rà nội bộ T80](release/thesis.pdf) hiện có **60 trang**, toàn A4 dọc,
 không phụ lục. Mốc P8 259 trang vẫn lấy nguyên byte từ Git `d025facb`. Bản nộp mới gồm hai bìa,
-phần đầu, sáu chương và references, không phụ lục. Đây là bản để tiếp tục P9/P10,
+phần đầu, sáu chương và references, không phụ lục. Đây là bản để tiếp tục P10,
 chưa là bản đã phản biện, ký, nộp hoặc được trường chấp thuận.
 [Hướng dẫn build](latex/README.md) dùng LuaLaTeX/Biber và không cần thư mục
 mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã build sạch bốn lượt trong bản sao chỉ gồm LaTeX,
@@ -107,7 +107,7 @@ Khảo sát nguồn bắt đầu tại `develop:7a71d4da0dcccded03e46189ce42fea2
 
 ## Phạm vi công việc
 
-Đầu ra cuối là khóa luận tiếng Anh hoàn chỉnh, có luận điểm truy vết được, hình/bảng đã kiểm, tài liệu tham khảo, phụ lục, nguồn LaTeX tái lập và PDF đã kiểm trực quan. Kế hoạch bao phủ chuẩn bị, viết, chỉnh sửa, dàn trang và bàn giao. Hoàn thành kế hoạch không đồng nghĩa hoàn thành bản thảo hay tự cho phép thu thực nghiệm mới.
+Đầu ra cuối là khóa luận tiếng Anh hoàn chỉnh, có luận điểm truy vết được, hình/bảng đã kiểm, tài liệu tham khảo, nguồn LaTeX tái lập và PDF đã kiểm trực quan, không phụ lục theo yêu cầu P9. Kế hoạch bao phủ chuẩn bị, viết, chỉnh sửa, dàn trang và bàn giao. Hoàn thành kế hoạch không tự cho phép thu thực nghiệm mới.
 
 Giữ rõ kết quả âm, thiếu support, vấn đề nguồn dữ liệu và giới hạn nhân quả. Module có trong mã nguồn không chứng minh ablation tương ứng đã chạy; replay offline không phải một lượt gọi mô hình mới.
 
@@ -123,9 +123,14 @@ Các file mẫu có ở máy nhưng chưa được Git theo dõi tại mốc l�
 
 ## Bản biên tập P9 hiện hành
 
-T73a–T73l và T73 đã thực hiện (tự đối soát nội bộ); bản PDF60 trang và hash hiện tại ở source-map.
+T73a–T73l và T73–T80 đã thực hiện trong phạm vi rà soát nội bộ; bản PDF60 trang và hash hiện tại ở source-map.
 Phân bổ thực tế: phần đầu10, sáu chương3/4/6/19/13/2, references3.
 Mục tiêu66 là dự toán, khoảng60–70 là phạm vi làm việc; không chèn nội dung
 để ép từng ngân sách. 17 bảng/năm hình; đủ hai nghiên cứu, hai baseline,
 family20, support/bypass, NA/kết quả âm và Native FAIL/NOT_CERTIFIED/UI PENDING.
-T74–T80 và P10 còn mở; chưa nhận phản biện ngoài, chưa ký/nộp.
+T74–T80 đã tự rà khả năng đọc hiểu, tiếng Anh, citation/quyền, số học,
+clean build và đủ 60 trang render. G5 đạt trong phạm vi kiểm nội bộ;
+không thay phản biện khoa học độc lập hoặc quy định định dạng của trường.
+P10/T81–T84 còn mở; chưa nhận phản biện ngoài, chưa ký/nộp. Deadline,
+quy định citation/bố cục chính thức và quyền phát hành một số tài nguyên
+vẫn chưa được xác minh; chi tiết ở sổ T76/T80. Không chạy lại runtime suite.

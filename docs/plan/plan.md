@@ -6,14 +6,17 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ## Trạng thái hiện hành
 
 **Viết khóa luận, cập nhật ngày 16/11/2026:** thư mục làm việc là `thesis/`.
-**P9/T73a–T73l và T73 đã hoàn thành nội bộ:** bản biên tập **60 trang**,
+**P9/T73a–T73l và T73–T80 đã hoàn thành rà soát nội bộ:** bản biên tập **60 trang**,
 toàn A4 dọc/rotation=0, không phụ lục. Giữ12pt/giãn1,5/lề cũ; hai nghiên cứu,
 hai baseline, family20, support/bypass/NA/kết quả âm và Native FAIL/NOT_CERTIFIED/
 UI PENDING không đổi. LaTeX là nguồn chính; source map/archive P8 giữ lịch sử.
 Build sạch bốn lượt LuaLaTeX+Biber không cần Markdown/archive/mẫu PASS;
 đã kiểm render60 trang, nguồn và đối soát luận điểm đúng phạm vi. Không chạy
 suite nghiên cứu vì code/runtime/input/model/receipt giữ nguyên.
-T74–T80 và P10 còn mở, chưa phản biện ngoài/ký/nộp. P1–P8 dưới đây là lịch sử.
+T74–T80 đã rà người đọc, tiếng Anh, citation/quyền, số học, clean build,
+mọi trang và phản hồi thực nhận. G5 chỉ đạt trong phạm vi tự rà nội bộ;
+P10/T81–T84 còn mở, chưa phản biện ngoài/ký/nộp. Quy định trường và quyền
+phân phối tài nguyên chưa rõ tiếp tục được ghi ở sổ bằng chứng. P1–P8 dưới đây là lịch sử.
 
 [Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
 bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp
