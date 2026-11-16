@@ -3058,3 +3058,13 @@ Giữ nguyên byte nội dung lời cảm ơn/cam đoan đã xác nhận và ngu
 ### T73k. Bỏ phụ lục khỏi bản nộp, giữ nguyên nguồn lịch sử ngoài build
 
 Đã kiểm/lưu 32 member vào archive/p8-source.zip:13 Markdown, nguồn LaTeX P8 và source-map cũ. Hai thư mục phụ lục và 12 file nguồn đã xóa sau đối soát nguyên byte; main.tex không còn appendix/input phụ lục. Hash mốc T72 và hai mảng nguồn lịch sử giữ nguyên, source-map bổ sung locator/raw hash; check.py đọc archive và kiểm được 56 dòng bảng/family20. Chỉ đổi điều hướng hai bản Markdown Chương4–5, nguyên bản trước đổi link còn trong ZIP; link quản lý trỏ archive. Build thực không phụ lục PASS, PDF57trang không Appendix/TOC treo. Compile riêng check.py và strict historical checks PASS; không chạy suite nghiên cứu. Archive ngoài cây LaTeX, không cần để build/gói bản nộp.
+
+### T73l. Hoàn thiện bản 60 trang dọc, bảng đọc được và hình phương pháp
+
+PDF biên tập có **60 trang vật lý**: phần đầu10, Chương1–6 là3/4/6/19/13/2, references3; trong khoảng60–70, không ép từng chương đúng số dự toán. Toàn bộ A4 portrait, rotation=0; không appendix trong nguồn/PDF/TOC/bookmark. Giữ 12pt/giãn1,5/lề2,5cm ngang/3cm trên dưới;17 bảng chính dùng small11pt, năm hình với timeline/F03/MT/policy TikZ có nhãn10pt. Cặp bitmap Pattern/Trend nguyên byte, chú giải đặt ngoài ảnh bằng chữ đọc được. Không landscape/sidewaystable/rotatebox/resizebox hoặc ép mỗi bảng một trang. Các trang hình riêng do float tự sắp để giữ nhãn, không chèn ngắt trang để lấp ngân sách.
+
+Bổ sung lại bảng ưu tiên Indicator, định nghĩa downside denominator và đủ12 execution scenarios vì cần để hiểu heuristic/risk và giữ cả adverse/control; đây là nội dung chọn từ nguồn đã có, không nghiên cứu mới. Ánh xạ bảng hiện68 dòng nguyên ô, đủ20 contrast cells; checker đối chiếu archive/source và bản hiện tại PASS, đối chứng âm đổi một ô trên bản sao bị từ chối.
+
+Build sạch bốn lượt LuaLaTeX+Biber trong cây chỉ có LaTeX/assets/bib PASS, .fls không đọc checkout gốc, không cần Markdown/archive/mẫu/phụ lục. Render toàn60 trang, xem từng contact page và các trang chi tiết, xem lại các trang đổi sau sửa; raster của bản sạch khớp60/60 trang đã kiểm. Không overfull, glyph thiếu, undefined reference/citation hoặc glue-splitting note;129 link nội bộ hợp lệ, không crop/bounds violation hoặc trang trắng. Còn underfull và hai warning bibliography gốc, không tuyên bố zero-warning. Hash lịch sử P8 giữ nguyên; source-map khóa hash LaTeX hiện tại riêng và PDF SHA-256 `704a149251e44ac6a0cb89b3db45288072802a6be9f3185a16af7b8f6be73118`.
+
+Đã compile riêng check.py và kiểm diff/đặc tả. Không chạy compileall/unit/E2E/leakage nghiên cứu vì runtime/bằng chứng không đổi. Đây là QA biên tập T73, chưa thay các lượt rà cuối T74–T80, phản biện ngoài hoặc nghiệm thu/nộp.

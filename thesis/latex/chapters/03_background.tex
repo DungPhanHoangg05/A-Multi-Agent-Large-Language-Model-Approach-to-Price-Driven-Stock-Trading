@@ -21,8 +21,19 @@ For the running FPT example, the cutoff is 3 July 2023; the next observed
 entry and third-session exit are 4 and 6 July. Its later outcome is
 revealed only after explaining the forecast path in Chapter 4.
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=.26\textheight,keepaspectratio]{../assets/diagrams/F01_trade_timeline.pdf}
-\caption{Cutoff, entry and exit under the study contract, with the dated FPT example.}\label{fig:F01}
+\begin{tikzpicture}[>=Stealth,node distance=5mm,
+box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.85\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
+\node[box] (cut) {\textbf{Cutoff: completed bar $t$; exclusive boundary $e=t+1$}\\
+Visible chart $[e-45,e)$ and longer prefix end here.\\FPT: 3 July 2023. No future execution prices are visible.};
+\node[box,below=of cut] (entry) {\textbf{Entry at Open$(t+1)$}\\
+First future observed session; brokerage and slippage on buying.\\FPT: 4 July 2023.};
+\node[box,below=of entry] (middle) {\textbf{Second observed session, $t+2$}\\
+The reference LONG remains open. FPT: 5 July 2023.};
+\node[box,below=of middle] (exit) {\textbf{Exit at Close$(t+3)$}\\
+Third observed session; brokerage and slippage on selling.\\FPT: 6 July 2023.};
+\draw[->] (cut)--(entry);\draw[->] (entry)--(middle);\draw[->] (middle)--(exit);
+\end{tikzpicture}
+\caption[Cutoff and three-session execution timeline]{Cutoff and three-session execution timeline. Indices count observed sessions; calendar gaps do not change the index convention. Future prices enter evaluation only after durable forecasts.}\label{fig:F01}
 \end{figure}
 
 \section{Economic contract and prediction target}\label{s:e2142a9a841370b4}

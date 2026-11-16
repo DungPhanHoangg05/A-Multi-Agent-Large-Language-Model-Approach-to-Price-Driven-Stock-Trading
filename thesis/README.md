@@ -14,13 +14,13 @@ giữ nguyên byte 13 bản Markdown cùng nguồn LaTeX tại mốc cũ;
 [source map](latex/source-map.json) lưu hash LF và ánh xạ mốc chuyển.
 Kế hoạch, sổ bằng chứng và README quản lý vẫn tiếp tục cập nhật bằng Markdown.
 
-[PDF đang biên tập](release/thesis.pdf) sẽ được cập nhật sau T73l; mốc P8
-259 trang vẫn lấy nguyên byte từ Git `d025facb`. Bản nộp mới gồm hai bìa,
+[PDF biên tập T73](release/thesis.pdf) hiện có **60 trang**, toàn A4 dọc,
+không phụ lục. Mốc P8 259 trang vẫn lấy nguyên byte từ Git `d025facb`. Bản nộp mới gồm hai bìa,
 phần đầu, sáu chương và references, không phụ lục. Đây là bản để tiếp tục P9/P10,
 chưa là bản đã phản biện, ký, nộp hoặc được trường chấp thuận.
 [Hướng dẫn build](latex/README.md) dùng LuaLaTeX/Biber và không cần thư mục
-mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã thử trong bản sao chỉ gồm LaTeX,
-assets và bibliography; build thiếu file bắt buộc sẽ dừng, không lặng lẽ bỏ chương.
+mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã build sạch bốn lượt trong bản sao chỉ gồm LaTeX,
+assets và bibliography, không có archive/Markdown/mẫu; build thiếu file bắt buộc sẽ dừng, không lặng lẽ bỏ chương.
 
 Hạn nộp, giới hạn trang/từ và biểu mẫu chính thức chưa được cung cấp.
 P9 biên tập theo yêu cầu mới: tổng 60–70 trang, mục tiêu 66, không phụ lục,
@@ -120,3 +120,12 @@ Các file mẫu có ở máy nhưng chưa được Git theo dõi tại mốc l�
 - Dùng một sổ đối chiếu bằng chứng chung, không tạo báo cáo riêng cho từng task viết.
 - Tuân thủ nhánh tác vụ và Conventional Commits. Task thuần tài liệu kiểm nguồn, liên kết và diff phù hợp, không chạy lại toàn bộ test runtime.
 - Ghi rõ thông tin tác giả/người hướng dẫn, quy định cơ sở đào tạo hoặc phản hồi còn thiếu; tiếp tục các phần viết độc lập trong khi chờ thông tin đó.
+
+## Bản biên tập P9 hiện hành
+
+T73a–T73l đã thực hiện; bản PDF60 trang và hash hiện tại ở source-map.
+Phân bổ thực tế: phần đầu10, sáu chương3/4/6/19/13/2, references3.
+Mục tiêu66 là dự toán, khoảng60–70 là phạm vi làm việc; không chèn nội dung
+để ép từng ngân sách. 17 bảng/năm hình; đủ hai nghiên cứu, hai baseline,
+family20, support/bypass, NA/kết quả âm và Native FAIL/NOT_CERTIFIED/UI PENDING.
+T74–T80 và P10 còn mở; chưa nhận phản biện ngoài, chưa ký/nộp.

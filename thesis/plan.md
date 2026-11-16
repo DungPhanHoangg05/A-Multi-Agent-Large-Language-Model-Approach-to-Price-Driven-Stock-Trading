@@ -162,7 +162,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T73i — DONE: Rút kết quả/thảo luận, giữ đủ family và kết quả bất lợi; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73j — DONE: Rút phần đầu còn 10 trang và kết luận còn 2 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73k — DONE: Bỏ phụ lục khỏi bản nộp, giữ nguyên nguồn lịch sử ngoài build; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T73l — TODO: Chuyển toàn bộ bảng sang bố cục trang dọc và xử lý khoảng trắng/hình/bảng.
+- [x] T73l — DONE: Hoàn thiện bản 60 trang dọc, bảng đọc được và hình phương pháp; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 
 **Rà soát bản đã rút gọn:**
 

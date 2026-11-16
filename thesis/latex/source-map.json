@@ -150,7 +150,7 @@
     "bibliography_entries": 22,
     "isolated_build_without_markdown_or_template": "PASS"
   },
-  "pending": "P9 scientific/language/visual review and P10 packaging; unsigned declaration; official requirements not supplied",
+  "pending": "T74-T80 final scientific/readability/language/citation/numeric/build/page review and actual external feedback; P10 packaging; unsigned declaration; institutional mandatory requirements not supplied",
   "p8_archive": {
     "path": "archive/p8-source.zip",
     "sha256": "6af1d5006ed19ac510bd8e7f816c132d7d651a2be22114d4bbc9c5ca51e1958a",
@@ -304,5 +304,89 @@
       "lf_sha256": "0f3c375990fc8a16839632e391dcf8f7945156d78608e62d6446e97336b86cf7",
       "change": "Only archive-navigation note and appendix link targets; original bytes preserved in p8_archive."
     }
-  ]
+  ],
+  "current_revision": {
+    "date": "2026-11-16",
+    "scope": "T73a-T73l concise portrait edit; final review T74-T80 and packaging remain pending",
+    "pages": 60,
+    "frontmatter_pages": 10,
+    "chapter_pages": [
+      3,
+      4,
+      6,
+      19,
+      13,
+      2
+    ],
+    "references_pages": 3,
+    "portrait_only": true,
+    "rotation": 0,
+    "appendices": 0,
+    "body_font_pt": 12,
+    "line_spacing": 1.5,
+    "numeric_source_rows": 68,
+    "joint_family_cells": 20
+  },
+  "current_latex": [
+    {
+      "path": "latex/chapters/01_introduction.tex",
+      "lf_sha256": "4fffab2a16d9694a44ebec0107f75fbc62ffae3280249ee69af43b0f714dd138"
+    },
+    {
+      "path": "latex/chapters/02_related_work.tex",
+      "lf_sha256": "292a42349761d025b1a79c3a072b194969f602a78ed7f87dfd345f467d54ba59"
+    },
+    {
+      "path": "latex/chapters/03_background.tex",
+      "lf_sha256": "697f34194be537d91ad89bb4f4b211ced3a751cebf4c6e64a42ae2f76586ffd0"
+    },
+    {
+      "path": "latex/chapters/04_proposed_system.tex",
+      "lf_sha256": "df45f0dbe52ddcf87ca815231566f9da4e46accea9da0f43dd555ed47bf96f68"
+    },
+    {
+      "path": "latex/chapters/05_experiments.tex",
+      "lf_sha256": "2c4654ebd87c9ca9ffc758272cdc24039367ad9010d4b7ddbb066ec0458cbc76"
+    },
+    {
+      "path": "latex/chapters/06_conclusion.tex",
+      "lf_sha256": "14331fb2326be1dcf42852dce574b39db5b5b679caae14e382917100bc28364d"
+    },
+    {
+      "path": "latex/covers-preview.tex",
+      "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+    },
+    {
+      "path": "latex/frontmatter/content.tex",
+      "lf_sha256": "b70b52db2dabb328bdc8ea3a7a7ee412a14ac8c3de00aa6d73ccf575cf879607"
+    },
+    {
+      "path": "latex/frontmatter/covers.tex",
+      "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+    },
+    {
+      "path": "latex/frontmatter/reference_lists.tex",
+      "lf_sha256": "7f7abd788ca0bf4cfbca5e925a91bccf0db60340890041cb730e569dd19591dc"
+    },
+    {
+      "path": "latex/main.tex",
+      "lf_sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
+    },
+    {
+      "path": "latex/preamble.tex",
+      "lf_sha256": "8575eb43627ee4638e31241c522e7e136b527037d559cbedacccf345bc85d805"
+    }
+  ],
+  "current_references_lf_sha256": "42d8a4637ae8a362a169d370965428acae94586958a06e0f617f950cb772e24f",
+  "reviewed_pdf": {
+    "path": "release/thesis.pdf",
+    "sha256": "704a149251e44ac6a0cb89b3db45288072802a6be9f3185a16af7b8f6be73118",
+    "pages": 60,
+    "status": "T73_EDITED_DRAFT_NOT_FINAL_ACCEPTANCE",
+    "clean_build": "four LuaLaTeX passes and Biber; no Markdown/archive/template inputs",
+    "rotation": 0,
+    "overfull_boxes": 0,
+    "undefined_references_or_citations": 0,
+    "missing_glyphs": 0
+  }
 }

@@ -10,11 +10,25 @@ then the joint alpha/sentiment stage. The figure groups computation types
 rather than specifying that node order.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=.45\textheight,keepaspectratio]{../assets/diagrams/F03_system_overview.pdf}
-\caption{The historical research path: frozen resources, shared reports,
-context, hosted proposals and external policy. Query outcomes enter only
-later evaluation. This is an architectural schematic, not a measured
-benefit or evidence of live acceptance.}\label{fig:F03}
+\begin{tikzpicture}[>=Stealth,node distance=5mm,
+box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.88\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
+\node[box] (input) {\textbf{Available at cutoff $t$}\\
+Pinned stock/index prices and available dated news; query outcome excluded.};
+\node[box,below=of input] (reports) {\textbf{Once-per-point shared analysis}\\
+Deterministic Indicator; hosted Pattern and Trend; numerical Alpha and dated Sentiment. Save images and reports.};
+\node[box,below=of reports] (shared) {\textbf{Sealed parent and profile projection}\\
+Independent branch copies; Common replaces the designated alpha projection and instructions.};
+\node[box,below=of shared] (context) {\textbf{Mature history and frozen resources}\\
+Regime-matched signal priors or marked numerical tasks. Frozen selector, regime/scalers and teacher/student; no query refit.};
+\node[box,below=of context] (proposal) {\textbf{Per-repeat dependencies and proposals}\\
+Native/Common; v1/C2/A/B; Fact Anchor then eligible MT revision.\\Support bypass reuses the designated same-repeat result without a new reply.};
+\node[box,below=of proposal] (action) {\textbf{External resolution}\\
+Validate facts/support and strict utility improvement; retain or revise anchor.\\Record raw proposal, fallback/veto reason and final LONG/CASH separately.};
+\node[box,below=of action,fill=orange!8] (outcome) {\textbf{Durable forecasts $\rightarrow$ outcome barrier $\rightarrow$ evaluation}\\
+Only now join future candidate-LONG prices/labels and compute account outcomes.};
+\foreach \a/\b in {input/reports,reports/shared,shared/context,context/proposal,proposal/action,action/outcome}{\draw[->] (\a)--(\b);}
+\end{tikzpicture}
+\caption[System information and action flow]{The historical system separates shared computation, frozen resources, hosted proposals, policy and later evaluation. The schematic does not assert isolated benefits or live acceptance.}\label{fig:F03}
 \end{figure}
 
 Offline resources comprise the Common alpha selector, regime models and
@@ -50,9 +64,9 @@ crossing the state boundary must be finite primitive JSON types or
 explicitly unavailable; a missing value is not an observed zero.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
-\caption{Compact input/output contracts. Temporal restrictions apply to
+\caption[Component input/output contracts]{Compact input/output contracts. Temporal restrictions apply to
 the underlying data, not only to the report's printed date.}\label{tab:contracts}
-\begin{tabular}{@{}p{.20\linewidth}p{.38\linewidth}p{.35\linewidth}@{}}\toprule
+\begin{tabular}{@{}P{.20\linewidth}P{.38\linewidth}P{.35\linewidth}@{}}\toprule
 Stage & Admissible input and processing & Output / absence contract\\\midrule
 Preparation & Stock/date; pinned OHLCV and available news through cutoff & 45/600-row views; absent cutoff/history is an error\\
 Shared analysis & Numeric inputs and saved chart images; no query target & Five reports, images/provenance; absence remains explicit\\
@@ -81,6 +95,24 @@ table, categories and consensus feed shared reports and Decision. Warm-up,
 nonfinite values and tool errors remain distinguishable from neutral
 measurements. Correlated indicator votes are not independent trials.
 
+The classifier first removes nonfinite values and uses its cleaned,
+four-decimal sequence. Some insufficient-data/error paths emit neutral
+with an annotation; neutral alone therefore does not prove an observed
+neutral signal. Three dominant votes mean medium heuristic confidence,
+four or more high; a tie is mixed/low. These are agreement categories,
+not probabilities. Table~\ref{tab:indicatorrules} makes the priority rules
+explicit without reproducing the full report.
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption[Indicator classifier priorities]{Indicator classifier priorities, after the numeric calculations defined in Chapter 3.}\label{tab:indicatorrules}
+\begin{tabular}{@{}P{.18\linewidth}P{.75\linewidth}@{}}\toprule
+Family & Priority and fallback\\\midrule
+MACD & Recent signal crossover first; otherwise histogram sign and strengthening/contraction; available sign if crossover history is short\\
+RSI & $\ge70$ bearish, $\le30$ bullish; then $\ge55$ bullish/$\le45$ bearish; inside (45,55), compare latest with third-last when available\\
+ROC & Strictly above +.5\% bullish or below $-.5$\% bearish; otherwise neutral\\
+Stochastic & Recent K/D crossover first; then K$\ge80$ bearish/K$\le20$ bullish; middle range uses K versus D, else neutral\\
+Williams \%R & $\ge-20$ bearish/$\le-80$ bullish; middle range compares latest with third-last; short history neutral\\\bottomrule
+\end{tabular}\end{table}
+
 \paragraph{Pattern and Trend.}
 Pattern receives the 45-bar candlestick image, describing pattern,
 confidence, bias, evidence, key candles and implication. A local OHLCV
@@ -105,6 +137,23 @@ These are presentation summaries of stored reports, not new forecasts.
 Suggested stops/pullbacks in prose do not replace the fixed execution
 contract. The two chart views carry different information despite
 sharing the same underlying bars.
+
+Figure~\ref{fig:F04} reproduces the two saved inputs. External annotations
+explain the view and were not part of the vision request. The first view
+supports candle-structure claims; the second adds line geometry. This
+comparison is needed to interpret why apparently similar role reports can
+disagree or make claims unsupported by their own image.
+\begin{figure}[htbp]\centering
+{\small\textbf{(a) Pattern: saved candles without fitted boundaries}}\par
+\includegraphics[width=\linewidth,height=.28\textheight,keepaspectratio]{../assets/figures/F04_pattern.png}\par
+{\small Four of the final five candles close below their opens; the saved
+report retains a bullish-pattern contradiction warning.}\par\medskip
+{\small\textbf{(b) Trend: the same candles with fitted boundaries}}\par
+\includegraphics[width=\linewidth,height=.28\textheight,keepaspectratio]{../assets/figures/F04_trend.png}\par
+{\small The blue/red Close-based boundaries narrow from about 1.886 to
+1.456 price units, while the saved narrative says they widen.}\par
+\caption[Saved Pattern and Trend chart inputs]{Saved FPT inputs at the same 3 July 2023 cutoff. Original bitmap bytes are unchanged; panel labels and notes are presentation annotations outside the vision inputs. No future candle or realized return is appended.}\label{fig:F04}
+\end{figure}
 
 \paragraph{Alpha.}
 The registry has 85 candidates: five system-specific factors and 80
@@ -305,9 +354,9 @@ statistics-only/examples-only modes can bypass independently; their
 existence does not establish completed matched ablations.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
-\caption{Historical-prior variants share maturity checks and Common as
+\caption[Historical-prior variants]{Historical-prior variants share maturity checks and Common as
 the valid dependency. Statistical support is distinct from shown examples.}\label{tab:priors}
-\begin{tabular}{@{}p{.14\linewidth}p{.43\linewidth}p{.36\linewidth}@{}}\toprule
+\begin{tabular}{@{}P{.14\linewidth}P{.43\linewidth}P{.36\linewidth}@{}}\toprule
 Variant & Statistical evidence & Selection / presentation\\\midrule
 v1 & Empirical rates on same-regime population & Four categorical signals; no C2 support floors\\
 C2 & Exact T/P/A/I condition; disjoint strength-four shrinkage & Signal/price/age/diversity selector; split readiness\\
@@ -417,9 +466,23 @@ examples. Its query remains unlabeled. The model vector is approximately
 (.109634,.101272,$-1.290443$,.215713), without clipping in this case.
 Figure~\ref{fig:F06} separates the context and offline/query boundaries.
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=.40\textheight,keepaspectratio]{../assets/diagrams/F06_mt_tasks_training.pdf}
-\caption{Marked prior/target tasks, an unlabeled query and frozen numerical
-inference. The FPT counts are saved context, not newly generated results.}\label{fig:F06}
+\begin{tikzpicture}[>=Stealth,node distance=5mm,
+box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.88\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
+\node[box] (fit) {\textbf{Offline: historical training tasks through 2020}\\
+48 stock/block tasks, 731 observations $\rightarrow$ fit the 16-component teacher mixture.};
+\node[box,below=of fit] (train) {\textbf{Offline: synthetic soft-target distillation and selection}\\
+Teacher query probabilities supervise a two-block/four-head student.\\2021 market selection chooses one seed-42/step-3,000 export; weights then freeze.};
+\node[box,below=of train,fill=green!4] (context) {\textbf{Query time: maturity, fold freeze, facts bucket and task selection}\\
+FPT priors P1/P2/P3 contain 5/4/2 labeled rows; target T contains 3.\\Q supplies only four features, without a label or realized return.};
+\node[box,below=of context] (infer) {\textbf{Two numerical paths over the same selected context}\\
+Teacher: separate task counts $\rightarrow$ sign posterior and magnitude utility.\\Student: marked paired tokens and masked Q $\rightarrow$ frozen probability $p_S$.};
+\node[box,below=of infer] (project) {\textbf{Bounded text projection for the hosted Decision LLM}\\
+Full-group counts/means, representative examples, $p_S$, utility/support;\\plus current reports, facts and the resolved anchor.};
+\node[box,below=of project] (resolve) {\textbf{Hosted proposal $\rightarrow$ external factual/utility policy}\\
+Final action is distinct from numerical probability and raw proposal.\\Query outcome remains excluded until later evaluation.};
+\foreach \a/\b in {fit/train,train/context,context/infer,infer/project,project/resolve}{\draw[->] (\a)--(\b);}
+\end{tikzpicture}
+\caption[Offline training and query-time MT inference]{Offline training and query-time MT inference. Synthetic features are sampled independently of synthetic rates/labels. The numerical student is separate from the hosted LLM; FPT counts are saved context.}\label{fig:F06}
 \end{figure}
 
 \subsection{Teacher, student and resource selection}\label{s:54ebb2a16a274585}
@@ -465,8 +528,8 @@ It does not optimize realized market BCE or a sampled synthetic query
 label. The registered recipe is summarized in Table~\ref{tab:student}.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
-\caption{Frozen numerical training and selection recipe.}\label{tab:student}
-\begin{tabular}{@{}p{.25\linewidth}p{.69\linewidth}@{}}\toprule
+\caption[Numerical training and selection]{Frozen numerical training and selection recipe.}\label{tab:student}
+\begin{tabular}{@{}P{.25\linewidth}P{.69\linewidth}@{}}\toprule
 Setting & Recorded value\\\midrule
 Training & Seeds 17/42/73, fresh weights; 5,000 steps; effective/physical batch 128; 640,000 episodes per seed\\
 Optimizer & AdamW, betas (.9,.999), epsilon $10^{-8}$, weight decay .01, gradient norm cap 1\\
@@ -540,10 +603,21 @@ resolved anchor, validity/support, bypass or veto reason and final action,
 plus the request/dependency/context identities.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=.35\textheight,keepaspectratio]{../assets/diagrams/F07_action_policy.pdf}
-\caption{External action revision distinguishes eligibility, factual
-agreement and anchor-relative utility. Quantiles are model-based policy
-inputs, not profit guarantees.}\label{fig:F07}
+\begin{tikzpicture}[>=Stealth,node distance=5mm,
+box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.88\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
+\node[box] (anchor) {\textbf{Resolve Fact Anchor against the numeric packet}\\
+Valid assertions/reason $\Rightarrow a_0$ is the anchor reply's action.\\Completed invalid assertions $\Rightarrow$ use Common; bypass later revision.};
+\node[box,below=of anchor] (support) {\textbf{Check context and utility support before revision}\\
+Unavailable query/unknown bucket/insufficient support $\Rightarrow$ retain $a_0$, no revision call. Technical failures remain failures.};
+\node[box,below=of support] (reply) {\textbf{For an eligible completed MT proposal}\\
+Invalid facts/context reason $\Rightarrow$ retain $a_0$.\\Same action as $a_0$ $\Rightarrow$ keep that action, with no accepted change.};
+\node[box,below=of reply] (test) {\textbf{Different valid action: strict anchor-relative test}\\
+CASH $\rightarrow$ LONG: accept only if $Q10(U)>0$.\\LONG $\rightarrow$ CASH: accept only if $-Q90(U)>0$. Equality fails.};
+\node[box,below=of test,fill=green!4] (final) {\textbf{Record final LONG/CASH and the resolution reason}\\
+Passing change $\Rightarrow$ revise; otherwise retain $a_0$.\\Keep raw proposal, anchor, validity, support and veto/bypass fields distinct.};
+\foreach \a/\b in {anchor/support,support/reply,reply/test,test/final}{\draw[->] (\a)--(\b);}
+\end{tikzpicture}
+\caption[Anchor-relative action policy]{Anchor-relative action policy. Each box specifies both continuation and retention conditions; technical errors do not become valid CASH predictions. Quantiles are modeled utility inputs, not profit guarantees.}\label{fig:F07}
 \end{figure}
 
 FPT's supported MT reply cites the facts, proposes LONG and retains its

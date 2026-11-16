@@ -2,7 +2,7 @@
   "baseline_commit": "d025facb",
   "source": "chapters/05_experiments.md",
   "source_lf_sha256": "016cea32b7f7fbac052a7be730733baf9ee8b9a4ad05ff97e9b8ac3884f9c21b",
-  "method": "Exact projection of 56 locked LaTeX table rows; column indices retain original cells; source manuscript remains archived at the stated commit.",
+  "method": "Exact projection of 68 locked LaTeX table rows; column indices retain original cells; source manuscript remains archived at the stated commit.",
   "rows": [
     {
       "table": "tab:component",
@@ -1399,6 +1399,294 @@
         "107",
         "306",
         "0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "reference",
+        "-0.797",
+        "-0.750",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "reference",
+        "-0.797",
+        "-0.750",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "pending\\_\\allowbreak{}t2",
+        "-0.797",
+        "-0.750",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "pending\\_\\allowbreak{}t2",
+        "-0.797",
+        "-0.750",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "advance\\_\\allowbreak{}on\\_\\allowbreak{}demand",
+        "-0.797",
+        "-0.750",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "advance\\_\\allowbreak{}on\\_\\allowbreak{}demand",
+        "-0.797",
+        "-0.750",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "advance\\_\\allowbreak{}auto",
+        "-0.840",
+        "-0.803",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "advance\\_\\allowbreak{}auto",
+        "-0.840",
+        "-0.803",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "lower\\_\\allowbreak{}cost",
+        "-0.612",
+        "-0.526",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "lower\\_\\allowbreak{}cost",
+        "-0.612",
+        "-0.526",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "higher\\_\\allowbreak{}cost",
+        "-1.211",
+        "-1.249",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "higher\\_\\allowbreak{}cost",
+        "-1.211",
+        "-1.249",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "sell\\_\\allowbreak{}charge\\_\\allowbreak{}10bp",
+        "-0.843",
+        "-0.805",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "sell\\_\\allowbreak{}charge\\_\\allowbreak{}10bp",
+        "-0.843",
+        "-0.805",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "no\\_\\allowbreak{}fill\\_\\allowbreak{}proxy",
+        "-0.803",
+        "-0.659",
+        "1/3",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "no\\_\\allowbreak{}fill\\_\\allowbreak{}proxy",
+        "-0.803",
+        "-0.659",
+        "1/3"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "delayed\\_\\allowbreak{}proxy",
+        "-0.766",
+        "-0.621",
+        "2/4",
+        "0/1",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "delayed\\_\\allowbreak{}proxy",
+        "-0.766",
+        "-0.621",
+        "2/4"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "lot100\\_\\allowbreak{}cap1pct",
+        "-0.745",
+        "-0.602",
+        "1/3",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "lot100\\_\\allowbreak{}cap1pct",
+        "-0.745",
+        "-0.602",
+        "1/3"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "combined",
+        "-1.166",
+        "-1.074",
+        "3/9",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "combined",
+        "-1.166",
+        "-1.074",
+        "3/9"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "all\\_\\allowbreak{}entries\\_\\allowbreak{}missed",
+        "0.000",
+        "0.000",
+        "24/29",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "all\\_\\allowbreak{}entries\\_\\allowbreak{}missed",
+        "0.000",
+        "0.000",
+        "24/29"
       ]
     }
   ]

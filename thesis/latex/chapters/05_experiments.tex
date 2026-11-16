@@ -10,6 +10,9 @@ response, and Base is not Common. Both studies are historical exploratory
 assessments, with no new inference or retraining for this manuscript.
 Tables below transcribe the frozen study outputs; the companion evidence
 record identifies source archive members and checksums for detailed tracing.
+Rounded display cells do not define the paired contrasts: those use
+the unrounded source estimators, so subtracting printed values may differ
+slightly from a reported contrast.
 
 The component main has 204 Decision outputs. Its nine-unit, three-run
 upstream panel has 54 cells, including 18 reused main outputs; the separate
@@ -33,7 +36,7 @@ starts 14 September. Six absent market cells are structural exclusions,
 not failed or losing forecasts.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
-\caption{Shared sampled schedule. Each stock/fold has two endpoints;
+\caption[Shared sampled market schedule]{Shared sampled schedule. Each stock/fold has two endpoints;
 accounts are counted per method/repeat.}\label{tab:schedule}
 \begin{tabular}{@{}l llrr@{}}\toprule
 Fold & First cutoff & Second cutoff & Points & Accounts\\\midrule
@@ -119,7 +122,8 @@ confusion over points within each repeat, then averages the three scores.
 Percentages and percentage-point (pp) differences are distinguished.
 
 Each VND 50-million reference account compounds nonoverlapping cycle
-payoffs from Equation~\ref{eq:label}, using fractional all-in LONG/CASH:
+payoffs from Equation~\ref{eq:label}, using fractional all-in LONG/CASH.
+Here $z_{imr}$ is that final-action cycle payoff, not a model probability:
 \begin{equation}
 R_{qmr}=\prod_{i\in q}(1+z_{imr})-1,\qquad
 \bar R_m^{(\%)}=\frac{100}{51}\sum_{q=1}^{51}\frac13\sum_{r=0}^2R_{qmr}.
@@ -133,6 +137,23 @@ $\sqrt{252}$; its legacy Sortino uses SD of negative returns. Context
 uses unannualized cycle mean/sample-SD and downside RMS over all cycles,
 including zero; annualized fields remain null. Ratios across these
 conventions must not be ranked interchangeably.
+
+For clarity, if $d_j$ are daily NAV returns and $z_i$ are the scheduled
+cycle payoffs, the two downside constructions are
+\begin{align}
+Sortino_{component}&=\frac{\sqrt{252}\,\bar d}
+ {SD_{pop}(d\mid d<0)},\\
+Sortino_{context}&=\frac{\bar z}
+ {\sqrt{N^{-1}\sum_{i=1}^{N}\min(z_i,0)^2}}.
+\end{align}
+Both assume zero risk-free/minimum-acceptable return. The first uses
+only the negative-return subset in its denominator; the second divides
+downside squared returns by all scheduled cycles, including CASH zeros.
+Zero/insufficient denominators remain unavailable rather than being
+assigned favorable ratios. The recorded sparse-cycle audit can also
+leave annualization null. Account drawdown, mean risk ratios, order
+counts, traded notional and time exposed are distinct summaries; pooling
+independently capitalized paths would change their meaning.
 
 Component main uses 10,000 paired whole-block bootstrap draws, seed
 20261102; class-deficient draws remain undefined. Its factorial seven-BA
@@ -167,8 +188,8 @@ no pointwise forecast, so its classification entries remain NA. Display
 precision is three decimals; contrasts use saved unrounded values.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Component main results: classification and net account outcomes.}\label{tab:component}
-\begin{tabular}{@{}p{.27\linewidth}rrrrr@{}}\toprule
+\caption[Component main results]{Component main results: classification and net account outcomes.}\label{tab:component}
+\begin{tabular}{@{}P{.27\linewidth}rrrrr@{}}\toprule
 Method & BA (\%) & MCC & LONG (\%) & Return (\%) & MDD (\%)\\\midrule
 Full & 52.961 & 0.060 & 23.529 & -0.797 & 1.367\\
 Base & 49.714 & -0.005 & 28.431 & -0.750 & 1.453\\
@@ -216,8 +237,8 @@ random trials are summarized by their mean, not the best seed or an
 ensemble action. No hosted inference occurs in this comparison.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Numerical factor-selection controls; return uses the separate nine-stock estimator.}\label{tab:numeric}
-\begin{tabular}{@{}p{.38\linewidth}rrrr@{}}\toprule
+\caption[Numerical factor-selection controls]{Numerical factor-selection controls; return uses the separate nine-stock estimator.}\label{tab:numeric}
+\begin{tabular}{@{}P{.38\linewidth}rrrr@{}}\toprule
 Rule & BA (\%) & MCC & LONG (\%) & Return (\%)\\\midrule
 Fixed five & 39.221 & -0.193 & 36.275 & -8.653\\
 Train-ranked five & 55.065 & 0.093 & 32.353 & -5.648\\
@@ -239,7 +260,7 @@ the factorial full-value prompt family and selected units differ. A/AS/S
 all underperform B or the donor-value P on that factorial support.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{All branches in the selected upstream and factorial panels, with execution dispersion.}\label{tab:smallpanels}
+\caption[Selected upstream and factorial panels]{All branches in the selected upstream and factorial panels, with execution dispersion.}\label{tab:smallpanels}
 \begin{tabular}{@{}l l rr@{}}\toprule
 Panel & Branch & BA (\%) & Return (\%)\\\midrule
 upstream & AS & 95.238 \ensuremath{\pm} 4.124 & 0.496 \ensuremath{\pm} 0.222\\
@@ -260,7 +281,7 @@ changes prompt representation, so a joint information effect cannot be
 separated from format or length by this comparison.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Complete seven-contrast factorial BA family.}\label{tab:factorial}
+\caption[Complete factorial BA family]{Complete seven-contrast factorial BA family.}\label{tab:factorial}
 \begin{tabular}{@{}l rr@{}}\toprule
 Contrast & Difference (pp) & Descriptive envelope (pp)\\\midrule
 AS-B & -9.524 & {[}-37.143, 18.095{]}\\
@@ -282,8 +303,8 @@ BA, while MT and Fact Anchor are most negative. v1 lies between Native
 and Common. Constant controls retain undefined MCC.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Historical-context main results. Return/MDD are account means; SD is between Decision repeats.}\label{tab:context}
-\begin{tabular}{@{}p{.27\linewidth}rrrrr@{}}\toprule
+\caption[Historical-context main results]{Historical-context main results. Return/MDD are account means; SD is between Decision repeats.}\label{tab:context}
+\begin{tabular}{@{}P{.27\linewidth}rrrrr@{}}\toprule
 Role/control & BA (\%) & MCC & Return (\%) & SD (pp) & MDD (\%)\\\midrule
 Native & 51.844 & 0.037 & -0.653 & 0.093 & 1.186\\
 Common & 45.965 & -0.076 & -1.025 & 0.098 & 1.647\\
@@ -304,8 +325,8 @@ and its saved joint-family descriptive band, in pp. These are not separate
 unadjusted intervals selected after seeing their signs.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Five extensions minus Native: ten cells of the twenty-cell joint family, all in pp.}\label{tab:vsnative}
-\begin{tabular}{@{}p{.17\linewidth}p{.36\linewidth}p{.36\linewidth}@{}}\toprule
+\caption[Complete joint-family contrasts against Native]{Five extensions minus Native: ten cells of the twenty-cell joint family, all in pp.}\label{tab:vsnative}
+\begin{tabular}{@{}P{.17\linewidth}P{.36\linewidth}P{.36\linewidth}@{}}\toprule
 Extension & Return difference [band] & BA difference [band]\\\midrule
 Bayesian v1 & -0.045 {[}-0.362, 0.271{]} & -1.749 {[}-6.374, 2.876{]}\\
 C2 & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]}\\
@@ -315,8 +336,8 @@ MT-BICL & -0.601 {[}-1.090, -0.111{]} & -8.675 {[}-20.239, 2.888{]}\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Five extensions minus Common: remaining ten cells of the same joint family, all in pp.}\label{tab:vscommon}
-\begin{tabular}{@{}p{.17\linewidth}p{.36\linewidth}p{.36\linewidth}@{}}\toprule
+\caption[Complete joint-family contrasts against Common]{Five extensions minus Common: remaining ten cells of the same joint family, all in pp.}\label{tab:vscommon}
+\begin{tabular}{@{}P{.17\linewidth}P{.36\linewidth}P{.36\linewidth}@{}}\toprule
 Extension & Return difference [band] & BA difference [band]\\\midrule
 Bayesian v1 & 0.327 {[}0.067, 0.586{]} & 4.130 {[}2.011, 6.249{]}\\
 C2 & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]}\\
@@ -343,8 +364,8 @@ Common reuse. CASH/always-LONG controls have 306 deterministic slots,
 zero hosted replies and respectively zero/306 LONGs.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Action and new-response coverage, with valid bypasses retained in primary metrics.}\label{tab:coverage}
-\begin{tabular}{@{}p{.32\linewidth}rrr@{}}\toprule
+\caption[Final actions, raw responses and bypasses]{Action and new-response coverage, with valid bypasses retained in primary metrics.}\label{tab:coverage}
+\begin{tabular}{@{}P{.32\linewidth}rrr@{}}\toprule
 Role & Final LONGs /306 & Raw replies & Bypasses\\\midrule
 Native & 69 & 306 & 0\\
 Common & 88 & 306 & 0\\
@@ -397,9 +418,9 @@ ordering selects the examples in Table~\ref{tab:cases}; FPT serves two
 categories. Outcomes are disclosed after the facts/proposals/actions.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption{Selected saved cases. Net return is the candidate LONG outcome,
+\caption[Selected adverse and policy cases]{Selected saved cases. Net return is the candidate LONG outcome,
 not the payoff of a CASH action; percentages are rounded.}\label{tab:cases}
-\begin{tabular}{@{}p{.25\linewidth}p{.23\linewidth}p{.29\linewidth}r@{}}\toprule
+\begin{tabular}{@{}P{.25\linewidth}P{.23\linewidth}P{.29\linewidth}r@{}}\toprule
 Stock/cutoff & Branch & Proposal / reference / final & Net (\%)\\\midrule
 FPT 2023-07-03 & MT & LONG / LONG / LONG & $-.265$\\
 FPT 2023-07-03 & C2 & absent / Common LONG / LONG & $-.265$\\
@@ -446,14 +467,48 @@ may be missing, billing cost is unavailable, and timestamps combine work,
 waiting and interruption. They do not support an invented dollar-cost
 or end-to-end latency advantage.
 
+
+Table~\ref{tab:execution} retains all twelve saved scenario means and
+blocked-order counts. Reference, pending settlement and on-demand
+advance coincide only on this sampled schedule. Lower/higher costs use
+brokerage/slippage .10/.05\% and .50/.30\% per leg; the canonical reference
+stays .25/.10\%. Higher costs reverse the Full/Base return ordering.
+Automatic financing assumes a hypothetical 15\% annual ACT/365 charge.
+The lot/participation proxy uses lots of 100 and 1\% of lagged trailing
+20-session mean vendor volume, not authenticated order-book capacity.
+
+\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\caption[Recorded component execution scenarios]{All saved component execution scenarios with fixed predictions and labels. Returns are mean account percentages; blocked counts are Full/Base.}\label{tab:execution}
+\begin{tabular}{@{}P{.41\linewidth}rrr@{}}\toprule
+Scenario & Full (\%) & Base (\%) & Blocked F/B\\\midrule
+reference & -0.797 & -0.750 & 0/0\\
+pending\_\allowbreak{}t2 & -0.797 & -0.750 & 0/0\\
+advance\_\allowbreak{}on\_\allowbreak{}demand & -0.797 & -0.750 & 0/0\\
+advance\_\allowbreak{}auto & -0.840 & -0.803 & 0/0\\
+lower\_\allowbreak{}cost & -0.612 & -0.526 & 0/0\\
+higher\_\allowbreak{}cost & -1.211 & -1.249 & 0/0\\
+sell\_\allowbreak{}charge\_\allowbreak{}10bp & -0.843 & -0.805 & 0/0\\
+no\_\allowbreak{}fill\_\allowbreak{}proxy & -0.803 & -0.659 & 1/3\\
+delayed\_\allowbreak{}proxy & -0.766 & -0.621 & 2/4\\
+lot100\_\allowbreak{}cap1pct & -0.745 & -0.602 & 1/3\\
+combined & -1.166 & -1.074 & 3/9\\
+all\_\allowbreak{}entries\_\allowbreak{}missed & 0.000 & 0.000 & 24/29\\
+\bottomrule\end{tabular}\end{table}
+
+Only the delayed proxy leaves one pending Base order in the saved
+summary; all residual-stock counts are zero. The all-entries-missed
+zero return means no exposure, not successful return prediction. These
+results retain both avoided losses and foregone gains, while none
+certifies actual tradability or rewrites the canonical economic label.
+
 \section{Validity limits and answers}\label{s:7abb5e08a08c44da}
 The principal contracts and unresolved gates are summarized in
 Table~\ref{tab:audits}. Detection of a known counterexample differs from
 the system passing the property being tested.
 \begin{table}[htbp]\centering\small\setstretch{1.05}
-\caption{Evidence scope and unresolved validity. Passing a narrower check
+\caption[Evidence scope and unresolved validity]{Evidence scope and unresolved validity. Passing a narrower check
 does not override the recorded historical failures.}\label{tab:audits}
-\begin{tabular}{@{}p{.25\linewidth}p{.37\linewidth}p{.31\linewidth}@{}}\toprule
+\begin{tabular}{@{}P{.25\linewidth}P{.37\linewidth}P{.31\linewidth}@{}}\toprule
 Contract & Available evidence & Remaining boundary\\\midrule
 Cutoff/pairing/economics & Checked prefixes, shared identities, canonical labels/accounting, scoped receipts & Native row-wise causal gate FAIL; whole system NOT\_CERTIFIED\\
 Bank/query provenance & Frozen membership and source-bound audit & 828/852 numeric return differences; missing original signal journals\\

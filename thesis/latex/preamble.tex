@@ -13,7 +13,7 @@
 \usetikzlibrary{calc,arrows.meta,positioning}
 \usepackage[table]{xcolor}
 \definecolor{thesisblue}{HTML}{1F3445}
-\usepackage{booktabs,array,longtable,calc,pdflscape}
+\usepackage{booktabs,array,longtable,calc}
 \usepackage{caption}
 \newcounter{none}
 \captionsetup{font=small,labelfont=bf}
@@ -47,3 +47,6 @@
 \newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \newcommand{\pandocbounded}[1]{#1}
 \newcommand{\real}[1]{\ensuremath{\mathbb{#1}}}
+
+% Bảng đoạn văn căn trái để tránh khoảng trắng kéo giãn trong ô hẹp.
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}

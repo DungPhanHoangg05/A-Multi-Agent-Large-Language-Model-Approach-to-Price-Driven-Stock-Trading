@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import sys
 from zipfile import ZipFile
+from collections import Counter
 
 
 def lf_sha(path: Path) -> str:
@@ -58,6 +59,8 @@ def main() -> None:
         for row in record['current_latex']:
             if lf_sha(root / row['path']) != row['lf_sha256']:
                 raise ValueError('Nguồn LaTeX khác mốc biên tập: ' + row['path'])
+        if lf_sha(root / 'references.bib') != record['current_references_lf_sha256']:
+            raise ValueError('Bibliography khác mốc biên tập.')
     for path in latex.rglob('*.tex'):
         if 'build' in path.parts:
             continue
@@ -85,6 +88,11 @@ def main() -> None:
     table_map = root / 'assets/tables/concise_results.source.json'
     if table_map.exists() and historical:
         projection = json.loads(table_map.read_text(encoding='utf-8'))
+        expected_rows = {'tab:component': 10, 'tab:numeric': 4, 'tab:smallpanels': 7,
+                         'tab:factorial': 7, 'tab:context': 10, 'tab:vsnative': 5,
+                         'tab:vscommon': 5, 'tab:coverage': 8, 'tab:execution': 12}
+        if dict(Counter(row['table'] for row in projection['rows'])) != expected_rows:
+            raise ValueError('Ánh xạ bảng thiếu/thừa dòng hoặc không đủ family20.')
         source_bytes = historical[projection['source']]
         if hashlib.sha256(source_bytes.replace(b'\r\n', b'\n')).hexdigest() != projection['source_lf_sha256']:
             raise ValueError('Hash bản nháp nguồn bảng không khớp archive.')
