@@ -1546,6 +1546,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL265 | [F.4 prerequisites](appendices/F_reproduction.md#f4-resource-levels-and-practical-limits) | DAN_XUAT | B04c/recorded runtime107 packages, TR01 inference CPU and local asset prerequisites; §13.9 | Resource levels and platform/cached dependencies named without new minimum runtime/GPU/bill assumptions | No current vendor availability, universal platform reproducibility or unmeasured cost guarantee |
 | CL266 | [F.5 application workflow](appendices/F_reproduction.md#f5-offline-preview-versus-current-live-workflow) | DAN_XUAT | AP01–AP17/§4.10.4/current web and fixture entrypoints; §13.9 | Mock loopback fixture differs from actual Realtime1D capture/job/dependencies/provisional data/views | UI remains pending; no fixture-to-live financial or browser certification |
 
+| CL267 | [LaTeX foundation](latex/README.md) | DAN_XUAT | Frontmatter/cover brief; existing covers.tex; LuaLaTeX/Biber build logs; §14.1 | Clean report/A4/12pt framework, local assets/bibliography, Roman/Arabic numbering hooks and source-only build command | Observed sample conventions are not official rules; no new runtime or submission acceptance |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2863,3 +2865,13 @@ Luồng ứng dụng khớp §4.10.4: Realtime 1D chọn một version/mã; capt
 QA đường dẫn/cờ lệnh, cú pháp Python tĩnh, danh tính asset đã pin, tài nguyên bắt buộc, luồng ứng dụng so với source, liên kết, footnote, đặc tả và diff. P7/T59–T66 đủ bản nháp phần đầu và sáu phụ lục; T67–T84 còn việc. G4 yêu cầu T59–T72 nên chưa hoàn tất; chưa có LaTeX/PDF toàn văn hoặc nghiệm thu ngoài. Không chạy suite/compileall, huấn luyện, forward, bootstrap hay replay vì chỉ sửa tài liệu.
 
 **QA cuối T61–T66:** 84 đặc tả bất biến; checklist T01–T66, CL001–CL266 liên tục; sáu phụ lục tiếng Anh với 32 bảng/479 dòng dữ liệu, ba ví dụ JSON khớp nguồn và bốn cặp UUID/hash/độ dài request. Appendix D có 315 dòng bảng mở rộng, giữ đủ 300 giá trị omission, support/confusion/aggregation và NA đã đối soát. Kiểm 841 liên kết local/452 anchor; tám đoạn tham chiếu thêm vào Chương 4/5. Toàn bộ nội dung cũ của sáu chương, gồm bảng/công thức/kết quả, được giữ nguyên ngoài tám đoạn này; phần đầu đã xác nhận, bibliography, bìa/assets và code/runtime/config/input/model/archive/receipt không đổi. Chỉ 13 file Markdown được sửa/thêm. Kiểm hình dạng bảng, cặp ngoặc công thức và cú pháp snippet/parser tĩnh PASS; các lệnh tái lập không được thực thi. Không chạy suite theo AGENTS §1.2 vì thuần tài liệu. P7 đủ bản nháp; G4 chưa hoàn tất, chưa dàn trang/kiểm PDF toàn văn hoặc duyệt ngoài.
+
+
+## 14. Dàn trang LaTeX và chuyển nguồn chính
+
+
+### 14.1. Khung LaTeX sạch đã biên dịch
+
+T67 dựng main/preamble/build guide trong thesis/latex, không dùng macro/chủ đề/danh tính mẫu. Hai bìa dùng nguồn đã chốt nguyên nội dung; render hai trang kiểm trực quan, Supervisor căn giữa và không tràn. LuaHBTeX 1.24.0 (MiKTeX 25.12), Latin Modern, report12pt/A4, lề 2,5cm ngang/3cm trên dưới, giãn1,5; bibliography numeric theo thứ tự hiện tại, chưa là chuẩn trường.
+
+Đã bổ sung package thiếu theo lỗi build; build tắt auto-installer/shell-escape, dùng Biber trên bản sao bcf/bib tại thư mục tạm để tránh lỗi Perl với đường dẫn Unicode Windows. Python build.py chỉ compile chính file thay đổi và chạy đúng build tài liệu; không unit/E2E/leakage nghiên cứu. LuaLaTeX/Biber thành công, PDF khung2trang; warning MiKTeX chưa kiểm cập nhật và locale Perl không đổi kết quả. Tại mốc này mới khung; thân bài đang chuyển, chưa G4 hoặc bản nộp.

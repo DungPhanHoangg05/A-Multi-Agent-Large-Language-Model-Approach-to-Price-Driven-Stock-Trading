@@ -109,7 +109,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Dàn trang — P8
 
-- [ ] T67 — Tạo và biên dịch khung LaTeX sạch.
+- [x] T67 — DONE: Khung LaTeX sạch đã biên dịch; [nguồn/QA P8](evidence.md#14-dàn-trang-latex-và-chuyển-nguồn-chính). T67 dựng main/preamble/build guide trong thesis/latex, không dùng macro/chủ đề/danh tính mẫu. Hai bìa dùng nguồn đã chốt nguyên nội dung; render hai trang kiểm trực quan, Supervisor căn giữa và không tràn. LuaHBTeX 1.24.0 (MiKTeX 25.12), Latin Modern, report12pt/A4, lề 2,5cm ngang/3cm trên dưới, giãn1,5; bibliography numeric theo thứ tự hiện tại, chưa là chuẩn trường.
 - [ ] T68 — Chuyển cơ sở lý thuyết và phương pháp đề xuất.
 - [ ] T69 — Chuyển kết quả thực nghiệm và hình/bảng khoa học.
 - [ ] T70 — Chuyển các chương còn lại, phần đầu và bibliography.

@@ -478,6 +478,14 @@ Ngày **16/11/2026**, tiếp tục P7/T59–T60 theo yêu cầu. Nội dung ti�
 
 **Hoàn tất T60 — `docs/thesis-confirm-frontmatter`:** đã nhận tác giả xác nhận dùng lời cảm ơn tối giản và giữ câu chữ Declaration hiện tại. Ghi nguồn phản hồi tại sổ §13.3/CL238, đổi nhãn trạng thái và checklist T60 sang DONE; giữ nguyên nội dung đã chốt, chữ ký/ngày ký vẫn để tác giả điền, không nhận biểu mẫu chính thức/đã nộp. T59–T60 đủ bản nháp phần đầu. Đối soát nội dung cũ, metadata/danh mục/84 spec/checklist/links/diff theo phạm vi tài liệu; không chạy suite hoặc nghiên cứu mới, không đổi code/runtime/assets/receipts.
 
+### Nguồn LaTeX toàn văn P8
+
+Thực hiện T67–T72 theo yêu cầu: mỗi task nhánh docs từ develop, kiểm build/nguồn/PDF theo phạm vi rồi merge. Chỉ đổi tài liệu và công cụ build tài liệu; không chạy suite nghiên cứu, API, fit hoặc tái tạo bằng chứng thực nghiệm. Dùng skill PDF để render/kiểm bản ghép. Bìa/metadata đã chốt và Native FAIL/NOT_CERTIFIED/UI PENDING giữ nguyên.
+
+**T67 — Khung LaTeX sạch đã biên dịch:** T67 dựng main/preamble/build guide trong thesis/latex, không dùng macro/chủ đề/danh tính mẫu. Hai bìa dùng nguồn đã chốt nguyên nội dung; render hai trang kiểm trực quan, Supervisor căn giữa và không tràn. LuaHBTeX 1.24.0 (MiKTeX 25.12), Latin Modern, report12pt/A4, lề 2,5cm ngang/3cm trên dưới, giãn1,5; bibliography numeric theo thứ tự hiện tại, chưa là chuẩn trường.
+
+Đã bổ sung package thiếu theo lỗi build; build tắt auto-installer/shell-escape, dùng Biber trên bản sao bcf/bib tại thư mục tạm để tránh lỗi Perl với đường dẫn Unicode Windows. Python build.py chỉ compile chính file thay đổi và chạy đúng build tài liệu; không unit/E2E/leakage nghiên cứu. LuaLaTeX/Biber thành công, PDF khung2trang; warning MiKTeX chưa kiểm cập nhật và locale Perl không đổi kết quả. Tại mốc này mới khung; thân bài đang chuyển, chưa G4 hoặc bản nộp.
+
 ### Sáu phụ lục và nguồn tái lập P7
 
 Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và nối tham chiếu từ thân bài. Mỗi task dùng nhánh docs riêng từ develop, commit/merge sau QA. Sổ chung §13.4–13.9 ghi nguồn/locator; không tạo receipt riêng cho từng task. Chỉ tài liệu nên không compileall/unit/E2E/leakage theo AGENTS §1.2; không gọi model/fit/bootstrap/replay hoặc sửa code/runtime/config/schema/input/models/archives/receipts. Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING giữ nguyên.

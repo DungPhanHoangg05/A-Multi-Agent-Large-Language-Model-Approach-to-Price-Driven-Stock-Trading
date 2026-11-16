@@ -1,0 +1,46 @@
+% Quy ước trình bày quan sát từ mẫu; chưa phải quy định chính thức của trường.
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}[Scale=0.85]
+\usepackage[english]{babel}
+\usepackage{geometry}
+\geometry{a4paper,margin=2.5cm,top=3cm,bottom=3cm,headheight=28pt}
+\usepackage{microtype,setspace}
+\onehalfspacing
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{graphicx,tikz}
+\usetikzlibrary{calc,arrows.meta,positioning}
+\usepackage[table]{xcolor}
+\definecolor{thesisblue}{HTML}{1F3445}
+\usepackage{booktabs,array,longtable,calc,pdflscape}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{ThesisCode}{Verbatim}{fontsize=\small,breaklines=true,breakanywhere=true,commandchars=\\\{\}}
+\usepackage{xurl,hyperref,bookmark}
+\hypersetup{colorlinks=true,allcolors=thesisblue,pdftitle={Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market},pdfauthor={Phan Hoang Dung}}
+\urlstyle{tt}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=numeric,sorting=none,giveninits=true,maxbibnames=99]{biblatex}
+\addbibresource{../references.bib}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE,LO]{\small\itshape\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-20pt}{30pt}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.2em}
+\setlength{\LTpre}{0.6\baselineskip}
+\setlength{\LTpost}{0.6\baselineskip}
+\newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\pandocbounded}[1]{#1}
+\newcommand{\real}[1]{\ensuremath{\mathbb{#1}}}
