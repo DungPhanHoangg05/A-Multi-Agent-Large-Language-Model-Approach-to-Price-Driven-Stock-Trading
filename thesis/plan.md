@@ -172,7 +172,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T76 — DONE: Rà bibliography, attribution và quyền tài nguyên; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T77 — DONE: Đối soát số học từ dự báo và NAV nguồn; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T78 — DONE: Clean build 60 trang và khóa hash nguồn hiện hành; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T79 — Kiểm từng trang render và sửa lỗi bố cục.
+- [x] T79 — DONE: Xem đủ 60 trang render cuối và kiểm bố cục; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T80 — Xử lý phản hồi đã nhận và chỉnh sửa cuối.
 
 #### Bàn giao — P10
