@@ -554,575 +554,122 @@ the rule without claiming an observed veto. The four displayed groups,
 student probability, hosted proposal and retained action answer distinct
 questions; none alone identifies a mechanism's causal benefit.
 
-\section{Variant orchestration and complete algorithms}\label{s:21530b5246fd89f6}
-
-\subsection{Eight roles on one shared parent}\label{s:e30bc8e57ec07a81}
-
-The unified study schedules eight roles for every point/repeat, including
-Fact\_\allowbreak{}Anchor as an explicit dependency role. It does not run eight separate
-upstream pipelines. One Indicator\ensuremath{\rightarrow}Pattern\ensuremath{\rightarrow}Trend realization, with the
-recorded alpha/sentiment preparation, forms an immutable shared snapshot
-\(u0\) for that point. Variant-specific projections use deep copies and keep
-the shared parent digest. Native/Common differences in Section 4.4 remain
-declared transformations of this parent, not a reason to regenerate vision.
-
-\textbf{Table B03, complete unified-role interface.} Sections 4.4 and 4.7 provide
-the foundation and four-prior deltas. This table adds execution dependencies
-and the distinction between a new response and an inherited action.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
-\caption{Table B03, complete unified-role interface. Sections 4.}\label{tab:04_proposed_system:21}\tabularnewline
-\toprule\noalign{}
-Role / identifier
- & Added resources or context
- & Same-repeat forecast dependencies
- & No-request path / final-action rule
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Role / identifier
- & Added resources or context
- & Same-repeat forecast dependencies
- & No-request path / final-action rule
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Native / \texttt{original\_\allowbreak{}fix} & Native report profile & None & New base reply; raw action mapped to LONG/CASH \\
-Common / \texttt{original\_\allowbreak{}common} & Common report profile/instruction & None & New base reply; supplies durable fallback/reference input \\
-Bayesian v1 / \texttt{bayesian\_\allowbreak{}v1} & Mature signal bank, regime, v1 prefix & Common & Retrieval fallback inherits Common; otherwise mapped reply \\
-C2 & Signal bank, disjoint conditional statistics and ready examples & Common & Neither view ready: inherit Common; otherwise mapped reply \\
-A / \texttt{A\_\allowbreak{}tp\_\allowbreak{}pool} & T/P conditional pool & Common & Same readiness contract; otherwise mapped reply \\
-B / \texttt{B\_\allowbreak{}semantic} & C2 evidence, alternative presentation & Common & Same readiness contract; otherwise mapped reply \\
-Fact Anchor / \texttt{Fact\_\allowbreak{}Anchor} & PIT numerical fact packet & Common & Completed invalid assertions select Common; missing response is an error \\
-MT / \texttt{MT\_\allowbreak{}BICL} & Facts, frozen task/student resources, utility projection & Common and Fact Anchor & Ineligible/invalid anchor: retain resolved reference without revision request; otherwise apply Section 4.8.6 \\
-\end{longtable}
-
-\endgroup
-
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F08_variant_dag.pdf}
-\caption{F08. Shared parent and within-repeat dependencies}\label{fig:F08}\end{figure}
-
-\textbf{Figure F08.} One shared upstream realization feeds eight roles; Common
-and Fact Anchor are durable outputs of the same repeat. Arrows among roles
-are forecast dependencies, distinct from the shared-input relation. Source:
-SYS44--SYS46/BG18. This DAG specifies prerequisites rather than elapsed time
-or performance. \href{../assets/diagrams/F08_variant_dag.pdf}{PDF} ·
-\href{../assets/diagrams/F08_variant_dag.tex}{TikZ source}.
-
-The runner counterbalances order subject to this DAG. For global point
-index \(i\) and repeat \(r\), it uses \texttt{ordered\_\allowbreak{}branches(3i+r)}: rotate the six
-Common-dependent tail priorities every eight indices, select only roles
-whose dependencies are complete, and insert Native at position \((3i+r)
-\bmod8\). Native has no Common prerequisite. Common always precedes its
-dependents; Fact Anchor precedes MT. A dictionary of outputs is newly
-created for each repeat, preventing reuse of a different repeat's Common
-or anchor. A stage's parents bind the shared digest and exact dependency
-output digests.\footnote{SYS44 registry, SYS45 \texttt{ordered\_\allowbreak{}branches}, SYS46 hosted runner and BG18 method adapters; CL102--CL103, ledger §9.19. The fixed research protocol has one realization/three repeats; component Full/Base remains a separate study.}
-
-There are three Decision repeats conditional on one upstream realization.
-Eight roles therefore produce 24 forecast \textbf{slots} per point, even when
-some have no hosted request. A response is an actual completed model reply;
-an HTTP attempt includes retries and format repair. EX01 r0 has eight
-forecast slots, five Decision responses and three C2/A/B bypasses. A bypass
-keeps a provenance-bearing output but adds neither a response nor a new
-vision realization. Numerical controls such as always-LONG and always-CASH
-are evaluated separately and are not additional hosted roles.
-
-\subsection{Algorithms and outcome barrier}\label{s:408b36639d14b809}
-
-The following pseudocode summarizes the frozen implementation contracts.
-It describes logical operations rather than replacing the source with a
-new runner. Resource fitting is a separate offline step. Smoke/control
-execution does not open a research query payoff.
-
-\hypertarget{alg:pit-context}{}
-
-\textbf{Algorithm A01. Construct admissible historical context.}
-
-\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
-Input: point (symbol, cutoff), registered fold/reserved IDs,
-       authenticated price/news prefixes and frozen resource identities
-Output: shared-input data, fact packet, signal-prior evidence,
-        numerical context/utility with explicit support status
-1. Validate source identity, observed calendar and horizon contract.
-   Select only price rows through cutoff and admissibly dated news.
-   Preserve missingness; reject invalid required inputs.
-2. Construct current reports/images from the allowed analysis window.
-   Retain full-source, window and report/projection identities separately.
-3. For signal priors: admit same-stock mature bank episodes with exit<cutoff;
-   apply the relevant regime/matching/statistics/selection/readiness rules.
-   Keep population, selected and displayed counts separate.
-4. For numerical tasks: use the pre-query fold pool and reserved-ID exclusion;
-   enforce block/partition boundaries and strict historical exit cutoff.
-   Use the frozen scaler, bucket filter and task/observation ranking.
-5. Create the unlabeled query vector and numerical fact packet from PIT data.
-   Validate complete membership, uniqueness, dates and source hashes.
-6. Obtain frozen student probability and teacher/bootstrap utility as specified
-   in Sections 4.8.3-4.8.4; record support reasons without manufacturing data.
-7. Return artifacts and hashes; never attach query entry/exit prices or label.
-   Required artifact/model/provenance failure raises instead of returning CASH.
-\end{Verbatim}
-
-The runner may prepare numerical resources on demand and reuse them across
-repeats; A01's grouping does not imply a refit or a new stochastic upstream
-call for every role. The signal-bank and numerical-context boundaries
-remain different, as Section 4.5 explains.
-
-\hypertarget{alg:method-policy}{}
-
-\textbf{Algorithm A02. Prepare one role and resolve its final action.}
-
-\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
-Input: shared snapshot, role, repeat, durable same-repeat dependencies
-Output: durable forecast/raw/policy record
-1. Validate the role/profile and prerequisite output digests.
-2. Prepare a deep-copied role projection, request/schema and auxiliary proof;
-   validate the final prompt budget and persist preparation before invocation.
-3. If preparation prescribes no request, require raw=None:
-   signal-prior fallback inherits Common; MT bypass retains resolved anchor.
-4. Otherwise invoke through durable transport with the stage attempt identity;
-   retain actual request/response identity and raw bytes before parsing.
-   Schema repair/retry follows Section 4.10, not an action-agreement rule.
-5. Resolve base action, Fact Anchor or MT revision using its declared policy.
-   Keep raw proposal, validity, eligibility, bypass, reason and action separate.
-6. Validate the record against request, shared parent and dependencies;
-   persist completion/hash. On technical uncertainty keep the incomplete stage.
-\end{Verbatim}
-
-\hypertarget{alg:paired-evaluation}{}
-
-\textbf{Algorithm A03. Execute paired forecasts, then join outcomes.}
-
-\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
-Input: locked cohort, resources, run identity and three-repeat protocol
-Output: completed forecasts, separate outcomes and method/account summaries
-1. For each planned point, resume or create its one durable shared u0 snapshot.
-2. For r=0,1,2, start an empty dependency-output map.
-   Visit all eight roles in the registered counterbalanced topological order;
-   run/resume A02 and put each complete output in that repeat's map.
-3. Require all 24 forecast slots complete and validated for the point.
-   Only then invoke the research outcome oracle and persist its separate stage.
-   Smoke/control stages retain an explicit no-query-payoff marker instead.
-4. Join saved final LONG/CASH actions to the canonical LONG payoff and net label.
-   Preserve source identity, units, fixed Open(t+1)/Close(t+3) and two-way costs.
-5. Rebuild chronological accounts separately by method/repeat/symbol/fold,
-   validating nonoverlap and the registered support before compounding.
-6. Compute classification, account and paired summaries on their defined units;
-   distinguish forecast slots from distinct market points and accounts.
-\end{Verbatim}
-
-The logical barrier prevents outcome access during this forecasting run.
-It does not erase previous donor-data exposure or prove that the entire
-study is a previously untouched causal holdout. The Native row-wise audit
-FAIL and whole-system NOT\_\allowbreak{}CERTIFIED limitations remain those of the locked
-evidence. Pairing controls current upstream variation; it does not remove
-all uncertainty or isolate the student from the rest of the pipeline.
-\footnote{BG16/BG17 providers, SYS46 hosted barrier and SYS47 outcome/evaluation functions; CL104--CL105. A01--A03 are source-bound pseudocode, not newly executed algorithms. EX01 validation reads timestamps/dependency hashes from the archive only.}
-
-For EX01 the archived outcome stage lists the 24 required slots. Each
-forecast/prepare stage is complete before the outcome starts, with Common
-and anchor dependencies matching the corresponding repeat's output hash.
-Section 4.10 returns to these records to explain recovery and the final
-outcome, without putting that outcome in A01 or the hosted prompt.
-
-\section{Prompt limits, recovery and application}\label{s:052b7113d7072810}
-
-\subsection{Prompt admission and bounded repair}\label{s:ce26cfc79aae04ca}
-
-\hyperref[s:3c1d039c39c73d45]{Appendix B} supplies request IDs, measured examples, explicitly labeled English presentation translations and compact reply schemas for these prompt families.
-
-Report compression is part of the model's input contract. \texttt{\_\allowbreak{}distill\_\allowbreak{}report}
-selects summaries according to report type: alpha keeps its numerical
-summary, sentiment removes the article-list/prose section, and Indicator
-prefers its convergence summary when the recognized heading exists.
-\texttt{\_\allowbreak{}cap\_\allowbreak{}report} then retains roughly 70\% of the available character budget
-from the head and the rest from the tail, with a visible truncation marker.
-If a heading is not recognized, the cap can remove informative middle
-content; Section 4.3's EX01 example records this limitation rather than
-assuming the full report reached Decision.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Prompt admission and bounded repair - supporting detail}\label{tab:04_proposed_system:22}\tabularnewline
-\toprule\noalign{}
-Report
- & Backtest cap (characters)
- & General live cap (characters)
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Report
- & Backtest cap (characters)
- & General live cap (characters)
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Trend & 800 & 900 \\
-Pattern & 800 & 900 \\
-Indicator & 800 & 900 \\
-Alpha & 1,100 & 1,200 \\
-Sentiment & 500 & 600 \\
-\end{longtable}
-
-\endgroup
-
-Common-based study requests use the backtest limits. The live column
-describes a separate default cap dictionary, not evidence that a serving
-variant may ignore its own final guard. Prefixes are bounded at 600,
-the fact card at 700 and the anchor card at 80. The final assembled text,
-including instructions, reports, separators and the response example,
-must have \textbf{fewer than 6,500 characters}. The unified adapter checks again
-after adding the Common instruction and causal source card. A format-repair
-suffix also passes a final length check. Overflow fails before dispatch;
-it does not trigger removal of historical members or a weaker schema.
-These are character limits, not token counts. Transport separately reserves
-estimated request/output tokens and applies quota admission.\footnote{SYS02 distill/cap/guard, SYS18/SYS42/BG18 assembly, SYS52 final length guard and SYS48 repair admission; CL106, ledger §9.20. Live UI presentation differs from the frozen Decision byte identity as declared in §3 of the ledger.}
-
-\subsection{One retry owner and durable HTTP evidence}\label{s:51de81f6c5f8a255}
-
-Agent invocation goes through \texttt{\_\allowbreak{}invoke\_\allowbreak{}with\_\allowbreak{}retry}. In a research invocation
-scope it delegates one attempt to \texttt{invoke\_\allowbreak{}once}, leaving retry ownership
-to the durable transport. Nested agent/SDK retry loops must not multiply
-the execution budget; the recorded request sets SDK retries to zero.
-The legacy unscoped wrapper has its own bounded retry loop and caps its
-delay at 60 seconds; it must not be described as the hosted runner's
-complete recovery policy.
-
-In the unified durable path, each active logical execution has at most three
-HTTP attempts in total, including transient failures, confirmed NOT\_\allowbreak{}SENT
-attempts and Decision schema repair. Ordinary resume preserves this count;
-the explicitly authorized replacement generations below are separate. For
-HTTP 429/500/502/503/504, the transport computes the next eligible time
-from the maximum of capped exponential backoff \(\min(900,5\,2^j)\),
-\texttt{retry-\allowbreak{}after}, and a parsed \texttt{retry after X s} response message. Header/body
-waits are not truncated to the exponential term's cap. The schedule is
-reconstructed from persisted raw evidence after interruption.
-
-A 200 response is persisted before JSON/schema parsing. An invalid
-Decision JSON/schema may request the fixed format-repair suffix within
-the same total attempt budget. A vision parse failure does not silently
-regenerate the image interpretation. Semantic disagreement, low confidence,
-an unwanted action, or a schema-valid mismatch with facts is not a format
-repair criterion. Such a mismatch reaches the explicit policy in Section
-4.8.6. Unsupported context bypasses before transport and consumes no
-request attempt.\footnote{SYS48 \texttt{DurableCalls.\allowbreak{}call/\allowbreak{}cooldown/\allowbreak{}ready}, SYS49 invocation scope, SYS02 wrapper and frozen U08 transport; CL107--CL108. Standalone legacy retry and durable research recovery are different paths.}
-
-\textbf{Versioned admission, not one timeless quota rule.} U08 began with pooled
-per-organization accounting across models, rolling windows, carried usage
-and provider headers. From HTTP sequence 487 the locked amendment uses
-\texttt{per\_\allowbreak{}org\_\allowbreak{}model\_\allowbreak{}v1}, separating admission buckets by organization/model.
-From sequence 591 it uses \texttt{provider\_\allowbreak{}response\_\allowbreak{}v1}: admission follows actual
-provider transient-error cooldown for that organization/model, not local
-count windows or successful-response remaining headers. Request-budget and
-phase-attempt caps remain. These are zero-based sequence boundaries recorded
-in the runtime manifests, not newly inferred provider entitlements.
-Deferral yields a future eligible time; exhaustion or an ambiguous send
-retains evidence and blocks that execution.
-The cooperative runner can continue other ready queues while preserving
-the fixed assignment of each point. Historical quota settings are not a
-claim about the provider's current limits or an instruction to collect
-new data.
-
-\subsection{Checkpoint lifecycle and recovery}\label{s:158597603efd21d7}
-
-The run identity binds the source/protocol/runtime/resource inputs and run
-UUID. A deterministic slot name identifies point, realization, repeat and
-role. \texttt{StageBook} checkpoints render/graph/shared, preparation, forecast
-and outcome stages; durable transport separately checkpoints each HTTP
-intent and raw response. Each stage retains inputs, parent digests,
-attempt UUID, status, output and output digest in an atomic envelope.
-Completion is validated before it can satisfy a dependency or the outcome
-barrier.\footnote{SYS50 \texttt{StageBook}, SYS51 journal save/load, SYS48 HTTP evidence/reconciliation and SYS46 hosted barrier; CL109. This section describes source contracts and reads existing EX01 records; no recovery execution is newly claimed.}
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Checkpoint lifecycle and recovery - supporting detail}\label{tab:04_proposed_system:23}\tabularnewline
-\toprule\noalign{}
-State or interruption
- & Recovery behavior
- & What must remain separate
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-State or interruption
- & Recovery behavior
- & What must remain separate
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Stage complete and hashes valid & Return the validated saved output; no new model call & Reuse within the same identity versus a fresh repeat response \\
-Preparation complete, forecast not complete & Resume the forecast with the same stage identity and transport history & Prepared request versus completed reply \\
-HTTP 200 raw durable, stage completion interrupted & Parse/validate that saved response, then complete the stage & Local reconstruction versus a new HTTP request \\
-Transient response durable & Honor persisted cooldown/quota and remaining attempt budget & Deferral versus valid policy bypass \\
-HTTP intent UNKNOWN after possible send & Stop automatic dispatch for that UUID; reconcile delivery evidence & Unknown delivery versus missing statistical support \\
-Confirmed not sent & Record NOT\_\allowbreak{}SENT with evidence; retain history/reservation and consumed attempt & Reconciliation versus resetting the attempt cap \\
-Corrupt envelope, changed request/parent/run identity & Raise; do not reuse the output under altered inputs & Integrity failure versus an ordinary resume \\
-\end{longtable}
-
-\endgroup
-
-UNKNOWN is written before sending because a process can fail after the
-provider receives the request but before the response is durably saved.
-It is unsafe to infer from a missing local response that no call occurred.
-\texttt{reconcile\_\allowbreak{}not\_\allowbreak{}sent} requires an explicit unique UUID and evidence; it does
-not mark an uncertain response as successful. The stage wrapper may reenter
-an incomplete local callback under the same attempt, but transport refuses
-to resend an unresolved UNKNOWN. It reuses a validated raw 200 instead.
-The hosted path does not use the older generic journal reconciliation to
-invent a new stage UUID and reset HTTP accounting.
-
-\textbf{Recorded replacements are explicit exceptions to ordinary resume.}
-The frozen run includes user-authorized replacement generations for
-VCB-2026-04-01 and VJC-2025-12-19, and a later replacement of the exhausted
-\texttt{forecast/\allowbreak{}VCB-\allowbreak{}2026-\allowbreak{}09-\allowbreak{}23/\allowbreak{}u0/\allowbreak{}r2/\allowbreak{}MT\_\allowbreak{}BICL} slot. The manifests bind backups,
-retired HTTP digests, affected stages and preserved completed outputs.
-The point replacements can regenerate affected upstream stages under a
-new generation; the single-slot replacement retains its shared preparation.
-The final retirement map contains 15 old HTTP records. They remain in
-the complete ledger and phase cost/attempt accounting, while active
-forecast verification uses the replacement generation. A valid completed
-response may not be retired merely to seek a preferred action. This is
-neither automatic UNKNOWN replay nor an invisible reset of scientific
-history. Pairing refers to each point's accepted shared parent; it does
-not imply that no failed generation ever existed.\footnote{SYS53--SYS57 model/provider admission and point/slot replacement contracts; U08 frozen runtime manifests OP01--OP04, ledger §9.20; CL110. Sequence boundaries, targets and retired counts come from the archived manifests. No replacement is performed while writing this chapter.}
-
-These rules give three distinct point lifecycles. A successful point saves
-shared input, all preparations and forecasts, then opens the outcome.
-A support-limited point still completes a provenance-bearing inherited
-action for the affected slot, with no fake request, and can cross the
-barrier when all roles finish. An interrupted point remains incomplete
-until delivery/integrity is resolved; its missing slot keeps the outcome
-closed. A receipt cannot count the third lifecycle as a valid CASH
-forecast merely to reach the planned sample size.
-
-EX01's saved stages illustrate the completed lifecycle and three prior
-bypasses, not a new interruption experiment. The UNKNOWN/recovery rows
-above describe source-defined behavior; writing them does not dispatch a
-request, simulate a crash or rerun a cold acceptance test. The application
-workflow and final EX01 outcome follow in the next two subsections.
-
-\subsection{Application workflow and interpretation}\label{s:f9572fb99dc08a53}
-
-\hyperref[s:cc9510fc96476c9d]{Appendix F} gives the source-checked entrypoints and resource requirements, separating offline fixtures, historical cold replay and provider-backed live analysis.
-
-The Flask application exposes the method through a \textbf{Realtime 1D analysis
-form}. A user selects a stock and one of six main versions: Original,
-Bayesian v1, C2, A, B or MT-BICL, then starts analysis. The current form
-does not expose an as-of source selector, comparison/repeat controls or
-multiple timeframes. Backend capabilities and earlier UI modes must not
-be mistaken for controls on this form. Original delegates to the legacy
-analysis route; enhanced versions use a captured live snapshot, preflight
-and one analysis job with one repeat.\footnote{AP01 contract, AP03 registry, AP04--AP11 live capture/provider/runtime and AP13--AP15 form sources, pinned separately from the research snapshot in ledger §9.21; CL111--CL113. Current form and older/backend daily-closed capabilities are explicitly distinguished.}
-
-For an enhanced selection, the client captures \texttt{\{symbol,timeframe:\allowbreak{}"1d"\}},
-validates the returned snapshot identity and submits the same locked
-selection to preflight and job creation. The current form uses the
-versioned timeframe envelope even for 1D. It is distinct from the backend's
-older \textbf{latest completed daily session} capture, which excludes today's
-bar before 15:30 local time. The current timeframe path may include a
-forming daily observation and records \texttt{daily\_\allowbreak{}provisional}. During the
-session it can extend daily context from observed intraday stock/index
-data; outside the session it uses the available daily index calendar.
-Provisional data are not silently described as an exchange-certified close.
-
-The capture validates positive/consistent OHLCV, timestamps, source freshness,
-at least 600 daily stock/index observations, matching cutoff and calendar
-membership. It preserves the chart separately from the daily context and
-rejects future timestamps or inconsistent units. News without publication
-dates is excluded; future publication is rejected. Date-only publication
-is admitted conservatively from the following day. Insufficient verified
-scores remain unavailable, not neutral. The snapshot records source,
-capture time, units, provisional status and vendor/corporate-action limits.
-It is hashed and bound to the owner before forecasting.
-
-Preflight verifies resources, supported domain, request/model/options and
-dependency plan. Selecting MT schedules Common\ensuremath{\rightarrow}Fact Anchor\ensuremath{\rightarrow}MT for that
-point/repeat; it does not schedule all eight study roles or three research
-repeats. The requested version, executed dependencies and an inherited
-fallback action remain distinguishable. Job identity binds the capture,
-configuration, model/prompt/resource versions and owner scope; secrets stay
-on the server. Reload/resume reads the old capture under its hash. Newer
-market data require a new capture/job, rather than altering an existing
-job's source midway.
-
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F11_application_flow.pdf}
-\caption{F11. Application analysis workflow}\label{fig:F11}\end{figure}
-
-\textbf{Figure F11.} Source-defined Realtime 1D workflow with a legacy Original
-branch and a snapshot-bound enhanced branch. The result is read from the
-same job; an uncertain create/send is not automatically repeated. This is
-an explanatory schematic, not a screenshot or browser acceptance result.
-Source: application bindings AP01--AP15 in the ledger.
-\href{../assets/diagrams/F11_application_flow.pdf}{PDF} ·
-\href{../assets/diagrams/F11_application_flow.tex}{TikZ source}.
-
-\textbf{Frozen resources applied to a new query.} Enhanced live inference reuses
-the historical bank, feature scaler, HMM and student weights. Common alpha
-transfers the frozen top-five selection/orientations/threshold to the new
-price prefix under \texttt{live\_\allowbreak{}frozen\_\allowbreak{}selector\_\allowbreak{}transfer\_\allowbreak{}v1}; it does not refit
-the selector on the query. MT historical labels remain frozen before
-1 July 2026. Historical facts keep the label source; only query features
-and facts use the captured live data. Planned weekday \(t+1/t+3\) metadata
-do not supply future prices or a verified exchange settlement calendar.
-The target remains daily Open(\(t+1\))\ensuremath{\rightarrow}Close(\(t+3\)), not three intraday bars.
-The live vendor transfer and unavailable independent corporate-action
-ledger remain scientific limitations.
-
-\textbf{Progress and result reading.} The overlay follows checkpointed agent
-progress, including dependency/context work; it does not rerun agents for
-animation. Completed enhanced jobs open the result page with a live-source
-job identifier. Reports and images come from that job's checked snapshot,
-not global images or a previous session. The BICL panel explains actual
-context/support, reference\ensuremath{\rightarrow}final action and bypass/rejection reasons before
-the final Decision display. Native alpha and Common alpha are labeled
-separately because the upgraded Decision input is not the native report.
-
-Interpret raw proposal as the model's output, final LONG/CASH as the policy
-action, and null metrics as unavailable/pending. A support bypass explains
-inheritance; a failed or UNKNOWN job is not a completed CASH forecast.
-An ambiguous create response disables blind resubmission and retains the
-job link when available. GET/export/reload read recorded results without
-market capture or model inference. The enhanced live analyze path has no
-query outcome or realized \(t+3\) P\&L; a stated confidence/R:R is not such an
-outcome.
-
-The current presentation profile \texttt{live\_\allowbreak{}bilingual\_\allowbreak{}presentation\_\allowbreak{}v1} stores
-VI/EN views with the job. Pattern/Trend and Decision obtain presentation
-text within their existing invocation; canonical fields alone feed policy.
-Numerical report labels use deterministic localization. Changing the
-display language reads stored views and does not send a translation
-request or change the canonical forecast. This presentation contract has
-its own wire identity: the author's accepted equivalence of the live
-modules' research logic does not mean their raw source/request bytes are
-identical to the historical snapshot.\footnote{AP02 output route, AP12 presentation mixin, AP16 receipt and AP17 QA archive; CL114/CL116. The archived checks, source bindings and pending browser status are inspected without opening an application session or rerunning tests.}
-
-The recorded application receipt is \textbf{OFFLINE\_\allowbreak{}PASS\_\allowbreak{}BROWSER\_\allowbreak{}PENDING} with
-\texttt{f11\_\allowbreak{}complete=false}; desktop/mobile visual acceptance has not run.
-It reports 135 Python and 24 DOM checks, with Python evidence reused under
-source bindings and the documented DOM delta, rather than claiming every
-check ran again after every edit. These are recorded fixture/scoped checks,
-not newly executed tests here, live fills, prospective validation or proof
-of profitable deployment. No UI screenshot is presented as accepted. The
-diagram and workflow text let the method be understood while preserving
-this outstanding acceptance boundary.
-
-\subsection{Closing EX01 after the forecasting barrier}\label{s:0a3a61d80b3973e9}
-
-Return to FPT at the 3 July 2023 cutoff. Its 600-bar shared prefix contains
-the 45-bar analysis window; sentiment is unavailable. Pattern's low
-confidence/warning and Trend's interpretation remain recorded observations,
-not independently verified chart truth. The signal-prior regime is
-CONSOLIDATION, while the separately sourced MT regime is BULL. These labels
-are not edited to match. V1 supplies three signal examples; C2/A/B fail
-readiness and inherit Common. MT uses three prior tasks and three target
-observations, 14 labeled historical rows in total, with the query unlabeled.
-
-The saved r0 actions complete the walkthrough before outcome access:
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
-\caption{Closing EX01 after the forecasting barrier - supporting detail}\label{tab:04_proposed_system:24}\tabularnewline
-\toprule\noalign{}
-Role
- & Raw proposal
- & Final action
- & Recorded resolution
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Role
- & Raw proposal
- & Final action
- & Recorded resolution
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Native & SHORT & CASH & RAW\_\allowbreak{}DECISION \\
-Common & LONG & LONG & RAW\_\allowbreak{}DECISION \\
-Bayesian v1 & LONG & LONG & RAW\_\allowbreak{}DECISION \\
-C2 & None & LONG & FALLBACK\_\allowbreak{}ORIGINAL \\
-A & None & LONG & FALLBACK\_\allowbreak{}ORIGINAL \\
-B & None & LONG & FALLBACK\_\allowbreak{}ORIGINAL \\
-Fact Anchor & LONG & LONG & NO\_\allowbreak{}NUMERIC\_\allowbreak{}VETO \\
-MT-BICL & LONG & LONG & KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME \\
-\end{longtable}
-
-\endgroup
-
-The five raw replies and three bypass outputs refer to the same upstream
-realization, but their role-specific requests are different. Across all
-three repeats, every required slot is durable before the outcome stage
-starts. \textbf{Only after that barrier} does the separate EX01 outcome record
-expose entry Open on 4 July and exit Close on 6 July, with 5 July the middle
-session. Entry is VND 48,180 and exit VND 48,390, after the declared unit
-conversion from the source series.
-
-The canonical oracle gives
-
-\[
-r^{\mathrm{net}}=\frac{48{,}390}{48{,}180}
- \frac{(1-0.001)(1-0.0025)}{(1+0.001)(1+0.0025)}-1
-=-0.00264731712420041.
-\]
-
-Gross return is +0.4358655044\%, but net return is \textbf{\ensuremath{-}0.2647317124\%} and the
-economic label is DOWN. Each LONG action receives that one-cycle loss;
-Native's CASH receives zero under the stated comparator contract, without
-opening a short position. This does not establish that Native is superior
-over the study, or that a negative estimated mean forced MT's action.
-EX01 intentionally retains an incorrect net-label LONG decision rather
-than replacing it with a winning illustration.\footnote{EX01 U08 shared/prepared/raw/policy/outcome members in ledger §7 and §9.21; TIME01 canonical oracle and TIME06 source identity; CL115. Numbers and timestamps are read from locked records; no historical model call or portfolio evaluation is rerun.}
-
-Account returns require the full chronological sequence of nonoverlapping
-cycles and the registered account/repeat aggregation. This single payoff
-is not the study's portfolio return. Entry/exit prices, realized return and
-net label remain in the evaluation record, outside the earlier reports,
-context, projection and model requests. The chapter has followed one
-decision from admissible inputs through agents, historical context and
-policy to its later economic outcome; Chapter 5 evaluates those decisions
-on the locked cohorts and reports the limitations of the two studies.
+\section{Orchestration and forecast barrier}\label{s:21530b5246fd89f6}
+Eight context-study roles share one sealed upstream parent: Native,
+Common, v1, C2, A, B, Fact Anchor and MT-BICL. Native/Common are completed
+within each Decision repeat; the four priors depend on that repeat's
+Common, Fact Anchor also depends on Common, and MT depends on the resolved
+anchor. These are research roles, not eight independent upstream runs or
+eight fresh replies per point. Selecting one enhanced live version
+schedules only its required dependency graph.
+
+The following combined algorithm separates forecast inputs from later
+evaluation. Every integrity failure stops the affected path; an eligible
+support-based fallback still produces a traceable completed action.
+\begin{quote}\small\setstretch{1.08}
+\textbf{Paired forecasting and evaluation}\par
+1. Validate point identity, cutoff-limited OHLCV/news and frozen resources.\par
+2. Render once; run Indicator, Pattern and Trend once; prepare alpha/news;
+seal the shared snapshot and make independent branch copies.\par
+3. Build profile-specific reports and mature historical contexts, checking
+fold membership, reserved IDs, scaler/regime and support before projection.\par
+4. For each repeat, resolve Native and Common once, then each prior and
+Fact Anchor. Record bypasses with the same-repeat dependency identity.\par
+5. For MT, validate anchor, numerical context/student/utility and request;
+obtain an eligible proposal and apply the external factual/quantile policy.\par
+6. Persist each preparation, raw response or bypass, proof and final action.
+Do not reopen a completed slot merely to seek another response.\par
+7. Open the outcome stage only when all required forecasts are durable;
+join candidate-LONG prices/labels, then compute classification and accounts.
+\end{quote}
+The barrier applies across the required roles/repeats before outcome
+access. It prevents current outcomes entering requests, but does not
+repair historical feature construction or authenticate source data.
+An unresolved missing slot keeps the barrier closed rather than counting
+as a successful CASH forecast.
+
+\section{Bounded prompts, recovery and application}\label{s:052b7113d7072810}
+\paragraph{Request and response contracts.}
+Report distillation selects type-specific summaries; capping retains
+roughly 70\% head and the remaining tail with a truncation marker.
+Common backtest caps are 800 characters each for Trend/Pattern/Indicator,
+1,100 for Alpha and 500 for sentiment; the general Native/live dictionary
+uses 900/1,200/600 respectively. BRPP is at most 600 characters, fact card
+700 and anchor card 80. The complete assembled request, including any
+repair suffix, must be \emph{strictly below 6,500 characters}. Characters
+are not tokens; transport separately reserves estimated request/output
+tokens. Overflow fails before dispatch and cannot silently drop history
+members or weaken the schema.
+
+Compression can lose evidence. FPT's 3,661-character Indicator report has
+a heading unrecognized by the frozen distiller, so its Native/Common
+fragments have 899/798 characters and omit the 2/5–3/5 vote-count lines.
+The saved full prompts have 3,699/4,186 characters. Decision therefore
+did not necessarily see the entire numerical summary. Structured parsing
+checks permitted fields and binary actions; fact-extended replies also
+require the cited assertions and context reason. Neither formatting nor
+assertion agreement verifies all explanation prose.
+
+\paragraph{Retries and checkpoints.}
+Agent calls pass through \texttt{\_invoke\_with\_retry}; within research
+scope one durable transport owns retries and SDK retries are disabled.
+A logical execution permits three HTTP attempts in total, including
+transient failures and schema repair. For retryable 429/500/502/503/504,
+the next eligible time is the maximum of exponential backoff
+$\min(900,5\,2^j)$, Retry-After and a parsed provider wait. Header/body
+waits are not shortened to the exponential cap. Quota amendments are
+versioned in the recorded run, not claims about current provider limits.
+A raw 200 response is stored before parsing; fixed Decision format
+repair shares the attempt budget. Vision parse failure, low confidence,
+unwanted actions or schema-valid fact disagreements do not authorize
+fresh semantic retries.
+
+Atomic stage envelopes bind run, request, parents, status, output and
+digest. Resume reuses verified completed output or parses a durable raw
+200 without a new call; persisted cooldowns and attempts remain.
+An HTTP intent is UNKNOWN before sending because interruption can occur
+after remote receipt. Missing local output does not prove NOT\_SENT:
+unresolved UNKNOWN blocks redispatch until delivery evidence is
+reconciled. Corrupt or changed identities raise errors. Recorded explicit
+replacement generations remain separate from ordinary resume, including
+15 retired HTTP records; they are not silently erased or reset. Detailed
+commands, manifests and recovery logs remain in the evidence repository.
+
+\paragraph{Application and reproducibility.}
+The Realtime 1D form selects a stock and Original, v1, C2, A, B or MT.
+Original follows the legacy route; enhanced versions capture one hashed
+live snapshot, validate resources/options in preflight and create a
+checkpointed job. Current daily capture can be provisional; it differs
+from the older latest-completed-session path. Captured prices, index,
+news availability, units and source freshness remain bound to the job.
+Frozen resources are transferred without query-time training. New data
+require a new capture; reload, exports and language switching read stored
+results. The bilingual display does not alter canonical action fields.
+Progress reflects real dependency work, not animation-triggered reruns.
+
+The result separates context/support, raw proposal, reference and final
+action, with explicit bypass/veto/failure. No realized future P\&L exists
+for a new query. Offline fixture preview, replay of archived responses
+under the matching source/runtime and new provider-backed execution are
+different operations; hashes/replay cannot guarantee identical new
+hosted replies. Indicator, Decision and graph logic equivalence is the
+author's accepted research/live relationship, not equality of source or
+prompt bytes. The recorded interface state remains
+\textbf{OFFLINE\_PASS\_BROWSER\_PENDING}; browser acceptance and prospective
+trading validation are outstanding.
+
+\paragraph{Completing the FPT walkthrough.}
+At repeat 0, Native proposes SHORT and executes CASH. Common and v1
+propose LONG. C2/A/B issue no new reply and inherit Common LONG; Fact
+Anchor and MT propose LONG, with MT retaining its anchor and no observed
+veto. Thus there are five raw replies and three bypass outputs, sharing
+one upstream realization but different role-specific requests.
+
+Only after all required forecasts are durable does the outcome disclose
+entry VND 48,180 on 4 July and exit VND 48,390 on 6 July. Substitution
+into Equation~\ref{eq:net} gives gross +0.4358655044\% but net
+\textbf{$-0.2647317124$\%}, hence DOWN. Each LONG receives this one-cycle
+loss; Native CASH receives zero without short selling. This retained
+incorrect LONG example is not evidence of overall Native superiority,
+nor does a negative estimated utility mean force MT to change action.
+Chapter 5 evaluates full account sequences and their comparison limits.
