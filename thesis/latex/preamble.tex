@@ -25,6 +25,10 @@
 \usepackage{csquotes}
 \usepackage[backend=biber,style=numeric,sorting=none,giveninits=true,maxbibnames=99]{biblatex}
 \addbibresource{../references.bib}
+% Cho URL bibliography ngắt trong mã phiên bản dài, giữ nguyên đích liên kết.
+\setcounter{biburlnumpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+\setcounter{biburllcpenalty}{100}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}

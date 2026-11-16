@@ -169,7 +169,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T73 — DONE: Đối soát luận điểm và nội dung cốt lõi sau rút gọn; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T74 — DONE: Tự rà khả năng đọc hiểu theo đủ 13 câu hỏi; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T75 — DONE: Biên tập tiếng Anh và chuẩn hóa thuật ngữ toàn văn; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T76 — Kiểm trích dẫn, ghi nguồn, quyền và khai báo cần thiết.
+- [x] T76 — DONE: Rà bibliography, attribution và quyền tài nguyên; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T77 — Đối soát công thức, đơn vị, số lượng và cách hiển thị số.
 - [ ] T78 — Build sạch, kiểm tham chiếu, số trang và cấu trúc.
 - [ ] T79 — Kiểm từng trang render và sửa lỗi bố cục.
