@@ -3196,3 +3196,7 @@ Bổ sung §5.2 từ frozen unified protocol v2 và r1 protocol: kế thừa end
 ### T80e. Ghi cơ sở và thời điểm khóa tham số thiết kế
 
 §4.8.6 có bảng population20/conditional5/width0,75/block63/K3/supportutility/Q10-Q90/4096draws. Phân biệt guard thiết kế, grouping, cap kỹ thuật và riskheuristic; nguồn frozen quality gate/tasks/utility/policy bind trướccontextcollection, không giả ngày chọn ý tưởng hay validationoptimum. C2/B3/306 minh họa coverage–reliability; chưa có matchedsweep/convergencebenchmark nên nêu thiếu, không chỉnhngưỡng. Kiểm sourcepins/hash/côngthức/diff; không model/API/bootstrap hoặc suite.
+
+### T80f. Thêm phản ví dụ nhân quả từng hàng và bảng phạm vi
+
+§5.9 chép nguyên vector zscore-tanh từ alpha_contract_v1/leakage.json; row4 đổi từ+0,821656 sang−0,390743 khi nối prefix. Bảng ánh xạ Native/Common/dependentbranches/numericcontrols/outercutoff; diễn giải behavioralcomparison khác unbiasedpredictiveevidence. Common chỉ sửa alpha path, không chứng nhận mọi inherited input. Nguồn revisionarchive và frozen diagnostic source có hash; không chạy lại audit/model hay sửa runtime. FAIL/NOT_CERTIFIED/browserPENDING giữ nguyên.

@@ -81,6 +81,16 @@
       "kind": "frozen_snapshot",
       "bytes": 10826,
       "sha256": "00814586220357ba447ced38f91a8551edd2d0558a516fdaaed91929e48efdd5"
+    },
+    "outputs/revision/alpha_contract_v1/leakage.json": {
+      "kind": "revision_archive",
+      "bytes": 3054,
+      "sha256": "eafedda293364545792c760066bd9ed4406fe6fad33d84484fcb16f392f0d8f6"
+    },
+    "core/revision_alpha_contract.py": {
+      "kind": "frozen_snapshot",
+      "bytes": 25359,
+      "sha256": "deb310e091b4fa60e2d1fa4e343f42b5c96ae1a6c483eab53169f56ea1b92b1e"
     }
   },
   "derived": {
@@ -765,6 +775,61 @@
         ]
       },
       "mt_archive_contexts_do_not_preserve_query_regime": true
+    },
+    "rowwise_counterexample": {
+      "diagnostic_result": "PASS_DETECTION",
+      "native_rowwise_causal_gate": "FAIL",
+      "delay_bfill_changes_past": true,
+      "normalization": {
+        "zscore_tanh": {
+          "historical_values_changed": true,
+          "prefix": [
+            -0.8216564906947734,
+            -0.3690288114810386,
+            0.3690288114810386,
+            0.8216564906947734
+          ],
+          "extended_prefix": [
+            -0.44740923214876366,
+            -0.42888528422883976,
+            -0.40999349796268536,
+            -0.3907432502918543
+          ]
+        },
+        "minmax": {
+          "historical_values_changed": true,
+          "prefix": [
+            -1.0,
+            -0.33333333333333337,
+            0.33333333333333326,
+            1.0
+          ],
+          "extended_prefix": [
+            -1.0,
+            -0.9797979797979798,
+            -0.9595959595959596,
+            -0.9393939393939394
+          ]
+        },
+        "rank": {
+          "historical_values_changed": true,
+          "prefix": [
+            -0.5,
+            0.0,
+            0.5,
+            1.0
+          ],
+          "extended_prefix": [
+            -0.6,
+            -0.19999999999999996,
+            0.19999999999999996,
+            0.6000000000000001
+          ]
+        }
+      },
+      "global_volume_branch_changes_past": true,
+      "scope": "Dữ liệu sau một dòng nhưng vẫn trong prefix quyết định thay đổi giá trị lịch sử. Đây là hạn chế selection diagnostics native, chưa chứng minh outer-test leakage.",
+      "required_action": "Không dùng native full-Series scores làm walk-forward/unbiased evidence. T11 báo đúng diagnostic; T12/T13 dùng fit train/validation đã purge và adapters nhân quả riêng. Không sửa code/input frozen hoặc ghi zero-leakage toàn runtime."
     }
   }
 }

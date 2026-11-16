@@ -605,6 +605,38 @@ results retain both avoided losses and foregone gains, while none
 certifies actual tradability or rewrites the canonical economic label.
 
 \section{Validity limits and answers}\label{s:7abb5e08a08c44da}
+\paragraph{A concrete row-wise counterexample.}
+The retained \texttt{alpha\_contract\_v1/leakage.json} diagnostic applies
+the Native whole-series normalizer to a short prefix and then to an
+extended prefix, comparing the same four historical rows. For
+z-score--tanh, their saved values change from
+$(-0.821656,-0.369029,0.369029,0.821656)$ to
+$(-0.447409,-0.428885,-0.409993,-0.390743)$ after the extension.
+The fourth historical value even changes sign. Thus information later
+than a row can change that row's feature or its selection diagnostic,
+although all rows may still lie before the outer decision cutoff.
+The same saved audit detects backfilling and a global-volume branch
+that alter historical values. These are recorded diagnostic examples,
+not a new run or a measured estimate of their effect on returns.
+
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption[Scope of the causal counterexample and repairs]{Scope of the causal counterexample and repairs. Detecting a failure is not a passing causal gate.}\label{tab:causal-scope}
+\begin{tabular}{@{}P{.27\linewidth}P{.30\linewidth}P{.36\linewidth}@{}}\toprule
+Component / property & Branches or path & Permitted interpretation\\\midrule
+Native full-window normalization and historical scores & Context Native; recorded Native alpha machinery & Behavior of that implementation can be described; unbiased row-wise predictive evidence is not established\\
+Common causal alpha projection & Common and dependent v1/C2/A/B/Anchor/MT paths & Expanding-prefix normalization, causal adapters and frozen selection repair this alpha path; other inherited inputs remain outside that repair\\
+Purged numerical controls & Separate component numerical-feature path & Its scoped adapter checks do not certify Native or reproduce the same hosted intervention\\
+Outer query cutoff and forecast barrier & Shared input/output protocol & Later query outcomes are withheld; this cannot repair within-prefix historical features or authenticate sources\\\bottomrule
+\end{tabular}\end{table}
+
+Consequently, comparing an extension with Native includes the foundation
+change, whereas comparing with Common conditions on that changed
+foundation. Neither comparison alone isolates regime information. The
+recorded \textbf{FAIL} and whole-system \textbf{NOT\_CERTIFIED} status
+therefore qualify predictive claims throughout the thesis, rather than
+being labels detached from the mechanism. Browser acceptance remains a
+separate pending property.
+
 The principal contracts and unresolved gates are summarized in
 Table~\ref{tab:audits}. Detection of a known counterexample differs from
 the system passing the property being tested.
