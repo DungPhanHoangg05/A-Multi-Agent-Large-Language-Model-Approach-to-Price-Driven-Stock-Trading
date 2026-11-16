@@ -1536,6 +1536,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL257 | [D.6 complete sensitivity](appendices/D_results.md#d6-complete-contrast-sensitivity-family) | DAN_XUAT | ED07 contrasts/sensitivity exact identity order; §13.7 | All20 L1/L2/L3/CORE4 cells and 300 saved omission point values retained | Descriptive, support-changing, no new interval or favorable selection |
 | CL258 | [D.7 execution extension](appendices/D_results.md#d7-component-execution-scenario-extension) | DAN_XUAT | ED43 scenario_summary.csv all12 scenarios AS/B; §13.7 | 24 display rows of120 archived scenario-method rows; denominators and within-method reference delta explicit | No certified fills, best/worst-case guarantees or changed canonical predictions/labels |
 
+| CL259 | [E.1 verification scope](appendices/E_verification.md#e1-evidence-matrix-and-status-meanings) | DAN_XUAT | Archived final_contracts target/indicator/report, U08/U09 receipts and frozen contracts; §13.8 | Local economic/PIT/paired/prompt/recovery checks have distinct support and validity limits | Audit PASS is not whole-system causality or deployment certification |
+| CL260 | [E.2 retained Native failures](appendices/E_verification.md#e2-retained-native-row-wise-counterexamples) | DAN_XUAT | alpha_contract_v1 leakage/summary/cases/manifest; exact paths/hashes §13.8 | Recorded prefix-extension vectors and bfill/global-volume flags coexist with outer-cutoff PASS | Synthetic stored outputs, not rerun audits or proof of outer-test future access |
+| CL261 | [E.3 provenance/adverse cases](appendices/E_verification.md#e3-provenance-and-unfavorable-records-retained) | DAN_XUAT | ED15 bank_audit/quality limits, EX01, CL182–CL186; §13.8 | 828/852 return differences, missing journals/news provenance and negative/bypassed cases retained | Not 828 changed labels or a repaired causal study |
+| CL262 | [E.4/E.5 receipts and missing acceptance](appendices/E_verification.md#e4-receipt-bound-checks-and-what-was-not-rerun) | DAN_XUAT | ED08 prior_checks/ED09, U09 cold record, AP16/AP17; §13.8 | Historical reused test groups, 15 cold artifacts and pending browser scope explicitly separated | No new suite/replay, full gate rerun, missing ablation or UI/financial acceptance claim |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2826,3 +2831,18 @@ D3/D4 lấy U09 classification_by_group.csv (450 rows) và accounts.csv (1530 ro
 D6 giữ20contrast identities, L1/L3 point arrays khớp effect gốc; L2 band từcontrast, CORE4 tự có48points/24accounts. D7a/b giữ đầy đủ6/9omissions×20cells=300pointvalues, không biến min/max thànhCI hoặc chọncột. D8 giữ cảAS/B của12scenarios=24rows trong120source rows, own-method reference delta phân biệtFull−Base; fixedpredictions, blocked/residual/pending và zeroexecution-certification giữ nguyên.
 
 Đây là định dạng/tổng hợp mô tả số đã lưu, không modelcalls/fit/newbootstrap/utilitydraws/economicreplay. QA numeric source keys/cell formatting, support/confusion/aggregation và NA, links/footnotes/84spec/diff PASS; số/công thức/bảng thân bài bất biến ngoài crossreferences. Tables D1–D8 là bảng appendix, landscape/longtable và chia trang sẽ xử lý ở P8/P9, chưa nghiệmthuPDF.
+
+### 13.8. Phụ lục E: audit và phản ví dụ giữ lại
+
+T65 viết `appendices/E_verification.md`/CL259–CL262, nối §5.9.2. Đọc alpha_contract_v1 qua EvidenceArchive; contract report/targets/indicators so byte với nguồn đã dùng P4. Nội dung tập trung requirement→evidence→scope, outer-cutoff PASS khác row-wise FAIL, PASS_DETECTION/CONTRACT_AUDIT không là causal PASS. Vectors ba normalizer lấy trực tiếp leakage.json và round6, không chạy synthetic audit mới.
+
+| Đường dẫn qua revision index | SHA-256 nguyên byte |
+| --- | --- |
+| outputs/revision/alpha_contract_v1/cases.json | `16d8f3de8f7f70f7674c6d0a0606ce046e62ead61714056d17e7659c744ac7cd` |
+| outputs/revision/alpha_contract_v1/leakage.json | `eafedda293364545792c760066bd9ed4406fe6fad33d84484fcb16f392f0d8f6` |
+| outputs/revision/alpha_contract_v1/summary.json | `83079d9ea2f453af801a10d6e45861871343739d37621f2ea88ea024bad56c4c` |
+| outputs/revision/alpha_contract_v1/manifest.json | `6c29b42c4704145fc956923e99f39445e3172ae2699f6e3c216aa289c4fef541` |
+
+U08 acceptance/receipt kiểm member hash trong archive đã pin; prior_checks giữ69/61/41/44/40 tests và rerun=false, không cộng thành disjoint/fullsuite. Giữ sourcecommit69935d..., sourcepins718, maxprompt4750/maxattempts3 đúngU08scope; historicalU09coldrecord15artifacts/0API/trainingfalse, không replay lại. AP16 pin `1fc3a65af3a8301a9c884dd19e1f2cbb3510ad5e584a760bf0e737a68971c5be` khớp bytes; 135Python/24DOM/23compiled/2JS là receipt recordedchecks, không nhận chạy lại hoặc desktop/mobilePASS.
+
+Câu chữ giữ828/852 numerical return differences không phảichangedlabels, missingrawjournals, NativeFAIL/wholeNOT_CERTIFIED/UIF11false, EX01LONGthua và các missingablations. QA từngcount/vector/status/source/units, links/footnote/spec/diff; không compileall/unit/E2E/leakage hoặc inference/fit/bootstrap/replay. Metadata về4gate là tiêu chí và receipt-scoped evidence, không blanketPASS; AppendixF sẽ cung cấp lệnhofflinerepro riêng.

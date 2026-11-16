@@ -29,7 +29,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 14. [Phần đầu](frontmatter.md): T59–T60; T59–T60 hoàn tất bản nháp phần đầu: abstract/7 keywords, lời cảm ơn và câu chữ cam đoan đã được tác giả xác nhận, 42 chữ viết tắt/26 dòng ký hiệu; chưa ký và chưa có biểu mẫu chính thức. [Sổ P7](evidence.md#13-phần-đầu-và-phụ-lục) giữ nguồn, đối soát và yêu cầu chính thức chưa có.
 
-15. [Phụ lục A–D](appendices/D_results.md): T61–T64; bảng mở rộng component/context theo mã/fold/repeat, đủ sensitivity/omission cells và12 execution scenarios; nối §§5.6–5.7. [Sổ nguồn appendix](evidence.md#134-phụ-lục-a-hợp-đồng-dữ-liệu-và-thời-gian) giữ locator/hash và QA; chưa chuyển LaTeX hoặc nghiệm thu PDF toàn văn.
+15. [Phụ lục A–E](appendices/E_verification.md): T61–T65; ma trận audit, Native counterexamples thật, source/receipt-bound checks và các gate còn thiếu; nối §5.9.2. [Sổ nguồn appendix](evidence.md#134-phụ-lục-a-hợp-đồng-dữ-liệu-và-thời-gian) giữ locator/hash và QA; chưa chuyển LaTeX hoặc nghiệm thu PDF toàn văn.
 
 ## Hai trang bìa
 

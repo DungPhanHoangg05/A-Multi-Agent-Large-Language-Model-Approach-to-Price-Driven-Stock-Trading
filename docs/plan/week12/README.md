@@ -490,6 +490,8 @@ Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và n�
 
 **T64 — `docs/thesis-appendix-results`:** viết Appendix D/CL254–CL258: component30group+21execution rows, context90stock+60fold+30repeat rows, full20cell sensitivity/300omission values và24Full/Base rows trong12execution scenarios. Đọc outputs đãpin, không rerunanalysis; kiểm accounts/class/confusions/means và NA, khác biệt hai studies/ratio conventions. Nối §§5.6/5.7; QA số/links/spec/diff PASS, chưatypesetlandscape/longtable/PDF.
 
+**T65 — `docs/thesis-appendix-verification`:** viết Appendix E/CL259–CL262, audit matrix và storedNativeprefixcounterexamples, scopeoldcontracts/U08/U09/serving receipts. Nối §5.9.2; giữ NativeFAIL, wholeNOT_CERTIFIED, UIbrowserNOT_RUN và missingablations. Đọc receipt/hash/source, không rerun4gates hoặc auditcounterexamples; QA vectors/counts/status/links/spec/diff PASS.
+
 ### Mở đầu, kết luận và đối soát P6
 
 Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. Chỉ viết/biên tập và kiểm nguồn, không thay code nghiên cứu, test, runtime, schema, cấu hình hoặc input; không compileall/unit/E2E/leakage suite theo AGENTS §1.2, không fit/API LLM/replay/bootstrap. Ghi chú và ánh xạ luận điểm giữ chung tại sổ bằng chứng §12.

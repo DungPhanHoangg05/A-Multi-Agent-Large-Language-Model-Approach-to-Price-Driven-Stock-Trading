@@ -1745,6 +1745,8 @@ their own narrower questions.
 
 ### 5.9.2. Limits on causal, statistical and external validity
 
+[Appendix E](../appendices/E_verification.md#e1-evidence-matrix-and-status-meanings) provides the audit matrix, retained Native counterexamples and source-scoped receipt outcomes, including the unresolved application gate.
+
 **Temporal causality and provenance.** The recorded native row-wise
 causality gate is **FAIL**, and the whole-system status remains
 **NOT_CERTIFIED_HISTORICAL_EXPLORATORY**. Cutting the input dataframe at
