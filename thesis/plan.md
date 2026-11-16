@@ -158,7 +158,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T73e — DONE: Rút memory, regime và các prior nhưng giữ điều kiện hỗ trợ; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73f — DONE: Rút facts, task inference, teacher/student và policy MT; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73g — DONE: Gộp điều phối, recovery, ứng dụng và khép ví dụ FPT; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T73h — TODO: Rút thiết kế thực nghiệm và cấu hình trong Chương 5.
+- [x] T73h — DONE: Rút thiết kế, cấu hình và metrics Chương 5 còn 4 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T73i — TODO: Rút bảng kết quả/thảo luận Chương 5, giữ bằng chứng chính và kết quả bất lợi.
 - [ ] T73j — TODO: Rút Chương 6 và phần đầu, đồng bộ abstract với kết quả giữ lại.
 - [ ] T73k — TODO: Xóa toàn bộ phụ lục khỏi bản nộp và nguồn build sau khi chuyển nội dung thiết yếu.
