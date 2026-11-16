@@ -3180,3 +3180,7 @@ Mốc đầu 4d2f4857; PDF 7a1b77f1, SHA256 2eb43028ab46259fbc17697554196bf8c18f
 ### T80a. Bổ sung bảng kiểm chứng student theo checkpoint đã khóa
 
 Đã kiểm byte TR01/TR05/TR07/TR08/export và seed42 evaluation theo manifest: seed42/step3000; validation KL0,002680/errorP950,066236; swap1949/1984;2021 macroLL/Brier0,670666/0,238779 trên248 rows; testKL0,002774/error0,066780;swap2072/2106;2022 macroLL/Brier0,681340/0,244113 trên256 rows. Bảng mới ở §5.3 phân biệt ngưỡng/đo, selection/assessment và support; không so Brier context khác support. Kiểm nguồn/số/LaTeX và 108 đặc tả; build liên chương sau bổ sung, QA toàn PDF ở T80l. Chỉ đọc receipt/tệp trọng số để kiểm hash, không load model/inference/fit hoặc suite runtime.
+
+### T80b. Giải thích feature, mục tiêu student và lý do kiến trúc
+
+Bổ sung §4.8.3: feature phục vụ eligibility/matching/representation; teacher count-likelihood không dùng continuous x. Student xấp xỉ xác suất teacher trên sequence đánh dấu, synthetic feature độc lập labels; utility vẫn lấy teacher. Transformer là giao diện sequence/amortization thuận tiện, không bắt buộc với mixture16 tính trực tiếp; chưa có benchmark tốc độ/bộ nhớ/accuracy so teacher. Kiểm đối chiếu công thức/nguồn và diff, không tạo kết quả hay chạy model. Build tiếp theo và toàn văn T80l sẽ kiểm đoạn mới.

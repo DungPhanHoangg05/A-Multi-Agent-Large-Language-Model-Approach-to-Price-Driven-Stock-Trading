@@ -564,6 +564,36 @@ The FPT saved student probability is 0.38681803029367656. Synthetic
 teacher agreement does not establish calibrated market probabilities or
 an isolated student contribution to trading outcomes.
 
+\paragraph{What is being approximated.}
+The four price features affect which historical observations and tasks
+are available, their similarity and their scaled representation. They
+are therefore important to context construction. After that construction,
+the teacher in Chapter 3 uses task-specific label counts and the fitted
+mixture weights; it does not condition its likelihood on the continuous
+feature coordinates or regress a return on the query vector. The utility
+path additionally uses historical net-return magnitudes. Neither
+operation substitutes the student's probability for the teacher's
+posterior sign distribution.
+
+The student approximates the teacher's query probability as a function
+of a marked, variable-length sequence. Role, slot and causal masking
+preserve the prior/target/query structure. Feature coordinates enter the
+sequence, but the synthetic generator samples them independently of its
+task rates and labels. Consequently, the distillation objective rewards
+recovering the teacher's count-based mapping despite those coordinates;
+it supplies no evidence that price features predict real market outcomes.
+Residual feature dependence of the approximation need not represent a
+learned financial relationship.
+
+A Transformer provides a common sequence interface for different task
+counts and context lengths, and a way to study amortized numerical
+inference within the multi-task design. It is not mathematically needed
+for this sixteen-component teacher: direct Beta-mixture calculation is
+tractable and remains the reference. The recorded study contains no
+matched runtime, memory or accuracy benchmark showing that the student
+improves on that calculation. Architectural convenience is a design
+rationale, not an established computational or trading advantage.
+
 \subsection{Utility and bounded context projection}\label{s:2fde9b3e9d8b15d2}
 Utility requires an available 45-bar known-bucket query, at least two
 prior tasks and at least five positive plus five nonpositive historical
