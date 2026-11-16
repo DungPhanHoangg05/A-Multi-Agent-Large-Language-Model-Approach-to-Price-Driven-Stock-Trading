@@ -35,7 +35,7 @@ G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biệ
 UI/F11 vẫn PENDING. **P4 và P5 đã đủ bản nháp Chương 5 và Chương 2**, kèm nguồn/bảng/bibliography đã đối soát.
 **P6/T54–T58:** P6 đủ bản nháp Chương 1/6 và đối soát lập luận; G3 tự kiểm nội bộ đạt đúng nguồn T36–T58, chưa review ngoài/dàn trang cuối.
 **P7/T59–T60:** T59–T60 hoàn tất bản nháp phần đầu: abstract/7 keywords, lời cảm ơn và câu chữ cam đoan đã được tác giả xác nhận, 42 chữ viết tắt/26 dòng ký hiệu; chưa ký và chưa có biểu mẫu chính thức.
-**P7/T61–T61:** đã viết Phụ lục A–A và nối tham chiếu trong thân bài; Giữ CORE4 khác chín-query-stock, fraction khác %, causal label không là certificate; không nghiên cứu mới.
+**P7/T61–T62:** đã viết Phụ lục A–B và nối tham chiếu trong thân bài; Không giả prompt Anh đã chạy, không lộ secrets hoặc biến schema validity thành trading gain.
 T67 trở đi, LaTeX, rà soát khoa học và dàn trang cuối còn việc.
 Chỉ viết/đối soát nguồn; Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING không đổi.
 Bản xem hai

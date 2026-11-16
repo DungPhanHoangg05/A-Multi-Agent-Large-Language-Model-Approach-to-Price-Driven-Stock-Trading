@@ -484,6 +484,8 @@ Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và n�
 
 **T61 — `docs/thesis-appendix-contracts`:** viết Appendix A/CL242–CL245, field/version contract, schema CORE4, hai JSON EX01/bank, timeline/economic labels và missingness/failure; nối §4.2. Kiểm nguồn U08/U09/snapshot/stage hash và JSON equality, không replay; QA source/units/links/spec/diff PASS. Native FAIL và provenance limits giữ nguyên.
 
+**T62 — `docs/thesis-appendix-prompts`:** viết Appendix B/CL246–CL249, request IDs/hashes/four message lengths, BRPP/anchored translations và schema/reply projection; nối §4.10.1. Natural-language excerpts đều gắn nhãn bản dịch trình bày, giữ original IDs/enum/counts, không copy secrets. So từng trường/length/source và legacy wording; EX01 LONG thua/anchor retention giữ nguyên. QA links/JSON/spec/diff PASS; không inference mới.
+
 ### Mở đầu, kết luận và đối soát P6
 
 Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. Chỉ viết/biên tập và kiểm nguồn, không thay code nghiên cứu, test, runtime, schema, cấu hình hoặc input; không compileall/unit/E2E/leakage suite theo AGENTS §1.2, không fit/API LLM/replay/bootstrap. Ghi chú và ánh xạ luận điểm giữ chung tại sổ bằng chứng §12.

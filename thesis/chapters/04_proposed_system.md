@@ -2121,6 +2121,8 @@ outcome, without putting that outcome in A01 or the hosted prompt.
 
 ### 4.10.1. Prompt admission and bounded repair
 
+[Appendix B](../appendices/B_prompts.md#b1-families-provenance-and-redaction) supplies request IDs, measured examples, explicitly labeled English presentation translations and compact reply schemas for these prompt families.
+
 Report compression is part of the model's input contract. `_distill_report`
 selects summaries according to report type: alpha keeps its numerical
 summary, sentiment removes the article-list/prose section, and Indicator
