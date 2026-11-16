@@ -155,7 +155,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T73b — DONE: Rút Chương 1–2 còn 3 và 4 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73c — DONE: Rút nền tảng và hợp đồng Chương 3 còn 6 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73d — DONE: Rút tổng quan, hợp đồng và agent foundations Chương 4; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T73e — TODO: Rút phần memory, regime và các prior trong Chương 4.
+- [x] T73e — DONE: Rút memory, regime và các prior nhưng giữ điều kiện hỗ trợ; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T73f — TODO: Rút phần facts, MT-BICL, teacher/student và utility/policy trong Chương 4.
 - [ ] T73g — TODO: Gộp điều phối, vận hành, tái lập và hoàn thiện ví dụ EX01 trong Chương 4.
 - [ ] T73h — TODO: Rút thiết kế thực nghiệm và cấu hình trong Chương 5.

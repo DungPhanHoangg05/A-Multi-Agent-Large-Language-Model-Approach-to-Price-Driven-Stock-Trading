@@ -178,773 +178,160 @@ context; several ingredients change together. Extensions below reuse
 the same-repeat Common result when their documented support gate fails.
 
 \section{Historical memory and market regimes}\label{s:caa6b0b420cdae1c}
+Historical memory stores completed candidate-LONG cycles. Each episode
+contains an ID/stock, decision/entry/exit dates, regime, Trend/Pattern/
+Alpha/Indicator/sentiment categories and outcome fields: finite net return,
+UP/DOWN, win/loss-if-LONG and bull-trap flag. The canonical oracle checks
+economic consistency; IDs/cycles must be unique and holding intervals
+must not overlap within a stock. Malformed dates, types, provenance or
+economics raise errors. Bull trap means bullish Trend or Pattern followed
+by nonpositive candidate-LONG return; it does not mean that CASH lost
+money or establish market manipulation.
 
-Historical evidence has two representations. Signal memory stores completed
-trading cycles with categorical agent conclusions. Numerical MT context
-groups price-derived observations into tasks. Both require mature labels,
-but they have different fields, membership rules and sources; a count of
-signal examples cannot be substituted for a count of tasks or observations.
+At cutoff $t$, maturity requires $exit\_date<t$, before statistics or
+retrieval. The signal bank has 852 records for FPT/MWG/VCB/VNM, latest exit
+30 December 2022. It is not expanded with evaluation outcomes or invented
+same-stock memory for other query stocks. Bank-price labels and query
+prices retain their different sources. Frozen normalized records do not
+recover a missing original signal-call journal. Numerical task context is
+a different resource: membership freezes before the first query of each
+fold, excludes all 102 reserved evaluation IDs, and does not append later
+query outcomes. Mature history can legitimately contain labels; the
+current query cannot.
 
-\subsection{A completed signal episode}\label{s:f56f0c52fd4c64ea}
+\paragraph{Fitting and applying regimes.}
+The Chapter 3 five-feature VN-Index representation feeds a train-only
+StandardScaler and four-state diagonal Gaussian HMM. Fitting requires at
+least 300 feature rows after warm-up; registered seed/iteration ceiling/
+tolerance/minimum covariance are 42/500/.001/.001. Naming uses training
+MA200-distance means for BULL/BEAR and volatility for the two remaining
+states. Fit-quality checks cover convergence, 5\% minimum occupancy,
+opposite-sign BULL/BEAR distances, separation and CHOPPY volatility at
+least 1.1 times the remaining neutral state. Failure records reasons and
+uses a train-calibrated moving-average/volatility multi-factor classifier,
+not an HMM posterior or a query-time refit.
 
-A signal episode contains an ID, stock, decision/entry/exit dates, a regime
-label, five agent signals and the candidate-LONG outcome. Signals describe
-what the agents concluded at the historical decision; the outcome describes
-what subsequently happened under the fixed economic contract. A bullish
-signal is not retrospectively changed to bearish because the trade lost.
-\footnote{SYS19 \texttt{bayesian\_\allowbreak{}memory}, TIME01 economic oracle, and the frozen HistoricalTaskRecord schema; CL055--CL056 in ledger §9.9. The saved example is joined by ID to both the original bank and the U08 retrieval trace, not reconstructed from a model narrative.}
+Historical bank episodes retain their episode-prefix regime. Signal-prior
+queries use the frozen end-2022 resource; numerical task queries after
+2020 use the frozen 31 December 2020 resource. At inference the current
+admissible prefix is transformed with the corresponding stored scaler,
+and its endpoint state is mapped using the stored calibration. Metadata
+and train-prefix hashes must match. Early MT prefixes below 499 price
+rows return UNKNOWN for insufficient regime history, separately from a
+fitted resource's quality fallback. Missing/corrupt resources are errors.
 
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
-\caption{A completed signal episode - supporting detail}\label{tab:04_proposed_system:7}\tabularnewline
-\toprule\noalign{}
-Field group
- & Meaning and validation
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Field group
- & Meaning and validation
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\texttt{episode\_\allowbreak{}id}, \texttt{symbol} & Stable identity and admitted stock; duplicate IDs or duplicate stock/decision cycles are rejected. \\
-\texttt{as\_\allowbreak{}of\_\allowbreak{}date}, \texttt{entry\_\allowbreak{}date}, \texttt{exit\_\allowbreak{}date} & Exact ISO dates on the source's observed-session calendar: decision, next open, third future close. Dates must increase and execution-price/event checks must admit the cycle. \\
-\texttt{regime} & Stored category BULL, BEAR, CHOPPY or CONSOLIDATION; it is not the candidate trade's future label. \\
-\texttt{agent\_\allowbreak{}signals} & Nonempty \texttt{trend}, \texttt{pattern}, \texttt{alpha\_\allowbreak{}consensus}, \texttt{indicator\_\allowbreak{}consensus}, \texttt{sentiment}; retrieval additionally validates declared aliases instead of searching arbitrary prose for a direction. \\
-\texttt{outcome} & Finite \texttt{net\_\allowbreak{}return\_\allowbreak{}pct}, UP/\allowbreak{}DOWN, WIN\_\allowbreak{}IF\_\allowbreak{}LONG/LOSS\_\allowbreak{}IF\_\allowbreak{}LONG, and Boolean \texttt{was\_\allowbreak{}bull\_\allowbreak{}trap}; all must agree with canonical execution arithmetic. \\
-\end{longtable}
-
-\endgroup
-
-The memory validator obtains the admissible entry/exit prices and calls
-\texttt{compute\_\allowbreak{}round\_\allowbreak{}trip\_\allowbreak{}net\_\allowbreak{}return}, then expresses its result as a percentage.
-UP and WIN\_\allowbreak{}IF\_\allowbreak{}LONG require a strictly positive return; nonpositive values,
-including zero, are DOWN and LOSS\_\allowbreak{}IF\_\allowbreak{}LONG. Bull trap means that at least one
-of Trend or Pattern was bullish while the candidate LONG return was
-nonpositive. It is a retrospective label of this convention, not proof of
-market manipulation. LOSS\_\allowbreak{}IF\_\allowbreak{}LONG does not mean that a CASH action lost
-money. The loader rejects missing/extra fields, invalid dates/types,
-inconsistent economics, duplicate cycles and overlapping holding intervals
-for a stock; it does not silently repair a malformed bank.
-
-\textbf{Saved record example.} The first EX01 signal example is reproduced with
-its original field names and numerical precision:
-
-\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
-{
-  "episode_id": "FPT:2022-04-07",
-  "symbol": "FPT",
-  "as_of_date": "2022-04-07",
-  "entry_date": "2022-04-08",
-  "exit_date": "2022-04-13",
-  "regime": "CONSOLIDATION",
-  "agent_signals": {
-    "trend": "BULLISH",
-    "pattern": "BULLISH",
-    "indicator_consensus": "BEARISH",
-    "alpha_consensus": "BULLISH",
-    "sentiment": "NEUTRAL"
-  },
-  "outcome": {
-    "actual_direction": "UP",
-    "net_return_pct": 0.8800636494421088,
-    "was_bull_trap": false,
-    "result": "WIN_IF_LONG"
-  }
-}
-\end{Verbatim}
-
-The sentiment code preserves the bank's categorical representation. It does
-not establish that reliable news existed for this record, or replace the
-query's unavailable news. The bank's recorded sentiment-reliability coverage
-remains a separate limitation.
-
-\subsection{Temporal eligibility and frozen membership}\label{s:885d13890b35232b}
-
-An episode can be a historical observation at cutoff \(t\) only when its
-exit is \textbf{strictly before} \(t\). A decision date before \(t\) is insufficient
-if the holding interval still crosses \(t\). Outcomes may be aggregated only
-after this maturity filter; the query's outcome remains outside forecast
-inputs. Memory returns independent copies of eligible records so a branch
-cannot mutate another branch's evidence.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Temporal eligibility and frozen membership - supporting detail}\label{tab:04_proposed_system:8}\tabularnewline
-\toprule\noalign{}
-Timeline example at EX01 cutoff 3 July 2023
- & Decision \ensuremath{\rightarrow} entry \ensuremath{\rightarrow} exit
- & Eligibility
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Timeline example at EX01 cutoff 3 July 2023
- & Decision \ensuremath{\rightarrow} entry \ensuremath{\rightarrow} exit
- & Eligibility
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Saved \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}07} & 7 April \ensuremath{\rightarrow} 8 April \ensuremath{\rightarrow} 13 April 2022 & Mature: exit precedes cutoff. \\
-Saved \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}13} & 13 April \ensuremath{\rightarrow} 14 April \ensuremath{\rightarrow} 18 April 2022 & Mature, although its candidate LONG lost. Eligibility does not depend on winning. \\
-Saved \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}18} & 18 April \ensuremath{\rightarrow} 19 April \ensuremath{\rightarrow} 21 April 2022 & Mature, with a stored bullish-trap label. \\
-\textbf{Illustrative boundary}, not an archived episode & Any earlier decision with exit on 3 July 2023 & Excluded: equality is not strict precedence. \\
-\textbf{Illustrative boundary}, not an archived episode & Any earlier decision with exit after 3 July 2023 & Excluded: outcome is not yet admissible. \\
-\end{longtable}
-
-\endgroup
-
-The evaluated signal bank contains 852 completed records for FPT, MWG, VCB
-and VNM, with the latest exit on 30 December 2022. Its manifest and published
-QA bind the records, schema and provenance. The context-study adapter reuses
-this frozen bank; it does not append later query outcomes or manufacture
-same-stock memory for the other five query stocks. Source prices used to
-validate bank labels differ from the query vendor series. This explicit
-transfer is retained, including recorded label-basis discrepancies; the
-bank is not relabeled using query prices to make the sources appear equal.
-Published QA and normalized signals do not imply a newly recovered raw
-signal-call journal.\footnote{SYS21 \texttt{free\_\allowbreak{}pilot\_\allowbreak{}assets.\allowbreak{}FrozenBank}, BG16 \texttt{FrozenStudyBank/\allowbreak{}FrozenStudyStream}, BG17 execution-provider freeze, SYS20 historical signal adapter and BG23 context gates. CL057--CL058 preserve CORE4 membership, raw-bank/query transfer, reserved IDs and numerical-context distinctions.}
-
-Numerical MT context is separately frozen before the first query of a fold.
-Its observation stream admits only exits before that boundary, and all
-102 reserved evaluation IDs are withheld before historical labels can enter
-context construction. Later queries can have new unlabeled features while
-the fold's admitted labeled history remains fixed. This is stricter than
-simply appending every cycle that has become mature by each later query.
-The fitted scaler and its membership are separate frozen resources.
-
-\subsection{Signal memory versus numerical context in EX01}\label{s:e3dc0a930725f6dc}
-
-EX01's signal retrieval starts from 211 admissible FPT records, with 19 in
-the requested regime and at most three displayed examples. The three saved
-IDs in the timeline belong to that signal bank. The numerical context
-instead has three prior tasks containing 11 observations and three target
-observations: 14 labeled historical rows in total. Its query belongs to
-the target task but has no \texttt{y} or realized return in the context. These
-groups are not the three signal episodes above; task construction and
-numerical feature scaling are detailed in Section 4.8.
-
-Signal memory's CONSOLIDATION and numerical context's BULL also come from
-different regime resources. Their provenance is explained next; the labels
-must not be silently unified for this example. IDs, sources and membership
-checks establish traceability, while frozen-resource integrity alone cannot
-certify the validity of every historical signal or hosted-model training
-exposure.
-
-\subsection{Regime fitting and query-time assignment}\label{s:0c387f2c106e9338}
-
-Regime is a description of the market state used to organize historical
-evidence. It is computed from VN-Index, not from the query's eventual trade
-outcome. The feature definitions and HMM interpretation were introduced in
-Section 3.4. Here the important distinction is between \textbf{fitting a resource}
-and applying an already frozen resource to the admissible query prefix.
-\footnote{BG04 \texttt{regime\_\allowbreak{}detector}, SYS22 \texttt{historical\_\allowbreak{}evaluation\_\allowbreak{}runner.\allowbreak{}Regimes}, SYS23 \texttt{mt\_\allowbreak{}bicl\_\allowbreak{}regimes.\allowbreak{}RegimeTimeline}, BG23 \texttt{hydrate/\allowbreak{}FrozenTimeline}, and SYS24 historical prefix provider. CL059--CL061 and ledger §9.10 bind settings, mapping, fallback and the absence of query-time fitting.}
-
-\textbf{Offline fitting and naming.} The primitive constructs five features:
-log return, 20-session return volatility and relative distances to the
-20/50/200-session moving averages. It needs 200 observed sessions for the
-longest moving average and at least 300 feature rows to fit. A train-only
-StandardScaler feeds a four-state diagonal Gaussian HMM. The configured
-seed is 42, iteration ceiling 500, convergence tolerance 0.001 and minimum
-covariance 0.001. These settings describe the evaluated implementation;
-the effective date range comes from each artifact, not the generic
-2018--2022 fitting bounds in the class.
-
-Latent state numbers have no intrinsic BULL/BEAR meaning. Train posterior
-weights produce state feature means and occupancies. The highest mean
-distance to MA200 names BULL, the lowest remaining mean names BEAR, and the
-higher-volatility state among the two remaining states names CHOPPY. The
-last state names CONSOLIDATION; deterministic state-index tie-breaking makes
-the mapping reproducible. Mapping and calibration are stored with the
-model, scaler, source/runtime versions and training-data hash.
-
-\textbf{Fit-quality fallback.} The primitive checks its registered EM convergence
-criterion, posterior occupancy of at least 5\% per state, BULL/BEAR means on
-opposite sides of MA200, sufficient separation relative to train MA200
-dispersion, and a CHOPPY volatility mean at least 1.1 times the remaining
-neutral state's mean. If a check fails, metadata records reasons and sets
-\texttt{classification\_\allowbreak{}method=MULTI\_\allowbreak{}FACTOR}. The deterministic fallback uses
-MA50/MA200 distances with a train-derived trend threshold, followed by an
-upper-train-volatility-quantile rule; otherwise it returns CONSOLIDATION.
-It does not silently refit on the query or claim a reliable HMM posterior.
-Missing/invalid artifacts and malformed price prefixes are technical errors,
-not reasons to fabricate a market regime.
-
-\textbf{Frozen query inference.} At a query date, feature construction rejects
-rows after cutoff and requires the model's training prefix/hash to match.
-It transforms with the stored scaler, then either maps the final-prefix
-HMM posterior's largest component or applies the declared fallback. The
-posterior at the prefix endpoint has no later observed rows; retrospective
-states inside an extended prefix must not be mistaken for the state known
-at each earlier decision. Query inference does not re-estimate the scaler,
-transition/emission parameters, naming rule or fallback thresholds.
-
-The model also returns source symbol, feature end date, volatility level
-and trend strength. These are descriptive outputs. A regime ID is an index
-into the named categories, not necessarily the original latent component
-number, a calibrated profitable-trade probability or a recommendation.
-
-\textbf{Resources actually used.} The evaluated paths must be kept distinct:
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
-\caption{Regime fitting and query-time assignment - supporting detail}\label{tab:04_proposed_system:9}\tabularnewline
-\toprule\noalign{}
-Use
- & Fitted resource and application
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Use
- & Fitted resource and application
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Historical signal-bank episode regime & The memory-building contract uses a VN-Index prefix artifact ending at that episode's decision date. Stored episode labels are retained, not reassigned using the later query model. Published bank QA remains the evidence scope. \\
-Signal-prior query regime & \texttt{Regimes} loads the frozen end-2022 resource and verifies its training-data hash. EX01 uses the artifact trained 2 January 2018--30 December 2022: 1,251 price rows, 1,052 feature rows, HMM method. \\
-Numerical MT task/query regime & \texttt{RegimeTimeline} uses block-prefix fits no later than end-2020. Queries after 2020 use the final 31 December 2020 resource: 752 price rows, 553 feature rows, HMM method. \texttt{FrozenTimeline} hydrates saved parameters and fails if a required artifact is missing; it does not launch a new fit. \\
-\end{longtable}
-
-\endgroup
-
-For early MT prefixes shorter than 499 price rows, the timeline explicitly
-returns UNKNOWN for insufficient regime history. This is a different path
-from a fitted model's MULTI\_\allowbreak{}FACTOR fallback. A task's block-start metadata
-also differs from a query's current-prefix assignment. These distinctions
-prevent an end-2022 model from being retroactively attached to an earlier
-task or to the evaluated end-2020 MT resource.
-
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F05a_regime_training.pdf}
-\caption{Separate frozen regime resources and query-time transformations.}\label{fig:F05a}\end{figure}
-
-\emph{Figure F05a. Fitting versus query inference for EX01. Each column retains
-its own train-only five-feature HMM scaler, model and calibration. The
-current VN-Index prefix can be transformed by either frozen resource without
-refitting it. The separate four-feature MT context scaler is not either
-HMM scaler. Historical episode-prefix artifacts are a third provenance
-path. The diagram describes computation and source identity, not a new fit
-or isolated causal effect.} \href{../assets/diagrams/F05a_regime_training.pdf}{PDF}.
-
-\textbf{EX01 identity and assignment.} The signal-prior trace records
-CONSOLIDATION from the end-2022 query path; the numeric query records BULL
-with feature end date 3 July 2023 and end-2020 model fingerprint beginning
-\texttt{cf711a9ce10d}. Both artifacts record HMM method and no quality-fallback
-reasons. The model/scaler fingerprints are bound separately in ledger §9.10;
-the labels are preserved even though they differ.
-
-The MT context's four-feature scaler is another resource. EX01 records
-\texttt{mode=frozen\_\allowbreak{}train}, 731 fitted observations, cutoff 31 December 2020 and
-latest fitted exit 29 December 2020. This scaler normalizes context
-momentum/volatility/MA-distance observations, not the HMM's five-feature
-vector. Its fit-ID hash and full scaler fingerprint distinguish it from the
-HMM scalers. Neither model integrity nor a successful regime assignment
-resolves the recorded price-basis limitations or certifies overall causal
-validity.\footnote{RG01--RG02 frozen model packages, EX01-C and U08 v1 trace; CL062--CL063. The end-2020 fingerprint hashes serialized metadata/model/scaler parameters, while a ZIP-member hash identifies the enclosing artifact bytes. The four-feature context scaler has its own identity; no model or scaler was refitted for this draft.}
+For the FPT case, the signal-prior resource was fitted on 1,251 prices/
+1,052 feature rows from 2 January 2018 to 30 December 2022 and returns
+CONSOLIDATION. The numerical resource has 752 prices/553 feature rows
+through 31 December 2020 and returns BULL at the same query. Both record
+HMM mode without quality-fallback reasons. The four-feature MT context
+scaler is separate again: 731 fitted observations, cutoff end-2020 and
+latest fitted exit 29 December 2020. These identities prevent conflating
+the two regime labels or the HMM and context scalers.
 
 \section{Bayesian Prior v1}\label{s:b6cb474a799cc0da}
+The motivation is to show completed same-stock experience under comparable
+market conditions. Let $E_t$ be verified same-stock episodes with exit
+strictly before $t$ and $P_t=\{e\in E_t:regime(e)=r_t\}$, where $r_t$ is the
+signal-prior regime. Query directions T/P/A/I come from Trend, Pattern,
+Common Alpha majority and Indicator. Sentiment aliases are validated but
+not scored; a legacy NEUTRAL code does not establish available news.
+The evaluated deterministic similarity is
+\begin{equation}\label{eq:v1}
+sim(e,q)=\frac14\sum_{f\in\{T,P,A,I\}}\mathbf1\{s_f(e)=s_f(q)\}.
+\end{equation}
+Rank by decreasing score, decreasing exit date, then ascending episode
+ID; display up to $K=3$. No return or win/trap outcome enters ranking.
+Fewer eligible records remain partial; no future, other-regime or
+undeclared cross-stock examples fill the list.
 
-Bayesian Prior v1 adds a compact description of completed, regime-matched
-history to the Common decision request. It asks whether similar agent
-conclusions in that market state previously supported a profitable
-candidate LONG. Retrieval is categorical and deterministic in this mode;
-it is not an embedding search or a new learned trading model. The version's
-name also does not mean that its displayed rates are Beta-posterior
-probabilities: this implementation reports empirical counts and ratios.
-\footnote{BG07 \texttt{prepare\_\allowbreak{}query/\allowbreak{}\_\allowbreak{}select\_\allowbreak{}similarity/\allowbreak{}select\_\allowbreak{}prior\_\allowbreak{}tasks/\allowbreak{}\_\allowbreak{}compute\_\allowbreak{}statistics}, BG16 \texttt{FrozenStudyBank}, SYS20 \texttt{signals}; CL064--CL065 in ledger §9.11. Source describes matching/ranking without economic labels; the mathematical notation is a presentation of that implementation.}
+Statistics use \emph{all} of $P_t$, rather than the displayed examples.
+LONG win counts positive-net cycles over the population. Trap rate uses
+nonpositive-net outcomes among the union of bullish Trend/Pattern cases;
+each individual failure rate uses its own bullish subset. Overlapping
+subsets are not independent evidence, and zero denominators remain
+undefined. These are empirical ratios, not Beta-posterior probabilities.
 
-\subsection{Filtering and ranking without outcome-based selection}\label{s:414d3af8992ad0aa}
+FPT supplies 211 mature episodes, 19 in CONSOLIDATION. The first example,
+7 April 2022, matches all four signals; 18 and 13 April match three and
+sort by later exit. Their net returns are respectively +0.8800636494\%,
+$-4.5332734971$\% and $-0.4389566948$\%. The selected win count is 1/3,
+but population win is \textbf{9/19}; trap, Trend-failure and Pattern-failure
+counts are 9/18, 7/14 and 9/18. Selecting examples does not replace these
+denominators.
 
-Let \(E_t\) be the verified same-stock episodes with exit strictly before
-cutoff \(t\). The evaluated request fixes \texttt{scope=same\_\allowbreak{}symbol} and
-\texttt{mode=bayesian\_\allowbreak{}regime}. Its candidate population is
-
-\[
-P_t=\{e\in E_t:\operatorname{regime}(e)=r_t\},
-\]
-
-where \(r_t\) is the signal-prior query regime from Section 4.5.4. Bank
-identity, exact record contents, date/scope/regime and signal aliases are
-validated. A corrupted or out-of-cutoff record is an error, not a candidate
-to be silently accepted or repaired.
-Checking a stored outcome for economic consistency is an integrity check;
-it does not allow its value to determine similarity or ranking.
-
-The query uses the stored Trend, Pattern and Indicator conclusion fields,
-the majority direction of Common's five causal Alpha factors, and the
-declared sentiment code. The extraction adapter uses the sign of an
-available sentiment aggregate, while null/zero becomes its legacy NEUTRAL
-code. This differs from live sentiment's \ensuremath{\pm}0.10 labeling and does not convert
-missing news into observed evidence. Sentiment must be a valid alias but
-does not contribute to v1's similarity score.
-
-For the four scored fields \(F=\{T,P,A,I\}\), normalized to categorical
-directions, similarity is
-
-\[
-\operatorname{sim}(e,q)=\frac14\sum_{f\in F}\mathbf{1}
-\{s_f(e)=s_f(q)\}.
-\]
-
-Scores therefore lie in \(\{0,0.25,0.50,0.75,1\}\). Candidates sort by
-descending score, then descending exit date, then ascending episode ID.
-The selected list has at most \(k\le3\) records; the evaluated setting requests
-three. No return, win/loss label or bull-trap outcome enters this ranking.
-The seed field is retained in metadata, but this deterministic mode has no
-effective random seed. Random/recent/general-similarity controls are
-different modes and must not be inferred from this setting.
-
-\subsection{Population statistics and the displayed examples}\label{s:ba7d9ace49327db9}
-
-After eligibility and matching, statistics use \textbf{all of \(P_t\)}, not just
-the selected list. LONG win rate counts positive-net candidate cycles over
-the full population. Bull-trap rate counts nonpositive-net cycles among
-episodes where Trend or Pattern was bullish. Trend-failure and
-Pattern-failure rates each use their own bullish subset as denominator.
-Trend and Pattern subsets can overlap; their denominators must not be
-added as independent evidence. A zero denominator is undefined and appears
-as \texttt{0/\allowbreak{}0(N/\allowbreak{}A)}, not an estimated zero risk.
-
-These are unsmoothed descriptive rates; v1 does not compute a credible
-interval or fit a Beta posterior here. The LLM may compare this history
-with current evidence under the Common instruction. Neither a majority
-of winning examples nor a population rate establishes a calibrated query
-probability, expected return or compulsory LONG action.
-
-\textbf{EX01 selection.} The pinned bank supplies 211 mature FPT episodes;
-19 match CONSOLIDATION. The current scored tuple is bullish Trend,
-bullish Pattern, bullish Common Alpha and bearish Indicator. Filtering the
-bank first and ranking its 19 matches gives:
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
-\caption{Population statistics and the displayed examples - supporting detail}\label{tab:04_proposed_system:10}\tabularnewline
-\toprule\noalign{}
-Rank / episode ID
- & T/P/A/I
- & Similarity
- & Exit
- & Saved candidate-LONG result
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Rank / episode ID
- & T/P/A/I
- & Similarity
- & Exit
- & Saved candidate-LONG result
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-1 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}07} & \texttt{+++-\allowbreak{}} & 1.00 & 13 April 2022 & WIN\_\allowbreak{}IF\_\allowbreak{}LONG, +0.8800636494\% \\
-2 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}18} & \texttt{++0-\allowbreak{}} & 0.75 & 21 April 2022 & LOSS\_\allowbreak{}IF\_\allowbreak{}LONG, \ensuremath{-}4.5332734971\% \\
-3 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}13} & \texttt{++-\allowbreak{}-\allowbreak{}} & 0.75 & 18 April 2022 & LOSS\_\allowbreak{}IF\_\allowbreak{}LONG, \ensuremath{-}0.4389566948\% \\
-\end{longtable}
-
-\endgroup
-
-The equal-score pair is ordered by the later exit, not by its return.
-The selected list has one win, but the population LONG win rate is
-\textbf{9/19}, not 1/3. Its other saved counts are bull trap 9/18, Trend failure
-7/14 and Pattern failure 9/18. These are archived-context quantities,
-distinct from EX01's later outcome.\footnote{EP01 frozen bank and EX01 U08 v1 retrieval/request; CL066--CL067. Selection/count arithmetic is checked from saved records, with no model call or benchmark replay. The English prefix is labeled as a translation; the original bytes remain archived.}
-
-\subsection{The bounded prefix}\label{s:980a2651ea2ba5dd}
-
-The BRPP renderer emits population/support fields, a legend and the
-selected historical lines. The following is an \textbf{English translation for
-presentation} of EX01's saved Vietnamese prefix, not the language sent to
-the original request:
-
-\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
-[BRPP v1] R=CONSOLIDATION; n=19; k=3
-LONGwin=9/19(47.4%); Trap=9/18(50.0%); TrendFail=7/14(50.0%); PatternFail=9/18(50.0%)
-T/P/A/I: + bullish, - bearish, 0 neutral; W/L=net LONG after costs; SHORT=CASH; S=missing news.
-FPT@2022-04-07 R=CONSOLIDATION T/P/A/I=+++- W +0.88%
-FPT@2022-04-18 R=CONSOLIDATION T/P/A/I=++0- L -4.53%
-FPT@2022-04-13 R=CONSOLIDATION T/P/A/I=++-- L -0.44%
-\end{Verbatim}
-
-\texttt{R} identifies the matched regime; \texttt{n} is population size and \texttt{k} the number
-of examples. Counts retain their denominators even when percentages are
-rounded. T/P/A/I refer to historical conclusions, W/L to the subsequent
-candidate LONG after costs, and signed returns use percentage units. The
-legend's missing-news notation does not add a fifth scored signal: each
-example line displays only T/P/A/I. The v1 formatter accepts this frozen
-bank's neutral-coded sentiment, not arbitrary replacement news labels.
-
-The actual saved prefix has \textbf{369 characters}. Insertion plus one newline
-changes the EX01 Common prompt from 4,186 to 4,556 characters; removing that
-exact substring recovers the archived Common message. The prefix is bounded
-at 600 characters and the assembled request must be strictly below 6,500.
-Overflow raises an error rather than silently truncating selected examples
-or changing support. The renderer checks formatting and count consistency;
-the caller must already have verified membership, PIT and provenance.
-
-\subsection{Partial support, bypass and traceability}\label{s:91edd0ea8f0ada5a}
-
-The low-level retriever can return fewer than three examples, with a
-\texttt{partial} status, or an empty set with a recorded reason. It does not fill
-the list with future, other-regime or undeclared cross-stock episodes.
-Its \texttt{k=0} path disables retrieval. Common directly builds an empty-prefix
-request and need not load memory merely to represent that control.
-
-A retriever status is distinct from the evaluated wrapper's \textbf{fallback
-flag}. For stocks outside the four-stock frozen signal bank, the wrapper
-records \texttt{NO\_\allowbreak{}SAME\_\allowbreak{}SYMBOL\_\allowbreak{}FROZEN\_\allowbreak{}BANK\_\allowbreak{}OOD}, empty tasks/null statistics and an
-empty prefix. The method adapter verifies equality with the empty-prefix
-Common request, then bypasses an additional hosted call. Resolution reuses
-the completed \textbf{same-point, same-repeat Common} final action, records
-\texttt{FALLBACK\_\allowbreak{}ORIGINAL}, and leaves raw proposal/request/response absent.
-Transport, parsing, provenance and cutoff errors still raise; they are not
-legitimate evidence-based fallbacks.\footnote{BG16 request wrapper and BG18 \texttt{prepare/\allowbreak{}resolve}, plus FB01 HVN v1/Common U08 slots; CL068--CL069. Dependency hash, missing raw response and bypass are checked separately from the inherited action. F05's source and rendered outputs are bound in ledger §9.11.}
-
-For example, the saved HVN cutoff 3 July 2023, realization 0/repeat 0 trace
-has that no-bank reason, null request and null raw v1 response. It points to
-the completed Common dependency and retains Common's LONG action. This is
-not a second LLM prediction or evidence that the unavailable prior favored
-LONG. EX01 FPT itself does not bypass v1. Its population of 19 also does
-not trigger the separate minimum-population rule of C2; the following
-section distinguishes that readiness logic.
-
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F05_memory_retrieval.pdf}
-\caption{Eligibility, ranking, population statistics and fallback in Bayesian v1.}\label{fig:F05}\end{figure}
-
-\emph{Figure F05. Frozen signal memory to Bayesian v1 context. Membership and
-maturity are checked before outcomes are summarized. Population statistics
-and at most three ranked examples have separate branches into the prefix.
-The declared no-bank path reuses Common from the same point/repeat without
-a new hosted response. Counts illustrate the saved FPT EX01 trace; the
-diagram does not add a new experiment.} \href{../assets/diagrams/F05_memory_retrieval.pdf}{PDF}.
+The Bayesian Regime Prior Prefix (BRPP) presents regime, population
+counts, legend and example lines. An English presentation of its leading
+fields is \texttt{R=CONSOLIDATION; n=19; k=3; LONGwin=9/19}; the original
+saved request was Vietnamese. Its actual prefix has 369 characters and
+changes the Common prompt from 4,186 to 4,556 with a newline. The limit is
+600 characters; overflow is an error, not silent removal of evidence.
+Unsupported no-bank stocks use an empty prefix and reuse the completed
+same-point/same-repeat Common action with absent raw request/response.
+This is a documented bypass, not another LLM prediction. Transport,
+cutoff and provenance errors never qualify as support-based bypasses.
 
 \section{Conditional and alternative priors}\label{s:280f714ba62ef1fc}
+C2 separates statistical evidence from displayed examples. Within the
+verified same-stock/same-regime population $\mathcal P$, exact T/P/A/I
+agreement defines $\mathcal C$ and disjoint background
+$\mathcal B=\mathcal P\setminus\mathcal C$. Each win/trap/failure metric
+applies its own event mask, so its support differs from group size. The
+strength-four plug-in Beta construction in Chapter 3 uses background
+counts only for the prior mean and conditional counts only for the
+likelihood. Age, feature availability and example selection do not reduce
+these statistical populations. Empty conditional support has no reported
+posterior, even if a prior could be computed.
 
-The conditional family separates historical-rate estimation from selecting
-examples for the prompt. C2 makes that separation explicit; A and B change
-specific parts of its evidence or presentation rather than replacing the
-whole pipeline. All retain the temporal/source checks of Section 4.5.
+For examples, frozen stock/fold-scaled four-dimensional features give
+\begin{equation}
+d(e,q)=\sqrt{\tfrac14\sum_{j=1}^4(z_{ej}-z_{qj})^2},\quad
+P(e,q)=\frac1{1+d(e,q)},\quad B(e,q)=.5sim(e,q)+.5P(e,q).
+\end{equation}
+Rank using $B(e,q)2^{-age/365}$, with age from decision date in calendar
+days. Eligibility requires available features, age at most 730 days and
+base similarity at least .625. Greedy selection admits at most three
+examples at least five VN-Index sessions apart, breaking ties by later
+exit then ID. Outcome values do not enter this score.
 
-\subsection{C2: disjoint shrinkage and separate readiness}\label{s:928c2fad4a6c3b4b}
+Statistic readiness requires population at least 20, metric-specific
+conditional support at least five and 95\% Beta interval width at most
+.75, using unrounded values. At least one passing metric makes statistics
+ready. Example readiness separately requires the population floor,
+features/scaler and a nonempty qualified selection; it does not require
+five exact signal matches. A full-prior request exposes either or both
+ready blocks. No visible block reuses same-repeat Common. Registered
+statistics-only/examples-only modes can bypass independently; their
+existence does not establish completed matched ablations.
 
-\textbf{Population and partition.} Start with the complete verified same-stock,
-same-regime population \(\mathcal P\) whose exits precede the cutoff. C2
-defines \(\mathcal C\) by exact agreement with the query's four categorical
-signals T/P/A/I; sentiment is validated but is not part of this condition.
-The disjoint background is \(\mathcal B=\mathcal P\setminus\mathcal C\).
-No top-\(k\), age, numerical-feature-availability or example-diversity filter
-shrinks these statistical sets. Membership IDs are retained so their
-disjointness, completeness and source identity can be checked.
-\footnote{BG05 \texttt{compute\_\allowbreak{}conditional\_\allowbreak{}statistics/\allowbreak{}conditional\_\allowbreak{}metric}, with metric masks from BG07; CL070 in ledger §9.12 binds the disjoint groups and plug-in update. Source validation distinguishes outcome consistency from outcome-based retrieval.}
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption{Historical-prior variants share maturity checks and Common as
+the valid dependency. Statistical support is distinct from shown examples.}\label{tab:priors}
+\begin{tabular}{@{}p{.14\linewidth}p{.43\linewidth}p{.36\linewidth}@{}}\toprule
+Variant & Statistical evidence & Selection / presentation\\\midrule
+v1 & Empirical rates on same-regime population & Four categorical signals; no C2 support floors\\
+C2 & Exact T/P/A/I condition; disjoint strength-four shrinkage & Signal/price/age/diversity selector; split readiness\\
+A\_tp\_pool & Relax condition to T/P; recompute statistics/gate & Same four-signal example selector as C2\\
+B\_semantic & Same partition, posterior and gate as C2 & Reword event/count/interval display; no embedding search\\\bottomrule
+\end{tabular}\end{table}
 
-Each metric applies its own event mask inside these same groups. LONG win
-counts positive-net candidate cycles over all cycles. Bull-trap support is
-the union of bullish Trend or Pattern episodes; success means a
-nonpositive-net candidate LONG. Trend/Pattern failure each uses its own
-bullish subset. Consequently group cycle counts need not equal a metric's
-support counts. For each metric \(h\), both success and support obey
-\(s_{p,h}=s_{c,h}+s_{b,h}\) and \(n_{p,h}=n_{c,h}+n_{b,h}\).
+A pools T/P matches within the same stock/regime, not across stocks or
+future periods. Its broader statistical condition does not loosen the
+example selector. B retains C2 base-evidence identity but changes bounded
+wording; when both bypass, no wording difference reaches the LLM.
+Table~\ref{tab:priors} therefore describes mechanisms, not four independently
+activated interventions at every point.
 
-\textbf{Shrinkage and interval.} As derived in Section 3.5, C2 forms
-
-\[
-\mu_{b,h}=\frac{s_{b,h}+1}{n_{b,h}+2},\quad
-a_h=4\mu_{b,h},\quad b_h=4(1-\mu_{b,h}),\quad
-\theta_h\mid\mathcal C\sim
-\operatorname{Beta}(a_h+s_{c,h},b_h+n_{c,h}-s_{c,h}).
-\]
-
-Only conditional counts enter the likelihood; background counts determine
-the plug-in prior mean, with strength four. An empty background gives the
-fixed symmetric Beta(2,2) prior. An empty \textbf{conditional metric support}
-instead leaves posterior shapes, mean and interval absent, with
-\texttt{NO\_\allowbreak{}CONDITIONAL\_\allowbreak{}HISTORY}; a prior alone is not displayed as observed
-conditional evidence. Nonempty support gives a mean and equal-tailed
-2.5\%/97.5\% Beta quantiles. These intervals condition on the estimated
-hyperprior and historical event convention. They do not integrate all
-hyperparameter uncertainty, establish calibrated query probabilities or
-predict net-return magnitudes.
-
-\textbf{Example selection is independent of the statistical partition.} C2
-selects from \(\mathcal P\) using four-signal agreement and four-dimensional
-price-feature proximity under a source-bound frozen stock/fold scaler.
-For standardized vectors \(z_e,z_q\),
-
-\[
-d(e,q)=\sqrt{\tfrac14\sum_{j=1}^4(z_{e,j}-z_{q,j})^2},\quad
-P(e,q)=\frac1{1+d(e,q)},\quad
-B(e,q)=0.5S(e,q)+0.5P(e,q).
-\]
-
-Here \(S\) is the v1 four-signal match fraction, while \(B\) denotes a base
-similarity, not the background set \(\mathcal B\). Ranking uses
-\(B(e,q)2^{-\mathrm{age}/365}\), with age measured from the historical
-decision date in calendar days. Candidates need available numerical
-features, age at most 730 days and base similarity at least 0.625. Greedy
-selection accepts at most three with at least five VN-Index sessions
-between decision dates. Ties use later exit, then ascending ID; no random
-backfill repairs a short list. Returns do not enter this score. These
-selection restrictions do not delete cycles from the rate population.
-\footnote{SYS26/SYS27 example selection and signal/price scoring, BG06 split quality gate; CL071--CL072. The evaluated settings are confirmed in EX01's saved selection metadata; no index or scaler is refitted here.}
-
-\textbf{Readiness is evaluated before projection.} A metric can be visible when
-population size is at least 20, that metric's conditional support is at
-least five, and its 95\% interval width is at most 0.75. Equality passes
-each bound; calculations use unrounded values. \texttt{stats\_\allowbreak{}ready} means at
-least one metric passes, not that all four pass. Examples require the same
-population floor, available query features and scaler, and a nonempty
-selected list. They do not require five exact T/P/A/I matches or a narrow
-rate interval. Thus either block can be ready while the other is unavailable.
-
-The full-prior view exposes whichever blocks pass. Stats-only and
-examples-only views can fallback independently when their requested block
-is absent. No visible block means an empty prefix and reuse of the
-same-repeat Common result; missing/corrupt artifacts are technical errors,
-not low-evidence fallbacks. Disabling the prior or setting \(k=0\) skips
-statistical/index selection work under an explicit disabled state.
-
-\textbf{EX01 counts and withheld content.} Its population has 19 episodes.
-Only \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}07} matches the query's T/P/A/I tuple, so \(|\mathcal C|=1\)
-and \(|\mathcal B|=18\). The saved evidence contains:
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
-\caption{C2: disjoint shrinkage and separate readiness - supporting detail}\label{tab:04_proposed_system:11}\tabularnewline
-\toprule\noalign{}
-Metric
- & Population success/support
- & Conditional success/support
- & Background success/support
- & Posterior mean
- & 95\% interval
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Metric
- & Population success/support
- & Conditional success/support
- & Background success/support
- & Posterior mean
- & 95\% interval
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-LONG win & 9/19 & 1/1 & 8/18 & 0.560000 & {[}0.163553, 0.912248{]} \\
-Bull trap & 9/18 & 0/1 & 9/17 & 0.421053 & {[}0.077883, 0.822315{]} \\
-Trend failure & 7/14 & 0/1 & 7/13 & 0.426667 & {[}0.080748, 0.826566{]} \\
-Pattern failure & 9/18 & 0/1 & 9/17 & 0.421053 & {[}0.077883, 0.822315{]} \\
-\end{longtable}
-
-\endgroup
-
-For LONG win, \((8+1)/(18+2)=0.45\) yields prior shapes (1.8,2.2)
-and posterior (2.8,2.2). These stored estimates are auditable even though
-they are not ready for the prompt. All four widths are below 0.75, but
-population 19 is below 20 and every conditional support is one, below five.
-The numerical selector separately finds three records: 7 April,
-25 March and 4 March 2022. They are not the v1 displayed list, and they
-are not all in \(\mathcal C\).
-
-C2's \texttt{retrieved\_\allowbreak{}k=3} therefore coexists with \texttt{effective\_\allowbreak{}k=0}, no ready
-metric IDs, no visible examples, an empty prefix and no additional hosted
-C2 response. EX01 retains Common's LONG via \texttt{FALLBACK\_\allowbreak{}ORIGINAL}. It would
-be incorrect to describe the posterior table above as content actually
-seen by that Decision request.\footnote{U08 EX01 C2 prepared trace, raw groups/metrics, selection, request and policy; CL073. Counts and Beta arithmetic are checked against saved evidence; this is not a new forecast or a rerun of the statistical pipeline.}
-
-\subsection{Alternative conditional and presentation profiles}\label{s:ae882769bc20ece1}
-
-\textbf{A: pool the conditional statistics by Trend/Pattern.} \texttt{A\_\allowbreak{}tp\_\allowbreak{}pool} keeps
-the same same-stock/same-regime population \(\mathcal P\), but defines
-\(\mathcal C_A\) by exact T/P agreement alone. Alpha and Indicator no longer
-split the statistical condition; the disjoint background remains
-\(\mathcal P\setminus\mathcal C_A\). The metric masks, strength-four plug-in
-update and split readiness thresholds remain those of C2. ``Pool'' here
-does not mean pooling other stocks, regimes or future observations.
-\footnote{SYS25 \texttt{tp\_\allowbreak{}statistics/\allowbreak{}build\_\allowbreak{}evidence/\allowbreak{}render\_\allowbreak{}prefix/\allowbreak{}PROFILES}, SYS28 C2 renderer, BG06 split views and SYS26/SYS27 selector; CL074--CL075 and ledger §9.13. The table describes evaluated base profiles and separates their registered content modes.}
-
-The example selector is unchanged: it still uses T/P/A/I plus numerical
-price similarity, recency and session diversity. Loosening the statistical
-condition does not loosen its four-signal score or replace examples with
-all T/P matches. A recomputes its conditional statistics, gate and visible
-content views, then marks the compact prefix as a T/P profile. The base
-evidence hash therefore changes when statistical membership changes.
-
-\textbf{B: change presentation while retaining C2 evidence.} \texttt{B\_\allowbreak{}semantic} reuses
-C2's statistical partition, posterior, example selection and readiness.
-It changes the bounded renderer: short event labels W/BT/TF/PF are paired
-with definitions, conditional success/support counts, posterior mean and
-95\% interval, and an explicit warning that the values are historical rates,
-not query probability or expected return. Historical example lines retain
-their IDs and outcomes. C2's renderer already includes counts and intervals;
-B reorganizes their wording and notation rather than introducing those
-quantities for the first time.
-
-The name ``semantic'' refers to this presentation profile. There is no
-embedding encoder, vector search over report meaning or language-model
-retrieval step in this implementation. C2 and B have the same base-evidence
-hash for the same query/settings. Their rendered prefix/request identities
-can differ when content is visible. In a bypassed case both prefixes can
-be empty, so the archived trace must be checked before claiming that a
-presentation contrast actually reached the model.
-
-\emph{Table B03, prior-family portion. Together with the foundation portion in
-Section 4.4, this identifies the four historical-prior interventions. All
-use verified mature same-stock evidence and the Common decision foundation;
-the final orchestration/dependency table appears in Section 4.9.}
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
-\caption{Table B03, prior-family portion. Together with the foundation portion in Section 4.}\label{tab:04_proposed_system:12}\tabularnewline
-\toprule\noalign{}
-Family
- & Statistical population and conditioning
- & Examples
- & Visible representation
- & Support and dependency
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Family
- & Statistical population and conditioning
- & Examples
- & Visible representation
- & Support and dependency
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-v1 (\texttt{bayesian\_\allowbreak{}v1}) & Same regime; unsmoothed population ratios, no exact-signal conditional posterior & Four-signal score; exit/ID tie-break, at most three & \texttt{compact\_\allowbreak{}brpp\_\allowbreak{}v1}: population counts, legend and historical lines & Retriever can be partial/empty; declared no-bank wrapper bypass reuses same-repeat Common. C2 floors do not apply. \\
-C2 & Same regime; exact T/P/A/I conditional set and disjoint background; plug-in Beta summaries & Signal/price similarity, recency, age/similarity bounds and five-session diversity & \texttt{compact\_\allowbreak{}brpp\_\allowbreak{}v3}: ready conditional counts, mean/interval and/or ready examples & Split metric/example gate; no visible block or no same-stock bank reuses same-repeat Common \\
-A (\texttt{A\_\allowbreak{}tp\_\allowbreak{}pool}) & Same regime; exact T/P conditional set and disjoint background; same shrinkage recipe & Identical four-signal/price selector to C2 & \texttt{compact\_\allowbreak{}brpp\_\allowbreak{}v3\_\allowbreak{}tp\_\allowbreak{}v1}: C2-style content labeled as T/P conditioning & Recompute split gate after changing statistics; Common dependency when no visible block \\
-B (\texttt{B\_\allowbreak{}semantic}) & Identical to C2, including its base evidence & Identical to C2 & \texttt{compact\_\allowbreak{}brpp\_\allowbreak{}semantic\_\allowbreak{}v1}: short event names with explicit meanings/counts and plug-in disclaimer & Identical readiness to C2; changed wording can reach Decision only when a block is visible \\
-\end{longtable}
-
-\endgroup
-
-The base profiles in this study request \texttt{full\_\allowbreak{}prior}: ready statistics
-and/or examples. Registered stats-only and examples-only content modes
-project the same base evidence; they do not select a new statistical
-population. Their availability and actual execution belong to the protocol
-of the panel using them. Every prefix remains bounded at 600 characters,
-with overflow treated as an error rather than dropping evidence.
-
-\textbf{EX01 comparison.} A enlarges the conditional set from one to 14 cycles,
-leaving five background cycles. Its saved counts are:
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
-\caption{Alternative conditional and presentation profiles - supporting detail}\label{tab:04_proposed_system:13}\tabularnewline
-\toprule\noalign{}
-Metric
- & A conditional success/support
- & A background success/support
- & A posterior mean
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Metric
- & A conditional success/support
- & A background success/support
- & A posterior mean
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-LONG win & 7/14 & 2/5 & 0.484127 \\
-Bull trap & 7/14 & 2/4 & 0.500000 \\
-Trend failure & 7/14 & 0/0 & 0.500000 \\
-Pattern failure & 7/14 & 2/4 & 0.500000 \\
-\end{longtable}
-
-\endgroup
-
-The Trend background denominator is zero even though the background group
-has five cycles: none had bullish Trend. Its symmetric prior is therefore
-metric-specific. The population counts still equal the C2 population
-counts. Selected example IDs also remain 7 April, 25 March and 4 March
-2022. C2 and B retain the same 1/18 conditional/background split and the
-same base-evidence fingerprint. A has a different fingerprint.
-
-All three nevertheless fail EX01's population floor, since 19 is below
-20. Their visible prefixes are empty, their own raw responses are absent
-and their final actions inherit the same-repeat Common LONG. The example
-demonstrates different evidence construction with a shared bypass, not an
-observed LLM response to A's broader statistics or B's alternative wording.
-\footnote{EX01 C2/A/B prepared evidence/request and dependency/policy records in U08, joined to EP01 bank; CL076--CL077. Exact C2/B evidence equality, A counts and empty visible content are verified without rendering a new research request or invoking an LLM.}
+In FPT, C2 has one conditional and 18 background cycles. Win counts
+give background mean $(8+1)/(18+2)=.45$, prior $Beta(1.8,2.2)$ and
+posterior $Beta(2.8,2.2)$, mean .56. Although three examples can be
+retrieved, population 19 fails the floor and exact conditional support
+fails five; effective examples are zero and no C2 reply is requested.
+A enlarges its condition to 14 cycles with five background cycles, but
+still fails population 20. B shares C2's evidence and bypass. All three
+retain Common's LONG here. Computable statistics and retrieved examples
+must not be reported as content actually shown when the gate withheld
+them. The example also preserves different v1 and MT context identities.
 
 \section{MT-BICL and action revision}\label{s:2d298f46dad25b7a}
 

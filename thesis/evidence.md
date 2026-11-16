@@ -3030,3 +3030,7 @@ Giữ timing e=t+1, net-return oracle/phí hai chiều, zero=DOWN/SHORT=CASH, t�
 ### T73d. Rút tổng quan, hợp đồng và agent foundations Chương 4
 
 Phần 4.1–4.4 còn 5 trang nội dung trong build riêng (thêm 1 trang bibliography). Giữ F03, bảng input/output, phân biệt tính số/LLM/offline, Pattern khác Trend, Alpha/Sentiment và Native/Common khác Full/Base; giữ ca FPT và mâu thuẫn chart/confidence. Build ba lượt PASS; đã render/xem 5 trang nội dung, không đổi runtime hay gọi mô hình. Hình sẽ được kiểm cỡ nhãn toàn văn ở T73l.
+
+### T73e. Rút memory, regime và các prior nhưng giữ điều kiện hỗ trợ
+
+Phần 4.1–4.7 hiện 9 trang nội dung trong build riêng, gồm khoảng 4 trang memory/prior. Giữ bank852/CORE4, strict maturity, nguồn regime end2022/end2020 riêng, fallback/UNKNOWN, công thức similarity/recency và disjoint shrinkage/readiness; không gọi v1 là Beta posterior hoặc B_semantic là embedding. Ca FPT giữ population19 khác K3, bypass C2/A/B. Build ba lượt PASS, không overfull; đã xem trang mới/công thức/bảng. Nguồn/hash/nhãn nghiên cứu không đổi.
