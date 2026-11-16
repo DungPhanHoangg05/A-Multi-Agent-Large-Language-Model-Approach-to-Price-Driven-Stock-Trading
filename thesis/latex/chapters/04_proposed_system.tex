@@ -37,6 +37,10 @@ them. Indicator and numerical alpha processing are deterministic;
 Pattern and Trend use hosted visual interpretation. Eligible Decision
 branches obtain hosted responses, while documented bypasses reuse a
 dependency. The numerical MT student is distinct from the hosted LLM.
+Here a market point is one stock/cutoff pair; a repeat is another Decision
+execution conditional on that point's saved upstream reports. Hosted calls
+run through an external model provider, whereas numerical inference uses
+the frozen local resources.
 
 One running case connects the stages: FPT at the \textbf{3 July 2023}
 cutoff, upstream realization 0 and Decision repeat 0. Its 45-bar chart
@@ -332,7 +336,10 @@ likelihood. Age, feature availability and example selection do not reduce
 these statistical populations. Empty conditional support has no reported
 posterior, even if a prior could be computed.
 
-For examples, frozen stock/fold-scaled four-dimensional features give
+For examples, the four features are five-/20-session momentum, 20-session
+population volatility and MA20 distance, defined in
+Section~\ref{s:673616bb765d15ae}. C2 uses its own frozen stock/fold scaler;
+the MT model's scaler is a separate resource. Standardized vectors give
 \begin{equation}
 d(e,q)=\sqrt{\tfrac14\sum_{j=1}^4(z_{ej}-z_{qj})^2},\quad
 P(e,q)=\frac1{1+d(e,q)},\quad B(e,q)=.5sim(e,q)+.5P(e,q).

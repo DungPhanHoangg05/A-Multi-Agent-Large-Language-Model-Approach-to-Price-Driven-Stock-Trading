@@ -3101,3 +3101,25 @@ Build sạch bốn lượt LuaLaTeX+Biber trong cây chỉ có LaTeX/assets/bib 
 Các luận điểm chính/đóng góp/kết luận còn nguồn và đúng phạm vi trong lượt tự kiểm. Các phát hiện đơn vị/bố cục đã sửa trước PDF khóa; không nhận là kiểm độc lập toàn bộ tiếng Anh/quyền/citation/số học hoặc phản hồi ngoài. T74–T80 và P10 còn việc. CL273–CL278 ghi bản mới; link CL267–CL272 trỏ archive P8, không gán số bảng/trang cũ cho PDF mới.
 
 Diff từ `38437142` chỉ thuộc thesis/tài liệu kế hoạch/công cụ build tài liệu. README gốc và code/test/config/input/model/archive/receipt nghiên cứu giữ nguyên. Không chạy lại bốn gate nghiên cứu; viện dẫn đúng QA tài liệu T73l và hash, không gọi là rerun suite.
+
+### T74. Tự rà khả năng đọc hiểu theo đủ 13 câu hỏi
+
+Rà dưới giả định người đọc có nền tảng ML bậc đại học nhưng không biết repository. Đây là tự kiểm nội bộ của người biên tập, không có người đọc độc lập/giảng viên tham gia. Đã làm rõ market point/repeat/hosted model, phân vị Q10/Q90, chỉ số prior/target và chuẩn hóa trọng số teacher; nối định nghĩa bốn feature C2 tới §4.8.2 và nhấn mạnh scaler riêng. Không đổi thuật toán, kết quả hoặc thêm nghiên cứu.
+
+| Câu hỏi §3.3 | Nơi tự đọc được trong PDF | Điểm kiểm |
+| --- | --- | --- |
+| SHORT/CASH và thời điểm vào/thoát | §§3.1–3.2, F01 | Long-only study; Open(t+1)/Close(t+3), phí hai chiều, không short profit |
+| Input và compute/offline/hosted | §§4.1–4.3, F03, contracts | 45/600 bars, news cutoff, frozen local resources và lời gọi hosted riêng |
+| Pattern khác Trend | §4.3, cặp chart F04 | Candles so với added Close-line geometry; prose warning/geometry limits còn rõ |
+| Alpha/sentiment/confidence | §§3.3/4.3 | Price transforms khác text evidence; confidence không probability; missing không neutral |
+| Native/Common khác Full/Base | §4.4 | Profile/projection/instructions khác joint alpha+sentiment removal |
+| Maturity/regime/sim/support/K | §§4.5–4.7 | Strict exit<cutoff; hai regime sources; population/statistic denominator khác topK |
+| Prior/target/query | §3.6/§4.8.2 | Marked datasets, same-stock blocks; query unlabeled; FPT14 historical rows |
+| Teacher/student học gì | §3.6/§4.8.3/F06 | Count-based teacher, soft query target, frozen single checkpoint; không hosted LLM |
+| High p khác positive U | §3.6/§4.8.4 | Magnitudes và costs; ví dụ .8/.01/.06 ra U−.004 |
+| Fact Anchor/rejection | §§4.8.1/4.8.5/F07 | Factual enum validity và strict Q10(ΔU), giữ anchor khác accepted revision |
+| Tám role ít hơn tám call | §§4.7/4.9 | Valid bypass reuse same-repeat Common/anchor không raw response mới |
+| Account payoff và barrier | §§3.2/4.9/4.10/5.5 | Final action trước outcome, CASH0, compound account không portfolio ghép |
+| Scoped checks khác certification | §5.9/Chương6 | Native FAIL, NOT_CERTIFIED, provenance/exposed folds/UI PENDING |
+
+Build riêng Chương3–4 ba lượt PASS; 25 trang nội dung+1 references, đã render/xem vùng đổi, không undefined reference/citation, glyph thiếu hoặc overfull. Bản ghép cuối được kiểm ở T78/T79; không chạy suite nghiên cứu vì chỉ sửa diễn giải.

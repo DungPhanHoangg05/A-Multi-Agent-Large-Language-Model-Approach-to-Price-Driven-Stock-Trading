@@ -179,6 +179,9 @@ counts $(s_k,f_k)$. With $B$ the Beta function, inference computes
 \lambda_h\propto\pi_h\prod_k\frac{B(a_h+s_k,b_h+f_k)}{B(a_h,b_h)},\qquad
 p_{T,q}=\sum_h\lambda_h\frac{a_h+s_q}{a_h+b_h+s_q+f_q}.
 \end{equation}
+The product includes the $K$ prior tasks and the observed target context;
+$(s_q,f_q)$ are the target's positive/nonpositive counts. Normalize
+$\lambda_h$ to sum to one over mixture components before prediction.
 Prior observations reweight the shared component, rather than entering
 the target task's counts. This teacher likelihood is count-based, not
 continuous feature regression. A separate numerical transformer is
@@ -195,7 +198,8 @@ A high win probability can coexist with negative utility: illustrative
 $\theta=.8,g=.01,\ell=.06$ gives $U=-.004$. The implementation samples
 teacher sign probabilities and randomized magnitude means over eligible
 history; costs are already included in net magnitudes. It records mean,
-Q10 and Q90 separately from the student probability. These are model-based
+Q10 and Q90 (the 10th and 90th percentiles) separately from the student
+probability. These are model-based
 policy inputs, not empirical guarantees.
 
 Let $a_0$ be the resolved Fact Anchor. A different valid proposal has
