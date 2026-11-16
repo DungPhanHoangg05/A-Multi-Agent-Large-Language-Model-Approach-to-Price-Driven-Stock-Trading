@@ -486,6 +486,8 @@ Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và n�
 
 **T62 — `docs/thesis-appendix-prompts`:** viết Appendix B/CL246–CL249, request IDs/hashes/four message lengths, BRPP/anchored translations và schema/reply projection; nối §4.10.1. Natural-language excerpts đều gắn nhãn bản dịch trình bày, giữ original IDs/enum/counts, không copy secrets. So từng trường/length/source và legacy wording; EX01 LONG thua/anchor retention giữ nguyên. QA links/JSON/spec/diff PASS; không inference mới.
 
+**T63 — `docs/thesis-appendix-configuration`:** viết Appendix C/CL250–CL253, runtime theo hai collections, signals/alpha, HMM resources, priors/readiness, MT teacher/student/selection và utility. Đọc TR02/TR05 theo manifest pins, không nhầm file ngoài snapshot thành snapshot member; mọi numeric group có source. Nối §5.3.1; QA parameter/formula/resource/citation/link/spec/diff PASS. Không refit/load weights/forward/API hoặc utility draws mới.
+
 ### Mở đầu, kết luận và đối soát P6
 
 Ngày **16/11/2026**, thực hiện T54–T58 theo yêu cầu; mỗi task dùng nhánh docs riêng từ develop và merge sau đối soát. Chỉ viết/biên tập và kiểm nguồn, không thay code nghiên cứu, test, runtime, schema, cấu hình hoặc input; không compileall/unit/E2E/leakage suite theo AGENTS §1.2, không fit/API LLM/replay/bootstrap. Ghi chú và ánh xạ luận điểm giữ chung tại sổ bằng chứng §12.

@@ -235,6 +235,8 @@ comparison.
 
 ### 5.3.1. Runtime, model identities and offline fitting
 
+[Appendix C](../appendices/C_configuration.md#c1-runtime-and-hosted-requests) collects the collection-specific runtime, fitted-resource cutoffs and locked retrieval/MT/utility settings behind this configuration.
+
 **Table B04c. Recorded configuration of the two response collections.**
 Configuration values come from their own manifests and request telemetry,
 not the application's current defaults.

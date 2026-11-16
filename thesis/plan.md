@@ -102,7 +102,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T60 — DONE: [Phần đầu](frontmatter.md#acknowledgements) đủ metadata/bìa, lời cảm ơn tối giản và cam đoan đã được tác giả xác nhận giữ nguyên; 42 chữ viết tắt, 26 dòng ký hiệu; CL237–CL241/§13.2–13.3. Chữ ký/ngày ký còn để tác giả điền; không suy xác nhận biểu mẫu chính thức hoặc đã nộp.
 - [x] T61 — DONE: [Phụ lục A](appendices/A_contracts.md) schema/version và hai JSON nguồn, ánh xạ thời gian/nhãn/missingness có liên kết từ §4.2; CL242–CL245/§13.4. Giữ CORE4 khác chín-query-stock, fraction khác %, causal label không là certificate; không nghiên cứu mới.
 - [x] T62 — DONE: [Phụ lục B](appendices/B_prompts.md) prompt families, bản dịch trình bày có nhãn, BRPP/schema/response projection và UUID/hash/length thật; nối §4.10.1; CL246–CL249/§13.5. Không giả prompt Anh đã chạy, không lộ secrets hoặc biến schema validity thành trading gain.
-- [ ] T63 — Viết Phụ lục C: thuật toán và cấu hình.
+- [x] T63 — DONE: [Phụ lục C](appendices/C_configuration.md) công thức và bảng cấu hình có source theo nghiên cứu/resource, teacher/student/utility và checkpoint thật; nối §5.3.1; CL250–CL253/§13.6. Giữ hai HMM/scaler, seed42-step3000 khác ensemble/pilot; không fit/inference/utility resampling mới.
 - [ ] T64 — Viết Phụ lục D: kết quả mở rộng.
 - [ ] T65 — Viết Phụ lục E: kiểm tra và audit.
 - [ ] T66 — Viết Phụ lục F: tái lập và ứng dụng.

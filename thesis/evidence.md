@@ -1525,6 +1525,11 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL248 | [B.4 schema and reply projection](appendices/B_prompts.md#b4-reply-schemas-and-recorded-example) | DAN_XUAT | Frozen TradeDecisionOutput/utility_icl_reply_v3; EX01 MT reply cc6bf729-784a-458a-8e40-07398fac513f; §13.5 | Base seven fields, extended fact/context fields and exact machine-field projection; categorical confidence and prose translation labeled | No calibrated confidence, full-schema claim for a projection or measured C3 ablation |
 | CL249 | [B.5 budgets/repair](appendices/B_prompts.md#b5-budgets-repair-and-interpretation) | DAN_XUAT | CL106–CL110/CL179–CL180; frozen cap/repair and U08 wire audit; §13.5 | Report/prefix/fact/anchor/final caps separated from observed prompt lengths and transport attempts | Character limits are not tokens; no new measured hosted behavior |
 
+| CL250 | [C.1/C.2 runtime and signals](appendices/C_configuration.md#c2-indicators-and-alpha-transformations) | DAN_XUAT | B04c/ED runtime; SYS03/BG02–03; §§3.3/4.3; §13.6 | Study-specific aliases/options/caps; five indicator settings, Native/Common/factor-control distinctions | Not current-provider guidance, full Alpha101 replication or matched selector ablation |
+| CL251 | [C.3/C.4 regimes and priors](appendices/C_configuration.md#c3-hmms-and-distinct-frozen-regime-resources) | DAN_XUAT | BG04–07/RG01–02; §§4.5–4.7; §13.6 | Actual 2022/2020 resources, HMM fit/quality settings, C2/A/B counts/shrinkage/selection/readiness | Generic fit bounds do not override artifacts; no calibrated regime/query probability |
+| CL252 | [C.5 context and model recipe](appendices/C_configuration.md#c5-numerical-context-teacher-and-student) | DAN_XUAT | BG08–12/TR01–TR08; §§4.8.2–4.8.3; §13.6 | Frozen feature/task/teacher/student recipe, 271873 parameters, three training seeds but selected seed42/step3000 | Not 69-token pilot or ensemble; 2021 selection uses labels, no new training |
+| CL253 | [C.6 utility and policy](appendices/C_configuration.md#c6-utility-and-final-action-policy) | DAN_XUAT | BG13–14/SYS33; §§4.8.4–4.8.6; §13.6 | Support, 4096 draws, Exp magnitude weights, teacher sign and strict anchor-relative quantile tests | Not student-probability substitution, repeat-independent market evidence or profit guarantee |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2797,3 +2802,11 @@ T62 viết `appendices/B_prompts.md`/CL246–CL249, nối §4.10.1. Đọc EX01 
 Mọi trích natural language đều là English presentation translation, không đổi archive hoặc nhận prompt Anh đã chạy. Giữ metric denominators, example codes/returns và nhãn legacy T→T+2 ở ghi chú, không hợp thức hóa luật thị trường. Response JSON là projection machine fields thật, không giả full schema; confidence Cao được giải thích bằng bản dịch High, không thành probability. C3 prior_use builder không bị gán cho schema thống nhất đã đánh giá. Không in header, API key, env, account ID; raw request UUID phải giữ để truy vết.
 
 QA: so machine JSON với reply, bốn UUID/hash/length với source, BRPP numerical lines với chuỗi gốc, schema fields/enums với frozen schema; English excerpts và caveats so source. Kiểm local links/footnote/JSON/84spec/diff, thân bài chỉ thêm cross-reference. Không API/fit/bootstrap/replay/suite; bảo toàn EX01 LONG thua và policy KEEP_PROPOSED_SAME.
+
+### 13.6. Phụ lục C: công thức và cấu hình đã khóa
+
+T63 viết `appendices/C_configuration.md`/CL250–CL253, nối §5.3.1. Mỗi nhóm số có source ID trong cột và locator chương/sổ: runtime B04c tách component/context, indicator/Native/Common, hai query HMM và episode-prefix khác nhau, v1/C2/A/B, bốn features/scalers/task membership, teacher/student recipe/selection và utility. Không lấy generic class train bounds, default token cap hay packing pilot thay resource đã chạy.
+
+Đối chiếu TR02 bằng pin TR01.protocol SHA256 `11146a55e347be77b4a942c67d0acc9dba8646fa1d5a0b4817e5ffb504214857`; file không nằm trong source_members snapshot nên đọc đúng file đã khóa theo manifest pin, không giả nó là snapshot member. Selection file đọc theo TR01.receipts pin TR05. Nguồn RG01/RG02/TR01/TR03 và code đã trích đều kiểm byte/member tại đầu lượt. Kiểm 271873 parameters, PAIRED37, model seeds, recipe và seed42/step3000 theo manifest/protocol; công thức so với frozen source và §§3.3/4.3/4.5–4.8. Không chạy fit, load weights, forward, bootstrap utility hoặc hosted inference.
+
+QA số/tham số theo đúng profile/resource, công thức/units, local link/footnote/84spec/diff; thân bài chỉ thêm tham chiếu, bảng/công thức cũ bất biến. Các table Appendix C thuộc phần bổ trợ, không thay số/thông điệp 23 asset chính. Không suite/compileall/replay do chỉ viết tài liệu.
