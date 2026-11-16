@@ -15,6 +15,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--pdf', type=Path)
+    parser.add_argument('--passes', type=int, default=4, choices=(2, 3, 4))
+    parser.add_argument('--skip-bibliography', action='store_true')
     args = parser.parse_args()
     source = Path(__file__).resolve().parents[1]
     destination = (args.output_dir or source / 'build').resolve()
@@ -25,14 +27,14 @@ def main() -> None:
     command = [engine, '--disable-installer', '-interaction=nonstopmode',
                '-halt-on-error', '-file-line-error', '-recorder',
                '-output-directory=' + str(destination), 'main.tex']
-    for step in range(4):
+    for step in range(args.passes):
         result = subprocess.run(command, cwd=source, stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
         (destination / f'pass-{step + 1}.txt').write_bytes(result.stdout)
         if result.returncode:
             print(result.stdout.decode('utf-8', errors='replace')[-6000:])
             raise SystemExit(result.returncode)
-        if step == 0 and (destination / 'main.bcf').exists():
+        if step == 0 and not args.skip_bibliography and (destination / 'main.bcf').exists():
             executable = shutil.which('biber')
             if executable is None:
                 raise SystemExit('Thiếu Biber trong PATH.')

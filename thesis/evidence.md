@@ -1550,6 +1550,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL268 | [Methods in LaTeX](latex/chapters/04_proposed_system.tex) | DAN_XUAT | Markdown Chapters3–4 at e4e31daf, 10 existing vector figure assets, migration math/table QA and PDF build; §14.2 | 84 headings, 29 tables/139 data rows, 28 display equations and three pseudocode algorithms transferred | Typesetting edits preserve operands/values; partial-build cross-references to later chapters are resolved at integration |
 
+| CL269 | [Results in LaTeX](latex/chapters/05_experiments.tex) | DAN_XUAT | Source-checked Chapter5 at e4e31daf; F09/F10 PDF assets; migration row/numeric/math QA; §14.3 | 43 headings, 37 tables/254 data rows, 8 display equations and 2 vector plots transferred | Same recorded endpoints, pp/% units, NA/support and adverse findings; no recomputation |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2884,3 +2886,10 @@ T67 dựng main/preamble/build guide trong thesis/latex, không dùng macro/ch�
 T68 chuyển 84 heading, 29 bảng/139 dòng, 28 display equations, ba thuật toán và 10 hình vector nguồn sẵn có. Tên/đơn vị/mẫu số được giữ; tự sinh số chương/section/table/figure, ID nguồn như F01/B03 vẫn dùng để đối chiếu. Công thức BA/MCC tách hai dòng để đọc được, không đổi biểu thức; escape ký tự phần trăm trong công thức, xử lý path/hash dài bằng điểm ngắt hợp lệ. TikZ source và PDF đi cùng trong cây thesis.
 
 Đối soát tất cả token số theo từng hàng bảng và toàn bộ display equations với Markdown PASS; equations chỉ khác layout/escape. Build LuaLaTeX/Biber thành công, PDF ghép tạm88trang gồm hai bìa/Chương3–4, render kiểm phương pháp/hình/bảng/BA-MCC/thuật toán. Còn cảnh báo ngắt trang longtable/footnote không gây mất nội dung và hbox nhỏ dưới1pt; sẽ rà lại trên bản ghép cuối, không ghi là PDF đã hoàn tất. Liên kết tới chương/phụ lục chưa chuyển chờ T69–T71. Không sửa Markdown đã khóa, input hoặc code nghiên cứu; không chạy runtime suite/API/fit/replay.
+
+
+### 14.3. Chương 5 và bảng/đồ thị đã chuyển LaTeX
+
+T69 chuyển đủ 43 heading, 37 bảng/254 dòng, tám display equations và hai đồ thị F09/F10 vector; giữ source notes/footnotes, NA, hai studies/estimators và family20 contrasts. Mỗi hàng đối chiếu toàn bộ token số với AST bản Markdown đã khóa, display equations khớp sau bỏ layout/escape. Bảng rộng dùng landscape/longtable với header lặp; các caption/list entry sinh tự động còn ID B05/B06/F09 giữ để truy vết.
+
+Build bản ghép Chương3–5 thành công bằng LuaLaTeX/Biber, không source/citation error; liên kết đến phần chưa chuyển còn xử lý lúc ghép. Đã render bản kết quả để kiểm bảng/đồ thị; các cảnh báo độ rộng/ngắt trang còn được sửa trên bản ghép T72, không nghiệm thu trực quan cuối tại bước này. Không chạy lại analysis/bootstrap/LLM hoặc suite nghiên cứu. Công cụ build có tùy chọn số lượt và bỏ Biber chỉ khi bibliography không đổi; build đầy đủ cuối vẫn dùng Biber và nhiều lượt ổn định.
