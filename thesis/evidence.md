@@ -3018,3 +3018,7 @@ Mỗi hàng dưới bao phủ section cũ cùng toàn bộ subsection, công th�
 **Bảng:** Chương 1 dùng bốn RQ trong văn bản; hai bảng related-work gộp một bảng định vị. Chương 3 chỉ giữ định nghĩa/timeline và ví dụ cần đọc. 24 bảng Chương 4 gộp contract, variants và cấu hình số cần thiết; các nội dung còn lại chuyển thành công thức/đoạn văn/ví dụ chung. Chương 5 giữ riêng bảng component và context; family20 chia theo baseline với hai endpoint đầy đủ, giữ support/policy, case bất lợi và audit. Bỏ inventory/UUID/log và bảng detail lặp khỏi PDF; nguồn, hash, nguyên giá trị và tập đầy đủ tiếp tục ở sổ bằng chứng/Git/artifact gốc. Phụ lục không được đổi tên để chèn trở lại.
 
 T73a chỉ đổi tài liệu quản lý, chưa sửa LaTeX/PDF. Đã kiểm mốc/hash, toàn bộ section/caption có ánh xạ; không chạy suite nghiên cứu vì runtime/bằng chứng thực nghiệm giữ nguyên.
+
+### T73b. Rút Chương 1–2 còn 3 và 4 trang
+
+Giữ nguyên văn RQ1–RQ4, phạm vi/đóng góp có attribution và các giới hạn Native FAIL/NOT_CERTIFIED/UI PENDING. Related work tổng hợp theo vấn đề, một bảng định vị thay hai ma trận dài; đủ 22 citation keys trong build. LuaLaTeX/Biber ba lượt PASS, không undefined citation/reference hoặc overfull box; đã render/xem bảy trang hai chương. Không dùng các bảng bị bỏ để thay đổi kết quả hoặc nhận là đã rà cuối T74–T80.

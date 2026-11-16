@@ -1,302 +1,105 @@
-% Chuyển một lần từ bản nháp đã khóa; sửa nguồn LaTeX sau mốc T72.
+% Biên tập bản nộp; nguồn đối chiếu P8 được giữ trong Git.
 \chapter{Introduction}\label{s:c4e0e5d02a165aa6}
+\section{Context and problem}\label{s:f46b1bbcce72991b}
+A daily stock decision combines incomplete and sometimes conflicting
+evidence. Indicators summarize price and volume numerically; charts show
+their trajectory; dated news supplies a different information source.
+An association with future returns is not itself a profitable decision
+rule after costs. \autocite{lo2000technical,arnott2019backtesting}
+Large language models (LLMs) can organize these reports, while visual
+models can interpret chart inputs. QuantAgent provides the specialist
+price/chart architecture adapted in this thesis; multi-agent trading is
+an inherited foundation. \autocite{xiong2025quantagent}
 
-\section{Context and motivation}\label{s:f46b1bbcce72991b}
+The proposed system combines these reports with adapted alpha signals,
+Vietnamese sentiment and eligible historical context. Estimated market
+regimes organize earlier completed episodes. Bayesian prior variants
+summarize evidence, and multi-task Bayesian in-context learning (MT-BICL)
+conditions a numerical predictor on historical datasets and observations
+from the target task. A factual anchor and an external utility policy
+then constrain action revision. \emph{Multi-agent} denotes analysis roles;
+\emph{multi-task} denotes the datasets used by numerical inference. The
+latter adapts an existing methodological idea to this system rather than
+claiming a new Bayesian theory. \autocite{zhu2026multitask}
 
-A daily stock decision begins with incomplete information. A trader can
-inspect earlier prices and volumes, calculate indicators, examine a chart
-and read dated news, but cannot observe the prices at which a future
-position will be closed. These inputs describe different aspects of the
-same decision. An indicator summarizes a numerical pattern; a chart
-presents its trajectory; a news item supplies a dated statement that may
-or may not concern the company. Combining them requires an explicit rule
-for resolving disagreement and deciding whether to commit capital.
+For a stock at cutoff $t$, admissible inputs contain price rows no later
+than $t$, dated and available news, and historical episodes whose outcomes
+have matured strictly before $t$. The output distinguishes the model's
+proposal and explanation from the final \textbf{LONG/CASH} action. Under
+the study contract, LONG enters at $Open(t+1)$ and exits at $Close(t+3)$;
+brokerage of 0.25\% and slippage of 0.10\% apply on each leg. SHORT maps to
+CASH, without opening a short position. A strictly positive candidate-LONG
+net return is UP; zero and negative returns are DOWN. The CASH payoff is
+zero and is distinct from that candidate label. These are research
+accounting assumptions, not evidence of actual fills or a statement of
+current exchange rules.
 
-Technical analysis provides ways to formalize price patterns rather than
-relying only on visual impressions. Evidence that a pattern is associated
-with a conditional return distribution, however, does not by itself
-establish that a trading rule is profitable after costs. The distinction
-between description, prediction and economic evaluation motivates the
-separate outcomes used throughout this thesis. \autocite{lo2000technical}
-Formulaic alpha signals offer another representation of price and volume,
-but an adapted implementation also changes the meaning of formulas when
-its available data differ from the original cross-sectional setting.
-The adaptation must therefore be described alongside the signal.
-\autocite{kakushadze2016formulaic}
-
-Large language models can organize textual evidence, while models with
-visual inputs can describe chart features. Assigning specialized analysis
-roles and passing their reports to a final decision stage offers a
-structured way to combine these representations. QuantAgent provides an
-important architectural foundation for the price/chart role pipeline
-adapted here; multi-agent financial analysis is consequently an inherited
-idea, rather than an invention claimed by this thesis.
-\autocite{xiong2025quantagent} The research question is whether the particular
-information and decision mechanisms implemented here alter recorded
-outcomes under controlled comparisons. A persuasive explanation from an
-agent is one recorded output, not independent evidence that its action
-will be profitable.
-
-Historical examples introduce a further possibility. The system can
-consult earlier completed decisions and their outcomes before selecting
-an action for a new date. Because market conditions may differ across
-periods, it can condition this context on an estimated market state,
-called a \emph{regime}. It can also summarize evidence numerically instead of
-placing every earlier report in a prompt. The title's \emph{multi-task}
-component concerns learning across historical datasets and conditioning
-on a target task; \emph{multi-agent} concerns the division of analysis roles.
-These are distinct mechanisms. The referenced multi-task Bayesian
-in-context learning work supplies a methodological foundation, whose
-local adaptation and differences are explained in Chapters 2--4.
-\autocite{zhu2026multitask}
-
-This thesis studies these mechanisms in a daily historical Vietnamese-stock
-research setting. Its execution convention allows a candidate purchase
-only at the following session's open and evaluates liquidation at the
-third following session's close, with costs on both legs. A negative
-recommendation retains cash. This is the study's common economic contract,
-not a statement of current exchange rules or evidence of executable live
-fills. Fixed conventions make comparisons interpretable: a better
-classification score can coexist with worse returns, and a method can
-benefit relative to one baseline while losing relative to another.
-Separating these possibilities is essential to a defensible backtest.
-\autocite{arnott2019backtesting}
-
-The motivation is thus both methodological and empirical: construct an
-inspectable path from available information to action, and assess what
-the recorded comparisons actually support. Historical-context coverage,
-fallback behavior, failed validity checks and adverse outcomes are part
-of that assessment. The title identifies a research direction; it does
-not assume a successful trading strategy.
-
-\section{Problem statement}\label{s:46f177531f695499}
-
-For a stock and a daily decision cutoff \(t\), the system receives a
-price/volume history and the analysis resources assigned to its experimental
-branch. The intended point-in-time input contains price rows dated no
-later than \(t\). News requires both a recorded publication
-date and protocol-defined availability no later than \(t\); a publication
-date alone is insufficient. Undated or unavailable news does not become
-an observed neutral opinion. Historical examples must have
-completed their outcome window strictly before \(t\). An example that is
-still open at the cutoff cannot supply a known outcome. Fitting periods,
-resource versions and the construction of earlier feature rows require
-additional checks beyond this outer input cutoff.
-
-The required output distinguishes an agent's directional proposal and
-explanation from the final executable action. Depending on the branch,
-the system may reuse a designated valid fallback instead of obtaining a
-new proposal, or a policy may retain a factual anchor after inspecting a
-proposal. Records must preserve those paths. Missing contextual evidence
-and a technical failure are different states; neither may be silently
-converted into a successful model decision. The final action vocabulary
-is \textbf{LONG/CASH}. A model's \textbf{SHORT} proposal maps to CASH and opens no
-short position.
-
-\textbf{Problem input/output overview.} This schematic groups internal stages
-for orientation; it is not an experiment or a claim that every branch
-obtains a fresh model reply.
-
-\begin{figure}[htbp]\centering
-\begin{tikzpicture}[>=Stealth,node distance=7mm,box/.style={draw=thesisblue,rounded corners,text width=0.73\linewidth,align=center,font=\small,inner sep=5pt}]
-\node[box] (input) {Prices and dated news available at cutoff $t$; earlier completed historical examples};
-\node[box,below=of input] (analysis) {Analysis and action selection};
-\node[box,below=of analysis] (action) {Recorded proposal or explicit fallback; explanation and final LONG/CASH action};
-\node[box,below=of action] (eval) {Evaluation after forecast barrier};
-\node[box,below=of eval] (future) {Held-out prices at $t+1$ through $t+3$: evaluation only};
-\draw[->] (input)--(analysis);\draw[->] (analysis)--(action);\draw[->] (action)--(eval);\draw[->] (future)--(eval);
-\end{tikzpicture}
-\caption{Problem input/output overview (schematic, not an experiment).}\label{fig:problem}
-\end{figure}
-
-Under the common evaluator, LONG enters at \(Open(t+1)\) and exits at
-\(Close(t+3)\): three observed trading sessions, not three calendar days.
-Brokerage of 0.25\% and slippage of 0.10\% apply on each leg. The resulting
-candidate-LONG net return defines an \textbf{UP} label when strictly positive
-and \textbf{DOWN} otherwise, including zero. These labels ask whether the
-hypothetical LONG would have earned a positive net return. They are
-distinct from the realized outcome of a CASH action, whose return is zero
-under the reference accounting. Section 3.2 specifies the equation and
-the execution timeline; the introduction uses the same contract without
-introducing a second labeling rule.
-
-The evaluation problem has two parts. First, compare forecasts with the
-candidate-LONG labels, retaining support for both classes. Second,
-evaluate the final LONG/CASH sequence through the recorded account
-rules, including exposure and costs. Future prices and labels are joined
-only after forecasts have been durably recorded: the \emph{forecast barrier}.
-Shared upstream reports allow paired branches to face the same realized
-analysis, so that an extra vision-model call does not create a different
-input merely for a comparator. The resulting account averages are not a
-validated capital-constrained multi-stock portfolio.
-
-This thesis addresses that problem using the two recorded historical
-studies described in Chapter 5. Their controls, response collections and
-statistical conventions remain distinct. The intended temporal contract
-defines what a valid decision should use; it does not erase the recorded
-Native row-wise causality failure. The research objectives and boundaries
-below specify how that unresolved limitation constrains the answers.
+The research problem is to explain this decision path and assess its
+recorded behavior under shared inputs and accounting. Classification,
+economic returns and validity checks answer different questions. An
+eloquent report does not establish correct financial reasoning, and a
+successful replay does not establish prospective profitability.
 
 \section{Objectives and research questions}\label{s:874323025bb68e2c}
-
-The first objective is to explain the implemented decision path well
-enough that its inputs, transformations, dependencies and outputs can be
-inspected without reading the source code. The second is to assess the
-recorded changes associated with information components and historical
-context under common trading rules. The third is to identify which
-validity and recovery properties the available evidence supports. None
-of these objectives presupposes a return advantage.
-
-The four questions below connect those objectives to their comparison
-families and observable evidence. The component study's \textbf{Base} and the
-historical-context study's \textbf{Native/Common} are distinct controls, not
-interchangeable names for one baseline. Chapter 4 defines the branch
-identities before Chapter 5 reports their outcomes.
-
-\textbf{Research-question overview.} The questions follow the thesis outline;
-the comparison column specifies the intended unit of interpretation.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Objectives and research questions - supporting detail}\label{tab:01_introduction:1}\tabularnewline
-\toprule\noalign{}
-ID and research question
- & Objective and comparison
- & Evidence and answer boundary
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-ID and research question
- & Objective and comparison
- & Evidence and answer boundary
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\textbf{RQ1.} How does the multi-agent system combining price, alpha and sentiment behave relative to its controls? & Assess the combined information system: paired component Full/Base on 102 points, recorded numerical controls and the separate nine-unit upstream/factorial panels. & Section 5.6: class support, balanced accuracy (BA), Matthews correlation coefficient (MCC), account returns and exposure. Information and prompt representation change together; classification gain is not profitability. \\
-\textbf{RQ2.} How does regime-aware historical context and conditional evidence change outcomes under the same upstream realization? & Assess historical-context extensions: Bayesian v1, C2, A\_\allowbreak{}tp\_\allowbreak{}pool and B\_\allowbreak{}semantic each against both Common and Native on paired support. & Sections 5.7 and 5.8.1: contrasts, prior traces, readiness, example age/similarity and fallback. Sparse activation and baseline differences prevent an isolated regime-effect claim. \\
-\textbf{RQ3.} How do Fact Anchor, MT-BICL and the utility policy affect final actions? & Explain how the combined revision path changes actions through the Common \ensuremath{\rightarrow} Fact Anchor \ensuremath{\rightarrow} MT-BICL bridge. & Sections 5.7.5 and 5.8.2: proposals, fact assertions, eligibility, bypasses, accepted/rejected changes and utility traces. No separate student, target-task or utility benefit is identified. \\
-\textbf{RQ4.} Which temporal, economic and operational contracts are supported by evidence, and which limitations remain? & Audit temporal, economic and operational requirements against the scoped records and receipts. & Sections 5.1, 5.3 and 5.8--5.9: cutoff/maturity, canonical labels/P\&L, shared inputs, prompts, retry/checkpoints and cold replay. This is a contract-to-evidence audit; failures and uncertified paths remain explicit. \\
-\end{longtable}
-
-\endgroup
-
-The questions move from the combined system to historical context, then
-to action resolution and the validity of the comparison itself. Chapter 3
-defines their common economic and temporal terms; Chapter 4 specifies
-the implementations. Chapter 5 keeps the two studies separate before
-Table B09 (§5.9.3) and §6.2 return to these questions with bounded answers.
-
-\section{Challenges and boundaries}\label{s:f1f479eaa6735c4f}
-
-Historical context is useful only to the extent that it is relevant,
-available and interpretable at the decision date. Market nonstationarity
-motivates conditioning on regimes, but a fitted state label is an
-estimated summary rather than a true market state or a guarantee that
-older outcomes transfer. Completed examples can be scarce after strict
-maturity and readiness filters. Primary results therefore retain
-unsupported points and their designated fallback actions. A secondary
-covered subset describes a different population and cannot replace that
-primary comparison.
-
-Temporal validity also has several layers. Restricting a dataframe to the
-query date does not establish that every earlier feature row used only
-information available at that earlier date. Likewise, a publication date
-in a cache is not independent authentication of historical news
-availability. The Native row-wise causality gate is \textbf{FAIL}, and the
-whole-system status is \textbf{NOT\_\allowbreak{}CERTIFIED\_\allowbreak{}HISTORICAL\_\allowbreak{}EXPLORATORY}. Bank/query
-provenance and missing original signal journals remain limitations.
-These findings bound the thesis rather than being treated as issues
-already repaired by the proposed context mechanisms.
-
-The empirical collection covers a purposive sample of nine Vietnamese
-stocks and six already exposed temporal folds. The context study has
-102 market points, 51 stock--fold accounts, three Decision repeats and
-eight forecast roles, producing 2,448 slots. Those slots are conditional
-on one upstream realization per point, not independent draws from the
-market. Repetition of the Decision stage does not measure upstream
-variability. The component study is a separate response collection with
-its own estimators and support. Small dependent samples, unequal context
-readiness and previously examined folds constrain statistical and causal
-interpretation.
-
-The system must also operate with bounded prompts, hosted request limits
-and interruptions. Distilled reports, retry handling and checkpoints
-support completion and traceability, but do not authenticate an external
-model's training data or immutable served weights. A stored reply and a
-successful offline replay answer different reproducibility questions.
-Similarly, packet-based factual assertions do not independently validate
-the financial meaning of every chart interpretation or explanation.
-
-The scope is daily historical LONG/CASH evaluation. It excludes actual
-short selling, high-frequency execution, an authenticated capital-constrained
-multi-stock portfolio and demonstrated prospective profitability. The
-realtime 1D interface illustrates implementation; the author's statement
-that the three identified modules retain the research behavior does not
-complete browser acceptance. UI/F11 remains \textbf{PENDING}. These boundaries
-are reflected in the evaluation and future-work priorities rather than
-extended by the interface's availability.
-
-\section{Contributions and thesis organization}\label{s:d7489201492a5b01}
-
-The thesis makes four kinds of contribution, each with a different
-evidential basis.
-
+The objectives are to make the implemented system understandable, compare
+its information and historical-context mechanisms, and identify the scope
+of supported temporal, economic and operational claims. Four questions
+organize the investigation:
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{System adaptation.} It integrates price/chart reports, adapted alpha
-  signals and dated Vietnamese sentiment into a shared-input LONG/CASH
-  pipeline with explicit accounting. Sections 4.1--4.4 explain the graph
-  and branch contracts; §5.6 reports the component comparisons. The
-  inherited QuantAgent-style role specialization, technical indicators
-  and Alpha101 foundations are attributed in §§2.1--2.2. The contribution
-  is the described adaptation and integration, not invention of these
-  foundations or validation of market execution.
-\item
-  \textbf{Historical-context and policy design.} Sections 4.5--4.8 connect
-  matured episodes and estimated regimes to bounded Bayesian summaries,
-  alternative conditional priors, numerical multi-task context, factual
-  anchoring and utility-gated revision. Sections 5.7--5.8 examine their
-  recorded contrasts and traces. HMMs, Beta--Bernoulli inference and
-  Bayesian/MT in-context learning are inherited foundations, with the
-  local student/teacher differences stated explicitly in §§2.4--2.5 and
-  §4.8. Integration choices are distinct from a new Bayesian theorem or
-  a faithful replication of the reference model's experiments.
-\item
-  \textbf{Evaluation and reproducibility.} The research pipeline preserves a
-  common economic oracle, shared upstream identities, separate
-  proposal/action/outcome records, fallback accounting and source-bound
-  recovery/replay. Sections 4.9--4.10 and 5.1--5.3 define these mechanisms; §§5.8--5.9
-  state the receipt and audit scope. The contribution includes making
-  failures and provenance gaps inspectable. Passing specific engineering
-  checks does not establish whole-system causality or live acceptance.
-\item
-  \textbf{Bounded empirical findings.} Chapter 5 reports two historical
-  studies, including adverse results. Classification and financial
-  outcomes diverge; historical-context differences depend on the
-  baseline and support; the MT path largely retains its anchor; the
-  eight context research means are negative. These observations describe
-  the recorded system. They do not identify a student-specific gain or
-  establish prospective trading advantage.
+\item \textbf{RQ1.} How does the multi-agent system combining price, alpha
+and sentiment behave relative to its controls?
+\item \textbf{RQ2.} How does regime-aware historical context and conditional
+evidence change outcomes under the same upstream realization?
+\item \textbf{RQ3.} How do Fact Anchor, MT-BICL and the utility policy affect
+final actions?
+\item \textbf{RQ4.} Which temporal, economic and operational contracts are
+supported by evidence, and which limitations remain?
 \end{enumerate}
+RQ1 uses the component study's Full/Base comparison, numerical controls
+and separate small panels. RQ2 compares historical-context extensions
+against both Native and Common. RQ3 examines the combined Common--Fact
+Anchor--MT-BICL path, including retained actions and vetoes. RQ4 compares
+contracts with scoped audits and stored recovery/replay evidence. These
+comparison families cannot identify the effect of every mechanism
+separately.
 
-This ordering also defines the thesis's argument. Chapter 2 attributes
-the relevant literature and positions the integration problem. Chapter 3
-establishes time indexing, economic labels, signal representations,
-regime/Bayesian/MT concepts and evaluation principles. Chapter 4 follows
-the implemented path from input to final action, including policy and
-recovery. Chapter 5 states the two experimental designs before presenting
-results, cases, sensitivity and validity limits. Chapter 6 answers the
-four questions, separates engineering work from empirical evidence and
-prioritizes the research still required. Thus each contribution leads to
-a mechanism and an observed or explicitly missing form of evidence.
+\section{Scope and contributions}\label{s:f1f479eaa6735c4f}
+Two historical exploratory studies use separate response collections and
+statistical conventions. The context study contains 102 market points,
+51 stock--fold accounts, three Decision repeats and eight roles. Its
+2,448 forecast slots share one upstream realization per point and are
+not independent market observations. Full/Base changes information and
+prompt representation; Native/Common changes alpha projection and
+instructions. These baseline pairs are not interchangeable.
+
+The nine stocks were purposively selected and the six temporal folds
+were already exposed. Sparse context coverage and valid fallbacks remain
+in primary comparisons. The Native row-wise causality audit is
+\textbf{FAIL}, and whole-system historical causality is
+\textbf{NOT\_CERTIFIED}. Restricting the outer input to a cutoff does not
+prove that every feature row is causal; cached news dates do not
+independently authenticate availability. The realtime interface
+demonstrates implementation, with browser acceptance still
+\textbf{PENDING}. The study excludes prospective trading validation,
+actual short selling and a validated capital-constrained multi-stock
+portfolio.
+
+The contributions are an adaptation of specialist reports and explicit
+LONG/CASH accounting to Vietnamese stocks; integration of matured
+historical evidence, regime conditioning, numerical task inference and
+anchor-relative policy; and traceable paired evaluation with distinct
+proposal, fallback, action and outcome records. The empirical contribution
+is a bounded assessment retaining negative results: classification and
+returns diverge, historical-context differences depend on the baseline,
+and the MT path usually retains its anchor. None establishes an isolated
+student benefit or a prospective trading advantage.
+
+\section{Organization}\label{s:d7489201492a5b01}
+Chapter 2 attributes the literature and positions the integration problem.
+Chapter 3 defines the economic and temporal contracts and the concepts
+needed to read the method. Chapter 4 follows one decision through the
+agents, historical context, numerical inference and policy. Chapter 5
+reports the two studies and their uncertainty, coverage and audit limits.
+Chapter 6 answers the research questions and identifies the evidence
+needed for stronger claims. Detailed implementation traces remain in the
+evidence repository; the method and principal results are explained here.
