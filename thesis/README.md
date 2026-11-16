@@ -31,7 +31,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 15. Phụ lục — T61–T66 đã đủ bản nháp: [A: hợp đồng](appendices/A_contracts.md), [B: prompts/responses](appendices/B_prompts.md), [C: cấu hình](appendices/C_configuration.md), [D: bảng mở rộng](appendices/D_results.md), [E: audit](appendices/E_verification.md), [F: tái lập/ứng dụng](appendices/F_reproduction.md). Đã nối tham chiếu trong thân bài và đối soát nguồn/số liệu/phạm vi. [Sổ nguồn appendix](evidence.md#134-phụ-lục-a-hợp-đồng-dữ-liệu-và-thời-gian) giữ locator/hash và QA; chưa chuyển LaTeX hoặc nghiệm thu PDF toàn văn.
 
-16. [Nguồn LaTeX](latex/README.md): T67–T69; Chương 5 và bảng/đồ thị đã chuyển LaTeX. [Sổ P8](evidence.md#14-dàn-trang-latex-và-chuyển-nguồn-chính) ghi toolchain, build và phạm vi kiểm.
+16. [Nguồn LaTeX](latex/README.md): T67–T70; Chương 1/2/6, phần đầu và bibliography đã nối. [Sổ P8](evidence.md#14-dàn-trang-latex-và-chuyển-nguồn-chính) ghi toolchain, build và phạm vi kiểm.
 
 ## Hai trang bìa
 

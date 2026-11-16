@@ -494,6 +494,10 @@ Thực hiện T67–T72 theo yêu cầu: mỗi task nhánh docs từ develop, ki
 
 Build bản ghép Chương3–5 thành công bằng LuaLaTeX/Biber, không source/citation error; liên kết đến phần chưa chuyển còn xử lý lúc ghép. Đã render bản kết quả để kiểm bảng/đồ thị; các cảnh báo độ rộng/ngắt trang còn được sửa trên bản ghép T72, không nghiệm thu trực quan cuối tại bước này. Không chạy lại analysis/bootstrap/LLM hoặc suite nghiên cứu. Công cụ build có tùy chọn số lượt và bỏ Biber chỉ khi bibliography không đổi; build đầy đủ cuối vẫn dùng Biber và nhiều lượt ổn định.
 
+**T70 — Chương 1/2/6, phần đầu và bibliography đã nối:** T70 chuyển ba chương còn lại, phần đầu đã xác nhận,42 abbreviations/26 symbol rows, bibliography22 mục, danh mục nội dung/hình/bảng tự sinh. Bìa chỉ xuất hiện hai trang theo nguồn covers, không chép lại bảng metadata/outer/inner từ Markdown; nhãn quản lý Draft/Writing aids không vào PDF. Lời cảm ơn/cam đoan giữ câu chữ tác giả, nhãn unsigned và trường ký/ngày còn trống. Sơ đồ Mermaid bài toán chuyển TikZ có thể sửa, giữ hướng future prices chỉ tới evaluation.
+
+Đối soát ba bảng/13 dòng của Chương1/2 và phần ký hiệu với nguồn; citation keys nối Biber, style numeric/sorting none theo lựa chọn biên tập. Biber không có key thiếu; hai warning legacy month March/year n.d. giữ metadata gốc và không ảnh hưởng thứ tự numeric. LuaLaTeX ghép đủ6chương/phầnđầu; render/kiểm bản ghép tiếp ở T71–T72. Markdown/bibliography gốc chưa sửa; không suy luật hoặc chứng nhận mới. Không suite/API/fit/replay nghiên cứu.
+
 ### Sáu phụ lục và nguồn tái lập P7
 
 Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và nối tham chiếu từ thân bài. Mỗi task dùng nhánh docs riêng từ develop, commit/merge sau QA. Sổ chung §13.4–13.9 ghi nguồn/locator; không tạo receipt riêng cho từng task. Chỉ tài liệu nên không compileall/unit/E2E/leakage theo AGENTS §1.2; không gọi model/fit/bootstrap/replay hoặc sửa code/runtime/config/schema/input/models/archives/receipts. Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING giữ nguyên.

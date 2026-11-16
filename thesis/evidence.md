@@ -1552,6 +1552,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL269 | [Results in LaTeX](latex/chapters/05_experiments.tex) | DAN_XUAT | Source-checked Chapter5 at e4e31daf; F09/F10 PDF assets; migration row/numeric/math QA; §14.3 | 43 headings, 37 tables/254 data rows, 8 display equations and 2 vector plots transferred | Same recorded endpoints, pp/% units, NA/support and adverse findings; no recomputation |
 
+| CL270 | [Front matter and literature](latex/frontmatter/content.tex) | DAN_XUAT | Confirmed frontmatter and Chapters1/2/6, bibliography22 entries; Biber log; §14.4 | Acknowledgements/declaration/abstract/7 keywords,42 abbreviations/26 notation rows, three chapters and auto lists/citations transferred | Declaration unsigned; editorial status notes excluded without inventing official approval; sources attributed |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2893,3 +2895,10 @@ T68 chuyển 84 heading, 29 bảng/139 dòng, 28 display equations, ba thuật t
 T69 chuyển đủ 43 heading, 37 bảng/254 dòng, tám display equations và hai đồ thị F09/F10 vector; giữ source notes/footnotes, NA, hai studies/estimators và family20 contrasts. Mỗi hàng đối chiếu toàn bộ token số với AST bản Markdown đã khóa, display equations khớp sau bỏ layout/escape. Bảng rộng dùng landscape/longtable với header lặp; các caption/list entry sinh tự động còn ID B05/B06/F09 giữ để truy vết.
 
 Build bản ghép Chương3–5 thành công bằng LuaLaTeX/Biber, không source/citation error; liên kết đến phần chưa chuyển còn xử lý lúc ghép. Đã render bản kết quả để kiểm bảng/đồ thị; các cảnh báo độ rộng/ngắt trang còn được sửa trên bản ghép T72, không nghiệm thu trực quan cuối tại bước này. Không chạy lại analysis/bootstrap/LLM hoặc suite nghiên cứu. Công cụ build có tùy chọn số lượt và bỏ Biber chỉ khi bibliography không đổi; build đầy đủ cuối vẫn dùng Biber và nhiều lượt ổn định.
+
+
+### 14.4. Chương 1/2/6, phần đầu và bibliography đã nối
+
+T70 chuyển ba chương còn lại, phần đầu đã xác nhận,42 abbreviations/26 symbol rows, bibliography22 mục, danh mục nội dung/hình/bảng tự sinh. Bìa chỉ xuất hiện hai trang theo nguồn covers, không chép lại bảng metadata/outer/inner từ Markdown; nhãn quản lý Draft/Writing aids không vào PDF. Lời cảm ơn/cam đoan giữ câu chữ tác giả, nhãn unsigned và trường ký/ngày còn trống. Sơ đồ Mermaid bài toán chuyển TikZ có thể sửa, giữ hướng future prices chỉ tới evaluation.
+
+Đối soát ba bảng/13 dòng của Chương1/2 và phần ký hiệu với nguồn; citation keys nối Biber, style numeric/sorting none theo lựa chọn biên tập. Biber không có key thiếu; hai warning legacy month March/year n.d. giữ metadata gốc và không ảnh hưởng thứ tự numeric. LuaLaTeX ghép đủ6chương/phầnđầu; render/kiểm bản ghép tiếp ở T71–T72. Markdown/bibliography gốc chưa sửa; không suy luật hoặc chứng nhận mới. Không suite/API/fit/replay nghiên cứu.

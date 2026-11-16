@@ -12,6 +12,7 @@
   \tableofcontents\clearpage
   \listoffigures\clearpage
   \listoftables\clearpage
+  \IfFileExists{frontmatter/reference_lists.tex}{\input{frontmatter/reference_lists}\clearpage}{}
   \pagenumbering{arabic}
 }{}
 \IfFileExists{chapters/01_introduction.tex}{\input{chapters/01_introduction}}{}
