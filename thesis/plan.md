@@ -6,7 +6,7 @@ Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng
 
 **Yêu cầu hiện hành ngày 16/11/2026:** bản nộp khoảng **60–70 trang, không có phụ lục**, gồm phần đầu, sáu chương, tài liệu tham khảo và hình/bảng cần thiết. Bảng phải đọc được trên trang dọc, không xoay cả trang. Giữ nội dung cốt lõi và giải thích đủ phương pháp cho giảng viên lần đầu tiếp cận hệ thống.
 
-**P9 đang triển khai theo yêu cầu tác giả.** Mốc PDF 259 trang được khóa trong sổ bằng chứng §15; trạng thái từng task ở mục 2.1. Không coi dự toán 66 trang là số trang đã đạt trước khi build.
+**P9 đã xong T73a–T73l và lượt đối soát nội bộ T73.** Bản biên tập có 60 trang, không phụ lục và toàn trang dọc; mốc P8 259 trang/hash/ánh xạ vẫn giữ trong sổ §15. T74–T80 và P10 còn mở; 66 trang là dự toán, không phải số trang bắt buộc chính xác.
 
 Có **84 task cha** qua mười giai đoạn; P9 bổ sung **12 task con T73a–T73l** để quản lý đợt rút gọn trước lượt rà soát cuối. T01–T72 ghi nhận lịch sử bản đầu tiên; T61–T66 và T71 đã hoàn thành theo phạm vi cũ, không còn là yêu cầu giữ phụ lục trong bản nộp mới. Phụ thuộc là điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái tại mục 2.1.
 
@@ -149,7 +149,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Rà soát — P9
 
-**Đợt rút gọn trước rà soát cuối — đang triển khai:**
+**Đợt rút gọn T73a–T73l — đã hoàn thành; bản 60 trang:**
 
 - [x] T73a — DONE: Khóa mốc và ánh xạ biên tập theo ngân sách 66 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73b — DONE: Rút Chương 1–2 còn 3 và 4 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
@@ -166,7 +166,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 **Rà soát bản đã rút gọn:**
 
-- [ ] T73 — Đối soát luận điểm khoa học, phạm vi bằng chứng và nội dung còn đủ sau T73a–T73l.
+- [x] T73 — DONE: Đối soát luận điểm và nội dung cốt lõi sau rút gọn; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T74 — Rà khả năng đọc hiểu của người lần đầu tiếp cận.
 - [ ] T75 — Biên tập tiếng Anh trong toàn bộ khóa luận.
 - [ ] T76 — Kiểm trích dẫn, ghi nguồn, quyền và khai báo cần thiết.

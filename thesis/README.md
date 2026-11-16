@@ -123,7 +123,7 @@ Các file mẫu có ở máy nhưng chưa được Git theo dõi tại mốc l�
 
 ## Bản biên tập P9 hiện hành
 
-T73a–T73l đã thực hiện; bản PDF60 trang và hash hiện tại ở source-map.
+T73a–T73l và T73 đã thực hiện (tự đối soát nội bộ); bản PDF60 trang và hash hiện tại ở source-map.
 Phân bổ thực tế: phần đầu10, sáu chương3/4/6/19/13/2, references3.
 Mục tiêu66 là dự toán, khoảng60–70 là phạm vi làm việc; không chèn nội dung
 để ép từng ngân sách. 17 bảng/năm hình; đủ hai nghiên cứu, hai baseline,

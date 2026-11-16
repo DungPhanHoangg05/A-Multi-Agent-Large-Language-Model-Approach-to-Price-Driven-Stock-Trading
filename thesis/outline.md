@@ -77,6 +77,11 @@ The sample uses A4, 12-point text, one-and-a-half line spacing, Roman front-matt
 
 The working budget is **66 physical PDF pages**, within **60–70 including covers, front matter and references**: front matter 10; Chapters 1–6 respectively 3/5/7/20/15/3; references 3. Retain 12 pt, 1.5 spacing and existing margins. The submission has no appendices and no rotated pages. Evidence archives support traceability without replacing essential method explanations.
 
+The edited draft after T73 has **60 pages**: front matter 10; Chapters 1–6
+3/4/6/19/13/2; references 3. The budgets guide emphasis rather than requiring
+padding. The scope below can be merged into fewer final subsections; the
+LaTeX table of contents gives the current structure. T74–T80 remain pending.
+
 ## C. Detailed chapter outline
 
 ### Front matter
@@ -238,7 +243,7 @@ $$
 
 **Purpose:** let a lecturer reconstruct how the complete system works from the chapter alone. **Budget:** 19–21 pages.
 
-**Explanatory pattern for every component:** motivation → plain-English intuition → inputs available at the cutoff → processing → outputs → downstream consumer → failure/fallback → implementation/source evidence. Introduce each symbol before its equation and each acronym before its repeated use. File names belong in provenance notes or appendices, not in place of an explanation.
+**Explanatory pattern for every component:** motivation → plain-English intuition → inputs available at the cutoff → processing → outputs → downstream consumer → failure/fallback → implementation/source evidence. Introduce each symbol before its equation and each acronym before its repeated use. File inventories belong in the companion evidence record, not in place of an explanation.
 
 #### 4.1. System overview and one-decision walkthrough
 
@@ -314,7 +319,7 @@ $$
 
 - Run upstream once per point/realization and deep-copy the shared parent to all branches.
 - Resolve dependencies once per repeat; distinguish eight research roles, UI choices, forecast slots and actual calls.
-- Present pseudocode for PIT context preparation, method/policy execution and paired forecasting followed by label joining/account evaluation.
+- Use one combined algorithm for PIT preparation, same-repeat method/policy execution, durable forecasting and later label/account evaluation.
 
 #### 4.10. Prompt limits, recovery and application
 
@@ -325,7 +330,7 @@ $$
 - Keep bilingual presentation separate from canonical actions. Screenshots need version/source context; browser acceptance remains pending at the planning baseline.
 - Finish by revisiting the initial example from inputs to final action, then explain when its outcome becomes available for evaluation.
 
-**Required material:** overview architecture; component contract table; one running example; episode/PIT timeline; retrieval and MT training/inference diagrams; dependency DAG; policy decision tree; variant comparison; three algorithms. Optional UI screenshots must not substitute for scientific evidence.
+**Retained material:** overview architecture, compact component contract, one running example, observed-session timeline, MT training/inference diagram, action-policy diagram and variant comparison. Retrieval/regime/dependency logic is explained in formulas and prose instead of repeating diagrams. One combined algorithm replaces the three earlier blocks. The original Pattern/Trend image pair has readable external annotations; UI acceptance remains pending and no screenshot substitutes for scientific evidence.
 
 ### Chapter 5. Experiments and Discussion
 
