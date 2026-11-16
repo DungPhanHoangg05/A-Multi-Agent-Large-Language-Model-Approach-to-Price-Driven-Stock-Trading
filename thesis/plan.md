@@ -103,7 +103,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T61 — DONE: [Phụ lục A](appendices/A_contracts.md) schema/version và hai JSON nguồn, ánh xạ thời gian/nhãn/missingness có liên kết từ §4.2; CL242–CL245/§13.4. Giữ CORE4 khác chín-query-stock, fraction khác %, causal label không là certificate; không nghiên cứu mới.
 - [x] T62 — DONE: [Phụ lục B](appendices/B_prompts.md) prompt families, bản dịch trình bày có nhãn, BRPP/schema/response projection và UUID/hash/length thật; nối §4.10.1; CL246–CL249/§13.5. Không giả prompt Anh đã chạy, không lộ secrets hoặc biến schema validity thành trading gain.
 - [x] T63 — DONE: [Phụ lục C](appendices/C_configuration.md) công thức và bảng cấu hình có source theo nghiên cứu/resource, teacher/student/utility và checkpoint thật; nối §5.3.1; CL250–CL253/§13.6. Giữ hai HMM/scaler, seed42-step3000 khác ensemble/pilot; không fit/inference/utility resampling mới.
-- [ ] T64 — Viết Phụ lục D: kết quả mở rộng.
+- [x] T64 — DONE: [Phụ lục D](appendices/D_results.md) bảng mở rộng component/context theo mã/fold/repeat, đủ sensitivity/omission cells và12 execution scenarios; nối §§5.6–5.7; CL254–CL258/§13.7. Đối soát102/25/77/51, NA/aggregation/repeat means; không chạy ledger hoặc bootstrap mới.
 - [ ] T65 — Viết Phụ lục E: kiểm tra và audit.
 - [ ] T66 — Viết Phụ lục F: tái lập và ứng dụng.
 

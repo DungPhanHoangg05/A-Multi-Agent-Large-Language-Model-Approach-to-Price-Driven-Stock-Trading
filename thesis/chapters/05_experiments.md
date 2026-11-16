@@ -720,6 +720,8 @@ beyond these reported comparisons.[^context-uncertainty]
 
 ## 5.6. Component-study results
 
+[Appendix D.1–D.2](../appendices/D_results.md#d1-component-classification-by-stock-and-block) retains the extended Full/Base group confusion rows and every saved execution-level row of the two smaller panels.
+
 The full component system improves some classification measures over Base
 on the recorded main sample, but its mean account return is slightly
 lower. Price-only logistic regression has higher pooled BA than Full,
@@ -1008,6 +1010,8 @@ pending. None of the component results changes those audit statuses.
 [^component-panel-results]: ED37 `upstream`/`factorial` summaries, support, disagreement and statistics; ED29 complete BA family, ED05 intervention protocol; CL151–CL154, ledger §10.7. All realizations and unfavorable contrasts are retained; no response, fitting or resampling is newly generated.
 
 ## 5.7. Historical-context results
+
+[Appendix D.3–D.7](../appendices/D_results.md#d3-historical-context-by-stock) gives complete stock/fold/repeat grids, the twenty-cell sensitivity family, all saved omission estimates and the separately scoped component execution extension.
 
 ### 5.7.1. Overall results on the complete cohort
 

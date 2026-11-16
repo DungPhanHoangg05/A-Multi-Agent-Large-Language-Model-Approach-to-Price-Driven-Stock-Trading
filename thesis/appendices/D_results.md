@@ -1,0 +1,437 @@
+# Appendix D. Extended Results
+
+The tables extend §§5.6–5.8 using locked CSV/JSON records. They do not
+pool the two response collections. Values are displayed to three decimals;
+a displayed zero need not be an exact numerical zero. NA retains a missing
+or undefined metric rather than replacing it with zero. No forecasts,
+economic accounts, bootstrap draws or utility samples are regenerated.
+[^d-sources]
+
+## D.1. Component classification by stock and block
+
+**Table D1. Full/Base main-cohort group rows.** Each partition covers all
+102 points and preserves 25 UP / 77 DOWN outcomes. TP/FN/TN/FP refer to
+the positive UP label. LONG rate is a fraction of scheduled decisions,
+not held-session exposure. A one-class block can have undefined BA/MCC;
+its rows remain present. These are classification strata, not separately
+funded portfolio-return estimates.
+
+| Group | Method | Points | UP/DOWN | TP/FN/TN/FP | BA (%) | MCC | LONG (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| symbol:BHN | Full | 6 | 1/5 | 1/0/5/0 | 100.000 | 1.000 | 16.667 |
+| symbol:CMG | Full | 12 | 3/9 | 0/3/8/1 | 44.444 | -0.174 | 8.333 |
+| symbol:FPT | Full | 12 | 2/10 | 0/2/8/2 | 40.000 | -0.200 | 16.667 |
+| symbol:HVN | Full | 12 | 2/10 | 1/1/7/3 | 60.000 | 0.158 | 33.333 |
+| symbol:MBB | Full | 12 | 5/7 | 2/3/4/3 | 48.571 | -0.029 | 41.667 |
+| symbol:MWG | Full | 12 | 4/8 | 2/2/5/3 | 56.250 | 0.120 | 41.667 |
+| symbol:VCB | Full | 12 | 4/8 | 1/3/6/2 | 50.000 | 0.000 | 25.000 |
+| symbol:VJC | Full | 12 | 4/8 | 0/4/7/1 | 43.750 | -0.213 | 8.333 |
+| symbol:VNM | Full | 12 | 0/12 | 0/0/10/2 | NA | NA | 16.667 |
+| symbol:BHN | Base | 6 | 1/5 | 1/0/3/2 | 80.000 | 0.447 | 50.000 |
+| symbol:CMG | Base | 12 | 3/9 | 1/2/8/1 | 61.111 | 0.258 | 16.667 |
+| symbol:FPT | Base | 12 | 2/10 | 0/2/6/4 | 30.000 | -0.316 | 33.333 |
+| symbol:HVN | Base | 12 | 2/10 | 1/1/7/3 | 60.000 | 0.158 | 33.333 |
+| symbol:MBB | Base | 12 | 5/7 | 2/3/5/2 | 55.714 | 0.120 | 33.333 |
+| symbol:MWG | Base | 12 | 4/8 | 2/2/4/4 | 50.000 | 0.000 | 50.000 |
+| symbol:VCB | Base | 12 | 4/8 | 0/4/6/2 | 37.500 | -0.316 | 16.667 |
+| symbol:VJC | Base | 12 | 4/8 | 0/4/6/2 | 37.500 | -0.316 | 16.667 |
+| symbol:VNM | Base | 12 | 0/12 | 0/0/10/2 | NA | NA | 16.667 |
+| block:b2023_h2 | Full | 16 | 3/13 | 0/3/10/3 | 38.462 | -0.231 | 18.750 |
+| block:b2024_h2 | Full | 16 | 7/9 | 3/4/5/4 | 49.206 | -0.016 | 43.750 |
+| block:b2025_h1 | Full | 16 | 0/16 | 0/0/14/2 | NA | NA | 12.500 |
+| block:f2025_q4 | Full | 18 | 7/11 | 2/5/10/1 | 59.740 | 0.255 | 16.667 |
+| block:f2026_q2 | Full | 18 | 6/12 | 1/5/9/3 | 45.833 | -0.094 | 22.222 |
+| block:f2026_q3 | Full | 18 | 2/16 | 1/1/12/4 | 62.500 | 0.175 | 27.778 |
+| block:b2023_h2 | Base | 16 | 3/13 | 0/3/9/4 | 34.615 | -0.277 | 25.000 |
+| block:b2024_h2 | Base | 16 | 7/9 | 3/4/5/4 | 49.206 | -0.016 | 43.750 |
+| block:b2025_h1 | Base | 16 | 0/16 | 0/0/15/1 | NA | NA | 6.250 |
+| block:f2025_q4 | Base | 18 | 7/11 | 2/5/9/2 | 55.195 | 0.122 | 22.222 |
+| block:f2026_q2 | Base | 18 | 6/12 | 1/5/9/3 | 45.833 | -0.094 | 22.222 |
+| block:f2026_q3 | Base | 18 | 2/16 | 1/1/8/8 | 50.000 | 0.000 | 50.000 |
+
+## D.2. Separate upstream and factorial executions
+
+**Table D2. All saved execution-level rows in the two nine-unit panels.**
+There are six upstream branch/execution rows and fifteen factorial rows.
+Each row uses nine market units on that panel's own support, not the
+102-point main cohort. B is the panel's Base identifier; AS/P and other
+factorial identifiers retain the interventions defined in §5.6.4.
+These execution rows are not new independent market samples.
+
+| Panel | Variant | Execution | Points | BA (%) | MCC | LONG (%) | Mean account return (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| upstream | B | 0 | 9 | 100.000 | 1.000 | 22.222 | 0.752 |
+| upstream | AS | 0 | 9 | 100.000 | 1.000 | 22.222 | 0.752 |
+| upstream | B | 1 | 9 | 78.571 | 0.478 | 55.556 | -0.005 |
+| upstream | AS | 1 | 9 | 92.857 | 0.756 | 33.333 | 0.367 |
+| upstream | B | 2 | 9 | 92.857 | 0.756 | 33.333 | 0.367 |
+| upstream | AS | 2 | 9 | 92.857 | 0.756 | 33.333 | 0.367 |
+| factorial | B | 0 | 9 | 21.429 | -0.478 | 44.444 | -2.227 |
+| factorial | A | 0 | 9 | 14.286 | -0.598 | 55.556 | -2.391 |
+| factorial | S | 0 | 9 | 14.286 | -0.598 | 55.556 | -2.088 |
+| factorial | AS | 0 | 9 | 21.429 | -0.478 | 44.444 | -2.133 |
+| factorial | P | 0 | 9 | 28.571 | -0.378 | 33.333 | -1.557 |
+| factorial | B | 1 | 9 | 28.571 | -0.378 | 33.333 | -1.742 |
+| factorial | A | 1 | 9 | 21.429 | -0.478 | 44.444 | -1.906 |
+| factorial | S | 1 | 9 | 14.286 | -0.598 | 55.556 | -2.485 |
+| factorial | AS | 1 | 9 | 7.143 | -0.756 | 66.667 | -2.903 |
+| factorial | P | 1 | 9 | 35.714 | -0.286 | 22.222 | -1.038 |
+| factorial | B | 2 | 9 | 35.714 | -0.286 | 22.222 | -1.129 |
+| factorial | A | 2 | 9 | 21.429 | -0.478 | 44.444 | -1.804 |
+| factorial | S | 2 | 9 | 14.286 | -0.598 | 55.556 | -2.452 |
+| factorial | AS | 2 | 9 | 28.571 | -0.378 | 33.333 | -1.648 |
+| factorial | P | 2 | 9 | 28.571 | -0.378 | 33.333 | -1.651 |
+
+## D.3. Historical context by stock
+
+**Table D3. Complete nine-stock / ten-method grid.** Native, Common, v1,
+C2, A, B, MT and Anchor are the eight research roles. CASH and LONG cycles
+are numerical economic controls without new hosted replies. BA is the
+mean of the three saved within-repeat group metrics; the bracket reports
+defined repeats. If a truth class is absent, all three BA values are
+undefined and NA [0/3] is retained. Financial means first average the
+three saved returns/MDDs within each stock–fold account, then equally
+average those accounts. No ledger is rebuilt. Accounts/repeat names the
+financial denominator; points/repeat and UP/DOWN name the classification
+denominator.
+
+| Group | Method | Points/repeat | UP/DOWN | Accounts/repeat | BA (%) [defined repeats] | Mean return (%) | Mean daily MDD (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| BHN | Native | 6 | 1/5 | 3 | 86.667 [3/3] | -0.993 | 1.534 |
+| BHN | Common | 6 | 1/5 | 3 | 83.333 [3/3] | -1.399 | 1.934 |
+| BHN | v1 | 6 | 1/5 | 3 | 83.333 [3/3] | -1.399 | 1.934 |
+| BHN | C2 | 6 | 1/5 | 3 | 83.333 [3/3] | -1.399 | 1.934 |
+| BHN | A | 6 | 1/5 | 3 | 83.333 [3/3] | -1.399 | 1.934 |
+| BHN | B | 6 | 1/5 | 3 | 83.333 [3/3] | -1.399 | 1.934 |
+| BHN | MT | 6 | 1/5 | 3 | 90.000 [3/3] | -1.133 | 1.350 |
+| BHN | Anchor | 6 | 1/5 | 3 | 90.000 [3/3] | -1.133 | 1.350 |
+| BHN | CASH | 6 | 1/5 | 3 | 50.000 [3/3] | 0.000 | 0.000 |
+| BHN | LONG cycles | 6 | 1/5 | 3 | 50.000 [3/3] | -3.763 | 4.451 |
+| CMG | Native | 12 | 3/9 | 6 | 48.148 [3/3] | -0.144 | 0.167 |
+| CMG | Common | 12 | 3/9 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| CMG | v1 | 12 | 3/9 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| CMG | C2 | 12 | 3/9 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| CMG | A | 12 | 3/9 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| CMG | B | 12 | 3/9 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| CMG | MT | 12 | 3/9 | 6 | 42.593 [3/3] | -0.501 | 0.571 |
+| CMG | Anchor | 12 | 3/9 | 6 | 42.593 [3/3] | -0.501 | 0.571 |
+| CMG | CASH | 12 | 3/9 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| CMG | LONG cycles | 12 | 3/9 | 6 | 50.000 [3/3] | -3.198 | 4.171 |
+| FPT | Native | 12 | 2/10 | 6 | 43.333 [3/3] | -0.281 | 0.354 |
+| FPT | Common | 12 | 2/10 | 6 | 28.333 [3/3] | -1.591 | 1.770 |
+| FPT | v1 | 12 | 2/10 | 6 | 40.000 [3/3] | -0.293 | 0.393 |
+| FPT | C2 | 12 | 2/10 | 6 | 28.333 [3/3] | -1.591 | 1.770 |
+| FPT | A | 12 | 2/10 | 6 | 28.333 [3/3] | -1.591 | 1.770 |
+| FPT | B | 12 | 2/10 | 6 | 28.333 [3/3] | -1.591 | 1.770 |
+| FPT | MT | 12 | 2/10 | 6 | 25.000 [3/3] | -1.651 | 1.830 |
+| FPT | Anchor | 12 | 2/10 | 6 | 25.000 [3/3] | -1.651 | 1.830 |
+| FPT | CASH | 12 | 2/10 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| FPT | LONG cycles | 12 | 2/10 | 6 | 50.000 [3/3] | -2.866 | 4.185 |
+| HVN | Native | 12 | 2/10 | 6 | 63.333 [3/3] | -0.830 | 2.195 |
+| HVN | Common | 12 | 2/10 | 6 | 56.667 [3/3] | -2.213 | 3.853 |
+| HVN | v1 | 12 | 2/10 | 6 | 56.667 [3/3] | -2.213 | 3.853 |
+| HVN | C2 | 12 | 2/10 | 6 | 56.667 [3/3] | -2.213 | 3.853 |
+| HVN | A | 12 | 2/10 | 6 | 56.667 [3/3] | -2.213 | 3.853 |
+| HVN | B | 12 | 2/10 | 6 | 56.667 [3/3] | -2.213 | 3.853 |
+| HVN | MT | 12 | 2/10 | 6 | 73.333 [3/3] | -2.699 | 4.879 |
+| HVN | Anchor | 12 | 2/10 | 6 | 75.000 [3/3] | -2.612 | 4.766 |
+| HVN | CASH | 12 | 2/10 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| HVN | LONG cycles | 12 | 2/10 | 6 | 50.000 [3/3] | -3.951 | 6.293 |
+| MBB | Native | 12 | 5/7 | 6 | 50.952 [3/3] | -0.550 | 1.670 |
+| MBB | Common | 12 | 5/7 | 6 | 48.571 [3/3] | -0.696 | 1.816 |
+| MBB | v1 | 12 | 5/7 | 6 | 48.571 [3/3] | -0.696 | 1.816 |
+| MBB | C2 | 12 | 5/7 | 6 | 48.571 [3/3] | -0.696 | 1.816 |
+| MBB | A | 12 | 5/7 | 6 | 48.571 [3/3] | -0.696 | 1.816 |
+| MBB | B | 12 | 5/7 | 6 | 48.571 [3/3] | -0.696 | 1.816 |
+| MBB | MT | 12 | 5/7 | 6 | 48.571 [3/3] | -0.924 | 1.954 |
+| MBB | Anchor | 12 | 5/7 | 6 | 46.190 [3/3] | -1.070 | 2.099 |
+| MBB | CASH | 12 | 5/7 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| MBB | LONG cycles | 12 | 5/7 | 6 | 50.000 [3/3] | -1.876 | 4.039 |
+| MWG | Native | 12 | 4/8 | 6 | 52.083 [3/3] | -0.709 | 1.839 |
+| MWG | Common | 12 | 4/8 | 6 | 43.750 [3/3] | -0.670 | 1.938 |
+| MWG | v1 | 12 | 4/8 | 6 | 43.750 [3/3] | -0.176 | 1.238 |
+| MWG | C2 | 12 | 4/8 | 6 | 43.750 [3/3] | -0.670 | 1.938 |
+| MWG | A | 12 | 4/8 | 6 | 43.750 [3/3] | -0.670 | 1.938 |
+| MWG | B | 12 | 4/8 | 6 | 43.750 [3/3] | -0.670 | 1.938 |
+| MWG | MT | 12 | 4/8 | 6 | 29.167 [3/3] | -1.026 | 2.149 |
+| MWG | Anchor | 12 | 4/8 | 6 | 25.000 [3/3] | -1.247 | 2.370 |
+| MWG | CASH | 12 | 4/8 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| MWG | LONG cycles | 12 | 4/8 | 6 | 50.000 [3/3] | -3.116 | 5.088 |
+| VCB | Native | 12 | 4/8 | 6 | 45.833 [3/3] | -0.826 | 1.108 |
+| VCB | Common | 12 | 4/8 | 6 | 37.500 [3/3] | -0.930 | 1.020 |
+| VCB | v1 | 12 | 4/8 | 6 | 50.000 [3/3] | -0.774 | 1.153 |
+| VCB | C2 | 12 | 4/8 | 6 | 37.500 [3/3] | -0.930 | 1.020 |
+| VCB | A | 12 | 4/8 | 6 | 37.500 [3/3] | -0.930 | 1.020 |
+| VCB | B | 12 | 4/8 | 6 | 37.500 [3/3] | -0.930 | 1.020 |
+| VCB | MT | 12 | 4/8 | 6 | 37.500 [3/3] | -0.930 | 1.020 |
+| VCB | Anchor | 12 | 4/8 | 6 | 37.500 [3/3] | -0.930 | 1.020 |
+| VCB | CASH | 12 | 4/8 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| VCB | LONG cycles | 12 | 4/8 | 6 | 50.000 [3/3] | -2.309 | 3.945 |
+| VJC | Native | 12 | 4/8 | 6 | 43.750 [3/3] | -0.768 | 0.927 |
+| VJC | Common | 12 | 4/8 | 6 | 37.500 [3/3] | -0.967 | 1.589 |
+| VJC | v1 | 12 | 4/8 | 6 | 37.500 [3/3] | -0.967 | 1.589 |
+| VJC | C2 | 12 | 4/8 | 6 | 37.500 [3/3] | -0.967 | 1.589 |
+| VJC | A | 12 | 4/8 | 6 | 37.500 [3/3] | -0.967 | 1.589 |
+| VJC | B | 12 | 4/8 | 6 | 37.500 [3/3] | -0.967 | 1.589 |
+| VJC | MT | 12 | 4/8 | 6 | 31.250 [3/3] | -1.368 | 1.581 |
+| VJC | Anchor | 12 | 4/8 | 6 | 31.250 [3/3] | -1.368 | 1.581 |
+| VJC | CASH | 12 | 4/8 | 6 | 50.000 [3/3] | 0.000 | 0.000 |
+| VJC | LONG cycles | 12 | 4/8 | 6 | 50.000 [3/3] | -2.001 | 4.067 |
+| VNM | Native | 12 | 0/12 | 6 | NA [0/3] | -0.944 | 1.051 |
+| VNM | Common | 12 | 0/12 | 6 | NA [0/3] | -0.944 | 1.051 |
+| VNM | v1 | 12 | 0/12 | 6 | NA [0/3] | -0.116 | 0.223 |
+| VNM | C2 | 12 | 0/12 | 6 | NA [0/3] | -0.989 | 1.096 |
+| VNM | A | 12 | 0/12 | 6 | NA [0/3] | -0.898 | 1.006 |
+| VNM | B | 12 | 0/12 | 6 | NA [0/3] | -0.989 | 1.096 |
+| VNM | MT | 12 | 0/12 | 6 | NA [0/3] | -0.989 | 1.096 |
+| VNM | Anchor | 12 | 0/12 | 6 | NA [0/3] | -0.989 | 1.096 |
+| VNM | CASH | 12 | 0/12 | 6 | NA [0/3] | 0.000 | 0.000 |
+| VNM | LONG cycles | 12 | 0/12 | 6 | NA [0/3] | -4.300 | 4.430 |
+
+## D.4. Historical context by fold
+
+**Table D4. Complete six-fold / ten-method grid.** The same group
+definitions and averaging order as D3 apply. Fold-specific class support
+is shown even when BA is undefined. Account-count-weighted returns across
+either D3 or D4 reconcile to B06a; averaging group BAs by account count
+does **not** recover overall BA because class support differs. Summing
+the saved group confusion matrices within each repeat does recover the
+overall confusion matrix.
+
+| Group | Method | Points/repeat | UP/DOWN | Accounts/repeat | BA (%) [defined repeats] | Mean return (%) | Mean daily MDD (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| b2023_h2 | Native | 16 | 3/13 | 8 | 42.308 [3/3] | -0.342 | 0.490 |
+| b2023_h2 | Common | 16 | 3/13 | 8 | 26.923 [3/3] | -1.640 | 2.186 |
+| b2023_h2 | v1 | 16 | 3/13 | 8 | 30.769 [3/3] | -1.209 | 1.695 |
+| b2023_h2 | C2 | 16 | 3/13 | 8 | 26.923 [3/3] | -1.640 | 2.186 |
+| b2023_h2 | A | 16 | 3/13 | 8 | 26.923 [3/3] | -1.640 | 2.186 |
+| b2023_h2 | B | 16 | 3/13 | 8 | 26.923 [3/3] | -1.640 | 2.186 |
+| b2023_h2 | MT | 16 | 3/13 | 8 | 26.923 [3/3] | -1.640 | 2.186 |
+| b2023_h2 | Anchor | 16 | 3/13 | 8 | 26.923 [3/3] | -1.640 | 2.186 |
+| b2023_h2 | CASH | 16 | 3/13 | 8 | 50.000 [3/3] | 0.000 | 0.000 |
+| b2023_h2 | LONG cycles | 16 | 3/13 | 8 | 50.000 [3/3] | -2.694 | 4.282 |
+| b2024_h2 | Native | 16 | 7/9 | 8 | 48.148 [3/3] | -0.144 | 1.141 |
+| b2024_h2 | Common | 16 | 7/9 | 8 | 45.238 [3/3] | -0.114 | 0.949 |
+| b2024_h2 | v1 | 16 | 7/9 | 8 | 47.619 [3/3] | -0.023 | 0.936 |
+| b2024_h2 | C2 | 16 | 7/9 | 8 | 45.238 [3/3] | -0.114 | 0.949 |
+| b2024_h2 | A | 16 | 7/9 | 8 | 45.238 [3/3] | -0.114 | 0.949 |
+| b2024_h2 | B | 16 | 7/9 | 8 | 45.238 [3/3] | -0.114 | 0.949 |
+| b2024_h2 | MT | 16 | 7/9 | 8 | 27.513 [3/3] | -0.699 | 1.468 |
+| b2024_h2 | Anchor | 16 | 7/9 | 8 | 29.365 [3/3] | -0.634 | 1.383 |
+| b2024_h2 | CASH | 16 | 7/9 | 8 | 50.000 [3/3] | 0.000 | 0.000 |
+| b2024_h2 | LONG cycles | 16 | 7/9 | 8 | 50.000 [3/3] | 0.065 | 2.458 |
+| b2025_h1 | Native | 16 | 0/16 | 8 | NA [0/3] | -1.141 | 1.344 |
+| b2025_h1 | Common | 16 | 0/16 | 8 | NA [0/3] | -1.141 | 1.344 |
+| b2025_h1 | v1 | 16 | 0/16 | 8 | NA [0/3] | -1.141 | 1.344 |
+| b2025_h1 | C2 | 16 | 0/16 | 8 | NA [0/3] | -1.141 | 1.344 |
+| b2025_h1 | A | 16 | 0/16 | 8 | NA [0/3] | -1.141 | 1.344 |
+| b2025_h1 | B | 16 | 0/16 | 8 | NA [0/3] | -1.141 | 1.344 |
+| b2025_h1 | MT | 16 | 0/16 | 8 | NA [0/3] | -1.901 | 2.037 |
+| b2025_h1 | Anchor | 16 | 0/16 | 8 | NA [0/3] | -1.901 | 2.037 |
+| b2025_h1 | CASH | 16 | 0/16 | 8 | NA [0/3] | 0.000 | 0.000 |
+| b2025_h1 | LONG cycles | 16 | 0/16 | 8 | NA [0/3] | -9.870 | 9.955 |
+| f2025_q4 | Native | 18 | 7/11 | 9 | 56.710 [3/3] | 0.200 | 0.618 |
+| f2025_q4 | Common | 18 | 7/11 | 9 | 52.165 [3/3] | 0.067 | 1.059 |
+| f2025_q4 | v1 | 18 | 7/11 | 9 | 59.740 [3/3] | 0.619 | 0.507 |
+| f2025_q4 | C2 | 18 | 7/11 | 9 | 50.649 [3/3] | 0.037 | 1.089 |
+| f2025_q4 | A | 18 | 7/11 | 9 | 53.680 [3/3] | 0.098 | 1.028 |
+| f2025_q4 | B | 18 | 7/11 | 9 | 50.649 [3/3] | 0.037 | 1.089 |
+| f2025_q4 | MT | 18 | 7/11 | 9 | 50.649 [3/3] | 0.057 | 0.801 |
+| f2025_q4 | Anchor | 18 | 7/11 | 9 | 50.649 [3/3] | 0.057 | 0.801 |
+| f2025_q4 | CASH | 18 | 7/11 | 9 | 50.000 [3/3] | 0.000 | 0.000 |
+| f2025_q4 | LONG cycles | 18 | 7/11 | 9 | 50.000 [3/3] | 0.213 | 2.506 |
+| f2026_q2 | Native | 18 | 6/12 | 9 | 44.444 [3/3] | -1.642 | 1.821 |
+| f2026_q2 | Common | 18 | 6/12 | 9 | 43.056 [3/3] | -1.824 | 2.002 |
+| f2026_q2 | v1 | 18 | 6/12 | 9 | 43.056 [3/3] | -1.824 | 2.002 |
+| f2026_q2 | C2 | 18 | 6/12 | 9 | 43.056 [3/3] | -1.824 | 2.002 |
+| f2026_q2 | A | 18 | 6/12 | 9 | 43.056 [3/3] | -1.824 | 2.002 |
+| f2026_q2 | B | 18 | 6/12 | 9 | 43.056 [3/3] | -1.824 | 2.002 |
+| f2026_q2 | MT | 18 | 6/12 | 9 | 50.000 [3/3] | -1.664 | 2.184 |
+| f2026_q2 | Anchor | 18 | 6/12 | 9 | 50.000 [3/3] | -1.664 | 2.184 |
+| f2026_q2 | CASH | 18 | 6/12 | 9 | 50.000 [3/3] | 0.000 | 0.000 |
+| f2026_q2 | LONG cycles | 18 | 6/12 | 9 | 50.000 [3/3] | -2.886 | 4.024 |
+| f2026_q3 | Native | 18 | 2/16 | 9 | 61.458 [3/3] | -0.810 | 1.638 |
+| f2026_q3 | Common | 18 | 2/16 | 9 | 55.208 [3/3] | -1.477 | 2.294 |
+| f2026_q3 | v1 | 18 | 2/16 | 9 | 63.542 [3/3] | -0.641 | 1.445 |
+| f2026_q3 | C2 | 18 | 2/16 | 9 | 55.208 [3/3] | -1.477 | 2.294 |
+| f2026_q3 | A | 18 | 2/16 | 9 | 55.208 [3/3] | -1.477 | 2.294 |
+| f2026_q3 | B | 18 | 2/16 | 9 | 55.208 [3/3] | -1.477 | 2.294 |
+| f2026_q3 | MT | 18 | 2/16 | 9 | 52.083 [3/3] | -1.727 | 2.460 |
+| f2026_q3 | Anchor | 18 | 2/16 | 9 | 48.958 [3/3] | -1.971 | 2.704 |
+| f2026_q3 | CASH | 18 | 2/16 | 9 | 50.000 [3/3] | 0.000 | 0.000 |
+| f2026_q3 | LONG cycles | 18 | 2/16 | 9 | 50.000 [3/3] | -3.215 | 4.260 |
+
+## D.5. Historical context by Decision repeat
+
+**Table D5. All thirty method/repeat rows.** Each row has 102 complete
+points, 25 UP / 77 DOWN and 51 accounts. Confusion uses TP/FN/TN/FP.
+BA is percent, MCC unitless and return percent. Sharpe and Sortino are
+the saved unannualized cycle measures; the context Sortino uses the
+all-cycle lower-partial-second-moment convention. Annualized metrics are
+NA under the recorded sparse schedule and are not filled here. These
+Decision repeats share upstream inputs; they do not measure independent
+complete-pipeline variability.
+
+| Method | Repeat | TP/FN/TN/FP | BA (%) | MCC | Mean return (%) | Cycle Sharpe | Cycle Sortino LPM2 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Native | 0 | 7/18/60/17 | 52.961 | 0.060 | -0.726 | -0.221 | -0.248 |
+| Native | 1 | 7/18/59/18 | 52.312 | 0.046 | -0.684 | -0.215 | -0.244 |
+| Native | 2 | 5/20/62/15 | 50.260 | 0.006 | -0.548 | -0.180 | -0.210 |
+| Common | 0 | 6/19/55/22 | 47.714 | -0.044 | -0.930 | -0.267 | -0.291 |
+| Common | 1 | 6/19/54/23 | 47.065 | -0.056 | -1.019 | -0.284 | -0.305 |
+| Common | 2 | 5/20/51/26 | 43.117 | -0.129 | -1.125 | -0.311 | -0.330 |
+| v1 | 0 | 6/19/59/18 | 50.312 | 0.006 | -0.642 | -0.198 | -0.225 |
+| v1 | 1 | 6/19/59/18 | 50.312 | 0.006 | -0.715 | -0.212 | -0.237 |
+| v1 | 2 | 6/19/58/19 | 49.662 | -0.007 | -0.738 | -0.219 | -0.244 |
+| C2 | 0 | 6/19/54/23 | 47.065 | -0.056 | -0.946 | -0.272 | -0.295 |
+| C2 | 1 | 6/19/54/23 | 47.065 | -0.056 | -1.019 | -0.284 | -0.305 |
+| C2 | 2 | 5/20/51/26 | 43.117 | -0.129 | -1.125 | -0.311 | -0.330 |
+| A | 0 | 6/19/55/22 | 47.714 | -0.044 | -0.930 | -0.267 | -0.291 |
+| A | 1 | 6/19/55/22 | 47.714 | -0.044 | -1.003 | -0.279 | -0.300 |
+| A | 2 | 5/20/51/26 | 43.117 | -0.129 | -1.125 | -0.311 | -0.330 |
+| B | 0 | 6/19/54/23 | 47.065 | -0.056 | -0.946 | -0.272 | -0.295 |
+| B | 1 | 6/19/54/23 | 47.065 | -0.056 | -1.019 | -0.284 | -0.305 |
+| B | 2 | 5/20/51/26 | 43.117 | -0.129 | -1.125 | -0.311 | -0.330 |
+| MT | 0 | 6/19/49/28 | 43.818 | -0.113 | -1.175 | -0.312 | -0.333 |
+| MT | 1 | 6/19/48/29 | 43.169 | -0.124 | -1.220 | -0.322 | -0.343 |
+| MT | 2 | 6/19/47/30 | 42.519 | -0.135 | -1.366 | -0.344 | -0.358 |
+| Anchor | 0 | 6/19/48/29 | 43.169 | -0.124 | -1.234 | -0.326 | -0.346 |
+| Anchor | 1 | 6/19/47/30 | 42.519 | -0.135 | -1.259 | -0.332 | -0.352 |
+| Anchor | 2 | 6/19/47/30 | 42.519 | -0.135 | -1.366 | -0.344 | -0.358 |
+| CASH | 0 | 0/25/77/0 | 50.000 | NA | 0.000 | NA | NA |
+| CASH | 1 | 0/25/77/0 | 50.000 | NA | 0.000 | NA | NA |
+| CASH | 2 | 0/25/77/0 | 50.000 | NA | 0.000 | NA | NA |
+| LONG cycles | 0 | 25/0/0/77 | 50.000 | NA | -3.000 | -0.535 | -0.512 |
+| LONG cycles | 1 | 25/0/0/77 | 50.000 | NA | -3.000 | -0.535 | -0.512 |
+| LONG cycles | 2 | 25/0/0/77 | 50.000 | NA | -3.000 | -0.535 | -0.512 |
+
+## D.6. Complete contrast sensitivity family
+
+**Table D6. All twenty endpoint/contrast cells.** Units are pp, extension
+minus baseline. L2 is the primary saved joint band; L1/L3 are alternative
+saved circular-block constructions on the complete cohort. CORE4 has its
+own 48-point/24-account estimate and band. None is a newly drawn interval
+or a replacement selected because it looks favorable. These descriptive
+families use six exposed folds and do not establish confirmatory coverage.
+
+| Endpoint | Contrast | Full estimate | L2 band | L1 band | L3 band | CORE4 estimate [band] |
+| --- | --- | --- | --- | --- | --- | --- |
+| Return | v1−Native | -0.045 | [-0.362, 0.271] | [-0.476, 0.385] | [-0.314, 0.223] | 0.350 [-0.024, 0.725] |
+| Return | C2−Native | -0.377 | [-0.866, 0.111] | [-0.865, 0.110] | [-0.720, -0.035] | -0.355 [-0.843, 0.132] |
+| Return | A−Native | -0.367 | [-0.867, 0.133] | [-0.861, 0.127] | [-0.722, -0.011] | -0.333 [-0.852, 0.186] |
+| Return | B−Native | -0.377 | [-0.866, 0.111] | [-0.865, 0.110] | [-0.720, -0.035] | -0.355 [-0.843, 0.132] |
+| Return | MT−Native | -0.601 | [-1.090, -0.111] | [-1.077, -0.124] | [-0.949, -0.252] | -0.459 [-0.975, 0.057] |
+| Return | v1−Common | 0.327 | [0.067, 0.586] | [-0.019, 0.672] | [0.144, 0.509] | 0.694 [0.132, 1.257] |
+| Return | C2−Common | -0.005 | [-0.016, 0.005] | [-0.018, 0.007] | [-0.013, 0.002] | -0.011 [-0.034, 0.011] |
+| Return | A−Common | 0.005 | [-0.005, 0.016] | [-0.007, 0.018] | [-0.002, 0.013] | 0.011 [-0.011, 0.034] |
+| Return | B−Common | -0.005 | [-0.016, 0.005] | [-0.018, 0.007] | [-0.013, 0.002] | -0.011 [-0.034, 0.011] |
+| Return | MT−Common | -0.229 | [-0.576, 0.118] | [-0.578, 0.120] | [-0.469, 0.012] | -0.115 [-0.205, -0.026] |
+| BA | v1−Native | -1.749 | [-6.374, 2.876] | [-7.081, 3.584] | [-5.258, 1.760] | -0.351 [-10.475, 9.773] |
+| BA | C2−Native | -6.095 | [-11.629, -0.561] | [-11.682, -0.508] | [-10.054, -2.137] | -9.474 [-20.432, 1.484] |
+| BA | A−Native | -5.662 | [-11.771, 0.446] | [-11.434, 0.110] | [-10.200, -1.125] | -8.596 [-20.969, 3.776] |
+| BA | B−Native | -6.095 | [-11.629, -0.561] | [-11.682, -0.508] | [-10.054, -2.137] | -9.474 [-20.432, 1.484] |
+| BA | MT−Native | -8.675 | [-20.239, 2.888] | [-20.362, 3.012] | [-17.868, 0.518] | -15.000 [-28.388, -1.612] |
+| BA | v1−Common | 4.130 | [2.011, 6.249] | [0.323, 7.937] | [2.092, 6.168] | 8.684 [4.472, 12.896] |
+| BA | C2−Common | -0.216 | [-0.668, 0.235] | [-0.781, 0.348] | [-0.528, 0.095] | -0.439 [-1.361, 0.484] |
+| BA | A−Common | 0.216 | [-0.235, 0.668] | [-0.348, 0.781] | [-0.095, 0.528] | 0.439 [-0.484, 1.361] |
+| BA | B−Common | -0.216 | [-0.668, 0.235] | [-0.781, 0.348] | [-0.528, 0.095] | -0.439 [-1.361, 0.484] |
+| BA | MT−Common | -2.797 | [-11.168, 5.575] | [-12.059, 6.466] | [-9.588, 3.995] | -5.965 [-9.604, -2.326] |
+
+**Table D7a. Saved leave-one-fold-out point differences.** Column names
+identify the omitted fold. These are estimates on changed support, not
+confidence limits. Both endpoints and all ten contrasts are retained.
+
+| Endpoint | Contrast | b2023_h2 | b2024_h2 | b2025_h1 | f2025_q4 | f2026_q2 | f2026_q3 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Return | v1−Native | 0.107 | -0.076 | -0.054 | -0.145 | -0.016 | -0.091 |
+| Return | C2−Native | -0.206 | -0.453 | -0.448 | -0.423 | -0.419 | -0.316 |
+| Return | A−Native | -0.193 | -0.441 | -0.435 | -0.423 | -0.406 | -0.303 |
+| Return | B−Native | -0.206 | -0.453 | -0.448 | -0.423 | -0.419 | -0.316 |
+| Return | MT−Native | -0.471 | -0.609 | -0.571 | -0.699 | -0.725 | -0.533 |
+| Return | v1−Common | 0.307 | 0.371 | 0.387 | 0.278 | 0.397 | 0.218 |
+| Return | C2−Common | -0.006 | -0.006 | -0.006 | 0.000 | -0.006 | -0.006 |
+| Return | A−Common | 0.006 | 0.006 | 0.006 | 0.000 | 0.006 | 0.006 |
+| Return | B−Common | -0.006 | -0.006 | -0.006 | 0.000 | -0.006 | -0.006 |
+| Return | MT−Common | -0.271 | -0.162 | -0.130 | -0.276 | -0.312 | -0.224 |
+| BA | v1−Native | 0.284 | -1.471 | -2.033 | -2.694 | -1.903 | -2.637 |
+| BA | C2−Native | -4.119 | -5.637 | -7.344 | -6.397 | -7.139 | -5.821 |
+| BA | A−Native | -3.598 | -5.147 | -6.798 | -6.397 | -6.626 | -5.274 |
+| BA | B−Native | -4.119 | -5.637 | -7.344 | -6.397 | -7.139 | -5.821 |
+| BA | MT−Native | -7.268 | -4.820 | -9.683 | -9.259 | -12.483 | -8.375 |
+| BA | v1−Common | 4.143 | 3.922 | 5.038 | 3.704 | 4.980 | 2.910 |
+| BA | C2−Common | -0.260 | -0.245 | -0.273 | 0.000 | -0.256 | -0.273 |
+| BA | A−Common | 0.260 | 0.245 | 0.273 | 0.000 | 0.256 | 0.273 |
+| BA | B−Common | -0.260 | -0.245 | -0.273 | 0.000 | -0.256 | -0.273 |
+| BA | MT−Common | -3.409 | 0.572 | -2.612 | -2.862 | -5.601 | -2.827 |
+
+**Table D7b. Saved leave-one-symbol-out point differences.** Column names
+identify the omitted stock. This table has the same twenty-cell identity
+order as D6/D7a; there is no re-estimation or selection of omissions.
+
+| Endpoint | Contrast | BHN | CMG | FPT | HVN | MBB | MWG | VCB | VJC | VNM |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Return | v1−Native | -0.023 | -0.071 | -0.050 | 0.133 | -0.032 | -0.123 | -0.058 | -0.025 | -0.162 |
+| Return | C2−Native | -0.376 | -0.447 | -0.253 | -0.243 | -0.408 | -0.433 | -0.414 | -0.401 | -0.422 |
+| Return | A−Native | -0.364 | -0.435 | -0.241 | -0.231 | -0.396 | -0.421 | -0.402 | -0.389 | -0.422 |
+| Return | B−Native | -0.376 | -0.447 | -0.253 | -0.243 | -0.408 | -0.433 | -0.414 | -0.401 | -0.422 |
+| Return | MT−Native | -0.630 | -0.633 | -0.498 | -0.432 | -0.631 | -0.639 | -0.667 | -0.601 | -0.675 |
+| Return | v1−Common | 0.347 | 0.370 | 0.197 | 0.370 | 0.370 | 0.304 | 0.349 | 0.370 | 0.260 |
+| Return | C2−Common | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | 0.000 |
+| Return | A−Common | 0.006 | 0.006 | 0.006 | 0.006 | 0.006 | 0.006 | 0.006 | 0.006 | 0.000 |
+| Return | B−Common | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | -0.006 | 0.000 |
+| Return | MT−Common | -0.260 | -0.192 | -0.251 | -0.194 | -0.229 | -0.212 | -0.259 | -0.206 | -0.253 |
+| BA | v1−Native | -1.620 | -2.228 | -1.471 | -0.973 | -1.786 | -0.414 | -2.795 | -1.277 | -3.231 |
+| BA | C2−Native | -6.250 | -7.152 | -4.683 | -5.927 | -6.667 | -5.935 | -5.314 | -6.177 | -6.718 |
+| BA | A−Native | -5.787 | -6.662 | -4.186 | -5.429 | -6.190 | -5.452 | -4.831 | -5.694 | -6.718 |
+| BA | B−Native | -6.250 | -7.152 | -4.683 | -5.927 | -6.667 | -5.935 | -5.314 | -6.177 | -6.718 |
+| BA | MT−Native | -9.491 | -9.091 | -7.192 | -9.864 | -9.405 | -6.453 | -8.144 | -8.282 | -9.897 |
+| BA | v1−Common | 4.398 | 4.679 | 2.963 | 4.705 | 4.643 | 5.280 | 2.277 | 4.658 | 3.487 |
+| BA | C2−Common | -0.231 | -0.245 | -0.249 | -0.249 | -0.238 | -0.242 | -0.242 | -0.242 | 0.000 |
+| BA | A−Common | 0.231 | 0.245 | 0.249 | 0.249 | 0.238 | 0.242 | 0.242 | 0.242 | 0.000 |
+| BA | B−Common | -0.231 | -0.245 | -0.249 | -0.249 | -0.238 | -0.242 | -0.242 | -0.242 | 0.000 |
+| BA | MT−Common | -3.472 | -2.184 | -2.758 | -4.186 | -2.976 | -0.759 | -3.071 | -2.346 | -3.179 |
+
+## D.7. Component execution-scenario extension
+
+**Table D8. Full/Base in every one of the twelve saved scenarios.**
+Each row retains 102 units and 51 accounts. “Within-method Δ” is the
+scenario minus that method's own reference, not a Full-minus-Base contrast.
+Blocked counts are attempted orders; residual/pending counts are accounts.
+The complete source has 120 scenario/method rows; the declared display
+selects both primary methods for all twelve scenarios (24 rows), not
+favorable scenarios. The other comparator rows remain in the archive.
+
+| Scenario | Method | Return (%) | Daily MDD (%) | Within-method Δ (pp) | Buy/sell fills | Blocked | Residual/pending accounts |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| reference | Full | -0.797 | 1.367 | 0.000 | 24/24 | 0 | 0/0 |
+| reference | Base | -0.750 | 1.453 | 0.000 | 29/29 | 0 | 0/0 |
+| pending_t2 | Full | -0.797 | 1.367 | 0.000 | 24/24 | 0 | 0/0 |
+| pending_t2 | Base | -0.750 | 1.453 | 0.000 | 29/29 | 0 | 0/0 |
+| advance_on_demand | Full | -0.797 | 1.367 | 0.000 | 24/24 | 0 | 0/0 |
+| advance_on_demand | Base | -0.750 | 1.453 | 0.000 | 29/29 | 0 | 0/0 |
+| advance_auto | Full | -0.840 | 1.387 | -0.043 | 24/24 | 0 | 0/0 |
+| advance_auto | Base | -0.803 | 1.479 | -0.054 | 29/29 | 0 | 0/0 |
+| lower_cost | Full | -0.612 | 1.257 | 0.185 | 24/24 | 0 | 0/0 |
+| lower_cost | Base | -0.526 | 1.323 | 0.224 | 29/29 | 0 | 0/0 |
+| higher_cost | Full | -1.211 | 1.639 | -0.414 | 24/24 | 0 | 0/0 |
+| higher_cost | Base | -1.249 | 1.767 | -0.499 | 29/29 | 0 | 0/0 |
+| sell_charge_10bp | Full | -0.843 | 1.388 | -0.046 | 24/24 | 0 | 0/0 |
+| sell_charge_10bp | Base | -0.805 | 1.479 | -0.056 | 29/29 | 0 | 0/0 |
+| no_fill_proxy | Full | -0.803 | 1.360 | -0.006 | 23/23 | 1 | 0/0 |
+| no_fill_proxy | Base | -0.659 | 1.322 | 0.090 | 26/26 | 3 | 0/0 |
+| delayed_proxy | Full | -0.766 | 1.367 | 0.030 | 24/24 | 2 | 0/0 |
+| delayed_proxy | Base | -0.621 | 1.415 | 0.129 | 29/29 | 4 | 0/1 |
+| lot100_cap1pct | Full | -0.745 | 1.282 | 0.052 | 23/23 | 1 | 0/0 |
+| lot100_cap1pct | Base | -0.602 | 1.235 | 0.148 | 26/26 | 3 | 0/0 |
+| combined | Full | -1.166 | 1.559 | -0.369 | 23/23 | 3 | 0/0 |
+| combined | Base | -1.074 | 1.532 | -0.325 | 26/26 | 9 | 0/0 |
+| all_entries_missed | Full | 0.000 | 0.000 | 0.797 | 0/0 | 24 | 0/0 |
+| all_entries_missed | Base | 0.000 | 0.000 | 0.750 | 0/0 | 29 | 0/0 |
+
+Predictions and canonical labels are fixed in this extension. The
+assumption-based fill/cost/settlement screens do not establish executable
+fills, certified worst-case bounds or independently available entry-time
+information. No execution-certified fill is supplied by these scenarios.
+The component and context risk conventions remain separate (§5.5.2).
+
+[^d-sources]: Component `final_baselines_v1/classification.csv` and its pinned manifest; archived `final_repeats_v1/panels.json`; U09 `accounts.csv`, `classification_by_group.csv`, `classification_by_repeat.csv`, `per_repeat.csv` and `results.json` sensitivity arrays; archived `execution_final_v1/scenario_summary.csv`. Exact row keys, denominators, reconciliation checks and hashes are mapped in ledger §13.7/CL254–CL258. Values are formatted or descriptively grouped from saved outputs, without calling the outcome oracle or resampling.
