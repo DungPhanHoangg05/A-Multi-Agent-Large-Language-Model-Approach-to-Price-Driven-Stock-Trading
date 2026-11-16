@@ -1554,6 +1554,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL270 | [Front matter and literature](latex/frontmatter/content.tex) | DAN_XUAT | Confirmed frontmatter and Chapters1/2/6, bibliography22 entries; Biber log; §14.4 | Acknowledgements/declaration/abstract/7 keywords,42 abbreviations/26 notation rows, three chapters and auto lists/citations transferred | Declaration unsigned; editorial status notes excluded without inventing official approval; sources attributed |
 
+| CL271 | [Appendices in LaTeX](latex/appendices/D_results.tex) | DAN_XUAT | Appendices A–F at e4e31daf; full migration row/numeric/math QA; PDF build; §14.5 | Six appendices,32 tables/479 data rows,5 display equations,stored JSON/prompt/command examples and cross-references transferred | Same support and original UUID/values; long code wraps without new execution or translated-wire claim |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2902,3 +2904,10 @@ Build bản ghép Chương3–5 thành công bằng LuaLaTeX/Biber, không sourc
 T70 chuyển ba chương còn lại, phần đầu đã xác nhận,42 abbreviations/26 symbol rows, bibliography22 mục, danh mục nội dung/hình/bảng tự sinh. Bìa chỉ xuất hiện hai trang theo nguồn covers, không chép lại bảng metadata/outer/inner từ Markdown; nhãn quản lý Draft/Writing aids không vào PDF. Lời cảm ơn/cam đoan giữ câu chữ tác giả, nhãn unsigned và trường ký/ngày còn trống. Sơ đồ Mermaid bài toán chuyển TikZ có thể sửa, giữ hướng future prices chỉ tới evaluation.
 
 Đối soát ba bảng/13 dòng của Chương1/2 và phần ký hiệu với nguồn; citation keys nối Biber, style numeric/sorting none theo lựa chọn biên tập. Biber không có key thiếu; hai warning legacy month March/year n.d. giữ metadata gốc và không ảnh hưởng thứ tự numeric. LuaLaTeX ghép đủ6chương/phầnđầu; render/kiểm bản ghép tiếp ở T71–T72. Markdown/bibliography gốc chưa sửa; không suy luật hoặc chứng nhận mới. Không suite/API/fit/replay nghiên cứu.
+
+
+### 14.5. Sáu phụ lục đã chuyển LaTeX và nối tham chiếu
+
+T71 chuyển đủ Appendix A–F,32 bảng/479 dòng dữ liệu, năm display equations, các JSON/schema/prompt/command examples. Tất cả token số trong hàng bảng và biểu thức display khớp nguồn Markdown; không bỏ NA, scenario/omission hoặc các kết quả âm. Longtable lặp header, các bảng D nhiều cột dùng landscape; Verbatim tự ngắt chuỗi dài, không thực thi lệnh mẫu. Các link từ thân bài và giữa phụ lục chuyển thành hyperref nội bộ, không có undefined reference/citation hay glyph thiếu trong build mới nhất.
+
+LuaLaTeX/Biber ghép toàn bộ, bản tạm258trang; render bảng AppendixD, schema/prompt/command và vùng nhiều footnote để tiếp tục QA. Cảnh báo longtable/độ rộng nhỏ được xem xét ở T72; chưa là rà khoa học/ngôn ngữ/PDF cuối P9. Chưa đổi nguồn chính thức trước khi tích hợp T72; Markdown gốc/bibliography/asset/receipt nghiên cứu giữ nguyên, không API/fit/bootstrap/replay/suite.

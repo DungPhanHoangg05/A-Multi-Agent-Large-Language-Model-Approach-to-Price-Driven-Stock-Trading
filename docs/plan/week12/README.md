@@ -498,6 +498,10 @@ Build bản ghép Chương3–5 thành công bằng LuaLaTeX/Biber, không sourc
 
 Đối soát ba bảng/13 dòng của Chương1/2 và phần ký hiệu với nguồn; citation keys nối Biber, style numeric/sorting none theo lựa chọn biên tập. Biber không có key thiếu; hai warning legacy month March/year n.d. giữ metadata gốc và không ảnh hưởng thứ tự numeric. LuaLaTeX ghép đủ6chương/phầnđầu; render/kiểm bản ghép tiếp ở T71–T72. Markdown/bibliography gốc chưa sửa; không suy luật hoặc chứng nhận mới. Không suite/API/fit/replay nghiên cứu.
 
+**T71 — Sáu phụ lục đã chuyển LaTeX và nối tham chiếu:** T71 chuyển đủ Appendix A–F,32 bảng/479 dòng dữ liệu, năm display equations, các JSON/schema/prompt/command examples. Tất cả token số trong hàng bảng và biểu thức display khớp nguồn Markdown; không bỏ NA, scenario/omission hoặc các kết quả âm. Longtable lặp header, các bảng D nhiều cột dùng landscape; Verbatim tự ngắt chuỗi dài, không thực thi lệnh mẫu. Các link từ thân bài và giữa phụ lục chuyển thành hyperref nội bộ, không có undefined reference/citation hay glyph thiếu trong build mới nhất.
+
+LuaLaTeX/Biber ghép toàn bộ, bản tạm258trang; render bảng AppendixD, schema/prompt/command và vùng nhiều footnote để tiếp tục QA. Cảnh báo longtable/độ rộng nhỏ được xem xét ở T72; chưa là rà khoa học/ngôn ngữ/PDF cuối P9. Chưa đổi nguồn chính thức trước khi tích hợp T72; Markdown gốc/bibliography/asset/receipt nghiên cứu giữ nguyên, không API/fit/bootstrap/replay/suite.
+
 ### Sáu phụ lục và nguồn tái lập P7
 
 Theo yêu cầu tiếp tục T61–T66, viết Appendix A–F tiếng Anh và nối tham chiếu từ thân bài. Mỗi task dùng nhánh docs riêng từ develop, commit/merge sau QA. Sổ chung §13.4–13.9 ghi nguồn/locator; không tạo receipt riêng cho từng task. Chỉ tài liệu nên không compileall/unit/E2E/leakage theo AGENTS §1.2; không gọi model/fit/bootstrap/replay hoặc sửa code/runtime/config/schema/input/models/archives/receipts. Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING giữ nguyên.

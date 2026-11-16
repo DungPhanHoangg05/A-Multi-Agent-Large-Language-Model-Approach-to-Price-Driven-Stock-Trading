@@ -1,0 +1,340 @@
+% Chuyển một lần từ bản nháp đã khóa; sửa nguồn LaTeX sau mốc T72.
+\chapter{Reproduction and Application}\label{s:98e28a8e40011105}
+
+This appendix supplies resource identities, working directories and
+source-checked command examples. Commands are instructions for a later
+operator; they are \textbf{not newly executed experiments or acceptance results}
+in this thesis-writing task. Reading saved artifacts, recomputing an
+offline analysis, numerical model inference and hosted live analysis are
+different operations. \hyperref[s:8356fa5ade54dd36]{Appendix E}
+states the scope of the historical receipts.
+
+\section{Inputs, source and model identities}\label{s:93a159a4cb07aed1}
+
+\begingroup
+\small
+\setstretch{1.05}
+\setlength{\tabcolsep}{3pt}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1800}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2800}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
+\caption{Inputs, source and model identities - supporting detail}\label{tab:F_reproduction:1}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Role
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Repository-relative path
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bytes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Outer SHA-256
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Role
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Repository-relative path
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bytes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Outer SHA-256
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+U09 saved results & \texttt{docs/\allowbreak{}plan/\allowbreak{}week12/\allowbreak{}unified\_\allowbreak{}analysis\_\allowbreak{}results.\allowbreak{}zip} & 1383945 & \texttt{e168d1d5\allowbreak{}9218804d\allowbreak{}1f587fcb\allowbreak{}342d02c4\allowbreak{}e7bafbb9\allowbreak{}63162edd\allowbreak{}ae706039\allowbreak{}a00769a9} \\
+U08 hosted collection & \texttt{docs/\allowbreak{}plan/\allowbreak{}week12/\allowbreak{}unified\_\allowbreak{}live\_\allowbreak{}research.\allowbreak{}zip} & 78438700 & \texttt{5936bc97\allowbreak{}1bebf1b1\allowbreak{}39a34b93\allowbreak{}f154ad8e\allowbreak{}54d0a0e3\allowbreak{}7fdaa6ac\allowbreak{}4673295f\allowbreak{}8b60a11c} \\
+Frozen source/model snapshot & \texttt{docs/\allowbreak{}plan/\allowbreak{}week12/\allowbreak{}final\_\allowbreak{}evidence\_\allowbreak{}snapshot.\allowbreak{}zip} & 93154448 & \texttt{80fed8c9\allowbreak{}a1c26509\allowbreak{}8a394bfc\allowbreak{}40f13d7f\allowbreak{}0266c1e0\allowbreak{}5abdb142\allowbreak{}fba01d87\allowbreak{}3cb8b8b5} \\
+U09 acceptance & \texttt{docs/\allowbreak{}plan/\allowbreak{}week12/\allowbreak{}unified\_\allowbreak{}analysis\_\allowbreak{}acceptance.\allowbreak{}json} & 5064 & \texttt{6b435c21\allowbreak{}c8900077\allowbreak{}5be1f1e1\allowbreak{}d043b6b3\allowbreak{}429a0729\allowbreak{}f37efc16\allowbreak{}f4bd03be\allowbreak{}92355456} \\
+\end{longtable}
+
+\endgroup
+
+The U09 ZIP contains \texttt{outputs/\allowbreak{}unified\_\allowbreak{}integration/\allowbreak{}u09\_\allowbreak{}analysis\_\allowbreak{}r1/\allowbreak{}}:
+results/receipt JSON, summary/contrast/bridge/per-repeat CSVs, prediction
+and group-classification CSVs, accounts/cycles/daily-NAV CSVs, prior traces
+and saved report/plot outputs. Its fifteen reproducible artifacts are
+bound by the receipt; archive manifests and receipt files are not counted
+as new independent analysis observations.
+
+U08 retains shared/render/graph, prepare, raw/forecast/policy and outcome
+stages with request/dependency identities. The source/model snapshot has
+its own manifest and historical source commit
+\texttt{384725a6\allowbreak{}6fec0747\allowbreak{}00963fac\allowbreak{}67c358b2\allowbreak{}8b842092}. U08's acceptance source commit
+\texttt{69935d71\allowbreak{}b469d0a3\allowbreak{}4ef8959c\allowbreak{}a598e1ce\allowbreak{}e791f7ac} identifies a different scope.
+Neither commit is a promise that the current live files are byte-identical.
+
+Additional resources are:
+
+\begingroup
+\small
+\setstretch{1.05}
+\setlength{\tabcolsep}{3pt}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
+\caption{Inputs, source and model identities - supporting detail}\label{tab:F_reproduction:2}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Resource
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Path / identity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose and prerequisite
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Resource
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Path / identity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose and prerequisite
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Frozen comparison assets & \texttt{docs/\allowbreak{}plan/\allowbreak{}week12/\allowbreak{}unified\_\allowbreak{}comparison\_\allowbreak{}assets\_\allowbreak{}v2.\allowbreak{}zip}, SHA-256 \texttt{d5c4f1bc\allowbreak{}31c1a95d\allowbreak{}9e685a9c\allowbreak{}c13d1f86\allowbreak{}ce2d3cc0\allowbreak{}105b9023\allowbreak{}561fd5f5\allowbreak{}67e2d8c4} & 286 checked price/provider/selector assets; not hosted predictions \\
+Protocol / asset manifest & \texttt{unified\_\allowbreak{}comparison\_\allowbreak{}protocol\_\allowbreak{}v2.\allowbreak{}json} / \texttt{unified\_\allowbreak{}comparison\_\allowbreak{}manifest\_\allowbreak{}v2.\allowbreak{}json} under \texttt{docs/\allowbreak{}plan/\allowbreak{}week12/\allowbreak{}} & Study schedule, profile/domain/source bindings and explicit validity limitations \\
+Runtime & \texttt{docs/\allowbreak{}plan/\allowbreak{}week12/\allowbreak{}unified\_\allowbreak{}analysis\_\allowbreak{}runtime.\allowbreak{}json}, \texttt{unified\_\allowbreak{}live\_\allowbreak{}runtime.\allowbreak{}json}, \texttt{requirements-\allowbreak{}unified.\allowbreak{}lock.\allowbreak{}txt} & Keep the appropriate recorded analysis, hosted and platform environments distinct \\
+Revision archive index & \texttt{docs/\allowbreak{}plan/\allowbreak{}revision\_\allowbreak{}evidence/\allowbreak{}index.\allowbreak{}json}, SHA-256 \texttt{cc4400da\allowbreak{}dc585b6b\allowbreak{}0dd5dd3a\allowbreak{}012f1f51\allowbreak{}0a994347\allowbreak{}b9395cdb\allowbreak{}bcc721cc\allowbreak{}9f2b9599} & Maps original release paths to verified ZIP chunks; a path need not be unpacked on disk \\
+Baseline export & \texttt{outputs/\allowbreak{}revision/\allowbreak{}final\_\allowbreak{}baselines\_\allowbreak{}v1/\allowbreak{}manifest.\allowbreak{}json}, SHA-256 \texttt{0a20fbe4\allowbreak{}9049dd61\allowbreak{}fae2eb8b\allowbreak{}f3289f65\allowbreak{}039395e6\allowbreak{}bcac6745\allowbreak{}b851a5a0\allowbreak{}0d804226} & Eleven pinned output files, including the component classification/financial tables \\
+Student export & Snapshot \texttt{outputs/\allowbreak{}bayesian\_\allowbreak{}benchmark/\allowbreak{}mt\_\allowbreak{}bicl/\allowbreak{}replicas/\allowbreak{}full\_\allowbreak{}r1/\allowbreak{}model/\allowbreak{}candidate.\allowbreak{}pt}, SHA-256 \texttt{a6f0d294\allowbreak{}b6f731bf\allowbreak{}c630fe58\allowbreak{}631b921e\allowbreak{}c2f08773\allowbreak{}38745a84\allowbreak{}e9459ec6\allowbreak{}a248e702} & Selected seed 42 / step 3,000; exported model differs from resumable optimizer checkpoint \\
+Teacher & Same snapshot namespace \texttt{model/\allowbreak{}teacher.\allowbreak{}json}, SHA-256 \texttt{c0a39f32\allowbreak{}7bacd863\allowbreak{}6fd7edff\allowbreak{}2f19b307\allowbreak{}99581bd1\allowbreak{}44ac2817\allowbreak{}6a7cd97f\allowbreak{}e9dbc335} & Frozen numerical count model; no hosted teacher call \\
+Numerical regime timeline & Same snapshot namespace \texttt{inputs/\allowbreak{}regime\_\allowbreak{}models.\allowbreak{}json}, SHA-256 \texttt{5df0307a\allowbreak{}70b3df17\allowbreak{}7a43faba\allowbreak{}8be04a72\allowbreak{}c00dabcb\allowbreak{}422c0b1c\allowbreak{}66a4b76c\allowbreak{}d84e724d} & Separate from the end-2022 signal-query HMM resource \\
+\end{longtable}
+
+\endgroup
+
+A file hash proves stored identity, not source authenticity or permission
+to replace missing data with a new vendor download. Missing local-only
+chunks, model assets or historical inputs are explicit prerequisites;
+they must not be silently regenerated from current prices. The final
+self-contained thesis source/release package is a later deliverable.
+\footnote{Ledger §3.2--§3.4, RG01/RG02/TR01--TR08 and U08/U09/F01 resource bindings; §13.9 maps these paths and pins. Original archive/member identity remains separate from a working-directory path after restoration.}
+
+\section{Read-only inspection and scoped archive restoration}\label{s:5f1ea8a5eac1b7a0}
+
+The following examples use \textbf{PowerShell from the repository root}, where
+\texttt{scripts/\allowbreak{}}, \texttt{docs/\allowbreak{}} and \texttt{outputs/\allowbreak{}} are siblings. Python 3.13.5 is the
+recorded interpreter; a \texttt{py -\allowbreak{}3.\allowbreak{}13} launcher must resolve to that patch
+version for a strict replay. A standard-library-only archive read has
+fewer dependencies than the full historical environment.
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
+Get-FileHash -Algorithm SHA256 -LiteralPath docs/plan/week12/unified_analysis_results.zip
+py -3.13 -X utf8 scripts/revision_evidence.py verify alpha_contract_v1
+\end{Verbatim}
+
+The first command reports the outer hash for comparison with F.1. The
+second checks one named archived release through its index/chunks without
+running the alpha audit. Its CLI uses a positional release name, not a
+\texttt{-\allowbreak{}-\allowbreak{}prefix} option. It can fail if a required chunk is missing or modified.
+
+To inspect the saved ten-method U09 summary without model dependencies,
+credentials or extraction, use this separate standard-library command:
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
+@'
+from pathlib import Path
+import csv, hashlib, io, json, zipfile
+path = Path("docs/plan/week12/unified_analysis_results.zip")
+assert hashlib.sha256(path.read_bytes()).hexdigest() == "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9"
+name = "outputs/unified_integration/u09_analysis_r1/summary.csv"
+with zipfile.ZipFile(path) as archive:
+    manifest = json.loads(archive.read("manifest.json"))["members"]
+    raw = archive.read(name)
+    assert hashlib.sha256(raw).hexdigest() == manifest[name]["sha256"]
+rows = list(csv.DictReader(io.StringIO(raw.decode("utf-8"))))
+assert len(rows) == 10
+for row in rows:
+    print(row["method"], row["n_points"], row["mean_account_return_pct"])
+'@ | py -3.13 -X utf8 -
+\end{Verbatim}
+
+If unpacked audit files are needed, the following optional command
+\textbf{writes a separate destination}. It preserves archived bytes and refuses
+to overwrite conflicting files; it does not execute the restored audit.
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
+py -3.13 -X utf8 scripts/revision_evidence.py restore alpha_contract_v1 --destination tmp/thesis-offline-review
+\end{Verbatim}
+
+The restored path is
+\texttt{tmp/\allowbreak{}thesis-\allowbreak{}offline-\allowbreak{}review/\allowbreak{}outputs/\allowbreak{}revision/\allowbreak{}alpha\_\allowbreak{}contract\_\allowbreak{}v1/\allowbreak{}}, because
+the destination is a root for the original relative paths, not a flat
+output folder. Further release names can be inspected with
+\texttt{scripts/\allowbreak{}revision\_\allowbreak{}evidence.\allowbreak{}py list}; the entire archive need not be restored.
+
+\section{Historical offline replay requires the matching checkout}\label{s:0deff24ffc15238d}
+
+Strict replay requires the recorded code, input bytes and numerical
+environment. A Git checkout alone does not provide ignored/local-only
+resources. Use an isolated historical checkout, hydrate the pinned source
+and data/model assets from the declared packages and follow the recorded
+restore bindings. The live Indicator/Decision/graph presentation changes
+must not be relabeled as identical historical raw source. Source-check
+failure should identify a mismatch, not trigger weakening an expected hash.
+
+\textbf{In that isolated historical repository root}, the U06 asset commands are:
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py restore
+py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py verify
+\end{Verbatim}
+
+\texttt{restore} hydrates declared asset paths from the pinned package; \texttt{verify}
+checks the prepared source/runtime/resource contract. These are not
+\texttt{replay-\allowbreak{}numeric}, fresh asset fitting, a hosted collection or a new
+training run. Full numerical replay is a separate CPU operation with its
+own additional model/selector prerequisites.
+
+The statistical cold-replay entrypoint is:
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
+py -3.13 -I -X utf8 scripts/unified_analysis/run.py verify
+\end{Verbatim}
+
+This \texttt{verify} command is more than reading hashes: it regenerates the
+analysis artifacts in a temporary directory from fixed saved predictions,
+including their registered statistical calculations/resampling, and
+compares all fifteen output bindings with the receipt. It blocks network,
+key access, live model/client and provider constructors; it does not
+request new responses or train models. It requires the frozen source
+bindings and recorded analysis environment and can therefore fail in an
+edited live checkout. The previously recorded outcome was byte-identical
+with zero new API calls; no new replay result is claimed here.
+
+Avoid using \texttt{freeze}, \texttt{analyze}, a new namespace or changed bootstrap
+settings to manufacture agreement with an old receipt. A new experimental
+protocol belongs to a separately versioned study and cannot overwrite the
+historical artifacts on which this thesis relies.\footnote{Source-inspected parsers and implementations in \texttt{scripts/\allowbreak{}revision\_\allowbreak{}evidence.\allowbreak{}py}, \texttt{core/\allowbreak{}revision\_\allowbreak{}evidence\_\allowbreak{}archive.\allowbreak{}py}, \texttt{scripts/\allowbreak{}prepare\_\allowbreak{}unified\_\allowbreak{}comparison\_\allowbreak{}v2.\allowbreak{}py}, \texttt{scripts/\allowbreak{}unified\_\allowbreak{}analysis/\allowbreak{}run.\allowbreak{}py} and \texttt{core/\allowbreak{}unified\_\allowbreak{}analysis/\allowbreak{}runtime.\allowbreak{}py}. Commands are syntax/path checked, not executed as replay or new acceptance during writing.}
+
+\section{Resource levels and practical limits}\label{s:64005ab00ff26299}
+
+\begingroup
+\small
+\setstretch{1.05}
+\setlength{\tabcolsep}{3pt}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
+\caption{Resource levels and practical limits - supporting detail}\label{tab:F_reproduction:3}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Operation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Required resources
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What it establishes
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Operation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Required resources
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What it establishes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Read saved CSV/JSON or check hashes & Python standard library / shell, pinned ZIP/index/chunks & Identity and recorded values; no inference \\
+Cold statistical analysis & Historical source/runtime, fixed predictions/outcomes and plotting/numerical dependencies & Artifact reproducibility under those inputs; not a fresh market sample \\
+Numerical asset inference/replay & Frozen teacher/student/HMM/scalers/selectors, appropriate PyTorch/TA-Lib/HMM/numerical dependencies and CPU memory & Recorded numerical path; distinct from reading stored outputs and from hosted LLM calls \\
+Offline application fixture & Current repository, serving-integration fixtures and application dependencies & Mock HTTP/application behavior; no market or hosted-model evidence \\
+Live analysis & Admitted stock/index/news capture, model assets, provider access and credentials, compatible runtime & New provider/inference job; not a reproduction of historical financial outcomes \\
+\end{longtable}
+
+\endgroup
+
+The standard historical environment is Windows Python 3.13.5; the full
+analysis/asset lock records 107 packages. Dependency installation or an
+uncached sentiment model can require downloads before an offline run.
+OS-specific compiled packages, fonts and rendering tools also matter to
+byte-identical artifacts. A Linux deployment needs its own platform
+environment rather than claiming the Windows lock is portable unchanged.
+No minimum GPU, wall-time or monetary bill is inferred from unavailable
+matched measurements. The selected numerical student is served on CPU;
+this does not imply that training or every optional backend is cost-free.
+
+\section{Offline preview versus current live workflow}\label{s:cc9510fc96476c9d}
+
+For an explicitly mocked preview, this documented entrypoint binds only
+loopback and writes a separate temporary fixture-job namespace:
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
+py -3.13 -X utf8 scripts/serve_serving_review.py --port 5051 --duration 300 --seed
+\end{Verbatim}
+
+It uses HTTP fixtures, a distinct owner cookie and a seeded MWG/six-version
+backtest fixture. It does not call real market/Groq providers. The seeded
+review pages are a fixture harness, not proof that the current Realtime
+form exposes a six-version backtest or that browser acceptance is complete.
+The script prints its local URL and stops at the requested duration or
+Ctrl+C. This command has not been run as part of writing the appendix.
+
+The \textbf{actual application} has the separate entrypoint, from repository root:
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
+py -3.13 web_interface.py
+\end{Verbatim}
+
+Its documented local URL is \texttt{http:\allowbreak{}/\allowbreak{}/\allowbreak{}127.\allowbreak{}0.\allowbreak{}0.\allowbreak{}1:\allowbreak{}5000} unless the configured
+port differs. This path may access live data and hosted models when
+analysis is requested; it is not the offline fixture or cold-replay CLI.
+Credentials are supplied through the application's supported interface or
+process environment, never copied into thesis examples or result artifacts.
+
+The current Realtime 1D flow is:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Select a stock and one of Original, v1, C2, A, B or MT-BICL. Original
+  delegates to the legacy route; enhanced versions use a captured job.
+\item
+  Capture the versioned 1D stock/index snapshot with source, units,
+  timestamp and provisional flags. The current timeframe path may
+  include a forming daily observation (\texttt{daily\_\allowbreak{}provisional}); it differs
+  from the older latest-completed-session backend's local-time cutoff.
+\item
+  Validate cutoff/calendar/freshness, sufficient 600-observation context,
+  eligible dated news and resource identity. Missing verified sentiment
+  remains unavailable. Newer market data require a new capture/job.
+\item
+  Preflight the selected version and create one analysis job/repeat.
+  MT schedules Common\ensuremath{\rightarrow}Fact Anchor\ensuremath{\rightarrow}MT, not all eight research roles over
+  three repeats. The request, dependencies and fallback action remain
+  separately observable.
+\item
+  Poll/read the same job, including raw proposal, final LONG/CASH action,
+  policy reason, support and source identity. Reload/resume retains the
+  original capture; uncertain creates/sends are not blindly duplicated.
+\item
+  Switch stored Vietnamese/English presentation views without requesting
+  a translation or changing canonical policy fields. Treat provisional
+  data, report statements and missing evidence with their stated limits.
+\end{enumerate}
+
+The application receipt remains OFFLINE\_PASS\_BROWSER\_PENDING with
+\texttt{f11\_\allowbreak{}complete=false}, desktop/mobile NOT\_RUN. Equivalent research behavior
+accepted by the author for the three named modules does not complete that
+browser check, certify live fills or establish prospective profitability.
+\footnote{Current \texttt{web\_\allowbreak{}interface.\allowbreak{}py} and source-bound AP01--AP17 workflow/receipt, \texttt{scripts/\allowbreak{}serve\_\allowbreak{}serving\_\allowbreak{}review.\allowbreak{}py} fixture harness and §4.10.4. Current Realtime 1D controls, backend capabilities and fixture-review pages are explicitly different scopes.}
