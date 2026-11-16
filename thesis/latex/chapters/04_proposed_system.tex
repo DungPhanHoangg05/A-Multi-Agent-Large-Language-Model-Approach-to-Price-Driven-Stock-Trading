@@ -670,6 +670,38 @@ the rule without claiming an observed veto. The four displayed groups,
 student probability, hosted proposal and retained action answer distinct
 questions; none alone identifies a mechanism's causal benefit.
 
+\subsection{Design choices and coverage trade-offs}\label{sec:parameter-rationale}
+Table~\ref{tab:parameter-rationale} distinguishes the role of a setting
+from evidence that its value is optimal. These values are present in
+the frozen quality-gate, task and utility contracts bound before the
+context response collection. That source seal does not establish when
+each original design idea was first chosen or constitute preregistration
+of the earlier exposed studies. No recorded parameter sweep establishes
+the chosen values as optimal.
+
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption[Design parameters and their evidential basis]{Design parameters and their evidential basis. Roles are engineering rationales, not measured optimality claims; all settings remain fixed for the reported evaluation.}\label{tab:parameter-rationale}
+\begin{tabular}{@{}P{.25\linewidth}P{.40\linewidth}P{.28\linewidth}@{}}\toprule
+Setting & Role / trade-off & Source and selection status\\\midrule
+Population $\ge20$ & Avoid statistics/examples based on a very small same-regime pool; reduces coverage & Frozen quality-gate contract; design guard\\
+Conditional support $\ge5$; 95\% interval width $\le0.75$ & Require event-specific observations and bound posterior diffuseness; not a calibrated accuracy guarantee & Same contract; not a validation optimum\\
+63 observed sessions per task block & Fixed grouping of local histories; approximates a quarter in session count, not calendar identity & Numerical task contract; fixed partition\\
+At most three priors/examples & Bound context width and presentation; fewer eligible tasks remain partial & Task/retrieval contracts and 600-character prefix cap\\
+At least two prior tasks, five gains and five nonpositive returns & Require both magnitude groups for utility; excludes sparse contexts & Utility support contract; fixed guard\\
+Strict $Q10(\Delta U)>0$; reverse direction uses $-Q90(U)$ & Lower-tail positive improvement relative to the anchor; equality retains it & Utility/policy contract; risk heuristic\\
+4,096 utility draws & Finite Monte Carlo budget with shared streams on overlapping observations & Frozen implementation; no convergence benchmark\\\bottomrule
+\end{tabular}\end{table}
+
+Larger support floors or narrower intervals can reduce noisy statistics
+while withholding more requests; relaxing them would change both the
+information shown and the population of active interventions. In the
+saved cohort C2 and B each produce only 3 of 306 new replies, so most
+aggregate outcomes describe Common reuse. This is evidence of limited
+activation under the declared design, not evidence that a more permissive
+threshold would improve returns. A matched sensitivity study would be
+needed to quantify that trade-off. None of these values was changed to
+improve the already observed outcomes.
+
 \section{Orchestration and forecast barrier}\label{s:21530b5246fd89f6}
 Eight context-study roles share one sealed upstream parent: Native,
 Common, v1, C2, A, B, Fact Anchor and MT-BICL. Native/Common are completed

@@ -3192,3 +3192,7 @@ Bổ sung §5.2 từ frozen unified protocol v2 và r1 protocol: kế thừa end
 ### T80d. Đếm regime đã lưu và nêu rõ khoảng trống MT query proof
 
 Đọc hash/envelope204prepare slots r0 trong U08 archive: signal4BULL/0BEAR/4CHOPPY/40CONSOLIDATION/0UNKNOWN,54not-recorded trên102points;48observedpoints tương ứng12dates, không đếm repeats. MT102prepare contracts không giữ query regime proof nên NR, không chạy detector/tái dựng. RG01/RG02 metadata HMM hội tụ41/29iterations,1052/553features,cutoff2022/2020,fit fallback reasons rỗng; occupancy train phân biệtqueryfrequency. §5.2 có bảng và giới hạn cụ thể; thiếu MTfrequency/fallbackrate không được suy từ FPT hay feature bypass. Kiểm count/source/hash/108spec/diff; không modelrun hoặc suite.
+
+### T80e. Ghi cơ sở và thời điểm khóa tham số thiết kế
+
+§4.8.6 có bảng population20/conditional5/width0,75/block63/K3/supportutility/Q10-Q90/4096draws. Phân biệt guard thiết kế, grouping, cap kỹ thuật và riskheuristic; nguồn frozen quality gate/tasks/utility/policy bind trướccontextcollection, không giả ngày chọn ý tưởng hay validationoptimum. C2/B3/306 minh họa coverage–reliability; chưa có matchedsweep/convergencebenchmark nên nêu thiếu, không chỉnhngưỡng. Kiểm sourcepins/hash/côngthức/diff; không model/API/bootstrap hoặc suite.
