@@ -105,7 +105,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T63 — DONE: [Phụ lục C](appendices/C_configuration.md) công thức và bảng cấu hình có source theo nghiên cứu/resource, teacher/student/utility và checkpoint thật; nối §5.3.1; CL250–CL253/§13.6. Giữ hai HMM/scaler, seed42-step3000 khác ensemble/pilot; không fit/inference/utility resampling mới.
 - [x] T64 — DONE: [Phụ lục D](appendices/D_results.md) bảng mở rộng component/context theo mã/fold/repeat, đủ sensitivity/omission cells và12 execution scenarios; nối §§5.6–5.7; CL254–CL258/§13.7. Đối soát102/25/77/51, NA/aggregation/repeat means; không chạy ledger hoặc bootstrap mới.
 - [x] T65 — DONE: [Phụ lục E](appendices/E_verification.md) ma trận audit, Native counterexamples thật, source/receipt-bound checks và các gate còn thiếu; nối §5.9.2; CL259–CL262/§13.8. Giữ PASS_DETECTION khác causal FAIL, 828 khác changed labels, UI pending và không chạy suite/replay mới.
-- [ ] T66 — Viết Phụ lục F: tái lập và ứng dụng.
+- [x] T66 — DONE: [Phụ lục F](appendices/F_reproduction.md) resource identities, lệnh offline có đúng cwd/flags và luồng fixture/live riêng; nối §§4.10.4/5.1.2; CL263–CL266/§13.9. P7 đủ bản nháp; T67 trở đi còn việc, chưa G4/LaTeX/PDF hoặc UI acceptance; không chạy replay/inference mới.
 
 #### Dàn trang — P8
 

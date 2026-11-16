@@ -22,7 +22,7 @@ phụ trách. [Ví dụ xuyên suốt EX01](../../thesis/evidence.md#7-ví-dụ-
 chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối nguồn
 đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
 [Khung sáu chương](../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
-đã đủ bản nháp nội dung tiếng Anh và dùng sổ bằng chứng chung; phần đầu/phụ lục, rà soát và dàn trang cuối tiếp tục ở P7–P10.
+đã đủ bản nháp nội dung tiếng Anh và dùng sổ bằng chứng chung; P7 đã có phần đầu/sáu phụ lục, còn LaTeX, rà soát và bàn giao cuối ở P8–P10.
 P2 đã có [bản nháp Chương 3 §3.1–§3.7](../../thesis/chapters/03_background.md),
 từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
 kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
@@ -35,7 +35,7 @@ G2 được tự kiểm nội bộ tại sổ bằng chứng; chưa phản biệ
 UI/F11 vẫn PENDING. **P4 và P5 đã đủ bản nháp Chương 5 và Chương 2**, kèm nguồn/bảng/bibliography đã đối soát.
 **P6/T54–T58:** P6 đủ bản nháp Chương 1/6 và đối soát lập luận; G3 tự kiểm nội bộ đạt đúng nguồn T36–T58, chưa review ngoài/dàn trang cuối.
 **P7/T59–T60:** T59–T60 hoàn tất bản nháp phần đầu: abstract/7 keywords, lời cảm ơn và câu chữ cam đoan đã được tác giả xác nhận, 42 chữ viết tắt/26 dòng ký hiệu; chưa ký và chưa có biểu mẫu chính thức.
-**P7/T61–T65:** đã viết Phụ lục A–E và nối tham chiếu trong thân bài; Giữ PASS_DETECTION khác causal FAIL, 828 khác changed labels, UI pending và không chạy suite/replay mới.
+**P7/T61–T66:** đã viết Phụ lục A–F và nối tham chiếu trong thân bài; P7 đủ bản nháp; T67 trở đi còn việc, chưa G4/LaTeX/PDF hoặc UI acceptance; không chạy replay/inference mới.
 T67 trở đi, LaTeX, rà soát khoa học và dàn trang cuối còn việc.
 Chỉ viết/đối soát nguồn; Native FAIL, whole-system NOT_CERTIFIED và UI/F11 PENDING không đổi.
 Bản xem hai

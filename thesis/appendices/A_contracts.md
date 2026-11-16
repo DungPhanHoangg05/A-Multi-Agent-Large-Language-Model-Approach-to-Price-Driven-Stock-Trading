@@ -159,7 +159,7 @@ separate from this one-cycle label.
 The outer cutoff and these checks establish local contract properties.
 They do not overturn Native row-wise causal **FAIL**, authenticate the
 original bank/news production process or certify whole-system causality.
-Appendix E records those audit scopes explicitly.
+[Appendix E](E_verification.md#e1-evidence-matrix-and-status-meanings) records those audit scopes explicitly.
 
 [^a-source]: Frozen `core/unified_contracts.py`, input providers and EX01 shared/prepare/forecast stages; ledger BG16–BG18, SYS44–SYS47, §9.2 and §13.4. The exact shared-stage identity and member hashes are checked against U08, not reconstructed by running agents.
 [^a-episode]: Frozen `docs/plan/week1/historical_task_record.schema.json`, `data_manager/regime_memory_store.json`, canonical economic oracle and MT schema/contracts; ledger §3, §7, §9.8–§9.12 and §13.4. Schema checks, economic verification and historical availability are separate forms of evidence.

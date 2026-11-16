@@ -131,7 +131,7 @@ Matched retrieval-only, statistics/examples/no-regime, plain revision,
 no-target, no-utility and isolated student/teacher interventions are not
 completed by these engineering checks. Likewise, scenarios based on
 daily bars provide no execution-certified fills, and browser acceptance
-would not itself prove profitable prospective trading. Appendix F states
+would not itself prove profitable prospective trading. [Appendix F](F_reproduction.md#f2-read-only-inspection-and-scoped-archive-restoration) states
 the offline reproduction and application paths without turning them into
 new acceptance claims.
 

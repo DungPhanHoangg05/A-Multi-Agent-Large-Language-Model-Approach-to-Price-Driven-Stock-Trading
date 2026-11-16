@@ -2266,6 +2266,8 @@ workflow and final EX01 outcome follow in the next two subsections.
 
 ### 4.10.4. Application workflow and interpretation
 
+[Appendix F](../appendices/F_reproduction.md#f5-offline-preview-versus-current-live-workflow) gives the source-checked entrypoints and resource requirements, separating offline fixtures, historical cold replay and provider-backed live analysis.
+
 The Flask application exposes the method through a **Realtime 1D analysis
 form**. A user selects a stock and one of six main versions: Original,
 Bayesian v1, C2, A, B or MT-BICL, then starts analysis. The current form

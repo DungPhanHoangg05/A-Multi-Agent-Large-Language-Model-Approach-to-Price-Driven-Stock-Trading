@@ -48,6 +48,8 @@ before the result sections report effects.
 
 ### 5.1.2. What was frozen, and what acceptance establishes
 
+[Appendix F.1–F.3](../appendices/F_reproduction.md#f1-inputs-source-and-model-identities) lists the pinned packages and qualified reproduction commands; those instructions do not claim a new replay or inference run.
+
 The component release is identified by run signature
 `904b838a466290d9c8aa73245a6285e813b4f7c90d280355d3b2847ed9933fab`.
 Its archived exposure audit places the final queue freeze at
