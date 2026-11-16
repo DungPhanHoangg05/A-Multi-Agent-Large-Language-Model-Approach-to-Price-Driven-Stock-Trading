@@ -41,6 +41,16 @@
       "kind": "frozen_snapshot",
       "bytes": 17700,
       "sha256": "5df0307a70b3df177a43faba8be04a72c00dabcb422c0b1c66a4b76cd84e724d"
+    },
+    "docs/plan/week12/unified_comparison_protocol_v2.json": {
+      "kind": "frozen_snapshot",
+      "bytes": 14563,
+      "sha256": "b783a0d50cd03d418fdc439ee93eba76edcd1a60be063deaecf3e8259c8bb34a"
+    },
+    "revision/r1_protocol.json": {
+      "kind": "frozen_snapshot",
+      "bytes": 3062,
+      "sha256": "13a356def24adf3781a21652020afc9e6542f6803476c8eb9aab50d167f06586"
     }
   },
   "derived": {

@@ -3184,3 +3184,7 @@ Mốc đầu 4d2f4857; PDF 7a1b77f1, SHA256 2eb43028ab46259fbc17697554196bf8c18f
 ### T80b. Giải thích feature, mục tiêu student và lý do kiến trúc
 
 Bổ sung §4.8.3: feature phục vụ eligibility/matching/representation; teacher count-likelihood không dùng continuous x. Student xấp xỉ xác suất teacher trên sequence đánh dấu, synthetic feature độc lập labels; utility vẫn lấy teacher. Transformer là giao diện sequence/amortization thuận tiện, không bắt buộc với mixture16 tính trực tiếp; chưa có benchmark tốc độ/bộ nhớ/accuracy so teacher. Kiểm đối chiếu công thức/nguồn và diff, không tạo kết quả hay chạy model. Build tiếp theo và toàn văn T80l sẽ kiểm đoạn mới.
+
+### T80c. Nêu nguồn chọn cohort/lịch điểm và giới hạn lý do còn thiếu
+
+Bổ sung §5.2 từ frozen unified protocol v2 và r1 protocol: kế thừa endpoint51 scopes tại donor9efd23f, không random/continuous; CORE4 bank và5no-bank phân biệt coverage. Khóa trước context response collection không xóa exposure lịch sử; queuefreeze component muộn giữ rõ. Không có hồ sơ screen9mã hay lý do từng cửa sổ/nguồn lực đủ xác minh nên nêu thiếu, không bịa liquidity/sector/preregistration. BHN suffix và6structural cells vẫn nguyên. Chỉ đọc protocol/hợp đồng và kiểm số 51×2=102,57 observed sessions; không suite hoặc thực nghiệm mới.
