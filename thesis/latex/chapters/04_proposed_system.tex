@@ -64,7 +64,8 @@ Table~\ref{tab:contracts} gives the minimum interface needed to follow a
 decision. Identity includes stock, cutoff, source and resource versions,
 upstream realization and, later, Decision repeat. OHLCV arrays must align,
 dates be ordered/unique, and the final row match the cutoff. Numbers
-crossing the state boundary must be finite primitive JSON types or
+crossing the state boundary must be finite primitive JavaScript Object
+Notation (JSON) values or
 explicitly unavailable; a missing value is not an observed zero.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
@@ -112,7 +113,7 @@ explicit without reproducing the full report.
 Family & Priority and fallback\\\midrule
 MACD & Recent signal crossover first; otherwise histogram sign and strengthening/contraction; available sign if crossover history is short\\
 RSI & $\ge70$ bearish, $\le30$ bullish; then $\ge55$ bullish/$\le45$ bearish; inside (45,55), compare latest with third-last when available\\
-ROC & Strictly above +.5\% bullish or below $-.5$\% bearish; otherwise neutral\\
+ROC & Strictly above +0.5\% bullish or below $-0.5$\% bearish; otherwise neutral\\
 Stochastic & Recent K/D crossover first; then K$\ge80$ bearish/K$\le20$ bullish; middle range uses K versus D, else neutral\\
 Williams \%R & $\ge-20$ bearish/$\le-80$ bullish; middle range compares latest with third-last; short history neutral\\\bottomrule
 \end{tabular}\end{table}
@@ -162,14 +163,14 @@ report retains a bullish-pattern contradiction warning.}\par\medskip
 \paragraph{Alpha.}
 The registry has 85 candidates: five system-specific factors and 80
 single-stock Alpha101 adaptations. The price proxy $(H+L+C)/3$ is not
-observed VWAP, and temporal ranks do not recreate cross-stock ranks.
+observed volume-weighted average price, and temporal ranks do not recreate cross-stock ranks.
 \autocite{kakushadze2016formulaic} Native evaluates candidates on at most
 600 cutoff-limited rows, with full-window normalization and IC-based
 orientation. Its default score combines normalized absolute Spearman IC,
-accuracy and diagnostic Sharpe with weights .40/.35/.25; the top five
+accuracy and diagnostic Sharpe with weights 0.40/.35/.25; the top five
 feed its report. Its symmetric sign-return diagnostic is a ranking
 device, not the LONG/CASH account payoff. Latest oriented values above
-.10 or below $-.10$ become bullish/bearish, with neutral boundaries.
+0.10 or below $-0.10$ become bullish/bearish, with neutral boundaries.
 In-sample selection and whole-window transformations mean that an outer
 cutoff does not certify historical feature causality.
 
@@ -178,7 +179,7 @@ lags without backward filling, observed volume and fixed versions of six
 length-dependent expressions. A 300-bar volume mask, 20-observation
 normalizer minimum and finite-value requirements determine availability.
 Train Spearman IC fixes orientation; validation selects five factors and
-one threshold from .05/.10/.20 by LONG/CASH return on common finite
+one threshold from 0.05/.10/.20 by LONG/CASH return on common finite
 support. Minimums are 60 train pairs, 30 validation observations and five
 LONGs per admitted candidate. Alpha-ID ties and the smaller threshold
 resolve equal scores. Three-session grids and strict maturity separate
@@ -342,17 +343,17 @@ Section~\ref{s:673616bb765d15ae}. C2 uses its own frozen stock/fold scaler;
 the MT model's scaler is a separate resource. Standardized vectors give
 \begin{equation}
 d(e,q)=\sqrt{\tfrac14\sum_{j=1}^4(z_{ej}-z_{qj})^2},\quad
-P(e,q)=\frac1{1+d(e,q)},\quad B(e,q)=.5sim(e,q)+.5P(e,q).
+P(e,q)=\frac1{1+d(e,q)},\quad B(e,q)=0.5sim(e,q)+0.5P(e,q).
 \end{equation}
 Rank using $B(e,q)2^{-age/365}$, with age from decision date in calendar
 days. Eligibility requires available features, age at most 730 days and
-base similarity at least .625. Greedy selection admits at most three
+base similarity at least 0.625. Greedy selection admits at most three
 examples at least five VN-Index sessions apart, breaking ties by later
 exit then ID. Outcome values do not enter this score.
 
 Statistic readiness requires population at least 20, metric-specific
 conditional support at least five and 95\% Beta interval width at most
-.75, using unrounded values. At least one passing metric makes statistics
+0.75, using unrounded values. At least one passing metric makes statistics
 ready. Example readiness separately requires the population floor,
 features/scaler and a nonempty qualified selection; it does not require
 five exact signal matches. A full-prior request exposes either or both
@@ -379,8 +380,8 @@ Table~\ref{tab:priors} therefore describes mechanisms, not four independently
 activated interventions at every point.
 
 In FPT, C2 has one conditional and 18 background cycles. Win counts
-give background mean $(8+1)/(18+2)=.45$, prior $Beta(1.8,2.2)$ and
-posterior $Beta(2.8,2.2)$, mean .56. Although three examples can be
+give background mean $(8+1)/(18+2)=0.45$, prior $Beta(1.8,2.2)$ and
+posterior $Beta(2.8,2.2)$, mean 0.56. Although three examples can be
 retrieved, population 19 fails the floor and exact conditional support
 fails five; effective examples are zero and no C2 reply is requested.
 A enlarges its condition to 14 cycles with five background cycles, but
@@ -420,7 +421,7 @@ the anchor call. Later revision is bypassed for an invalid anchor.
 Transport, missing response or malformed schema remains a technical
 failure rather than this factual fallback.
 
-FPT's saved MACD/Signal are approximately .654268/.704394, so
+FPT's saved MACD/Signal are approximately 0.654268/.704394, so
 MACD\_SIGNAL=BELOW while MACD\_ZERO=POSITIVE. Close 48.18 exceeds SMA20
 47.5675. The packet bucket is MACD\_NEG\_PRICE\_POS, where NEG refers to
 MACD minus Signal. Fact Anchor returns matching assertions and LONG,
@@ -470,7 +471,7 @@ observations precede selection. Prior blocks 11/15/13 contribute 5/4/2
 observations; target block 21 contributes three, with latest target exit
 29 June 2023. Thus there are 14 labeled historical rows, not three signal
 examples. Its query remains unlabeled. The model vector is approximately
-(.109634,.101272,$-1.290443$,.215713), without clipping in this case.
+(0.109634,0.101272,$-1.290443$,0.215713), without clipping in this case.
 Figure~\ref{fig:F06} separates the context and offline/query boundaries.
 \begin{figure}[htbp]\centering
 \begin{tikzpicture}[>=Stealth,node distance=5mm,
@@ -494,10 +495,10 @@ Final action is distinct from numerical probability and raw proposal.\\Query out
 
 \subsection{Teacher, student and resource selection}\label{s:54ebb2a16a274585}
 The evaluated resource fits sixteen Beta components on means
-$\{.2,.4,.6,.8\}$ and concentrations $\{2,8,32,128\}$, with
+$\{0.2,0.4,0.6,0.8\}$ and concentrations $\{2,8,32,128\}$, with
 $a_h=\mu_h\kappa_h,b_h=(1-\mu_h)\kappa_h$. Only mixture weights are fitted:
 731 training cycles in 48 unique stock/block tasks through end-2020
-contribute their count likelihoods once per task. MAP-EM starts uniformly
+contribute their count likelihoods once per task. Maximum a posteriori expectation--maximization (MAP-EM) starts uniformly
 under $Dirichlet(2,\ldots,2)$ and updates
 $\pi_h=(\sum_j\gamma_{jh}+1)/(N_{tasks}+16)$. The fixed grid is not searched
 on queries. The saved fit converged in 237 iterations, within a 1,000
@@ -505,13 +506,12 @@ limit and $10^{-10}$ weight-change tolerance. Inference then uses the
 separate prior/target count factors from Chapter 3, with no continuous
 feature likelihood or refitting of $\pi$.
 
-Synthetic distillation draws 0–3 priors, 2–8 observations per prior and
-0–8 target observations. A mixture family is shared, task rates are
+Synthetic distillation draws 0--3 priors, 2--8 observations per prior and
+0--8 target observations. A mixture family is shared, task rates are
 independent Beta draws conditional on that family, and labels are
 Bernoulli draws. Whole feature vectors are sampled with replacement from
 the 731-row training pool, independently of synthetic rates/labels;
-original market labels are not copied. RNG domains separate structure,
-features, labels and permutation. Validation/test corpora each contain
+original market labels are not copied. Separate random streams govern structure, features, labels and permutation. Validation/test corpora each contain
 5,000 episodes, including 500 stress cases. Synthetic query labels and
 latent variables are excluded from the input and loss.
 
@@ -524,14 +524,14 @@ FPT uses 19 (14 observations, four markers and query).
 
 The six-to-128 projection plus role/slot/position embeddings feeds two
 pre-normalized attention blocks, four heads, feed-forward width 256,
-GELU and zero dropout. A causal attention mask and right-padding mask
-precede final LayerNorm/scalar head. The FP32 model has 271,873 parameters.
+the Gaussian error linear unit (GELU) and zero dropout. A causal attention mask and right-padding mask
+precede final LayerNorm/scalar head. The 32-bit floating-point (FP32) model has 271,873 parameters.
 The earlier 69-token diagnostic packing was discarded. Loss applies
 only to the query logit, using detached teacher probability $q$:
 \begin{equation}
 \mathcal L=-q\log\sigma(\ell_Q)-(1-q)\log(1-\sigma(\ell_Q)).
 \end{equation}
-It does not optimize realized market BCE or a sampled synthetic query
+It does not optimize realized market binary cross-entropy or a sampled synthetic query
 label. The registered recipe is summarized in Table~\ref{tab:student}.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
@@ -539,15 +539,15 @@ label. The registered recipe is summarized in Table~\ref{tab:student}.
 \begin{tabular}{@{}P{.25\linewidth}P{.69\linewidth}@{}}\toprule
 Setting & Recorded value\\\midrule
 Training & Seeds 17/42/73, fresh weights; 5,000 steps; effective/physical batch 128; 640,000 episodes per seed\\
-Optimizer & AdamW, betas (.9,.999), epsilon $10^{-8}$, weight decay .01, gradient norm cap 1\\
+Optimizer & AdamW, betas (0.9,0.999), epsilon $10^{-8}$, weight decay 0.01, gradient norm cap 1\\
 Learning rate & 250-step linear warm-up to $3\times10^{-4}$; cosine decay to $3\times10^{-5}$ at 5,000\\
-Precision/checkpoints & FP32; AMP/TF32 off; every 250 steps, 60 candidates; no metric early stopping\\
+Precision/checkpoints & FP32; automatic mixed precision/TensorFloat-32 off; every 250 steps, 60 candidates; no metric early stopping\\
 Selection & Eligibility gates first; 2021 macro log loss, then Brier rounded to 12 decimals, earlier step/seed order\\
-Served resource & Single seed-42/step-3,000 export; frozen CPU inference, no ensemble/query update\\\bottomrule
+Served resource & Single seed-42/step-3,000 export; frozen central-processing-unit (CPU) inference, no ensemble/query update\\\bottomrule
 \end{tabular}\end{table}
 
-Eligibility includes mean synthetic KL at most .02 nats, 95th percentile
-absolute error at most .10, at least 200 prior-label-swap pairs and .90
+Eligibility includes mean synthetic Kullback--Leibler (KL) divergence at most 0.02 nats, 95th percentile
+absolute error at most 0.10, at least 200 prior-label-swap pairs and 0.90
 sign agreement, plus registered constant-control/technical checks. All
 60 reports are required. Selection uses 2021 market labels despite a
 synthetic-only optimizer loss. Test corpora and 2022 market assessment
@@ -555,7 +555,7 @@ open after the selection seal and do not permit reselection. The served
 seed-42/step-3,000 export is not the final-step checkpoint; resumable
 optimizer/RNG state has a different artifact identity. At inference,
 hashes, evaluation mode and disabled gradients protect frozen weights.
-The FPT saved student probability is .38681803029367656. Synthetic
+The FPT saved student probability is 0.38681803029367656. Synthetic
 teacher agreement does not establish calibrated market probabilities or
 an isolated student contribution to trading outcomes.
 
@@ -592,9 +592,9 @@ do not replace full-precision policy inputs. A fact-extended reply must
 cite the three facts and use context reason SUPPORTED.
 
 FPT has five positive/nine nonpositive observations, meeting support.
-Teacher mean probability is .3777360437578734. Rounded net-return
-fractions are $-.00597535$ for analytic mean, $-.00607738$ for Monte Carlo
-mean, $-.01288257$ for Q10 and $+.000242291$ for Q90; policy uses the
+Teacher mean probability is 0.3777360437578734. Rounded net-return
+fractions are $-0.00597535$ for analytic mean, $-0.00607738$ for Monte Carlo
+mean, $-0.01288257$ for Q10 and $+0.000242291$ for Q90; policy uses the
 stored full precision. Its saved Vietnamese projection has 437 characters, while
 the full MT request has 4,586. An English presentation excerpt is
 \texttt{K3 m3 small p=0.387}; it is not a newly submitted prompt.
@@ -684,7 +684,7 @@ members or weaken the schema.
 
 Compression can lose evidence. FPT's 3,661-character Indicator report has
 a heading unrecognized by the frozen distiller, so its Native/Common
-fragments have 899/798 characters and omit the 2/5–3/5 vote-count lines.
+fragments have 899/798 characters and omit the 2/5--3/5 vote-count lines.
 The saved full prompts have 3,699/4,186 characters. Decision therefore
 did not necessarily see the entire numerical summary. Structured parsing
 checks permitted fields and binary actions; fact-extended replies also
@@ -693,14 +693,14 @@ assertion agreement verifies all explanation prose.
 
 \paragraph{Retries and checkpoints.}
 Agent calls pass through \texttt{\_invoke\_with\_retry}; within research
-scope one durable transport owns retries and SDK retries are disabled.
-A logical execution permits three HTTP attempts in total, including
+scope one durable transport owns retries and software development kit (SDK) retries are disabled.
+A logical execution permits three Hypertext Transfer Protocol (HTTP) attempts in total, including
 transient failures and schema repair. For retryable 429/500/502/503/504,
 the next eligible time is the maximum of exponential backoff
 $\min(900,5\,2^j)$, Retry-After and a parsed provider wait. Header/body
 waits are not shortened to the exponential cap. Quota amendments are
 versioned in the recorded run, not claims about current provider limits.
-A raw 200 response is stored before parsing; fixed Decision format
+A raw HTTP 200 response is stored before parsing; fixed Decision format
 repair shares the attempt budget. Vision parse failure, low confidence,
 unwanted actions or schema-valid fact disagreements do not authorize
 fresh semantic retries.
@@ -729,7 +729,7 @@ results. The bilingual display does not alter canonical action fields.
 Progress reflects real dependency work, not animation-triggered reruns.
 
 The result separates context/support, raw proposal, reference and final
-action, with explicit bypass/veto/failure. No realized future P\&L exists
+action, with explicit bypass/veto/failure. No realized future profit or loss (P\&L) exists
 for a new query. Offline fixture preview, replay of archived responses
 under the matching source/runtime and new provider-backed execution are
 different operations; hashes/replay cannot guarantee identical new
@@ -746,11 +746,9 @@ Anchor and MT propose LONG, with MT retaining its anchor and no observed
 veto. Thus there are five raw replies and three bypass outputs, sharing
 one upstream realization but different role-specific requests.
 
-Only after all required forecasts are durable does the outcome disclose
-entry VND 48,180 on 4 July and exit VND 48,390 on 6 July. Substitution
-into Equation~\ref{eq:net} gives gross +0.4358655044\% but net
-\textbf{$-0.2647317124$\%}, hence DOWN. Each LONG receives this one-cycle
-loss; Native CASH receives zero without short selling. This retained
-incorrect LONG example is not evidence of overall Native superiority,
-nor does a negative estimated utility mean force MT to change action.
-Chapter 5 evaluates full account sequences and their comparison limits.
+After all required forecasts are durable, the outcome discloses entry
+VND 48,180 on 4 July and exit VND 48,390 on 6 July. Equation~\ref{eq:net}
+gives gross +0.4358655044\% but net \textbf{$-0.2647317124$\%}: DOWN.
+Each LONG loses; Native CASH earns zero without short selling. This
+case cannot establish overall Native superiority; Chapter 5 evaluates
+the full cohort and account sequences.

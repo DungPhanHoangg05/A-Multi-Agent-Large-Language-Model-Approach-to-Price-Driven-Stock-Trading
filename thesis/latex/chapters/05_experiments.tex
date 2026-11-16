@@ -14,11 +14,11 @@ Rounded display cells do not define the paired contrasts: those use
 the unrounded source estimators, so subtracting printed values may differ
 slightly from a reported contrast.
 
-The component main has 204 Decision outputs. Its nine-unit, three-run
+The main component comparison has 204 Decision outputs. Its nine-unit, three-run
 upstream panel has 54 cells, including 18 reused main outputs; the separate
 five-branch factorial panel has 135 outputs. There are therefore 375
 distinct executions, not independent samples obtained by adding all cells.
-Context has $102\times3\times8=2,448$ slots: 1,290 raw Decision responses
+The context study has $102\times3\times8=2,448$ slots: 1,290 raw Decision responses
 and 1,158 no-request bypasses. Neither slots, HTTP attempts nor repeated
 responses are new market observations. The six folds were already exposed;
 the component queue freeze occurred after inference began. Immutable
@@ -28,7 +28,7 @@ replay do not establish prospective or whole-system causal validity.
 \section{Data, partitions and coverage}\label{s:8be41ee200674674}
 The purposive sample is FPT, CMG, VCB, MBB, MWG, VNM, BHN, HVN and VJC.
 Table~\ref{tab:schedule} specifies twelve selected dates, not a continuous
-daily backtest across 2023–2026. The 102 eligible points form 51 separate
+daily backtest across 2023--2026. The 102 eligible points form 51 separate
 stock--fold accounts, with 25 UP/77 DOWN labels. BHN supplies only the
 last three folds: a contradictory 13 September 2022 candle is retained
 in raw evidence but its prefix (673 rows) is excluded; the valid suffix
@@ -50,8 +50,7 @@ Total & \multicolumn{2}{l}{Nine stocks; twelve dates} &102&51\\\bottomrule
 \end{tabular}\end{table}
 
 Pinned vendor/cache material does not independently authenticate
-contemporaneous data availability. The reconstructed VCI/vnstock daily
-retrieval is explicitly a new retrieval, not an authenticated original
+contemporaneous data availability. The reconstructed daily retrieval through vnstock/VCI is explicitly a new retrieval, not an authenticated original
 run snapshot; action/dividend adjustment evidence is incomplete.
 Sentiment is unavailable at 79/102 context points. The 852-row signal
 bank covers four stocks and 48 query points; the remaining 54 retain
@@ -59,20 +58,20 @@ Common fallback. Numerical task context is separately frozen per fold,
 with reserved evaluation IDs excluded. Missing support/news stays in
 primary results.
 
-Component controls use 51 chronological purged scopes (32–318 train and
-18–21 validation cycles); all 51 recorded purge checks pass. Context
+Component controls use 51 chronological purged scopes (32--318 train and
+18--21 validation cycles); all 51 recorded purge checks pass. Context
 instead has nine unique fixed-per-stock Common selectors, referenced by
 51 bindings. Eight non-BHN selectors use train decisions 14 April
-2021–30 September 2022 (123 cycles) and validation 6 October 2022–27 June
-2023 (54–60 common cycles). BHN uses 20 December 2023–26 December 2024
-train (85) and 2 January–25 September 2025 validation (56). Labels mature
+2021--30 September 2022 (123 cycles) and validation 6 October 2022--27 June
+2023 (54--60 common cycles). BHN uses 20 December 2023--26 December 2024
+train (85) and 2 January--25 September 2025 validation (56). Labels mature
 before the next split. The MT teacher/scaler train through 2020; 2021
 selects the student and 2022 assesses it, as Chapter 4 specifies. These
 resource schedules and disclosed amendments do not create fresh holdouts.
 
 \section{Recorded configuration and paired protocol}\label{s:21f290190e1fcedc}
 Both recorded environments use Python 3.13.5, NumPy 2.1.2, pandas 2.3.3,
-SciPy 1.16.1, scikit-learn 1.7.2 and TA-Lib .6.8. Hosted vision alias is
+SciPy 1.16.1, scikit-learn 1.7.2 and TA-Lib 0.6.8. Hosted vision alias is
 \texttt{qwen/qwen3.8-27b}; Decision alias is \texttt{openai/gpt-oss-20b}.
 Declared temperature is zero; archived wire metadata records $10^{-8}$.
 Component vision/Decision output caps are 1,024/2,048 tokens; context caps
@@ -89,13 +88,13 @@ perfect counterbalancing is not established. Context's HTTP ledger has
 responses. Coverage and failures cannot be recoded to reach planned slots.
 
 \section{Comparators and interventions}\label{s:351598650d1ea43f}
-Component main controls are CASH, train-majority (strictly more than half
+The main component controls are CASH, train-majority (strictly more than half
 train labels UP), always-LONG cycles, positive 20-session momentum,
 price logistic, matched numerical-input logistic and oriented factor
-vote. Logistic validation chooses $C\in\{.01,.1,1,10\}$ and thresholds in
-order $(.5,.4,.6)$ by BA, retaining first ties; train imputation/missing
+vote. Logistic validation chooses $C\in\{0.01,0.1,1,10\}$ and thresholds in
+order $(0.5,0.4,0.6)$ by balanced accuracy (BA), retaining the first setting in a tie; train imputation/missing
 indicators/scaling precede selected train+validation refit (lbfgs,
-3,000-iteration ceiling). Continuous holding is a separate price-only
+a ceiling of 3,000 iterations). Continuous holding is a separate price-only
 financial reference, not always-LONG sampled cycles.
 
 The factorial panel uses B/A/S/AS/P for neither/alpha/sentiment/both/
@@ -109,8 +108,11 @@ and Common, with separate Common--Anchor--MT bridges; controls are CASH
 and always-LONG cycles. Missing matched context ablations remain missing.
 
 \section{Metrics and descriptive uncertainty}\label{s:ef6038a5b0f5c76d}
-Final LONG predicts UP; CASH predicts DOWN. With confusion counts over
-the 25/77 class support, BA and MCC are
+Final LONG predicts UP; CASH predicts DOWN. True positives (TP) and false
+negatives (FN) count UP cases predicted LONG and CASH, respectively.
+True negatives (TN) and false positives (FP) count DOWN cases predicted
+CASH and LONG. With 25 UP and 77 DOWN cases, BA and the Matthews
+correlation coefficient (MCC) are
 \begin{align}
 BA&=\tfrac12\left(\frac{TP}{TP+FN}+\frac{TN}{TN+FP}\right),\\
 MCC&=\frac{TP\,TN-FP\,FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}.
@@ -130,11 +132,11 @@ R_{qmr}=\prod_{i\in q}(1+z_{imr})-1,\qquad
 \end{equation}
 Component main averages its 51 accounts without Decision repeats. The
 separate numerical headline instead averages nine stock-level accounts;
-it is not that 51-account estimator. Positive-magnitude EOD drawdown is
+it is not that 51-account estimator. Positive-magnitude end-of-day (EOD) drawdown is
 $100\max_d(1-V_d/\max_{u\le d}V_u)$. Account averages are not a shared-capital
 portfolio. Component daily Sharpe uses population SD and nominal
-$\sqrt{252}$; its legacy Sortino uses SD of negative returns. Context
-uses unannualized cycle mean/sample-SD and downside RMS over all cycles,
+$\sqrt{252}$; its legacy Sortino uses SD of negative returns. The context study uses the unannualized cycle mean divided by sample SD,
+and a downside root-mean-square (RMS) measure over all cycles,
 including zero; annualized fields remain null. Ratios across these
 conventions must not be ranked interchangeably.
 
@@ -169,7 +171,7 @@ draws, PCG64 seed 20261110). With paired estimates $\hat\delta_j$ and
 bootstrap SD $s_j$, its descriptive band is
 \begin{equation}
 M_b=\max_j\frac{|\delta^*_{bj}-\hat\delta_j|}{s_j},\quad
-c=Q_{.95}^{higher}(M),\quad [\hat\delta_j-cs_j,\hat\delta_j+cs_j].
+c=Q_{0.95}^{higher}(M),\quad [\hat\delta_j-cs_j,\hat\delta_j+cs_j].
 \end{equation}
 The whole family needs at least 9,500 jointly finite draws, finite point
 estimates and nonzero finite SD in every cell; otherwise bands are null.
@@ -207,7 +209,7 @@ Full's BA exceeds Base by \textbf{3.247 pp}, yet mean account return is
 \textbf{0.047 pp lower}. The saved Full--Base BA percentile interval is
 [$-1.176$,8.125] pp (10,000 draws, none undefined); all eight main Full
 BA comparison intervals include zero. These descriptive intervals do
-not establish confirmed superiority. Full/Base confusion is respectively
+not establish confirmed superiority. The confusion counts for Full and Base are respectively
 $(TP,FN,TN,FP)=(7,18,60,17)$ and $(7,18,55,22)$. Both capture seven UP
 points, while Full avoids five additional false positives and opens 24
 LONGs versus 29. CASH's 75.490\% accuracy reflects class imbalance, not
@@ -216,8 +218,8 @@ higher BA (55.610\%) and a less negative return than Full. Every active
 main strategy has a negative mean net return. Classification gains and
 reduced exposure therefore do not demonstrate profitable trading.
 
-Full's mean held-session/close-exposure percentages are 2.353/1.569\%
-versus Base's 2.843/1.895\%; intraday holding includes exit, whereas close exposure
+Full's mean held-session and close-exposure percentages are 2.353\% and
+1.569\%, compared with Base's 2.843\% and 1.895\%; intraday holding includes exit, whereas close exposure
 does not. Daily costs/marks and cycle-end drawdown answer different
 questions. Continuous hold loses 2.127\% with 12.939\% mean MDD but is a
 different exposure schedule; always-LONG sampled cycles lose 3.000\%.
@@ -248,7 +250,7 @@ Random five (mean of 20) & 47.738 & -0.039 & 44.216 & -8.097\\
 
 Dynamic train-ranking minus fixed/random-mean/no-flip yields BA differences
 15.844/7.327/6.442 pp. Their saved percentile intervals are [6.817,25.217],
-[.567,13.748] and [$-10.932$,20.263]; adjusted diagnostic p-values are all
+[0.567,13.748] and [$-10.932$,20.263]; adjusted diagnostic p-values are all
 1.000 in the complete 23-contrast Holm family. The bootstrap and fixed-weight
 sign tests have different class-weight conventions. These results neither
 confirm the unverified sign assumptions nor isolate an LLM selector effect.
@@ -358,7 +360,7 @@ mechanistic interpretations even where a contrast is computable.
 \subsection{Fallback and the anchor bridge}
 Table~\ref{tab:coverage} keeps all research roles and their denominators.
 Every role has 306 final slots; inherited actions are not fresh responses.
-v1 acts on the 48 bank-covered points in each repeat. C2/B each issue only
+v1 acts on the 48 bank-covered points in each repeat. C2 and B each issue only
 three raw replies, A only 24; their aggregate outcomes mostly reflect
 Common reuse. CASH/always-LONG controls have 306 deterministic slots,
 zero hosted replies and respectively zero/306 LONGs.
@@ -403,8 +405,8 @@ a raw SHORT forecast. The sign-specific Q10/Q90 rule explains action
 changes more directly than the sign of mean utility alone.
 
 The student-probability field is present on 258 supported slots with
-Brier .205811; the teacher-probability field is present on 198 with
-Brier .212024. Different supports prohibit ranking these as a matched
+Brier 0.205811; the teacher-probability field is present on 198 with
+Brier 0.212024. Different supports prohibit ranking these as a matched
 calibration comparison. The whole-cohort action results retain every
 planned point even when a numerical probability is unavailable. A
 posterior summary, LLM confidence and accepted action are separate outputs.
@@ -422,17 +424,17 @@ categories. Outcomes are disclosed after the facts/proposals/actions.
 not the payoff of a CASH action; percentages are rounded.}\label{tab:cases}
 \begin{tabular}{@{}P{.25\linewidth}P{.23\linewidth}P{.29\linewidth}r@{}}\toprule
 Stock/cutoff & Branch & Proposal / reference / final & Net (\%)\\\midrule
-FPT 2023-07-03 & MT & LONG / LONG / LONG & $-.265$\\
-FPT 2023-07-03 & C2 & absent / Common LONG / LONG & $-.265$\\
+FPT 2023-07-03 & MT & LONG / LONG / LONG & $-0.265$\\
+FPT 2023-07-03 & C2 & absent / Common LONG / LONG & $-0.265$\\
 HVN 2024-07-01 & MT & LONG / CASH / LONG & $-1.574$\\
-MWG 2024-09-20 & MT & LONG / CASH / CASH & $+.324$\\
-CMG 2023-07-03 & Native & SHORT / none / CASH & $+.171$\\\bottomrule
+MWG 2024-09-20 & MT & LONG / CASH / CASH & $+0.324$\\
+CMG 2023-07-03 & Native & SHORT / none / CASH & $+0.171$\\\bottomrule
 \end{tabular}\end{table}
 
 Sufficient FPT context does not avoid a loss, and C2 support insufficiency
 does not establish a negative forecast: it inherits LONG. HVN demonstrates
 an accepted change that loses after costs. MWG's rejected LONG misses a
-positive candidate return; its CASH payoff is zero, not $+.324$\%.
+positive candidate return; its CASH payoff is zero, not $+0.324$\%.
 CMG's CASH likewise misses a profitable LONG and is incorrect for the
 net label. These cases preserve the limits of context, policy and Native
 rather than selecting only favorable examples. FPT's chart/prose
@@ -440,16 +442,16 @@ contradictions and unchanged anchor were explained before its outcome.
 
 \subsection{Dependence, coverage and execution assumptions}
 Saved sensitivities materially change interpretation. For v1 minus Common,
-the return band becomes [$-.019$,.672] at block length one, crossing zero,
-versus [.067,.586] at primary length two and [.144,.509] at length three.
-On CORE4 its return contrast is .694 pp [.132,1.257], a different selected
-population. v1 minus Native on CORE4 is .350 pp [$-.024$,.725], compared
+the return band becomes [$-0.019$,0.672] at block length one, crossing zero,
+versus [0.067,0.586] at primary length two and [0.144,0.509] at length three.
+On CORE4 its return contrast is 0.694 pp [0.132,1.257], a different selected
+population. v1 minus Native on CORE4 is 0.350 pp [$-0.024$,0.725], compared
 with a negative full-cohort point contrast. MT minus Common on CORE4 is
-$-.115$ pp [$-.205$,$-.026$], while its full-cohort primary band includes
+$-0.115$ pp [$-0.205$,$-0.026$], while its full-cohort primary band includes
 zero. None may replace the primary family because it looks more favorable.
 
 Leave-one-fold/stock analyses retain directional instability: v1--Native
-return ranges [$-.145$,.107] across omitted folds and [$-.162$,.133]
+return ranges [$-0.145$,0.107] across omitted folds and [$-0.162$,0.133]
 across omitted stocks. Their BA ranges and all remaining sensitivity
 cells remain available in the source artifact, without rerunning draws.
 Component common-eight/recent-nine and circular-block/HAC panels use
@@ -471,14 +473,15 @@ or end-to-end latency advantage.
 Table~\ref{tab:execution} retains all twelve saved scenario means and
 blocked-order counts. Reference, pending settlement and on-demand
 advance coincide only on this sampled schedule. Lower/higher costs use
-brokerage/slippage .10/.05\% and .50/.30\% per leg; the canonical reference
-stays .25/.10\%. Higher costs reverse the Full/Base return ordering.
-Automatic financing assumes a hypothetical 15\% annual ACT/365 charge.
+brokerage/slippage 0.10/.05\% and 0.50/.30\% per leg; the canonical reference
+stays 0.25/.10\%. Higher costs reverse the Full/Base return ordering.
+Automatic financing assumes a hypothetical 15\% annual charge on an
+actual-days/365 (ACT/365) basis.
 The lot/participation proxy uses lots of 100 and 1\% of lagged trailing
 20-session mean vendor volume, not authenticated order-book capacity.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption[Recorded component execution scenarios]{All saved component execution scenarios with fixed predictions and labels. Returns are mean account percentages; blocked counts are Full/Base.}\label{tab:execution}
+\caption[Recorded component execution scenarios]{All saved component execution scenarios with fixed predictions and labels. Returns are mean account percentages; blocked counts are Full/Base (F/B).}\label{tab:execution}
 \begin{tabular}{@{}P{.41\linewidth}rrr@{}}\toprule
 Scenario & Full (\%) & Base (\%) & Blocked F/B\\\midrule
 reference & -0.797 & -0.750 & 0/0\\
@@ -517,7 +520,7 @@ Application/execution & Recorded offline checks and reference scenarios & Browse
 \end{tabular}\end{table}
 
 The 828/852 count concerns return differences above $10^{-8}$ pp between
-bank and query sources, with maximum .04298848884252138 pp. It is
+bank and query sources, with maximum 0.04298848884252138 pp. It is
 \emph{not} a count of changed binary labels, and does not justify rewriting
 the bank. A Common alpha repair cannot certify all inherited features,
 news content or historical availability. The recorded Native

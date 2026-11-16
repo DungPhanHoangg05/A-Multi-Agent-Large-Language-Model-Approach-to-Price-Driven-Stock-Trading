@@ -3123,3 +3123,7 @@ Rà dưới giả định người đọc có nền tảng ML bậc đại học
 | Scoped checks khác certification | §5.9/Chương6 | Native FAIL, NOT_CERTIFIED, provenance/exposed folds/UI PENDING |
 
 Build riêng Chương3–4 ba lượt PASS; 25 trang nội dung+1 references, đã render/xem vùng đổi, không undefined reference/citation, glyph thiếu hoặc overfull. Bản ghép cuối được kiểm ở T78/T79; không chạy suite nghiên cứu vì chỉ sửa diễn giải.
+
+### T75. Biên tập tiếng Anh và chuẩn hóa thuật ngữ toàn văn
+
+Tự biên tập sáu chương, abstract, caption và glossary; định nghĩa VWAP/HMM/PFN/HAC, TP/FN/TN/FP, GELU/KL và các chữ viết tắt kỹ thuật; làm rõ đơn vị, thì và mạch đoạn. Chuẩn hóa 88 số thập phân ngoài 68 dòng kết quả được bảo vệ, không đổi giá trị. Kiểm check.py --strict-cutover-targets PASS (68 dòng và family20); build bốn lượt LuaLaTeX/Biber tại tmp/pdfs/thesis-t75-approved: 60 trang, không overfull/glyph thiếu/reference treo; xem các trang bị dồn dòng và gộp đoạn kết Chương 4 để bỏ trang một dòng. Đây là tự biên tập nội bộ, chưa review tiếng Anh độc lập. Chỉ đổi tài liệu nên không chạy suite runtime; hai warning metadata bibliography chuyển T76 xử lý, underfull chuyển T78/T79 kiểm cụ thể. PDF release/hash hiện vẫn là mốc T73 cho đến clean build T78.

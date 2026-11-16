@@ -14,7 +14,7 @@ Cross-sectional rank and group neutralization operate across securities;
 temporal operators operate over a security's history. Replacing the
 former with temporal ranks in a single-stock implementation changes the
 formula's meaning. A typical-price proxy also differs from authenticated
-intraday VWAP. \autocite{kakushadze2016formulaic} The thesis attributes
+intraday volume-weighted average price (VWAP). \autocite{kakushadze2016formulaic} The thesis attributes
 these foundations while treating its adapted library and five additional
 factors as a distinct implementation family. Native and Common further
 differ in normalization, orientation, selection and report projection.
@@ -66,8 +66,7 @@ study. \autocite{nguyen2023visobert,hf5cdsentiment}
 \section{Regimes and historical-context inference}\label{s:72ac96e2a9d3b286}
 Hamilton's regime-switching account models persistent changes through a
 latent state; the state is an estimated representation rather than an
-observed economic truth. \autocite{hamilton2005regimes} Rabiner separates
-HMM transition and emission models, parameter fitting and state inference.
+observed economic truth. \autocite{hamilton2005regimes} Rabiner separates hidden Markov model (HMM) transition and emission models, parameter fitting and state inference.
 Forward/backward inference makes the information boundary explicit:
 smoothing an earlier state can use later observations from the supplied
 sequence. Both the fitting period and inference prefix therefore matter.
@@ -91,7 +90,7 @@ intervals; it is not an embedding retriever. Counts, top-$K$ examples and
 numerical task datasets have different denominators and functions.
 
 \section{Multi-task Bayesian ICL and numerical students}\label{s:b46bc1f71efb86f5}
-Prior-Data Fitted Networks train on datasets sampled from a specified
+Prior-Data Fitted Networks (PFNs) train on datasets sampled from a specified
 prior, approximating a posterior-predictive mapping through prior-data
 negative log-likelihood. A sampled training prior is central to this
 construction; it is not generic prompting of a pretrained language model.
@@ -132,8 +131,7 @@ Uncertainty methods retain assumptions. Politis and Romano's stationary
 bootstrap motivates preserving dependence, but differs from the recorded
 fixed circular blocks and whole-fold resampling here.
 \autocite{politis1994stationary} Newey--West covariance estimation addresses
-heteroskedasticity and autocorrelation under regularity conditions; a
-stored HAC diagnostic is not a small-sample guarantee.
+heteroskedasticity and autocorrelation under regularity conditions; a stored heteroskedasticity and autocorrelation consistent (HAC) diagnostic is not a small-sample guarantee.
 \autocite{newey1987hac} Holm adjustment requires valid underlying tests
 and cannot repair unverified sign-symmetry or post-inference selection.
 \autocite{holm1979multiple} Six already exposed folds support descriptive
@@ -159,10 +157,8 @@ PFN/multi-task ICL & Numerical inference conditioned on marked datasets & Local 
 This system & Reports, mature context, numerical predictor, anchor and utility policy & Evaluate combined paths and fallback; isolated mechanism effects remain open\\\bottomrule
 \end{tabular}\end{table}
 
-The gap is whether this particular conditioning and revision design adds
-reliable value under a common temporal and economic contract. The work
-provides an implementation and two bounded historical assessments. It
-keeps population statistics separate from displayed examples and datasets,
-and proposals separate from final actions. Baseline-dependent outcomes,
-negative mean returns, mostly retained MT anchors, Native causal failure
-and missing matched ablations prevent a stronger superiority claim.
+The thesis evaluates this conditioning and revision design under a common
+temporal and economic contract, separating populations, displayed examples,
+datasets, proposals and final actions. Baseline-dependent negative outcomes,
+mostly retained anchors, Native causal failure and missing matched
+ablations limit conclusions; no general superiority is established.
