@@ -1,276 +1,77 @@
-% Chuyển một lần từ bản nháp đã khóa; sửa nguồn LaTeX sau mốc T72.
+% Kết luận tổng hợp đúng phạm vi đã báo cáo; không tạo kết quả mới.
 \chapter{Conclusions and Future Work}\label{s:3929b96346005341}
+\section{Approach and contributions}\label{s:fec2d201a3e32bcc}
+This thesis integrates a daily price-driven multi-agent pipeline with
+regime-aware historical evidence and numerical multi-task inference for
+Vietnamese-stock LONG/CASH decisions. Specialist price/chart reports,
+adapted alpha and dated sentiment form the current evidence; mature
+episodes or marked task datasets supply context. Fact Anchor and an
+external utility policy distinguish a hosted proposal from the final
+action. Shared upstream, canonical net-cycle accounting and a forecast
+barrier make the recorded path inspectable.
 
-\section{Summary of the approach}\label{s:fec2d201a3e32bcc}
+The contribution is this adaptation, context/policy integration and
+source-bound evaluation. QuantAgent-style roles, indicators, Alpha101,
+HMMs, Bayesian updating and multi-task ICL remain attributed foundations.
+The local teacher/student architecture and objective are adaptations,
+not claims to replicate the reference model or transfer its guarantees.
+Implementation and reproducibility are contributions even where the
+empirical comparisons do not establish a performance benefit.
 
-This thesis connects a daily price-driven multi-agent analysis pipeline
-with regime-aware historical context and numerical multi-task inference
-for Vietnamese-stock LONG/CASH decisions. Price/volume features, chart
-reports, adapted alpha signals and dated sentiment provide the current
-evidence. Historical branches add earlier completed episodes, with
-strict outcome-maturity requirements, market-state conditioning and
-explicit readiness rules. The intended information boundary excludes
-the current query's future outcome from forecasting.
+\section{Answers to the research questions}\label{s:72579e525074c634}
+\paragraph{RQ1: combined information and controls.}
+Component Full exceeds Base by 3.247 pp BA on 102 points, with saved
+descriptive interval [$-1.176$,8.125] pp, while its mean net account
+return is .047 pp lower. Both identify seven of 25 UP outcomes; price
+logistic has higher BA than Full. Separate numerical and nine-unit
+factorial panels have different supports and prompt families. The
+supported result is a limited classification difference with adverse
+financial outcomes, not a general alpha--sentiment or LLM-selector benefit.
 
-The implementation provides several ways to introduce that history:
-bounded Bayesian count summaries, conditional or alternative priors,
-and numerical historical tasks for MT-BICL. The MT path combines a
-factual anchor, a numerical student/teacher resource, a hosted proposal
-and a utility-based revision policy. Its final action can retain the
-anchor even when a new proposal is present. Section 4.8 details the numerical
-context and its interface with the hosted decision stage.
+\paragraph{RQ2: historical context.}
+v1 minus Common return is +.327 pp [.067,.586], but minus Native is
+$-.045$ pp [$-.362$,.271], within the complete twenty-cell descriptive
+family. Its shorter-block Common band crosses zero. C2/B each obtain
+only three new Decision replies and otherwise mostly inherit Common.
+All eight research-role means are negative. Outcomes depend on baseline,
+readiness and dependence assumptions; no isolated regime effect or
+prospective profitability is established.
 
-The common economic contract is the candidate-LONG rule defined in §3.2
-and introduced in §1.2, including the entry/exit schedule, two-sided costs
-and SHORT-to-CASH mapping. Forecasts, policy actions and
-future outcomes remain separate records, and paired context branches
-reuse the same upstream realization. These choices make the recorded
-comparisons inspectable; they do not resolve every inherited causal or
-data-provenance limitation.
+\paragraph{RQ3: factual anchoring and action revision.}
+MT and Fact Anchor agree in 302/306 final slots: 108 bypasses, 189
+same-action proposals, five rejected changes and four accepted changes.
+The MT--anchor return/BA bridge is +.033/+.433 pp, while MT's mean return
+remains negative. This combined path does not isolate the student,
+target context or utility benefit. A changed proposal and a changed final
+action are different events; enum-valid facts do not certify all prose.
 
-The contribution lies in the adaptation, context/policy integration and
-evaluation described in Chapters 3--5. Chapter 2 attributes the inherited
-multi-agent architecture, indicators, HMM/Bayesian foundations and
-student--teacher methodology. The two historical studies evaluate this
-particular implementation under different response collections and
-statistical conventions. The answers below retain that separation and
-summarize the already reported results, rather than adding experiments
-or treating implementation as evidence of effectiveness.\footnote{This chapter synthesizes Chapter 5, especially B05a--b, B06a--e, the policy decomposition in §5.8.2 and B09. Evidence ledger §12.3/CL221--CL226 maps the answers to CL145--CL187 and the unchanged archived sources. No fitting, new model calls, resampling or execution replay is introduced.}
+\paragraph{RQ4: contract evidence.}
+The records support particular source-bound checks of economic labels,
+pairing, forecast/outcome separation, prompt/retry/checkpoints and cold
+artifact replay. Native row-wise causality remains \textbf{FAIL}; the
+whole-system historical status is \textbf{NOT\_CERTIFIED}. Provenance,
+execution and browser-acceptance limits remain open. These checks neither
+freeze external hosted weights nor establish live trading readiness.
 
-\section{Answers and contributions}\label{s:72579e525074c634}
+\section{Limitations and future work}\label{s:ff798c832c8c6036}
+The main limits are six already exposed dependent folds, purposive
+stock selection and narrow bank coverage; unavailable sentiment and
+unauthenticated historical source availability; bank/query return-basis
+differences and missing original signal journals; coupled prompt/input
+interventions and missing matched ablations; and reference fractional
+accounts without validated market execution or shared capital. Three
+Decision repeats do not independently resample upstream or markets.
+An accepted revision can lose, and a rejected LONG can miss a gain.
 
-The four answers follow the questions introduced in §1.3 and the
-observation--answer--remaining-evidence map in Table B09 (§5.9.3). Percentage
-point differences below retain the estimators and support specified in
-Chapter 5; they are not returns on a validated multi-stock portfolio.
-
-\subsection{RQ1: combined information and controls}\label{s:7cba3c757c28c519}
-
-\textbf{How does the multi-agent system combining price, alpha and sentiment behave relative to its controls?}
-
-The recorded component system shows a classification gain over Base
-without a corresponding financial gain. On 102 paired points, Full has
-BA of 52.961\% versus 49.714\%, a +3.247 pp difference; the saved six-block
-descriptive interval is {[}\ensuremath{-}1.176, 8.125{]} pp.~Both identify only 7 of the
-25 UP outcomes. Full's mean net account return is \ensuremath{-}0.797\% versus
-\ensuremath{-}0.750\%, giving a \ensuremath{-}0.047 pp difference. The price-logistic control has
-higher BA than Full, and CASH remains at zero return (§5.6.1).
-
-The separate numerical and nine-unit factorial panels answer narrower
-questions on their own support (§§5.6.3--5.6.4). They do not establish
-an isolated benefit from the language model's factor selector or from
-adding alpha and sentiment. Full/Base changes prompt representation
-along with information. The supported answer is thus an observed,
-representation-dependent classification difference with adverse
-financial outcomes, not a general advantage of the combined system.
-
-\subsection{RQ2: historical context and conditional evidence}\label{s:f4addef761acfc2d}
-
-\textbf{How does regime-aware historical context and conditional evidence change outcomes under the same upstream realization?}
-
-The outcome depends on the baseline and on whether contextual evidence
-is actually available. Bayesian v1 exceeds Common by +0.327 pp in mean
-account return, with saved joint descriptive band {[}0.067, 0.586{]} pp.
-Against Native its difference is \ensuremath{-}0.045 pp, with band {[}\ensuremath{-}0.362, 0.271{]} pp
-(§5.7.4). These belong to the complete twenty-cell contrast family, not
-two independently chosen tests. The shorter-block L1 band for v1 minus
-Common crosses zero (§5.8.4). The six exposed folds and dependence
-assumptions prevent a confirmatory superiority interpretation.
-
-Conditional branches are sparsely exercised: C2 and B\_\allowbreak{}semantic each
-produce only three new Decision replies, while their remaining slots
-retain designated fallback (§5.7.2). Primary comparisons include those
-slots; covered subsets do not replace them. All eight context research
-methods have negative mean net account returns (§5.7.1). The results
-therefore support baseline- and readiness-dependent descriptive changes,
-without isolating a regime effect or demonstrating profitability.
-
-\subsection{RQ3: factual anchoring, MT inference and utility}\label{s:861a5e2202d28f5c}
-
-\textbf{How do Fact Anchor, MT-BICL and the utility policy affect final actions?}
-
-The combined MT path mostly retains the factual anchor. MT-BICL and
-Fact Anchor agree on 302 of 306 final-action slots. The recorded
-decomposition is 108 bypasses, 189 raw proposals equal to the anchor,
-five rejected changes and four accepted changes (§5.8.2). Accepted
-changes cover only three unique market points. This explains why a
-new hosted reply and a different final action are different events.
-
-The MT-minus-anchor bridge has +0.033 pp mean account-return difference
-and +0.433 pp BA difference (§5.7.5), while MT's mean return remains
-negative. The bridge changes combined mechanisms and supplies no
-isolated student, target-context or utility-policy effect. Missing
-Plain\_\allowbreak{}revision, No\_\allowbreak{}target, No\_\allowbreak{}utility and student--teacher interventions
-remain missing (§5.9.1). The supported contribution is a traceable
-anchor-relative revision path with very limited final-action changes,
-not a measured benefit attributable to the student alone.
-
-\subsection{RQ4: temporal, economic and operational evidence}\label{s:d546dd6b9caa558d}
-
-\textbf{Which temporal, economic and operational contracts are supported by evidence, and which limitations remain?}
-
-The frozen records support specific engineering contracts: canonical
-candidate-LONG labels and cost accounting, shared upstream inputs,
-forecast/outcome separation, measured prompt bounds, retry/checkpoint
-handling and source-bound offline replay. Each conclusion applies to
-the tested historical path and receipt scope (§§5.1, 5.3 and 5.8--5.9).
-Reading a saved reply or reproducing an artifact introduces no new
-hosted inference and cannot verify future served-model behavior.
-
-The Native row-wise causality gate remains \textbf{FAIL} and the whole-system
-status remains \textbf{NOT\_\allowbreak{}CERTIFIED\_\allowbreak{}HISTORICAL\_\allowbreak{}EXPLORATORY}. Bank/query/news
-provenance, independent execution evidence and UI/F11 acceptance remain
-unresolved; UI/F11 is \textbf{PENDING}. These limits prevent an assertion of
-whole-system causal validity, live execution readiness or prospective
-profitability. The answer to RQ4 is consequently a scoped inventory of
-supported contracts and remaining failures, not overall certification.
-
-Together, the answers distinguish four contributions. System adaptation
-is supported by the implemented graph and component records;
-historical-context/policy design by the specified mechanisms and traces;
-evaluation/reproducibility by the paired accounting and scoped receipts;
-and empirical findings by the two bounded historical studies. The
-contribution types introduced in §1.5 are supported within these limits. None
-requires turning a negative result into a trading advantage.
-
-\section{Limitations}\label{s:ff798c832c8c6036}
-
-\textbf{Temporal construction and source provenance limit the validity of the
-historical conclusions.} The Native row-wise causality failure remains
-unresolved. An outer cutoff at the query date cannot establish that
-earlier rows were computed causally, and the Common alpha projection
-does not certify every inherited feature or resource. The signal bank
-and query prices also have different provenance. The audit finds
-numerical return differences in 828 of 852 bank records; this is not a
-count of changed labels. The unavailable original raw signal journals
-prevent complete independent reconstruction of signal generation.
-Membership hashes identify stored records but cannot authenticate their
-original production. Historical news dates, adjusted prices, corporate
-actions, volume units and point-in-time membership are likewise not
-independently verified throughout the collection (§5.9.2). These gaps
-affect the interpretation of the existing results, not merely the
-convenience of reproducing them.
-
-\textbf{The empirical support is small, dependent and previously exposed.}
-The purposive nine-stock sample and six examined temporal folds do not
-provide an untouched evaluation of the wider Vietnamese market. BHN's
-shorter eligible history further limits uniformity. Three Decision
-repeats share one upstream realization at each point; they do not test
-independent chart-report variability. The component and context studies
-have separate responses and statistical conventions. Their bootstrap,
-joint-band and sensitivity constructions are descriptive; the L1/L2
-difference shows why a favorable band cannot be treated as a stable
-confirmatory result. Hosted aliases also leave served-weight identity
-and foundation-model historical training overlap unresolved. Local
-source and weight hashes cannot answer those external questions.
-
-\textbf{Coverage and combined interventions limit mechanism attribution.}
-Missing news and incomplete historical context change what the system
-can use. Unavailable sentiment is not neutral sentiment, and a fallback
-is not a new contextual model response. Sparse conditional activation
-means that a full-cohort comparison may mostly describe retained
-baseline actions. Full/Base and Native/Common also change representation
-or instructions along with information. The small factorial panel and
-the Common--Anchor--MT bridge do not fill the missing matched comparisons
-listed in §5.9.1. Numerical assertions inspect consistency with a fact
-packet; they do not independently validate the financial interpretation
-of every report. The observed MT/anchor agreement therefore does not
-identify whether the student, context, teacher or utility gate would be
-responsible for a different result under another protocol.
-
-\textbf{Economic and application evidence stop short of deployment.} The
-reference ledger uses daily bars and separately capitalized stock--fold
-accounts. It does not establish available liquidity, queue priority,
-actual partial fills, market impact or jointly feasible portfolio
-funding. The twelve saved execution scenarios apply hypothetical
-assumptions to fixed predictions; they do not constitute certified fills
-or guaranteed worst-case bounds. Zero CASH return belongs to that
-reference contract. Lower drawdown or lower exposure does not remove
-the negative research-method returns. Finally, the realtime interface
-and the author's research-snapshot statement do not establish browser
-acceptance or profitable prospective operation. UI/F11 remains PENDING;
-external review and submission acceptance are separate activities.
-
-These limitations leave a useful but bounded outcome: a traceable
-implementation and an exploratory account of how its recorded decisions
-change. They restrict causal, financial and deployment claims together.
-The next research steps must add the specific evidence that is missing.
-
-\section{Future work}\label{s:49fa8b2e540afbae}
-
-The following priorities follow the dependencies among validity,
-attribution and external evaluation. They are proposed work, not
-completed repairs, additional results or retrospective changes to the
-locked studies.\footnote{Limitations and missing interventions are carried from §§5.8--5.9/B06h/B09 and evidence ledger §12.4/CL227--CL230. Priority order is a research recommendation derived from those dependencies, not evidence that any listed experiment, repair or acceptance activity has been completed.}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{Repair temporal construction and establish provenance.} A separately
-  versioned study should first make Native feature construction causal
-  at every row, with explicit fit periods and resource identities. Bank
-  and query inputs should be reconciled against authenticated source
-  series, original signal journals and date-specific news availability.
-  Label generation must continue to use the common economic oracle and
-  exclude examples whose exits are not strictly before the cutoff.
-  Evidence should include row-wise prefix-invariance checks, cutoff and
-  maturity violations that fail explicitly, complete source manifests
-  and an audit of bank/query return differences. This would establish
-  what the repaired study can claim. It must not overwrite frozen
-  predictions or reclassify the current Native FAIL as a historical pass.
-\item
-  \textbf{Improve and validate usable context coverage.} On the repaired
-  foundation, expand the authenticated historical bank and dated news
-  coverage, then measure readiness and missingness across stocks, dates
-  and regimes. Chart/report grounding needs independent checks of
-  reported features; sentiment needs validation for the financial domain
-  and the actual news-selection path. Wider coverage is useful only if
-  its eligibility and meaning are verified. The required evidence is a
-  coverage audit with source availability, example maturity, fallback
-  reasons and domain-validation results, retaining the full-cohort
-  endpoint alongside clearly secondary covered-subset analyses.
-\item
-  \textbf{Identify mechanisms with registered matched interventions.} Hold
-  the bank, feature projection, prompt format/budget and support fixed
-  while comparing random, recent, similarity and Bayesian retrieval,
-  and statistics-only, examples-only and no-regime conditions. For MT,
-  include the missing plain-revision, no-target, no-utility and
-  student--teacher comparisons. Record raw proposals and final actions
-  separately so that retrieval, numerical inference and policy effects
-  can be distinguished. Each comparison should share its upstream
-  realization; independent upstream repetitions should additionally
-  measure upstream variability. Predeclared contrasts, support rules,
-  endpoint families and uncertainty procedures would make the resulting
-  attribution stronger than the present combined bridges. Implemented
-  builders alone cannot supply that evidence.
-\item
-  \textbf{Evaluate a fixed protocol on previously unexposed periods.} After
-  repairs and design decisions are frozen, collect a prospective or
-  otherwise genuinely unexposed evaluation with source/model/time
-  identities and interruption records. Plan its duration and precision
-  around dependent temporal support, rather than counting repeated
-  prompts as independent market samples. Retain CASH and numerical
-  controls, unfavorable outcomes, missing-context paths and all
-  predeclared contrasts. Classification, exposure and net account
-  economics should remain separate endpoints. Such evidence is needed
-  to assess transfer beyond the exposed folds; choosing a different
-  retrospective interval or favorable subset cannot provide it.
-\item
-  \textbf{Validate execution, portfolio constraints and application behavior.}
-  Deployment research requires venue- and date-specific evidence for
-  trading units, auctions, costs, settlement, liquidity and fill behavior.
-  A capital-constrained multi-stock ledger should explicitly model
-  overlapping positions, available cash and reconciliation before its
-  return is described as a portfolio outcome. Application acceptance
-  should verify the displayed branch, source identity, prompt/policy
-  path, fallback/error states and checkpoint recovery against recorded
-  results, including the three modules covered by the author's snapshot
-  statement. Completing UI/F11 would establish the tested application
-  behavior; evidence of prospective execution and profitability would
-  still require its own evaluation.
-\end{enumerate}
-
-The current thesis ends with these evidence requirements open. Its
-implemented mechanisms and historical findings provide a basis for that
-work, while the causal failure, adverse financial outcomes and unresolved
-deployment limits remain part of the record.
+Priority work is to repair and test Native row-wise causality and
+reconcile provenance in a separately versioned study, preserving the
+historical failures. Broader authenticated price/news/context coverage
+and independent chart/fact-grounding checks should precede stronger
+claims. Registered matched interventions must separate retrieval,
+regime/statistics, prior/target tasks, numerical student and external
+utility. A prospectively collected unexposed evaluation needs appropriate
+dependence/precision planning and independently regenerated upstream
+realizations. Venue-specific lots, fills, capital and settlement modeling,
+then browser acceptance, remain distinct work. The present results
+support a bounded historical assessment and identify these evidence
+needs; they do not demonstrate profitable prospective deployment.

@@ -3050,3 +3050,7 @@ Giữ 102points/51accounts/25UP77DOWN/sáu fold/ba Decision repeats và 2448 slo
 ### T73i. Rút kết quả/thảo luận, giữ đủ family và kết quả bất lợi
 
 Chương 5 hiện 12 trang, hai bảng kết quả chính riêng, đủ 10method/control rows mỗi bảng và family20 qua hai bảng baseline hẹp. 56 dòng bảng được chiếu nguyên chuỗi ô từ nguồn P8; assets/tables/concise_results.source.json giữ ánh xạ/cột/hash bản Markdown gốc. Giữ numerical controls/factorial seven-BA family, NA, scope/SD, support/bypass, 302/306 anchor agreement, accepted-loss/veto-missed-UP/Native-wrong cases, L1 crossing zero, Native FAIL/NOT_CERTIFIED và ablation chưa làm. Đã đối chiếu/sửa đơn vị exposure sang %, giữ percentile Full–Base BA; build với Chương 3 ba lượt PASS, không overfull/undefined và đã render/xem các trang kết quả. Không sinh bootstrap hoặc nghiên cứu mới.
+
+### T73j. Rút phần đầu còn 10 trang và kết luận còn 2 trang
+
+Giữ nguyên byte nội dung lời cảm ơn/cam đoan đã xác nhận và nguồn bìa; không thêm chữ ký. Abstract rút theo các kết quả còn giữ; glossary/notation gộp một trang, TOC/list tự sinh; Chương 6 trả lời đủ bốn RQ, không kết quả mới. Bản sao preview không phụ lục build ba lượt PASS, phần đầu10/Chương6 hai trang, tổng57 trang trước chỉnh hình/cỡ nhãn T73l; chưa nhận đạt60–70 hoặc T78–T79. Đã render/xem phần đầu và hai trang kết luận.
