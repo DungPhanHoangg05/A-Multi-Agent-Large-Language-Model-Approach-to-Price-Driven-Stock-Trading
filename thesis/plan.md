@@ -153,7 +153,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 - [x] T73a — DONE: Khóa mốc và ánh xạ biên tập theo ngân sách 66 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73b — DONE: Rút Chương 1–2 còn 3 và 4 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T73c — TODO: Rút Chương 3, giữ nền tảng và hợp đồng cần để hiểu phương pháp.
+- [x] T73c — DONE: Rút nền tảng và hợp đồng Chương 3 còn 6 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T73d — TODO: Rút phần tổng quan, dữ liệu, các agent và Native/Common trong Chương 4.
 - [ ] T73e — TODO: Rút phần memory, regime và các prior trong Chương 4.
 - [ ] T73f — TODO: Rút phần facts, MT-BICL, teacher/student và utility/policy trong Chương 4.

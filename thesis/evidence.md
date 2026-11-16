@@ -3022,3 +3022,7 @@ T73a chỉ đổi tài liệu quản lý, chưa sửa LaTeX/PDF. Đã kiểm m�
 ### T73b. Rút Chương 1–2 còn 3 và 4 trang
 
 Giữ nguyên văn RQ1–RQ4, phạm vi/đóng góp có attribution và các giới hạn Native FAIL/NOT_CERTIFIED/UI PENDING. Related work tổng hợp theo vấn đề, một bảng định vị thay hai ma trận dài; đủ 22 citation keys trong build. LuaLaTeX/Biber ba lượt PASS, không undefined citation/reference hoặc overfull box; đã render/xem bảy trang hai chương. Không dùng các bảng bị bỏ để thay đổi kết quả hoặc nhận là đã rà cuối T74–T80.
+
+### T73c. Rút nền tảng và hợp đồng Chương 3 còn 6 trang
+
+Giữ timing e=t+1, net-return oracle/phí hai chiều, zero=DOWN/SHORT=CASH, tín hiệu, HMM, Beta disjoint, task/teacher/student, utility và PIT/paired. Cấu hình chi tiết nằm ở Chương 4–5; không đổi công thức hoặc giả định. Build riêng Chương 3 ba lượt PASS (6 trang nội dung + 1 references); đã xem render sáu trang. Lần build đầu phát hiện tên file timeline sai và đã sửa đúng asset F01_trade_timeline.pdf trước build PASS. Rà kích thước nhãn hình tiếp tục T73l.
