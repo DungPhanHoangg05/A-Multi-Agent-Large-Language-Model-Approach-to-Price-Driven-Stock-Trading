@@ -6,15 +6,17 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 **Mốc chuyển nguồn: 2026-11-16T13:14:55+07:00 (Asia/Saigon).** Từ mốc T72,
 [main.tex](latex/main.tex), các file trong `latex/chapters/`,
-`latex/appendices/`, `latex/frontmatter/`, [bibliography](references.bib)
+`latex/frontmatter/`, [bibliography](references.bib)
 và assets dùng chung là nguồn bản nộp chính. Mọi sửa nội dung tiếp theo
 thực hiện trong LaTeX; không tự sinh lại từ Markdown. Các file Markdown
-chương/phần đầu/phụ lục giữ làm bản nháp đã đối soát tại `e4e31daf`;
+chương/phần đầu giữ làm bản nháp lịch sử; [archive P8](archive/p8-source.zip)
+giữ nguyên byte 13 bản Markdown cùng nguồn LaTeX tại mốc cũ;
 [source map](latex/source-map.json) lưu hash LF và ánh xạ mốc chuyển.
 Kế hoạch, sổ bằng chứng và README quản lý vẫn tiếp tục cập nhật bằng Markdown.
 
-[PDF ghép P8](release/thesis.pdf) gồm hai bìa, phần đầu, sáu chương,
-tài liệu tham khảo và sáu phụ lục. Đây là bản để tiếp tục P9/P10,
+[PDF đang biên tập](release/thesis.pdf) sẽ được cập nhật sau T73l; mốc P8
+259 trang vẫn lấy nguyên byte từ Git `d025facb`. Bản nộp mới gồm hai bìa,
+phần đầu, sáu chương và references, không phụ lục. Đây là bản để tiếp tục P9/P10,
 chưa là bản đã phản biện, ký, nộp hoặc được trường chấp thuận.
 [Hướng dẫn build](latex/README.md) dùng LuaLaTeX/Biber và không cần thư mục
 mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã thử trong bản sao chỉ gồm LaTeX,
@@ -29,12 +31,12 @@ là nghiệm thu yêu cầu chính thức khi các mục bắt buộc bên ngoà
 ## Quy ước ngôn ngữ
 
 - **Trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý:** tiếng Việt.
-- **Nội dung khóa luận:** hoàn toàn bằng tiếng Anh, gồm phần đầu, sáu chương, phụ lục, tiêu đề, chú thích hình/bảng, nhãn sơ đồ và diễn giải khoa học. Dàn bài chương mục trong `outline.md` giữ tiếng Anh để làm khung bản thảo.
+- **Nội dung khóa luận:** hoàn toàn bằng tiếng Anh, gồm phần đầu, sáu chương, tiêu đề, chú thích hình/bảng, nhãn sơ đồ và diễn giải khoa học. Dàn bài chương mục trong `outline.md` giữ tiếng Anh để làm khung bản thảo.
 - **Định danh mã nguồn, tên phương pháp và tên tài liệu gốc:** giữ nguyên. Nếu cần dẫn bằng chứng tiếng Việt, phải có diễn giải tiếng Anh và ghi rõ bản dịch phục vụ trình bày; không sửa danh tính của prompt hoặc dữ liệu thực nghiệm gốc.
 
 ## Thứ tự đọc
 
-1. [Dàn bài khóa luận](outline.md): câu hỏi nghiên cứu, sáu chương, phụ lục và ánh xạ tới hệ thống.
+1. [Dàn bài khóa luận](outline.md): câu hỏi nghiên cứu, sáu chương và ánh xạ tới hệ thống.
 2. [Kế hoạch viết chi tiết](plan.md): các task nhỏ, phụ thuộc, đầu ra, tiêu chí nghiệm thu và lộ trình đến gói bàn giao cuối.
 3. [Checklist công việc](plan.md#21-một-nguồn-trạng-thái-công-việc): checklist 84 task nằm ngay trong kế hoạch; bằng chứng hoàn thành gộp lưu tại README tuần.
 4. [Sổ nguồn và yêu cầu](evidence.md): metadata, kiểm kê hai nghiên cứu, [danh sách đọc theo chủ đề](evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), quy ước khóa trích dẫn và giới hạn bằng chứng. Trạng thái đọc/kiểm được ghi theo phạm vi, không suy từ việc có trong bibliography.
@@ -53,7 +55,7 @@ là nghiệm thu yêu cầu chính thức khi các mục bắt buộc bên ngoà
 
 14. [Phần đầu](frontmatter.md): T59–T60; T59–T60 hoàn tất bản nháp phần đầu: abstract/7 keywords, lời cảm ơn và câu chữ cam đoan đã được tác giả xác nhận, 42 chữ viết tắt/26 dòng ký hiệu; chưa ký và chưa có biểu mẫu chính thức. [Sổ P7](evidence.md#13-phần-đầu-và-phụ-lục) giữ nguồn, đối soát và yêu cầu chính thức chưa có.
 
-15. Phụ lục — T61–T66 đã đủ bản nháp: [A: hợp đồng](appendices/A_contracts.md), [B: prompts/responses](appendices/B_prompts.md), [C: cấu hình](appendices/C_configuration.md), [D: bảng mở rộng](appendices/D_results.md), [E: audit](appendices/E_verification.md), [F: tái lập/ứng dụng](appendices/F_reproduction.md). Đã nối tham chiếu trong thân bài và đối soát nguồn/số liệu/phạm vi. [Sổ nguồn appendix](evidence.md#134-phụ-lục-a-hợp-đồng-dữ-liệu-và-thời-gian) giữ locator/hash và QA; đã chuyển LaTeX ở P8, chưa nghiệm thu bản nộp cuối.
+15. [Nguồn P8 lưu trữ](archive/p8-source.zip): các phụ lục cũ và bản nháp đã khóa; [source map](latex/source-map.json) giữ member/raw hash/LF hash. Phụ lục đã bỏ khỏi cây bản nộp và đường build ở T73k; nội dung thiết yếu nằm trong sáu chương. Hai bản Markdown Chương 4–5 chỉ cập nhật điều hướng; nguyên bản còn trong archive.
 
 16. [Nguồn LaTeX](latex/README.md): T67–T72; Toàn văn đã ghép và chuyển nguồn chính sang LaTeX. [Sổ P8](evidence.md#14-dàn-trang-latex-và-chuyển-nguồn-chính) ghi toolchain, build và phạm vi kiểm.
 
@@ -97,7 +99,7 @@ Phần phương pháp đề xuất phải giúp giảng viên lần đầu tiế
 
 ## Khung mẫu và bằng chứng
 
-[Nguồn LaTeX mẫu](../Latex/main.tex) và [PDF mẫu](../23020332_Tran_Xuan_Bao.pdf) chỉ cung cấp cấu trúc và cách trình bày. Nội dung nghiên cứu, thông tin tác giả và danh mục tham khảo của mẫu không thuộc khóa luận mới. Khung gồm phần đầu, sáu chương và tài liệu tham khảo; bảng, ký hiệu và phụ lục được điều chỉnh theo hệ thống.
+[Nguồn LaTeX mẫu](../Latex/main.tex) và [PDF mẫu](../23020332_Tran_Xuan_Bao.pdf) chỉ cung cấp cấu trúc và cách trình bày. Nội dung nghiên cứu, thông tin tác giả và danh mục tham khảo của mẫu không thuộc khóa luận mới. Khung gồm phần đầu, sáu chương và tài liệu tham khảo; bảng và ký hiệu được điều chỉnh theo hệ thống; phụ lục chỉ còn là nguồn lịch sử ngoài bản nộp.
 
 [Kế hoạch dự án](../docs/plan/plan.md), [ghi nhận tích hợp](../docs/plan/week12/README.md), mã nguồn và bằng chứng thực nghiệm đã khóa là nguồn đối chiếu kỹ thuật. [Bài báo hiện tại](../paper/) giúp tìm bằng chứng, không thay thế việc giải thích hệ thống từ những khái niệm ban đầu.
 

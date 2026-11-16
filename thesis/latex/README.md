@@ -39,14 +39,17 @@ Không tự chuyển ngược hoặc tạo lại các file đã biên tập từ
 Từ thư mục gốc repository:
 
 ```powershell
-py -3.13 -X utf8 thesis/latex/tools/check.py --strict-cutover-targets
+py -3.13 -X utf8 thesis/latex/tools/check.py --strict-current-targets
 py -3.13 -X utf8 thesis/latex/tools/build.py --output-dir tmp/pdfs/thesis --pdf thesis/release/thesis.pdf
 ```
 
-`check.py` kiểm hash LF của bản nháp lưu trữ, dependency nội bộ và việc ghép
-mỗi chương/phụ lục đúng một lần. Cờ strict so thêm LaTeX với mốc chuyển;
-sau sửa LaTeX được phép ở P9, bỏ cờ này hoặc ghi baseline mới đúng phạm vi,
-không cập nhật hash bản nháp để che thay đổi ngoài ý định. Build mặc định
+`check.py` kiểm archive P8 nguyên byte, hash LF lịch sử, dependency cục bộ,
+sáu chương ghép đúng một lần và 56 dòng bảng chiếu từ nguồn cũ (đủ family20).
+`--strict-cutover-targets` kiểm nguồn P8 trong archive; các hash mốc T72
+không bị sửa để khớp bản mới. `--strict-current-targets` kiểm riêng hash
+LaTeX sau biên tập, được khóa ở T73l. Hai bản Markdown Chương 4–5 chỉ đổi
+điều hướng tới ZIP; nguyên bản với link cũ vẫn có trong archive.
+Build mặc định
 chạy bốn lượt LuaLaTeX và Biber; script từ chối cập nhật PDF đích khi còn
 reference/citation hoặc ký tự thiếu. Các cờ `--passes`/`--skip-bibliography`
 chỉ phục vụ sửa bố cục khi bibliography không đổi, không thay full build.
@@ -57,6 +60,11 @@ làm thiếu citation hoặc đổi numeric order; không sửa metadata nguồn
 để xóa warning. Các ghi chú nội bộ longtable về glue splitting được lưu
 trong log và đã kiểm bằng render/bounds; không có overfull box hoặc mất
 ký tự trong bản P8 đã ghép. P9 tiếp tục rà khoảng trắng và bố cục toàn văn.
+
+T73k đã bỏ phụ lục khỏi `main.tex` và xóa hai thư mục phụ lục Markdown/LaTeX
+sau khi kiểm byte/hash. `../archive/p8-source.zip` là bằng chứng ngoài gói
+bản nộp, không là input của LuaLaTeX/Biber. Chỉ công cụ đối soát lịch sử
+cần archive; build không cần Markdown, archive hoặc phụ lục đã xóa.
 
 PDF không phụ thuộc thư mục mẫu để hiển thị. Liên kết tới tài liệu/source
 nghiên cứu ngoài các chương vẫn cần repository bằng chứng tương ứng;

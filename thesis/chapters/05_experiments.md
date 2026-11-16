@@ -1,3 +1,5 @@
+> Archived P8 draft: navigation-only update after appendix relocation. Original bytes, including original links, are in `archive/p8-source.zip` under the same chapter path; submission content is edited only in LaTeX.
+
 # Chapter 5. Experiments and Discussion
 
 > **Draft status: complete chapter draft.** Sections 5.1–5.9 report the locked evidence, mechanisms, case studies, sensitivity analyses and bounded answers to the research questions. An internal argument-consistency review is recorded; independent scientific review, final language editing and typesetting remain pending.
@@ -48,7 +50,7 @@ before the result sections report effects.
 
 ### 5.1.2. What was frozen, and what acceptance establishes
 
-[Appendix F.1–F.3](../appendices/F_reproduction.md#f1-inputs-source-and-model-identities) lists the pinned packages and qualified reproduction commands; those instructions do not claim a new replay or inference run.
+[Appendix F.1–F.3](../archive/p8-source.zip) lists the pinned packages and qualified reproduction commands; those instructions do not claim a new replay or inference run.
 
 The component release is identified by run signature
 `904b838a466290d9c8aa73245a6285e813b4f7c90d280355d3b2847ed9933fab`.
@@ -237,7 +239,7 @@ comparison.
 
 ### 5.3.1. Runtime, model identities and offline fitting
 
-[Appendix C](../appendices/C_configuration.md#c1-runtime-and-hosted-requests) collects the collection-specific runtime, fitted-resource cutoffs and locked retrieval/MT/utility settings behind this configuration.
+[Appendix C](../archive/p8-source.zip) collects the collection-specific runtime, fitted-resource cutoffs and locked retrieval/MT/utility settings behind this configuration.
 
 **Table B04c. Recorded configuration of the two response collections.**
 Configuration values come from their own manifests and request telemetry,
@@ -722,7 +724,7 @@ beyond these reported comparisons.[^context-uncertainty]
 
 ## 5.6. Component-study results
 
-[Appendix D.1–D.2](../appendices/D_results.md#d1-component-classification-by-stock-and-block) retains the extended Full/Base group confusion rows and every saved execution-level row of the two smaller panels.
+[Appendix D.1–D.2](../archive/p8-source.zip) retains the extended Full/Base group confusion rows and every saved execution-level row of the two smaller panels.
 
 The full component system improves some classification measures over Base
 on the recorded main sample, but its mean account return is slightly
@@ -1013,7 +1015,7 @@ pending. None of the component results changes those audit statuses.
 
 ## 5.7. Historical-context results
 
-[Appendix D.3–D.7](../appendices/D_results.md#d3-historical-context-by-stock) gives complete stock/fold/repeat grids, the twenty-cell sensitivity family, all saved omission estimates and the separately scoped component execution extension.
+[Appendix D.3–D.7](../archive/p8-source.zip) gives complete stock/fold/repeat grids, the twenty-cell sensitivity family, all saved omission estimates and the separately scoped component execution extension.
 
 ### 5.7.1. Overall results on the complete cohort
 
@@ -1747,7 +1749,7 @@ their own narrower questions.
 
 ### 5.9.2. Limits on causal, statistical and external validity
 
-[Appendix E](../appendices/E_verification.md#e1-evidence-matrix-and-status-meanings) provides the audit matrix, retained Native counterexamples and source-scoped receipt outcomes, including the unresolved application gate.
+[Appendix E](../archive/p8-source.zip) provides the audit matrix, retained Native counterexamples and source-scoped receipt outcomes, including the unresolved application gate.
 
 **Temporal causality and provenance.** The recorded native row-wise
 causality gate is **FAIL**, and the whole-system status remains

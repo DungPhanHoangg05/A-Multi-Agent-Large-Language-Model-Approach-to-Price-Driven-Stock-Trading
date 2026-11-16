@@ -1,3 +1,5 @@
+> Archived P8 draft: navigation-only update after appendix relocation. Original bytes, including original links, are in `archive/p8-source.zip` under the same chapter path; submission content is edited only in LaTeX.
+
 # Chapter 4. Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading
 
 > **Draft status: complete method draft.** Sections 4.1–4.10 cover the source-checked method, execution and application workflow.
@@ -100,7 +102,7 @@ example.
 
 ## 4.2. Input preparation and shared state
 
-[Appendix A](../appendices/A_contracts.md#a1-identity-working-state-and-sealed-input) gives the versioned field contract, stored examples, time mapping and missingness rules behind the interfaces in this section.
+[Appendix A](../archive/p8-source.zip) gives the versioned field contract, stored examples, time mapping and missingness rules behind the interfaces in this section.
 
 ### 4.2.1. Preparing a query without its outcome
 
@@ -2121,7 +2123,7 @@ outcome, without putting that outcome in A01 or the hosted prompt.
 
 ### 4.10.1. Prompt admission and bounded repair
 
-[Appendix B](../appendices/B_prompts.md#b1-families-provenance-and-redaction) supplies request IDs, measured examples, explicitly labeled English presentation translations and compact reply schemas for these prompt families.
+[Appendix B](../archive/p8-source.zip) supplies request IDs, measured examples, explicitly labeled English presentation translations and compact reply schemas for these prompt families.
 
 Report compression is part of the model's input contract. `_distill_report`
 selects summaries according to report type: alpha keeps its numerical
@@ -2266,7 +2268,7 @@ workflow and final EX01 outcome follow in the next two subsections.
 
 ### 4.10.4. Application workflow and interpretation
 
-[Appendix F](../appendices/F_reproduction.md#f5-offline-preview-versus-current-live-workflow) gives the source-checked entrypoints and resource requirements, separating offline fixtures, historical cold replay and provider-backed live analysis.
+[Appendix F](../archive/p8-source.zip) gives the source-checked entrypoints and resource requirements, separating offline fixtures, historical cold replay and provider-backed live analysis.
 
 The Flask application exposes the method through a **Realtime 1D analysis
 form**. A user selects a stock and one of six main versions: Original,

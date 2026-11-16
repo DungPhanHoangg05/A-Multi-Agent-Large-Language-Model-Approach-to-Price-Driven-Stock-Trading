@@ -150,5 +150,159 @@
     "bibliography_entries": 22,
     "isolated_build_without_markdown_or_template": "PASS"
   },
-  "pending": "P9 scientific/language/visual review and P10 packaging; unsigned declaration; official requirements not supplied"
+  "pending": "P9 scientific/language/visual review and P10 packaging; unsigned declaration; official requirements not supplied",
+  "p8_archive": {
+    "path": "archive/p8-source.zip",
+    "sha256": "6af1d5006ed19ac510bd8e7f816c132d7d651a2be22114d4bbc9c5ca51e1958a",
+    "baseline_commit": "d025facb",
+    "purpose": "Historical source outside submission/build; no appendix input is required to compile.",
+    "members": [
+      {
+        "path": "appendices/A_contracts.md",
+        "sha256": "2d9f0e1bc196ce335b20f2e56acc3f3d3bb7a2e490193dbaeb76ec4f6e5971db"
+      },
+      {
+        "path": "appendices/B_prompts.md",
+        "sha256": "6be1eae70cbb0f148c2c5b9dd7113d09f5f066c453693702753dcba6b995a28a"
+      },
+      {
+        "path": "appendices/C_configuration.md",
+        "sha256": "cc62900dba75513ad35379cc2a43653d680c982d0b5d70e02da532be0db07b1c"
+      },
+      {
+        "path": "appendices/D_results.md",
+        "sha256": "04fc5835abd3ab86bd1cf69f12eeaacc938427a410343b7628cc0c20b1b8a320"
+      },
+      {
+        "path": "appendices/E_verification.md",
+        "sha256": "762a806a5d34452ee1dd867e5925763c6383b243799bbcaad3d606f478bab307"
+      },
+      {
+        "path": "appendices/F_reproduction.md",
+        "sha256": "c005b68a687818a1667a1b0ce4fa497ee730d979ced05ebbad2f05463d37dd26"
+      },
+      {
+        "path": "chapters/01_introduction.md",
+        "sha256": "1c240302fcfaed47a32d4594fb11c537ed7cd78ff723e3d75ee22005468e9e52"
+      },
+      {
+        "path": "chapters/02_related_work.md",
+        "sha256": "08198bf42d605d35a89fa5452e7eaf921666c4d659ea420568d3be430879dbd8"
+      },
+      {
+        "path": "chapters/03_background.md",
+        "sha256": "193a0b3ae46bb7f5b32142c0158182e2efcb6e251d605c9f3cda8653cb2db066"
+      },
+      {
+        "path": "chapters/04_proposed_system.md",
+        "sha256": "b996352c4e7f2ccce862cbe948b97df8778bc8a0b4c52d459a78d159bcb7c9b7"
+      },
+      {
+        "path": "chapters/05_experiments.md",
+        "sha256": "c1be5020aeb6fd82e2801d18bfb0ca3410fca40e8c50e86758c9b527c0920d52"
+      },
+      {
+        "path": "chapters/06_conclusion.md",
+        "sha256": "7150e8aa7899f318d69af29dae66a94ef5d0566c276850c69ffd054d545da7c7"
+      },
+      {
+        "path": "frontmatter.md",
+        "sha256": "33ebc597bd4ddedce94822e7709a3f3981f6eeb3332f033af1374e4593bb636f"
+      },
+      {
+        "path": "latex/appendices/A_contracts.tex",
+        "sha256": "b7d21137d4df29bae8102da815c5e61fc1a18359c9a8c8180e892c9dc1f73bcf"
+      },
+      {
+        "path": "latex/appendices/B_prompts.tex",
+        "sha256": "787e2fac92b287e34d95cd373df9edec5d8b4248b5823be908106f7322a91076"
+      },
+      {
+        "path": "latex/appendices/C_configuration.tex",
+        "sha256": "62fddaa528de06a21de71903dfa07669ad8f1a23d0b80066ba34af5a6cbc0645"
+      },
+      {
+        "path": "latex/appendices/D_results.tex",
+        "sha256": "6ca8bdac0bfb524a653419107864b04d12fa1548344603d1e56c204121bcef7e"
+      },
+      {
+        "path": "latex/appendices/E_verification.tex",
+        "sha256": "ba06fa605481a877c3495bff3b1b4227e662160e48737469aa50e0977165f7bb"
+      },
+      {
+        "path": "latex/appendices/F_reproduction.tex",
+        "sha256": "667eea43ea954eb4a0d26dfde2579ed17dd521f4135fcf1c275191f6a0ebf674"
+      },
+      {
+        "path": "latex/chapters/01_introduction.tex",
+        "sha256": "89685c12c499fff58cc7cfaa9baad9afb341308da2575e9fe8614ced912a5ec0"
+      },
+      {
+        "path": "latex/chapters/02_related_work.tex",
+        "sha256": "a9cc275866c98bb62a91dbbb7fff3cdd7550c62594478d0be0401574ad145363"
+      },
+      {
+        "path": "latex/chapters/03_background.tex",
+        "sha256": "cd113c7b2348cb2ff82402e088c59713ff01a0734ac015a843cd663000e38321"
+      },
+      {
+        "path": "latex/chapters/04_proposed_system.tex",
+        "sha256": "90316541b94817cee918fa372bb17483c5768ecbf12bd0545687b2816ae726a7"
+      },
+      {
+        "path": "latex/chapters/05_experiments.tex",
+        "sha256": "9c2f173a8337c1f53a1d1502fe12e75ca6cb37ab5939882f01bc7a5f507d73b1"
+      },
+      {
+        "path": "latex/chapters/06_conclusion.tex",
+        "sha256": "83cbbcf581b6a80dd07a209eed37892acdb86631600b0674eb2e8697380b00dc"
+      },
+      {
+        "path": "latex/covers-preview.tex",
+        "sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+      },
+      {
+        "path": "latex/frontmatter/content.tex",
+        "sha256": "7570b2baf8e9acfbd228a17b34365412c68d0094fc3ffbc08a169cf233075e98"
+      },
+      {
+        "path": "latex/frontmatter/covers.tex",
+        "sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+      },
+      {
+        "path": "latex/frontmatter/reference_lists.tex",
+        "sha256": "3bd60777444e0efb39df85b932e5ea90b9825dee255f138cfb8ad3d48f731ba1"
+      },
+      {
+        "path": "latex/main.tex",
+        "sha256": "2c784e85f2f8094ca78890f20470c5474043e9bd639c32a5a1c5997852a604d2"
+      },
+      {
+        "path": "latex/preamble.tex",
+        "sha256": "457a24ce9217739733a3213c0236791a5e379edb83ee31f0fd0da2692514b843"
+      },
+      {
+        "path": "latex/source-map.json",
+        "sha256": "e250510afd0dcd32937a5f9b31598eaadce5652c32d9561006b4bb9bf120c380"
+      }
+    ]
+  },
+  "current_structure": {
+    "chapters": 6,
+    "appendices": 0,
+    "primary": "latex/main.tex",
+    "historical_hashes": "Original cutover arrays remain unchanged; validate against p8_archive, not the edited manuscript."
+  },
+  "markdown_navigation_updates": [
+    {
+      "path": "chapters/04_proposed_system.md",
+      "lf_sha256": "f553de2dcdf789532245233eaf1188dabd81c4c5301b1c22383f152fbb73f791",
+      "change": "Only archive-navigation note and appendix link targets; original bytes preserved in p8_archive."
+    },
+    {
+      "path": "chapters/05_experiments.md",
+      "lf_sha256": "0f3c375990fc8a16839632e391dcf8f7945156d78608e62d6446e97336b86cf7",
+      "change": "Only archive-navigation note and appendix link targets; original bytes preserved in p8_archive."
+    }
+  ]
 }

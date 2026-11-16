@@ -131,12 +131,12 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 - [x] T59 — DONE: [Abstract và keywords](frontmatter.md#abstract) tiếng Anh, đủ bài toán/phương pháp/hai thiết kế/kết quả/giới hạn; CL233–CL236/§13.1. Số khớp Chương 5/6, không gain/tiền cứu; giới hạn từ chính thức chưa có, bìa giữ nguyên.
 - [x] T60 — DONE: [Phần đầu](frontmatter.md#acknowledgements) đủ metadata/bìa, lời cảm ơn tối giản và cam đoan đã được tác giả xác nhận giữ nguyên; 42 chữ viết tắt, 26 dòng ký hiệu; CL237–CL241/§13.2–13.3. Chữ ký/ngày ký còn để tác giả điền; không suy xác nhận biểu mẫu chính thức hoặc đã nộp.
-- [x] T61 — DONE: [Phụ lục A](appendices/A_contracts.md) schema/version và hai JSON nguồn, ánh xạ thời gian/nhãn/missingness có liên kết từ §4.2; CL242–CL245/§13.4. Giữ CORE4 khác chín-query-stock, fraction khác %, causal label không là certificate; không nghiên cứu mới.
-- [x] T62 — DONE: [Phụ lục B](appendices/B_prompts.md) prompt families, bản dịch trình bày có nhãn, BRPP/schema/response projection và UUID/hash/length thật; nối §4.10.1; CL246–CL249/§13.5. Không giả prompt Anh đã chạy, không lộ secrets hoặc biến schema validity thành trading gain.
-- [x] T63 — DONE: [Phụ lục C](appendices/C_configuration.md) công thức và bảng cấu hình có source theo nghiên cứu/resource, teacher/student/utility và checkpoint thật; nối §5.3.1; CL250–CL253/§13.6. Giữ hai HMM/scaler, seed42-step3000 khác ensemble/pilot; không fit/inference/utility resampling mới.
-- [x] T64 — DONE: [Phụ lục D](appendices/D_results.md) bảng mở rộng component/context theo mã/fold/repeat, đủ sensitivity/omission cells và12 execution scenarios; nối §§5.6–5.7; CL254–CL258/§13.7. Đối soát102/25/77/51, NA/aggregation/repeat means; không chạy ledger hoặc bootstrap mới.
-- [x] T65 — DONE: [Phụ lục E](appendices/E_verification.md) ma trận audit, Native counterexamples thật, source/receipt-bound checks và các gate còn thiếu; nối §5.9.2; CL259–CL262/§13.8. Giữ PASS_DETECTION khác causal FAIL, 828 khác changed labels, UI pending và không chạy suite/replay mới.
-- [x] T66 — DONE: [Phụ lục F](appendices/F_reproduction.md) resource identities, lệnh offline có đúng cwd/flags và luồng fixture/live riêng; nối §§4.10.4/5.1.2; CL263–CL266/§13.9. P7 đủ bản nháp; T67 trở đi còn việc, chưa G4/LaTeX/PDF hoặc UI acceptance; không chạy replay/inference mới.
+- [x] T61 — DONE: [Phụ lục A](archive/p8-source.zip) schema/version và hai JSON nguồn, ánh xạ thời gian/nhãn/missingness có liên kết từ §4.2; CL242–CL245/§13.4. Giữ CORE4 khác chín-query-stock, fraction khác %, causal label không là certificate; không nghiên cứu mới.
+- [x] T62 — DONE: [Phụ lục B](archive/p8-source.zip) prompt families, bản dịch trình bày có nhãn, BRPP/schema/response projection và UUID/hash/length thật; nối §4.10.1; CL246–CL249/§13.5. Không giả prompt Anh đã chạy, không lộ secrets hoặc biến schema validity thành trading gain.
+- [x] T63 — DONE: [Phụ lục C](archive/p8-source.zip) công thức và bảng cấu hình có source theo nghiên cứu/resource, teacher/student/utility và checkpoint thật; nối §5.3.1; CL250–CL253/§13.6. Giữ hai HMM/scaler, seed42-step3000 khác ensemble/pilot; không fit/inference/utility resampling mới.
+- [x] T64 — DONE: [Phụ lục D](archive/p8-source.zip) bảng mở rộng component/context theo mã/fold/repeat, đủ sensitivity/omission cells và12 execution scenarios; nối §§5.6–5.7; CL254–CL258/§13.7. Đối soát102/25/77/51, NA/aggregation/repeat means; không chạy ledger hoặc bootstrap mới.
+- [x] T65 — DONE: [Phụ lục E](archive/p8-source.zip) ma trận audit, Native counterexamples thật, source/receipt-bound checks và các gate còn thiếu; nối §5.9.2; CL259–CL262/§13.8. Giữ PASS_DETECTION khác causal FAIL, 828 khác changed labels, UI pending và không chạy suite/replay mới.
+- [x] T66 — DONE: [Phụ lục F](archive/p8-source.zip) resource identities, lệnh offline có đúng cwd/flags và luồng fixture/live riêng; nối §§4.10.4/5.1.2; CL263–CL266/§13.9. P7 đủ bản nháp; T67 trở đi còn việc, chưa G4/LaTeX/PDF hoặc UI acceptance; không chạy replay/inference mới.
 
 #### Dàn trang — P8
 
@@ -161,7 +161,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T73h — DONE: Rút thiết kế, cấu hình và metrics Chương 5 còn 4 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73i — DONE: Rút kết quả/thảo luận, giữ đủ family và kết quả bất lợi; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [x] T73j — DONE: Rút phần đầu còn 10 trang và kết luận còn 2 trang; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
-- [ ] T73k — TODO: Xóa toàn bộ phụ lục khỏi bản nộp và nguồn build sau khi chuyển nội dung thiết yếu.
+- [x] T73k — DONE: Bỏ phụ lục khỏi bản nộp, giữ nguyên nguồn lịch sử ngoài build; [đối soát P9](evidence.md#15-rút-gọn-và-đối-soát-p9).
 - [ ] T73l — TODO: Chuyển toàn bộ bảng sang bố cục trang dọc và xử lý khoảng trắng/hình/bảng.
 
 **Rà soát bản đã rút gọn:**
@@ -184,7 +184,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 ### 2.2. Cấu trúc đầu ra đề xuất
 
-Cây dưới đây mô tả **đầu ra đích sau rút gọn**, không phải trạng thái hiện tại. LaTeX đã là nguồn chính từ T72. Thư mục phụ lục hiện vẫn được giữ nguyên trong bước lập kế hoạch; việc loại bỏ khỏi bản nộp và xử lý nguồn lưu trữ thuộc T73k.
+Cây dưới đây mô tả **đầu ra đích sau rút gọn**, không phải trạng thái hiện tại. LaTeX đã là nguồn chính từ T72. T73k đã bỏ cả thư mục Markdown/LaTeX phụ lục khỏi cây bản nộp; nguồn P8 nguyên byte và hash ở archive ngoài đường build.
 
 ```text
 thesis/
