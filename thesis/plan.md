@@ -181,7 +181,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 **Bổ sung sau lượt rà soát bản 60 trang — ngày 17/11/2026:** các mục dưới đây thay trạng thái “sẵn sàng sang P10”; chưa áp dụng vào bản thảo. Đây là rà soát của trợ lý theo yêu cầu tác giả, không phải phản biện của giảng viên.
 
-- [ ] T80a — TODO: Bổ sung kết quả kiểm chứng thực tế của student từ artifact đã lưu.
+- [x] T80a — DONE: Bổ sung bảng kiểm chứng student theo checkpoint đã khóa; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
 - [ ] T80b — TODO: Làm rõ vai trò đặc trưng và lý do dùng student thay/đi cùng teacher.
 - [ ] T80c — TODO: Giải thích tiêu chí chọn cổ phiếu, ngày đánh giá và phạm vi mẫu.
 - [ ] T80d — TODO: Bổ sung phân bố regime và kiểm tra tài nguyên HMM thực dùng.

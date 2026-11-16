@@ -3171,3 +3171,12 @@ Theo phản hồi thực nhận của tác giả, đổi F03/F06 từ htbp sang 
 Build bốn lượt LuaLaTeX + Biber trong thư mục aux mới tmp/pdfs/thesis-diagram-flow-final PASS:60 trang A4 dọc/rotation0,17 bảng/5 hình/22 bibliography entries/50 bookmarks/130 internal links hợp lệ; không underfull/overfull/glyph thiếu/citation-reference treo/Biber warning. Render lại60 trang bằng Poppler120dpi; đã xem toàn bộ21 trang đổi (7–9,25–42),39 PNG còn lại đồng nhất byte với bộ T80 đã xem. Danh mục cập nhật tự động; tổng/phân bổ chương không đổi. Strict-current/cutover PASS,68 dòng kết quả và family20 giữ nguyên.
 
 PDF release hiện hành:675.438 bytes, SHA256 2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922. Source map giữ nguyên history cũ và thêm snapshot T80 tại c1886edc; hash hiện hành khóa lại sau đính chính. Chỉ sửa tài liệu/bố cục nên không chạy suite runtime, inference/fit/bootstrap/replay; nghiên cứu/receipt/model/input và P10/trạng thái bên ngoài giữ nguyên.
+
+
+## 16. Bổ sung theo rà soát bản 60 trang
+
+Mốc đầu 4d2f4857; PDF 7a1b77f1, SHA256 2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922. Nguồn/chỉ số mới có binding trong assets/tables/review_additions.source.json. Chỉ đọc artifact và tổng hợp minh bạch; không inference/fit/bootstrap/replay hoặc chạy lại gate runtime. Chưa phản biện/chữ ký/nộp ngoài.
+
+### T80a. Bổ sung bảng kiểm chứng student theo checkpoint đã khóa
+
+Đã kiểm byte TR01/TR05/TR07/TR08/export và seed42 evaluation theo manifest: seed42/step3000; validation KL0,002680/errorP950,066236; swap1949/1984;2021 macroLL/Brier0,670666/0,238779 trên248 rows; testKL0,002774/error0,066780;swap2072/2106;2022 macroLL/Brier0,681340/0,244113 trên256 rows. Bảng mới ở §5.3 phân biệt ngưỡng/đo, selection/assessment và support; không so Brier context khác support. Kiểm nguồn/số/LaTeX và 108 đặc tả; build liên chương sau bổ sung, QA toàn PDF ở T80l. Chỉ đọc receipt/tệp trọng số để kiểm hash, không load model/inference/fit hoặc suite runtime.

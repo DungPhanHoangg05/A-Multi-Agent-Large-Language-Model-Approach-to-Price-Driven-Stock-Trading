@@ -1,0 +1,127 @@
+{
+  "schema": "thesis_review_sources_v1",
+  "baseline_commit": "4d2f4857",
+  "sources": {
+    "docs/plan/week11/mt_bicl_replica_full_r1_model.json": {
+      "kind": "frozen_snapshot",
+      "bytes": 16857,
+      "sha256": "9937e1bdd0dbe7d9ca1156265cab027ead6dc1318caa542cdba1e81f28c95182"
+    },
+    "outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/training/selection.json": {
+      "kind": "manifest_pinned_local",
+      "bytes": 6141,
+      "sha256": "ebc0f4e3fa14731f5dfc4ee47e32ee9a0c53e64b07483da20ceae4150d8939a5"
+    },
+    "outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/training/seed42/checkpoint-03000.assessment.json": {
+      "kind": "selected_assessment",
+      "bytes": 473402,
+      "sha256": "d12f01c705f6813f1375a0609f0868a68391e811e6f4883ae7f21b09b203dfc5"
+    },
+    "outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/training/seed42/checkpoint-03000.pt": {
+      "kind": "manifest_pinned_local",
+      "bytes": 3317169,
+      "sha256": "94145f90c5da6e0c8ab0daec439474b653769c47db09024de61d7f9303fd5932"
+    },
+    "outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/model/candidate.pt": {
+      "kind": "manifest_pinned_local",
+      "bytes": 1098944,
+      "sha256": "a6f0d294b6f731bfc630fe58631b921ec2f0877338745a84e9459ec6a248e702"
+    },
+    "outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/evaluation/seed42.json": {
+      "kind": "manifest_pinned_local",
+      "bytes": 660139,
+      "sha256": "c253eabe973dd5ab6ba7e76543cedad1c79a4cac56a0cb41081831c756a7ccc4"
+    },
+    "data_manager/regime_model.json": {
+      "kind": "frozen_snapshot",
+      "bytes": 5267,
+      "sha256": "7c1749752d449844cd458b71bb3fe5f276961b794e1bc8d1f1b90d8bddac026e"
+    },
+    "outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/regime_models.json": {
+      "kind": "frozen_snapshot",
+      "bytes": 17700,
+      "sha256": "5df0307a70b3df177a43faba8be04a72c00dabcb422c0b1c66a4b76cd84e724d"
+    }
+  },
+  "derived": {
+    "student_validation": {
+      "seed": 42,
+      "step": 3000,
+      "checkpoint_sha256": "94145f90c5da6e0c8ab0daec439474b653769c47db09024de61d7f9303fd5932",
+      "validation_synthetic": {
+        "count": 5000,
+        "mean_kl_nats": 0.00268019178112479,
+        "p95_absolute_error": 0.06623597132201729
+      },
+      "validation_swap": {
+        "attempt_pairs": 5000,
+        "eligible_pairs": 1984,
+        "agree_pairs": 1949,
+        "sign_agreement": 0.9823588709677419
+      },
+      "market_2021": {
+        "macro_brier": 0.23877946461370247,
+        "macro_log_loss": 0.6706662431817391,
+        "symbols": {
+          "FPT": {
+            "brier": 0.24661696979248166,
+            "count": 56,
+            "log_loss": 0.6871455865916952
+          },
+          "MWG": {
+            "brier": 0.25551038902395995,
+            "count": 59,
+            "log_loss": 0.7051053409860037
+          },
+          "VCB": {
+            "brier": 0.23499117763088648,
+            "count": 73,
+            "log_loss": 0.6625564713543265
+          },
+          "VNM": {
+            "brier": 0.2179993220074818,
+            "count": 60,
+            "log_loss": 0.6278575737949309
+          }
+        }
+      },
+      "test_synthetic": {
+        "count": 5000,
+        "mean_kl_nats": 0.0027743163771020295,
+        "p95_absolute_error": 0.06678033420359987
+      },
+      "test_swap": {
+        "attempt_pairs": 5000,
+        "eligible_pairs": 2106,
+        "agree_pairs": 2072,
+        "sign_agreement": 0.9838556505223172
+      },
+      "market_2022": {
+        "macro_brier": 0.24411349780695155,
+        "macro_log_loss": 0.6813400071992832,
+        "symbols": {
+          "FPT": {
+            "brier": 0.2518708162952117,
+            "count": 54,
+            "log_loss": 0.6971986216150645
+          },
+          "MWG": {
+            "brier": 0.2584292424979233,
+            "count": 64,
+            "log_loss": 0.7109443089027796
+          },
+          "VCB": {
+            "brier": 0.22175350446747644,
+            "count": 75,
+            "log_loss": 0.6352623660304337
+          },
+          "VNM": {
+            "brier": 0.24440042796719477,
+            "count": 63,
+            "log_loss": 0.681954732248855
+          }
+        }
+      }
+    }
+  }
+}

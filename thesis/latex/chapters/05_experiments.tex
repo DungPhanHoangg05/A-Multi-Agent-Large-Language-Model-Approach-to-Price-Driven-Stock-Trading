@@ -87,6 +87,39 @@ perfect counterbalancing is not established. Context's HTTP ledger has
 1,702 attempts and retains 15 retired records, separately from active
 responses. Coverage and failures cannot be recoded to reach planned slots.
 
+\subsection{Selected numerical student: verification and assessment}\label{sec:student-evidence}
+Table~\ref{tab:student-evidence} reports measured results for the selected
+seed-42/step-3,000 checkpoint, rather than restating only acceptance
+thresholds. Its assessment receipt is bound to the checkpoint and the
+exported student by the frozen model manifest. Synthetic validation
+tests approximation to the count-based teacher; 2021 market labels select
+among eligible checkpoints. Synthetic test and 2022 market assessment
+are separate later checks, not additional checkpoint-selection criteria.
+
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption[Selected student verification results]{Selected student verification and market assessment. Errors concern probabilities; log loss is in nats. Market scores average four stock-level scores equally.}\label{tab:student-evidence}
+\begin{tabular}{@{}P{.35\linewidth}P{.25\linewidth}P{.33\linewidth}@{}}\toprule
+Phase / measure & Recorded value & Support / reference\\\midrule
+Synthetic validation: mean KL & 0.002680 nats & 5,000 episodes; limit 0.02\\
+Synthetic validation: 95th-percentile absolute error & 0.066236 & 5,000 episodes; limit 0.10\\
+Validation prior-label swap: sign agreement & 1,949/1,984 (98.236\%) & 5,000 attempted pairs; required $\ge90\%$ on eligible pairs\\
+2021 selection: log loss / Brier & 0.670666 / 0.238779 & 248 rows; four-stock macro mean\\
+Synthetic test: mean KL / 95th-percentile error & 0.002774 / 0.066780 & 5,000 episodes, including 500 stress cases\\
+Test prior-label swap: sign agreement & 2,072/2,106 (98.386\%) & 5,000 attempted pairs\\
+2022 assessment: log loss / Brier & 0.681340 / 0.244113 & 256 rows; four-stock macro mean\\\bottomrule
+\end{tabular}\end{table}
+
+All 60 checkpoint reports remain part of the search history; these
+figures describe the selected checkpoint only. The low synthetic errors
+support approximation on the specified generator, whose features are
+independent of synthetic labels. They do not establish market calibration,
+profitability or superiority to the directly computable teacher. The
+2021 scores are selection results, not unbiased test estimates. These
+2021/2022 numerical checks are also distinct from the later context study:
+its student and teacher Brier scores use different recorded supports,
+as discussed in Section~\ref{sec:probability-support}. No matched calibration
+ranking is inferred from those two context-study scores.
+
 \section{Comparators and interventions}\label{s:351598650d1ea43f}
 The main component controls are CASH, train-majority (strictly more than half
 train labels UP), always-LONG cycles, positive 20-session momentum,
@@ -388,7 +421,7 @@ and +0.433 pp BA bridge. These combined interventions cannot isolate
 the numerical student, task conditioning or utility contribution.
 
 \section{Mechanisms, cases and sensitivity}\label{s:300d164b42208c53}
-\subsection{Support and action resolution}
+\subsection{Support and action resolution}\label{sec:probability-support}
 At repeat 0, v1 uses all 48 same-stock bank points and has three examples
 on each. C2 and B have one ready point each, A eight, while all three
 have zero effective displayed examples on those 48 points: their limited
