@@ -20,23 +20,17 @@ this appendix.} Reading and checking a receipt is not rerunning its test.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Evidence matrix and status meanings - supporting detail}\label{tab:E_verification:1}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Requirement / path
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded evidence and scope
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Supported interpretation / remaining limit
-\end{minipage} \\
+ & Recorded evidence and scope
+ & Supported interpretation / remaining limit
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Requirement / path
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded evidence and scope
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Supported interpretation / remaining limit
-\end{minipage} \\
+ & Recorded evidence and scope
+ & Supported interpretation / remaining limit
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -45,13 +39,13 @@ Candidate-LONG target and costs & Component \texttt{final\_\allowbreak{}contract
 Target alignment & Same audit: 65 entry Opens differ from the decision Close; seven gross/net labels disagree & Close-to-close or gross direction cannot replace the net execution target \\
 Indicator/report contract & \texttt{final\_\allowbreak{}contracts\_\allowbreak{}v1/\allowbreak{}indicators.\allowbreak{}json}: 102 recorded unit replays, 375 saved Decision requests, zero model calls in that audit & Descriptive frozen-sample checks, not a new inference collection or independent chart truth \\
 Outer query cutoff & Native alpha-contract synthetic poison-after-cutoff check PASS; two recorded native backtest fixtures, 85 candidates each & This checks the supplied end cutoff, not causal construction of every earlier row \\
-Native row-wise causality & \texttt{alpha\_\allowbreak{}contract\_\allowbreak{}v1/\allowbreak{}leakage.\allowbreak{}json}: diagnostic PASS\_DETECTION, causal gate FAIL & Detecting the failure successfully is not passing causality \\
+Native row-wise causality & \texttt{alpha\_\allowbreak{}contract\_\allowbreak{}v1/\allowbreak{}leakage.\allowbreak{}json}: diagnostic PASS\_\allowbreak{}DETECTION, causal gate FAIL & Detecting the failure successfully is not passing causality \\
 Shared upstream / dependencies & Frozen shared/forecast contracts, U08 identities and EX01 24-slot timestamps/dependency hashes & Branches reuse one parent and same-repeat dependencies; the barrier does not undo prior historical exposure \\
 Prior maturity / resource boundaries & Historical-memory/MT validators and scoped PIT fixtures; reserved IDs and fold-frozen label pool & Necessary local admissibility checks, not authentication of original raw signals or news \\
 Prompt / retry / checkpoint & Frozen source and U08 acceptance: maximum 4,750 Decision characters including repair and three HTTP attempts per execution & Historical U08 scope; neither character count nor slot attempts certify every component override \\
-U08 integrity / completion & PASS\_U08\_ACCEPTANCE; 718 source pins; 102 points, 2,448 slots; no new inference in acceptance & Coverage/integrity receipt, not whole-system causal or financial acceptance \\
-U09 cold replay & PASS\_U09\_COLD\_REPLAY; 15 byte-identical artifacts; zero new API calls; training false & Historical offline reproducibility under its runtime/inputs, not deterministic future hosted replies \\
-Application acceptance & OFFLINE\_PASS\_BROWSER\_PENDING; F11 false; desktop/mobile NOT\_RUN & Fixture/source checks do not complete browser or live execution acceptance \\
+U08 integrity / completion & PASS\_\allowbreak{}U08\_\allowbreak{}ACCEPTANCE; 718 source pins; 102 points, 2,448 slots; no new inference in acceptance & Coverage/integrity receipt, not whole-system causal or financial acceptance \\
+U09 cold replay & PASS\_\allowbreak{}U09\_\allowbreak{}COLD\_\allowbreak{}REPLAY; 15 byte-identical artifacts; zero new API calls; training false & Historical offline reproducibility under its runtime/inputs, not deterministic future hosted replies \\
+Application acceptance & OFFLINE\_\allowbreak{}PASS\_\allowbreak{}BROWSER\_\allowbreak{}PENDING; F11 false; desktop/mobile NOT\_\allowbreak{}RUN & Fixture/source checks do not complete browser or live execution acceptance \\
 \end{longtable}
 
 \endgroup
@@ -81,32 +75,24 @@ audit is regenerated here. All three normalizers change old values.
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Retained Native row-wise counterexamples - supporting detail}\label{tab:E_verification:2}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Normalizer
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Earlier-prefix historical values
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Same rows after prefix extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Changed
-\end{minipage} \\
+ & Earlier-prefix historical values
+ & Same rows after prefix extension
+ & Changed
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Normalizer
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Earlier-prefix historical values
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Same rows after prefix extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Changed
-\end{minipage} \\
+ & Earlier-prefix historical values
+ & Same rows after prefix extension
+ & Changed
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-zscore\_tanh & {[}-0.821656, -0.369029, 0.369029, 0.821656{]} & {[}-0.447409, -0.428885, -0.409993, -0.390743{]} & True \\
+zscore\_\allowbreak{}tanh & {[}-0.821656, -0.369029, 0.369029, 0.821656{]} & {[}-0.447409, -0.428885, -0.409993, -0.390743{]} & True \\
 minmax & {[}-1.000000, -0.333333, 0.333333, 1.000000{]} & {[}-1.000000, -0.979798, -0.959596, -0.939394{]} & True \\
 rank & {[}-0.500000, 0.000000, 0.500000, 1.000000{]} & {[}-0.600000, -0.200000, 0.200000, 0.600000{]} & True \\
 \end{longtable}
@@ -127,7 +113,7 @@ hash checks before/after, \texttt{network\_\allowbreak{}or\_\allowbreak{}inferen
 they do not say the appendix reruns those checks or that unchanged bytes
 make the algorithm causal. Correcting the implementation requires a
 separately versioned study rather than relabeling this failure.
-\footnote{Archived \texttt{alpha\_\allowbreak{}contract\_\allowbreak{}v1/\allowbreak{}\{manifest,summary,cases,leakage\}.\allowbreak{}json}, bound by the revision index; frozen SYS11/SYS12. Ledger §13.8 lists these exact file hashes. PASS\_DETECTION and FAIL describe different propositions.}
+\footnote{Archived \texttt{alpha\_\allowbreak{}contract\_\allowbreak{}v1/\allowbreak{}\{manifest,summary,cases,leakage\}.\allowbreak{}json}, bound by the revision index; frozen SYS11/SYS12. Ledger §13.8 lists these exact file hashes. PASS\_\allowbreak{}DETECTION and FAIL describe different propositions.}
 
 \section{Provenance and unfavorable records retained}\label{s:05729fb3b09c4255}
 
@@ -175,36 +161,28 @@ whole-unit-suite count. Every row has \texttt{rerun=false} in that receipt.
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table E2. Test groups explicitly reused in U08 acceptance.}\label{tab:E_verification:3}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Prior check group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Tests previously passed
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Python files previously compiled
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Rerun in acceptance
-\end{minipage} \\
+ & Tests previously passed
+ & Python files previously compiled
+ & Rerun in acceptance
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Prior check group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Tests previously passed
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Python files previously compiled
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Rerun in acceptance
-\end{minipage} \\
+ & Tests previously passed
+ & Python files previously compiled
+ & Rerun in acceptance
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 live & 69 & 11 & False \\
-model\_quota & 61 & 5 & False \\
-provider\_quota & 41 & 5 & False \\
-point\_restart & 44 & 6 & False \\
-slot\_restart & 40 & 4 & False \\
+model\_\allowbreak{}quota & 61 & 5 & False \\
+provider\_\allowbreak{}quota & 41 & 5 & False \\
+point\_\allowbreak{}restart & 44 & 6 & False \\
+slot\_\allowbreak{}restart & 40 & 4 & False \\
 \end{longtable}
 
 \endgroup
@@ -222,7 +200,7 @@ deterministic end-to-end behavior and leakage checks. Their names do not
 justify asserting that all four ran at every document revision. A release
 or changed runtime needs the applicable source-bound evidence; this
 writing task checks documents and source identities only. Native FAIL
-and whole-system NOT\_CERTIFIED remain visible alongside successful local
+and whole-system NOT\_\allowbreak{}CERTIFIED remain visible alongside successful local
 PIT, economics, paired and recovery checks.\footnote{ED08/ED09 U08 acceptance/receipt, frozen \texttt{evidence/\allowbreak{}u09\_\allowbreak{}cold\_\allowbreak{}verify.\allowbreak{}json} and \texttt{evidence/\allowbreak{}f01\_\allowbreak{}restore\_\allowbreak{}smoke.\allowbreak{}json}; AP16/AP17 separate application receipt/QA archive. The pinned records are inspected; their historical tests/replays are not rerun here.}
 
 \section{Application and missing experimental acceptance}\label{s:0d31a3ec1702ffa1}
@@ -232,7 +210,7 @@ The separately pinned application receipt is
 135 Python checks, 24 DOM checks, 23 compiled Python files and two
 JavaScript syntax checks recorded. Its history/source-reuse rules mean
 these counts must not be presented as reruns after every edit.
-\texttt{f11\_\allowbreak{}complete=false} and desktop/mobile browser acceptance is NOT\_RUN.
+\texttt{f11\_\allowbreak{}complete=false} and desktop/mobile browser acceptance is NOT\_\allowbreak{}RUN.
 The author's statement of equivalent research behavior for the three
 identified live modules is retained, while raw presentation-source and
 wire identities remain separate.

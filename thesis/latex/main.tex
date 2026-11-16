@@ -7,26 +7,24 @@
 \clearpage
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}
-\IfFileExists{frontmatter/content.tex}{\input{frontmatter/content}}{}
-\IfFileExists{chapters/01_introduction.tex}{%
-  \tableofcontents\clearpage
-  \listoffigures\clearpage
-  \listoftables\clearpage
-  \IfFileExists{frontmatter/reference_lists.tex}{\input{frontmatter/reference_lists}\clearpage}{}
-  \pagenumbering{arabic}
-}{}
-\IfFileExists{chapters/01_introduction.tex}{\input{chapters/01_introduction}}{}
-\IfFileExists{chapters/02_related_work.tex}{\input{chapters/02_related_work}}{}
-\IfFileExists{chapters/03_background.tex}{\setcounter{chapter}{2}\input{chapters/03_background}}{}
-\IfFileExists{chapters/04_proposed_system.tex}{\input{chapters/04_proposed_system}}{}
-\IfFileExists{chapters/05_experiments.tex}{\input{chapters/05_experiments}}{}
-\IfFileExists{chapters/06_conclusion.tex}{\input{chapters/06_conclusion}}{}
-\IfFileExists{chapters/02_related_work.tex}{\printbibliography[heading=bibintoc,title={References}]}{}
+\input{frontmatter/content}
+\tableofcontents\clearpage
+\listoffigures\clearpage
+\listoftables\clearpage
+\input{frontmatter/reference_lists}\clearpage
+\pagenumbering{arabic}
+\input{chapters/01_introduction}
+\input{chapters/02_related_work}
+\input{chapters/03_background}
+\input{chapters/04_proposed_system}
+\input{chapters/05_experiments}
+\input{chapters/06_conclusion}
+\printbibliography[heading=bibintoc,title={References}]
 \appendix
-\IfFileExists{appendices/A_contracts.tex}{\input{appendices/A_contracts}}{}
-\IfFileExists{appendices/B_prompts.tex}{\input{appendices/B_prompts}}{}
-\IfFileExists{appendices/C_configuration.tex}{\input{appendices/C_configuration}}{}
-\IfFileExists{appendices/D_results.tex}{\input{appendices/D_results}}{}
-\IfFileExists{appendices/E_verification.tex}{\input{appendices/E_verification}}{}
-\IfFileExists{appendices/F_reproduction.tex}{\input{appendices/F_reproduction}}{}
+\input{appendices/A_contracts}
+\input{appendices/B_prompts}
+\input{appendices/C_configuration}
+\input{appendices/D_results}
+\input{appendices/E_verification}
+\input{appendices/F_reproduction}
 \end{document}

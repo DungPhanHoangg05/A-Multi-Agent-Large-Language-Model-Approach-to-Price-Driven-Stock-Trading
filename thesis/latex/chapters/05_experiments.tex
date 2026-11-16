@@ -27,23 +27,17 @@ from the first.\footnote{ED01--ED03 component manifest/summary/completion; ED06-
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Two response collections and two questions - supporting detail}\label{tab:05_experiments:1}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Scope item
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component study
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical-context study
-\end{minipage} \\
+ & Component study
+ & Historical-context study
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Scope item
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component study
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical-context study
-\end{minipage} \\
+ & Component study
+ & Historical-context study
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -103,7 +97,7 @@ an external hosted model into a reproducible immutable weight revision.
 
 Recorded PASS receipts support integrity, coverage and the checks within
 their declared scopes. They do not negate the \textbf{Native row-wise causal
-FAIL} or the \textbf{whole-system NOT\_CERTIFIED} limitation. Nor do they certify
+FAIL} or the \textbf{whole-system NOT\_\allowbreak{}CERTIFIED} limitation. Nor do they certify
 the historical availability of all news, exclude model memorization,
 establish survivorship-free sampling or demonstrate realizable live fills.
 Application browser acceptance is a separate pending gate, as Section
@@ -168,55 +162,43 @@ decision dates, not every daily decision in the intervening interval.
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Table B04a. Actual market schedule, shared by the two main studies.}\label{tab:05_experiments:2}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Block/fold
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-First decision
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Second decision
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Stocks
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Stock/fold accounts per method/repeat
-\end{minipage} \\
+ & First decision
+ & Second decision
+ & Stocks
+ & Points
+ & Stock/fold accounts per method/repeat
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Block/fold
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-First decision
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Second decision
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Stocks
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Stock/fold accounts per method/repeat
-\end{minipage} \\
+ & First decision
+ & Second decision
+ & Stocks
+ & Points
+ & Stock/fold accounts per method/repeat
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-b2023\_h2 & 2023-07-03 & 2023-09-22 & 8 & 16 & 8 \\
-b2024\_h2 & 2024-07-01 & 2024-09-20 & 8 & 16 & 8 \\
-b2025\_h1 & 2025-01-02 & 2025-03-31 & 8 & 16 & 8 \\
-f2025\_q4 & 2025-10-01 & 2025-12-19 & 9 & 18 & 9 \\
-f2026\_q2 & 2026-04-01 & 2026-06-24 & 9 & 18 & 9 \\
-f2026\_q3 & 2026-07-01 & 2026-09-23 & 9 & 18 & 9 \\
+b2023\_\allowbreak{}h2 & 2023-07-03 & 2023-09-22 & 8 & 16 & 8 \\
+b2024\_\allowbreak{}h2 & 2024-07-01 & 2024-09-20 & 8 & 16 & 8 \\
+b2025\_\allowbreak{}h1 & 2025-01-02 & 2025-03-31 & 8 & 16 & 8 \\
+f2025\_\allowbreak{}q4 & 2025-10-01 & 2025-12-19 & 9 & 18 & 9 \\
+f2026\_\allowbreak{}q2 & 2026-04-01 & 2026-06-24 & 9 & 18 & 9 \\
+f2026\_\allowbreak{}q3 & 2026-07-01 & 2026-09-23 & 9 & 18 & 9 \\
 Total & 12 distinct dates & --- & 9 distinct stocks & 102 & 51 \\
 \end{longtable}
 
 \endgroup
 
 The component numerical-control schedule is chronological and purged.
-For example, CMG in b2023\_h2 has 70 training cycles and 19 validation
+For example, CMG in b2023\_\allowbreak{}h2 has 70 training cycles and 19 validation
 cycles: its last training label is dated 31 March 2023, first validation
 decision 5 April, last validation label 28 June and first test decision
 3 July. It has two test endpoints and 89 final-refit cycles. Across the
@@ -248,7 +230,7 @@ provides the actual sampled dates.
 
 \subsection{Coverage, historical resources and missing sentiment}\label{s:669e72e3fe25debc}
 
-\textbf{Table B04b. Main market support and resource coverage.} UP/DOWN are
+\textbf{Table B04b. Main market support and resource coverage.} UP/\allowbreak{}DOWN are
 canonical net-return labels. Missing sentiment is counted once per point
 from the context study's saved shared snapshot, before expanding repeats.
 The bank column describes stored signal episodes, not eligible episodes
@@ -267,31 +249,21 @@ for every query or numerical MT observations.
   >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \caption{Table B04b. Main market support and resource coverage.}\label{tab:05_experiments:3}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Stock
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Main points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Net UP / DOWN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Context sentiment unavailable
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Stored signal-bank episodes
-\end{minipage} \\
+ & Main points
+ & Net UP / DOWN
+ & Context sentiment unavailable
+ & Stored signal-bank episodes
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Stock
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Main points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Net UP / DOWN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Context sentiment unavailable
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Stored signal-bank episodes
-\end{minipage} \\
+ & Main points
+ & Net UP / DOWN
+ & Context sentiment unavailable
+ & Stored signal-bank episodes
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -366,23 +338,17 @@ not the application's current defaults.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B04c. Recorded configuration of the two response collections.}\label{tab:05_experiments:4}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component collection
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical-context collection
-\end{minipage} \\
+ & Component collection
+ & Historical-context collection
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component collection
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical-context collection
-\end{minipage} \\
+ & Component collection
+ & Historical-context collection
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -482,23 +448,17 @@ bypass remains in the primary action grid.
   >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B04d. Context roles across all three repeats.}\label{tab:05_experiments:5}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Actual raw Decision responses
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-No-request bypass slots
-\end{minipage} \\
+ & Actual raw Decision responses
+ & No-request bypass slots
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Actual raw Decision responses
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-No-request bypass slots
-\end{minipage} \\
+ & Actual raw Decision responses
+ & No-request bypass slots
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -507,10 +467,10 @@ Native & 306 & 0 \\
 Common & 306 & 0 \\
 Bayesian v1 & 144 & 162 \\
 C2 & 3 & 303 \\
-A\_tp\_pool & 24 & 282 \\
-B\_semantic & 3 & 303 \\
+A\_\allowbreak{}tp\_\allowbreak{}pool & 24 & 282 \\
+B\_\allowbreak{}semantic & 3 & 303 \\
 Fact Anchor & 306 & 0 \\
-MT\_BICL & 198 & 108 \\
+MT\_\allowbreak{}BICL & 198 & 108 \\
 Total & 1,290 & 1,158 \\
 \end{longtable}
 
@@ -536,23 +496,17 @@ to the ledger named in the row, not interchangeable output denominators.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B04e. Recorded request-ledger scopes.}\label{tab:05_experiments:6}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Ledger scope
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-HTTP attempts
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded success/status accounting
-\end{minipage} \\
+ & HTTP attempts
+ & Recorded success/status accounting
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Ledger scope
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-HTTP attempts
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded success/status accounting
-\end{minipage} \\
+ & HTTP attempts
+ & Recorded success/status accounting
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -606,23 +560,17 @@ the removal of every related concept from the model's instructions.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Component main controls and response interventions - supporting detail}\label{tab:05_experiments:7}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Main component control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded rule or fitted input
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Interpretation
-\end{minipage} \\
+ & Recorded rule or fitted input
+ & Interpretation
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Main component control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded rule or fitted input
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Interpretation
-\end{minipage} \\
+ & Recorded rule or fitted input
+ & Interpretation
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -680,8 +628,8 @@ five-factor sets (\texttt{random\_\allowbreak{}seed\_\allowbreak{}00}--\texttt{r
 Random sets are drawn within each scope from its train-eligible factors;
 the 20 trials are all retained rather than selecting the best seed.
 
-The fixed set is CURRENT\_1\_FDM, CURRENT\_2\_SFA, CURRENT\_3\_LVR,
-CURRENT\_4\_BFE and CURRENT\_5\_OFE. Train statistics determine imputation,
+The fixed set is CURRENT\_\allowbreak{}1\_\allowbreak{}FDM, CURRENT\_\allowbreak{}2\_\allowbreak{}SFA, CURRENT\_\allowbreak{}3\_\allowbreak{}LVR,
+CURRENT\_\allowbreak{}4\_\allowbreak{}BFE and CURRENT\_\allowbreak{}5\_\allowbreak{}OFE. Train statistics determine imputation,
 scaling, eligibility, ranking and sign orientation. Each selected normalized
 factor contributes \ensuremath{-}1/0/+1 using the strict \ensuremath{\pm}0.1 threshold; a positive
 mean of the five votes yields LONG, ties CASH. Ineligible fixed slots
@@ -699,7 +647,7 @@ The component financial report includes \texttt{continuous\_\allowbreak{}hold\_\
 a separately labeled price-only benchmark, not another classification
 prediction on 102 entries. The unified context study explicitly excludes
 continuous holding from its registered controls; it contains only
-CASH\_EVERY\_CYCLE and ALWAYS\_LONG\_EVERY\_CYCLE\_WITH\_FULL\_COSTS on the same
+CASH\_\allowbreak{}EVERY\_\allowbreak{}CYCLE and ALWAYS\_\allowbreak{}LONG\_\allowbreak{}EVERY\_\allowbreak{}CYCLE\_\allowbreak{}WITH\_\allowbreak{}FULL\_\allowbreak{}COSTS on the same
 canonical cycle outcomes.
 
 The component execution extension contains 12 recorded scenarios, varying
@@ -713,8 +661,8 @@ to their own support/assumption panel, not the canonical label definition.
 
 \subsection{Context baseline families, bridges and absent ablations}\label{s:efe03d88628b6434}
 
-For every context extension \(E\) in \{Bayesian v1, C2, A\_tp\_pool, B\_semantic,
-MT\_BICL\}, the study retains both baselines:
+For every context extension \(E\) in \{Bayesian v1, C2, A\_\allowbreak{}tp\_\allowbreak{}pool, B\_\allowbreak{}semantic,
+MT\_\allowbreak{}BICL\}, the study retains both baselines:
 
 \begingroup
 \small
@@ -727,23 +675,17 @@ MT\_BICL\}, the study retains both baselines:
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Context baseline families, bridges and absent ablations - supporting detail}\label{tab:05_experiments:8}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Contrast family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Compared outputs on common support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What the contrast can describe
-\end{minipage} \\
+ & Compared outputs on common support
+ & What the contrast can describe
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Contrast family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Compared outputs on common support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What the contrast can describe
-\end{minipage} \\
+ & Compared outputs on common support
+ & What the contrast can describe
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -752,7 +694,7 @@ System & \(E-\mathrm{Native}\) & Whole package, including declared alpha/report/
 Method & \(E-\mathrm{Common}\) & Added method package conditional on the Common foundation \\
 Bridge 1 & Common \ensuremath{-} Native & Foundation/report/prompt transformation \\
 Bridge 2 & Fact Anchor \ensuremath{-} Common & Factual anchoring plus changed instructions/response format \\
-Bridge 3 & MT\_BICL \ensuremath{-} Fact Anchor & Context/student/utility/proposal/policy package relative to its anchor \\
+Bridge 3 & MT\_\allowbreak{}BICL \ensuremath{-} Fact Anchor & Context/student/utility/proposal/policy package relative to its anchor \\
 \end{longtable}
 
 \endgroup
@@ -768,8 +710,8 @@ main family after seeing results.\footnote{ED14 family/control registration, ED0
 
 The unified response collection does \textbf{not} contain matched
 random/recent/similarity/Bayesian retrieval interventions, statistics-only/
-examples-only/no-regime interventions, or the planned Plain\_revision,
-No\_utility, No\_target, Stats\_only and Utility\_only panel. The protocol and
+examples-only/no-regime interventions, or the planned Plain\_\allowbreak{}revision,
+No\_\allowbreak{}utility, No\_\allowbreak{}target, Stats\_\allowbreak{}only and Utility\_\allowbreak{}only panel. The protocol and
 result artifact mark them deferred. Existing builders, component factorial
 experiments or the 23 numerical strategies do not supply those missing
 responses. The Anchor ladder can describe the observed package differences,
@@ -793,13 +735,15 @@ definitions are
 \]
 
 \[
-\mathrm{MCC}=\frac{TP\,TN-FP\,FN}
- {\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}},\qquad
-\mathrm{LONG\ rate}=\frac{TP+FP}{N}.
+\begin{aligned}
+\mathrm{MCC}&=\frac{TP\,TN-FP\,FN}
+ {\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}},\\[4pt]
+\mathrm{LONG\ rate}&=\frac{TP+FP}{N}.
+\end{aligned}
 \]
 
 For UP, precision is \(TP/(TP+FP)\), recall is \(TP/(TP+FN)\) and
-\(F1_{UP}=2TP/(2TP+FP+FN)\). Swap UP/DOWN to obtain the negative-class
+\(F1_{UP}=2TP/(2TP+FP+FN)\). Swap UP/\allowbreak{}DOWN to obtain the negative-class
 metrics; macro-F1 is \((F1_{UP}+F1_{DOWN})/2\) when both are defined.
 ``Macro-F1'' across classes is different from a macro average across stocks.
 Classification fractions are converted to percent only where the output
@@ -901,23 +845,17 @@ dividends or actual fills.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Net economics, account aggregation and risk conventions - supporting detail}\label{tab:05_experiments:9}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Quantity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component reference
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Context reference
-\end{minipage} \\
+ & Component reference
+ & Context reference
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Quantity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component reference
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Context reference
-\end{minipage} \\
+ & Component reference
+ & Context reference
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -975,23 +913,17 @@ desired interval appears. The procedures are study-specific:
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Paired resampling and descriptive uncertainty - supporting detail}\label{tab:05_experiments:10}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Evidence family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded paired procedure
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Interpretation retained
-\end{minipage} \\
+ & Recorded paired procedure
+ & Interpretation retained
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Evidence family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded paired procedure
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Interpretation retained
-\end{minipage} \\
+ & Recorded paired procedure
+ & Interpretation retained
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1094,43 +1026,27 @@ use the saved unrounded values.\footnote{Main B05a/b cells: root exports ED32--E
   >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}@{}}
 \caption{Table B05a. Main component comparison.}\label{tab:05_experiments:11}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Method
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acc. (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Macro-F1
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean MDD (\%)
-\end{minipage} \\
+ & Acc. (\%)
+ & BA (\%)
+ & MCC
+ & Macro-F1
+ & LONG (\%)
+ & Mean return (\%)
+ & Mean MDD (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Method
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acc. (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Macro-F1
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean MDD (\%)
-\end{minipage} \\
+ & Acc. (\%)
+ & BA (\%)
+ & MCC
+ & Macro-F1
+ & LONG (\%)
+ & Mean return (\%)
+ & Mean MDD (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1180,50 +1096,32 @@ decisions classified LONG.\footnote{Main B05a/b cells: root exports ED32--ED34, 
   >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1111}}
   >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1111}}
   >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1111}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1112}}@{}}
 \caption{Table B05b. Full/Base confusion counts and recorded exposure.}\label{tab:05_experiments:12}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Method
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-TP
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-FN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-TN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-FP
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CASH
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Held sessions (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Close exposure (\%)
-\end{minipage} \\
+ & TP
+ & FN
+ & TN
+ & FP
+ & LONG
+ & CASH
+ & Held sessions (\%)
+ & Close exposure (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Method
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-TP
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-FN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-TN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-FP
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CASH
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Held sessions (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Close exposure (\%)
-\end{minipage} \\
+ & TP
+ & FN
+ & TN
+ & FP
+ & LONG
+ & CASH
+ & Held sessions (\%)
+ & Close exposure (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1291,31 +1189,21 @@ summed together or treated as independent replications.\footnote{ED35 \texttt{cl
   >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \caption{Table B05c. Full/Base BA on every recorded stock and block.}\label{tab:05_experiments:13}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-UP/DOWN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base BA (\%)
-\end{minipage} \\
+ & Points
+ & UP/\allowbreak{}DOWN
+ & Full BA (\%)
+ & Base BA (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-UP/DOWN
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base BA (\%)
-\end{minipage} \\
+ & Points
+ & UP/\allowbreak{}DOWN
+ & Full BA (\%)
+ & Base BA (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1329,12 +1217,12 @@ symbol: MWG & 12 & 4/8 & 56.250 & 50.000 \\
 symbol: VCB & 12 & 4/8 & 50.000 & 37.500 \\
 symbol: VJC & 12 & 4/8 & 43.750 & 37.500 \\
 symbol: VNM & 12 & 0/12 & NA & NA \\
-block: b2023\_h2 & 16 & 3/13 & 38.462 & 34.615 \\
-block: b2024\_h2 & 16 & 7/9 & 49.206 & 49.206 \\
-block: b2025\_h1 & 16 & 0/16 & NA & NA \\
-block: f2025\_q4 & 18 & 7/11 & 59.740 & 55.195 \\
-block: f2026\_q2 & 18 & 6/12 & 45.833 & 45.833 \\
-block: f2026\_q3 & 18 & 2/16 & 62.500 & 50.000 \\
+block: b2023\_\allowbreak{}h2 & 16 & 3/13 & 38.462 & 34.615 \\
+block: b2024\_\allowbreak{}h2 & 16 & 7/9 & 49.206 & 49.206 \\
+block: b2025\_\allowbreak{}h1 & 16 & 0/16 & NA & NA \\
+block: f2025\_\allowbreak{}q4 & 18 & 7/11 & 59.740 & 55.195 \\
+block: f2026\_\allowbreak{}q2 & 18 & 6/12 & 45.833 & 45.833 \\
+block: f2026\_\allowbreak{}q3 & 18 & 2/16 & 62.500 & 50.000 \\
 \end{longtable}
 
 \endgroup
@@ -1376,38 +1264,26 @@ its level should not be ranked directly against B05a.\footnote{ED24 \texttt{head
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Table B05d. Numerical five-factor controls.}\label{tab:05_experiments:14}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Numerical strategy
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acc. (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean stock return (\%)
-\end{minipage} \\
+ & Acc. (\%)
+ & BA (\%)
+ & MCC
+ & LONG (\%)
+ & Mean stock return (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Numerical strategy
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acc. (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean stock return (\%)
-\end{minipage} \\
+ & Acc. (\%)
+ & BA (\%)
+ & MCC
+ & LONG (\%)
+ & Mean stock return (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1449,38 +1325,28 @@ random-trial comparisons.\footnote{ED24 \texttt{headline}, \texttt{random\_\allo
   >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \caption{Table B05e. Three declared numerical contrasts within the full family of 23 diagnostics.}\label{tab:05_experiments:15}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Recorded contrast
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Percentile interval (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exact p
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Holm p (23)
-\end{minipage} \\
+ & BA difference (pp)
+ & Percentile interval (pp)
+ & Exact p
+ & Holm p (23)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Recorded contrast
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Percentile interval (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exact p
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Holm p (23)
-\end{minipage} \\
+ & BA difference (pp)
+ & Percentile interval (pp)
+ & Exact p
+ & Holm p (23)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-dynamic\_vs\_fixed & 15.844 & {[}6.817, 25.217{]} & 0.06250 & 1.000 \\
-dynamic\_vs\_random\_mean & 7.327 & {[}0.567, 13.748{]} & 0.12500 & 1.000 \\
-dynamic\_vs\_no\_flip & 6.442 & {[}-10.932, 20.263{]} & 0.53125 & 1.000 \\
+dynamic\_\allowbreak{}vs\_\allowbreak{}fixed & 15.844 & {[}6.817, 25.217{]} & 0.06250 & 1.000 \\
+dynamic\_\allowbreak{}vs\_\allowbreak{}random\_\allowbreak{}mean & 7.327 & {[}0.567, 13.748{]} & 0.12500 & 1.000 \\
+dynamic\_\allowbreak{}vs\_\allowbreak{}no\_\allowbreak{}flip & 6.442 & {[}-10.932, 20.263{]} & 0.53125 & 1.000 \\
 \end{longtable}
 
 \endgroup
@@ -1518,38 +1384,26 @@ are different from one another and from the main sample.\footnote{ED37 \texttt{u
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Table B05f. Separate small panels, with all three realizations retained.}\label{tab:05_experiments:16}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Panel
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Branch
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean account return (\%)
-\end{minipage} \\
+ & Branch
+ & BA (\%)
+ & MCC
+ & LONG (\%)
+ & Mean account return (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Panel
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Branch
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean account return (\%)
-\end{minipage} \\
+ & Branch
+ & BA (\%)
+ & MCC
+ & LONG (\%)
+ & Mean account return (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1604,23 +1458,17 @@ historical-context study's standardized simultaneous bands.\footnote{ED37 \textt
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B05g. Complete seven-contrast factorial BA family.}\label{tab:05_experiments:17}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Factorial BA contrast
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Joint-finite sensitivity envelope (pp)
-\end{minipage} \\
+ & Difference (pp)
+ & Joint-finite sensitivity envelope (pp)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Factorial BA contrast
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Joint-finite sensitivity envelope (pp)
-\end{minipage} \\
+ & Difference (pp)
+ & Joint-finite sensitivity envelope (pp)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1671,7 +1519,7 @@ This answer retains the previously reported native row-wise causality
 \textbf{FAIL}: outer point-in-time input checks do not repair noncausal
 historical alpha normalization. Previously exposed folds, provider/model
 uncertainty and the small dependent sample further limit generalization.
-Whole-system status remains \textbf{NOT\_CERTIFIED} and UI acceptance remains
+Whole-system status remains \textbf{NOT\_\allowbreak{}CERTIFIED} and UI acceptance remains
 pending. None of the component results changes those audit statuses.
 
 \section{Historical-context results}\label{s:3fa11476b5d5815b}
@@ -1714,43 +1562,27 @@ are percentages. NA preserves an undefined metric.\footnote{ED07 \texttt{summary
   >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}@{}}
 \caption{Table B06a. Historical-context results on the complete cohort.}\label{tab:05_experiments:18}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role/control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acc. (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Macro-F1
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Repeat SD (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean daily MDD (\%)
-\end{minipage} \\
+ & Acc. (\%)
+ & BA (\%)
+ & MCC
+ & Macro-F1
+ & Mean return (\%)
+ & Repeat SD (pp)
+ & Mean daily MDD (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role/control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acc. (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MCC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Macro-F1
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Repeat SD (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Mean daily MDD (\%)
-\end{minipage} \\
+ & Acc. (\%)
+ & BA (\%)
+ & MCC
+ & Macro-F1
+ & Mean return (\%)
+ & Repeat SD (pp)
+ & Mean daily MDD (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1759,8 +1591,8 @@ Native & 65.359 & 51.844 & 0.037 & 0.518 & -0.653 & 0.093 & 1.186 \\
 Common & 57.843 & 45.965 & -0.076 & 0.461 & -1.025 & 0.098 & 1.647 \\
 Bayesian v1 & 63.399 & 50.095 & 0.002 & 0.501 & -0.698 & 0.050 & 1.321 \\
 C2 & 57.516 & 45.749 & -0.080 & 0.459 & -1.030 & 0.090 & 1.653 \\
-A\_tp\_pool & 58.170 & 46.182 & -0.072 & 0.463 & -1.019 & 0.098 & 1.642 \\
-B\_semantic & 57.516 & 45.749 & -0.080 & 0.459 & -1.030 & 0.090 & 1.653 \\
+A\_\allowbreak{}tp\_\allowbreak{}pool & 58.170 & 46.182 & -0.072 & 0.463 & -1.019 & 0.098 & 1.642 \\
+B\_\allowbreak{}semantic & 57.516 & 45.749 & -0.080 & 0.459 & -1.030 & 0.090 & 1.653 \\
 MT-BICL & 52.941 & 43.169 & -0.124 & 0.433 & -1.253 & 0.100 & 1.853 \\
 Fact Anchor & 52.288 & 42.736 & -0.131 & 0.429 & -1.286 & 0.070 & 1.883 \\
 CASH & 75.490 & 50.000 & NA & 0.430 & 0.000 & 0.000 & 0.000 \\
@@ -1773,7 +1605,7 @@ Always-LONG cycles & 24.510 & 50.000 & NA & 0.197 & -3.000 & 0.000 & 4.523 \\
 All eight research roles have negative mean account returns. Native has
 the least negative research-role mean, \ensuremath{-}0.653\%, while Common records
 \ensuremath{-}1.025\%. Bayesian v1 is at \ensuremath{-}0.698\%, between the two baselines. C2 and
-B\_semantic each record \ensuremath{-}1.030\%; A\_tp\_pool records \ensuremath{-}1.019\%. MT-BICL and
+B\_\allowbreak{}semantic each record \ensuremath{-}1.030\%; A\_\allowbreak{}tp\_\allowbreak{}pool records \ensuremath{-}1.019\%. MT-BICL and
 Fact Anchor have the most negative research-role means, \ensuremath{-}1.253\% and
 \ensuremath{-}1.286\%, respectively. CASH preserves its zero-return reference; the
 fully costed cycle-LONG control records \ensuremath{-}3.000\%. These are means of
@@ -1781,7 +1613,7 @@ separate accounts, not returns of a multi-stock capital allocation.
 
 Native also has higher mean BA than all other research roles, at
 51.844\%. Bayesian v1 reaches 50.095\%, above Common's 45.965\% but below
-Native. C2, A\_tp\_pool and B\_semantic remain close to Common. MT-BICL's
+Native. C2, A\_\allowbreak{}tp\_\allowbreak{}pool and B\_\allowbreak{}semantic remain close to Common. MT-BICL's
 43.169\% BA is only slightly above Fact Anchor's 42.736\%. The constant
 controls each have BA of 50.000\%, with undefined MCC. CASH's 75.490\%
 accuracy reflects the predominance of DOWN outcomes; it does not identify
@@ -1810,38 +1642,26 @@ not an HTTP attempt or an independent market observation.\footnote{ED07 \texttt{
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Table B06b. Actions and response coverage.}\label{tab:05_experiments:19}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role/control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final slots
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG slots
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Raw replies
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Bypass/no-LLM slots
-\end{minipage} \\
+ & Points
+ & Final slots
+ & LONG slots
+ & Raw replies
+ & Bypass/no-LLM slots
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role/control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final slots
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG slots
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Raw replies
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Bypass/no-LLM slots
-\end{minipage} \\
+ & Points
+ & Final slots
+ & LONG slots
+ & Raw replies
+ & Bypass/no-LLM slots
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1850,8 +1670,8 @@ Native & 102 & 306 & 69 & 306 & 0 \\
 Common & 102 & 306 & 88 & 306 & 0 \\
 Bayesian v1 & 102 & 306 & 73 & 144 & 162 \\
 C2 & 102 & 306 & 89 & 3 & 303 \\
-A\_tp\_pool & 102 & 306 & 87 & 24 & 282 \\
-B\_semantic & 102 & 306 & 89 & 3 & 303 \\
+A\_\allowbreak{}tp\_\allowbreak{}pool & 102 & 306 & 87 & 24 & 282 \\
+B\_\allowbreak{}semantic & 102 & 306 & 89 & 3 & 303 \\
 MT-BICL & 102 & 306 & 105 & 198 & 108 \\
 Fact Anchor & 102 & 306 & 107 & 306 & 0 \\
 CASH & 102 & 306 & 0 & 0 & 306 \\
@@ -1864,8 +1684,8 @@ The eight research roles contain 1,290 retained raw Decision replies and
 1,158 bypasses, totaling 2,448 completed slots with no active failures or
 input exclusions. The controls add their own deterministic 306 slots
 each and are outside that eight-role total. Bayesian v1 supplies 144 raw
-responses and falls back in 162 slots. C2 and B\_semantic each supply only
-three new raw responses; A\_tp\_pool supplies twenty-four. Their overall
+responses and falls back in 162 slots. C2 and B\_\allowbreak{}semantic each supply only
+three new raw responses; A\_\allowbreak{}tp\_\allowbreak{}pool supplies twenty-four. Their overall
 metrics therefore describe mostly fallback behavior. Low response
 coverage is a material part of the result, rather than a reason to remove
 unsupported observations or to claim that the conditional methods were
@@ -1893,42 +1713,28 @@ do not supply stochastic replications.\footnote{ED38 \texttt{per\_\allowbreak{}r
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1426}}@{}}
 \caption{Table B06c. All repeat-level returns and BA.}\label{tab:05_experiments:20}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role/control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return r0 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return r1 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return r2 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA r0 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA r1 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA r2 (\%)
-\end{minipage} \\
+ & Return r0 (\%)
+ & Return r1 (\%)
+ & Return r2 (\%)
+ & BA r0 (\%)
+ & BA r1 (\%)
+ & BA r2 (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role/control
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return r0 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return r1 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return r2 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA r0 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA r1 (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA r2 (\%)
-\end{minipage} \\
+ & Return r0 (\%)
+ & Return r1 (\%)
+ & Return r2 (\%)
+ & BA r0 (\%)
+ & BA r1 (\%)
+ & BA r2 (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1937,8 +1743,8 @@ Native & -0.726 & -0.684 & -0.548 & 52.961 & 52.312 & 50.260 \\
 Common & -0.930 & -1.019 & -1.125 & 47.714 & 47.065 & 43.117 \\
 Bayesian v1 & -0.642 & -0.715 & -0.738 & 50.312 & 50.312 & 49.662 \\
 C2 & -0.946 & -1.019 & -1.125 & 47.065 & 47.065 & 43.117 \\
-A\_tp\_pool & -0.930 & -1.003 & -1.125 & 47.714 & 47.714 & 43.117 \\
-B\_semantic & -0.946 & -1.019 & -1.125 & 47.065 & 47.065 & 43.117 \\
+A\_\allowbreak{}tp\_\allowbreak{}pool & -0.930 & -1.003 & -1.125 & 47.714 & 47.714 & 43.117 \\
+B\_\allowbreak{}semantic & -0.946 & -1.019 & -1.125 & 47.065 & 47.065 & 43.117 \\
 MT-BICL & -1.175 & -1.220 & -1.366 & 43.818 & 43.169 & 42.519 \\
 Fact Anchor & -1.234 & -1.259 & -1.366 & 43.169 & 42.519 & 42.519 \\
 CASH & 0.000 & 0.000 & 0.000 & 50.000 & 50.000 & 50.000 \\
@@ -1988,40 +1794,32 @@ selected intervals.\footnote{ED07 \texttt{contrasts} and \texttt{primary\_\allow
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table B06d. Complete primary historical-context contrast family.}\label{tab:05_experiments:21}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Baseline
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return difference {[}band{]} (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA difference {[}band{]} (pp)
-\end{minipage} \\
+ & Extension
+ & Return difference {[}band{]} (pp)
+ & BA difference {[}band{]} (pp)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Baseline
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return difference {[}band{]} (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA difference {[}band{]} (pp)
-\end{minipage} \\
+ & Extension
+ & Return difference {[}band{]} (pp)
+ & BA difference {[}band{]} (pp)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Native & Bayesian v1 & -0.045 {[}-0.362, 0.271{]} & -1.749 {[}-6.374, 2.876{]} \\
 Native & C2 & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]} \\
-Native & A\_tp\_pool & -0.367 {[}-0.867, 0.133{]} & -5.662 {[}-11.771, 0.446{]} \\
-Native & B\_semantic & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]} \\
+Native & A\_\allowbreak{}tp\_\allowbreak{}pool & -0.367 {[}-0.867, 0.133{]} & -5.662 {[}-11.771, 0.446{]} \\
+Native & B\_\allowbreak{}semantic & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]} \\
 Native & MT-BICL & -0.601 {[}-1.090, -0.111{]} & -8.675 {[}-20.239, 2.888{]} \\
 Common & Bayesian v1 & 0.327 {[}0.067, 0.586{]} & 4.130 {[}2.011, 6.249{]} \\
 Common & C2 & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]} \\
-Common & A\_tp\_pool & 0.005 {[}-0.005, 0.016{]} & 0.216 {[}-0.235, 0.668{]} \\
-Common & B\_semantic & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]} \\
+Common & A\_\allowbreak{}tp\_\allowbreak{}pool & 0.005 {[}-0.005, 0.016{]} & 0.216 {[}-0.235, 0.668{]} \\
+Common & B\_\allowbreak{}semantic & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]} \\
 Common & MT-BICL & -0.229 {[}-0.576, 0.118{]} & -2.797 {[}-11.168, 5.575{]} \\
 \end{longtable}
 
@@ -2048,9 +1846,9 @@ with band {[}\ensuremath{-}6.374, 2.876{]} pp.~Thus the favorable Common-based c
 does not establish an advantage over Native. It also does not establish
 profitability: the Bayesian v1 mean return remains negative.
 
-The small C2/A\_tp\_pool/B\_semantic return differences against Common have
+The small C2/A\_\allowbreak{}tp\_\allowbreak{}pool/B\_\allowbreak{}semantic return differences against Common have
 bands crossing zero and mostly reflect retained fallback slots. C2 and
-B\_semantic have adverse BA bands against Native, entirely below zero at
+B\_\allowbreak{}semantic have adverse BA bands against Native, entirely below zero at
 displayed precision. MT-BICL's return difference against Native is
 \ensuremath{-}0.601 pp with band {[}\ensuremath{-}1.090, \ensuremath{-}0.111{]} pp; its BA band spans zero.
 Against Common, both MT-BICL bands span zero. These unfavorable and
@@ -2081,31 +1879,21 @@ band is added.\footnote{ED07 \texttt{bridge} and ED16 final actions; CL162, ledg
   >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \caption{Table B06e. Native \ensuremath{\rightarrow} Common \ensuremath{\rightarrow} Fact Anchor \ensuremath{\rightarrow} MT-BICL bridge.}\label{tab:05_experiments:22}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Predecessor
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Method
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Same final actions
-\end{minipage} \\
+ & Method
+ & Return difference (pp)
+ & BA difference (pp)
+ & Same final actions
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Predecessor
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Method
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Return difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-BA difference (pp)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Same final actions
-\end{minipage} \\
+ & Method
+ & Return difference (pp)
+ & BA difference (pp)
+ & Same final actions
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2162,50 +1950,36 @@ fallback reasons.\footnote{ED16 prediction fields linked by \texttt{trace\_\allo
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1426}}@{}}
 \caption{Table B07a. Signal-prior support, counted once per point at repeat 0.}\label{tab:05_experiments:23}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Signal prior
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Bank-covered
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-No same-symbol bank
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Conditional READY
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Covered insufficient
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points with new reply
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Visible examples
-\end{minipage} \\
+ & Bank-covered
+ & No same-symbol bank
+ & Conditional READY
+ & Covered insufficient
+ & Points with new reply
+ & Visible examples
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Signal prior
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Bank-covered
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-No same-symbol bank
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Conditional READY
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Covered insufficient
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points with new reply
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Visible examples
-\end{minipage} \\
+ & Bank-covered
+ & No same-symbol bank
+ & Conditional READY
+ & Covered insufficient
+ & Points with new reply
+ & Visible examples
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Bayesian v1 & 48 & 54 & Not applied & Not applied & 48 & 3 on 48 points \\
 C2 & 48 & 54 & 1 & 47 & 1 & 0 on all 48 points \\
-A\_tp\_pool & 48 & 54 & 8 & 40 & 8 & 0 on all 48 points \\
-B\_semantic & 48 & 54 & 1 & 47 & 1 & 0 on all 48 points \\
+A\_\allowbreak{}tp\_\allowbreak{}pool & 48 & 54 & 8 & 40 & 8 & 0 on all 48 points \\
+B\_\allowbreak{}semantic & 48 & 54 & 1 & 47 & 1 & 0 on all 48 points \\
 \end{longtable}
 
 \endgroup
@@ -2218,12 +1992,12 @@ regimes; they must not be relabeled as the separate VN-Index/HMM regimes
 used by numerical MT context. The same inputs can have different regime
 labels from the two implemented sources, as EX01 demonstrates.
 
-For C2 and B\_semantic, only one point is READY; A\_tp\_pool has eight.
+For C2 and B\_\allowbreak{}semantic, only one point is READY; A\_\allowbreak{}tp\_\allowbreak{}pool has eight.
 Their READY requests have zero visible examples and expose ready
 statistics. Thus a conditional call here does not establish that a
 full three-example prompt was used. Among the 48 bank-covered points,
-LOW\_POPULATION\_SUPPORT appears in forty request reason lists for each
-conditional method; QUERY\_FEATURE\_UNAVAILABLE appears in ten. These
+LOW\_\allowbreak{}POPULATION\_\allowbreak{}SUPPORT appears in forty request reason lists for each
+conditional method; QUERY\_\allowbreak{}FEATURE\_\allowbreak{}UNAVAILABLE appears in ten. These
 reason counts overlap and do not partition the cohort. No-bank coverage
 and conditional readiness explain why metrics in Section 5.7 can remain
 close to Common without showing that two fully active methods behave
@@ -2248,23 +2022,17 @@ in the U09 prediction export, rather than a numerical zero.\footnote{ED16 predic
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B07b. Available context descriptors and probability outputs.}\label{tab:05_experiments:24}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Recorded quantity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Unique-point support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Saved-field summary
-\end{minipage} \\
+ & Unique-point support
+ & Saved-field summary
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Recorded quantity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Unique-point support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Saved-field summary
-\end{minipage} \\
+ & Unique-point support
+ & Saved-field summary
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2276,7 +2044,7 @@ MT effective K & 102 & 3 on 86 points; 0 on 16 points \\
 MT mean age / similarity (U09 export) & 0 & NA / NA \\
 MT numeric probability & 86 & 258 slots; supported-only Brier 0.205811 \\
 MT teacher probability & 66 & 198 slots; supported-only Brier 0.212024 \\
-Prior regret (U09 export) & 0 & NA: NOT\_RECORDED\_IN\_LOCKED\_TRACE \\
+Prior regret (U09 export) & 0 & NA: NOT\_\allowbreak{}RECORDED\_\allowbreak{}IN\_\allowbreak{}LOCKED\_\allowbreak{}TRACE \\
 \end{longtable}
 
 \endgroup
@@ -2321,32 +2089,26 @@ actual saved reason counts.\footnote{ED07 \texttt{summary.\allowbreak{}MT\_\allo
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B07c. Complete MT policy path counts.}\label{tab:05_experiments:25}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Saved reason
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Forecast slots
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final-action relationship
-\end{minipage} \\
+ & Forecast slots
+ & Final-action relationship
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Saved reason
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Forecast slots
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final-action relationship
-\end{minipage} \\
+ & Forecast slots
+ & Final-action relationship
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-BYPASS\_QUERY\_FEATURE\_UNAVAILABLE & 48 & Retain anchor; no revision reply \\
-BYPASS\_UTILITY\_UNSUPPORTED & 60 & Retain anchor; no revision reply \\
-KEEP\_PROPOSED\_SAME & 189 & Proposal already equals anchor \\
-REJECT\_NONPOSITIVE\_Q10\_DELTA\_U & 5 & Reject change; retain anchor \\
-ACCEPT\_POSITIVE\_Q10\_DELTA\_U & 4 & Change from anchor \\
+BYPASS\_\allowbreak{}QUERY\_\allowbreak{}FEATURE\_\allowbreak{}UNAVAILABLE & 48 & Retain anchor; no revision reply \\
+BYPASS\_\allowbreak{}UTILITY\_\allowbreak{}UNSUPPORTED & 60 & Retain anchor; no revision reply \\
+KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME & 189 & Proposal already equals anchor \\
+REJECT\_\allowbreak{}NONPOSITIVE\_\allowbreak{}Q10\_\allowbreak{}DELTA\_\allowbreak{}U & 5 & Reject change; retain anchor \\
+ACCEPT\_\allowbreak{}POSITIVE\_\allowbreak{}Q10\_\allowbreak{}DELTA\_\allowbreak{}U & 4 & Change from anchor \\
 \end{longtable}
 
 \endgroup
@@ -2385,7 +2147,7 @@ action results, although Brier is defined only on the recorded supported
 probabilities.\footnote{ED07 \texttt{summary.\allowbreak{}MT\_\allowbreak{}BICL.\allowbreak{}policy\_\allowbreak{}reasons}, \texttt{calibration}, ED16 slot-level actions/flags/quantiles and the Chapter 4 policy contract; CL166--CL168, ledger §10.10. The 302/306 agreement includes bypasses and rejected changes; no causal decomposition or matched-probability comparison is claimed.}
 
 The observed policy suppresses most deviations from Fact Anchor, but
-the collection has no matched hosted No\_utility or Plain\_revision panel
+the collection has no matched hosted No\_\allowbreak{}utility or Plain\_\allowbreak{}revision panel
 to estimate the utility gate's isolated performance effect. Similarly,
 the near-anchor final actions cannot identify a separate student benefit.
 The bridge is descriptive of the implemented combined system.
@@ -2401,14 +2163,14 @@ an explanatory selection rule, not a preregistered performance analysis.
 
 \textbf{Table B07d. Case selection and candidate denominators.} Sufficient
 context requires MT eligibility and no v1 bypass. Insufficient support
-requires a bypass and explicit INSUFFICIENT\_EVIDENCE status in at least
-one of C2/A\_tp\_pool/B\_semantic; ties use that stated method order.
+requires a bypass and explicit INSUFFICIENT\_\allowbreak{}EVIDENCE status in at least
+one of C2/A\_\allowbreak{}tp\_\allowbreak{}pool/B\_\allowbreak{}semantic; ties use that stated method order.
 Disagreement requires a raw MT proposal mapped to LONG/CASH to differ
 from its anchor. A veto requires the recorded utility rejection to change
 that mapped raw proposal to the final action. An incorrect case has a
 LONG/DOWN or CASH/UP final action in at least one research role; ties use
 the role order in B06a. Only the last predicate uses outcomes, deliberately
-to illustrate an error.\footnote{Selection rule EX01\_SELECTION\_V1 and ledger §7.7; ED16/40 plus U08 source chains in §10.11; CL169. All sources were checked before applying the five predicates; no favorable repeat or outcome-based selection outside the declared error group.}
+to illustrate an error.\footnote{Selection rule EX01\_\allowbreak{}SELECTION\_\allowbreak{}V1 and ledger §7.7; ED16/40 plus U08 source chains in §10.11; CL169. All sources were checked before applying the five predicates; no favorable repeat or outcome-based selection outside the declared error group.}
 
 \begingroup
 \small
@@ -2422,27 +2184,19 @@ to illustrate an error.\footnote{Selection rule EX01\_SELECTION\_V1 and ledger �
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table B07d. Case selection and candidate denominators.}\label{tab:05_experiments:26}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Declared group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Candidate points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Selected point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Displayed role
-\end{minipage} \\
+ & Candidate points
+ & Selected point
+ & Displayed role
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Declared group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Candidate points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Selected point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Displayed role
-\end{minipage} \\
+ & Candidate points
+ & Selected point
+ & Displayed role
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2483,42 +2237,28 @@ not assert identical prompts across profiles.\footnote{U08 raw member/hash bindi
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1426}}@{}}
 \caption{Table B07e. Cutoff facts from the recorded numerical audit packets.}\label{tab:05_experiments:27}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Close
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-SMA20
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MACD / Signal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MACD / zero
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Price / SMA20
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Sentiment
-\end{minipage} \\
+ & Close
+ & SMA20
+ & MACD / Signal
+ & MACD / zero
+ & Price / SMA20
+ & Sentiment
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Close
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-SMA20
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MACD / Signal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-MACD / zero
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Price / SMA20
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Sentiment
-\end{minipage} \\
+ & Close
+ & SMA20
+ & MACD / Signal
+ & MACD / zero
+ & Price / SMA20
+ & Sentiment
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2550,38 +2290,26 @@ for the point had completed durably.\footnote{U08 raw member/hash bindings CT01-
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Table B07f. Raw proposals, anchors and final actions.}\label{tab:05_experiments:28}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Raw
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Anchor
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded policy path
-\end{minipage} \\
+ & Role
+ & Raw
+ & Anchor
+ & Final
+ & Recorded policy path
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Raw
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Anchor
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded policy path
-\end{minipage} \\
+ & Role
+ & Raw
+ & Anchor
+ & Final
+ & Recorded policy path
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2619,43 +2347,27 @@ returns.\footnote{U08 raw member/hash bindings CT01--CT30 in ledger §10.11, lin
   >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1250}}@{}}
 \caption{Table B07g. Outcomes disclosed after facts and actions.}\label{tab:05_experiments:29}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Entry date
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit date
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Entry open (VND)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit close (VND)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Gross (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net label
-\end{minipage} \\
+ & Entry date
+ & Exit date
+ & Entry open (VND)
+ & Exit close (VND)
+ & Gross (\%)
+ & Net (\%)
+ & Net label
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Point
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Entry date
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit date
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Entry open (VND)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit close (VND)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Gross (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net label
-\end{minipage} \\
+ & Entry date
+ & Exit date
+ & Entry open (VND)
+ & Exit close (VND)
+ & Gross (\%)
+ & Net (\%)
+ & Net label
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2676,7 +2388,7 @@ conditional observation, below five. C2 therefore reuses the same-repeat
 Common LONG without a new raw response. MT has K=3 numerical prior tasks
 and three target observations, meets eligibility and proposes the same
 LONG as Fact Anchor; no change-quantile test is needed. The recorded
-MT Q10(U) is negative, but KEEP\_PROPOSED\_SAME is the applicable branch.
+MT Q10(U) is negative, but KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME is the applicable branch.
 The two regime sources remain CONSOLIDATION for v1 and BULL for numerical
 MT. Its positive gross return of 0.436\% becomes \textbf{\ensuremath{-}0.265\% net}, making
 the LONG incorrect under the actual economic label. Sufficient context
@@ -2750,55 +2462,41 @@ baselines are retained.\footnote{ED07 \texttt{sensitivity} arrays use the exact 
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1426}}@{}}
 \caption{Table B06f. Context return sensitivity for every extension and baseline.}\label{tab:05_experiments:30}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Baseline
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L1 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L3 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CORE4 estimate {[}band{]}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOFO point range
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOSO point range
-\end{minipage} \\
+ & Extension
+ & L1 band
+ & L3 band
+ & CORE4 estimate {[}band{]}
+ & LOFO point range
+ & LOSO point range
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Baseline
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L1 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L3 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CORE4 estimate {[}band{]}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOFO point range
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOSO point range
-\end{minipage} \\
+ & Extension
+ & L1 band
+ & L3 band
+ & CORE4 estimate {[}band{]}
+ & LOFO point range
+ & LOSO point range
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Native & Bayesian v1 & {[}-0.476, 0.385{]} & {[}-0.314, 0.223{]} & 0.350 {[}-0.024, 0.725{]} & {[}-0.145, 0.107{]} & {[}-0.162, 0.133{]} \\
 Native & C2 & {[}-0.865, 0.110{]} & {[}-0.720, -0.035{]} & -0.355 {[}-0.843, 0.132{]} & {[}-0.453, -0.206{]} & {[}-0.447, -0.243{]} \\
-Native & A\_tp\_pool & {[}-0.861, 0.127{]} & {[}-0.722, -0.011{]} & -0.333 {[}-0.852, 0.186{]} & {[}-0.441, -0.193{]} & {[}-0.435, -0.231{]} \\
-Native & B\_semantic & {[}-0.865, 0.110{]} & {[}-0.720, -0.035{]} & -0.355 {[}-0.843, 0.132{]} & {[}-0.453, -0.206{]} & {[}-0.447, -0.243{]} \\
+Native & A\_\allowbreak{}tp\_\allowbreak{}pool & {[}-0.861, 0.127{]} & {[}-0.722, -0.011{]} & -0.333 {[}-0.852, 0.186{]} & {[}-0.441, -0.193{]} & {[}-0.435, -0.231{]} \\
+Native & B\_\allowbreak{}semantic & {[}-0.865, 0.110{]} & {[}-0.720, -0.035{]} & -0.355 {[}-0.843, 0.132{]} & {[}-0.453, -0.206{]} & {[}-0.447, -0.243{]} \\
 Native & MT-BICL & {[}-1.077, -0.124{]} & {[}-0.949, -0.252{]} & -0.459 {[}-0.975, 0.057{]} & {[}-0.725, -0.471{]} & {[}-0.675, -0.432{]} \\
 Common & Bayesian v1 & {[}-0.019, 0.672{]} & {[}0.144, 0.509{]} & 0.694 {[}0.132, 1.257{]} & {[}0.218, 0.397{]} & {[}0.197, 0.370{]} \\
 Common & C2 & {[}-0.018, 0.007{]} & {[}-0.013, 0.002{]} & -0.011 {[}-0.034, 0.011{]} & {[}-0.006, 0.000{]} & {[}-0.006, 0.000{]} \\
-Common & A\_tp\_pool & {[}-0.007, 0.018{]} & {[}-0.002, 0.013{]} & 0.011 {[}-0.011, 0.034{]} & {[}0.000, 0.006{]} & {[}0.000, 0.006{]} \\
-Common & B\_semantic & {[}-0.018, 0.007{]} & {[}-0.013, 0.002{]} & -0.011 {[}-0.034, 0.011{]} & {[}-0.006, 0.000{]} & {[}-0.006, 0.000{]} \\
+Common & A\_\allowbreak{}tp\_\allowbreak{}pool & {[}-0.007, 0.018{]} & {[}-0.002, 0.013{]} & 0.011 {[}-0.011, 0.034{]} & {[}0.000, 0.006{]} & {[}0.000, 0.006{]} \\
+Common & B\_\allowbreak{}semantic & {[}-0.018, 0.007{]} & {[}-0.013, 0.002{]} & -0.011 {[}-0.034, 0.011{]} & {[}-0.006, 0.000{]} & {[}-0.006, 0.000{]} \\
 Common & MT-BICL & {[}-0.578, 0.120{]} & {[}-0.469, 0.012{]} & -0.115 {[}-0.205, -0.026{]} & {[}-0.312, -0.130{]} & {[}-0.260, -0.192{]} \\
 \end{longtable}
 
@@ -2822,55 +2520,41 @@ is never filled with zero or used to remove a primary observation.
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1426}}@{}}
 \caption{Table B06g. Corresponding BA sensitivity, in pp.}\label{tab:05_experiments:31}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Baseline
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L1 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L3 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CORE4 estimate {[}band{]}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOFO point range
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOSO point range
-\end{minipage} \\
+ & Extension
+ & L1 band
+ & L3 band
+ & CORE4 estimate {[}band{]}
+ & LOFO point range
+ & LOSO point range
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Baseline
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Extension
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L1 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-L3 band
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CORE4 estimate {[}band{]}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOFO point range
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LOSO point range
-\end{minipage} \\
+ & Extension
+ & L1 band
+ & L3 band
+ & CORE4 estimate {[}band{]}
+ & LOFO point range
+ & LOSO point range
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Native & Bayesian v1 & {[}-7.081, 3.584{]} & {[}-5.258, 1.760{]} & -0.351 {[}-10.475, 9.773{]} & {[}-2.694, 0.284{]} & {[}-3.231, -0.414{]} \\
 Native & C2 & {[}-11.682, -0.508{]} & {[}-10.054, -2.137{]} & -9.474 {[}-20.432, 1.484{]} & {[}-7.344, -4.119{]} & {[}-7.152, -4.683{]} \\
-Native & A\_tp\_pool & {[}-11.434, 0.110{]} & {[}-10.200, -1.125{]} & -8.596 {[}-20.969, 3.776{]} & {[}-6.798, -3.598{]} & {[}-6.718, -4.186{]} \\
-Native & B\_semantic & {[}-11.682, -0.508{]} & {[}-10.054, -2.137{]} & -9.474 {[}-20.432, 1.484{]} & {[}-7.344, -4.119{]} & {[}-7.152, -4.683{]} \\
+Native & A\_\allowbreak{}tp\_\allowbreak{}pool & {[}-11.434, 0.110{]} & {[}-10.200, -1.125{]} & -8.596 {[}-20.969, 3.776{]} & {[}-6.798, -3.598{]} & {[}-6.718, -4.186{]} \\
+Native & B\_\allowbreak{}semantic & {[}-11.682, -0.508{]} & {[}-10.054, -2.137{]} & -9.474 {[}-20.432, 1.484{]} & {[}-7.344, -4.119{]} & {[}-7.152, -4.683{]} \\
 Native & MT-BICL & {[}-20.362, 3.012{]} & {[}-17.868, 0.518{]} & -15.000 {[}-28.388, -1.612{]} & {[}-12.483, -4.820{]} & {[}-9.897, -6.453{]} \\
 Common & Bayesian v1 & {[}0.323, 7.937{]} & {[}2.092, 6.168{]} & 8.684 {[}4.472, 12.896{]} & {[}2.910, 5.038{]} & {[}2.277, 5.280{]} \\
 Common & C2 & {[}-0.781, 0.348{]} & {[}-0.528, 0.095{]} & -0.439 {[}-1.361, 0.484{]} & {[}-0.273, 0.000{]} & {[}-0.249, 0.000{]} \\
-Common & A\_tp\_pool & {[}-0.348, 0.781{]} & {[}-0.095, 0.528{]} & 0.439 {[}-0.484, 1.361{]} & {[}0.000, 0.273{]} & {[}0.000, 0.249{]} \\
-Common & B\_semantic & {[}-0.781, 0.348{]} & {[}-0.528, 0.095{]} & -0.439 {[}-1.361, 0.484{]} & {[}-0.273, 0.000{]} & {[}-0.249, 0.000{]} \\
+Common & A\_\allowbreak{}tp\_\allowbreak{}pool & {[}-0.348, 0.781{]} & {[}-0.095, 0.528{]} & 0.439 {[}-0.484, 1.361{]} & {[}0.000, 0.273{]} & {[}0.000, 0.249{]} \\
+Common & B\_\allowbreak{}semantic & {[}-0.781, 0.348{]} & {[}-0.528, 0.095{]} & -0.439 {[}-1.361, 0.484{]} & {[}-0.273, 0.000{]} & {[}-0.249, 0.000{]} \\
 Common & MT-BICL & {[}-12.059, 6.466{]} & {[}-9.588, 3.995{]} & -5.965 {[}-9.604, -2.326{]} & {[}-5.601, 0.572{]} & {[}-4.186, -0.759{]} \\
 \end{longtable}
 
@@ -2914,49 +2598,35 @@ stated number of accounts.\footnote{ED33--ED35 cohort exports; ED28 leave-one-bl
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1426}}@{}}
 \caption{Table B05h. Component support sensitivities.}\label{tab:05_experiments:32}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Component cohort
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Accounts
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base return (\%)
-\end{minipage} \\
+ & Points
+ & Accounts
+ & Full BA (\%)
+ & Base BA (\%)
+ & Full return (\%)
+ & Base return (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Component cohort
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Accounts
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base return (\%)
-\end{minipage} \\
+ & Points
+ & Accounts
+ & Full BA (\%)
+ & Base BA (\%)
+ & Full return (\%)
+ & Base return (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-all\_102 & 102 & 51 & 52.961 & 49.714 & -0.797 & -0.750 \\
-common\_eight\_96 & 96 & 48 & 50.694 & 48.611 & -0.853 & -0.701 \\
-recent\_nine\_54 & 54 & 27 & 53.077 & 46.667 & -0.728 & -0.953 \\
+all\_\allowbreak{}102 & 102 & 51 & 52.961 & 49.714 & -0.797 & -0.750 \\
+common\_\allowbreak{}eight\_\allowbreak{}96 & 96 & 48 & 50.694 & 48.611 & -0.853 & -0.701 \\
+recent\_\allowbreak{}nine\_\allowbreak{}54 & 54 & 27 & 53.077 & 46.667 & -0.728 & -0.953 \\
 \end{longtable}
 
 \endgroup
@@ -2992,27 +2662,19 @@ overlap. These labels are distinct from the numerical HMM regimes.
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table B05i. Recorded component descriptive strata on all 102 points.}\label{tab:05_experiments:33}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Descriptive stratum
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base BA (\%)
-\end{minipage} \\
+ & Points
+ & Full BA (\%)
+ & Base BA (\%)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Descriptive stratum
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Points
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full BA (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base BA (\%)
-\end{minipage} \\
+ & Points
+ & Full BA (\%)
+ & Base BA (\%)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -3022,8 +2684,8 @@ trend: bull & 33 & 47.917 & 53.472 \\
 trend: sideways & 34 & 59.486 & 46.245 \\
 volatility: high & 33 & 46.538 & 50.385 \\
 volatility: low & 69 & 57.018 & 48.465 \\
-liquidity\_proxy: high & 80 & 49.167 & 48.333 \\
-liquidity\_proxy: low & 22 & 67.059 & 55.294 \\
+liquidity\_\allowbreak{}proxy: high & 80 & 49.167 & 48.333 \\
+liquidity\_\allowbreak{}proxy: low & 22 & 67.059 & 55.294 \\
 \end{longtable}
 
 \endgroup
@@ -3058,54 +2720,42 @@ at the terminal window.\footnote{ED26 policy and ED43/ED44 execution summary/rep
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Table B05j. Component Full/Base outcomes in all twelve saved scenarios.}\label{tab:05_experiments:34}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Scenario
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Blocked Full/Base
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Pending Full/Base
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Residual stock Full/Base
-\end{minipage} \\
+ & Full return (\%)
+ & Base return (\%)
+ & Blocked Full/Base
+ & Pending Full/Base
+ & Residual stock Full/Base
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Scenario
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Full return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Base return (\%)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Blocked Full/Base
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Pending Full/Base
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Residual stock Full/Base
-\end{minipage} \\
+ & Full return (\%)
+ & Base return (\%)
+ & Blocked Full/Base
+ & Pending Full/Base
+ & Residual stock Full/Base
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 reference & -0.797 & -0.750 & 0/0 & 0/0 & 0/0 \\
-pending\_t2 & -0.797 & -0.750 & 0/0 & 0/0 & 0/0 \\
-advance\_on\_demand & -0.797 & -0.750 & 0/0 & 0/0 & 0/0 \\
-advance\_auto & -0.840 & -0.803 & 0/0 & 0/0 & 0/0 \\
-lower\_cost & -0.612 & -0.526 & 0/0 & 0/0 & 0/0 \\
-higher\_cost & -1.211 & -1.249 & 0/0 & 0/0 & 0/0 \\
-sell\_charge\_10bp & -0.843 & -0.805 & 0/0 & 0/0 & 0/0 \\
-no\_fill\_proxy & -0.803 & -0.659 & 1/3 & 0/0 & 0/0 \\
-delayed\_proxy & -0.766 & -0.621 & 2/4 & 0/1 & 0/0 \\
-lot100\_cap1pct & -0.745 & -0.602 & 1/3 & 0/0 & 0/0 \\
+pending\_\allowbreak{}t2 & -0.797 & -0.750 & 0/0 & 0/0 & 0/0 \\
+advance\_\allowbreak{}on\_\allowbreak{}demand & -0.797 & -0.750 & 0/0 & 0/0 & 0/0 \\
+advance\_\allowbreak{}auto & -0.840 & -0.803 & 0/0 & 0/0 & 0/0 \\
+lower\_\allowbreak{}cost & -0.612 & -0.526 & 0/0 & 0/0 & 0/0 \\
+higher\_\allowbreak{}cost & -1.211 & -1.249 & 0/0 & 0/0 & 0/0 \\
+sell\_\allowbreak{}charge\_\allowbreak{}10bp & -0.843 & -0.805 & 0/0 & 0/0 & 0/0 \\
+no\_\allowbreak{}fill\_\allowbreak{}proxy & -0.803 & -0.659 & 1/3 & 0/0 & 0/0 \\
+delayed\_\allowbreak{}proxy & -0.766 & -0.621 & 2/4 & 0/1 & 0/0 \\
+lot100\_\allowbreak{}cap1pct & -0.745 & -0.602 & 1/3 & 0/0 & 0/0 \\
 combined & -1.166 & -1.074 & 3/9 & 0/0 & 0/0 \\
-all\_entries\_missed & 0.000 & 0.000 & 24/29 & 0/0 & 0/0 \\
+all\_\allowbreak{}entries\_\allowbreak{}missed & 0.000 & 0.000 & 24/29 & 0/0 & 0/0 \\
 \end{longtable}
 
 \endgroup
@@ -3159,38 +2809,26 @@ method-level speed comparison.\footnote{ED18 component costs, ED07 telemetry and
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Table B07h. Resource ledgers with their original scopes.}\label{tab:05_experiments:35}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Ledger scope
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Attempts
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Success / HTTP 200
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Errors / other status
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Observed prompt / completion tokens
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Duration sum (s)
-\end{minipage} \\
+ & Attempts
+ & Success / HTTP 200
+ & Errors / other status
+ & Observed prompt / completion tokens
+ & Duration sum (s)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Ledger scope
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Attempts
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Success / HTTP 200
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Errors / other status
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Observed prompt / completion tokens
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Duration sum (s)
-\end{minipage} \\
+ & Attempts
+ & Success / HTTP 200
+ & Errors / other status
+ & Observed prompt / completion tokens
+ & Duration sum (s)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -3252,32 +2890,26 @@ conducted during thesis writing.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B06h. Missing matched interventions.}\label{tab:05_experiments:36}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Intervention
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded status / related evidence
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Effect not identified
-\end{minipage} \\
+ & Recorded status / related evidence
+ & Effect not identified
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Intervention
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded status / related evidence
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Effect not identified
-\end{minipage} \\
+ & Recorded status / related evidence
+ & Effect not identified
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Random / recent / similarity / Bayesian retrieval, matched bank and budget & DEFERRED; zero matched hosted retrieval-ablation slots & Retrieval ranking and regime conditioning alone \\
 Signal-prior statistics only / examples only / no regime & DEFERRED; conditional methods have different readiness masks & Incremental value of examples, statistics or regime labels \\
-Plain\_revision / no numerical prior & No matched hosted role; builders do not supply a response comparison & Added numerical historical context under the same revision interface \\
-No\_utility / Utility\_only & DEFERRED matched panel; combined MT policy and bridge observed & Isolated utility-policy performance effect \\
-No\_target / Stats\_only and student--teacher separation & DEFERRED matched MT panel; offline model evidence is separate & Target-task and student/teacher contributions to final trading actions \\
+Plain\_\allowbreak{}revision / no numerical prior & No matched hosted role; builders do not supply a response comparison & Added numerical historical context under the same revision interface \\
+No\_\allowbreak{}utility / Utility\_\allowbreak{}only & DEFERRED matched panel; combined MT policy and bridge observed & Isolated utility-policy performance effect \\
+No\_\allowbreak{}target / Stats\_\allowbreak{}only and student--teacher separation & DEFERRED matched MT panel; offline model evidence is separate & Target-task and student/teacher contributions to final trading actions \\
 Full-scale alpha / sentiment / placebo with matched prompt format & Separate nine-unit factorial and numerical panels only & 102-point isolated component effects without representation confounding \\
 Alternative horizons / prospective execution study & No L=5/10 or prospective live-fill result in this collection & Horizon optimization, live profitability or deployment acceptance \\
 \end{longtable}
@@ -3299,7 +2931,7 @@ their own narrower questions.
 
 \textbf{Temporal causality and provenance.} The recorded native row-wise
 causality gate is \textbf{FAIL}, and the whole-system status remains
-\textbf{NOT\_CERTIFIED\_HISTORICAL\_EXPLORATORY}. Cutting the input dataframe at
+\textbf{NOT\_\allowbreak{}CERTIFIED\_\allowbreak{}HISTORICAL\_\allowbreak{}EXPLORATORY}. Cutting the input dataframe at
 the query date does not ensure that every earlier feature row was
 constructed using only its own past. The Common projection addresses a
 specific alpha path; it does not certify all inherited inputs, news,
@@ -3414,35 +3046,27 @@ evidence is not a claim that the experiment has already been run.\footnote{RQ de
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table B09. Research questions, observations, bounded answers and remaining evidence.}\label{tab:05_experiments:37}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 RQ
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded observation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Supported answer
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Evidence still needed
-\end{minipage} \\
+ & Recorded observation
+ & Supported answer
+ & Evidence still needed
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 RQ
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded observation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Supported answer
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Evidence still needed
-\end{minipage} \\
+ & Recorded observation
+ & Supported answer
+ & Evidence still needed
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 RQ1: combined system versus controls & Component Full\ensuremath{-}Base BA +3.247 pp, mean return \ensuremath{-}0.047 pp; price logistic has higher BA; factorial AS loses to B/P & Some observed classification gains coexist with negative returns and representation/support dependence; no general alpha--sentiment advantage & Repair native causality, match information/format and collect independent prospective support \\
 RQ2: regime-aware historical context & v1\ensuremath{-}Common return +0.327 pp {[}0.067, 0.586{]}, versus Native \ensuremath{-}0.045 pp {[}\ensuremath{-}0.362, 0.271{]}; L1 Common band crosses zero; C2/B each only 3 new replies & The observed comparison depends on baseline, readiness and dependence assumptions; no isolated regime effect or profitability claim & Matched bank/retrieval/no-regime ablations, broader coverage and an unexposed evaluation \\
-RQ3: anchor, MT and policy & MT/anchor final agreement 302/306; 189 same proposals, 108 bypasses, 5 rejected and 4 accepted changes; MT\ensuremath{-}anchor return +0.033 pp & The combined system is mostly anchor-retaining; the recorded path is explainable, but isolated student/target/utility benefit is unmeasured & Matched Plain\_revision/No\_target/No\_utility and student--teacher interventions on identical support \\
-RQ4: temporal, economic and operational contracts & Canonical LONG/CASH targets and two-way costs recorded; shared upstream and forecast barrier checked; historical U08 request max 4,750 chars/3 attempts; Native FAIL, whole system NOT\_CERTIFIED & The frozen artifacts support specific engineering contracts and offline replay; they do not certify whole-system causality, data authenticity, live fills or UI acceptance & Native row-wise repair, authenticated bank/query/news provenance, venue/date execution evidence and outstanding application acceptance \\
+RQ3: anchor, MT and policy & MT/anchor final agreement 302/306; 189 same proposals, 108 bypasses, 5 rejected and 4 accepted changes; MT\ensuremath{-}anchor return +0.033 pp & The combined system is mostly anchor-retaining; the recorded path is explainable, but isolated student/target/utility benefit is unmeasured & Matched Plain\_\allowbreak{}revision/No\_\allowbreak{}target/No\_\allowbreak{}utility and student--teacher interventions on identical support \\
+RQ4: temporal, economic and operational contracts & Canonical LONG/CASH targets and two-way costs recorded; shared upstream and forecast barrier checked; historical U08 request max 4,750 chars/3 attempts; Native FAIL, whole system NOT\_\allowbreak{}CERTIFIED & The frozen artifacts support specific engineering contracts and offline replay; they do not certify whole-system causality, data authenticity, live fills or UI acceptance & Native row-wise repair, authenticated bank/query/news provenance, venue/date execution evidence and outstanding application acceptance \\
 \end{longtable}
 
 \endgroup

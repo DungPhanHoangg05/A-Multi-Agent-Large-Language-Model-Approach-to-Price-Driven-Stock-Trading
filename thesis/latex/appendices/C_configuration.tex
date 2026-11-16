@@ -22,27 +22,19 @@ their numerical and fitting details.\footnote{Numeric table rows map to ledger B
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Runtime and hosted requests - supporting detail}\label{tab:C_configuration:1}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component collection
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical-context collection
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Component collection
+ & Historical-context collection
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Component collection
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical-context collection
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Component collection
+ & Historical-context collection
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -79,23 +71,17 @@ Prompt caps and per-request measurements are in \hyperref[s:cba9976a494d8758]{Ap
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Indicators and alpha transformations - supporting detail}\label{tab:C_configuration:2}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Stage
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked setting / interpretation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked setting / interpretation
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Stage
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked setting / interpretation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked setting / interpretation
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -116,8 +102,8 @@ Separate numerical factor panel & 23 rules: fixed five, dynamic top five, no-fli
 
 \endgroup
 
-The five fixed numerical factors are CURRENT\_1\_FDM, CURRENT\_2\_SFA,
-CURRENT\_3\_LVR, CURRENT\_4\_BFE and CURRENT\_5\_OFE. Ineligible fixed slots
+The five fixed numerical factors are CURRENT\_\allowbreak{}1\_\allowbreak{}FDM, CURRENT\_\allowbreak{}2\_\allowbreak{}SFA,
+CURRENT\_\allowbreak{}3\_\allowbreak{}LVR, CURRENT\_\allowbreak{}4\_\allowbreak{}BFE and CURRENT\_\allowbreak{}5\_\allowbreak{}OFE. Ineligible fixed slots
 abstain rather than receiving replacement factors. These numerical
 controls are not hosted selector ablations.
 
@@ -151,23 +137,17 @@ row-wise causal failure described in §5.9.2.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{HMMs and distinct frozen regime resources - supporting detail}\label{tab:C_configuration:3}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Primitive setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded value / rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Recorded value / rule
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Primitive setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded value / rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Recorded value / rule
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -178,7 +158,7 @@ Model & Four-state diagonal Gaussian HMM, seed 42 & BG04 \\
 EM / numerics & At most 500 iterations; tolerance 0.001; minimum covariance 0.001 & BG04 \\
 Quality conditions & Convergence, each posterior occupancy \ensuremath{\geq}5\%, valid trend-state separation and CHOPPY volatility \ensuremath{\geq}1.1 \ensuremath{\times} the other neutral state & BG04 \\
 Naming & Highest train MA200 distance BULL; lowest remaining BEAR; higher-volatility remaining state CHOPPY; last CONSOLIDATION & BG04 \\
-Failed fit quality & Recorded MULTI\_FACTOR method with train-derived trend/volatility thresholds; no query refit & BG04 \\
+Failed fit quality & Recorded MULTI\_\allowbreak{}FACTOR method with train-derived trend/volatility thresholds; no query refit & BG04 \\
 \end{longtable}
 
 \endgroup
@@ -194,23 +174,17 @@ Failed fit quality & Recorded MULTI\_FACTOR method with train-derived trend/vola
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{HMMs and distinct frozen regime resources - supporting detail}\label{tab:C_configuration:4}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Evaluated use
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Actual frozen cutoff and support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Actual frozen cutoff and support
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Evaluated use
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Actual frozen cutoff and support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Actual frozen cutoff and support
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -241,23 +215,17 @@ its numerical MT regime is BULL; the labels are not edited to agree.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Retrieval, conditional rates and readiness - supporting detail}\label{tab:C_configuration:5}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family / parameter
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded value / rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Recorded value / rule
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family / parameter
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded value / rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Recorded value / rule
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -273,7 +241,7 @@ Recency / eligibility & Half-life 365 calendar days, age \ensuremath{\leq}730 da
 Diversity / maximum & At least five VN-Index sessions between selected decision dates; at most three records; no random backfill & Same \\
 Statistics ready & Population \ensuremath{\geq}20; metric conditional support \ensuremath{\geq}5; interval width \ensuremath{\leq}0.75; any passing metric suffices & BG06 \\
 Examples ready & Population \ensuremath{\geq}20, query features/scaler available and nonempty selected list & BG06 \\
-B\_semantic & Same base evidence/selector/readiness as C2; changed count/interval presentation, no embedding retriever & SYS26--SYS28; §4.7.3 \\
+B\_\allowbreak{}semantic & Same base evidence/selector/readiness as C2; changed count/interval presentation, no embedding retriever & SYS26--SYS28; §4.7.3 \\
 \end{longtable}
 
 \endgroup
@@ -312,23 +280,17 @@ rates/intervals are not calibrated query probabilities.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Numerical context, teacher and student - supporting detail}\label{tab:C_configuration:6}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Context construction
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked value / rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked value / rule
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Context construction
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked value / rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked value / rule
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -356,23 +318,17 @@ Additional temporal restrictions & Strict mature exits, disjoint observations/ho
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Numerical context, teacher and student - supporting detail}\label{tab:C_configuration:7}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Teacher
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked setting
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Teacher
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked setting
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -408,28 +364,22 @@ outcomes are not synthetic training targets.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Numerical context, teacher and student - supporting detail}\label{tab:C_configuration:8}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Student / optimization
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded production setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Recorded production setting
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Student / optimization
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded production setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Recorded production setting
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Packing & PAIRED\_37; six numeric coordinates, three roles, four task slots, 37 positions maximum & TR02 model/BG12 \\
+Packing & PAIRED\_\allowbreak{}37; six numeric coordinates, three roles, four task slots, 37 positions maximum & TR02 model/BG12 \\
 Architecture & Two pre-normalized causal attention blocks; hidden 128, four heads, FF 256, GELU, dropout 0; final LayerNorm and linear scalar head & Same \\
 Parameter count / precision & 271,873; FP32; AMP/TF32 disabled & TR02 \\
 Label masking & Prior/target markers \((0,0,0,0,-1,1)\); Q has query-label coordinate 0 and missing-label flag 1 & BG12 \\
@@ -468,23 +418,17 @@ the registered 2021 market labels influence checkpoint ranking.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Utility and final action policy - supporting detail}\label{tab:C_configuration:9}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Quantity / condition
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked rule
+ & Source
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Quantity / condition
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked rule
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source
-\end{minipage} \\
+ & Locked rule
+ & Source
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}

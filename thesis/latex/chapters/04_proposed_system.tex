@@ -1,5 +1,5 @@
 % Chuyển một lần từ bản nháp đã khóa; sửa nguồn LaTeX sau mốc T72.
-\chapter{Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading}\label{s:9cf7f167cee0404f}
+\chapter{Proposed System: Regime-Aware Bayesian Context for Multi-Agent Trading}\chaptermark{Proposed System}\label{s:9cf7f167cee0404f}
 
 \section{System overview and one-decision walkthrough}\label{s:d04d6247a77e8f69}
 
@@ -145,27 +145,19 @@ processing, output and downstream consumer.
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table B02 summarizes the interfaces used in this chapter. Types are readable contract descriptions, not a replacement for the complete schemas.}\label{tab:04_proposed_system:1}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Interface
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Input and temporal requirement
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Output and consumer
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Missingness or failure contract
-\end{minipage} \\
+ & Input and temporal requirement
+ & Output and consumer
+ & Missingness or failure contract
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Interface
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Input and temporal requirement
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Output and consumer
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Missingness or failure contract
-\end{minipage} \\
+ & Input and temporal requirement
+ & Output and consumer
+ & Missingness or failure contract
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -260,19 +252,15 @@ initialization and edge handling remain bound to the frozen source.
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Indicator - supporting detail}\label{tab:04_proposed_system:2}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Classifier priority
-\end{minipage} \\
+ & Classifier priority
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Classifier priority
-\end{minipage} \\
+ & Classifier priority
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -499,7 +487,7 @@ length-dependent factor windows introduce additional row-wise problems.
 The recorded native row-wise causal gate remains \textbf{FAIL}. This differs from
 claiming that the outer query read prices after its cutoff; passing that
 outer-cutoff check does not repair the historical transformations or
-selection bias.\footnote{Frozen \texttt{core/\allowbreak{}revision\_\allowbreak{}alpha\_\allowbreak{}contract.\allowbreak{}py} and the recorded audit scope; CL045. PASS\_DETECTION and an outer-cutoff PASS differ from the native row-wise FAIL. No counterexample suite or research run was repeated to write this section.}
+selection bias.\footnote{Frozen \texttt{core/\allowbreak{}revision\_\allowbreak{}alpha\_\allowbreak{}contract.\allowbreak{}py} and the recorded audit scope; CL045. PASS\_\allowbreak{}DETECTION and an outer-cutoff PASS differ from the native row-wise FAIL. No counterexample suite or research run was repeated to write this section.}
 
 \textbf{Common: prefix transformations and a frozen selector.} The separate
 \texttt{causal\_\allowbreak{}common\_\allowbreak{}v1} profile retains the candidate identities in its own
@@ -544,38 +532,26 @@ Native table is:
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{Alpha - supporting detail}\label{tab:04_proposed_system:3}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Selected factor
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Oriented displayed value
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Signal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Stored IC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical accuracy
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Composite score
-\end{minipage} \\
+ & Oriented displayed value
+ & Signal
+ & Stored IC
+ & Historical accuracy
+ & Composite score
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Selected factor
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Oriented displayed value
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Signal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Stored IC
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical accuracy
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Composite score
-\end{minipage} \\
+ & Oriented displayed value
+ & Signal
+ & Stored IC
+ & Historical accuracy
+ & Composite score
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -647,23 +623,17 @@ aggregation rule from being transferred to the wrong study.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Sentiment - supporting detail}\label{tab:04_proposed_system:4}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Path
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Admissible news and aggregation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Insufficient coverage
-\end{minipage} \\
+ & Admissible news and aggregation
+ & Insufficient coverage
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Path
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Admissible news and aggregation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Insufficient coverage
-\end{minipage} \\
+ & Admissible news and aggregation
+ & Insufficient coverage
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -745,23 +715,17 @@ potentially dropping meaningful middle content.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Decision - supporting detail}\label{tab:04_proposed_system:5}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Report
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Native/general cap
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Integrated backtest cap in the common base builder
-\end{minipage} \\
+ & Native/general cap
+ & Integrated backtest cap in the common base builder
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Report
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Native/general cap
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Integrated backtest cap in the common base builder
-\end{minipage} \\
+ & Native/general cap
+ & Integrated backtest cap in the common base builder
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -875,27 +839,19 @@ and procedures, not isolated causal effects or performance results.}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table B03, foundation portion. Controls and interventions; historical-context variants are described in the following sections.}\label{tab:04_proposed_system:6}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Study / role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Shared material
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Alpha / Sentiment presented to Decision
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Decision presentation and intervention
-\end{minipage} \\
+ & Shared material
+ & Alpha / Sentiment presented to Decision
+ & Decision presentation and intervention
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Study / role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Shared material
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Alpha / Sentiment presented to Decision
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Decision presentation and intervention
-\end{minipage} \\
+ & Shared material
+ & Alpha / Sentiment presented to Decision
+ & Decision presentation and intervention
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -956,19 +912,15 @@ signal is not retrospectively changed to bearish because the trade lost.
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{A completed signal episode - supporting detail}\label{tab:04_proposed_system:7}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Field group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Meaning and validation
-\end{minipage} \\
+ & Meaning and validation
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Field group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Meaning and validation
-\end{minipage} \\
+ & Meaning and validation
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -977,18 +929,18 @@ Meaning and validation
 \texttt{as\_\allowbreak{}of\_\allowbreak{}date}, \texttt{entry\_\allowbreak{}date}, \texttt{exit\_\allowbreak{}date} & Exact ISO dates on the source's observed-session calendar: decision, next open, third future close. Dates must increase and execution-price/event checks must admit the cycle. \\
 \texttt{regime} & Stored category BULL, BEAR, CHOPPY or CONSOLIDATION; it is not the candidate trade's future label. \\
 \texttt{agent\_\allowbreak{}signals} & Nonempty \texttt{trend}, \texttt{pattern}, \texttt{alpha\_\allowbreak{}consensus}, \texttt{indicator\_\allowbreak{}consensus}, \texttt{sentiment}; retrieval additionally validates declared aliases instead of searching arbitrary prose for a direction. \\
-\texttt{outcome} & Finite \texttt{net\_\allowbreak{}return\_\allowbreak{}pct}, UP/DOWN, WIN\_IF\_LONG/LOSS\_IF\_LONG, and Boolean \texttt{was\_\allowbreak{}bull\_\allowbreak{}trap}; all must agree with canonical execution arithmetic. \\
+\texttt{outcome} & Finite \texttt{net\_\allowbreak{}return\_\allowbreak{}pct}, UP/\allowbreak{}DOWN, WIN\_\allowbreak{}IF\_\allowbreak{}LONG/LOSS\_\allowbreak{}IF\_\allowbreak{}LONG, and Boolean \texttt{was\_\allowbreak{}bull\_\allowbreak{}trap}; all must agree with canonical execution arithmetic. \\
 \end{longtable}
 
 \endgroup
 
 The memory validator obtains the admissible entry/exit prices and calls
 \texttt{compute\_\allowbreak{}round\_\allowbreak{}trip\_\allowbreak{}net\_\allowbreak{}return}, then expresses its result as a percentage.
-UP and WIN\_IF\_LONG require a strictly positive return; nonpositive values,
-including zero, are DOWN and LOSS\_IF\_LONG. Bull trap means that at least one
+UP and WIN\_\allowbreak{}IF\_\allowbreak{}LONG require a strictly positive return; nonpositive values,
+including zero, are DOWN and LOSS\_\allowbreak{}IF\_\allowbreak{}LONG. Bull trap means that at least one
 of Trend or Pattern was bullish while the candidate LONG return was
 nonpositive. It is a retrospective label of this convention, not proof of
-market manipulation. LOSS\_IF\_LONG does not mean that a CASH action lost
+market manipulation. LOSS\_\allowbreak{}IF\_\allowbreak{}LONG does not mean that a CASH action lost
 money. The loader rejects missing/extra fields, invalid dates/types,
 inconsistent economics, duplicate cycles and overlapping holding intervals
 for a stock; it does not silently repair a malformed bank.
@@ -1045,23 +997,17 @@ cannot mutate another branch's evidence.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Temporal eligibility and frozen membership - supporting detail}\label{tab:04_proposed_system:8}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Timeline example at EX01 cutoff 3 July 2023
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Decision \ensuremath{\rightarrow} entry \ensuremath{\rightarrow} exit
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Eligibility
-\end{minipage} \\
+ & Decision \ensuremath{\rightarrow} entry \ensuremath{\rightarrow} exit
+ & Eligibility
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Timeline example at EX01 cutoff 3 July 2023
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Decision \ensuremath{\rightarrow} entry \ensuremath{\rightarrow} exit
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Eligibility
-\end{minipage} \\
+ & Decision \ensuremath{\rightarrow} entry \ensuremath{\rightarrow} exit
+ & Eligibility
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1177,19 +1123,15 @@ number, a calibrated profitable-trade probability or a recommendation.
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Regime fitting and query-time assignment - supporting detail}\label{tab:04_proposed_system:9}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Use
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Fitted resource and application
-\end{minipage} \\
+ & Fitted resource and application
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Use
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Fitted resource and application
-\end{minipage} \\
+ & Fitted resource and application
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1203,7 +1145,7 @@ Numerical MT task/query regime & \texttt{RegimeTimeline} uses block-prefix fits 
 
 For early MT prefixes shorter than 499 price rows, the timeline explicitly
 returns UNKNOWN for insufficient regime history. This is a different path
-from a fitted model's MULTI\_FACTOR fallback. A task's block-start metadata
+from a fitted model's MULTI\_\allowbreak{}FACTOR fallback. A task's block-start metadata
 also differs from a query's current-prefix assignment. These distinctions
 prevent an end-2022 model from being retroactively attached to an earlier
 task or to the evaluated end-2020 MT resource.
@@ -1323,38 +1265,28 @@ bank first and ranking its 19 matches gives:
   >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \caption{Population statistics and the displayed examples - supporting detail}\label{tab:04_proposed_system:10}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Rank / episode ID
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-T/P/A/I
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Similarity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Saved candidate-LONG result
-\end{minipage} \\
+ & T/P/A/I
+ & Similarity
+ & Exit
+ & Saved candidate-LONG result
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Rank / episode ID
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-T/P/A/I
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Similarity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Saved candidate-LONG result
-\end{minipage} \\
+ & T/P/A/I
+ & Similarity
+ & Exit
+ & Saved candidate-LONG result
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-1 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}07} & \texttt{+++-\allowbreak{}} & 1.00 & 13 April 2022 & WIN\_IF\_LONG, +0.8800636494\% \\
-2 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}18} & \texttt{++0-\allowbreak{}} & 0.75 & 21 April 2022 & LOSS\_IF\_LONG, \ensuremath{-}4.5332734971\% \\
-3 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}13} & \texttt{++-\allowbreak{}-\allowbreak{}} & 0.75 & 18 April 2022 & LOSS\_IF\_LONG, \ensuremath{-}0.4389566948\% \\
+1 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}07} & \texttt{+++-\allowbreak{}} & 1.00 & 13 April 2022 & WIN\_\allowbreak{}IF\_\allowbreak{}LONG, +0.8800636494\% \\
+2 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}18} & \texttt{++0-\allowbreak{}} & 0.75 & 21 April 2022 & LOSS\_\allowbreak{}IF\_\allowbreak{}LONG, \ensuremath{-}4.5332734971\% \\
+3 / \texttt{FPT:\allowbreak{}2022-\allowbreak{}04-\allowbreak{}13} & \texttt{++-\allowbreak{}-\allowbreak{}} & 0.75 & 18 April 2022 & LOSS\_\allowbreak{}IF\_\allowbreak{}LONG, \ensuremath{-}0.4389566948\% \\
 \end{longtable}
 
 \endgroup
@@ -1534,38 +1466,26 @@ and \(|\mathcal B|=18\). The saved evidence contains:
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1665}}@{}}
 \caption{C2: disjoint shrinkage and separate readiness - supporting detail}\label{tab:04_proposed_system:11}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Metric
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Population success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Conditional success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Background success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Posterior mean
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-95\% interval
-\end{minipage} \\
+ & Population success/support
+ & Conditional success/support
+ & Background success/support
+ & Posterior mean
+ & 95\% interval
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Metric
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Population success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Conditional success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Background success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Posterior mean
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-95\% interval
-\end{minipage} \\
+ & Population success/support
+ & Conditional success/support
+ & Background success/support
+ & Posterior mean
+ & 95\% interval
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1646,31 +1566,21 @@ the final orchestration/dependency table appears in Section 4.9.}
   >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \caption{Table B03, prior-family portion. Together with the foundation portion in Section 4.}\label{tab:04_proposed_system:12}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Statistical population and conditioning
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Examples
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Visible representation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Support and dependency
-\end{minipage} \\
+ & Statistical population and conditioning
+ & Examples
+ & Visible representation
+ & Support and dependency
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Statistical population and conditioning
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Examples
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Visible representation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Support and dependency
-\end{minipage} \\
+ & Statistical population and conditioning
+ & Examples
+ & Visible representation
+ & Support and dependency
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1705,27 +1615,19 @@ leaving five background cycles. Its saved counts are:
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Alternative conditional and presentation profiles - supporting detail}\label{tab:04_proposed_system:13}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Metric
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-A conditional success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-A background success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-A posterior mean
-\end{minipage} \\
+ & A conditional success/support
+ & A background success/support
+ & A posterior mean
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Metric
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-A conditional success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-A background success/support
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-A posterior mean
-\end{minipage} \\
+ & A conditional success/support
+ & A background success/support
+ & A posterior mean
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1787,23 +1689,17 @@ numbers and their differences. It emits three assertion IDs:
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Fact packet and Fact Anchor - supporting detail}\label{tab:04_proposed_system:14}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Assertion ID
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Relationship checked
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Admitted values
-\end{minipage} \\
+ & Relationship checked
+ & Admitted values
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Assertion ID
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Relationship checked
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Admitted values
-\end{minipage} \\
+ & Relationship checked
+ & Admitted values
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1853,7 +1749,7 @@ prove that the returned values agree with the packet.
 
 \textbf{Resolve the anchor before any action revision.} The policy compares the
 reply's assertion object exactly with the packet and requires the
-Fact Anchor context reason to be NOT\_APPLICABLE. If both checks pass,
+Fact Anchor context reason to be NOT\_\allowbreak{}APPLICABLE. If both checks pass,
 \(a_0\) is the reply's decision mapped to LONG/CASH. A valid SHORT reply
 therefore yields CASH under the economic contract. If a schema-valid reply
 has incorrect assertions or context reason, the resolver instead uses
@@ -1883,19 +1779,15 @@ that can silently be replaced with CASH.\footnote{BG14 \texttt{facts\_\allowbrea
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Fact packet and Fact Anchor - supporting detail}\label{tab:04_proposed_system:15}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Quantity / assertion
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Stored value
-\end{minipage} \\
+ & Stored value
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Quantity / assertion
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Stored value
-\end{minipage} \\
+ & Stored value
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1911,7 +1803,7 @@ Facts bucket & \texttt{MACD\_\allowbreak{}NEG\_\allowbreak{}PRICE\_\allowbreak{}
 \endgroup
 
 The anchor reply cites all three matching assertions with
-NOT\_APPLICABLE, proposes LONG, states high confidence and R:R 1.5. Its
+NOT\_\allowbreak{}APPLICABLE, proposes LONG, states high confidence and R:R 1.5. Its
 reference/final action is LONG with \texttt{NO\_\allowbreak{}NUMERIC\_\allowbreak{}VETO}; the utility-quantile
 field is null. Common's separate reply also proposes LONG, but with R:R
 2.5. The anchor request has 3,916 characters and its source request ID
@@ -1923,14 +1815,14 @@ zero crossing. The equality of the three returned enums does not validate
 that interpretation, and an endpoint-positive MACD does not by itself
 establish a crossing event. \texttt{fact\_\allowbreak{}assertions\_\allowbreak{}valid=True} must therefore be
 read as the limited citation/enum contract, not a certificate that all prose,
-trading logic or future profit is correct.\footnote{EX01 U08 Fact\_Anchor prepared packet/request, raw reply and policy/proof, linked to Common r0; CL092. Exact assertions, source identity, prompt length and the saved prose limitation are checked without rerunning TA-Lib or a model.}
+trading logic or future profit is correct.\footnote{EX01 U08 Fact\_\allowbreak{}Anchor prepared packet/request, raw reply and policy/proof, linked to Common r0; CL092. Exact assertions, source identity, prompt length and the saved prose limitation are checked without rerunning TA-Lib or a model.}
 
 \textbf{Illustrative invalid-anchor branch, not an archived response.} Suppose
 a schema-valid reply on the EX01 packet proposes SHORT but returns
 \texttt{MACD\_\allowbreak{}ZERO=NEGATIVE}. The packet's positive MACD makes the assertion
 comparison fail. The resolver records the raw SHORT proposal while taking
 \(a_0=\mathrm{LONG}\) from the saved Common reply, with validity false and
-ANCHOR\_INVALID\_USE\_ORIGINAL. The later revision path retains that reference
+ANCHOR\_\allowbreak{}INVALID\_\allowbreak{}USE\_\allowbreak{}ORIGINAL. The later revision path retains that reference
 without a new revision call. No return estimate or quantile comparison is
 needed to explain this branch; utility-based acceptance or rejection belongs
 to Section 4.8.6.
@@ -2037,27 +1929,19 @@ already recorded in Section 4.5.4.
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Task construction - supporting detail}\label{tab:04_proposed_system:16}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Context group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Task
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Selected observations
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Latest selected exit
-\end{minipage} \\
+ & Task
+ & Selected observations
+ & Latest selected exit
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Context group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Task
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Selected observations
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Latest selected exit
-\end{minipage} \\
+ & Task
+ & Selected observations
+ & Latest selected exit
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2205,19 +2089,15 @@ production recipe is:
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Teacher and student - supporting detail}\label{tab:04_proposed_system:17}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked value
-\end{minipage} \\
+ & Locked value
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Setting
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked value
-\end{minipage} \\
+ & Locked value
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2333,19 +2213,15 @@ nine nonpositive returns, with \(K=3,m=3\), so support is sufficient.
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Utility - supporting detail}\label{tab:04_proposed_system:18}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Recorded quantity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net-return fraction, unless indicated
-\end{minipage} \\
+ & Net-return fraction, unless indicated
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Recorded quantity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net-return fraction, unless indicated
-\end{minipage} \\
+ & Net-return fraction, unless indicated
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2436,23 +2312,17 @@ maturity; none of these interfaces receives the query label.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Context projection - supporting detail}\label{tab:04_proposed_system:19}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical/factual material added to current reports
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Reply and downstream use
-\end{minipage} \\
+ & Historical/factual material added to current reports
+ & Reply and downstream use
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Historical/factual material added to current reports
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Reply and downstream use
-\end{minipage} \\
+ & Historical/factual material added to current reports
+ & Reply and downstream use
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2461,8 +2331,8 @@ Native & No historical prefix; Native alpha/report profile & Base trade schema; 
 Common & Common instruction, no historical prefix & Same base schema; durable dependency for priors/anchor \\
 Bayesian v1 & Population rates and up to three signal examples, Section 4.6 & Base schema; Common fallback if retrieval unavailable \\
 C2 / A / B & Only ready statistics/examples; matching and presentation as Section 4.7 & Base schema; independent readiness, Common fallback when neither ready \\
-Fact Anchor & Numeric fact card and required fact citations; no MT projection, p or U & Extended fact reply, NOT\_APPLICABLE; resolve reference action \\
-MT\_BICL & Facts, anchor reference and bounded task projection with p/U & Extended fact reply, SUPPORTED; external revision policy \\
+Fact Anchor & Numeric fact card and required fact citations; no MT projection, p or U & Extended fact reply, NOT\_\allowbreak{}APPLICABLE; resolve reference action \\
+MT\_\allowbreak{}BICL & Facts, anchor reference and bounded task projection with p/U & Extended fact reply, SUPPORTED; external revision policy \\
 \end{longtable}
 
 \endgroup
@@ -2487,7 +2357,7 @@ so they have no observed prompt length to fill with a hypothetical request.
 Registered component projections additionally support \texttt{Stats\_\allowbreak{}only}
 (no exemplars), \texttt{No\_\allowbreak{}target} (remove target, then recompute probability and
 utility), \texttt{No\_\allowbreak{}utility} (no U) and \texttt{Plain\_\allowbreak{}revision} (no p or U).
-Plain\_revision/No\_utility retain the Full support mask and membership,
+Plain\_\allowbreak{}revision/No\_\allowbreak{}utility retain the Full support mask and membership,
 despite omitting fields from the hosted request. These interventions are
 not all roles in the unified study, and availability of a builder alone
 does not establish a completed performance comparison.
@@ -2515,7 +2385,7 @@ U,&a_0=\mathrm{CASH},\ a=\mathrm{LONG},\\
 \end{cases}
 \]
 
-For MT\_BICL, accept the change \textbf{only if} \(Q_{0.1}(\Delta U)>0\).
+For MT\_\allowbreak{}BICL, accept the change \textbf{only if} \(Q_{0.1}(\Delta U)>0\).
 CASH\ensuremath{\rightarrow}LONG therefore requires Q10(\(U\))\textgreater0; LONG\ensuremath{\rightarrow}CASH requires
 \ensuremath{-}Q90(\(U\))\textgreater0, equivalently Q90(\(U\))\textless0. Equality rejects the change.
 The latter direction uses the upper utility quantile, not \ensuremath{-}Q10(\(U\)).
@@ -2527,7 +2397,7 @@ unchanged.\footnote{BG14 \texttt{apply\_\allowbreak{}revision/\allowbreak{}utili
 \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F07_action_policy.pdf}
 \caption{F07. Anchor-relative action revision}\label{fig:F07}\end{figure}
 
-\textbf{Figure F07.} The implemented MT\_BICL revision path separates support
+\textbf{Figure F07.} The implemented MT\_\allowbreak{}BICL revision path separates support
 bypass, invalid response assertions, same-action retention and the strict
 quantile gate. Technical errors stop execution with recoverable evidence.
 The Fact Anchor is resolved before this tree. Source: BG14/BG18 and SYS33;
@@ -2552,31 +2422,21 @@ All intervals below are hypothetical net-return fractions.
   >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \caption{External policy - supporting detail}\label{tab:04_proposed_system:20}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Anchor \ensuremath{\rightarrow} proposal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Q10(\(U\))
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Q90(\(U\))
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Q10(\(\Delta U\))
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Result
-\end{minipage} \\
+ & Q10(\(U\))
+ & Q90(\(U\))
+ & Q10(\(\Delta U\))
+ & Result
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Anchor \ensuremath{\rightarrow} proposal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Q10(\(U\))
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Q90(\(U\))
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Q10(\(\Delta U\))
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Result
-\end{minipage} \\
+ & Q10(\(U\))
+ & Q90(\(U\))
+ & Q10(\(\Delta U\))
+ & Result
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2592,7 +2452,7 @@ LONG \ensuremath{\rightarrow} CASH & \ensuremath{-}0.012 & +0.001 & \ensuremath{
 These examples explain the rule, without generating LLM replies or
 reevaluating research cases. A negative mean alone is insufficient for a
 LONG\ensuremath{\rightarrow}CASH revision. EX01's raw LONG already equals anchor LONG, so its
-actual reason is KEEP\_PROPOSED\_SAME and its delta-quantile field is null.
+actual reason is KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME and its delta-quantile field is null.
 Even a hypothetical CASH proposal using that interval would fail because
 Q90 is positive. EX01 therefore illustrates retention, not an observed veto.
 
@@ -2612,10 +2472,10 @@ action. A proposal of SHORT maps to CASH; the raw SHORT string remains
 available. A bypass has no revision response/request ID. A completed but
 invalid assertion response has raw evidence and is not a bypass.
 
-For EX01 MT\_BICL, request \texttt{cc6bf729-\allowbreak{}784a-\allowbreak{}458a-\allowbreak{}8e40-\allowbreak{}07398fac513f} proposes
-LONG. The same-repeat Fact\_Anchor proof supplies LONG; eligibility and
+For EX01 MT\_\allowbreak{}BICL, request \texttt{cc6bf729-\allowbreak{}784a-\allowbreak{}458a-\allowbreak{}8e40-\allowbreak{}07398fac513f} proposes
+LONG. The same-repeat Fact\_\allowbreak{}Anchor proof supplies LONG; eligibility and
 assertion validity are true, bypass is false, reason is
-KEEP\_PROPOSED\_SAME, and final action is LONG. The anchor proof hash is
+KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME, and final action is LONG. The anchor proof hash is
 \texttt{1b4a5846\allowbreak{}92244365\allowbreak{}7bae8e91\allowbreak{}d68c7489\allowbreak{}dfd58ea9\allowbreak{}2688bdce\allowbreak{}007cb29b\allowbreak{}14f70049}.
 This attributes the proposal to the hosted model and retention to policy;
 it does not attribute the action to the student alone. Query prices and
@@ -2626,7 +2486,7 @@ labels are joined only after the forecasting barrier in Section 4.9.
 \subsection{Eight roles on one shared parent}\label{s:e30bc8e57ec07a81}
 
 The unified study schedules eight roles for every point/repeat, including
-Fact\_Anchor as an explicit dependency role. It does not run eight separate
+Fact\_\allowbreak{}Anchor as an explicit dependency role. It does not run eight separate
 upstream pipelines. One Indicator\ensuremath{\rightarrow}Pattern\ensuremath{\rightarrow}Trend realization, with the
 recorded alpha/sentiment preparation, forms an immutable shared snapshot
 \(u0\) for that point. Variant-specific projections use deep copies and keep
@@ -2649,27 +2509,19 @@ and the distinction between a new response and an inherited action.
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Table B03, complete unified-role interface. Sections 4.}\label{tab:04_proposed_system:21}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role / identifier
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Added resources or context
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Same-repeat forecast dependencies
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-No-request path / final-action rule
-\end{minipage} \\
+ & Added resources or context
+ & Same-repeat forecast dependencies
+ & No-request path / final-action rule
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role / identifier
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Added resources or context
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Same-repeat forecast dependencies
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-No-request path / final-action rule
-\end{minipage} \\
+ & Added resources or context
+ & Same-repeat forecast dependencies
+ & No-request path / final-action rule
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2802,7 +2654,7 @@ Output: completed forecasts, separate outcomes and method/account summaries
 The logical barrier prevents outcome access during this forecasting run.
 It does not erase previous donor-data exposure or prove that the entire
 study is a previously untouched causal holdout. The Native row-wise audit
-FAIL and whole-system NOT\_CERTIFIED limitations remain those of the locked
+FAIL and whole-system NOT\_\allowbreak{}CERTIFIED limitations remain those of the locked
 evidence. Pairing controls current upstream variation; it does not remove
 all uncertainty or isolate the student from the rest of the pipeline.
 \footnote{BG16/BG17 providers, SYS46 hosted barrier and SYS47 outcome/evaluation functions; CL104--CL105. A01--A03 are source-bound pseudocode, not newly executed algorithms. EX01 validation reads timestamps/dependency hashes from the archive only.}
@@ -2840,23 +2692,17 @@ assuming the full report reached Decision.
   >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Prompt admission and bounded repair - supporting detail}\label{tab:04_proposed_system:22}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Report
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Backtest cap (characters)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-General live cap (characters)
-\end{minipage} \\
+ & Backtest cap (characters)
+ & General live cap (characters)
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Report
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Backtest cap (characters)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-General live cap (characters)
-\end{minipage} \\
+ & Backtest cap (characters)
+ & General live cap (characters)
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2893,7 +2739,7 @@ delay at 60 seconds; it must not be described as the hosted runner's
 complete recovery policy.
 
 In the unified durable path, each active logical execution has at most three
-HTTP attempts in total, including transient failures, confirmed NOT\_SENT
+HTTP attempts in total, including transient failures, confirmed NOT\_\allowbreak{}SENT
 attempts and Decision schema repair. Ordinary resume preserves this count;
 the explicitly authorized replacement generations below are separate. For
 HTTP 429/500/502/503/504, the transport computes the next eligible time
@@ -2949,23 +2795,17 @@ barrier.\footnote{SYS50 \texttt{StageBook}, SYS51 journal save/load, SYS48 HTTP 
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Checkpoint lifecycle and recovery - supporting detail}\label{tab:04_proposed_system:23}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 State or interruption
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recovery behavior
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What must remain separate
-\end{minipage} \\
+ & Recovery behavior
+ & What must remain separate
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 State or interruption
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recovery behavior
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What must remain separate
-\end{minipage} \\
+ & Recovery behavior
+ & What must remain separate
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -2975,7 +2815,7 @@ Preparation complete, forecast not complete & Resume the forecast with the same 
 HTTP 200 raw durable, stage completion interrupted & Parse/validate that saved response, then complete the stage & Local reconstruction versus a new HTTP request \\
 Transient response durable & Honor persisted cooldown/quota and remaining attempt budget & Deferral versus valid policy bypass \\
 HTTP intent UNKNOWN after possible send & Stop automatic dispatch for that UUID; reconcile delivery evidence & Unknown delivery versus missing statistical support \\
-Confirmed not sent & Record NOT\_SENT with evidence; retain history/reservation and consumed attempt & Reconciliation versus resetting the attempt cap \\
+Confirmed not sent & Record NOT\_\allowbreak{}SENT with evidence; retain history/reservation and consumed attempt & Reconciliation versus resetting the attempt cap \\
 Corrupt envelope, changed request/parent/run identity & Raise; do not reuse the output under altered inputs & Integrity failure versus an ordinary resume \\
 \end{longtable}
 
@@ -3117,7 +2957,7 @@ its own wire identity: the author's accepted equivalence of the live
 modules' research logic does not mean their raw source/request bytes are
 identical to the historical snapshot.\footnote{AP02 output route, AP12 presentation mixin, AP16 receipt and AP17 QA archive; CL114/CL116. The archived checks, source bindings and pending browser status are inspected without opening an application session or rerunning tests.}
 
-The recorded application receipt is \textbf{OFFLINE\_PASS\_BROWSER\_PENDING} with
+The recorded application receipt is \textbf{OFFLINE\_\allowbreak{}PASS\_\allowbreak{}BROWSER\_\allowbreak{}PENDING} with
 \texttt{f11\_\allowbreak{}complete=false}; desktop/mobile visual acceptance has not run.
 It reports 135 Python and 24 DOM checks, with Python evidence reused under
 source bindings and the documented DOM delta, rather than claiming every
@@ -3152,39 +2992,31 @@ The saved r0 actions complete the walkthrough before outcome access:
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Closing EX01 after the forecasting barrier - supporting detail}\label{tab:04_proposed_system:24}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Raw proposal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final action
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded resolution
-\end{minipage} \\
+ & Raw proposal
+ & Final action
+ & Recorded resolution
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Raw proposal
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Final action
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded resolution
-\end{minipage} \\
+ & Raw proposal
+ & Final action
+ & Recorded resolution
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Native & SHORT & CASH & RAW\_DECISION \\
-Common & LONG & LONG & RAW\_DECISION \\
-Bayesian v1 & LONG & LONG & RAW\_DECISION \\
-C2 & None & LONG & FALLBACK\_ORIGINAL \\
-A & None & LONG & FALLBACK\_ORIGINAL \\
-B & None & LONG & FALLBACK\_ORIGINAL \\
-Fact Anchor & LONG & LONG & NO\_NUMERIC\_VETO \\
-MT-BICL & LONG & LONG & KEEP\_PROPOSED\_SAME \\
+Native & SHORT & CASH & RAW\_\allowbreak{}DECISION \\
+Common & LONG & LONG & RAW\_\allowbreak{}DECISION \\
+Bayesian v1 & LONG & LONG & RAW\_\allowbreak{}DECISION \\
+C2 & None & LONG & FALLBACK\_\allowbreak{}ORIGINAL \\
+A & None & LONG & FALLBACK\_\allowbreak{}ORIGINAL \\
+B & None & LONG & FALLBACK\_\allowbreak{}ORIGINAL \\
+Fact Anchor & LONG & LONG & NO\_\allowbreak{}NUMERIC\_\allowbreak{}VETO \\
+MT-BICL & LONG & LONG & KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME \\
 \end{longtable}
 
 \endgroup

@@ -32,23 +32,17 @@ identity, availability and primitive-JSON checks.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table A1. Shared-document contract.}\label{tab:A_contracts:1}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Object / fields
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded contract
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Boundary
-\end{minipage} \\
+ & Recorded contract
+ & Boundary
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Object / fields
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded contract
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Boundary
-\end{minipage} \\
+ & Recorded contract
+ & Boundary
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -116,23 +110,17 @@ and JSON types alone cannot enforce economic consistency or
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{A completed historical episode - supporting detail}\label{tab:A_contracts:2}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Field group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Required representation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Application meaning
-\end{minipage} \\
+ & Required representation
+ & Application meaning
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Field group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Required representation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Application meaning
-\end{minipage} \\
+ & Required representation
+ & Application meaning
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -141,8 +129,8 @@ Application meaning
 \texttt{as\_\allowbreak{}of\_\allowbreak{}date}, \texttt{entry\_\allowbreak{}date}, \texttt{exit\_\allowbreak{}date} & ISO dates & Decision, following observed open, third following observed close \\
 \texttt{regime} & BULL, BEAR, CHOPPY or CONSOLIDATION & Stored market assignment, not the future return label \\
 \texttt{agent\_\allowbreak{}signals} & Required nonempty strings: \texttt{trend}, \texttt{pattern}, \texttt{alpha\_\allowbreak{}consensus}, \texttt{indicator\_\allowbreak{}consensus}, \texttt{sentiment} & Historical signals; aliases/normalization follow the loader, not a keyword search over prose \\
-\texttt{outcome.\allowbreak{}actual\_\allowbreak{}direction}, \texttt{net\_\allowbreak{}return\_\allowbreak{}pct} & UP/DOWN and finite numerical percentage & Candidate-LONG result under the common oracle \\
-\texttt{outcome.\allowbreak{}was\_\allowbreak{}bull\_\allowbreak{}trap}, \texttt{result} & Native Boolean and WIN\_IF\_LONG/LOSS\_IF\_LONG & Trap convention uses historical bullish Trend/Pattern and a nonpositive net result \\
+\texttt{outcome.\allowbreak{}actual\_\allowbreak{}direction}, \texttt{net\_\allowbreak{}return\_\allowbreak{}pct} & UP/\allowbreak{}DOWN and finite numerical percentage & Candidate-LONG result under the common oracle \\
+\texttt{outcome.\allowbreak{}was\_\allowbreak{}bull\_\allowbreak{}trap}, \texttt{result} & Native Boolean and WIN\_\allowbreak{}IF\_\allowbreak{}LONG/LOSS\_\allowbreak{}IF\_\allowbreak{}LONG & Trap convention uses historical bullish Trend/Pattern and a nonpositive net result \\
 \end{longtable}
 
 \endgroup
@@ -195,23 +183,17 @@ additionally frozen before the first query of the fold (§4.8.2).
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Time mapping and economic labels - supporting detail}\label{tab:A_contracts:3}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Boundary
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Required relation / mapping
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-EX01 or scope
-\end{minipage} \\
+ & Required relation / mapping
+ & EX01 or scope
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Boundary
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Required relation / mapping
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-EX01 or scope
-\end{minipage} \\
+ & Required relation / mapping
+ & EX01 or scope
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -255,23 +237,17 @@ separate from this one-cycle label.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Missingness, failure and serialization - supporting detail}\label{tab:A_contracts:4}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Stored state
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Correct interpretation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Incorrect substitution
-\end{minipage} \\
+ & Correct interpretation
+ & Incorrect substitution
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Stored state
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Correct interpretation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Incorrect substitution
-\end{minipage} \\
+ & Correct interpretation
+ & Incorrect substitution
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}

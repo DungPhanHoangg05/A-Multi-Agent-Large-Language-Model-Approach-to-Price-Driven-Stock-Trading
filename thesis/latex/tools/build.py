@@ -54,6 +54,10 @@ def main() -> None:
             if bibliography.returncode:
                 print(bibliography.stdout.decode('utf-8', errors='replace')[-4000:])
                 raise SystemExit(bibliography.returncode)
+    final_log = (destination / 'main.log').read_text(encoding='utf-8', errors='replace')
+    blockers = ['There were undefined references', 'Missing character:', 'LaTeX Error:']
+    if any(item in final_log for item in blockers):
+        raise SystemExit('Build còn lỗi tham chiếu/ký tự/LaTeX; xem main.log, chưa cập nhật PDF đích.')
     pdf = destination / 'main.pdf'
     if args.pdf:
         final = args.pdf.resolve()

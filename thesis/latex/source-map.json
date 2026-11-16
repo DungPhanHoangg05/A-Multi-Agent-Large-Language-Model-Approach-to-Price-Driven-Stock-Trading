@@ -1,0 +1,154 @@
+{
+  "schema": "thesis_source_cutover_v1",
+  "cutover_at": "2026-11-16T13:14:55+07:00",
+  "timezone": "Asia/Saigon",
+  "primary_source": "latex/main.tex",
+  "markdown_status": "ARCHIVED_REVIEWED_DRAFT_NOT_BUILD_INPUT",
+  "markdown_git_base": "e4e31daf",
+  "latex_baseline_note": "Hashes record the cutover snapshot. Later authorized editing is in LaTeX; do not regenerate from archived Markdown.",
+  "markdown_archive": [
+    {
+      "path": "frontmatter.md",
+      "lf_sha256": "b545c0c711f4826c24927f3acb66447e8a3c90ae24197a62263ce399c8c797b0"
+    },
+    {
+      "path": "chapters/01_introduction.md",
+      "lf_sha256": "d6b3dc6580af87cda43769e4574e2d2c06509aa1476c1339fc991498bf2046bf"
+    },
+    {
+      "path": "chapters/02_related_work.md",
+      "lf_sha256": "8431b5289f1124066574fd5debedae82cad5202d652f2bf17c5713a8d6c5f869"
+    },
+    {
+      "path": "chapters/03_background.md",
+      "lf_sha256": "50b2c5ab1d4474a582dab9f6c69e52d5b47e34904bc9db108cef9d014f53dcfd"
+    },
+    {
+      "path": "chapters/04_proposed_system.md",
+      "lf_sha256": "de9e05cf183ec600cc5e2fe806d9102742df1c9541e764b6a8af9e0ee4b305d2"
+    },
+    {
+      "path": "chapters/05_experiments.md",
+      "lf_sha256": "016cea32b7f7fbac052a7be730733baf9ee8b9a4ad05ff97e9b8ac3884f9c21b"
+    },
+    {
+      "path": "chapters/06_conclusion.md",
+      "lf_sha256": "0f3e6a5130420a329962f14dc47f408c196ebebf2d65f2da4d6e1deddeaf6e6a"
+    },
+    {
+      "path": "appendices/A_contracts.md",
+      "lf_sha256": "8505f48a425d9a01495938deba04a663c1f42e56b1ac0bbd41fad643a9305a94"
+    },
+    {
+      "path": "appendices/B_prompts.md",
+      "lf_sha256": "6464b6c5a35c640bafc54b14d66068169277df0108a2786fb2c872fa0c9d2493"
+    },
+    {
+      "path": "appendices/C_configuration.md",
+      "lf_sha256": "4c40b2c21679f5a0686e44020d3ff165a5e709ca3905c620623c5180adae93b9"
+    },
+    {
+      "path": "appendices/D_results.md",
+      "lf_sha256": "4613b8881df533e23094016c2f90cfeacc148f8b01c51f97d3f2bcda63520fb1"
+    },
+    {
+      "path": "appendices/E_verification.md",
+      "lf_sha256": "226daec97b4ce609fbdeebde201b78fb166b5e49dec878d5a2ed966a7d1a31f0"
+    },
+    {
+      "path": "appendices/F_reproduction.md",
+      "lf_sha256": "d83e9c2e059b28d3bb57482249f62590466642a52d6b215f7e705321c153a157"
+    }
+  ],
+  "latex_cutover": [
+    {
+      "path": "latex/appendices/A_contracts.tex",
+      "lf_sha256": "b7d21137d4df29bae8102da815c5e61fc1a18359c9a8c8180e892c9dc1f73bcf"
+    },
+    {
+      "path": "latex/appendices/B_prompts.tex",
+      "lf_sha256": "787e2fac92b287e34d95cd373df9edec5d8b4248b5823be908106f7322a91076"
+    },
+    {
+      "path": "latex/appendices/C_configuration.tex",
+      "lf_sha256": "62fddaa528de06a21de71903dfa07669ad8f1a23d0b80066ba34af5a6cbc0645"
+    },
+    {
+      "path": "latex/appendices/D_results.tex",
+      "lf_sha256": "6ca8bdac0bfb524a653419107864b04d12fa1548344603d1e56c204121bcef7e"
+    },
+    {
+      "path": "latex/appendices/E_verification.tex",
+      "lf_sha256": "ba06fa605481a877c3495bff3b1b4227e662160e48737469aa50e0977165f7bb"
+    },
+    {
+      "path": "latex/appendices/F_reproduction.tex",
+      "lf_sha256": "667eea43ea954eb4a0d26dfde2579ed17dd521f4135fcf1c275191f6a0ebf674"
+    },
+    {
+      "path": "latex/chapters/01_introduction.tex",
+      "lf_sha256": "89685c12c499fff58cc7cfaa9baad9afb341308da2575e9fe8614ced912a5ec0"
+    },
+    {
+      "path": "latex/chapters/02_related_work.tex",
+      "lf_sha256": "a9cc275866c98bb62a91dbbb7fff3cdd7550c62594478d0be0401574ad145363"
+    },
+    {
+      "path": "latex/chapters/03_background.tex",
+      "lf_sha256": "cd113c7b2348cb2ff82402e088c59713ff01a0734ac015a843cd663000e38321"
+    },
+    {
+      "path": "latex/chapters/04_proposed_system.tex",
+      "lf_sha256": "90316541b94817cee918fa372bb17483c5768ecbf12bd0545687b2816ae726a7"
+    },
+    {
+      "path": "latex/chapters/05_experiments.tex",
+      "lf_sha256": "9c2f173a8337c1f53a1d1502fe12e75ca6cb37ab5939882f01bc7a5f507d73b1"
+    },
+    {
+      "path": "latex/chapters/06_conclusion.tex",
+      "lf_sha256": "83cbbcf581b6a80dd07a209eed37892acdb86631600b0674eb2e8697380b00dc"
+    },
+    {
+      "path": "latex/covers-preview.tex",
+      "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+    },
+    {
+      "path": "latex/frontmatter/content.tex",
+      "lf_sha256": "7570b2baf8e9acfbd228a17b34365412c68d0094fc3ffbc08a169cf233075e98"
+    },
+    {
+      "path": "latex/frontmatter/covers.tex",
+      "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+    },
+    {
+      "path": "latex/frontmatter/reference_lists.tex",
+      "lf_sha256": "3bd60777444e0efb39df85b932e5ea90b9825dee255f138cfb8ad3d48f731ba1"
+    },
+    {
+      "path": "latex/main.tex",
+      "lf_sha256": "2c784e85f2f8094ca78890f20470c5474043e9bd639c32a5a1c5997852a604d2"
+    },
+    {
+      "path": "latex/preamble.tex",
+      "lf_sha256": "457a24ce9217739733a3213c0236791a5e379edb83ee31f0fd0da2692514b843"
+    }
+  ],
+  "toolchain": {
+    "engine": "LuaHBTeX 1.24.0 (MiKTeX 25.12)",
+    "latex": "LaTeX2e 2025-11-01",
+    "bibliography": "Biber 2.21",
+    "font": "Latin Modern",
+    "migration_only": "Pandoc 3.9 via pypandoc_binary 1.17; not needed for builds"
+  },
+  "migration_checks": {
+    "main_and_appendix_tables": 101,
+    "table_data_rows": 885,
+    "frontmatter_table_rows": 68,
+    "display_equations": 41,
+    "figures_including_problem_schematic": 13,
+    "bibliography_entries": 22,
+    "isolated_build_without_markdown_or_template": "PASS"
+  },
+  "pending": "P9 scientific/language/visual review and P10 packaging; unsigned declaration; official requirements not supplied"
+}

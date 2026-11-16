@@ -61,23 +61,17 @@ Under the daily contract, \(L=3\). The corresponding positions are:
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Decision cutoff and the exclusive window boundary - supporting detail}\label{tab:03_background:1}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Event
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Position in the parent sequence
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Price used or information boundary
-\end{minipage} \\
+ & Position in the parent sequence
+ & Price used or information boundary
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Event
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Position in the parent sequence
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Price used or information boundary
-\end{minipage} \\
+ & Position in the parent sequence
+ & Price used or information boundary
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -261,42 +255,28 @@ one consistent arbitrary unit and both rows use the costs above.
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1426}}@{}}
 \caption{Illustrative calculation - supporting detail}\label{tab:03_background:2}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Entry Open
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit Close
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Gross return
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Canonical net return
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net label
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG payoff
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CASH payoff
-\end{minipage} \\
+ & Exit Close
+ & Gross return
+ & Canonical net return
+ & Net label
+ & LONG payoff
+ & CASH payoff
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Entry Open
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exit Close
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Gross return
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Canonical net return
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Net label
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-LONG payoff
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-CASH payoff
-\end{minipage} \\
+ & Exit Close
+ & Gross return
+ & Canonical net return
+ & Net label
+ & LONG payoff
+ & CASH payoff
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -341,19 +321,15 @@ The configured families are as follows.\footnote{Official computational referenc
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Five deterministic indicator families - supporting detail}\label{tab:03_background:3}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Indicator
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Definition and configured lookback
-\end{minipage} \\
+ & Definition and configured lookback
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Indicator
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Definition and configured lookback
-\end{minipage} \\
+ & Definition and configured lookback
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -459,7 +435,7 @@ Latent state numbers have no inherent BULL/BEAR meaning. The frozen detector
 names the state with the largest training MA200 distance BULL and the smallest
 remaining one BEAR; it distinguishes the two remaining states by volatility
 as CHOPPY and CONSOLIDATION. Training convergence, occupancy and separation
-checks can instead select a documented MULTI\_FACTOR classifier based on
+checks can instead select a documented MULTI\_\allowbreak{}FACTOR classifier based on
 moving-average distances and training volatility thresholds. That result
 must be identified as a fallback method rather than an HMM posterior. The
 mapping and fallback thresholds remain part of the frozen fitted resource.
@@ -564,7 +540,7 @@ prior and again as conditional data. Background observations influence a
 plug-in prior mean, not an additional likelihood term. This construction
 does not integrate uncertainty in the estimated background mean.
 With no background, the rule gives mean 0.5; with no conditional observations,
-the implementation reports NO\_CONDITIONAL\_HISTORY and leaves its conditional
+the implementation reports NO\_\allowbreak{}CONDITIONAL\_\allowbreak{}HISTORY and leaves its conditional
 posterior fields unavailable rather than reporting an observed zero rate.
 \footnote{Frozen \texttt{core/\allowbreak{}prior\_\allowbreak{}conditional\_\allowbreak{}statistics.\allowbreak{}py}, \texttt{conditional\_\allowbreak{}metric/\allowbreak{}compute\_\allowbreak{}conditional\_\allowbreak{}statistics}; \texttt{core/\allowbreak{}prior\_\allowbreak{}quality\_\allowbreak{}gate.\allowbreak{}py}, \texttt{THRESHOLDS/\allowbreak{}\_\allowbreak{}readiness}; and \texttt{core/\allowbreak{}bayesian\_\allowbreak{}retriever.\allowbreak{}py} for v1 counts/denominators. CL014--CL016 and source bindings are in the shared ledger. All numerical examples in this section are explicitly illustrative.}
 
@@ -711,19 +687,15 @@ only if \(Q_{0.1}(\Delta U)>0\). Equivalently:
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Anchor-relative action revision - supporting detail}\label{tab:03_background:4}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Proposed change
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Strict acceptance condition
-\end{minipage} \\
+ & Strict acceptance condition
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Proposed change
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Strict acceptance condition
-\end{minipage} \\
+ & Strict acceptance condition
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -762,19 +734,15 @@ candidate historical cycle. The contracts distinguish several boundaries:
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
 \caption{Availability at a query cutoff - supporting detail}\label{tab:03_background:5}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Object
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Availability requirement
-\end{minipage} \\
+ & Availability requirement
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Object
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Availability requirement
-\end{minipage} \\
+ & Availability requirement
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -807,7 +775,7 @@ computed using observations later than that row? A full-prefix normalization
 or retrospective selection can violate the latter while the final window
 still ends at \(d_t\). Correct prefix truncation does not repair such a value.
 The recorded native row-wise causal audit remains FAIL and whole-system
-causality NOT\_CERTIFIED. Local source/contract checks in this chapter do not
+causality NOT\_\allowbreak{}CERTIFIED. Local source/contract checks in this chapter do not
 supersede those findings.
 
 \subsection{Chronological partitions and purging}\label{s:1b76c3cd09c3b6dc}

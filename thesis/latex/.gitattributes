@@ -1,0 +1,5 @@
+# Ổn định nguồn build trên checkout Windows và trong gói nguồn.
+*.tex text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf

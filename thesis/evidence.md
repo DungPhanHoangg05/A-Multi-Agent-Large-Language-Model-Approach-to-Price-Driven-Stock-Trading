@@ -1556,6 +1556,8 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL271 | [Appendices in LaTeX](latex/appendices/D_results.tex) | DAN_XUAT | Appendices A–F at e4e31daf; full migration row/numeric/math QA; PDF build; §14.5 | Six appendices,32 tables/479 data rows,5 display equations,stored JSON/prompt/command examples and cross-references transferred | Same support and original UUID/values; long code wraps without new execution or translated-wire claim |
 
+| CL272 | [Integrated LaTeX source](latex/main.tex); [cutover map](latex/source-map.json); [PDF](release/thesis.pdf) | DAN_XUAT | 13 archival Markdown files at e4e31daf; strict dependency/hash check; isolated LuaLaTeX/Biber build; migration and PDF QA; §14.6 | Six chapters and six appendices appear once; 259-page P8 draft; LaTeX became the source of record at 2026-11-16T13:14:55+07:00 | Technical integration only; P9/P10, official institutional requirements and UI acceptance remain open; historical FAIL/NOT_CERTIFIED are retained |
+
 Quy tắc điền bảng:
 
 1. **Đích:** file + anchor/nhãn ổn định, câu nhận định hoặc table/row/column;
@@ -2911,3 +2913,14 @@ T70 chuyển ba chương còn lại, phần đầu đã xác nhận,42 abbreviat
 T71 chuyển đủ Appendix A–F,32 bảng/479 dòng dữ liệu, năm display equations, các JSON/schema/prompt/command examples. Tất cả token số trong hàng bảng và biểu thức display khớp nguồn Markdown; không bỏ NA, scenario/omission hoặc các kết quả âm. Longtable lặp header, các bảng D nhiều cột dùng landscape; Verbatim tự ngắt chuỗi dài, không thực thi lệnh mẫu. Các link từ thân bài và giữa phụ lục chuyển thành hyperref nội bộ, không có undefined reference/citation hay glyph thiếu trong build mới nhất.
 
 LuaLaTeX/Biber ghép toàn bộ, bản tạm258trang; render bảng AppendixD, schema/prompt/command và vùng nhiều footnote để tiếp tục QA. Cảnh báo longtable/độ rộng nhỏ được xem xét ở T72; chưa là rà khoa học/ngôn ngữ/PDF cuối P9. Chưa đổi nguồn chính thức trước khi tích hợp T72; Markdown gốc/bibliography/asset/receipt nghiên cứu giữ nguyên, không API/fit/bootstrap/replay/suite.
+
+
+### 14.6. Toàn văn đã ghép và chuyển nguồn chính sang LaTeX
+
+T72 ghép đủ hai bìa, phần đầu, sáu chương, bibliography và sáu phụ lục; PDF P8 có 259 trang. Chuyển nguồn lúc 2026-11-16T13:14:55+07:00 (Asia/Saigon), ghi trong README và source-map.json: nội dung tiếp theo sửa trong LaTeX; 13 bản Markdown nội dung giữ làm bản lưu trữ, không duy trì hai nguồn đang sửa. Kế hoạch/sổ bằng chứng vẫn cập nhật bằng Markdown. G4 chưa nghiệm thu yêu cầu chính thức; P9/P10 và UI acceptance còn mở.
+
+**Kiểm tra theo phạm vi:** bản sao chỉ có LaTeX, assets và bibliography build LuaLaTeX/Biber thành công, không có Markdown/Pandoc/thư mục mẫu và không đọc input ở bản repository gốc. `check.py --strict-cutover-targets` PASS: hash 13 bản lưu trữ và nguồn LaTeX tại mốc chuyển khớp, 31 dependency cục bộ tồn tại, mỗi chương/phụ lục ghép đúng một lần. Biên dịch Python riêng `tools/build.py` và `tools/check.py` PASS. Đối chiếu 101 bảng/885 dòng dữ liệu và 41 biểu thức display với Markdown PASS về số dòng/token số/biểu thức sau bỏ layout; hai bảng danh mục phần đầu có thêm 68 dòng (42 chữ viết tắt, 26 ký hiệu). PDF có 13 hình và 22 mục bibliography; citation/reference/glyph thiếu bằng 0, overfull box bằng 0, 423 link nội bộ hợp lệ, kiểm bounds/crop không có vi phạm. Đã render toàn bộ, xem contact sheets và kiểm riêng các trang bìa, công thức, bảng rộng, schema/prompt và vùng footnote; sau lần chỉnh ngắt footnote cuối đã xem lại các trang thay đổi.
+
+**Cảnh báo/giới hạn:** build cuối còn 22 ghi chú nội bộ longtable về glue splitting, underfull boxes và hai warning metadata bibliography gốc (`month=March`, `year=n.d.`); không gọi là build không warning. Đã kiểm render/bounds vùng liên quan; P9 tiếp tục rà khoảng trắng, độ gọn và trình bày. Số trang vượt dự toán ban đầu, chưa có giới hạn chính thức để nghiệm thu; không bỏ bằng chứng để ép số trang. Hạn nộp, chuẩn trích dẫn/bố cục và biểu mẫu bắt buộc chưa được cung cấp; cam đoan đã xác nhận câu chữ nhưng chưa ký. Không chạy suite nghiên cứu hoặc fit/API/bootstrap/replay vì chỉ chuyển tài liệu và công cụ build tài liệu; không đổi runtime, hợp đồng kinh tế, input, model, archive, receipt hay kết quả Native FAIL/NOT_CERTIFIED/UI PENDING.
+
+PDF `release/thesis.pdf` có SHA-256 `eeff3f0b09996d031a296fafc97f9042b711134d05628a5ab6c6264b55ef9826`, khớp đầu ra build tách biệt. Đây là bản P8 để rà soát tiếp, chưa là bản đã duyệt, ký hoặc nộp.

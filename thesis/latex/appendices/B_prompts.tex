@@ -21,23 +21,17 @@ stored values. The archived messages remain authoritative.\footnote{Frozen Decis
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Families, provenance and redaction - supporting detail}\label{tab:B_prompts:1}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Content added to the shared reports
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded output / no-request distinction
-\end{minipage} \\
+ & Content added to the shared reports
+ & Recorded output / no-request distinction
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Family
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Content added to the shared reports
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Recorded output / no-request distinction
-\end{minipage} \\
+ & Content added to the shared reports
+ & Recorded output / no-request distinction
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -46,7 +40,7 @@ Component Full / Base & Component-specific information and prompt representation
 Context Native / Common & Native versus Common alpha projection/instructions & Base seven-field trade schema; different profiles are declared \\
 Bayesian v1 & BRPP population statistics and up to three matured examples & Base schema; Common inherited when retrieval is unavailable \\
 C2 / A / B & Ready conditional statistics/examples under the branch's presentation & Base schema in the unified study; fallback if neither view is ready \\
-Fact Anchor & Numerical fact card and required assertion IDs & Extended fact schema; NOT\_APPLICABLE context; no utility veto \\
+Fact Anchor & Numerical fact card and required assertion IDs & Extended fact schema; NOT\_\allowbreak{}APPLICABLE context; no utility veto \\
 MT-BICL & Facts, anchor reference and numerical task/probability/utility projection & Extended fact schema; unsupported context bypasses the request \\
 \end{longtable}
 
@@ -70,35 +64,27 @@ records are examples, not the study's maximum prompt measurement.
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
 \caption{Families, provenance and redaction - supporting detail}\label{tab:B_prompts:2}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Original source request ID
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Message characters
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Request content SHA-256
-\end{minipage} \\
+ & Original source request ID
+ & Message characters
+ & Request content SHA-256
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Role
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Original source request ID
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Message characters
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Request content SHA-256
-\end{minipage} \\
+ & Original source request ID
+ & Message characters
+ & Request content SHA-256
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Common & e9cd5100-0f68-4677-8ca5-84a08e41386c & 4186 & b8bca42b5133b1db427cd434001f483f2d76b5a7a3709b4272f84472ab3f185f \\
-Bayesian v1 & 4ccd3bbe-9004-468f-a5dd-8859a2c53c97 & 4556 & 8f08017b8031733248e74d73ad03435435f036d85ef70262800ee80e766bd03a \\
-Fact Anchor & f7c7664b-69c7-4bef-a075-26c2d9c0d6e2 & 3916 & d2e3c8935e6d7c2a2b09a466bbeddc6c46c7780dfc7e3d5f62db469e4bb1a990 \\
-MT-BICL & cc6bf729-784a-458a-8e40-07398fac513f & 4586 & c36361d6537c31a7232f12820c8d50cea837d5442d8d6610dbc1505a1c58476a \\
+Common & e9cd5100-0f68-4677-8ca5-84a08e41386c & 4186 & b8bca42b\allowbreak{}5133b1db\allowbreak{}427cd434\allowbreak{}001f483f\allowbreak{}2d76b5a7\allowbreak{}a3709b42\allowbreak{}72f84472\allowbreak{}ab3f185f \\
+Bayesian v1 & 4ccd3bbe-9004-468f-a5dd-8859a2c53c97 & 4556 & 8f08017b\allowbreak{}80317332\allowbreak{}48e74d73\allowbreak{}ad034354\allowbreak{}35f036d8\allowbreak{}5ef70262\allowbreak{}800ee80e\allowbreak{}766bd03a \\
+Fact Anchor & f7c7664b-69c7-4bef-a075-26c2d9c0d6e2 & 3916 & d2e3c893\allowbreak{}5e6d7c2a\allowbreak{}2b09a466\allowbreak{}bbeddc6c\allowbreak{}46c7780d\allowbreak{}fc7e3d5f\allowbreak{}62db469e\allowbreak{}4bb1a990 \\
+MT-BICL & cc6bf729-784a-458a-8e40-07398fac513f & 4586 & c36361d6\allowbreak{}537c31a7\allowbreak{}232f1282\allowbreak{}0c8d50ce\allowbreak{}a837d544\allowbreak{}2d8d6610\allowbreak{}dbc1505a\allowbreak{}1c58476a \\
 \end{longtable}
 
 \endgroup
@@ -195,23 +181,17 @@ description of \texttt{TradeDecisionOutput}, not a replacement JSON Schema.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Table B-app1. Base seven-field interface.}\label{tab:B_prompts:3}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Field
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Type / restriction
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Meaning
-\end{minipage} \\
+ & Type / restriction
+ & Meaning
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Field
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Type / restriction
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Meaning
-\end{minipage} \\
+ & Type / restriction
+ & Meaning
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -229,9 +209,9 @@ The anchor/MT schema \texttt{utility\_\allowbreak{}icl\_\allowbreak{}reply\_\all
 \texttt{version}, three unique \texttt{fact\_\allowbreak{}ids}, the exact \texttt{fact\_\allowbreak{}assertions} object and
 \texttt{context\_\allowbreak{}reason}. \texttt{MACD\_\allowbreak{}SIGNAL} and \texttt{PRICE\_\allowbreak{}SMA20} admit
 ABOVE/BELOW/EQUAL/UNKNOWN; \texttt{MACD\_\allowbreak{}ZERO} admits
-POSITIVE/NEGATIVE/ZERO/UNKNOWN. The context enum is NOT\_APPLICABLE,
-SUPPORTED, UTILITY\_UNSUPPORTED, QUERY\_FEATURE\_UNAVAILABLE, UNKNOWN\_BUCKET
-or TARGET\_COLD\_START. Application rules constrain which reason is valid
+POSITIVE/NEGATIVE/ZERO/UNKNOWN. The context enum is NOT\_\allowbreak{}APPLICABLE,
+SUPPORTED, UTILITY\_\allowbreak{}UNSUPPORTED, QUERY\_\allowbreak{}FEATURE\_\allowbreak{}UNAVAILABLE, UNKNOWN\_\allowbreak{}BUCKET
+or TARGET\_\allowbreak{}COLD\_\allowbreak{}START. Application rules constrain which reason is valid
 for each branch; enum membership alone is insufficient.
 
 A separate \texttt{TradeDecisionPriorOutput} builder also defines strict
@@ -265,8 +245,8 @@ complete reply to validate against the full schema.
 
 The stored confidence is a Vietnamese categorical word, translated as
 ``High''; it is not a numerical sign probability. An English translation
-of the justification is: ``The combination of MACD\_SIGNAL BELOW and
-PRICE\_SMA20 ABOVE favors entering LONG at Open(t+1) and closing at
+of the justification is: ``The combination of MACD\_\allowbreak{}SIGNAL BELOW and
+PRICE\_\allowbreak{}SMA20 ABOVE favors entering LONG at Open(t+1) and closing at
 Close(t+3).'' This is the model's assertion. The actual policy reason is
 \texttt{KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME}: the proposal already equals the anchor. As §4.10.5
 shows, this LONG later has a negative net outcome. Neither the schema's
@@ -285,23 +265,17 @@ validity nor the translated explanation changes that result.
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
 \caption{Budgets, repair and interpretation - supporting detail}\label{tab:B_prompts:4}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Object
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked limit / measurement
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Scope
-\end{minipage} \\
+ & Locked limit / measurement
+ & Scope
+ \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
 Object
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Locked limit / measurement
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Scope
-\end{minipage} \\
+ & Locked limit / measurement
+ & Scope
+ \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}

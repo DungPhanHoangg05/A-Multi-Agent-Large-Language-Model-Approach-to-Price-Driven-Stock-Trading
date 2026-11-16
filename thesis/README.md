@@ -2,6 +2,29 @@
 
 Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market**.
 
+## Nguồn bản nộp chính sau P8
+
+**Mốc chuyển nguồn: 2026-11-16T13:14:55+07:00 (Asia/Saigon).** Từ mốc T72,
+[main.tex](latex/main.tex), các file trong `latex/chapters/`,
+`latex/appendices/`, `latex/frontmatter/`, [bibliography](references.bib)
+và assets dùng chung là nguồn bản nộp chính. Mọi sửa nội dung tiếp theo
+thực hiện trong LaTeX; không tự sinh lại từ Markdown. Các file Markdown
+chương/phần đầu/phụ lục giữ làm bản nháp đã đối soát tại `e4e31daf`;
+[source map](latex/source-map.json) lưu hash LF và ánh xạ mốc chuyển.
+Kế hoạch, sổ bằng chứng và README quản lý vẫn tiếp tục cập nhật bằng Markdown.
+
+[PDF ghép P8](release/thesis.pdf) gồm hai bìa, phần đầu, sáu chương,
+tài liệu tham khảo và sáu phụ lục. Đây là bản để tiếp tục P9/P10,
+chưa là bản đã phản biện, ký, nộp hoặc được trường chấp thuận.
+[Hướng dẫn build](latex/README.md) dùng LuaLaTeX/Biber và không cần thư mục
+mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã thử trong bản sao chỉ gồm LaTeX,
+assets và bibliography; build thiếu file bắt buộc sẽ dừng, không lặng lẽ bỏ chương.
+
+Hạn nộp, giới hạn trang/từ và biểu mẫu chính thức chưa được cung cấp.
+Số trang thực tế vượt dự toán viết ban đầu; P9 sẽ rà độ gọn và trình bày,
+không bỏ bằng chứng hoặc đổi kết quả chỉ để ép số trang. G4 chưa được coi
+là nghiệm thu yêu cầu chính thức khi các mục bắt buộc bên ngoài còn chưa rõ.
+
 ## Quy ước ngôn ngữ
 
 - **Trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý:** tiếng Việt.
@@ -21,7 +44,7 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 9. [Chương 3 — cơ sở lý thuyết](chapters/03_background.md): đã có bản nháp §3.1–§3.7, [F01](assets/diagrams/F01_trade_timeline.pdf)/[F02](assets/diagrams/F02_temporal_partitions.pdf) vector/source TikZ và ví dụ có nguồn hoặc nhãn Illustrative. Nguồn/claim đối soát tại §8 sổ chung; chưa phải bản đã qua rà soát khoa học, citation và bố cục cuối.
 10. [Chương 4 — hệ thống đề xuất](chapters/04_proposed_system.md): P3 đã đủ bản nháp §4.1–§4.10, gồm utility/policy, projection, bảng tám vai trò, ba thuật toán và luồng ứng dụng; kèm F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn. [Sổ chung §9](evidence.md#9-nguồn-giải-thích-hệ-thống-đề-xuất) giữ binding và tự kiểm G2 nội bộ. EX01 kết thúc bằng outcome sau barrier; UI/F11 vẫn PENDING. Chưa rà soát toàn văn, phản biện ngoài hoặc dàn trang cuối.
 
-11. [Chương 5 — thực nghiệm và thảo luận](chapters/05_experiments.md): T36–T47; P4/T36–T47 đã đủ bản nháp §5.1–§5.9, F09/F10 và B04/B05/B06/B07/B09. P6 đã đối soát mạch và tự kiểm G3 nội bộ; phụ lục, phản biện và dàn trang cuối còn việc; trạng thái nghiên cứu/ứng dụng không đổi. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ nguồn/claim. Bảng Markdown chưa chuyển CSV/LaTeX; chưa rà soát toàn văn hoặc phản biện ngoài.
+11. [Chương 5 — thực nghiệm và thảo luận](chapters/05_experiments.md): T36–T47; P4/T36–T47 đã đủ bản nháp §5.1–§5.9, F09/F10 và B04/B05/B06/B07/B09. P6 đã đối soát mạch và tự kiểm G3 nội bộ; phụ lục, phản biện và dàn trang cuối còn việc; trạng thái nghiên cứu/ứng dụng không đổi. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ nguồn/claim. Bảng đã chuyển LaTeX ở P8, giữ Markdown đối chiếu; chưa rà khoa học/ngôn ngữ toàn văn hoặc phản biện ngoài.
 
 12. [Chương 2 — tổng quan tài liệu](chapters/02_related_work.md): T48–T53; P5/T48–T53 đã đủ bản nháp §2.1–§2.7, B08a–b và bibliography 22 nguồn đã kiểm theo phạm vi. P6 đã đối soát mạch và tự kiểm G3 nội bộ; rà soát khoa học/ngôn ngữ và dàn trang cuối còn việc. [Bibliography riêng](references.bib) và [sổ nguồn P5](evidence.md#11-nguồn-tổng-quan-tài-liệu-và-định-vị) giữ phiên bản, đoạn hỗ trợ và giới hạn.
 
@@ -29,9 +52,9 @@ Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware M
 
 14. [Phần đầu](frontmatter.md): T59–T60; T59–T60 hoàn tất bản nháp phần đầu: abstract/7 keywords, lời cảm ơn và câu chữ cam đoan đã được tác giả xác nhận, 42 chữ viết tắt/26 dòng ký hiệu; chưa ký và chưa có biểu mẫu chính thức. [Sổ P7](evidence.md#13-phần-đầu-và-phụ-lục) giữ nguồn, đối soát và yêu cầu chính thức chưa có.
 
-15. Phụ lục — T61–T66 đã đủ bản nháp: [A: hợp đồng](appendices/A_contracts.md), [B: prompts/responses](appendices/B_prompts.md), [C: cấu hình](appendices/C_configuration.md), [D: bảng mở rộng](appendices/D_results.md), [E: audit](appendices/E_verification.md), [F: tái lập/ứng dụng](appendices/F_reproduction.md). Đã nối tham chiếu trong thân bài và đối soát nguồn/số liệu/phạm vi. [Sổ nguồn appendix](evidence.md#134-phụ-lục-a-hợp-đồng-dữ-liệu-và-thời-gian) giữ locator/hash và QA; chưa chuyển LaTeX hoặc nghiệm thu PDF toàn văn.
+15. Phụ lục — T61–T66 đã đủ bản nháp: [A: hợp đồng](appendices/A_contracts.md), [B: prompts/responses](appendices/B_prompts.md), [C: cấu hình](appendices/C_configuration.md), [D: bảng mở rộng](appendices/D_results.md), [E: audit](appendices/E_verification.md), [F: tái lập/ứng dụng](appendices/F_reproduction.md). Đã nối tham chiếu trong thân bài và đối soát nguồn/số liệu/phạm vi. [Sổ nguồn appendix](evidence.md#134-phụ-lục-a-hợp-đồng-dữ-liệu-và-thời-gian) giữ locator/hash và QA; đã chuyển LaTeX ở P8, chưa nghiệm thu bản nộp cuối.
 
-16. [Nguồn LaTeX](latex/README.md): T67–T71; Sáu phụ lục đã chuyển LaTeX và nối tham chiếu. [Sổ P8](evidence.md#14-dàn-trang-latex-và-chuyển-nguồn-chính) ghi toolchain, build và phạm vi kiểm.
+16. [Nguồn LaTeX](latex/README.md): T67–T72; Toàn văn đã ghép và chuyển nguồn chính sang LaTeX. [Sổ P8](evidence.md#14-dàn-trang-latex-và-chuyển-nguồn-chính) ghi toolchain, build và phạm vi kiểm.
 
 ## Hai trang bìa
 
@@ -45,9 +68,10 @@ của tác giả.
 
 Nguồn bản xem gồm [wrapper](latex/covers-preview.tex),
 [hai bìa](latex/frontmatter/covers.tex) và logo trong `assets/figures/`.
-Nguồn này chỉ dàn trang bìa, chưa phải khung LaTeX toàn văn; Markdown vẫn
-là nguồn nội dung chính. Khi đổi metadata, cập nhật cả bản trình bày LaTeX
-và kiểm lại PDF. Không cần thư mục `Latex/` mẫu để build bản xem.
+Wrapper này chỉ dàn trang bản xem bìa riêng. Toàn văn dùng `latex/main.tex`
+và nguồn LaTeX chính đã chuyển tại T72; Markdown phần đầu là bản lưu trữ.
+Khi đổi metadata được tác giả chấp thuận, sửa nguồn LaTeX và kiểm lại PDF.
+Không cần thư mục `Latex/` mẫu để build bản xem hoặc toàn văn.
 
 Từ thư mục gốc kho mã, biên dịch bằng pdfLaTeX hai lượt để định vị khung
 TikZ. Thư mục tạm nhận log/aux, chỉ PDF được chép sang thư mục bàn giao:
