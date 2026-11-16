@@ -334,831 +334,225 @@ must not be reported as content actually shown when the gate withheld
 them. The example also preserves different v1 and MT context identities.
 
 \section{MT-BICL and action revision}\label{s:2d298f46dad25b7a}
+MT-BICL introduces numerical datasets and model-based utility before a
+hosted revision request. It first resolves a factual anchor, constructs
+admissible task context, applies frozen numerical resources and projects
+the results into bounded text. External policy, rather than the hosted
+model alone, determines whether the action changes.
 
-MT-BICL adds a numerical context built from mature historical observations,
-not a collection of new LLM agents trained on query outcomes. Task selection,
-frozen numerical teacher/student inference, hosted language-model proposals
-and external action resolution are separate operations. The following
-subsections explain their inputs and boundaries before describing utility
-and the complete revision policy. An available numerical context alone does
-not authorize an action change.
+\subsection{Facts and the reference action}\label{s:20f38305181c1972}
+A deterministic 45-bar packet checks three relationships:
+\texttt{MACD\_SIGNAL} (ABOVE/BELOW/EQUAL), \texttt{MACD\_ZERO}
+(POSITIVE/NEGATIVE/ZERO), and \texttt{PRICE\_SMA20} (ABOVE/BELOW/EQUAL),
+each also allowing UNKNOWN for unavailable evidence. Comparisons use
+unrounded values. Being below Signal does not mean MACD is negative;
+being positive does not prove a recent zero crossing. The packet binds
+stock/cutoff, frame end, prefix identity and the derived facts bucket.
+A shorter/misaligned window cannot assert complete-window facts. A
+consistent packet/hash alone does not authenticate its source.
 
-\subsection{Fact packet and Fact Anchor}\label{s:20f38305181c1972}
+Fact Anchor receives Common-projected reports and a fact card, without
+MT tasks, probability or utility. The card is capped at 700 characters,
+separately from BRPP. Its reply adds schema version, all three unique
+fact IDs, an assertion object and a context reason to the trade fields.
+The resolver requires exact agreement with the packet and reason
+NOT\_APPLICABLE. If valid, its mapped decision is reference action $a_0$.
+A completed schema-valid reply with incorrect assertions/reason instead
+uses the completed same-repeat Common action and records invalid-anchor
+fallback. Its real raw reply remains stored; this is not a bypass of
+the anchor call. Later revision is bypassed for an invalid anchor.
+Transport, missing response or malformed schema remains a technical
+failure rather than this factual fallback.
 
-Fact Anchor establishes the reference action \(a_0\) for the later revision
-stage. It combines source-bound numerical facts with the Common-profile
-reports, then checks a small structured assertion contract in the returned
-reply. It has a declared dependency on Common from the same point and
-repeat. It does not compute a return threshold or apply a utility veto.
-\footnote{BG10 fact-packet construction, SYS33 fact/wire validator, SYS42 fact-card/anchored builder and BG18 Common dependency. CL089--CL090 and ledger §9.16 distinguish raw prefix provenance, numerical consistency and reply schema.}
+FPT's saved MACD/Signal are approximately .654268/.704394, so
+MACD\_SIGNAL=BELOW while MACD\_ZERO=POSITIVE. Close 48.18 exceeds SMA20
+47.5675. The packet bucket is MACD\_NEG\_PRICE\_POS, where NEG refers to
+MACD minus Signal. Fact Anchor returns matching assertions and LONG,
+with no numeric veto. Its prose nevertheless treats below-Signal MACD
+as bullish and mentions a zero crossing. Enum agreement validates only
+the limited citation/assertion contract, not all prose or trading logic.
+An illustrative reply asserting negative MACD would fail and retain
+Common, without needing any utility calculation.
 
-\textbf{Facts from the admissible price prefix.} \texttt{make\_\allowbreak{}fact\_\allowbreak{}packet} takes the
-last 45 observed OHLCV bars ending at the query cutoff. It obtains MACD
-(12,26,9) from TA-Lib and the last-20-close mean, retaining full-precision
-numbers and their differences. It emits three assertion IDs:
+\subsection{Prior tasks, target observations and query}\label{s:673616bb765d15ae}
+Each numerical observation is a completed canonical LONG cycle. A valid
+21-session segment supplies five-/20-session momentum, population
+volatility and MA20 distance:
+\begin{equation}
+x_i=\left(\frac{C_i}{C_{i-5}}-1,\frac{C_i}{C_{i-20}}-1,
+Std_{pop}\{\log(C_u/C_{u-1})\}_{u=i-19}^{i},
+\frac{C_i}{SMA_{20}(C)_i}-1\right).
+\end{equation}
+Volatility uses $ddof=0$, unlike the HMM's sample volatility. Missing
+sessions/prices or corporate-action barriers can make features
+unavailable; synthetic candles are not inserted. Label $y_i$ uses the
+canonical net-return sign. Historical return magnitude is a sidecar for
+utility, not a fifth feature. The frozen four-feature scaler uses
+population variance (unit scale for a constant coordinate) and clips
+$v_i=(x_i-\mu)/\sigma$ to $[-4,4]$, retaining raw/unclipped values for audit.
 
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
+VN-Index's calendar starts on 2 January 2018. Calendar index $i$ defines
+block $\lfloor i/63\rfloor$, and each stock/block is one task. Three-session
+cycles remain inside their admitted block and partition. Earlier blocks
+of the same stock form prior tasks; the current block supplies target
+observations. The query has features but no label. All observations first
+pass the maturity, fold-freeze and reserved-ID rules, then match the
+query's numerical bucket (signs of MACD minus Signal and Close minus
+SMA20). Zero/missing axes yield UNKNOWN and no bucket context.
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Fact packet and Fact Anchor - supporting detail}\label{tab:04_proposed_system:14}\tabularnewline
-\toprule\noalign{}
-Assertion ID
- & Relationship checked
- & Admitted values
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Assertion ID
- & Relationship checked
- & Admitted values
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\texttt{MACD\_\allowbreak{}SIGNAL} & MACD line relative to its Signal & ABOVE, BELOW, EQUAL or UNKNOWN \\
-\texttt{MACD\_\allowbreak{}ZERO} & MACD line relative to zero & POSITIVE, NEGATIVE, ZERO or UNKNOWN \\
-\texttt{PRICE\_\allowbreak{}SMA20} & Last Close relative to SMA20 & ABOVE, BELOW, EQUAL or UNKNOWN \\
-\end{longtable}
+Each earlier block needs two observations. Its centroid uses all eligible
+clipped vectors; tasks rank by known regime agreement, smaller centroid
+distance, later latest exit and task ID. Regime is a priority, not an
+absolute filter. Keep at most three tasks and eight nearest observations
+per prior task, with recent date/ID tie-breaks and chronological
+presentation. Target context instead keeps the latest at most eight.
+Membership, centroid-fit rows, scaler and regime/fact proofs remain
+bound; shortage is not repaired by inserting favorable observations.
 
-\endgroup
+For FPT, calendar index 1,372 gives block 21. Thirty bucket-filtered
+observations precede selection. Prior blocks 11/15/13 contribute 5/4/2
+observations; target block 21 contributes three, with latest target exit
+29 June 2023. Thus there are 14 labeled historical rows, not three signal
+examples. Its query remains unlabeled. The model vector is approximately
+(.109634,.101272,$-1.290443$,.215713), without clipping in this case.
+Figure~\ref{fig:F06} separates the context and offline/query boundaries.
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth,height=.40\textheight,keepaspectratio]{../assets/diagrams/F06_mt_tasks_training.pdf}
+\caption{Marked prior/target tasks, an unlabeled query and frozen numerical
+inference. The FPT counts are saved context, not newly generated results.}\label{fig:F06}
+\end{figure}
 
-These are distinct relationships: being below Signal does not mean MACD
-is below zero. Comparisons use stored unrounded numbers, and exact equality
-is distinct from unavailable data. The packet also carries point/cutoff,
-frame end, prefix length, horizon, bucket and a hash of the actual input
-prefix. Fewer than 45 bars or a window ending before cutoff does not permit
-finite numerical facts to be asserted as if the complete window existed.
-Invalid OHLCV or inconsistent fields are errors.
+\subsection{Teacher, student and resource selection}\label{s:54ebb2a16a274585}
+The evaluated resource fits sixteen Beta components on means
+$\{.2,.4,.6,.8\}$ and concentrations $\{2,8,32,128\}$, with
+$a_h=\mu_h\kappa_h,b_h=(1-\mu_h)\kappa_h$. Only mixture weights are fitted:
+731 training cycles in 48 unique stock/block tasks through end-2020
+contribute their count likelihoods once per task. MAP-EM starts uniformly
+under $Dirichlet(2,\ldots,2)$ and updates
+$\pi_h=(\sum_j\gamma_{jh}+1)/(N_{tasks}+16)$. The fixed grid is not searched
+on queries. The saved fit converged in 237 iterations, within a 1,000
+limit and $10^{-10}$ weight-change tolerance. Inference then uses the
+separate prior/target count factors from Chapter 3, with no continuous
+feature likelihood or refitting of $\pi$.
 
-The packet validator checks schema, dates, raw numerical differences and
-the assertion/bucket relations. The source adapter must still establish
-the price prefix's identity; a self-consistent packet or self-recomputed
-hash is not independent evidence that its source is authentic. Optional
-report warnings are labeled as report statements, not promoted to hard
-numerical assertions.
+Synthetic distillation draws 0–3 priors, 2–8 observations per prior and
+0–8 target observations. A mixture family is shared, task rates are
+independent Beta draws conditional on that family, and labels are
+Bernoulli draws. Whole feature vectors are sampled with replacement from
+the 731-row training pool, independently of synthetic rates/labels;
+original market labels are not copied. RNG domains separate structure,
+features, labels and permutation. Validation/test corpora each contain
+5,000 episodes, including 500 stress cases. Synthetic query labels and
+latent variables are excluded from the input and loss.
 
-Matching UNKNOWN likewise does not supply a missing observation or satisfy
-the later context-support gate.
+The paired packing uses a task marker $(0,0,0,0,-1,1)$, observation token
+$(v_1,v_2,v_3,v_4,y,0)$ and query token $(v_{q1},v_{q2},v_{q3},v_{q4},0,1)$.
+Role embeddings distinguish prior/target/query, and four slots identify
+up to three priors plus target/query. Dates, IDs, returns and the true
+query label are not coordinates. Maximum length is 37 numerical tokens;
+FPT uses 19 (14 observations, four markers and query).
 
-\textbf{Prompt and structured reply.} The Fact Anchor request includes the fact
-card and the same Common-projected reports. It does not include an MT task
-projection, student probability or utility distribution. The instruction
-asks the model to cite all three IDs/assertions and use
-\texttt{context\_\allowbreak{}reason=NOT\_\allowbreak{}APPLICABLE}. Fact-card numbers are displayed with eight
-significant digits, while validation retains the original values and enums.
-The fact card has its own 700-character bound; the final assembled request
-remains strictly below 6,500 characters. It is not a 600-character BRPP.
-The branch also changes instructions and the output schema; a comparison
-with Common therefore combines fact presentation and response-format changes.
+The six-to-128 projection plus role/slot/position embeddings feeds two
+pre-normalized attention blocks, four heads, feed-forward width 256,
+GELU and zero dropout. A causal attention mask and right-padding mask
+precede final LayerNorm/scalar head. The FP32 model has 271,873 parameters.
+The earlier 69-token diagnostic packing was discarded. Loss applies
+only to the query logit, using detached teacher probability $q$:
+\begin{equation}
+\mathcal L=-q\log\sigma(\ell_Q)-(1-q)\log(1-\sigma(\ell_Q)).
+\end{equation}
+It does not optimize realized market BCE or a sampled synthetic query
+label. The registered recipe is summarized in Table~\ref{tab:student}.
 
-The reply schema retains decision, horizon, confidence, R:R and explanatory
-fields, and adds a version, the three unique \texttt{fact\_\allowbreak{}ids}, a
-\texttt{fact\_\allowbreak{}assertions} object and \texttt{context\_\allowbreak{}reason}. Citation completeness is
-checked as a set, so changing ID order alone does not invalidate the reply.
-Schema validity only establishes allowed fields and values; it does not
-prove that the returned values agree with the packet.
+\begin{table}[htbp]\centering\small\setstretch{1.05}
+\caption{Frozen numerical training and selection recipe.}\label{tab:student}
+\begin{tabular}{@{}p{.25\linewidth}p{.69\linewidth}@{}}\toprule
+Setting & Recorded value\\\midrule
+Training & Seeds 17/42/73, fresh weights; 5,000 steps; effective/physical batch 128; 640,000 episodes per seed\\
+Optimizer & AdamW, betas (.9,.999), epsilon $10^{-8}$, weight decay .01, gradient norm cap 1\\
+Learning rate & 250-step linear warm-up to $3\times10^{-4}$; cosine decay to $3\times10^{-5}$ at 5,000\\
+Precision/checkpoints & FP32; AMP/TF32 off; every 250 steps, 60 candidates; no metric early stopping\\
+Selection & Eligibility gates first; 2021 macro log loss, then Brier rounded to 12 decimals, earlier step/seed order\\
+Served resource & Single seed-42/step-3,000 export; frozen CPU inference, no ensemble/query update\\\bottomrule
+\end{tabular}\end{table}
 
-\textbf{Resolve the anchor before any action revision.} The policy compares the
-reply's assertion object exactly with the packet and requires the
-Fact Anchor context reason to be NOT\_\allowbreak{}APPLICABLE. If both checks pass,
-\(a_0\) is the reply's decision mapped to LONG/CASH. A valid SHORT reply
-therefore yields CASH under the economic contract. If a schema-valid reply
-has incorrect assertions or context reason, the resolver instead uses
-the already completed Common reply and records
-\texttt{ANCHOR\_\allowbreak{}INVALID\_\allowbreak{}USE\_\allowbreak{}ORIGINAL}. This fallback does not certify the Common
-reply's prose or supply it with new fact assertions.
+Eligibility includes mean synthetic KL at most .02 nats, 95th percentile
+absolute error at most .10, at least 200 prior-label-swap pairs and .90
+sign agreement, plus registered constant-control/technical checks. All
+60 reports are required. Selection uses 2021 market labels despite a
+synthetic-only optimizer loss. Test corpora and 2022 market assessment
+open after the selection seal and do not permit reselection. The served
+seed-42/step-3,000 export is not the final-step checkpoint; resumable
+optimizer/RNG state has a different artifact identity. At inference,
+hashes, evaluation mode and disabled gradients protect frozen weights.
+The FPT saved student probability is .38681803029367656. Synthetic
+teacher agreement does not establish calibrated market probabilities or
+an isolated student contribution to trading outcomes.
 
-The proof retains the packet hash, Common source/output hash, anchor source
-hash, raw replies, validity flag and request ID. The selected reference
-action can be reconstructed from those fields. An invalid completed anchor
-still has a real request/raw reply and \texttt{bypass=False} for that anchor call.
-Its validity flag remains false; a later anchored revision is bypassed
-rather than sending a new revision request based on an invalid anchor.
-A missing response, malformed schema, corrupt provenance or transport
-failure is a technical failure, not a completed invalid assertion reply
-that can silently be replaced with CASH.\footnote{BG14 \texttt{facts\_\allowbreak{}match/\allowbreak{}resolve\_\allowbreak{}anchor/\allowbreak{}validate\_\allowbreak{}anchor/\allowbreak{}apply\_\allowbreak{}revision} and BG18 \texttt{prepare/\allowbreak{}resolve}; CL091. The invalid example is explicitly illustrative and does not add a new research response or replace a transport failure.}
+\subsection{Utility and bounded context projection}\label{s:2fde9b3e9d8b15d2}
+Utility requires an available 45-bar known-bucket query, at least two
+prior tasks and at least five positive plus five nonpositive historical
+returns, counted uniquely across selected prior/target observations.
+Zero belongs to the latter group. Unsupported context records a reason,
+zero draws and null utility; it does not silently replace a failed
+student with a teacher prediction.
 
-\textbf{EX01 numerical assertions.} The saved packet records:
+For each of 4,096 draws, sample a teacher posterior family and its
+target-updated Beta sign probability. Independently normalize exponential
+weights within positive and nonpositive magnitude groups to obtain
+$g^{(b)},\ell^{(b)}$, then compute Equation~\ref{eq:utility}. Task counts
+remain separate for sign inference; magnitudes pool unique selected
+observations by sign, with no additional similarity/age weighting.
+Costs are already included. Streams depend on protocol/point/component
+and observation identity, not branch/repeat, providing common random
+numbers on overlapping subsets. Linear empirical Q10/Q90 and Monte Carlo
+mean are retained alongside the analytic mean. These exchangeability
+and transfer assumptions do not follow from temporal admissibility.
+The student probability is logged separately and does not replace the
+teacher sign draw.
 
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
+The hosted LLM receives a text projection, not the numerical tensor or
+all row IDs. Each prior/target group exposes full $n$/win/loss counts,
+mean net return and exit-age range, plus one nearest exemplar (recent
+date/ID tie-break). Example count is not the denominator. Feature codes
+round $2v$ to even-tie integers in $[-8,8]$. The query code has no label
+or realized return; $m\le3$ is marked small. The prefix reports student
+probability, utility/support and a unit legend; rounded display values
+do not replace full-precision policy inputs. A fact-extended reply must
+cite the three facts and use context reason SUPPORTED.
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
-\caption{Fact packet and Fact Anchor - supporting detail}\label{tab:04_proposed_system:15}\tabularnewline
-\toprule\noalign{}
-Quantity / assertion
- & Stored value
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Quantity / assertion
- & Stored value
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-MACD / Signal & 0.6542675609756259 / 0.7043937016476567 \\
-MACD \ensuremath{-} Signal & \ensuremath{-}0.050126140672030806; \texttt{MACD\_\allowbreak{}SIGNAL=BELOW} \\
-MACD relative to zero & \texttt{MACD\_\allowbreak{}ZERO=POSITIVE} \\
-Close / SMA20 & 48.18 / 47.5675 \\
-Close \ensuremath{-} SMA20 & 0.6124999999999972; \texttt{PRICE\_\allowbreak{}SMA20=ABOVE} \\
-Facts bucket & \texttt{MACD\_\allowbreak{}NEG\_\allowbreak{}PRICE\_\allowbreak{}POS} \\
-\end{longtable}
+FPT has five positive/nine nonpositive observations, meeting support.
+Teacher mean probability is .3777360437578734. Rounded net-return
+fractions are $-.00597535$ for analytic mean, $-.00607738$ for Monte Carlo
+mean, $-.01288257$ for Q10 and $+.000242291$ for Q90; policy uses the
+stored full precision. Its saved Vietnamese projection has 437 characters, while
+the full MT request has 4,586. An English presentation excerpt is
+\texttt{K3 m3 small p=0.387}; it is not a newly submitted prompt.
 
-\endgroup
-
-The anchor reply cites all three matching assertions with
-NOT\_\allowbreak{}APPLICABLE, proposes LONG, states high confidence and R:R 1.5. Its
-reference/final action is LONG with \texttt{NO\_\allowbreak{}NUMERIC\_\allowbreak{}VETO}; the utility-quantile
-field is null. Common's separate reply also proposes LONG, but with R:R
-2.5. The anchor request has 3,916 characters and its source request ID
-begins \texttt{f7c7664b-\allowbreak{}69c7}; the ledger binds the full ID and source hashes.
-
-This valid structured reply nevertheless illustrates the check's limit.
-Its prose calls MACD below Signal bullish momentum and refers to a positive
-zero crossing. The equality of the three returned enums does not validate
-that interpretation, and an endpoint-positive MACD does not by itself
-establish a crossing event. \texttt{fact\_\allowbreak{}assertions\_\allowbreak{}valid=True} must therefore be
-read as the limited citation/enum contract, not a certificate that all prose,
-trading logic or future profit is correct.\footnote{EX01 U08 Fact\_\allowbreak{}Anchor prepared packet/request, raw reply and policy/proof, linked to Common r0; CL092. Exact assertions, source identity, prompt length and the saved prose limitation are checked without rerunning TA-Lib or a model.}
-
-\textbf{Illustrative invalid-anchor branch, not an archived response.} Suppose
-a schema-valid reply on the EX01 packet proposes SHORT but returns
-\texttt{MACD\_\allowbreak{}ZERO=NEGATIVE}. The packet's positive MACD makes the assertion
-comparison fail. The resolver records the raw SHORT proposal while taking
-\(a_0=\mathrm{LONG}\) from the saved Common reply, with validity false and
-ANCHOR\_\allowbreak{}INVALID\_\allowbreak{}USE\_\allowbreak{}ORIGINAL. The later revision path retains that reference
-without a new revision call. No return estimate or quantile comparison is
-needed to explain this branch; utility-based acceptance or rejection belongs
-to Section 4.8.6.
-
-\subsection{Task construction}\label{s:673616bb765d15ae}
-
-\textbf{An observation and its four-dimensional input.} A numerical observation
-is one completed candidate LONG cycle. Its feature vector is computed at
-the historical decision from a valid 21-session price segment:
-
-\[
-x_i=\left(
-\frac{C_i}{C_{i-5}}-1,\quad
-\frac{C_i}{C_{i-20}}-1,\quad
-\operatorname{Std}_{\mathrm{pop}}\{\log(C_u/C_{u-1})\}_{u=i-19}^{i},\quad
-\frac{C_i}{\operatorname{SMA}_{20}(C)_i}-1
-\right).
-\]
-
-The volatility uses population standard deviation (\texttt{ddof=0}), distinct
-from the HMM's sample-volatility feature. Missing sessions, invalid prices
-or a relevant corporate-action barrier can make the segment unavailable;
-the pipeline does not fill a missing session with a synthetic candle.
-The cycle's historical label is \(y_i=\mathbf1\{r_i^{\mathrm{net}}>0\}\),
-using the canonical execution oracle and costs. The saved \texttt{r\_\allowbreak{}net} is a
-sidecar for historical utility/evidence, not an extra coordinate in \(x_i\).
-\footnote{SYS29 PIT feature primitive, BG08 numerical bank, SYS31 scaler and SYS32 stream, with BG23's frozen-resource adapter; CL078--CL079 in ledger §9.14. Pinned source and artifact determine the evaluated feature and scaling conventions.}
-
-The four-feature scaler uses admitted closed training observations, with
-population variance per coordinate. Zero-variance coordinates use scale
-one. The model receives \(v_i=\operatorname{clip}((x_i-\mu)/\sigma,-4,4)\);
-raw \(x_i\) and unclipped standardized \(z_i\) remain in the record. Early
-training-prefix construction respects its own strict exit cutoff; after
-2020 the evaluated path reuses the frozen end-2020 scaler, not a scaler
-refitted on each query's 600 bars. This is also distinct from the
-stock/fold scaler of C2 example retrieval and from either HMM scaler.
-
-\textbf{A task is a stock/block group.} VN-Index's observed-session calendar is
-anchored on 2 January 2018. For zero-based calendar index \(i\), block
-\(b=\lfloor i/63\rfloor\) defines task \texttt{symbol:\allowbreak{}blockNNNN}. Candidate cycles
-follow a three-session grid and must stay within their admitted block and
-partition. A prior task comes from an earlier block of the \textbf{same stock};
-target observations come from the query's own block. This grouping permits
-within-task context while retaining differences across historical blocks.
-It does not assert that a market process resets every 63 sessions.
-
-\textbf{Filter by a numerical facts bucket before task selection.} The evaluated
-\texttt{BucketTaskBuilder} first restricts mature available candidates to the
-query's factual bucket. Its axes are the signs of MACD minus Signal and
-Close minus SMA20, computed on each decision's own 45-bar prefix with the
-same definitions as the query. Strict positive/negative comparisons are
-made before rounding. A zero or missing axis gives UNKNOWN; that query
-has no selected bucket context. These are price-derived buckets, not the
-directions asserted in a generated report, and they are distinct from the
-VN-Index HMM regime.\footnote{BG09 task builder, BG10 bucket/facts view, SYS33 membership validator and BG16/BG17 freeze/reserved adapters; CL080--CL081. Matching uses admissible numerical facts before selection, while metadata validation is separate from scientific certification.}
-
-For each earlier block with at least two admitted observations, the builder
-computes a centroid using \textbf{all} its eligible clipped model vectors. Tasks
-rank first by a known regime match to the query, then by smaller Euclidean
-centroid distance, later latest exit and task ID. Regime agreement is a
-priority, not an absolute filter that forbids every unmatched task.
-At most three prior tasks are kept. Within each, at most eight observations
-are chosen by distance to the query, with more recent decision date and
-ID breaking ties, then presented chronologically. Target context instead
-keeps the latest at most eight eligible observations in the current block;
-it is not selected by the prior-task nearest-neighbor rule.
-
-Every selected historical exit must strictly precede the query, and
-observation IDs and holding intervals must remain disjoint. In the context
-study, the labeled stream is additionally frozen before the first query
-of each fold and withholds the reserved evaluation IDs, as described in
-Section 4.5.2. Query features and bucket can change at later cutoffs, but
-that does not admit new within-fold labels. Data shortage has explicit
-reasons such as a cold target or fewer prior tasks; no winning examples
-are inserted to improve a selected context.
-
-The context preserves full membership, selected-by-distance IDs,
-centroid-fit IDs, scaler, raw facts and regime proofs. Its membership hash
-binds query/scaler/prior/target/advisor objects, not only a short displayed
-ID list. Facts for the centroid population are retained even when some
-population observations are not among the eight encoded examples.
-The network input projection preserves task boundaries and labeled
-historical pairs, while keeping the query unlabeled; its packing is
-explained next.
-
-\textbf{EX01 numerical context.} The query's calendar index is 1,372, giving
-block 21 and task \texttt{FPT:\allowbreak{}block0021}. Its bucket is
-\texttt{MACD\_\allowbreak{}NEG\_\allowbreak{}PRICE\_\allowbreak{}POS}. This means MACD is below its Signal while Close is
-above SMA20; it does not mean that MACD itself is negative. Its raw vector
-is approximately (0.007107, 0.016456, 0.007498, 0.012876), and the model
-vector is (0.109634, 0.101272, \ensuremath{-}1.290443, 0.215713). No coordinate is clipped
-in this case. The scaler has 731 fitted observations and the identity
-already recorded in Section 4.5.4.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2700}}@{}}
-\caption{Task construction - supporting detail}\label{tab:04_proposed_system:16}\tabularnewline
-\toprule\noalign{}
-Context group
- & Task
- & Selected observations
- & Latest selected exit
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Context group
- & Task
- & Selected observations
- & Latest selected exit
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Prior P1 & \texttt{FPT:\allowbreak{}block0011} & 5 & 29 December 2020 \\
-Prior P2 & \texttt{FPT:\allowbreak{}block0015} & 4 & 29 November 2021 \\
-Prior P3 & \texttt{FPT:\allowbreak{}block0013} & 2 & 14 July 2021 \\
-Target T & \texttt{FPT:\allowbreak{}block0021} & 3 & 29 June 2023 \\
-Query Q & \texttt{FPT:\allowbreak{}block0021} & One unlabeled feature vector & No observed outcome in context \\
-\end{longtable}
-
-\endgroup
-
-Thirty eligible bucket-filtered observations precede selection. The selected
-context has \(K=3\) prior tasks containing 11 observations, plus \(m=3\) target
-observations: 14 labeled rows, not three rows. The target decision dates
-are 16, 21 and 26 June 2023, with exits on 21, 26 and 29 June. Calendar
-entry/exit dates attached to Q specify the horizon; they do not expose its
-future execution prices or label. The saved context's membership hash
-begins \texttt{9ed7e2a35da5} and is linked to the hosted MT preparation.
-\footnote{EX01-C and the U08 MT preparation, source identity in §7 and scaler identity in §9.10; CL082. The illustrative F06 layout uses those saved counts and no query outcome.}
+\subsection{External policy and traceability}\label{s:9b835e651fec3c25}
+Figure~\ref{fig:F07} summarizes anchor-relative action resolution. Invalid
+anchor, insufficient context/utility, invalid revision facts or a proposal
+already equal to the anchor do not create a new accepted action. A
+different valid supported proposal must satisfy the strict directional
+quantile test defined in Chapter 3. Equality fails; the sign of mean
+utility alone is insufficient. Each record preserves raw proposal,
+resolved anchor, validity/support, bypass or veto reason and final action,
+plus the request/dependency/context identities.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F06_mt_tasks_training.pdf}
-\caption{Task membership, masked query and frozen numerical inference.}\label{fig:F06}\end{figure}
-
-\emph{Figure F06. Numerical context and the offline/query boundary. P1--P3 and T
-contain distinct mature labeled observations; Q supplies only its feature
-vector. Task selection and numerical inference use frozen resources, while
-the later hosted decision and action policy are separate. EX01 counts come
-from the saved membership, not a regenerated model run. Teacher/student
-training details follow in Section 4.8.3.}
-\href{../assets/diagrams/F06_mt_tasks_training.pdf}{PDF}.
-
-\subsection{Teacher and student}\label{s:54ebb2a16a274585}
-
-This stage trains a small numerical student offline to approximate a
-registered Bayesian teacher on structured task contexts. The evaluated
-resource is \texttt{MT\_\allowbreak{}BICL\_\allowbreak{}replica\_\allowbreak{}full\_\allowbreak{}r1}. The hosted Decision LLM consumes a
-later text projection; it is not the student whose weights are trained
-here. The theoretical motivation in Section 3.6 does not substitute for
-this implementation's architecture, training distribution or selected
-checkpoint.\footnote{Frozen model-asset manifest TR01 and recipe TR02 identify the evaluated replica, rather than module defaults or the earlier model release. BG23/BG16/BG17 bind reuse in the context study. CL083--CL088 and ledger §9.15 distinguish recorded resource acceptance from whole-system certification.}
-
-\textbf{Teacher fit.} The teacher has 16 fixed Beta components, formed by
-\(\mu\in\{0.2,0.4,0.6,0.8\}\) and
-\(\kappa\in\{2,8,32,128\}\), with \(a_h=\mu_h\kappa_h\) and
-\(b_h=(1-\mu_h)\kappa_h\). Only mixture weights \(\pi_h\) are fitted. The
-saved fit uses 731 available training cycles in 48 unique stock/block tasks,
-with exits through end-2020. Each task contributes its label counts once;
-reusing the same task at several queries does not duplicate its fitting
-weight. Labels are checked against the canonical net-return oracle.
-
-For task counts \((s,f)\) the likelihood is
-\(L_h(s,f)=B(a_h+s,b_h+f)/B(a_h,b_h)\). MAP-EM starts with uniform weights,
-uses a symmetric \(\operatorname{Dirichlet}(2,\ldots,2)\) prior, and updates
-\(\pi_h=(\sum_j\gamma_{jh}+1)/(N_{\mathrm{tasks}}+16)\).
-The grid is fixed; there is no search for new component shapes on query
-data. The registered limit is 1,000 iterations with maximum weight change
-below \(10^{-10}\) required for convergence. The saved teacher converged in
-237 iterations. Nonconvergence would stop preparation, not substitute a
-uniform teacher.\footnote{BG11 teacher likelihood/fit/predict and TR03 saved teacher; 48 tasks/731 cycles/237 iterations are artifact values. The Bayesian derivation in Section 3.6 describes this convention; it does not claim generic equivalence to an external architecture.}
-
-\textbf{Conditioning at inference.} A latent family is shared across prior and
-target tasks in the teacher's episode model, with separate task-specific
-Bernoulli rates given that family. For visible prior-task counts
-\((s_j,f_j)\) and target counts \((s_T,f_T)\),
-
-\[
-w_h\propto\pi_h\left[\prod_{j=1}^{K}L_h(s_j,f_j)\right]
-L_h(s_T,f_T),\qquad
-q=\sum_h w_h\frac{a_h+s_T}{a_h+b_h+s_T+f_T}.
-\]
-
-The weights \(w_h\) normalize over the 16 families. Prior labels update the
-shared family posterior; they are not pooled into the target's success
-count. Target labels update both the family posterior and target-rate
-predictive. The query's label is absent. The teacher validates numerical
-inputs but does \textbf{not} use their feature values in this likelihood.
-Changing the posterior with new visible context is conditioning under
-fixed parameters, not refitting \(\pi\).
-
-\textbf{Synthetic distillation episodes.} Training samples \(K\) uniformly from
-0--3, each prior size from 2--8, and target size \(m\) from 0--8. A family is
-drawn from the fitted mixture, each task receives an independent Beta rate
-given that family, and its labels are Bernoulli draws. Whole four-feature
-vectors are sampled with replacement from the 731-row frozen training
-pool. Their within-vector dependence is retained, but the sampled vectors
-are independent of synthetic family/rate/label draws; source-market
-outcomes are not copied as synthetic labels. Prior-task order is permuted.
-
-RNG domains and fixed stream IDs separate structure, latent variables,
-features, labels and permutations. A synthetic query label, where generated,
-is a sidecar unused by the input and loss. Fixed validation/test corpora
-contain 5,000 episodes each, including a registered 500-case stress portion;
-the training stream uses generative episodes. This design teaches the
-registered context-to-probability relation. It does not itself demonstrate
-that a feature value causes a stock return or that synthetic agreement
-establishes market calibration.\footnote{SYS34 synthetic sampler, SYS38 input contract and TR02 corpus recipe. Source feature labels, synthetic labels, latent sidecars and teacher targets are separate objects.}
-
-\textbf{The evaluated packing and architecture.} Production uses \texttt{PAIRED\_\allowbreak{}37}.
-Each prior task and the target start with marker \((0,0,0,0,-1,1)\).
-A labeled observation is \((v_1,v_2,v_3,v_4,y,0)\); Q is
-\((v_{q,1},v_{q,2},v_{q,3},v_{q,4},0,1)\), explicitly marking the missing
-query label. Role embeddings distinguish prior, target and query; four
-task slots distinguish up to three priors and the shared target/query slot.
-IDs, dates, return magnitudes and true latent variables are not numerical
-token coordinates. Teacher probability \(q\) is a detached loss sidecar.
-
-A six-to-128 linear projection is added to learned role, slot and absolute
-position embeddings. Two pre-normalized self-attention blocks use hidden
-size 128, four heads, feed-forward width 256, GELU and zero dropout, followed
-by final LayerNorm and a scalar linear head. The implementation uses
-\texttt{TransformerEncoder} blocks with a strictly causal attention mask and a
-right-padding key mask. It has \textbf{271,873 parameters} and operates in FP32.
-The maximum length is 37 numerical tokens, not 37 text tokens or all the
-source history. EX01 has 14 labeled observations, four task markers and Q:
-19 tokens, with Q at zero-based position 18.
-
-The older 69-token split-X/Y packing was a diagnostic pilot. Its weights
-were discarded; it is not the evaluated production architecture or an
-ensemble member. The frozen runtime's paired implementation loads the
-selected paired weights under the pinned adapter contract.
-\footnote{BG12 training student/packer and SYS37 runtime paired student, plus SYS36 adapter. Shape/parameter/packing checks use source and saved context; no neural forward is performed to write this section.}
-
-\textbf{Loss and training recipe.} For query logit \(\ell_Q\), each episode's loss is
-
-\[
-\mathcal L=-q\log\sigma(\ell_Q)
--(1-q)\log(1-\sigma(\ell_Q)).
-\]
-
-Loss is applied only at Q and averaged over the effective batch. It uses
-the teacher's visible-context posterior predictive, not a sampled latent
-rate, realized synthetic query label or market BCE term. The recorded
-production recipe is:
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
-\caption{Teacher and student - supporting detail}\label{tab:04_proposed_system:17}\tabularnewline
-\toprule\noalign{}
-Setting
- & Locked value
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Setting
- & Locked value
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Model seeds / training length & 17, 42, 73; fresh weights per seed; 5,000 optimizer steps per seed \\
-Batch / stream size & Effective batch 128; recorded physical batch 128; 640,000 synthetic episodes per seed \\
-Optimizer & AdamW, betas (0.9,0.999), epsilon \(10^{-8}\), weight decay 0.01 \\
-Learning rate & Linear warm-up for 250 steps to \(3\times10^{-4}\), then cosine decay to \(3\times10^{-5}\) at step 5,000 \\
-Gradient / precision & Global norm clipping at 1.0; FP32; AMP and TF32 disabled \\
-Checkpoints & Every 250 steps: 20 per seed, 60 total; no metric-based early stopping \\
-\end{longtable}
-
-\endgroup
-
-\textbf{Selection and the artifact actually served.} All 60 checkpoint reports
-are required. Eligibility first checks registered synthetic approximation
-and prior-label-swap gates, including mean KL at most 0.02 nats, 95th
-percentile absolute error at most 0.10, at least 200 eligible swap pairs
-and sign agreement at least 0.90, plus the constant-control and technical
-checks. Among eligible checkpoints, ranking uses 2021 market macro log
-loss, then macro Brier score, each rounded to 12 decimals, then earlier
-step and registered seed order. Thus 2021 market labels influence model
-selection even though optimizer loss is synthetic-only. Test corpora and
-2022 market evaluation open after the immutable selection seal; they do
-not justify reselection after a failed test.
-
-The recorded global choice is \textbf{seed 42, step 3,000}, not the final
-step-5,000 checkpoint. The exported candidate has its own byte hash;
-the resumable training checkpoint also contains optimizer/RNG state and
-has a different hash. The selected tensor fingerprint begins
-\texttt{c60ae9695dde}; source/checkpoint/export bindings are in ledger §9.15.
-This draft checks stored reports and identities without training, loading
-weights or rerunning their old forward/evaluation gates.
-
-At query time the adapter verifies component hashes, loads fixed weights
-on CPU, disables gradients, enters evaluation/inference mode and reads
-the sigmoid-transformed query logit. Fingerprint checks detect weight
-changes. There is no optimizer update on the market query and no silent
-replacement probability after failure. EX01's saved student probability
-is 0.38681803029367656. It is a numerical prediction under this distilled
-resource, distinct from LLM confidence, a teacher interval, utility or the
-later realized return. Utility and action revision require the separate
-contracts below.\footnote{SYS35/SYS40/SYS41 recipe, learner and selection logic; TR04--TR08 checkpoint/export/selection/state/assessment bindings. Sixty saved assessment hashes and the ranking choice are checked from receipts, not reevaluated. EX01 student probability is read from U08 MT preparation.}
-
-\subsection{Utility}\label{s:2fde9b3e9d8b15d2}
-
-The sign model predicts whether the canonical net return is positive.
-Utility additionally needs the magnitudes of gains and losses. It is
-measured in \textbf{net-return fractions relative to CASH}, with transaction
-costs already included in each historical return. Costs are not subtracted
-a second time, and neither LLM confidence nor its stated R:R supplies a
-magnitude estimate.\footnote{BG13 \texttt{support\_\allowbreak{}reason/\allowbreak{}posterior\_\allowbreak{}utility/\allowbreak{}common\_\allowbreak{}uniforms}, BG11 teacher posterior and SYS33 wire validation; CL093--CL094, ledger §9.17. The sampler and its assumptions are described from the frozen source.}
-
-\textbf{Support before sampling.} The context must be AVAILABLE, with a complete
-45-bar factual window ending at cutoff, a known bucket, at least two prior
-tasks, and at least five positive and five nonpositive historical returns.
-Counts use each selected observation once across prior and target groups;
-zero belongs to the nonpositive group. The implementation does not balance
-labels, widen the bucket or add distant observations to reach the threshold.
-An unsupported utility wire records counts and its reason, zero draws and
-null estimates. Missing or invalid student output for a supported context
-is an error, not permission to substitute the teacher silently.
-
-\textbf{Teacher sign posterior and bootstrap magnitudes.} Let \(w_j\) be the
-teacher's posterior family weights from Section 4.8.3 and \((s_T,f_T)\) the
-target counts. For each of 4,096 draws,
-
-\[
-J^{(b)}\sim\operatorname{Categorical}(w),\qquad
-\theta^{(b)}\sim\operatorname{Beta}(\alpha_{J^{(b)}}+s_T,
-                                      \beta_{J^{(b)}}+f_T).
-\]
-
-Prior counts affect \(w\) through their separate task likelihoods. They are
-not pooled into the target's Beta counts. For the selected positive-return
-set \(G\) and nonpositive-return set \(L\), independent exponential weights give
-
-\[
-g^{(b)}=\frac{\sum_{i\in G}E_i^{(b)}r_i}{\sum_{i\in G}E_i^{(b)}},\qquad
-\ell^{(b)}=\frac{\sum_{i\in L}E_i^{(b)}|r_i|}{\sum_{i\in L}E_i^{(b)}},
-\quad E_i^{(b)}\sim\operatorname{Exp}(1),
-\]
-
-\[U^{(b)}=\theta^{(b)}g^{(b)}-(1-\theta^{(b)})\ell^{(b)}.\]
-
-Thus sign inference retains task boundaries, while magnitude estimation
-uses the admitted observations pooled by sign. There is no extra
-similarity or age weighting in this magnitude bootstrap. Its exchangeability
-and transfer assumptions are modeling assumptions, not consequences of PIT.
-Student probability is recorded alongside these estimates; it does not
-replace \(\theta^{(b)}\) in the implemented utility.
-
-The analytical mean is \(\bar\theta\,\bar g-(1-\bar\theta)\bar\ell\);
-the Monte Carlo mean is the mean of the saved utility draws. They need not
-be identical in a finite simulation. Q10 and Q90 use linear empirical
-quantiles. The audit records draw/membership hashes and Monte Carlo error.
-Deterministic component streams depend on protocol, point and component,
-including the observation ID for magnitude weights, but not branch/repeat.
-This supplies common random numbers on overlapping subsets; each subset
-still renormalizes its weights. It does not make repeated LLM responses
-independent market observations.
-
-\textbf{EX01, recorded estimates.} Its 14 observations contain five gains and
-nine nonpositive returns, with \(K=3,m=3\), so support is sufficient.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7000}}@{}}
-\caption{Utility - supporting detail}\label{tab:04_proposed_system:18}\tabularnewline
-\toprule\noalign{}
-Recorded quantity
- & Net-return fraction, unless indicated
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Recorded quantity
- & Net-return fraction, unless indicated
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Student sign probability & 0.38681803029367656 (probability) \\
-Teacher posterior mean \(\theta\) & 0.3777360437578734 (probability) \\
-Analytical mean utility & \ensuremath{-}0.00597534968574255 \\
-Monte Carlo mean utility & \ensuremath{-}0.006077377243185831 \\
-Q10 / Q90 utility & \ensuremath{-}0.01288257428075956 / +0.0002422913686701239 \\
-\end{longtable}
-
-\endgroup
-
-The mean is approximately \ensuremath{-}0.598\%, while Q90 is approximately +0.0242\%.
-These are model-based estimates from historical context, not the query's
-realized return, a calibrated coverage guarantee, or a recommendation
-forced by the sign of the mean. The recorded draw hash is bound in the
-ledger; writing this section does not regenerate the draws.\footnote{U08 EX01 MT preparation \texttt{aux.\allowbreak{}branch.\allowbreak{}utility}, membership shared with Section 4.8.2; CL095. Source is \texttt{TEACHER\_\allowbreak{}SIGN\_\allowbreak{}BAYESIAN\_\allowbreak{}BOOTSTRAP\_\allowbreak{}MAGNITUDE}; draws=4096. Quantities are read from the saved wire, not a new simulation.}
-
-\subsection{Context projection}\label{s:855e247535363753}
-
-The numerical model consumes all admitted observations in the structured
-context. The hosted model receives a bounded textual projection of that
-context alongside current reports, the fact card and anchor reference.
-These are different interfaces. Projection does not delete observations
-from numerical inference or turn displayed examples into the denominator
-of historical statistics.\footnote{SYS43 \texttt{project\_\allowbreak{}context/\allowbreak{}prepare\_\allowbreak{}variants}, BG09 task distances/ages and SYS33 contracts; CL098--CL099, ledger §9.18. All-member summaries and exemplar selection are different operations.}
-
-For each selected prior task and the target, the projection records
-\texttt{n/\allowbreak{}w/\allowbreak{}l/\allowbreak{}r}: full group size, positive/nonpositive label counts and mean net
-return fraction. Its age range is measured in calendar days since the
-historical exit. At most one exemplar per nonempty group is displayed:
-smallest query-feature distance, then latest decision date, then ID. The
-target exemplar follows this projection rule even though target membership
-was selected by recency. The audit retains the exemplar's actual ID, vector,
-label, return and age; the short text uses the group label rather than
-printing every ID.
-
-Displayed feature codes are \(q_j=\operatorname{clip}(\operatorname{rint}(2v_j),
--8,8)\), with ties rounded to even. They coarsen the four clipped standardized
-features; they are neither new indicators nor the tensor received by the
-student. \texttt{Q} has its vector code but no outcome label or realized return.
-The \texttt{small\_\allowbreak{}target} marker flags \(m\leq3\); it does not fabricate more target
-observations. The MT prefix includes the student probability rounded to
-three decimals, analytical/Monte Carlo utility means, Q10/Q90 and magnitude
-support counts. A legend distinguishes fractions, ages, group summaries,
-exemplars and probability from expected return.
-
-\textbf{Annotated EX01 projection.} The original Vietnamese prefix has exactly
-437 characters, including newlines, and is an exact substring of the
-4,586-character saved request. The following is an \textbf{English presentation
-translation}, not the original request or a newly submitted prompt:
-
-\begin{Verbatim}[fontsize=\small,breaklines=true,breakanywhere=true]
-MT3 K3 m3 small p=0.387
-P1 n5 w4 l1 r+0.0109 a916..987 e(0,0,-2,0)>1,r+0.0335,a987
-P2 n4 w0 l4 r-0.0155 a581..615 e(0,0,-2,0)>0,r-0.011,a581
-P3 n2 w0 l2 r-0.0399 a719..727 e(2,1,-1,2)>0,r-0.0327,a727
-T n3 w1 l2 r-0.00194 a4..12 e(0,1,-3,0)>0,r-0.00118,a4
-U(mean,MC,Q10,Q90)=-0.00598/-0.00608/-0.0129/+0.000242 n+5 n-9
-Q(0,0,-3,0)
-q=(mom5,mom20,vol20,ma20) approximately 2z; y=1: net>0;
-r,U: net fractions; a: age in days; n/w/l/r: full group;
-e: displayed exemplar; p=P(y=1), not expected return
-\end{Verbatim}
-
-For example, P1's four wins describe all five admitted P1 observations,
-not just its single displayed winning exemplar. The four displayed
-exemplars are FPT-2020-10-14, FPT-2021-11-24, FPT-2021-07-01 and
-FPT-2023-06-26, respectively. The last is only one of three target
-observations. Full group means and ages are retained in \texttt{projection.\allowbreak{}summary};
-rounded prompt numbers are not substituted into policy's full-precision
-utility values.\footnote{U08 EX01 MT \texttt{aux.\allowbreak{}branch.\allowbreak{}projection} and request; CL100. Original prefix, exemplar IDs, full summaries and membership hash are retained; the displayed translation does not inherit the original character count.}
-
-\textbf{What each Decision family receives.} All rows retain the fixed economic
-contract; report selection and instruction differences remain those of
-Sections 4.3--4.4. Historical labels in a prior are permitted only after
-maturity; none of these interfaces receives the query label.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3900}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3700}}@{}}
-\caption{Context projection - supporting detail}\label{tab:04_proposed_system:19}\tabularnewline
-\toprule\noalign{}
-Family
- & Historical/factual material added to current reports
- & Reply and downstream use
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Family
- & Historical/factual material added to current reports
- & Reply and downstream use
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Native & No historical prefix; Native alpha/report profile & Base trade schema; map LONG/SHORT to LONG/CASH \\
-Common & Common instruction, no historical prefix & Same base schema; durable dependency for priors/anchor \\
-Bayesian v1 & Population rates and up to three signal examples, Section 4.6 & Base schema; Common fallback if retrieval unavailable \\
-C2 / A / B & Only ready statistics/examples; matching and presentation as Section 4.7 & Base schema; independent readiness, Common fallback when neither ready \\
-Fact Anchor & Numeric fact card and required fact citations; no MT projection, p or U & Extended fact reply, NOT\_\allowbreak{}APPLICABLE; resolve reference action \\
-MT\_\allowbreak{}BICL & Facts, anchor reference and bounded task projection with p/U & Extended fact reply, SUPPORTED; external revision policy \\
-\end{longtable}
-
-\endgroup
-
-The request envelope binds point/repeat, model, options, complete messages
-and structured schema. The final MT prompt also carries a short \texttt{a0=LONG}
-source reference. On the causal-alpha path the adapter derives a
-\texttt{pit\_\allowbreak{}anchor\_\allowbreak{}card\_\allowbreak{}v1} content digest from the Common request, facts and raw
-Common/anchor replies, replacing the short proof reference in the prompt.
-For EX01 its prefix is \texttt{c2cf2858\allowbreak{}8843ea3e}; the complete policy proof hash
-remains separate. These digests identify content; they do not certify the
-truth of free-text reasoning.\footnote{SYS42 prompt/schema builder, SYS18 Common instruction, BG18 causal source card and final guard; CL101. Envelope/request hashes retain source language and model options, not a presentation translation.}
-
-At \(K=3\) the MT projection must be at most 600 characters. The fact card
-has its separate 700-character cap, the anchor card 80, and the \textbf{final}
-assembled Decision text must be below 6,500. Overflow raises an error;
-counts, legends and membership are not silently cut to fit. The complete
-EX01 r0 request lengths are Native 3,699, Common 4,186, v1 4,556,
-Fact Anchor 3,916 and MT 4,586. C2/A/B have no sent request at this point,
-so they have no observed prompt length to fill with a hypothetical request.
-
-Registered component projections additionally support \texttt{Stats\_\allowbreak{}only}
-(no exemplars), \texttt{No\_\allowbreak{}target} (remove target, then recompute probability and
-utility), \texttt{No\_\allowbreak{}utility} (no U) and \texttt{Plain\_\allowbreak{}revision} (no p or U).
-Plain\_\allowbreak{}revision/No\_\allowbreak{}utility retain the Full support mask and membership,
-despite omitting fields from the hosted request. These interventions are
-not all roles in the unified study, and availability of a builder alone
-does not establish a completed performance comparison.
-
-\subsection{External policy}\label{s:9b835e651fec3c25}
-
-The hosted revision produces a \textbf{raw proposal}. External deterministic
-policy decides whether its mapped LONG/CASH action may replace the anchor
-\(a_0\). Eligibility means sufficient numerical support and a valid anchor;
-it does not mean the proposal is profitable. An invalid anchor or
-unsupported context bypasses the revision request and retains \(a_0\).
-Required malformed, missing or inconsistent artifacts raise an error;
-technical failure does not become a completed CASH prediction.
-
-For an eligible completed response, the policy first checks all three fact
-assertions and requires \texttt{context\_\allowbreak{}reason=SUPPORTED}. Failure retains the
-anchor with \texttt{REJECT\_\allowbreak{}FACT\_\allowbreak{}ASSERTIONS}. A valid proposal equal to the anchor
-is kept with \texttt{KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME}, without a quantile test. Only a valid
-different action reaches the utility gate:
-
-\[
-\Delta U=\begin{cases}
-U,&a_0=\mathrm{CASH},\ a=\mathrm{LONG},\\
--U,&a_0=\mathrm{LONG},\ a=\mathrm{CASH}.
-\end{cases}
-\]
-
-For MT\_\allowbreak{}BICL, accept the change \textbf{only if} \(Q_{0.1}(\Delta U)>0\).
-CASH\ensuremath{\rightarrow}LONG therefore requires Q10(\(U\))\textgreater0; LONG\ensuremath{\rightarrow}CASH requires
-\ensuremath{-}Q90(\(U\))\textgreater0, equivalently Q90(\(U\))\textless0. Equality rejects the change.
-The latter direction uses the upper utility quantile, not \ensuremath{-}Q10(\(U\)).
-Rejection retains \(a_0\) with \texttt{REJECT\_\allowbreak{}NONPOSITIVE\_\allowbreak{}Q10\_\allowbreak{}DELTA\_\allowbreak{}U}; acceptance
-records \texttt{ACCEPT\_\allowbreak{}POSITIVE\_\allowbreak{}Q10\_\allowbreak{}DELTA\_\allowbreak{}U}. The fixed entry/exit and fees remain
-unchanged.\footnote{BG14 \texttt{apply\_\allowbreak{}revision/\allowbreak{}utility\_\allowbreak{}only}, BG18 \texttt{resolve}, SYS33 action/schema contracts; CL096--CL097 and ledger §9.17. F07 and the four gate rows are explanatory artifacts, not new experimental evidence.}
-
-\begin{figure}[htbp]\centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{../assets/diagrams/F07_action_policy.pdf}
-\caption{F07. Anchor-relative action revision}\label{fig:F07}\end{figure}
-
-\textbf{Figure F07.} The implemented MT\_\allowbreak{}BICL revision path separates support
-bypass, invalid response assertions, same-action retention and the strict
-quantile gate. Technical errors stop execution with recoverable evidence.
-The Fact Anchor is resolved before this tree. Source: BG14/BG18 and SYS33;
-schematic, not measured transition frequencies.
-\href{../assets/diagrams/F07_action_policy.pdf}{PDF} ·
-\href{../assets/diagrams/F07_action_policy.tex}{TikZ source}.
-
-\textbf{Illustrative gate examples, not additional research responses.} Assume
-a valid anchor, supported context and a matching structured response.
-All intervals below are hypothetical net-return fractions.
-
-\begingroup
-\small
-\setstretch{1.05}
-\setlength{\tabcolsep}{3pt}
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
-\caption{External policy - supporting detail}\label{tab:04_proposed_system:20}\tabularnewline
-\toprule\noalign{}
-Anchor \ensuremath{\rightarrow} proposal
- & Q10(\(U\))
- & Q90(\(U\))
- & Q10(\(\Delta U\))
- & Result
- \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Anchor \ensuremath{\rightarrow} proposal
- & Q10(\(U\))
- & Q90(\(U\))
- & Q10(\(\Delta U\))
- & Result
- \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-CASH \ensuremath{\rightarrow} LONG & +0.002 & +0.010 & +0.002 & Accept LONG \\
-CASH \ensuremath{\rightarrow} LONG & 0 & +0.010 & 0 & Retain CASH \\
-LONG \ensuremath{\rightarrow} CASH & \ensuremath{-}0.012 & \ensuremath{-}0.001 & +0.001 & Accept CASH \\
-LONG \ensuremath{\rightarrow} CASH & \ensuremath{-}0.012 & +0.001 & \ensuremath{-}0.001 & Retain LONG \\
-\end{longtable}
-
-\endgroup
-
-These examples explain the rule, without generating LLM replies or
-reevaluating research cases. A negative mean alone is insufficient for a
-LONG\ensuremath{\rightarrow}CASH revision. EX01's raw LONG already equals anchor LONG, so its
-actual reason is KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME and its delta-quantile field is null.
-Even a hypothetical CASH proposal using that interval would fail because
-Q90 is positive. EX01 therefore illustrates retention, not an observed veto.
-
-The implemented component interventions \texttt{Plain\_\allowbreak{}revision} and \texttt{No\_\allowbreak{}utility}
-omit the numeric veto: an eligible, fact-valid different action is accepted
-with \texttt{NO\_\allowbreak{}NUMERIC\_\allowbreak{}VETO}. \texttt{Utility\_\allowbreak{}only} is a separate numerical comparator,
-LONG iff support exists and Q10(\(U\))\textgreater0; it does not consume an LLM action.
-These registered component paths are distinct from the eight roles of the
-unified hosted study and must not be counted as additional unified methods.
-
-\subsection{Traceability}\label{s:de17199a4130f6e7}
-
-Each forecast retains a request hash, raw response/request ID, shared parent
-and dependency hashes. Policy is a separate record: raw proposal, anchor,
-fact validity, eligibility, bypass, reason, delta-utility quantile and final
-action. A proposal of SHORT maps to CASH; the raw SHORT string remains
-available. A bypass has no revision response/request ID. A completed but
-invalid assertion response has raw evidence and is not a bypass.
-
-For EX01 MT\_\allowbreak{}BICL, request \texttt{cc6bf729-\allowbreak{}784a-\allowbreak{}458a-\allowbreak{}8e40-\allowbreak{}07398fac513f} proposes
-LONG. The same-repeat Fact\_\allowbreak{}Anchor proof supplies LONG; eligibility and
-assertion validity are true, bypass is false, reason is
-KEEP\_\allowbreak{}PROPOSED\_\allowbreak{}SAME, and final action is LONG. The anchor proof hash is
-\texttt{1b4a5846\allowbreak{}92244365\allowbreak{}7bae8e91\allowbreak{}d68c7489\allowbreak{}dfd58ea9\allowbreak{}2688bdce\allowbreak{}007cb29b\allowbreak{}14f70049}.
-This attributes the proposal to the hosted model and retention to policy;
-it does not attribute the action to the student alone. Query prices and
-labels are joined only after the forecasting barrier in Section 4.9.
+\includegraphics[width=\linewidth,height=.35\textheight,keepaspectratio]{../assets/diagrams/F07_action_policy.pdf}
+\caption{External action revision distinguishes eligibility, factual
+agreement and anchor-relative utility. Quantiles are model-based policy
+inputs, not profit guarantees.}\label{fig:F07}
+\end{figure}
+
+FPT's supported MT reply cites the facts, proposes LONG and retains its
+LONG anchor. There is no action change or utility veto. A hypothetical
+LONG$\to$CASH revision would need $-Q90(U)>0$; the saved positive Q90
+does not pass, despite a negative mean. That hypothetical check explains
+the rule without claiming an observed veto. The four displayed groups,
+student probability, hosted proposal and retained action answer distinct
+questions; none alone identifies a mechanism's causal benefit.
 
 \section{Variant orchestration and complete algorithms}\label{s:21530b5246fd89f6}
 
