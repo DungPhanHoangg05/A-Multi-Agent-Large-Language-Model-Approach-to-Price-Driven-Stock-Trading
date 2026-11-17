@@ -1,0 +1,210 @@
+{
+  "schema": "thesis_release_manifest_v1",
+  "manuscript_version": "thesis-review-20261117-r1",
+  "source_ref": "refs/tags/thesis-review-20261117-r1",
+  "source_ref_availability": "AUTHOR_HELD_LOCAL_TAG_NOT_PUBLISHED_TO_REMOTE",
+  "source_ref_resolution_command": "git rev-parse 'thesis-review-20261117-r1^{commit}'",
+  "source_ref_policy": "Tag is assigned to the commit containing this manifest and must not be moved. A named ref avoids embedding a commit hash into its own commit.",
+  "prior_manuscript": {
+    "commit": "7a1b77f1c7915779fd0fb4856cde823d017b9a28",
+    "pdf_pages": 60,
+    "pdf_sha256": "2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922",
+    "role": "Earlier manuscript; not the source of this revised PDF."
+  },
+  "experimental_implementation": {
+    "commit": "384725a66fec074700963fac67c358b28b842092",
+    "snapshot_path": "docs/plan/week12/final_evidence_snapshot.zip",
+    "snapshot_sha256": "80fed8c9a1c265098a394bfc40f13d7f0266c1e05abdb142fba01d873cb8b8b5",
+    "context_results_version": "u09_analysis_r1",
+    "context_results_package": "docs/plan/week12/unified_analysis_results.zip",
+    "context_results_package_sha256": "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9",
+    "response_collection_version": "u08_research_r1",
+    "response_collection_package": "docs/plan/week12/unified_live_research.zip",
+    "response_collection_package_sha256": "5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c",
+    "component_index": "docs/plan/revision_evidence/index.json",
+    "role": "Frozen research implementation/evidence, distinct from manuscript source version."
+  },
+  "pdf": {
+    "path": "thesis/release/thesis.pdf",
+    "sha256": "2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b",
+    "bytes": 737589,
+    "pages": 67,
+    "portrait_only": true,
+    "rotation": 0,
+    "appendices": 0
+  },
+  "document_build": {
+    "entrypoint": "thesis/latex/main.tex",
+    "command": "py -3.13 thesis/latex/tools/build.py --output-dir tmp/pdfs/reproduce-review --passes 4",
+    "toolchain": {
+      "engine": "LuaHBTeX 1.24.0 (MiKTeX 25.12)",
+      "latex": "LaTeX2e 2025-11-01",
+      "bibliography": "Biber 2.21",
+      "font": "Latin Modern",
+      "migration_only": "Pandoc 3.9 via pypandoc_binary 1.17; not needed for builds"
+    },
+    "clean_isolated_build": true,
+    "original_checkout_markdown_archive_template_inputs": false,
+    "byte_identical_rebuild_claimed": false,
+    "note": "PDF hash identifies the distributed artifact; independent builds may differ in timestamps/environment. Compare source, content and layout as well."
+  },
+  "build_inputs": [
+    {
+      "path": "thesis/assets/figures/F04_pattern.png",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 52655,
+      "sha256": "d423db489a59706c4aae32e1f9de49cc63f73eded74f8e6f97c018cd1211200f"
+    },
+    {
+      "path": "thesis/assets/figures/F04_trend.png",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 75628,
+      "sha256": "93744337e0d375c04973332e4dba86c75d55d79398ed4553ad26a8d8593f3734"
+    },
+    {
+      "path": "thesis/assets/figures/UET_logo.jpg",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 91608,
+      "sha256": "d71ffc8c4e8d40e1497d54c1fb25621bcd8ef8c0ad0cb73ee0c356980be66229"
+    },
+    {
+      "path": "thesis/assets/figures/review_mt_resolution.pdf",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 12200,
+      "sha256": "2c7be6c1c511e1ff71ff6a19da1c4bdeb86a49fbdf4294984e7e4e7a15654f0b"
+    },
+    {
+      "path": "thesis/assets/figures/review_return_contrasts.pdf",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 13888,
+      "sha256": "359192353453e8429932bea33e4a049807e7a64b6e612fc3d3bddd54f1238781"
+    },
+    {
+      "path": "thesis/latex/chapters/01_introduction.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 6296,
+      "sha256": "5fefc68ead8167a51ff3203ce7c60c1c2308508c5ded5c7203bbf5402ce2d541"
+    },
+    {
+      "path": "thesis/latex/chapters/02_related_work.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 11079,
+      "sha256": "562291a466d48af88ad4b33c16dbb14a686db9b4d659da7e120e8b9f9f934605"
+    },
+    {
+      "path": "thesis/latex/chapters/03_background.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 13620,
+      "sha256": "de22b4ca4817b5b5ce2f960a78d38eb0cbe1f87d22534e76c7a114f23b3d4cf1"
+    },
+    {
+      "path": "thesis/latex/chapters/04_proposed_system.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 56743,
+      "sha256": "20b52d0d569c3d960b5d18765c065cccd5754158f3126ee2ec3dce007f6a5e25"
+    },
+    {
+      "path": "thesis/latex/chapters/05_experiments.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 50699,
+      "sha256": "8db0bbe28f2706d01c6bf719fea6d55257415d1586d438d6ff4be8b95c6c6075"
+    },
+    {
+      "path": "thesis/latex/chapters/06_conclusion.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 4816,
+      "sha256": "b190c96f2e609518fb23149f3dcc7d26392fd828ffb7c49270919fae2c6a7e3d"
+    },
+    {
+      "path": "thesis/latex/frontmatter/content.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 3227,
+      "sha256": "db3c628a5864ffc67e7503d3bb4002f25b6c623100cb58c3f9db58e1f7501bf4"
+    },
+    {
+      "path": "thesis/latex/frontmatter/covers.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 2187,
+      "sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+    },
+    {
+      "path": "thesis/latex/frontmatter/reference_lists.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 2474,
+      "sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
+    },
+    {
+      "path": "thesis/latex/main.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 732,
+      "sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
+    },
+    {
+      "path": "thesis/latex/preamble.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 2916,
+      "sha256": "46c805cfe6686c9f4706b9a7cba53facae225fc5f7021ea102724918731940d5"
+    },
+    {
+      "path": "thesis/references.bib",
+      "normalization": "LF",
+      "bytes_after_normalization": 9446,
+      "sha256": "56f3d621ef6be49805604a1956129e917db09dd2800f4fb57320fc4c12cdc462"
+    }
+  ],
+  "build_input_inventory_sha256": "1f1da3b6790e2e40d54f2533e08d59d4f2971e63102c2a69a5c7c4c0beb81427",
+  "supporting_files": [
+    {
+      "path": "thesis/latex/README.md",
+      "normalization": "LF",
+      "bytes_after_normalization": 7199,
+      "sha256": "1a45942226764c37aca737fb07f3bc104833594ede18696df71baf10f5bade5a"
+    },
+    {
+      "path": "thesis/latex/tools/build.py",
+      "normalization": "LF",
+      "bytes_after_normalization": 3732,
+      "sha256": "e1386f48db9eb76d45cdbd5d8719af204aa9a7ce740bf934a19bb5454929abb0"
+    },
+    {
+      "path": "thesis/latex/tools/check.py",
+      "normalization": "LF",
+      "bytes_after_normalization": 7154,
+      "sha256": "5516cdbf424108c1117b8a6a1fca6a199ebadcb7198276da809484db70095735"
+    },
+    {
+      "path": "thesis/latex/.gitattributes",
+      "normalization": "LF",
+      "bytes_after_normalization": 228,
+      "sha256": "d9f3b3b7b2c23012f2bdf163cc4502af5e56c6724a8c0c068eb4bb6ca0ee0478"
+    },
+    {
+      "path": "thesis/latex/licenses/QuantAgent-MIT.txt",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 1072,
+      "sha256": "fd88b41d9a41ecbb0e813a76564ec8c281b65e187e4ca464ea0f787b141f2525"
+    },
+    {
+      "path": "thesis/assets/figures/review_results.py",
+      "normalization": "LF",
+      "bytes_after_normalization": 4013,
+      "sha256": "f9ee43ddefe106d47e93e17545cdbb26a286c632a80a23503df58b6fce718772"
+    },
+    {
+      "path": "thesis/assets/tables/concise_results.source.json",
+      "normalization": "LF",
+      "bytes_after_normalization": 29329,
+      "sha256": "07b832340ab9303b4d5bdf33857a02ebe8d798e7939f9c3a82f62c2596c33693"
+    },
+    {
+      "path": "thesis/assets/tables/review_additions.source.json",
+      "normalization": "LF",
+      "bytes_after_normalization": 69569,
+      "sha256": "4d6a823fb46d59966bbb7da621429b453bd4f4037391d1ad52b075f35903770c"
+    }
+  ],
+  "source_map_path": "thesis/latex/source-map.json",
+  "self_reference_note": "Manifest excludes itself and source-map from hashed inputs. Source-map records this manifest hash.",
+  "handover_package_status": "NOT_YET_ASSEMBLED_P10_REMAINS_OPEN",
+  "access_limits": "Some research resources require author-mediated access; redistribution rights are not inferred from the repository URL."
+}

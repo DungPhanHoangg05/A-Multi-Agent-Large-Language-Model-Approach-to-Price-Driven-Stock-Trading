@@ -646,8 +646,11 @@ of example selection, statistics, prompt wording or the altered
 foundation. The Native contrast includes all those foundation changes;
 it cannot identify a pure regime effect. Its row-wise limitation also
 prevents treating its higher observed score as proof of a valid causal
-alternative. The sign changes under block-length and subset sensitivities
-make the baseline and support dependence substantive. Matched random,
+alternative. Changing block length changes whether the v1--Common
+uncertainty band includes zero, while its point estimate remains
+$+0.327$ pp. The v1--Native point estimate changes sign in selected subset
+and leave-one-fold/stock analyses. These distinct sensitivities make the
+baseline, support and dependence assumptions substantive. Matched random,
 recent and similarity retrieval, and statistics-only versus examples-only
 requests, would be needed to distinguish these explanations.
 
@@ -671,21 +674,24 @@ Brier scores do not supply it.
 \section{Code, Data and Reproducibility}\label{sec:reproducibility}
 The project entry point is the
 \href{https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma}{author's GitHub repository}.
-The hosted branch is not a substitute for a versioned evidence checkout.
-The manuscript reviewed for this revision is held at source commit
-\texttt{7a1b77f1}; readers requiring its exact inputs should request that
-author-held checkout and its frozen evidence, rather than assuming the
-latest public branch contains it. A standalone thesis-source handover
-package has not yet been prepared.
+Three versions must be distinguished. Commit \texttt{7a1b77f1} contains
+the earlier 60-page manuscript, not the source of this revised PDF.
+The source of this edition is identified by the author-held Git tag
+\texttt{thesis-review-20261117-r1}. Its companion
+\path{thesis/release/manifest.json} binds the versioned LaTeX inputs,
+bibliography and figure resources to the distributed PDF's SHA-256 hash.
+Readers should request that tagged checkout and manifest; the latest
+public branch need not contain the same edition. A standalone handover
+package remains a separate delivery step.
 
-In the matching checkout, start with
+The experimental implementation is pinned separately: the frozen
+\path{docs/plan/week12/final_evidence_snapshot.zip} records research
+source commit \texttt{384725a6}. Start with
 \path{docs/plan/week12/final_evidence_map.md}. The context results are
 \texttt{u09\_analysis\_r1}, backed by
 \path{docs/plan/week12/unified_analysis_results.zip}; the response
 collection is \texttt{u08\_research\_r1} in
-\path{docs/plan/week12/unified_live_research.zip}. The source/runtime
-snapshot \path{docs/plan/week12/final_evidence_snapshot.zip} records
-source commit \texttt{384725a6}. Component results are located by
+\path{docs/plan/week12/unified_live_research.zip}. Component results are located by
 \path{docs/plan/revision_evidence/index.json}, including
 \texttt{final\_baselines\_v1}, \texttt{final\_repeats\_v1} and
 \texttt{execution\_final\_v1}. These are distinct versioned objects;
@@ -735,8 +741,7 @@ change, whereas comparing with Common conditions on that changed
 foundation. Neither comparison alone isolates regime information. The
 observed Native historical-value changes and the limited scope of
 system-wide validation therefore bound the predictive interpretation
-of these results. The completed interface has been accepted by the author
-for the current study; this is an application-level acceptance.
+of these results.
 
 The principal contracts and unresolved gates are summarized in
 Table~\ref{tab:audits}. Detection of a known counterexample differs from
@@ -749,7 +754,7 @@ Contract & Available evidence & Remaining boundary\\\midrule
 Cutoff/pairing/economics & Checked prefixes, shared identities, canonical labels/accounting, scoped receipts & Native historical values can change; full-system causal validity is not established\\
 Bank/query provenance & Frozen membership and source-bound audit & 828/852 numeric return differences; missing original signal journals\\
 Prompt/recovery/replay & 718 source pins, observed max request 4,750 characters, three-attempt cap; cold artifact replay & Acceptance reused recorded tests; no new inference or hosted-weight guarantee\\
-Application/execution & Recorded offline checks, author acceptance of the completed interface and reference scenarios & Prospective trading and actual fills remain unvalidated\\\bottomrule
+Application/execution & Recorded offline application checks and reference execution scenarios & Prospective trading and actual fills remain unvalidated\\\bottomrule
 \end{tabular}\end{table}
 
 The 828/852 count concerns return differences above $10^{-8}$ pp between

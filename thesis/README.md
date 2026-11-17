@@ -142,3 +142,5 @@ không chạy lại suite runtime vì không đổi code/schema/runtime/input ng
 Theo yêu cầu tác giả sau T80l, bản nộp dùng mô tả học thuật thay các nhãn trạng thái viết hoa; nội dung giới hạn và bằng chứng giữ nguyên. Đã build lại67 trang, kiểm điều hướng và render; lịch sử trước chỉnh câu giữ trong source-map.
 
 **UI hiện hành:** giao diện đã hoàn thiện và được tác giả nghiệm thu cho phạm vi khóa luận ngày17/11/2026. Các mục UI còn chờ ở phần lịch sử không còn là trạng thái chấp nhận hiện hành; receipt kiểm thử cũ vẫn giữ nguyên.
+
+**Bản sau review sáu nhận xét:** nguồn PDF hiện hành là tag cục bộ `thesis-review-20261117-r1`; [manifest](release/manifest.json) khóa input/tài nguyên và hash PDF. §5.9 phân biệt với bản60 trang7a1b77f1 và mã thực nghiệm384725a6. Nghiệm thu UI chỉ mô tả ngắn tại§4.10; các ghi nhận trước là lịch sử. Chưa push tag hoặc đóng gói P10.

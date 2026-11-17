@@ -54,6 +54,32 @@ chạy bốn lượt LuaLaTeX và Biber; script từ chối cập nhật PDF đ�
 reference/citation hoặc ký tự thiếu. Các cờ `--passes`/`--skip-bibliography`
 chỉ phục vụ sửa bố cục khi bibliography không đổi, không thay full build.
 
+## Đúng phiên bản của bản PDF hiện hành
+
+Tag nguồn bản thảo là **`thesis-review-20261117-r1`**. Đây là tag cục bộ do
+tác giả giữ, chưa được công bố lên remote; cần nhận đúng tagged checkout
+từ tác giả nếu remote chưa có tag này. Commit `7a1b77f1` chỉ chứa bản thảo
+60 trang trước chỉnh sửa. Mã nguồn thực nghiệm là mốc riêng `384725a6`
+trong `docs/plan/week12/final_evidence_snapshot.zip`; không dùng nó làm
+định danh phiên bản nguồn LaTeX của PDF hiện hành.
+
+Từ tagged checkout tại gốc repository:
+
+```powershell
+git rev-parse 'thesis-review-20261117-r1^{commit}'
+py -3.13 thesis/latex/tools/build.py --output-dir tmp/pdfs/reproduce-review --passes 4
+Get-FileHash -Algorithm SHA256 thesis/release/thesis.pdf
+```
+
+`../release/manifest.json` liên kết tag, các input được recorder của build
+đọc, bibliography, tài nguyên hình, công cụ build và SHA-256 PDF phân phối.
+Hash văn bản được chuẩn hóa LF để không phụ thuộc chuyển CRLF khi checkout;
+hash ảnh/PDF là nguyên byte. Hash PDF dùng để kiểm artifact phân phối.
+Không cam kết hash của PDF mới build đồng nhất byte khi timestamp/toolchain
+khác; cần đối soát thêm nội dung, bố cục và môi trường đã ghi. Manifest không
+chứa hash của chính nó hoặc của source-map, tránh vòng phụ thuộc; source-map
+ghi hash manifest. Gói nguồn tự đủ và nghiệm thu từ gói giải nén vẫn thuộc P10.
+
 Đã ghi nhận LuaHBTeX 1.24.0/MiKTeX 25.12, LaTeX2e 2025-11-01 và Biber 2.21.
 T76 chuẩn hóa tháng thành số và bỏ trường năm không hợp lệ của model card
 không ngày (vẫn ghi rõ undated); không gán năm xuất bản mới. Bản hiện hành sau T80a–T80l có 67 trang A4 dọc/rotation0, không phụ lục,

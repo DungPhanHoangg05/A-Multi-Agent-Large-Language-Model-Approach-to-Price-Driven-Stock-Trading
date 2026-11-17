@@ -12,6 +12,8 @@ Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng
 
 **Xác nhận UI hiện hành ngày 17/11/2026:** giao diện đã hoàn thiện và được tác giả nghiệm thu cho khóa luận; chỉnh sửa tiếp theo là cải tiến. Những mô tả UI còn chờ trong đặc tả/receipt lịch sử giữ nguyên mốc cũ và được thay về trạng thái chấp nhận bởi xác nhận này; không nhận là đã thực hiện test browser mới.
 
+**Đã xử lý sáu nhận xét review bổ sung:** sửa pointer tái lập và câu độ nhạy; giảm lặp nghiệm thu UI, nêu rõ giới hạn regime/student. Bản67 trang gắn tag `thesis-review-20261117-r1` và manifest nguồn/PDF; chưa push hoặc đóng gói P10. Không thay đặc tả task hoặc tạo thực nghiệm mới.
+
 Có **84 task cha** qua mười giai đoạn và **24 task con P9**: T73a–T73l cho đợt rút gọn, T80a–T80l cho đợt bổ sung sau rà soát. T01–T72 ghi nhận lịch sử bản đầu tiên; T61–T66 và T71 đã hoàn thành theo phạm vi cũ, không còn là yêu cầu giữ phụ lục trong bản nộp mới. Phụ thuộc là điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái tại mục 2.1.
 
 **Quy ước ngôn ngữ:** trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng **tiếng Việt**. Toàn bộ **nội dung khóa luận** dùng **tiếng Anh**, gồm phần đầu, nội dung chương, tiêu đề, chú thích, nhãn hình/bảng và diễn giải khoa học. Dàn bài chương mục giữ tiếng Anh làm khung bản thảo. Giữ nguyên định danh chương trình, tên tài liệu và bằng chứng trích dẫn; đoạn nguồn không phải tiếng Anh cần được giải thích bằng tiếng Anh trong khóa luận và ghi rõ nếu là bản dịch phục vụ trình bày.

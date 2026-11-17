@@ -1,22 +1,18 @@
 % Kết luận tổng hợp đúng phạm vi đã báo cáo; không tạo kết quả mới.
 \chapter{Conclusions and Future Work}\label{s:3929b96346005341}
 \section{Approach and contributions}\label{s:fec2d201a3e32bcc}
-This thesis integrates a daily price-driven multi-agent pipeline with
-regime-aware historical evidence and numerical multi-task inference for
-Vietnamese-stock LONG/CASH decisions. Specialist price/chart reports,
-adapted alpha and dated sentiment form the current evidence; mature
-episodes or marked task datasets supply context. Fact Anchor and an
-external utility policy distinguish a hosted proposal from the final
-action. Shared upstream, canonical net-cycle accounting and a forecast
-barrier make the recorded path inspectable.
+This thesis integrates specialist price/chart reports, adapted alpha and
+dated sentiment with regime-aware historical context and numerical
+multi-task inference for Vietnamese-stock LONG/CASH decisions. Fact Anchor
+and an external utility policy separate hosted proposals from final
+actions. Shared upstream, canonical net-cycle accounting and a forecast
+barrier make the recorded paths inspectable.
 
-The contribution is this adaptation, context/policy integration and
-source-bound evaluation. QuantAgent-style roles, indicators, Alpha101,
-HMMs, Bayesian updating and multi-task ICL remain attributed foundations.
-The local teacher/student architecture and objective are adaptations,
-not claims to replicate the reference model or transfer its guarantees.
-Implementation and reproducibility are contributions even where the
-empirical comparisons do not establish a performance benefit.
+The contribution is an attributed adaptation, context/policy integration
+and source-bound evaluation of existing foundations: QuantAgent-style
+roles, indicators, Alpha101, HMMs, Bayesian updating and multi-task ICL.
+The local teacher/student model adapts the reference approach; its
+empirical value is assessed within the reported limits.
 
 \section{Answers to the research questions}\label{s:72579e525074c634}
 \paragraph{RQ1: combined information and controls.}
@@ -33,25 +29,29 @@ The v1-minus-Common return difference is +0.327 pp [0.067,0.586], while the v1-m
 $-0.045$ pp [$-0.362$,0.271], within the complete twenty-cell descriptive
 family. Its shorter-block Common band crosses zero. C2 and B each obtain
 only three new Decision replies and otherwise mostly inherit Common.
-All eight research-role means are negative. Outcomes depend on baseline,
-readiness and dependence assumptions; no isolated regime effect or
-prospective profitability is established.
+All eight research-role means are negative. Regime awareness is implemented,
+but its isolated benefit and robustness across all regimes have not been
+demonstrated. Signal-bank queries cover BULL, CHOPPY and CONSOLIDATION
+over only twelve dates, with no BEAR observations; MT query-state coverage
+is not established. A matched comparison with and without regime matching
+on the same points is needed to isolate its contribution.
 
 \paragraph{RQ3: factual anchoring and action revision.}
 MT and Fact Anchor agree in 302/306 final slots: 108 bypasses, 189
 same-action proposals, five rejected changes and four accepted changes.
 The MT--anchor return/BA bridge is +0.033/+0.433 pp, while MT's mean return
 remains negative. This combined path does not isolate the student,
-target context or utility benefit. A changed proposal and a changed final
-action are different events; enum-valid facts do not certify all prose.
+target context or utility benefit. The student is an implemented and
+approximation-verified component; these results do not establish a trading
+improvement over direct teacher calculation. A changed proposal and a
+changed final action are different events; enum-valid facts do not certify all prose.
 
 \paragraph{RQ4: contract evidence.}
-The records support particular source-bound checks of economic labels,
-pairing, forecast/outcome separation, prompt/retry/checkpoints and cold
-artifact replay. Native transformations exhibit historical-value changes;
+Recorded checks cover economic labels, pairing, forecast/outcome
+separation, prompt/retry/checkpoints and cold artifact replay.
+Native transformations exhibit historical-value changes;
 the checks do not establish full-system historical causal validity.
-The completed interface has been accepted by the author. Provenance and
-execution require further evaluation. These checks neither
+Provenance and execution require further evaluation. These checks neither
 freeze external hosted weights nor establish live trading readiness.
 
 \section{Limitations and future work}\label{s:ff798c832c8c6036}
@@ -70,9 +70,8 @@ documented historical limitations. Broader authenticated price/news/context cove
 and independent chart/fact-grounding checks should precede stronger
 claims. Registered matched interventions must separate retrieval,
 regime/statistics, prior/target tasks, numerical student and external
-utility. A prospectively collected unexposed evaluation needs appropriate
+utility. A same-cohort teacher--student comparison should measure prediction
+error and inference cost. A prospectively collected unexposed evaluation needs appropriate
 dependence/precision planning and independently regenerated upstream
 realizations. Venue-specific lots, fills, capital and settlement modeling
-remain distinct work. The present results
-support a bounded historical assessment and identify these evidence
-needs; they do not demonstrate profitable prospective deployment.
+require independent validation.
