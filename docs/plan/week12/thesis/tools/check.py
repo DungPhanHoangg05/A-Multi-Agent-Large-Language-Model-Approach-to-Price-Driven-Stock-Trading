@@ -23,14 +23,15 @@ def main() -> None:
     parser.add_argument('--strict-cutover-targets', action='store_true')
     parser.add_argument('--strict-current-targets', action='store_true')
     args = parser.parse_args()
-    latex = Path(__file__).resolve().parents[1]
-    root = latex.parent
-    record = json.loads((latex / 'source-map.json').read_text(encoding='utf-8'))
+    legacy = Path(__file__).resolve().parents[1]
+    root = legacy.parents[3] / 'thesis'
+    latex = root
+    record = json.loads((legacy / 'source-map.json').read_text(encoding='utf-8'))
     checked = 0
     archive = record.get('p8_archive')
     historical: dict[str, bytes] = {}
     if archive:
-        archive_path = root / archive['path']
+        archive_path = legacy / archive['path']
         if hashlib.sha256(archive_path.read_bytes()).hexdigest() != archive['sha256']:
             raise ValueError('Archive P8 khác hash đã khóa.')
         with ZipFile(archive_path) as bundle:
@@ -51,7 +52,7 @@ def main() -> None:
             if actual != row['lf_sha256']:
                 raise ValueError('Nguồn P8 lưu trữ khác mốc chuyển: ' + row['path'])
     for row in record.get('markdown_navigation_updates', []):
-        if lf_sha(root / row['path']) != row['lf_sha256']:
+        if lf_sha(legacy / row['path']) != row['lf_sha256']:
             raise ValueError('Bản điều hướng Markdown khác cập nhật đã ghi: ' + row['path'])
     if args.strict_current_targets:
         if 'current_latex' not in record:
@@ -68,11 +69,18 @@ def main() -> None:
         for command, target in re.findall(r'\\(input|includegraphics|addbibresource)(?:\[[^\]]*\])?\{([^}]+)\}', text):
             if '#' in target:
                 continue
+            if Path(target).anchor:
+                raise ValueError('Đường dẫn Overleaf phải tương đối từ gốc dự án: ' + target)
             dependency = latex / target
             if command == 'input' and not dependency.suffix:
                 dependency = dependency.with_suffix('.tex')
             if not dependency.is_file() or not dependency.resolve().is_relative_to(root.resolve()):
                 raise ValueError('Dependency thiếu hoặc ra ngoài cây thesis: ' + target)
+            parent = root
+            for part in dependency.relative_to(root).parts:
+                if part not in {child.name for child in parent.iterdir()}:
+                    raise ValueError('Đường dẫn khác chữ hoa/thường trên Overleaf: ' + target)
+                parent = parent / part
             checked += 1
     main_source = (latex / 'main.tex').read_text(encoding='utf-8')
     chapter_paths = sorted((latex / 'chapters').glob('*.tex'))
@@ -85,7 +93,7 @@ def main() -> None:
         if main_source.count(r'\input{' + target + '}') != 1:
             raise ValueError('Nội dung thiếu hoặc ghép lặp: ' + target)
     # So mọi ô đã chọn với cả bảng P8 trong archive và nguồn LaTeX hiện tại.
-    table_map = root / 'assets/tables/concise_results.source.json'
+    table_map = legacy / 'assets/tables/concise_results.source.json'
     if table_map.exists() and historical:
         projection = json.loads(table_map.read_text(encoding='utf-8'))
         expected_rows = {'tab:component': 10, 'tab:numeric': 4, 'tab:smallpanels': 7,

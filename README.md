@@ -302,7 +302,7 @@ records are maintained separately. [Agent instructions](AGENTS.md),
 | `default_config.py`, `requirements*.txt` | Runtime defaults and dependency specifications. |
 | `deploy/`, `Dockerfile`, `compose.yaml` | Container and reverse-proxy deployment configuration. |
 | `paper/`, `outputs/paper/` | Paper LaTeX sources and generated PDFs. |
-| `thesis/` | Thesis LaTeX sources, bibliography, figures, build tools, and release artifacts. |
+| `thesis/` | Importable Overleaf project with LaTeX sources, bibliography, and figures. |
 | `revision/`, `outputs/revision/` | Reviewer-response material, reproduction tools, and preserved study evidence. |
 | `outputs/unified_integration/` | Unified experiment records, checkpoints, and analysis artifacts. |
 | `docs/plan/` | Protocols, evidence indexes, acceptance records, and development checklists. |
@@ -311,12 +311,12 @@ records are maintained separately. [Agent instructions](AGENTS.md),
 
 The paper has `paper/main.tex` and `paper/main_submit.tex` entrypoints, built
 with pdfLaTeX and BibTeX. Its edited tables and figures are included in the
-source tree. The thesis uses `thesis/latex/main.tex`, LuaLaTeX, and Biber.
+source tree. The thesis uses `thesis/main.tex`, LuaLaTeX, and Biber.
 Its LaTeX tree is the authoritative manuscript source, with earlier Markdown
 drafts retained as historical material. Build instructions and artifact
 locations are documented in their respective directories.
 [Paper sources](paper/README.md), [paper PDFs](outputs/paper/README.md),
-[thesis sources and build](thesis/latex/README.md).
+[thesis sources and build](thesis/README.md).
 
 ## Attribution and licensing
 

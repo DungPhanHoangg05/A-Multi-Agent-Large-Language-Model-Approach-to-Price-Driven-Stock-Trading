@@ -462,7 +462,7 @@ Section~\ref{sec:mechanism-discussion}.
 
 \subsection{Fallback and the anchor bridge}
 \begin{figure}[!t]\centering
-\includegraphics[width=\linewidth]{../assets/figures/review_return_contrasts.pdf}
+\includegraphics[width=\linewidth]{assets/figures/review_return_contrasts.pdf}
 \caption[Return contrasts against both baselines]{Return contrasts against both baselines for 102 points, 51 accounts and three Decision repeats. Bars reproduce the ten return cells of the saved twenty-cell joint family; BA cells remain in the tables. These are descriptive bands under six exposed folds, not calibrated superiority claims.}\label{fig:review-contrasts}
 \end{figure}
 Table~\ref{tab:coverage} keeps all research roles and their denominators.
@@ -496,7 +496,7 @@ the numerical student, task conditioning or utility contribution.
 \section{Mechanisms, cases and sensitivity}\label{s:300d164b42208c53}
 \subsection{Support and action resolution}\label{sec:probability-support}
 \begin{figure}[!t]\centering
-\includegraphics[width=\linewidth]{../assets/figures/review_mt_resolution.pdf}
+\includegraphics[width=\linewidth]{assets/figures/review_mt_resolution.pdf}
 \caption[Resolution of all MT forecast slots]{Resolution of all 306 MT forecast slots. The 108 bypasses comprise 48 unavailable-query and 60 unsupported-utility cases. Of nine proposals differing from the reference, five are vetoed and four accepted. These counts are dependent forecast slots, not 306 independent markets.}\label{fig:review-mt}
 \end{figure}
 At repeat 0, v1 uses all 48 same-stock bank points and has three examples
@@ -677,12 +677,12 @@ The project entry point is the
 Three versions must be distinguished. Commit \texttt{7a1b77f1} contains
 the earlier 60-page manuscript, not the source of this revised PDF.
 The source of this edition is identified by the author-held Git tag
-\texttt{thesis-review-20261117-r1}. Its companion
-\path{thesis/release/manifest.json} binds the versioned LaTeX inputs,
+\texttt{thesis-overleaf-20261117-r1}. Its companion
+\path{manifest.json} binds the versioned LaTeX inputs,
 bibliography and figure resources to the distributed PDF's SHA-256 hash.
 Readers should request that tagged checkout and manifest; the latest
-public branch need not contain the same edition. A standalone handover
-package remains a separate delivery step.
+public branch need not contain the same edition. The source archive opens
+as a self-contained Overleaf project with \path{main.tex} as its entry point.
 
 The experimental implementation is pinned separately: the frozen
 \path{docs/plan/week12/final_evidence_snapshot.zip} records research
@@ -697,10 +697,10 @@ collection is \texttt{u08\_research\_r1} in
 \texttt{execution\_final\_v1}. These are distinct versioned objects;
 the manuscript source map and evidence ledger provide their digests.
 
-For document reproduction, follow \path{thesis/latex/README.md} and run
-\texttt{py -3.13 thesis/latex/tools/build.py} with LuaLaTeX and Biber.
-This builds from LaTeX, bibliography and figures; Markdown drafts and
-the reference thesis are not build inputs. Reading a frozen result,
+For document reproduction, upload the source ZIP to Overleaf, select
+\path{main.tex} and LuaLaTeX, and recompile with Biber. The companion
+\path{README.md} provides project instructions. Local builds use the same
+LaTeX, bibliography and figure files. Reading a frozen result,
 replaying recorded responses and making new hosted requests remain
 different operations. Hosted model aliases do not freeze provider
 weights. Some large/local artifacts require author-mediated access;

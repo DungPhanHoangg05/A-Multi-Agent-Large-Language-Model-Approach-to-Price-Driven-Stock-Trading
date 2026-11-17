@@ -5,8 +5,10 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+**Nguồn Overleaf hiện hành** nằm tại `thesis/` ở gốc repository. [Hồ sơ viết khóa luận](week12/thesis/plan.md) và bằng chứng ở `docs/plan/week12/thesis/`. ZIP/PDF bàn giao tại `docs/plan/week12/thesis/release/`.
+
 **Viết khóa luận, cập nhật ngày 17/11/2026:** thư mục làm việc là `thesis/`.
-**P9 bổ sung đã tự rà xong T80a–T80l:** [checklist và đặc tả](../../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang).
+**P9 bổ sung đã tự rà xong T80a–T80l:** [checklist và đặc tả](week12/thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang).
 Bản mới 67 trang,21 bảng/8 hình, không phụ lục, A4 dọc/rotation0. Đã thêm bằng chứng
 student/regime theo nguồn đã lưu, thu hẹp các kết luận thiếu nguồn, giải thích mẫu/tham số,
 nhân quả và cơ chế; thêm DAG/hai biểu đồ, sửa điều hướng và biên tập cuối.
@@ -32,27 +34,27 @@ mọi trang và phản hồi thực nhận. Kết quả G5 cũ chỉ thuộc lư
 không thay việc xử lý phát hiện mới. P10/T81–T84 còn mở, chưa phản biện ngoài/ký/nộp. Quy định trường và quyền
 phân phối tài nguyên chưa rõ tiếp tục được ghi ở sổ bằng chứng. P1–P8 dưới đây là lịch sử.
 
-[Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
+[Dàn bài tiếng Anh](week12/thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](week12/thesis/plan.md)
 bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp
 phải giải thích toàn hệ thống cho giảng viên lần đầu tiếp cận.
-[Checklist viết khóa luận](../../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc) là nơi duy nhất
+[Checklist viết khóa luận](week12/thesis/plan.md#21-một-nguồn-trạng-thái-công-việc) là nơi duy nhất
 cập nhật trạng thái ngay trong kế hoạch theo yêu cầu tác giả. Hồ sơ yêu cầu,
-phạm vi nghiên cứu và [kiểm kê hai nghiên cứu](../../thesis/evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa)
-đã có; [danh sách đọc](../../thesis/evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn)
+phạm vi nghiên cứu và [kiểm kê hai nghiên cứu](week12/thesis/evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa)
+đã có; [danh sách đọc](week12/thesis/evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn)
 phân nhóm nguồn gốc, trạng thái đọc/kiểm và quy ước khóa trích dẫn.
-[Thuật ngữ và ký hiệu](../../thesis/evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt)
+[Thuật ngữ và ký hiệu](week12/thesis/evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt)
 thống nhất tên phương pháp, cấp episode/task/query và đơn vị.
-[Danh mục hình/bảng/thuật toán](../../thesis/evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn)
+[Danh mục hình/bảng/thuật toán](week12/thesis/evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn)
 giữ 23 ID có task, vị trí, loại nguồn và provenance; sản phẩm sẽ tạo tại task
-phụ trách. [Ví dụ xuyên suốt EX01](../../thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết)
+phụ trách. [Ví dụ xuyên suốt EX01](week12/thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết)
 chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối nguồn
 đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
-[Khung sáu chương](../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
+[Khung sáu chương](week12/thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
 đã đủ bản nháp nội dung tiếng Anh và dùng sổ bằng chứng chung; P7 đã có phần đầu/sáu phụ lục, còn LaTeX, rà soát và bàn giao cuối ở P8–P10.
-P2 đã có [bản nháp Chương 3 §3.1–§3.7](../../thesis/chapters/03_background.md),
+P2 đã có [bản nháp Chương 3 §3.1–§3.7](week12/thesis/chapters/03_background.md),
 từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
 kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
-nghiệm mới. **P3 đã đủ bản nháp [Chương 4 §4.1–§4.10](../../thesis/chapters/04_proposed_system.md)**:
+nghiệm mới. **P3 đã đủ bản nháp [Chương 4 §4.1–§4.10](week12/thesis/chapters/04_proposed_system.md)**:
 từ tổng quan/hợp đồng/các agent và Native/Common tới lịch sử/regime, bốn prior,
 MT/teacher–student, facts/utility/policy, projection, tám vai trò/ba thuật toán,
 ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn;
@@ -72,7 +74,7 @@ kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; to�
 khóa luận bằng tiếng Anh.** Việc sửa tài liệu này không đổi F11/F12 hoặc phạm vi
 nghiệm thu nghiên cứu lịch sử.
 
-Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](../../thesis/outline.md)
+Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](week12/thesis/outline.md)
 trong `thesis/`: sáu chương, câu hỏi nghiên cứu, phụ lục và ánh xạ mã nguồn/bằng chứng.
 Chỉ tham chiếu bố cục mẫu; nội dung xây dựng theo hệ hiện tại. [Ghi nhận phạm vi](week12/README.md#khởi-tạo-dàn-bài-khóa-luận)
 tách việc viết KLTN khỏi nghiệm thu UI và thực nghiệm; chưa tạo LaTeX/PDF mới.
@@ -166,7 +168,7 @@ Theo chỉ đạo mới của người dùng ngày14/11/2026, hợp nhất nhán
 `feat/precomputed-bilingual-results` vào `develop`, giữ **UI/F11: PENDING**.
 Merge nguồn không phải nghiệm thu browser hoặc hoàn tất F11.
 **F12 chưa bắt đầu**, paper/PDF/U09 giữ nguyên. Khung KLTN đã được tiếp nhận;
-dàn bài và định hướng viết nằm tại [thesis](../../thesis/README.md).
+dàn bài và định hướng viết nằm tại [thesis](week12/thesis/README.md).
 
 U06 hoàn tất offline với amendment v2, 102 anchor/ba repeat, 51 selector binding
 và student/HMM frozen; U07 đã nghiệm thu paired/recovery offline và nền đã vào

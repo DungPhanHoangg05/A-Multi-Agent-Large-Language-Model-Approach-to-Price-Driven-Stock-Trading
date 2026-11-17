@@ -1,0 +1,187 @@
+{
+  "schema": "thesis_overleaf_project_v1",
+  "manuscript_version": "thesis-overleaf-20261117-r1",
+  "source_ref": "refs/tags/thesis-overleaf-20261117-r1",
+  "source_ref_availability": "AUTHOR_HELD_LOCAL_TAG",
+  "main_document": "main.tex",
+  "compiler": "LuaLaTeX",
+  "bibliography": "Biber",
+  "latexmkrc": "latexmkrc",
+  "source_files": [
+    {
+      "path": ".gitattributes",
+      "normalization": "LF",
+      "bytes_after_normalization": 273,
+      "sha256": "9121ba81c1d18dff89c7b176640243fa59431ca51fe3decc7e314c69d6373984"
+    },
+    {
+      "path": ".gitignore",
+      "normalization": "LF",
+      "bytes_after_normalization": 65,
+      "sha256": "17aa0de9e046d2076ddf9c934b1c60c5b42fc8d9dff88ce183c8bf5236de3fa8"
+    },
+    {
+      "path": "AGENTS.md",
+      "normalization": "LF",
+      "bytes_after_normalization": 902,
+      "sha256": "d3b1654e6c7cbccb4f0360081f46741c53ca12923ba3e7b16bd32b0bb0b1ba5e"
+    },
+    {
+      "path": "assets/figures/F04_pattern.png",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 52655,
+      "sha256": "d423db489a59706c4aae32e1f9de49cc63f73eded74f8e6f97c018cd1211200f"
+    },
+    {
+      "path": "assets/figures/F04_trend.png",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 75628,
+      "sha256": "93744337e0d375c04973332e4dba86c75d55d79398ed4553ad26a8d8593f3734"
+    },
+    {
+      "path": "assets/figures/review_mt_resolution.pdf",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 12200,
+      "sha256": "2c7be6c1c511e1ff71ff6a19da1c4bdeb86a49fbdf4294984e7e4e7a15654f0b"
+    },
+    {
+      "path": "assets/figures/review_return_contrasts.pdf",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 13888,
+      "sha256": "359192353453e8429932bea33e4a049807e7a64b6e612fc3d3bddd54f1238781"
+    },
+    {
+      "path": "assets/figures/UET_logo.jpg",
+      "normalization": "raw_bytes",
+      "bytes_after_normalization": 91608,
+      "sha256": "d71ffc8c4e8d40e1497d54c1fb25621bcd8ef8c0ad0cb73ee0c356980be66229"
+    },
+    {
+      "path": "chapters/01_introduction.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 6296,
+      "sha256": "5fefc68ead8167a51ff3203ce7c60c1c2308508c5ded5c7203bbf5402ce2d541"
+    },
+    {
+      "path": "chapters/02_related_work.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 11079,
+      "sha256": "562291a466d48af88ad4b33c16dbb14a686db9b4d659da7e120e8b9f9f934605"
+    },
+    {
+      "path": "chapters/03_background.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 13620,
+      "sha256": "de22b4ca4817b5b5ce2f960a78d38eb0cbe1f87d22534e76c7a114f23b3d4cf1"
+    },
+    {
+      "path": "chapters/04_proposed_system.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 56737,
+      "sha256": "afb014bf395524004661aa3425b712eb694557f76b6f547073a0721433f7d876"
+    },
+    {
+      "path": "chapters/05_experiments.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 50714,
+      "sha256": "22957d66cb2b4d2806594ebf5ed57250756b6d5561a756864e602268c7810d7b"
+    },
+    {
+      "path": "chapters/06_conclusion.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 4816,
+      "sha256": "b190c96f2e609518fb23149f3dcc7d26392fd828ffb7c49270919fae2c6a7e3d"
+    },
+    {
+      "path": "frontmatter/content.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 3227,
+      "sha256": "db3c628a5864ffc67e7503d3bb4002f25b6c623100cb58c3f9db58e1f7501bf4"
+    },
+    {
+      "path": "frontmatter/covers.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 2184,
+      "sha256": "1bfa2b68e75a36342cfae2a698277e8bd94b169b506eaf797ca3adfc3bf4f532"
+    },
+    {
+      "path": "frontmatter/reference_lists.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 2474,
+      "sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
+    },
+    {
+      "path": "latexmkrc",
+      "normalization": "LF",
+      "bytes_after_normalization": 90,
+      "sha256": "7fd91cf2ccf9eadd180b3c82ae12b5048f41585a5d1bf9189dbb293def40b672"
+    },
+    {
+      "path": "licenses/QuantAgent-MIT.txt",
+      "normalization": "LF",
+      "bytes_after_normalization": 1072,
+      "sha256": "fd88b41d9a41ecbb0e813a76564ec8c281b65e187e4ca464ea0f787b141f2525"
+    },
+    {
+      "path": "main.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 732,
+      "sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
+    },
+    {
+      "path": "preamble.tex",
+      "normalization": "LF",
+      "bytes_after_normalization": 2913,
+      "sha256": "5dbbd7e82a18a351730fb629f69798a672da8e490e7c1c9827b76fd4fb247b00"
+    },
+    {
+      "path": "README.md",
+      "normalization": "LF",
+      "bytes_after_normalization": 1455,
+      "sha256": "e82e56a24f51a13e29395f93640d3a88c4c379297ece18388443365a62b6b6d3"
+    },
+    {
+      "path": "references.bib",
+      "normalization": "LF",
+      "bytes_after_normalization": 9446,
+      "sha256": "56f3d621ef6be49805604a1956129e917db09dd2800f4fb57320fc4c12cdc462"
+    }
+  ],
+  "source_inventory_sha256": "1e397dc621d0c0c657ec1703b08c39225266d29ae166009a5a27ba77f22e16b9",
+  "reviewed_pdf": {
+    "repository_path": "docs/plan/week12/thesis/release/thesis.pdf",
+    "sha256": "9eb2bdd87f7de46ce7985f7aef52db5bb26d86ca5b106e55c8fee284bd39acc6",
+    "bytes": 737498,
+    "pages": 67,
+    "portrait_only": true,
+    "rotation": 0,
+    "appendices": 0
+  },
+  "prior_manuscript": {
+    "commit": "7a1b77f1c7915779fd0fb4856cde823d017b9a28",
+    "pdf_pages": 60,
+    "pdf_sha256": "2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922",
+    "role": "Earlier manuscript; not the source of this revised PDF."
+  },
+  "experimental_implementation": {
+    "commit": "384725a66fec074700963fac67c358b28b842092",
+    "snapshot_path": "docs/plan/week12/final_evidence_snapshot.zip",
+    "snapshot_sha256": "80fed8c9a1c265098a394bfc40f13d7f0266c1e05abdb142fba01d873cb8b8b5",
+    "context_results_version": "u09_analysis_r1",
+    "context_results_package": "docs/plan/week12/unified_analysis_results.zip",
+    "context_results_package_sha256": "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9",
+    "response_collection_version": "u08_research_r1",
+    "response_collection_package": "docs/plan/week12/unified_live_research.zip",
+    "response_collection_package_sha256": "5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c",
+    "component_index": "docs/plan/revision_evidence/index.json",
+    "role": "Frozen research implementation/evidence, distinct from manuscript source version."
+  },
+  "build_verification": {
+    "method": "Extracted source ZIP in standalone ASCII temporary directory; four LuaLaTeX passes with Biber",
+    "original_repository_inputs": false,
+    "source_case_checked": true,
+    "local_latexmk_environment": "Perl executable unavailable; direct LuaLaTeX/Biber used",
+    "byte_identical_rebuild_claimed": false
+  },
+  "hash_policy": "Text hashes normalize CRLF to LF. Binary hashes use original bytes. Source inventory excludes this manifest. ZIP hash is stored in repository source-map."
+}
