@@ -703,6 +703,26 @@ needed to quantify that trade-off. None of these values was changed to
 improve the already observed outcomes.
 
 \section{Orchestration and forecast barrier}\label{s:21530b5246fd89f6}
+Figure~\ref{fig:dependency-review} makes the forecast dependencies
+explicit, complementing the computation-stage overview in Figure~\ref{fig:F03}.
+\begin{figure}[!t]\centering
+\begin{tikzpicture}[>=Stealth,x=1cm,y=1cm,
+box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=3.1cm,align=center,font=\fontsize{10}{12}\selectfont,inner sep=5pt}]
+\node[box,text width=13.6cm] (shared) at (0,0) {One sealed upstream parent per market point\\Every role receives its declared projection of these same reports.};
+\node[box] (native) at (-4.8,-1.5) {Native\\No forecast prerequisite};
+\node[box] (common) at (1.2,-1.5) {Common\\Durable reply/action};
+\node[box] (priors) at (-4.8,-3.4) {v1 / C2 / A / B\\Reuse Common on bypass};
+\node[box] (anchor) at (0,-3.4) {Fact Anchor\\Resolve reference $a_0$};
+\node[box] (mt) at (4.8,-3.4) {MT revision\\Facts/utility gate};
+\draw[->,dashed] (shared.south) -- (native.north);
+\draw[->,dashed] (shared.south) -- (common.north);
+\draw[->] (common.south) -- (1.2,-2.4) -- (-4.8,-2.4) -- (priors.north);
+\draw[->] (common.south) -- (anchor.north);
+\draw[->] (common.east) -- (4.8,-1.5) -- (mt.north);
+\draw[->] (anchor.east) -- node[above,font=\fontsize{10}{12}\selectfont] {$a_0$/proof} (mt.west);
+\end{tikzpicture}
+\caption[Same-repeat forecast dependency graph]{Same-repeat forecast dependency graph. Solid arrows are forecast prerequisites; dashed arrows illustrate shared-report projection. All roles use the sealed parent. Native is not a prerequisite of Common; outcomes remain behind the completion barrier.}\label{fig:dependency-review}
+\end{figure}
 Eight context-study roles share one sealed upstream parent: Native,
 Common, v1, C2, A, B, Fact Anchor and MT-BICL. Native/Common are completed
 within each Decision repeat; the four priors depend on that repeat's

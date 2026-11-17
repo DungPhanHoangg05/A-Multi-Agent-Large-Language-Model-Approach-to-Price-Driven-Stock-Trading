@@ -91,6 +91,11 @@
       "kind": "frozen_snapshot",
       "bytes": 25359,
       "sha256": "deb310e091b4fa60e2d1fa4e343f42b5c96ae1a6c483eab53169f56ea1b92b1e"
+    },
+    "outputs/unified_integration/u09_analysis_r1/results.json": {
+      "kind": "u09_results",
+      "bytes": 269696,
+      "sha256": "3136ab9bdeab377196236e1a01402646257ec3beb251877702dbc86e1e67e31f"
     }
   },
   "derived": {
@@ -830,6 +835,133 @@
       "global_volume_branch_changes_past": true,
       "scope": "Dữ liệu sau một dòng nhưng vẫn trong prefix quyết định thay đổi giá trị lịch sử. Đây là hạn chế selection diagnostics native, chưa chứng minh outer-test leakage.",
       "required_action": "Không dùng native full-Series scores làm walk-forward/unbiased evidence. T11 báo đúng diagnostic; T12/T13 dùng fit train/validation đã purge và adapters nhân quả riêng. Không sửa code/input frozen hoặc ghi zero-leakage toàn runtime."
+    },
+    "review_figures": {
+      "return_cells": [
+        {
+          "band95_high_pp": 0.27133198477752934,
+          "band95_low_pp": -0.36231083766263344,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_fix",
+          "effect_pp": -0.04548942644255205,
+          "endpoint": "account_return_percentage_points",
+          "family": "system",
+          "method": "bayesian_v1"
+        },
+        {
+          "band95_high_pp": 0.11106467705306572,
+          "band95_low_pp": -0.8659018526535929,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_fix",
+          "effect_pp": -0.3774185878002636,
+          "endpoint": "account_return_percentage_points",
+          "family": "system",
+          "method": "C2"
+        },
+        {
+          "band95_high_pp": 0.1334723088397176,
+          "band95_low_pp": -0.8670159455761146,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_fix",
+          "effect_pp": -0.3667718183681985,
+          "endpoint": "account_return_percentage_points",
+          "family": "system",
+          "method": "A_tp_pool"
+        },
+        {
+          "band95_high_pp": 0.11106467705306572,
+          "band95_low_pp": -0.8659018526535929,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_fix",
+          "effect_pp": -0.3774185878002636,
+          "endpoint": "account_return_percentage_points",
+          "family": "system",
+          "method": "B_semantic"
+        },
+        {
+          "band95_high_pp": -0.11114689927083471,
+          "band95_low_pp": -1.090420830831787,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_fix",
+          "effect_pp": -0.6007838650513109,
+          "endpoint": "account_return_percentage_points",
+          "family": "system",
+          "method": "MT_BICL"
+        },
+        {
+          "band95_high_pp": 0.5860814161834145,
+          "band95_low_pp": 0.06713013709994309,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_common",
+          "effect_pp": 0.3266057766416788,
+          "endpoint": "account_return_percentage_points",
+          "family": "method",
+          "method": "bayesian_v1"
+        },
+        {
+          "band95_high_pp": 0.005323384716032664,
+          "band95_low_pp": -0.015970154148098215,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_common",
+          "effect_pp": -0.005323384716032775,
+          "endpoint": "account_return_percentage_points",
+          "family": "method",
+          "method": "C2"
+        },
+        {
+          "band95_high_pp": 0.01597015414809777,
+          "band95_low_pp": -0.005323384716033108,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_common",
+          "effect_pp": 0.005323384716032331,
+          "endpoint": "account_return_percentage_points",
+          "family": "method",
+          "method": "A_tp_pool"
+        },
+        {
+          "band95_high_pp": 0.005323384716032664,
+          "band95_low_pp": -0.015970154148098215,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_common",
+          "effect_pp": -0.005323384716032775,
+          "endpoint": "account_return_percentage_points",
+          "family": "method",
+          "method": "B_semantic"
+        },
+        {
+          "band95_high_pp": 0.11846169642969878,
+          "band95_low_pp": -0.5758390203638588,
+          "band_reasons": [],
+          "band_status": "DESCRIPTIVE_BANDS",
+          "baseline": "original_common",
+          "effect_pp": -0.22868866196708004,
+          "endpoint": "account_return_percentage_points",
+          "family": "method",
+          "method": "MT_BICL"
+        }
+      ],
+      "mt_resolution": [
+        108,
+        189,
+        5,
+        4
+      ],
+      "files": {
+        "thesis/assets/figures/review_mt_resolution.pdf": "2c7be6c1c511e1ff71ff6a19da1c4bdeb86a49fbdf4294984e7e4e7a15654f0b",
+        "thesis/assets/figures/review_mt_resolution.png": "53a97f782c2022b8fb0ad22e7e3dbaf743555fca38d38c9018bd4351b2913e49",
+        "thesis/assets/figures/review_results.py": "f9ee43ddefe106d47e93e17545cdbb26a286c632a80a23503df58b6fce718772",
+        "thesis/assets/figures/review_return_contrasts.pdf": "359192353453e8429932bea33e4a049807e7a64b6e612fc3d3bddd54f1238781",
+        "thesis/assets/figures/review_return_contrasts.png": "8866eef7d39b2c74f6d00c6b8e28caff3cbffe157dd1762e0c44d5418841fbb3"
+      }
     }
   }
 }

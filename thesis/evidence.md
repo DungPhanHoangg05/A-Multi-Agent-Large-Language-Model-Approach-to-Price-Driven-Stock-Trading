@@ -3208,3 +3208,7 @@ Mục Code, Data and Reproducibility chỉ rõ projectURL, author-held7a1b77f1, 
 ### T80h. Thảo luận ba cơ chế theo quan sát và đối chứng còn thiếu
 
 §5.8 thêm thảo luận BA–return khác trọng số/magnitude/exposure, v1 phụ thuộc baseline/support, MT108+189+5+4. Phân biệt giả thuyết với nhân quả, giữ logisticcontrol/adversecases/family20; giảm hai câu giới hạn lặp và nối tới mục thảo luận. Không phân rã counterfactual P&L hay suy missingablations có kết quả; abstract/kết luận hiện đã cùng diễn giải bounded nên không đổi luận điểm. Kiểm count/source/flow/diff; không nghiên cứu mới.
+
+### T80i. Bổ sung DAG phân nhánh và hai hình kết quả gọn
+
+Giữ F03 overview, vẽ lại F08 thành DAGinline10pt phân biệt sharedprojection/forecastprerequisites. Hai hình vector mới compact từ primaryU09:10returncells cùngband hai baseline vàMT108/189/5/4; BAfamily20 vẫn đủ bảng. Không tái dùng nguyên F09/F10 cũ do chữ khi thu trang quá nhỏ; giữ nguyên byte bản cũ và xuất editionmới cỡin6,25inch. Đã xem PNG, compile/run duy nhất script vẽ tài liệu, kiểm sourcehash/count/pointband; khôngbootstrap/inference/suite. Fullbuild/ảnhDAG và dàn trang được kiểm ở T80j/T80l.
