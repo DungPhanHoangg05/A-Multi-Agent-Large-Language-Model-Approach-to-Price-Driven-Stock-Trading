@@ -1,70 +1,129 @@
-# A Multi-Agent Large Language Model Approach to Price-Driven Stock Trading in the Vietnamese Stock Market
+# Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading
 
-Research code for a LangGraph stock-direction system for the Vietnamese market.
-The original pipeline combines technical indicators, chart-pattern and trend
-analysis, quantitative alpha factors, Vietnamese financial-news sentiment, and
-a structured `LONG` or `SHORT` decision. Optional Bayesian priors and MT-BICL
-modules provide historical context and policy controls for research comparisons.
+A research system for stock analysis and LONG/CASH trading simulation in the
+Vietnamese stock market. It combines a LangGraph multi-agent pipeline, technical
+and visual chart analysis, quantitative alpha factors, Vietnamese financial-news
+sentiment, and historical context conditioned on market regimes.
 
-## Economic contract
+The repository contains the original agent system, Bayesian prior variants,
+Multi-Task Bayesian In-Context Learning (MT-BICL), a Flask application, paired
+experiment infrastructure, and the sources for the research paper and thesis.
+The original project title is *A Multi-Agent Large Language Model Approach to
+Price-Driven Stock Trading in the Vietnamese Stock Market*.
 
-`LONG` buys at `Open(t+1)` and liquidates at `Close(t+3)`, using trading-session
-positions. `SHORT` keeps cash. Both legs apply a 0.25% brokerage fee and 0.10%
-slippage. Accounts start at VND 50,000,000 and compound independently;
-the mean of account returns is not a portfolio return. Stock prices in thousands
-of VND are converted once for accounting.
+## Capabilities
 
-`core/backtest_engine.py:compute_round_trip_net_return` defines the net-return
-oracle. Canonical target records use `net_cycle_v1`; legacy records retain their
-unverified status. Risk ratios report their return frequency and convention,
-with undefined values represented as `null`. Sparse cycle returns must not be
-annualized as daily returns.
+- Analyze Vietnamese stocks using OHLCV, technical indicators, chart patterns,
+  trend analysis, alpha factors, and ViSoBERT-based news sentiment.
+- Select among six application methods, including the original system, four
+  Bayesian variants, and MT-BICL.
+- Inspect reports, charts, historical context, raw proposals, final actions,
+  and policy reasons in a Vietnamese/English interface with light and dark themes.
+- Run walk-forward backtests and compare methods using shared snapshots,
+  explicit execution costs, account-level metrics, and CASH/ALWAYS_LONG controls.
+- Validate, replay, inspect, and export experiments with versioned contracts,
+  source hashes, checkpoints, and request/response provenance.
 
-## Architecture
+## System architecture
 
-1. Indicator, Pattern, and Trend agents prepare shared upstream reports.
-2. Alpha/Sentiment produces the enabled factor and dated-news reports.
-3. Each comparison branch receives a deep copy of the shared upstream state.
-4. Decision consumes distilled reports and optional historical context.
-5. Outcomes are evaluated separately from forecast inputs and checkpointed.
+```mermaid
+flowchart TD
+    A[OHLCV and dated financial news] --> B[Shared agent reports and charts]
+    B --> C[Versioned decision request]
+    D[Historical memory and market regime] --> C
+    E[MT-BICL numeric context and student] --> C
+    C --> F[Structured LLM proposal]
+    F --> G[Method-specific fallback and policy]
+    G --> H[Final LONG or CASH action]
+    H --> I[Post-forecast outcomes and account evaluation]
+```
 
-The native ablations are `full`, `alpha_only`, `sentiment_only`, and `baseline`.
-Bayesian modules support regime-conditioned retrieval, conditional statistics,
-price-pool and semantic variants. MT-BICL adds numeric context, a student,
-an anchor decision, posterior utility, and policy vetoes. Native and common
-prompt profiles are distinct; disabling a prior does not establish native parity.
+| Component | Responsibility |
+| --- | --- |
+| Indicator Agent | Calculate technical indicators and summarize their signals. |
+| Pattern Agent | Interpret chart patterns using visual inputs. |
+| Trend Agent | Analyze trend direction and trendline structure. |
+| Alpha Agent | Calculate and select quantitative factors and integrate enabled sentiment evidence. |
+| Sentiment module | Score Vietnamese financial news and preserve publication-date eligibility. |
+| Decision Agent | Combine distilled reports and optional context into a structured `LONG`/`SHORT` prediction. |
+| Bayesian context | Retrieve eligible historical episodes and construct compact regime-conditioned priors. |
+| MT-BICL | Combine fact anchoring, historical numeric context, a student model, posterior utility, and policy checks. |
+| Evaluation layer | Convert predictions into LONG/CASH actions and evaluate execution, accounts, and classification. |
 
-The CLI/web default `decision_profile` is `original_fix_serving_v1`: native
-reports, caps, schema and model options, with a pre-inference character guard.
-Requests of 6,500 characters or more fail instead of being silently recapped.
-Oversized historical native requests are limited to frozen offline replay.
-`integrated_default_v1` retains the existing research report caps; research
-common prompts and prior settings remain explicit configurations.
+The regime detector uses a Gaussian Hidden Markov Model (HMM) over VN-Index
+features. MT-BICL includes teacher–student distillation for numeric context and
+uses posterior utility in its final policy.
 
-Historical features use at most 600 candles ending at the query cutoff.
-Research news excludes unavailable and undated items, and memory episodes
-must exit strictly before the query date. The native alpha selector has a known
-row-wise causality limitation: outer query cutoff compliance does not establish
-causal preprocessing or an unbiased walk-forward study. See the preserved
-revision audits before interpreting empirical claims.
+Paired experiments run Indicator → Pattern → Trend once per test point and
+deep-copy the shared upstream state into comparison branches. Alpha, sentiment,
+context preparation, and dependencies follow the selected method's execution
+plan. Forecast inputs are sealed before the outcome barrier opens.
 
-## Upstream attribution
+### Methods and profiles
 
-This repository adapts [QuantAgent, now maintained as QuantHarness](https://github.com/Y-Research-SBU/QuantHarness),
-by Y-Research @SBU. Its indicator, pattern, trend and decision agents,
-chart-analysis tools, LangGraph structure and parts of the web interface form
-the upstream foundation. Vietnamese-market data and sentiment, alpha
-integration, execution accounting and the paired research workflow extend it.
+The application exposes six primary choices. Registry IDs also identify methods
+in experiment records and exports.
 
-See [Third-party notices](THIRD_PARTY_NOTICES.md) and the preserved
-[MIT license and copyright notice](LICENSES/QuantAgent-MIT.txt). The source
-comparison is pinned to `92519f806286192345e940e7ab77496462d662b7`; the exact
-upstream commit originally adopted was not recorded. These notices do not
-assign a blanket license to project additions, datasets or model weights.
+| Application method | Registry ID | Context or policy |
+| --- | --- | --- |
+| Original | `original_fix` | Native agent reports and decision profile. |
+| Bayesian v1 | `bayesian_v1` | Regime-conditioned historical prior with K=3. |
+| Bayesian v2 — C2 | `C2` | Conditional-quality historical statistics. |
+| Bayesian A — TP Pool | `A_tp_pool` | Price-pool historical retrieval. |
+| Bayesian B — Semantic | `B_semantic` | Semantic historical retrieval. |
+| MT-BICL | `MT_BICL` | Fact anchor, numeric context, student, and utility-based policy. |
+
+The registry additionally contains `original_common`, the common-prompt
+baseline, and `Fact_Anchor`, an MT-BICL dependency. It resolves dependency order
+and declared fallbacks. Native component ablations use `full`, `alpha_only`,
+`sentiment_only`, and `baseline`.
+
+`original_fix_serving_v1` is the default native decision profile.
+`common_decision_v1` supplies the common comparison prompt.
+`causal_common_v1` supplies a separate alpha input profile with prefix-based
+preprocessing and a selector frozen after purged train/validation fitting.
+Experiment identities record the selected profiles. Their implementations and
+method dependencies are defined in the source registries.
+[Decision profiles](core/decision_profiles.py), [method registry](core/variant_registry.py),
+[application registry](core/serving_registry.py).
+
+## Trading and data contracts
+
+The simulator implements the project's T+2.5 economic contract.
+
+| Setting | Contract |
+| --- | --- |
+| `LONG` | Enter at `Open(t+1)` and liquidate at `Close(t+3)`, using trading-session positions. |
+| `SHORT` prediction | Hold cash, represented as the final action `CASH`. |
+| Brokerage fee | 0.25% on each entry and exit leg. |
+| Slippage | 0.10% on each entry and exit leg. |
+| Default account capital | VND 50,000,000. |
+| Stock-price conversion | Prices in thousands of VND are multiplied by 1,000 once for accounting. |
+| Historical labels | Canonical `net_cycle_v1` records use `compute_round_trip_net_return`. |
+
+The round-trip return oracle and account simulation live in the backtest
+engine. Accounts compound independently within their configured reset groups.
+Cross-account averages summarize those accounts. Risk metrics retain their
+return frequency and convention, with separate daily-NAV and cycle-return
+representations. Undefined values serialize as `null`.
+[Backtest engine](core/backtest_engine.py).
+
+Point-in-time inputs and execution follow these boundaries.
+
+- Price candles end at or before the query cutoff. Shared chart/report snapshots
+  use up to 600 candles.
+- Research news has a known publication date at or before the cutoff.
+- Retrieved memory episodes have `exit_date < as_of_date`.
+- Economic outcomes become available only after the required forecasts are durable.
+- Decision research prompts remain below 6,500 characters, with a K=3 Bayesian
+  Regime Prior Prefix of at most 600 characters.
+- Retry wrappers apply backoff and provider retry delays. Checkpoints preserve
+  completed work, identity, and unresolved-attempt state for recovery.
 
 ## Installation
 
-Python **3.13.5** is pinned in `.python-version`. Windows examples:
+Run commands from the repository root. Python **3.13.5** is pinned in
+`.python-version`. On Windows with the Python launcher installed,
 
 ```powershell
 py -3.13 -m venv .venv
@@ -72,40 +131,150 @@ py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-The runtime uses TA-Lib, PyTorch, Transformers, LangGraph, LangChain, HMMlearn,
-and scikit-learn. `vnstock==4.0.9` and `vnai==2.6.2` use the declared vendor
-index; see [market-data setup](docs/vnstock_upgrade.md). The integration lock
-is `requirements-unified.lock.txt`; use it with `-r` for the recorded Windows
-package versions. Unix deployment needs its own platform lock. Historical revision environments retain
-their own source and dependency pins in `revision/` and evidence manifests.
+Verify that the selected interpreter reports Python 3.13.5. Dependencies include
+TA-Lib, PyTorch, Transformers, LangGraph, LangChain, HMMlearn, and scikit-learn.
+`requirements-unified.lock.txt` records the Windows integration environment and
+can be installed using `pip install -r requirements-unified.lock.txt`.
+Platform-specific deployments require compatible package builds.
 
-Supply `GROQ_API_KEY` through the web interface or process environment.
-Sentiment supports `VISOBERT_BACKEND`, `VISOBERT_DEVICE`, optional `HF_TOKEN`,
-and `HF_INFERENCE_ENDPOINT_URL`. A `.env` file must be explicitly loaded by
-the chosen launcher; importing an agent does not load credentials. Never
-commit `.env` or keys. The local ViSoBERT model can require an initial download.
+Market access uses `vnstock==4.0.9` and `vnai==2.6.2` through the extra package
+index declared in the requirements. Vendor access and configuration are covered
+in the market-data guide. [Market-data setup](docs/vnstock_upgrade.md).
 
-## Running and validation
+### Configuration
+
+Set `GROQ_API_KEY` in the process environment or enter it through the application's
+API-key controls. Model IDs, providers, generation settings, and accounting
+defaults are defined in `default_config.py`. Hosted execution requires a valid
+key and provider access to the configured models. [Default configuration](default_config.py).
+
+| Environment variable | Purpose |
+| --- | --- |
+| `GROQ_API_KEY` | Groq credentials for hosted agent inference. |
+| `PORT` | Local Flask port, defaulting to `5000`. |
+| `VISOBERT_BACKEND` | Sentiment backend, one of `auto`, `local`, `endpoint`, or `lexicon`. |
+| `VISOBERT_DEVICE` | Device selection for local sentiment inference. |
+| `HF_TOKEN` | Optional Hugging Face credentials. |
+| `HF_INFERENCE_ENDPOINT_URL` | Optional Hugging Face sentiment endpoint. |
+
+The local sentiment backend may download model weights on first use. The direct
+Flask launcher reads process environment variables. A launcher using `.env`
+must load it explicitly. Docker Compose loads `.env` through `env_file`.
+Keep credentials in local environment configuration.
+
+## Running the application
 
 ```powershell
-py -3.13 web_interface.py
+.\.venv\Scripts\python.exe web_interface.py
 ```
 
-Open `http://127.0.0.1:5000`; `PORT` overrides the port. Live analysis and
-walk-forward backtesting use provider data and hosted models. Research
-entrypoints under `scripts/` require their own protocol, input, runtime and
-release checks. Preserve checkpoint identities when resuming a run.
+Open `http://127.0.0.1:5000`.
 
-Select checks for changed contracts and their callers, for example:
+| Page | Workflow |
+| --- | --- |
+| `/` | Application landing page. |
+| `/demo` | Select a stock and one of the six methods, then run realtime 1D analysis. |
+| `/output` | Inspect a completed analysis and its reports, charts, decision, and context. |
+| `/backtest` | Configure walk-forward backtests and inspect progress and results. |
+| `/experiments` | Browse verified research results and serving jobs, compare supported methods, and export JSON/CSV. |
+
+The analysis form uses a single daily timeframe. Upgraded methods capture the
+latest completed daily session, validate resources through server preflight,
+and run a checkpointed job. Completed results expose historical context,
+common alpha inputs, fallback/bypass reasons, and raw/final actions where
+applicable. Backtests use their own supported symbols, dates, and resource bindings.
+
+New live reports prepare Vietnamese and English presentations during existing
+agent invocations or from deterministic numeric templates. Language switching
+displays the saved presentation immediately. Older records depend on the
+presentations available in their cache. Jobs with unresolved attempts keep
+their `unknown` state until reconciliation.
+
+Serving support is checked against the server's resource manifest. Frozen
+as-of resources cover nine symbols over 1 July–23 September 2026, with exact
+point availability checked during preflight. The live daily provider has a
+separate snapshot lifecycle. API contracts, ownership, recovery, resource
+requirements, and presentation rules are documented in the serving guide.
+[Serving and UI guide](docs/plan/week12/variant_serving_contract.md).
+
+### Docker deployment
+
+Create a local `.env` containing the required environment settings, then run
 
 ```powershell
-py -3.13 -X utf8 -m unittest discover -s tests -p "test_account_risk.py" -v
-py -3.13 -X utf8 -m unittest discover -s tests -p "test_target_contract.py" -v
-py -3.13 -X utf8 -m unittest discover -s tests -p "test_paired_protocol.py" -v
+docker compose up --build -d
+docker compose logs -f web
 ```
 
-The complete offline regression commands are available for an explicit
-system-wide acceptance run:
+The Compose application is available at `http://127.0.0.1:8000`. Its image uses
+Python 3.13.5, CPU PyTorch, and one threaded Gunicorn worker to share in-process
+job state. Named volumes persist model cache, backtest results, and research
+outputs. Research methods also require their declared resource bundles in the
+deployment. Reverse-proxy and Oracle VM configuration are documented separately.
+[Deployment guide](docs/oracle_deployment.md), [Compose configuration](compose.yaml).
+
+## Experiments and reproducibility
+
+The unified experiment CLI supports offline registry inspection, spec
+validation, prepared-response replay, verification, and export.
+
+```powershell
+.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py registry
+.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py validate path/to/spec.json
+.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py replay path/to/bundle.json --sha256 <full-bundle-sha256>
+.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py verify outputs/unified_integration/<run-id>
+.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py export outputs/unified_integration/<run-id> --format csv --output table.csv
+```
+
+Replace placeholder paths, run IDs, and hashes with the intended experiment's
+inputs. Export destinations must be new files. `ExperimentSpec` binds methods,
+dependencies, cohort order, repeats, realizations, model options, source/resource
+hashes, runtime, calendar, costs, and missing-support policy. `SharedSnapshot`
+seals reports, images, factors, and PIT provenance. The runner keeps raw proposals
+and final policy actions separately and resets accounts by symbol, fold,
+realization, and repeat.
+
+A replay bundle contains `spec`, `snapshots`, `preparations`, `responses`, and
+`outcomes`. Replay reconstructs requests, schema validation, policy, and
+accounting from these assets. Numeric provider preparation, retrieval, and
+student execution have separate verification paths. Historical reproduction
+requires the source snapshot, runtime, original assets, and hashes identified
+by its manifest. Some large or ignored model/data assets require restoration
+from the author's archive.
+
+Use the evidence map to locate preserved study inputs and the clean-replay
+runbook to restore their execution context. The causal alpha CLI provides
+`fit`, `verify`, `predict`, and `bridge` operations for explicit price and
+schedule inputs. [Evidence and restoration map](docs/plan/week12/final_evidence_map.md),
+[clean-replay runbook](revision/clean_replay_runbook.md),
+[causal alpha CLI](scripts/manage_causal_profile.py).
+
+### Research scope
+
+The preserved studies evaluate agent components and historical-context methods
+on their declared cohorts. Results are exploratory and depend on support,
+provider provenance, model serving conditions, and previously exposed data.
+The native alpha selector fails the recorded row-wise causality audit.
+`causal_common_v1` addresses the alpha preprocessing and selector contract.
+Whole-system causality remains uncertified, and statistical superiority and
+profitable trading remain unestablished. Detailed outcomes and limitations
+belong to the paper, thesis, and evidence records.
+
+## Validation and contribution workflow
+
+Choose checks for changed modules, contracts, and callers. For example,
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -p "test_account_risk.py" -v
+.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -p "test_target_contract.py" -v
+.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -p "test_paired_protocol.py" -v
+```
+
+Documentation-only changes require diff, link, and source-consistency checks.
+Code changes require relevant regression tests and compilation of changed
+Python files. Data, PIT, and retrieval changes also require their affected
+leakage tests. Full-system acceptance can use the four reference gates when
+the task explicitly calls for a complete regression run.
 
 ```powershell
 py -3.13 -m compileall agents core data_manager scripts tests utils
@@ -114,163 +283,53 @@ py -3.13 scripts/run_end_to_end_test.py
 py -3.13 -X utf8 -m unittest discover -s tests -p "test_*leakage.py" -v
 ```
 
-Decision research prompts must remain below 6,500 characters and the K=3
-prior prefix at most 600 characters. Retry and checkpoint wrappers track
-attempts; an unresolved attempt must not be silently reissued or scored as cash.
+Create task branches from `develop`, use Conventional Commits, and merge after
+the applicable checks pass. Preserve the economic, PIT, paired-execution,
+prompt-budget, and recovery contracts. Development instructions and planning
+records are maintained separately. [Agent instructions](AGENTS.md),
+[project plan](docs/plan/plan.md).
 
-## Unified experiments
+## Repository guide
 
-The shared experiment registry and offline result viewer are available at
-`/experiments`. It defaults to `original_fix` and identifies six research
-methods plus the Fact_Anchor dependency. The existing native backtest remains
-available at `/backtest`; research selections do not grant hosted inference.
+| Path | Contents |
+| --- | --- |
+| `agents/` | Agent implementations and shared LangGraph state. |
+| `utils/` | Graph assembly, charting, report presentation, and Flask blueprints. |
+| `core/` | Accounting, market loaders, priors, MT-BICL, causal alpha, experiment runners, and serving runtime. |
+| `data_manager/`, `data/` | Historical memory, regime assets, sentiment storage, and market-data inputs. |
+| `templates/`, `static/`, `web_interface.py` | Flask pages, browser scripts, styles, and application entrypoint. |
+| `scripts/`, `tests/` | Research and maintenance CLIs, audits, and regression checks. |
+| `default_config.py`, `requirements*.txt` | Runtime defaults and dependency specifications. |
+| `deploy/`, `Dockerfile`, `compose.yaml` | Container and reverse-proxy deployment configuration. |
+| `paper/`, `outputs/paper/` | Paper LaTeX sources and generated PDFs. |
+| `thesis/` | Thesis LaTeX sources, bibliography, figures, build tools, and release artifacts. |
+| `revision/`, `outputs/revision/` | Reviewer-response material, reproduction tools, and preserved study evidence. |
+| `outputs/unified_integration/` | Unified experiment records, checkpoints, and analysis artifacts. |
+| `docs/plan/` | Protocols, evidence indexes, acceptance records, and development checklists. |
 
-```powershell
-py -3.13 -I -X utf8 scripts/run_unified_experiment.py registry
-py -3.13 -I -X utf8 scripts/run_unified_experiment.py validate path/to/spec.json
-py -3.13 -I -X utf8 scripts/run_unified_experiment.py replay path/to/bundle.json --sha256 <full-bundle-sha256>
-py -3.13 -I -X utf8 scripts/run_unified_experiment.py verify outputs/unified_integration/<run-id>
-py -3.13 -I -X utf8 scripts/run_unified_experiment.py export outputs/unified_integration/<run-id> --format csv --output table.csv
-```
+### Paper and thesis
 
-`ExperimentSpec` locks variants, dependencies, cohort order, repeats,
-realizations, serving options, source/resource hashes, runtime, calendar,
-costs and missing-support policy. `SharedSnapshot` seals raw reports, images,
-factors and PIT provenance; each branch receives a copy. `UnifiedRunner` uses
-the existing RunBook and accounting engine, opens outcomes after all required
-forecasts are durable, and retains raw proposals separately from final policy.
-Accounts reset by symbol/fold/realization/repeat. Undefined metrics remain null.
+The paper has `paper/main.tex` and `paper/main_submit.tex` entrypoints, built
+with pdfLaTeX and BibTeX. Its edited tables and figures are included in the
+source tree. The thesis uses `thesis/latex/main.tex`, LuaLaTeX, and Biber.
+Its LaTeX tree is the authoritative manuscript source, with earlier Markdown
+drafts retained as historical material. Build instructions and artifact
+locations are documented in their respective directories.
+[Paper sources](paper/README.md), [paper PDFs](outputs/paper/README.md),
+[thesis sources and build](thesis/latex/README.md).
 
-For an existing verified asset provider, `MethodAdapters` accepts lazy bank,
-regime, facts and context factories. It delegates to the existing request and
-MT policy primitives. Pass `runner.forecasts_done` to the gated ContextBank;
-native/common OFF paths do not initialize these resources. Resource paths and
-hashes belong in `resource_sources` and `source_hashes` in the spec. The
-`snapshot_from_graph` adapter validates a 600-bar prefix before sealing it.
+## Attribution and licensing
 
-The CLI replay bundle contains `spec`, `snapshots`, `preparations`, `responses`
-and separate `outcomes`. Replay reconstructs prompts, schemas, policy and
-accounting from the locked assets. It is conditional on the recorded retrieval
-and numeric preparations; it does not rerun retrieval, load student weights,
-or regenerate hosted responses. A new release must separately validate the
-asset providers, cohort, quota and transport. Existing historical runners and
-archives retain their original identities and are not relabelled as new runs.
+The agent/chart-analysis foundation adapts QuantAgent from Y-Research @SBU,
+including its Indicator, Pattern, Trend, and Decision agents, LangGraph
+structure, chart tools, and portions of the web interface. Vietnamese market
+access, alpha/sentiment integration, accounting, historical priors, MT-BICL,
+and paired research infrastructure extend that foundation.
 
-## Comparison protocol preflight
-
-The current comparison design and input manifest live in
-`docs/plan/week12/unified_comparison_protocol_v2.json` and
-`docs/plan/week12/unified_comparison_manifest_v2.json`. Restore the pinned
-numeric assets and verify them offline with:
-
-```powershell
-py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py restore
-py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py verify
-```
-
-Verification reconstructs the 102 donor anchors, split support, branch orders
-and quota scenarios. It checks source, runtime and artifact bytes without
-loading weights, computing query returns, reading credentials or creating
-clients. The asset ZIP includes the 51 selector bindings, 102 alpha projections,
-PIT provider preparations and explicitly labelled request controls. Nine unique
-selectors fit before each symbol's earliest test anchor and remain fixed across
-folds. MT contexts freeze before the first query of each fold and exclude every
-cohort query before label computation. Bank source transfer, OOD fallbacks and
-missing news remain explicit.
-
-For a full CPU replay of the frozen selectors, native numeric preparation,
-retrieval, HMM, student, utility and control request/policy ABI:
-
-```powershell
-py -3.13 -I -X utf8 scripts/prepare_unified_comparison_v2.py replay-numeric
-```
-
-The source manifest also requires the pinned original pilot handoff, quota
-ledgers, model and historical inputs. A checkout alone does not provide all
-ignored artifacts. Missing assets or changed bindings fail explicitly. The
-historical H03 and comparison v1 receipts certify their original source
-snapshots; their default verifiers are not acceptance gates for a changed tree.
-
-An offline preflight PASS means the recorded audit is reproducible. Execution
-remains blocked until the paired/recovery checks and a new collection release
-have been accepted. Quota planning uses the current user attestation of five
-independent Free organizations and authenticated model-catalog GETs. Provider
-organization identities were not returned; collection must revalidate rate
-headers and reconcile other usage. Quota scenarios assume five independent
-organization queues and do not promise an end date. The historical cohort was
-previously evaluated and supports exploratory analysis. Existing full-run and
-pilot grants do not authorize a new collection.
-
-The v2 CLI also provides `assets`, `package` and `freeze` for the pinned recipe;
-existing artifacts are preserved. Provider metadata auditing is a separate,
-explicit GET-only command in `scripts/audit_unified_provider.py`. Neither CLI
-releases hosted execution or changes the experiment runner's order.
-
-## Causal alpha profile
-
-`causal_common_v1` provides a separate alpha profile with the same 85 formula
-handlers and explicit causal operator changes. It removes backward filling,
-full-series normalization, global volume proxy selection and six window sizes
-that depend on the input length. Warm-up and missing-volume observations are
-masked. Normalization uses expanding prefixes; it keeps a fixed history origin
-instead of resetting to a rolling 600-bar origin.
-
-The selector learns orientation on train only, selects five IDs and a threshold
-on purged validation support, and freezes them before the test window. Labels
-call the canonical round-trip oracle; selection scores use LONG/CASH cycles.
-Artifacts pin source, runtime, schedule, prices, costs and the full validation
-search. Loading replays the train/validation fit; prediction rejects changed
-training prices, future rows, a shifted origin or unavailable selected factors.
-
-```powershell
-py -3.13 -I -X utf8 scripts/manage_causal_profile.py fit --prices prices.json --schedule schedule.json --output outputs/unified_integration/<new-run>/selector.json
-py -3.13 -I -X utf8 scripts/manage_causal_profile.py verify --prices prices.json --selector outputs/unified_integration/<new-run>/selector.json
-py -3.13 -I -X utf8 scripts/manage_causal_profile.py predict --prices prices.json --selector outputs/unified_integration/<new-run>/selector.json --cutoff YYYY-MM-DD --output outputs/unified_integration/<new-run>/prediction.json
-```
-
-The input is explicit daily OHLCV in CSV or JSON column lists. Schedule fields
-are `train_start`, `train_end`, `validation_start`, `validation_end`, `test_start`
-and `test_end`; create a fresh output directory first. The `bridge` command also
-accepts `--snapshot`, `--decision` and `--output` to compare native and causal
-common requests without model calls.
-
-An experiment uses `unified_experiment_v2`, `input_profile: causal_common_v1`
-and a `causal_sources` map from `symbol/fold` to `prices` and `selector` paths,
-both bound in `source_hashes`. The raw upstream still shares its last 600 bars.
-The runner verifies and seals the causal alpha projection from the anchored
-history once per point, uses it for every common method, and preserves the
-native request on the same raw parent. V1 specs retain their original profile;
-they cannot silently receive a causal snapshot. New record/profile versions
-identify the bridge in JSON and CSV.
-
-V2 anchor source cards hash the rendered request and reply content. Full-file
-provenance hashes remain in the snapshot and dependency ledger; they are not
-fed back into the prompt through a source-card token. This keeps prepared
-requests invariant when only post-cutoff prices or audit metadata change.
-
-This is an alpha-only causal contract. It does not certify news availability,
-universe, HMM/scaler or retrieval/student provenance, execution quality, or
-whole-system zero leakage. Those providers and the comparison protocol still
-need their own release checks. Native row-wise causality remains FAIL, and
-neither profile grants hosted collection or a claim of statistical superiority.
-
-## Repository and evidence
-
-- `agents/`, `utils/`: agents, graph assembly, prompts, charting and contracts.
-- `core/`, `data_manager/`: accounting, PIT inputs, priors, MT-BICL and research adapters.
-- `scripts/`, `tests/`: entrypoints, offline audits and regression checks.
-- `paper/`, `revision/`: manuscript sources, generation tools and research policies.
-- `outputs/revision/`: frozen evidence, including historical source snapshots.
-- `docs/plan/`: protocols, checklists, acceptance records and evidence indexes.
-- `templates/`, `web_interface.py`: Flask interface.
-
-Frozen evidence and historical source files are read-only research inputs,
-not additional live engines. Some model/data assets remain local and are not
-recoverable from a source checkout alone. Replay needs the original hashes,
-runtime, inputs and archive resolver. A historical receipt certifies its own
-snapshot, not later source changes. Hosted responses are not guaranteed to
-reproduce across serving epochs, and exposed historical data do not establish
-prospective superiority.
-
-This research simulator does not certify exchange fills, vendor price quality,
-taxes, liquidity, or complete production execution behavior.
+The upstream comparison is pinned to
+`92519f806286192345e940e7ab77496462d662b7`. The originally adopted upstream
+commit is unrecorded. Upstream-derived material retains its MIT copyright
+and license notice. Project additions, datasets, model weights, and other
+dependencies retain their respective licensing and distribution terms.
+[Third-party notices](THIRD_PARTY_NOTICES.md),
+[preserved QuantAgent MIT license](LICENSES/QuantAgent-MIT.txt).
