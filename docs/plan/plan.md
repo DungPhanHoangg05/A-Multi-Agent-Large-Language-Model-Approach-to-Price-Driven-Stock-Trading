@@ -6,15 +6,15 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ## Trạng thái hiện hành
 
 **Viết khóa luận, cập nhật ngày 17/11/2026:** thư mục làm việc là `thesis/`.
-**P9 mở lại theo rà soát bản 60 trang:** [kế hoạch bổ sung](../../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang)
-thêm 12 task T80a–T80l, tất cả TODO. Ưu tiên bằng chứng student/HMM, cơ sở chọn
-mẫu/tham số, ảnh hưởng lỗi nhân quả, đầu mối tái lập; bổ sung diễn giải/hình,
-sửa bookmark/mục lục, bảng và phần đầu rồi kiểm lại toàn PDF. G5 chưa chốt lại;
-T81 phải chờ T80l. Đối chứng cần nghiên cứu mới được tách riêng, không tự chạy.
-Lần này chỉ cập nhật kế hoạch, không sửa bản thảo, PDF hoặc kết quả nghiên cứu.
-Giữ 60–70 trang toàn file, không phụ lục và trang dọc; dự kiến bổ sung 4–7 trang
-thiết yếu kết hợp bỏ lặp, không ép tăng trang. Plan/trao đổi tiếng Việt,
-nội dung khóa luận tiếng Anh. Checklist duy nhất ở `thesis/plan.md`.
+**P9 bổ sung đã tự rà xong T80a–T80l:** [checklist và đặc tả](../../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang).
+Bản mới 67 trang,21 bảng/8 hình, không phụ lục, A4 dọc/rotation0. Đã thêm bằng chứng
+student/regime theo nguồn đã lưu, thu hẹp các kết luận thiếu nguồn, giải thích mẫu/tham số,
+nhân quả và cơ chế; thêm DAG/hai biểu đồ, sửa điều hướng và biên tập cuối.
+Clean build bốn lượt/Biber trong bản sao độc lập; xem đủ 67 trang render 120 dpi;
+51 bookmark/51 TOC title links đúng tiêu đề thật,146 đích nội bộ hợp lệ.
+G5 chốt lại trong phạm vi nội bộ, P10/T81–T84 còn mở. Chưa phản biện ngoài/ký/nộp;
+chuẩn trường và quyền phân phối chưa rõ vẫn là giới hạn. Không gọi API/fit/inference/
+bootstrap/replay hoặc chạy lại suite runtime. Checklist duy nhất ở `thesis/plan.md`.
 
 **Mốc lịch sử P9/T73a–T73l và T73–T80:** đã rà nội bộ bản biên tập **60 trang**,
 toàn A4 dọc/rotation=0, không phụ lục. Giữ12pt/giãn1,5/lề cũ; hai nghiên cứu,

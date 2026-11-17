@@ -470,3 +470,12 @@ Use [EX01 and its selection/source record](evidence.md#7-ví-dụ-xuyên-suốt-
 Follow the [writing plan](plan.md) and maintain task status in the [project checklist](plan.md#21-một-nguồn-trạng-thái-công-việc). Draft the contracts and methods and keep the reduced LaTeX manuscript as the single submission source. Preserve RQ1–RQ4, adverse results and validity limits while removing repetition. Review the rendered document before handover. The plan and checklist remain in Vietnamese for project management.
 
 Keep task IDs, weekly progress and incident history out of the thesis body. They remain planning/provenance aids only.
+
+
+The 17 November review addendum is implemented in LaTeX: Chapter 4 adds a
+parameter-evidence table and a same-repeat dependency DAG; Chapter 5 adds
+saved student verification, query-regime support, two result plots,
+mechanism interpretation, Code, Data and Reproducibility, and a concrete
+causal-counterexample scope table. Final numbering and page locations are
+generated from that source; this outline remains a writing aid. Missing
+MT regime trace and original sampling rationale are stated as limitations.

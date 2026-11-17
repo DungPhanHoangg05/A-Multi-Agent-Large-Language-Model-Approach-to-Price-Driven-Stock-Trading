@@ -14,7 +14,7 @@ giữ nguyên byte 13 bản Markdown cùng nguồn LaTeX tại mốc cũ;
 [source map](latex/source-map.json) lưu hash LF và ánh xạ mốc chuyển.
 Kế hoạch, sổ bằng chứng và README quản lý vẫn tiếp tục cập nhật bằng Markdown.
 
-[PDF đã rà nội bộ T80](release/thesis.pdf) hiện có **60 trang**, toàn A4 dọc,
+[PDF đã rà nội bộ T80l](release/thesis.pdf) hiện có **67 trang**, toàn A4 dọc,
 không phụ lục. Mốc P8 259 trang vẫn lấy nguyên byte từ Git `d025facb`. Bản nộp mới gồm hai bìa,
 phần đầu, sáu chương và references, không phụ lục. Đây là bản để tiếp tục P10,
 chưa là bản đã phản biện, ký, nộp hoặc được trường chấp thuận.
@@ -123,14 +123,18 @@ Các file mẫu có ở máy nhưng chưa được Git theo dõi tại mốc l�
 
 ## Bản biên tập P9 hiện hành
 
-T73a–T73l và T73–T80 đã thực hiện trong phạm vi rà soát nội bộ; bản PDF60 trang và hash hiện tại ở source-map.
-Phân bổ thực tế: phần đầu10, sáu chương3/4/6/19/13/2, references3.
-Mục tiêu66 là dự toán, khoảng60–70 là phạm vi làm việc; không chèn nội dung
-để ép từng ngân sách. 17 bảng/năm hình; đủ hai nghiên cứu, hai baseline,
-family20, support/bypass, NA/kết quả âm và Native FAIL/NOT_CERTIFIED/UI PENDING.
-T74–T80 đã tự rà khả năng đọc hiểu, tiếng Anh, citation/quyền, số học,
-clean build và đủ 60 trang render. G5 đạt trong phạm vi kiểm nội bộ;
-không thay phản biện khoa học độc lập hoặc quy định định dạng của trường.
-P10/T81–T84 còn mở; chưa nhận phản biện ngoài, chưa ký/nộp. Deadline,
-quy định citation/bố cục chính thức và quyền phát hành một số tài nguyên
-vẫn chưa được xác minh; chi tiết ở sổ T76/T80. Không chạy lại runtime suite.
+T73a–T73l, T73–T80 và lượt bổ sung T80a–T80l đã tự rà xong; PDF 67 trang
+và hash hiện tại ở source-map. Phân bổ: phần đầu 10, sáu chương3/4/6/20/19/2,
+references 3. Có 21 bảng/8 hình; giữ hai nghiên cứu, hai baseline, family20,
+support/bypass, NA/kết quả âm và Native FAIL/NOT_CERTIFIED/UI PENDING.
+Bổ sung chỉ dùng artifact đã khóa và tổng hợp minh bạch, không nghiên cứu mới.
+Đã kiểm số học độc lập,19 source bindings/204 slot bindings,22 citation keys,
+build sạch bốn lượt/Biber và xem mọi trang ở 120 dpi. Điều hướng kiểm đúng tiêu đề
+thật:51 bookmarks/51 TOC title links;146 đích nội bộ hợp lệ,56 link bảng/hình
+khớp đúng caption/số trang. G5 đạt trong phạm vi tự rà nội bộ.
+P10/T81–T84 còn mở; không thay phản biện độc lập, chữ ký/ngày hoặc chuẩn trường.
+MT query-regime frequency không đủ trace, lý do chọn từng mã/cửa sổ không có hồ sơ,
+tham số chưa được chứng minh tối ưu và student chưa có benchmark lợi ích riêng.
+Deadline, quy định citation/bố cục chính thức và một số quyền phân phối chưa rõ.
+Xem [sổ §16](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang) để biết phạm vi/giới hạn;
+không chạy lại suite runtime vì không đổi code/schema/runtime/input nghiên cứu.

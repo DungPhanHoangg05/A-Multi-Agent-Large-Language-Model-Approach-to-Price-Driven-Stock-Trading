@@ -56,26 +56,21 @@ chỉ phục vụ sửa bố cục khi bibliography không đổi, không thay f
 
 Đã ghi nhận LuaHBTeX 1.24.0/MiKTeX 25.12, LaTeX2e 2025-11-01 và Biber 2.21.
 T76 chuẩn hóa tháng thành số và bỏ trường năm không hợp lệ của model card
-không ngày (vẫn ghi rõ undated); không gán năm xuất bản mới. Bản rút gọn
-có 60 trang A4 dọc/rotation=0, không phụ lục,
-17 bảng chính và 5 hình. Giữ 12 pt/giãn dòng 1,5/lề 2,5cm ngang và 3cm
-trên dưới; bảng dùng small 11 pt, nhãn sơ đồ mới 10 pt. Không dùng thu nhỏ
-toàn bảng, môi trường xoay hoặc ngắt trang cưỡng ép theo từng bảng.
-T78 build trong thư mục sạch với bốn lượt LuaLaTeX/Biber, không đọc mẫu,
-Markdown, archive hoặc nguồn ở checkout gốc. Final log không underfull/
-overfull box, glyph thiếu, reference/citation treo, glue-splitting note hay
-warning Biber. MiKTeX vẫn nhắc chưa kiểm cập nhật ở stdout; exit 0, đây là
-nhắc bảo trì môi trường, không phải lỗi bản thảo. Không cập nhật runtime
-để xóa lời nhắc. Hash PDF/nguồn và số trang từng phần ở `source-map.json`.
-T79 đã xem đủ mọi trang render; T80 xử lý yêu cầu tác giả đã nhận và hoàn
-tất lượt chỉnh nội bộ, kiểm lại build/trang ảnh hưởng. Hash hiện hành ở
-source map là bản sau T80 và đính chính bố cục theo tác giả: sơ đồ ở trang
-đánh số 15/26 có văn bản đi cùng, cặp biểu đồ lân cận cũng giữ phần chữ.
-Chỉ đổi vị trí float; không đổi kích thước hay nội dung hình. Đã build lại
-bốn lượt/Biber và render kiểm các trang đổi; tổng vẫn 60 trang. Các mốc
-T73/T78–T79/T80 trước đính chính được giữ riêng trong lịch sử.
-Chưa có phản biện mới của người hướng dẫn, chưa ký/nộp bên ngoài. Đóng gói
-nguồn tự đủ và build từ gói giải nén thuộc P10/T81–T84.
+không ngày (vẫn ghi rõ undated); không gán năm xuất bản mới. Bản hiện hành sau T80a–T80l có 67 trang A4 dọc/rotation0, không phụ lục,
+21 bảng và 8 hình. Giữ12pt/giãn1,5/lề2,5cm ngang và3cm trên dưới; bảng11pt,
+nhãn sơ đồ10pt. Không thu nhỏ toàn bảng hoặc xoay trang để ép ngân sách.
+T80l build sạch bốn lượt LuaLaTeX/Biber trong bản sao chỉ gồm LaTeX/assets/bib,
+không đọc archive/Markdown/mẫu hoặc nguồn ở checkout gốc. Final log không có
+underfull/overfull, citation/reference/glyph thiếu hoặc cảnh báo Biber.
+MiKTeX vẫn có nhắc chưa kiểm cập nhật ở stdout, exit0; không đổi môi trường.
+Đã render đủ 67 trang bằng Poppler 120 dpi và xem từng trang, phóng lớn bảng/hình mới.
+Kiểm semantic51 bookmark/51 TOC title links với tiêu đề thật,146 đích nội bộ
+hợp lệ và56 liên kết bảng/hình đúng caption. Native headings của report/hyperref
+giữ điểm neo cùng tiêu đề; không đặt trang đích cứng theo PDF.
+Hash hiện hành và lịch sử60 trang/P8 giữ riêng trong `source-map.json`.
+G5 chốt trong phạm vi nội bộ; P10 đóng gói nguồn và build từ gói giải nén vẫn còn mở.
+Chưa có phản biện độc lập mới, chưa ký/nộp; chuẩn trường và một số quyền phân phối
+chưa xác minh. Suite nghiên cứu không chạy lại vì nguồn/runtime/input đã khóa không đổi.
 
 Notice `licenses/QuantAgent-MIT.txt` giữ nguyên byte notice upstream. Không
 suy quyền phân phối data/news/model weights/logo trường từ license phần mềm;

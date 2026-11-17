@@ -3217,6 +3217,29 @@ Giữ F03 overview, vẽ lại F08 thành DAGinline10pt phân biệt sharedproje
 
 Bỏ titlesec, giữ section/anchor gốc report-hyperref; chỉ thay định dạng đầu chương. Primarymanual hyperref nêu titlesec không hỗ trợ anchors/pagebreak (https://tug.ctan.org/macros/latex2e/contrib/hyperref/doc/hyperref-doc.html). Khônghardcodepage. QA semantic PDF mới67trang:51bookmark/51TOCtitlelinks đúng heading thật/cùngpage/tọa độ; cùngchecker phát hiện đúng6đích lệch bản60trang cũ. Đã xem DAG, EX01 gộp hai đoạn ởcuốiCh4 và bảngcontext có khoảng riêng Return–SD. Build4lượt/BiberPASS, khôngoverfull/citation/glyphthiếu;1underfull ởcounterexample prose chuyển T80k xử lý. Chỉ tài liệu, không suite runtime; finaltargets kiểm lạiT80l.
 
-### T80k. Chu?n h?a hi?n th? v? ghi ch? References
+### T80k. Chuẩn hóa hiển thị và ghi chú References
 
-18 thay th? s? hi?n th?; s? ngu?n v? 68 d?ng b?ng b?o v? kh?ng ??i. L?m g?n t?m ghi ch? bibliography, gi? 22 citation keys v? th?ng tin version c?n thi?t; ?nh x? tr??c/sau l?u ? review_additions.source.json. L?i c?m ?n t?i gi?n v? Declaration ?? x?c nh?n gi? nguy?n byte theo m?c 4d2f4857; ch?a k?, ch?a c? chu?n tr??ng ho?c x?c nh?n c? nh?n m?i. Kh?ng ch?y suite nghi?n c?u v? ch? s?a t?i li?u; build v? ki?m to?n b? b?n cu?i th?c hi?n ri?ng ? T80l.
+18 thay thế số hiển thị; số nguồn và 68 dòng bảng bảo vệ không đổi. Làm gọn tám ghi chú bibliography, giữ 22 citation keys và thông tin version cần thiết; ánh xạ trước/sau lưu ở review_additions.source.json. Lời cảm ơn tối giản và Declaration đã xác nhận giữ nguyên byte theo mốc 4d2f4857; chưa ký, chưa có chuẩn trường hoặc xác nhận cá nhân mới. Không chạy suite nghiên cứu vì chỉ sửa tài liệu; build và kiểm toàn bộ bản cuối thực hiện riêng ở T80l.
+
+### T80l. Đối soát toàn bộ bổ sung và chốt lại G5 nội bộ
+
+Bản cuối **67 trang**, phần đầu 10, chương 1–6:3/4/6/20/19/2, references 3;21 bảng/8 hình, portrait/rotation0, không phụ lục. SHA256 `52bb909c6d5f87eaa4714b2361aa7c354d537c6b442668ea72decb612d4a5b03`; số byte 736941. Clean build bốn lượt LuaLaTeX/Biber trong bản sao chỉ chứa LaTeX/assets/bib; FLS không đọc checkout gốc/archive/Markdown/mẫu. Log không overfull/underfull, citation/reference/glyph thiếu hoặc warning Biber. Giữ thông báo bảo trì MiKTeX ở stdout, exit0; không nâng môi trường.
+
+| Nhóm nhận xét | Task / sản phẩm và trang vật lý mới | Giới hạn hoặc trạng thái |
+| --- | --- | --- |
+| Student đo được | T80a, bảng5.3 trang 48; giải thích trang 47 | seed42/step3000;2021 selection/2022 assessment, không xếp hạng Brier khác support |
+| Teacher/student và features | T80b, trang 35–38 | Transformer là lựa chọn triển khai; không benchmark ưu thế tốc độ hay thị trường |
+| Cohort/lịch | T80c, trang 44–46 | purposive inherited endpoints; thiếu hồ sơ lý do từng mã/cửa sổ; không preregistration |
+| Regime/support | T80d, bảng5.2 trang 46 | signal4/0/4/40,54NR; MT102NR, không lấp state/fallback; fit metadata riêng |
+| Tham số | T80e, bảng4.5 trang 40 | engineering guards; không chứng minh tối ưu hoặc retune |
+| Nhân quả | T80f, ví dụ trang 60/bảng5.14 trang 61 | phản ví dụ đã lưu; Native FAIL/NOT_CERTIFIED không đổi |
+| Truy cập/tái lập | T80g, §5.9 trang 59–60 | URL/author-held revisions/entrypoint; quyền và gói bàn giao còn giới hạn |
+| Diễn giải | T80h, §5.8.4 trang 58–59 | BA/return, v1 hai baseline,198 raw/4 changes; đối chứng nhân quả còn thiếu |
+| Trực quan | T80i, DAG trang 41/hình5.1–5.2 trang 55–56 |10 return cells từ family20;108/189/5/4; không bootstrap mới |
+| Điều hướng/biên tập/phần đầu | T80j–T80k, TOC trang 6–7,EX01 trang 43,bảng 5.8 trang 53,References trang 65–67 |51 bookmark/51 TOCtitles đúng tiêu đề; số chỉ làm tròn hiển thị; lời cảm ơn/Declaration giữ xác nhận, chưa ký/ngày |
+
+Đã xem 17 contact sheets bao phủ **mọi trang 1–67** render Poppler 120 dpi, rồi xem lớn trang 40/41/46/48/53/55/56/61 và crop chi tiết. Không còn chữ/cột dính, hình riêng trang thân bài hoặc đuôi EX01 ngắn; các trang cảm ơn và kết chương ngắn có chủ đích. Điều hướng:146 internal targets hợp lệ,51 bookmarks và51 TOC title links khớp tiêu đề thật;56 caption links khớp số hình/bảng trên đúng trang,54 external links; negative control bản60 trang phát hiện đúng6 heading targets lệch. Cả 22 bibliography keys đều được cite; bỏ ghi chú nội bộ nhưng giữ version.
+
+Đối soát 19 nguồn/204 slot bindings, hash checkpoint/export (không nạp model), student receipts, state counts và 10 return cells/306 MT counts PASS. Kiểm số học độc lập từ3.060 context predictions/1.530 account-NAV endpoints và918 component predictions;68 dòng bảng/20 family cells,12 execution scenarios và7 factorial contrasts PASS. 108 dòng đặc tả plan bất biến, T81–T84 vẫn mở; cover/frontmatter và root README/runtime/code/input nghiên cứu giữ nguyên. Source-map cập nhật PDF/nguồn/assets và thêm bản sao sâu mốc60 trang; lịch sử P8/các lượt trước không đổi.
+
+G5 chỉ **PASS tự rà nội bộ**; chưa phản biện ngoài, ký/nộp hoặc xác nhận chuẩn trường. Thiếu MT query-state trace/lý do sampling gốc được thu hẹp rõ; tham số/student không được nhận lợi ích chưa đo. Chữ ký/ngày, deadline/bố cục/citation chính thức và quyền phát hành một số tài nguyên còn chờ. Không inference/fit/bootstrap/replay/API hoặc chạy lại suite nghiên cứu vì task chỉ biên tập/đối soát bằng chứng; script vẽ hai hình đã được biên dịch/chạy ở T80i trong phạm vi tạo hình. P10/T81–T84 là phần tiếp theo, chưa đóng gói giả hoàn tất.
