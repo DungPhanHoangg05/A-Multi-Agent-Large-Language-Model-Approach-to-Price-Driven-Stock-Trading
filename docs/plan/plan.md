@@ -5,6 +5,235 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
+### Kế hoạch finalize hệ thống — cập nhật 17/11/2026
+
+**Trạng thái hiện tại — đã lập kế hoạch, chưa bắt đầu các task thực thi.**
+Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
+đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
+chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
+Lợi nhuận âm hoặc chưa đủ bằng chứng vượt đối chứng tiếp tục được báo cáo theo kết quả đo.
+
+Theo yêu cầu hiện hành, **checklist FIN00–FIN17 ngay tại đây là nguồn tiến độ
+finalize duy nhất**. README W12 tiếp tục là nguồn bằng chứng U/F đã ghi nhận;
+[thesis/plan.md](../../thesis/plan.md) quản lý các task biên tập/nộp khóa luận.
+Các nhận định về đầu mối và trạng thái trong phần lịch sử bên dưới gắn với
+mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đúng phạm vi.
+
+#### Phạm vi bản cuối và điều kiện kết thúc
+
+- Bao phủ sáu lựa chọn ứng dụng, hai vai trò Common/Fact Anchor và các caller
+  CLI, backtest, serving as-of, realtime 1D cùng viewer/export đang được hỗ trợ.
+- Khóa profile sửa Alpha của hệ gốc bằng version mới, tái sử dụng
+  [causal_common_v1](../../core/causal_alpha.py) và
+  [bridge hiện có](../../core/causal_bridge.py). Giữ định danh Native đã tạo
+  ra kết quả cũ để truy vết; bản sửa có source/resource/request identity riêng.
+- Bộ dữ liệu và tài nguyên của bản cuối phải có bằng chứng đáp ứng phạm vi
+  PIT đã công bố. Khi thiếu nguồn gốc cần khôi phục hoặc tái tạo nguồn có lưu
+  vết trước nghiệm thu; quy tắc eligibility được khóa trước outcome.
+- Mặc định ưu tiên đánh giá sửa đổi trên lịch 102 điểm đã có và tái sử dụng
+  các lời gọi còn hợp lệ. Thay đổi nguồn/cohort cần protocol và nhãn phiên bản
+  tương ứng. Nghiên cứu xác nhận trên dữ liệu chưa xem là phần tiếp nối khi
+  có mục tiêu xác nhận hiệu quả, nằm ngoài điều kiện đóng bản kỹ thuật này.
+- Trước khi đóng, các gate áp dụng của bản mới đạt PASS trong miền đã khóa,
+  mọi ô/kết quả cần thiết đã hoàn tất, tài liệu và gói khôi phục đã đối soát.
+  Vấn đề còn chặn gate phải có bằng chứng xử lý trước khi đánh dấu hoàn thành.
+- Receipt Native/U08/U09 và kết quả lịch sử tiếp tục chứng nhận snapshot cũ.
+  Báo cáo bản mới ghi riêng trạng thái từng profile, miền, dữ liệu và thời điểm.
+  Các giới hạn về kiến thức huấn luyện của LLM và khớp lệnh thực tế được nêu
+  đúng phạm vi chứng minh của nghiên cứu.
+
+#### Hợp đồng áp dụng xuyên suốt
+
+LONG vào Open(t+1), ra Close(t+3) theo phiên; SHORT giữ CASH; phí 0,25% và
+slippage 0,10% mỗi chiều. Nhãn dùng `compute_round_trip_net_return`.
+Giá query ≤ cutoff, tin có thời điểm khả dụng hợp lệ, episode có exit < cutoff.
+Orientation/scaler/HMM/student/selector tuân thủ lịch fit đã khóa, nhãn qua
+ranh giới split được purge. Upstream Indicator–Pattern–Trend chạy một lần
+mỗi point/realization và được deep-copy; outcome query ở sau forecast barrier.
+BRPP K=3 ≤600 ký tự, prompt Decision backtest <6.500 ký tự, retry/checkpoint
+và đối soát UNKNOWN dùng các primitive hiện có.
+
+#### Checklist thực thi và đầu ra nghiệm thu
+
+Mỗi ô chỉ được đánh dấu khi đã có đầu ra và bằng chứng của chính task.
+Các task kỹ thuật tiếp theo dùng workflow theo AGENTS và chỉ đạo Git còn
+hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thành FIN00.
+
+- [x] **FIN00 — Lập kế hoạch finalize.** Đối chiếu plan, registry, causal alpha,
+  bridge, audit, serving contract và acceptance U09; khóa thứ tự việc và tiêu
+  chí tại đây. Kiểm tài liệu theo ghi nhận cuối mục.
+- [ ] **FIN01 — Khóa inventory bản làm việc và nguyên nhân các cờ.** Ghi commit,
+  runtime, tài nguyên, receipt và đường gọi thực tế của từng phiên bản. Phân
+  loại cờ lịch sử, lỗi còn tái hiện và phần thiếu bằng chứng. Đầu ra là bảng
+  ảnh hưởng trong checklist này cùng manifest máy đọc dùng lại hạ tầng hiện có.
+  Đạt khi mọi FAIL/NOT_CERTIFIED của miền dự kiến có nguồn, task xử lý và tiêu
+  chí kiểm lại. Phụ thuộc FIN00, thực hiện offline.
+- [ ] **FIN02 — Chốt hợp đồng bản cuối và thiết kế so sánh.** Khóa miền mã/ngày,
+  source/availability, profile sửa, hai nền đối chứng, các dependency,
+  phương pháp/controls, support/fallback, lịch fit/purge, metric và chính sách
+  thiếu dữ liệu. Nêu chính xác delta Native sửa/Common; trường hợp request
+  tương đương được nhận diện để tái sử dụng. Chốt mọi thay đổi phương pháp
+  trước khi xem kết quả mới. Phụ thuộc FIN01.
+- [ ] **FIN03 — Hoàn thiện Alpha nhân quả và selector.** Tái sử dụng logic hiện
+  có để xử lý bfill, chuẩn hóa toàn chuỗi, nhánh volume toàn cửa sổ và sáu
+  cửa sổ theo độ dài input. Kiểm đủ 85 yếu tố, warm-up/missing, origin cố định,
+  orientation train, lựa chọn validation và đóng băng trước test. Đạt khi
+  prefix extension/future poisoning không viết lại quá khứ, giá test không
+  tác động fit và caller nhận đúng profile. Phụ thuộc FIN02, chưa cần hosted API.
+- [ ] **FIN04 — Hoàn thiện nguồn giá, lịch và sự kiện doanh nghiệp.** Đối soát
+  giá bank/query, đơn vị, lịch phiên, thời điểm khả dụng và điều chỉnh sự kiện.
+  Khôi phục snapshot hoặc tạo nguồn thay thế có định danh/lưu vết khi cần;
+  ghi rõ phần thay đổi dataset và tác động đến nhãn/đặc trưng. Đạt khi các
+  nguồn trong miền nghiệm thu được validator và oracle chấp nhận, còn các
+  giới hạn vendor được mô tả chính xác. Phụ thuộc FIN02.
+- [ ] **FIN05 — Hoàn thiện PIT tin tức.** Đối soát nội dung, nguồn, thời gian
+  xuất bản/khả dụng/thu thập, scorer và aggregation. Thu bổ sung hoặc khóa
+  nguồn phục vụ bản mới khi thiếu bằng chứng; giữ unavailable có lý do theo
+  contract. Đạt khi tin future/undated/sửa sau cutoff được xử lý đúng và cùng
+  một snapshot cung cấp báo cáo/hiển thị. Phụ thuộc FIN02; tác động API được
+  đưa vào FIN09, dữ liệu cần thu mới được khóa trước sử dụng.
+- [ ] **FIN06 — Hoàn thiện bank, regime và tài nguyên fit.** Truy nguồn tín
+  hiệu/giá/nhãn từng chu kỳ dùng trong bản cuối, xử lý chênh cơ sở giá, kiểm
+  strict maturity, train cutoff của HMM/scaler và quy tắc OOD. Nếu cần tái tạo
+  bank hoặc refit tài nguyên, có recipe, nhật ký và version mới trước inference
+  query. Đạt khi membership/labels/resources được tái dựng và query outcome
+  không tác động preparation. Phụ thuộc FIN03–FIN05; nhu cầu API chuẩn bị
+  lịch sử được ghi trong FIN09.
+- [ ] **FIN07 — Kiểm MT-BICL và toàn đường ngữ cảnh.** Kiểm context prior/target,
+  fold freeze, reserved IDs, student/teacher, facts, support và thỏa dụng;
+  giữ riêng p_student và teacher utility. Kiểm v1/C2/A/B dùng đúng nguồn,
+  cổng và mẫu số; kiểm anchor và Q10/Q90 qua các trường hợp chấp nhận/bypass/
+  phủ quyết. Đạt khi thay đổi future/query label không đi vào preparation,
+  request hoặc policy trước barrier. Phụ thuộc FIN03–FIN06, ưu tiên offline.
+- [ ] **FIN08 — Nối bản sửa vào các điểm vào thực tế.** CLI/backtest/as-of/live
+  dùng đúng profile, snapshot, dependency và cache identity mới. Default của
+  bản phát hành chuyển sang đường đã sửa sau nghiệm thu; dữ liệu cũ được
+  hiển thị đúng profile lịch sử. Trạng thái khoa học của bản mới được dẫn từ
+  bằng chứng đã kiểm và đúng miền. Đạt khi không còn caller thuộc bản cuối
+  gọi nhầm Alpha cũ, trộn cache hoặc gán receipt cũ cho nguồn mới. Phụ thuộc
+  FIN02, FIN03 và FIN07.
+- [ ] **FIN09 — Chốt bảng tái sử dụng và ngân sách API.** Đối chiếu từng request
+  và dependency với archive, ghi slot dùng lại/chạy mới/bypass và lý do.
+  Tính cả gọi chuẩn bị bank, vision, anchor, repeats, smoke, retry và quota
+  còn sử dụng; chốt model/options, giới hạn lượt gọi và chi phí/thời gian có
+  căn cứ trước thu. Đạt khi số slot/call kiểm được bằng dry-run và mọi lời gọi
+  có nhu cầu thực tế. Phụ thuộc FIN01–FIN02; lập dự toán sơ bộ ngay sau FIN02,
+  cập nhật theo delta FIN03–FIN08. Batch gọi model chuẩn bị tài nguyên chỉ mở
+  sau khi producer đã qua kiểm offline liên quan và nguồn/recipe/ngân sách
+  batch được khóa; sau thu tái kiểm task tài nguyên trước FIN10.
+- [ ] **FIN10 — Nghiệm thu offline trước thu query.** Khóa code/runtime/resource
+  và chạy các kiểm tra trực tiếp bị ảnh hưởng, gồm PIT toàn pipeline,
+  economics, paired dependency, prompt/schema, retry/checkpoint, owner/cache,
+  stop/resume và UNKNOWN. Cold replay bằng fixture kiểm đường mới. Đạt khi
+  mọi kiểm tra áp dụng PASS, source pin khớp và blocker chuẩn bị đã được xử lý.
+  Phụ thuộc FIN03–FIN09; sửa mới phải kiểm lại phạm vi ảnh hưởng trước thu tiếp.
+- [ ] **FIN11 — Thực thi thu hồi đáp cần thiết.** Dùng protocol và ngân sách
+  FIN09 đã khóa cho các slot thực sự cần gọi. Reuse upstream hợp lệ, checkpoint
+  mỗi point, lưu raw/usage/epoch và cùng-repeat dependency. Đạt khi planned =
+  complete cho miền đã khóa, mọi attempt được đối soát; thiếu/lỗi giữ nguyên
+  trạng thái để xử lý. Phụ thuộc FIN10 và phạm vi thực thi/ngân sách có hiệu
+  lực. Task có thể hoàn thành bằng audit 0 call nếu toàn bộ response còn hợp lệ.
+- [ ] **FIN12 — Đánh giá lại bản sửa.** Tính nhãn, tài khoản và metrics bằng
+  engine/evaluator đã kiểm; giữ đủ support, raw/final, bypass, NA và kết quả
+  âm. So với hai baseline đúng profile, báo epoch và nguồn các phản hồi reuse.
+  Kiểm toán độc lập số học và khôi phục artifact phân tích trong tiến trình
+  mới. Đạt khi mọi ô có provenance và số liệu khớp oracle. Phụ thuộc FIN11;
+  chỉ tái tạo các phân tích bị ảnh hưởng theo protocol đã chốt.
+- [ ] **FIN13 — Chốt nghiệm thu hệ thống trong miền công bố.** Tổng hợp bằng
+  chứng FIN03–FIN12 theo từng profile/caller/input. Bản sửa đạt row-wise
+  causal và toàn pipeline PIT trong miền đã khóa; integrity, economics,
+  pairing và recovery đạt điều kiện tương ứng. Gate chưa có bằng chứng tiếp
+  tục chặn đóng task. Receipt ghi source/runtime/data/model/scope; bản ghi
+  Native cũ vẫn dẫn đúng phản ví dụ đã lưu. Phụ thuộc FIN10 và FIN12.
+- [ ] **FIN14 — Hồi quy ứng dụng trên phần thay đổi.** Kiểm sáu lựa chọn,
+  Common/Fact Anchor, input/preflight, tiến trình, lỗi/partial/UNKNOWN,
+  raw/final/context, kết quả cũ/mới, VI/EN, theme và export. Kiểm trực quan
+  desktop/mobile cho các màn hình bị ảnh hưởng, ghi nhận quan sát thực.
+  Đạt khi UI trình bày đúng nguồn/profile/gate và các thao tác vận hành hoạt
+  động. Kế thừa nghiệm thu giao diện 17/11 trong phần không bị ảnh hưởng.
+  Phụ thuộc FIN08 và FIN13.
+- [ ] **FIN15 — Đồng bộ khóa luận, bài báo và tài liệu hệ thống.** Cập nhật
+  nguồn tại `thesis/` và `paper/`, hướng dẫn chạy, mô tả phương pháp, bảng/hình,
+  limitations và các tài liệu trình bày còn dùng theo đúng release mới.
+  Chương kết quả phân biệt study cũ và lần đánh giá
+  sửa đổi; số liệu sinh từ nguồn đã khóa. Khóa luận tiếng Anh, quản lý bằng
+  tiếng Việt, root README tiếng Anh. Build/render và kiểm phần tài liệu bị
+  ảnh hưởng; nối phần bàn giao với P10 của thesis. Phụ thuộc FIN12–FIN14.
+- [ ] **FIN16 — Đóng gói và khôi phục bản cuối.** Đóng gói source, runtime lock,
+  tài nguyên được phép bàn giao, runbook, manifest, kết quả và receipt theo
+  layout hiện có; ghi cách lấy asset local hoặc giới hạn phân phối. Kiểm
+  khôi phục trong môi trường sạch, offline replay và các điểm vào sử dụng.
+  Đạt khi người nhận tái dựng được phạm vi đã công bố và đối soát đúng hash.
+  Phụ thuộc FIN13–FIN15.
+- [ ] **FIN17 — Đóng kế hoạch finalize.** Đối chiếu từng deliverable và gate,
+  chốt release/default/profile/support, kết quả nghiệm thu và hướng dẫn bàn
+  giao. Mọi việc thuộc phạm vi đã hoàn thành hoặc có quyết định phạm vi
+  được cập nhật minh bạch trước nghiệm thu. Đạt khi FIN01–FIN16 đều hoàn tất
+  và các task bàn giao liên quan được đối soát. Phụ thuộc FIN16.
+
+#### Quy tắc tái sử dụng và gọi API
+
+| Thay đổi đã xác định | Phạm vi thực hiện |
+| --- | --- |
+| Audit, kiểm toán số học, metadata hoặc policy xác định, với request/schema cũ còn tương thích | Tính và kiểm offline, dùng raw response phù hợp đã lưu |
+| Chỉ báo cáo Alpha/prompt của bản Native sửa thay đổi | Gọi lại Decision của bản sửa ở những điểm bị ảnh hưởng; upstream/các nhánh khác cần proof tái sử dụng |
+| Bank, retrieval hoặc cách trình bày prior thay đổi | Tái tính preparation rồi gọi các nhánh có request mới, kể cả thay đổi ready/bypass |
+| Facts/anchor thay đổi | Kiểm Common → Fact Anchor → MT theo dependency; tái sử dụng ở node có request và contract còn hợp lệ |
+| Context/HMM/scaler/teacher/student thay đổi | Tái tính toàn preparation liên quan; xét lại prior/MT, support và policy theo request thực tế |
+| Giá/ảnh/tin/báo cáo đầu nguồn thay đổi | Tạo snapshot mới, chạy lại các node và Decision chịu ảnh hưởng theo đồ thị phụ thuộc |
+| Điểm mới hoặc nghiên cứu xác nhận mới | Thu các node thuộc protocol mới; upstream chia sẻ và bypass vẫn theo hợp đồng |
+
+Tái sử dụng cần đối chiếu nội dung thực gửi, ảnh, schema, model/options,
+profile và dependency cùng nhật ký nguồn. Hash archive thay đổi riêng do
+metadata kiểm toán được đánh giá qua verifier, không suy tự động thành request
+mới. Thay policy/evaluator chỉ được dùng raw cũ khi contract tương thích và
+mọi input cần thiết đã có trước outcome. Ghi serving epoch và giới hạn model
+alias khi ghép hồi đáp cũ/mới. Việc dùng chung upstream và phục hồi attempt
+đã hoàn tất được tính trong ngân sách, không nhân toàn bộ lưới theo mặc định.
+
+#### Các gate đóng bản cuối
+
+| Gate | Bằng chứng cần có | Task chốt |
+| --- | --- | --- |
+| Alpha nhân quả | 85 yếu tố, prefix/future poison, train/validation purge và selector freeze, caller đúng profile | FIN03, FIN08, FIN10 |
+| PIT toàn pipeline | Nguồn giá/tin/bank, lịch fit, membership và ranh giới outcome được kiểm trên miền công bố | FIN04–FIN07, FIN10, FIN13 |
+| Kinh tế và vận hành | Oracle, tài khoản, shared upstream, dependency, prompt, quota/retry/checkpoint/UNKNOWN PASS | FIN10–FIN13 |
+| Ứng dụng | Hồi quy caller, UI và dữ liệu kết quả cũ/mới khớp profile và nguồn | FIN14 |
+| Bàn giao | Phân tích đối soát, tài liệu khớp release, cold restore và runbook sử dụng được | FIN12, FIN15–FIN17 |
+
+Các gate phần mềm và PIT có phạm vi được mô tả trong receipt. Kết luận vượt
+đối chứng cần thiết kế và bằng chứng thống kê tương ứng; đánh giá sau khi dữ
+liệu đã exposed giữ phạm vi exploratory. Kiểm định khớp lệnh/thuế/thanh khoản
+và portfolio vốn chung có thiết kế riêng khi mở rộng mục tiêu vận hành.
+
+#### Cách kiểm tra và ghi bằng chứng
+
+Áp dụng AGENTS.md mục 1.2. Mỗi task chỉ biên dịch Python thay đổi, chạy test
+trực tiếp/caller/hợp đồng liên quan và leakage suite của đường dữ liệu bị đổi.
+Tái sử dụng gate cũ cần đối chiếu hash nguồn/runtime/input/log; thay đổi hành
+vi cần bằng chứng kiểm lại phần tương ứng. Mốc yêu cầu bốn gate tham chiếu
+được đối soát theo phạm vi, chạy hồi quy toàn hệ thống khi người dùng yêu cầu rõ.
+
+Các điểm kiểm có thể tái sử dụng gồm
+[test causal alpha](../../tests/test_causal_common_leakage.py),
+[test profile](../../tests/test_causal_common_profile.py),
+[audit Native](../../core/revision_alpha_contract.py), cùng các suite
+sentiment/regime/memory/prior/MT/paired/recovery và serving đang có. Chọn tên
+suite cụ thể sau audit caller ở FIN01, bổ sung test khi cần bắt hồi quy mới.
+Bằng chứng máy đọc tái sử dụng kho receipt/manifest hiện có; không nhân bản
+Markdown theo từng task chỉ để lặp lại checklist này.
+
+**Kiểm FIN00.** Lượt này sửa duy nhất tài liệu kế hoạch, kiểm diff, checklist,
+liên kết và hash nguồn được viện dẫn. Không chạy compile/unit/E2E/leakage do
+code, runtime, schema và đầu vào thực nghiệm giữ nguyên. Các kết quả PASS
+lịch sử được viện dẫn đúng snapshot, chưa có gate runtime mới từ FIN00.
+
+### Mốc đã ghi nhận trước kế hoạch finalize
+
+Các trạng thái dưới đây là hồ sơ trước FIN00, dùng để truy vết nguồn và
+kế thừa kiểm tra theo phạm vi. Tiến độ công việc finalize cập nhật tại
+checklist FIN00–FIN17 ở trên.
+
 **Viết khóa luận, cập nhật ngày 17/11/2026:** thư mục làm việc là `thesis/`.
 **P9 bổ sung đã tự rà xong T80a–T80l:** [checklist và đặc tả](../../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang).
 Bản mới 67 trang,21 bảng/8 hình, không phụ lục, A4 dọc/rotation0. Đã thêm bằng chứng
