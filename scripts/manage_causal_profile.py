@@ -12,7 +12,8 @@ sys.path.insert(0, str(ROOT))
 
 from core.bayesian_memory import read_json
 from core.causal_alpha import FrozenSelector, fit_selector
-from core.causal_bridge import bind_snapshot, decision_payload
+from core.causal_bridge import REPAIRED_NATIVE_PROFILE, bind_snapshot, decision_payload
+from core.decision_profiles import NATIVE_PROFILE
 from core.unified_contracts import SharedSnapshot, digest, json_bytes
 
 
@@ -55,6 +56,8 @@ def main() -> None:
         if name == "bridge":
             command.add_argument("--snapshot", required=True, type=Path)
             command.add_argument("--decision", required=True, type=Path)
+            command.add_argument("--native-profile", choices=(NATIVE_PROFILE, REPAIRED_NATIVE_PROFILE),
+                                 default=NATIVE_PROFILE, help="Chọn tường minh Native sửa; mặc định giữ bridge lịch sử")
         if name != "verify":
             command.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
@@ -76,7 +79,8 @@ def main() -> None:
                 base = SharedSnapshot.create(doc["point"], doc["realization"], doc["payload"], doc["provenance"])
                 prefix = frame.loc[frame.Datetime <= pd.Timestamp(doc["point"]["cutoff"])]
                 bridged = bind_snapshot(base, selector, prefix, hashlib.sha256(args.prices.read_bytes()).hexdigest())
-                methods = MethodAdapters(read_json(args.decision))
+                decision = read_json(args.decision)
+                methods = MethodAdapters(decision)
                 before = methods.prepare("original_fix", base, {}, 0)["request"]
                 after = methods.prepare("original_fix", bridged, {}, 0)["request"]
                 if before != after:
@@ -86,6 +90,15 @@ def main() -> None:
                     "native_request_unchanged": True, "native_payload_sha256": digest(decision_payload(base, "original_fix")),
                     "causal_payload_sha256": digest(decision_payload(bridged, "original_common")),
                     "scope": "PAIRED_INPUT_REQUEST_BRIDGE_ONLY_NOT_A_HOSTED_EFFECT_ESTIMATE", "hosted_calls": 0}
+                if args.native_profile == REPAIRED_NATIVE_PROFILE:
+                    from core.causal_alpha import PROFILE
+                    from core.unified_methods import native_request
+                    shared = decision_payload(bridged, "original_fix", decision_profile=args.native_profile)
+                    request = native_request(shared, {"decision": decision}, 0)
+                    result.update(version="native_causal_bridge_v2", native_profile=args.native_profile,
+                        input_profile=PROFILE, native_request=request, native_request_unchanged=before == request,
+                        native_payload_sha256=digest(shared), legacy_native_request_sha256=digest(before),
+                        scope="REPAIRED_NATIVE_ALPHA_AND_FROZEN_SELECTOR_OFFLINE; APPLICATION_ROLLOUT_PENDING_FIN08")
         if args.command != "verify":
             write_new(args.output, result)
         print(json_bytes({"status": "PASS", "command": args.command, "hosted_calls": 0}).decode())

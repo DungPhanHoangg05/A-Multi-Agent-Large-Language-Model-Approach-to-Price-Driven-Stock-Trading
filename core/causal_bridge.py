@@ -10,7 +10,10 @@ import pandas as pd
 
 from core.bayesian_memory import read_json
 from core.causal_alpha import PROFILE, FrozenSelector, frame_document
+from core.decision_profiles import NATIVE_PROFILE
 from core.unified_contracts import SharedSnapshot, checksum, digest
+
+REPAIRED_NATIVE_PROFILE = "original_fix_causal_serving_v1"
 
 
 def validate_embedded(document: dict[str, Any]) -> None:
@@ -43,11 +46,17 @@ def validate_embedded(document: dict[str, Any]) -> None:
         raise ValueError("Causal bridge không bind đúng native parent")
 
 
-def decision_payload(snapshot: SharedSnapshot, variant: str) -> dict[str, Any]:
-    """Chỉ alpha đổi trong common projection; ảnh/ba reports/sentiment giữ nguyên."""
+def decision_payload(snapshot: SharedSnapshot, variant: str, *, decision_profile: str | None = None) -> dict[str, Any]:
+    """Native sửa phải chọn tường minh; mặc định giữ projection lịch sử nguyên vẹn."""
+    if decision_profile is not None and (variant != "original_fix"
+            or decision_profile not in (NATIVE_PROFILE, REPAIRED_NATIVE_PROFILE)):
+        raise ValueError("Profile bridge không thuộc Native lịch sử hoặc Native causal đã khóa")
+    repaired_native = decision_profile == REPAIRED_NATIVE_PROFILE
     shared = snapshot.document()["payload"]
     block = shared.pop("causal_alpha", None)
-    if block is not None and variant != "original_fix":
+    if repaired_native and block is None:
+        raise ValueError("Native causal cần snapshot đã bind selector và projection causal")
+    if block is not None and (variant != "original_fix" or repaired_native):
         shared["alpha_report"] = block["projection"]["report"]
         shared["alpha_factors"] = block["projection"]["factors"]
     return shared

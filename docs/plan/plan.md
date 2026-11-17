@@ -7,7 +7,7 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
-**Trạng thái hiện tại — FIN00–FIN02 hoàn tất; FIN03–FIN17 chưa thực hiện.**
+**Trạng thái hiện tại — FIN00–FIN03 hoàn tất; FIN04–FIN17 chưa thực hiện.**
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -74,7 +74,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   thiếu dữ liệu. Nêu chính xác delta Native sửa/Common; trường hợp request
   tương đương được nhận diện để tái sử dụng. Chốt mọi thay đổi phương pháp
   trước khi xem kết quả mới. Phụ thuộc FIN01.
-- [ ] **FIN03 — Hoàn thiện Alpha nhân quả và selector.** Tái sử dụng logic hiện
+- [x] **FIN03 — Hoàn thiện Alpha nhân quả và selector.** Tái sử dụng logic hiện
   có để xử lý bfill, chuẩn hóa toàn chuỗi, nhánh volume toàn cửa sổ và sáu
   cửa sổ theo độ dài input. Kiểm đủ 85 yếu tố, warm-up/missing, origin cố định,
   orientation train, lựa chọn validation và đóng băng trước test. Đạt khi
@@ -343,6 +343,72 @@ nhóm bị ảnh hưởng khi code được sửa, chưa phải kết quả test
 chỉ thêm tài liệu/manifest đặc tả chưa được runtime đọc nên không compile,
 unit/E2E/leakage suite theo AGENTS §1.2; **0 API, 0 fit/training**. FIN03–FIN17
 còn mở, nguồn PIT và gate bản sửa chưa được nhận PASS từ việc chốt thiết kế.
+
+#### FIN03 — Alpha nhân quả, selector và bridge offline ngày 18/11/2026
+
+Nhánh `feat/finalize-causal-alpha-selector`, nền `develop:1e1f22af`.
+Tái sử dụng nguyên byte `core/causal_alpha.py`, `core/alpha_compare.py` và
+`core/backtest_engine.py`: bfill đã được thay bằng lag giữ NaN, normalizer
+expanding theo prefix, volume quan sát theo từng dòng và sáu window cố định
+đã có trong `causal_common_v1`. Không đổi công thức, threshold, lịch, cách chọn
+hoặc source identity của selector v1; không cần amendment phương pháp FIN02.
+
+[Bridge](../../core/causal_bridge.py) bổ sung lựa chọn keyword
+`decision_profile="original_fix_causal_serving_v1"` cho Native. Profile sửa
+bắt buộc có projection causal trong snapshot; profile lạ, nhánh sai hoặc thiếu
+projection gây `ValueError`. Native sửa nhận đúng toàn bộ payload Common:
+cùng năm factor, orientation, threshold, giá trị, báo cáo Alpha và shared
+upstream/sentiment. Mặc định và profile Native lịch sử vẫn nhận payload cũ.
+Việc dựng snapshot đã bind tiếp tục xác minh selector/giá bằng primitive cũ.
+
+[CLI](../../scripts/manage_causal_profile.py) `bridge` có thêm
+`--native-profile original_fix_causal_serving_v1`. Khi chọn, output
+`native_causal_bridge_v2` ghi profile/input identity, payload hash, request
+Native sửa, request Common và hash request Native lịch sử. Dùng chính factory
+Native hiện có để dựng prompt/schema/options, dừng trước invoke thật; không
+chạy thêm selector native. Không truyền flag thì output v1 và request lịch sử
+giữ nguyên. Đây là caller offline của FIN03; registry/factory ứng dụng vẫn
+chưa nhận profile mới, **FIN08** nối CLI/runner/serving/realtime/result identity
+và **FIN13–FIN14** mới quyết định chuyển default sau nghiệm thu.
+
+| Phạm vi kiểm | Bằng chứng và kết quả |
+| --- | --- |
+| 85 handler và sáu window | 1.020 so sánh raw prefix: 85 factor ×12 biên 1/2/19/199/200/229/230/239/240/249/250/300; cùng giá trị và vị trí NaN khi nối dài prefix. Bộ cũ bổ sung prefix sau warm-up tại 380/600/900. PASS. |
+| Warm-up/missing/poison | Giữ unavailable trước đủ volume quan sát và normalizer; một Volume thiếu che đúng 300 phiên, phục hồi support sau đó, toàn bộ Volume thiếu không thành proxy/0. Future Volume thiếu/0/rất lớn, giá tương lai bị nhân lớn và nến phẳng không viết lại prefix. Kiểm đủ 85 cột có support thực sau warm-up, không chỉ so toàn NaN. PASS. |
+| Train/validation/purge | Nhãn gọi oracle kinh tế; purge strict exit trước boundary. Poison giá test không đổi artifact/fit/orientation; poison validation không đổi train candidates. Sai origin, đổi giá fit, thiếu query hoặc nhận future rows bị từ chối. PASS. |
+| Selector đóng băng | Predict không gọi fit; thay giá trong test không chọn lại factor/orientation/threshold. Sửa artifact ngoài object hoặc sửa kết quả cache không làm đổi dự đoán đã đóng băng; thiếu support không fallback Native. PASS. |
+| Caller/profile/request | CLI Native sửa và Common cùng payload; schema/model/options Native giữ nguyên, prompt backtest <6.500 ký tự. Poison future và full-file source hash không đổi request sửa; snapshot không bị mutate, JSON giữ kiểu nguyên bản. CLI mặc định giữ bridge v1, không tự bật profile trong app. PASS. |
+| Hồi quy caller chung | Runner tám vai trò giữ shared upstream một lần, dependency/fallback, outcome barrier, resume, không nhân bản repeat, evaluator và HTTP fixture viewer/export. Không phải browser hoặc hosted smoke. PASS. |
+
+**Kết quả kiểm đúng phạm vi: 41 test PASS, compile 4 Python PASS.** Gồm:
+`test_causal_common_profile` (9), `test_causal_common_leakage` (8),
+`test_finalize_alpha_profile` (5), `test_finalize_alpha_leakage` (4) và
+`test_unified_experiment` (15). Hai module mới kiểm biên/profile mới; hai module
+causal kiểm toán tử/fit/PIT và tương thích bridge; runner chung kiểm các caller
+và hợp đồng ghép cặp bị ảnh hưởng. Chỉ biên dịch bridge, CLI và hai file test mới.
+Không chạy toàn unit suite, compileall, E2E hoặc các suite sentiment/regime/MT
+không đổi; không tuyên bố PASS lại bốn gate toàn hệ từ lượt này.
+
+[Gói QA FIN03](week12/finalize_alpha_checks.zip): **142.277 byte**, SHA256
+`30e9514ebfffc8d42013821e7284f6c84b0d8206f4898f5853b4d35a1db52719`.
+Gói có 25 member, gồm log nguyên byte, manifest, verifier và nguồn cần đối soát;
+manifest pin 20 nguồn trực tiếp, nối inventory/contract FIN01–FIN02, runtime
+Python **3.13.5/107 package** và delta expected/actual. Log unittest từ PowerShell
+giữ wrapper stderr lịch sử của lệnh; cả hai process exit0 và phần kết thúc
+`Ran 9/32 tests ... OK` đã đối soát. Verifier trong tiến trình mới, chế độ `-I`,
+đã PASS byte nguồn/runtime/package và 286 asset U06, không chạy lại test/fit/API.
+
+Đối chiếu inventory: **750/753 nguồn cũ nguyên byte**, ba delta là bridge,
+CLI và `tests/.gitattributes`; thêm hai file test mới. Thuộc tính LF giữ hash
+hai file mới ổn định qua checkout. Đủ **18 binding bằng chứng** và **286 asset
+U06** không đổi; không sửa inventory/contract/receipt frozen. Mọi fit/replay
+selector trong lần kiểm chỉ dùng fixture synthetic; **0 hosted LLM/market API,
+0 training HMM/student/bank**, không đọc outcome thị trường hoặc đánh giá lợi nhuận mới.
+
+FIN03 đạt Alpha PIT và caller bridge/CLI trong miền fixture đã kiểm. Native
+lịch sử vẫn **FAIL**, whole-system vẫn **NOT_CERTIFIED**; PIT nguồn và tài nguyên
+bản cuối thuộc FIN04–FIN07/FIN10, tích hợp ứng dụng thuộc FIN08. Không dùng kết
+quả này để nhận bản sửa đã được phát hành hoặc toàn hệ đã Zero-Leakage.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

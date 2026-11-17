@@ -7,3 +7,5 @@ test_realtime_index.py text eol=lf
 test_realtime_decision_budget.py text eol=lf
 test_variant_serving.py text eol=lf
 js/site_preferences.test.mjs text eol=lf
+test_finalize_alpha_profile.py text eol=lf
+test_finalize_alpha_leakage.py text eol=lf
