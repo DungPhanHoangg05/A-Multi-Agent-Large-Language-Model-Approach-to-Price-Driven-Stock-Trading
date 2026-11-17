@@ -190,7 +190,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T80g — DONE: Thêm đầu mối tái lập có phiên bản và phạm vi truy cập; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
 - [x] T80h — DONE: Thảo luận ba cơ chế theo quan sát và đối chứng còn thiếu; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
 - [x] T80i — DONE: Bổ sung DAG phân nhánh và hai hình kết quả gọn; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
-- [ ] T80j — TODO: Sửa đích bookmark/mục lục, trang thưa và khoảng cách cột bảng.
+- [x] T80j — DONE: Sửa cơ chế anchor, giữ EX01 liền mạch và tách Return–SD; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
 - [ ] T80k — TODO: Chuẩn hóa độ chính xác số, bibliography và hoàn thiện phần đầu đúng xác nhận tác giả.
 - [ ] T80l — TODO: Đối soát bổ sung, clean build và kiểm toàn bộ PDF cuối trước khi chốt lại G5.
 

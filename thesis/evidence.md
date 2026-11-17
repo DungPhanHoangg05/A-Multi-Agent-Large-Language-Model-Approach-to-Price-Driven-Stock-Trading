@@ -3212,3 +3212,7 @@ Mục Code, Data and Reproducibility chỉ rõ projectURL, author-held7a1b77f1, 
 ### T80i. Bổ sung DAG phân nhánh và hai hình kết quả gọn
 
 Giữ F03 overview, vẽ lại F08 thành DAGinline10pt phân biệt sharedprojection/forecastprerequisites. Hai hình vector mới compact từ primaryU09:10returncells cùngband hai baseline vàMT108/189/5/4; BAfamily20 vẫn đủ bảng. Không tái dùng nguyên F09/F10 cũ do chữ khi thu trang quá nhỏ; giữ nguyên byte bản cũ và xuất editionmới cỡin6,25inch. Đã xem PNG, compile/run duy nhất script vẽ tài liệu, kiểm sourcehash/count/pointband; khôngbootstrap/inference/suite. Fullbuild/ảnhDAG và dàn trang được kiểm ở T80j/T80l.
+
+### T80j. Sửa cơ chế anchor, giữ EX01 liền mạch và tách Return–SD
+
+Bỏ titlesec, giữ section/anchor gốc report-hyperref; chỉ thay định dạng đầu chương. Primarymanual hyperref nêu titlesec không hỗ trợ anchors/pagebreak (https://tug.ctan.org/macros/latex2e/contrib/hyperref/doc/hyperref-doc.html). Khônghardcodepage. QA semantic PDF mới67trang:51bookmark/51TOCtitlelinks đúng heading thật/cùngpage/tọa độ; cùngchecker phát hiện đúng6đích lệch bản60trang cũ. Đã xem DAG, EX01 gộp hai đoạn ởcuốiCh4 và bảngcontext có khoảng riêng Return–SD. Build4lượt/BiberPASS, khôngoverfull/citation/glyphthiếu;1underfull ởcounterexample prose chuyển T80k xử lý. Chỉ tài liệu, không suite runtime; finaltargets kiểm lạiT80l.
