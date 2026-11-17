@@ -187,7 +187,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 - [x] T80d — DONE: Đếm regime đã lưu và nêu rõ khoảng trống MT query proof; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
 - [x] T80e — DONE: Ghi cơ sở và thời điểm khóa tham số thiết kế; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
 - [x] T80f — DONE: Thêm phản ví dụ nhân quả từng hàng và bảng phạm vi; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
-- [ ] T80g — TODO: Thêm đầu mối code, dữ liệu/bằng chứng và tái lập có phiên bản.
+- [x] T80g — DONE: Thêm đầu mối tái lập có phiên bản và phạm vi truy cập; [sổ bổ sung](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang).
 - [ ] T80h — TODO: Bổ sung thảo luận cơ chế cho ba kết quả chính, giảm đoạn giới hạn lặp.
 - [ ] T80i — TODO: Cải thiện sơ đồ phân nhánh và hình kết quả/support từ bằng chứng hiện có.
 - [ ] T80j — TODO: Sửa đích bookmark/mục lục, trang thưa và khoảng cách cột bảng.

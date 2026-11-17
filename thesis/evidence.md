@@ -3200,3 +3200,7 @@ Bổ sung §5.2 từ frozen unified protocol v2 và r1 protocol: kế thừa end
 ### T80f. Thêm phản ví dụ nhân quả từng hàng và bảng phạm vi
 
 §5.9 chép nguyên vector zscore-tanh từ alpha_contract_v1/leakage.json; row4 đổi từ+0,821656 sang−0,390743 khi nối prefix. Bảng ánh xạ Native/Common/dependentbranches/numericcontrols/outercutoff; diễn giải behavioralcomparison khác unbiasedpredictiveevidence. Common chỉ sửa alpha path, không chứng nhận mọi inherited input. Nguồn revisionarchive và frozen diagnostic source có hash; không chạy lại audit/model hay sửa runtime. FAIL/NOT_CERTIFIED/browserPENDING giữ nguyên.
+
+### T80g. Thêm đầu mối tái lập có phiên bản và phạm vi truy cập
+
+Mục Code, Data and Reproducibility chỉ rõ projectURL, author-held7a1b77f1, frozen384725a6, U08/U09/revisionversions và final_evidence_map/index/buildREADME. Đã kiểm GitHub project truy cập và git ls-remote develop=aaf855d3; revision thesis/local chưa push nên không dựng permalink hoặc hứa sourcepackage/publicdata. Tệp local/ZIPlocator có thực; quyền còn thiếu và author-mediatedaccess nêu rõ. Không gửi/upload/push; chỉ đọc/kiểm link và diff, không runtime suite.

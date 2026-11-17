@@ -604,6 +604,41 @@ zero return means no exposure, not successful return prediction. These
 results retain both avoided losses and foregone gains, while none
 certifies actual tradability or rewrites the canonical economic label.
 
+\section{Code, Data and Reproducibility}\label{sec:reproducibility}
+The project entry point is the
+\href{https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma}{author's GitHub repository}.
+The hosted branch is not a substitute for a versioned evidence checkout.
+The manuscript reviewed for this revision is held at source commit
+\texttt{7a1b77f1}; readers requiring its exact inputs should request that
+author-held checkout and its frozen evidence, rather than assuming the
+latest public branch contains it. A standalone thesis-source handover
+package has not yet been prepared.
+
+In the matching checkout, start with
+\path{docs/plan/week12/final_evidence_map.md}. The context results are
+\texttt{u09\_analysis\_r1}, backed by
+\path{docs/plan/week12/unified_analysis_results.zip}; the response
+collection is \texttt{u08\_research\_r1} in
+\path{docs/plan/week12/unified_live_research.zip}. The source/runtime
+snapshot \path{docs/plan/week12/final_evidence_snapshot.zip} records
+source commit \texttt{384725a6}. Component results are located by
+\path{docs/plan/revision_evidence/index.json}, including
+\texttt{final\_baselines\_v1}, \texttt{final\_repeats\_v1} and
+\texttt{execution\_final\_v1}. These are distinct versioned objects;
+the manuscript source map and evidence ledger provide their digests.
+
+For document reproduction, follow \path{thesis/latex/README.md} and run
+\texttt{py -3.13 thesis/latex/tools/build.py} with LuaLaTeX and Biber.
+This builds from LaTeX, bibliography and figures; Markdown drafts and
+the reference thesis are not build inputs. Reading a frozen result,
+replaying recorded responses and making new hosted requests remain
+different operations. Hosted model aliases do not freeze provider
+weights. Some large/local artifacts require author-mediated access;
+market prices, news, model weights and the institutional logo have
+unresolved redistribution conditions. Neither the project URL nor this
+reproduction pointer grants those rights, and no credentials are
+distributed with the manuscript.
+
 \section{Validity limits and answers}\label{s:7abb5e08a08c44da}
 \paragraph{A concrete row-wise counterexample.}
 The retained \texttt{alpha\_contract\_v1/leakage.json} diagnostic applies
