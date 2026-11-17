@@ -3204,3 +3204,7 @@ Bổ sung §5.2 từ frozen unified protocol v2 và r1 protocol: kế thừa end
 ### T80g. Thêm đầu mối tái lập có phiên bản và phạm vi truy cập
 
 Mục Code, Data and Reproducibility chỉ rõ projectURL, author-held7a1b77f1, frozen384725a6, U08/U09/revisionversions và final_evidence_map/index/buildREADME. Đã kiểm GitHub project truy cập và git ls-remote develop=aaf855d3; revision thesis/local chưa push nên không dựng permalink hoặc hứa sourcepackage/publicdata. Tệp local/ZIPlocator có thực; quyền còn thiếu và author-mediatedaccess nêu rõ. Không gửi/upload/push; chỉ đọc/kiểm link và diff, không runtime suite.
+
+### T80h. Thảo luận ba cơ chế theo quan sát và đối chứng còn thiếu
+
+§5.8 thêm thảo luận BA–return khác trọng số/magnitude/exposure, v1 phụ thuộc baseline/support, MT108+189+5+4. Phân biệt giả thuyết với nhân quả, giữ logisticcontrol/adversecases/family20; giảm hai câu giới hạn lặp và nối tới mục thảo luận. Không phân rã counterfactual P&L hay suy missingablations có kết quả; abstract/kết luận hiện đã cùng diễn giải bounded nên không đổi luận điểm. Kiểm count/source/flow/diff; không nghiên cứu mới.

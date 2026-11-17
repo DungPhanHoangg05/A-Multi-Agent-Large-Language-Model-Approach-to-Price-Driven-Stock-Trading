@@ -322,7 +322,7 @@ Full's mean held-session and close-exposure percentages are 2.353\% and
 does not. Daily costs/marks and cycle-end drawdown answer different
 questions. Continuous hold loses 2.127\% with 12.939\% mean MDD but is a
 different exposure schedule; always-LONG sampled cycles lose 3.000\%.
-Neither is a capital-constrained multi-stock portfolio.
+Both are separate reference exposure schedules.
 
 Stock/block detail is heterogeneous and cannot be replaced by the pooled
 ranking. VNM has no UP support, leaving its stock BA undefined. The
@@ -454,8 +454,8 @@ exclude zero, whereas Native bands include it. This is a descriptive,
 baseline-dependent observation, not established superiority or a regime
 effect. MT minus Native return is $-0.601$ pp with a negative primary
 band; its Common return band includes zero. C2/B BA differences from
-Native are adverse. Sparse activation and anchor retention constrain
-mechanistic interpretations even where a contrast is computable.
+Native are adverse. The mechanisms and missing interventions are discussed in
+Section~\ref{sec:mechanism-discussion}.
 
 \subsection{Fallback and the anchor bridge}
 Table~\ref{tab:coverage} keeps all research roles and their denominators.
@@ -603,6 +603,59 @@ summary; all residual-stock counts are zero. The all-entries-missed
 zero return means no exposure, not successful return prediction. These
 results retain both avoided losses and foregone gains, while none
 certifies actual tradability or rewrites the canonical economic label.
+
+\subsection{Interpreting the three principal patterns}\label{sec:mechanism-discussion}
+\paragraph{Higher BA with a lower account return.}
+Full has five fewer false positives in aggregate than Base, while both
+identify seven UP points. This improves a class-balanced directional
+score, but does not imply that the captured UP points are identical or
+that their return magnitudes offset the remaining losing LONGs. BA gives
+equal weight to class recalls; the financial estimator compounds net
+payoffs within each account and then weights 51 accounts equally. A
+large loss can dominate several correctly avoided small losses, and
+correct CASH predictions earn zero. Full also opens fewer positions,
+changing exposure and costs together. Its lower held-session fraction
+and daily MDD are consistent with that exposure change, while its lower
+mean return prevents interpreting risk reduction as a profit gain. The
+logistic-price control further shows that the hosted Full pipeline is
+not the strongest recorded predictor on this cohort. Return-matched or
+exposure-matched interventions and fixed-prompt component ablations are
+still needed to separate information quality from action timing, trade
+magnitude and presentation effects.
+
+\paragraph{Why v1 can improve on Common yet not on Native.}
+The positive v1--Common difference is conditional on a particular
+foundation. Common changes alpha normalization, selection and bounded
+instructions relative to Native before any prior is added. v1 then
+uses history on only 48 bank-covered points and inherits Common on the
+other 54. Its aggregate estimate therefore mixes an active intervention
+with unchanged dependency results. The observed outcome is compatible
+with useful conditioning on some supported points, but also with effects
+of example selection, statistics, prompt wording or the altered
+foundation. The Native contrast includes all those foundation changes;
+it cannot identify a pure regime effect. Its row-wise failure also
+prevents treating its higher observed score as proof of a valid causal
+alternative. The sign changes under block-length and subset sensitivities
+make the baseline and support dependence substantive. Matched random,
+recent and similarity retrieval, and statistics-only versus examples-only
+requests, would be needed to distinguish these explanations.
+
+\paragraph{Many MT replies with very few accepted changes.}
+Of 306 slots, 108 never request a revision because features or utility
+support are unavailable. Of the remaining 198 raw replies, 189 already
+agree with the anchor. Only nine propose a different action; five fail
+the strict improvement gate and four pass. Thus a new reply usually
+adds text without changing exposure, and the market-level room for the
+student or utility policy to affect aggregate action metrics is small.
+This is a property of the combined anchor--proposal--gate path, not proof
+that any one component is unnecessary or beneficial. The accepted HVN
+loss and rejected profitable MWG LONG illustrate both sides of the
+policy trade-off. The synthetic verification in
+Section~\ref{sec:student-evidence} addresses approximation to the teacher,
+not the causal value of those four changes. A common-cohort comparison
+of anchor-only, proposal-without-veto, teacher/student and utility variants
+would be required for attribution; the saved bridge and unequal-support
+Brier scores do not supply it.
 
 \section{Code, Data and Reproducibility}\label{sec:reproducibility}
 The project entry point is the
