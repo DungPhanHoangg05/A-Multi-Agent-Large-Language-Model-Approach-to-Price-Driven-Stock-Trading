@@ -5,9 +5,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
-### Kế hoạch finalize hệ thống — cập nhật 17/11/2026
+### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
-**Trạng thái hiện tại — FIN00–FIN01 hoàn tất; FIN02 đang chốt hợp đồng.**
+**Trạng thái hiện tại — FIN00–FIN02 hoàn tất; FIN03–FIN17 chưa thực hiện.**
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -68,7 +68,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   ảnh hưởng trong checklist này cùng manifest máy đọc dùng lại hạ tầng hiện có.
   Đạt khi mọi FAIL/NOT_CERTIFIED của miền dự kiến có nguồn, task xử lý và tiêu
   chí kiểm lại. Phụ thuộc FIN00, thực hiện offline.
-- [ ] **FIN02 — Chốt hợp đồng bản cuối và thiết kế so sánh.** Khóa miền mã/ngày,
+- [x] **FIN02 — Chốt hợp đồng bản cuối và thiết kế so sánh.** Khóa miền mã/ngày,
   source/availability, profile sửa, hai nền đối chứng, các dependency,
   phương pháp/controls, support/fallback, lịch fit/purge, metric và chính sách
   thiếu dữ liệu. Nêu chính xác delta Native sửa/Common; trường hợp request
@@ -233,7 +233,7 @@ lịch sử được viện dẫn đúng snapshot, chưa có gate runtime mới 
 Nguồn làm việc: `develop:3c674baefc1b1924dbdaea978b78965bce352b53`,
 nhánh `docs/finalize-inventory`. [Manifest inventory](week12/finalize_inventory.json)
 dùng envelope `payload/sha256`, `digest` và `binding` của hạ tầng unified;
-khóa **753 file nguồn/caller/test/UI/runtime**, **17 binding bằng chứng**, tám
+khóa **753 file nguồn/caller/test/UI/runtime**, **18 binding bằng chứng**, tám
 vai trò và tám nhóm đường gọi. Đây là inventory trước sửa, không phải receipt
 nghiệm thu bản cuối. JSON giữ expected/actual của từng pin lệch và nguồn từng cờ.
 
@@ -264,7 +264,7 @@ dependency/fallback/resource của từng vai trò nằm trong manifest, khớp 
 | `CALLER_IDENTITY` — đường nguồn còn dùng bản cũ | `causal_bridge.decision_payload` cố ý giữ native khi `original_fix`; profile/registry/cache đang khóa bản cũ | FIN08/10/14: profile và cache mới, không gán receipt cũ cho bản sửa |
 | `SOURCE_DELTA` — nguồn hiện hành đã đổi | U08 khớp 703/718, U09 khớp 714/729; cùng 15 đường lệch, không có pin mất local | FIN08/09/10/13: kiểm caller thay đổi và wire request trước reuse; receipt chỉ áp snapshot cũ |
 | `OLD_PENDING` — cờ mốc lịch sử | Protocol U06 còn BLOCKED/PENDING_U07_U08; receipt U09 còn U10 PENDING, dù U08/U09/F05 được ghi nhận sau đó | FIN08/13/15: dẫn receipt theo thời điểm/phạm vi, giữ byte cũ; không suy thành causal PASS |
-| `UI_ACCEPTANCE` — thiếu receipt browser hiện hành | Acceptance v10 vẫn OFFLINE_PASS_BROWSER_PENDING, `f11_complete=false`; chưa thấy receipt tương ứng nhận định nghiệm thu 17/11 trong kế hoạch | FIN14: tìm bằng chứng đúng scope/hash để kế thừa, hoặc quan sát browser thật; chưa nhận F11 hoàn tất |
+| `UI_ACCEPTANCE` — receipt browser lịch sử, tác giả đã nghiệm thu | Đầu serving contract và kế hoạch xác nhận tác giả nghiệm thu ngày 17/11; acceptance v10/browser pending mô tả mốc trước | FIN14: kế thừa phần UI không đổi; quan sát desktop/mobile cho màn hình chịu thay đổi finalize; không suy xác nhận tác giả thành log browser đã chạy |
 | `ARCHIVE_LAYOUT` — đổi chỗ bằng chứng | 30 ZIP cũ đã vào `revision_evidence`; verifier cũ còn đọc đường gốc | FIN10/16: tra index, restore checkout biệt lập theo runbook, kiểm bytes, không sửa expected hash |
 | `EXECUTION_LIMITS` — giới hạn nghiên cứu | Cohort exposed, LLM knowledge cutoff, vendor/fill/thuế/thanh khoản và vốn chung chưa được chứng minh | FIN02/12/13/15: exploratory, đúng mẫu số/NA và giới hạn; không tuyên bố profitability/superiority/live fills |
 
@@ -278,6 +278,71 @@ backtest. FIN01 chỉ thêm inventory/checklist, không đổi code/test/schema/
 hoặc đầu vào nghiên cứu nên không compile/unit/E2E/toàn suite theo AGENTS §1.2.
 Đối soát JSON/checksum, caller, số liệu, liên kết và `git diff --check`;
 **0 API thị trường/LLM, 0 fit/training**, không nâng gate U05/U08/U09/ứng dụng.
+
+#### FIN02 — Hợp đồng bản cuối và so sánh đã khóa ngày 18/11/2026
+
+[Contract máy đọc](week12/finalize_comparison_contract.json) khóa thiết kế
+`finalize_anchor102_exploratory_v1`, dựa trên inventory FIN01 và protocol U06 v2.
+Trạng thái **METHOD_DESIGN_LOCKED_RESOURCES_AND_EXECUTION_PENDING**: đây là
+đặc tả cho FIN03–FIN10, chưa phải spec chạy được hoặc grant thu. Actual resource
+hash/recipe/log sẽ được FIN04–FIN07 khóa và FIN10 kiểm trước query. Không đổi
+protocol, registry, cấu hình runtime hoặc receipt nghiên cứu cũ.
+
+| Thành phần | Quyết định đã khóa |
+| --- | --- |
+| Miền đánh giá | Đúng 102 ID/cutoff của U08, chín mã, 51 account symbol–fold/sáu fold; BHN chỉ ba fold cuối/sáu điểm, mỗi mã khác 12 điểm. Một realization upstream, ba Decision repeat. CORE4 chỉ sensitivity đã định trước. Danh sách từng point/hash lịch nằm trong JSON. |
+| Miền ứng dụng | 1D, sáu lựa chọn/hai dependency; as-of chín mã/58 phiên 01/07–23/09/2026, tối đa 30 điểm/job, bước ba phiên; chỉ bật binding qua preflight nguồn mới. Live dùng phiên hoàn tất sau 15:30 giờ Việt Nam, capture một lần/owner, không refetch khi resume; thiếu outcome t+3 giữ NA. CLI/backtest/as-of/realtime/viewer/export cùng identity. |
+| Native sửa | Giữ selectable ID `original_fix`, cấp Decision profile mới **`original_fix_causal_serving_v1`**. Dùng đúng năm factor, orientation, threshold, giá trị và `alpha_report` từ `causal_common_v1` như Common. Giữ native instruction/schema/distill/cap; không thêm prior/facts/utility hoặc đổi sentiment ngầm. |
+| Common và delta | `original_common` giữ `common_decision_v1`, empty prior, cùng causal Alpha/upstream/tin/model/options/repeat. Native sửa và Common khác khuôn prompt/instruction/distill/cap hiện có; so sánh này không quy toàn delta cho Alpha. Native cũ `original_fix_serving_v1`/`native_fix` giữ FAIL và artifact riêng. |
+| Phương pháp/dependency | V1/C2/A/B giữ recipe và readiness đã pin; phụ thuộc/fallback Common. Fact Anchor nhận Common cùng repeat và facts; MT nhận Common → Anchor cùng repeat/context/student. Cả tám vai trò dùng cùng Alpha causal trong bản sửa; metadata/result version phân biệt bản cũ. |
+| Hai baseline và controls | System family: năm extension trừ Native sửa; method family: năm extension trừ Common. Ba bridge Common–Native sửa, Anchor–Common, MT–Anchor. CASH và ALWAYS_LONG đúng chu kỳ/đủ phí; continuous hold, retrieval ablations và MT ablations chưa thực hiện không được nhận là kết quả. Controls cũ chỉ ở family lịch sử riêng. |
+| Nguồn/availability | Ưu tiên phục hồi snapshot as-published có bằng chứng; nguồn thay thế phải chứng minh availability tại cutoff, có version/recipe trước sử dụng. Tải dữ liệu mới không tự chứng minh PIT quá khứ. Giá query≤cutoff, lịch phiên/đơn vị/event ledger đúng source; không splice hoặc ép parity bank/query. |
+| Tin tức | Khóa content/source/published/available/collected/revision/scorer/aggregation; date-only chỉ nhận khi có bằng chứng bản nội dung, available từ ngày kế tiếp theo timezone đã khóa. Loại future/undated/bản sửa sau cutoff; nguồn chưa chứng minh giữ unavailable có lý do, không neutral giả. Cùng snapshot cung cấp report/UI. |
+| Bank/regime/context | Giữ candidate 852 CORE4, max exit 30/12/2022; phải phục hồi hoặc tái tạo raw signal/nhãn/source có trace. Prior ngoài CORE4 fallback Common đúng registry. Context numeric freeze trước query đầu từng fold, reserved toàn bộ 102 ID trước label, không prequential insertion; HMM/scaler forward-filter, fit IDs/cutoff và source được kiểm. |
+| Fit/purge | Giữ `causal_common_v1`: warmup300, normalizer20, train≥60, validation≥30, ≥5 LONG/candidate, thresholds 0,05/0,1/0,2, top5, step3. Orientation train Spearman; selection validation LONG/CASH mean return. Train exit<validation start, validation exit<test start. Một selector/mã dùng qua mọi fold; origin cố định, không fit/test hoặc native fallback. |
+| Lịch Alpha cụ thể | Tám mã ngoài BHN: train 14/04/2021–30/09/2022, validation 06/10/2022–27/06/2023, test 03/07/2023–23/09/2026. BHN: train 20/12/2023–26/12/2024, validation 02/01–25/09/2025, test 01/10/2025–23/09/2026. Khóa 51 binding/chín selector; nguồn đổi không tự dịch boundary. |
+| Student/teacher/utility | Ưu tiên frozen seed 42/step 3000 sau audit provenance; giữ riêng p_student và posterior teacher. Utility 4.096 draws; MT cần K≥2, query 45 rows/bucket known và ≥5 gains/≥5 non-gains. CASH→LONG chỉ Q10(U)>0, LONG→CASH chỉ −Q90(U)>0; bằng 0 giữ anchor. Rebuild cần recipe/corpus/seed/resource version trước preparation, không tune bằng query/test. |
+| Kinh tế | Giữ `compute_round_trip_net_return`, Open(t+1)→Close(t+3), SHORT=CASH, phí 0,25% và slippage 0,10% mỗi chiều. Giá nghìn VND chuyển VND đúng một lần; account độc lập 50 triệu, hai chu kỳ đúng thứ tự, không gộp thành portfolio vốn chung. |
+| Metric và thống kê | Giữ nguyên metrics/statistics protocol v2: mean return từng repeat trong account rồi equal mean 51 account; BA pooled 102 mỗi repeat rồi mean 3; raw/final/bypass/support/NA và daily NAV khi đủ. Hai baseline×5 extension×2 endpoint=20 contrast; PCG64 seed 20261110, 10.000 draws, circular fold-block 2/ba starts, 95% simultaneous descriptive band và ≥9.500 joint finite; L1/L3/leave-fold/leave-symbol/CORE4 đã định trước. Không chọn repeat/subgroup hoặc tuyên bố confirmatory trên dữ liệu exposed. |
+| Thiếu dữ liệu/lỗi | Thiếu giá/fit/provenance bắt buộc thì chặn preflight; tin NA theo policy đã khóa. Algorithm fallback có lý do và source hash; lỗi API/parse/UNKNOWN/resource integrity không thành CASH. Nếu thiếu action bắt buộc thì primary account return chưa công bố; sensitivity complete intersection/bounds phải ghi nonprimary, không impute CASH. |
+| Pairing/recovery | Upstream một lần/point/realization, deep-copy; cùng-repeat DAG; đủ tám vai trò×ba repeat durable trước outcome. BRPP K=3≤600 ký tự, prompt Decision backtest<6.500 ký tự; retry tối đa 3 tổng attempt kể cả repair, checkpoint từng point; UNKNOWN dừng/reserve/đối soát UUID trước resend. |
+| Identity/default | Namespace `finalize_resources_v1`, `finalize_anchor102_exploratory_v1`, `finalize_serving_v1`; identity bind code/runtime/resource/snapshot/profile/model-options/request/dependency/repeat/owner. Chuyển default sau FIN13 và hồi quy FIN14, không áp receipt cũ cho bản mới. VI/EN giữ presentation sidecar, canonical policy VI. |
+
+**Tái sử dụng theo request.** FIN09 phải so từng slot với raw U08: bytes
+messages/ảnh/schema, model/options/tier, hợp đồng prompt/input, dependency và
+nguồn parent cùng repeat. Profile/source hash đổi riêng metadata được đánh giá
+bằng verifier và mapping provenance; không tự suy mọi request đều mới hoặc đều
+dùng lại được. Native sửa có tối đa 306 Decision cần đối chiếu; Common/prior/
+Anchor/MT và upstream chỉ reuse sau proof. Thay bank/facts/context/support hoặc
+parent làm đổi request thì vô hiệu hóa đúng node chịu ảnh hưởng. Bypass tính
+lại offline, không giả response; không lấy r0 lấp r1/r2. Ghi epoch/model alias
+và giới hạn ghép phản hồi cũ/mới; alias không chứng minh cùng weights.
+
+**Dự toán sơ bộ cho FIN09.** 2.448 forecast slot; trần trước reuse/bypass là
+2.448 Decision +204 vision +10 smoke = **2.662 execution**, tối đa **7.986
+attempt** khi cap 3. Đây chưa gồm bank preparation, số call phần này chưa biết
+cho tới FIN06; không mặc định bằng 0. Chi phí/thời gian/quota còn **chưa xác minh**,
+không cam kết lịch thu. Candidate model/options giữ từ runtime U08 để đối chiếu
+archive; FIN09 xác minh availability/quota/payload, không tự đổi model hoặc giảm
+repeat. **Số API được cấp từ FIN01/FIN02: 0**; ngân sách cuối phải có dry-run
+reuse/new/bypass, quota carry, retry/repair/UNKNOWN và release riêng trước thu.
+
+**Thay đổi và kiểm FIN02.** Nếu thay nguồn/recipe/calendar/profile/method/split/
+metric đã khóa, phải amendment/version và lý do trước output query mới; sau
+output không đổi primary hồi tố. Tất cả nguồn/query đã exposed giữ exploratory.
+Nếu FIN03 đổi ngữ nghĩa causal Alpha thì cấp profile mới trước thu; nếu chỉ
+tái dùng ngữ nghĩa hiện có thì giữ `causal_common_v1` và pin source mới.
+Trong lần rà FIN02 đã bổ sung serving contract vào inventory và phân loại lại
+UI theo xác nhận tác giả 17/11, không phủ nhận nghiệm thu vì receipt browser cũ.
+
+Đã kiểm checksum/envelope/parent binding, đúng 102 ID/51 account/ba repeat,
+lịch fit/purge, topo dependency/fallback, hai baseline/20 contrast, phép đếm
+dự toán, liên kết và diff. `verification_targets` trong JSON ánh xạ các suite
+hiện có cho Alpha, giá/tin/bank/regime/MT, paired/recovery và serving; chỉ chọn
+nhóm bị ảnh hưởng khi code được sửa, chưa phải kết quả test mới. FIN01–FIN02
+chỉ thêm tài liệu/manifest đặc tả chưa được runtime đọc nên không compile,
+unit/E2E/leakage suite theo AGENTS §1.2; **0 API, 0 fit/training**. FIN03–FIN17
+còn mở, nguồn PIT và gate bản sửa chưa được nhận PASS từ việc chốt thiết kế.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
