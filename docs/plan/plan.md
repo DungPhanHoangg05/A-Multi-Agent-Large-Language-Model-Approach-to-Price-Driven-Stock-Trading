@@ -16,6 +16,8 @@ G5 chốt lại trong phạm vi nội bộ, P10/T81–T84 còn mở. Chưa phả
 chuẩn trường và quyền phân phối chưa rõ vẫn là giới hạn. Không gọi API/fit/inference/
 bootstrap/replay hoặc chạy lại suite runtime. Checklist duy nhất ở `thesis/plan.md`.
 
+**UI được tác giả nghiệm thu ngày 17/11/2026:** giao diện hoàn thiện cho khóa luận, có thể cải tiến sau này. Khóa luận và serving contract đã cập nhật; các receipt/browser chưa chạy ở mốc trước giữ làm lịch sử. Không suy nghiệm thu UI thành chứng nhận nhân quả hoặc hiệu quả giao dịch.
+
 **Mốc lịch sử P9/T73a–T73l và T73–T80:** đã rà nội bộ bản biên tập **60 trang**,
 toàn A4 dọc/rotation=0, không phụ lục. Giữ12pt/giãn1,5/lề cũ; hai nghiên cứu,
 hai baseline, family20, support/bypass/NA/kết quả âm và Native FAIL/NOT_CERTIFIED/

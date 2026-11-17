@@ -6,9 +6,11 @@ Xây dựng từ đầu một **khóa luận tốt nghiệp hoàn chỉnh bằng
 
 **Yêu cầu hiện hành ngày 16/11/2026:** bản nộp khoảng **60–70 trang, không có phụ lục**, gồm phần đầu, sáu chương, tài liệu tham khảo và hình/bảng cần thiết. Bảng phải đọc được trên trang dọc, không xoay cả trang. Giữ nội dung cốt lõi và giải thích đủ phương pháp cho giảng viên lần đầu tiếp cận hệ thống.
 
-**Cập nhật ngày 17/11/2026: đã hoàn tất T80a–T80l trong phạm vi tự rà nội bộ.** PDF mới 67 trang, 21 bảng/8 hình, không phụ lục, toàn A4 dọc/rotation0. Đã đối soát nguồn/số, clean build bốn lượt và xem đủ mọi trang; 51 bookmark/51 liên kết tiêu đề mục lục trỏ đúng tiêu đề thật. G5 chốt lại theo giới hạn trong [sổ §16](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang); P10/T81–T84 còn mở. Không thu nghiên cứu mới hoặc nâng Native FAIL/NOT_CERTIFIED/UI PENDING. Mốc P8 và các lượt rà trước giữ trong source-map/history. Chưa phản biện ngoài, ký/nộp hoặc được trường chấp thuận.
+**Cập nhật ngày 17/11/2026: đã hoàn tất T80a–T80l trong phạm vi tự rà nội bộ.** PDF mới 67 trang, 21 bảng/8 hình, không phụ lục, toàn A4 dọc/rotation0. Đã đối soát nguồn/số, clean build bốn lượt và xem đủ mọi trang; 51 bookmark/51 liên kết tiêu đề mục lục trỏ đúng tiêu đề thật. G5 chốt lại theo giới hạn trong [sổ §16](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang); P10/T81–T84 còn mở. Không thu nghiên cứu mới hoặc thay trạng thái nhân quả Native/toàn hệ. UI đã được tác giả xác nhận nghiệm thu theo ghi nhận bổ sung bên dưới. Mốc P8 và các lượt rà trước giữ trong source-map/history. Chưa phản biện ngoài, ký/nộp hoặc được trường chấp thuận.
 
 **Biên tập bổ sung theo tác giả sau T80l:** đã thay nhãn trạng thái viết hoa trong PDF bằng diễn đạt học thuật tương đương, giữ bằng chứng và giới hạn. Bản hiện hành vẫn67 trang, đã kiểm lại build/điều hướng/render; không thay đặc tả task hoặc đóng P10.
+
+**Xác nhận UI hiện hành ngày 17/11/2026:** giao diện đã hoàn thiện và được tác giả nghiệm thu cho khóa luận; chỉnh sửa tiếp theo là cải tiến. Những mô tả UI còn chờ trong đặc tả/receipt lịch sử giữ nguyên mốc cũ và được thay về trạng thái chấp nhận bởi xác nhận này; không nhận là đã thực hiện test browser mới.
 
 Có **84 task cha** qua mười giai đoạn và **24 task con P9**: T73a–T73l cho đợt rút gọn, T80a–T80l cho đợt bổ sung sau rà soát. T01–T72 ghi nhận lịch sử bản đầu tiên; T61–T66 và T71 đã hoàn thành theo phạm vi cũ, không còn là yêu cầu giữ phụ lục trong bản nộp mới. Phụ thuộc là điều kiện sẵn sàng về nội dung, không phải lịch ngày cố định. Chưa có hạn nộp được cung cấp. Theo dõi trạng thái tại mục 2.1.
 
@@ -580,7 +582,7 @@ Các mốc này quản lý việc viết, không phải bốn gate runtime của
 | Ablation có code nhưng chưa chạy | Mô tả khả năng và đưa câu hỏi nhân quả sang hướng phát triển. | Có mã nguồn chưa có nghĩa có kết quả. |
 | Kết quả âm hoặc chưa rõ | Báo đúng support và bất định mô tả. | Hoàn thành khóa luận không đòi hỏi chiến lược phải sinh lời. |
 | Native vẫn lỗi nhân quả từng hàng | Giải thích lỗi, phạm vi common projection và ảnh hưởng diễn giải. | Qua kiểm cutoff chưa chứng nhận toàn hệ. |
-| Chưa nghiệm thu UI/browser | Giải thích kiến trúc, chỉ dùng hình đã kiểm và nêu giới hạn. | Mốc tài liệu không đóng F11 hoặc nghiệm thu ứng dụng. |
+| UI đã được tác giả nghiệm thu | Ghi nhận giao diện hoàn thiện cho phạm vi khóa luận; có thể cải tiến sau này. | Giữ QA lịch sử, không suy nghiệm thu UI thành kiểm chứng giao dịch thực tế. |
 | Chưa có phản hồi bên ngoài | Hoàn tất kiểm nội bộ, ghi rõ chưa nhận phản biện ngoài. | Tự kiểm không phải giảng viên chấp thuận. |
 | Có kết quả mới khi đang viết | Đánh phiên bản sổ bằng chứng, đánh giá chương/nhận định ảnh hưởng trước khi đưa vào. | Receipt cũ không tự chứng nhận code hoặc dữ liệu mới. |
 

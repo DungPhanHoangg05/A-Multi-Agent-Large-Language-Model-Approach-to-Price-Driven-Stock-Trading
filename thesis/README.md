@@ -126,7 +126,7 @@ Các file mẫu có ở máy nhưng chưa được Git theo dõi tại mốc l�
 T73a–T73l, T73–T80 và lượt bổ sung T80a–T80l đã tự rà xong; PDF 67 trang
 và hash hiện tại ở source-map. Phân bổ: phần đầu 10, sáu chương3/4/6/20/19/2,
 references 3. Có 21 bảng/8 hình; giữ hai nghiên cứu, hai baseline, family20,
-support/bypass, NA/kết quả âm và Native FAIL/NOT_CERTIFIED/UI PENDING.
+support/bypass, NA/kết quả âm và giới hạn nhân quả Native/toàn hệ. UI đã được tác giả nghiệm thu theo xác nhận mới.
 Bổ sung chỉ dùng artifact đã khóa và tổng hợp minh bạch, không nghiên cứu mới.
 Đã kiểm số học độc lập,19 source bindings/204 slot bindings,22 citation keys,
 build sạch bốn lượt/Biber và xem mọi trang ở 120 dpi. Điều hướng kiểm đúng tiêu đề
@@ -140,3 +140,5 @@ Xem [sổ §16](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang) để bi
 không chạy lại suite runtime vì không đổi code/schema/runtime/input nghiên cứu.
 
 Theo yêu cầu tác giả sau T80l, bản nộp dùng mô tả học thuật thay các nhãn trạng thái viết hoa; nội dung giới hạn và bằng chứng giữ nguyên. Đã build lại67 trang, kiểm điều hướng và render; lịch sử trước chỉnh câu giữ trong source-map.
+
+**UI hiện hành:** giao diện đã hoàn thiện và được tác giả nghiệm thu cho phạm vi khóa luận ngày17/11/2026. Các mục UI còn chờ ở phần lịch sử không còn là trạng thái chấp nhận hiện hành; receipt kiểm thử cũ vẫn giữ nguyên.

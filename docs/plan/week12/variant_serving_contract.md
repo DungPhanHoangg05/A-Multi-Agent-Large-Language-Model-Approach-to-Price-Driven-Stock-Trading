@@ -5,6 +5,14 @@ Contract `variant_serving_v1`, registry `variant_serving_registry_v1`, config
 `unified_variant_registry_v2` và `unified_experiment_v1/v2` tiếp tục nhận diện
 phương pháp và replay nghiên cứu. Không đổi expected hash/receipt lịch sử.
 
+**Xác nhận hiện hành ngày 17/11/2026 — giao diện đã hoàn thiện và được tác giả nghiệm thu.**
+Theo chỉ đạo của tác giả, toàn bộ giao diện được chấp nhận cho phạm vi sử dụng
+hiện tại của khóa luận; các chỉnh sửa về sau là cải tiến sau nghiệm thu.
+Các mục F11/browser còn chờ và `f11_complete=false` bên dưới mô tả mốc QA offline
+trước xác nhận này. Receipt/gói test cũ giữ nguyên byte; xác nhận hiện hành là
+nghiệm thu của tác giả, không phải bản ghi mới về các thao tác browser đã chạy.
+Việc chấp nhận UI không mở rộng kết luận về nhân quả hoặc hiệu quả giao dịch.
+
 **F08 đã có backend inference as-of riêng**: resource
 `serving_asof_q3_2026_v1`, runner `serving_runner_v1`. Các ghi chú “chưa mở”
 ở mốc F06/F07 bên dưới là lịch sử; trạng thái hiện hành là grant có điều kiện
