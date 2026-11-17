@@ -7,7 +7,7 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ### Kế hoạch finalize hệ thống — cập nhật 17/11/2026
 
-**Trạng thái hiện tại — đã lập kế hoạch, chưa bắt đầu các task thực thi.**
+**Trạng thái hiện tại — FIN00–FIN01 hoàn tất; FIN02 đang chốt hợp đồng.**
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -62,7 +62,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
 - [x] **FIN00 — Lập kế hoạch finalize.** Đối chiếu plan, registry, causal alpha,
   bridge, audit, serving contract và acceptance U09; khóa thứ tự việc và tiêu
   chí tại đây. Kiểm tài liệu theo ghi nhận cuối mục.
-- [ ] **FIN01 — Khóa inventory bản làm việc và nguyên nhân các cờ.** Ghi commit,
+- [x] **FIN01 — Khóa inventory bản làm việc và nguyên nhân các cờ.** Ghi commit,
   runtime, tài nguyên, receipt và đường gọi thực tế của từng phiên bản. Phân
   loại cờ lịch sử, lỗi còn tái hiện và phần thiếu bằng chứng. Đầu ra là bảng
   ảnh hưởng trong checklist này cùng manifest máy đọc dùng lại hạ tầng hiện có.
@@ -227,6 +227,57 @@ Markdown theo từng task chỉ để lặp lại checklist này.
 liên kết và hash nguồn được viện dẫn. Không chạy compile/unit/E2E/leakage do
 code, runtime, schema và đầu vào thực nghiệm giữ nguyên. Các kết quả PASS
 lịch sử được viện dẫn đúng snapshot, chưa có gate runtime mới từ FIN00.
+
+#### FIN01 — Inventory và bảng ảnh hưởng đã khóa ngày 18/11/2026
+
+Nguồn làm việc: `develop:3c674baefc1b1924dbdaea978b78965bce352b53`,
+nhánh `docs/finalize-inventory`. [Manifest inventory](week12/finalize_inventory.json)
+dùng envelope `payload/sha256`, `digest` và `binding` của hạ tầng unified;
+khóa **753 file nguồn/caller/test/UI/runtime**, **17 binding bằng chứng**, tám
+vai trò và tám nhóm đường gọi. Đây là inventory trước sửa, không phải receipt
+nghiệm thu bản cuối. JSON giữ expected/actual của từng pin lệch và nguồn từng cờ.
+
+| Đường gọi thực tế | Profile/miền đang có | Phần cần xử lý |
+| --- | --- | --- |
+| `manage_causal_profile.py` → causal Alpha/bridge; `run_unified_experiment.py` → runner/adapters | Fit/verify/predict/bridge và replay offline; Native vẫn nhận Alpha cũ | FIN03/FIN08: profile Native sửa, spec/result identity và caller |
+| `unified_live/run.py` → execution/providers | Study U08: tám vai trò, 102 điểm, ba repeat; grant lịch sử | FIN09/FIN10: kiểm request/dependency trước reuse, release mới riêng |
+| `/api/analyze` → `WebTradingAnalyzer` → graph; `/api/backtest/start` → engine | Original legacy; backtest extension chuyển serving | FIN08: nối đường sửa, kiểm prompt realtime/backtest đúng hợp đồng |
+| `/api/serving/v1` → service/AsOfProvider | Chín mã, 58 phiên 01/07–23/09/2026, 188 binding; tối đa 30 điểm/job | FIN04–FIN08: nguồn/fit/profile mới và preflight |
+| `/api/serving/live/v1` → LiveProvider | Capture một lần; chuyển selector frozen; form 1D/sáu lựa chọn | FIN04–FIN08: availability, origin, event ledger, cache và support |
+| `/api/research-results`, experiments và export owner | Reader U09 đã verify; legacy/serving namespace riêng | FIN08/FIN14: phân biệt receipt/profile cũ và mới |
+
+Sáu lựa chọn là `original_fix`, `bayesian_v1`, `C2`, `A_tp_pool`,
+`B_semantic`, `MT_BICL`; hai vai trò là `original_common`, `Fact_Anchor`.
+Native dùng `original_fix_serving_v1`/Alpha native; bốn prior dùng
+`common_decision_v1`, Common cùng profile; Anchor/MT dùng
+`fact_anchor_v3`/`utility_icl_v3`. Bảy vai trò sau nhận `causal_common_v1`;
+dependency/fallback/resource của từng vai trò nằm trong manifest, khớp registry.
+
+| Cờ / phân loại | Nguồn và ảnh hưởng | Task xử lý và tiêu chí kiểm lại |
+| --- | --- | --- |
+| `ALPHA_NATIVE` — lỗi đã tái hiện | `revision_alpha_contract.rowwise_diagnostics`: bfill, ba normalizer, nhánh volume thay quá khứ; `WINDOW_REPLACEMENTS` ghi sáu window theo độ dài | FIN03/06/08/10: 85 factor prefix/poison, origin và train/purge; mọi caller bản sửa nhận đúng projection |
+| `ALPHA_ONLY` — thiếu chứng nhận toàn pipeline | U05 PASS chỉ Alpha PIT; U06/U08/U09 vẫn ghi whole-system NOT_CERTIFIED | FIN04–07/10/13: chứng minh nguồn, fit, maturity và barrier trong miền mới |
+| `NEWS_PIT` — thiếu provenance nội dung | Protocol v2: date-only next-day, không chứng nhận content/scorer tồn tại trước cutoff; ảnh hưởng shared sentiment/mọi nhánh | FIN05/09/10: khóa content/source/published/available/collected/scorer và cùng snapshot hiển thị |
+| `PRICE_PIT` — thiếu bằng chứng nguồn | U06 và live snapshot: vendor adjustment/event history, bank/query khác nguồn | FIN04/06/10: đơn vị/lịch/availability/events và nhãn oracle đúng source/version |
+| `BANK_LINEAGE` — thiếu raw và lệch cơ sở nhãn | U06: bank 852 CORE4 thiếu raw signal journal; 828 nhãn lệch donor, max 0,04298848884252138 đpt | FIN06/09/10: khôi phục hoặc tái tạo có trace, label oracle, exit<cutoff, fit/OOD đúng hợp đồng |
+| `MT_LINEAGE` — thiếu bằng chứng dependency bản mới | Context/student/teacher/facts chưa được Alpha-only gate bao phủ | FIN06/07/10: reserved IDs trước label, fold freeze, fit cutoff, support và Q10/Q90/anchor |
+| `CALLER_IDENTITY` — đường nguồn còn dùng bản cũ | `causal_bridge.decision_payload` cố ý giữ native khi `original_fix`; profile/registry/cache đang khóa bản cũ | FIN08/10/14: profile và cache mới, không gán receipt cũ cho bản sửa |
+| `SOURCE_DELTA` — nguồn hiện hành đã đổi | U08 khớp 703/718, U09 khớp 714/729; cùng 15 đường lệch, không có pin mất local | FIN08/09/10/13: kiểm caller thay đổi và wire request trước reuse; receipt chỉ áp snapshot cũ |
+| `OLD_PENDING` — cờ mốc lịch sử | Protocol U06 còn BLOCKED/PENDING_U07_U08; receipt U09 còn U10 PENDING, dù U08/U09/F05 được ghi nhận sau đó | FIN08/13/15: dẫn receipt theo thời điểm/phạm vi, giữ byte cũ; không suy thành causal PASS |
+| `UI_ACCEPTANCE` — thiếu receipt browser hiện hành | Acceptance v10 vẫn OFFLINE_PASS_BROWSER_PENDING, `f11_complete=false`; chưa thấy receipt tương ứng nhận định nghiệm thu 17/11 trong kế hoạch | FIN14: tìm bằng chứng đúng scope/hash để kế thừa, hoặc quan sát browser thật; chưa nhận F11 hoàn tất |
+| `ARCHIVE_LAYOUT` — đổi chỗ bằng chứng | 30 ZIP cũ đã vào `revision_evidence`; verifier cũ còn đọc đường gốc | FIN10/16: tra index, restore checkout biệt lập theo runbook, kiểm bytes, không sửa expected hash |
+| `EXECUTION_LIMITS` — giới hạn nghiên cứu | Cohort exposed, LLM knowledge cutoff, vendor/fill/thuế/thanh khoản và vốn chung chưa được chứng minh | FIN02/12/13/15: exploratory, đúng mẫu số/NA và giới hạn; không tuyên bố profitability/superiority/live fills |
+
+**Kiểm FIN01.** Python **3.13.5/Windows** và **107/107 package** khớp U06;
+286/286 asset U06, 188/188 binding serving khớp. Đã đọc/kiểm hash **810 member
+snapshot**, **8.063 member U08** (gồm 8.035 file journal) và **15 artifact U09**;
+20 gói W12 tại chỗ và 30 ZIP qua `EvidenceArchive` đều nguyên byte. Không
+giải nén/ghi đè bằng chứng. Đã chạy riêng phản ví dụ số học nhỏ native, kết quả
+`PASS_DETECTION`/Native **FAIL**; đây không phải chạy lại leakage suite hoặc
+backtest. FIN01 chỉ thêm inventory/checklist, không đổi code/test/schema/runtime
+hoặc đầu vào nghiên cứu nên không compile/unit/E2E/toàn suite theo AGENTS §1.2.
+Đối soát JSON/checksum, caller, số liệu, liên kết và `git diff --check`;
+**0 API thị trường/LLM, 0 fit/training**, không nâng gate U05/U08/U09/ứng dụng.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
