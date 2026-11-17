@@ -101,7 +101,7 @@ chart tools, parts of the LangGraph orchestration and web interface are
 adapted from the upstream source. The comparison snapshot is commit
 `92519f806286192345e940e7ab77496462d662b7`; the originally adopted commit
 was not recorded. This distinction is retained in the repository's
-[third-party notices](../../../../../THIRD_PARTY_NOTICES.md). The current upstream
+[third-party notices](../../THIRD_PARTY_NOTICES.md). The current upstream
 name QuantHarness does not change the versioned QuantAgent paper used
 for methodological attribution. [@yresearch2026quantagentcode]
 

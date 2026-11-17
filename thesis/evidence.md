@@ -18,7 +18,7 @@ tại [frontmatter.md](frontmatter.md); hồ sơ này dùng để quản lý ngu
 | Loại tài liệu | BACHELOR'S GRADUATION THESIS | Giữ theo hai bìa mẫu. |
 | Địa điểm/năm trên bìa | HA NOI - 2026 | Giữ theo mẫu theo yêu cầu tác giả; không suy ra hạn nộp hay ngày bảo vệ. |
 | Logo | Logo UET gốc, chỉ ở bìa ngoài | Sao chép nguyên byte từ `Latex/images/UET_logo.jpg` vào [tài nguyên khóa luận](assets/figures/UET_logo.jpg). Bìa trong mẫu không có logo. Quyền phát hành lại ngoài phạm vi khóa luận chưa được xác minh. |
-| Mẫu trình bày đã chọn | Hai trang đầu [23020332_Tran_Xuan_Bao.pdf](../../../../23020332_Tran_Xuan_Bao.pdf) | Yêu cầu trình bày của tác giả, không phải chứng cứ trường đã phê duyệt toàn bộ mẫu. |
+| Mẫu trình bày đã chọn | Hai trang đầu [23020332_Tran_Xuan_Bao.pdf](../23020332_Tran_Xuan_Bao.pdf) | Yêu cầu trình bày của tác giả, không phải chứng cứ trường đã phê duyệt toàn bộ mẫu. |
 | Hạn nộp/ngày bảo vệ | Chưa xác định | Tác giả xác nhận tạm thời chưa có hạn nộp; không tự đặt ngày. |
 | Quy định trích dẫn chính thức | Chưa được cung cấp | Tác giả xác nhận tạm thời chưa có; numeric theo thứ tự xuất hiện chỉ là gợi ý từ `biblatex` trong mẫu, chưa chốt thành quy định. |
 | Quy định bố cục chính thức | Chưa được cung cấp | Tác giả xác nhận tạm thời chưa có; A4, cỡ thân bài 12 pt, giãn dòng 1,5, lề và đánh số trang là quan sát từ nguồn mẫu. |
@@ -36,8 +36,8 @@ tại [frontmatter.md](frontmatter.md); hồ sơ này dùng để quản lý ngu
   nhất quán trên hai bìa. Bìa trong giảm khoảng trắng quanh tiêu đề để giữ
   khoảng tách với loại khóa luận/ngành/người hướng dẫn. Đây là điều chỉnh
   dàn dòng cho nội dung mới, không phải tuyên bố đồng nhất từng pixel.
-- [Nguồn bìa độc lập](../../../../thesis/frontmatter/covers.tex) và
-  [trình biên dịch bản xem](archive/covers-preview.tex) chỉ phục vụ kiểm yêu cầu
+- [Nguồn bìa độc lập](latex/frontmatter/covers.tex) và
+  [trình biên dịch bản xem](latex/covers-preview.tex) chỉ phục vụ kiểm yêu cầu
   bìa đã cung cấp sớm; chưa thay thế khung LaTeX toàn văn hay hoàn tất phần đầu.
   [Bản PDF xem bìa](release/covers-preview.pdf) không phải bản khóa luận hoàn chỉnh.
 - Markdown vẫn là nguồn nội dung chính. Khi đổi metadata tại
@@ -64,11 +64,11 @@ thay thế.
 
 | ID nguồn | Nguồn | Vai trò trong lần rà này | Giới hạn |
 | --- | --- | --- | --- |
-| S01 | [Thiết kế thực nghiệm](../../../../paper/content/experimental_setup.tex), [support thành phần](../../../../paper/content/tables/component/scope.tex) | RQ1: Full/Base, đối chứng số, panel upstream/factorial, đơn vị và sự khác biệt hai nghiên cứu. | Bản thảo/bảng dẫn tới bằng chứng; kiểm kê nhóm nguồn ở mục 3; truy vết từng ô khi dựng bảng khóa luận. |
-| S02 | [Kết quả](../../../../paper/content/results.tex), [bảng support ngữ cảnh](../../../../paper/content/tables/historical_context/support.tex) | RQ2: hai họ so sánh với Common/Native, fallback và độ phủ. | Không suy kết quả dùng prior thường xuyên từ tên phương pháp; luôn giữ support và trường hợp fallback. |
-| S03 | [Registry](../../../../core/variant_registry.py), [policy](../../../../core/mt_bicl_policy.py), [bridge](../../../../paper/content/tables/historical_context/bridge.tex) | RQ3: tám vai trò, phụ thuộc Common/Fact Anchor/MT-BICL, proposal/final action và điều kiện utility. | Mã live là nguồn giải thích; bridge là mô tả các can thiệp gộp, không cô lập student. |
-| S04 | [Receipt phân tích U09](../unified_analysis_acceptance.json), [gói kết quả](../unified_analysis_results.zip) | RQ4: định danh nghiên cứu, 102 điểm/2.448 slot, cold replay 15 artifact và phạm vi audit được ghi nhận. Hash ZIP hiện tại khớp `payload.results_package.sha256`. | Chỉ kiểm hash gói/đọc receipt trong lần này; không chạy lại replay hoặc gate runtime, không tự chứng nhận toàn hệ. |
-| S05 | [Hạn chế](../../../../paper/content/limitations.tex), [trạng thái tích hợp](../../plan.md) | Giữ các kết luận âm, nhân quả, provenance, ablation chưa chạy và UI chưa nghiệm thu. | F11 vẫn PENDING; trạng thái tài liệu không đóng nghiệm thu ứng dụng. |
+| S01 | [Thiết kế thực nghiệm](../paper/content/experimental_setup.tex), [support thành phần](../paper/content/tables/component/scope.tex) | RQ1: Full/Base, đối chứng số, panel upstream/factorial, đơn vị và sự khác biệt hai nghiên cứu. | Bản thảo/bảng dẫn tới bằng chứng; kiểm kê nhóm nguồn ở mục 3; truy vết từng ô khi dựng bảng khóa luận. |
+| S02 | [Kết quả](../paper/content/results.tex), [bảng support ngữ cảnh](../paper/content/tables/historical_context/support.tex) | RQ2: hai họ so sánh với Common/Native, fallback và độ phủ. | Không suy kết quả dùng prior thường xuyên từ tên phương pháp; luôn giữ support và trường hợp fallback. |
+| S03 | [Registry](../core/variant_registry.py), [policy](../core/mt_bicl_policy.py), [bridge](../paper/content/tables/historical_context/bridge.tex) | RQ3: tám vai trò, phụ thuộc Common/Fact Anchor/MT-BICL, proposal/final action và điều kiện utility. | Mã live là nguồn giải thích; bridge là mô tả các can thiệp gộp, không cô lập student. |
+| S04 | [Receipt phân tích U09](../docs/plan/week12/unified_analysis_acceptance.json), [gói kết quả](../docs/plan/week12/unified_analysis_results.zip) | RQ4: định danh nghiên cứu, 102 điểm/2.448 slot, cold replay 15 artifact và phạm vi audit được ghi nhận. Hash ZIP hiện tại khớp `payload.results_package.sha256`. | Chỉ kiểm hash gói/đọc receipt trong lần này; không chạy lại replay hoặc gate runtime, không tự chứng nhận toàn hệ. |
+| S05 | [Hạn chế](../paper/content/limitations.tex), [trạng thái tích hợp](../docs/plan/plan.md) | Giữ các kết luận âm, nhân quả, provenance, ablation chưa chạy và UI chưa nghiệm thu. | F11 vẫn PENDING; trạng thái tài liệu không đóng nghiệm thu ứng dụng. |
 
 Các điểm chặn cách diễn giải đã đối chiếu:
 
@@ -124,11 +124,11 @@ Kiểm kê ngày **14/11/2026**, từ cây nguồn
 | Lớp nguồn | Định danh và nơi đọc | Cách dùng |
 | --- | --- | --- |
 | Mã triển khai hiện tại | Commit khảo sát ở trên; các module trong [dàn bài §D](outline.md#d-implementation-and-evidence-map). | Giải thích hệ thống hiện tại và lớp UI; không thay hash nguồn đã khóa trong receipt. |
-| Snapshot nghiên cứu chung | [final_evidence_snapshot.zip](../final_evidence_snapshot.zip), commit `384725a66fec074700963fac67c358b28b842092`, donor `9efd23f4157e0d3ab8069fccab7dccf03439a714`. | Đã đối soát 810 member nguồn với `snapshot_manifest.json`; bản nguồn đúng byte để truy xuất nghiên cứu. |
+| Snapshot nghiên cứu chung | [final_evidence_snapshot.zip](../docs/plan/week12/final_evidence_snapshot.zip), commit `384725a66fec074700963fac67c358b28b842092`, donor `9efd23f4157e0d3ab8069fccab7dccf03439a714`. | Đã đối soát 810 member nguồn với `snapshot_manifest.json`; bản nguồn đúng byte để truy xuất nghiên cứu. |
 | Nghiên cứu thành phần | `legacy_fix_revision`; run signature `904b838a466290d9c8aa73245a6285e813b4f7c90d280355d3b2847ed9933fab`; `revision_minimal_final_v1` và các release trong mục 3.2. | Nguồn chính là dữ liệu/manifest đã khóa; không chọn bản có tên “final” chỉ theo tên. |
 | Thu thập ngữ cảnh lịch sử | `unified_u08_u09_r1`; U08 source commit `69935d71b469d0a34ef8959ca598e1cee791f7ac`, `unified_live_research.zip`. | Giữ active slots, raw/journal, retired attempts và acceptance của lượt hoàn tất. Pilot48/lượt hủy không thay cho dataset này. |
 | Phân tích ngữ cảnh lịch sử | U09 source commit `ae90d995a27f8d7820d88a7181a64f55b92b43d9`; `unified_analysis_results.zip` cùng acceptance. | 15 artifact phân tích và `receipt.json`; đọc kết quả đã lưu, không tái ước lượng. |
-| Bản trình bày bài báo hiện tại | [paper/](../../../../paper/README.md), [outputs/paper/manifest.json](../../../../outputs/paper/manifest.json). | Đã đối chiếu 49 file nguồn và hai PDF với manifest. Bảng/hình đã biên tập là đường dẫn tìm nguồn; không thay dữ liệu nghiên cứu. |
+| Bản trình bày bài báo hiện tại | [paper/](../paper/README.md), [outputs/paper/manifest.json](../outputs/paper/manifest.json). | Đã đối chiếu 49 file nguồn và hai PDF với manifest. Bảng/hình đã biên tập là đường dẫn tìm nguồn; không thay dữ liệu nghiên cứu. |
 | Artifact trung gian trình bày U09 | `outputs/revision/u09_manuscript_assets_v1/manifest.json` và `artifacts/`. | Đã kiểm 26 output theo manifest, gồm supplement và numeric lineage; không ghi đè bằng bộ sinh mới. |
 
 **Xác nhận phạm vi cùng snapshot nghiên cứu:** theo tác giả ngày 14/11/2026,
@@ -157,8 +157,8 @@ realtime song ngữ vẫn được mô tả riêng khi viết phần ứng dụn
 ### 3.2. Nguồn nghiên cứu thành phần
 
 `outputs/revision/final_baselines_v1/` còn ở cây làm việc; 11 output đều khớp
-manifest. Các nhóm dưới đã chuyển vào [kho revision](../../revision_evidence/README.md).
-[index.json](../../revision_evidence/index.json) ánh xạ đường dẫn gốc
+manifest. Các nhóm dưới đã chuyển vào [kho revision](../docs/plan/revision_evidence/README.md).
+[index.json](../docs/plan/revision_evidence/index.json) ánh xạ đường dẫn gốc
 đến chunks và SHA-256; reader kiểm phần ZIP, từng chunk và toàn file trước
 khi trả nội dung. Đã kiểm đủ **179 file thuộc bảy nhóm**, tất cả là
 `local_only=false`, không cần model weights riêng tư để đọc các kết quả này.
@@ -322,11 +322,11 @@ Không nhập bibliography chủ đề khác từ `Latex/references.bib` của m
 
 ### 4.1. Nguồn đầu vào và ý nghĩa trạng thái
 
-- [paper/references.bib](../../../../paper/references.bib) có 57 khóa duy nhất, 25
+- [paper/references.bib](../paper/references.bib) có 57 khóa duy nhất, 25
   trường DOI và 54 trường URL. SHA-256 nguyên file:
   `9912c4fa3e2acfe5c661d69b57b6e4fa11e8ea85c89cf4ad750ff87cf1494dbc`.
   Đây là nguồn **ứng viên**, không phải 57 nguồn đã đọc hoặc được chấp nhận.
-- [Báo cáo truy cập references cũ](../../../../outputs/paper/reference_links.json),
+- [Báo cáo truy cập references cũ](../outputs/paper/reference_links.json),
   SHA-256 `fb5d56c32c7ce1ccac09d63c9354f012626723bddb632582e0e3fd354f7806eb`,
   chỉ ghi kết quả lần kiểm bài báo trước. Không chuyển HTTP PASS cũ thành
   xác minh nội dung mới hoặc bằng chứng đã đọc toàn văn trong khóa luận.
@@ -605,9 +605,9 @@ viết tắt hoàn chỉnh của phần đầu hay viết thay các mục lý th
 
 ### 5.1. Tên phương pháp và ánh xạ ID
 
-Đối chiếu [registry](../../../../core/variant_registry.py),
-[cấu hình thành phần](../../../../utils/graph_setup.py) và
-[phụ thuộc/policy thống nhất](../../../../core/unified_methods.py). Không lấy từ
+Đối chiếu [registry](../core/variant_registry.py),
+[cấu hình thành phần](../utils/graph_setup.py) và
+[phụ thuộc/policy thống nhất](../core/unified_methods.py). Không lấy từ
 “baseline”, “original” hoặc “Full” đứng riêng để suy ra ID/profile.
 
 | Canonical manuscript name | Implementation or archive name | Meaning and scope in the thesis |
@@ -784,14 +784,14 @@ xuyên suốt và các phép tính lý thuyết đầy đủ vẫn làm ở task
 
 | Nội dung | Nguồn đã đọc để chốt quy ước |
 | --- | --- |
-| Net return, horizon và nhãn | [compute_round_trip_net_return](../../../../core/backtest_engine.py), [target_fields/validate_target_record](../../../../utils/target_contract.py). |
-| Native/Common/Base và fallback | [registry](../../../../core/variant_registry.py), [ABLATION_CONFIGS](../../../../utils/graph_setup.py), [unified methods](../../../../core/unified_methods.py). |
-| Confidence, decision, risk-reward | [TradeDecisionOutput](../../../../agents/decision_agent.py), [action/fact contracts](../../../../core/mt_bicl_contracts.py). |
-| IC và thang điểm factor | [compute_metrics/rank_alphas](../../../../core/alpha_compare.py); IC dùng Spearman, không phải return tài khoản. |
-| Population, ví dụ, counts và interval | [retriever](../../../../core/bayesian_retriever.py), [conditional_metric](../../../../core/prior_conditional_statistics.py). |
-| MT task/query/membership và prompt projection | [validate_episode/TaskBuilder](../../../../core/mt_bicl_tasks.py), [context projection](../../../../core/mt_bicl_context.py). |
-| Teacher, utility và action revision | [teacher](../../../../core/mt_bicl_teacher.py), [posterior_utility](../../../../core/mt_bicl_utility.py), [MT policy](../../../../core/mt_bicl_policy.py). |
-| Field/đơn vị kết quả và effective_K | [prediction_rows](../../../../core/unified_analysis/analysis.py), [paired estimators](../../../../core/unified_analysis/statistics.py), [classification/account primitives](../../../../core/free_pilot_statistics.py). |
+| Net return, horizon và nhãn | [compute_round_trip_net_return](../core/backtest_engine.py), [target_fields/validate_target_record](../utils/target_contract.py). |
+| Native/Common/Base và fallback | [registry](../core/variant_registry.py), [ABLATION_CONFIGS](../utils/graph_setup.py), [unified methods](../core/unified_methods.py). |
+| Confidence, decision, risk-reward | [TradeDecisionOutput](../agents/decision_agent.py), [action/fact contracts](../core/mt_bicl_contracts.py). |
+| IC và thang điểm factor | [compute_metrics/rank_alphas](../core/alpha_compare.py); IC dùng Spearman, không phải return tài khoản. |
+| Population, ví dụ, counts và interval | [retriever](../core/bayesian_retriever.py), [conditional_metric](../core/prior_conditional_statistics.py). |
+| MT task/query/membership và prompt projection | [validate_episode/TaskBuilder](../core/mt_bicl_tasks.py), [context projection](../core/mt_bicl_context.py). |
+| Teacher, utility và action revision | [teacher](../core/mt_bicl_teacher.py), [posterior_utility](../core/mt_bicl_utility.py), [MT policy](../core/mt_bicl_policy.py). |
+| Field/đơn vị kết quả và effective_K | [prediction_rows](../core/unified_analysis/analysis.py), [paired estimators](../core/unified_analysis/statistics.py), [classification/account primitives](../core/free_pilot_statistics.py). |
 
 Đây là chuẩn thuật ngữ dùng chung. Bằng chứng nguồn gốc học thuật vẫn theo
 §4 và cần đọc/kiểm sâu khi viết; định nghĩa trùng với một field trong code
@@ -837,17 +837,17 @@ rút gọn đường dẫn cho bảng, không phải task mới hay nguồn kế
 
 | Source ID | Nguồn có thể truy cập | Vai trò và giới hạn |
 | --- | --- | --- |
-| SRC01 | [Engine](../../../../core/backtest_engine.py), [target contract](../../../../utils/target_contract.py), [thuật ngữ §5](#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt). | Entry/exit, label/P&L, LONG/CASH và đơn vị; công thức/hợp đồng không đổi. |
-| SRC02 | [Protocol U06 v2](../unified_comparison_protocol_v2.json), [manifest U06 v2](../unified_comparison_manifest_v2.json); component `final_temporal_v1/primary_dependence.json`, `final_repeats_v1/protocol.json` trong kho revision. | Lịch, split, support và frozen-resource boundaries theo đúng nghiên cứu; không thay vendor sessions bằng lịch sàn chưa xác thực. |
-| SRC03 | [Graph](../../../../utils/graph_setup.py), [registry](../../../../core/variant_registry.py), [unified methods](../../../../core/unified_methods.py), [paired protocol](../../../../core/unified_protocol.py). | Luồng, projection, dependency và outcome barrier. Lớp UI của graph vẫn cùng logic snapshot nghiên cứu theo xác nhận tác giả ở §3. |
-| SRC04 | [Retriever](../../../../core/bayesian_retriever.py), [conditional statistics](../../../../core/prior_conditional_statistics.py); U09 `prior_traces.json`/`predictions.csv`. | Eligibility, population/counts, matching, selection và prefix/fallback đã ghi; không gộp signal bank với numeric task context. |
-| SRC05 | [MT tasks](../../../../core/mt_bicl_tasks.py), [context projection](../../../../core/mt_bicl_context.py), [recipe](../../week11/mt_bicl_replica_full_r1.json), [model lock](../../week11/mt_bicl_replica_full_r1_model.json); teacher/student/regime resource trong snapshot đã liệt kê ở §3.4. | Prior/target/query, fit/freeze/inference; dùng cấu hình thực tế, không lấy kiến trúc trong paper gốc thay student đã đánh giá. |
-| SRC06 | [MT policy](../../../../core/mt_bicl_policy.py), [utility](../../../../core/mt_bicl_utility.py), dependency trong SRC03; U09 trace/bridge/predictions. | Anchor, eligibility, assertion, utility veto, bypass và hành động cuối; lỗi kỹ thuật không thành CASH im lặng. |
-| SRC07 | [Baseline còn trên đĩa](../../../../outputs/revision/final_baselines_v1/manifest.json); [index revision](../../revision_evidence/index.json) và [reader](../../../../core/revision_evidence_archive.py): các nhóm `revision_minimal_final_v1`, `final_repeats_v1`, `final_temporal_v1`, `numeric_controls_v1`, `execution_final_v1`, `manuscript_rewrite_v1`. | Metrics/panels và cell lineage thành phần. Đường trong index là đường gốc đã đóng gói; xem §6.3 để chọn member, không đọc nhầm một thư mục live trùng tên. |
-| SRC08 | [ZIP kết quả U09](../unified_analysis_results.zip), [acceptance](../unified_analysis_acceptance.json); namespace `outputs/unified_integration/u09_analysis_r1/`. | Kết quả ngữ cảnh, contrast, coverage, policy, sensitivity và account. Member/field cụ thể ở §6.3; metrics/bands giữ nguyên. |
-| SRC09 | [Manifest trình bày paper](../../../../outputs/paper/manifest.json), [source kiến trúc](../../../../paper/content/system_architecture.tex), [source kết quả](../../../../paper/content/results.tex), [hai ảnh](../../../../paper/figures), [source đồ thị/bảng F02](../../../../outputs/revision/u09_manuscript_assets_v1/manifest.json). | Bản trình bày giúp đối chiếu, không thay nguồn đo. Cặp PNG khớp snapshot và chart record; lineage chi tiết ở §6.3. |
+| SRC01 | [Engine](../core/backtest_engine.py), [target contract](../utils/target_contract.py), [thuật ngữ §5](#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt). | Entry/exit, label/P&L, LONG/CASH và đơn vị; công thức/hợp đồng không đổi. |
+| SRC02 | [Protocol U06 v2](../docs/plan/week12/unified_comparison_protocol_v2.json), [manifest U06 v2](../docs/plan/week12/unified_comparison_manifest_v2.json); component `final_temporal_v1/primary_dependence.json`, `final_repeats_v1/protocol.json` trong kho revision. | Lịch, split, support và frozen-resource boundaries theo đúng nghiên cứu; không thay vendor sessions bằng lịch sàn chưa xác thực. |
+| SRC03 | [Graph](../utils/graph_setup.py), [registry](../core/variant_registry.py), [unified methods](../core/unified_methods.py), [paired protocol](../core/unified_protocol.py). | Luồng, projection, dependency và outcome barrier. Lớp UI của graph vẫn cùng logic snapshot nghiên cứu theo xác nhận tác giả ở §3. |
+| SRC04 | [Retriever](../core/bayesian_retriever.py), [conditional statistics](../core/prior_conditional_statistics.py); U09 `prior_traces.json`/`predictions.csv`. | Eligibility, population/counts, matching, selection và prefix/fallback đã ghi; không gộp signal bank với numeric task context. |
+| SRC05 | [MT tasks](../core/mt_bicl_tasks.py), [context projection](../core/mt_bicl_context.py), [recipe](../docs/plan/week11/mt_bicl_replica_full_r1.json), [model lock](../docs/plan/week11/mt_bicl_replica_full_r1_model.json); teacher/student/regime resource trong snapshot đã liệt kê ở §3.4. | Prior/target/query, fit/freeze/inference; dùng cấu hình thực tế, không lấy kiến trúc trong paper gốc thay student đã đánh giá. |
+| SRC06 | [MT policy](../core/mt_bicl_policy.py), [utility](../core/mt_bicl_utility.py), dependency trong SRC03; U09 trace/bridge/predictions. | Anchor, eligibility, assertion, utility veto, bypass và hành động cuối; lỗi kỹ thuật không thành CASH im lặng. |
+| SRC07 | [Baseline còn trên đĩa](../outputs/revision/final_baselines_v1/manifest.json); [index revision](../docs/plan/revision_evidence/index.json) và [reader](../core/revision_evidence_archive.py): các nhóm `revision_minimal_final_v1`, `final_repeats_v1`, `final_temporal_v1`, `numeric_controls_v1`, `execution_final_v1`, `manuscript_rewrite_v1`. | Metrics/panels và cell lineage thành phần. Đường trong index là đường gốc đã đóng gói; xem §6.3 để chọn member, không đọc nhầm một thư mục live trùng tên. |
+| SRC08 | [ZIP kết quả U09](../docs/plan/week12/unified_analysis_results.zip), [acceptance](../docs/plan/week12/unified_analysis_acceptance.json); namespace `outputs/unified_integration/u09_analysis_r1/`. | Kết quả ngữ cảnh, contrast, coverage, policy, sensitivity và account. Member/field cụ thể ở §6.3; metrics/bands giữ nguyên. |
+| SRC09 | [Manifest trình bày paper](../outputs/paper/manifest.json), [source kiến trúc](../paper/content/system_architecture.tex), [source kết quả](../paper/content/results.tex), [hai ảnh](../paper/figures/), [source đồ thị/bảng F02](../outputs/revision/u09_manuscript_assets_v1/manifest.json). | Bản trình bày giúp đối chiếu, không thay nguồn đo. Cặp PNG khớp snapshot và chart record; lineage chi tiết ở §6.3. |
 | SRC10 | [Danh sách nguồn gốc §4](#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), [dàn bài/RQ](outline.md). | Sổ citation và câu hỏi nghiên cứu; các nguồn CHUA_DOC chưa đủ để điền bảng so sánh học thuật cuối. |
-| SRC11 | [Serving contract](../variant_serving_contract.md), [entrypoint](../../../../web_interface.py), [live service](../../../../core/serving_live/service.py). | Workflow realtime 1D và cách đọc kết quả; chỉ mô tả chức năng/luồng có nguồn. Ảnh UI trực quan mới vẫn chờ nghiệm thu, không tự đóng F11 ứng dụng. |
+| SRC11 | [Serving contract](../docs/plan/week12/variant_serving_contract.md), [entrypoint](../web_interface.py), [live service](../core/serving_live/service.py). | Workflow realtime 1D và cách đọc kết quả; chỉ mô tả chức năng/luồng có nguồn. Ảnh UI trực quan mới vẫn chờ nghiệm thu, không tự đóng F11 ứng dụng. |
 
 ### 6.3. Member cần dùng và tình trạng bằng chứng
 
@@ -1021,9 +1021,9 @@ U08, U09, U06 assets v2 và acceptance U09 trước khi đọc nguồn.
 
 | ID | Gói / member / trường được dùng | SHA256 raw member |
 | --- | --- | --- |
-| EX01-P | [U09](../unified_analysis_results.zip), `outputs/unified_integration/u09_analysis_r1/predictions.csv`; chọn bằng khóa `(point_id, method, repeat)` | `d7d5f9b90d009f3da31de64df067ae9ac4ff72ccd395debf6c7f8ff08aa1da32` |
-| EX01-C | [U06 assets v2](../unified_comparison_assets_v2.zip), `outputs/unified_integration/u06_assets_v2/providers/FPT-2023-07-03.json`; `context` và chuẩn bị offline | `64e5d696a50b33a8f7b11cade299511e6c41c4dc458dcfeefff28100b51007c7` |
-| EX01-S | [U08](../unified_live_research.zip), slot `shared/FPT-2023-07-03`, file `7ace396801b8666a24f23ed0aef3466aa073db80185db93ceab24d48741a9ec3.json` | `42296f5e9e1c8b5ba25730a19adf0cd8445d251486116029bc2191e3f57e79cc` |
+| EX01-P | [U09](../docs/plan/week12/unified_analysis_results.zip), `outputs/unified_integration/u09_analysis_r1/predictions.csv`; chọn bằng khóa `(point_id, method, repeat)` | `d7d5f9b90d009f3da31de64df067ae9ac4ff72ccd395debf6c7f8ff08aa1da32` |
+| EX01-C | [U06 assets v2](../docs/plan/week12/unified_comparison_assets_v2.zip), `outputs/unified_integration/u06_assets_v2/providers/FPT-2023-07-03.json`; `context` và chuẩn bị offline | `64e5d696a50b33a8f7b11cade299511e6c41c4dc458dcfeefff28100b51007c7` |
+| EX01-S | [U08](../docs/plan/week12/unified_live_research.zip), slot `shared/FPT-2023-07-03`, file `7ace396801b8666a24f23ed0aef3466aa073db80185db93ceab24d48741a9ec3.json` | `42296f5e9e1c8b5ba25730a19adf0cd8445d251486116029bc2191e3f57e79cc` |
 | EX01-O | U08, slot `outcome/FPT-2023-07-03`, file `44ee5a008ff1b2964ddf676f02420fe9ed5a3f9aadb87e8a5bc789af23822605.json`; `output.target` | `ccc7cd71bc2877ea821b372b68427c9bf2d76636c944e4c66539dea4dd839866` |
 | EX01-IP | U08, slot `render/FPT-2023-07-03/pattern`, file `6b58a30a0892e8ff6aa4e61d0486edcbe0877d3deb02cbb9cbb62060385cabb6.json` | `3138604be32bcd9bd21970a25f19a8d6e0d278455de87532c9b7be67d35e54a9` |
 | EX01-IT | U08, slot `render/FPT-2023-07-03/trend`, file `6b920deb6684e0c6d03260866aa93e3cdbff66eb0e16ed5685caad707afe2c12.json` | `d8c737cbdce366738a7e466c218a36c2955d8674a8262816941bb107dde72733` |
@@ -1448,7 +1448,7 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 | CL186 | [Acceptance scope](chapters/05_experiments.md#592-limits-on-causal-statistical-and-external-validity) | DO_DUOC | ED08/15/07; snapshotcoldreceipt§3.4; §10.13 | U08pins718/maxprompt4750/maxattempt3/suite_rerunFalse; historicalcoldreplay/0inference | Không gatechạymới, futurehostedidenticalresponse hoặc đóng F11/UI/externalreview |
 | CL187 | [RQ synthesis](chapters/05_experiments.md#593-supported-answers-to-the-research-questions) | DAN_XUAT | CL145–CL186; §10.13 | B09 đủRQ1–4 vớiobservation/answer/remainingevidence | P4đủbảnnháp, khôngG3toànbộ/T48–58 hoặcnghiêncứu/phảnbiệnngoàiđãxong |
 
-| CL188 | [Bibliography và phạm vi nguồn](../../../../thesis/references.bib) | NGUON_HOC_THUAT | R01–R22; §11.1 | 22 mục có metadata/version/đoạn hỗ trợ, tách discovery register và bibliography | Không 62 nguồn đều đã đọc; không suy paper method thành hiệu quả hệ thống hoặc nguồn chưa đọc thành citation hợp lệ |
+| CL188 | [Bibliography và phạm vi nguồn](references.bib) | NGUON_HOC_THUAT | R01–R22; §11.1 | 22 mục có metadata/version/đoạn hỗ trợ, tách discovery register và bibliography | Không 62 nguồn đều đã đọc; không suy paper method thành hiệu quả hệ thống hoặc nguồn chưa đọc thành citation hợp lệ |
 
 | CL189 | [Technical analysis as empirical hypothesis](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction) | NGUON_HOC_THUAT | R01/lo2000technical; §11.1–§11.2 | Pattern recognition và conditional return distributions là hướng kiểm tra thực nghiệm | Không suy mọi indicator/market adaptation sinh lời |
 | CL190 | [Formula operators and adaptation](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction) | NGUON_HOC_THUAT | R02/kakushadze2016formulaic AppendixA; CL043–CL047 | Cross-sectional rank/group neutralization khác temporal operators; single-asset và typical-price proxy là thích nghi | Không gọi registry hiện tại tương đương nguyên xi101alpha hoặc VWAP thật |
@@ -1558,12 +1558,12 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL272 | [Integrated LaTeX source](archive/p8-source.zip); [cutover map](archive/p8-source.zip); `P8 PDF: Git d025facb:thesis/release/thesis.pdf` | DAN_XUAT | 13 archival Markdown files at e4e31daf; strict dependency/hash check; isolated LuaLaTeX/Biber build; migration and PDF QA; §14.6 | Six chapters and six appendices appear once; 259-page P8 draft; LaTeX became the source of record at 2026-11-16T13:14:55+07:00 | Technical integration only; P9/P10, official institutional requirements and UI acceptance remain open; historical FAIL/NOT_CERTIFIED are retained |
 
-| CL273 | [Reduced source](../../../../thesis/main.tex); [P8 archive](archive/p8-source.zip) | DAN_XUAT | P8 d025facb; T73a mapping; original cutover arrays; §15 | Core content migrated into six chapters; appendix sources removed with original bytes/hash retained | Archives remain evidence outside the build/submission package |
-| CL274 | [Shared contracts](../../../../thesis/chapters/03_background.tex) | DAN_XUAT | CL007–CL024/TIME/BG; P8 equations; §15/T73 | Net oracle, costs, zero=DOWN, SHORT=CASH, strict maturity and pairing retained | Intended/scoped contracts do not establish whole-system causality or actual fills |
-| CL275 | [Study results](../../../../thesis/chapters/05_experiments.tex); [cell map](assets/tables/concise_results.source.json) | DAN_XUAT | CL117–CL187/ED/ES;68 exact projected rows including20 joint-family cells | Both studies/baselines, controls, negative means, NA, coverage and sensitivity retained | No new bootstrap/inference or favorable-subset substitution; estimators remain study-specific |
-| CL276 | [Numerical method](../../../../thesis/chapters/04_proposed_system.tex) | DAN_XUAT | CL078–CL101/TR/BG/SYS; saved EX01; §15/T73 | Task distinctions, frozen seed42-step3000 student, teacher-sign utility and strict policy retained | Student differs from hosted LLM; no isolated student or utility benefit |
-| CL277 | [Conclusions](../../../../thesis/chapters/06_conclusion.tex) | DAN_XUAT | CL181–CL187/CL221–CL236; RQ/evidence map; §15/T73 | RQ1–RQ4/abstract retain baseline-dependent descriptive findings, FAIL/NOT_CERTIFIED/UI PENDING and absent ablations | Internal source review, not independent review or prospective profitability |
-| CL278 | [Portrait draft](release/thesis.pdf); [source map](source-map.json) | DAN_XUAT | Isolated four-pass build;60 rendered pages; §15/T73l | 60 portrait pages, zero rotation/appendices,17 main tables,5 figures,22 bibliography entries | T73 editing QA; T74–T80/P10 and external requirements remain open |
+| CL273 | [Reduced source](latex/main.tex); [P8 archive](archive/p8-source.zip) | DAN_XUAT | P8 d025facb; T73a mapping; original cutover arrays; §15 | Core content migrated into six chapters; appendix sources removed with original bytes/hash retained | Archives remain evidence outside the build/submission package |
+| CL274 | [Shared contracts](latex/chapters/03_background.tex) | DAN_XUAT | CL007–CL024/TIME/BG; P8 equations; §15/T73 | Net oracle, costs, zero=DOWN, SHORT=CASH, strict maturity and pairing retained | Intended/scoped contracts do not establish whole-system causality or actual fills |
+| CL275 | [Study results](latex/chapters/05_experiments.tex); [cell map](assets/tables/concise_results.source.json) | DAN_XUAT | CL117–CL187/ED/ES;68 exact projected rows including20 joint-family cells | Both studies/baselines, controls, negative means, NA, coverage and sensitivity retained | No new bootstrap/inference or favorable-subset substitution; estimators remain study-specific |
+| CL276 | [Numerical method](latex/chapters/04_proposed_system.tex) | DAN_XUAT | CL078–CL101/TR/BG/SYS; saved EX01; §15/T73 | Task distinctions, frozen seed42-step3000 student, teacher-sign utility and strict policy retained | Student differs from hosted LLM; no isolated student or utility benefit |
+| CL277 | [Conclusions](latex/chapters/06_conclusion.tex) | DAN_XUAT | CL181–CL187/CL221–CL236; RQ/evidence map; §15/T73 | RQ1–RQ4/abstract retain baseline-dependent descriptive findings, FAIL/NOT_CERTIFIED/UI PENDING and absent ablations | Internal source review, not independent review or prospective profitability |
+| CL278 | [Portrait draft](release/thesis.pdf); [source map](latex/source-map.json) | DAN_XUAT | Isolated four-pass build;60 rendered pages; §15/T73l | 60 portrait pages, zero rotation/appendices,17 main tables,5 figures,22 bibliography entries | T73 editing QA; T74–T80/P10 and external requirements remain open |
 
 Quy tắc điền bảng:
 
@@ -1618,11 +1618,11 @@ chiếu vẫn là source frozen, không đổi phiên bản nghiên cứu.
 
 | Source ID | Đường đọc / member snapshot | SHA256 nguyên byte |
 | --- | --- | --- |
-| TIME01 | [core/backtest_engine.py](../../../../core/backtest_engine.py) | `6c8f87c9ac7e15fbf67493ccfce06487c22b3a56145a5583f7fa8305d852026b` |
-| TIME02 | [utils/target_contract.py](../../../../utils/target_contract.py) | `1b2af4f8c3a031d44334281a63e812a1b1ee6cb52216b02602601c489d10ffb7` |
-| TIME03 | [core/historical_evaluation_data.py](../../../../core/historical_evaluation_data.py) | `96cab48918cd53b7408943157759a97477c367e3a4a07b4c98e46ecb7b039857` |
-| TIME04 | [core/historical_asset_readiness.py](../../../../core/historical_asset_readiness.py) | `914d9cfa94696f0dec572fac0af0d6ab4ddc1e0160edcd705434b8a27d9579f1` |
-| TIME05 | [core/historical_signals.py](../../../../core/historical_signals.py) | `26a35fa6e5421db09f5cbed5f219346e9aa72667b2a759568f0884cdcecdc7c5` |
+| TIME01 | [core/backtest_engine.py](../core/backtest_engine.py) | `6c8f87c9ac7e15fbf67493ccfce06487c22b3a56145a5583f7fa8305d852026b` |
+| TIME02 | [utils/target_contract.py](../utils/target_contract.py) | `1b2af4f8c3a031d44334281a63e812a1b1ee6cb52216b02602601c489d10ffb7` |
+| TIME03 | [core/historical_evaluation_data.py](../core/historical_evaluation_data.py) | `96cab48918cd53b7408943157759a97477c367e3a4a07b4c98e46ecb7b039857` |
+| TIME04 | [core/historical_asset_readiness.py](../core/historical_asset_readiness.py) | `914d9cfa94696f0dec572fac0af0d6ab4ddc1e0160edcd705434b8a27d9579f1` |
+| TIME05 | [core/historical_signals.py](../core/historical_signals.py) | `26a35fa6e5421db09f5cbed5f219346e9aa72667b2a759568f0884cdcecdc7c5` |
 | TIME06 | EX01-S/EX01-O, slot U08 và raw hash tại §7.2; input `provenance.source_sha256` = outcome `source_sha256` | `1bba0057bf6b4a847b43236bef745a311ef633692202a59138e065d0a9ddca27` (source identity đã ghi, không phải raw slot hash) |
 
 EX01-S giữ 600 ngày từ 02/02/2021 tới 03/07/2023, 45 ngày cuối bắt đầu
@@ -1965,7 +1965,7 @@ mode. Historical alpha không gọi LLM reason. EX01 năm dòng khớp saved
 alpha_factors/report, gồm WQ29 negative-IC flip; consensus1/3/1. Không suy
 accuracy56.9% hoặc score.8509 là xác suất hay lợi nhuận tương lai.
 
-Gói [U06 assets v2](../unified_comparison_assets_v2.zip)
+Gói [U06 assets v2](../docs/plan/week12/unified_comparison_assets_v2.zip)
 SHA256 `d5c4f1bc31c1a95d9e685a9cc13d1f86ce2d3cc0105b9023561fd5f567e2d8c4`.
 Hai member dưới thư mục `outputs/unified_integration/u06_assets_v2/` được
 đối chiếu `assets_manifest.json.members` (bytes/hash), không tái tạo:
@@ -2660,7 +2660,7 @@ Tự kiểm P4: đủ§5.1–§5.9, nguồn hai collection vàscope/mean/account
 
 ### 11.1. Phạm vi đọc, metadata và luận điểm được hỗ trợ
 
-Ngày **16/11/2026**, T48: tạo [thesis/references.bib](../../../../thesis/references.bib) gồm **22 nguồn** được đối chiếu metadata và đoạn hỗ trợ dưới đây. Đây là tập được nhận vào bibliography cho phần viết, không phải toàn bộ ứng viên đều đã đọc. Nguồn học thuật dùng bản tác giả/arXiv có version hoặc proceedings/journal gốc; các mirror đại học chứa bản bài báo gốc, không dùng bình luận thứ cấp thay nội dung. Chỉ các phần ghi ở cột locator đã được dùng để kiểm phát biểu; không tuyên bố kiểm toàn bộ proof/thực nghiệm/quyền phát hành. PDF scan Holm pp65–67, Newey–West p703 và Politis–Romano p1303 được xem ảnh trực tiếp; tải thành công không tự thành trạng thái đã đọc. Các bản tải để đọc nằm ở tmp, không phân phối toàn văn trong Git.
+Ngày **16/11/2026**, T48: tạo [thesis/references.bib](references.bib) gồm **22 nguồn** được đối chiếu metadata và đoạn hỗ trợ dưới đây. Đây là tập được nhận vào bibliography cho phần viết, không phải toàn bộ ứng viên đều đã đọc. Nguồn học thuật dùng bản tác giả/arXiv có version hoặc proceedings/journal gốc; các mirror đại học chứa bản bài báo gốc, không dùng bình luận thứ cấp thay nội dung. Chỉ các phần ghi ở cột locator đã được dùng để kiểm phát biểu; không tuyên bố kiểm toàn bộ proof/thực nghiệm/quyền phát hành. PDF scan Holm pp65–67, Newey–West p703 và Politis–Romano p1303 được xem ảnh trực tiếp; tải thành công không tự thành trạng thái đã đọc. Các bản tải để đọc nằm ở tmp, không phân phối toàn văn trong Git.
 
 Khóa `tradingagents2024` giữ ổn định nhưng edition được trích là v7 năm2025; `muller2022transformers` dùng năm venue ICLR2022, ghi rõ văn bản kiểm là arXivv7 sửa năm2024. MT-BICL trích preprintv1; không suy final pagination từ footer/comment ICML. Hamilton dùng manuscript18May2005, không trộn metadata edition Palgrave khác. ViSoBERT dùng tên trên PDF (Quoc-Nam Nguyen, Thang Chau Phan, Duc-Vu Nguyen, Kiet Van Nguyen); ACL export dùng dạng rút gọn. TradingAgents PDF/abs xác nhận Xiao/Sun/Luo/Wang; tên Einstein/Tesla/Newton/Rus trong HTML thử nghiệm là nội dung template, không đưa vào bibliography. DOI chỉ điền khi đã có định danh xác thực; không tạo DOI cho Holm/White từ phỏng đoán. Trang catalogue hoặc OpenReview challenge không được ghi là đã đọc toàn văn tại đó.
 
@@ -3279,12 +3279,3 @@ PDF mới **67 trang**, 737,257 byte, SHA256 `2c09b48da3641ef31bb89ffaa0981de241
 PDF mới67 trang, 737,589 byte, SHA256 `2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b`;21 bảng/8 hình, không phụ lục, A4 dọc/rotation0. Clean build bốn lượt LuaLaTeX/Biber trong bản sao độc lập; không underfull/overfull, citation/reference/glyph thiếu hoặc warning Biber. 51bookmark/51TOCtitlelinks đúng tiêu đề thật;146 đích nội bộ hợp lệ/54liên kết ngoài. Render mọi trang120dpi, xem11 trang đổi (5, 9, 12, 13, 43, 59, 60, 61, 62, 63, 64);56 PNG còn lại đồng nhất byte với bản đã kiểm, xem lớn phần thống kê/nguồn tái lập/kết luận. LoT tự cập nhật bảng5.15 sang trang vật lý62.
 
 68 dòng bảng/family20, bibliography, source JSON và mọi asset nghiên cứu/hình gốc giữ nguyên. Lời cảm ơn/Declaration/bìa không đổi. Manifest đọc input thực từ FLS và đối chiếu với nguồn checkout; hash văn bản chuẩn hóaLF, binary nguyên byte. Manifest không tự chứa hash chính nó/source-map; source-map khóa manifest nên không có vòng hash. Tag nguồn được gắn vào commit chứa source/PDF/manifest và phải giữ bất biến; không dùng commit cũ làm chỉ dẫn bản cuối. Không hứa PDF build lại đồng nhất byte qua môi trường/timestamp khác. Không có gói bàn giao tự đủ mới hoặc chạy fit/inference/bootstrap/replay/API/suite runtime; tài liệu và đối soát artifact là toàn bộ phạm vi. P10/T81–T84 còn mở.
-
-
-### Đóng gói nguồn Overleaf theo yêu cầu tác giả
-
-Đã tổ chức `thesis/` thành dự án nguồn có `main.tex` tại gốc, LuaLaTeX/Biber,11 file TeX, bibliography và5 tài nguyên hình dùng trong bản thảo. Thư mục dự án gồm24 file với README, AGENTS, latexmkrc, notice và manifest. Các tài liệu quản lý/bản nháp/archive/hình chưa dùng được chuyển về `docs/plan/week12/thesis/`; file ảnh và bằng chứng JSON/ZIP nguyên byte. Mapping và hash trước chuyển giữ trong source-map. Đã cập nhật các đường dẫn Markdown đang dùng và các công cụ build/check.
-
-ZIP `release/thesis-overleaf.zip` có main.tex tại gốc, 256,022 byte, SHA256 `57999c62382805016aff33d9ee5b549beb569a40d2b34e49863e31a450da66dd`. Bản ZIP giải nén vào thư mục ASCII độc lập đã build bốn lượt LuaLaTeX/Biber, recorder không đọc nguồn repository. latexmk cục bộ thiếu Perl, nên kiểm thực thi dùng trực tiếp LuaLaTeX/Biber; latexmkrc chọn LuaLaTeX cho Overleaf. PDF67 trang, 737,498 byte, SHA256 `9eb2bdd87f7de46ce7985f7aef52db5bb26d86ca5b106e55c8fee284bd39acc6`. 51bookmark/51TOC title links đúng tiêu đề,146 đích nội bộ/54 liên kết ngoài hợp lệ. Log không underfull/overfull/citation/reference/glyph thiếu hoặc warning Biber. Hai trang59–60 cập nhật chỉ dẫn tái lập và vị trí manifest.
-
-Manifest khóa nguồn tương đối theo gốc dự án và hash PDF. Source-map khóa hash manifest và ZIP bên ngoài gói. Tag `thesis-overleaf-20261117-r1` nhận diện phiên bản nguồn mới. README và AGENTS trong dự án hướng dẫn mọi chỉnh sửa tiếp theo theo cấu trúc Overleaf. T81–T83 đánh dấu hoàn tất với đầu ra này, T84 còn mở. Chỉ biên dịch hai công cụ Python thay đổi và kiểm build/check liên quan. Runtime nghiên cứu và các gate không chịu tác động tiếp tục theo receipt đã ghi. Phần FIN00–FIN17 đang soạn trong docs/plan/plan.md được bảo toàn ở working tree.

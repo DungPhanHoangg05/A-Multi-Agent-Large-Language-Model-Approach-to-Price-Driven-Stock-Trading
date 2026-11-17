@@ -2,7 +2,7 @@
   "schema": "thesis_source_cutover_v1",
   "cutover_at": "2026-11-16T13:14:55+07:00",
   "timezone": "Asia/Saigon",
-  "primary_source": "main.tex",
+  "primary_source": "latex/main.tex",
   "markdown_status": "ARCHIVED_REVIEWED_DRAFT_NOT_BUILD_INPUT",
   "markdown_git_base": "e4e31daf",
   "latex_baseline_note": "Hashes record the cutover snapshot. Later authorized editing is in LaTeX; do not regenerate from archived Markdown.",
@@ -150,7 +150,7 @@
     "bibliography_entries": 22,
     "isolated_build_without_markdown_or_template": "PASS"
   },
-  "pending": "T84 internal wrap-up; official institutional rules/deadline and author signature/date; external academic approval/submission",
+  "pending": "P10/T81–T84 source packaging and handover; independent academic feedback; unsigned declaration/date; institutional deadline/mandatory format not supplied; redistribution rights unresolved for some resources",
   "p8_archive": {
     "path": "archive/p8-source.zip",
     "sha256": "6af1d5006ed19ac510bd8e7f816c132d7d651a2be22114d4bbc9c5ca51e1958a",
@@ -290,7 +290,7 @@
   "current_structure": {
     "chapters": 6,
     "appendices": 0,
-    "primary": "main.tex",
+    "primary": "latex/main.tex",
     "historical_hashes": "Original cutover arrays remain unchanged; validate against p8_archive, not the edited manuscript."
   },
   "markdown_navigation_updates": [
@@ -307,7 +307,7 @@
   ],
   "current_revision": {
     "date": "2026-11-17",
-    "scope": "Overleaf project packaging and relocation of management files; T81–T83 completed within local handover scope",
+    "scope": "Six-comment review follow-up: versioned manuscript/research distinction, corrected sensitivity interpretation, concise UI description and explicit regime/student limits; no new experiments; P10 remains open",
     "pages": 67,
     "frontmatter_pages": 10,
     "chapter_pages": [
@@ -326,66 +326,70 @@
     "line_spacing": 1.5,
     "numeric_source_rows": 68,
     "joint_family_cells": 20,
-    "source_ref": "refs/tags/thesis-overleaf-20261117-r1"
+    "source_ref": "refs/tags/thesis-review-20261117-r1"
   },
   "current_latex": [
     {
-      "path": "chapters/01_introduction.tex",
+      "path": "latex/chapters/01_introduction.tex",
       "lf_sha256": "5fefc68ead8167a51ff3203ce7c60c1c2308508c5ded5c7203bbf5402ce2d541"
     },
     {
-      "path": "chapters/02_related_work.tex",
+      "path": "latex/chapters/02_related_work.tex",
       "lf_sha256": "562291a466d48af88ad4b33c16dbb14a686db9b4d659da7e120e8b9f9f934605"
     },
     {
-      "path": "chapters/03_background.tex",
+      "path": "latex/chapters/03_background.tex",
       "lf_sha256": "de22b4ca4817b5b5ce2f960a78d38eb0cbe1f87d22534e76c7a114f23b3d4cf1"
     },
     {
-      "path": "chapters/04_proposed_system.tex",
-      "lf_sha256": "afb014bf395524004661aa3425b712eb694557f76b6f547073a0721433f7d876"
+      "path": "latex/chapters/04_proposed_system.tex",
+      "lf_sha256": "20b52d0d569c3d960b5d18765c065cccd5754158f3126ee2ec3dce007f6a5e25"
     },
     {
-      "path": "chapters/05_experiments.tex",
-      "lf_sha256": "22957d66cb2b4d2806594ebf5ed57250756b6d5561a756864e602268c7810d7b"
+      "path": "latex/chapters/05_experiments.tex",
+      "lf_sha256": "8db0bbe28f2706d01c6bf719fea6d55257415d1586d438d6ff4be8b95c6c6075"
     },
     {
-      "path": "chapters/06_conclusion.tex",
+      "path": "latex/chapters/06_conclusion.tex",
       "lf_sha256": "b190c96f2e609518fb23149f3dcc7d26392fd828ffb7c49270919fae2c6a7e3d"
     },
     {
-      "path": "frontmatter/content.tex",
+      "path": "latex/covers-preview.tex",
+      "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+    },
+    {
+      "path": "latex/frontmatter/content.tex",
       "lf_sha256": "db3c628a5864ffc67e7503d3bb4002f25b6c623100cb58c3f9db58e1f7501bf4"
     },
     {
-      "path": "frontmatter/covers.tex",
-      "lf_sha256": "1bfa2b68e75a36342cfae2a698277e8bd94b169b506eaf797ca3adfc3bf4f532"
+      "path": "latex/frontmatter/covers.tex",
+      "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
     },
     {
-      "path": "frontmatter/reference_lists.tex",
+      "path": "latex/frontmatter/reference_lists.tex",
       "lf_sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
     },
     {
-      "path": "main.tex",
+      "path": "latex/main.tex",
       "lf_sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
     },
     {
-      "path": "preamble.tex",
-      "lf_sha256": "5dbbd7e82a18a351730fb629f69798a672da8e490e7c1c9827b76fd4fb247b00"
+      "path": "latex/preamble.tex",
+      "lf_sha256": "46c805cfe6686c9f4706b9a7cba53facae225fc5f7021ea102724918731940d5"
     }
   ],
   "current_references_lf_sha256": "56f3d621ef6be49805604a1956129e917db09dd2800f4fb57320fc4c12cdc462",
   "reviewed_pdf": {
     "path": "release/thesis.pdf",
-    "sha256": "9eb2bdd87f7de46ce7985f7aef52db5bb26d86ca5b106e55c8fee284bd39acc6",
+    "sha256": "2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b",
     "pages": 67,
-    "status": "OVERLEAF_SOURCE_PACKAGE_LOCALLY_VERIFIED",
-    "clean_build": "Source ZIP extracted into independent ASCII temporary directory; LuaLaTeX/Biber four passes; no repository input in recorder.",
+    "status": "REVIEW_FOLLOWUP_INTERNALLY_CHECKED_P10_EXTERNAL_APPROVAL_PENDING",
+    "clean_build": "Fresh isolated copy tmp/pdfs/thesis-review-followup-final-v2/thesis; four LuaLaTeX passes and Biber; no Markdown/archive/template or original-checkout input.",
     "rotation": 0,
     "overfull_boxes": 0,
     "undefined_references_or_citations": 0,
     "missing_glyphs": 0,
-    "bytes": 737498,
+    "bytes": 737589,
     "internal_links": 146,
     "external_links": 54,
     "bookmarks": 51,
@@ -2019,234 +2023,16 @@
         "historical_offline_receipt_unchanged": true,
         "research_causality_and_execution_limits_unchanged": true
       }
-    },
-    {
-      "git_commit": "2f72c3f7207f83f857c3ea3f59928b739a1889bb",
-      "scope": "Bản trước tổ chức nguồn thành dự án Overleaf",
-      "current_revision": {
-        "date": "2026-11-17",
-        "scope": "Six-comment review follow-up: versioned manuscript/research distinction, corrected sensitivity interpretation, concise UI description and explicit regime/student limits; no new experiments; P10 remains open",
-        "pages": 67,
-        "frontmatter_pages": 10,
-        "chapter_pages": [
-          3,
-          4,
-          6,
-          20,
-          19,
-          2
-        ],
-        "references_pages": 3,
-        "portrait_only": true,
-        "rotation": 0,
-        "appendices": 0,
-        "body_font_pt": 12,
-        "line_spacing": 1.5,
-        "numeric_source_rows": 68,
-        "joint_family_cells": 20,
-        "source_ref": "refs/tags/thesis-review-20261117-r1"
-      },
-      "current_latex": [
-        {
-          "path": "latex/chapters/01_introduction.tex",
-          "lf_sha256": "5fefc68ead8167a51ff3203ce7c60c1c2308508c5ded5c7203bbf5402ce2d541"
-        },
-        {
-          "path": "latex/chapters/02_related_work.tex",
-          "lf_sha256": "562291a466d48af88ad4b33c16dbb14a686db9b4d659da7e120e8b9f9f934605"
-        },
-        {
-          "path": "latex/chapters/03_background.tex",
-          "lf_sha256": "de22b4ca4817b5b5ce2f960a78d38eb0cbe1f87d22534e76c7a114f23b3d4cf1"
-        },
-        {
-          "path": "latex/chapters/04_proposed_system.tex",
-          "lf_sha256": "20b52d0d569c3d960b5d18765c065cccd5754158f3126ee2ec3dce007f6a5e25"
-        },
-        {
-          "path": "latex/chapters/05_experiments.tex",
-          "lf_sha256": "8db0bbe28f2706d01c6bf719fea6d55257415d1586d438d6ff4be8b95c6c6075"
-        },
-        {
-          "path": "latex/chapters/06_conclusion.tex",
-          "lf_sha256": "b190c96f2e609518fb23149f3dcc7d26392fd828ffb7c49270919fae2c6a7e3d"
-        },
-        {
-          "path": "latex/covers-preview.tex",
-          "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
-        },
-        {
-          "path": "latex/frontmatter/content.tex",
-          "lf_sha256": "db3c628a5864ffc67e7503d3bb4002f25b6c623100cb58c3f9db58e1f7501bf4"
-        },
-        {
-          "path": "latex/frontmatter/covers.tex",
-          "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
-        },
-        {
-          "path": "latex/frontmatter/reference_lists.tex",
-          "lf_sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
-        },
-        {
-          "path": "latex/main.tex",
-          "lf_sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
-        },
-        {
-          "path": "latex/preamble.tex",
-          "lf_sha256": "46c805cfe6686c9f4706b9a7cba53facae225fc5f7021ea102724918731940d5"
-        }
-      ],
-      "current_references_lf_sha256": "56f3d621ef6be49805604a1956129e917db09dd2800f4fb57320fc4c12cdc462",
-      "reviewed_pdf": {
-        "path": "release/thesis.pdf",
-        "sha256": "2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b",
-        "pages": 67,
-        "status": "REVIEW_FOLLOWUP_INTERNALLY_CHECKED_P10_EXTERNAL_APPROVAL_PENDING",
-        "clean_build": "Fresh isolated copy tmp/pdfs/thesis-review-followup-final-v2/thesis; four LuaLaTeX passes and Biber; no Markdown/archive/template or original-checkout input.",
-        "rotation": 0,
-        "overfull_boxes": 0,
-        "undefined_references_or_citations": 0,
-        "missing_glyphs": 0,
-        "bytes": 737589,
-        "internal_links": 146,
-        "external_links": 54,
-        "bookmarks": 51,
-        "figures": 8,
-        "tables": 21,
-        "bibliography_entries": 22,
-        "underfull_hboxes": 0,
-        "biber_warnings": 0
-      },
-      "visual_review": {
-        "status": "SIX_COMMENT_REVIEW_CHANGED_PAGES_VIEWED_PASS",
-        "pdf_sha256": "2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b",
-        "parent_pdf_sha256": "2c09b48da3641ef31bb89ffaa0981de2413e2d97bf0bda5ae4c216961e7da5a1",
-        "renderer": "Poppler pdftoppm 120 dpi",
-        "layout_changes_after_render": false,
-        "physical_pages_reviewed": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19,
-          20,
-          21,
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33,
-          34,
-          35,
-          36,
-          37,
-          38,
-          39,
-          40,
-          41,
-          42,
-          43,
-          44,
-          45,
-          46,
-          47,
-          48,
-          49,
-          50,
-          51,
-          52,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          60,
-          61,
-          62,
-          63,
-          64,
-          65,
-          66,
-          67
-        ],
-        "changed_physical_pages_reviewed": [
-          5,
-          9,
-          12,
-          13,
-          43,
-          59,
-          60,
-          61,
-          62,
-          63,
-          64
-        ],
-        "unchanged_poppler_png_pages": 56,
-        "method": "Rendered all 67 pages, viewed all eleven changed pages in three four-page sheets plus enlarged revised discussion/reproducibility/conclusion. Other 56 PNGs match the previously reviewed edition byte-for-byte.",
-        "findings": "No clipped text, unreadable revised table, orphan EX01 ending or extra short conclusion page."
-      },
-      "current_build_tools": [
-        {
-          "path": "latex/tools/build.py",
-          "lf_sha256": "e1386f48db9eb76d45cdbd5d8719af204aa9a7ce740bf934a19bb5454929abb0"
-        },
-        {
-          "path": "latex/tools/check.py",
-          "lf_sha256": "5516cdbf424108c1117b8a6a1fca6a199ebadcb7198276da809484db70095735"
-        }
-      ],
-      "current_release_manifest": {
-        "path": "release/manifest.json",
-        "lf_sha256": "84dfbabf79168b0714281f82d9948ad99f650ce6e4edd77267a1eacfb1d38bde",
-        "source_ref": "refs/tags/thesis-review-20261117-r1",
-        "build_inputs": 17,
-        "supporting_files": 8,
-        "published": false,
-        "p10_package_complete": false
-      },
-      "current_structure": {
-        "chapters": 6,
-        "appendices": 0,
-        "primary": "latex/main.tex",
-        "historical_hashes": "Original cutover arrays remain unchanged; validate against p8_archive, not the edited manuscript."
-      },
-      "primary_source": "latex/main.tex"
     }
   ],
   "current_build_tools": [
     {
-      "path": "docs/plan/week12/thesis/tools/build.py",
-      "path_base": "repository",
-      "lf_sha256": "201261a73deae73f2ad12c6f94b549ba316de5c09a5c2845c07b354dc9141a2c"
+      "path": "latex/tools/build.py",
+      "lf_sha256": "e1386f48db9eb76d45cdbd5d8719af204aa9a7ce740bf934a19bb5454929abb0"
     },
     {
-      "path": "docs/plan/week12/thesis/tools/check.py",
-      "path_base": "repository",
-      "lf_sha256": "00fdc39b62659be3b7552c69ae5b45d6a17aa7fafc4018a28c70bc03d8006178"
+      "path": "latex/tools/check.py",
+      "lf_sha256": "5516cdbf424108c1117b8a6a1fca6a199ebadcb7198276da809484db70095735"
     }
   ],
   "current_notices": [
@@ -2301,12 +2087,13 @@
     "limits": "Document checks only; no new runtime gate, external review, submission or institutional-format approval.",
     "environment_notice": "MiKTeX stdout reminder: updates not checked; exit 0. Not a manuscript/log warning; no environment upgrade performed."
   },
-  "current_build_attributes_lf_sha256": "9121ba81c1d18dff89c7b176640243fa59431ca51fe3decc7e314c69d6373984",
+  "current_build_attributes_lf_sha256": "d9f3b3b7b2c23012f2bdf163cc4502af5e56c6724a8c0c068eb4bb6ca0ee0478",
   "visual_review": {
-    "status": "OVERLEAF_RELOCATION_REVIEWED",
-    "pdf_sha256": "9eb2bdd87f7de46ce7985f7aef52db5bb26d86ca5b106e55c8fee284bd39acc6",
-    "parent_pdf_sha256": "2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b",
+    "status": "SIX_COMMENT_REVIEW_CHANGED_PAGES_VIEWED_PASS",
+    "pdf_sha256": "2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b",
+    "parent_pdf_sha256": "2c09b48da3641ef31bb89ffaa0981de2413e2d97bf0bda5ae4c216961e7da5a1",
     "renderer": "Poppler pdftoppm 120 dpi",
+    "layout_changes_after_render": false,
     "physical_pages_reviewed": [
       1,
       2,
@@ -2377,12 +2164,21 @@
       67
     ],
     "changed_physical_pages_reviewed": [
+      5,
+      9,
+      12,
+      13,
+      43,
       59,
-      60
+      60,
+      61,
+      62,
+      63,
+      64
     ],
-    "method": "Rendered all67 pages with Poppler120dpi. Viewed pages59–60. Other65 PNGs are byte-identical to the pre-relocation reviewed edition. Final ZIP rebuild matches all67 pages in extracted text and raster pixels.",
-    "layout_changes_after_render": false,
-    "unchanged_poppler_png_pages": 65
+    "unchanged_poppler_png_pages": 56,
+    "method": "Rendered all 67 pages, viewed all eleven changed pages in three four-page sheets plus enlarged revised discussion/reproducibility/conclusion. Other 56 PNGs match the previously reviewed edition byte-for-byte.",
+    "findings": "No clipped text, unreadable revised table, orphan EX01 ending or extra short conclusion page."
   },
   "feedback_review": {
     "external_feedback_received": false,
@@ -2390,7 +2186,7 @@
     "signed": false,
     "submitted": false,
     "official_deadline_and_format_rules": "not supplied",
-    "internal_followup": "User requested a single Overleaf-ready thesis folder and continuing compatibility. Main source moved to project root, resources localized, ZIP and manifest prepared.",
+    "internal_followup": "Corrected version pointers and sensitivity prose; reduced UI acceptance repetition to section 4.10; emphasized limited regime coverage and student approximation scope.",
     "author_instructions_received": true,
     "external_feedback_scope": "Six author-supplied review comments addressed; independent reviewer identity and academic approval are not established.",
     "author_layout_request": "Printed pages 15 and 26 must contain both figure and prose.",
@@ -2506,12 +2302,13 @@
     "research_causality_and_execution_limits_unchanged": true
   },
   "current_release_manifest": {
-    "path": "thesis/manifest.json",
-    "path_base": "repository",
-    "lf_sha256": "bfb1a441b5a9ed6aa6e2a7b20d6abaeafd1a6eb8c639c7307a744487b5feb85c",
-    "source_ref": "refs/tags/thesis-overleaf-20261117-r1",
-    "source_files": 23,
-    "published": false
+    "path": "release/manifest.json",
+    "lf_sha256": "84dfbabf79168b0714281f82d9948ad99f650ce6e4edd77267a1eacfb1d38bde",
+    "source_ref": "refs/tags/thesis-review-20261117-r1",
+    "build_inputs": 17,
+    "supporting_files": 8,
+    "published": false,
+    "p10_package_complete": false
   },
   "review_followup": {
     "base_commit": "45a85b73",
@@ -2537,247 +2334,5 @@
     "source_bindings_verified": 19,
     "regime_slot_bindings_verified": 204,
     "manifest_hash_mismatch_negative_checks": "PASS"
-  },
-  "path_roots": {
-    "manuscript": "thesis",
-    "management": "docs/plan/week12/thesis",
-    "historical_paths": "archive metadata resolves from the management directory"
-  },
-  "relocation": {
-    "base_commit": "2f72c3f7207f83f857c3ea3f59928b739a1889bb",
-    "files": {
-      "thesis/README.md": "docs/plan/week12/thesis/README.md",
-      "thesis/plan.md": "docs/plan/week12/thesis/plan.md",
-      "thesis/evidence.md": "docs/plan/week12/thesis/evidence.md",
-      "thesis/outline.md": "docs/plan/week12/thesis/outline.md",
-      "thesis/frontmatter.md": "docs/plan/week12/thesis/frontmatter.md",
-      "thesis/chapters/01_introduction.md": "docs/plan/week12/thesis/chapters/01_introduction.md",
-      "thesis/chapters/02_related_work.md": "docs/plan/week12/thesis/chapters/02_related_work.md",
-      "thesis/chapters/03_background.md": "docs/plan/week12/thesis/chapters/03_background.md",
-      "thesis/chapters/04_proposed_system.md": "docs/plan/week12/thesis/chapters/04_proposed_system.md",
-      "thesis/chapters/05_experiments.md": "docs/plan/week12/thesis/chapters/05_experiments.md",
-      "thesis/chapters/06_conclusion.md": "docs/plan/week12/thesis/chapters/06_conclusion.md",
-      "thesis/archive/p8-source.zip": "docs/plan/week12/thesis/archive/p8-source.zip",
-      "thesis/assets/diagrams/F01_trade_timeline.pdf": "docs/plan/week12/thesis/assets/diagrams/F01_trade_timeline.pdf",
-      "thesis/assets/diagrams/F01_trade_timeline.png": "docs/plan/week12/thesis/assets/diagrams/F01_trade_timeline.png",
-      "thesis/assets/diagrams/F01_trade_timeline.tex": "docs/plan/week12/thesis/assets/diagrams/F01_trade_timeline.tex",
-      "thesis/assets/diagrams/F02_temporal_partitions.pdf": "docs/plan/week12/thesis/assets/diagrams/F02_temporal_partitions.pdf",
-      "thesis/assets/diagrams/F02_temporal_partitions.png": "docs/plan/week12/thesis/assets/diagrams/F02_temporal_partitions.png",
-      "thesis/assets/diagrams/F02_temporal_partitions.tex": "docs/plan/week12/thesis/assets/diagrams/F02_temporal_partitions.tex",
-      "thesis/assets/diagrams/F03_system_overview.pdf": "docs/plan/week12/thesis/assets/diagrams/F03_system_overview.pdf",
-      "thesis/assets/diagrams/F03_system_overview.png": "docs/plan/week12/thesis/assets/diagrams/F03_system_overview.png",
-      "thesis/assets/diagrams/F03_system_overview.tex": "docs/plan/week12/thesis/assets/diagrams/F03_system_overview.tex",
-      "thesis/assets/diagrams/F04_chart_pair.pdf": "docs/plan/week12/thesis/assets/diagrams/F04_chart_pair.pdf",
-      "thesis/assets/diagrams/F04_chart_pair.png": "docs/plan/week12/thesis/assets/diagrams/F04_chart_pair.png",
-      "thesis/assets/diagrams/F04_chart_pair.tex": "docs/plan/week12/thesis/assets/diagrams/F04_chart_pair.tex",
-      "thesis/assets/diagrams/F05a_regime_training.pdf": "docs/plan/week12/thesis/assets/diagrams/F05a_regime_training.pdf",
-      "thesis/assets/diagrams/F05a_regime_training.png": "docs/plan/week12/thesis/assets/diagrams/F05a_regime_training.png",
-      "thesis/assets/diagrams/F05a_regime_training.tex": "docs/plan/week12/thesis/assets/diagrams/F05a_regime_training.tex",
-      "thesis/assets/diagrams/F05_memory_retrieval.pdf": "docs/plan/week12/thesis/assets/diagrams/F05_memory_retrieval.pdf",
-      "thesis/assets/diagrams/F05_memory_retrieval.png": "docs/plan/week12/thesis/assets/diagrams/F05_memory_retrieval.png",
-      "thesis/assets/diagrams/F05_memory_retrieval.tex": "docs/plan/week12/thesis/assets/diagrams/F05_memory_retrieval.tex",
-      "thesis/assets/diagrams/F06_mt_tasks_training.pdf": "docs/plan/week12/thesis/assets/diagrams/F06_mt_tasks_training.pdf",
-      "thesis/assets/diagrams/F06_mt_tasks_training.png": "docs/plan/week12/thesis/assets/diagrams/F06_mt_tasks_training.png",
-      "thesis/assets/diagrams/F06_mt_tasks_training.tex": "docs/plan/week12/thesis/assets/diagrams/F06_mt_tasks_training.tex",
-      "thesis/assets/diagrams/F07_action_policy.pdf": "docs/plan/week12/thesis/assets/diagrams/F07_action_policy.pdf",
-      "thesis/assets/diagrams/F07_action_policy.png": "docs/plan/week12/thesis/assets/diagrams/F07_action_policy.png",
-      "thesis/assets/diagrams/F07_action_policy.tex": "docs/plan/week12/thesis/assets/diagrams/F07_action_policy.tex",
-      "thesis/assets/diagrams/F08_variant_dag.pdf": "docs/plan/week12/thesis/assets/diagrams/F08_variant_dag.pdf",
-      "thesis/assets/diagrams/F08_variant_dag.png": "docs/plan/week12/thesis/assets/diagrams/F08_variant_dag.png",
-      "thesis/assets/diagrams/F08_variant_dag.tex": "docs/plan/week12/thesis/assets/diagrams/F08_variant_dag.tex",
-      "thesis/assets/diagrams/F11_application_flow.pdf": "docs/plan/week12/thesis/assets/diagrams/F11_application_flow.pdf",
-      "thesis/assets/diagrams/F11_application_flow.png": "docs/plan/week12/thesis/assets/diagrams/F11_application_flow.png",
-      "thesis/assets/diagrams/F11_application_flow.tex": "docs/plan/week12/thesis/assets/diagrams/F11_application_flow.tex",
-      "thesis/assets/figures/F04_pattern.png": "docs/plan/week12/thesis/assets/figures/F04_pattern.png",
-      "thesis/assets/figures/F04_trend.png": "docs/plan/week12/thesis/assets/figures/F04_trend.png",
-      "thesis/assets/figures/F09_return_contrasts.pdf": "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.pdf",
-      "thesis/assets/figures/F09_return_contrasts.png": "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.png",
-      "thesis/assets/figures/F09_return_contrasts.py": "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.py",
-      "thesis/assets/figures/F09_return_contrasts.svg": "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.svg",
-      "thesis/assets/figures/F10_coverage_actions.pdf": "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.pdf",
-      "thesis/assets/figures/F10_coverage_actions.png": "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.png",
-      "thesis/assets/figures/F10_coverage_actions.py": "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.py",
-      "thesis/assets/figures/F10_coverage_actions.svg": "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.svg",
-      "thesis/assets/figures/review_mt_resolution.pdf": "docs/plan/week12/thesis/assets/figures/review_mt_resolution.pdf",
-      "thesis/assets/figures/review_mt_resolution.png": "docs/plan/week12/thesis/assets/figures/review_mt_resolution.png",
-      "thesis/assets/figures/review_results.py": "docs/plan/week12/thesis/assets/figures/review_results.py",
-      "thesis/assets/figures/review_return_contrasts.pdf": "docs/plan/week12/thesis/assets/figures/review_return_contrasts.pdf",
-      "thesis/assets/figures/review_return_contrasts.png": "docs/plan/week12/thesis/assets/figures/review_return_contrasts.png",
-      "thesis/assets/figures/UET_logo.jpg": "docs/plan/week12/thesis/assets/figures/UET_logo.jpg",
-      "thesis/assets/tables/concise_results.source.json": "docs/plan/week12/thesis/assets/tables/concise_results.source.json",
-      "thesis/assets/tables/review_additions.source.json": "docs/plan/week12/thesis/assets/tables/review_additions.source.json",
-      "thesis/release/covers-preview.pdf": "docs/plan/week12/thesis/release/covers-preview.pdf",
-      "thesis/release/manifest.json": "docs/plan/week12/thesis/archive/manifest-review-r1.json",
-      "thesis/release/thesis.pdf": "docs/plan/week12/thesis/release/thesis.pdf",
-      "thesis/latex/main.tex": "thesis/main.tex",
-      "thesis/latex/preamble.tex": "thesis/preamble.tex",
-      "thesis/latex/chapters/01_introduction.tex": "thesis/chapters/01_introduction.tex",
-      "thesis/latex/chapters/02_related_work.tex": "thesis/chapters/02_related_work.tex",
-      "thesis/latex/chapters/03_background.tex": "thesis/chapters/03_background.tex",
-      "thesis/latex/chapters/04_proposed_system.tex": "thesis/chapters/04_proposed_system.tex",
-      "thesis/latex/chapters/05_experiments.tex": "thesis/chapters/05_experiments.tex",
-      "thesis/latex/chapters/06_conclusion.tex": "thesis/chapters/06_conclusion.tex",
-      "thesis/latex/frontmatter/content.tex": "thesis/frontmatter/content.tex",
-      "thesis/latex/frontmatter/covers.tex": "thesis/frontmatter/covers.tex",
-      "thesis/latex/frontmatter/reference_lists.tex": "thesis/frontmatter/reference_lists.tex",
-      "thesis/latex/licenses/QuantAgent-MIT.txt": "thesis/licenses/QuantAgent-MIT.txt",
-      "thesis/latex/.gitattributes": "thesis/.gitattributes",
-      "thesis/latex/.gitignore": "thesis/.gitignore",
-      "thesis/latex/tools/build.py": "docs/plan/week12/thesis/tools/build.py",
-      "thesis/latex/tools/check.py": "docs/plan/week12/thesis/tools/check.py",
-      "thesis/latex/README.md": "docs/plan/week12/thesis/build-guide.md",
-      "thesis/latex/source-map.json": "docs/plan/week12/thesis/source-map.json",
-      "thesis/latex/covers-preview.tex": "docs/plan/week12/thesis/archive/covers-preview.tex"
-    },
-    "original_binary_and_evidence_hashes": {
-      "thesis/evidence.md": "6e3e7fb5397bc3ae817c256849eccaa8299af73fc67e7bf2a242ff87b2b34ec4",
-      "thesis/frontmatter.md": "33ebc597bd4ddedce94822e7709a3f3981f6eeb3332f033af1374e4593bb636f",
-      "thesis/outline.md": "916c6f61232e4a744be55473316ac81a73935c63a47893fa7955e31cfbee9348",
-      "thesis/plan.md": "9d975695311d33089f4a4d606e50e9f78acc1e21c1a0823337fd8ce429c50c53",
-      "thesis/README.md": "7f1d1a581744b469b972fc530ab3140e288bf73915cb81fb5120cdd5a8cd7abb",
-      "thesis/references.bib": "6b56fbf707d3a693f44b48a351834db2a9b9e56aca883679bf8b868f3a7c1b3b",
-      "thesis/archive/p8-source.zip": "6af1d5006ed19ac510bd8e7f816c132d7d651a2be22114d4bbc9c5ca51e1958a",
-      "thesis/chapters/01_introduction.md": "1c240302fcfaed47a32d4594fb11c537ed7cd78ff723e3d75ee22005468e9e52",
-      "thesis/chapters/02_related_work.md": "08198bf42d605d35a89fa5452e7eaf921666c4d659ea420568d3be430879dbd8",
-      "thesis/chapters/03_background.md": "193a0b3ae46bb7f5b32142c0158182e2efcb6e251d605c9f3cda8653cb2db066",
-      "thesis/chapters/04_proposed_system.md": "944a2fe6bf82c1829084edbf38abe1b646258a0441cc392775ba045a87560ed8",
-      "thesis/chapters/05_experiments.md": "0cf93521b4259bbfeec062f986d03ba43b6b59c9d07beb14887215c16dab7e81",
-      "thesis/chapters/06_conclusion.md": "7150e8aa7899f318d69af29dae66a94ef5d0566c276850c69ffd054d545da7c7",
-      "thesis/latex/.gitattributes": "d9f3b3b7b2c23012f2bdf163cc4502af5e56c6724a8c0c068eb4bb6ca0ee0478",
-      "thesis/latex/.gitignore": "17aa0de9e046d2076ddf9c934b1c60c5b42fc8d9dff88ce183c8bf5236de3fa8",
-      "thesis/latex/covers-preview.tex": "d28ff65831d2e95169dc6203677f37d8dcf97fa3048b9e42beff170eacefd1da",
-      "thesis/latex/main.tex": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71",
-      "thesis/latex/preamble.tex": "46c805cfe6686c9f4706b9a7cba53facae225fc5f7021ea102724918731940d5",
-      "thesis/latex/README.md": "1a45942226764c37aca737fb07f3bc104833594ede18696df71baf10f5bade5a",
-      "thesis/latex/source-map.json": "1484943612ffc724d0620dfae9d7db83b05845f736fae42fe4cf61a321c930be",
-      "thesis/release/covers-preview.pdf": "ed3491701b8aa6d87ab9eb6302404566c782483bb7434b380c5f0d81d98f62b0",
-      "thesis/release/manifest.json": "50e031859c00461375ce4d40f679c2a4e4c5aa4ac4fa4b1557cd0822461b5438",
-      "thesis/release/thesis.pdf": "2d50ad87ea63d2ba836c8e29ca35c9775d4b5e307ec427f2000a94dbff0eb75b",
-      "thesis/latex/chapters/01_introduction.tex": "5fefc68ead8167a51ff3203ce7c60c1c2308508c5ded5c7203bbf5402ce2d541",
-      "thesis/latex/chapters/02_related_work.tex": "562291a466d48af88ad4b33c16dbb14a686db9b4d659da7e120e8b9f9f934605",
-      "thesis/latex/chapters/03_background.tex": "de22b4ca4817b5b5ce2f960a78d38eb0cbe1f87d22534e76c7a114f23b3d4cf1",
-      "thesis/latex/chapters/04_proposed_system.tex": "20b52d0d569c3d960b5d18765c065cccd5754158f3126ee2ec3dce007f6a5e25",
-      "thesis/latex/chapters/05_experiments.tex": "8db0bbe28f2706d01c6bf719fea6d55257415d1586d438d6ff4be8b95c6c6075",
-      "thesis/latex/chapters/06_conclusion.tex": "b190c96f2e609518fb23149f3dcc7d26392fd828ffb7c49270919fae2c6a7e3d",
-      "thesis/latex/frontmatter/content.tex": "db3c628a5864ffc67e7503d3bb4002f25b6c623100cb58c3f9db58e1f7501bf4",
-      "thesis/latex/frontmatter/covers.tex": "99d8ea463a92c9e4da5298e9aca73e321a285a7bfc0f176cc5a60ad4627dc885",
-      "thesis/latex/frontmatter/reference_lists.tex": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55",
-      "thesis/latex/licenses/QuantAgent-MIT.txt": "fd88b41d9a41ecbb0e813a76564ec8c281b65e187e4ca464ea0f787b141f2525",
-      "thesis/latex/tools/build.py": "e1386f48db9eb76d45cdbd5d8719af204aa9a7ce740bf934a19bb5454929abb0",
-      "thesis/latex/tools/check.py": "5516cdbf424108c1117b8a6a1fca6a199ebadcb7198276da809484db70095735",
-      "thesis/assets/diagrams/F01_trade_timeline.pdf": "b4fa90e3c743863cf33031e67410133e5e08b9194e2ee1cceb398885b2a414bb",
-      "thesis/assets/diagrams/F01_trade_timeline.png": "b777264fe6dc820de343b6db7e24eee2c3aba047f8bca729fc0c0184cfb780d9",
-      "thesis/assets/diagrams/F01_trade_timeline.tex": "34056507f2b26bbd2c144aa96d929389eea9f8c4e2e63e6fa4d93e4c2c2b8293",
-      "thesis/assets/diagrams/F02_temporal_partitions.pdf": "0531acba3e263efe0af0cd244315a617bf4bf1dc0326310253f138190713b2e6",
-      "thesis/assets/diagrams/F02_temporal_partitions.png": "82b8142baebf840e059cc3666847bef5dd3c7389aec6dd9d57d921127be8d029",
-      "thesis/assets/diagrams/F02_temporal_partitions.tex": "8a9ec85bff50eb06045f33cdc7cfbc318c2e7a0ba9bee4f64f7eacb8ad363d99",
-      "thesis/assets/diagrams/F03_system_overview.pdf": "6ffb441b584445bf06494558844d8512428d7a6abe88847669ef05571479e11e",
-      "thesis/assets/diagrams/F03_system_overview.png": "abf0f57e4845899d82fe8a34e51eca2eb556a5fdd958a2296a95a9f9c9274293",
-      "thesis/assets/diagrams/F03_system_overview.tex": "fa800c333f892a046cf5eb0366a2485ce699a41208d941e1884984ca9f4c2a1f",
-      "thesis/assets/diagrams/F04_chart_pair.pdf": "8cef4378a418adffab6a69cb43a75262228b2e282696d4cc70a89eb0318450a9",
-      "thesis/assets/diagrams/F04_chart_pair.png": "aea3f8b1a0550eecba5bf12bdd98958d1cb800a2aaa83aa8269ee6aff9e1e2c9",
-      "thesis/assets/diagrams/F04_chart_pair.tex": "f49d73361ad1e9d7721eae89a6e5a883a666ff7f372ce50fdb5caac40f2859f9",
-      "thesis/assets/diagrams/F05a_regime_training.pdf": "18832b0099f0d7b72894861dbfb0a6998a27dd0b8941f103841944565e5b7f1f",
-      "thesis/assets/diagrams/F05a_regime_training.png": "717618e7f47b319911cfb75f36bee9e41ff5044938c10c1a3d5a6120e586f74a",
-      "thesis/assets/diagrams/F05a_regime_training.tex": "769c9106a266a211ad6481ae20652a7ca6fdb4dc5351dca8ff2fa599e7fb23f4",
-      "thesis/assets/diagrams/F05_memory_retrieval.pdf": "717a1d01c2757e7b1f6210db7b9f9dbe245281a6bfdaffad535e06ad743861d4",
-      "thesis/assets/diagrams/F05_memory_retrieval.png": "3d8dc9b0af0554cb6aa3fe4d2356ff11231031b664110c46493c9129b7bbd41b",
-      "thesis/assets/diagrams/F05_memory_retrieval.tex": "a9fb00a93167bc53c7753836c9901b50ad6e9bf85b23e526847547e66bbef435",
-      "thesis/assets/diagrams/F06_mt_tasks_training.pdf": "b0ceb9356163864de8debd57b4e588c60fc2f020efb9b81c4559935a0de569db",
-      "thesis/assets/diagrams/F06_mt_tasks_training.png": "30ea056f1794df5790e59a461053583eaa2d647b46014acc9dc6ac3938ba4d2d",
-      "thesis/assets/diagrams/F06_mt_tasks_training.tex": "ebbe16c26902e54e2e6962f81a91ae2a5edfa602ff5c1e9657a8d6b35daa853f",
-      "thesis/assets/diagrams/F07_action_policy.pdf": "db6db61add3d79c6f7fcfeafdea29fe49dfcf2b5b6ac55911146b01a8105af39",
-      "thesis/assets/diagrams/F07_action_policy.png": "863c361205bd7c8beef9495550f52da78afb643bc3a0cd4bc0a4ae9e11f5d358",
-      "thesis/assets/diagrams/F07_action_policy.tex": "da4881aacb477885320080c7df4145c2b2c1bc5133b54827aaff342d525c5b60",
-      "thesis/assets/diagrams/F08_variant_dag.pdf": "90741562af5cb5c24dd5e51e178448f636cf15278ddc2d4170ff0009c0a79517",
-      "thesis/assets/diagrams/F08_variant_dag.png": "0be37326955cc6b2e9f7bfd3d75cc5844384bad81d5591571276204e4bd946af",
-      "thesis/assets/diagrams/F08_variant_dag.tex": "33ea2deba018c88ec3517e2d2e49f511a8ba1b62d30e6ec9865ca222a90ec809",
-      "thesis/assets/diagrams/F11_application_flow.pdf": "a6a53ed05199d14f4d224d80e79d8a8d575162e706527ff95deb380f849446af",
-      "thesis/assets/diagrams/F11_application_flow.png": "27bbef8c7762bd232a9f307492d97b7a23000ecacc735040aabe7448a7cf0b9b",
-      "thesis/assets/diagrams/F11_application_flow.tex": "0cfbb3ee35006a8a1c3197b1594b3d118326e2476dfb1dfd4d12ed8bdc519258",
-      "thesis/assets/figures/F04_pattern.png": "d423db489a59706c4aae32e1f9de49cc63f73eded74f8e6f97c018cd1211200f",
-      "thesis/assets/figures/F04_trend.png": "93744337e0d375c04973332e4dba86c75d55d79398ed4553ad26a8d8593f3734",
-      "thesis/assets/figures/F09_return_contrasts.pdf": "fc216e18a06ddd3878f62d1d314ec2f740f8999bdacde02f721cd0a77c789efc",
-      "thesis/assets/figures/F09_return_contrasts.png": "f192f4cf5bf89e4eea412c471aad133a3700ca7a45151e4a652759a1da9e2a0d",
-      "thesis/assets/figures/F09_return_contrasts.py": "73a1de51a3f5d16890316fe71190f937f75ff9064cf3d58a17257da272ba01c1",
-      "thesis/assets/figures/F09_return_contrasts.svg": "5639b47b8f659deccb6a4470ef58420d4c270a4649e53eed5aefe1925832f00e",
-      "thesis/assets/figures/F10_coverage_actions.pdf": "5982a4696c317097780bc35bc01a6c3209511f27d6e5bafd6681b2906bcd17d7",
-      "thesis/assets/figures/F10_coverage_actions.png": "f263b153da1db2fdb665d86739cd9dfe9de646908f177e9050a0511eaf3e61f0",
-      "thesis/assets/figures/F10_coverage_actions.py": "62bfcc9a8086bd5972ef0df5ac7dc0b7adb14b02a4589e51c50223d01d5c5381",
-      "thesis/assets/figures/F10_coverage_actions.svg": "ad3cfd5afa55eba381f5bb8c2330a5702e037c17d4b04be31b5838e1d8ad06c8",
-      "thesis/assets/figures/review_mt_resolution.pdf": "2c7be6c1c511e1ff71ff6a19da1c4bdeb86a49fbdf4294984e7e4e7a15654f0b",
-      "thesis/assets/figures/review_mt_resolution.png": "53a97f782c2022b8fb0ad22e7e3dbaf743555fca38d38c9018bd4351b2913e49",
-      "thesis/assets/figures/review_results.py": "75fa9eea411fcee87a15e4c84bdbda21add68ec119bbf4eb6541184cf1f2cdbf",
-      "thesis/assets/figures/review_return_contrasts.pdf": "359192353453e8429932bea33e4a049807e7a64b6e612fc3d3bddd54f1238781",
-      "thesis/assets/figures/review_return_contrasts.png": "8866eef7d39b2c74f6d00c6b8e28caff3cbffe157dd1762e0c44d5418841fbb3",
-      "thesis/assets/figures/UET_logo.jpg": "d71ffc8c4e8d40e1497d54c1fb25621bcd8ef8c0ad0cb73ee0c356980be66229",
-      "thesis/assets/tables/concise_results.source.json": "d4f60dec5b1ac55c51ec374117db84c7b9107a8a11a9502f25691863baaf64eb",
-      "thesis/assets/tables/review_additions.source.json": "6db29b45c072f2477d093d09e1691ef90af4a9c382041dae940fc88bafc03396"
-    },
-    "frozen_git_bytes_sha256": {
-      "docs/plan/week12/thesis/archive/p8-source.zip": "6af1d5006ed19ac510bd8e7f816c132d7d651a2be22114d4bbc9c5ca51e1958a",
-      "docs/plan/week12/thesis/assets/diagrams/F01_trade_timeline.pdf": "b4fa90e3c743863cf33031e67410133e5e08b9194e2ee1cceb398885b2a414bb",
-      "docs/plan/week12/thesis/assets/diagrams/F01_trade_timeline.png": "b777264fe6dc820de343b6db7e24eee2c3aba047f8bca729fc0c0184cfb780d9",
-      "docs/plan/week12/thesis/assets/diagrams/F01_trade_timeline.tex": "5d716830ca1c81ecb9a569306ea0260976d3dd8499088b5cfaaa6f33c3ccc9b2",
-      "docs/plan/week12/thesis/assets/diagrams/F02_temporal_partitions.pdf": "0531acba3e263efe0af0cd244315a617bf4bf1dc0326310253f138190713b2e6",
-      "docs/plan/week12/thesis/assets/diagrams/F02_temporal_partitions.png": "82b8142baebf840e059cc3666847bef5dd3c7389aec6dd9d57d921127be8d029",
-      "docs/plan/week12/thesis/assets/diagrams/F02_temporal_partitions.tex": "f2dbfdaa2a4a48438b90d8126237b6756913a61638be8307bd1526ed89a1f575",
-      "docs/plan/week12/thesis/assets/diagrams/F03_system_overview.pdf": "6ffb441b584445bf06494558844d8512428d7a6abe88847669ef05571479e11e",
-      "docs/plan/week12/thesis/assets/diagrams/F03_system_overview.png": "abf0f57e4845899d82fe8a34e51eca2eb556a5fdd958a2296a95a9f9c9274293",
-      "docs/plan/week12/thesis/assets/diagrams/F03_system_overview.tex": "130a57abca720735af1148df87213f107a6c4f52445e22379c4deca5efb48b34",
-      "docs/plan/week12/thesis/assets/diagrams/F04_chart_pair.pdf": "8cef4378a418adffab6a69cb43a75262228b2e282696d4cc70a89eb0318450a9",
-      "docs/plan/week12/thesis/assets/diagrams/F04_chart_pair.png": "aea3f8b1a0550eecba5bf12bdd98958d1cb800a2aaa83aa8269ee6aff9e1e2c9",
-      "docs/plan/week12/thesis/assets/diagrams/F04_chart_pair.tex": "50cdc69679accd2bcdcc3660fa9361bebc67cabba54880c0e4accd689b19eb4c",
-      "docs/plan/week12/thesis/assets/diagrams/F05a_regime_training.pdf": "18832b0099f0d7b72894861dbfb0a6998a27dd0b8941f103841944565e5b7f1f",
-      "docs/plan/week12/thesis/assets/diagrams/F05a_regime_training.png": "717618e7f47b319911cfb75f36bee9e41ff5044938c10c1a3d5a6120e586f74a",
-      "docs/plan/week12/thesis/assets/diagrams/F05a_regime_training.tex": "916c693586d23dbd1ea14994f15001f88854a34f216883dab91eb65d2a48a8ce",
-      "docs/plan/week12/thesis/assets/diagrams/F05_memory_retrieval.pdf": "717a1d01c2757e7b1f6210db7b9f9dbe245281a6bfdaffad535e06ad743861d4",
-      "docs/plan/week12/thesis/assets/diagrams/F05_memory_retrieval.png": "3d8dc9b0af0554cb6aa3fe4d2356ff11231031b664110c46493c9129b7bbd41b",
-      "docs/plan/week12/thesis/assets/diagrams/F05_memory_retrieval.tex": "59bf81a1006faaa6e4ec69d4d764dfbe5b80d7722bc27defd8b0834b4a938371",
-      "docs/plan/week12/thesis/assets/diagrams/F06_mt_tasks_training.pdf": "b0ceb9356163864de8debd57b4e588c60fc2f020efb9b81c4559935a0de569db",
-      "docs/plan/week12/thesis/assets/diagrams/F06_mt_tasks_training.png": "30ea056f1794df5790e59a461053583eaa2d647b46014acc9dc6ac3938ba4d2d",
-      "docs/plan/week12/thesis/assets/diagrams/F06_mt_tasks_training.tex": "bb2e84e3d86e738e0c3243beec7dd88daba55e86743c915c794154d7837f94b2",
-      "docs/plan/week12/thesis/assets/diagrams/F07_action_policy.pdf": "db6db61add3d79c6f7fcfeafdea29fe49dfcf2b5b6ac55911146b01a8105af39",
-      "docs/plan/week12/thesis/assets/diagrams/F07_action_policy.png": "863c361205bd7c8beef9495550f52da78afb643bc3a0cd4bc0a4ae9e11f5d358",
-      "docs/plan/week12/thesis/assets/diagrams/F07_action_policy.tex": "dac92bcdc0ba13b632aeb79fea6c38c0727c7bbcf2c6a4a6551d0f656cc0ac65",
-      "docs/plan/week12/thesis/assets/diagrams/F08_variant_dag.pdf": "90741562af5cb5c24dd5e51e178448f636cf15278ddc2d4170ff0009c0a79517",
-      "docs/plan/week12/thesis/assets/diagrams/F08_variant_dag.png": "0be37326955cc6b2e9f7bfd3d75cc5844384bad81d5591571276204e4bd946af",
-      "docs/plan/week12/thesis/assets/diagrams/F08_variant_dag.tex": "702c693829cdfd547ad40db565a6ee4e1446c096b54af75a1ff563d57e1741f2",
-      "docs/plan/week12/thesis/assets/diagrams/F11_application_flow.pdf": "a6a53ed05199d14f4d224d80e79d8a8d575162e706527ff95deb380f849446af",
-      "docs/plan/week12/thesis/assets/diagrams/F11_application_flow.png": "27bbef8c7762bd232a9f307492d97b7a23000ecacc735040aabe7448a7cf0b9b",
-      "docs/plan/week12/thesis/assets/diagrams/F11_application_flow.tex": "c6da57e7b215605f8ceb4254c97bf961c6da5ac68c767c037e0708144bb0de0e",
-      "docs/plan/week12/thesis/assets/figures/F04_pattern.png": "d423db489a59706c4aae32e1f9de49cc63f73eded74f8e6f97c018cd1211200f",
-      "docs/plan/week12/thesis/assets/figures/F04_trend.png": "93744337e0d375c04973332e4dba86c75d55d79398ed4553ad26a8d8593f3734",
-      "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.pdf": "fc216e18a06ddd3878f62d1d314ec2f740f8999bdacde02f721cd0a77c789efc",
-      "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.png": "f192f4cf5bf89e4eea412c471aad133a3700ca7a45151e4a652759a1da9e2a0d",
-      "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.py": "2a7b1fa2a983ad5835a358c3496d97fa5361bbedbf971d86b1a15f7fe62e6bc4",
-      "docs/plan/week12/thesis/assets/figures/F09_return_contrasts.svg": "e9b4fc507ca9126597cc2419ff2f4d70d083acbb227197627c1b41047b36d919",
-      "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.pdf": "5982a4696c317097780bc35bc01a6c3209511f27d6e5bafd6681b2906bcd17d7",
-      "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.png": "f263b153da1db2fdb665d86739cd9dfe9de646908f177e9050a0511eaf3e61f0",
-      "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.py": "377edf2825c632e5efa85ad109b8d17e7ad022848b22f2744699f307f9ce073b",
-      "docs/plan/week12/thesis/assets/figures/F10_coverage_actions.svg": "ab82815af209615c0a14b4d2219200eb22fd4d4e7fffd1b00a87f0452bb2c1b4",
-      "docs/plan/week12/thesis/assets/figures/review_mt_resolution.pdf": "2c7be6c1c511e1ff71ff6a19da1c4bdeb86a49fbdf4294984e7e4e7a15654f0b",
-      "docs/plan/week12/thesis/assets/figures/review_mt_resolution.png": "53a97f782c2022b8fb0ad22e7e3dbaf743555fca38d38c9018bd4351b2913e49",
-      "docs/plan/week12/thesis/assets/figures/review_results.py": "f9ee43ddefe106d47e93e17545cdbb26a286c632a80a23503df58b6fce718772",
-      "docs/plan/week12/thesis/assets/figures/review_return_contrasts.pdf": "359192353453e8429932bea33e4a049807e7a64b6e612fc3d3bddd54f1238781",
-      "docs/plan/week12/thesis/assets/figures/review_return_contrasts.png": "8866eef7d39b2c74f6d00c6b8e28caff3cbffe157dd1762e0c44d5418841fbb3",
-      "docs/plan/week12/thesis/assets/figures/UET_logo.jpg": "d71ffc8c4e8d40e1497d54c1fb25621bcd8ef8c0ad0cb73ee0c356980be66229",
-      "docs/plan/week12/thesis/assets/tables/concise_results.source.json": "07b832340ab9303b4d5bdf33857a02ebe8d798e7939f9c3a82f62c2596c33693",
-      "docs/plan/week12/thesis/assets/tables/review_additions.source.json": "4d6a823fb46d59966bbb7da621429b453bd4f4037391d1ad52b075f35903770c",
-      "docs/plan/week12/thesis/archive/manifest-review-r1.json": "84dfbabf79168b0714281f82d9948ad99f650ce6e4edd77267a1eacfb1d38bde",
-      "docs/plan/week12/thesis/archive/covers-preview.tex": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
-    },
-    "inventory_note": "Original working-tree inventory includes Windows CRLF conversions. Archived assets and original manifests are preserved as exact bytes from the baseline Git commit."
-  },
-  "release_package": {
-    "path": "docs/plan/week12/thesis/release/thesis-overleaf.zip",
-    "sha256": "57999c62382805016aff33d9ee5b549beb569a40d2b34e49863e31a450da66dd",
-    "bytes": 256022,
-    "entries": 24,
-    "main_at_zip_root": true,
-    "compiler": "LuaLaTeX",
-    "bibliography": "Biber",
-    "local_latexmk_limit": "Perl executable unavailable",
-    "final_extracted_zip_build": "PASS_LUALATEX_BIBER_67_RASTER_IDENTICAL_PAGES"
   }
 }

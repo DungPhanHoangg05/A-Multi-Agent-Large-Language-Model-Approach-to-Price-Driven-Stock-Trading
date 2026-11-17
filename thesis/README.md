@@ -1,29 +1,146 @@
-# Import khóa luận vào Overleaf
+# Khóa luận tốt nghiệp
 
-1. Zip **nội dung bên trong** thư mục này để `main.tex` nằm ngay ở gốc ZIP.
-2. Trên Overleaf, chọn **New project → Existing project (.zip)** và upload ZIP.
-3. Trong Settings, chọn **Main document → main.tex** và **Compiler → LuaLaTeX**, rồi bấm **Recompile**.
+Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market**.
 
-Overleaf xử lý bibliography Biber theo cấu hình `biblatex`. Dự án có sẵn
-`latexmkrc` cho LuaLaTeX và các font Latin Modern của TeX Live.
-[Hướng dẫn upload của Overleaf](https://docs.overleaf.com/managing-projects-and-files/uploading-a-project)
+## Nguồn bản nộp chính sau P8
 
-## Chỉnh sửa tiếp
+**Mốc chuyển nguồn: 2026-11-16T13:14:55+07:00 (Asia/Saigon).** Từ mốc T72,
+[main.tex](latex/main.tex), các file trong `latex/chapters/`,
+`latex/frontmatter/`, [bibliography](references.bib)
+và assets dùng chung là nguồn bản nộp chính. Mọi sửa nội dung tiếp theo
+thực hiện trong LaTeX; không tự sinh lại từ Markdown. Các file Markdown
+chương/phần đầu giữ làm bản nháp lịch sử; [archive P8](archive/p8-source.zip)
+giữ nguyên byte 13 bản Markdown cùng nguồn LaTeX tại mốc cũ;
+[source map](latex/source-map.json) lưu hash LF và ánh xạ mốc chuyển.
+Kế hoạch, sổ bằng chứng và README quản lý vẫn tiếp tục cập nhật bằng Markdown.
 
-Sửa trực tiếp `main.tex`, `preamble.tex`, các file trong `chapters/`,
-`frontmatter/` và `references.bib`. Hình dùng trong bản thảo nằm ở
-`assets/figures/`. Thêm tài nguyên vào thư mục dự án và dùng đường dẫn
-tương đối với chữ hoa/thường khớp tên file.
+[PDF đã rà nội bộ T80l](release/thesis.pdf) hiện có **67 trang**, toàn A4 dọc,
+không phụ lục. Mốc P8 259 trang vẫn lấy nguyên byte từ Git `d025facb`. Bản nộp mới gồm hai bìa,
+phần đầu, sáu chương và references, không phụ lục. Đây là bản để tiếp tục P10,
+chưa là bản đã phản biện, ký, nộp hoặc được trường chấp thuận.
+[Hướng dẫn build](latex/README.md) dùng LuaLaTeX/Biber và không cần thư mục
+mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã build sạch bốn lượt trong bản sao chỉ gồm LaTeX,
+assets và bibliography, không có archive/Markdown/mẫu; build thiếu file bắt buộc sẽ dừng, không lặng lẽ bỏ chương.
 
-`manifest.json` ghi phiên bản nguồn và hash của bản bàn giao. Khi tạo bản
-bàn giao mới, cập nhật manifest theo nội dung đã chỉnh và PDF vừa biên dịch.
+Hạn nộp, giới hạn trang/từ và biểu mẫu chính thức chưa được cung cấp.
+P9 biên tập theo yêu cầu mới: tổng 60–70 trang, mục tiêu 66, không phụ lục,
+toàn trang dọc; giữ 12 pt, giãn dòng 1,5 và lề hiện hành. Mốc 259 trang và
+ánh xạ giữ/gộp/bỏ ở [sổ §15](evidence.md#15-rút-gọn-và-đối-soát-p9). G4 chưa được coi
+là nghiệm thu yêu cầu chính thức khi các mục bắt buộc bên ngoài còn chưa rõ.
 
-Trong repository đầy đủ, lệnh build cục bộ là
+## Quy ước ngôn ngữ
+
+- **Trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý:** tiếng Việt.
+- **Nội dung khóa luận:** hoàn toàn bằng tiếng Anh, gồm phần đầu, sáu chương, tiêu đề, chú thích hình/bảng, nhãn sơ đồ và diễn giải khoa học. Dàn bài chương mục trong `outline.md` giữ tiếng Anh để làm khung bản thảo.
+- **Định danh mã nguồn, tên phương pháp và tên tài liệu gốc:** giữ nguyên. Nếu cần dẫn bằng chứng tiếng Việt, phải có diễn giải tiếng Anh và ghi rõ bản dịch phục vụ trình bày; không sửa danh tính của prompt hoặc dữ liệu thực nghiệm gốc.
+
+## Thứ tự đọc
+
+1. [Dàn bài khóa luận](outline.md): câu hỏi nghiên cứu, sáu chương và ánh xạ tới hệ thống.
+2. [Kế hoạch viết chi tiết](plan.md): các task nhỏ, phụ thuộc, đầu ra, tiêu chí nghiệm thu và lộ trình đến gói bàn giao cuối.
+3. [Checklist công việc](plan.md#21-một-nguồn-trạng-thái-công-việc): checklist 84 task nằm ngay trong kế hoạch; bằng chứng hoàn thành gộp lưu tại README tuần.
+4. [Sổ nguồn và yêu cầu](evidence.md): metadata, kiểm kê hai nghiên cứu, [danh sách đọc theo chủ đề](evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn), quy ước khóa trích dẫn và giới hạn bằng chứng. Trạng thái đọc/kiểm được ghi theo phạm vi, không suy từ việc có trong bibliography.
+5. [Thuật ngữ và ký hiệu](evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt): tên tiếng Anh dùng trong bản thảo, ánh xạ ID, đơn vị và quy tắc diễn đạt thống nhất.
+6. [Danh mục hình, bảng và thuật toán](evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn): 23 ID theo kế hoạch, có thông điệp, vị trí, task phụ trách, loại nguồn, provenance và đường xuất dự kiến; chưa phải các sản phẩm đã tạo.
+7. [Ví dụ xuyên suốt EX01](evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết): FPT tại cutoff 03/07/2023, quy tắc chọn, nguồn từng bước và ranh giới giữa thông tin dự báo với outcome; giữ kết quả sai, fallback và giới hạn nghiên cứu.
+8. [Các chương và sổ ánh xạ](evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm): liên kết tới sáu bản nháp trong `chapters/`, tiêu đề ổn định và ánh xạ luận điểm/ô bảng; sổ chung giữ nguồn và phạm vi tự kiểm, không có checklist hoặc receipt riêng cho từng chương.
+9. [Chương 3 — cơ sở lý thuyết](chapters/03_background.md): đã có bản nháp §3.1–§3.7, [F01](assets/diagrams/F01_trade_timeline.pdf)/[F02](assets/diagrams/F02_temporal_partitions.pdf) vector/source TikZ và ví dụ có nguồn hoặc nhãn Illustrative. Nguồn/claim đối soát tại §8 sổ chung; chưa phải bản đã qua rà soát khoa học, citation và bố cục cuối.
+10. [Chương 4 — hệ thống đề xuất](chapters/04_proposed_system.md): P3 đã đủ bản nháp §4.1–§4.10, gồm utility/policy, projection, bảng tám vai trò, ba thuật toán và luồng ứng dụng; kèm F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn. [Sổ chung §9](evidence.md#9-nguồn-giải-thích-hệ-thống-đề-xuất) giữ binding và tự kiểm G2 nội bộ. EX01 kết thúc bằng outcome sau barrier; UI/F11 vẫn PENDING. Chưa rà soát toàn văn, phản biện ngoài hoặc dàn trang cuối.
+
+11. [Chương 5 — thực nghiệm và thảo luận](chapters/05_experiments.md): T36–T47; P4/T36–T47 đã đủ bản nháp §5.1–§5.9, F09/F10 và B04/B05/B06/B07/B09. P6 đã đối soát mạch và tự kiểm G3 nội bộ; phụ lục, phản biện và dàn trang cuối còn việc; trạng thái nghiên cứu/ứng dụng không đổi. [Sổ chung §10](evidence.md#10-nguồn-thiết-kế-thực-nghiệm) giữ nguồn/claim. Bảng đã chuyển LaTeX ở P8, giữ Markdown đối chiếu; chưa rà khoa học/ngôn ngữ toàn văn hoặc phản biện ngoài.
+
+12. [Chương 2 — tổng quan tài liệu](chapters/02_related_work.md): T48–T53; P5/T48–T53 đã đủ bản nháp §2.1–§2.7, B08a–b và bibliography 22 nguồn đã kiểm theo phạm vi. P6 đã đối soát mạch và tự kiểm G3 nội bộ; rà soát khoa học/ngôn ngữ và dàn trang cuối còn việc. [Bibliography riêng](references.bib) và [sổ nguồn P5](evidence.md#11-nguồn-tổng-quan-tài-liệu-và-định-vị) giữ phiên bản, đoạn hỗ trợ và giới hạn.
+
+13. [Mở đầu](chapters/01_introduction.md) và [kết luận](chapters/06_conclusion.md): T54–T58; P6 đủ bản nháp Chương 1/6 và đối soát lập luận; G3 tự kiểm nội bộ đạt đúng nguồn T36–T58, chưa review ngoài/dàn trang cuối. [Sổ P6](evidence.md#12-mở-đầu-kết-luận-và-đối-soát-lập-luận) giữ nguồn và phạm vi tự kiểm.
+
+14. [Phần đầu](frontmatter.md): T59–T60; T59–T60 hoàn tất bản nháp phần đầu: abstract/7 keywords, lời cảm ơn và câu chữ cam đoan đã được tác giả xác nhận, 42 chữ viết tắt/26 dòng ký hiệu; chưa ký và chưa có biểu mẫu chính thức. [Sổ P7](evidence.md#13-phần-đầu-và-phụ-lục) giữ nguồn, đối soát và yêu cầu chính thức chưa có.
+
+15. [Nguồn P8 lưu trữ](archive/p8-source.zip): các phụ lục cũ và bản nháp đã khóa; [source map](latex/source-map.json) giữ member/raw hash/LF hash. Phụ lục đã bỏ khỏi cây bản nộp và đường build ở T73k; nội dung thiết yếu nằm trong sáu chương. Hai bản Markdown Chương 4–5 chỉ cập nhật điều hướng; nguyên bản còn trong archive.
+
+16. [Nguồn LaTeX](latex/README.md): T67–T72; Toàn văn đã ghép và chuyển nguồn chính sang LaTeX. [Sổ P8](evidence.md#14-dàn-trang-latex-và-chuyển-nguồn-chính) ghi toolchain, build và phạm vi kiểm.
+
+## Hai trang bìa
+
+[Nội dung bìa tiếng Anh](frontmatter.md) ghi thông tin tác giả, mã sinh viên,
+đề tài và người hướng dẫn đã cung cấp. [Bản xem hai trang bìa](release/covers-preview.pdf)
+giữ cơ sở đào tạo, logo, khung và kiểu chữ của mẫu; đề tài dài được chia năm
+dòng. Mã sinh viên nằm trong hồ sơ, không thêm vào bìa vì mẫu không có trường
+này. Hạn nộp và quy định trích dẫn/bố cục chính thức hiện chưa được cung cấp.
+Dòng Supervisor trên bìa trong được căn giữa theo trục trang theo đính chính
+của tác giả.
+
+Nguồn bản xem gồm [wrapper](latex/covers-preview.tex),
+[hai bìa](latex/frontmatter/covers.tex) và logo trong `assets/figures/`.
+Wrapper này chỉ dàn trang bản xem bìa riêng. Toàn văn dùng `latex/main.tex`
+và nguồn LaTeX chính đã chuyển tại T72; Markdown phần đầu là bản lưu trữ.
+Khi đổi metadata được tác giả chấp thuận, sửa nguồn LaTeX và kiểm lại PDF.
+Không cần thư mục `Latex/` mẫu để build bản xem hoặc toàn văn.
+
+Từ thư mục gốc kho mã, biên dịch bằng pdfLaTeX hai lượt để định vị khung
+TikZ. Thư mục tạm nhận log/aux, chỉ PDF được chép sang thư mục bàn giao:
 
 ```powershell
-py -3.13 docs/plan/week12/thesis/tools/build.py
+New-Item -ItemType Directory -Force tmp/pdfs/thesis-covers | Out-Null
+Push-Location thesis/latex
+pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../../tmp/pdfs/thesis-covers' covers-preview.tex
+pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../../tmp/pdfs/thesis-covers' covers-preview.tex
+Pop-Location
+Copy-Item tmp/pdfs/thesis-covers/covers-preview.pdf thesis/release/covers-preview.pdf
 ```
 
-PDF, ZIP và hồ sơ kiểm tra được lưu tại `docs/plan/week12/thesis/release/`
-trong repository. Hướng dẫn tại đây dùng cấu trúc nguồn hiện hành cho các
-lần chỉnh sửa tiếp theo.
+Toolchain bản xem: pdfTeX 3.141592653-2.6-1.40.28, MiKTeX 25.12, LaTeX2e
+2025-11-01; font Latin Modern và các package khai báo trong wrapper. Đây là
+PDF riêng hai bìa; chưa phải `thesis.pdf` hoàn chỉnh hoặc bản đã nộp. Khi thiếu
+package, cài package được báo thiếu trước khi build; môi trường hiện tại đã
+được bổ sung `microtype` và `setspace`. MiKTeX còn nhắc kiểm tra cập nhật ở
+stderr dù build exit 0; đây không phải lỗi bố cục trong log LaTeX.
+
+Phần phương pháp đề xuất phải giúp giảng viên lần đầu tiếp cận hiểu được toàn bộ hệ thống. Người đọc cần lần theo một quyết định từ đầu vào có thời điểm xác định, các báo cáo agent, ngữ cảnh lịch sử, đề xuất của LLM, hành động sau policy đến kết quả tài khoản mà không phải mở mã nguồn.
+
+## Khung mẫu và bằng chứng
+
+[Nguồn LaTeX mẫu](../Latex/main.tex) và [PDF mẫu](../23020332_Tran_Xuan_Bao.pdf) chỉ cung cấp cấu trúc và cách trình bày. Nội dung nghiên cứu, thông tin tác giả và danh mục tham khảo của mẫu không thuộc khóa luận mới. Khung gồm phần đầu, sáu chương và tài liệu tham khảo; bảng và ký hiệu được điều chỉnh theo hệ thống; phụ lục chỉ còn là nguồn lịch sử ngoài bản nộp.
+
+[Kế hoạch dự án](../docs/plan/plan.md), [ghi nhận tích hợp](../docs/plan/week12/README.md), mã nguồn và bằng chứng thực nghiệm đã khóa là nguồn đối chiếu kỹ thuật. [Bài báo hiện tại](../paper/) giúp tìm bằng chứng, không thay thế việc giải thích hệ thống từ những khái niệm ban đầu.
+
+Khảo sát nguồn bắt đầu tại `develop:7a71d4da0dcccded03e46189ce42fea2896f6c80`. Kế hoạch 84 task và việc đổi tên thư mục xuất phát từ `develop:05892c3ec8799a8f3d23ce2eeaaaf0778ea09070` ngày 14/11/2026. Quy ước ngôn ngữ được đính chính theo yêu cầu tiếp theo: tài liệu quản lý bằng tiếng Việt, khóa luận bằng tiếng Anh. Các nghiên cứu lịch sử giữ nguyên mốc mã nguồn/runtime riêng.
+
+## Phạm vi công việc
+
+Đầu ra cuối là khóa luận tiếng Anh hoàn chỉnh, có luận điểm truy vết được, hình/bảng đã kiểm, tài liệu tham khảo, nguồn LaTeX tái lập và PDF đã kiểm trực quan, không phụ lục theo yêu cầu P9. Kế hoạch bao phủ chuẩn bị, viết, chỉnh sửa, dàn trang và bàn giao. Hoàn thành kế hoạch không tự cho phép thu thực nghiệm mới.
+
+Giữ rõ kết quả âm, thiếu support, vấn đề nguồn dữ liệu và giới hạn nhân quả. Module có trong mã nguồn không chứng minh ablation tương ứng đã chạy; replay offline không phải một lượt gọi mô hình mới.
+
+Các file mẫu có ở máy nhưng chưa được Git theo dõi tại mốc lập kế hoạch. Gói nguồn khóa luận cuối phải tự đủ để biên dịch, không phụ thuộc các file mẫu chưa được theo dõi đó.
+
+## Quy ước làm việc
+
+- Lưu bản thảo tại `thesis/`; quản lý tiến độ tại `docs/plan/`.
+- Theo cây thư mục đề xuất trong kế hoạch; chỉ tạo file khi task tương ứng bắt đầu.
+- Dùng một sổ đối chiếu bằng chứng chung, không tạo báo cáo riêng cho từng task viết.
+- Tuân thủ nhánh tác vụ và Conventional Commits. Task thuần tài liệu kiểm nguồn, liên kết và diff phù hợp, không chạy lại toàn bộ test runtime.
+- Ghi rõ thông tin tác giả/người hướng dẫn, quy định cơ sở đào tạo hoặc phản hồi còn thiếu; tiếp tục các phần viết độc lập trong khi chờ thông tin đó.
+
+## Bản biên tập P9 hiện hành
+
+T73a–T73l, T73–T80 và lượt bổ sung T80a–T80l đã tự rà xong; PDF 67 trang
+và hash hiện tại ở source-map. Phân bổ: phần đầu 10, sáu chương3/4/6/20/19/2,
+references 3. Có 21 bảng/8 hình; giữ hai nghiên cứu, hai baseline, family20,
+support/bypass, NA/kết quả âm và giới hạn nhân quả Native/toàn hệ. UI đã được tác giả nghiệm thu theo xác nhận mới.
+Bổ sung chỉ dùng artifact đã khóa và tổng hợp minh bạch, không nghiên cứu mới.
+Đã kiểm số học độc lập,19 source bindings/204 slot bindings,22 citation keys,
+build sạch bốn lượt/Biber và xem mọi trang ở 120 dpi. Điều hướng kiểm đúng tiêu đề
+thật:51 bookmarks/51 TOC title links;146 đích nội bộ hợp lệ,56 link bảng/hình
+khớp đúng caption/số trang. G5 đạt trong phạm vi tự rà nội bộ.
+P10/T81–T84 còn mở; không thay phản biện độc lập, chữ ký/ngày hoặc chuẩn trường.
+MT query-regime frequency không đủ trace, lý do chọn từng mã/cửa sổ không có hồ sơ,
+tham số chưa được chứng minh tối ưu và student chưa có benchmark lợi ích riêng.
+Deadline, quy định citation/bố cục chính thức và một số quyền phân phối chưa rõ.
+Xem [sổ §16](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang) để biết phạm vi/giới hạn;
+không chạy lại suite runtime vì không đổi code/schema/runtime/input nghiên cứu.
+
+Theo yêu cầu tác giả sau T80l, bản nộp dùng mô tả học thuật thay các nhãn trạng thái viết hoa; nội dung giới hạn và bằng chứng giữ nguyên. Đã build lại67 trang, kiểm điều hướng và render; lịch sử trước chỉnh câu giữ trong source-map.
+
+**UI hiện hành:** giao diện đã hoàn thiện và được tác giả nghiệm thu cho phạm vi khóa luận ngày17/11/2026. Các mục UI còn chờ ở phần lịch sử không còn là trạng thái chấp nhận hiện hành; receipt kiểm thử cũ vẫn giữ nguyên.
+
+**Bản sau review sáu nhận xét:** nguồn PDF hiện hành là tag cục bộ `thesis-review-20261117-r1`; [manifest](release/manifest.json) khóa input/tài nguyên và hash PDF. §5.9 phân biệt với bản60 trang7a1b77f1 và mã thực nghiệm384725a6. Nghiệm thu UI chỉ mô tả ngắn tại§4.10; các ghi nhận trước là lịch sử. Chưa push tag hoặc đóng gói P10.

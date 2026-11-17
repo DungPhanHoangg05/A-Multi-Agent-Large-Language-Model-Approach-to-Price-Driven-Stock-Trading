@@ -1,2 +1,0 @@
-# Dùng LuaLaTeX cho fontspec và tự xử lý bibliography bằng Biber.
-$pdf_mode = 4;

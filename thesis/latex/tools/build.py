@@ -13,17 +13,13 @@ def main() -> None:
     """Ghi log tạm, dừng ngay khi lỗi; bản PDF đích chỉ cập nhật sau build thành công."""
     sys.stdout.reconfigure(encoding='utf-8')
     parser = argparse.ArgumentParser(description=__doc__)
-    repository = Path(__file__).resolve().parents[5]
-    parser.add_argument('--source', type=Path, default=repository / 'thesis')
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--pdf', type=Path)
     parser.add_argument('--passes', type=int, default=4, choices=(2, 3, 4))
     parser.add_argument('--skip-bibliography', action='store_true')
     args = parser.parse_args()
-    source = args.source.resolve()
-    if not (source / 'main.tex').is_file():
-        raise SystemExit('Thư mục nguồn thiếu main.tex: ' + str(source))
-    destination = (args.output_dir or repository / 'tmp/pdfs/thesis').resolve()
+    source = Path(__file__).resolve().parents[1]
+    destination = (args.output_dir or source / 'build').resolve()
     destination.mkdir(parents=True, exist_ok=True)
     engine = shutil.which('lualatex')
     if engine is None:
@@ -47,8 +43,8 @@ def main() -> None:
             with TemporaryDirectory(prefix='thesis-biber-') as temporary:
                 bibroot = Path(temporary)
                 bcf = (destination / 'main.bcf').read_text(encoding='utf-8')
-                (bibroot / 'main.bcf').write_text(bcf, encoding='utf-8')
-                shutil.copyfile(source / 'references.bib', bibroot / 'references.bib')
+                (bibroot / 'main.bcf').write_text(bcf.replace('../references.bib', 'references.bib'), encoding='utf-8')
+                shutil.copyfile(source.parent / 'references.bib', bibroot / 'references.bib')
                 bibliography = subprocess.run([executable, 'main'], cwd=bibroot,
                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 for suffix in ['bbl', 'blg']:

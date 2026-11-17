@@ -1,5 +1,3 @@
-**Nguồn Overleaf hiện hành** nằm tại `thesis/` ở gốc repository. Kế hoạch và bằng chứng viết khóa luận nằm tại `docs/plan/week12/thesis/`. T81–T83 hoàn tất theo phạm vi đóng gói và kiểm cục bộ.
-
 # Kế hoạch chi tiết viết khóa luận
 
 ## 1. Mục tiêu và phạm vi hoàn thành
@@ -55,7 +53,7 @@ Khảo sát đọc trực tiếp PDF P8: **259 trang, 30 trang có thuộc tính
 
 ### 2.1. Một nguồn trạng thái công việc
 
-Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task cha và 24 task con P9. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task. DONE của các lượt trước là lịch sử đúng snapshot, không chứng nhận các phát hiện mới đã được xử lý.
+Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task cha và 24 task con P9. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../docs/plan/week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task. DONE của các lượt trước là lịch sử đúng snapshot, không chứng nhận các phát hiện mới đã được xử lý.
 
 Dùng `TODO` (chưa làm), `IN_PROGRESS` (đang làm), `REVIEW` (đang rà soát), `DONE` (hoàn tất) hoặc `BLOCKED` (thiếu điều kiện) khi cần. Mục được đánh dấu hoàn tất phải có đầu ra và đã kiểm điều kiện nghiệm thu. Với mục đang làm hoặc bị chặn, thêm ghi chú ngắn về file hiện tại hoặc thông tin còn thiếu. Ghi nhận hoàn thành theo mẫu `mã task; file/mục; cách kiểm; giới hạn còn lại`, gộp các task liên quan trong một cập nhật tuần. Chỉ ghi đã hoàn tất phản biện bên ngoài khi thực sự nhận và xử lý phản hồi.
 
@@ -122,7 +120,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Nghiên cứu liên quan — P5
 
-- [x] T48 — DONE: [Bibliography 22 nguồn](../../../../thesis/references.bib) và [sổ §11.1](evidence.md#111-phạm-vi-đọc-metadata-và-luận-điểm-được-hỗ-trợ), metadata/version/đoạn hỗ trợ/hash bản đọc và giới hạn; CL188. Đối chiếu PDF/nguồn gốc, sửa phân biệt edition và tên tác giả; giữ 62 mục discovery riêng, không giả đã đọc toàn bộ. Kiểm BibTeX và links, không chạy nghiên cứu.
+- [x] T48 — DONE: [Bibliography 22 nguồn](references.bib) và [sổ §11.1](evidence.md#111-phạm-vi-đọc-metadata-và-luận-điểm-được-hỗ-trợ), metadata/version/đoạn hỗ trợ/hash bản đọc và giới hạn; CL188. Đối chiếu PDF/nguồn gốc, sửa phân biệt edition và tên tác giả; giữ 62 mục discovery riêng, không giả đã đọc toàn bộ. Kiểm BibTeX và links, không chạy nghiên cứu.
 - [x] T49 — DONE: [§2.1](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction), tín hiệu kỹ thuật/Alpha101 và khác biệt thích nghi một mã, controls/selection versus assessment. CL189–CL192, R01–R03/R17; không suy công thức gốc hay diagnostic thành hiệu quả giao dịch. Kiểm citation, nguồn, liên kết và phạm vi.
 - [x] T50 — DONE: [§2.2](chapters/02_related_work.md#22-llms-vlms-and-multi-agent-financial-systems), QuantAgent paper/code attribution, TradingAgents/FinVision và giới hạn chart/sentiment. CL193–CL197, R04–R10; phân biệt kế thừa, thích nghi, bổ sung; pin đối chiếu khác adopted commit. Không tuyên bố vượt trội hoặc HFT cho study daily.
 - [x] T51 — DONE: [§§2.3–2.5](chapters/02_related_work.md#23-market-regime-detection), regime/HMM, ICL/Bayes/retrieval, PFN và MT-BICL; CL198–CL204/R11–R16. Nêu đúng giả định và khác biệt teacher16Beta/query-soft-target/student2block4head của triển khai so với bài gốc; không đồng nhất few-shot với multi-task Bayes hoặc synthetic agreement với hiệu quả thị trường.
@@ -204,9 +202,9 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Bàn giao — P10
 
-- [x] T81 — DONE: Đã đóng gói nguồn gốc main.tex cho Overleaf và khóa manifest.
-- [x] T82 — DONE: Đã giải nén ZIP và build LuaLaTeX/Biber trong thư mục độc lập.
-- [x] T83 — DONE: Bàn giao thư mục nguồn, ZIP, PDF và README import.
+- [ ] T81 — Khóa và đóng gói nguồn bản thảo tự đủ.
+- [ ] T82 — Build từ bản giải nén sạch và xác minh đầu ra.
+- [ ] T83 — Bàn giao PDF, nguồn và hướng dẫn tái lập.
 - [ ] T84 — Chốt hoàn thành nội bộ và ghi đúng trạng thái bên ngoài.
 
 ### 2.2. Cấu trúc đầu ra đề xuất
