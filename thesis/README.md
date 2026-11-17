@@ -138,3 +138,5 @@ tham số chưa được chứng minh tối ưu và student chưa có benchmark 
 Deadline, quy định citation/bố cục chính thức và một số quyền phân phối chưa rõ.
 Xem [sổ §16](evidence.md#16-bổ-sung-theo-rà-soát-bản-60-trang) để biết phạm vi/giới hạn;
 không chạy lại suite runtime vì không đổi code/schema/runtime/input nghiên cứu.
+
+Theo yêu cầu tác giả sau T80l, bản nộp dùng mô tả học thuật thay các nhãn trạng thái viết hoa; nội dung giới hạn và bằng chứng giữ nguyên. Đã build lại67 trang, kiểm điều hướng và render; lịch sử trước chỉnh câu giữ trong source-map.
