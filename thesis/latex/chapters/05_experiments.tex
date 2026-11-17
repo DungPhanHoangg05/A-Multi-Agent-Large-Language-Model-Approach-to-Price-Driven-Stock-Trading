@@ -12,7 +12,9 @@ Tables below transcribe the frozen study outputs; the companion evidence
 record identifies source archive members and checksums for detailed tracing.
 Rounded display cells do not define the paired contrasts: those use
 the unrounded source estimators, so subtracting printed values may differ
-slightly from a reported contrast.
+slightly from a reported contrast. Display rounding changes neither source
+values, labels nor gate decisions; extra digits are retained only where
+needed to distinguish small quantities.
 
 The main component comparison has 204 Decision outputs. Its nine-unit, three-run
 upstream panel has 54 cells, including 18 reused main outputs; the separate
@@ -111,7 +113,8 @@ fit-quality fallback reasons. Training occupancies, ordered
 BULL/BEAR/CHOPPY/CONSOLIDATION, are 32.8/11.1/23.5/32.5\%.
 The MT query resource ends on 31 December 2020, with 553 feature rows,
 convergence in 29 iterations and no fit-quality fallback reasons; its
-corresponding occupancies are 27.9/8.9/25.3/37.9\%. These metadata
+corresponding occupancies are 27.9/8.9/25.3/37.9\%. Rounded state
+percentages need not sum to exactly 100\%. These metadata
 describe different training resources, not the frequency of their
 states in the evaluation cohort.
 
@@ -701,6 +704,7 @@ reproduction pointer grants those rights, and no credentials are
 distributed with the manuscript.
 
 \section{Validity limits and answers}\label{s:7abb5e08a08c44da}
+\begingroup\raggedright
 \paragraph{A concrete row-wise counterexample.}
 The retained \texttt{alpha\_contract\_v1/leakage.json} diagnostic applies
 the Native whole-series normalizer to a short prefix and then to an
@@ -713,7 +717,8 @@ than a row can change that row's feature or its selection diagnostic,
 although all rows may still lie before the outer decision cutoff.
 The same saved audit detects backfilling and a global-volume branch
 that alter historical values. These are recorded diagnostic examples,
-not a new run or a measured estimate of their effect on returns.
+not a new run or a measured estimate of their effect on returns.\par
+\endgroup
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
 \caption[Scope of the causal counterexample and repairs]{Scope of the causal counterexample and repairs. Detecting a failure is not a passing causal gate.}\label{tab:causal-scope}
@@ -748,7 +753,7 @@ Application/execution & Recorded offline checks and reference scenarios & Browse
 \end{tabular}\end{table}
 
 The 828/852 count concerns return differences above $10^{-8}$ pp between
-bank and query sources, with maximum 0.04298848884252138 pp. It is
+bank and query sources, with maximum approximately 0.042988 pp. It is
 \emph{not} a count of changed binary labels, and does not justify rewriting
 the bank. A Common alpha repair cannot certify all inherited features,
 news content or historical availability. The recorded Native

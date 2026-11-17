@@ -310,8 +310,8 @@ undefined. These are empirical ratios, not Beta-posterior probabilities.
 
 FPT supplies 211 mature episodes, 19 in CONSOLIDATION. The first example,
 7 April 2022, matches all four signals; 18 and 13 April match three and
-sort by later exit. Their net returns are respectively +0.8800636494\%,
-$-4.5332734971$\% and $-0.4389566948$\%. The selected win count is 1/3,
+sort by later exit. Their net returns are respectively +0.880\%,
+$-4.533$\% and $-0.439$\%. The selected win count is 1/3,
 but population win is \textbf{9/19}; trap, Trend-failure and Pattern-failure
 counts are 9/18, 7/14 and 9/18. Selecting examples does not replace these
 denominators.
@@ -424,9 +424,9 @@ the anchor call. Later revision is bypassed for an invalid anchor.
 Transport, missing response or malformed schema remains a technical
 failure rather than this factual fallback.
 
-FPT's saved MACD/Signal are approximately 0.654268/0.704394, so
+FPT's saved MACD/Signal are approximately 0.654/0.704, so
 MACD\_SIGNAL=BELOW while MACD\_ZERO=POSITIVE. Close 48.18 exceeds SMA20
-47.5675. The packet bucket is MACD\_NEG\_PRICE\_POS, where NEG refers to
+47.568. The packet bucket is MACD\_NEG\_PRICE\_POS, where NEG refers to
 MACD minus Signal. Fact Anchor returns matching assertions and LONG,
 with no numeric veto. Its prose nevertheless treats below-Signal MACD
 as bullish and mentions a zero crossing. Enum agreement validates only
@@ -474,7 +474,7 @@ observations precede selection. Prior blocks 11/15/13 contribute 5/4/2
 observations; target block 21 contributes three, with latest target exit
 29 June 2023. Thus there are 14 labeled historical rows, not three signal
 examples. Its query remains unlabeled. The model vector is approximately
-(0.109634,0.101272,$-1.290443$,0.215713), without clipping in this case.
+(0.110,0.101,$-1.290$,0.216), without clipping in this case.
 Figure~\ref{fig:F06} separates the context and offline/query boundaries.
 % Giữ sơ đồ MT ở đầu trang có văn bản thay vì một float page riêng.
 \begin{figure}[!t]\centering
@@ -560,7 +560,7 @@ open after the selection seal and do not permit reselection. The served
 seed-42/step-3,000 export is not the final-step checkpoint; resumable
 optimizer/random-number-generator state has a different artifact identity. At inference,
 hashes, evaluation mode and disabled gradients protect frozen weights.
-The FPT saved student probability is 0.38681803029367656. Synthetic
+The rounded FPT student probability is 0.387. Synthetic
 teacher agreement does not establish calibrated market probabilities or
 an isolated student contribution to trading outcomes.
 
@@ -627,9 +627,9 @@ do not replace full-precision policy inputs. A fact-extended reply must
 cite the three facts and use context reason SUPPORTED.
 
 FPT has five positive/nine nonpositive observations, meeting support.
-Teacher mean probability is 0.3777360437578734. Rounded net-return
-fractions are $-0.00597535$ for analytic mean, $-0.00607738$ for Monte Carlo
-mean, $-0.01288257$ for Q10 and $+0.000242291$ for Q90; policy uses the
+Teacher mean probability is approximately 0.378. Rounded net-return
+fractions are $-0.005975$ for analytic mean, $-0.006077$ for Monte Carlo
+mean, $-0.012883$ for Q10 and $+0.000242$ for Q90; policy uses the
 stored full precision. Its saved Vietnamese projection has 437 characters, while
 the full MT request has 4,586. An English presentation excerpt is
 \texttt{K3 m3 small p=0.387}; it is not a newly submitted prompt.
@@ -837,7 +837,7 @@ one upstream realization but different role-specific requests.
 
 After all required forecasts are durable, the outcome discloses entry
 VND 48,180 on 4 July and exit VND 48,390 on 6 July. Equation~\ref{eq:net}
-gives gross +0.4358655044\% but net \textbf{$-0.2647317124$\%}: DOWN.
+gives gross +0.436\% but net \textbf{$-0.265$\%}: DOWN.
 Each LONG loses; Native CASH earns zero without short selling. This
 case cannot establish overall Native superiority; Chapter 5 evaluates
 the full cohort and account sequences.

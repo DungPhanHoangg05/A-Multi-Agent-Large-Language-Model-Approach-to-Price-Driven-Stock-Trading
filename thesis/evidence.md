@@ -3216,3 +3216,7 @@ Giữ F03 overview, vẽ lại F08 thành DAGinline10pt phân biệt sharedproje
 ### T80j. Sửa cơ chế anchor, giữ EX01 liền mạch và tách Return–SD
 
 Bỏ titlesec, giữ section/anchor gốc report-hyperref; chỉ thay định dạng đầu chương. Primarymanual hyperref nêu titlesec không hỗ trợ anchors/pagebreak (https://tug.ctan.org/macros/latex2e/contrib/hyperref/doc/hyperref-doc.html). Khônghardcodepage. QA semantic PDF mới67trang:51bookmark/51TOCtitlelinks đúng heading thật/cùngpage/tọa độ; cùngchecker phát hiện đúng6đích lệch bản60trang cũ. Đã xem DAG, EX01 gộp hai đoạn ởcuốiCh4 và bảngcontext có khoảng riêng Return–SD. Build4lượt/BiberPASS, khôngoverfull/citation/glyphthiếu;1underfull ởcounterexample prose chuyển T80k xử lý. Chỉ tài liệu, không suite runtime; finaltargets kiểm lạiT80l.
+
+### T80k. Chu?n h?a hi?n th? v? ghi ch? References
+
+18 thay th? s? hi?n th?; s? ngu?n v? 68 d?ng b?ng b?o v? kh?ng ??i. L?m g?n t?m ghi ch? bibliography, gi? 22 citation keys v? th?ng tin version c?n thi?t; ?nh x? tr??c/sau l?u ? review_additions.source.json. L?i c?m ?n t?i gi?n v? Declaration ?? x?c nh?n gi? nguy?n byte theo m?c 4d2f4857; ch?a k?, ch?a c? chu?n tr??ng ho?c x?c nh?n c? nh?n m?i. Kh?ng ch?y suite nghi?n c?u v? ch? s?a t?i li?u; build v? ki?m to?n b? b?n cu?i th?c hi?n ri?ng ? T80l.
