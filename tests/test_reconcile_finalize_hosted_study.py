@@ -9,8 +9,9 @@ from core.finalize_budget_study import MODEL_DECISION
 from core.historical_evaluation_journal import load, save
 from core.unified_contracts import digest
 from core.unified_execution import StageBook
+from scripts.finalize_hosted_point_reset import archived_resets
 from scripts.finalize_hosted_quota import quota_for
-from scripts.reconcile_finalize_hosted_study import find_attempts, reconcile_not_sent
+from scripts.reconcile_finalize_hosted_study import find_attempts, reconcile_not_sent, reset_point
 
 
 class ReconcileFinalizeHostedTests(unittest.TestCase):
@@ -47,6 +48,7 @@ class ReconcileFinalizeHostedTests(unittest.TestCase):
         budget = {"slots": [{"phase": "RESEARCH", "slot": self.slot, "state": "NEW", "model": MODEL_DECISION}]}
         self.enterContext(patch("scripts.reconcile_finalize_hosted_study.check_release", return_value=({}, (budget, None))))
         self.enterContext(patch("scripts.reconcile_finalize_hosted_study.release_for_grant", return_value=operation))
+        self.enterContext(patch("scripts.reconcile_finalize_hosted_study.verify_operation"))
 
     def test_records_evidence_and_replays_same_reconciliation_without_mutation(self) -> None:
         self.assertEqual(find_attempts(self.root)[0][2], self.row)
@@ -71,6 +73,37 @@ class ReconcileFinalizeHostedTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             reconcile_not_sent(self.root, self.request_id, "Đối chứng đúng UUID HTTP")
         self.assertEqual(load(self.path), modified)
+
+    def test_reset_archives_only_the_requested_point_and_is_idempotent(self) -> None:
+        other_slot = "forecast/CMG-2023-07-03/u0/r0/original_common"
+        other = self.path.parent/(digest(other_slot)+".json")
+        save(other, {"slot": other_slot, "rows": []})
+        result = reset_point(self.root, "FPT-2023-07-03", self.request_id)
+        base = self.root/"point_resets"/"FPT-2023-07-03"
+        self.assertFalse(self.path.exists())
+        self.assertFalse(self.book.path(self.slot).exists())
+        self.assertTrue(other.exists())
+        self.assertEqual(load(base/self.path.relative_to(self.root)), self.wire)
+        self.assertEqual(archived_resets(self.root, self.grant)[0]["owner_reported_http_status"], 200)
+        self.assertEqual(self.account.attempts(self.book.signature), 1)
+        save(self.path, self.wire)
+        self.assertEqual(reset_point(self.root, "FPT-2023-07-03", self.request_id), result)
+        self.assertTrue(self.path.exists())
+
+    def test_interrupted_reset_blocks_resume_until_archive_is_complete(self) -> None:
+        rename = Path.rename
+
+        def interrupt(source: Path, destination: Path) -> Path:
+            if source == self.book.path(self.slot):
+                raise OSError("Đối chứng gián đoạn khi di chuyển")
+            return rename(source, destination)
+
+        with patch.object(Path, "rename", interrupt), self.assertRaises(OSError):
+            reset_point(self.root, "FPT-2023-07-03", self.request_id)
+        with self.assertRaisesRegex(ValueError, "Đang tách checkpoint"):
+            archived_resets(self.root, self.grant)
+        reset_point(self.root, "FPT-2023-07-03", self.request_id)
+        self.assertEqual(archived_resets(self.root, self.grant)[0]["archived_attempts"], 1)
 
 
 if __name__ == "__main__":

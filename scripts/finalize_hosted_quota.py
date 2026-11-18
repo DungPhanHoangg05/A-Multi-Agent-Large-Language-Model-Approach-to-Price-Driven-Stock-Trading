@@ -7,9 +7,9 @@ import math
 from pathlib import Path
 import re
 import time
-from typing import Callable
+from typing import Any, Callable
 
-from core.finalize_budget_quota import ORG
+from core.finalize_budget_quota import ATTEMPT_CAP, ORG
 from core.groq_pacing import MODEL_LIMITS, reset_seconds
 from core.serving_runtime.quota import Failed, Quota, Waiting
 from core.serving_runtime.transport import Calls, retry_until
@@ -112,9 +112,28 @@ def provider_daily_deadline(row: dict, ordinal: int) -> float | None:
 class HostedWire(Calls):
     """Một credential cho HTTP mới, sổ quota theo org nguồn khi replay."""
 
-    def __init__(self, *args, org_slot: int, quota_at: Callable[[int], HostedQuota], **kwargs) -> None:
+    def __init__(self, *args, org_slot: int, quota_at: Callable[[int], HostedQuota], guard: Callable[[], None],
+                 archived_attempts: dict[str, int] | None = None, **kwargs) -> None:
         self.org_slot, self.quota_at = org_slot, quota_at
-        super().__init__(*args, quota=quota_at(org_slot), **kwargs)
+        self.archived_attempts = archived_attempts or {}
+        self.dispatch_slot: str | None = None
+
+        def check_attempt_cap() -> None:
+            guard()
+            slot = self.dispatch_slot
+            if slot in self.archived_attempts and len(self._rows(slot)[1])+self.archived_attempts[slot] >= ATTEMPT_CAP:
+                raise Failed("ATTEMPT_CAP_EXHAUSTED")
+
+        super().__init__(*args, quota=quota_at(org_slot), guard=check_attempt_cap, **kwargs)
+
+    def call(self, slot: str, body: dict, attempt: str) -> tuple[Any, dict]:
+        """Giữ cap theo slot qua cả lần cũ đã tách và lần chạy lại."""
+        previous = self.dispatch_slot
+        self.dispatch_slot = slot
+        try:
+            return super().call(slot, body, attempt)
+        finally:
+            self.dispatch_slot = previous
 
     def account(self, row: dict) -> HostedQuota:
         return self.quota_at(row.get("org_slot", ORG))

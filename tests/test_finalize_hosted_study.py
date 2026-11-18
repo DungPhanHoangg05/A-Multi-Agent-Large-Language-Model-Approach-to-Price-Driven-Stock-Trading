@@ -122,6 +122,28 @@ class HostedStudyTests(unittest.TestCase):
                "headers": {"retry-after": "30", "x-ratelimit-remaining-requests": "5"}, "completed_at": NOW}
         self.assertIsNone(provider_daily_deadline(row, 0))
 
+    def test_archived_attempts_count_toward_cap_before_dispatch(self) -> None:
+        body = {"model": MODEL_DECISION, "messages": [{"role": "user", "content": "Giữ cap"}],
+                "max_completion_tokens": 32}
+        times = [NOW]
+        sent = []
+
+        def response(request):
+            sent.append(request)
+            return httpx.Response(429, json={"error": {"message": "tokens per day"}}, headers={"retry-after": "30"})
+
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            quota = quota_for(root, grant_fixture(), MODEL_DECISION, lambda: times[0])
+            wire = HostedWire(root, "run", sender=MockHTTP(response), guard=lambda: None, clock=lambda: times[0],
+                              org_slot=1, quota_at=lambda _: quota, archived_attempts={"slot": 2})
+            with self.assertRaises(DailyQuota):
+                wire.call("slot", body, "checkpoint")
+            times[0] += 62
+            with self.assertRaisesRegex(Failed, "ATTEMPT_CAP_EXHAUSTED"):
+                wire.call("slot", body, "checkpoint")
+            self.assertEqual(len(sent), 1)
+
     def test_same_key_scope_cannot_get_quota_from_another_slot(self) -> None:
         from unittest.mock import Mock
         with TemporaryDirectory() as directory:

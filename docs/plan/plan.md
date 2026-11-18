@@ -1234,8 +1234,7 @@ py -3.13 -X utf8 scripts/reconcile_finalize_hosted_study.py list
 Đối chiếu log của đúng project Groq. Nếu có bằng chứng attempt cụ thể chưa
 được gửi, lưu nguồn bằng chứng vào một file UTF-8. Lệnh `not-sent` ghi hash
 của bằng chứng, giữ UUID, reserve và cap của slot. Sau đó tác giả chạy lại
-`resume` để thu tiếp. Khi chỉ có trạng thái `UNKNOWN` hoặc thiếu raw sau khi
-provider đã nhận request, giữ slot đang chờ đối soát.
+`resume` để thu tiếp. Khi chỉ có trạng thái `UNKNOWN`, slot chờ đối soát.
 
 ```powershell
 py -3.13 -X utf8 scripts/reconcile_finalize_hosted_study.py not-sent --request-id <UUID> --evidence <file-bang-chung>
@@ -1243,7 +1242,19 @@ py -3.13 -X utf8 scripts/reconcile_finalize_hosted_study.py not-sent --request-i
 
 Biên dịch hai file Python mới và đạt ba test cho đối soát UUID, bằng chứng,
 tính idempotent và việc giữ reserve. Đã thử đối soát trên bản sao checkpoint
-FPT. Attempt thật chưa có bằng chứng để đóng.
+FPT.
+
+Tác giả xác nhận Groq trả HTTP 200 cho attempt FPT `10ad1438-158e-46c7-af23-591076dcb755`
+và yêu cầu dựng lại toàn bộ điểm do thiếu raw. Lệnh offline `reset-point`
+tách wire, stage và ảnh của `FPT-2023-07-03` sang `point_resets/` với manifest
+hash. Sổ quota giữ 13 attempt cũ, trong đó có 3.132 token reserve của lượt
+thiếu raw. Cap ba attempt tính chung cả bản lưu và lượt mới. Journal cho
+`resume` tiếp tục từ FPT với một upstream mới và đủ ba repeat. Miền nghiên
+cứu vẫn gồm 102 điểm. Kiểm trên bản sao tái dựng 24 slot với 17 lượt mock.
+Đã tách 56 file của FPT trong checkpoint thật và xác minh 117 file còn lại
+cùng sổ quota giữ nguyên byte. Trạng thái là `POINT_READY_TO_REPLAY`, điểm
+CMG đã hoàn tất. Biên dịch sáu file Python thay đổi và đạt 14 test trong
+hai nhóm runner và đối soát. Lượt thao tác này có 0 gọi Groq.
 
 Smoke `BHN-2025-10-01` đã chốt đủ 8 forecast slot, 6 HTTP 200 và 12.952 token
 đo được. Cold replay đối soát raw và checkpoint trước khi mở `RESEARCH`.

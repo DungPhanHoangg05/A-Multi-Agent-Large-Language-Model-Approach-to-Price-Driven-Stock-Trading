@@ -11,13 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from core.finalize_budget_quota import ORG
-from core.historical_evaluation_journal import load
-from core.prior_run_lock import PriorRunLock
+from core.historical_evaluation_journal import load, save
+from core.prior_run_lock import PriorRunLock, utc_now
 from core.serving_runtime.transport import Calls
 from core.unified_contracts import digest, json_bytes
 from core.unified_execution import StageBook
+from scripts.finalize_hosted_point_reset import archive_lost_point
 from scripts.finalize_hosted_quota import quota_for
-from scripts.finalize_hosted_study import PHASES, RUN, account_grant, check_release, release_for_grant
+from scripts.finalize_hosted_study import PHASES, RUN, account_grant, check_release, release_for_grant, verify_operation
 
 
 def find_attempts(root: Path, request_id: str | None = None) -> list[tuple[str, dict, dict]]:
@@ -50,8 +51,7 @@ def reconcile_not_sent(root: Path, request_id: str, evidence: str) -> dict:
     release, (budget, _) = check_release()
     operation = release_for_grant(grant, release)
     with PriorRunLock(root/"worker", digest(grant)):
-        if load(root/"release_v2.json") != operation:
-            raise ValueError("Release vận hành khác grant FIN11")
+        verify_operation(root, release, operation)
         matches = find_attempts(root, request_id)
         if len(matches) != 1:
             raise ValueError("UUID không thuộc duy nhất một attempt FIN11")
@@ -90,6 +90,24 @@ def reject_dispatch() -> None:
     raise ValueError("Lệnh đối soát chỉ chạy offline")
 
 
+def reset_point(root: Path, point: str, request_id: str) -> dict:
+    """Tách point đang dở theo xác nhận HTTP 200 của tác giả, không gửi request."""
+    if str(UUID(request_id)) != request_id:
+        raise ValueError("Cần UUID HTTP hợp lệ")
+    grant = load(root/"grant.json")
+    release, (budget, _) = check_release()
+    operation = release_for_grant(grant, release)
+    with PriorRunLock(root/"worker", digest(grant)):
+        verify_operation(root, release, operation)
+        record = archive_lost_point(root, grant, budget, point, request_id)
+        result = {"status": "POINT_READY_TO_REPLAY", "phase": "RESEARCH", "point": point,
+                  "archived_attempts": record["archived_attempts"], "manifest_sha256": digest(record)}
+        path = root/"status.json"
+        if not path.exists() or load(path)["status"] == "UNKNOWN_NEEDS_RECONCILIATION":
+            save(path, {**result, "at": utc_now()})
+        return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="mode", required=True)
@@ -97,11 +115,17 @@ def main() -> None:
     not_sent = commands.add_parser("not-sent", help="Xác nhận chưa gửi khi có bằng chứng cho đúng UUID")
     not_sent.add_argument("--request-id", required=True)
     not_sent.add_argument("--evidence", type=Path, required=True, help="File UTF-8 ghi nguồn bằng chứng đối soát")
+    reset = commands.add_parser("reset-point", help="Tách point đang dở khi đã xác nhận HTTP 200 nhưng thiếu raw")
+    reset.add_argument("--request-id", required=True)
+    reset.add_argument("--point", required=True)
+    reset.add_argument("--http-status", type=int, choices=(200,), required=True, help="HTTP status do tác giả xác nhận")
     args = parser.parse_args()
     if args.mode == "list":
         result = [summary(phase, row) for phase, _, row in find_attempts(RUN)]
-    else:
+    elif args.mode == "not-sent":
         result = reconcile_not_sent(RUN, args.request_id, args.evidence.read_text(encoding="utf-8-sig"))
+    else:
+        result = reset_point(RUN, args.point, args.request_id)
     print(json_bytes(result).decode())
 
 

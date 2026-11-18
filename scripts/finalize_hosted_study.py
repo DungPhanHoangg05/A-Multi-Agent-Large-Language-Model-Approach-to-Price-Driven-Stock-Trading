@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 from datetime import datetime, timezone
 from functools import cache, partial
 from hashlib import sha256
@@ -27,16 +28,19 @@ from core.unified_contracts import digest, json_bytes
 from core.unified_execution_transport import MockHTTP
 from core.unified_preflight_assets import write_new
 from core.unified_protocol import binding, git_blob, read
+from scripts.finalize_hosted_point_reset import archived_resets
 from scripts.finalize_hosted_quota import DailyQuota, HostedWire, quota_for
 from scripts.finalize_offline_acceptance import RECEIPT, freeze, verify_record
 from scripts.prepare_finalize_api_budget import study
 
 RUN = ROOT/"outputs"/"finalize"/"fin11_v1"
-VERSION = "finalize_hosted_study_v2"
+VERSION = "finalize_hosted_study_v3"
 SOURCE = "scripts/finalize_hosted_study.py"
 TRANSPORT = "core/serving_runtime/transport.py"
 QUOTA_SOURCE = "scripts/finalize_hosted_quota.py"
+RESET_SOURCE = "scripts/finalize_hosted_point_reset.py"
 PREVIOUS = "ef030417"
+RELEASE_V2_COMMIT = "c0721b02"
 ORG_SLOTS = range(1, 6)
 PHASES = ("SMOKE", "RESEARCH")
 
@@ -72,7 +76,8 @@ class HostedCalls(PlannedCalls):
 
         self.transports = {model: HostedWire(runner.directory, digest(runner.identity), sender=sender,
                                             guard=runner.guard_dispatch, clock=clock, total_prompt_guard=True,
-                                            org_slot=runner.org_slot, quota_at=partial(ledger, model))
+                                            org_slot=runner.org_slot, quota_at=partial(ledger, model),
+                                            archived_attempts=runner.archived_attempts)
                            for model in MODEL_LIMITS}
 
     def call(self, slot: str, body: dict, attempt: str) -> tuple[Any, dict]:
@@ -104,6 +109,12 @@ class HostedStudyRunner(OfflineStudyRunner):
         plans = {row["slot"]: row for row in budget["slots"] if row["phase"] == phase}
         if len(plans) != len(self.points)*(2+8*self.repeats) or any(row["state"] == "UNKNOWN" for row in plans.values()):
             raise ValueError("Phase thiếu slot hoặc còn UNKNOWN trong kế hoạch")
+        self.resets = archived_resets(run_root, grant) if phase == "RESEARCH" else []
+        self.archived_attempts = Counter()
+        for record in self.resets:
+            self.archived_attempts.update(record["attempts_by_slot"])
+        if any(plans.get(slot, {}).get("state") != "NEW" for slot in self.archived_attempts):
+            raise ValueError("Bản lưu point có slot ngoài ngân sách đã khóa")
         self.calls = HostedCalls(self, plans, archive, sender, clock)
 
     def guard(self) -> None:
@@ -157,13 +168,23 @@ class HostedStudyRunner(OfflineStudyRunner):
                 raise ValueError("Point checkpoint khác cold replay")
         rows = [(slot, row) for slot in self.calls.plans for row in self.calls.rows(slot)]
         ids = [row["id"] for _, row in rows]
+        attempt_counts = Counter(slot for slot, _ in rows) + self.archived_attempts
         if (len(ids) != len(set(ids)) or any(row["slot"] != slot or row["status"] == "UNKNOWN" for slot, row in rows)
-                or len(rows) > ATTEMPT_CAP*sum(plan["state"] == "NEW" for plan in self.calls.plans.values())):
+                or any(count > ATTEMPT_CAP for count in attempt_counts.values())
+                or sum(attempt_counts.values()) > ATTEMPT_CAP*sum(plan["state"] == "NEW" for plan in self.calls.plans.values())):
             raise ValueError("Attempt chưa được đối soát hoặc vượt trần FIN09")
         proof = {"phase": self.identity["phase"], "epoch": self.identity["epoch"], "points": len(self.points),
                  "forecast_slots": len(self.points)*self.repeats*8, "hosted_attempts": len(rows),
                  "tokens_measured": sum(row["usage"] or 0 for _, row in rows), "raw_attempts_sha256": digest([digest(row) for _, row in rows]),
                  "checkpoint_sha256": digest(result), "outcomes_opened": 0, "grant_sha256": digest(self.grant)}
+        if self.resets:
+            if archived_resets(self.run_root, self.grant) != self.resets:
+                raise ValueError("Bản lưu point thay đổi trong khi thu")
+            proof["archived_point_attempts"] = [{"point_id": row["point_id"], "manifest_sha256": digest(row),
+                                                 "hosted_attempts": row["archived_attempts"],
+                                                 "tokens_measured": row["tokens_measured"],
+                                                 "unknown_reserve_tokens": row["unknown_reserve_tokens"]} for row in self.resets]
+            proof["hosted_attempts_including_archives"] = sum(attempt_counts.values())
         path = self.directory/"receipt.json"
         if path.exists() and load(path) != proof:
             raise ValueError("Receipt phase đã chốt khác raw")
@@ -183,18 +204,35 @@ def check_release() -> tuple[dict, Any]:
     verify_record(receipt, lock)
     return {"version": VERSION, "org_slot": ORG, "spend_limit_usd": 0, "budget_sha256": digest(budget),
             "fin10": binding(ROOT, RECEIPT), "runner": binding(ROOT, SOURCE),
-            "transport": binding(ROOT, TRANSPORT), "quota_runner": binding(ROOT, QUOTA_SOURCE)}, (budget, resources)
+            "transport": binding(ROOT, TRANSPORT), "quota_runner": binding(ROOT, QUOTA_SOURCE),
+            "point_reset": binding(ROOT, RESET_SOURCE)}, (budget, resources)
+
+
+def historical_release(release: dict, version: int) -> dict:
+    """Khôi phục đúng pin release cũ từ Git để kiểm journal đang dùng."""
+    legacy = {key: release[key] for key in ("org_slot", "spend_limit_usd", "budget_sha256", "fin10")}
+    legacy["version"] = f"finalize_hosted_study_v{version}"
+    sources = {"runner": SOURCE} if version == 1 else {"runner": SOURCE, "transport": TRANSPORT, "quota_runner": QUOTA_SOURCE}
+    for field, path in sources.items():
+        raw = git_blob(ROOT, PREVIOUS if version == 1 else RELEASE_V2_COMMIT, path)
+        legacy[field] = {"path": path, "bytes": len(raw), "sha256": sha256(raw).hexdigest()}
+    return legacy
 
 
 def release_for_grant(grant: dict, release: dict) -> dict:
-    """Giữ digest grant gốc của journal; chỉ nhận đúng bản tiền nhiệm đã khóa."""
-    old_source = git_blob(ROOT, PREVIOUS, SOURCE)
-    legacy = {key: release[key] for key in ("org_slot", "spend_limit_usd", "budget_sha256", "fin10")}
-    legacy.update(version="finalize_hosted_study_v1",
-                  runner={"path": SOURCE, "bytes": len(old_source), "sha256": sha256(old_source).hexdigest()})
-    if not any(all(grant.get(key) == value for key, value in version.items()) for version in (legacy, release)):
+    """Giữ digest grant gốc của journal; chỉ nhận đúng các bản đã khóa."""
+    candidates = (release, historical_release(release, 1), historical_release(release, 2))
+    if not any(all(grant.get(key) == value for key, value in version.items()) for version in candidates):
         raise ValueError("Mã nguồn hoặc ngân sách không khớp grant FIN11")
     return {"release": release, "grant_sha256": digest(grant), "operation": "MANUAL_ORG_DAILY_EXIT"}
+
+
+def verify_operation(root: Path, release: dict, operation: dict) -> None:
+    """Đối chiếu khóa vận hành v2/v3 và giữ hai manifest riêng."""
+    for name, expected in (("release_v3.json", operation), ("release_v2.json", {**operation, "release": historical_release(release, 2)})):
+        path = root/name
+        if path.is_file() and load(path) != expected:
+            raise ValueError("Release vận hành khác khóa FIN11")
 
 
 def credential(org_slot: int = ORG) -> str:
@@ -271,7 +309,9 @@ def run(*, resume_stopped: bool = False, org_slot: int = ORG) -> dict:
     release, (budget, resources) = check_release()
     operation = release_for_grant(grant, release)
     with PriorRunLock(RUN/"worker", digest(grant)):
-        write_new(RUN/"release_v2.json", json_bytes({"payload": operation, "sha256": digest(operation)}))
+        verify_operation(RUN, release, operation)
+        archived_resets(RUN, grant)
+        write_new(RUN/"release_v3.json", json_bytes({"payload": operation, "sha256": digest(operation)}))
         key = credential(org_slot)
         scope = Quota(RUN/"credential.sqlite3").credential_scope(key)
         archive = Archive(ROOT)
@@ -344,9 +384,8 @@ def main() -> None:
     else:
         release, _ = check_release()
         if (RUN/"grant.json").is_file():
-            operation = release_for_grant(load(RUN/"grant.json"), release)
-            if (RUN/"release_v2.json").is_file() and load(RUN/"release_v2.json") != operation:
-                raise ValueError("Release vận hành khác khóa FIN11")
+            grant = load(RUN/"grant.json")
+            verify_operation(RUN, release, release_for_grant(grant, release))
         result = {"status": "READY_FOR_ACCOUNT_BALANCE", **release}
     print(json_bytes(result).decode())
 
