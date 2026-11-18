@@ -109,10 +109,9 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   query. Đạt khi membership/labels/resources được tái dựng và query outcome
   không tác động preparation. Phụ thuộc FIN03–FIN05; nhu cầu API chuẩn bị
   lịch sử được ghi trong FIN09.
-  **Đang làm:** tài nguyên số và 852 checkpoint tín hiệu offline đã có.
-  Indicator/regime đủ 852, Alpha đủ 733, 119 Alpha và 852 sentiment giữ NA
-  theo nguồn tại từng cutoff. Pattern/Trend còn chờ thu phản hồi thật theo
-  FIN09. Chưa cấp bank cho retrieval.
+  **Phần offline đã chốt:** 852 chu kỳ trong tập thống kê dự kiến, 733 chu kỳ
+  có Alpha trong tập ví dụ dự kiến. Chờ thu và xác minh Pattern/Trend cho
+  1.704 slot FIN09. Chưa cấp bank cho retrieval.
 - [ ] **FIN07 — Kiểm MT-BICL và toàn đường ngữ cảnh.** Kiểm context prior/target,
   fold freeze, reserved IDs, student/teacher, facts, support và thỏa dụng;
   giữ riêng p_student và teacher utility. Kiểm v1/C2/A/B dùng đúng nguồn,
@@ -793,6 +792,38 @@ liệt kê model thị giác `qwen/qwen3.8-27b` và 2.048 input token mỗi ản
 chưa kiểm quyền model/quota của tài khoản. 0 hosted API, 0 query outcome.
 Chưa cấp bank hoặc merge trong lượt này.
 [Hướng dẫn vision Groq](https://console.groq.com/docs/vision).
+
+#### FIN06 — Chốt độ phủ bank và bàn giao kế hoạch batch
+
+Quy tắc mới giữ đủ **852 chu kỳ** trong lịch đã khóa. Một chu kỳ chỉ vào
+tập thống kê cùng mã/regime khi có cả Pattern và Trend và `exit < cutoff`.
+Hai tín hiệu đó cần cho tỷ lệ bẫy tăng và sai hướng. Giữ mẫu số thống kê từ
+toàn tập đã đủ điều kiện, kể cả chu kỳ thiếu Alpha. Tập xếp ví dụ cần đủ bốn
+tín hiệu T/P/A/I để vẫn so đúng bốn chiều. Vì vậy **733 chu kỳ có thể thành
+ví dụ sau khi đủ phản hồi**, còn 119 chu kỳ thiếu Alpha chỉ có thể vào tập
+thống kê. Sentiment giữ `null` theo FIN05 và không tham gia điểm kỹ thuật.
+Không ép tín hiệu thiếu thành `NEUTRAL` hoặc 0. Quy tắc này là amendment
+trước khi thu, có version `finalize_bank_admission_v1`. FIN07 kiểm tích hợp
+schema mới, thống kê, similarity và BRPP trước khi dùng trong query.
+
+[Kế hoạch thu máy đọc](week12/finalize_bank_collection_plan_v1.json) khóa
+**1.704 slot = 852 chu kỳ × 2 node**, tối đa **5.112 attempt** nếu FIN09 áp
+cap 3 cho mỗi slot. Đó là số slot logic, không phải xác nhận chọn account
+hay cấp quota. Mỗi slot có ID, node, hash checkpoint và hash cửa sổ ảnh.
+Tái lập bằng `py -3.13 -X utf8 scripts/plan_finalize_bank_collection.py --check`.
+Request body cho toàn bộ batch và mức chi thực còn thuộc FIN09. Handoff
+offline có 0 episode sẵn sàng cho thống kê, 0 sẵn sàng làm ví dụ và không
+chứa outcome trong slot. Chu kỳ nào thiếu raw/parse tiếp tục chặn admission.
+
+**10 test PASS**, gồm hai test admission/slot và tám test lịch, tín hiệu
+và leakage FIN06. Biên dịch ba file Python mới PASS. Lượt này chỉ dựng
+handoff offline nên không chạy full suite/E2E. Kiểm hash bank số, gói
+checkpoint, byte kế hoạch và tính duy nhất của slot đã PASS. 0 API và 0
+outcome query.
+
+Phần chuẩn bị offline của FIN06 đã chốt. Điều kiện đóng toàn bộ FIN06 vẫn
+cần kết quả Pattern/Trend có trace và kiểm admission sau thu theo hợp đồng
+FIN09. **Chưa merge vào `develop`** để không cấp bank khi phần đó còn thiếu.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
