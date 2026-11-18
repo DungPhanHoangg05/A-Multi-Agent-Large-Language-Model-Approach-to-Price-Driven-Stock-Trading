@@ -491,6 +491,67 @@ nay chưa đáp ứng điều kiện này. FIN04 tiếp tục mở; chưa mở F
 source gate hiện tại. Theo AGENTS §1.2 “Chỉ merge khi mọi kiểm tra áp dụng đều
 PASS”, nhánh FIN04 giữ riêng khi gate nguồn của task còn chặn.
 
+**Bổ sung nguồn chính thức theo yêu cầu tự thực hiện.** Đã tự tìm, tải qua
+HTTPS và khóa byte **chín tài liệu công khai**: năm thông báo VSDC, hai PDF
+HOSE, một response bài lịch HOSE và một bài giải thích ngữ nghĩa giá của
+Vnstock. Đây là bằng chứng bổ sung sau audit trên, không ghi đè report/QA đã
+đóng băng và chưa được loader thực nghiệm nhận làm input.
+
+| Cờ quyền | Nguồn chính thức | Thời điểm cập nhật hiển thị (UTC+7) | Ngày chốt danh sách | Nội dung quyền |
+| --- | --- | --- | --- | --- |
+| FPT-2023-07-03 | [VSDC 159649](https://vsdc.vn/vi/ad/159649) | 23/06/2023 09:33:13 | 06/07/2023 | Tiền 1.000 VND/cổ phiếu và cổ phiếu 15% |
+| VNM-2024-09-20 | [VSDC 174349](https://vsdc.vn/vi/ad/174349) | 30/08/2024 14:40:30 | 25/09/2024 | Tiền 2.450 VND/cổ phiếu |
+| MBB-2025-01-02 | [VSDC 178088](https://vsdc.vn/vi/ad/178088) | 27/12/2024 14:28:25 | 08/01/2025 | Cổ phiếu 15% |
+| VCB-2025-10-01 | [VSDC 187574](https://vsdc.vn/vi/ad/187574) | 26/09/2025 10:38:28 | 06/10/2025 | Tiền 450 VND/cổ phiếu |
+| VNM-2026-06-24 | [VSDC 197038](https://vsdc.vn/vi/ad/197038) | 17/06/2026 16:09:03 | 29/06/2026 | Tiền 1.850 VND/cổ phiếu |
+
+Cả năm nguồn khớp mã/ngày chốt danh sách và hiển thị thời điểm cập nhật trước
+cutoff tương ứng. **Ngày chốt danh sách khác ngày không hưởng quyền**; các
+thông báo này không nêu trực tiếp ngày không hưởng quyền, nên chưa cấp xác
+minh độc lập cho cột ngày quyền của auditor. Timestamp hiển thị được lưu riêng
+với `retrieved_at_utc`; trang đang tồn tại hôm nay không chứng minh nội dung
+bất biến tại cutoff hoặc ledger đã đầy đủ. Chưa loại point, sửa P&L, cộng cổ
+tức hay áp dụng điều chỉnh quyền vào engine.
+
+Đã kiểm trực quan trang chứa bảng/ngày ký của hai PDF HOSE: Thông báo
+2079/TB-SGDHCM ngày 26/12/2024 về lịch 2025 và 2410/TB-SGDHCM ngày
+25/12/2025 bổ sung nghỉ 02/01/2026. [Bài lịch 2026 của HOSE](https://www.hsx.vn/vi/tin-tuc/hose-thong-bao-lich-nghi-giao-dich-nam-2026/2437411)
+được lấy nguyên JSON từ endpoint công khai của chính trang; `postedDate`
+tương ứng 29/04/2026 08:50 UTC (15:50 UTC+7). Danh sách ngày làm việc trừ các ngày nghỉ
+đã công bố khớp toàn bộ ngày CSV trong ba miền:
+
+| Miền đối chiếu lịch | Số phiên lịch công bố/CSV | Ngày thiếu/thừa |
+| --- | --- | --- |
+| Năm 2025 | 249/249 | 0/0 |
+| 01/01–30/09/2026 | 182/182 | 0/0 |
+| 01/07–23/09/2026 | 58/58 | 0/0 |
+
+Đây là đối chiếu lịch nghỉ đã công bố; chưa kiểm độc lập mọi lần ngừng giao
+dịch đột xuất hoặc toàn miền 2018–2026. Bài ngày 29/04/2026 có trước miền Q3,
+không được gán hồi tố làm chứng cứ lịch đã biết tại cutoff tháng 1–4/2026.
+[Bài Vnstock về dữ liệu lịch sử](https://vnstocks.com/blog/du-lieu-lich-su-va-thong-ke-giao-dich-co-phieu-vnindex)
+giúp phân biệt adjusted OHLCV và raw trade history; ví dụ API hiện tại của
+bài không chứng nhận schema/phiên bản nguồn `vnstock 4.0.9` đã khóa. Chưa tìm
+thấy cam kết không sửa hồi tố hoặc lịch sử phiên bản giá trong tài liệu này.
+
+[Gói nguồn bổ sung](week12/finalize_price_primary_sources.zip): **1.366.117
+byte**, SHA256 `03f7ca462e5c2af8e2ecd4be09278d979939adb95c3da1ad49f4459b28f9c1bc`.
+Gồm 14 member: chín bản nguồn, report envelope, manifest, recipe thu/đóng gói
+và verifier thư viện chuẩn. Report ghi
+`PARTIAL_PRIMARY_CORROBORATION_SOURCE_GATE_BLOCKED`, `FIN04_complete=false`,
+admission **0/102**; không thay trạng thái audit frozen. Có URL, HTTP metadata,
+thời điểm tải và SHA từng nguồn; HTTP Date/hash chỉ xác minh bản thu hiện tại.
+
+Verifier chạy trong process mới `py -3.13 -I` đã PASS checksum gói, sáu parent
+và **110 binding input cũ**. Đối soát thêm QA frozen xác nhận nguồn và runtime
+Python 3.13.5/107 package không đổi. Lượt bổ sung chỉ tài liệu/bằng chứng,
+không đổi code/test/schema/config/runtime hoặc input thực nghiệm nên **không
+chạy lại compile/unit/E2E/leakage suite**, theo AGENTS §1.2; 35 test phía trên
+là kết quả cũ được viện dẫn, không là lượt chạy mới. Thu tài liệu web công khai
+khác với API giá/LLM: **0 market quote API, 0 LLM, 0 fit/training và không tính
+query outcome**. Chưa có chứng cứ giá as-published/availability, lịch và ledger
+đầy đủ; FIN04 tiếp tục mở trên nhánh riêng, không nới gate để nhận PASS.
+
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
 Các trạng thái dưới đây là hồ sơ trước FIN00, dùng để truy vết nguồn và
