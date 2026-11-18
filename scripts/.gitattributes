@@ -7,3 +7,4 @@ serve_serving_review.py text eol=lf
 check_serving_acceptance.py text eol=lf
 audit_finalize_prices.py text eol=lf
 check_finalize_price_acceptance.py text eol=lf
+prepare_finalize_news.py text eol=lf

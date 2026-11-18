@@ -7,10 +7,10 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
-**Trạng thái hiện tại — FIN00–FIN03 hoàn tất; FIN04 hoàn tất theo xác nhận
-chủ dữ liệu (`PASS_OWNER_ATTESTED`); FIN05 đang thực hiện, FIN06–FIN17 chưa
-thực hiện.** Chứng nhận PIT nguồn giá độc lập vẫn chưa có; amendment FIN04
-bên dưới là cơ sở chấp nhận nguồn cho phần tiếp theo.
+**Trạng thái hiện tại — FIN00–FIN05 hoàn tất trong phạm vi đã ghi; FIN04 theo
+xác nhận chủ dữ liệu (`PASS_OWNER_ATTESTED`), FIN05 theo policy tin có NA rõ
+lý do; FIN06–FIN17 chưa thực hiện.** Chứng nhận PIT nguồn giá độc lập vẫn chưa
+có; amendment FIN04 bên dưới là cơ sở chấp nhận nguồn cho phần tiếp theo.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -93,12 +93,15 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   Acceptance có version/nguồn/recipe; giữ 102 forecast planned và năm nhãn kinh tế
   unavailable do quyền. Chưa chứng nhận PIT nguồn độc lập; raw thay donor cần
   tái tạo tài nguyên chịu ảnh hưởng tại FIN06 trước query mới.
-- [ ] **FIN05 — Hoàn thiện PIT tin tức.** Đối soát nội dung, nguồn, thời gian
+- [x] **FIN05 — Hoàn thiện PIT tin tức.** Đối soát nội dung, nguồn, thời gian
   xuất bản/khả dụng/thu thập, scorer và aggregation. Thu bổ sung hoặc khóa
   nguồn phục vụ bản mới khi thiếu bằng chứng; giữ unavailable có lý do theo
   contract. Đạt khi tin future/undated/sửa sau cutoff được xử lý đúng và cùng
   một snapshot cung cấp báo cáo/hiển thị. Phụ thuộc FIN02; tác động API được
   đưa vào FIN09, dữ liệu cần thu mới được khóa trước sử dụng.
+  **PASS_NEWS_PIT_WITH_EXPLICIT_UNAVAILABLE:** profile/snapshot/corpus đã khóa,
+  14 test PASS. Cả 102 điểm hiện NA; không đủ chứng cứ nội dung PIT để dùng
+  tin legacy. FIN08 nối profile vào ứng dụng; không coi NA là điểm trung tính.
 - [ ] **FIN06 — Hoàn thiện bank, regime và tài nguyên fit.** Truy nguồn tín
   hiệu/giá/nhãn từng chu kỳ dùng trong bản cuối, xử lý chênh cơ sở giá, kiểm
   strict maturity, train cutoff của HMM/scaler và quy tắc OOD. Nếu cần tái tạo
@@ -611,6 +614,81 @@ nguồn/parent/110 input, Python 3.13.5/107 package; không chạy lại test kh
 soát. **0 hosted/market API, 0 training, 0 query outcome**. FIN04 hoàn tất theo
 phạm vi amendment này; FIN05 áp dụng policy tin của FIN02, không nhận sự xác
 nhận về giá làm chứng cứ nội dung tin.
+
+#### FIN05 — Khóa corpus và snapshot tin có chứng cứ, giữ unavailable đúng nghĩa
+
+Nhánh `feat/finalize-news-provenance`, nền `develop:52600887`. Áp dụng policy
+tin FIN02; không mở rộng xác nhận giá của tác giả sang nội dung/thời gian tin.
+[Corpus mới](week12/finalize_news_corpus_v1.json) tái dựng từ đúng ba nguồn
+`news.json`, `article_audit.json`, `local_scores.json` đã pin trong U06/FIN02:
+**180 bản ghi, 177 bài duy nhất, 154 score duy nhất đã lưu**; news legacy có
+155 cặp mã/bài do một bài dùng cho nhiều mã. Kiểm hash nội dung theo quy ước
+JSON string của audit cũ và giữ riêng hash byte UTF-8 cho schema mới; không sửa
+text, URL, expected hash hoặc bytes corpus lịch sử để ép chúng trùng nhau.
+
+Corpus hiện không có receipt archive đủ để xác minh bản nội dung tại cutoff;
+`evidence_registry={}`. Không suy `collected_at` từ mtime, ngày trong URL hoặc
+thời gian chạy; không gán `available_at`/`revision_identity` còn thiếu từ
+`date_parsed`. Score đã lưu chỉ là chấm hồi tố trên bản text đã biết; pin model
+không chứng minh nguồn tin PIT hoặc kiến thức huấn luyện không có tương lai.
+Không crawl lại nội dung hiện tại rồi gán thành bản lịch sử.
+
+[Bộ snapshot mới](../../core/finalize_news.py) khóa profile
+`finalize_news_pit_v1`, min support 3, cửa sổ 90 ngày và half-life 30 ngày.
+Query 1D dùng **15:30 Asia/Ho_Chi_Minh** theo FIN02; đây là version riêng với
+FrozenNews lịch sử dùng cuối ngày. Điểm tổng hợp tính bằng trọng số tuổi kể từ
+availability; chỉ nhận scorer
+`visobert:d7738b85200272f10ba8b048d80236c8c582b581:max256:pos_minus_neg_v1`,
+mapping NEG/POS/NEU đã khóa, probabilities hữu hạn/tổng bằng 1 và score bằng
+`p_POS-p_NEG`, cùng hash text đầu vào. Sáu hash artifact/model-card được giữ
+trong corpus; không tải weights, forward/rescore hoặc suy domain validation mới.
+
+| Hợp đồng tin | Xử lý đã kiểm |
+| --- | --- |
+| Nội dung/nguồn/revision | Registry chỉ dành cho receipt archive đã được duyệt và khóa; đối chiếu hash file, metadata, content hash và revision. Checksum không tự chứng minh authenticity nguồn; registry synthetic chỉ kiểm phần mềm. Release thực chưa có receipt được duyệt. |
+| Công bố/khả dụng/thu thập | Timestamp có timezone. Date-only dùng ngày lịch kế tiếp, chỉ được admission nếu bản nội dung có proof. Availability không sớm hơn sàn công bố hoặc thời điểm chứng kiến bản nội dung. Collection sau cutoff được phép cho archive đã chứng kiến trước đó; không được backdate archive xuất hiện sau cutoff. |
+| Future/undated/sửa bài | Loại có lý do trước đọc score/nội dung; revision sau cutoff không thay bản cũ. Theo URL chỉ lấy revision đã biết mới nhất, dedup và từ chối hai bản khác nhau có cùng availability. Revision mới nhất thiếu score giữ NA, không mượn score của bản cũ. |
+| Missing | Không có bài hợp lệ, thiếu proof, thiếu score hoặc chưa đủ ba bài đều giữ NA với reason/count riêng; `avg_score=null`, không tạo nhãn neutral hoặc bịa phân bố. Không có peers thì related sentiment không khả dụng. |
+| Snapshot dùng chung | `snapshot_values` cấp data/report cho Decision và hiển thị từ cùng payload/hash; consumer phải truyền hash đã pin. Không crawl, chọn lại tin hoặc score lại khi hiển thị; bản sửa rồi tự ký checksum khác hash owner đã giữ bị từ chối. |
+
+[Coverage 102 điểm](week12/finalize_news_coverage_v1.json) có trạng thái
+**`PASS_NEWS_PIT_WITH_EXPLICIT_UNAVAILABLE`**, **0 available / 102 unavailable**:
+41 `UNVERIFIED_AVAILABILITY`, 61 `NO_ELIGIBLE_NEWS`. Có snapshot identity và
+số lượng quarantine theo từng point; audit loại tin ở ngoài payload forecast
+nên nội dung/score tương lai không sửa request quá khứ. Không đưa 177 bài
+quarantine vào prompt dưới hình thức tin đã biết, không giữ các score legacy
+như chứng cứ sentiment tại cutoff. FIN05 PASS cơ chế eligibility, nguồn đã khóa
+và biểu diễn thiếu theo FIN02; **không phải chứng nhận rằng có đủ tin thị
+trường PIT để sử dụng**. Các fixture có ba bài hợp lệ kiểm được nhánh available,
+không chỉ kiểm trường hợp toàn NA của corpus thực.
+
+[Recipe/validator release](../../core/finalize_news_release.py) đối soát lại
+ba input, model/recipe và tái dựng toàn corpus/coverage; record tự sửa rồi ký
+lại checksum bị từ chối. [CLI](../../scripts/prepare_finalize_news.py) tạo mới
+hoặc `--check` offline, từ chối ghi đè artifact khác byte. Chưa sửa caller
+FrozenNews/SentimentCache, graph hoặc UI cũ; **FIN08** gắn profile/snapshot mới
+vào CLI/backtest/as-of/live và UI. FIN06 dùng nguồn tin mới để tái tạo tài
+nguyên bị ảnh hưởng; FIN09 kiểm lại reuse vì report/mask/input đã thay đổi.
+Giữ đủ universe/102 point/repeat và cùng missing policy cho mọi phương pháp.
+
+**14 test PASS, compile 5 Python PASS:** bảy test snapshot/scorer/dedup/caller
+ownership/release corpus và bảy test leakage về future poison, revision,
+cutoff 15:30/múi giờ, date-only/undated, thiếu proof, chronology collection và
+archive backdate. Kiểm cả score weighted thực, count 0/1/2/3, bản tin mới nhất
+thiếu score và registry/receipt/snapshot bị sửa; đối soát ba nguồn thực cùng
+102 snapshot. Chỉ compile hai module, CLI và hai test mới. Không đổi runtime,
+dependency hoặc caller cũ nên không chạy full suite/E2E, sentiment legacy
+suite hoặc bốn gate toàn hệ. CLI `--check` chạy riêng PASS với mạng bị khóa.
+
+[QA FIN05](week12/finalize_news_checks.zip): **98.991 byte**, SHA256
+`a3d302d42c45bc8bbdcf7bcb000f093615fee79fe5bf389accf6364e25292ee3`.
+Gói có 17 member: source/log/corpus/coverage/manifest/verifier. Verifier process
+mới `py -3.13 -I` đối soát source, parent/input và Python 3.13.5/107 package
+PASS, không chạy lại suite/model/API. Ba `.gitattributes` chỉ thêm LF cho file
+mới; bằng chứng FIN01–FIN04 và input lịch sử giữ nguyên byte. **0 market/LLM
+API, 0 forward/rescore, 0 fit/training, 0 query outcome**. FIN05 hoàn tất trong
+phạm vi này; FIN06 là task tiếp theo, chưa có nghiệm thu app hoặc nguồn giá
+PIT độc lập từ lượt này.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

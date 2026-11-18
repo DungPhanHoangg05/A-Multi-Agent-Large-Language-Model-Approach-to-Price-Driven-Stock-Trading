@@ -9,3 +9,5 @@ display_translation.py text eol=lf
 translation_transport.py text eol=lf
 finalize_price_audit.py text eol=lf
 finalize_price_acceptance.py text eol=lf
+finalize_news.py text eol=lf
+finalize_news_release.py text eol=lf
