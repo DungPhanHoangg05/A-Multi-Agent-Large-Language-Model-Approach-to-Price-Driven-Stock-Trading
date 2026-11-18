@@ -26,3 +26,4 @@ finalize_live_capture.py text eol=lf
 finalize_budget_archive.py text eol=lf
 finalize_budget_quota.py text eol=lf
 finalize_budget_study.py text eol=lf
+finalize_study_runner.py text eol=lf

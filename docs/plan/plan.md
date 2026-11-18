@@ -8,9 +8,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
-`paper/` và khóa luận trong `thesis/`.** FIN00–FIN09 đã hoàn tất trong
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN10 đã hoàn tất trong
 phạm vi ghi dưới đây. Profile ứng dụng `finalize_serving_v1` đã qua đối chứng
-offline. FIN10–FIN17 vẫn mở, gồm nghiệm thu và xác nhận quota trước khi thu thật.
+offline. FIN11–FIN17 vẫn mở. Lượt thu thật cần xác nhận quota và quyền thực thi.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -34,6 +34,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN07 | `PASS_OFFLINE_FIN07`. Oracle kiểm retrieval và ngữ cảnh trên 102 điểm. MT-BICL có 63 đủ support và 39 bypass. Fixture xác nhận C2/A/B lấy ví dụ khi qua gate. Đã kiểm cùng repeat và giữ nhãn query đóng. |
 | FIN08 | `PASS_OFFLINE_FIN08`. CLI, as-of, backtest và live nhận profile mới chọn tường minh. Kiểm 522 cặp mã–phiên as-of và replay raw capture đối chứng. Hosted chờ FIN10, default chuyển sau FIN13–FIN14. |
 | FIN09 | `PASS_OFFLINE_FIN09_BUDGET`. Đối chiếu 2.662 slot với 1.702 attempt U08. Có 10 vision reuse, 1.165 bypass và 1.487 lượt mới kể cả smoke. Dự toán một org Free lấy Decision làm giới hạn. Số dư tài khoản chờ xác nhận trước khi thu. |
+| FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. Hosted tiếp tục chờ quota và quyền thực thi FIN11. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -218,12 +219,13 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   lượt đã dùng, token và thời gian cho mỗi model. Kiểm lại ngay sau dry-run
   trước FIN10/11. Đã đạt `PASS_OFFLINE_FIN09_BUDGET` theo
   [kết quả đối chiếu và dự toán](#fin09--chốt-bảng-tái-sử-dụng-và-ngân-sách-api).
-- [ ] **FIN10 — Nghiệm thu offline trước thu query.** Khóa code/runtime/resource
+- [x] **FIN10 — Nghiệm thu offline trước thu query.** Khóa code/runtime/resource
   và chạy các kiểm tra trực tiếp bị ảnh hưởng, gồm PIT toàn pipeline,
   economics, paired dependency, prompt/schema, retry/checkpoint, owner/cache,
   stop/resume và UNKNOWN. Cold replay bằng fixture kiểm đường mới. Đạt khi
   mọi kiểm tra áp dụng PASS, source pin khớp và blocker chuẩn bị đã được xử lý.
   Phụ thuộc FIN03–FIN09; sửa mới phải kiểm lại phạm vi ảnh hưởng trước thu tiếp.
+  Đã đạt `PASS_OFFLINE_FIN10` theo [receipt và replay](#fin10--nghiệm-thu-offline-trước-thu-query).
 - [ ] **FIN11 — Thực thi thu hồi đáp cần thiết.** Dùng protocol và ngân sách
   FIN09 đã khóa cho các slot thực sự cần gọi. Reuse upstream hợp lệ, checkpoint
   mỗi point, lưu raw/usage/epoch và cùng-repeat dependency. Đạt khi planned =
@@ -1138,9 +1140,48 @@ Biên dịch năm file Python thay đổi và đạt 52 kiểm thử chọn theo
 FIN09, gồm đối chiếu body, quota/pacing, PIT và checkpoint/UNKNOWN. Kiểm lại
 checksum ledger, từng tham chiếu raw U08, nguồn và runtime bằng
 `py -3.13 -X utf8 scripts/prepare_finalize_api_budget.py --check`. Ledger giữ
-`execution_permitted=false`. FIN10 cần khóa runner một org, xác nhận hạn mức
-Free và số dư thực tế trước khi cấp lượt gọi FIN11.
+`execution_permitted=false`. FIN10 khóa đường đối chứng của runner một org.
+Lượt gọi FIN11 cần xác nhận hạn mức Free và số dư thực tế.
 [Ledger, quota và bằng chứng từng slot](week12/finalize_api_budget_v1.json).
+
+#### FIN10 — Nghiệm thu offline trước thu query
+
+**`PASS_OFFLINE_FIN10`** trên Python 3.13.5. Khóa SHA-256 của ledger FIN09,
+2.662 slot, model/options, 278 file nguồn runtime, các điểm vào kiểm thử và
+162 pin tài nguyên. Đối soát lại toàn bộ 1.702 raw U08 khi dựng fixture và
+khi cold replay. Receipt khóa từng nhóm kiểm thử theo nguồn và hash log.
+
+Runner nghiên cứu đối chứng dùng một org, ledger riêng theo model và namespace
+đã khóa. Mỗi point dựng một upstream rồi ghép đúng tám vai trò. Checkpoint
+lưu đủ point, repeat, shared snapshot, request và dependency cùng repeat.
+Router transport kiểm wire khớp FIN09 cho vision. Với body Decision còn phụ
+thuộc báo cáo thật, kiểm schema/options đã khóa và áp trần runtime trên body
+thực tế, kể cả repair. Cap ba attempt giữ nguyên qua lần khởi động lại.
+
+- Smoke `BHN-2025-10-01` hoàn tất 8 forecast slot với 6 lượt fixture, trong
+  một identity độc lập. Nghiên cứu dùng `FPT-2023-07-03` và `HVN-2025-10-01`
+  để kiểm đủ 48 slot qua ba repeat, 29 lượt fixture và 2 raw vision U08 đạt
+  proof. Dừng ngay sau khi ghi raw, rồi resume giữ nguyên UUID và tránh gửi lại.
+  Thử tháo raw của slot đã complete để xác nhận resume dừng trước dispatch.
+- Timeout đối chứng lưu `UNKNOWN` và token reserve. Khởi động lại dừng trước
+  khi gửi thêm. Chỉ tiếp tục sau khi đối soát đúng UUID thành `NOT_SENT`, giữ
+  attempt cũ trong lịch sử và trong cap. Outcome của query luôn đóng.
+- Sửa nến tương lai trong RAM ở điểm FPT, dựng lại graph và giữ nguyên hash
+  snapshot cùng 24 request. Cold replay trong tiến trình Python mới tái lập
+  56 slot, cùng hash raw/policy và 0 lượt dispatch mới.
+
+Biên dịch ba file Python mới và đạt **153 kiểm thử** về PIT, tài khoản/P&L,
+ghép cặp, prompt/token, quota, retry/checkpoint, owner/cache và caller serving
+theo phạm vi FIN10. Lượt này dùng hồi quy tích hợp theo phạm vi thay cho chạy
+lại toàn bộ unit suite và E2E toàn hệ. Lệnh kiểm khóa và receipt là
+`py -3.13 -X utf8 scripts/finalize_offline_acceptance.py check`.
+[Receipt nguồn, fixture và kết quả gate](week12/finalize_offline_acceptance_v1.json).
+
+Khoanh phạm vi dữ liệu theo xác nhận FIN04. Chứng nhận PIT độc lập của nhà
+cung cấp vẫn chưa có. Có 0 lượt gọi Groq thật và 0 outcome thị trường được mở.
+FIN11 cần xác nhận hạn mức Free, số dư thực và giữ carry của một org xuyên
+smoke/research trước khi cấp quyền thu. Receipt FIN10 giữ
+`execution_permitted=false`.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
