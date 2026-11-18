@@ -8,9 +8,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
-`paper/` và khóa luận trong `thesis/`.** FIN00–FIN07 đã hoàn tất trong
-phạm vi ghi dưới đây. Retrieval OHLCV, Fact Anchor và MT-BICL đã qua kiểm tra
-offline trên 102 điểm. FIN08–FIN17 vẫn mở, gồm cả ngân sách query của FIN09.
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN08 đã hoàn tất trong
+phạm vi ghi dưới đây. Profile ứng dụng `finalize_serving_v1` đã qua đối chứng
+offline. FIN09–FIN17 vẫn mở, gồm ngân sách và nghiệm thu trước các lượt thu thật.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -32,6 +32,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN05 | Validator offline xác nhận 102/102 điểm thiếu tin đủ chứng cứ tại cutoff. Snapshot giữ NA và lý do. Gói QA tin khớp hash. |
 | FIN06 | `PASS_OFFLINE_FIN06`. Có 852 chu kỳ đủ khóa thống kê, 733 đủ khóa ví dụ, 119 Alpha NA và 102 khóa query đã kiểm. Phát hành bank offline với 0 HTTP mới. Batch thị giác trước đó thu 2/1.704 slot cùng một chu kỳ, dùng 2.505 và 1.412 token. |
 | FIN07 | `PASS_OFFLINE_FIN07`. Oracle kiểm retrieval và ngữ cảnh trên 102 điểm. MT-BICL có 63 đủ support và 39 bypass. Fixture xác nhận C2/A/B lấy ví dụ khi qua gate. Đã kiểm cùng repeat và giữ nhãn query đóng. |
+| FIN08 | `PASS_OFFLINE_FIN08`. CLI, as-of, backtest và live nhận profile mới chọn tường minh. Kiểm 522 cặp mã–phiên as-of và replay raw capture đối chứng. Hosted chờ FIN10, default chuyển sau FIN13–FIN14. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -196,14 +197,15 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   Đối chiếu đúng khóa query/bank, retrieval thực sự hoạt động ở ca đủ support
   và lý do fallback ở ca thiếu support. Phụ thuộc FIN03–FIN06, ưu tiên offline.
   Đã đạt `PASS_OFFLINE_FIN07` theo [receipt](week12/finalize_context_receipt_v1.json).
-- [ ] **FIN08 — Nối bản sửa vào các điểm vào thực tế.** CLI/backtest/as-of/live
+- [x] **FIN08 — Nối bản sửa vào các điểm vào thực tế.** CLI/backtest/as-of/live
   dùng đúng profile, snapshot, dependency và cache identity mới. Default của
   bản phát hành chuyển sang đường đã sửa sau nghiệm thu; dữ liệu cũ được
   hiển thị đúng profile lịch sử. Trạng thái khoa học của bản mới được dẫn từ
   bằng chứng đã kiểm và đúng miền. Đạt khi không còn caller thuộc bản cuối
   gọi nhầm Alpha cũ, trộn cache hoặc gán receipt cũ cho nguồn mới. Có thể
   nối caller bằng fixture ngay khi schema FIN06 đã khóa. Nghiệm thu tích hợp
-  sau FIN07, chuyển default sau FIN13–FIN14.
+  sau FIN07, chuyển default sau FIN13–FIN14. Đã đạt `PASS_OFFLINE_FIN08`
+  theo [kết quả kiểm tích hợp](#fin08--nối-profile-finalize-vào-ứng-dụng).
 - [ ] **FIN09 — Chốt bảng tái sử dụng và ngân sách API.** Đối chiếu từng request
   và dependency với archive, ghi slot dùng lại/chạy mới/bypass và lý do.
   Tính cả gọi chuẩn bị bank, vision, anchor, repeats, smoke, retry và quota
@@ -1032,6 +1034,60 @@ H02 tái lập đúng receipt khi đọc bản CSV theo CRLF đã khóa. Pin hu�
 gốc dùng `backtest_engine.py` ở `77f4bada`; hai hàm tính nhãn và kiểm chi
 phí trùng AST với bản đang dùng. Đối soát riêng 31 pin trong recipe số FIN06
 đã đạt. Full suite và E2E toàn hệ dành cho gate tích hợp tương ứng.
+
+#### FIN08 — Nối profile finalize vào ứng dụng
+
+`finalize_serving_v1` là version chọn tường minh. CLI, API as-of, backtest
+và live dùng chung runner paired, checkpoint và hợp đồng owner. Identity
+bind version, snapshot, nguồn đã pin, runtime, model/options và owner.
+Forecast slot bind thêm request, realization, repeat và hash dependency.
+Reader/export mang đúng identity của bản ghi. Registry vẫn chọn bản v1
+lịch sử mặc định cho đến mốc FIN13–FIN14.
+
+Native `original_fix` của profile mới dùng renderer/schema/cap native với
+năm Alpha causal giống Common. Graph chuẩn bị Indicator, Pattern và Trend
+một lần cho mỗi điểm. Stage Alpha lấy selector đã fit và tin FIN05. v1/C2/A/B
+dùng hai khóa OHLCV từ đúng prefix. MT và Fact Anchor dùng context đã freeze
+trước ngày đầu fold Q3, giữ toàn bộ 102 ID nghiên cứu được reserve. Policy
+canonical là VI. Bản EN đi trong sidecar của cùng phản hồi.
+
+- CLI dùng `py -3.13 -X utf8 scripts/run_unified_experiment.py finalize request.json`.
+  Thêm `--preview` để chạy runner và checkpoint với phản hồi đối chứng trong
+  kho tạm. `request.json` có cùng cấu trúc với request API và version
+  `finalize_serving_v1`.
+- As-of và backtest dùng `/api/serving/v1/preflight` và `/jobs`. Hỗ trợ 1D,
+  chín mã, 58 ngày phiên từ 01/07 đến 23/09/2026, tối đa 30 điểm mỗi job.
+  Backtest giữ bước ba phiên. Đọc và export qua `/jobs/<id>` và `/jobs/<id>/export`.
+- Live yêu cầu `POST /api/serving/live/v1/snapshot` với `symbol` và
+  `profile=finalize_serving_v1`. Sau đó dùng snapshot SHA với request lồng
+  có cùng version tại `/api/serving/live/v1/preflight`. Capture lấy OHLCV
+  thô, Reference, ledger VCI và VNINDEX của phiên đã đóng. Kiểm origin,
+  lịch, giá overlap và owner trước admission. Selector chỉ transfer lựa chọn
+  đã khóa. Resume dùng đúng capture, tin dùng policy khả dụng FIN05 và
+  không có payoff live.
+
+Preflight hosted trả `HOSTED_RELEASE_PENDING_FIN10`. Chế độ fixture thực
+thi các slot qua transport đối chứng. Cả payoff của 102 điểm nghiên cứu và
+payoff ứng dụng vẫn khóa. Backtest đối chứng xuất
+`OFFLINE_FIXTURE_OUTCOME_LOCKED`. Outcome thực được thiết kế chỉ mở sau đủ
+slot forecast của point. Rào lịch, quyền và volume giữ NA có lý do trước
+khi gọi công thức T+2.5. Chứng cứ FIN07 vẫn thuộc kiểm offline. Profile mới
+mang `EXPLORATORY_NOT_CERTIFIED`.
+
+**`PASS_OFFLINE_FIN08`**. Đối soát 162 pin của nguồn và receipt kế thừa.
+Đủ 522 prefix của chín mã × 58 phiên với ít nhất 600 nến và khóa OHLCV 45
+phiên. Lượt CLI so sáu lựa chọn và hai dependency qua hai repeat hoàn tất
+16 slot, dùng một snapshot, hai phản hồi vision fixture và tám phản hồi
+Decision fixture. Lượt backtest API kiểm reader/export giữ nguyên identity
+và nhãn khóa. Lượt live dùng một phiên bổ sung đối chứng sau lịch FIN04,
+kiểm overlap, transfer selector và quyền owner. Replay giữ nguyên kết quả,
+identity và số lượt fixture. Đường capture live đã kiểm với
+nguồn đối chứng trong lượt này. Số lượt gọi Groq là 0.
+
+Biên dịch 18 file Python thay đổi. Năm ca FIN08 và các hồi quy được chọn
+của serving/runtime, contract, live admission và export đều đạt. Giữ byte
+evaluator lịch sử để job đã khóa vẫn đọc/xuất theo receipt gốc. Chạy các
+gate toàn hệ ở mốc tích hợp tương ứng.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

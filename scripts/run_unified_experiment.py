@@ -49,6 +49,9 @@ def main() -> None:
     sub.add_parser("registry")
     validate = sub.add_parser("validate"); validate.add_argument("spec", type=Path)
     replay = sub.add_parser("replay"); replay.add_argument("bundle", type=Path); replay.add_argument("--sha256", required=True)
+    finalize = sub.add_parser("finalize", help="Kiểm profile serving bản sửa")
+    finalize.add_argument("request", type=Path)
+    finalize.add_argument("--preview", action="store_true", help="Chạy checkpoint với phản hồi đối chứng offline")
     for name in ("verify", "export"):
         command = sub.add_parser(name); command.add_argument("run", type=Path)
         if name == "export":
@@ -63,6 +66,12 @@ def main() -> None:
             result = {"status": "VALID_SPEC_ONLY", "identity_sha256": digest(spec.identity), "hosted_release": False}
         elif args.command == "replay":
             result = replay_bundle(args.bundle, args.sha256, args.root.resolve())
+        elif args.command == "finalize":
+            from contextlib import redirect_stdout
+            from core.serving_contracts import ServingRequest
+            from scripts.finalize_serving_preview import run
+            with redirect_stdout(sys.stderr):
+                result = run(args.root.resolve(), ServingRequest.create(read_json(args.request)), preview=args.preview)
         else:
             result = verify_run(args.run, root=args.root.resolve())
             if args.command == "export":

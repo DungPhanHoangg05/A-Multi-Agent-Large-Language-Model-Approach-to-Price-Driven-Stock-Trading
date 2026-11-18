@@ -13,3 +13,4 @@ rebuild_finalize_bank_signals.py text eol=lf
 prepare_finalize_ohlcv_bank.py text eol=lf
 verify_finalize_ohlcv_bank.py text eol=lf
 check_finalize_context.py text eol=lf
+finalize_serving_preview.py text eol=lf

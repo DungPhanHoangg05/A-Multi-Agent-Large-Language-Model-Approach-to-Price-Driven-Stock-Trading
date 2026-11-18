@@ -10,6 +10,7 @@ from uuid import UUID, uuid4
 from core.serving_registry import CONFIG_VERSION, CONTRACT_VERSION, JOB_STATES, REGISTRY_VERSION, required_resources
 from core.unified_contracts import checksum, day, digest, json_bytes
 from core.variant_registry import execution_order, get_variant
+from core.finalize_serving_profile import OUTCOME_REASONS, VERSION as FINALIZED, method_profile
 
 MODEL_ROLES = ("indicator", "pattern", "trend", "alpha", "sentiment", "decision")
 COSTS = {"fee": .0025, "slippage": .001, "horizon": 3, "initial_vnd": 50000000}
@@ -58,7 +59,7 @@ class ServingRequest:
             json_bytes(value)
         except ValueError as error:
             raise ContractError("INVALID_REQUEST", "request", "Chỉ nhận JSON nguyên bản hữu hạn") from error
-        _require(value["version"] == CONTRACT_VERSION, "version", "Version contract không được hỗ trợ")
+        _require(value["version"] in (CONTRACT_VERSION, FINALIZED), "version", "Version contract không được hỗ trợ")
         _require(value["mode"] in ("analyze", "compare", "backtest"), "mode", "Mode không được hỗ trợ")
         try:
             execution_order(value["variant_ids"])
@@ -148,10 +149,11 @@ class ServingJob:
         _require(all(_token(v) for v in config["prompt_versions"].values()),
                  "config.prompt_versions", "Thiếu version prompt/projection")
         _require(checksum(snapshot_sha256) and checksum(owner_scope_sha256), "snapshot", "Thiếu snapshot/owner scope hash")
-        identity = {"version": CONTRACT_VERSION, "registry_version": REGISTRY_VERSION,
+        finalized = request["version"] == FINALIZED
+        identity = {"version": request["version"], "registry_version": REGISTRY_VERSION,
                     "request": request, "config": config, "snapshot_sha256": snapshot_sha256,
                     "costs": dict(COSTS), "target": "OPEN_T1_CLOSE_T3_NET; SHORT_IS_CASH",
-                    "method_profiles": {v: get_variant(v).profile for v in plan}}
+                    "method_profiles": {v: method_profile(v) if finalized else get_variant(v).profile for v in plan}}
         identifier = str(uuid4()) if run_id is None else run_id
         _require(type(identifier) is str and str(UUID(identifier)) == identifier, "run_id", "Run ID phải là UUID canonical")
         doc = {"run_id": identifier, "owner_scope_sha256": owner_scope_sha256,
@@ -225,7 +227,10 @@ def result_document(job: ServingJob, state: str, executed_ids: list[str], progre
                  "rows", "Phân tích mới chưa có outcome; không nhận P&L tương lai")
         _require(row["final_action"] != "CASH" or row["net_return_pct"] is None or row["net_return_pct"] == 0,
                  "rows", "Giữ cash không phát sinh P&L giao dịch")
-        _require(row["metric_reason"] in ("PENDING_EXIT", "NOT_EVALUATED", "MISSING_OUTCOME")
+        reasons = {"PENDING_EXIT", "NOT_EVALUATED", "MISSING_OUTCOME"}
+        if request["version"] == FINALIZED:
+            reasons |= OUTCOME_REASONS
+        _require(row["metric_reason"] in reasons
                  if row["net_return_pct"] is None else row["metric_reason"] is None,
                  "rows", "Metric NA cần lý do; metric có giá trị không dùng lý do NA")
     _require(len(rows) == progress["decision_slots_complete"], "progress", "Rows không khớp số slot hoàn tất")
@@ -246,7 +251,7 @@ def result_document(job: ServingJob, state: str, executed_ids: list[str], progre
     _require(state not in ("failed", "unknown") or error is not None, "error", "Job lỗi phải có mã lỗi")
     _require(state != "unknown" or error["code"] == "UNKNOWN_ATTEMPT" and not error["retryable"],
              "error", "UNKNOWN cần đối soát, không tự retry")
-    result = {"version": CONTRACT_VERSION, **doc, "state": state, "executed_ids": executed_ids,
+    result = {"version": doc["identity"]["version"], **doc, "state": state, "executed_ids": executed_ids,
               "progress": progress, "rows": rows, "error": error,
               "metric_units": {"net_return_pct": "PERCENT_PER_CYCLE"},
               "support_sha256": doc["identity"]["config"]["support_sha256"]}

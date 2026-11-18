@@ -99,7 +99,6 @@ class AsOfProvider:
         from agents.indicator_agent import create_indicator_agent
         from agents.pattern_agent import create_pattern_agent
         from agents.trend_agent import create_trend_agent
-        from agents.alpha_agent import create_alpha_agent
         from core.causal_alpha import FrozenSelector
         from core.causal_bridge import bind_snapshot
         from core.unified_methods import snapshot_from_graph
@@ -135,18 +134,18 @@ class AsOfProvider:
                 nodes = {"indicator": lambda: create_indicator_agent(None, TechnicalTools()),
                     "pattern": lambda: create_pattern_agent(None, proxy, TechnicalTools()),
                     "trend": lambda: create_trend_agent(None, proxy, TechnicalTools()),
-                    "full": lambda: create_alpha_agent(None, True, True, strict_research_mode=True)}
+                    "full": lambda: self.alpha_stage}
                 token = ENABLED.set(True)
                 try:
                     with invocation_scope(role):
                         from contextlib import nullcontext
                         from core.ui_presentation.capture import capture
-                        from core.ui_presentation.reports import pair_for,sentiment_pair
+                        from core.ui_presentation.reports import sentiment_pair
                         with capture() if getattr(self,'presentation_enabled',False) else nullcontext(None) as display:
                             result=nodes[role]()(deepcopy(node_state))
                             if display is not None:
                                 pairs=deepcopy(node_state.get('ui_reports',{}))
-                                pairs['alpha' if role=='full' else role]=pair_for(role,node_state,result,display)
+                                pairs['alpha' if role=='full' else role]=self.report_pair(role,node_state,result,display)
                                 if role=='full': pairs['sentiment']=sentiment_pair(result.get('sentiment_data',{}))
                                 result['ui_reports']=pairs
                             return result
@@ -156,10 +155,21 @@ class AsOfProvider:
             inputs["point_in_time_df"] = snapshot_payload(node_state["point_in_time_df"])
             output = book.execute(slot, {"state_sha256": digest(encode_output(inputs))}, invoke)
             state.update(output)
-        state["alpha_factors"] = deepcopy(state["sentiment_data"]["alpha_results"])
+        if "alpha_factors" not in state:
+            state["alpha_factors"] = deepcopy(state["sentiment_data"]["alpha_results"])
         if 'ui_reports' in state:
             book.execute('presentation/'+point['id'],{'reports_sha256':digest(state['ui_reports'])},lambda _:deepcopy(state['ui_reports']))
         return self.snapshot(point, state)
+
+    def alpha_stage(self, state: dict) -> dict:
+        """Bản v1 giữ Alpha gốc; bản finalized cấp projection khác từ nguồn đã pin."""
+        from agents.alpha_agent import create_alpha_agent
+        return create_alpha_agent(None, True, True, strict_research_mode=True)(state)
+
+    def report_pair(self, role: str, state: dict, output: dict, display: dict) -> dict:
+        """Render sidecar; không sửa payload canonical của Decision."""
+        from core.ui_presentation.reports import pair_for
+        return pair_for(role, state, output, display)
 
     def vision_proxy(self,role: str,calls: Any,slot: str,attempt: str,model: dict) -> Any:
         """Đường mặc định giữ nguyên wire SDK; profile live mới override tại provider riêng."""

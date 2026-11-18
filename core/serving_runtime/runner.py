@@ -9,6 +9,7 @@ from typing import Any
 from core.historical_evaluation_journal import load
 from core.prior_run_lock import PriorRunLock
 from core.serving_contracts import result_document
+from core.finalize_serving_profile import UNAVAILABLE_OUTCOME, VERSION as FINALIZED
 from core.unified_contracts import SharedSnapshot, digest
 from core.unified_execution import StageBook, raw_record
 from core.unified_execution_transport import body_for
@@ -48,6 +49,7 @@ class Runner:
         self.book = StageBook(self.directory/"journal", self.doc, verify_only=read_only)
         self.plan = self.doc["execution_plan"]
         self.request = self.doc["identity"]["request"]
+        self.finalized = self.request["version"] == FINALIZED
         if provider is not None and hasattr(provider, "bind_book"):
             provider.bind_book(self.book, self.plan, self.request["repeats"], self.request["mode"])
 
@@ -75,7 +77,22 @@ class Runner:
                     parents = {"snapshot": snapshot.sha256, "dependencies": {k: digest(v) for k, v in deps.items()}}
                     prepared = self.book.execute("prepare/"+slot, parents,
                         lambda _: self.provider.prepare(variant, snapshot, deepcopy(deps), repeat))
-                    self.provider.validate(variant, snapshot, prepared, repeat)
+                    if self.finalized:
+                        self.provider.validate_bound(variant, snapshot, deepcopy(deps), repeat, prepared)
+                    else:
+                        self.provider.validate(variant, snapshot, prepared, repeat)
+
+                    def resolve(raw: dict | None) -> dict:
+                        if self.finalized:
+                            return self.provider.resolve_bound(variant, snapshot, deepcopy(deps), repeat, prepared, raw)
+                        return self.provider.resolve(variant, prepared, raw, deepcopy(deps))
+
+                    proof = {"variant": variant}
+                    if self.finalized:
+                        proof.update(point_id=point["id"], repeat=repeat, realization=0, shared_sha256=snapshot.sha256,
+                                     request_sha256=digest(prepared["request"]) if prepared["request"] else None,
+                                     dependency_hashes=parents["dependencies"])
+
                     def execute(attempt: str) -> dict:
                         raw = None
                         if prepared["request"] is not None:
@@ -83,12 +100,13 @@ class Runner:
                             full_reply, wire = self.calls.call(slot, body, attempt)
                             reply=self.provider.canonical_reply(full_reply) if hasattr(self.provider,'canonical_reply') else full_reply
                             raw = raw_record(prepared["request"], wire, reply)
-                        result={"forecast": {"variant": variant, "raw": raw},
-                                "policy": self.provider.resolve(variant, prepared, raw, deepcopy(deps))}
+                        result={"forecast": {**proof, "raw": raw}, "policy": resolve(raw)}
                         if raw is not None and hasattr(self.provider,'presentation_reply'): result['display_en']=self.provider.presentation_reply(full_reply)
                         return result
                     def validate(record: dict) -> None:
                         raw = record["forecast"]["raw"]
+                        if self.finalized and record["forecast"] != {**proof, "raw": raw}:
+                            raise ValueError("Forecast khác point/shared/repeat/dependency đã khóa")
                         if (prepared["request"] is None) != (raw is None):
                             raise ValueError("Raw không đúng request/bypass")
                         if raw is not None:
@@ -100,7 +118,7 @@ class Runner:
                                 raise ValueError("Raw/UUID không khớp wire đã durable")
                             if hasattr(self.provider,'presentation_reply') and record.get('display_en')!=self.provider.presentation_reply(full_reply):
                                 raise ValueError('Bản trình bày không khớp raw của cùng request')
-                        if record["policy"] != self.provider.resolve(variant, prepared, raw, deepcopy(deps)):
+                        if record["policy"] != resolve(raw):
                             raise ValueError("Policy không tái lập từ raw/dependency")
                     records[variant] = self.book.execute(slot, {**parents, "prepared": prepared}, execute, validate=validate)
                     required.append(slot)
@@ -117,6 +135,7 @@ class Runner:
         presentations={}
         raw_ids = set()
         points_complete = 0
+        missing_outcomes = {}
         for point in self.reservation["points"]:
             presentation_slot='presentation/'+point['id']
             if self.book.complete(presentation_slot):
@@ -131,6 +150,12 @@ class Runner:
             outcome_slot = "outcome/"+point["id"]
             if self.book.complete(outcome_slot):
                 outcome = decode_output(load(self.book.path(outcome_slot))["attempts"][0]["output"])
+            unavailable = outcome is not None and outcome.get("version") == UNAVAILABLE_OUTCOME
+            if unavailable:
+                if not self.finalized:
+                    raise ValueError("Outcome NA không thuộc profile lịch sử")
+                missing_outcomes[point["id"]] = outcome["reason"]
+            metric_reason = outcome["reason"] if unavailable else "NOT_EVALUATED" if outcome is None else None
             for repeat in range(self.request["repeats"]):
                 effective = {}
                 for variant in self.plan:
@@ -162,8 +187,8 @@ class Runner:
                         "bypass_reason": policy["reason"] if policy["bypass"] else None,
                         "support": {"manifest_sha256": self.doc["identity"]["config"]["support_sha256"],
                                     "status": "declared_fallback" if actual != variant else "supported"},
-                        "net_return_pct": (float(outcome["target"]["net_return"]) * 100 if policy["final_action"] == "LONG" else 0.) if outcome else None,
-                        "metric_reason": None if outcome else "NOT_EVALUATED"}
+                        "net_return_pct": (float(outcome["target"]["net_return"]) * 100 if policy["final_action"] == "LONG" else 0.) if metric_reason is None else None,
+                        "metric_reason": metric_reason}
                     point_rows.append(row)
                     preparation = decode_output(load(self.book.path("prepare/"+slot))["attempts"][0]["output"])
                     details[slot] = {"policy": policy, "raw_reply": raw["reply"] if raw else None,
@@ -179,6 +204,9 @@ class Runner:
         result.update(retry_at=status.get("retry_at"), snapshots=snapshots, policy_details=details, presentations=presentations,
                       outcome_points=sum(self.book.complete("outcome/"+p["id"]) for p in self.reservation["points"]),
                       input_snapshot_scope="SEALED_RESOURCE_AND_POINT_MANIFEST; SHARED_REPORT_HASHES_PER_POINT")
+        if self.finalized:
+            result["outcome_points"] -= len(missing_outcomes)
+            result["outcome_unavailable_points"] = missing_outcomes
         return result
 
     def outcomes(self) -> dict[str, dict]:

@@ -139,8 +139,9 @@ class Snapshots:
 
     def read(self, identifier: str, owner: str | None = None) -> dict:
         """Kiểm hash/owner mỗi lần đọc; không tải lại nguồn dù snapshot đã cũ khi resume."""
+        from core.finalize_serving_profile import LIVE_CAPTURE
         record = load(self.path(identifier))
-        if digest(record) != identifier or record['version'] != VERSION:
+        if digest(record) != identifier or record['version'] not in (VERSION, LIVE_CAPTURE):
             raise ValueError('Snapshot sống khác hash/version đã khóa')
         if owner is not None and record['owner_scope_sha256'] != owner:
             raise PermissionError('Snapshot không thuộc owner này')

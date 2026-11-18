@@ -184,7 +184,18 @@ def backtest_evaluation(identifier: str) -> Response:
         exporting = request.path.endswith('/export')
         format_name = query.pop('format','json') if exporting else 'json'
         table = query.pop('table','predictions') if exporting else 'predictions'
-        data = service().evaluation(identifier,scope,query)
+        backend = service()
+        if exporting:
+            from core.finalize_serving_profile import VERSION as FINALIZED
+            spec = backend.store.reservation(identifier, scope)['job']['identity']['request']
+            if spec['version'] == FINALIZED and spec['mode'] != 'backtest':
+                if query or format_name != 'json':
+                    raise ValueError('Phân tích finalized chỉ export nguyên JSON đã khóa')
+                result = respond(backend.result(identifier, scope))
+                result.headers['Content-Disposition'] = f'attachment; filename="{identifier}-analysis.json"'
+                result.headers['X-Content-Type-Options'] = 'nosniff'
+                return result
+        data = backend.evaluation(identifier,scope,query)
         if not exporting: return respond(data)
         from utils.backtest_export import export_bytes
         raw,mime = export_bytes(data,format_name,table)

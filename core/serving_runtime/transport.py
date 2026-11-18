@@ -68,9 +68,11 @@ class Calls:
     """Một slot giữ cùng attempt/body và tối đa ba HTTP, kể cả qua restart."""
 
     def __init__(self, directory: Path, run_id: str, quota: Quota, sender: Any,
-                 guard: Callable[[], None], *, clock=time.time, hook=lambda _: None) -> None:
+                 guard: Callable[[], None], *, clock=time.time, hook=lambda _: None,
+                 total_prompt_guard: bool = False) -> None:
         self.directory, self.run_id, self.quota, self.sender = directory, run_id, quota, sender
         self.guard, self.clock, self.hook = guard, clock, hook
+        self.total_prompt_guard = total_prompt_guard
 
     def _rows(self, slot: str) -> tuple[Path, list[dict]]:
         """Không nhận đường dẫn tùy ý; một file envelope riêng cho mỗi slot."""
@@ -131,8 +133,10 @@ class Calls:
         actual = deepcopy(body)
         if repair:
             actual["messages"][0]["content"] += REPAIR
-        if "response_format" in actual and len(actual["messages"][0]["content"]) >= 6500:
-            raise Failed("PROMPT_BUDGET_EXCEEDED")
+        if "response_format" in actual:
+            messages = actual["messages"] if self.total_prompt_guard else actual["messages"][:1]
+            if sum(len(message["content"]) for message in messages) >= 6500:
+                raise Failed("PROMPT_BUDGET_EXCEEDED")
         identifier = str(uuid4())
         tokens = request_budget(actual)
         self.quota.reserve(identifier, self.run_id, tokens)

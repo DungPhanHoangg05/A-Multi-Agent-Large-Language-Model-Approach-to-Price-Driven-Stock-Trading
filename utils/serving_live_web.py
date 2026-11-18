@@ -7,6 +7,7 @@ from flask import Blueprint, Response, current_app, request
 from werkzeug.exceptions import BadRequest, UnsupportedMediaType
 
 from core.serving_contracts import ContractError
+from core.finalize_serving_profile import VERSION as FINALIZED
 from core.serving_live.service import LiveRequest, LiveService
 from core.serving_live.errors import CaptureError
 from utils.serving_web import ROOT, key_snapshot, mutation_allowed, owner, respond
@@ -35,10 +36,19 @@ def capture() -> Response:
     if not mutation_allowed(): return respond({'error':'Cần JSON cùng origin'},status=400)
     try:
         body = request.get_json()
-        if type(body) is not dict or set(body) not in ({'symbol'},{'symbol','timeframe'}): raise ValueError('Body snapshot không hợp lệ')
+        if type(body) is not dict or set(body) not in ({'symbol'},{'symbol','timeframe'},{'symbol','profile'}):
+            raise ValueError('Body snapshot không hợp lệ')
         scope,cookie = owner(True)
-        data = (service().snapshots.capture_timeframe(body['symbol'],body['timeframe'],scope)
-                if 'timeframe' in body else service().snapshots.capture(body['symbol'],scope))
+        backend = service()
+        if 'profile' in body:
+            if body['profile'] != FINALIZED:
+                raise ValueError('Profile capture không hợp lệ')
+            from core.finalize_live_capture import capture as capture_finalized
+            data = capture_finalized(backend.root, backend.snapshots, body['symbol'], scope)
+        elif 'timeframe' in body:
+            data = backend.snapshots.capture_timeframe(body['symbol'], body['timeframe'], scope)
+        else:
+            data = backend.snapshots.capture(body['symbol'], scope)
         return respond(data,cookie)
     except CaptureError as error:
         current_app.logger.warning('Capture thất bại: code=%s; giai đoạn=%s',error.code,error.stage)

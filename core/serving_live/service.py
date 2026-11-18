@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from core.serving_contracts import ServingRequest
+from core.finalize_serving_profile import LIVE_CAPTURE, VERSION as FINALIZED
 from core.serving_runtime.resources import Resources
 from core.serving_runtime.service import Service
 from core.serving_live.snapshots import Snapshots, VERSION
@@ -32,7 +33,7 @@ class LiveRequest:
             raise ValueError('Live hỗ trợ phân tích/so sánh 1d')
         extra = {}
         if realtime:
-            if value['chart_timeframe'] not in TIMEFRAMES or request['mode'] != 'analyze':
+            if value['chart_timeframe'] not in TIMEFRAMES or request['mode'] != 'analyze' or request['version'] == FINALIZED:
                 raise ValueError('Khung realtime không hợp lệ hoặc không phải phân tích một bản')
             extra['chart_timeframe'] = value['chart_timeframe']
         return cls(json_bytes({**request,'snapshot_id':value['snapshot_id'],'data_source':'live',**extra}))
@@ -103,10 +104,17 @@ class LiveService(Service):
         super().__init__(root, state_root=state_root or root/'outputs/serving_live', **kwargs)
         self.snapshots = snapshots or Snapshots(self.store.root/'snapshots')
 
-    def resources(self, request: dict | None = None) -> LiveResources:
+    def resources(self, request: dict | None = None) -> Any:
         """Snapshot ID bắt buộc; không đọc globals về mã/ngày đang được chọn trên UI."""
         if request is None: raise ValueError('Thiếu request live')
-        return LiveResources(self.root, self.snapshots, request['snapshot_id'])
+        identifier = request['snapshot_id']
+        record = self.snapshots.read(identifier)
+        if request['version'] == FINALIZED:
+            from core.finalize_serving_resources import FinalizedResources
+            return FinalizedResources(self.root, record, identifier)
+        if record['version'] == LIVE_CAPTURE:
+            raise ValueError('Capture finalized thuộc profile khác')
+        return LiveResources(self.root, self.snapshots, identifier)
 
     def create(self, spec: LiveRequest, key: str, owner: str, *, background: bool = True) -> str:
         """Chặn dùng snapshot của owner khác kể cả gọi Service trực tiếp ngoài Flask."""
@@ -118,6 +126,11 @@ class LiveService(Service):
         from core.serving_live.provider import LiveProvider
         request = reservation['job']['identity']['request']
         record = self.snapshots.read(request['snapshot_id'], reservation['job']['owner_scope_sha256'])
+        if request['version'] == FINALIZED:
+            from core.finalize_serving_provider import FinalizedProvider
+            from core.finalize_serving_resources import FinalizedResources
+            resources = FinalizedResources(self.root, record, request['snapshot_id'])
+            return FinalizedProvider(resources, reservation['points'], request['models'], request['variant_ids'])
         if 'chart_timeframe' in record:
             from core.serving_live.timeframe_provider import TimeframeProvider
             return TimeframeProvider(self.root,reservation['points'],request['models'],request['variant_ids'],record)
