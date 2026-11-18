@@ -9,3 +9,4 @@ audit_finalize_prices.py text eol=lf
 check_finalize_price_acceptance.py text eol=lf
 prepare_finalize_news.py text eol=lf
 prepare_finalize_bank.py text eol=lf
+rebuild_finalize_bank_signals.py text eol=lf

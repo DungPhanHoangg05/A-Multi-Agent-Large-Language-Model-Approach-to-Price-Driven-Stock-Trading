@@ -109,9 +109,10 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   query. Đạt khi membership/labels/resources được tái dựng và query outcome
   không tác động preparation. Phụ thuộc FIN03–FIN05; nhu cầu API chuẩn bị
   lịch sử được ghi trong FIN09.
-  **Đang làm:** chín selector, 852 nhãn bank, index/scaler/HMM và 102 đầu vào
-  đã đối soát. Còn 852 episode thiếu nhật ký request/response đủ để xác minh
-  hoặc tái tạo tín hiệu theo recipe causal. Chưa cấp bank cho retrieval.
+  **Đang làm:** tài nguyên số và 852 checkpoint tín hiệu offline đã có.
+  Indicator/regime đủ 852, Alpha đủ 733, 119 Alpha và 852 sentiment giữ NA
+  theo nguồn tại từng cutoff. Pattern/Trend còn chờ thu phản hồi thật theo
+  FIN09. Chưa cấp bank cho retrieval.
 - [ ] **FIN07 — Kiểm MT-BICL và toàn đường ngữ cảnh.** Kiểm context prior/target,
   fold freeze, reserved IDs, student/teacher, facts, support và thỏa dụng;
   giữ riêng p_student và teacher utility. Kiểm v1/C2/A/B dùng đúng nguồn,
@@ -739,6 +740,59 @@ regime từ model fit đúng prefix. Selector và HMM phục vụ query được
 một số ngày bank nên chưa thể dùng để suy lùi tín hiệu. FIN09 đã có số đếm
 852 episode cần giải quyết để lập batch và ngân sách. Số này chưa phải số
 HTTP call. Cần khóa và kiểm producer lịch sử trước khi lấy tín hiệu mới.
+
+#### FIN06 — Tạo lại tín hiệu bank theo từng cutoff
+
+Đã tìm bản sao lưu `historical_memory_852_20261004.zip` được ghi ở Phase C
+trong các bản sao cục bộ, Git, 237 gói ZIP và Thùng rác Windows. Chỉ còn bốn
+snapshot tin gốc có hash khớp. Chưa xác minh được OneDrive trên web vì công
+cụ điều khiển trình duyệt dừng khi không xác định được URL. Chuyển sang tạo
+lại theo yêu cầu tác giả, bằng version `finalize_bank_signal_rebuild_v2`.
+[Hồ sơ sao lưu Phase C](week2/phase_c_memory_generation.md#sao-lưu-và-bảo-toàn-bằng-chứng).
+
+Recipe khóa đầu vào và candidate model trước khi chạy. Mỗi checkpoint trích
+OHLCV từ giá thô FIN04, cắt tại ngày quyết định. Cửa sổ Indicator và hai
+ảnh thị giác dùng 45 nến. Hash lưu riêng cho prefix, cửa sổ và snapshot tin
+FIN05. State producer chỉ nhận metadata episode và prefix. Không chuyển
+`r_net` hoặc `y` sang bước tạo tín hiệu. HMM/scaler lịch sử dùng chính công
+thức fit theo prefix của runner gốc tại 217 ngày và lưu đủ tham số, source
+hash, fit cutoff. Model query cuối năm 2022 chỉ dùng ở đường query đã khóa.
+
+| Hạng mục | Kết quả tái dựng |
+| --- | --- |
+| Indicator | 852/852 báo cáo và tín hiệu từ node Python của backtest. |
+| Regime | 852/852 episode, 217 HMM prefix. Đối soát đúng ngày fit và hash của mỗi model đã lưu. |
+| Alpha | 733/852 có đủ năm factor. Bốn selector lịch sử giữ công thức và min support của U06, tính nhãn train/validation bằng oracle giá thô và loại quyền/không khớp trước oracle. Chọn ranh sớm nhất đủ chu kỳ theo lịch U06 kể từ index 686 và bước 3. Mỗi mã giữ selector đó cho các episode sau. 119 episode sớm hơn giữ `BEFORE_HISTORICAL_SELECTOR_SUPPORT`. |
+| Tin | 852/852 NA theo FIN05. Chuỗi điểm số cũ không được dùng để điền `NEUTRAL` vào bank mới. |
+| Pattern và Trend | Bắt 8 request thật qua renderer và SDK serialization của node. Mỗi mã một chu kỳ có Alpha và mỗi chu kỳ hai node, transport dừng trước HTTP. Tổng 1.704 slot thị giác danh nghĩa nếu giữ đủ 852 episode, chưa gồm retry. Chưa có phản hồi hoặc request body đã khóa cho tất cả slot. |
+
+Lượt đầu tính Alpha riêng từng prefix. Lượt v2 giữ checkpoint của các HMM
+đã fit, kiểm lại hash train, và tính 85 toán tử prefix-causal theo lô trên
+miền bank đã chốt. Test đối chiếu vector tại cutoff với phép tính trực
+tiếp trên prefix kể cả khi giá tương lai bị nhân rất lớn. Chỉ chọn factor
+của đúng hàng cutoff; chưa đủ lịch ở ngày nào vẫn giữ NA ngày đó. CLI
+`py -3.13 -X utf8 scripts/rebuild_finalize_bank_signals.py --lock-recipe`
+khóa recipe, chạy lại không flag để dựng hoặc đối soát checkpoint trong
+`tmp/fin06_signal_rebuild_v2/`.
+
+**16 test PASS** và compile ba file Python mới PASS. Hồi quy gồm prefix
+Alpha, request thị giác, maturity, quyền/volume và HMM. Lượt chạy trực tiếp
+suite cũ vấp checksum ở fixture `data/execution_prices`; lượt kiểm lại trỏ
+riêng fixture vào bản compatibility nguyên byte của FIN04. Hai log được
+giữ trong gói. Lệnh chạy lại producer đã đối soát và giữ nguyên report.
+Verifier process độc lập đã kiểm hash 852 checkpoint, bốn selector và
+217 artifact regime. Gói 1.081 member, 3.901.156 byte, SHA256
+`612bcb8b22d0627cb0f82adf64758d96b9e1123777154d9e1a4c74d75e9a61aa`.
+[Checkpoint tín hiệu tái dựng](week12/finalize_bank_signal_rebuild_v2.zip).
+
+**Điều kiện còn chặn FIN06.** Khóa cách retrieval xử lý 119 Alpha NA và
+sentiment NA theo FIN05 trước khi công bố bank mới. Schema tín hiệu legacy
+đòi enum nên không dùng trực tiếp cho bank này. FIN09 còn phải khóa request,
+quota và ngân sách cho phần Pattern/Trend được chọn. Trang nhà cung cấp
+liệt kê model thị giác `qwen/qwen3.8-27b` và 2.048 input token mỗi ảnh,
+chưa kiểm quyền model/quota của tài khoản. 0 hosted API, 0 query outcome.
+Chưa cấp bank hoặc merge trong lượt này.
+[Hướng dẫn vision Groq](https://console.groq.com/docs/vision).
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
