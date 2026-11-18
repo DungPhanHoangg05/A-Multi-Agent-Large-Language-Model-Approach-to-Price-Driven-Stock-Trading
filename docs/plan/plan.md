@@ -35,6 +35,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN08 | `PASS_OFFLINE_FIN08`. CLI, as-of, backtest và live nhận profile mới chọn tường minh. Kiểm 522 cặp mã–phiên as-of và replay raw capture đối chứng. Hosted chờ FIN10, default chuyển sau FIN13–FIN14. |
 | FIN09 | `PASS_OFFLINE_FIN09_BUDGET`. Đối chiếu 2.662 slot với 1.702 attempt U08. Có 10 vision reuse, 1.165 bypass và 1.487 lượt mới kể cả smoke. Dự toán một org Free lấy Decision làm giới hạn. Số dư tài khoản chờ xác nhận trước khi thu. |
 | FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. Hosted tiếp tục chờ quota và quyền thực thi FIN11. |
+| FIN11 | Đang thu một org Free. Smoke đạt 8 slot với 6 HTTP 200 và 12.952 token. Phase nghiên cứu đã bắt đầu, thu lần lượt theo quota. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -232,6 +233,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   complete cho miền đã khóa, mọi attempt được đối soát; thiếu/lỗi giữ nguyên
   trạng thái để xử lý. Phụ thuộc FIN10 và phạm vi thực thi/ngân sách có hiệu
   lực. Task có thể hoàn thành bằng audit 0 call nếu toàn bộ response còn hợp lệ.
+  Theo dõi [trạng thái thu FIN11](#fin11--thu-phản-hồi-trên-một-org-free).
 - [ ] **FIN12 — Đánh giá lại bản sửa.** Tính nhãn, tài khoản và metrics bằng
   engine/evaluator đã kiểm; giữ đủ support, raw/final, bypass, NA và kết quả
   âm. So với hai baseline đúng profile, báo epoch và nguồn các phản hồi reuse.
@@ -1182,6 +1184,34 @@ cung cấp vẫn chưa có. Có 0 lượt gọi Groq thật và 0 outcome thị 
 FIN11 cần xác nhận hạn mức Free, số dư thực và giữ carry của một org xuyên
 smoke/research trước khi cấp quyền thu. Receipt FIN10 giữ
 `execution_permitted=false`.
+
+#### FIN11 — Thu phản hồi trên một org Free
+
+Chủ tài khoản xác nhận hạn mức 200.000 token/ngày cho hai model. FIN11 dùng
+org 1 đã kiểm metadata ở FIN09, ngân sách 0 USD. Chính sách Groq áp hạn mức
+theo tổ chức và cấm điều phối nhiều tổ chức để vượt hạn mức.
+[Giới hạn Groq](https://console.groq.com/docs/rate-limits).
+[Chính sách Groq](https://console.groq.com/docs/legal/ai-policy).
+
+Runner `scripts/finalize_hosted_study.py` kiểm lại FIN10 và ledger FIN09 trước
+khi tạo grant. Hai phase dùng cùng hai sổ quota theo model nên usage smoke
+được tính vào lượt nghiên cứu. Smoke có identity riêng và phải đủ tám slot
+trước khi mở phase nghiên cứu. Runner giữ request/UUID và cap ba attempt,
+tái dùng raw U08 đủ proof, ghi checkpoint mỗi point và giữ outcome thị trường
+đóng cho FIN12. Biên dịch hai file mới và đạt bốn test theo phạm vi, gồm smoke tại đường dựng request
+thật với mock transport, replay, carry qua hai phase và chặn giảm quota.
+
+Chủ org 1 xác nhận chỉ dùng một phần nhỏ quota và còn đủ để bắt đầu. Grant
+ghi xác nhận của chủ org, ngân sách 0 USD và carry 24 giờ tính từ ledger cục
+bộ. Số dư chính xác trên Console chưa có. Worker đối chiếu header provider
+và chờ theo quota khi cần. Lệnh `py -3.13 -X utf8 scripts/finalize_hosted_study.py
+status` đọc tiến độ tại kho cục bộ `outputs/finalize/fin11_v1/`.
+
+Smoke `BHN-2025-10-01` đã chốt đủ 8 forecast slot, 6 HTTP 200 và 12.952 token
+đo được. Cold replay đối soát raw và checkpoint trước khi mở `RESEARCH`.
+Phase nghiên cứu đã nhận phản hồi đầu tiên ở `CMG-2023-07-03`. Worker tự
+chờ cửa sổ quota và tiếp tục từ journal. Mốc hoàn tất FIN11 cần đủ 102 điểm
+nghiên cứu và đối soát mọi attempt. Chưa mở outcome thị trường.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
