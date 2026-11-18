@@ -7,8 +7,10 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
-**Trạng thái hiện tại — FIN00–FIN03 hoàn tất; FIN04 đã có auditor và đối soát
-offline, gate nguồn còn chặn; FIN05–FIN17 chưa thực hiện.**
+**Trạng thái hiện tại — FIN00–FIN03 hoàn tất; FIN04 hoàn tất theo xác nhận
+chủ dữ liệu (`PASS_OWNER_ATTESTED`); FIN05 đang thực hiện, FIN06–FIN17 chưa
+thực hiện.** Chứng nhận PIT nguồn giá độc lập vẫn chưa có; amendment FIN04
+bên dưới là cơ sở chấp nhận nguồn cho phần tiếp theo.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -81,15 +83,16 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   orientation train, lựa chọn validation và đóng băng trước test. Đạt khi
   prefix extension/future poisoning không viết lại quá khứ, giá test không
   tác động fit và caller nhận đúng profile. Phụ thuộc FIN02, chưa cần hosted API.
-- [ ] **FIN04 — Hoàn thiện nguồn giá, lịch và sự kiện doanh nghiệp.** Đối soát
+- [x] **FIN04 — Hoàn thiện nguồn giá, lịch và sự kiện doanh nghiệp.** Đối soát
   giá bank/query, đơn vị, lịch phiên, thời điểm khả dụng và điều chỉnh sự kiện.
   Khôi phục snapshot hoặc tạo nguồn thay thế có định danh/lưu vết khi cần;
   ghi rõ phần thay đổi dataset và tác động đến nhãn/đặc trưng. Đạt khi các
   nguồn trong miền nghiệm thu được validator và oracle chấp nhận, còn các
   giới hạn vendor được mô tả chính xác. Phụ thuộc FIN02.
-  **Đang làm:** audit chín mã/102 điểm và oracle bank đã có; chưa đủ chứng cứ
-  availability/as-published, lịch độc lập và sự kiện để mở source gate. Năm
-  chu kỳ có ngày quyền theo metadata vendor; giữ nguyên cohort, chưa đóng FIN04.
+  **PASS_OWNER_ATTESTED:** tác giả xác nhận giá chính xác và yêu cầu đóng FIN04.
+  Acceptance có version/nguồn/recipe; giữ 102 forecast planned và năm nhãn kinh tế
+  unavailable do quyền. Chưa chứng nhận PIT nguồn độc lập; raw thay donor cần
+  tái tạo tài nguyên chịu ảnh hưởng tại FIN06 trước query mới.
 - [ ] **FIN05 — Hoàn thiện PIT tin tức.** Đối soát nội dung, nguồn, thời gian
   xuất bản/khả dụng/thu thập, scorer và aggregation. Thu bổ sung hoặc khóa
   nguồn phục vụ bản mới khi thiếu bằng chứng; giữ unavailable có lý do theo
@@ -551,6 +554,63 @@ là kết quả cũ được viện dẫn, không là lượt chạy mới. Thu 
 khác với API giá/LLM: **0 market quote API, 0 LLM, 0 fit/training và không tính
 query outcome**. Chưa có chứng cứ giá as-published/availability, lịch và ledger
 đầy đủ; FIN04 tiếp tục mở trên nhánh riêng, không nới gate để nhận PASS.
+
+#### FIN04 — Amendment xác nhận của chủ dữ liệu, nghiệm thu có phạm vi
+
+Chỉ đạo tiếp theo của tác giả ngày 18/11/2026: **“Xác nhận chắc chắn đó là giá
+chính xác. Hãy pass FIN04 và tiếp tục FIN05”**. Theo chỉ đạo này, FIN04 đạt
+**`PASS_OWNER_ATTESTED`** cho preparation bản sửa, với profile
+`finalize_raw_prices_owner_attested_v1`. Cơ sở là xác nhận của chủ dữ liệu cùng
+audit số học/nguồn đã có; **không phải chứng nhận as-published/availability độc
+lập**. Các ghi nhận BLOCKED phía trên là kết quả trước amendment và report/QA
+frozen tiếp tục giữ nguyên byte. Đây là thay đổi điều kiện chấp nhận nguồn
+trước query output mới; không đổi nhãn/kết luận của study lịch sử.
+
+[Acceptance máy đọc](week12/finalize_price_acceptance_v1.json) nối FIN02,
+audit, QA và nguồn chính thức bằng hash; giữ nguyên lời xác nhận và 110 binding
+input. Khóa chọn H02 **raw OHLCV** theo origin của từng mã đã đối soát; dùng
+giá bank tại compatibility đã verify và lịch VNINDEX quan sát. Không lấy
+adjusted donor để ép parity, không ghi đè dataset cũ hoặc tạo timestamp
+availability từ ngày nến. Lịch nghỉ HOSE và năm thông báo VSDC được viện dẫn
+trong gói bổ sung; các giới hạn về toàn lịch 2018–2026, ngừng giao dịch đột
+xuất, độ đầy đủ/nội dung lịch sử của ledger vẫn được công bố trong recipe.
+
+Giữ **102 forecast planned**, không đổi universe, repeat, upstream hoặc ngày
+query. Năm chu kỳ quyền đã liệt kê giữ **economic label NA** với lý do
+`KNOWN_CORPORATE_ACTION_DURING_HOLDING`, dùng chung cho mọi method/baseline.
+Không cộng quyền, đổi horizon, phí hoặc oracle để làm chúng hợp lệ. 97 point
+còn lại mới qua sàng lọc quyền đã biết; validator thực thi vẫn kiểm quyền,
+Reference và khối lượng trước nhãn ở FIN12. Không coi số 97 là kết quả đánh
+giá đã hoàn tất. FIN06 tái tạo selector/đặc trưng/context/tài nguyên bị ảnh
+hưởng bởi raw source; FIN09 đối chiếu lại request/reuse, FIN10 pin bản thực
+trước query. Chưa chạy preparation/refit hoặc tính query outcome tại FIN04.
+
+[Validator acceptance](../../core/finalize_price_acceptance.py) tái dựng audit
+và đối soát toàn bộ record; profile phải được caller khai báo rõ, record tự sửa
+và ký lại checksum vẫn bị từ chối. [CLI mới](../../scripts/check_finalize_price_acceptance.py)
+kiểm offline trả `PASS_OWNER_ATTESTED`, đồng thời giữ
+`independent_price_pit_certified=false`. CLI/gate độc lập cũ vẫn phản ánh báo
+cáo frozen bị chặn, không được đổi thành PASS độc lập từ lời xác nhận này.
+FIN13 và tài liệu bản cuối phải trình bày riêng tính nhân quả đã kiểm bằng
+phần mềm với giả định nguồn do tác giả chấp nhận; không tuyên bố toàn pipeline
+PIT nguồn đã được xác minh bên ngoài. Xác nhận giá không áp dụng sang tin tức.
+
+**16 test PASS, compile 3 Python PASS:** bốn test acceptance mới và 12 test
+auditor/leakage giá. Bao phủ nguồn thực chín mã/102 điểm/852 nhãn bank, record
+tự sửa, source drift, profile sai, không mở nhầm gate độc lập, năm cờ quyền và
+prefix/availability/future poison đã có. Chỉ compile module, CLI và test mới;
+không chạy full suite/E2E hoặc fit/model/API. Kinh tế, paired, retry và code
+Alpha/serving cũ giữ nguyên. Ba `.gitattributes` chỉ thêm quy tắc LF cho file mới;
+receipt cũ tiếp tục chứng nhận source snapshot cũ, không dùng receipt đó để
+nhận các file thuộc tính vừa đổi đã được kiểm lại.
+
+[QA acceptance FIN04](week12/finalize_price_acceptance_checks.zip): **44.412
+byte**, SHA256 `c949156bf34f654982a51b52a2d8ce44ab7ca250e29b0701981ef0d11e0bd298`.
+Gồm 14 member: source/log/manifest/verifier. Verifier mới `py -3.13 -I` PASS
+nguồn/parent/110 input, Python 3.13.5/107 package; không chạy lại test khi đối
+soát. **0 hosted/market API, 0 training, 0 query outcome**. FIN04 hoàn tất theo
+phạm vi amendment này; FIN05 áp dụng policy tin của FIN02, không nhận sự xác
+nhận về giá làm chứng cứ nội dung tin.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
