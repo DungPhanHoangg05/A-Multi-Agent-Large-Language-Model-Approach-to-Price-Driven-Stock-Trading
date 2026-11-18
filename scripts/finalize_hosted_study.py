@@ -23,24 +23,25 @@ from core.historical_evaluation_journal import load, save
 from core.prior_run_lock import PriorRunLock, utc_now
 from core.serving_runtime.quota import Failed, Quota, Stopped, Unknown, Waiting
 from core.serving_runtime.resources import default_models
-from core.serving_runtime.transport import GroqHTTP
 from core.unified_contracts import digest, json_bytes
 from core.unified_execution_transport import MockHTTP
 from core.unified_preflight_assets import write_new
 from core.unified_protocol import binding, git_blob, read
 from scripts.finalize_hosted_point_reset import archived_resets
 from scripts.finalize_hosted_quota import DailyQuota, HostedWire, quota_for
+from scripts.finalize_hosted_response import HostedHTTP
 from scripts.finalize_offline_acceptance import RECEIPT, freeze, verify_record
 from scripts.prepare_finalize_api_budget import study
 
 RUN = ROOT/"outputs"/"finalize"/"fin11_v1"
-VERSION = "finalize_hosted_study_v3"
+VERSION = "finalize_hosted_study_v4"
 SOURCE = "scripts/finalize_hosted_study.py"
 TRANSPORT = "core/serving_runtime/transport.py"
 QUOTA_SOURCE = "scripts/finalize_hosted_quota.py"
 RESET_SOURCE = "scripts/finalize_hosted_point_reset.py"
+RESPONSE_SOURCE = "scripts/finalize_hosted_response.py"
 PREVIOUS = "ef030417"
-RELEASE_V2_COMMIT = "c0721b02"
+HISTORICAL_RELEASE = {1: PREVIOUS, 2: "c0721b02", 3: "27e97ed0"}
 ORG_SLOTS = range(1, 6)
 PHASES = ("SMOKE", "RESEARCH")
 
@@ -68,7 +69,7 @@ def verify_balance(evidence: dict, now: float) -> float:
 class HostedCalls(PlannedCalls):
     """Giữ chuẩn body và U08 reuse FIN10, cấp quota theo org qua các phase."""
 
-    def __init__(self, runner: Any, plans: dict, archive: Archive, sender: GroqHTTP | MockHTTP, clock: Any) -> None:
+    def __init__(self, runner: Any, plans: dict, archive: Archive, sender: HostedHTTP | MockHTTP, clock: Any) -> None:
         self.plans, self.archive = plans, archive
         @cache
         def ledger(model: str, slot: int):
@@ -92,7 +93,7 @@ class HostedStudyRunner(OfflineStudyRunner):
     """Dùng lại đường graph/DAG được kiểm FIN10, với policy admission hosted riêng."""
 
     def __init__(self, run_root: Path, grant: dict, budget: dict, points: list[dict], phase: str,
-                 provider: StudyProvider, archive: Archive, sender: GroqHTTP | MockHTTP, clock=time.time,
+                 provider: StudyProvider, archive: Archive, sender: HostedHTTP | MockHTTP, clock=time.time,
                  *, org_slot: int = ORG) -> None:
         if (phase not in PHASES or len(points) != 102 or org_slot not in ORG_SLOTS
                 or grant["org_slot"] != ORG or grant["budget_sha256"] != digest(budget)):
@@ -185,6 +186,10 @@ class HostedStudyRunner(OfflineStudyRunner):
                                                  "tokens_measured": row["tokens_measured"],
                                                  "unknown_reserve_tokens": row["unknown_reserve_tokens"]} for row in self.resets]
             proof["hosted_attempts_including_archives"] = sum(attempt_counts.values())
+        lost_rows = [row for _, row in rows if row["status"] == "RESPONSE_LOST"]
+        if lost_rows:
+            proof["lost_response_attempts"] = len(lost_rows)
+            proof["lost_response_reserve_tokens"] = sum(row["reserved_tokens"] for row in lost_rows)
         path = self.directory/"receipt.json"
         if path.exists() and load(path) != proof:
             raise ValueError("Receipt phase đã chốt khác raw")
@@ -205,7 +210,7 @@ def check_release() -> tuple[dict, Any]:
     return {"version": VERSION, "org_slot": ORG, "spend_limit_usd": 0, "budget_sha256": digest(budget),
             "fin10": binding(ROOT, RECEIPT), "runner": binding(ROOT, SOURCE),
             "transport": binding(ROOT, TRANSPORT), "quota_runner": binding(ROOT, QUOTA_SOURCE),
-            "point_reset": binding(ROOT, RESET_SOURCE)}, (budget, resources)
+            "point_reset": binding(ROOT, RESET_SOURCE), "response_capture": binding(ROOT, RESPONSE_SOURCE)}, (budget, resources)
 
 
 def historical_release(release: dict, version: int) -> dict:
@@ -213,25 +218,30 @@ def historical_release(release: dict, version: int) -> dict:
     legacy = {key: release[key] for key in ("org_slot", "spend_limit_usd", "budget_sha256", "fin10")}
     legacy["version"] = f"finalize_hosted_study_v{version}"
     sources = {"runner": SOURCE} if version == 1 else {"runner": SOURCE, "transport": TRANSPORT, "quota_runner": QUOTA_SOURCE}
+    if version >= 3:
+        sources["point_reset"] = RESET_SOURCE
     for field, path in sources.items():
-        raw = git_blob(ROOT, PREVIOUS if version == 1 else RELEASE_V2_COMMIT, path)
+        raw = git_blob(ROOT, HISTORICAL_RELEASE[version], path)
         legacy[field] = {"path": path, "bytes": len(raw), "sha256": sha256(raw).hexdigest()}
     return legacy
 
 
 def release_for_grant(grant: dict, release: dict) -> dict:
     """Giữ digest grant gốc của journal; chỉ nhận đúng các bản đã khóa."""
-    candidates = (release, historical_release(release, 1), historical_release(release, 2))
+    candidates = (release, *(historical_release(release, version) for version in HISTORICAL_RELEASE))
     if not any(all(grant.get(key) == value for key, value in version.items()) for version in candidates):
         raise ValueError("Mã nguồn hoặc ngân sách không khớp grant FIN11")
     return {"release": release, "grant_sha256": digest(grant), "operation": "MANUAL_ORG_DAILY_EXIT"}
 
 
 def verify_operation(root: Path, release: dict, operation: dict) -> None:
-    """Đối chiếu khóa vận hành v2/v3 và giữ hai manifest riêng."""
-    for name, expected in (("release_v3.json", operation), ("release_v2.json", {**operation, "release": historical_release(release, 2)})):
-        path = root/name
-        if path.is_file() and load(path) != expected:
+    """Đối chiếu các khóa vận hành theo đúng phiên bản đã ghi."""
+    for version in (2, 3, 4):
+        path = root/f"release_v{version}.json"
+        if not path.is_file():
+            continue
+        expected = operation if version == 4 else {**operation, "release": historical_release(release, version)}
+        if load(path) != expected:
             raise ValueError("Release vận hành khác khóa FIN11")
 
 
@@ -311,7 +321,7 @@ def run(*, resume_stopped: bool = False, org_slot: int = ORG) -> dict:
     with PriorRunLock(RUN/"worker", digest(grant)):
         verify_operation(RUN, release, operation)
         archived_resets(RUN, grant)
-        write_new(RUN/"release_v3.json", json_bytes({"payload": operation, "sha256": digest(operation)}))
+        write_new(RUN/"release_v4.json", json_bytes({"payload": operation, "sha256": digest(operation)}))
         key = credential(org_slot)
         scope = Quota(RUN/"credential.sqlite3").credential_scope(key)
         archive = Archive(ROOT)
@@ -320,7 +330,7 @@ def run(*, resume_stopped: bool = False, org_slot: int = ORG) -> dict:
             (RUN/"stop.request").unlink(missing_ok=True)
         points, variants, _, _ = study(ROOT)
         provider = StudyProvider(resources, points, default_models(), variants)
-        sender = GroqHTTP(key)
+        sender = HostedHTTP(key)
 
         def wait(phase: str, point: str, until: float) -> None:
             status("WAITING_QUOTA", phase=phase, point=point, org_slot=org_slot,

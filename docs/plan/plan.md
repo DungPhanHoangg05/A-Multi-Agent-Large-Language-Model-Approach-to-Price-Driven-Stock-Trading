@@ -1256,6 +1256,20 @@ cùng sổ quota giữ nguyên byte. Trạng thái là `POINT_READY_TO_REPLAY`, 
 CMG đã hoàn tất. Biên dịch sáu file Python thay đổi và đạt 14 test trong
 hai nhóm runner và đối soát. Lượt thao tác này có 0 gọi Groq.
 
+Khi chuyển sang org 2, lượt `MT_BICL` ở repeat đầu của `VJC-2023-07-03`
+được tác giả xác nhận HTTP 200 nhưng thiếu raw. Đã ghi `RESPONSE_LOST` cho
+đúng UUID, giữ 3.712 token reserve và 95 phản hồi đã nhận. Trạng thái là
+`SLOT_READY_TO_REPLAY`. `resume --org 2` tiếp tục tại slot này. Bản sao
+checkpoint đã hoàn tất 24 slot của VJC với 9 lượt mock.
+
+Transport FIN11 ghi HTTP status trước khi đọc body và lưu bản sao body
+trước khi ghi wire chính. Khi tiếp tục, ưu tiên raw đã lưu, kể cả khi đổi
+org. Nếu HTTP 200 đã được ghi mà body bị mất, runner chỉ thử lại đúng slot
+trong cap ba attempt và giữ reserve cũ. Nếu chưa có bằng chứng HTTP durable,
+slot vẫn chờ đối soát. Biên dịch các file Python thay đổi, đạt 18 test FIN11
+và 26 test serving runtime sau khi nguồn ổn định. Đối soát offline lần này
+có 0 gọi Groq.
+
 Smoke `BHN-2025-10-01` đã chốt đủ 8 forecast slot, 6 HTTP 200 và 12.952 token
 đo được. Cold replay đối soát raw và checkpoint trước khi mở `RESEARCH`.
 Phase nghiên cứu đã nhận phản hồi đầu tiên ở `CMG-2023-07-03`. Mốc hoàn tất

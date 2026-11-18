@@ -14,6 +14,7 @@ from core.groq_pacing import MODEL_LIMITS, reset_seconds
 from core.serving_runtime.quota import Failed, Quota, Waiting
 from core.serving_runtime.transport import Calls, retry_until
 from core.unified_contracts import digest
+from scripts.finalize_hosted_response import HostedHTTP, capture_path, recover_response
 
 
 class DailyQuota(Waiting):
@@ -137,6 +138,21 @@ class HostedWire(Calls):
 
     def account(self, row: dict) -> HostedQuota:
         return self.quota_at(row.get("org_slot", ORG))
+
+    def dispatch(self, row: dict, body: dict) -> tuple[int, bytes, dict]:
+        if isinstance(self.sender, HostedHTTP):
+            return self.sender.send_durable(self.directory, row, body, self.clock)
+        return super().dispatch(row, body)
+
+    def recover_response(self, row: dict) -> dict | None:
+        return recover_response(self.directory, row)
+
+    def response_committed(self, row: dict) -> None:
+        try:
+            capture_path(self.directory, row).unlink(missing_ok=True)
+        except OSError:
+            # Wire chính đã lưu xong; nếu file tạm bị khóa thì vẫn giữ được raw.
+            pass
 
     def attempt_metadata(self) -> dict:
         return {"org_slot": self.org_slot}

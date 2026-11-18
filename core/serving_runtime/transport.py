@@ -17,6 +17,24 @@ from core.unified_execution_transport import parsed, REPAIR
 from core.serving_runtime.quota import Quota, Waiting, Unknown, Failed
 
 
+def response_headers(headers: dict) -> dict:
+    """Giữ các header quota đủ để đối soát và tính retry."""
+    return {str(k).lower(): str(v) for k, v in headers.items()
+            if str(k).lower().startswith("x-ratelimit-") or str(k).lower() == "retry-after"}
+
+
+def response_record(row: dict, status: int, raw: bytes, headers: dict, completed: float) -> dict:
+    """Chuẩn hóa raw theo cùng ABI khi nhận trực tiếp hoặc phục hồi từ bản lưu."""
+    response = raw.decode("utf-8", errors="replace")
+    try:
+        usage = json.loads(response).get("usage", {}).get("total_tokens")
+    except (ValueError, AttributeError):
+        usage = None
+    invalid = usage is not None and (type(usage) is not int or usage < 0)
+    return {**row, "status": int(status), "response": response, "completed_at": completed,
+            "headers": response_headers(headers), "usage_invalid": invalid, "usage": None if invalid else usage}
+
+
 def retry_until(row: dict, ordinal: int) -> float:
     """Backoff và retry-after kể cả HTTP-date; không cắt thời hạn Groq yêu cầu chờ dài."""
     from core.groq_pacing import reset_seconds
@@ -92,6 +110,17 @@ class Calls:
         """Thông tin bổ sung được lưu cùng intent trước khi gửi."""
         return {}
 
+    def dispatch(self, row: dict, body: dict) -> tuple[int, bytes, dict]:
+        """Gửi qua client đã chọn cho attempt."""
+        return self.sender.send(body)
+
+    def recover_response(self, row: dict) -> dict | None:
+        """Chỉ transport có bản sao HTTP durable mới phục hồi được response."""
+        return None
+
+    def response_committed(self, row: dict) -> None:
+        """Báo cho transport rằng wire chính đã giữ raw."""
+
     def wait_for_retry(self, row: dict, ordinal: int, account: Quota, *, last: bool) -> None:
         """Ghi thời hạn retry trước khi trả quyền điều phối cho worker."""
         until = retry_until(row, ordinal)
@@ -101,7 +130,7 @@ class Calls:
 
     def call(self, slot: str, body: dict, attempt: str) -> tuple[Any, dict]:
         """Replay raw đã fsync; ngoại lệ BaseException thoát agent, không suy báo cáo/CASH."""
-        from core.groq_pacing import request_budget
+        from core.groq_pacing import PilotStop, request_budget
         from agents.decision_agent import _invoke_with_retry
         from core.research_invocation import ENABLED, invocation_scope
         from jsonschema import ValidationError
@@ -116,8 +145,20 @@ class Calls:
             if actual != row["body"]:
                 raise Failed("INTEGRITY_FAILURE")
             if row["status"] == "UNKNOWN":
-                raise Unknown("UNKNOWN_ATTEMPT")
+                recovered = self.recover_response(row)
+                if recovered is None:
+                    raise Unknown("UNKNOWN_ATTEMPT")
+                rows[ordinal] = row = recovered
+                save(path, {"run_id": self.run_id, "slot": slot, "rows": rows})
+                self.response_committed(row)
             account = self.account(row)
+            if row["status"] == "RESPONSE_LOST":
+                if row.get("provider_http_status") != 200 or row["response"] is not None:
+                    raise Failed("INTEGRITY_FAILURE")
+                if row["headers"]:
+                    account.observe(row["id"], row["headers"], row["completed_at"])
+                repair = repair or row["repair"]
+                continue
             if row["status"] != "NOT_SENT":
                 account.observe(row["id"], row["headers"], row["completed_at"])
             if row["status"] == 200:
@@ -162,21 +203,20 @@ class Calls:
         enabled = ENABLED.set(True)
         try:
             with invocation_scope("serving_wire"):
-                status, raw, headers = _invoke_with_retry(self.sender.send, deepcopy(actual))
+                status, raw, headers = _invoke_with_retry(self.dispatch, row, deepcopy(actual))
+            recorded = response_record(row, status, raw, headers, self.clock())
+        except (Exception, PilotStop):
+            recorded = self.recover_response(row)
+            if recorded is None:
+                raise Unknown("UNKNOWN_ATTEMPT") from None
         except BaseException:
             raise Unknown("UNKNOWN_ATTEMPT") from None
         finally:
             ENABLED.reset(enabled)
-        row.update(status=int(status), response=raw.decode("utf-8", errors="replace"), completed_at=self.clock(),
-                   headers={str(k).lower(): str(v) for k, v in headers.items() if str(k).lower().startswith("x-ratelimit-") or str(k).lower() == "retry-after"})
-        try:
-            usage = json.loads(row["response"]).get("usage", {}).get("total_tokens")
-        except (ValueError, AttributeError):
-            usage = None
-        row["usage_invalid"] = usage is not None and (type(usage) is not int or usage < 0)
-        row["usage"] = None if row["usage_invalid"] else usage
         # Raw phải durable trước parse/policy, kể cả crash ngay sau response.
+        rows[-1] = recorded
         save(path, {"run_id": self.run_id, "slot": slot, "rows": rows})
+        self.response_committed(recorded)
         self.hook("raw")
         return self.call(slot, body, attempt)
 

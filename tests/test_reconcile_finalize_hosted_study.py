@@ -11,7 +11,7 @@ from core.unified_contracts import digest
 from core.unified_execution import StageBook
 from scripts.finalize_hosted_point_reset import archived_resets
 from scripts.finalize_hosted_quota import quota_for
-from scripts.reconcile_finalize_hosted_study import find_attempts, reconcile_not_sent, reset_point
+from scripts.reconcile_finalize_hosted_study import find_attempts, reconcile_attempt, reconcile_not_sent, reset_point
 
 
 class ReconcileFinalizeHostedTests(unittest.TestCase):
@@ -66,6 +66,15 @@ class ReconcileFinalizeHostedTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 reconcile_not_sent(self.root, request_id, evidence)
         self.assertEqual(load(self.path), self.wire)
+
+    def test_confirmed_http_200_preserves_attempt_and_marks_only_its_slot_for_replay(self) -> None:
+        result = reconcile_attempt(self.root, self.request_id, "Đối chứng dựa trên HTTP 200", "RESPONSE_LOST")
+        row = load(self.path)["rows"][0]
+        self.assertEqual((result["status"], row["provider_http_status"]), ("RESPONSE_LOST", 200))
+        self.assertEqual((row["id"], row["attempt"], row["reserved_tokens"]),
+                         (self.request_id, self.row["attempt"], self.row["reserved_tokens"]))
+        self.assertEqual(load(self.book.path(self.slot)), self.stage)
+        self.assertEqual(load(self.root/"status.json")["status"], "SLOT_READY_TO_REPLAY")
 
     def test_rejects_a_wire_with_a_different_stage_uuid(self) -> None:
         modified = {**self.wire, "rows": [{**self.row, "attempt": str(uuid4())}]}
