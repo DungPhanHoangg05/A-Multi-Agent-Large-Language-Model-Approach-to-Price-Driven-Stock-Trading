@@ -19,3 +19,4 @@ test_finalize_bank_signals_leakage.py text eol=lf
 test_finalize_ohlcv_bank_leakage.py text eol=lf
 test_finalize_context_leakage.py text eol=lf
 test_finalize_serving_leakage.py text eol=lf
+test_finalize_api_budget.py text eol=lf

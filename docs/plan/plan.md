@@ -8,9 +8,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
-`paper/` và khóa luận trong `thesis/`.** FIN00–FIN08 đã hoàn tất trong
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN09 đã hoàn tất trong
 phạm vi ghi dưới đây. Profile ứng dụng `finalize_serving_v1` đã qua đối chứng
-offline. FIN09–FIN17 vẫn mở, gồm ngân sách và nghiệm thu trước các lượt thu thật.
+offline. FIN10–FIN17 vẫn mở, gồm nghiệm thu và xác nhận quota trước khi thu thật.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -33,6 +33,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN06 | `PASS_OFFLINE_FIN06`. Có 852 chu kỳ đủ khóa thống kê, 733 đủ khóa ví dụ, 119 Alpha NA và 102 khóa query đã kiểm. Phát hành bank offline với 0 HTTP mới. Batch thị giác trước đó thu 2/1.704 slot cùng một chu kỳ, dùng 2.505 và 1.412 token. |
 | FIN07 | `PASS_OFFLINE_FIN07`. Oracle kiểm retrieval và ngữ cảnh trên 102 điểm. MT-BICL có 63 đủ support và 39 bypass. Fixture xác nhận C2/A/B lấy ví dụ khi qua gate. Đã kiểm cùng repeat và giữ nhãn query đóng. |
 | FIN08 | `PASS_OFFLINE_FIN08`. CLI, as-of, backtest và live nhận profile mới chọn tường minh. Kiểm 522 cặp mã–phiên as-of và replay raw capture đối chứng. Hosted chờ FIN10, default chuyển sau FIN13–FIN14. |
+| FIN09 | `PASS_OFFLINE_FIN09_BUDGET`. Đối chiếu 2.662 slot với 1.702 attempt U08. Có 10 vision reuse, 1.165 bypass và 1.487 lượt mới kể cả smoke. Dự toán một org Free lấy Decision làm giới hạn. Số dư tài khoản chờ xác nhận trước khi thu. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -206,7 +207,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   nối caller bằng fixture ngay khi schema FIN06 đã khóa. Nghiệm thu tích hợp
   sau FIN07, chuyển default sau FIN13–FIN14. Đã đạt `PASS_OFFLINE_FIN08`
   theo [kết quả kiểm tích hợp](#fin08--nối-profile-finalize-vào-ứng-dụng).
-- [ ] **FIN09 — Chốt bảng tái sử dụng và ngân sách API.** Đối chiếu từng request
+- [x] **FIN09 — Chốt bảng tái sử dụng và ngân sách API.** Đối chiếu từng request
   và dependency với archive, ghi slot dùng lại/chạy mới/bypass và lý do.
   Tính cả gọi chuẩn bị bank, vision, anchor, repeats, smoke, retry và quota
   còn sử dụng; chốt model/options, giới hạn lượt gọi và chi phí/thời gian có
@@ -215,7 +216,8 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   cập nhật theo delta FIN03–FIN08. Với profile bank xác định, dự toán bank
   là 0 HTTP. Khóa riêng ngân sách model cho query, gồm quota còn lại sau các
   lượt đã dùng, token và thời gian cho mỗi model. Kiểm lại ngay sau dry-run
-  trước FIN10/11.
+  trước FIN10/11. Đã đạt `PASS_OFFLINE_FIN09_BUDGET` theo
+  [kết quả đối chiếu và dự toán](#fin09--chốt-bảng-tái-sử-dụng-và-ngân-sách-api).
 - [ ] **FIN10 — Nghiệm thu offline trước thu query.** Khóa code/runtime/resource
   và chạy các kiểm tra trực tiếp bị ảnh hưởng, gồm PIT toàn pipeline,
   economics, paired dependency, prompt/schema, retry/checkpoint, owner/cache,
@@ -1088,6 +1090,57 @@ Biên dịch 18 file Python thay đổi. Năm ca FIN08 và các hồi quy đư�
 của serving/runtime, contract, live admission và export đều đạt. Giữ byte
 evaluator lịch sử để job đã khóa vẫn đọc/xuất theo receipt gốc. Chạy các
 gate toàn hệ ở mốc tích hợp tương ứng.
+
+#### FIN09 — Chốt bảng tái sử dụng và ngân sách API
+
+Dry-run giữ nguyên 102 điểm và ba repeat của FIN02. Mỗi điểm dựng Pattern và
+Trend đúng một lần từ nguồn FIN04–FIN08 rồi dùng cùng snapshot cho tám vai
+trò. Smoke dựng riêng một điểm với một repeat. Điểm smoke theo lịch U08 là
+`BHN-2025-10-01`. Bank xác định cần 0 lượt HTTP. Kiểm lại 1.702 attempt U08
+theo hash raw, gồm 1.687 active và 15 đã rút. Mỗi slot lưu hash riêng cho
+messages, ảnh, schema, model/options và wire, cùng bằng chứng dependency và
+đúng repeat. Nếu chưa có báo cáo thị giác thật hoặc kết quả parent, body
+Decision đối chứng chỉ để tính token. Quyết định reuse chờ đủ bằng chứng wire
+và dependency. MT-BICL còn cần Fact Anchor hợp lệ ở cùng repeat.
+
+Giữ model `qwen/qwen3.8-27b` cho thị giác và `openai/gpt-oss-20b` cho
+Decision. Giữ `on_demand`, 960 token đầu ra và temperature theo FIN02.
+Ngày 18/11, `GET /models` của org được chọn trả HTTP 200 và liệt kê cả hai
+model. Header của lượt metadata chưa xác nhận được số dư hiện tại. Dry-run
+chặn mạng và không chạy completion hoặc mở outcome. Hạn mức đang dùng để
+lập dự toán cho mỗi model là 30 RPM, 1.000 RPD, 8.000 TPM và 200.000 TPD.
+Giữ một org Free, ngân sách 0 USD. Không gộp quota từ các org trong `.env`.
+[Giới hạn Groq](https://console.groq.com/docs/rate-limits).
+[Chính sách sử dụng Groq](https://console.groq.com/docs/legal/ai-policy).
+
+**`PASS_OFFLINE_FIN09_BUDGET`**. Trong 2.652 slot nghiên cứu, 10 slot vision
+ở năm điểm HVN đủ proof để dùng lại, 1.161 slot Decision bypass vì policy
+thiếu support, và 1.481 slot dự kiến gọi mới. Sáu trong mười slot smoke dự
+kiến gọi mới. Có hai attempt `UNKNOWN` đã rút khỏi archive active. Dry-run
+không chuyển chúng thành reuse hay đặt lại UUID cũ. Tổng trần là **4.461
+attempt** cho 1.487 slot mới, gồm retry và repair trong cap ba mỗi slot.
+
+| Model | Lượt mới gồm smoke | Trần attempt | Token lượt đầu theo p50–p95 U08 | Reserve fixture lượt đầu | Reserve fixture nếu đủ ba attempt |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `qwen/qwen3.8-27b` | 196 | 588 | 482.552–487.452 | 1.036.938 | 3.110.814 |
+| `openai/gpt-oss-20b` | 1.291 | 3.873 | 2.516.313–2.607.786 | 4.144.882 | 12.580.332 |
+
+Ảnh chụp ledger lúc 13:11 UTC ngày 18/11 tính hai request FIN06, 3.917 token
+đã dùng ở Qwen. Ledger cục bộ còn bốn request với tổng 8.790 token chưa rõ
+org/model, nên trừ bảo thủ vào cả hai dự toán. Số dư ước tính cho cửa sổ 24
+giờ đầu là **187.293 token / 994 request** ở Qwen và **191.210 token / 996
+request** ở GPT. Số dư do Groq xác nhận vẫn chưa có. Theo mức sử dụng U08,
+Qwen cần 3 cửa sổ quota 24 giờ và GPT cần 13–14. Theo reserve fixture cho
+lượt đầu, hai model lần lượt cần 6 và 21 cửa sổ. Các kịch bản này vượt mốc
+20/11 cho toàn batch và chưa tính chờ phát hành hoặc lỗi ngoài dự toán.
+
+Biên dịch năm file Python thay đổi và đạt 52 kiểm thử chọn theo phạm vi
+FIN09, gồm đối chiếu body, quota/pacing, PIT và checkpoint/UNKNOWN. Kiểm lại
+checksum ledger, từng tham chiếu raw U08, nguồn và runtime bằng
+`py -3.13 -X utf8 scripts/prepare_finalize_api_budget.py --check`. Ledger giữ
+`execution_permitted=false`. FIN10 cần khóa runner một org, xác nhận hạn mức
+Free và số dư thực tế trước khi cấp lượt gọi FIN11.
+[Ledger, quota và bằng chứng từng slot](week12/finalize_api_budget_v1.json).
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

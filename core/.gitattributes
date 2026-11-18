@@ -23,3 +23,6 @@ finalize_serving_resources.py text eol=lf
 finalize_serving_provider.py text eol=lf
 finalize_serving_evaluation.py text eol=lf
 finalize_live_capture.py text eol=lf
+finalize_budget_archive.py text eol=lf
+finalize_budget_quota.py text eol=lf
+finalize_budget_study.py text eol=lf
