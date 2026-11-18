@@ -9,12 +9,16 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
+import httpx
+
 from core.finalize_budget_archive import Archive
 from core.finalize_budget_study import MODEL_DECISION, StudyProvider
 from core.groq_pacing import MODEL_LIMITS
 from core.serving_runtime.quota import Failed, Waiting
 from core.serving_runtime.resources import default_models
-from scripts.finalize_hosted_study import HostedStudyRunner, check_release, quota_for, verify_balance
+from core.unified_execution_transport import MockHTTP
+from scripts.finalize_hosted_quota import DailyQuota, HostedWire, provider_daily_deadline
+from scripts.finalize_hosted_study import HostedStudyRunner, bind_account, check_release, quota_for, verify_balance
 from scripts.finalize_offline_fixture import Fixture
 from scripts.prepare_finalize_api_budget import study
 
@@ -55,13 +59,78 @@ class HostedStudyTests(unittest.TestCase):
             smoke.reserve("smoke-id", "smoke", 3500)
             smoke.finish("smoke-id", "200", 3000)
             research = quota_for(root, grant, MODEL_DECISION, lambda: NOW+62)
-            with self.assertRaises(Waiting):
+            with self.assertRaises(DailyQuota):
                 research.reserve("study-id", "research", 1001)
             research.reserve("study-id", "research", 1000)
             other = deepcopy(grant)
             other["balance"]["remaining_tokens_24h"][MODEL_DECISION] += 1
             with self.assertRaises(ValueError):
                 quota_for(root, other, MODEL_DECISION, lambda: NOW+62)
+
+    def test_minute_quota_waits_and_daily_request_header_exits(self) -> None:
+        with TemporaryDirectory() as directory:
+            quota = quota_for(Path(directory), grant_fixture(), MODEL_DECISION, lambda: NOW)
+            quota.reserve("previous", "study", 6000)
+            with self.assertRaises(Waiting) as waiting:
+                quota.reserve("minute", "study", 4000)
+            self.assertNotIsInstance(waiting.exception, DailyQuota)
+            quota.observe("previous", {"x-ratelimit-remaining-requests": "0", "x-ratelimit-reset-requests": "20s"}, NOW)
+            with self.assertRaises(DailyQuota):
+                quota.reserve("day", "study", 1000)
+            self.assertEqual(quota.attempts("study"), 1)
+
+    def test_daily_429_is_saved_then_other_org_resumes_the_same_slot(self) -> None:
+        body = {"model": MODEL_DECISION, "messages": [{"role": "user", "content": "Đối soát quota"}],
+                "max_completion_tokens": 32}
+        response = {"error": {"message": "Rate limit reached for tokens per day (TPD). Please try again in 1h2m3s."}}
+        failures = []
+
+        def limit(request):
+            failures.append(request)
+            return httpx.Response(429, json=response)
+
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            quotas = {slot: quota_for(root, {**grant_fixture(), "org_slot": slot}, MODEL_DECISION, lambda: NOW)
+                      for slot in (1, 2)}
+
+            def wire(slot, sender):
+                return HostedWire(root, "study", sender=sender, guard=lambda: None, clock=lambda: NOW,
+                                  org_slot=slot, quota_at=quotas.__getitem__)
+
+            first = wire(1, MockHTTP(limit))
+            with self.assertRaises(DailyQuota) as stopped:
+                first.call("slot", body, "checkpoint")
+            self.assertAlmostEqual(stopped.exception.until, NOW+3723.1)
+            row = first._rows("slot")[1][0]
+            self.assertEqual((row["status"], row["org_slot"]), (429, 1))
+            with self.assertRaises(DailyQuota):
+                first.call("slot", body, "checkpoint")
+            self.assertEqual(len(failures), 1)
+
+            fixture = Fixture()
+            second = wire(2, fixture.transport)
+            _, completed = second.call("slot", body, "checkpoint")
+            self.assertEqual((completed["status"], completed["org_slot"]), (200, 2))
+            self.assertEqual(second._rows("slot")[1], [row, completed])
+            self.assertEqual([quota.attempts("study") for quota in quotas.values()], [1, 1])
+            self.assertEqual(first.call("slot", body, "checkpoint")[1], completed)
+            self.assertEqual(len(failures), 1)
+
+    def test_tpm_429_stays_on_pacing_path(self) -> None:
+        row = {"status": 429, "response": '{"error":{"message":"tokens per minute (TPM)"}}',
+               "headers": {"retry-after": "30", "x-ratelimit-remaining-requests": "5"}, "completed_at": NOW}
+        self.assertIsNone(provider_daily_deadline(row, 0))
+
+    def test_same_key_scope_cannot_get_quota_from_another_slot(self) -> None:
+        from unittest.mock import Mock
+        with TemporaryDirectory() as directory:
+            root, archive = Path(directory), Mock()
+            grant = {"credential_scope_sha256": "first-scope"}
+            bind_account(root, grant, 1, "first-scope", archive)
+            with self.assertRaises(ValueError):
+                bind_account(root, grant, 2, "first-scope", archive)
+            self.assertFalse((root/"accounts").exists())
 
     def test_provider_limits_below_grant_stop_after_raw(self) -> None:
         with TemporaryDirectory() as directory:

@@ -1,9 +1,10 @@
-"""Thu phản hồi FIN11 theo grant một org Free và checkpoint riêng từng phase."""
+"""Thu FIN11 theo key Free do người vận hành chọn và dừng khi hết quota ngày."""
 from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
-import math
+from functools import cache, partial
+from hashlib import sha256
 from pathlib import Path
 import sys
 import time
@@ -13,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from core.finalize_budget_archive import Archive
-from core.finalize_budget_quota import ATTEMPT_CAP, ORG, local_quota
+from core.finalize_budget_quota import ATTEMPT_CAP, ORG, local_quota, window
 from core.finalize_budget_study import NAMESPACE, StudyProvider
 from core.finalize_study_runner import OfflineStudyRunner, PlannedCalls
 from core.groq_pacing import MODEL_LIMITS
@@ -21,17 +22,22 @@ from core.historical_evaluation_journal import load, save
 from core.prior_run_lock import PriorRunLock, utc_now
 from core.serving_runtime.quota import Failed, Quota, Stopped, Unknown, Waiting
 from core.serving_runtime.resources import default_models
-from core.serving_runtime.transport import Calls, GroqHTTP
+from core.serving_runtime.transport import GroqHTTP
 from core.unified_contracts import digest, json_bytes
 from core.unified_execution_transport import MockHTTP
 from core.unified_preflight_assets import write_new
-from core.unified_protocol import binding, read
+from core.unified_protocol import binding, git_blob, read
+from scripts.finalize_hosted_quota import DailyQuota, HostedWire, quota_for
 from scripts.finalize_offline_acceptance import RECEIPT, freeze, verify_record
 from scripts.prepare_finalize_api_budget import study
 
 RUN = ROOT/"outputs"/"finalize"/"fin11_v1"
-VERSION = "finalize_hosted_study_v1"
+VERSION = "finalize_hosted_study_v2"
 SOURCE = "scripts/finalize_hosted_study.py"
+TRANSPORT = "core/serving_runtime/transport.py"
+QUOTA_SOURCE = "scripts/finalize_hosted_quota.py"
+PREVIOUS = "ef030417"
+ORG_SLOTS = range(1, 6)
 PHASES = ("SMOKE", "RESEARCH")
 
 
@@ -55,60 +61,18 @@ def verify_balance(evidence: dict, now: float) -> float:
     return observed.timestamp()
 
 
-class HostedQuota(Quota):
-    """Cùng DB cho smoke/research của một model, giữ carry cạnh quota phát sinh."""
-
-    def seed(self, model: str, grant: dict) -> None:
-        """Seed bền vững, dùng giá trị xấu hơn giữa Console và ledger cục bộ."""
-        limits = MODEL_LIMITS[model]
-        observed = datetime.fromisoformat(grant["local_quota"]["observed_at_utc"]).timestamp()
-        remaining = grant["balance"]["remaining_tokens_24h"]
-        local = grant["local_quota"]["models"][model]
-        available = local["local_estimated_day_tokens_remaining"]
-        if remaining is not None:
-            available = min(available, remaining[model])
-        tokens = limits["tpd"]-available
-        requests = limits["rpd"]-grant["local_quota"]["models"][model]["local_estimated_day_requests_remaining"]
-        with self.connect() as db:
-            db.execute("BEGIN IMMEDIATE")
-            marker = db.execute("SELECT value FROM metadata WHERE name='fin11_grant'").fetchone()
-            signature = digest(grant)
-            if marker is not None:
-                if marker[0] != signature:
-                    raise ValueError("Quota khác grant, không đặt lại carry")
-                return
-            if db.execute("SELECT 1 FROM attempts LIMIT 1").fetchone() is not None:
-                raise ValueError("Quota đã có attempt nhưng thiếu identity của carry")
-            count = max(int(tokens > 0), requests)
-            db.executemany("INSERT INTO attempts(id,run,started,reserve,used,state,observed) VALUES (?,?,?,0,?,'CARRY',1)",
-                           [(f"carry-{i}", "FIN11_CARRY", observed, tokens if i == 0 else 0) for i in range(count)])
-            db.execute("INSERT INTO metadata VALUES ('fin11_grant',?)", (signature,))
-
-    def observe(self, identifier: str, headers: dict, observed_at: float) -> None:
-        """Dừng khi provider hạ giới hạn đã khóa, kể cả sau khi khởi động lại."""
-        for suffix, limit in (("requests", 1000), ("tokens", 8000)):
-            raw = headers.get("x-ratelimit-limit-"+suffix)
-            if raw is not None and (not math.isfinite(float(raw)) or float(raw) < limit):
-                raise Failed("PROVIDER_LIMIT_BELOW_GRANT")
-        super().observe(identifier, headers, observed_at)
-
-
-def quota_for(root: Path, grant: dict, model: str, clock=time.time) -> HostedQuota:
-    """Model giữ tên file ổn định xuyên phase và credential scope."""
-    index = sorted(MODEL_LIMITS).index(model)
-    quota = HostedQuota(root/"quota"/f"model-{index}.sqlite3", clock)
-    quota.seed(model, grant)
-    return quota
-
-
 class HostedCalls(PlannedCalls):
-    """Giữ chuẩn body và U08 reuse FIN10, cấp quota dùng chung xuyên phase."""
+    """Giữ chuẩn body và U08 reuse FIN10, cấp quota theo org qua các phase."""
 
     def __init__(self, runner: Any, plans: dict, archive: Archive, sender: GroqHTTP | MockHTTP, clock: Any) -> None:
         self.plans, self.archive = plans, archive
-        self.transports = {model: Calls(runner.directory, digest(runner.identity),
-                                        quota_for(runner.run_root, runner.grant, model, clock), sender,
-                                        runner.guard_dispatch, clock=clock, total_prompt_guard=True)
+        @cache
+        def ledger(model: str, slot: int):
+            return quota_for(runner.run_root, account_grant(runner.run_root, runner.grant, slot), model, clock)
+
+        self.transports = {model: HostedWire(runner.directory, digest(runner.identity), sender=sender,
+                                            guard=runner.guard_dispatch, clock=clock, total_prompt_guard=True,
+                                            org_slot=runner.org_slot, quota_at=partial(ledger, model))
                            for model in MODEL_LIMITS}
 
     def call(self, slot: str, body: dict, attempt: str) -> tuple[Any, dict]:
@@ -123,10 +87,12 @@ class HostedStudyRunner(OfflineStudyRunner):
     """Dùng lại đường graph/DAG được kiểm FIN10, với policy admission hosted riêng."""
 
     def __init__(self, run_root: Path, grant: dict, budget: dict, points: list[dict], phase: str,
-                 provider: StudyProvider, archive: Archive, sender: GroqHTTP | MockHTTP, clock=time.time) -> None:
-        if phase not in PHASES or len(points) != 102 or grant["org_slot"] != ORG or grant["budget_sha256"] != digest(budget):
+                 provider: StudyProvider, archive: Archive, sender: GroqHTTP | MockHTTP, clock=time.time,
+                 *, org_slot: int = ORG) -> None:
+        if (phase not in PHASES or len(points) != 102 or org_slot not in ORG_SLOTS
+                or grant["org_slot"] != ORG or grant["budget_sha256"] != digest(budget)):
             raise ValueError("Scope hosted khác cohort hoặc grant FIN11")
-        self.run_root, self.grant = run_root, grant
+        self.run_root, self.grant, self.org_slot = run_root, grant, org_slot
         self.directory, self.provider = run_root/phase.lower(), provider
         self.read_only = False
         self.ordinals = {point["id"]: i for i, point in enumerate(points)}
@@ -172,6 +138,8 @@ class HostedStudyRunner(OfflineStudyRunner):
                     try:
                         save(path, self.tick())
                         break
+                    except DailyQuota:
+                        raise
                     except Waiting as pending:
                         wait(self.identity["phase"], point["id"], pending.until)
                         release_guard()
@@ -205,20 +173,74 @@ class HostedStudyRunner(OfflineStudyRunner):
 
 
 def check_release() -> tuple[dict, Any]:
-    """Giữ FIN10 nguyên byte; nhận delta hosted ở script tách riêng."""
+    """Đối soát FIN10 lịch sử, khóa riêng transport có delta đã kiểm cho FIN11."""
     lock, budget, resources = freeze(ROOT)
-    verify_record(read(ROOT, RECEIPT, True), lock)
+    receipt = read(ROOT, RECEIPT, True)
+    historical_transport = sha256(git_blob(ROOT, PREVIOUS, TRANSPORT)).hexdigest()
+    if historical_transport != receipt["lock"]["code_sha256"][TRANSPORT]:
+        raise ValueError("Transport gốc khác FIN10")
+    lock["code_sha256"][TRANSPORT] = historical_transport
+    verify_record(receipt, lock)
     return {"version": VERSION, "org_slot": ORG, "spend_limit_usd": 0, "budget_sha256": digest(budget),
-            "fin10": binding(ROOT, RECEIPT), "runner": binding(ROOT, SOURCE)}, (budget, resources)
+            "fin10": binding(ROOT, RECEIPT), "runner": binding(ROOT, SOURCE),
+            "transport": binding(ROOT, TRANSPORT), "quota_runner": binding(ROOT, QUOTA_SOURCE)}, (budget, resources)
 
 
-def credential() -> str:
-    """Chỉ dùng credential org đã kiểm metadata FIN09 trong tiến trình này."""
+def release_for_grant(grant: dict, release: dict) -> dict:
+    """Giữ digest grant gốc của journal; chỉ nhận đúng bản tiền nhiệm đã khóa."""
+    old_source = git_blob(ROOT, PREVIOUS, SOURCE)
+    legacy = {key: release[key] for key in ("org_slot", "spend_limit_usd", "budget_sha256", "fin10")}
+    legacy.update(version="finalize_hosted_study_v1",
+                  runner={"path": SOURCE, "bytes": len(old_source), "sha256": sha256(old_source).hexdigest()})
+    if not any(all(grant.get(key) == value for key, value in version.items()) for version in (legacy, release)):
+        raise ValueError("Mã nguồn hoặc ngân sách không khớp grant FIN11")
+    return {"release": release, "grant_sha256": digest(grant), "operation": "MANUAL_ORG_DAILY_EXIT"}
+
+
+def credential(org_slot: int = ORG) -> str:
+    """Chỉ đọc key của org người vận hành đã chọn cho phiên này."""
     from dotenv import dotenv_values
-    key = dotenv_values(ROOT/".env").get(f"GROQ_ORG_{ORG}_API_KEY")
+    key = dotenv_values(ROOT/".env").get(f"GROQ_ORG_{org_slot}_API_KEY")
     if not key:
         raise ValueError("Thiếu credential của org đã khóa")
     return key
+
+
+def account_grant(root: Path, grant: dict, slot: int) -> dict:
+    """Đối soát đúng grant của org nguồn mà không cần đọc key cũ."""
+    if type(slot) is not int or slot not in ORG_SLOTS:
+        raise ValueError("Org nguồn của attempt ngoài phạm vi FIN11")
+    if slot == ORG:
+        return grant
+    account = load(root/"accounts"/f"org-{slot}.json")
+    if account["org_slot"] != slot or account["parent_grant_sha256"] != digest(grant):
+        raise ValueError("Sổ quota org khác grant FIN11")
+    return account
+
+
+def bind_account(root: Path, grant: dict, slot: int, scope: str, archive: Archive) -> None:
+    """Gắn key do tác giả chọn và giữ carry từ nguồn cục bộ của đúng org."""
+    path = root/"accounts"/f"org-{slot}.json"
+    if slot == ORG or path.exists():
+        if account_grant(root, grant, slot)["credential_scope_sha256"] != scope:
+            raise ValueError("Credential khác sổ quota đã khóa của org")
+        return
+    if any(scope == account_grant(root, grant, other)["credential_scope_sha256"]
+           for other in ORG_SLOTS if other == ORG or (root/"accounts"/f"org-{other}.json").exists()):
+        raise ValueError("Cùng một credential đã gắn vào org khác")
+    now = time.time()
+    observed = datetime.fromtimestamp(now, timezone.utc).isoformat()
+    unknown = local_quota(ROOT, [], observed)["unattributed_24h_conservative"]
+    models = {}
+    for model, limit in MODEL_LIMITS.items():
+        day = window([row for row in archive.carry if row.get("org") == slot and row.get("model") == model], now, 86400)
+        models[model] = {"local_estimated_day_tokens_remaining": max(0, limit["tpd"]-day["tokens_charged_or_reserved"]
+                                                                       -unknown["tokens_charged_or_reserved"]),
+                         "local_estimated_day_requests_remaining": max(0, limit["rpd"]-day["requests"]-unknown["requests"])}
+    save(path, {"org_slot": slot, "parent_grant_sha256": digest(grant), "credential_scope_sha256": scope,
+                "balance": {"tier": "FREE", "remaining_tokens_24h": None,
+                            "source": "OWNER_ATTESTED_GROQ_ALLOWED_MANUAL_ORG"},
+                "local_quota": {"observed_at_utc": observed, "models": models}})
 
 
 def authorize(evidence_path: Path) -> dict:
@@ -243,25 +265,26 @@ def status(code: str, **fields: Any) -> dict:
     return result
 
 
-def run(*, resume_stopped: bool = False) -> dict:
+def run(*, resume_stopped: bool = False, org_slot: int = ORG) -> dict:
     """Smoke hoàn tất và đối soát trước nghiên cứu; giữ checkpoint khi tạm dừng."""
     grant = load(RUN/"grant.json")
     release, (budget, resources) = check_release()
-    if any(grant[key] != value for key, value in release.items()):
-        raise ValueError("Mã nguồn hoặc ngân sách không khớp grant FIN11")
+    operation = release_for_grant(grant, release)
     with PriorRunLock(RUN/"worker", digest(grant)):
-        key = credential()
-        if Quota(RUN/"credential.sqlite3").credential_scope(key) != grant["credential_scope_sha256"]:
-            raise ValueError("Credential thay đổi khi resume")
+        write_new(RUN/"release_v2.json", json_bytes({"payload": operation, "sha256": digest(operation)}))
+        key = credential(org_slot)
+        scope = Quota(RUN/"credential.sqlite3").credential_scope(key)
+        archive = Archive(ROOT)
+        bind_account(RUN, grant, org_slot, scope, archive)
         if resume_stopped:
             (RUN/"stop.request").unlink(missing_ok=True)
         points, variants, _, _ = study(ROOT)
-        archive = Archive(ROOT)
         provider = StudyProvider(resources, points, default_models(), variants)
         sender = GroqHTTP(key)
 
         def wait(phase: str, point: str, until: float) -> None:
-            status("WAITING_QUOTA", phase=phase, point=point, resume_at=datetime.fromtimestamp(until, timezone.utc).isoformat())
+            status("WAITING_QUOTA", phase=phase, point=point, org_slot=org_slot,
+                   resume_at=datetime.fromtimestamp(until, timezone.utc).isoformat())
             while until > time.time():
                 if (RUN/"stop.request").exists():
                     raise Stopped()
@@ -274,11 +297,14 @@ def run(*, resume_stopped: bool = False) -> dict:
         try:
             results = {}
             for phase in PHASES:
-                status("RUNNING", phase=phase)
-                runner = HostedStudyRunner(RUN, grant, budget, points, phase, provider, archive, sender)
+                status("RUNNING", phase=phase, org_slot=org_slot)
+                runner = HostedStudyRunner(RUN, grant, budget, points, phase, provider, archive, sender, org_slot=org_slot)
                 runner.collect(wait, guard_release)
                 results[phase] = runner.seal_phase()
             return status("PASS_FIN11", phases=results)
+        except DailyQuota as exhausted:
+            return status("STOPPED_DAILY_QUOTA", phase=phase, org_slot=org_slot,
+                          resume_at=datetime.fromtimestamp(exhausted.until, timezone.utc).isoformat())
         except Stopped:
             return status("STOPPED", phase=phase)
         except Unknown:
@@ -297,6 +323,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("check", "authorize", "run", "resume", "status", "stop"))
     parser.add_argument("--balance", type=Path, help="JSON số dư Groq Console đã xác nhận")
+    parser.add_argument("--org", type=int, choices=ORG_SLOTS, default=ORG, help="Chọn GROQ_ORG_<N>_API_KEY cho phiên thu")
     args = parser.parse_args()
     if args.mode == "authorize":
         if args.balance is None:
@@ -305,7 +332,7 @@ def main() -> None:
     elif args.mode in {"run", "resume"}:
         import torch
         torch.set_num_threads(1)
-        result = run(resume_stopped=args.mode == "resume")
+        result = run(resume_stopped=args.mode == "resume", org_slot=args.org)
     elif args.mode == "stop":
         if not (RUN/"grant.json").is_file():
             raise ValueError("Chưa có grant FIN11")
@@ -316,6 +343,10 @@ def main() -> None:
             "status": "GRANTED_NOT_STARTED" if (RUN/"grant.json").is_file() else "READY_FOR_ACCOUNT_BALANCE"}
     else:
         release, _ = check_release()
+        if (RUN/"grant.json").is_file():
+            operation = release_for_grant(load(RUN/"grant.json"), release)
+            if (RUN/"release_v2.json").is_file() and load(RUN/"release_v2.json") != operation:
+                raise ValueError("Release vận hành khác khóa FIN11")
         result = {"status": "READY_FOR_ACCOUNT_BALANCE", **release}
     print(json_bytes(result).decode())
 

@@ -84,6 +84,21 @@ class Calls:
             raise ValueError("Wire khác run/slot")
         return path, doc["rows"]
 
+    def account(self, row: dict) -> Quota:
+        """Lấy sổ quota của attempt khi phát lại raw."""
+        return self.quota
+
+    def attempt_metadata(self) -> dict:
+        """Thông tin bổ sung được lưu cùng intent trước khi gửi."""
+        return {}
+
+    def wait_for_retry(self, row: dict, ordinal: int, account: Quota, *, last: bool) -> None:
+        """Ghi thời hạn retry trước khi trả quyền điều phối cho worker."""
+        until = retry_until(row, ordinal)
+        account.finish(row["id"], str(row["status"]), row.get("usage"), until)
+        if until > self.clock():
+            raise Waiting(until)
+
     def call(self, slot: str, body: dict, attempt: str) -> tuple[Any, dict]:
         """Replay raw đã fsync; ngoại lệ BaseException thoát agent, không suy báo cáo/CASH."""
         from core.groq_pacing import request_budget
@@ -102,8 +117,9 @@ class Calls:
                 raise Failed("INTEGRITY_FAILURE")
             if row["status"] == "UNKNOWN":
                 raise Unknown("UNKNOWN_ATTEMPT")
+            account = self.account(row)
             if row["status"] != "NOT_SENT":
-                self.quota.observe(row["id"], row["headers"], row["completed_at"])
+                account.observe(row["id"], row["headers"], row["completed_at"])
             if row["status"] == 200:
                 if row.get("usage_invalid"):
                     raise Failed("INVALID_USAGE")
@@ -118,13 +134,10 @@ class Calls:
                 else:
                     if ordinal != len(rows)-1:
                         raise ValueError("Không chọn lại response sau slot đã thành công")
-                    self.quota.finish(row["id"], "200", row.get("usage"), retry_until(row, ordinal))
+                    account.finish(row["id"], "200", row.get("usage"), retry_until(row, ordinal))
                     return reply, row
             elif row["status"] in (429, 500, 502, 503, 504):
-                until = retry_until(row, ordinal)
-                self.quota.finish(row["id"], str(row["status"]), row.get("usage"), until)
-                if until > self.clock():
-                    raise Waiting(until)
+                self.wait_for_retry(row, ordinal, account, last=ordinal == len(rows)-1)
             elif row["status"] != "NOT_SENT":
                 raise Failed("PROVIDER_FAILURE")
         if len(rows) >= 3:
@@ -140,7 +153,7 @@ class Calls:
         identifier = str(uuid4())
         tokens = request_budget(actual)
         self.quota.reserve(identifier, self.run_id, tokens)
-        row = {"id": identifier, "attempt": attempt, "slot": slot, "base_sha256": digest(body), "body": actual,
+        row = {**self.attempt_metadata(), "id": identifier, "attempt": attempt, "slot": slot, "base_sha256": digest(body), "body": actual,
                "repair": repair, "started_at": self.clock(), "reserved_tokens": tokens, "status": "UNKNOWN",
                "response": None, "headers": {}, "usage": None}
         rows.append(row)

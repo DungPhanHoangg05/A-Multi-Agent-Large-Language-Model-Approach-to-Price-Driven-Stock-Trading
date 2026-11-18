@@ -35,7 +35,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN08 | `PASS_OFFLINE_FIN08`. CLI, as-of, backtest và live nhận profile mới chọn tường minh. Kiểm 522 cặp mã–phiên as-of và replay raw capture đối chứng. Hosted chờ FIN10, default chuyển sau FIN13–FIN14. |
 | FIN09 | `PASS_OFFLINE_FIN09_BUDGET`. Đối chiếu 2.662 slot với 1.702 attempt U08. Có 10 vision reuse, 1.165 bypass và 1.487 lượt mới kể cả smoke. Dự toán một org Free lấy Decision làm giới hạn. Số dư tài khoản chờ xác nhận trước khi thu. |
 | FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. Hosted tiếp tục chờ quota và quyền thực thi FIN11. |
-| FIN11 | Đang thu một org Free. Smoke đạt 8 slot với 6 HTTP 200 và 12.952 token. Phase nghiên cứu đã bắt đầu, thu lần lượt theo quota. |
+| FIN11 | Smoke đạt 8 slot với 6 HTTP 200 và 12.952 token. Tác giả tiếp tục phase nghiên cứu từ checkpoint, chọn một org cho mỗi phiên và thoát khi chạm quota ngày. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -1187,31 +1187,48 @@ smoke/research trước khi cấp quyền thu. Receipt FIN10 giữ
 
 #### FIN11 — Thu phản hồi trên một org Free
 
-Chủ tài khoản xác nhận hạn mức 200.000 token/ngày cho hai model. FIN11 dùng
-org 1 đã kiểm metadata ở FIN09, ngân sách 0 USD. Chính sách Groq áp hạn mức
-theo tổ chức và cấm điều phối nhiều tổ chức để vượt hạn mức.
+Chủ tài khoản xác nhận hạn mức 200.000 token/ngày cho hai model và cho biết
+Groq đã cho phép quy trình dùng nhiều org của các lượt thí nghiệm. Org 1 là
+org gốc đã kiểm metadata ở FIN09, ngân sách 0 USD. Mỗi phiên dùng một org do
+tác giả chọn trong phạm vi Groq cho phép cho FIN11. Chính sách Groq áp hạn
+mức theo tổ chức và có ngoại lệ theo từng trường hợp.
 [Giới hạn Groq](https://console.groq.com/docs/rate-limits).
 [Chính sách Groq](https://console.groq.com/docs/legal/ai-policy).
 
 Runner `scripts/finalize_hosted_study.py` kiểm lại FIN10 và ledger FIN09 trước
-khi tạo grant. Hai phase dùng cùng hai sổ quota theo model nên usage smoke
-được tính vào lượt nghiên cứu. Smoke có identity riêng và phải đủ tám slot
+khi tạo grant. Hai phase dùng chung sổ quota của từng org và model nên usage
+smoke được tính vào lượt nghiên cứu của đúng org. Smoke có identity riêng và phải đủ tám slot
 trước khi mở phase nghiên cứu. Runner giữ request/UUID và cap ba attempt,
 tái dùng raw U08 đủ proof, ghi checkpoint mỗi point và giữ outcome thị trường
-đóng cho FIN12. Biên dịch hai file mới và đạt bốn test theo phạm vi, gồm smoke tại đường dựng request
-thật với mock transport, replay, carry qua hai phase và chặn giảm quota.
+đóng cho FIN12. Grant, raw và receipt của lượt thu ban đầu giữ nguyên byte.
+Release vận hành mới chỉ ghi thêm org nguồn cho attempt mới. Khi replay,
+attempt cũ thiếu trường org thuộc org 1. Bản sao smoke hiện có đã replay
+offline với 8 slot, 6 raw và 0 dispatch mới. Bản sao điểm FPT đang dở hoàn tất
+24 forecast bằng mock ở org khác, giữ nguyên hash 22 raw nghiên cứu đã có.
+Biên dịch bốn file Python thay đổi, đạt 8 test FIN11 và 26 test serving runtime.
 
 Chủ org 1 xác nhận chỉ dùng một phần nhỏ quota và còn đủ để bắt đầu. Grant
 ghi xác nhận của chủ org, ngân sách 0 USD và carry 24 giờ tính từ ledger cục
-bộ. Số dư chính xác trên Console chưa có. Worker đối chiếu header provider
-và chờ theo quota khi cần. Lệnh `py -3.13 -X utf8 scripts/finalize_hosted_study.py
-status` đọc tiến độ tại kho cục bộ `outputs/finalize/fin11_v1/`.
+bộ. Số dư chính xác trên Console chưa có. Worker chờ khi chạm quota phút.
+Nếu quota ngày chặn lượt gọi, worker lưu `STOPPED_DAILY_QUOTA` và thoát. Lỗi
+429 theo ngày được lưu với UUID và tính vào cap của slot. `UNKNOWN` vẫn khóa
+slot cho đến khi được đối soát. Tác giả chạy lệnh sau từ thư mục gốc để nối
+journal hiện có với key ở ô 1. Thay `1` bằng ô org được phép cho phiên kế tiếp.
+
+```powershell
+$env:OMP_NUM_THREADS = '1'
+$env:MPLBACKEND = 'Agg'
+py -3.13 -X utf8 -u scripts/finalize_hosted_study.py resume --org 1
+```
+
+Lệnh `py -3.13 -X utf8 scripts/finalize_hosted_study.py status` đọc tiến độ
+tại kho cục bộ `outputs/finalize/fin11_v1/`.
 
 Smoke `BHN-2025-10-01` đã chốt đủ 8 forecast slot, 6 HTTP 200 và 12.952 token
 đo được. Cold replay đối soát raw và checkpoint trước khi mở `RESEARCH`.
-Phase nghiên cứu đã nhận phản hồi đầu tiên ở `CMG-2023-07-03`. Worker tự
-chờ cửa sổ quota và tiếp tục từ journal. Mốc hoàn tất FIN11 cần đủ 102 điểm
-nghiên cứu và đối soát mọi attempt. Chưa mở outcome thị trường.
+Phase nghiên cứu đã nhận phản hồi đầu tiên ở `CMG-2023-07-03`. Mốc hoàn tất
+FIN11 cần đủ 102 điểm nghiên cứu và đối soát mọi attempt. Chưa mở outcome thị
+trường.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
