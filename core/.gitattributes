@@ -11,3 +11,5 @@ finalize_price_audit.py text eol=lf
 finalize_price_acceptance.py text eol=lf
 finalize_news.py text eol=lf
 finalize_news_release.py text eol=lf
+finalize_bank_resources.py text eol=lf
+finalize_raw_selector.py text eol=lf

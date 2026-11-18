@@ -7,10 +7,10 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
-**Trạng thái hiện tại — FIN00–FIN05 hoàn tất trong phạm vi đã ghi; FIN04 theo
-xác nhận chủ dữ liệu (`PASS_OWNER_ATTESTED`), FIN05 theo policy tin có NA rõ
-lý do; FIN06–FIN17 chưa thực hiện.** Chứng nhận PIT nguồn giá độc lập vẫn chưa
-có; amendment FIN04 bên dưới là cơ sở chấp nhận nguồn cho phần tiếp theo.
+**Trạng thái hiện tại — FIN00–FIN05 hoàn tất trong phạm vi đã ghi. FIN06 đã
+tái dựng tài nguyên số và đang chờ chứng cứ tín hiệu bank. FIN07–FIN17 chưa
+thực hiện.** FIN04 dùng nguồn giá theo xác nhận chủ dữ liệu
+(`PASS_OWNER_ATTESTED`), FIN05 giữ tin thiếu chứng cứ ở trạng thái NA.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -109,6 +109,9 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   query. Đạt khi membership/labels/resources được tái dựng và query outcome
   không tác động preparation. Phụ thuộc FIN03–FIN05; nhu cầu API chuẩn bị
   lịch sử được ghi trong FIN09.
+  **Đang làm:** chín selector, 852 nhãn bank, index/scaler/HMM và 102 đầu vào
+  đã đối soát. Còn 852 episode thiếu nhật ký request/response đủ để xác minh
+  hoặc tái tạo tín hiệu theo recipe causal. Chưa cấp bank cho retrieval.
 - [ ] **FIN07 — Kiểm MT-BICL và toàn đường ngữ cảnh.** Kiểm context prior/target,
   fold freeze, reserved IDs, student/teacher, facts, support và thỏa dụng;
   giữ riêng p_student và teacher utility. Kiểm v1/C2/A/B dùng đúng nguồn,
@@ -330,8 +333,10 @@ và giới hạn ghép phản hồi cũ/mới; alias không chứng minh cùng w
 
 **Dự toán sơ bộ cho FIN09.** 2.448 forecast slot; trần trước reuse/bypass là
 2.448 Decision +204 vision +10 smoke = **2.662 execution**, tối đa **7.986
-attempt** khi cap 3. Đây chưa gồm bank preparation, số call phần này chưa biết
-cho tới FIN06; không mặc định bằng 0. Chi phí/thời gian/quota còn **chưa xác minh**,
+attempt** khi cap 3. Đây chưa gồm bank preparation. Audit FIN06 đã xác định
+**852 episode tín hiệu cần xử lý**.
+Số cuộc gọi còn phụ thuộc recipe và số request chứng minh được tái sử dụng.
+Chi phí/thời gian/quota còn **chưa xác minh**,
 không cam kết lịch thu. Candidate model/options giữ từ runtime U08 để đối chiếu
 archive; FIN09 xác minh availability/quota/payload, không tự đổi model hoặc giảm
 repeat. **Số API được cấp từ FIN01/FIN02: 0**; ngân sách cuối phải có dry-run
@@ -689,6 +694,51 @@ mới; bằng chứng FIN01–FIN04 và input lịch sử giữ nguyên byte. **
 API, 0 forward/rescore, 0 fit/training, 0 query outcome**. FIN05 hoàn tất trong
 phạm vi này; FIN06 là task tiếp theo, chưa có nghiệm thu app hoặc nguồn giá
 PIT độc lập từ lượt này.
+
+#### FIN06 — Tái lập nhãn bank, selector giá thô và tài nguyên fit
+
+Nhánh `feat/finalize-bank-resources`, nền `develop:321aba79`. Recipe version
+mới được khóa trước khi dựng tài nguyên. Nó nối nguồn giá FIN04 theo xác
+nhận chủ dữ liệu, snapshot tin FIN05, lịch train/validation/test FIN02, mã
+producer và artifact model đã pin. 102 ID query được reserve từ đầu.
+[Recipe FIN06](week12/finalize_bank_recipe_v1.json).
+
+| Phần kiểm | Kết quả |
+| --- | --- |
+| Membership và nhãn CORE4 | FPT 211, MWG 213, VCB 215, VNM 213. Cả 852 chu kỳ đủ t+1/t+3 trên lịch VNINDEX, exit muộn nhất 30/12/2022. Khi tái dựng, từ chối ID reserve, chu kỳ trùng và exit từ cutoff trở đi trước khi tính nhãn. Oracle giữ Open(t+1), Close(t+3), phí và trượt giá theo hợp đồng. |
+| Chênh lệch raw và donor | Kiểm lịch sử cho 852 chu kỳ trước query, có 828 giá trị khác trên 1e-8 điểm phần trăm. Chênh lớn nhất 0,04298848884252138 điểm phần trăm, 0 trường hợp đổi dấu. Bank mới dùng nhãn raw và giữ hash dòng legacy để truy vết. |
+| Selector giá thô | Chín artifact `causal_common_raw_execution_v1` giữ lịch FIN02, cadence 3, 85 yếu tố, orientation Spearman từ train, top 5 và ba ngưỡng validation. Trước oracle loại 13 chu kỳ đi qua quyền và 24 chu kỳ có phiên không khớp lệnh. Train còn 73–123 chu kỳ và validation có 46–60 chu kỳ cùng support theo mã. Recipe mới lưu cờ loại và ngày, selector lịch sử vẫn thuộc snapshot cũ. |
+| Scaler và regime | Tái dựng index và scaler prior từ giá thô CORE4 đến hết 30/12/2022. Scaler MT tái lập đúng 731 episode fit đến 31/12/2020, khớp cả IDs và tham số của checkpoint đã khóa. HMM prior kiểm hash prefix VNINDEX kết thúc 30/12/2022, chạy forward trên prefix từng query. Năm model prefix MT đã đối soát nguồn và fingerprint đến hết 2020. Pin byte student seed 42, step 3000, và teacher. |
+| Đầu vào query | Đủ 102 snapshot giá/tin và regime theo cutoff. Feature giá 21 phiên có 86 available và 16 NA vì cửa sổ đi qua ngày quyền. 54 query thuộc BHN/CMG/HVN/MBB/VJC có fallback `original_common` vì thiếu bank cùng mã. Với 48 query CORE4, thiếu nguồn tín hiệu được báo là blocker riêng. |
+
+[Manifest tài nguyên](../../outputs/finalize/bank_resources_v1/manifest.json)
+khóa năm artifact số, gồm bank, index, chế độ thị trường, selector và đầu vào
+query. CLI dựng offline bằng `py -3.13 -X utf8 scripts/prepare_finalize_bank.py`
+và tái lập byte bằng cùng lệnh thêm `--check`. Cả hai lần đã PASS. Rebuild
+đọc đúng recipe đã pin và từ chối ghi đè artifact khác byte. Lượt này fit
+selector/scaler bằng dữ liệu trước cutoff, có 0 lượt gọi API, 0 refit
+HMM/student và 0 outcome cho 102 query.
+
+**53 test PASS và compile bốn file Python PASS.** Bốn test mới kiểm chặn ID
+reserve, maturity, quyền/không khớp trước oracle, parity recipe khi không có
+cờ và future poison. 49 test hồi quy kiểm feature index và scaler prior,
+bank MT, prefix HMM và Alpha. Fixture synthetic ban đầu dùng Volume lẻ nên
+validator từ chối. Đã sửa fixture dùng số cổ phiếu nguyên và lưu log cả hai
+lần. Chỉ kiểm đường dữ liệu bị ảnh hưởng, không chạy full suite hoặc E2E.
+Verifier `py -3.13 -I` đã đối chiếu 150 binding, Python 3.13.5/107 package và
+hai log dựng/tái lập. Gói 15 member, 28.626 byte, SHA256
+`955d22f88b0a0cc4cc02f81f8803145b2c91a4451b0a3b8ef63ed05349a47603`.
+[QA FIN06](week12/finalize_bank_checks.zip).
+
+**FIN06 còn mở.** Bank số có 852/852 nhãn, bank tín hiệu có **0/852 episode
+đủ chứng cứ**. Chưa tìm thấy journal gốc trong thư mục chạy, lịch sử Git hoặc
+các gói bằng chứng kế hoạch đã kiểm. Receipt cũ và tín hiệu chuẩn hóa chỉ
+được truy vết bằng hash. Mỗi episode còn cần đối soát request/response và
+checkpoint theo node, recipe Alpha causal có hiệu lực vào ngày episode, cùng
+regime từ model fit đúng prefix. Selector và HMM phục vụ query được fit sau
+một số ngày bank nên chưa thể dùng để suy lùi tín hiệu. FIN09 đã có số đếm
+852 episode cần giải quyết để lập batch và ngân sách. Số này chưa phải số
+HTTP call. Cần khóa và kiểm producer lịch sử trước khi lấy tín hiệu mới.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

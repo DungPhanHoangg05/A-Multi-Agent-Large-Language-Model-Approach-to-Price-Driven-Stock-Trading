@@ -14,3 +14,4 @@ test_finalize_price_leakage.py text eol=lf
 test_finalize_price_acceptance.py text eol=lf
 test_finalize_news.py text eol=lf
 test_finalize_news_leakage.py text eol=lf
+test_finalize_bank_leakage.py text eol=lf
