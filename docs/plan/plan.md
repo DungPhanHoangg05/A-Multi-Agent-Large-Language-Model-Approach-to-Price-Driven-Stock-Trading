@@ -8,9 +8,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
-`paper/` và khóa luận trong `thesis/`.** FIN00–FIN06 đã hoàn tất trong
-phạm vi ghi dưới đây. Bank FIN06 dùng khóa kỹ thuật xác định, đã sẵn sàng
-cho FIN07. FIN07–FIN17 vẫn mở, gồm cả phần ngân sách query của FIN09.
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN07 đã hoàn tất trong
+phạm vi ghi dưới đây. Retrieval OHLCV, Fact Anchor và MT-BICL đã qua kiểm tra
+offline trên 102 điểm. FIN08–FIN17 vẫn mở, gồm cả ngân sách query của FIN09.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -31,6 +31,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN04 | Kiểm lại validator offline cho kết quả `PASS_OWNER_ATTESTED`. Có 102 forecast dự kiến, 97 điểm qua bộ lọc quyền ban đầu và năm nhãn kinh tế NA. Cờ chứng cứ giá PIT độc lập vẫn là `false`. |
 | FIN05 | Validator offline xác nhận 102/102 điểm thiếu tin đủ chứng cứ tại cutoff. Snapshot giữ NA và lý do. Gói QA tin khớp hash. |
 | FIN06 | `PASS_OFFLINE_FIN06`. Có 852 chu kỳ đủ khóa thống kê, 733 đủ khóa ví dụ, 119 Alpha NA và 102 khóa query đã kiểm. Phát hành bank offline với 0 HTTP mới. Batch thị giác trước đó thu 2/1.704 slot cùng một chu kỳ, dùng 2.505 và 1.412 token. |
+| FIN07 | `PASS_OFFLINE_FIN07`. Oracle kiểm retrieval và ngữ cảnh trên 102 điểm. MT-BICL có 63 đủ support và 39 bypass. Fixture xác nhận C2/A/B lấy ví dụ khi qua gate. Đã kiểm cùng repeat và giữ nhãn query đóng. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -185,7 +186,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   để cấp bank cho FIN07. Đã đạt `PASS_OFFLINE_FIN06` với
   [profile OHLCV xác định](#fin06--phát-hành-bank-ohlcv-xác-định). Batch thị
   giác 1.704 slot thuộc recipe trước đây.
-- [ ] **FIN07 — Kiểm MT-BICL và toàn đường ngữ cảnh.** Kiểm context prior/target,
+- [x] **FIN07 — Kiểm MT-BICL và toàn đường ngữ cảnh.** Kiểm context prior/target,
   fold freeze, reserved IDs, student/teacher, facts, support và thỏa dụng;
   giữ riêng p_student và teacher utility. Kiểm v1/C2/A/B dùng đúng nguồn,
   cổng và mẫu số; kiểm anchor và Q10/Q90 qua các trường hợp chấp nhận/bypass/
@@ -194,6 +195,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   tập theo mã/regime, điều kiện T/P và các mẫu số bằng oracle cho profile mới.
   Đối chiếu đúng khóa query/bank, retrieval thực sự hoạt động ở ca đủ support
   và lý do fallback ở ca thiếu support. Phụ thuộc FIN03–FIN06, ưu tiên offline.
+  Đã đạt `PASS_OFFLINE_FIN07` theo [receipt](week12/finalize_context_receipt_v1.json).
 - [ ] **FIN08 — Nối bản sửa vào các điểm vào thực tế.** CLI/backtest/as-of/live
   dùng đúng profile, snapshot, dependency và cache identity mới. Default của
   bản phát hành chuyển sang đường đã sửa sau nghiệm thu; dữ liệu cũ được
@@ -959,6 +961,77 @@ tế, selector và mô hình regime. Năm file Python mới biên dịch thành 
 suite và E2E dành cho gate tích hợp tương ứng vì thay đổi nằm ở producer offline.
 FIN07 dùng bank mới để kiểm mẫu số, lấy ví dụ, fallback và nhánh MT-BICL.
 FIN08 nối người gọi thực tế vào profile.
+
+#### FIN07 — Retrieval OHLCV và ngữ cảnh MT-BICL
+
+Adapter FIN07 ràng buộc snapshot vào khóa OHLCV, prefix giá, selector Alpha
+và snapshot tin của đúng điểm đã khóa. Báo cáo Pattern/Trend thị giác vẫn
+đi qua snapshot chung tới Decision. Bốn nhánh prior xếp ví dụ trên T/P từ
+OHLCV cùng Alpha/Indicator. Ví dụ yêu cầu đủ bốn hướng. Tập thống kê dùng
+toàn bộ chu kỳ cùng mã/regime, có T/P hợp lệ và `exit < cutoff`, kể cả chu
+kỳ thiếu Alpha. Sentiment giữ NA theo FIN05.
+
+- v1 dùng tỷ lệ mẫu của toàn tập và chọn tối đa ba ví dụ theo độ khớp T/P/A/I.
+- C2 và B dùng C khớp T/P/A/I. A dùng C khớp T/P. Bổ sung background rời
+  `P − C` cho hyperprior Beta. Tỷ lệ bẫy tăng có mẫu số là hợp các chu kỳ
+  Pattern hoặc Trend tăng. Hai tỷ lệ sai tăng dùng mẫu số theo từng tín hiệu.
+  Mẫu số 0 giữ NA. Gate ví dụ dùng giá đã scale, tuổi và khoảng cách phiên.
+- Các nhánh chạy qua Common. Fallback lấy đúng action Common cùng point,
+  shared, realization và repeat. Trace giữ riêng lý do OOD, thiếu khóa
+  OHLCV, thiếu population và thiếu bằng chứng sau gate.
+
+MT-BICL dựng context số từ giá thô FIN04 của từng mã, bắt đầu ở origin đã
+khóa. Đóng băng lịch sử trước query đầu của từng fold trong sáu fold. Đưa
+toàn bộ 102 ID vào danh sách reserve trước khi tính nhãn. Kiểm riêng tập
+centroid, prior quan sát và target quan sát. Ngày công bố sự kiện dùng quy tắc
+khả dụng của FIN04. Khi một sự kiện công bố trễ, tính lại feature lịch sử
+bị ảnh hưởng theo đúng ngày quan sát. Dùng student seed 42/step 3000 đã pin
+cho `p_student`. Teacher và 4.096 draw xác định utility, với hai ngưỡng
+chuyển `CASH → LONG` khi `Q10 > 0` và `LONG → CASH` khi `−Q90 > 0`.
+Ca thiếu support giữ anchor. Ca assertion của anchor sai dùng Common.
+
+Kiểm đối chứng chạy Common, v1/C2/A/B, Fact Anchor và MT-BICL bằng các
+request đầy đủ và phản hồi fixture. Truyền thử báo cáo thị giác trái chiều
+để kiểm truy xuất giữ cùng proof. Kiểm poison giá tương lai, chặn nhãn query,
+exit bằng cutoff, nội dung replay bị sửa và dependency khác repeat. Đây là
+kiểm preparation/policy. Caller CLI/backtest/as-of/live thuộc FIN08.
+
+Lượt đối chứng kiểm đủ **102/102 điểm**. Bốn nhánh prior có 54 điểm OOD
+mỗi nhánh. Trong 48 điểm thuộc CORE4, support trước khi gọi Decision là:
+
+| Phương pháp | Có nội dung prior | Có ví dụ | Fallback do thiếu bằng chứng |
+| --- | ---: | ---: | ---: |
+| v1 | 48 | 48 | 0 |
+| C2 | 2 | 0 | 46 |
+| A | 8 | 0 | 40 |
+| B | 2 | 0 | 46 |
+
+MT-BICL có **63 điểm đủ support**. Trong 39 điểm bypass, 23 thiếu số
+quan sát ở ít nhất một dấu và 16 thiếu feature query. Oracle đối chiếu
+258.048 draw, gồm các phân vị và xác suất teacher. Ba khoảng có Q10 dương
+và 20 khoảng có Q90 âm. Prompt dài nhất 3.802 ký tự với ước tính reserve
+3.419 token. Lượt này dùng 0 HTTP, 0 outcome query và 0 refit tài nguyên.
+[Receipt FIN07](week12/finalize_context_receipt_v1.json).
+
+Fixture dùng cùng đường lựa chọn trên bank thật, thay regime và vector query
+để có đủ support. Cả C2, A và B lấy được ví dụ, khớp oracle và đưa đúng ID
+vào prompt. Query thật của fixture tại FPT đầu fold có 19 chu kỳ cùng regime
+và rơi vào `LOW_POPULATION_SUPPORT`. Các giá trị dùng riêng cho fixture
+được giữ ngoài cohort và receipt của 102 điểm.
+
+```powershell
+py -3.13 -X utf8 scripts/check_finalize_context.py --check
+py -3.13 -X utf8 -m unittest discover -s tests -p 'test_finalize_context_leakage.py' -v
+```
+
+Biên dịch bốn file Python mới và chạy 7 ca FIN07 đều đạt. Các hồi quy được
+chọn bao phủ thống kê/xếp ví dụ, contract Unified, chống leakage MT, utility
+và Decision. Hai phép kiểm lịch sử trong
+suite replica báo lệch byte trên các file trùng `develop` trước FIN07.
+H02 tái lập đúng receipt khi đọc bản CSV theo CRLF đã khóa. Pin huấn luyện
+gốc dùng `backtest_engine.py` ở `77f4bada`; hai hàm tính nhãn và kiểm chi
+phí trùng AST với bản đang dùng. Đối soát riêng 31 pin trong recipe số FIN06
+đã đạt. Full suite và E2E toàn hệ dành cho gate tích hợp tương ứng.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

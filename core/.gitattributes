@@ -16,3 +16,5 @@ finalize_raw_selector.py text eol=lf
 finalize_bank_signals.py text eol=lf
 finalize_ohlcv_keys.py text eol=lf
 finalize_deterministic_bank.py text eol=lf
+finalize_context.py text eol=lf
+finalize_prior.py text eol=lf
