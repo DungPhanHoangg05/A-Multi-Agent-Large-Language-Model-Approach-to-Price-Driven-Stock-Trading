@@ -7,10 +7,10 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
-**Trạng thái hiện tại — FIN00–FIN05 hoàn tất trong phạm vi đã ghi. FIN06 đã
-tái dựng tài nguyên số và đang chờ chứng cứ tín hiệu bank. FIN07–FIN17 chưa
-thực hiện.** FIN04 dùng nguồn giá theo xác nhận chủ dữ liệu
-(`PASS_OWNER_ATTESTED`), FIN05 giữ tin thiếu chứng cứ ở trạng thái NA.
+**Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN06 đã hoàn tất trong
+phạm vi ghi dưới đây. Bank FIN06 dùng khóa kỹ thuật xác định, đã sẵn sàng
+cho FIN07. FIN07–FIN17 vẫn mở, gồm cả phần ngân sách query của FIN09.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -21,6 +21,75 @@ finalize duy nhất**. README W12 tiếp tục là nguồn bằng chứng U/F đ
 [thesis/plan.md](../../thesis/plan.md) quản lý các task biên tập/nộp khóa luận.
 Các nhận định về đầu mối và trạng thái trong phần lịch sử bên dưới gắn với
 mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đúng phạm vi.
+
+#### Lịch bàn giao 18–20/11/2026
+
+| Mốc đã đối chiếu | Bằng chứng và giới hạn |
+| --- | --- |
+| FIN01–02 | Manifest inventory và hợp đồng so sánh khớp checksum, cả năm nguồn cha của hợp đồng khớp hash. Giữ 102 điểm, chín mã, ba repeat và tám vai trò gồm sáu phương pháp cùng Common và Fact Anchor. |
+| FIN03 | Gói QA Alpha khớp SHA-256 đã khóa. Log ghi 9 test mới và 32 test hồi quy đạt. Phạm vi đã kiểm gồm 85 yếu tố và bridge offline. Các caller thực tế của bản sửa còn thuộc FIN08/14. |
+| FIN04 | Kiểm lại validator offline cho kết quả `PASS_OWNER_ATTESTED`. Có 102 forecast dự kiến, 97 điểm qua bộ lọc quyền ban đầu và năm nhãn kinh tế NA. Cờ chứng cứ giá PIT độc lập vẫn là `false`. |
+| FIN05 | Validator offline xác nhận 102/102 điểm thiếu tin đủ chứng cứ tại cutoff. Snapshot giữ NA và lý do. Gói QA tin khớp hash. |
+| FIN06 | `PASS_OFFLINE_FIN06`. Có 852 chu kỳ đủ khóa thống kê, 733 đủ khóa ví dụ, 119 Alpha NA và 102 khóa query đã kiểm. Phát hành bank offline với 0 HTTP mới. Batch thị giác trước đó thu 2/1.704 slot cùng một chu kỳ, dùng 2.505 và 1.412 token. |
+
+Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
+[hợp đồng so sánh](week12/finalize_comparison_contract.json),
+[gói QA Alpha](week12/finalize_alpha_checks.zip),
+[nghiệm thu giá](week12/finalize_price_acceptance_v1.json),
+[độ phủ tin](week12/finalize_news_coverage_v1.json),
+[manifest bank OHLCV](../../outputs/finalize/ohlcv_bank_v1/manifest.json) và
+[kế hoạch slot thị giác](week12/finalize_bank_collection_plan_v1.json).
+
+**Vì sao đổi cách chuẩn bị bank.** Với mức dùng của cặp đầu tiên, 852 cặp
+cần khoảng 3,34 triệu token. Một org theo cấu hình 200.000 token/24 giờ cần
+khoảng 17 ngày quota chỉ riêng cho bank. Đây là ngoại suy từ một chu kỳ,
+chưa tính retry hay query. Tăng số worker vẫn dùng chung hạn mức đó.
+
+**Quyết định phương pháp cho bản sửa.** Tạo profile riêng cho khóa tìm kiếm
+của bank. Từ cửa sổ 45 nến kết thúc tại cutoff, tính hai tín hiệu bằng quy
+tắc OHLCV xác định. Ngày đầu phải khóa công thức nhận diện mẫu nến, hướng xu
+thế, ngưỡng, cách xử lý thiếu dữ liệu và phiên bản nguồn. Dùng cùng hàm và
+cùng ngữ nghĩa ở phía bank và phía query cho v1/C2/A/B, gồm so khớp ví dụ
+và các thống kê điều kiện. Các báo cáo Pattern/Trend thị giác thật vẫn đi
+qua upstream chung tới Decision. MT-BICL tiếp tục dùng context số, student,
+teacher và Fact Anchor theo hợp đồng riêng. Tên trường và phần giải thích
+phải cho biết tín hiệu nào do quy tắc sinh, báo cáo nào do model sinh.
+Khóa quy tắc từ định nghĩa kỹ thuật và fixture OHLCV trước khi đối chiếu
+với tín hiệu đã thu. Hàm sinh khóa chỉ nhận nến đã biết tại ngày quyết định.
+FIN07 kiểm cả nhánh đủ support và fallback trên fixture, đồng thời ghi độ
+phủ thực tế của từng mã/regime trên bank mới.
+
+Phương án này cần **0 lượt vision mới cho bank**. Giữ nguyên 852 ID, nhãn
+kinh tế, 119 Alpha NA và 733 ứng viên có Alpha. Hai phản hồi thật đã thu
+thuộc batch thị giác cũ. Lưu nguyên journal để truy vết hoặc tiếp tục batch
+đó về sau. Chỉ phát hành profile mới sau khi đã có manifest, verifier và
+receipt của chính nó. Độ đúng được kiểm bằng công thức đã khóa, oracle độc
+lập và tính nhân quả theo prefix. Báo cáo mức trùng/khác với tín hiệu thị
+giác trên dữ liệu có sẵn kèm cỡ mẫu. Một cặp đã thu chưa đủ để kết luận hai
+cách tương đương hoặc phương pháp mới cải thiện lợi nhuận.
+
+| Hạn | Công việc theo thứ tự và việc có thể chuẩn bị song song | Điều kiện ra khỏi ngày |
+| --- | --- | --- |
+| **18/11 · Khóa phương pháp và kiểm tính khả thi** | FIN06/09 khóa amendment máy đọc cho bank và khóa truy xuất query trước khi xem outcome. Dựng hai tín hiệu từ checkpoint/prefix đã pin, tái dùng nhãn, selector, HMM và scaler theo hash. Song song truy chứng cứ nguồn giá gốc, lịch giao dịch và lịch sử sự kiện. Lập dự toán FIN11 cho 102 điểm, gồm quota còn lại, tokens theo model, raw có thể tái dùng, retry và thời gian chờ. | Có manifest 852 ID, số hàng đủ điều kiện thống kê/ví dụ và lý do NA. Verifier tái dựng từng tín hiệu. Chốt khả năng có nguồn PIT độc lập và đủ năng lực gọi query trong thời gian còn lại. Thiếu đầu vào nào ghi rõ blocker và báo ngay trong ngày. |
+| **19/11 · Tích hợp, kiểm gate và thu** | FIN07/08 nối profile vào retrieval, MT, CLI, backtest, as-of và realtime với cache version mới. FIN09 chốt số gọi thực sau dry-run. FIN10 chạy kiểm tra bị ảnh hưởng, gồm future poison, economics, paired, token và phục hồi. Khi FIN10 đạt và có quota đã duyệt, FIN11 chỉ thu slot thiếu, cùng upstream và checkpoint. Song song soạn phần phương pháp/giới hạn của cả hai bản thảo. | Cold replay và đường chạy thực nhận đúng profile. Ledger ghi reuse/new/bypass/UNKNOWN cho từng slot. Từng điểm có đủ forecast theo protocol trước khi mở outcome. |
+| **20/11 · Đối soát và bàn giao** | FIN12 đối soát số học và support theo hai baseline. FIN13 ký receipt bản sửa theo từng cờ, FIN14 kiểm UI/export rồi mới chuyển default. FIN15 cập nhật bảng/hình và kết luận từ đúng receipt cho cả hai bản thảo, build/render cả hai. FIN16 kiểm khôi phục sạch. FIN17 chốt trạng thái và bàn giao. | Có bản chạy được, manifest/receipt, kết quả tái lập, bản build bài báo và khóa luận. Chỉ đóng toàn bộ khi mọi gate áp dụng đã đạt. Nếu còn thiếu chứng cứ hoặc query chưa đủ, bàn giao phần đã xác minh ngày 20/11 và ghi rõ tiêu chí còn mở. |
+
+**Hai điều kiện có thể làm lỡ hạn dù bank chạy offline**
+
+- **Nguồn giá.** FIN04 cho phép dùng giá theo xác nhận của tác giả. Để đóng cờ
+  PIT nguồn độc lập, cần bản lưu giá có bằng chứng khả dụng tại cutoff, lịch
+  và chứng cứ sự kiện bao phủ miền công bố. Đối soát phiên bản, coverage,
+  timestamp và hash rồi chạy lại validator độc lập trên nguồn đó. Nguồn thay
+  đổi phải tái dựng các tài nguyên phụ thuộc và tính lại dự toán reuse. Nếu
+  còn thiếu, ghi riêng PASS của phần mềm theo giả định nguồn và giữ
+  `NOT_CERTIFIED` cho chứng nhận nguồn tương ứng.
+- **Query thật.** Ngân sách 0 lượt mới chỉ áp dụng cho khâu sinh tín hiệu
+  bank. FIN09 tách tối đa 204 slot vision upstream, 2.448 slot Decision và
+  phần smoke trước reuse/bypass. So ngân sách token thực còn lại từng model
+  với thời gian đến hạn. Nếu vượt, ưu tiên khôi phục raw tương thích hoặc
+  xin năng lực chạy bổ sung đúng protocol. Nếu vẫn thiếu, giữ nguyên các ô
+  pending. Kết quả U09 trong bài báo/khóa luận tiếp tục mang định danh lịch
+  sử cho đến khi FIN12 có đủ kết quả của bản sửa.
 
 #### Phạm vi bản cuối và điều kiện kết thúc
 
@@ -102,38 +171,47 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   **PASS_NEWS_PIT_WITH_EXPLICIT_UNAVAILABLE:** profile/snapshot/corpus đã khóa,
   14 test PASS. Cả 102 điểm hiện NA; không đủ chứng cứ nội dung PIT để dùng
   tin legacy. FIN08 nối profile vào ứng dụng; không coi NA là điểm trung tính.
-- [ ] **FIN06 — Hoàn thiện bank, regime và tài nguyên fit.** Truy nguồn tín
+- [x] **FIN06 — Hoàn thiện bank, regime và tài nguyên fit.** Truy nguồn tín
   hiệu/giá/nhãn từng chu kỳ dùng trong bản cuối, xử lý chênh cơ sở giá, kiểm
   strict maturity, train cutoff của HMM/scaler và quy tắc OOD. Nếu cần tái tạo
   bank hoặc refit tài nguyên, có recipe, nhật ký và version mới trước inference
   query. Đạt khi membership/labels/resources được tái dựng và query outcome
   không tác động preparation. Phụ thuộc FIN03–FIN05; nhu cầu API chuẩn bị
   lịch sử được ghi trong FIN09.
-  **Phần offline đã chốt:** 852 chu kỳ trong tập thống kê dự kiến, 733 chu kỳ
-  có Alpha trong tập ví dụ dự kiến. Chờ thu và xác minh Pattern/Trend cho
-  1.704 slot FIN09. Chưa cấp bank cho retrieval.
+  **Nghiệm thu theo lịch ba ngày.** Cấp recipe và namespace mới trước query.
+  Kiểm đủ 852 ID, hash cửa sổ, cutoff, hướng tín hiệu và NA từng dòng bằng
+  replay. Đối chiếu với oracle trên ca tăng/giảm/đi ngang/thiếu nến, kiểm
+  ranh giới ngưỡng và thay đổi hậu tố tương lai. Dùng bản manifest đã kiểm
+  để cấp bank cho FIN07. Đã đạt `PASS_OFFLINE_FIN06` với
+  [profile OHLCV xác định](#fin06--phát-hành-bank-ohlcv-xác-định). Batch thị
+  giác 1.704 slot thuộc recipe trước đây.
 - [ ] **FIN07 — Kiểm MT-BICL và toàn đường ngữ cảnh.** Kiểm context prior/target,
   fold freeze, reserved IDs, student/teacher, facts, support và thỏa dụng;
   giữ riêng p_student và teacher utility. Kiểm v1/C2/A/B dùng đúng nguồn,
   cổng và mẫu số; kiểm anchor và Q10/Q90 qua các trường hợp chấp nhận/bypass/
   phủ quyết. Đạt khi thay đổi future/query label không đi vào preparation,
-  request hoặc policy trước barrier. Phụ thuộc FIN03–FIN06, ưu tiên offline.
+  request hoặc policy trước barrier. Kiểm riêng thống kê bẫy tăng/sai hướng,
+  tập theo mã/regime, điều kiện T/P và các mẫu số bằng oracle cho profile mới.
+  Đối chiếu đúng khóa query/bank, retrieval thực sự hoạt động ở ca đủ support
+  và lý do fallback ở ca thiếu support. Phụ thuộc FIN03–FIN06, ưu tiên offline.
 - [ ] **FIN08 — Nối bản sửa vào các điểm vào thực tế.** CLI/backtest/as-of/live
   dùng đúng profile, snapshot, dependency và cache identity mới. Default của
   bản phát hành chuyển sang đường đã sửa sau nghiệm thu; dữ liệu cũ được
   hiển thị đúng profile lịch sử. Trạng thái khoa học của bản mới được dẫn từ
   bằng chứng đã kiểm và đúng miền. Đạt khi không còn caller thuộc bản cuối
-  gọi nhầm Alpha cũ, trộn cache hoặc gán receipt cũ cho nguồn mới. Phụ thuộc
-  FIN02, FIN03 và FIN07.
+  gọi nhầm Alpha cũ, trộn cache hoặc gán receipt cũ cho nguồn mới. Có thể
+  nối caller bằng fixture ngay khi schema FIN06 đã khóa. Nghiệm thu tích hợp
+  sau FIN07, chuyển default sau FIN13–FIN14.
 - [ ] **FIN09 — Chốt bảng tái sử dụng và ngân sách API.** Đối chiếu từng request
   và dependency với archive, ghi slot dùng lại/chạy mới/bypass và lý do.
   Tính cả gọi chuẩn bị bank, vision, anchor, repeats, smoke, retry và quota
   còn sử dụng; chốt model/options, giới hạn lượt gọi và chi phí/thời gian có
   căn cứ trước thu. Đạt khi số slot/call kiểm được bằng dry-run và mọi lời gọi
   có nhu cầu thực tế. Phụ thuộc FIN01–FIN02; lập dự toán sơ bộ ngay sau FIN02,
-  cập nhật theo delta FIN03–FIN08. Batch gọi model chuẩn bị tài nguyên chỉ mở
-  sau khi producer đã qua kiểm offline liên quan và nguồn/recipe/ngân sách
-  batch được khóa; sau thu tái kiểm task tài nguyên trước FIN10.
+  cập nhật theo delta FIN03–FIN08. Với profile bank xác định, dự toán bank
+  là 0 HTTP. Khóa riêng ngân sách model cho query, gồm quota còn lại sau các
+  lượt đã dùng, token và thời gian cho mỗi model. Kiểm lại ngay sau dry-run
+  trước FIN10/11.
 - [ ] **FIN10 — Nghiệm thu offline trước thu query.** Khóa code/runtime/resource
   và chạy các kiểm tra trực tiếp bị ảnh hưởng, gồm PIT toàn pipeline,
   economics, paired dependency, prompt/schema, retry/checkpoint, owner/cache,
@@ -157,7 +235,11 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   causal và toàn pipeline PIT trong miền đã khóa; integrity, economics,
   pairing và recovery đạt điều kiện tương ứng. Gate chưa có bằng chứng tiếp
   tục chặn đóng task. Receipt ghi source/runtime/data/model/scope; bản ghi
-  Native cũ vẫn dẫn đúng phản ví dụ đã lưu. Phụ thuộc FIN10 và FIN12.
+  Native cũ vẫn dẫn đúng phản ví dụ đã lưu. Lập bảng từng cờ FIN01 với
+  profile/caller, phản ví dụ cũ, phép kiểm bản sửa, kết quả và receipt.
+  Kiểm cả trường hợp dữ liệu giả sai phải bị từ chối. Chứng nhận PIT nguồn
+  độc lập cần bằng chứng giá riêng nêu tại lịch ngày 18/11. Phụ thuộc FIN10
+  và FIN12.
 - [ ] **FIN14 — Hồi quy ứng dụng trên phần thay đổi.** Kiểm sáu lựa chọn,
   Common/Fact Anchor, input/preflight, tiến trình, lỗi/partial/UNKNOWN,
   raw/final/context, kết quả cũ/mới, VI/EN, theme và export. Kiểm trực quan
@@ -333,9 +415,8 @@ và giới hạn ghép phản hồi cũ/mới; alias không chứng minh cùng w
 
 **Dự toán sơ bộ cho FIN09.** 2.448 forecast slot; trần trước reuse/bypass là
 2.448 Decision +204 vision +10 smoke = **2.662 execution**, tối đa **7.986
-attempt** khi cap 3. Đây chưa gồm bank preparation. Audit FIN06 đã xác định
-**852 episode tín hiệu cần xử lý**.
-Số cuộc gọi còn phụ thuộc recipe và số request chứng minh được tái sử dụng.
+attempt** khi cap 3. Profile bank xác định xử lý **852 chu kỳ với 0 HTTP**.
+Số cuộc gọi query còn phụ thuộc số request chứng minh được tái sử dụng.
 Chi phí/thời gian/quota còn **chưa xác minh**,
 không cam kết lịch thu. Candidate model/options giữ từ runtime U08 để đối chiếu
 archive; FIN09 xác minh availability/quota/payload, không tự đổi model hoặc giảm
@@ -810,7 +891,8 @@ schema mới, thống kê, similarity và BRPP trước khi dùng trong query.
 **1.704 slot = 852 chu kỳ × 2 node**, tối đa **5.112 attempt** nếu FIN09 áp
 cap 3 cho mỗi slot. Đó là số slot logic, không phải xác nhận chọn account
 hay cấp quota. Mỗi slot có ID, node, hash checkpoint và hash cửa sổ ảnh.
-Tái lập bằng `py -3.13 -X utf8 scripts/plan_finalize_bank_collection.py --check`.
+Script lập slot của profile cũ đã được dọn. Kế hoạch máy đọc và các hash
+checkpoint được giữ để truy vết.
 Request body cho toàn bộ batch và mức chi thực còn thuộc FIN09. Handoff
 offline có 0 episode sẵn sàng cho thống kê, 0 sẵn sàng làm ví dụ và không
 chứa outcome trong slot. Chu kỳ nào thiếu raw/parse tiếp tục chặn admission.
@@ -821,9 +903,62 @@ handoff offline nên không chạy full suite/E2E. Kiểm hash bank số, gói
 checkpoint, byte kế hoạch và tính duy nhất của slot đã PASS. 0 API và 0
 outcome query.
 
-Phần chuẩn bị offline của FIN06 đã chốt. Điều kiện đóng toàn bộ FIN06 vẫn
-cần kết quả Pattern/Trend có trace và kiểm admission sau thu theo hợp đồng
-FIN09. **Chưa merge vào `develop`** để không cấp bank khi phần đó còn thiếu.
+Tại mốc handoff này, điều kiện đóng **profile bank thị giác**
+vẫn cần kết quả Pattern/Trend có trace và kiểm admission sau thu theo
+hợp đồng FIN09. Nhánh chưa merge vào `develop` tại mốc này.
+Lịch bàn giao 18–20/11 ở đầu tài liệu dùng một profile bank xác định mới.
+Các manifest/slot đã khóa ở đây tiếp tục mô tả đúng batch thị giác.
+
+#### FIN06 — Phát hành bank OHLCV xác định
+
+**`PASS_OFFLINE_FIN06`**. Recipe `finalize_ohlcv_bank_v1` khóa nguồn giá, lịch,
+checkpoint, công thức, quy tắc dữ liệu thiếu và phạm vi mẫu cho v1/C2/A/B.
+Bank và query dùng chung `key_at` trên đúng 45 phiên VNINDEX kết thúc tại
+cutoff. Pattern yêu cầu hai thân nến ngược hướng, thân cuối bao trọn và dài
+hơn, đồng thời dài ít nhất nửa biên độ nến cuối. Trend cần cả tỷ lệ SMA10/SMA30
+và biến động Close so với 10 phiên trước vượt ngưỡng 0,5% theo cùng hướng.
+Trường hợp bằng ngưỡng Trend hoặc hai vế trái hướng trả `NEUTRAL`. Cửa sổ thiếu
+phiên hoặc thiếu OHLCV trả NA kèm lý do. Báo cáo thị giác của Decision và hợp
+đồng ngữ cảnh MT-BICL được giữ theo thiết kế FIN02.
+[Recipe máy đọc](week12/finalize_ohlcv_bank_recipe_v1.json).
+
+Giữ đủ 852 ID và nhãn kinh tế đã khóa. Cả 852 chu kỳ có hai khóa để vào
+tập thống kê; 733 chu kỳ đủ T/P/A/I để xếp ví dụ. Có 119 Alpha NA và 852
+sentiment NA. Manifest ghi độ phủ cho 16 nhóm mã/regime. Giữ lịch, nguồn
+giá, HMM và scaler theo hash FIN04/FIN06. Cờ PIT độc lập cho nguồn giá vẫn
+`NOT_CERTIFIED`. 102/102 query có khóa tại cutoff. Chuẩn bị bank và khóa query
+dùng 0 HTTP mới, 0 outcome query và 0 lần fit lại.
+[Manifest và receipt](../../outputs/finalize/ohlcv_bank_v1/manifest.json),
+[bank](../../outputs/finalize/ohlcv_bank_v1/bank.json),
+[khóa query](../../outputs/finalize/ohlcv_bank_v1/query_keys.json).
+
+Sau khi khóa recipe và xác minh bản dựng, đối chiếu hai HTTP 200 đã lưu tại
+`tmp/fin06_bank_hosted_single_org_v1`. Cả hai liên kết đúng hash wire và
+checkpoint của FPT ngày 01/06/2020.
+
+| Khóa | OHLCV | Thị giác | Trùng | Khác |
+| --- | --- | --- | ---: | ---: |
+| Pattern | `NEUTRAL` | `NEUTRAL` | 1 | 0 |
+| Trend | `NEUTRAL` | `NEUTRAL` | 1 | 0 |
+
+Cỡ mẫu là một chu kỳ. Kết quả chỉ ghi nhận mức trùng trên chu kỳ đã lưu.
+Giữ nguyên journal gốc, gói checkpoint v2 và kế hoạch 1.704 slot để truy vết.
+Đã dọn mã thu API, bộ lập slot cùng test của phương án trước và các bản dựng thử dư thừa.
+
+Chạy lại phép kiểm và so byte với artifact đã phát hành.
+
+```powershell
+py -3.13 -X utf8 scripts/prepare_finalize_ohlcv_bank.py --check
+py -3.13 -X utf8 -m unittest discover -s tests -p 'test_finalize*bank*leakage.py' -v
+```
+
+Lệnh `--check` tái lập đúng byte. Oracle tính độc lập 852 cửa sổ bank và
+102 cửa sổ query. Cả 13 test đã đạt, bao phủ
+cutoff, ngưỡng, thiếu dữ liệu, thay hậu tố giá/outcome tương lai, nhãn kinh
+tế, selector và mô hình regime. Năm file Python mới biên dịch thành công. Full
+suite và E2E dành cho gate tích hợp tương ứng vì thay đổi nằm ở producer offline.
+FIN07 dùng bank mới để kiểm mẫu số, lấy ví dụ, fallback và nhánh MT-BICL.
+FIN08 nối người gọi thực tế vào profile.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

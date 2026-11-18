@@ -14,4 +14,5 @@ finalize_news_release.py text eol=lf
 finalize_bank_resources.py text eol=lf
 finalize_raw_selector.py text eol=lf
 finalize_bank_signals.py text eol=lf
-finalize_bank_admission.py text eol=lf
+finalize_ohlcv_keys.py text eol=lf
+finalize_deterministic_bank.py text eol=lf

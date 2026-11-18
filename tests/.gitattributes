@@ -16,4 +16,4 @@ test_finalize_news.py text eol=lf
 test_finalize_news_leakage.py text eol=lf
 test_finalize_bank_leakage.py text eol=lf
 test_finalize_bank_signals_leakage.py text eol=lf
-test_finalize_bank_admission.py text eol=lf
+test_finalize_ohlcv_bank_leakage.py text eol=lf

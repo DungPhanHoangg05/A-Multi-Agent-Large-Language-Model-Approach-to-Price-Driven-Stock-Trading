@@ -10,4 +10,5 @@ check_finalize_price_acceptance.py text eol=lf
 prepare_finalize_news.py text eol=lf
 prepare_finalize_bank.py text eol=lf
 rebuild_finalize_bank_signals.py text eol=lf
-plan_finalize_bank_collection.py text eol=lf
+prepare_finalize_ohlcv_bank.py text eol=lf
+verify_finalize_ohlcv_bank.py text eol=lf
