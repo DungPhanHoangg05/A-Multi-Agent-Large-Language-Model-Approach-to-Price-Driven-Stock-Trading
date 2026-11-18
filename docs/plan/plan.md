@@ -7,7 +7,8 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
 
-**Trạng thái hiện tại — FIN00–FIN03 hoàn tất; FIN04–FIN17 chưa thực hiện.**
+**Trạng thái hiện tại — FIN00–FIN03 hoàn tất; FIN04 đã có auditor và đối soát
+offline, gate nguồn còn chặn; FIN05–FIN17 chưa thực hiện.**
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -86,6 +87,9 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   ghi rõ phần thay đổi dataset và tác động đến nhãn/đặc trưng. Đạt khi các
   nguồn trong miền nghiệm thu được validator và oracle chấp nhận, còn các
   giới hạn vendor được mô tả chính xác. Phụ thuộc FIN02.
+  **Đang làm:** audit chín mã/102 điểm và oracle bank đã có; chưa đủ chứng cứ
+  availability/as-published, lịch độc lập và sự kiện để mở source gate. Năm
+  chu kỳ có ngày quyền theo metadata vendor; giữ nguyên cohort, chưa đóng FIN04.
 - [ ] **FIN05 — Hoàn thiện PIT tin tức.** Đối soát nội dung, nguồn, thời gian
   xuất bản/khả dụng/thu thập, scorer và aggregation. Thu bổ sung hoặc khóa
   nguồn phục vụ bản mới khi thiếu bằng chứng; giữ unavailable có lý do theo
@@ -409,6 +413,83 @@ FIN03 đạt Alpha PIT và caller bridge/CLI trong miền fixture đã kiểm. N
 lịch sử vẫn **FAIL**, whole-system vẫn **NOT_CERTIFIED**; PIT nguồn và tài nguyên
 bản cuối thuộc FIN04–FIN07/FIN10, tích hợp ứng dụng thuộc FIN08. Không dùng kết
 quả này để nhận bản sửa đã được phát hành hoặc toàn hệ đã Zero-Leakage.
+
+#### FIN04 — Đối soát nguồn đã có, gate PIT còn chặn ngày 18/11/2026
+
+Nhánh `feat/finalize-price-provenance`, nền `develop:0649b9b3`. Người dùng đã
+xác nhận **không có kho snapshot hoặc hồ sơ nguồn bổ sung**. Đã tìm và kiểm
+response giá thô/sự kiện H02 cho đủ chín mã, receipt từng trang, giá/query U06,
+giá bank và lịch VNINDEX. [Auditor](../../core/finalize_price_audit.py) chỉ đọc
+input đã pin từ FIN02/U06; không gọi hàm acquisition hoặc cập nhật dữ liệu cũ.
+[Báo cáo máy đọc](week12/finalize_price_audit.json) dùng envelope/checksum hiện có,
+giữ 110 binding nguồn, kết quả từng mã, từng point và delta cần xử lý.
+
+**Trạng thái chính xác:** `AUDIT_COMPLETE_SOURCE_GATE_BLOCKED`,
+`price_source_gate=BLOCKED_PIT_PROVENANCE`, **0/102 điểm được admission**.
+Checksum và các phép đối soát số học PASS không thay chứng cứ dữ liệu đã khả
+dụng tại cutoff. Không đánh dấu FIN04 hoàn tất hoặc thay đổi điều kiện FIN02.
+
+| Nội dung | Kết quả đối soát |
+| --- | --- |
+| REST và đơn vị | Kiểm đủ trang, URL, response SHA/receipt, ticker và schema; dựng lại CSV từ trường Open/High/Low/Close thô, Reference và matched Volume. Chỉ chuyển VND→nghìn VND một lần; không lấy cột Adjusted hoặc scale để ép bằng donor. |
+| Lịch/origin | Lịch VNINDEX quan sát có 2.181 phiên 02/01/2018–30/09/2026; đủ query/t+1/t+3 của 102 điểm, cổ phiếu không thiếu phiên trong các chu kỳ đó. BHN giữ origin/suffix đã khóa, 673 dòng đầu chỉ được audit, không tự sửa OHLC hoặc đổi lịch fit. Chưa có chứng cứ lịch sở giao dịch độc lập. |
+| Bank/raw H02 | Bốn mã CORE4 có 751 phiên giao nhau/mã; Open/High/Low/Close/Volume khớp hoàn toàn. Đủ 852 episode đáo hạn trước query đầu; t+1/t+3 đúng phiên, không chu kỳ quyền hoặc thiếu matched Volume. Nhãn khớp `compute_round_trip_net_return`, 0 mismatch trên ngưỡng 1e-10; sai số tuyệt đối lớn nhất 2,7755575615628914e-17 theo fraction. Chỉ tính nhãn lịch sử bank, không tính outcome query. |
+| Donor/raw H02 | Cả chín chuỗi khác raw: 996–1.681 nến OHLC/mã khác nhau, Volume khác từ 0–166 phiên/mã. JSON giữ số đếm từng cột/từng mã. Nếu dùng raw thay donor, cần version nguồn/dataset và tái tạo tài nguyên/đặc trưng/nhãn chịu ảnh hưởng theo FIN02/FIN06; chưa đổi nguồn hoặc giả định request cũ còn tương đương. |
+| Availability | Receipt H02 ghi lượt lấy ngày 08/11/2026; donor ghi lấy lại ngày 01/11/2026 và tự ghi chưa authenticated historical snapshot. Chưa có chứng cứ phiên bản giá đã công khai tại cutoff của study. Không tự gán available_at bằng ngày nến hoặc ngày tải. |
+| Sự kiện | Giữ riêng ngày công bố/ngày không hưởng quyền; date-only dùng ngày kế tiếp, undated/future có lý do loại. Nội dung event hiện chỉ có metadata vendor, chưa chứng minh bản công bố tại cutoff. Các ngày quyền dưới đây là cờ cần xác minh, không phải chứng nhận PIT nội dung. |
+| Byte nguồn bank legacy | Tám CSV/events tại `data/execution_prices/` khác hash nội bộ manifest do LF/CRLF. Bản byte gốc đúng hash còn nguyên tại compatibility U06 và được loader cũ xác minh/tái dựng từ raw evidence. Auditor dùng bản đã verify này; không đổi hash mong đợi hoặc ghi đè file lịch sử để ép PASS. |
+
+Các chu kỳ có ngày quyền theo metadata công bố trước cutoff:
+
+| Point | Entry t+1 | Exit t+3 | Ngày quyền nằm trong (entry, exit] |
+| --- | --- | --- | --- |
+| FPT-2023-07-03 | 2023-07-04 | 2023-07-06 | 2023-07-05 |
+| VNM-2024-09-20 | 2024-09-23 | 2024-09-25 | 2024-09-24 |
+| MBB-2025-01-02 | 2025-01-03 | 2025-01-07 | 2025-01-07 |
+| VCB-2025-10-01 | 2025-10-02 | 2025-10-06 | 2025-10-03 |
+| VNM-2026-06-24 | 2026-06-25 | 2026-06-29 | 2026-06-26 |
+
+Giữ đủ **102 planned** và lý do từng point. Không loại năm điểm này hồi tố,
+không đổi horizon, công thức P&L, phí/slippage hoặc giả định quyền đã được
+engine xử lý. Trước phát hành nguồn mới cần xác minh ledger và quyết định
+protocol/version phù hợp với cờ quyền; hiện chưa có amendment thay cohort.
+
+**Phần mềm đã kiểm.** [CLI](../../scripts/audit_finalize_prices.py) hỗ trợ
+audit, `--check` đối soát lại báo cáo và `--require-pass` làm preflight fail-closed.
+`--check` trả exit0 với trạng thái source bị chặn; thêm `--require-pass` trả
+exit2/ValueError theo đúng gate thực, không sửa kết quả thành PASS. Validator
+prefix cắt giá/timestamp tại cutoff, đòi availability có timezone và không
+sớm hơn giờ hoàn tất phiên được caller cung cấp từ lịch đã xác minh. Mốc
+15:30 là giờ query theo FIN02, không được dùng để bịa giờ công bố giá hoặc
+giờ đóng cửa sở giao dịch. Schema số của prefix không đổi khi future làm đổi
+dtype cả cột. Metadata fixture kiểm rào thời gian, không authenticate vendor.
+
+**35 test duy nhất PASS, compile 4 Python PASS:** tám test auditor/REST/corpus,
+bốn test leakage/availability/events và 23 test execution-prices/target-contract.
+Đã phát hiện test poison future làm dtype Volume trong prefix đổi int→float;
+sửa chuẩn hóa kiểu sau khi cắt/validate prefix, kiểm lại nhóm trực tiếp bị ảnh
+hưởng. Log FAIL ban đầu và log PASS sau sửa được giữ nguyên. Kiểm lại nhóm
+auditor sau thêm rào quyền/khối lượng bank và nhóm primitive kinh tế được dùng.
+Không chạy full suite/E2E; reader legacy tại đường byte lệch chưa được cấp lại
+gate từ việc dùng bản compatibility đã verify. Không đổi code/runtime cũ hoặc
+dependency; chỉ thêm auditor/CLI/test và quy tắc LF cho các file mới.
+
+[Gói QA FIN04](week12/finalize_price_checks.zip): **95.893 byte**, SHA256
+`f6945d909febe2a1736fff17ddba11716c027e505168119baec2e8bf6b5346a0`.
+Gói có 25 member, log/nguồn/manifest/verifier; ghi rõ
+`PASS_AUDITOR_CHECKS_SOURCE_GATE_BLOCKED`, `FIN04_complete=false`. Verifier
+tiến trình mới `-I` đối soát byte report, 110 input, nguồn và Python
+3.13.5/107 package PASS, không chạy lại test/fit/API. Các bằng chứng FIN01–FIN03,
+U06/U08/U09 và dataset cũ giữ nguyên; **0 LLM/market API, 0 training/refit**,
+không tính query return hoặc thay default.
+
+**Điều kiện còn chặn FIN04:** cần chứng cứ as-published/availability của giá,
+nguồn lịch độc lập và event ledger có provenance trong miền đã khóa; nếu thay
+donor bằng raw phải khóa amendment và recipe tài nguyên trước query mới.
+Metadata ngày đơn thuần, quote khớp giữa hai lần thu hoặc thu lại dữ liệu hôm
+nay chưa đáp ứng điều kiện này. FIN04 tiếp tục mở; chưa mở FIN06/FIN10 bằng
+source gate hiện tại. Theo AGENTS §1.2 “Chỉ merge khi mọi kiểm tra áp dụng đều
+PASS”, nhánh FIN04 giữ riêng khi gate nguồn của task còn chặn.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
