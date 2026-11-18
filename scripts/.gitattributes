@@ -19,3 +19,4 @@ finalize_offline_acceptance.py text eol=lf
 finalize_offline_fixture.py text eol=lf
 finalize_hosted_study.py text eol=lf
 finalize_hosted_quota.py text eol=lf
+reconcile_finalize_hosted_study.py text eol=lf

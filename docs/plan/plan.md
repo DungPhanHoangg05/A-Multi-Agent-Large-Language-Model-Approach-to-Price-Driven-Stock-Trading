@@ -1224,6 +1224,27 @@ py -3.13 -X utf8 -u scripts/finalize_hosted_study.py resume --org 1
 Lệnh `py -3.13 -X utf8 scripts/finalize_hosted_study.py status` đọc tiến độ
 tại kho cục bộ `outputs/finalize/fin11_v1/`.
 
+Khi thấy `UNKNOWN_NEEDS_RECONCILIATION`, dùng lệnh offline sau để lấy UUID,
+slot, org, model và thời điểm gửi theo UTC:
+
+```powershell
+py -3.13 -X utf8 scripts/reconcile_finalize_hosted_study.py list
+```
+
+Đối chiếu log của đúng project Groq. Nếu có bằng chứng attempt cụ thể chưa
+được gửi, lưu nguồn bằng chứng vào một file UTF-8. Lệnh `not-sent` ghi hash
+của bằng chứng, giữ UUID, reserve và cap của slot. Sau đó tác giả chạy lại
+`resume` để thu tiếp. Khi chỉ có trạng thái `UNKNOWN` hoặc thiếu raw sau khi
+provider đã nhận request, giữ slot đang chờ đối soát.
+
+```powershell
+py -3.13 -X utf8 scripts/reconcile_finalize_hosted_study.py not-sent --request-id <UUID> --evidence <file-bang-chung>
+```
+
+Biên dịch hai file Python mới và đạt ba test cho đối soát UUID, bằng chứng,
+tính idempotent và việc giữ reserve. Đã thử đối soát trên bản sao checkpoint
+FPT. Attempt thật chưa có bằng chứng để đóng.
+
 Smoke `BHN-2025-10-01` đã chốt đủ 8 forecast slot, 6 HTTP 200 và 12.952 token
 đo được. Cold replay đối soát raw và checkpoint trước khi mở `RESEARCH`.
 Phase nghiên cứu đã nhận phản hồi đầu tiên ở `CMG-2023-07-03`. Mốc hoàn tất
