@@ -34,14 +34,15 @@ from scripts.finalize_offline_acceptance import RECEIPT, freeze, verify_record
 from scripts.prepare_finalize_api_budget import study
 
 RUN = ROOT/"outputs"/"finalize"/"fin11_v1"
-VERSION = "finalize_hosted_study_v4"
+RELEASE_NUMBER = 5
+VERSION = f"finalize_hosted_study_v{RELEASE_NUMBER}"
 SOURCE = "scripts/finalize_hosted_study.py"
 TRANSPORT = "core/serving_runtime/transport.py"
 QUOTA_SOURCE = "scripts/finalize_hosted_quota.py"
 RESET_SOURCE = "scripts/finalize_hosted_point_reset.py"
 RESPONSE_SOURCE = "scripts/finalize_hosted_response.py"
 PREVIOUS = "ef030417"
-HISTORICAL_RELEASE = {1: PREVIOUS, 2: "c0721b02", 3: "27e97ed0"}
+HISTORICAL_RELEASE = {1: PREVIOUS, 2: "c0721b02", 3: "27e97ed0", 4: "bc752234"}
 ORG_SLOTS = range(1, 6)
 PHASES = ("SMOKE", "RESEARCH")
 
@@ -150,8 +151,6 @@ class HostedStudyRunner(OfflineStudyRunner):
                     try:
                         save(path, self.tick())
                         break
-                    except DailyQuota:
-                        raise
                     except Waiting as pending:
                         wait(self.identity["phase"], point["id"], pending.until)
                         release_guard()
@@ -220,6 +219,8 @@ def historical_release(release: dict, version: int) -> dict:
     sources = {"runner": SOURCE} if version == 1 else {"runner": SOURCE, "transport": TRANSPORT, "quota_runner": QUOTA_SOURCE}
     if version >= 3:
         sources["point_reset"] = RESET_SOURCE
+    if version >= 4:
+        sources["response_capture"] = RESPONSE_SOURCE
     for field, path in sources.items():
         raw = git_blob(ROOT, HISTORICAL_RELEASE[version], path)
         legacy[field] = {"path": path, "bytes": len(raw), "sha256": sha256(raw).hexdigest()}
@@ -236,11 +237,11 @@ def release_for_grant(grant: dict, release: dict) -> dict:
 
 def verify_operation(root: Path, release: dict, operation: dict) -> None:
     """Đối chiếu các khóa vận hành theo đúng phiên bản đã ghi."""
-    for version in (2, 3, 4):
+    for version in range(2, RELEASE_NUMBER+1):
         path = root/f"release_v{version}.json"
         if not path.is_file():
             continue
-        expected = operation if version == 4 else {**operation, "release": historical_release(release, version)}
+        expected = operation if version == RELEASE_NUMBER else {**operation, "release": historical_release(release, version)}
         if load(path) != expected:
             raise ValueError("Release vận hành khác khóa FIN11")
 
@@ -321,7 +322,7 @@ def run(*, resume_stopped: bool = False, org_slot: int = ORG) -> dict:
     with PriorRunLock(RUN/"worker", digest(grant)):
         verify_operation(RUN, release, operation)
         archived_resets(RUN, grant)
-        write_new(RUN/"release_v4.json", json_bytes({"payload": operation, "sha256": digest(operation)}))
+        write_new(RUN/f"release_v{RELEASE_NUMBER}.json", json_bytes({"payload": operation, "sha256": digest(operation)}))
         key = credential(org_slot)
         scope = Quota(RUN/"credential.sqlite3").credential_scope(key)
         archive = Archive(ROOT)
@@ -353,8 +354,9 @@ def run(*, resume_stopped: bool = False, org_slot: int = ORG) -> dict:
                 results[phase] = runner.seal_phase()
             return status("PASS_FIN11", phases=results)
         except DailyQuota as exhausted:
-            return status("STOPPED_DAILY_QUOTA", phase=phase, org_slot=org_slot,
-                          resume_at=datetime.fromtimestamp(exhausted.until, timezone.utc).isoformat())
+            fields = {"resume_at": datetime.fromtimestamp(exhausted.until, timezone.utc).isoformat()
+                      } if exhausted.until is not None else {}
+            return status("STOPPED_DAILY_QUOTA", phase=phase, org_slot=org_slot, **fields)
         except Stopped:
             return status("STOPPED", phase=phase)
         except Unknown:

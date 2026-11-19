@@ -17,8 +17,11 @@ from core.unified_contracts import digest
 from scripts.finalize_hosted_response import HostedHTTP, capture_path, recover_response
 
 
-class DailyQuota(Waiting):
-    """Dừng phiên CLI khi cửa sổ ngày chặn lượt gọi."""
+class DailyQuota(BaseException):
+    """Dừng phiên CLI khi Groq báo hết quota ngày."""
+
+    def __init__(self, until: float | None) -> None:
+        self.until = until
 
 
 class HostedQuota(Quota):
@@ -51,29 +54,77 @@ class HostedQuota(Quota):
             db.execute("INSERT INTO metadata VALUES ('fin11_grant',?)", (signature,))
 
     def reserve(self, identifier: str, run: str, tokens: int) -> None:
-        """Giữ transaction hiện hữu; báo riêng khi RPD hoặc TPD đang chặn reserve."""
-        try:
-            super().reserve(identifier, run, tokens)
-        except Waiting as pending:
-            now = self.clock()
-            with self.connect() as db:
-                requests, charged = db.execute(
-                    "SELECT COUNT(*), COALESCE(SUM(COALESCE(used,reserve)),0) FROM attempts WHERE started>?",
-                    (now-86400,)).fetchone()
-                header = db.execute("SELECT 1 FROM headroom WHERE kind='requests' AND remaining<1 AND until>?",
-                                    (now,)).fetchone()
-            limits = self.limits
-            if header or requests >= limits["rpd"] or charged+tokens > limits["tpd"]:
-                raise DailyQuota(pending.until) from None
-            raise
+        """Giữ pacing phút và chỉ chặn theo ngày khi có thời hạn từ Groq."""
+        if type(tokens) is not int or not 0 < tokens <= self.limits["tpm"]:
+            raise Failed("TOKEN_ADMISSION_FAILED")
+        now = self.clock()
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            headroom = db.execute("SELECT kind,remaining,until FROM headroom WHERE until>?", (now,)).fetchall()
+            daily_waits = [until for kind, remaining, until in headroom
+                           if kind in ("provider_requests", "daily_retry") and remaining < 1]
+            if daily_waits:
+                raise DailyQuota(max(daily_waits))
+            waits = [until for kind, remaining, until in headroom
+                     if kind in ("tokens", "retry") and (tokens if kind == "tokens" else 1) > remaining]
+            count, charged, earliest = db.execute(
+                "SELECT COUNT(*), COALESCE(SUM(reserve),0), MIN(started) FROM attempts "
+                "WHERE state!='CARRY' AND started>?", (now-61,)).fetchone()
+            if count >= self.limits["rpm"] or charged+tokens > self.limits["tpm"]:
+                waits.append(earliest+61.1)
+            if waits:
+                raise Waiting(max(waits))
+            db.execute("INSERT INTO attempts(id,run,started,reserve,state) VALUES (?,?,?,?,'UNKNOWN')",
+                       (identifier, run, now, tokens))
+            db.execute("UPDATE headroom SET remaining=remaining-CASE kind WHEN 'tokens' THEN ? ELSE 1 END "
+                       "WHERE kind IN ('tokens','provider_requests') AND until>?", (tokens, now))
 
     def observe(self, identifier: str, headers: dict, observed_at: float) -> None:
-        """Dừng khi provider hạ giới hạn đã khóa, kể cả sau khi khởi động lại."""
+        """Chỉ ghi cửa sổ RPD khi header của Groq có thời gian reset."""
         for suffix, limit in (("requests", 1000), ("tokens", 8000)):
             raw = headers.get("x-ratelimit-limit-"+suffix)
             if raw is not None and (not math.isfinite(float(raw)) or float(raw) < limit):
                 raise Failed("PROVIDER_LIMIT_BELOW_GRANT")
-        super().observe(identifier, headers, observed_at)
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            marker = db.execute("SELECT observed FROM attempts WHERE id=?", (identifier,)).fetchone()
+            if marker is None:
+                raise ValueError("Header không có intent quota")
+            if marker[0]:
+                return
+            for kind in ("tokens", "requests"):
+                value = headers.get("x-ratelimit-remaining-"+kind)
+                if value is None:
+                    continue
+                remaining = float(value)
+                if not math.isfinite(remaining) or remaining < 0:
+                    raise ValueError("Header quota không hữu hạn hoặc âm")
+                seconds = reset_seconds(headers.get("x-ratelimit-reset-"+kind, ""))
+                if seconds is None and kind == "requests":
+                    continue
+                # Khóa riêng các số dư RPD đi kèm reset thực, vì sổ cũ từng tự cộng 24 giờ.
+                name = "provider_requests" if kind == "requests" else kind
+                until = observed_at+(61. if seconds is None else seconds)+.1
+                previous = db.execute("SELECT remaining,until FROM headroom WHERE kind=?", (name,)).fetchone()
+                if previous and previous[1] > self.clock():
+                    remaining, until = min(remaining, previous[0]), max(until, previous[1])
+                db.execute("INSERT OR REPLACE INTO headroom VALUES (?,?,?)", (name, remaining, until))
+            db.execute("UPDATE attempts SET observed=1 WHERE id=?", (identifier,))
+
+    def record_retry(self, row: dict, until: float | None, *, daily: bool) -> bool:
+        """Lưu lần Groq từ chối và thời hạn thực để dùng khi nối lại qua org."""
+        identifier, status = row["id"], str(row["status"])
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            previous = db.execute("SELECT state FROM attempts WHERE id=?", (identifier,)).fetchone()
+            if previous is None:
+                raise ValueError("HTTP chưa được reserve quota durable")
+            db.execute("UPDATE attempts SET used=?,retry_until=?,state=? WHERE id=?",
+                       (row.get("usage"), until or 0, status, identifier))
+            if until is not None and until > self.clock():
+                db.execute("INSERT INTO headroom VALUES (?,0,?) ON CONFLICT(kind) DO UPDATE SET until=MAX(until,excluded.until)",
+                           ("daily_retry" if daily else "retry", until))
+        return previous[0] != status
 
 
 def quota_for(root: Path, grant: dict, model: str, clock=time.time) -> HostedQuota:
@@ -87,7 +138,16 @@ def quota_for(root: Path, grant: dict, model: str, clock=time.time) -> HostedQuo
     return quota
 
 
-def provider_daily_deadline(row: dict, ordinal: int) -> float | None:
+def retry_row(row: dict) -> dict:
+    """Bỏ header RPD thiếu reset khi tính backoff chung để tránh mốc giả 24 giờ."""
+    headers = row["headers"]
+    if reset_seconds(headers.get("x-ratelimit-reset-requests", "")) is not None:
+        return row
+    return {**row, "headers": {key: value for key, value in headers.items()
+                               if key != "x-ratelimit-remaining-requests"}}
+
+
+def provider_daily_limit(row: dict, ordinal: int) -> DailyQuota | None:
     """Nhận TPD/RPD từ raw 429 đã lưu, kể cả thời lượng Groq ghi trong thông báo."""
     if row["status"] != 429:
         return None
@@ -100,14 +160,16 @@ def provider_daily_deadline(row: dict, ordinal: int) -> float | None:
     requests_exhausted = headers.get("x-ratelimit-remaining-requests") == "0"
     if not requests_exhausted and not re.search(r"\b(?:TPD|RPD)\b|per[ _-]+day|daily[ _-]+(?:quota|limit)", message, re.I):
         return None
-    deadline = retry_until(row, ordinal)
     match = re.search(r"(?:try again in|retry after)\s+([\d.hms]+)", message, re.I)
     seconds = reset_seconds(match[1].lower().rstrip(".")) if match else None
-    if "retry-after" not in headers and not requests_exhausted and seconds is None:
-        deadline = max(deadline, row["completed_at"]+86400)
-    elif seconds is not None:
+    normalized = retry_row(row)
+    if seconds is None and "retry-after" not in headers and not (
+            requests_exhausted and "x-ratelimit-remaining-requests" in normalized["headers"]):
+        return DailyQuota(None)
+    deadline = retry_until(normalized, ordinal)
+    if seconds is not None:
         deadline = max(deadline, row["completed_at"]+seconds+.1)
-    return deadline
+    return DailyQuota(deadline)
 
 
 class HostedWire(Calls):
@@ -157,13 +219,12 @@ class HostedWire(Calls):
     def attempt_metadata(self) -> dict:
         return {"org_slot": self.org_slot}
 
-    def wait_for_retry(self, row: dict, ordinal: int, account: Quota, *, last: bool) -> None:
-        deadline = provider_daily_deadline(row, ordinal)
-        same_org = row.get("org_slot", ORG) == self.org_slot
-        if not last or deadline is not None:
-            until = deadline if deadline is not None else retry_until(row, ordinal)
-            account.finish(row["id"], str(row["status"]), row.get("usage"), until)
-            if last and same_org and until > self.clock():
-                raise DailyQuota(until)
-            return
-        super().wait_for_retry(row, ordinal, account, last=last)
+    def wait_for_retry(self, row: dict, ordinal: int, account: HostedQuota, *, last: bool) -> None:
+        daily = provider_daily_limit(row, ordinal)
+        until = daily.until if daily is not None else retry_until(retry_row(row), ordinal)
+        first_seen = account.record_retry(row, until, daily=daily is not None)
+        if last and row.get("org_slot", ORG) == self.org_slot:
+            if daily is not None and (first_seen if until is None else until > self.clock()):
+                raise daily
+            if until is not None and until > self.clock():
+                raise Waiting(until)

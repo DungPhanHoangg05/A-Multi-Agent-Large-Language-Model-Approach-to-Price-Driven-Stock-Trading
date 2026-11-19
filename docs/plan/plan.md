@@ -1270,6 +1270,16 @@ slot vẫn chờ đối soát. Biên dịch các file Python thay đổi, đạt
 và 26 test serving runtime sau khi nguồn ổn định. Đối soát offline lần này
 có 0 gọi Groq.
 
+FIN11 v5 dùng quota ngày do Groq báo. Carry và các attempt cũ được lưu để
+đối soát. Runner tiếp tục bằng cùng lệnh `resume --org 1` và vẫn điều tiết
+theo phút. Khi Groq báo hết quota ngày, runner ghi `STOPPED_DAILY_QUOTA`
+và thoát. Nếu Groq không báo thời điểm thử lại, runner bỏ trường
+`resume_at` và có thể nhận lệnh `resume` sau khi Console báo có quota.
+Đạt 19 kiểm thử FIN11, biên dịch các file Python thay đổi và đối soát grant
+cùng các khóa vận hành v2–v4 bằng `check`. Bản sao sổ org 1 tái hiện được
+mốc chặn cũ và xác nhận v5 cho phép đặt lượt gọi tại cùng thời điểm. Lượt
+kiểm tra có 0 gọi Groq.
+
 Smoke `BHN-2025-10-01` đã chốt đủ 8 forecast slot, 6 HTTP 200 và 12.952 token
 đo được. Cold replay đối soát raw và checkpoint trước khi mở `RESEARCH`.
 Phase nghiên cứu đã nhận phản hồi đầu tiên ở `CMG-2023-07-03`. Mốc hoàn tất

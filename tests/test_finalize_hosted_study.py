@@ -17,7 +17,7 @@ from core.groq_pacing import MODEL_LIMITS
 from core.serving_runtime.quota import Failed, Waiting
 from core.serving_runtime.resources import default_models
 from core.unified_execution_transport import MockHTTP
-from scripts.finalize_hosted_quota import DailyQuota, HostedWire, provider_daily_deadline
+from scripts.finalize_hosted_quota import DailyQuota, HostedWire, provider_daily_limit
 from scripts.finalize_hosted_study import HostedStudyRunner, bind_account, check_release, quota_for, verify_balance
 from scripts.finalize_offline_fixture import Fixture
 from scripts.prepare_finalize_api_budget import study
@@ -51,17 +51,17 @@ class HostedStudyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             verify_balance({**owner, "remaining_tokens_24h": data["remaining_tokens_24h"]}, NOW)
 
-    def test_seed_keeps_same_budget_across_phases_and_restart(self) -> None:
+    def test_local_day_estimate_does_not_block_across_phases_and_restart(self) -> None:
         grant = grant_fixture(4000)
         with TemporaryDirectory() as directory:
             root = Path(directory)
             smoke = quota_for(root, grant, MODEL_DECISION, lambda: NOW)
-            smoke.reserve("smoke-id", "smoke", 3500)
+            smoke.reserve("smoke-id", "smoke", 8000)
             smoke.finish("smoke-id", "200", 3000)
             research = quota_for(root, grant, MODEL_DECISION, lambda: NOW+62)
-            with self.assertRaises(DailyQuota):
-                research.reserve("study-id", "research", 1001)
-            research.reserve("study-id", "research", 1000)
+            research.reserve("study-id", "research", 3500)
+            self.assertEqual(research.attempts("smoke"), 1)
+            self.assertEqual(research.attempts("research"), 1)
             other = deepcopy(grant)
             other["balance"]["remaining_tokens_24h"][MODEL_DECISION] += 1
             with self.assertRaises(ValueError):
@@ -71,12 +71,12 @@ class HostedStudyTests(unittest.TestCase):
         with TemporaryDirectory() as directory:
             quota = quota_for(Path(directory), grant_fixture(), MODEL_DECISION, lambda: NOW)
             quota.reserve("previous", "study", 6000)
-            with self.assertRaises(Waiting) as waiting:
+            with self.assertRaises(Waiting):
                 quota.reserve("minute", "study", 4000)
-            self.assertNotIsInstance(waiting.exception, DailyQuota)
             quota.observe("previous", {"x-ratelimit-remaining-requests": "0", "x-ratelimit-reset-requests": "20s"}, NOW)
-            with self.assertRaises(DailyQuota):
+            with self.assertRaises(DailyQuota) as stopped:
                 quota.reserve("day", "study", 1000)
+            self.assertAlmostEqual(stopped.exception.until, NOW+20.1)
             self.assertEqual(quota.attempts("study"), 1)
 
     def test_daily_429_is_saved_then_other_org_resumes_the_same_slot(self) -> None:
@@ -120,7 +120,34 @@ class HostedStudyTests(unittest.TestCase):
     def test_tpm_429_stays_on_pacing_path(self) -> None:
         row = {"status": 429, "response": '{"error":{"message":"tokens per minute (TPM)"}}',
                "headers": {"retry-after": "30", "x-ratelimit-remaining-requests": "5"}, "completed_at": NOW}
-        self.assertIsNone(provider_daily_deadline(row, 0))
+        self.assertIsNone(provider_daily_limit(row, 0))
+
+    def test_daily_429_without_reset_stops_then_allows_manual_resume(self) -> None:
+        body = {"model": MODEL_DECISION, "messages": [{"role": "user", "content": "Thử lại quota ngày"}],
+                "max_completion_tokens": 32}
+        for headers in ({}, {"x-ratelimit-remaining-requests": "0"}):
+            with self.subTest(headers=headers), TemporaryDirectory() as directory:
+                root = Path(directory)
+                quota = quota_for(root, grant_fixture(), MODEL_DECISION, lambda: NOW)
+                with quota.connect() as db:
+                    db.execute("INSERT INTO headroom VALUES ('requests',0,?)", (NOW+86400,))
+
+                def wire(sender):
+                    return HostedWire(root, "study", sender=sender, guard=lambda: None, clock=lambda: NOW,
+                                      org_slot=1, quota_at=lambda _: quota)
+
+                first = wire(MockHTTP(lambda _: httpx.Response(
+                    429, json={"error": {"message": "tokens per day"}}, headers=headers)))
+                with self.assertRaises(DailyQuota) as stopped:
+                    first.call("slot", body, "checkpoint")
+                self.assertIsNone(stopped.exception.until)
+
+                fixture = Fixture()
+                resumed = wire(fixture.transport)
+                _, completed = resumed.call("slot", body, "checkpoint")
+                self.assertEqual(completed["status"], 200)
+                self.assertEqual(fixture.attempts, 1)
+                self.assertEqual(quota.attempts("study"), 2)
 
     def test_archived_attempts_count_toward_cap_before_dispatch(self) -> None:
         body = {"model": MODEL_DECISION, "messages": [{"role": "user", "content": "Giữ cap"}],
