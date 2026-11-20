@@ -5,12 +5,12 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 ## Trạng thái hiện hành
 
-### Kế hoạch finalize hệ thống — cập nhật 18/11/2026
+### Kế hoạch finalize hệ thống — cập nhật 20/11/2026
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
-`paper/` và khóa luận trong `thesis/`.** FIN00–FIN10 đã hoàn tất trong
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN11 đã hoàn tất trong
 phạm vi ghi dưới đây. Profile ứng dụng `finalize_serving_v1` đã qua đối chứng
-offline. FIN11–FIN17 vẫn mở. Lượt thu thật cần xác nhận quota và quyền thực thi.
+offline. FIN12–FIN17 vẫn mở.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -33,9 +33,9 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN06 | `PASS_OFFLINE_FIN06`. Có 852 chu kỳ đủ khóa thống kê, 733 đủ khóa ví dụ, 119 Alpha NA và 102 khóa query đã kiểm. Phát hành bank offline với 0 HTTP mới. Batch thị giác trước đó thu 2/1.704 slot cùng một chu kỳ, dùng 2.505 và 1.412 token. |
 | FIN07 | `PASS_OFFLINE_FIN07`. Oracle kiểm retrieval và ngữ cảnh trên 102 điểm. MT-BICL có 63 đủ support và 39 bypass. Fixture xác nhận C2/A/B lấy ví dụ khi qua gate. Đã kiểm cùng repeat và giữ nhãn query đóng. |
 | FIN08 | `PASS_OFFLINE_FIN08`. CLI, as-of, backtest và live nhận profile mới chọn tường minh. Kiểm 522 cặp mã–phiên as-of và replay raw capture đối chứng. Hosted chờ FIN10, default chuyển sau FIN13–FIN14. |
-| FIN09 | `PASS_OFFLINE_FIN09_BUDGET`. Đối chiếu 2.662 slot với 1.702 attempt U08. Có 10 vision reuse, 1.165 bypass và 1.487 lượt mới kể cả smoke. Dự toán một org Free lấy Decision làm giới hạn. Số dư tài khoản chờ xác nhận trước khi thu. |
-| FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. Hosted tiếp tục chờ quota và quyền thực thi FIN11. |
-| FIN11 | Smoke đạt 8 slot với 6 HTTP 200 và 12.952 token. Tác giả tiếp tục phase nghiên cứu từ checkpoint, chọn một org cho mỗi phiên và thoát khi chạm quota ngày. |
+| FIN09 | `PASS_OFFLINE_FIN09_BUDGET`. Đối chiếu 2.662 slot với 1.702 attempt U08. Có 10 vision reuse, 1.165 bypass và 1.487 slot gọi mới kể cả smoke. Dự toán một org Free lấy Decision làm giới hạn. |
+| FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. FIN11 đã đối soát lại các khóa liên quan. |
+| FIN11 | `PASS_FIN11`. Smoke đạt 8 forecast. Nghiên cứu đủ 102 điểm và 2.448 forecast. Đã đối soát 1.511 attempt kể cả smoke và bản lưu. Outcome thị trường chưa được mở. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -227,13 +227,13 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   mọi kiểm tra áp dụng PASS, source pin khớp và blocker chuẩn bị đã được xử lý.
   Phụ thuộc FIN03–FIN09; sửa mới phải kiểm lại phạm vi ảnh hưởng trước thu tiếp.
   Đã đạt `PASS_OFFLINE_FIN10` theo [receipt và replay](#fin10--nghiệm-thu-offline-trước-thu-query).
-- [ ] **FIN11 — Thực thi thu hồi đáp cần thiết.** Dùng protocol và ngân sách
+- [x] **FIN11 — Thực thi thu hồi đáp cần thiết.** Dùng protocol và ngân sách
   FIN09 đã khóa cho các slot thực sự cần gọi. Reuse upstream hợp lệ, checkpoint
   mỗi point, lưu raw/usage/epoch và cùng-repeat dependency. Đạt khi planned =
   complete cho miền đã khóa, mọi attempt được đối soát; thiếu/lỗi giữ nguyên
   trạng thái để xử lý. Phụ thuộc FIN10 và phạm vi thực thi/ngân sách có hiệu
   lực. Task có thể hoàn thành bằng audit 0 call nếu toàn bộ response còn hợp lệ.
-  Theo dõi [trạng thái thu FIN11](#fin11--thu-phản-hồi-trên-một-org-free).
+  Đã đạt `PASS_FIN11` theo [nghiệm thu lượt thu](#nghiệm-thu-fin11-ngày-20112026).
 - [ ] **FIN12 — Đánh giá lại bản sửa.** Tính nhãn, tài khoản và metrics bằng
   engine/evaluator đã kiểm; giữ đủ support, raw/final, bypass, NA và kết quả
   âm. So với hai baseline đúng profile, báo epoch và nguồn các phản hồi reuse.
@@ -1280,11 +1280,31 @@ cùng các khóa vận hành v2–v4 bằng `check`. Bản sao sổ org 1 tái h
 mốc chặn cũ và xác nhận v5 cho phép đặt lượt gọi tại cùng thời điểm. Lượt
 kiểm tra có 0 gọi Groq.
 
-Smoke `BHN-2025-10-01` đã chốt đủ 8 forecast slot, 6 HTTP 200 và 12.952 token
-đo được. Cold replay đối soát raw và checkpoint trước khi mở `RESEARCH`.
-Phase nghiên cứu đã nhận phản hồi đầu tiên ở `CMG-2023-07-03`. Mốc hoàn tất
-FIN11 cần đủ 102 điểm nghiên cứu và đối soát mọi attempt. Chưa mở outcome thị
-trường.
+##### Nghiệm thu FIN11 ngày 20/11/2026
+
+Runner ghi `PASS_FIN11` lúc 14:11:12 giờ Việt Nam. Smoke `BHN-2025-10-01`
+đủ 8 forecast, 6 HTTP 200 và 12.952 token đo được. Research đủ 102 điểm,
+2.448 forecast và 204 slot thị giác. Toàn bộ 2.652 slot nghiên cứu khớp
+FIN09, gồm 1.481 slot gọi mới, 10 slot thị giác tái dùng U08 và 1.161
+slot bypass. Điểm `FPT-2023-07-03` đã được dựng lại và có đủ forecast.
+[Receipt smoke](../../outputs/finalize/fin11_v1/smoke/receipt.json).
+[Receipt nghiên cứu](../../outputs/finalize/fin11_v1/research/receipt.json).
+
+Journal nghiên cứu hiện hành có 1.492 attempt, gồm 1.481 HTTP 200 có raw,
+9 HTTP 429 và 2 `RESPONSE_LOST` đã đối soát. Bản lưu FPT giữ thêm 13 attempt,
+trong đó có một lượt thiếu raw đã được tác giả xác nhận HTTP 200. Cả 1.511
+attempt kể cả smoke và bản lưu đều khớp từng UUID, model, org và usage với
+sổ quota. Có 3.008.327 token đo được và 10.568 token reserve cho ba lượt thiếu
+raw. Mỗi slot dùng tối đa hai attempt, kể cả bản lưu, trong cap ba của FIN09.
+Journal hiện hành không còn `UNKNOWN`.
+
+Cold replay trên bản sao trong tiến trình mới tái tạo hai receipt, khớp từng
+checkpoint và không phát sinh lượt gọi Groq. SHA-256 của tệp receipt nghiên
+cứu là `dcf3c28a54343b9506e0834a244cc371bced51b8f478155c9ef004cabddb776b`.
+Đã đối soát khóa FIN09, FIN10, grant và release FIN11 v2–v5. Đợt nghiệm thu
+chỉ cập nhật kế hoạch và kiểm bằng chứng đã có nên không chạy lại compile,
+unit suite, E2E hoặc leakage suite. Outcome thị trường vẫn đóng, sẵn sàng
+bàn giao receipt và checkpoint cho FIN12.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
