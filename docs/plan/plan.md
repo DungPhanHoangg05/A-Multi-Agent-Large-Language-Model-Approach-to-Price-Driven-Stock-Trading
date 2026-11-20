@@ -1421,9 +1421,11 @@ qua caller ứng dụng trước khi chuyển mặc định.
 
 #### FIN15 — Đồng bộ hai bản thảo
 
-Bài báo giữ tiêu đề và cấu trúc trước FIN15. Abstract mô tả đóng góp của
-Alpha Agent và Sentiment Agent, cùng kết quả định tính. BICL v1–v5 được
-trình bày như nghiên cứu mở rộng. Khóa luận
+Bài báo giữ tiêu đề và cấu trúc trước FIN15. Abstract nêu khoảng trống
+của QuantAgent, giải pháp Alpha Agent và Sentiment Agent, thiết kế so sánh
+ghép cặp và kết quả định tính. BICL v1–v5 được trình bày như nghiên cứu
+mở rộng. Abstract khóa luận giải thích cách chọn ngữ cảnh trước cutoff,
+chính sách sửa hành động, mẫu số FIN12 và giới hạn kết quả. Khóa luận
 lấy đóng góp tăng thêm của BICL làm câu hỏi chính, đồng thời truy vết
 QuantAgent, Our system, hai đối chứng và từng phiên bản trong bảng phương
 pháp. Hai bản phân biệt kết quả thành phần, lượt nghiên cứu ngữ cảnh lịch

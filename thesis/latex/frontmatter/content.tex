@@ -28,24 +28,43 @@ reported evidence rests with the author.
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 \markboth{Abstract}{Abstract}
-This thesis evaluates what Bayesian in-context learning (BICL) adds to
-Our system, a Vietnamese-equity adaptation of QuantAgent with OHLCV alpha
-and Vietnamese news sentiment. BICL v1--v4 extend a common Decision prompt
-with eligible historical priors. BICL v5 combines multi-task numerical
-inference, Fact Anchor and a utility gate to revise LONG/CASH actions.
+Similar chart patterns can precede different outcomes in different market
+regimes. A multi-agent trading system can describe the current setup in
+detail while offering little evidence about what followed comparable
+setups in the past. This thesis asks whether Bayesian in-context learning
+(BICL) helps resolve that problem for daily Vietnamese equity decisions.
+It starts from Our system, which adds quantitative alpha and Vietnamese
+news sentiment to QuantAgent.
 
-A paired repaired evaluation records 2,448 forecasts across 102 market
-points and three Decision repeats, with one shared upstream realization
-per point. There are 96 valid execution labels and 45 of 51 complete
-accounts per repeat. The full-cohort estimands are unavailable. On the
-complete accounts, v1--v4 change mean net return by $-0.0011$ to $+0.0127$
-percentage points relative to Our system (Common). BICL v5 reduces it
-by $0.5297$ points versus that control and $0.1221$ points versus Our system.
-Limited historical support drives frequent fallback. The earlier
-component study motivates the augmented architecture, and the earlier
-context study provides a separate comparison. The evidence identifies
-conditions under which BICL changes decisions, while financial gains and
-independent point-in-time provenance remain unestablished.
+BICL v1--v4 summarize eligible historical episodes using the query's
+market regime and, depending on the variant, its recent signals.
+Episodes must end before the current decision cutoff. The methods
+vary the matching rule, the statistical summary or how the evidence
+is presented to a shared Decision prompt. BICL v5 instead uses marked
+historical tasks and observations from the target task as inputs to
+a numerical teacher--student model. It combines this context with a
+reference action constrained by chart facts and applies a utility gate before
+accepting a different LONG or CASH action. When historical support
+is insufficient, the system retains the designated reference action.
+
+The repaired historical evaluation covers nine equities and 102
+stock--date observations. Eight research roles and three Decision
+repeats produce 2,448 forecasts from one shared upstream analysis
+per observation. We compare the extensions with two implementations
+of Our system without BICL and use Fact Anchor to examine revisions
+in v5. Forecasts are recorded before outcomes are joined. Execution
+labels are available for 96 observations, and 45 of 51 accounts per
+repeat have both required cycles. The full-cohort return and balanced
+accuracy are therefore unavailable.
+
+On the common set of complete accounts, BICL v1--v4 yield similar mean
+net returns to the shared-prompt baseline. BICL v5 changes few reference
+actions and has lower mean net return than both baselines without BICL.
+Frequent fallback shows why historical support matters when interpreting
+the comparisons. The results identify where historical context affects
+decisions and where its effect remains uncertain. Independent verification
+of historical data availability and prospective evaluation are needed
+to establish a trading benefit.
 
 \textbf{Keywords:} Vietnamese stock market; multi-agent large language models; regime-aware
 context; Bayesian in-context learning; LONG/CASH; point-in-time evaluation.
