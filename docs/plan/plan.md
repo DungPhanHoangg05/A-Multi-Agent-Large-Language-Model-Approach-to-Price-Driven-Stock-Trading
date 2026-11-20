@@ -8,9 +8,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ### Kế hoạch finalize hệ thống — cập nhật 20/11/2026
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
-`paper/` và khóa luận trong `thesis/`.** FIN00–FIN11 đã hoàn tất trong
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN12 đã hoàn tất trong
 phạm vi ghi dưới đây. Profile ứng dụng `finalize_serving_v1` đã qua đối chứng
-offline. FIN12–FIN17 vẫn mở.
+offline. FIN13–FIN17 vẫn mở.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -36,6 +36,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN09 | `PASS_OFFLINE_FIN09_BUDGET`. Đối chiếu 2.662 slot với 1.702 attempt U08. Có 10 vision reuse, 1.165 bypass và 1.487 slot gọi mới kể cả smoke. Dự toán một org Free lấy Decision làm giới hạn. |
 | FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. FIN11 đã đối soát lại các khóa liên quan. |
 | FIN11 | `PASS_FIN11`. Smoke đạt 8 forecast. Nghiên cứu đủ 102 điểm và 2.448 forecast. Đã đối soát 1.511 attempt kể cả smoke và bản lưu. Outcome thị trường chưa được mở. |
+| FIN12 | Đánh giá offline từ receipt FIN11. Có 96/102 nhãn thực thi và 45/51 tài khoản đủ hai chu kỳ. Endpoint chính giữ NA. Oracle và cold verify đạt trên phạm vi có dữ liệu. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -234,12 +235,13 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   trạng thái để xử lý. Phụ thuộc FIN10 và phạm vi thực thi/ngân sách có hiệu
   lực. Task có thể hoàn thành bằng audit 0 call nếu toàn bộ response còn hợp lệ.
   Đã đạt `PASS_FIN11` theo [nghiệm thu lượt thu](#nghiệm-thu-fin11-ngày-20112026).
-- [ ] **FIN12 — Đánh giá lại bản sửa.** Tính nhãn, tài khoản và metrics bằng
+- [x] **FIN12 — Đánh giá lại bản sửa.** Tính nhãn, tài khoản và metrics bằng
   engine/evaluator đã kiểm; giữ đủ support, raw/final, bypass, NA và kết quả
   âm. So với hai baseline đúng profile, báo epoch và nguồn các phản hồi reuse.
   Kiểm toán độc lập số học và khôi phục artifact phân tích trong tiến trình
   mới. Đạt khi mọi ô có provenance và số liệu khớp oracle. Phụ thuộc FIN11;
   chỉ tái tạo các phân tích bị ảnh hưởng theo protocol đã chốt.
+  Đã đạt theo [nghiệm thu FIN12](#fin12--đánh-giá-offline-bản-sửa).
 - [ ] **FIN13 — Chốt nghiệm thu hệ thống trong miền công bố.** Tổng hợp bằng
   chứng FIN03–FIN12 theo từng profile/caller/input. Bản sửa đạt row-wise
   causal và toàn pipeline PIT trong miền đã khóa; integrity, economics,
@@ -1305,6 +1307,39 @@ cứu là `dcf3c28a54343b9506e0834a244cc371bced51b8f478155c9ef004cabddb776b`.
 chỉ cập nhật kế hoạch và kiểm bằng chứng đã có nên không chạy lại compile,
 unit suite, E2E hoặc leakage suite. Outcome thị trường vẫn đóng, sẵn sàng
 bàn giao receipt và checkpoint cho FIN12.
+
+#### FIN12 — Đánh giá offline bản sửa
+
+Đã xác minh 2.448 forecast từ receipt FIN11 trước khi mở outcome. Tám
+phương pháp dùng chung nhãn và lịch thực thi đã khóa. Hai đối chứng
+`CASH_EVERY_CYCLE` và `ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS` dùng cùng
+chu kỳ. Artifact giữ từng forecast, profile, raw proposal, hành động cuối,
+lý do bypass, hash raw và epoch. Mười phản hồi thị giác tái dùng giữ nguồn U08.
+[Kết quả FIN12](../../outputs/finalize/fin12_v1/results.json).
+[Receipt FIN12](../../outputs/finalize/fin12_v1/receipt.json).
+
+Có 96/102 nhãn hợp lệ và 45/51 tài khoản đủ hai chu kỳ mỗi repeat. Giữ NA
+cho năm điểm có sự kiện quyền trong kỳ nắm giữ và `BHN-2026-07-01` có phiên
+thực thi không khớp lệnh. Lợi nhuận tài khoản và BA trên miền chính đã khóa
+giữ NA. Phân tích độ nhạy dùng giao 45 tài khoản/90 điểm chung cho mọi
+phương pháp. Bảng phân loại trên 96 điểm có nhãn ghi mẫu số riêng.
+
+Trên giao 45 tài khoản, lợi nhuận bình quân của Native sửa là −0,9379%,
+Common là −0,5304% và MT-BICL là −1,0600%. Chênh lệch của MT-BICL lần lượt
+là −0,1221 và −0,5297 điểm phần trăm so với hai baseline. Cả tám phương pháp
+đều có mean return âm trên giao này. Giữ đủ 20 contrast và các sensitivity
+L1/L3, bỏ từng fold/mã và CORE4. Bootstrap L2 có 10.000/10.000 draw joint
+finite. Band đồng thời giữ NA vì có contrast với độ lệch chuẩn bằng 0.
+
+Oracle Decimal kiểm 96 nhãn và 1.350 tài khoản có thể tính, gồm các dòng
+tiền, chi phí và NAV. Oracle theo số đếm fold kiểm cả 20 contrast và
+10.000 draw L2. Biên dịch bốn tệp Python thay đổi và đạt 37 kiểm thử chọn
+theo phạm vi FIN12, PIT giá và evaluator thống kê dùng lại. Tiến trình mới
+tái tạo khớp byte cả chín artifact với `verify`. SHA-256 của receipt là
+`d304f01ca78f3eef6666f14a6e39df60dd6dda4af3a8095c1a490ff9ec831c31`.
+Chạy `py -3.13 -X utf8 scripts/evaluate_finalize_study.py analyze` để dựng
+lại ở môi trường có journal FIN11 và các nguồn đã khóa, hoặc thay
+`analyze` bằng `verify` để kiểm artifact đã có. Không gọi Groq trong FIN12.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

@@ -42,6 +42,11 @@ tmp/
 # Journal, quota SQLite và trạng thái vận hành FIN11 giữ cục bộ.
 /outputs/finalize/fin11_v1/
 
+# Kết quả FIN12 tái lập từ journal FIN11 cục bộ và khóa runtime.
+/outputs/finalize/fin12_v1/
+/outputs/finalize/fin12_v1_worker/
+/outputs/finalize/fin12-analyze-*/
+
 # Trạng thái vận hành cục bộ của lượt R1 đã chốt; bằng chứng vẫn được theo dõi.
 /outputs/revision/r1_72h_run_v2/migration.lock
 /outputs/revision/r1_72h_run_v2/provider_locks/
