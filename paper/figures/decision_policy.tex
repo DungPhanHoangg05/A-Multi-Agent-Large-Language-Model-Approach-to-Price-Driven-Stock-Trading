@@ -2,7 +2,7 @@
 \begin{tikzpicture}[>=Latex,
  box/.style={draw=blue!55!black,fill=blue!4,rounded corners,align=center,text width=4.8cm,minimum height=1.7cm,font=\footnotesize},
  wide/.style={box,text width=15.8cm},arr/.style={->,thick}]
-\node[wide] (in) at (5.7,0) {\textbf{Shared reports $\rightarrow$ profile-specific prompt}\\Distil/cap; total prompt $<6{,}500$ characters; extension prior/context prefix $\le600$\\Retry/checkpoint for technical failures; no failure-to-CASH conversion};
+\node[wide] (in) at (5.7,0) {\textbf{Shared reports $\rightarrow$ profile-specific prompt}\\Distil/cap; total prompt $<6{,}500$ characters; extension prior/context prefix $\le600$\\Retry and checkpoint interrupted requests. CASH requires a valid decision.};
 \node[box] (native) at (0,-2.5) {\textbf{Our system}\\Native Decision prompt\\No extension dependency};
 \node[box] (common) at (5.7,-2.5) {\textbf{Common Decision}\\Causal alpha / instructions\\Parent action for extensions};
 \node[box] (prior) at (11.4,-2.5) {\textbf{Historical priors}\\Qualified historical context\\Support bypass $\rightarrow$ Common};

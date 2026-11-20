@@ -75,7 +75,7 @@ For highest/lowest prices $H_t^{(14)},L_t^{(14)}$, raw stochastic is
 $k_t=100(C_t-L_t^{(14)})/(H_t^{(14)}-L_t^{(14)})$; slow \%K and \%D apply
 successive three-period moving averages. Williams \%R is
 $-100(H_t^{(14)}-C_t)/(H_t^{(14)}-L_t^{(14)})$, and the ten-session rate of change, ROC(10), is
-$100(C_t/C_{t-10}-1)$. Flat ranges, initialization and unavailable values
+$100(C_t/C_{t-10}-1)$. Flat ranges, initialization and missing inputs
 require explicit handling. A zero value differs from a missing estimate.
 Votes derived from these shared prices are not independent evidence.
 
@@ -98,9 +98,9 @@ sentiment score, indicator vote, information coefficient and LLM confidence
 phrase do not automatically estimate the chance of a profitable LONG.
 The historical provider requires verified dated scores in $[-1,1]$,
 uses a 90-day window and weights age $a$ by $\exp[-(\log2)a/30]$. Date-only
-articles become available the next day. Fewer than three eligible scores
-means unavailable sentiment; undated/future articles are excluded. A
-zero-filled display cannot turn absence into observed neutral opinion.
+articles become available the next day. The system needs three eligible scores to report a sentiment estimate.
+Undated articles and articles published after the cutoff are excluded.
+A missing sentiment estimate differs from a measured neutral tone.
 
 \section{Hidden market regimes}\label{s:5afcb21224a45c1c}
 A hidden Markov model~\cite{rabiner1989hmm,hamilton2005regimes} (HMM) models an unobserved state $S_u$, initial distribution
@@ -123,8 +123,8 @@ data and held fixed for later transformations.
 The implementation uses VN-Index log return, 20-return sample volatility
 and distances to 20/50/200-period moving averages. Four diagonal-Gaussian
 states are named using training MA200 distance and volatility rather than
-their arbitrary numeric IDs. Failed convergence/occupancy/separation
-checks can select a documented multi-factor fallback. A fallback category
+their arbitrary numeric IDs. The system can use the documented multi-factor rule if the fitted model
+misses a convergence, occupancy or separation criterion. A fallback category
 is not an HMM posterior. Signal-bank and numerical task regimes have
 distinct frozen resources and can disagree; neither state is the outcome
 label or a direct trading instruction.
@@ -154,8 +154,7 @@ disjoint. For metric-specific success/support counts, it uses
 Only conditional counts enter the likelihood, avoiding double counting
 the same episodes through a whole-population prior. The estimated
 background mean is plugged in; its uncertainty is not integrated. No
-background gives mean 0.5; no conditional history leaves posterior fields
-unavailable rather than reporting an observed zero rate.
+background gives mean 0.5; the corresponding posterior summary requires at least one conditional observation.
 
 Computability is weaker than readiness. Support/interval gates and
 feature availability determine whether statistics or examples can be
@@ -222,8 +221,7 @@ availability no later than $d_t$. Historical outcomes require the strict
 boundary $d_i^{exit}<d_t$, excluding open or straddling cycles. Feature,
 scaler, selector and model fitting have their own frozen training periods.
 Outcomes are joined only after durable forecasts, the \emph{forecast
-barrier}. Technical failures raise or remain unresolved; they cannot
-silently become a valid CASH prediction.
+barrier}. Interrupted executions retain their technical status. A CASH prediction requires a valid decision.
 
 Paired methods receive deep copies of the same once-generated upstream
 reports. Repeating Decision conditional on that realization does not

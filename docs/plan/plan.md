@@ -1431,7 +1431,9 @@ QuantAgent, Our system, hai đối chứng và từng phiên bản trong bảng 
 pháp. Hai bản phân biệt kết quả thành phần, lượt nghiên cứu ngữ cảnh lịch
 sử và lượt chạy lại FIN12. Khóa luận bổ sung năm hình về nguồn bằng chứng,
 suy luận regime, lọc lịch sử, độ phủ và kết quả FIN12. Số trích dẫn đặt
-sát tác giả, công trình hoặc khái niệm được dẫn.
+sát tác giả, công trình hoặc khái niệm được dẫn. Hai bản thảo dùng tên mô
+tả cho các lượt đánh giá. Những ô thiếu giá trị có dấu gạch ngang và ghi
+rõ nguyên nhân. Phần tóm tắt nói rõ mẫu dùng để tính các chỉ tiêu.
 
 Bảng FIN12 được chiếu từ kết quả đã đối soát SHA-256 với receipt. Đã
 kiểm lại 68 dòng bảng lịch sử khi đổi tên bản trình bày và giữ nguyên

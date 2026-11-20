@@ -272,7 +272,7 @@ Let $\mathcal{D}_e=\{d_1,\ldots,d_{|\mathcal{D}_e|}\}$ denote the target-stock a
 \end{equation}
 
 
-For the pinned classifier, $\rho_i=P_i(POS)-P_i(NEG)$ with NEG/POS/NEU label indices 0/1/2. The scorer is \texttt{5CD-AI/Vietnamese-Sentiment-visobert}, distinct from the ViSoBERT backbone \cite{nguyen2023visobert,hf5cdsentiment}; its local revision is \texttt{d7738b85200272f10ba8b048d80236c8c582b581}. The saved scoring recipe uses 256-token truncation and batches of eight. This identifies a scoring procedure, not financial-domain validation. Unknown legacy scorer identities are not inferred from score values.
+For the pinned classifier, $\rho_i=P_i(POS)-P_i(NEG)$ with NEG/POS/NEU label indices 0/1/2. The scorer is \texttt{5CD-AI/Vietnamese-Sentiment-visobert}, distinct from the ViSoBERT backbone \cite{nguyen2023visobert,hf5cdsentiment}; its local revision is \texttt{d7738b85200272f10ba8b048d80236c8c582b581}. The saved scoring recipe uses 256-token truncation and batches of eight. This identifies a scoring procedure, not financial-domain validation. Legacy scores alone do not identify which scorer produced them.
 
 The unweighted corpus statistic, distinct from the weighted context delivered to Decision, is
 
@@ -305,7 +305,7 @@ The half-life is $h=30$ days. The peer comparison requires at least three valid 
 \paragraph{Batch definition and low-news stability}
 The target window spans 90 days and requires at least three distinct identities with accepted scorer provenance and finite scores. Missing context is not an observed neutral zero. The separate normalizer reliability flag requires at least eight articles; a false flag alone does not mean that the aggregate was missing. Explicit availability times are retained; date-only publication is conservatively available the next day and undated records are rejected. These rules cannot authenticate original content availability retrospectively.
 
-An auxiliary historical cache contains 180 article records and 177 identities with unknown scorer identities; none of its cutoffs meets the strict three-valid-article eligibility rule. The reconstructed study and 154 locally rescored excerpts have separate provenance. Independent financial-news labels and authenticated historical content are unavailable, limiting sentiment validity. Neither the weighted aggregate nor the peer extension enters native OHLCV factor formulas or their ranking.
+An auxiliary historical cache contains 180 article records and 177 distinct articles whose scorer was not recorded; none of its cutoffs meets the strict three-valid-article eligibility rule. The reconstructed study and 154 locally rescored excerpts have separate provenance. Validation of sentiment remains limited by the lack of independent financial-news labels and authenticated historical content. Neither the weighted aggregate nor the peer extension enters native OHLCV factor formulas or their ranking.
 
 \subsection{Multi-Agent Decision Function}
 The system decomposes $\mathcal{F}$ into the following role-level functions, with the history prefix explicitly distinguished from the chart window:
@@ -366,7 +366,7 @@ BICL v5 preserves prior-task and target-task boundaries rather than pooling all 
  \Delta U=U(a^{\mathrm{proposed}})-U(a^0),\qquad U(\mathrm{CASH})=0.
  \label{eq:revision_utility}
 \end{equation}
-Here $a^0$ is the validated fact-anchor action and $U(\mathrm{LONG})=U$. After fact assertions pass, a changed action is accepted only when the recorded tenth percentile $Q_{0.10}(\Delta U)>0$. CASH-to-LONG uses $Q_{0.10}(U)$; LONG-to-CASH uses $-Q_{0.90}(U)$. Missing support keeps the anchor without inventing a response, and invalid revision assertions retain the anchor. A missing/failed transport response is a technical failure, not algorithmic fallback. These quantiles describe the specified teacher/magnitude model, not calibrated uncertainty about executable market returns.
+Here $a^0$ is the validated fact-anchor action and $U(\mathrm{LONG})=U$. After fact assertions pass, a changed action is accepted only when the recorded tenth percentile $Q_{0.10}(\Delta U)>0$. CASH-to-LONG uses $Q_{0.10}(U)$; LONG-to-CASH uses $-Q_{0.90}(U)$. Missing support keeps the anchor without inventing a response, and invalid revision assertions retain the anchor. A transport interruption leaves the forecast unresolved. The algorithm reuses the anchor only under its specified evidence and policy rules. These quantiles describe the specified teacher/magnitude model, not calibrated uncertainty about executable market returns.
 
 \subsection{Walk-Forward Evaluation Protocol}
 Valid boundaries satisfy $W\le e\le T-L$. For each security, the study evaluates the chronologically ordered eligible dates in its fixed schedule:
@@ -444,4 +444,4 @@ Finally, with $\mathcal{X}=\{e_k:a_{e_k}=1\}$, trade-level summaries are
 \end{equation}
 
 
-Both are undefined when no trade is executed, recorded as NA/null in research reporting rather than zero. CASH cycles do not dilute the executed-trade denominator. Daily-close maximum drawdown includes the initial wealth anchor, and fee/slippage levels are research assumptions, not authenticated realised venue costs.
+Both metrics require at least one executed trade. The tables mark missing estimates with a dash. CASH cycles do not dilute the executed-trade denominator. Daily-close maximum drawdown includes the initial wealth anchor, and fee/slippage levels are research assumptions, not authenticated realised venue costs.

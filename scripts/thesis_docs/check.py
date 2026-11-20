@@ -110,6 +110,7 @@ def main() -> None:
             'Common': 'Our system (Common)', 'Bayesian v1': 'BICL v1', 'C2': 'BICL v2',
             r'A\_\allowbreak{}tp\_\allowbreak{}pool': 'BICL v3',
             r'B\_\allowbreak{}semantic': 'BICL v4', 'MT-BICL': 'BICL v5',
+            'NA': r'\textemdash',
         }
         for row in projection['rows']:
             if row['original'] not in cells(tables[row['source_table'] - 1]):

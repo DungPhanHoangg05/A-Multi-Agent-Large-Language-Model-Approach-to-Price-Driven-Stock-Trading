@@ -12,7 +12,7 @@ rather than specifying that node order.
 % Ưu tiên đầu trang cùng phần diễn giải, không tạo trang chỉ có sơ đồ.
 \begin{figure}[!htbp]\centering
 \input{assets/diagrams/F03_finalized_system_flow.tex}
-\caption[System information and action flow]{The repaired path from available inputs to an evaluated decision. The price-driven QuantAgent comparator uses the three chart reports and its Decision prompt. Our system adds alpha and sentiment, and BICL versions consume eligible context.}\label{fig:F03}
+\caption[System information and action flow]{From inputs at the cutoff to an evaluated decision. QuantAgent uses the three technical reports and its Decision prompt. Our system adds alpha and sentiment, and BICL uses eligible historical context.}\label{fig:F03}
 \end{figure}
 
 Offline resources comprise the Common alpha selector, regime models and
@@ -30,7 +30,7 @@ One running case connects the stages: FPT at the \textbf{3 July 2023}
 cutoff, upstream realization 0 and Decision repeat 0. Its 45-bar chart
 and 600-bar prefix end at that cutoff; close is 48.18 in the stored price
 unit, MACD is positive but below its signal, and close exceeds SMA20.
-Verified news is unavailable. Entry/exit are scheduled for 4/6 July,
+No news could be verified at this cutoff. Entry/exit are scheduled for 4/6 July,
 whose prices are withheld until the forecast path is complete. This is
 a saved historical execution, not a trade shown to have occurred then.
 
@@ -52,7 +52,7 @@ upstream realization and, later, Decision repeat. OHLCV arrays must align,
 dates be ordered/unique, and the final row match the cutoff. Numbers
 crossing the state boundary must be finite primitive JavaScript Object
 Notation (JSON) values or
-explicitly unavailable; a missing value is not an observed zero.
+explicitly marked as missing. A zero represents an observed value.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
 \caption[Component input/output contracts]{Compact input/output contracts. Temporal restrictions apply to
@@ -61,8 +61,8 @@ the underlying data, not only to the report's printed date.}\label{tab:contracts
 Stage & Admissible input and processing & Output / absence contract\\\midrule
 Preparation & Stock/date; pinned OHLCV and available news through cutoff & 45/600-row views; absent cutoff/history is an error\\
 Shared analysis & Numeric inputs and saved chart images; no query target & Five reports, images/provenance; absence remains explicit\\
-Historical context & Facts and mature history; frozen resources & Examples/statistics or marked tasks; support failure may bypass\\
-Decision & Profile reports/context and same-repeat dependencies & Structured proposal or explicit reuse; failed calls remain failures\\
+Historical context & Facts and mature history; frozen resources & Examples, statistics or marked tasks; sparse history can lead to reuse\\
+Decision & Profile reports/context and same-repeat dependencies & Structured proposal, documented reuse or unresolved request\\
 Policy/evaluation & Saved proposal and valid anchor; later outcome join & Final LONG/CASH, then labels/accounts; separate records\\\bottomrule
 \end{tabular}\end{table}
 
@@ -176,8 +176,7 @@ support. Minimums are 60 train pairs, 30 validation observations and five
 LONGs per admitted candidate. Alpha-ID ties and the smaller threshold
 resolve equal scores. Three-session grids and strict maturity separate
 splits. IDs/signs/threshold are frozen; prediction does not reselect.
-Unavailable selected query factors raise errors rather than being filled
-or substituted. This Common repair covers the specified alpha path;
+A missing value for a selected factor stops that query before inference. This Common repair covers the specified alpha path;
 broader system validation and Our system historical-value consistency remain
 outside the properties established by that repair.
 
@@ -200,8 +199,7 @@ output contains LONG/SHORT, horizon, textual confidence, risk--reward
 ratio in $[1,5]$, evidence and justification. Confidence and risk--reward
 are report claims, not calibrated probabilities or executable orders.
 The external resolver maps SHORT to CASH and can retain an anchor after
-inspecting a proposal. Schema/transport failure cannot silently create
-a valid SHORT/CASH result.
+inspecting a proposal. Unreadable responses and interrupted requests leave the call unresolved.
 
 \section{Our system and its Common control}\label{s:34c72d872d464412}
 In the historical context study, Our system uses the recorded native serving factory,
@@ -222,7 +220,7 @@ information and prompt representation together. It cannot isolate Alpha or Senti
 The separate comparison between Our system and Our system (Common)
 cannot attribute a difference solely to normalization, instructions or
 context; several ingredients change together. Extensions below reuse
-the same-repeat Common result when their documented support gate fails.
+the Common result from the same repeat when the historical evidence falls short of the specified minimum.
 
 \section{Historical memory and market regimes}\label{s:caa6b0b420cdae1c}
 Figure~\ref{fig:context-eligibility} traces how the prior variants screen completed episodes for each query.
@@ -259,9 +257,9 @@ tolerance/minimum covariance are 42/500/.001/.001. Naming uses training
 MA200-distance means for BULL/BEAR and volatility for the two remaining
 states. Fit-quality checks cover convergence, 5\% minimum occupancy,
 opposite-sign BULL/BEAR distances, separation and CHOPPY volatility at
-least 1.1 times the remaining neutral state. Failure records reasons and
-uses a train-calibrated moving-average/volatility multi-factor classifier,
-not an HMM posterior or a query-time refit.
+least 1.1 times the remaining neutral state. If a fit misses these
+criteria, the system records the reason and uses the moving-average and
+volatility classifier calibrated on training data.
 
 Historical bank episodes retain their episode-prefix regime. Signal-prior
 queries use the frozen end-2022 resource; numerical task queries after
@@ -269,8 +267,9 @@ queries use the frozen end-2022 resource; numerical task queries after
 admissible prefix is transformed with the corresponding stored scaler,
 and its endpoint state is mapped using the stored calibration. Metadata
 and train-prefix hashes must match. Early MT prefixes below 499 price
-rows return UNKNOWN for insufficient regime history, separately from a
-fitted resource's quality fallback. Missing/corrupt resources are errors.
+rows give no regime estimate because the history is too short. A fitted
+model can instead use its quality fallback. Corrupt or missing resources
+stop the run.
 
 For the FPT case, the signal-prior resource was fitted on 1,251 prices/
 1,052 feature rows from 2 January 2018 to 30 December 2022 and returns
@@ -300,7 +299,7 @@ undeclared cross-stock examples fill the list.
 Statistics use \emph{all} of $P_t$, rather than the displayed examples.
 LONG win counts positive-net cycles over the population. Trap rate uses
 nonpositive-net outcomes among the union of bullish Trend/Pattern cases;
-each individual failure rate uses its own bullish subset. Overlapping
+the Trend and Pattern rates use the bullish subset for the respective signal. Overlapping
 subsets are not independent evidence, and zero denominators remain
 undefined. These are empirical ratios, not Beta-posterior probabilities.
 
@@ -308,8 +307,9 @@ FPT supplies 211 mature episodes, 19 in CONSOLIDATION. The first example,
 7 April 2022, matches all four signals; 18 and 13 April match three and
 sort by later exit. Their net returns are respectively +0.880\%,
 $-4.533$\% and $-0.439$\%. The selected win count is 1/3,
-but population win is \textbf{9/19}; trap, Trend-failure and Pattern-failure
-counts are 9/18, 7/14 and 9/18. Selecting examples does not replace these
+but population win is \textbf{9/19}. The trap rate is 9/18. Among bullish
+Trend and Pattern cases, respectively, 7/14 and 9/18 have nonpositive
+net returns. Selecting examples does not replace these
 denominators.
 
 The Bayesian Regime Prior Prefix (BRPP) presents regime, population
@@ -327,8 +327,7 @@ cutoff and provenance errors never qualify as support-based bypasses.
 BICL v2 separates statistical evidence from displayed examples. Within the
 verified same-stock/same-regime population $\mathcal P$, exact T/P/A/I
 agreement defines $\mathcal C$ and disjoint background
-$\mathcal B=\mathcal P\setminus\mathcal C$. Each win/trap/failure metric
-applies its own event mask, so its support differs from group size. The
+$\mathcal B=\mathcal P\setminus\mathcal C$. Each metric counts events in the subset relevant to it. The
 strength-four plug-in Beta construction in Chapter 3 uses background
 counts only for the prior mean and conditional counts only for the
 likelihood. Age, feature availability and example selection do not reduce
@@ -380,10 +379,10 @@ activated interventions at every point.
 In FPT, BICL v2 has one conditional and 18 background cycles. Win counts
 give background mean $(8+1)/(18+2)=0.45$, prior $Beta(1.8,2.2)$ and
 posterior $Beta(2.8,2.2)$, mean 0.56. Although three examples can be
-retrieved, population 19 fails the floor and exact conditional support
-fails five; effective examples are zero and no BICL v2 reply is requested.
-A enlarges its condition to 14 cycles with five background cycles, but
-still fails population 20. B shares BICL v2's evidence and bypass. All three
+retrieved, the population of 19 falls below the minimum of 20 and
+exact matches fall below five. BICL v2 therefore sends no examples.
+BICL v3 widens the match to 14 cycles with five background cycles. Its
+population is still 19. BICL v4 shares the evidence of v2. All three
 retain Common's LONG here. Computable statistics and retrieved examples
 must not be reported as content actually shown when the gate withheld
 them. The example also preserves different v1 and MT context identities.
@@ -400,7 +399,7 @@ model alone, determines whether the action changes.
 A deterministic 45-bar packet checks three relationships:
 \texttt{MACD\_SIGNAL} (ABOVE/BELOW/EQUAL), \texttt{MACD\_ZERO}
 (POSITIVE/NEGATIVE/ZERO), and \texttt{PRICE\_SMA20} (ABOVE/BELOW/EQUAL),
-each also allowing UNKNOWN for unavailable evidence. Comparisons use
+with a separate value when the required evidence is missing. Comparisons use
 unrounded values. Being below Signal does not mean MACD is negative;
 being positive does not prove a recent zero crossing. The packet binds
 stock/cutoff, frame end, prefix identity and the derived facts bucket.
@@ -411,14 +410,15 @@ Fact Anchor receives Common-projected reports and a fact card, without
 MT tasks, probability or utility. The card is capped at 700 characters,
 separately from BRPP. Its reply adds schema version, all three unique
 fact IDs, an assertion object and a context reason to the trade fields.
-The resolver requires exact agreement with the packet and reason
-NOT\_APPLICABLE. If valid, its mapped decision is reference action $a_0$.
+The resolver requires exact agreement with the packet and a statement
+that historical context does not apply to this call. On agreement,
+the mapped decision becomes reference action $a_0$.
 A completed schema-valid reply with incorrect assertions/reason instead
 uses the completed same-repeat Common action and records invalid-anchor
 fallback. Its real raw reply remains stored; this is not a bypass of
 the anchor call. Later revision is bypassed for an invalid anchor.
-Transport, missing response or malformed schema remains a technical
-failure rather than this factual fallback.
+A transport interruption, absent response or malformed reply leaves
+the forecast unresolved.
 
 For the saved FPT query, MACD is 0.654 and Signal is 0.704.
 The first check is BELOW and the second is POSITIVE. Close 48.18 exceeds SMA20
@@ -427,8 +427,8 @@ MACD minus Signal. Fact Anchor returns matching assertions and LONG,
 with no numeric veto. Its prose nevertheless treats below-Signal MACD
 as bullish and mentions a zero crossing. Enum agreement validates only
 the limited citation/assertion contract, not all prose or trading logic.
-An illustrative reply asserting negative MACD would fail and retain
-Common, without needing any utility calculation.
+A reply asserting negative MACD would contradict the chart facts and
+retain the Common action before any utility calculation.
 
 \subsection{Prior tasks, target observations and query}\label{s:673616bb765d15ae}
 Each numerical observation is a completed canonical LONG cycle. A valid
@@ -439,9 +439,8 @@ x_i=\left(\frac{C_i}{C_{i-5}}-1,\frac{C_i}{C_{i-20}}-1,
 Std_{pop}\{\log(C_u/C_{u-1})\}_{u=i-19}^{i},
 \frac{C_i}{SMA_{20}(C)_i}-1\right).
 \end{equation}
-Volatility uses $ddof=0$, unlike the HMM's sample volatility. Missing
-sessions/prices or corporate-action barriers can make features
-unavailable; synthetic candles are not inserted. Label $y_i$ uses the
+Volatility uses $ddof=0$, unlike the HMM's sample volatility. Missing sessions, missing prices and corporate actions can prevent
+feature calculation. The pipeline uses observed candles. Label $y_i$ uses the
 canonical net-return sign. Historical return magnitude is a sidecar for
 utility, not a fifth feature. The frozen four-feature scaler uses
 population variance (unit scale for a constant coordinate) and clips
@@ -454,7 +453,7 @@ of the same stock form prior tasks; the current block supplies target
 observations. The query has features but no label. All observations first
 pass the maturity, fold-freeze and reserved-ID rules, then match the
 query's numerical bucket (signs of MACD minus Signal and Close minus
-SMA20). Zero/missing axes yield UNKNOWN and no bucket context.
+SMA20). A zero or missing value on either axis leaves the observation outside the numerical buckets.
 
 Each earlier block needs two observations. Its centroid uses all eligible
 clipped vectors; tasks rank by known regime agreement, smaller centroid
@@ -595,8 +594,8 @@ Utility requires an available 45-bar known-bucket query, at least two
 prior tasks and at least five positive plus five nonpositive historical
 returns, counted uniquely across selected prior/target observations.
 Zero belongs to the latter group. Unsupported context records a reason,
-zero draws and null utility; it does not silently replace a failed
-student with a teacher prediction.
+zero draws and no utility estimate. A student model interruption leaves
+its prediction unresolved.
 
 For each of 4,096 draws, sample a teacher posterior family and its
 target-updated Beta sign probability. Independently normalize exponential
@@ -635,8 +634,8 @@ Figure~\ref{fig:F07} summarizes anchor-relative action resolution. Invalid
 anchor, insufficient context/utility, invalid revision facts or a proposal
 already equal to the anchor do not create a new accepted action. A
 different valid supported proposal must satisfy the strict directional
-quantile test defined in Chapter 3. Equality fails; the sign of mean
-utility alone is insufficient. Each record preserves raw proposal,
+quantile test defined in Chapter 3. It requires a strictly positive
+margin, regardless of the sign of mean utility. Each record preserves raw proposal,
 resolved anchor, validity/support, bypass or veto reason and final action,
 plus the request/dependency/context identities.
 
@@ -646,11 +645,11 @@ box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.88\linewidth
 \node[box] (anchor) {\textbf{Resolve Fact Anchor against the numeric packet}\\
 Valid assertions/reason $\Rightarrow a_0$ is the anchor reply's action.\\Completed invalid assertions $\Rightarrow$ use Common; bypass later revision.};
 \node[box,below=of anchor] (support) {\textbf{Check context and utility support before revision}\\
-Unavailable query/unknown bucket/insufficient support $\Rightarrow$ retain $a_0$, no revision call. Technical failures remain failures.};
+Missing features, no fact bucket or sparse history $\Rightarrow$ keep $a_0$. A transport error leaves the forecast unresolved.};
 \node[box,below=of support] (reply) {\textbf{For an eligible completed MT proposal}\\
 Invalid facts/context reason $\Rightarrow$ retain $a_0$.\\Same action as $a_0$ $\Rightarrow$ keep that action, with no accepted change.};
 \node[box,below=of reply] (test) {\textbf{Different valid action: strict anchor-relative test}\\
-CASH $\rightarrow$ LONG: accept only if $Q10(U)>0$.\\LONG $\rightarrow$ CASH: accept only if $-Q90(U)>0$. Equality fails.};
+CASH $\rightarrow$ LONG: accept only if $Q10(U)>0$.\\LONG $\rightarrow$ CASH: accept only if $-Q90(U)>0$. A tie keeps the reference action.};
 \node[box,below=of test,fill=green!4] (final) {\textbf{Record final LONG/CASH and the resolution reason}\\
 Passing change $\Rightarrow$ revise; otherwise retain $a_0$.\\Keep raw proposal, anchor, validity, support and veto/bypass fields distinct.};
 \foreach \a/\b in {anchor/support,support/reply,reply/test,test/final}{\draw[->] (\a)--(\b);}
@@ -728,8 +727,8 @@ eight fresh replies per point. Selecting one enhanced live version
 schedules only its required dependency graph.
 
 The following combined algorithm separates forecast inputs from later
-evaluation. Every integrity failure stops the affected path; an eligible
-support-based fallback still produces a traceable completed action.
+evaluation. An integrity check stops any inconsistent path. A fallback
+triggered by sparse evidence still produces a traceable completed action.
 \begin{quote}\small\setstretch{1.08}
 \textbf{Paired forecasting and evaluation}\par
 1. Validate point identity, cutoff-limited OHLCV/news and frozen resources.\par
@@ -746,11 +745,9 @@ Do not reopen a completed slot merely to seek another response.\par
 7. Open the outcome stage only when all required forecasts are durable;
 join candidate-LONG prices/labels, then compute classification and accounts.
 \end{quote}
-The barrier applies across the required roles/repeats before outcome
-access. It prevents current outcomes entering requests, but does not
-repair historical feature construction or authenticate source data.
-An unresolved missing slot keeps the barrier closed rather than counting
-as a successful CASH forecast.
+The barrier stays closed until every required role and repeat has a
+saved forecast. Temporal validity still depends on how the features
+were constructed and when source data became accessible.
 
 \section{Bounded prompts, recovery and application}\label{s:052b7113d7072810}
 \paragraph{Request and response contracts.}
@@ -762,8 +759,8 @@ uses 900/1,200/600 respectively. BRPP is at most 600 characters, fact card
 700 and anchor card 80. The complete assembled request, including any
 repair suffix, must be \emph{strictly below 6,500 characters}. Characters
 are not tokens; transport separately reserves estimated request/output
-tokens. Overflow fails before dispatch and cannot silently drop history
-members or weaken the schema.
+tokens. Requests over the limit stop before dispatch, preserving the
+required history and schema.
 
 Compression can lose evidence. FPT's 3,661-character Indicator report has
 a heading unrecognized by the frozen distiller, so its Our system/Our system (Common)
@@ -775,39 +772,26 @@ require the cited assertions and context reason. Neither formatting nor
 assertion agreement verifies all explanation prose.
 
 \paragraph{Retries and checkpoints.}
-Agent calls pass through \texttt{\_invoke\_with\_retry}; within research
-scope one durable transport owns retries and software development kit (SDK) retries are disabled.
-A logical execution permits three Hypertext Transfer Protocol (HTTP) attempts in total, including
-transient failures and schema repair. For retryable 429/500/502/503/504,
-the next eligible time is the maximum of exponential backoff
-$\min(900,5\,2^j)$, Retry-After and a parsed provider wait. Header/body
-waits are not shortened to the exponential cap. Quota amendments are
-versioned in the recorded run, not claims about current provider limits.
-A raw HTTP 200 response is stored before parsing; fixed Decision format
-repair shares the attempt budget. Vision parse failure, low confidence,
-unwanted actions or schema-valid fact disagreements do not authorize
-fresh semantic retries.
+Agent calls pass through \texttt{\_invoke\_with\_retry}. The research
+transport manages up to three HTTP attempts, including format repair.
+For 429/500/502/503/504 responses, it waits for the longest of exponential
+backoff $\min(900,5\,2^j)$, Retry-After and the provider's stated wait.
+It saves HTTP 200 responses before parsing. An unreadable vision report,
+low confidence or disagreement with chart facts leaves the recorded
+response in place.
 
-Atomic stage envelopes bind run, request, parents, status, output and
-digest. Resume reuses verified completed output or parses a durable raw
-200 without a new call; persisted cooldowns and attempts remain.
-An HTTP intent is UNKNOWN before sending because interruption can occur
-after remote receipt. Missing local output does not prove NOT\_SENT:
-unresolved UNKNOWN blocks redispatch until delivery evidence is
-reconciled. Corrupt or changed identities raise errors. Recorded explicit
-replacement generations remain separate from ordinary resume, including
-15 retired HTTP records; they are not silently erased or reset. Detailed
-commands, manifests and recovery logs remain in the evidence repository.
+Checkpoints bind request identity, dependencies, output and digest.
+Resume reuses verified output or parses a saved response, preserving
+attempt counts and cooldowns. An interruption can occur after receipt,
+so the system checks delivery evidence before sending the request again.
+It stops on an identity mismatch and retains the 15 retired requests
+from explicit replacements in the recovery records.
 
 \paragraph{Application and reproducibility.}
-The Realtime 1D form captures a stock and method in a checkpointed job.
-Preflight checks resources and options. The snapshot binds prices, index,
-news availability, units and freshness, including a provisional daily
-bar where applicable. Reload, export and language switching reuse stored
-results and preserve the canonical action. Results show context, raw
-proposal, reference action, final action and bypass, veto or error.
-Saved-response replay verifies archived records under their pinned
-runtime. A new provider-backed execution can produce different responses.
+The daily application checks resources and options, then binds the
+prices, index, news and freshness to a checkpointed job. Reload, export
+and language switching reuse the saved context, proposal, final action
+and its resolution reason.
 
 % Giữ hai đoạn kết cùng tiêu đề ví dụ để tránh một trang chỉ còn vài dòng cuối.
 \begin{samepage}

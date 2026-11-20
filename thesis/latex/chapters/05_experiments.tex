@@ -1,7 +1,7 @@
 % Hai nghiên cứu, estimator và phạm vi bằng chứng được giữ riêng.
 \chapter{Experiments and Discussion}\label{s:016253c474e8e6bb}
 \section{Studies and evidence scope}\label{s:26fcfd1c2d723181}
-The main thesis comparison is the repaired BICL study. It measures five extensions
+The main thesis comparison is the follow-up BICL evaluation. It measures five extensions
 against Our system, Our system (Common), and the Fact Anchor control. The
 earlier component study compares Our system with a price-only QuantAgent
 comparator, with separate numerical and factorial panels. The earlier
@@ -22,8 +22,7 @@ distinct executions, not independent samples obtained by adding all cells.
 The context study has $102\times3\times8=2,448$ slots: 1,290 raw Decision responses
 and 1,158 no-request bypasses. Neither slots, HTTP attempts nor repeated
 responses are new market observations. The six folds were already exposed;
-the component queue freeze occurred after inference began. Immutable
-hosted-weight revisions are unavailable. Artifact integrity and offline
+the component queue freeze occurred after inference began. The provider did not pin model weights to an immutable revision. Artifact integrity and offline
 replay do not establish prospective or whole-system causal validity.
 
 \section{Data, partitions and coverage}\label{s:8be41ee200674674}
@@ -33,8 +32,7 @@ daily backtest across 2023--2026. The 102 eligible points form 51 separate
 stock--fold accounts, with 25 UP/77 DOWN labels. BHN supplies only the
 last three folds: a contradictory 13 September 2022 candle is retained
 in raw evidence but its prefix (673 rows) is excluded; the valid suffix
-starts 14 September. Six absent market cells are structural exclusions,
-not failed or losing forecasts.
+starts 14 September. The sample therefore excludes six stock--date combinations before forecasting.
 
 \paragraph{Why this cohort and schedule.}
 The context protocol inherits both test endpoints of all 51 admissible
@@ -79,7 +77,7 @@ Total & \multicolumn{2}{l}{Nine stocks; twelve dates} &102&51\\\bottomrule
 Pinned vendor/cache material does not independently authenticate
 contemporaneous data availability. The reconstructed daily retrieval through vnstock/VCI is explicitly a new retrieval, not an authenticated original
 run snapshot; action/dividend adjustment evidence is incomplete.
-Sentiment is unavailable at 79/102 context points. The 852-row signal
+At 79 of 102 context points, too few eligible news scores support a sentiment estimate. The 852-row signal
 bank covers four stocks and 48 query points; the remaining 54 retain
 Common fallback. Numerical task context is separately frozen per fold,
 with reserved evaluation IDs excluded. Missing support/news stays in
@@ -91,18 +89,17 @@ stock/cutoff, using repeat 0. The 48 signal-bank-covered points span
 twelve dates shared by four stocks: BULL occurs on one date, CHOPPY on
 one, and CONSOLIDATION on ten. These are query-state frequencies, not
 training occupancy or independent market replications. The 54 other
-points bypass the same-stock signal-bank path and have no saved state
-in that trace; absence is not an UNKNOWN detector output.
+points bypass the same-stock signal-bank path and lack a regime record in that trace because the detector was not used on that path.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}
-\caption[Recorded query-regime support]{Recorded query-regime support on 102 unique stock/cutoff points. NR means not retained in the inspected runtime contract; it is not a zero count. Repeats do not enlarge the denominator.}\label{tab:regime-support}
+\caption[Recorded query-regime support]{Recorded query-regime support on 102 unique stock/cutoff points. An em dash means that the inspected records do not give a count for that category. Repeats do not enlarge the denominator.}\label{tab:regime-support}
 \begin{tabular}{@{}P{.42\linewidth}rr@{}}\toprule
 Query state / availability & Signal bank & MT task regime\\\midrule
-BULL & 4 & NR\\
-BEAR & 0 & NR\\
-CHOPPY & 4 & NR\\
-CONSOLIDATION & 40 & NR\\
-UNKNOWN recorded & 0 & NR\\
+BULL & 4 & \textemdash\\
+BEAR & 0 & \textemdash\\
+CHOPPY & 4 & \textemdash\\
+CONSOLIDATION & 40 & \textemdash\\
+Detector returned no regime & 0 & \textemdash\\
 State not retained in inspected trace & 54 & 102\\\bottomrule
 \end{tabular}\end{table}
 
@@ -120,8 +117,7 @@ states in the evaluation cohort.
 The inspected MT preparation records preserve membership identifiers,
 projection and support reasons, but not the query-regime proof needed
 for a complete state-frequency table. The known FPT BULL example cannot
-fill the other cells. Nor can an unavailable feature, UNKNOWN facts
-bucket or unsupported utility be relabeled as a regime fallback.
+fill the other cells. Missing features, an unassigned fact bucket and insufficient utility evidence are recorded separately from a regime fallback.
 No detector was rerun to fill this reporting gap; MT query frequencies
 and query-time fallback rates remain unverified, despite successful
 fit-quality metadata for its frozen resource.
@@ -153,7 +149,7 @@ reuse and durable outcome barriers. Component metadata retain forty
 paired order mismatches and nine groups spanning execution epochs;
 perfect counterbalancing is not established. Context's HTTP ledger has
 1,702 attempts and retains 15 retired records, separately from active
-responses. Coverage and failures cannot be recoded to reach planned slots.
+responses. The slot counts distinguish completed predictions, reuse and interrupted executions.
 
 \subsection{Selected numerical student: verification and assessment}\label{sec:student-evidence}
 Table~\ref{tab:student-evidence} reports measured results for the selected
@@ -219,8 +215,7 @@ BA&=\tfrac12\left(\frac{TP}{TP+FN}+\frac{TN}{TN+FP}\right),\\
 MCC&=\frac{TP\,TN-FP\,FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}.
 \end{align}
 Accuracy is $(TP+TN)/N$; LONG rate $(TP+FP)/N$. Macro-F1 averages the
-class F1 scores, not stocks. Undefined denominators remain NA with reasons;
-constant predictions can have defined BA but undefined MCC. Context pools
+class F1 scores. A table dash marks a metric with an insufficient or zero denominator. Constant predictions may yield BA even when MCC has a zero denominator. Context pools
 confusion over points within each repeat, then averages the three scores.
 Percentages and percentage-point (pp) differences are distinguished.
 
@@ -252,8 +247,7 @@ Sortino_{context}&=\frac{\bar z}
 Both assume zero risk-free/minimum-acceptable return. The first uses
 only the negative-return subset in its denominator; the second divides
 downside squared returns by all scheduled cycles, including CASH zeros.
-Zero/insufficient denominators remain unavailable rather than being
-assigned favorable ratios. The recorded sparse-cycle audit can also
+A risk ratio needs a positive denominator and sufficient observations. The recorded sparse-cycle audit can also
 leave annualization null. Account drawdown, mean risk ratios, order
 counts, traded notional and time exposed are distinct summaries; pooling
 independently capitalized paths would change their meaning.
@@ -281,26 +275,28 @@ CORE4 and leave-one-fold/stock analyses are sensitivities, not independent
 confirmation. Six exposed clusters do not establish calibrated coverage,
 power, significance or causal superiority. No bootstrap was regenerated.
 
-\section{Repaired BICL evaluation}\label{sec:fin12}
-\input{latex/tables/fin12_plot_data}
-The repaired evaluation asks what BICL adds to Our system. It reruns eight
+\section{Follow-up BICL evaluation}\label{sec:bicl-followup}
+\input{latex/tables/followup_plot_data}
+The follow-up evaluation asks what BICL adds to Our system. It reruns eight
 research roles on the same 102 stock--date points, with three Decision
 repeats and 2,448 recorded forecasts. The rerun uses a training-fitted
 causal alpha projection, a rebuilt OHLCV memory bank and same-repeat
-fallback. The sentiment channel is unavailable on all repaired queries
-because no news has verified cutoff availability. This study cannot
-estimate a sentiment effect. The historical results later in this chapter
+fallback. The evaluation excludes news because none could be verified as
+published by the respective cutoff. The comparison therefore concerns
+BICL with no sentiment input. The historical results later in this chapter
 retain their own forecasts, inputs and estimators.
 
 Five holding periods cross corporate actions, and one entry session has
 zero matched volume. Figure~\ref{fig:repaired-coverage} separates valid
 labels from the narrower support for accounts with both cycles.
-The planned-cohort BA and return remain NA. All 10,000 joint L2 bootstrap
-resamples were finite on the complete accounts. Some contrasts have zero
-variance, so the simultaneous bands are unavailable.
+The paired comparison uses the 45 accounts with both cycles
+(Table~\ref{tab:bicl-complete-accounts}). All 10,000
+joint L2 bootstrap resamples were finite on that set. We report point
+differences without simultaneous bands because some contrasts have zero
+bootstrap variance.
 \begin{figure}[htbp]\centering
-\input{assets/diagrams/fin12_coverage}
-\caption{Forecast cutoffs, valid labels and the common complete-account sample in FIN12.}\label{fig:repaired-coverage}
+\input{assets/diagrams/followup_coverage}
+\caption{Forecast cutoffs, valid labels and cutoffs in complete accounts in the follow-up evaluation.}\label{fig:repaired-coverage}
 \end{figure}
 \input{latex/tables/finalize_results.tex}
 
@@ -317,8 +313,8 @@ account-return improvement. The author attested to the source prices.
 Independent historical point-in-time provenance and prospective
 performance remain open.
 \begin{figure}[htbp]\centering
-\input{assets/diagrams/fin12_comparison}
-\caption{FIN12 returns on 45 complete accounts per repeat and bypasses out of 306 forecast slots per method.}\label{fig:repaired-comparison}
+\input{assets/diagrams/followup_comparison}
+\caption{Follow-up evaluation: returns on 45 complete accounts per repeat and bypasses out of 306 forecast slots per method.}\label{fig:repaired-comparison}
 \end{figure}
 
 \section{Component-study results}\label{s:1859e39b7acb256f}
@@ -327,7 +323,7 @@ Table~\ref{tab:component} retains every main method/control on the 102-point
 cohort. Financial means use 51 separate accounts; MDD is positive-magnitude
 daily maximum drawdown averaged across accounts. Classification percentages
 and financial percentages have different denominators. Continuous hold has
-no pointwise forecast, so its classification entries remain NA. Display
+no pointwise forecast. Its classification columns use dashes. Display
 precision is three decimals; contrasts use saved unrounded values.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
@@ -336,14 +332,14 @@ precision is three decimals; contrasts use saved unrounded values.
 Method & BA (\%) & MCC & LONG (\%) & Return (\%) & MDD (\%)\\\midrule
 Our system & 52.961 & 0.060 & 23.529 & -0.797 & 1.367\\
 QuantAgent & 49.714 & -0.005 & 28.431 & -0.750 & 1.453\\
-CASH & 50.000 & NA & 0.000 & 0.000 & 0.000\\
-Train-majority & 50.000 & NA & 0.000 & 0.000 & 0.000\\
-Always-LONG cycles & 50.000 & NA & 100.000 & -3.000 & 4.523\\
+CASH & 50.000 & \textemdash & 0.000 & 0.000 & 0.000\\
+Train-majority & 50.000 & \textemdash & 0.000 & 0.000 & 0.000\\
+Always-LONG cycles & 50.000 & \textemdash & 100.000 & -3.000 & 4.523\\
 Momentum 20 & 47.325 & -0.046 & 48.039 & -1.636 & 2.576\\
 Logistic price & 55.610 & 0.114 & 23.529 & -0.683 & 1.177\\
 Logistic matched inputs & 52.416 & 0.044 & 32.353 & -1.105 & 1.602\\
 Factor vote & 51.974 & 0.034 & 49.020 & -1.457 & 2.488\\
-Continuous hold (price only) & NA & NA & NA & -2.127 & 12.939\\
+Continuous hold (price only) & \textemdash & \textemdash & \textemdash & -2.127 & 12.939\\
 \bottomrule\end{tabular}\end{table}
 
 Our system's BA exceeds QuantAgent by \textbf{3.247 pp}, yet mean account return is
@@ -458,8 +454,8 @@ BICL v3 & 46.182 & -0.072 & -1.019 & 0.098 & 1.642\\
 BICL v4 & 45.749 & -0.080 & -1.030 & 0.090 & 1.653\\
 BICL v5 & 43.169 & -0.124 & -1.253 & 0.100 & 1.853\\
 Fact Anchor & 42.736 & -0.131 & -1.286 & 0.070 & 1.883\\
-CASH & 50.000 & NA & 0.000 & 0.000 & 0.000\\
-Always-LONG cycles & 50.000 & NA & -3.000 & 0.000 & 4.523\\
+CASH & 50.000 & \textemdash & 0.000 & 0.000 & 0.000\\
+Always-LONG cycles & 50.000 & \textemdash & -3.000 & 0.000 & 4.523\\
 \bottomrule\end{tabular}\end{table}
 
 The two baseline comparisons must both remain visible. Tables
@@ -536,7 +532,7 @@ the numerical student, task conditioning or utility contribution.
 \subsection{Support and action resolution}\label{sec:probability-support}
 \begin{figure}[!t]\centering
 \includegraphics[width=\linewidth]{assets/figures/review_mt_resolution.pdf}
-\caption[Resolution of all MT forecast slots]{Resolution of all 306 MT forecast slots. The 108 bypasses comprise 48 unavailable-query and 60 unsupported-utility cases. Of nine proposals differing from the reference, five are vetoed and four accepted. These counts are dependent forecast slots, not 306 independent markets.}\label{fig:review-mt}
+\caption[Resolution of all MT forecast slots]{Resolution of all 306 MT forecast slots. The 108 bypasses include 48 cases with missing query features and 60 with too little evidence to estimate utility. Of nine proposals differing from the reference, five are vetoed and four accepted. These counts are dependent forecast slots, not 306 independent markets.}\label{fig:review-mt}
 \end{figure}
 At repeat 0, v1 uses all 48 same-stock bank points and has three examples
 on each. BICL v2 and v4 have one ready point each, A eight, while all three
@@ -546,9 +542,9 @@ counts, ready metrics and shown examples are distinct. Age/similarity
 descriptors exist only where saved and selected; missing descriptors are
 not assigned zero distance or zero age.
 
-Across MT's 306 slots, 48 bypass for unavailable query features and 60
-for unsupported utility. Among 198 raw responses, 189 already match the
-anchor, five proposed changes fail the strict utility test and four pass.
+Across MT's 306 slots, 48 bypass because query features are missing and 60
+because there is too little evidence to estimate utility. Among 198 raw responses, 189 already match the
+anchor, five proposed changes fall short of the utility threshold and four meet it.
 The nine disagreements are not nine accepted revisions. Bypasses and
 rejections retain a reference action; a final CASH is not necessarily
 a raw SHORT forecast. The sign-specific Q10/Q90 rule explains action
@@ -558,7 +554,7 @@ The student-probability field is present on 258 supported slots with
 Brier 0.205811; the teacher-probability field is present on 198 with
 Brier 0.212024. Different supports prohibit ranking these as a matched
 calibration comparison. The whole-cohort action results retain every
-planned point even when a numerical probability is unavailable. A
+planned point, including those without a numerical probability estimate. A
 posterior summary, LLM confidence and accepted action are separate outputs.
 
 \subsection{Traceable cases, including adverse outcomes}
@@ -615,8 +611,8 @@ No-fill screens can avoid losses or miss gains; ex-post daily-bar fill
 conditions are not information available at entry. Such scenarios are
 assumption stresses, not execution-certified fills or a venue worst-case
 bound. The recorded token/HTTP ledgers also have scope limits: usage
-may be missing, billing cost is unavailable, and timestamps combine work,
-waiting and interruption. They do not support an invented dollar-cost
+is incomplete, the ledger has no billing data, and timestamps combine
+work, waiting and interruption. They do not support an invented dollar-cost
 or end-to-end latency advantage.
 
 
@@ -694,10 +690,9 @@ recent and similarity retrieval, and statistics-only versus examples-only
 requests, would be needed to distinguish these explanations.
 
 \paragraph{Many MT replies with very few accepted changes.}
-Of 306 slots, 108 never request a revision because features or utility
-support are unavailable. Of the remaining 198 raw replies, 189 already
-agree with the anchor. Only nine propose a different action; five fail
-the strict improvement gate and four pass. Thus a new reply usually
+Of 306 slots, 108 never request a revision because features are missing or the data do not support a utility estimate. Of the remaining 198 raw replies, 189 already
+agree with the anchor. Only nine propose a different action. The utility
+rule accepts four and retains the anchor for five. Thus a new reply usually
 adds text without changing exposure, and the market-level room for the
 student or utility policy to affect aggregate action metrics is small.
 This is a property of the combined anchor--proposal--gate path, not proof
@@ -713,40 +708,23 @@ Brier scores do not supply it.
 \section{Code, Data and Reproducibility}\label{sec:reproducibility}
 The project entry point is the
 \href{https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma}{author's GitHub repository}.
-Three versions must be distinguished. Commit \texttt{7a1b77f1} contains
-the earlier 60-page manuscript, not the source of this revised PDF.
-The source of this edition is identified by the author-held Git tag
-\texttt{thesis-review-20261117-r1}. Its companion
-\path{thesis/release/manifest.json} binds the versioned LaTeX inputs,
-bibliography and figure resources to the distributed PDF's SHA-256 hash.
-Readers should request that tagged checkout and manifest; the latest
-public branch need not contain the same edition. A standalone handover
-package remains a separate delivery step.
+The manuscript source map at \path{scripts/thesis_docs/source-map.json}
+records the LaTeX inputs and the SHA-256 digest of the distributed PDF.
+The repository archives earlier editions separately. The research
+evidence index links the component comparisons, the earlier context
+evaluation and the follow-up evaluation to their respective forecasts,
+execution records and analysis. The earlier context archive also binds
+the experimental implementation to source commit \texttt{384725a6}.
 
-The experimental implementation is pinned separately: the frozen
-\path{docs/plan/week12/final_evidence_snapshot.zip} records research
-source commit \texttt{384725a6}. Start with
-\path{docs/plan/week12/final_evidence_map.md}. The context results are
-\texttt{u09\_analysis\_r1}, backed by
-\path{docs/plan/week12/unified_analysis_results.zip}; the response
-collection is \texttt{u08\_research\_r1} in
-\path{docs/plan/week12/unified_live_research.zip}. Component results are located by
-\path{docs/plan/revision_evidence/index.json}, including
-\texttt{final\_baselines\_v1}, \texttt{final\_repeats\_v1} and
-\texttt{execution\_final\_v1}. These are distinct versioned objects;
-the manuscript source map and evidence ledger provide their digests.
-
-For document reproduction, follow \path{thesis/latex/README.md} and run
-\texttt{py -3.13 thesis/latex/tools/build.py} with LuaLaTeX and Biber.
-This builds from LaTeX, bibliography and figures; Markdown drafts and
-the reference thesis are not build inputs. Reading a frozen result,
-replaying recorded responses and making new hosted requests remain
-different operations. Hosted model aliases do not freeze provider
-weights. Some large/local artifacts require author-mediated access;
-market prices, news, model weights and the institutional logo have
-unresolved redistribution conditions. Neither the project URL nor this
-reproduction pointer grants those rights, and no credentials are
-distributed with the manuscript.
+To build the document, follow \path{thesis/README.md} and compile the
+top-level \path{main.tex} in the thesis directory with pdfLaTeX or
+XeLaTeX and Biber. The source directory contains the bibliography and
+figures required for compilation. Replaying saved responses reproduces
+the reported calculations. New requests may differ because model aliases
+can refer to different weights over time. Access to some large
+research artifacts requires contacting the author. Redistribution of
+prices, news, model weights and the institutional logo remains subject
+to the rights of the corresponding owners.
 
 \section{Validity limits and answers}\label{s:7abb5e08a08c44da}
 \begingroup\raggedright
@@ -806,8 +784,8 @@ show historical-value changes even when the outer query cutoff is respected.
 
 Other material limits are purposive sampling and unresolved PIT market
 membership, corporate actions/dividends and source adjustment/volume
-units; unavailable news and possible foundation-model historical training
-overlap; six dependent exposed folds and conditional Decision repeats;
+units; gaps in dated news and possible overlap with foundation-model
+training data; six dependent exposed folds and conditional Decision repeats;
 coupled information/format changes; and fractional independent accounts
 that omit a validated shared-capital execution model. Reference fills
 do not reproduce queues, partial fills, taxes, impact or settlement
@@ -831,7 +809,7 @@ versioned experiments are needed, rather than retrospective claims that
 the combined MT bridge proves an isolated contribution.
 
 The earlier studies show baseline-dependent classification, negative
-financial means and sparse intervention. The repaired run confirms
+financial means and sparse intervention. The follow-up run confirms
 frequent fallback and shows no consistent economic gain over Common.
 Artifact replay verifies the recorded calculations. Independent
 provenance and prospective execution remain open.

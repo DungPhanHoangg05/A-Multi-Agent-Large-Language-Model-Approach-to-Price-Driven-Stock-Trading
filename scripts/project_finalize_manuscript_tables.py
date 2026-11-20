@@ -47,15 +47,15 @@ def project(result: dict) -> str:
             f"{row['complete_accounts_mean_account_return_pct']:.4f} & "
             f"{row['complete_accounts_balanced_accuracy_pct']:.4f} & {row['bypass_forecasts']}"
         )
-    lines = [r'% Chiếu từ results.json đã khóa trong receipt FIN12.', r'\begin{table}[htbp]',
-             r'\centering\small', r'\caption{Repaired BICL study. Mean net account return and balanced accuracy (BA) use the common complete-account subset. Bypass counts cover all planned forecasts per method.}\label{tab:fin12-repaired}',
+    lines = [r'% Chiếu từ kết quả đã khóa của lần đánh giá bổ sung.', r'\begin{table}[htbp]',
+             r'\centering\small', r'\caption{Follow-up BICL evaluation. Mean net return and balanced accuracy (BA) use accounts with both trading cycles. Bypass counts cover all forecast slots per method.}\label{tab:bicl-complete-accounts}',
              r'\begin{tabular}{lrrr}\toprule',
              r'Method & Return (\%) & BA (\%) & Bypasses \\ \midrule']
     lines.extend(f'{name} & {values(method)}' + r' \\' for method, name in METHODS.items())
     lines.extend([r'\bottomrule\end{tabular}', r'\par\smallskip', (
-        f"{{\\footnotesize {coverage['complete_accounts_per_repeat']}/{coverage['planned_accounts_per_repeat']} complete accounts per repeat, "
-        f"{coverage['complete_account_points']} shared cutoffs. {coverage['available_outcomes']}/{coverage['planned_points']} cutoffs have valid labels. "
-        f"The full-cohort return and BA are NA.\\\\}}"
+        f"{{\\footnotesize Each repeat includes {coverage['complete_accounts_per_repeat']} of {coverage['planned_accounts_per_repeat']} "
+        f"accounts with both cycles, covering {coverage['complete_account_points']} cutoffs shared by all methods. "
+        f"Across the full sample, {coverage['available_outcomes']} of {coverage['planned_points']} cutoffs have valid execution labels.\\par}}"
     ), r'\end{table}'])
     return '\n'.join(lines) + '\n'
 
@@ -74,7 +74,7 @@ def project_plot_data(result: dict) -> str:
         f"{by_method[key]['bypass_forecasts']}" for key in plotted
     )
     return (
-        '% Nguồn: artifact FIN12 đã kiểm checksum.\n'
+        '% Chiếu từ kết quả đã kiểm checksum của lần đánh giá bổ sung.\n'
         f'\\def\\FinCoverageRows{{{coverage_rows}}}\n'
         f'\\def\\FinMethodRows{{{rows}}}\n'
     )
@@ -87,7 +87,7 @@ def main() -> None:
     args = parser.parse_args()
     result = read_results()
     projections = dict.fromkeys(TARGETS, project(result))
-    projections['thesis/latex/tables/fin12_plot_data.tex'] = project_plot_data(result)
+    projections['thesis/latex/tables/followup_plot_data.tex'] = project_plot_data(result)
     for relative, expected in projections.items():
         path = ROOT / relative
         if args.check:
