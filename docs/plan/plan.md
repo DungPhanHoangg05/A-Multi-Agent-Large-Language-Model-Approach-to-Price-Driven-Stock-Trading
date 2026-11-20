@@ -8,9 +8,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 ### Kế hoạch finalize hệ thống — cập nhật 20/11/2026
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
-`paper/` và khóa luận trong `thesis/`.** FIN00–FIN12 đã hoàn tất trong
+`paper/` và khóa luận trong `thesis/`.** FIN00–FIN13 đã hoàn tất trong
 phạm vi ghi dưới đây. Profile ứng dụng `finalize_serving_v1` đã qua đối chứng
-offline. FIN13–FIN17 vẫn mở.
+offline. FIN14–FIN17 vẫn mở.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -37,7 +37,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. FIN11 đã đối soát lại các khóa liên quan. |
 | FIN11 | `PASS_FIN11`. Smoke đạt 8 forecast. Nghiên cứu đủ 102 điểm và 2.448 forecast. Đã đối soát 1.511 attempt kể cả smoke và bản lưu. Outcome thị trường chưa được mở. |
 | FIN12 | Đánh giá offline từ receipt FIN11. Có 96/102 nhãn thực thi và 45/51 tài khoản đủ hai chu kỳ. Endpoint chính giữ NA. Oracle và cold verify đạt trên phạm vi có dữ liệu. |
-| FIN13 | Đã đối soát các cờ FIN01 trên cohort gốc và profile sửa. Phần mềm đạt trong phạm vi đã kiểm. PIT nguồn giá độc lập còn `BLOCKED_PIT_PROVENANCE`. |
+| FIN13 | `PASS_FIN13_OWNER_ATTESTED_SCOPE` cho cohort gốc và profile sửa trên nguồn giá tác giả xác nhận. Chứng nhận PIT nguồn độc lập vẫn `NOT_CERTIFIED`. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -243,7 +243,7 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   mới. Đạt khi mọi ô có provenance và số liệu khớp oracle. Phụ thuộc FIN11;
   chỉ tái tạo các phân tích bị ảnh hưởng theo protocol đã chốt.
   Đã đạt theo [nghiệm thu FIN12](#fin12--đánh-giá-offline-bản-sửa).
-- [ ] **FIN13 — Chốt nghiệm thu hệ thống trong miền công bố.** Tổng hợp bằng
+- [x] **FIN13 — Chốt nghiệm thu hệ thống trong miền công bố.** Tổng hợp bằng
   chứng FIN03–FIN12 theo từng profile/caller/input. Bản sửa đạt row-wise
   causal và toàn pipeline PIT trong miền đã khóa; integrity, economics,
   pairing và recovery đạt điều kiện tương ứng. Gate chưa có bằng chứng tiếp
@@ -253,8 +253,9 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   Kiểm cả trường hợp dữ liệu giả sai phải bị từ chối. Chứng nhận PIT nguồn
   độc lập cần bằng chứng giá riêng nêu tại lịch ngày 18/11. Phụ thuộc FIN10
   và FIN12.
-  [Đối soát FIN13](#fin13--đối-soát-cờ-của-bản-sửa) đã ghi các gate đạt theo
-  phạm vi. Checklist vẫn mở vì PIT nguồn giá độc lập chưa đủ bằng chứng.
+  Đạt `PASS_FIN13_OWNER_ATTESTED_SCOPE` sau khi tác giả xác nhận nguồn giá và
+  yêu cầu tiếp tục FIN14. [Đối soát FIN13](#fin13--đối-soát-cờ-của-bản-sửa)
+  giữ riêng kết luận PIT nguồn độc lập `NOT_CERTIFIED`.
 - [ ] **FIN14 — Hồi quy ứng dụng trên phần thay đổi.** Kiểm sáu lựa chọn,
   Common/Fact Anchor, input/preflight, tiến trình, lỗi/partial/UNKNOWN,
   raw/final/context, kết quả cũ/mới, VI/EN, theme và export. Kiểm trực quan
@@ -1374,7 +1375,15 @@ qua cold verify. Kiểm sai có chủ đích xác nhận validator từ chối c
 giả, hash giá lệch và forecast sửa hành động rồi tính lại hash cục bộ.
 Mốc này chỉ thêm biên bản và kiểm lại bằng chứng theo phạm vi, nên không
 chạy lại compileall, unit suite, E2E hoặc leakage suite. Có 0 lượt gọi Groq.
-FIN13 giữ mở ở `BLOCKED_INDEPENDENT_PRICE_PROVENANCE`.
+Receipt đối soát ban đầu ghi `BLOCKED_INDEPENDENT_PRICE_PROVENANCE`.
+
+Ngày 20/11/2026, tác giả xác nhận phiên bản giá đang dùng là chính xác về
+mọi khía cạnh và yêu cầu hoàn thiện FIN13 để tiếp tục FIN14. Nghiệm thu sử
+dụng phạm vi nguồn do tác giả xác nhận cùng 102 điểm FIN02 gốc.
+`PASS_FIN13_OWNER_ATTESTED_SCOPE` cho phép tiếp tục hồi quy ứng dụng.
+Chứng nhận PIT nguồn giá độc lập vẫn `NOT_CERTIFIED`. Kết luận khoa học
+giữ phạm vi exploratory của nguồn và thiết kế đã khóa.
+[Receipt chốt FIN13](week12/finalize_system_gate_v2.json).
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

@@ -6,6 +6,7 @@ ESWA/elsarticle-num.bst -whitespace
 scripts/evaluate_finalize_study.py text eol=lf
 scripts/fin12_evaluation*.py text eol=lf
 docs/plan/week12/finalize_system_gate_v1.json text eol=lf
+docs/plan/week12/finalize_system_gate_v2.json text eol=lf
 data/execution_prices_oos/* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 data_manager/regime_memory_store*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 docs/plan/week2/memory_bank_audit.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
