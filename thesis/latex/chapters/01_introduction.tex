@@ -4,12 +4,12 @@
 A daily stock decision combines incomplete and sometimes conflicting
 evidence. Indicators summarize price and volume numerically; charts show
 their trajectory; dated news supplies a different information source.
-An association with future returns is not itself a profitable decision
-rule after costs. \autocite{lo2000technical,arnott2019backtesting}
+An association with future returns~\cite{lo2000technical} does not
+establish a profitable decision rule after trading costs~\cite{arnott2019backtesting}.
 Large language models (LLMs) can organize these reports, while visual
-models can interpret chart inputs. QuantAgent provides the specialist
+models can interpret chart inputs. QuantAgent~\cite{xiong2025quantagent} provides the specialist
 price/chart architecture adapted in this thesis; multi-agent trading is
-an inherited foundation. \autocite{xiong2025quantagent}
+an inherited foundation.
 
 Our system adds alpha signals and Vietnamese sentiment to the price-driven
 QuantAgent architecture. This thesis investigates the incremental effect of
@@ -20,8 +20,8 @@ conditions a numerical predictor on historical datasets and observations
 from the target task. A factual anchor and an external utility policy
 then constrain action revision. \emph{Multi-agent} denotes analysis roles;
 \emph{multi-task} denotes the datasets used by numerical inference. The
-latter adapts an existing methodological idea to this system rather than
-claiming a new Bayesian theory. \autocite{zhu2026multitask}
+latter adapts an existing methodological idea~\cite{zhu2026multitask} to this system rather than
+claiming a new Bayesian theory.
 
 For a stock at cutoff $t$, admissible inputs contain price rows no later
 than $t$, dated and available news, and historical episodes whose outcomes

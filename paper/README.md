@@ -30,8 +30,8 @@ pdflatex -halt-on-error main.tex
 ```
 
 Đổi `main` thành `main_submit` để biên dịch bản nộp.
-PDF hiện hành gồm [bản đầy đủ](../output/pdf/paper-fin15.pdf) và
-[bản nộp](../output/pdf/paper-fin15-submit.pdf). Nguồn tự đủ để biên dịch.
+PDF hiện hành gồm [bản đầy đủ](../outputs/paper/main-fin15.pdf) và
+[bản nộp](../outputs/paper/main-submit-fin15.pdf). Nguồn tự đủ để biên dịch.
 [PDF và manifest trước FIN15](../outputs/paper/README.md) giữ vai trò bằng chứng lịch sử.
 
 Chạy `py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --check`

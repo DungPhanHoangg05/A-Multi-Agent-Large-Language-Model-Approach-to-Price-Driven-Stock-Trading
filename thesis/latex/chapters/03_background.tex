@@ -80,9 +80,9 @@ require explicit handling. A zero value differs from a missing estimate.
 Votes derived from these shared prices are not independent evidence.
 
 Alpha factors are numerical transformations rather than probabilities.
-The adapted Alpha101 family changes cross-sectional operations where
+The adapted Alpha101 family~\cite{kakushadze2016formulaic} changes cross-sectional operations where
 single-security inputs cannot implement them directly.
-\autocite{kakushadze2016formulaic} In the causal-common profile, a finite
+In the causal-common profile, a finite
 factor value $a_u$ is transformed using its expanding-prefix mean and
 sample standard deviation:
 \begin{equation}
@@ -103,12 +103,12 @@ means unavailable sentiment; undated/future articles are excluded. A
 zero-filled display cannot turn absence into observed neutral opinion.
 
 \section{Hidden market regimes}\label{s:5afcb21224a45c1c}
-A hidden Markov model (HMM) models an unobserved state $S_u$, initial distribution
+A hidden Markov model~\cite{rabiner1989hmm,hamilton2005regimes} (HMM) models an unobserved state $S_u$, initial distribution
 $\boldsymbol\pi$, transition probabilities $A_{ij}=P(S_u=j\mid S_{u-1}=i)$
 and emission density $b_j(\boldsymbol x_u)$. Gaussian emissions describe
 state-dependent feature distributions. Fitting estimates parameters;
 inference conditions on observations. Both operations have temporal
-boundaries. \autocite{rabiner1989hmm,hamilton2005regimes}
+boundaries.
 
 The forward recursion, with normalization after each step, is
 \begin{equation}
@@ -167,10 +167,10 @@ rate alone establishes a profitable action.
 \section{Multi-task inference and utility}\label{s:0a1a29f8abd969a0}
 Write prior datasets as $\mathcal D_k=\{(\boldsymbol x_{ki},y_{ki})\}$,
 target context as $\mathcal C_q$, and the unlabeled query as
-$\boldsymbol x_q$. Multi-task inference targets
+$\boldsymbol x_q$. Multi-task inference~\cite{muller2022transformers,zhu2026multitask} targets
 $p(y_q\mid\boldsymbol x_q,\mathcal C_q,\mathcal D_{1:K})$ while retaining
 task identity. It differs from placing three independent signal examples
-in a hosted prompt. \autocite{muller2022transformers,zhu2026multitask}
+in a hosted prompt.
 
 The local teacher uses Beta components $(a_h,b_h)$ with fixed offline
 weights $\pi_h$. Each prior/target task supplies positive/nonpositive
@@ -211,6 +211,12 @@ retained; invalid anchor assertions follow the declared Common fallback.
 Probability, proposal, anchor and final action must remain distinguishable.
 
 \section{Temporal validity and paired evaluation}\label{s:e96c9e0900bb66c1}
+Figure~\ref{fig:regime-prefix} shows the time boundary for regime inference.
+\begin{figure}[htbp]\centering
+\input{assets/diagrams/regime_prefix}
+\caption{Train the regime model on its designated history, then infer the state at the cutoff from the available prefix.}\label{fig:regime-prefix}
+\end{figure}
+
 Price rows must satisfy $d_i\le d_t$; news needs both a date and declared
 availability no later than $d_t$. Historical outcomes require the strict
 boundary $d_i^{exit}<d_t$, excluding open or straddling cycles. Feature,

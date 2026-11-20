@@ -1,0 +1,17 @@
+% Hai pha HMM dùng các miền thời gian khác nhau.
+\begin{tikzpicture}[
+  box/.style={draw=thesisblue,rounded corners=2pt,fill=blue!4,
+    text width=3.5cm,align=center,minimum height=9mm,font=\small,inner sep=3pt},
+  edge/.style={-{Latex[length=2mm]},thick,draw=thesisblue}]
+\node[box] (train) at (0,0) {Training features};
+\node[box] (model) at (4.25,0) {Fit and freeze HMM};
+\node[box,fill=green!10] (frozen) at (8.5,0) {Frozen parameters};
+\node[box] (prefix) at (0,-1.15) {Prefix through $t$};
+\node[box] (forward) at (4.25,-1.15) {Forward filtering};
+\node[box,fill=green!10] (result) at (8.5,-1.15) {Regime at $t$};
+\draw[edge] (train)--(model);
+\draw[edge] (model)--(frozen);
+\draw[edge] (prefix)--(forward);
+\draw[edge] (forward)--(result);
+\draw[edge] (frozen.south)--++(0,-.12)-|(forward.north);
+\end{tikzpicture}

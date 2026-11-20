@@ -23,14 +23,17 @@ def main() -> None:
     parser.add_argument('--strict-cutover-targets', action='store_true')
     parser.add_argument('--strict-current-targets', action='store_true')
     args = parser.parse_args()
-    latex = Path(__file__).resolve().parents[1]
-    root = latex.parent
-    record = json.loads((latex / 'source-map.json').read_text(encoding='utf-8'))
+    tools = Path(__file__).resolve().parent
+    repo = tools.parents[1]
+    root = repo / 'thesis'
+    latex = root / 'latex'
+    archive_home = repo / 'docs/plan/thesis'
+    record = json.loads((tools / 'source-map.json').read_text(encoding='utf-8'))
     checked = 0
     archive = record.get('p8_archive')
     historical: dict[str, bytes] = {}
     if archive:
-        archive_path = root / archive['path']
+        archive_path = archive_home / archive['path']
         if hashlib.sha256(archive_path.read_bytes()).hexdigest() != archive['sha256']:
             raise ValueError('Archive P8 khác hash đã khóa.')
         with ZipFile(archive_path) as bundle:
@@ -41,7 +44,7 @@ def main() -> None:
                 historical[row['path']] = content
     for row in record['markdown_archive']:
         content = historical.get(row['path'])
-        actual = hashlib.sha256(content.replace(b'\r\n', b'\n')).hexdigest() if content is not None else lf_sha(root / row['path'])
+        actual = hashlib.sha256(content.replace(b'\r\n', b'\n')).hexdigest() if content is not None else lf_sha(archive_home / row['path'])
         if actual != row['lf_sha256']:
             raise ValueError('Bản nháp lưu trữ đã đổi: ' + row['path'])
     if args.strict_cutover_targets:
@@ -51,7 +54,7 @@ def main() -> None:
             if actual != row['lf_sha256']:
                 raise ValueError('Nguồn P8 lưu trữ khác mốc chuyển: ' + row['path'])
     for row in record.get('markdown_navigation_updates', []):
-        if lf_sha(root / row['path']) != row['lf_sha256']:
+        if lf_sha(archive_home / row['path']) != row['lf_sha256']:
             raise ValueError('Bản điều hướng Markdown khác cập nhật đã ghi: ' + row['path'])
     if args.strict_current_targets:
         if 'current_latex' not in record:
@@ -61,9 +64,7 @@ def main() -> None:
                 raise ValueError('Nguồn LaTeX khác mốc biên tập: ' + row['path'])
         if lf_sha(root / 'references.bib') != record['current_references_lf_sha256']:
             raise ValueError('Bibliography khác mốc biên tập.')
-    for path in [root / 'main.tex', root / 'covers-preview.tex', *latex.rglob('*.tex')]:
-        if 'build' in path.parts:
-            continue
+    for path in root.rglob('*.tex'):
         text = path.read_text(encoding='utf-8')
         for command, target in re.findall(r'\\(input|includegraphics|addbibresource)(?:\[[^\]]*\])?\{([^}]+)\}', text):
             if '#' in target:
@@ -85,7 +86,7 @@ def main() -> None:
         if main_source.count(r'\input{' + target + '}') != 1:
             raise ValueError('Nội dung thiếu hoặc ghép lặp: ' + target)
     # So mọi ô đã chọn với cả bảng P8 trong archive và nguồn LaTeX hiện tại.
-    table_map = root / 'assets/tables/concise_results.source.json'
+    table_map = archive_home / 'assets/tables/concise_results.source.json'
     if table_map.exists() and historical:
         projection = json.loads(table_map.read_text(encoding='utf-8'))
         expected_rows = {'tab:component': 10, 'tab:numeric': 4, 'tab:smallpanels': 7,

@@ -10,7 +10,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[5]
 PACKAGE = ROOT / "docs/plan/week12/unified_analysis_results.zip"
 MEMBER = "outputs/unified_integration/u09_analysis_r1/results.json"
 PACKAGE_SHA256 = "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9"

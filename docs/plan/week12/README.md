@@ -42,7 +42,7 @@ trạng thái hiện tại và công việc tiếp theo chỉ cập nhật tại
 ### Kế hoạch bổ sung sau rà soát bản 60 trang
 
 Ngày **17/11/2026**, theo yêu cầu “cập nhật vào plan”, đã đưa đủ mười nhóm nhận
-xét vào [P9.5 của kế hoạch viết](../../../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang),
+xét vào [P9.5 của kế hoạch viết](../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang),
 chia thành 12 task T80a–T80l có ưu tiên, phụ thuộc, đầu ra và tiêu chí nghiệm thu;
 mọi task mới còn TODO tại checklist duy nhất của kế hoạch. Giữ ghi nhận DONE
 T73a–T73l/T73–T80 của lượt trước, mở lại G5 và đổi điều kiện vào T81 sang T80l.
@@ -69,7 +69,7 @@ không inference, huấn luyện, bootstrap hoặc tái chạy nghiên cứu.
 ### Cập nhật kế hoạch rút gọn khóa luận
 
 Ngày **16/11/2026**, theo yêu cầu đã làm rõ của người dùng, bước này **chỉ sửa
-kế hoạch**, chưa thực hiện việc rút gọn. [Kế hoạch viết](../../../thesis/plan.md)
+kế hoạch**, chưa thực hiện việc rút gọn. [Kế hoạch viết](../thesis/plan.md)
 bổ sung 12 task con T73a–T73l (đều TODO), ngân sách mục tiêu 66 trang trong
 khoảng **60–70 trang tính toàn bộ PDF**, bảng chuyển nội dung thiết yếu của
 phụ lục vào Chương 3–5, quy tắc bảng trang dọc và tiêu chí nghiệm thu tương ứng.
@@ -96,13 +96,13 @@ compileall, unit, E2E hoặc leakage vì nguồn bản nộp và runtime không 
 Ngày **14/11/2026**, người dùng yêu cầu kế hoạch viết từ đầu tới khi bàn giao
 và đổi tên thư mục thành `thesis/`. Theo đính chính ngôn ngữ sau đó,
 **trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý dùng tiếng Việt;
-toàn bộ nội dung khóa luận dùng tiếng Anh**. [Dàn bài chương mục](../../../thesis/outline.md)
+toàn bộ nội dung khóa luận dùng tiếng Anh**. [Dàn bài chương mục](../thesis/outline.md)
 giữ tiếng Anh để làm khung bản thảo; [hướng dẫn đọc](../../../thesis/README.md)
-và [kế hoạch viết](../../../thesis/plan.md) dùng tiếng Việt. Kế hoạch định nghĩa
+và [kế hoạch viết](../thesis/plan.md) dùng tiếng Việt. Kế hoạch định nghĩa
 84 task, phụ thuộc, đầu ra, điều kiện nghiệm thu và sáu mốc rà soát.
 
 Theo yêu cầu tiếp theo ngày **14/11/2026**, **checklist trạng thái duy nhất**
-đã chuyển vào [kế hoạch viết §2.1](../../../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc).
+đã chuyển vào [kế hoạch viết §2.1](../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc).
 Mục này giữ lịch sử và bằng chứng kiểm tra, không lặp 84 ô trạng thái.
 Hoàn thành kế hoạch chưa phải hoàn thành toàn bộ chuẩn bị nguồn,
 viết, rà soát hoặc nộp. Có thể ghi IN_PROGRESS/REVIEW/BLOCKED bên mục chưa xong;
@@ -404,10 +404,10 @@ Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ 
 
 Ngày **15/11/2026**, thực hiện **T41** trên nhánh
 `docs/thesis-component-results` từ develop đã cập nhật origin. Đã viết
-[§5.6](../../../thesis/chapters/05_experiments.md#56-component-study-results)
+[§5.6](../thesis/chapters/05_experiments.md#56-component-study-results)
 và bảy bảng B05a–g trong Markdown: main/confusion/exposure, mã/block,
 23 đối chứng số, ba diagnostic chính với Holm23, hai panel lặp và đủ bảy
-contrast factorial. [Sổ chung §10.7](../../../thesis/evidence.md#107-kết-quả-thành-phần-và-ánh-xạ-từng-ô-b05)
+contrast factorial. [Sổ chung §10.7](../thesis/evidence.md#107-kết-quả-thành-phần-và-ánh-xạ-từng-ô-b05)
 giữ CL145–CL154, ED32–ED37 và locator/field/đơn vị/support từng ô.
 Chưa xuất CSV/LaTeX; bảng cho dàn trang cuối thuộc T69.
 
@@ -668,7 +668,7 @@ không tạo checklist hoặc receipt riêng.
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`
 từ develop `12508f18fc6348fdde53aff264e8e98547f4e316` đã cập nhật remote.
 
-- **T09; [Chương 3 §3.1](../../../thesis/chapters/03_background.md#31-observations-and-time-indexing);**
+- **T09; [Chương 3 §3.1](../thesis/chapters/03_background.md#31-observations-and-time-indexing);**
   viết năm mục nhỏ bằng tiếng Anh: OHLCV/phiên quan sát, cutoff và boundary,
   cửa sổ/warm-up, thiếu/lỗi bản ghi, EX01 theo ngày. Phân biệt date với index
   zero-based, [e−W,e), t=e−1, entry=e, exit=e+L−1 và L=3 trong study daily;
@@ -705,7 +705,7 @@ từ develop `12508f18fc6348fdde53aff264e8e98547f4e316` đã cập nhật remote
 Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-chapter-skeletons`
 từ develop `c6b17d58f40ffb5dd1c0043a39b390ea0abddf37` đã cập nhật remote.
 
-- **T08; [sổ chung §8](../../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm);**
+- **T08; [sổ chung §8](../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm);**
   tạo sáu file Markdown trong `thesis/chapters/` theo đường dẫn kế hoạch,
   tiêu đề tiếng Anh từ dàn bài. Có 42 mục chính và 13 mục con (sáu agent và
   bảy mục MT), mỗi mục có placeholder `Not yet drafted` nêu nội dung thiếu.
@@ -733,7 +733,7 @@ từ develop `c6b17d58f40ffb5dd1c0043a39b390ea0abddf37` đã cập nhật remote
 Ngày **14/11/2026**, thực hiện trên nhánh `docs/thesis-running-example`
 từ develop `9d7d37350d27aff6abc42054aba1278b98038d25` đã cập nhật remote.
 
-- **T07; [sổ nguồn §7.1–§7.7](../../../thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết);**
+- **T07; [sổ nguồn §7.1–§7.7](../thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết);**
   chọn EX01 = FPT cutoff 03/07/2023, fold b2023_h2, u0/r0 từ U08/U09.
   Quy tắc biên tập sau khi khóa nghiên cứu: 102 điểm → 48 CORE4 có đủ tám
   dòng research r0 → 29 MT eligible và v1 không bypass → đầu theo ngày/mã.
@@ -763,7 +763,7 @@ từ develop `9d7d37350d27aff6abc42054aba1278b98038d25` đã cập nhật remote
   compileall/unit/E2E/leakage, PDF build, cold replay, refit hay model/thị
   trường API. Chưa viết chương/vẽ sản phẩm ở các task sau; F11/F12 và giới
   hạn nghiệm thu lịch sử giữ nguyên. Checklist duy nhất tiếp tục ở
-  [thesis/plan.md §2.1](../../../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc).
+  [thesis/plan.md §2.1](../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc).
 
 ### Danh mục hình, bảng và thuật toán có nguồn
 
@@ -959,7 +959,7 @@ F12 chưa bắt đầu. Có thể bắt đầu T02/T03/T05/T08 trong khi thu th�
 ## Khởi tạo dàn bài khóa luận
 
 Ngày **14/11/2026**, tham chiếu cấu trúc `Latex/main.tex` và PDF mẫu người dùng
-cung cấp, xây dựng [dàn bài KLTN](../../../thesis/outline.md) cùng
+cung cấp, xây dựng [dàn bài KLTN](../thesis/outline.md) cùng
 [hướng dẫn đọc](../../../thesis/README.md) trên nhánh `docs/thesis-outline`,
 từ `develop:7a71d4da0dcccded03e46189ce42fea2896f6c80`.
 

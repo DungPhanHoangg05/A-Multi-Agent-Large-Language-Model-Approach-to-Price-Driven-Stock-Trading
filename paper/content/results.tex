@@ -16,6 +16,29 @@ Our system mean net account return is \FullReturn\%, versus QuantAgent \BaseRetu
 Returns and drawdowns summarize separate accounts, not one portfolio, total-return index or certified executable strategy. Risk ratios cannot recover evidence of profitability from sparse trades. The main schedules have 57 observed sessions between cutoffs, so pending-cash/on-demand-advance equivalence on these accounts provides little evidence about rapid capital reuse. All twelve economic sensitivities are reported in Table~\ref{tab:execution}. The all-entries-missed scenario gives zero but is not a mathematical worst-return bound; other assumptions may introduce unfilled entries, delays, pending balances or residual shares. Predictions and classification labels are unchanged across these sensitivities.
 \input{content/tables/component/accounts.tex}
 
+\subsubsection{Historical-context comparison}
+Table~\ref{tab:u09-comparison} reports the earlier historical-context results. Mean account return is \UnifiedNativeReturn\% for Our system, \UnifiedCommonReturn\% for Common, \UnifiedVOneReturn\% for BICL v1 and \UnifiedMTReturn\% for BICL v5. Their BAs are \UnifiedNativeBA\%, \UnifiedCommonBA\%, \UnifiedVOneBA\% and \UnifiedMTBA\%, respectively. All research-method mean returns are negative. CASH returns zero and Always-LONG cycles return \UnifiedAlwaysLongReturn\%.
+
+BICL v1 improves mean return relative to Common by $+\UnifiedVOneCommonReturnEffect$ pp. Its descriptive simultaneous band is $[\UnifiedVOneCommonReturnLow,\UnifiedVOneCommonReturnHigh]$. Relative to Our system, the difference is $\UnifiedVOneNativeReturnEffect$ pp with band $[\UnifiedVOneNativeReturnLow,\UnifiedVOneNativeReturnHigh]$. BICL v5 has a lower mean return than Our system, with a difference of $\UnifiedMTNativeReturnEffect$ pp and band $[\UnifiedMTNativeReturnLow,\UnifiedMTNativeReturnHigh]$. All twenty return and BA contrasts are reported in \ref{app:additional} and the supplementary results.
+% Đặt bảng so sánh cạnh phần diễn giải trước biểu đồ.
+\input{content/tables/historical_context/comparison.tex}
+
+Figure~\ref{fig:u09-return-contrasts} displays all five extension-versus-baseline return differences for each baseline. The bands use the same joint return/BA contrast family as the tabulated analysis.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/return_comparisons.pdf}
+\caption{Earlier historical-context study. Mean account-return differences against Our system and Our system (Common) with descriptive simultaneous bands.}
+\label{fig:u09-return-contrasts}
+\end{figure}
+
+Support determines how often historical context affects decisions. The conditional and explicit-count priors each have \UnifiedCTwoRaw\ raw Decisions and \UnifiedCTwoBypass\ bypasses per 306 slots; the trend--pattern prior has \UnifiedAPoolRaw\ raw Decisions, the Bayesian prior \UnifiedVOneRaw\ and BICL v5 \UnifiedMTRaw. A fallback reuses the parent action from the same repeat and contributes to the primary metrics. Table~\ref{tab:u09-support} separates bank-covered and other stocks and reports effective K; sentiment is unavailable at \UnifiedMissingSentiment/\UnifiedPoints\ points. Near-equal outcomes of the conditional/explicit-count priors and Common therefore primarily reflect limited support and action reuse.
+
+\paragraph{Repaired historical-context evaluation}
+The repaired run retains the original 102 cutoffs. It uses a training-fitted alpha projection, a rebuilt OHLCV memory bank, and an explicit policy for news without verified availability. No eligible news is used at these cutoffs, so this rerun evaluates BICL on augmented-system controls with the sentiment channel unavailable. It cannot estimate the effect of adding sentiment to QuantAgent. The preserved historical context figures describe the earlier response collection only.
+
+The forecast barrier precedes access to execution outcomes. Five holding periods cross corporate actions and one required entry session has zero matched volume. The complete-account subset of Table~\ref{tab:fin12-repaired} retains 90 points per repeat and uses identical support across methods. Against Our system (Common), mean-return differences for BICL v1--v4 are between $-0.0011$ and $+0.0127$ percentage points. BICL v5 returns $-1.0600$\%, or $-0.1221$ and $-0.5297$ percentage points relative to Our system and Our system (Common), respectively. The simultaneous bands are unavailable because some joint-family contrasts have zero bootstrap variance. The repaired evidence is exploratory, with owner-attested price inputs and unresolved independent point-in-time provenance.
+\input{content/tables/finalize_results.tex}
+
 \subsection{Component Contrasts and Variability}
 \subsubsection{Repeated executions and factorial contrasts}
 Table~\ref{tab:repeats} retains all three executions, sample SD, range and cutoff-level prediction disagreement summaries. The two panels have nine market units each but different symbols, dates and prompt families. Their means and SDs are not transferable to the broad 102-unit main study. Zero metric SD does not imply identical predictions: factorial S has unchanged aggregate BA but nonzero disagreement. Return means use nine upstream or eight factorial symbol--block accounts per variant/execution.
@@ -24,6 +47,9 @@ On the factorial panel the AS--B BA mean is $-9.52$ pp and AS--P is $-11.90$ pp.
 
 The upstream AS--B mean BA difference is $+4.76$ pp, with conditional percentile interval $[0,10]$ pp. This panel uses different observations from the factorial panel. Across recorded groups, 40/147 have a successful-call order different from the planned order and nine span execution epochs, introducing time/order confounding.
 \input{content/tables/component/variability.tex}
+
+\subsubsection{Baseline and action-policy comparisons}
+Table~\ref{tab:u09-bridge} separates the Our system--Common comparison, the fact-anchor step and BICL v5 revision. BICL v5 agrees with Fact Anchor on 302/306 final actions. This high agreement limits attribution of the overall MT outcome to retrieved context or numerical student inference. Retrieval-only, statistics-only, no-prior, no-target and no-utility interventions were not evaluated.
 
 \subsection{Robustness and Sensitivity}
 \subsubsection{Temporal and dependence diagnostics}
@@ -42,31 +68,5 @@ Dynamic-minus-fixed, dynamic-minus-random-family and dynamic-minus-no-flip BA di
 Our system diagnostics separately account for 102 cutoffs, 8,670 candidate opportunities and 510 selected slots. WQ42 occurs at 52/102 cutoffs (52/510 slots); adjacent nonzero IC signs flip 1,282 times over 7,894 eligible transition pairs. These are dependent in-sample diagnostics, not out-of-sample alpha stability. Complete per-factor frequency, eligible denominators, IC signs, windows and all 21 exclusions are retained in the registry companion. These numerical controls use a separate causal construction and do not isolate selector effects within the LLM pipeline.
 \input{content/tables/component/numeric_controls.tex}
 
-\subsection{Secondary extension study: historical BICL}
-Table~\ref{tab:u09-comparison} reports the earlier historical-context results. Mean account return is \UnifiedNativeReturn\% for Our system, \UnifiedCommonReturn\% for Common, \UnifiedVOneReturn\% for BICL v1 and \UnifiedMTReturn\% for BICL v5. Their BAs are \UnifiedNativeBA\%, \UnifiedCommonBA\%, \UnifiedVOneBA\% and \UnifiedMTBA\%, respectively. All research-method mean returns are negative. CASH returns zero and Always-LONG cycles return \UnifiedAlwaysLongReturn\%.
-
-BICL v1 improves mean return relative to Common by $+\UnifiedVOneCommonReturnEffect$ pp. Its descriptive simultaneous band is $[\UnifiedVOneCommonReturnLow,\UnifiedVOneCommonReturnHigh]$. Relative to Our system, the difference is $\UnifiedVOneNativeReturnEffect$ pp with band $[\UnifiedVOneNativeReturnLow,\UnifiedVOneNativeReturnHigh]$. BICL v5 has a lower mean return than Our system, with a difference of $\UnifiedMTNativeReturnEffect$ pp and band $[\UnifiedMTNativeReturnLow,\UnifiedMTNativeReturnHigh]$. All twenty return and BA contrasts are reported in \ref{app:additional} and the supplementary results.
-% Đặt bảng so sánh cạnh phần diễn giải trước biểu đồ.
-\input{content/tables/historical_context/comparison.tex}
-
-Figure~\ref{fig:u09-return-contrasts} displays all five extension-versus-baseline return differences for each baseline. The bands use the same joint return/BA contrast family as the tabulated analysis.
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.85\textwidth]{figures/return_comparisons.pdf}
-\caption{Earlier historical-context study. Mean account-return differences against Our system and Our system (Common) with descriptive simultaneous bands.}
-\label{fig:u09-return-contrasts}
-\end{figure}
-
-Support determines how often historical context affects decisions. The conditional and explicit-count priors each have \UnifiedCTwoRaw\ raw Decisions and \UnifiedCTwoBypass\ bypasses per 306 slots; the trend--pattern prior has \UnifiedAPoolRaw\ raw Decisions, the Bayesian prior \UnifiedVOneRaw\ and BICL v5 \UnifiedMTRaw. A fallback reuses the parent action from the same repeat and contributes to the primary metrics. Table~\ref{tab:u09-support} separates bank-covered and other stocks and reports effective K; sentiment is unavailable at \UnifiedMissingSentiment/\UnifiedPoints\ points. Near-equal outcomes of the conditional/explicit-count priors and Common therefore primarily reflect limited support and action reuse.
-
-\subsubsection{Baseline and action-policy comparisons}
-Table~\ref{tab:u09-bridge} separates the Our system--Common comparison, the fact-anchor step and BICL v5 revision. BICL v5 agrees with Fact Anchor on 302/306 final actions. This high agreement limits attribution of the overall MT outcome to retrieved context or numerical student inference. Retrieval-only, statistics-only, no-prior, no-target and no-utility interventions were not evaluated.
-
 \subsubsection{Extension repeat, support and resampling sensitivity}
 Table~\ref{tab:u09-repeats} retains all three Decision repeats on the full extension support. The uncertainty is conditional on one shared upstream realization; it does not estimate upstream-by-Decision variance or increase the number of market dates. \ref{app:additional} reports both L1/L3 variants beside primary L2, and the bank-covered subset. Leave-one-fold/symbol-out effects and every per-symbol/fold/repeat classification/account row remain in the machine-readable companions. These views retain the observed eligibility mask, including BHN's three recent folds, rather than padding missing accounts with CASH. All specified sensitivity settings are reported, with bands interpreted descriptively on this historical cohort.
-
-\subsection{Secondary extension study: repaired BICL rerun}
-The repaired run retains the original 102 cutoffs. It uses a training-fitted alpha projection, a rebuilt OHLCV memory bank, and an explicit policy for news without verified availability. No eligible news is used at these cutoffs, so this rerun evaluates BICL on augmented-system controls with the sentiment channel unavailable. It cannot estimate the effect of adding sentiment to QuantAgent. The preserved historical context figures describe the earlier response collection only.
-
-The forecast barrier precedes access to execution outcomes. Five holding periods cross corporate actions and one required entry session has zero matched volume. The complete-account subset of Table~\ref{tab:fin12-repaired} retains 90 points per repeat and uses identical support across methods. Against Our system (Common), mean-return differences for BICL v1--v4 are between $-0.0011$ and $+0.0127$ percentage points. BICL v5 returns $-1.0600$\%, or $-0.1221$ and $-0.5297$ percentage points relative to Our system and Our system (Common), respectively. The simultaneous bands are unavailable because some joint-family contrasts have zero bootstrap variance. The repaired evidence is exploratory, with owner-attested price inputs and unresolved independent point-in-time provenance.
-\input{content/tables/finalize_results.tex}

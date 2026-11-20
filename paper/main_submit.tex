@@ -62,7 +62,7 @@
 
 %% Title, authors and addresses
 
-\title{Evaluating Quantitative Alpha and News Sentiment in QuantAgent for Vietnamese Stock Trading\tnoteref{t1}}
+\title{Enhancing Multi-Agent Large Language Models for Stock Trading through Quantitative Alpha Integration\tnoteref{t1}}
 \tnotetext[t1]{This research is funded by Foreign Trade University under research program number FTURP02-2026-08.}
 
 %% Authors
@@ -90,7 +90,7 @@
 
 %% Abstract
 \begin{abstract}
-We test whether quantitative alpha and Vietnamese news sentiment improve the price-driven QuantAgent architecture for daily equity forecasts. Our system adds two evidence channels to the same technical and chart reports supplied to the local QuantAgent comparator. On 102 paired observations, balanced accuracy is 52.96\% for Our system and 49.71\% for QuantAgent. Both identify seven of 25 UP cases. The augmented system makes fewer false LONG calls. Mean net account return is slightly lower, and smaller component panels do not isolate a reliable alpha or sentiment contribution. A secondary study evaluates BICL v1--v5, which add eligible historical context. In a repaired rerun, 96 cutoffs have valid outcomes and 45 of 51 accounts per repeat have both cycles. Relative to the matched no-context control, v1--v4 change mean return little on the complete accounts, and v5 reduces it. The results support a limited classification gain for the combined augmentation on the historical panel. Data provenance, coverage and reference execution constrain broader claims.
+We extend the price-driven QuantAgent architecture for Vietnamese equities with an Alpha Agent and a Sentiment Agent. The Alpha Agent condenses price and volume history into a ranked factor report that can corroborate or challenge chart-based signals. The Sentiment Agent provides dated Vietnamese news context and indicates when coverage is insufficient. Both reports feed the same Decision Agent alongside indicator, pattern and trend evidence. A paired historical study compares this augmentation against the price-only system using directional forecasts and cost-aware accounts. The augmented system reduces false LONG forecasts on the study panel, while financial outcomes and separate component effects remain uncertain. A secondary study evaluates BICL extensions that add eligible historical context. The design makes each evidence source and its availability explicit at the decision cutoff.
 \end{abstract}
 
 %%Graphical abstract

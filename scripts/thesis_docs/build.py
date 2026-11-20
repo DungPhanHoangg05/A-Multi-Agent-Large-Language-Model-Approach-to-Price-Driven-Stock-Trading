@@ -19,8 +19,9 @@ def main() -> None:
     parser.add_argument('--passes', type=int, default=4, choices=(2, 3, 4))
     parser.add_argument('--skip-bibliography', action='store_true')
     args = parser.parse_args()
-    source = Path(__file__).resolve().parents[2]
-    destination = (args.output_dir or source / 'build').resolve()
+    repo = Path(__file__).resolve().parents[2]
+    source = repo / 'thesis'
+    destination = (args.output_dir or repo / 'tmp/pdfs/thesis').resolve()
     destination.mkdir(parents=True, exist_ok=True)
     engine = shutil.which(args.engine)
     if engine is None:

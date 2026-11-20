@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def read_results() -> dict[str,Any]:
     """Chỉ nhận đúng gói và member kết quả lịch sử đã kiểm."""
-    root=Path(__file__).resolve().parents[3]
+    root=Path(__file__).resolve().parents[5]
     path=root/'docs/plan/week12/unified_analysis_results.zip'
     with path.open('rb') as handle:
         if hashlib.file_digest(handle,'sha256').hexdigest()!='e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9':raise ValueError('Sai gói U09')
@@ -20,7 +20,8 @@ def read_results() -> dict[str,Any]:
 def save(fig: Any,name: str) -> None:
     """Ghi PDF vector và PNG để kiểm chữ ở kích thước bản in."""
     base=Path(__file__).with_name(name)
-    fig.savefig(base.with_suffix('.pdf'),metadata={'CreationDate':None,'Title':name})
+    active = Path(__file__).resolve().parents[5] / 'thesis/assets/figures' / (name + '.pdf')
+    fig.savefig(active,metadata={'CreationDate':None,'Title':name})
     fig.savefig(base.with_suffix('.png'),dpi=160)
     plt.close(fig)
 

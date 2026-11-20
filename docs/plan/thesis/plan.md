@@ -53,7 +53,7 @@ Khảo sát đọc trực tiếp PDF P8: **259 trang, 30 trang có thuộc tính
 
 ### 2.1. Một nguồn trạng thái công việc
 
-Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task cha và 24 task con P9. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../docs/plan/week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task. DONE của các lượt trước là lịch sử đúng snapshot, không chứng nhận các phát hiện mới đã được xử lý.
+Theo yêu cầu ngày **14/11/2026**, checklist được đặt trực tiếp trong kế hoạch này và là **nguồn trạng thái duy nhất** cho 84 task cha và 24 task con P9. Đặc tả ở mục 5 giữ công việc, phụ thuộc và điều kiện nghiệm thu. [README tuần](../week12/README.md#checklist-viết-khóa-luận) giữ ghi nhận nguồn, cách kiểm và giới hạn; không duy trì checklist thứ hai hoặc tạo receipt cho từng task. DONE của các lượt trước là lịch sử đúng snapshot, không chứng nhận các phát hiện mới đã được xử lý.
 
 Dùng `TODO` (chưa làm), `IN_PROGRESS` (đang làm), `REVIEW` (đang rà soát), `DONE` (hoàn tất) hoặc `BLOCKED` (thiếu điều kiện) khi cần. Mục được đánh dấu hoàn tất phải có đầu ra và đã kiểm điều kiện nghiệm thu. Với mục đang làm hoặc bị chặn, thêm ghi chú ngắn về file hiện tại hoặc thông tin còn thiếu. Ghi nhận hoàn thành theo mẫu `mã task; file/mục; cách kiểm; giới hạn còn lại`, gộp các task liên quan trong một cập nhật tuần. Chỉ ghi đã hoàn tất phản biện bên ngoài khi thực sự nhận và xử lý phản hồi.
 
@@ -120,7 +120,7 @@ Mỗi task hướng tới một phiên làm việc tập trung. Nếu quá lớn
 
 #### Nghiên cứu liên quan — P5
 
-- [x] T48 — DONE: [Bibliography 22 nguồn](references.bib) và [sổ §11.1](evidence.md#111-phạm-vi-đọc-metadata-và-luận-điểm-được-hỗ-trợ), metadata/version/đoạn hỗ trợ/hash bản đọc và giới hạn; CL188. Đối chiếu PDF/nguồn gốc, sửa phân biệt edition và tên tác giả; giữ 62 mục discovery riêng, không giả đã đọc toàn bộ. Kiểm BibTeX và links, không chạy nghiên cứu.
+- [x] T48 — DONE: [Bibliography 22 nguồn](../../../thesis/references.bib) và [sổ §11.1](evidence.md#111-phạm-vi-đọc-metadata-và-luận-điểm-được-hỗ-trợ), metadata/version/đoạn hỗ trợ/hash bản đọc và giới hạn; CL188. Đối chiếu PDF/nguồn gốc, sửa phân biệt edition và tên tác giả; giữ 62 mục discovery riêng, không giả đã đọc toàn bộ. Kiểm BibTeX và links, không chạy nghiên cứu.
 - [x] T49 — DONE: [§2.1](chapters/02_related_work.md#21-technical-analysis-and-quantitative-stock-prediction), tín hiệu kỹ thuật/Alpha101 và khác biệt thích nghi một mã, controls/selection versus assessment. CL189–CL192, R01–R03/R17; không suy công thức gốc hay diagnostic thành hiệu quả giao dịch. Kiểm citation, nguồn, liên kết và phạm vi.
 - [x] T50 — DONE: [§2.2](chapters/02_related_work.md#22-llms-vlms-and-multi-agent-financial-systems), QuantAgent paper/code attribution, TradingAgents/FinVision và giới hạn chart/sentiment. CL193–CL197, R04–R10; phân biệt kế thừa, thích nghi, bổ sung; pin đối chiếu khác adopted commit. Không tuyên bố vượt trội hoặc HFT cho study daily.
 - [x] T51 — DONE: [§§2.3–2.5](chapters/02_related_work.md#23-market-regime-detection), regime/HMM, ICL/Bayes/retrieval, PFN và MT-BICL; CL198–CL204/R11–R16. Nêu đúng giả định và khác biệt teacher16Beta/query-soft-target/student2block4head của triển khai so với bài gốc; không đồng nhất few-shot với multi-task Bayes hoặc synthetic agreement với hiệu quả thị trường.
@@ -490,7 +490,7 @@ Không chuyển nguyên cả phụ lục lên thân bài. Chỉ giữ phần tr�
 
 #### P9.5. Bổ sung theo rà soát bản 60 trang
 
-**Mốc rà soát:** [PDF hiện hành](release/thesis.pdf) tại nguồn `7a1b77f1`, SHA-256 `2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922`. Các số trang dưới đây là **trang vật lý PDF tính từ bìa**, không phải số in trong thân bài; vị trí có thể đổi khi biên tập. Lượt rà đã đọc nội dung và xem render, chưa tái kiểm thực nghiệm hoặc xác minh lại mọi tài liệu tham khảo bên ngoài. Khi triển khai phải kiểm lại hash mốc và lập ánh xạ vị trí mới nếu PDF đã đổi.
+**Mốc rà soát:** [PDF hiện hành](../../../outputs/thesis/history/thesis.pdf) tại nguồn `7a1b77f1`, SHA-256 `2eb43028ab46259fbc17697554196bf8c18f0bf0122a633766d8ab4aa36ef922`. Các số trang dưới đây là **trang vật lý PDF tính từ bìa**, không phải số in trong thân bài; vị trí có thể đổi khi biên tập. Lượt rà đã đọc nội dung và xem render, chưa tái kiểm thực nghiệm hoặc xác minh lại mọi tài liệu tham khảo bên ngoài. Khi triển khai phải kiểm lại hash mốc và lập ánh xạ vị trí mới nếu PDF đã đổi.
 
 Ưu tiên cao là T80a–T80g và lỗi cụ thể T80j; T80h–T80i nâng chất lượng diễn giải/trực quan; T80k–T80l hoàn thiện bản nộp. Mỗi task chỉ dùng bằng chứng đã có hoặc phép tổng hợp minh bạch từ bản ghi đã khóa, không tự gọi API, refit, sinh dự báo, bootstrap hay chạy nghiên cứu mới. Nếu nguồn không đủ, ghi rõ thiếu và thu hẹp kết luận; không điền số hoặc dựng lý do lựa chọn sau khi biết kết quả. Việc hoàn thành task phải ghi sản phẩm thực có và giới hạn còn lại.
 
@@ -522,9 +522,9 @@ Các mục sau là **đề xuất chưa triển khai, không tự chạy và kh�
 ### P10. Đóng gói tái lập và bàn giao
 
 FIN15 đồng bộ phương pháp, kết quả FIN12 và tên hệ thống vào bản thảo
-tiếng Anh. P10 dùng [nguồn ở gốc dự án Overleaf](main.tex),
-[hướng dẫn build pdfLaTeX/XeLaTeX](latex/README.md) và
-[PDF sau FIN15](../output/pdf/thesis-fin15.pdf).
+tiếng Anh. P10 dùng [nguồn ở gốc dự án Overleaf](../../../thesis/main.tex),
+[hướng dẫn build pdfLaTeX/XeLaTeX](build.md) và
+[PDF sau FIN15](../../../outputs/thesis/thesis-fin15.pdf).
 Các mốc đóng gói, đối soát và nộp vẫn theo T81–T84.
 
 | Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |

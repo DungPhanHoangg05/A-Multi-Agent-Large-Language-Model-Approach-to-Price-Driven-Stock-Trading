@@ -19,7 +19,7 @@ Lợi nhuận âm hoặc chưa đủ bằng chứng vượt đối chứng tiế
 
 Theo yêu cầu hiện hành, **checklist FIN00–FIN17 ngay tại đây là nguồn tiến độ
 finalize duy nhất**. README W12 tiếp tục là nguồn bằng chứng U/F đã ghi nhận;
-[thesis/plan.md](../../thesis/plan.md) quản lý các task biên tập/nộp khóa luận.
+[thesis/plan.md](thesis/plan.md) quản lý các task biên tập/nộp khóa luận.
 Các nhận định về đầu mối và trạng thái trong phần lịch sử bên dưới gắn với
 mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đúng phạm vi.
 
@@ -1421,31 +1421,36 @@ qua caller ứng dụng trước khi chuyển mặc định.
 
 #### FIN15 — Đồng bộ hai bản thảo
 
-Bài báo tập trung vào so sánh Our system với QuantAgent dưới cùng hợp đồng
-giao dịch. BICL v1–v5 được trình bày như nghiên cứu mở rộng. Khóa luận
+Bài báo giữ tiêu đề và cấu trúc trước FIN15. Abstract mô tả đóng góp của
+Alpha Agent và Sentiment Agent, cùng kết quả định tính. BICL v1–v5 được
+trình bày như nghiên cứu mở rộng. Khóa luận
 lấy đóng góp tăng thêm của BICL làm câu hỏi chính, đồng thời truy vết
 QuantAgent, Our system, hai đối chứng và từng phiên bản trong bảng phương
-pháp. Hai bản thêm sơ đồ khối và phân biệt kết quả thành phần, lượt
-nghiên cứu ngữ cảnh lịch sử và lượt chạy lại FIN12.
+pháp. Hai bản phân biệt kết quả thành phần, lượt nghiên cứu ngữ cảnh lịch
+sử và lượt chạy lại FIN12. Khóa luận bổ sung năm hình về nguồn bằng chứng,
+suy luận regime, lọc lịch sử, độ phủ và kết quả FIN12. Số trích dẫn đặt
+sát tác giả, công trình hoặc khái niệm được dẫn.
 
 Bảng FIN12 được chiếu từ kết quả đã đối soát SHA-256 với receipt. Đã
 kiểm lại 68 dòng bảng lịch sử khi đổi tên bản trình bày và giữ nguyên
 ID của các artifact. Nguồn khóa luận dùng `thesis/main.tex` ở gốc dự án
-Overleaf, với đường dẫn nội bộ và hỗ trợ pdfLaTeX/XeLaTeX. Tiếp tục
-[P10](../../thesis/plan.md#p10-đóng-gói-tái-lập-và-bàn-giao) từ nguồn này.
+Overleaf, với đường dẫn nội bộ và hỗ trợ pdfLaTeX/XeLaTeX. Có thể nén
+trực tiếp nội dung thư mục nguồn. Kế hoạch và hồ sơ lịch sử để ở
+`docs/plan/thesis/`. PDF hiện hành ở `outputs/`. Tiếp tục
+[P10](thesis/plan.md#p10-đóng-gói-tái-lập-và-bàn-giao) từ nguồn này.
 
 Đã build sạch hai điểm vào bài báo bằng pdfLaTeX/BibTeX và khóa luận
 bằng pdfLaTeX/Biber cùng XeLaTeX/Biber. Đã render để rà bố cục và kiểm
 tham chiếu, số liệu, sơ đồ và bảng phiên bản. Hai bản bài báo có 45 và 44
-trang. Khóa luận có 69 trang A4 dọc trên cả hai engine. Công việc thay đổi bản thảo
+trang. Khóa luận có 70 trang A4 dọc trên cả hai engine. Công việc thay đổi bản thảo
 và công cụ build tài liệu. Các gate nghiên cứu và lượt gọi API thật được
 giữ theo biên bản trước.
 
-[Bài báo](../../output/pdf/paper-fin15.pdf) ·
-[Bản nộp bài báo](../../output/pdf/paper-fin15-submit.pdf) ·
-[Khóa luận](../../output/pdf/thesis-fin15.pdf) ·
-[Gói nguồn Overleaf](../../output/overleaf/thesis-fin15-overleaf.zip) ·
-[Hướng dẫn Overleaf](../../thesis/latex/README.md).
+[Bài báo](../../outputs/paper/main-fin15.pdf) ·
+[Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
+[Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·
+[Thư mục nguồn tự nén cho Overleaf](../../thesis/) ·
+[Hướng dẫn Overleaf](thesis/build.md).
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
@@ -1454,7 +1459,7 @@ kế thừa kiểm tra theo phạm vi. Tiến độ công việc finalize cập 
 checklist FIN00–FIN17 ở trên.
 
 **Viết khóa luận, cập nhật ngày 17/11/2026:** thư mục làm việc là `thesis/`.
-**P9 bổ sung đã tự rà xong T80a–T80l:** [checklist và đặc tả](../../thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang).
+**P9 bổ sung đã tự rà xong T80a–T80l:** [checklist và đặc tả](thesis/plan.md#p95-bổ-sung-theo-rà-soát-bản-60-trang).
 Bản mới 67 trang,21 bảng/8 hình, không phụ lục, A4 dọc/rotation0. Đã thêm bằng chứng
 student/regime theo nguồn đã lưu, thu hẹp các kết luận thiếu nguồn, giải thích mẫu/tham số,
 nhân quả và cơ chế; thêm DAG/hai biểu đồ, sửa điều hướng và biên tập cuối.
@@ -1480,27 +1485,27 @@ mọi trang và phản hồi thực nhận. Kết quả G5 cũ chỉ thuộc lư
 không thay việc xử lý phát hiện mới. P10/T81–T84 còn mở, chưa phản biện ngoài/ký/nộp. Quy định trường và quyền
 phân phối tài nguyên chưa rõ tiếp tục được ghi ở sổ bằng chứng. P1–P8 dưới đây là lịch sử.
 
-[Dàn bài tiếng Anh](../../thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](../../thesis/plan.md)
+[Dàn bài tiếng Anh](thesis/outline.md) và [kế hoạch chi tiết bằng tiếng Việt](thesis/plan.md)
 bao phủ từ chuẩn bị đến bàn giao PDF/nguồn cuối qua 84 task. Phần phương pháp
 phải giải thích toàn hệ thống cho giảng viên lần đầu tiếp cận.
-[Checklist viết khóa luận](../../thesis/plan.md#21-một-nguồn-trạng-thái-công-việc) là nơi duy nhất
+[Checklist viết khóa luận](thesis/plan.md#21-một-nguồn-trạng-thái-công-việc) là nơi duy nhất
 cập nhật trạng thái ngay trong kế hoạch theo yêu cầu tác giả. Hồ sơ yêu cầu,
-phạm vi nghiên cứu và [kiểm kê hai nghiên cứu](../../thesis/evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa)
-đã có; [danh sách đọc](../../thesis/evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn)
+phạm vi nghiên cứu và [kiểm kê hai nghiên cứu](thesis/evidence.md#3-kiểm-kê-nguồn-hiện-tại-và-hai-nghiên-cứu-đã-khóa)
+đã có; [danh sách đọc](thesis/evidence.md#4-danh-sách-đọc-nguồn-gốc-và-quy-ước-khóa-trích-dẫn)
 phân nhóm nguồn gốc, trạng thái đọc/kiểm và quy ước khóa trích dẫn.
-[Thuật ngữ và ký hiệu](../../thesis/evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt)
+[Thuật ngữ và ký hiệu](thesis/evidence.md#5-thuật-ngữ-tiếng-anh-ký-hiệu-và-quy-ước-diễn-đạt)
 thống nhất tên phương pháp, cấp episode/task/query và đơn vị.
-[Danh mục hình/bảng/thuật toán](../../thesis/evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn)
+[Danh mục hình/bảng/thuật toán](thesis/evidence.md#6-danh-mục-hình-bảng-và-thuật-toán-có-nguồn)
 giữ 23 ID có task, vị trí, loại nguồn và provenance; sản phẩm sẽ tạo tại task
-phụ trách. [Ví dụ xuyên suốt EX01](../../thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết)
+phụ trách. [Ví dụ xuyên suốt EX01](thesis/evidence.md#7-ví-dụ-xuyên-suốt-có-truy-vết)
 chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối nguồn
 đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
-[Khung sáu chương](../../thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
+[Khung sáu chương](thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
 đã đủ bản nháp nội dung tiếng Anh và dùng sổ bằng chứng chung; P7 đã có phần đầu/sáu phụ lục, còn LaTeX, rà soát và bàn giao cuối ở P8–P10.
-P2 đã có [bản nháp Chương 3 §3.1–§3.7](../../thesis/chapters/03_background.md),
+P2 đã có [bản nháp Chương 3 §3.1–§3.7](thesis/chapters/03_background.md),
 từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
 kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
-nghiệm mới. **P3 đã đủ bản nháp [Chương 4 §4.1–§4.10](../../thesis/chapters/04_proposed_system.md)**:
+nghiệm mới. **P3 đã đủ bản nháp [Chương 4 §4.1–§4.10](thesis/chapters/04_proposed_system.md)**:
 từ tổng quan/hợp đồng/các agent và Native/Common tới lịch sử/regime, bốn prior,
 MT/teacher–student, facts/utility/policy, projection, tám vai trò/ba thuật toán,
 ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn;
@@ -1520,7 +1525,7 @@ kế hoạch, checklist và hướng dẫn quản lý bằng tiếng Việt; to�
 khóa luận bằng tiếng Anh.** Việc sửa tài liệu này không đổi F11/F12 hoặc phạm vi
 nghiệm thu nghiên cứu lịch sử.
 
-Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](../../thesis/outline.md)
+Ngày **14/11/2026**, đã nhận khung KLTN và lập [dàn bài Markdown độc lập](thesis/outline.md)
 trong `thesis/`: sáu chương, câu hỏi nghiên cứu, phụ lục và ánh xạ mã nguồn/bằng chứng.
 Chỉ tham chiếu bố cục mẫu; nội dung xây dựng theo hệ hiện tại. [Ghi nhận phạm vi](week12/README.md#khởi-tạo-dàn-bài-khóa-luận)
 tách việc viết KLTN khỏi nghiệm thu UI và thực nghiệm; chưa tạo LaTeX/PDF mới.

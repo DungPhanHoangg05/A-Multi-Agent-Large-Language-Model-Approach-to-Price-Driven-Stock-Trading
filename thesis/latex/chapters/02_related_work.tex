@@ -2,85 +2,85 @@
 \chapter{Related Work}\label{s:9827c64bef49c4b1}
 \section{Signals, selection and financial evaluation}\label{s:14b05e24677e26cb}
 Technical analysis converts observable price and volume patterns into
-testable hypotheses. Lo, Mamaysky and Wang formalize chart-pattern
+testable hypotheses. Lo, Mamaysky and Wang~\cite{lo2000technical} formalize chart-pattern
 recognition and examine conditional return distributions, providing a
 way to study patterns beyond subjective inspection. Their evidence does
 not validate every indicator or establish profitability after transaction
-costs. \autocite{lo2000technical} Accordingly, the present system separates
+costs. Accordingly, the present system separates
 features, reports, directional proposals and executed actions.
 
-Kakushadze's formulaic-alpha library supplies explicit transformations.
+Kakushadze's formulaic-alpha library~\cite{kakushadze2016formulaic} supplies explicit transformations.
 Cross-sectional rank and group neutralization operate across securities;
 temporal operators operate over a security's history. Replacing the
 former with temporal ranks in a single-stock implementation changes the
 formula's meaning. A typical-price proxy also differs from authenticated
-intraday volume-weighted average price (VWAP). \autocite{kakushadze2016formulaic} The thesis attributes
+intraday volume-weighted average price (VWAP). The thesis attributes
 these foundations while treating its adapted library and five additional
 factors as a distinct implementation family. Our system and Common further
 differ in normalization, orientation, selection and report projection.
 
 Ordinary quantitative controls help locate the behavior added by an agent
 system. Constant actions expose class imbalance and capital exposure;
-momentum and logistic rules provide simpler predictors. Scikit-learn
+momentum and logistic rules provide simpler predictors. Scikit-learn~\cite{pedregosa2011sklearn}
 supports several such controls, but a library citation does not specify
-their fitting recipe. \autocite{pedregosa2011sklearn} Selection and
-assessment must also remain separate. Varma and Simon demonstrate bias
+their fitting recipe. Selection and
+assessment must also remain separate. Varma and Simon~\cite{varma2006bias} demonstrate bias
 when an optimized validation score is reused as an independent error
 estimate; their classification experiments do not by themselves validate
-financial time-series splitting. \autocite{varma2006bias} The numerical
+financial time-series splitting. The numerical
 factor controls in this thesis evaluate their own selection rules, not
 the isolated contribution of an LLM factor selector.
 
 \section{Specialist financial agents and input modalities}\label{s:f7594e9d067d74c3}
-QuantAgent is the direct architectural predecessor: Indicator, Pattern,
+QuantAgent~\cite{xiong2025quantagent,yresearch2026quantagentcode} is the direct architectural predecessor: Indicator, Pattern,
 Trend and Risk roles supply complementary price-derived analyses, with
 a separately described final DecisionAgent. Its versioned paper studies
 one-hour/four-hour direction benchmarks and risk bounds. The thesis
 adapts state contracts, chart tools, orchestration and interface elements,
 then uses daily LONG/CASH evaluation with its own fixed net-cycle oracle.
-\autocite{xiong2025quantagent,yresearch2026quantagentcode} The inspected
+The inspected
 upstream comparison commit is recorded in the third-party notices; the
 originally adopted commit was not recorded. The adaptation is not a claim
 to have invented specialist financial agents or reproduced upstream
 performance.
 
-TradingAgents organizes analysts, research debate, trading and risk teams
+TradingAgents~\cite{tradingagents2024} organizes analysts, research debate, trading and risk teams
 using fundamental, sentiment, news and technical inputs. Its historical
 US-stock simulation and buy/sell/hold accounting differ from the present
-contract. \autocite{tradingagents2024} FinVision combines news summaries,
+contract. FinVision~\cite{fatemi2024finvision} combines news summaries,
 visual technical analysis and textual/visual reflection before a trading
 recommendation. Its use of previous signals and outcomes is related to
 historical context, but reflection does not itself define a Bayesian
-posterior or a numerical multi-task model. \autocite{fatemi2024finvision}
+posterior or a numerical multi-task model.
 
 Chart interpretation and news classification have separate validation
-problems. ChartLlama studies chart instruction and understanding tasks;
+problems. ChartLlama~\cite{han2023chartllama} studies chart instruction and understanding tasks;
 its results do not certify another model's candlestick reasoning, and its
-weights are not used here. \autocite{han2023chartllama} ViSoBERT supplies
-a Vietnamese social-media backbone, while the pinned 5CD resource supplies
+weights are not used here. ViSoBERT~\cite{nguyen2023visobert} supplies
+a Vietnamese social-media backbone, while the pinned 5CD resource~\cite{hf5cdsentiment} supplies
 the downstream three-label sentiment classifier. Their domains and roles
 are distinct. Neither source establishes historical financial-news
 availability, market-domain accuracy or probability calibration in this
-study. \autocite{nguyen2023visobert,hf5cdsentiment}
+study.
 
 \section{Regimes and historical-context inference}\label{s:72ac96e2a9d3b286}
-Hamilton's regime-switching account models persistent changes through a
+Hamilton's regime-switching account~\cite{hamilton2005regimes} models persistent changes through a
 latent state; the state is an estimated representation rather than an
-observed economic truth. \autocite{hamilton2005regimes} Rabiner separates hidden Markov model (HMM) transition and emission models, parameter fitting and state inference.
+observed economic truth. Rabiner~\cite{rabiner1989hmm} separates hidden Markov model (HMM) transition and emission models, parameter fitting and state inference.
 Forward/backward inference makes the information boundary explicit:
 smoothing an earlier state can use later observations from the supplied
 sequence. Both the fitting period and inference prefix therefore matter.
-\autocite{rabiner1989hmm} This thesis uses distinct frozen signal-bank and
+This thesis uses distinct frozen signal-bank and
 numerical regime resources; they can assign different states to the same
 date. A matched comparison is still needed to isolate regime value.
 
 In-context examples can change a model's predictions without changing its
-weights. Xie et al. analyze an implicit Bayesian interpretation under a
+weights. Xie et al.~\cite{xie2022implicitbayes} analyze an implicit Bayesian interpretation under a
 specified mixture-of-HMMs pretraining construction; the assumptions do
 not prove that any hosted trading LLM computes a financial posterior.
-\autocite{xie2022implicitbayes} Rubin et al. learn example retrieval for
+Rubin et al.~\cite{rubin2022retrieve} learn example retrieval for
 semantic parsing. Retrieval is an information-selection mechanism, not
-automatically a Bayesian update. \autocite{rubin2022retrieve}
+automatically a Bayesian update.
 
 These distinctions apply directly here. BICL v1 reports empirical
 population rates and selected episodes; its name does not make the rates
@@ -90,15 +90,15 @@ intervals; it is not an embedding retriever. Counts, top-$K$ examples and
 numerical task datasets have different denominators and functions.
 
 \section{Multi-task Bayesian ICL and numerical students}\label{s:b46bc1f71efb86f5}
-Prior-Data Fitted Networks (PFNs) train on datasets sampled from a specified
+Prior-Data Fitted Networks (PFNs)~\cite{muller2022transformers} train on datasets sampled from a specified
 prior, approximating a posterior-predictive mapping through prior-data
 negative log-likelihood. A sampled training prior is central to this
 construction; it is not generic prompting of a pretrained language model.
-\autocite{muller2022transformers} Zhu, Oermann and Cho extend context to
+Zhu, Oermann and Cho~\cite{zhu2026multitask} extend context to
 multiple prior datasets, target observations and an unlabeled target
 query while retaining task boundaries. Their hierarchical predictive
 adaptation is studied in synthetic regression and temperature prediction,
-not Vietnamese stock trading. \autocite{zhu2026multitask}
+not Vietnamese stock trading.
 
 The thesis adapts the task distinction to historical same-stock blocks.
 A fitted mixture of sixteen Beta components supplies count-based teacher
@@ -117,24 +117,24 @@ verbal confidence and final action are separate objects. Synthetic
 agreement does not establish the student's causal contribution to returns.
 
 \section{Dependent comparisons and reproducibility}\label{s:eabd76a8c5a70fc6}
-Arnott, Harvey and Markowitz emphasize a financial research protocol that
+Arnott, Harvey and Markowitz~\cite{arnott2019backtesting} emphasize a financial research protocol that
 addresses data, selection, shortfall and changing markets; prediction
-scores require explicit execution assumptions. \autocite{arnott2019backtesting}
-White explains how specification search and repeated data use can produce
-apparently favorable results. \autocite{white2000reality} A chronological
+scores require explicit execution assumptions.
+White~\cite{white2000reality} explains how specification search and repeated data use can produce
+apparently favorable results. A chronological
 split does not remove prior historical exposure, overlapping label
 windows or feature-construction leakage. Shared upstream reports make
 method comparisons conditional on the same realized information, whereas
 repeating only Decision measures conditional response variation.
 
 Uncertainty methods retain assumptions. Politis and Romano's stationary
-bootstrap motivates preserving dependence, but differs from the recorded
+bootstrap~\cite{politis1994stationary} motivates preserving dependence, but differs from the recorded
 fixed circular blocks and whole-fold resampling here.
-\autocite{politis1994stationary} Newey--West covariance estimation addresses
+Newey--West covariance estimation~\cite{newey1987hac} addresses
 heteroskedasticity and autocorrelation under regularity conditions; a stored heteroskedasticity and autocorrelation consistent (HAC) diagnostic is not a small-sample guarantee.
-\autocite{newey1987hac} Holm adjustment requires valid underlying tests
+Holm adjustment~\cite{holm1979multiple} requires valid underlying tests
 and cannot repair unverified sign-symmetry or post-inference selection.
-\autocite{holm1979multiple} Six already exposed folds support descriptive
+Six already exposed folds support descriptive
 and sensitivity analysis, not confirmed significance or calibrated band
 coverage. The thesis reports its actual estimators without claiming to
 have run these papers' procedures where it did not.

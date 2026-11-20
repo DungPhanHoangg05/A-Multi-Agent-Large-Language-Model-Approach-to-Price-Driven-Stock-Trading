@@ -282,6 +282,7 @@ confirmation. Six exposed clusters do not establish calibrated coverage,
 power, significance or causal superiority. No bootstrap was regenerated.
 
 \section{Repaired BICL evaluation}\label{sec:fin12}
+\input{latex/tables/fin12_plot_data}
 The repaired evaluation asks what BICL adds to Our system. It reruns eight
 research roles on the same 102 stock--date points, with three Decision
 repeats and 2,448 recorded forecasts. The rerun uses a training-fitted
@@ -292,16 +293,19 @@ estimate a sentiment effect. The historical results later in this chapter
 retain their own forecasts, inputs and estimators.
 
 Five holding periods cross corporate actions, and one entry session has
-zero matched volume. The 96 valid candidate-LONG labels and the 90 points
-in complete accounts represent different supports. The complete-account
-sensitivity compares 45 accounts per repeat on identical support across
-methods (Table~\ref{tab:fin12-repaired}). The planned-cohort BA and account
-return remain NA. All 10,000 joint L2 bootstrap resamples were finite on
-the complete accounts. Some contrasts have zero variance, so the
-simultaneous confidence bands are unavailable.
+zero matched volume. Figure~\ref{fig:repaired-coverage} separates valid
+labels from the narrower support for accounts with both cycles.
+The planned-cohort BA and return remain NA. All 10,000 joint L2 bootstrap
+resamples were finite on the complete accounts. Some contrasts have zero
+variance, so the simultaneous bands are unavailable.
+\begin{figure}[htbp]\centering
+\input{assets/diagrams/fin12_coverage}
+\caption{Forecast cutoffs, valid labels and the common complete-account sample in FIN12.}\label{fig:repaired-coverage}
+\end{figure}
 \input{latex/tables/finalize_results.tex}
 
-On the common complete accounts, the mean-return differences for
+Figure~\ref{fig:repaired-comparison} shows how account return and bypass
+frequency vary across methods. On the common complete accounts, the mean-return differences for
 BICL v1--v4 relative to Our system (Common) are $-0.0011$, $+0.0127$,
 $0.0000$ and $+0.0127$ pp, respectively. BICL v2 and v4 bypass 300 of 306
 slots each. BICL v5 returns $-1.0600$\%, or $-0.1221$ pp relative to Our
@@ -312,6 +316,10 @@ mostly inherits its control. They do not establish a consistent
 account-return improvement. The author attested to the source prices.
 Independent historical point-in-time provenance and prospective
 performance remain open.
+\begin{figure}[htbp]\centering
+\input{assets/diagrams/fin12_comparison}
+\caption{FIN12 returns on 45 complete accounts per repeat and bypasses out of 306 forecast slots per method.}\label{fig:repaired-comparison}
+\end{figure}
 
 \section{Component-study results}\label{s:1859e39b7acb256f}
 \subsection{Main comparison and controls}

@@ -22,8 +22,8 @@ METHODS = {
 }
 
 
-def project() -> str:
-    """Giữ nguyên miền hỗ trợ và đơn vị của kết quả nguồn."""
+def read_results() -> dict:
+    """Đọc đúng kết quả gốc trước khi chiếu bảng hoặc hình."""
     receipt_bytes = (SOURCE / 'receipt.json').read_bytes()
     if sha256(receipt_bytes).hexdigest() != RECEIPT_SHA:
         raise ValueError('Receipt FIN12 khác bản đã khóa.')
@@ -31,7 +31,11 @@ def project() -> str:
     raw = (SOURCE / 'results.json').read_bytes()
     if binding != {'sha256': sha256(raw).hexdigest(), 'bytes': len(raw)}:
         raise ValueError('Kết quả FIN12 khác checksum trong receipt.')
-    result = json.loads(raw)
+    return json.loads(raw)
+
+
+def project(result: dict) -> str:
+    """Giữ nguyên miền hỗ trợ và đơn vị của kết quả nguồn."""
     coverage = result['coverage']
     rows = {row['method']: row for row in result['summary']}
     def values(method: str) -> str:
@@ -56,21 +60,43 @@ def project() -> str:
     return '\n'.join(lines) + '\n'
 
 
+def project_plot_data(result: dict) -> str:
+    """Lấy mẫu số, lợi nhuận và số fallback từ cùng snapshot FIN12."""
+    coverage = result['coverage']
+    by_method = {row['method']: row for row in result['summary']}
+    coverage_rows = ','.join(f'{label}/{coverage[key]}' for label, key in (
+        ('Planned cutoffs', 'planned_points'), ('Valid execution labels', 'available_outcomes'),
+        ('Cutoffs in complete accounts', 'complete_account_points'),
+    ))
+    plotted = ('original_fix', 'original_common', 'bayesian_v1', 'C2', 'A_tp_pool', 'B_semantic', 'MT_BICL')
+    rows = ','.join(
+        f"{METHODS[key]}/{by_method[key]['complete_accounts_mean_account_return_pct']:.6f}/"
+        f"{by_method[key]['bypass_forecasts']}" for key in plotted
+    )
+    return (
+        '% Nguồn: artifact FIN12 đã kiểm checksum.\n'
+        f'\\def\\FinCoverageRows{{{coverage_rows}}}\n'
+        f'\\def\\FinMethodRows{{{rows}}}\n'
+    )
+
+
 def main() -> None:
-    """Cập nhật hoặc đối chiếu hai bản sao dùng khi biên dịch độc lập."""
+    """Cập nhật hoặc đối chiếu bảng và dữ liệu hình ở hai bản thảo."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
-    expected = project()
-    for relative in TARGETS:
+    result = read_results()
+    projections = dict.fromkeys(TARGETS, project(result))
+    projections['thesis/latex/tables/fin12_plot_data.tex'] = project_plot_data(result)
+    for relative, expected in projections.items():
         path = ROOT / relative
         if args.check:
             if path.read_text(encoding='utf-8') != expected:
-                raise ValueError('Bảng khác bản chiếu FIN12: ' + relative)
+                raise ValueError('Tệp khác bản chiếu FIN12: ' + relative)
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(expected, encoding='utf-8', newline='\n')
-    print('Hai bảng trình bày khớp bằng chứng FIN12.')
+    print('Bảng và dữ liệu hình khớp bằng chứng FIN12.')
 
 
 if __name__ == '__main__':

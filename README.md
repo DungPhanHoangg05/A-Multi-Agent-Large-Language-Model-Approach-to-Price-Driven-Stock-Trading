@@ -316,8 +316,8 @@ evaluates adding BICL to Our system. The paper uses `paper/main.tex` or
 `thesis/main.tex` with pdfLaTeX or XeLaTeX and Biber. Each directory has
 project-relative references and figure paths for Overleaf. Earlier thesis
 Markdown drafts are retained as historical material.
-[Paper sources](paper/README.md), [paper PDF](output/pdf/paper-fin15.pdf),
-[thesis sources and build](thesis/latex/README.md), [thesis PDF](output/pdf/thesis-fin15.pdf).
+[Paper sources](paper/README.md), [paper PDF](outputs/paper/main-fin15.pdf),
+[thesis sources and build](docs/plan/thesis/build.md), [thesis PDF](outputs/thesis/thesis-fin15.pdf).
 
 ## Attribution and licensing
 

@@ -77,6 +77,11 @@ Checksums bind identity and consistency, not economic authenticity or
 row-wise causal validity.
 
 \section{The base multi-agent pipeline}\label{s:b15ca1cf7b81c6ca}
+Figure~\ref{fig:evidence-channels} shows which information each channel adds to the Decision input.
+\begin{figure}[htbp]\centering
+\input{assets/diagrams/evidence_channels}
+\caption{Inputs to the chart roles and the two evidence channels added by Our system.}\label{fig:evidence-channels}
+\end{figure}
 \paragraph{Indicator.}
 Python computes MACD, RSI, slow stochastic, Williams \%R and ROC using
 the Chapter 3 settings. It applies priority-ordered heuristics and
@@ -149,9 +154,9 @@ report retains a bullish-pattern contradiction warning.}\par\medskip
 
 \paragraph{Alpha.}
 The registry has 85 candidates: five system-specific factors and 80
-single-stock Alpha101 adaptations. The price proxy $(H+L+C)/3$ is not
+single-stock Alpha101~\cite{kakushadze2016formulaic} adaptations. The price proxy $(H+L+C)/3$ is not
 observed volume-weighted average price, and temporal ranks do not recreate cross-stock ranks.
-\autocite{kakushadze2016formulaic} Our system evaluates candidates on at most
+Our system evaluates candidates on at most
 600 cutoff-limited rows, with full-window normalization and IC-based
 orientation. Its default score combines normalized absolute Spearman IC,
 accuracy and diagnostic Sharpe with weights 0.40/.35/.25; the top five
@@ -220,6 +225,11 @@ context; several ingredients change together. Extensions below reuse
 the same-repeat Common result when their documented support gate fails.
 
 \section{Historical memory and market regimes}\label{s:caa6b0b420cdae1c}
+Figure~\ref{fig:context-eligibility} traces how the prior variants screen completed episodes for each query.
+\begin{figure}[htbp]\centering
+\input{assets/diagrams/context_eligibility}
+\caption{Eligibility and fallback for the historical-prior variants.}\label{fig:context-eligibility}
+\end{figure}
 Historical memory stores completed candidate-LONG cycles. Each episode
 contains an ID/stock, decision/entry/exit dates, regime, Trend/Pattern/
 Alpha/Indicator/sentiment categories and outcome fields: finite net return,
@@ -790,40 +800,22 @@ replacement generations remain separate from ordinary resume, including
 commands, manifests and recovery logs remain in the evidence repository.
 
 \paragraph{Application and reproducibility.}
-The Realtime 1D form selects a stock and one of the six implementation methods.
-The legacy route serves the original application profile of Our system. The other methods capture one hashed
-live snapshot, validate resources/options in preflight and create a
-checkpointed job. Current daily capture can be provisional; it differs
-from the older latest-completed-session path. Captured prices, index,
-news availability, units and source freshness remain bound to the job.
-Frozen resources are transferred without query-time training. New data
-require a new capture; reload, exports and language switching read stored
-results. The bilingual display does not alter canonical action fields.
-Progress reflects real dependency work, not animation-triggered reruns.
-
-The result separates context/support, raw proposal, reference and final
-action, with explicit bypass/veto/failure. No realized future profit or loss (P\&L) exists
-for a new query. Offline fixture preview, replay of archived responses
-under the matching source/runtime and new provider-backed execution are
-different operations; hashes/replay cannot guarantee identical new
-hosted replies. Indicator, Decision and graph logic equivalence is the
-author's accepted research/live relationship, not equality of source or
-prompt bytes. The completed interface is accepted by the author for this
-workflow, with recorded offline checks of its application contracts.
+The Realtime 1D form captures a stock and method in a checkpointed job.
+Preflight checks resources and options. The snapshot binds prices, index,
+news availability, units and freshness, including a provisional daily
+bar where applicable. Reload, export and language switching reuse stored
+results and preserve the canonical action. Results show context, raw
+proposal, reference action, final action and bypass, veto or error.
+Saved-response replay verifies archived records under their pinned
+runtime. A new provider-backed execution can produce different responses.
 
 % Giữ hai đoạn kết cùng tiêu đề ví dụ để tránh một trang chỉ còn vài dòng cuối.
 \begin{samepage}
 \paragraph{Completing the FPT walkthrough.}
-At repeat 0, Our system proposes SHORT and executes CASH. Common and v1
-propose LONG. BICL v2--v4 issue no new reply and inherit Common LONG; Fact
-Anchor and MT propose LONG, with MT retaining its anchor and no observed
-veto. Thus there are five raw replies and three bypass outputs, sharing
-one upstream realization but different role-specific requests.
-
-After all required forecasts are durable, the outcome discloses entry
-VND 48,180 on 4 July and exit VND 48,390 on 6 July. Equation~\ref{eq:net}
-gives gross +0.436\% but net \textbf{$-0.265$\%}: DOWN.
-Each LONG loses; Our system CASH earns zero without short selling. This
-case cannot establish overall Our system superiority; Chapter 5 evaluates
-the full cohort and account sequences.
+At repeat 0, Our system executes CASH. Common, BICL v1 and Fact Anchor
+propose LONG. BICL v2--v4 inherit Common's action and v5 retains the
+anchor, for five raw replies and three bypasses. After the forecast barrier,
+entry at VND 48,180 on 4 July and exit at VND 48,390 on 6 July yield
++0.436\% gross and \textbf{$-0.265$\%} net (DOWN, Equation~\ref{eq:net}).
+The LONG cycles lose while the CASH action earns zero.
 \end{samepage}
