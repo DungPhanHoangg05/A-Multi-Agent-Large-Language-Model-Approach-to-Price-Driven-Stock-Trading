@@ -37,6 +37,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN10 | `PASS_OFFLINE_FIN10`. Khóa 162 pin tài nguyên và ledger FIN09. Đạt 153 kiểm thử theo phạm vi. Cold replay 56 slot đối chứng, 0 dispatch mới. FIN11 đã đối soát lại các khóa liên quan. |
 | FIN11 | `PASS_FIN11`. Smoke đạt 8 forecast. Nghiên cứu đủ 102 điểm và 2.448 forecast. Đã đối soát 1.511 attempt kể cả smoke và bản lưu. Outcome thị trường chưa được mở. |
 | FIN12 | Đánh giá offline từ receipt FIN11. Có 96/102 nhãn thực thi và 45/51 tài khoản đủ hai chu kỳ. Endpoint chính giữ NA. Oracle và cold verify đạt trên phạm vi có dữ liệu. |
+| FIN13 | Đã đối soát các cờ FIN01 trên cohort gốc và profile sửa. Phần mềm đạt trong phạm vi đã kiểm. PIT nguồn giá độc lập còn `BLOCKED_PIT_PROVENANCE`. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -252,6 +253,8 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   Kiểm cả trường hợp dữ liệu giả sai phải bị từ chối. Chứng nhận PIT nguồn
   độc lập cần bằng chứng giá riêng nêu tại lịch ngày 18/11. Phụ thuộc FIN10
   và FIN12.
+  [Đối soát FIN13](#fin13--đối-soát-cờ-của-bản-sửa) đã ghi các gate đạt theo
+  phạm vi. Checklist vẫn mở vì PIT nguồn giá độc lập chưa đủ bằng chứng.
 - [ ] **FIN14 — Hồi quy ứng dụng trên phần thay đổi.** Kiểm sáu lựa chọn,
   Common/Fact Anchor, input/preflight, tiến trình, lỗi/partial/UNKNOWN,
   raw/final/context, kết quả cũ/mới, VI/EN, theme và export. Kiểm trực quan
@@ -1340,6 +1343,38 @@ tái tạo khớp byte cả chín artifact với `verify`. SHA-256 của receipt
 Chạy `py -3.13 -X utf8 scripts/evaluate_finalize_study.py analyze` để dựng
 lại ở môi trường có journal FIN11 và các nguồn đã khóa, hoặc thay
 `analyze` bằng `verify` để kiểm artifact đã có. Không gọi Groq trong FIN12.
+
+#### FIN13 — Đối soát cờ của bản sửa
+
+Giữ cohort FIN02 gốc gồm 102 điểm và 2.448 forecast cho nghiệm thu hệ
+thống. FIN12 có 96 nhãn thực thi và 45/51 tài khoản đủ hai chu kỳ. Năm
+chu kỳ có sự kiện quyền và một chu kỳ thiếu khớp lệnh giữ NA theo hợp đồng
+đã khóa. Một cohort thay sáu ngày chỉ tăng độ phủ nhãn và đổi mẫu đánh
+giá. Chứng nhận nguồn PIT yêu cầu hồ sơ khả dụng của dữ liệu tại chính
+cutoff, nên FIN13 dùng bằng chứng từ cohort gốc.
+[Đối soát FIN13 theo source và runtime](week12/finalize_system_gate_v1.json).
+
+| Cờ FIN01 | Kết quả kiểm trên bản sửa và phạm vi áp dụng |
+| --- | --- |
+| `ALPHA_NATIVE` | **Đã xử lý trên profile sửa.** FIN03 kiểm 85 yếu tố và sáu cửa sổ với prefix/future poison, fit/purge và selector đóng băng. FIN08 xác minh Native sửa và Common nhận cùng năm Alpha causal. FIN11 lưu đúng profile trong 2.448 dự báo. Native lịch sử giữ FAIL cùng phản ví dụ bfill, chuẩn hóa toàn chuỗi và nhánh volume. [FIN03](#fin03--alpha-nhân-quả-selector-và-bridge-offline-ngày-18112026). |
+| `ALPHA_ONLY` | **Các cơ chế PIT phần mềm đạt trong miền đã kiểm theo giả định nguồn FIN04.** FIN10 khóa nguồn, tài nguyên và runtime. FIN11 giữ barrier trước outcome. FIN12 đối chiếu nhãn/account/oracle sau barrier. Cờ toàn hệ theo tiêu chí có chứng cứ PIT nguồn độc lập vẫn `NOT_CERTIFIED`. [FIN10](week12/finalize_offline_acceptance_v1.json). |
+| `NEWS_PIT` | **Đạt với trạng thái thiếu tin tường minh.** Snapshot chia sẻ với báo cáo/UI. Cả 102 điểm loại tin chưa đủ chứng cứ khả dụng. Profile mới đạt theo policy loại trừ này. [FIN05](week12/finalize_news_coverage_v1.json). |
+| `PRICE_PIT` | **Chặn ở nguồn.** Giá thô được tác giả chấp nhận để đánh giá, lịch và sự kiện đã qua audit phạm vi. Chứng nhận độc lập cần bản lưu phiên bản giá đã công bố tại cutoff, lịch phiên và ledger sự kiện có truy vết cho chín mã. [FIN04](week12/finalize_price_acceptance_v1.json). |
+| `BANK_LINEAGE` | **Đạt trên bank OHLCV mới.** 852 chu kỳ có nhãn theo oracle, 733 đủ điều kiện làm ví dụ. Giữ dữ liệu mature, recipe tín hiệu, các pin HMM/scaler và fallback Common khi ngoài CORE4. [Manifest FIN06](../../outputs/finalize/ohlcv_bank_v1/manifest.json). |
+| `MT_LINEAGE` | **Đạt trong phạm vi đã khóa.** FIN07 kiểm context freeze, reserved IDs, student/teacher, facts, support và Q10/Q90. FIN11 đối chiếu dependency cùng repeat và forecast thật. [Receipt FIN07](week12/finalize_context_receipt_v1.json). |
+| `CALLER_IDENTITY` | **Đạt với profile được chọn tường minh.** FIN08 kiểm CLI, API as-of/backtest, capture live đối chứng và reader/export; FIN10 khóa tài nguyên và caller. Gate đổi mặc định chờ FIN13–FIN14. [FIN08](#fin08--nối-profile-finalize-vào-ứng-dụng). |
+| `SOURCE_DELTA` | **Đạt trên chuỗi đã khóa của bản sửa.** FIN09/10 kiểm ledger, nguồn và runtime. FIN11/12 đối chiếu release, raw và checkpoint. Mười phản hồi thị giác tái dùng có proof theo đúng U08. [FIN09](week12/finalize_api_budget_v1.json). |
+| `OLD_PENDING` | **Mốc lịch sử.** U09 có receipt riêng. Kết luận FIN13 dùng nguồn bản sửa và các receipt đúng epoch. [Receipt U09](week12/unified_analysis_acceptance.json). |
+| `UI_ACCEPTANCE` | **Chờ FIN14 cho giao diện chịu ảnh hưởng.** Phần giao diện cũ theo phê duyệt tác giả đã ghi. Phạm vi desktop/mobile mới cần quan sát theo plan. [Receipt giao diện lịch sử](week12/serving_integration_acceptance.json). |
+| `ARCHIVE_LAYOUT` | **Chờ FIN16 cho cold restore toàn gói.** Các pin cần cho lượt phân tích FIN12 đã đọc lại thành công. Kế hoạch đóng gói giữ index và byte bằng chứng gốc. [Index bằng chứng](revision_evidence/index.json). |
+| `EXECUTION_LIMITS` | **Giới hạn của nghiên cứu exploratory.** Giữ sáu nhãn NA và mẫu số đúng. Kết quả dựa trên nguồn giá đã chấp nhận và mô hình thực thi T+2.5. [Kết quả FIN12](../../outputs/finalize/fin12_v1/results.json). |
+
+Đã đối soát khóa FIN09/10, raw và checkpoint FIN11 cùng chín artifact FIN12
+qua cold verify. Kiểm sai có chủ đích xác nhận validator từ chối cờ PIT
+giả, hash giá lệch và forecast sửa hành động rồi tính lại hash cục bộ.
+Mốc này chỉ thêm biên bản và kiểm lại bằng chứng theo phạm vi, nên không
+chạy lại compileall, unit suite, E2E hoặc leakage suite. Có 0 lượt gọi Groq.
+FIN13 giữ mở ở `BLOCKED_INDEPENDENT_PRICE_PROVENANCE`.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 
