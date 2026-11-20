@@ -9,8 +9,8 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
 `paper/` và khóa luận trong `thesis/`.** FIN00–FIN13 đã hoàn tất trong
-phạm vi ghi dưới đây. Profile ứng dụng `finalize_serving_v1` đã qua đối chứng
-offline. FIN14–FIN17 vẫn mở.
+phạm vi ghi dưới đây. Giao diện `finalize_serving_v1` đã qua hồi quy offline
+FIN14. Phát hành hosted và chuyển mặc định còn mở cùng FIN15–FIN17.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -38,6 +38,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN11 | `PASS_FIN11`. Smoke đạt 8 forecast. Nghiên cứu đủ 102 điểm và 2.448 forecast. Đã đối soát 1.511 attempt kể cả smoke và bản lưu. Outcome thị trường chưa được mở. |
 | FIN12 | Đánh giá offline từ receipt FIN11. Có 96/102 nhãn thực thi và 45/51 tài khoản đủ hai chu kỳ. Endpoint chính giữ NA. Oracle và cold verify đạt trên phạm vi có dữ liệu. |
 | FIN13 | `PASS_FIN13_OWNER_ATTESTED_SCOPE` cho cohort gốc và profile sửa trên nguồn giá tác giả xác nhận. Chứng nhận PIT nguồn độc lập vẫn `NOT_CERTIFIED`. |
+| FIN14 | Hồi quy giao diện đạt trên Chromium desktop/mobile với transport đối chứng. Backend ứng dụng vẫn chặn hosted cho `finalize_serving_v1`. Mặc định đang dùng profile hiện hành. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -262,7 +263,8 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   desktop/mobile cho các màn hình bị ảnh hưởng, ghi nhận quan sát thực.
   Đạt khi UI trình bày đúng nguồn/profile/gate và các thao tác vận hành hoạt
   động. Kế thừa nghiệm thu giao diện 17/11 trong phần không bị ảnh hưởng.
-  Phụ thuộc FIN08 và FIN13.
+  Phụ thuộc FIN08 và FIN13. [Hồi quy giao diện offline đã đạt](#fin14--hồi-quy-giao-diện-và-export).
+  Còn xác minh hosted ứng dụng trước khi chuyển mặc định.
 - [ ] **FIN15 — Đồng bộ khóa luận, bài báo và tài liệu hệ thống.** Cập nhật
   nguồn tại `thesis/` và `paper/`, hướng dẫn chạy, mô tả phương pháp, bảng/hình,
   limitations và các tài liệu trình bày còn dùng theo đúng release mới.
@@ -1366,7 +1368,7 @@ cutoff, nên FIN13 dùng bằng chứng từ cohort gốc.
 | `CALLER_IDENTITY` | **Đạt với profile được chọn tường minh.** FIN08 kiểm CLI, API as-of/backtest, capture live đối chứng và reader/export; FIN10 khóa tài nguyên và caller. Gate đổi mặc định chờ FIN13–FIN14. [FIN08](#fin08--nối-profile-finalize-vào-ứng-dụng). |
 | `SOURCE_DELTA` | **Đạt trên chuỗi đã khóa của bản sửa.** FIN09/10 kiểm ledger, nguồn và runtime. FIN11/12 đối chiếu release, raw và checkpoint. Mười phản hồi thị giác tái dùng có proof theo đúng U08. [FIN09](week12/finalize_api_budget_v1.json). |
 | `OLD_PENDING` | **Mốc lịch sử.** U09 có receipt riêng. Kết luận FIN13 dùng nguồn bản sửa và các receipt đúng epoch. [Receipt U09](week12/unified_analysis_acceptance.json). |
-| `UI_ACCEPTANCE` | **Chờ FIN14 cho giao diện chịu ảnh hưởng.** Phần giao diện cũ theo phê duyệt tác giả đã ghi. Phạm vi desktop/mobile mới cần quan sát theo plan. [Receipt giao diện lịch sử](week12/serving_integration_acceptance.json). |
+| `UI_ACCEPTANCE` | **Hồi quy offline đã đạt cho giao diện chịu ảnh hưởng.** Đã kiểm bằng Chromium desktop/mobile. Hosted ứng dụng còn chờ phát hành. [FIN14](#fin14--hồi-quy-giao-diện-và-export). |
 | `ARCHIVE_LAYOUT` | **Chờ FIN16 cho cold restore toàn gói.** Các pin cần cho lượt phân tích FIN12 đã đọc lại thành công. Kế hoạch đóng gói giữ index và byte bằng chứng gốc. [Index bằng chứng](revision_evidence/index.json). |
 | `EXECUTION_LIMITS` | **Giới hạn của nghiên cứu exploratory.** Giữ sáu nhãn NA và mẫu số đúng. Kết quả dựa trên nguồn giá đã chấp nhận và mô hình thực thi T+2.5. [Kết quả FIN12](../../outputs/finalize/fin12_v1/results.json). |
 
@@ -1384,6 +1386,34 @@ dụng phạm vi nguồn do tác giả xác nhận cùng 102 điểm FIN02 gốc
 Chứng nhận PIT nguồn giá độc lập vẫn `NOT_CERTIFIED`. Kết luận khoa học
 giữ phạm vi exploratory của nguồn và thiết kế đã khóa.
 [Receipt chốt FIN13](week12/finalize_system_gate_v2.json).
+
+#### FIN14 — Hồi quy giao diện và export
+
+Hai form Phân tích và Backtest cho chọn tường minh `finalize_serving_v1`.
+Phiên bản được khóa cùng request từ preflight đến lúc tạo job. Trang kết quả
+hiển thị nguồn, profile, trạng thái PIT và export theo đúng phạm vi owner.
+Phân tích dùng đúng capture giá thô và trình đọc của profile sửa. Báo cáo
+U09 tiếp tục đọc từ gói kết quả lịch sử riêng.
+
+Ngày 20/11/2026 đã chạy Flask thật trên loopback với nguồn giá và phản hồi
+mô hình đối chứng, quan sát tám ảnh Chromium ở 1365×900 và 390×844. Đã kiểm
+trực tiếp VI/EN, chế độ sáng/tối, xuất JSON và luồng U09. Phân tích MT-BICL
+hiển thị Raw/Final/Context cùng Common và Fact Anchor. Backtest hoàn tất
+tám slot ở một cutoff, giữ tám nhãn lợi nhuận NA của fixture. Projection
+lỗi, partial và UNKNOWN giữ slot chưa có forecast và khóa resume ở UNKNOWN.
+Đã sửa nền panel và header bảng ở chế độ tối, rồi kiểm lại màu và chiều
+rộng, không có cuộn ngang toàn trang.
+
+Kết quả kiểm theo phạm vi gồm 47 kiểm thử Node về phân tích, backtest,
+viewer nghiên cứu và tùy chọn hiển thị, 5 kiểm thử FIN08 về PIT/serving,
+26 kiểm thử runtime ứng dụng về admission/job/checkpoint. Thay đổi chỉ ở
+template, CSS và JavaScript của ứng dụng cùng test JS. Không biên dịch
+Python hay chạy lại bốn gate toàn hệ. Số lượt Groq thật là 0.
+
+Backend ứng dụng vẫn trả `HOSTED_RELEASE_PENDING_FIN10` cho profile sửa.
+Receipt FIN11 bao phủ runner thu dự báo nghiên cứu. FIN14 đã xác minh nút
+chạy bị chặn và hiển thị lý do trên web. Phát hành hosted cần nghiệm thu
+qua caller ứng dụng trước khi chuyển mặc định.
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

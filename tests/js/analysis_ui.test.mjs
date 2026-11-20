@@ -7,6 +7,7 @@ import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
 import {requestFor,jobUrl} from '../../static/js/analysis/common.js';
 import {renderer} from '../../static/js/analysis/view.js';
+import {runTimeframe} from '../../static/js/analysis/timeframe.js';
 
 globalThis.document = {getElementById:() => null};
 const {formController} = await import('../../static/js/analysis/form.js');
@@ -43,6 +44,49 @@ beforeEach(() => {
   globalThis.window = {legacyAnalysis:{run:() => { legacyRuns++; events['analysis-legacy-start']?.(); },begin:() => { events['analysis-legacy-start']?.(); return true; },end:() => events['analysis-legacy-end']?.(),load:() => legacyLoads++,selection:() => ({symbol:'MWG',timeframe:'1d'})}};
   for (const [id,value] of Object.entries({'analysis-source':'asof','analysis-version':'original_fix','asof-symbol':'MWG',
     'asof-date':'2026-07-02','report-language':'vi','analysis-repeats':'1'})) node(id).value = value;
+});
+test('Profile sửa dùng snapshot raw và preflight riêng, kết quả giữ đúng route/schema', async () => {
+  const calls = [], config = fixture.config;
+  const selection = {symbol:'MWG',timeframe:'1d',version:'finalize_serving_v1',variant:'original_fix',language:'vi',repeats:1};
+  const io = async (url,body) => {
+    calls.push({url,body});
+    if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-10-01',snapshot_id:'a'.repeat(64),capture_version:'finalize_live_raw_capture_v1'};
+    return url.endsWith('/preflight') ? ready : {run_id:fixture.data.run_id};
+  };
+  const result = await runTimeframe(config,selection,fixture.data.identity.request.models,io,() => {});
+  assert.deepEqual(calls[0].body,{symbol:'MWG',profile:'finalize_serving_v1'});
+  assert.equal(calls[1].body.version,'variant_serving_live_v1');
+  assert.equal(calls[1].body.request.version,'finalize_serving_v1');
+  assert.equal(calls[1].body.chart_timeframe,undefined);
+  assert.deepEqual(calls[1].body,calls[2].body);
+  assert.doesNotMatch(result.url,/presentation=analysis/);
+});
+test('Preflight chặn hosted profile sửa và giữ thông báo tiếng Anh', async () => {
+  const calls=[];
+  const config = {...fixture.config,language:'en'};
+  const selection = {symbol:'MWG',timeframe:'1d',version:'finalize_serving_v1',variant:'C2',language:'en',repeats:1};
+  const io = async (url) => {
+    calls.push(url);
+    return url.endsWith('/snapshot') ? {symbol:'MWG',cutoff:'2026-10-01',snapshot_id:'a'.repeat(64),capture_version:'finalize_live_raw_capture_v1'}
+      : {run_enabled:false,status:'blocked',blockers:[{code:'HOSTED_RELEASE_PENDING_FIN10'}]};
+  };
+  await assert.rejects(runTimeframe(config,selection,fixture.data.identity.request.models,io,() => {}), /Hosted execution.*pending/);
+  assert.equal(calls.length,2);
+});
+
+test('Kết quả profile sửa hiển thị phạm vi PIT và xuất đúng namespace owner', () => {
+  const data = structuredClone(fixture.data);
+  data.identity.request.version = 'finalize_serving_v1';
+  data.scientific_status = 'EXPLORATORY_NOT_CERTIFIED';
+  const view = renderer({...fixture.config,language:'en',source:'live'});
+  view.render(data);
+  assert.match(node('job-profile').textContent,/PIT unverified independently .*finalize_serving_v1/);
+  assert.match(node('job-provenance').textContent,/EXPLORATORY_NOT_CERTIFIED/);
+  assert.equal(node('export-job').href,`/api/serving/live/v1/jobs/${data.run_id}/export`);
+  assert.equal(node('export-job').hidden,false);
+  view.error('Không đọc được job');
+  assert.equal(node('job-profile').textContent,'');
+  assert.equal(node('export-job').hidden,true);
 });
 
 test('Request dùng đúng IDs, model/options snapshot; compare từ chối một bản', () => {

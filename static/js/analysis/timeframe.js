@@ -1,24 +1,31 @@
-import {jobUrl,requestFor,blockerText,captureErrorMessage} from './common.js';
+import {jobUrl,requestFor,blockerText,captureErrorMessage,FINALIZED_PROFILE} from './common.js';
 
 // Một click phân tích: khóa selection, capture nến, preflight rồi tạo đúng phiên bản đã chọn.
 export async function runTimeframe(config, selection, models, io, status) {
   const text = config.messages;
   if (!selection.symbol) throw new Error(text.timeframe_choose_symbol);
   if (selection.timeframe !== '1d') throw new Error(text.daily_note);
+  const finalized = selection.version === FINALIZED_PROFILE;
   status(text.live_loading);
   let snapshot;
-  try { snapshot = await io('/api/serving/live/v1/snapshot',{symbol:selection.symbol,timeframe:selection.timeframe}); }
+  const capture = finalized ? {symbol:selection.symbol,profile:FINALIZED_PROFILE}
+    : {symbol:selection.symbol,timeframe:selection.timeframe};
+  try { snapshot = await io('/api/serving/live/v1/snapshot',capture); }
   catch (error) { throw new Error(captureErrorMessage(error,config)); }
-  if (snapshot.symbol !== selection.symbol || snapshot.chart_timeframe !== selection.timeframe || !/^[0-9a-f]{64}$/.test(snapshot.snapshot_id)) throw new Error(text.live_failed);
-  const body = {version:'variant_serving_timeframe_v1',snapshot_id:snapshot.snapshot_id,chart_timeframe:selection.timeframe,
-    request:requestFor({mode:'analyze',ids:[selection.variant],symbol:selection.symbol,date:snapshot.cutoff,
+  const captureMatches = finalized ? snapshot.capture_version === 'finalize_live_raw_capture_v1'
+    : snapshot.chart_timeframe === selection.timeframe;
+  if (snapshot.symbol !== selection.symbol || !captureMatches || !/^[0-9a-f]{64}$/.test(snapshot.snapshot_id)) throw new Error(text.live_failed);
+  const body = {version:finalized ? 'variant_serving_live_v1' : 'variant_serving_timeframe_v1',
+    snapshot_id:snapshot.snapshot_id,...(finalized ? {} : {chart_timeframe:selection.timeframe}),
+    request:requestFor({version:selection.version,mode:'analyze',ids:[selection.variant],symbol:selection.symbol,date:snapshot.cutoff,
       language:selection.language,repeats:selection.repeats},models)};
   status(text.waiting);
   const checked = await io('/api/serving/live/v1/preflight',body);
-  if (!checked.run_enabled || checked.status !== 'ready') throw new Error((checked.blockers ?? []).map(b => blockerText(b,text)).join(' · ') || text.failed);
+  if (!checked.run_enabled || checked.status !== 'ready') throw new Error((checked.blockers ?? []).map(b => blockerText(b,text,config.language)).join(' · ') || text.failed);
   status(text.running);
   let data;
   try { data = await io('/api/serving/live/v1/jobs',structuredClone(body)); }
   catch { throw new Error(text.start_unknown); }
-  return {runId:data.run_id,url:jobUrl(data.run_id,config.language,'live')+'&presentation=analysis'};
+  const url = jobUrl(data.run_id,config.language,'live');
+  return {runId:data.run_id,url:finalized ? url : url+'&presentation=analysis'};
 }

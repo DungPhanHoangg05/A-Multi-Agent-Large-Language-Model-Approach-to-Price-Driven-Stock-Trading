@@ -8,7 +8,7 @@
 .serving-ui p {margin:.6rem 0}.serving-ui fieldset {border:1px solid #d9dee7;border-radius:10px;padding:1rem;margin:1rem 0}
 .serving-ui legend {font-weight:650;padding:0 .4rem}.serving-ui summary {cursor:pointer;font-weight:650;padding:.6rem 0}
 .serving-field {display:flex;flex-direction:column;gap:.35rem;font-weight:600;min-width:0;margin:.6rem 0}
-.serving-ui select,.serving-ui input[type=date],.serving-ui input[type=number] {font:inherit;border:1px solid #acb6c4;border-radius:8px;min-height:44px;padding:.5rem;background:white;color:#293344;max-width:100%;width:100%}
+.serving-ui select,.serving-ui input[type=date],.serving-ui input[type=number] {box-sizing:border-box;font:inherit;border:1px solid #acb6c4;border-radius:8px;min-height:44px;padding:.5rem;background:white;color:#293344;max-width:100%;width:100%}
 .serving-ui input[type=checkbox] {width:18px;height:18px;accent-color:#a61b34;flex-shrink:0}
 .serving-choices {display:flex;flex-wrap:wrap;gap:.5rem 1.3rem}.serving-choices label {display:flex;align-items:center;gap:.4rem;min-height:40px}
 .serving-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem}
@@ -24,4 +24,8 @@
 .serving-ui pre {white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;background:#f6f7f9;padding:1rem;border-radius:8px;font: .86rem/1.65 ui-monospace,monospace;max-height:34rem;overflow:auto}
 .serving-ui img {max-width:100%;height:auto;border:1px solid #dde2e8;border-radius:8px}.serving-ui svg {display:block;width:100%;height:auto;max-height:240px}.serving-report {border-top:1px solid #d9dee7;padding-top:.6rem;margin-top:1rem}
 #serving-form-error,#job-error {color:#9d1730;overflow-wrap:anywhere}#preflight-status {margin:.75rem 0}#job-meta {overflow-wrap:anywhere}
+html[data-theme=dark] .serving-panel {background:var(--site-panel);border-color:var(--site-border)}
+html[data-theme=dark] .serving-report {border-color:var(--site-border)}
+html[data-theme=dark] .decision-card dt {color:var(--site-muted)}
+html[data-theme=dark] :is(.decision-card h3,#job-error) {color:var(--site-accent)}
 @media(max-width:600px) {.serving-topbar {padding:.7rem}.serving-result main {padding:.7rem}.serving-panel {padding:1rem}.serving-ui h1 {font-size:1.5rem}.decision-card dl {grid-template-columns:1fr}.serving-grid {grid-template-columns:1fr}.run-btn-wrapper {display:flex;flex-direction:column;align-items:stretch}}

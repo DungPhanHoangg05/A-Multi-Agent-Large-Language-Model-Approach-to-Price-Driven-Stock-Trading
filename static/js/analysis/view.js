@@ -1,4 +1,4 @@
-import {byId, element, label} from './common.js';
+import {byId, element, label, FINALIZED_PROFILE, profileText, jobUrl} from './common.js';
 import {chart} from './chart.js';
 
 // Mỗi card chỉ trình bày một slot durable, không tính lại quyết định hoặc policy.
@@ -68,6 +68,16 @@ export function renderer(config) {
     const source = request.chart_timeframe ? text.timeframe_source : request.data_source === 'live' ? text.live_source : text.asof_source;
     byId('job-meta').textContent = `${source} · ${request.symbols.join(', ')} · ${request.start_date} · ${request.chart_timeframe ?? request.timeframe} · ${request.language.toUpperCase()} · ${data.run_id}`;
     if (data.live_input) byId('job-meta').textContent += ` · ${text.live_captured}: ${data.live_input.captured_at}`;
+    byId('job-profile').textContent = profileText(request.version, config.language);
+    const exportLink = byId('export-job');
+    if (exportLink) {
+      exportLink.hidden = config.source !== 'live' && request.version !== FINALIZED_PROFILE;
+      if (!exportLink.hidden) {
+        jobUrl(data.run_id, config.language);
+        const endpoint = config.source === 'live' ? '/api/serving/live/v1' : '/api/serving/v1';
+        exportLink.href = endpoint+'/jobs/'+encodeURIComponent(data.run_id)+'/export';
+      }
+    }
     byId('job-progress').textContent = `${text.points}: ${progress.points_complete}/${progress.points_total} · ${text.slots}: ${progress.decision_slots_complete}/${progress.decision_slots_total} · ${text.attempts}: ${progress.api_attempts}`;
     byId('partial-note').hidden = data.state === 'completed';
     byId('retry-at').textContent = data.retry_at ? text.retry_at+': '+new Date(data.retry_at*1000).toLocaleString(config.language) : '';
@@ -92,11 +102,13 @@ export function renderer(config) {
     shared(data);
     byId('job-provenance').textContent = JSON.stringify({run_id:data.run_id, identity:data.identity,
       identity_sha256:data.identity_sha256,input_snapshot_scope:data.input_snapshot_scope,
+      scientific_status:data.scientific_status,context_receipt_sha256:data.context_receipt_sha256,
       shared:Object.fromEntries(Object.entries(data.snapshots ?? {}).map(([point,snapshot]) => [point,{sha256:snapshot.sha256,provenance:snapshot.provenance}]))},null,2);
   }
   function error(message) {
     cardsKey = reportsKey = undefined; detailNodes.clear();
-    for (const id of ['job-meta','job-progress','retry-at','decision-cards','control-cards','shared-reports','job-provenance']) byId(id).replaceChildren();
+    for (const id of ['job-meta','job-profile','job-progress','retry-at','decision-cards','control-cards','shared-reports','job-provenance']) byId(id).replaceChildren();
+    if (byId('export-job')) byId('export-job').hidden = true;
     byId('no-decisions').hidden = false; byId('control-details').hidden = true;
     byId('partial-note').hidden = true;
     byId('job-error').textContent = message;

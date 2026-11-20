@@ -1,4 +1,6 @@
 <section class="serving-ui" aria-label="{{ A.analysis }}">
+  {% from 'shared/serving_profile.html' import select_profile with context %}
+  {{ select_profile('analysis-profile') }}
   <label class="serving-field">{{ A.version }}<select id="analysis-version">{% for variant in serving_registry.variants if variant.group == 'main' %}<option value="{{ variant.id }}">{{ variant.label[LANG] }}</option>{% endfor %}</select></label>
   <p id="version-description"></p>
   <p>{{ A.daily_note }}</p>

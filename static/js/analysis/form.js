@@ -1,4 +1,4 @@
-import {byId,json} from './common.js';
+import {byId,json,CURRENT_PROFILE,FINALIZED_PROFILE,profileText} from './common.js';
 import {runTimeframe} from './timeframe.js';
 import {followAnalysis,showAgentProgress} from './progress.js';
 
@@ -6,25 +6,30 @@ import {followAnalysis,showAgentProgress} from './progress.js';
 export function formController(config, io = json, navigate = url => location.assign(url), pause) {
   const text = config.messages;
   let defaults, starting = false, legacyBusy = false, uncertain = false;
+  const profile = () => byId('analysis-profile')?.value || CURRENT_PROFILE;
+  const usesLegacy = () => profile() === CURRENT_PROFILE && byId('analysis-version').value === 'original_fix';
   function buttons() {
     const busy = starting || legacyBusy;
-    byId('analyzeBtn').disabled = busy || uncertain || (byId('analysis-version').value !== 'original_fix' && !defaults);
+    byId('analyzeBtn').disabled = busy || uncertain || (!usesLegacy() && !defaults);
     byId('analysis-version').disabled = busy;
+    if (byId('analysis-profile')) byId('analysis-profile').disabled = busy;
     byId('legacy-inputs').inert = busy;
   }
   function description() {
     const id = byId('analysis-version').value;
-    byId('version-description').textContent = id === 'original_fix' ? text.native_description :
+    byId('version-description').textContent = profile() === FINALIZED_PROFILE
+      ? profileText(FINALIZED_PROFILE, config.language) : id === 'original_fix' ? text.native_description :
       id === 'MT_BICL' ? text.mt_description : text.prior_description;
     buttons();
   }
   async function start(mode = 'analyze') {
     if (mode !== 'analyze' || starting || legacyBusy || uncertain) return;
-    if (byId('analysis-version').value === 'original_fix') { window.legacyAnalysis.run(); return; }
+    if (usesLegacy()) { window.legacyAnalysis.run(); return; }
     if (!defaults || !window.legacyAnalysis.begin(true)) return;
     starting = true; buttons(); byId('timeframe-run-status').textContent = '';
     try {
-      const chosen = {...window.legacyAnalysis.selection(),timeframe:'1d',variant:byId('analysis-version').value,language:config.language,repeats:1};
+      const chosen = {...window.legacyAnalysis.selection(),timeframe:'1d',version:profile(),
+        variant:byId('analysis-version').value,language:config.language,repeats:1};
       const result = await runTimeframe(config,chosen,structuredClone(defaults.models),io,
         value => byId('analysis-progress-message').textContent = value);
       const link = byId('last-serving-job'); link.href = result.url; link.hidden = false;
@@ -42,6 +47,7 @@ export function formController(config, io = json, navigate = url => location.ass
     window.legacyAnalysis.load();
     byId('analyzeBtn').addEventListener('click',() => start());
     byId('analysis-version').addEventListener('change',description);
+    byId('analysis-profile')?.addEventListener('change',description);
     for (const [event,busy] of [['analysis-legacy-start',true],['analysis-legacy-end',false]]) {
       document.addEventListener(event,() => { legacyBusy = busy; buttons(); });
     }

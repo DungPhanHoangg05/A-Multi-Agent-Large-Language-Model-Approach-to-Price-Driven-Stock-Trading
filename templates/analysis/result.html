@@ -11,9 +11,9 @@
 {% set serving_source = 'live' if request.args.get('serving_source') == 'live' else 'asof' %}
 <header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ A.analysis }}</a><a aria-current="page" href="/output?serving_run={{ serving_run|urlencode }}&amp;serving_source={{ serving_source }}&amp;lang={{ LANG }}">{{ A.output }}</a><a href="/backtest?lang={{ LANG }}">{{ A.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ A.research }}</a></nav></header>
 <main class="serving-ui">
-  <h1>{{ A.output }}</h1><p id="job-meta"></p><p class="serving-notice">{{ A.native_note }} {{ A.quota_note }}</p>
+  <h1>{{ A.output }}</h1><p id="job-meta"></p><p id="job-profile" class="serving-notice"></p><p class="serving-notice">{{ A.quota_note }}</p>
   <section class="serving-panel" aria-busy="true" id="job-status-panel"><h2 id="job-state" role="status" aria-live="polite">{{ A.loading }}</h2><p id="job-progress"></p><p id="retry-at"></p><p id="partial-note" hidden>{{ A.partial_note }}</p><p id="job-error" role="alert"></p>
-    <div class="serving-actions"><button id="refresh-job" type="button">{{ A.refresh }}</button><button id="stop-job" type="button" disabled>{{ A.stop }}</button><button id="resume-job" type="button" disabled>{{ A.resume }}</button><a href="/?lang={{ LANG }}">{{ A.new }}</a></div>
+    <div class="serving-actions"><button id="refresh-job" type="button">{{ A.refresh }}</button><button id="stop-job" type="button" disabled>{{ A.stop }}</button><button id="resume-job" type="button" disabled>{{ A.resume }}</button><a id="export-job" hidden>{{ 'Xuất JSON' if LANG == 'vi' else 'Export JSON' }}</a><a href="/?lang={{ LANG }}">{{ A.new }}</a></div>
   </section>
   <section class="serving-panel"><h2>{{ A.requested }}</h2><p id="no-decisions">{{ A.empty }}</p><div id="decision-cards" class="serving-grid"></div><details id="control-details"><summary>{{ A.controls }}</summary><div id="control-cards" class="serving-grid"></div></details></section>
   <section class="serving-panel"><h2>{{ A.shared }}</h2><p>{{ A.sentiment_note }}</p><div id="shared-reports"></div></section>

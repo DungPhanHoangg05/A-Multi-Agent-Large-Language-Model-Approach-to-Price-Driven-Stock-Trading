@@ -43,6 +43,24 @@ beforeEach(() => {
   globalThis.Option=class extends Element { constructor(text,value) { super('option'); this.textContent=text; this.value=value; }};
   for (const [id,value] of Object.entries({'bt-start':'2026-07-02','bt-end':'2026-07-07','bt-language':'vi','bt-repeats':'2','kind':'all'})) node(id).value=value;
 });
+test('Preflight và start giữ hồ sơ chạy của backtest sửa', async () => {
+  const calls = [];
+  node('bt-profile').value = 'finalize_serving_v1';
+  const io = async (url,body) => {
+    calls.push({url,body});
+    if (url.endsWith('/defaults')) return {models:fixture.data.request.models};
+    if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
+    return ready;
+  };
+  const form = formController(fixture.config,io,() => {});
+  await form.init();
+  await form.start();
+  assert.equal(calls[1].body.version,'finalize_serving_v1');
+  assert.deepEqual(calls[1].body,calls[2].body);
+  const result = clone(); result.request.version = 'finalize_serving_v1';
+  renderer(fixture.config).render(result,'/api/serving/v1/jobs/'+result.run_id+'/evaluation');
+  assert.match(node('bt-run-meta').textContent,/finalize_serving_v1/);
+});
 test('Metric 0/âm giữ nguyên; NA không bị biến thành zero',() => {
   assert.equal(number(0),'0.000'); assert.equal(number(-.5,100),'-50.000');
   for (const value of [null,undefined,NaN]) assert.equal(number(value),'NA');

@@ -1,4 +1,4 @@
-import {byId,element,json,jobUrl,blockerText} from '../analysis/common.js';
+import {byId,element,json,jobUrl,blockerText,CURRENT_PROFILE,profileText} from '../analysis/common.js';
 
 export function formController(config,io=json,navigate=url => location.assign(url)) {
   const text = config.messages;
@@ -10,7 +10,7 @@ export function formController(config,io=json,navigate=url => location.assign(ur
       models[role].options.temperature = Number(byId('bt-'+role+'-temperature').value);
       models[role].options.max_tokens = Number(byId('bt-'+role+'-tokens').value);
     }
-    return {version:'variant_serving_v1',mode:'backtest',variant_ids:ids('bt-variant'),symbols:ids('bt-symbol'),
+    return {version:byId('bt-profile')?.value || CURRENT_PROFILE,mode:'backtest',variant_ids:ids('bt-variant'),symbols:ids('bt-symbol'),
       start_date:byId('bt-start').value,end_date:byId('bt-end').value,timeframe:'1d',language:byId('bt-language').value,
       repeats:Number(byId('bt-repeats').value),models};
   }
@@ -25,8 +25,8 @@ export function formController(config,io=json,navigate=url => location.assign(ur
       if (mine !== generation || signal.aborted) return;
       if (data.run_enabled && data.status === 'ready') {
         grant = structuredClone(spec); byId('bt-start-job').disabled = false;
-        byId('bt-preflight').textContent = `${text.ready} · ${text.points}: ${data.points.length} · ${text.slots}: ${data.planned_decision_slots} · ${text.attempts} ≤ ${data.estimated_max_api_attempts}`;
-      } else byId('bt-preflight').textContent = (data.blockers ?? []).map(row => blockerText(row,text)).join(' · ');
+        byId('bt-preflight').textContent = `${text.ready} · ${profileText(spec.version,config.language)} · ${text.points}: ${data.points.length} · ${text.slots}: ${data.planned_decision_slots} · ${text.attempts} ≤ ${data.estimated_max_api_attempts}`;
+      } else byId('bt-preflight').textContent = (data.blockers ?? []).map(row => blockerText(row,text,config.language)).join(' · ');
     } catch { if (mine === generation && !signal.aborted) byId('bt-preflight').textContent = text.failed; }
   }
   function cancel() { ++generation; abort?.abort(); clearTimeout(timer); grant = undefined; byId('bt-start-job').disabled = true; }
@@ -40,7 +40,7 @@ export function formController(config,io=json,navigate=url => location.assign(ur
       try { localStorage.setItem('qa_last_backtest',data.run_id); } catch {}
       navigate('/backtest?'+new URLSearchParams({run_id:data.run_id,lang:config.language}));
     } catch (error) { byId('bt-start-error').textContent = error.status === 409 ?
-      (error.data?.blockers ?? []).map(row => blockerText(row,text)).join(' · ') || text.failed : text.start_unknown;
+      (error.data?.blockers ?? []).map(row => blockerText(row,text,config.language)).join(' · ') || text.failed : text.start_unknown;
     } finally { starting = false; controls.forEach(node => node.disabled = false); }
   }
   async function init() {

@@ -1,4 +1,4 @@
-import {byId,element,label} from '../analysis/common.js';
+import {byId,element,label,profileText} from '../analysis/common.js';
 import {chart} from './charts.js';
 
 export const number = (value,multiplier=1) => typeof value === 'number' && Number.isFinite(value) ? (value*multiplier).toFixed(3) : 'NA';
@@ -26,6 +26,7 @@ export function renderer(config) {
     last = data; const legacy = data.kind === 'legacy_backtest';
     byId('bt-result').hidden = false;
     byId('bt-run-meta').textContent = `${data.run_id} · ${text[legacy ? 'legacy_backtest' : 'new_backtest']}`;
+    if (data.request?.version) byId('bt-run-meta').textContent += ' · '+profileText(data.request.version,config.language);
     byId('bt-state').textContent = text[data.status === 'failed' ? 'job_failed' : data.status] ?? data.status;
     byId('bt-result-error').textContent = data.status === 'unknown' ? text.unknown : data.error ? data.error.code+' · '+text.failed : '';
     byId('bt-progress').textContent = data.progress ? `${text.points}: ${data.progress.points_complete}/${data.progress.points_total} · ${text.slots}: ${data.progress.decision_slots_complete}/${data.progress.decision_slots_total} · ${text.attempts}: ${data.progress.api_attempts}`+
@@ -64,6 +65,7 @@ export function renderer(config) {
     for (const id of ['bt-summary-rows','bt-predictions-rows','bt-contrasts-rows','bt-nav-chart','bt-cycle-chart','bt-downloads','bt-provenance']) byId(id).replaceChildren();
   }
   function error(message) { clear(); byId('bt-result').hidden = false; byId('bt-result-error').textContent = message;
+    byId('bt-run-meta').textContent = ''; byId('bt-experiments-link').hidden = true;
     byId('bt-state').textContent = text.unavailable; byId('bt-stop').disabled = byId('bt-resume').disabled = true; }
   return {render,charts,clear,error};
 }
