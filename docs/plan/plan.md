@@ -1450,6 +1450,16 @@ trang. Khóa luận có 70 trang A4 dọc trên cả hai engine. Công việc th
 và công cụ build tài liệu. Các gate nghiên cứu và lượt gọi API thật được
 giữ theo biên bản trước.
 
+Lượt biên tập hiện hành viết lại hai abstract theo mạch hiện trạng, công
+trình liên quan, khoảng trống và phương pháp. Bài báo giữ tiêu đề và các
+mục chính, giảm khối công thức trong Problem Formulation từ 26 xuống 4
+và đối chiếu công thức lợi nhuận hai chiều với backtest. Hai bản bài báo
+còn 39 và 38 trang, khóa luận vẫn 70 trang trên cả hai engine. Khóa luận
+có 27 nguồn được dẫn trong nội dung, một mục QuantAgent kèm liên kết mã
+nguồn ở phần tổng quan. Đã kiểm tra PDF, trích dẫn, dữ liệu và hash bảng
+FIN12 cùng 68 dòng số liệu lưu trữ. Phạm vi chỉ sửa tài liệu nên dùng các
+gate runtime đã ghi và không chạy lại suite.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·

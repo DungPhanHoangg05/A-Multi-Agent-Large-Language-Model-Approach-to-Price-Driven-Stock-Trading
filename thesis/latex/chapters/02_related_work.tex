@@ -9,7 +9,11 @@ not validate every indicator or establish profitability after transaction
 costs. Accordingly, the present system separates
 features, reports, directional proposals and executed actions.
 
-Kakushadze's formulaic-alpha library~\cite{kakushadze2016formulaic} supplies explicit transformations.
+Gu, Kelly and Xiu~\cite{gu2020assetpricing} compare machine-learning
+predictions of cross-sectional risk premiums and identify momentum,
+liquidity and volatility among the important predictors in their data.
+That motivates explicit price--volume features here, where the target
+is a short, cost-adjusted cycle. Kakushadze's formulaic-alpha library~\cite{kakushadze2016formulaic} supplies explicit transformations.
 Cross-sectional rank and group neutralization operate across securities;
 temporal operators operate over a security's history. Replacing the
 former with temporal ranks in a single-stock implementation changes the
@@ -32,39 +36,36 @@ factor controls in this thesis evaluate their own selection rules, not
 the isolated contribution of an LLM factor selector.
 
 \section{Specialist financial agents and input modalities}\label{s:f7594e9d067d74c3}
-QuantAgent~\cite{xiong2025quantagent,yresearch2026quantagentcode} is the direct architectural predecessor: Indicator, Pattern,
+QuantAgent~\cite{xiong2025quantagent} is the direct architectural predecessor: Indicator, Pattern,
 Trend and Risk roles supply complementary price-derived analyses, with
 a separately described final DecisionAgent. Its versioned paper studies
 one-hour/four-hour direction benchmarks and risk bounds. The thesis
 adapts state contracts, chart tools, orchestration and interface elements,
 then uses daily LONG/CASH evaluation with its own fixed net-cycle oracle.
-The inspected
-upstream comparison commit is recorded in the third-party notices; the
-originally adopted commit was not recorded. The adaptation is not a claim
-to have invented specialist financial agents or reproduced upstream
-performance.
+The
+\href{https://github.com/Y-Research-SBU/QuantHarness/tree/92519f806286192345e940e7ab77496462d662b7}{inspected upstream code snapshot}
+identifies the version used for attribution. The originally adopted
+commit was not recorded.
 
-TradingAgents~\cite{tradingagents2024} organizes analysts, research debate, trading and risk teams
-using fundamental, sentiment, news and technical inputs. Its historical
-US-stock simulation and buy/sell/hold accounting differ from the present
-contract. FinVision~\cite{fatemi2024finvision} combines news summaries,
-visual technical analysis and textual/visual reflection before a trading
-recommendation. Its use of previous signals and outcomes is related to
-historical context, but reflection does not itself define a Bayesian
-posterior or a numerical multi-task model.
+TradingAgents~\cite{tradingagents2024} organizes financial analysis,
+research debate, trading and risk across specialist roles. Its
+historical US-stock simulation uses buy, sell and hold actions.
+FinMem~\cite{yu2025finmem} layers financial memories and retrieves
+them by criteria such as relevance and recency. This thesis retrieves
+completed trading cycles under an explicit regime and outcome-eligibility
+rule, then tests when their outcomes justify a different action.
 
-Chart interpretation and news classification have separate validation
-problems. ChartLlama~\cite{han2023chartllama} studies chart instruction and understanding tasks;
-its results do not certify another model's candlestick reasoning, and its
-weights are not used here. ViSoBERT~\cite{nguyen2023visobert} supplies
-a Vietnamese social-media backbone, while the pinned 5CD resource~\cite{hf5cdsentiment} supplies
-the downstream three-label sentiment classifier. Their domains and roles
-are distinct. Neither source establishes historical financial-news
-availability, market-domain accuracy or probability calibration in this
-study.
+Tetlock~\cite{tetlock2007news} links the tone of financial coverage to
+market activity. Loughran and McDonald~\cite{loughran2011liability}
+show how general-purpose word lists misclassify terms in financial
+disclosures, and FinBERT~\cite{araci2019finbert} demonstrates domain
+adaptation for financial sentiment. For Vietnamese, ViSoBERT~\cite{nguyen2023visobert}
+supplies a social-media backbone and the pinned 5CD model~\cite{hf5cdsentiment}
+supplies the three-label classifier used here. Its scores require
+separate validation on historical Vietnamese financial news.
 
 \section{Regimes and historical-context inference}\label{s:72ac96e2a9d3b286}
-Hamilton's regime-switching account~\cite{hamilton2005regimes} models persistent changes through a
+Hamilton's regime-switching account~\cite{hamilton1989regimes} models persistent changes through a
 latent state; the state is an estimated representation rather than an
 observed economic truth. Rabiner~\cite{rabiner1989hmm} separates hidden Markov model (HMM) transition and emission models, parameter fitting and state inference.
 Forward/backward inference makes the information boundary explicit:

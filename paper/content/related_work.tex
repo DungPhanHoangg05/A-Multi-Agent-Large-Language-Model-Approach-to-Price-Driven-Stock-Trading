@@ -2,21 +2,42 @@
 \label{sec:relatedworks}
 
 \subsection{LLM Agents in Financial Analysis}
-BloombergGPT and FinGPT explore financial language models and domain adaptation \cite{wu2023bloomberggpt,yang2023fingpt}. TradingAgents coordinates multiple financial analysis and decision roles \cite{tradingagents2024}. QuantAgent combines Indicator, Pattern, Trend and Decision agents with shared state, chart rendering and trendline utilities \cite{xiong2025quantagent}. Our implementation adapts these components and adds numerical alpha and Vietnamese sentiment reports.
+TradingAgents~\cite{tradingagents2024} assigns financial analysis, debate,
+trading and risk to specialist roles. FinMem~\cite{yu2025finmem} uses
+layered memory to organize financial information for a trading agent.
+QuantAgent~\cite{xiong2025quantagent} specializes in short-horizon
+price-driven signals. Our comparison tests what explicit price--volume
+factors and local news add to the same technical reports.
 
 \subsection{Technical Analysis and Pattern Recognition}
-ChartLlama studies multimodal chart understanding \cite{han2023chartllama}, while Tsantekidis et al. apply convolutional networks to limit-order-book forecasting \cite{tsantekidis2017lob}. The inputs and forecasting targets differ from candlestick-image analysis. Algorithmic technical analysis and conventional indicators provide complementary foundations for constructing chart and momentum evidence \cite{lo2000technical,murphy1999technical}.
+Lo et al.~\cite{lo2000technical} formalize chart-pattern recognition and
+examine conditional returns. ChartLlama~\cite{han2023chartllama} studies
+multimodal chart understanding. They motivate the use of numerical indicators and chart images as
+separate inputs.
 
 \subsection{Quantitative Alpha Factor Research}
-The 101 Formulaic Alphas catalogue includes cross-sectional and market-dependent expressions \cite{kakushadze2016formulaic}. Our registry contains 80 single-asset adaptations and five custom factors. Candidate search and sign orientation on a common calibration sample introduce selection bias \cite{harvey2016}. Nested assessment \cite{varma2006bias}, the Deflated Sharpe Ratio \cite{bailey2014deflated} and White's Reality Check \cite{white2000reality} address related problems. We distinguish native in-sample diagnostics from training-fitted numerical controls and apply Holm correction to the latter's declared hypothesis family \cite{holm1979multiple}.
+The \emph{101 Formulaic Alphas} catalogue~\cite{kakushadze2016formulaic}
+supplies source expressions. Candidate search raises multiple-testing
+concerns~\cite{harvey2016}. We distinguish in-sample diagnostics from
+chronological assessment and use Holm's procedure~\cite{holm1979multiple}
+for the declared numerical-control family.
 
 \subsection{Sentiment Analysis in Finance and Vietnamese NLP}
-ViSoBERT is a backbone for Vietnamese social-media language understanding \cite{nguyen2023visobert}; the 5CD-AI sentiment classifier is a separate model derived from it \cite{hf5cdsentiment}. Research on financial-media sentiment \cite{tetlock2007news} and FinBERT \cite{araci2019finbert} motivates using news as context, while financial-domain accuracy requires validation on the relevant language and corpus. We therefore specify scorer identity, temporal aggregation and missingness separately from predictive validity.
+Tetlock~\cite{tetlock2007news} relates financial-media tone to market
+activity. FinBERT~\cite{araci2019finbert} adapts a language model to
+financial sentiment. ViSoBERT~\cite{nguyen2023visobert} is a Vietnamese
+social-media backbone. The downstream 5CD-AI classifier~\cite{hf5cdsentiment}
+requires separate assessment on Vietnamese financial news.
 
 \subsection{Regime Context and In-Context Learning}
-Hidden Markov models distinguish filtering based on observations available at the current time from inference using later observations \cite{rabiner1989hmm}. Hamilton develops this distinction for regime-switching economic models \cite{hamilton2005regimes}. Our regime estimates use prefix-only filtering.
-
-Xie et al. interpret in-context learning as implicit Bayesian inference under a mixture-of-HMMs model and evaluate the account on synthetic sequences \cite{xie2022implicitbayes}. Rubin et al. study learned prompt retrieval for semantic parsing \cite{rubin2022retrieve}. These ideas motivate historical-context selection, while our explicit Bayesian counts, numerical student and external utility policy remain distinct computational components.
+Hidden Markov models~\cite{rabiner1989hmm} distinguish filtering at the
+current cutoff from smoothing with later observations. Xie et
+al.~\cite{xie2022implicitbayes} study implicit Bayesian inference under a
+mixture-of-HMMs construction. Rubin et al.~\cite{rubin2022retrieve} learn
+to retrieve in-context examples. These ideas motivate the secondary study of eligible historical episodes and
+explicit numerical updates.
 
 \subsection{Evaluation in Emerging Markets}
-Vietnamese-language news and local cash-equity assumptions motivate domain adaptation, while purposive stock selection limits market-wide inference. Shared-report comparisons control upstream realization within a pair; conditional Decision repeats quantify a different source of variability. Class balance, statistical dependence, exposure and transaction costs must therefore be reported together. Hosted-model aliases, including the text model described in its model card \cite{openai2025gptoss}, identify a model family without authenticating the immutable weights served for each request.
+Local-language news, market calendars and settlement assumptions affect
+which information and trades are admissible. A purposive sample supports
+comparisons on the observed equities and cutoffs.

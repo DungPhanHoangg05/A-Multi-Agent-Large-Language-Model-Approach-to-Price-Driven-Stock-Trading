@@ -208,8 +208,9 @@ and always-LONG cycles. Missing matched context ablations remain missing.
 Final LONG predicts UP; CASH predicts DOWN. True positives (TP) and false
 negatives (FN) count UP cases predicted LONG and CASH, respectively.
 True negatives (TN) and false positives (FP) count DOWN cases predicted
-CASH and LONG. With 25 UP and 77 DOWN cases, BA and the Matthews
-correlation coefficient (MCC) are
+CASH and LONG. Balanced accuracy (BA)~\cite{brodersen2010balanced} and
+the Matthews correlation coefficient (MCC)~\cite{chicco2020mcc} use
+these counts:
 \begin{align}
 BA&=\tfrac12\left(\frac{TP}{TP+FN}+\frac{TN}{TN+FP}\right),\\
 MCC&=\frac{TP\,TN-FP\,FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}.
@@ -230,7 +231,7 @@ Component main averages its 51 accounts without Decision repeats. The
 separate numerical headline instead averages nine stock-level accounts;
 it is not that 51-account estimator. Positive-magnitude end-of-day (EOD) drawdown is
 $100\max_d(1-V_d/\max_{u\le d}V_u)$. Account averages are not a shared-capital
-portfolio. Component daily Sharpe uses population SD and nominal
+portfolio. Component daily Sharpe~\cite{sharpe1966mutual} uses population SD and nominal
 $\sqrt{252}$; its legacy Sortino uses SD of negative returns. The context study uses the unannualized cycle mean divided by sample SD,
 and a downside root-mean-square (RMS) measure over all cycles,
 including zero; annualized fields remain null. Ratios across these

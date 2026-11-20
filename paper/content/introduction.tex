@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-QuantAgent \cite{xiong2025quantagent} decomposes price-driven trading into roles for technical indicators, chart patterns, trends and risk. This paper asks whether adding quantitative alpha and Vietnamese news sentiment makes that architecture more effective for daily Vietnamese-equity forecasts. We call the augmented configuration \emph{Our system}. We test it against a local price-only implementation of the QuantAgent architecture under the same daily trading protocol. The original publication studies a different market setting and trading horizon.
+QuantAgent~\cite{xiong2025quantagent} decomposes price-driven trading into roles for technical indicators, chart patterns, trends and risk. This paper asks whether adding quantitative alpha and Vietnamese news sentiment makes that architecture more effective for daily Vietnamese-equity forecasts. We call the augmented configuration \emph{Our system}. We test it against a local price-only implementation of the QuantAgent architecture under the same daily trading protocol. The original publication studies a different market setting and trading horizon.
 
 We integrate an OHLCV alpha selector and Vietnamese sentiment with Indicator, Pattern, Trend and Decision roles adapted from QuantAgent. The selector ranks 85 candidate factors, while sentiment enters a separate textual report. Numerical indicators, chart descriptions and the enabled factor/news reports are condensed into the Decision prompt with heuristic evidence priorities. The resulting binary forecast is evaluated against a net three-session LONG cycle; a bearish forecast maps to CASH in the long-only account.
 
@@ -16,6 +16,5 @@ The contributions are:
 \item Five BICL extensions evaluated against augmented-system controls, with explicit historical support, fallback and action-revision rules.
 \end{itemize}
 
-The analysis is historical and exploratory: the evaluation schedule was finalized after some inference, market outcomes precede the November 2026 data freeze, and only twelve dates are represented. Our system within-history noncausality, uncertain historical news availability and limited repetitions constrain causal and deployment conclusions. These limitations motivate interpreting the system as a documented decision-support experiment.
+The exploratory evaluation uses twelve historical dates, and its schedule was finalized after some inference. Within-prefix preprocessing in the native alpha implementation, uncertain historical news availability and limited repetitions constrain causal and deployment conclusions. These limitations motivate interpreting the system as a documented decision-support experiment.
 
-The remainder of the paper reviews related work, formalises the forecasting task, describes the agents and experiments, reports results, and discusses limitations and future work.

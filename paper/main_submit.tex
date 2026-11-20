@@ -90,7 +90,25 @@
 
 %% Abstract
 \begin{abstract}
-QuantAgent uses specialist agents to interpret indicators, chart patterns and trends. When these reports disagree, the Decision Agent has limited evidence for judging whether the price and volume history supports a proposed trade. A chart also cannot describe the news that was available when the decision was made. We address these gaps in daily Vietnamese equity forecasting by adding an Alpha Agent and a Sentiment Agent to QuantAgent. The Alpha Agent ranks candidate factors from historical price and volume and reports the values and directions of selected signals. The Sentiment Agent summarizes the tone of eligible Vietnamese news and flags insufficient coverage. The Decision Agent weighs both reports alongside the original technical evidence. We compare the augmented and price-only systems on paired historical observations using shared technical reports, directional forecasts and a common transaction-cost model. The augmented system achieves higher balanced accuracy on this sample by reducing false LONG forecasts. A secondary analysis examines whether Bayesian in-context learning adds value beyond the two new evidence channels. The findings support using quantitative and news reports to inform chart-based decisions. Evidence of an economic benefit and of the separate contribution of each agent remains limited.
+Financial trading systems built with large language models increasingly
+combine market data with textual evidence. TradingAgents coordinates
+specialist analysts across information sources, and FinMem retrieves
+financial information from layered memory. QuantAgent specializes in
+short-horizon decisions driven by technical indicators, patterns and
+trends. When adapting QuantAgent to daily Vietnamese equities, it remains
+unclear whether explicit factor signals and local-language news improve
+decisions made from the same technical evidence. We introduce Our system,
+which adds an Alpha Agent and a Sentiment Agent to QuantAgent. Alpha
+ranks price--volume factors and reports their direction and historical
+skill. Sentiment summarizes eligible Vietnamese news and flags gaps in
+coverage, giving the Decision Agent event context alongside the technical
+reports. We compare both systems on paired historical cutoffs with
+shared upstream reports, a common directional target and identical
+trading costs. Our system achieves higher balanced accuracy on this
+sample through fewer incorrect LONG forecasts. The comparison leaves
+the economic benefit and each agent's separate contribution unresolved.
+A secondary study tests Bayesian in-context learning as an extension
+that supplies evidence from past trading episodes.
 \end{abstract}
 
 %%Graphical abstract
