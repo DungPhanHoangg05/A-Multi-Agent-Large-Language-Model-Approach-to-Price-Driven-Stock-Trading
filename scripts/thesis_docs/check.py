@@ -111,16 +111,44 @@ def main() -> None:
             r'A\_\allowbreak{}tp\_\allowbreak{}pool': 'BICL v3',
             r'B\_\allowbreak{}semantic': 'BICL v4', 'MT-BICL': 'BICL v5',
             'NA': r'\textemdash',
+            'upstream': 'Regenerated reports', 'factorial': 'Fixed reports',
+            'B': 'QuantAgent', 'AS': 'Our system', 'A': 'Alpha only',
+            'S': 'Sentiment only', 'P': 'Past-donor alpha and sentiment',
+            'reference': 'Reference', r'pending\_\allowbreak{}t2': 'Pending settlement',
+            r'advance\_\allowbreak{}on\_\allowbreak{}demand': 'On-demand advance',
+            r'advance\_\allowbreak{}auto': 'Automatic advance',
+            r'lower\_\allowbreak{}cost': 'Lower costs', r'higher\_\allowbreak{}cost': 'Higher costs',
+            r'sell\_\allowbreak{}charge\_\allowbreak{}10bp': 'Sell charge of 10 bp',
+            r'no\_\allowbreak{}fill\_\allowbreak{}proxy': 'Missed fills proxy',
+            r'delayed\_\allowbreak{}proxy': 'Delayed fills proxy',
+            r'lot100\_\allowbreak{}cap1pct': 'Lot-size and capacity limits',
+            'combined': 'Combined assumptions',
+            r'all\_\allowbreak{}entries\_\allowbreak{}missed': 'All entries missed',
         }
+        # Vẫn kiểm mọi dòng gốc. Bản thảo lược riêng các đối chứng cơ học.
+        displayed_count = 0
         for row in projection['rows']:
             if row['original'] not in cells(tables[row['source_table'] - 1]):
                 raise ValueError('Dòng nguồn bảng không khớp P8: ' + row['table'])
             selected = [row['original'][i] for i in row['columns']]
+            if selected != row['cells']:
+                raise ValueError('Ánh xạ cột khác bảng đã lưu: ' + row['table'])
             matches = [table for table in current_tables if r'\label{' + row['table'] + '}' in table]
+            if row['table'] == 'tab:numeric':
+                if matches:
+                    raise ValueError('Bảng selector độc lập chỉ thuộc bản lưu trữ.')
+                continue
+            if (row['table'] == 'tab:component' and selected[0] not in {'Full', 'Base'}) or (
+                row['table'] == 'tab:context' and selected[0] in {'CASH', 'Always-LONG cycles'}
+            ):
+                if any(c[0] == selected[0] for table in matches for c in cells(table)):
+                    raise ValueError('Đối chứng đã lược vẫn xuất hiện trong bản thảo: ' + selected[0])
+                continue
             displayed = [display_names.get(cell, cell) for cell in selected]
-            if selected != row['cells'] or len(matches) != 1 or displayed not in cells(matches[0]):
+            if len(matches) != 1 or displayed not in cells(matches[0]):
                 raise ValueError('Ô bảng biên tập khác nguồn: ' + row['table'])
-        print(f'PASS: {len(projection["rows"])} dòng bảng giữ nguyên số liệu P8, gồm đủ 20 contrast cells.')
+            displayed_count += 1
+        print(f'PASS: {len(projection["rows"])} dòng gốc P8 và {displayed_count} dòng trình bày khớp nguồn, gồm đủ 20 ô so sánh.')
     print(f'PASS: {len(record["markdown_archive"])} bản nháp lưu trữ; {checked} dependency cục bộ; sáu chương ghép một lần; không phụ lục trong bản nộp. Archive không là input biên dịch.')
 
 

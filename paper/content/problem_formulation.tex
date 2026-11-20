@@ -123,6 +123,39 @@ revision replaces the anchor only if \(Q_{0.10}(\Delta U)>0\).
 The utility quantile describes the specified teacher and magnitude model.
 
 \subsection{Walk-Forward Evaluation Protocol}
+Algorithm~\ref{alg:shared-reports} describes how the price-only and augmented
+systems produce paired decisions and how BICL branches add context in the follow-up evaluation.
+
+\begin{algorithm}[H]
+\SetKwInOut{AlgInput}{Input}
+\SetKwInOut{AlgOutput}{Output}
+\caption{Walk-forward decisions with shared technical reports.}
+\label{alg:shared-reports}
+\AlgInput{Daily OHLCV, alpha registry, dated news, scheduled cutoffs,
+          frozen historical resources and paired branch/repeat schedule.}
+\AlgOutput{Recorded proposals and final actions, paired metrics and separate accounts.}
+Reserve the evaluation cutoffs outside the historical bank\;
+\ForEach{stock and decision cutoff \(t\) in chronological order}{
+  Bound prices and dated news at \(t\); retrieve only cycles that ended before \(t\)\;
+  Run Indicator, Pattern and Trend once for the shared upstream realization\;
+  Prepare the selected alpha report and eligible sentiment summary or missingness flag\;
+  Freeze the reports and chart inputs; give each branch an independent copy\;
+  \ForEach{Decision repeat and branch in dependency order}{
+    Build the branch prompt from shared technical reports and its enabled evidence\;
+    Add the eligible prior or task context for the corresponding BICL branch\;
+    \eIf{the branch must reuse a parent action}{
+      Record the same-repeat action and the reason for reuse\;
+    }{
+      Obtain a Decision proposal through retry and checkpoint handling\;
+      Resolve the proposal under the branch policy and save the final action\;
+    }
+  }
+}
+After forecasts are locked, join eligible outcomes using Eq.~\ref{eq:label}\;
+Score paired decisions and update separate LONG/CASH ledgers\;
+\KwRet{the forecast records, account ledgers and paired metrics}\;
+\end{algorithm}
+
 The scheduled dates are evaluated chronologically with purging at the
 train--validation and validation--test boundaries. Paired branches
 reuse one upstream snapshot per point within each shared-report panel.

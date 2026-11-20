@@ -1460,6 +1460,16 @@ nguồn ở phần tổng quan. Đã kiểm tra PDF, trích dẫn, dữ liệu v
 FIN12 cùng 68 dòng số liệu lưu trữ. Phạm vi chỉ sửa tài liệu nên dùng các
 gate runtime đã ghi và không chạy lại suite.
 
+Lượt bố cục tiếp theo bổ sung thuật toán đánh số dòng cho pipeline ghép
+cặp của bài báo và suy luận BICL của khóa luận. Các bảng công bố tập trung
+vào hệ thống nghiên cứu, đối chứng kiến trúc và ablation. Dữ liệu gốc của
+các đối chứng cơ học vẫn thuộc kho bằng chứng. Đã kiểm 68 dòng lịch sử và
+54 dòng còn trình bày, đủ 20 ô so sánh; bảng và đồ thị follow-up khớp
+receipt. Đã build và rà PNG từng trang để ghép bảng/hình với văn bản.
+Hai bản bài báo còn 28 trang, khóa luận còn 64 trang trên cả hai engine.
+Kiểm cú pháp và chạy lại hai công cụ kiểm tài liệu đã sửa. Phạm vi chỉ sửa
+bản thảo và cách chiếu số liệu nên không chạy lại gate runtime.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·

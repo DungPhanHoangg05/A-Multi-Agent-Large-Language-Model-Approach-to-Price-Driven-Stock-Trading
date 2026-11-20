@@ -20,7 +20,7 @@ Figure~\ref{fig:F01} distinguishes information time from execution time.
 For the running FPT example, the cutoff is 3 July 2023; the next observed
 entry and third-session exit are 4 and 6 July. Its later outcome is
 revealed only after explaining the forecast path in Chapter 4.
-\begin{figure}[htbp]\centering
+\begin{figure}[!htb]\centering
 \begin{tikzpicture}[>=Stealth,node distance=5mm,
 box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.85\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
 \node[box] (cut) {\textbf{Cutoff: completed bar $t$; exclusive boundary $e=t+1$}\\
@@ -211,9 +211,9 @@ Probability, proposal, anchor and final action must remain distinguishable.
 
 \section{Temporal validity and paired evaluation}\label{s:e96c9e0900bb66c1}
 Figure~\ref{fig:regime-prefix} shows the time boundary for regime inference.
-\begin{figure}[htbp]\centering
+\begin{figure}[!htb]\centering
 \input{assets/diagrams/regime_prefix}
-\caption{Train the regime model on its designated history, then infer the state at the cutoff from the available prefix.}\label{fig:regime-prefix}
+\caption[Regime estimation at the cutoff]{Train the regime model on its designated history, then infer the state at the cutoff from the available prefix.}\label{fig:regime-prefix}
 \end{figure}
 
 Price rows must satisfy $d_i\le d_t$; news needs both a date and declared

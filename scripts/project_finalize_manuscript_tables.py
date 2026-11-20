@@ -47,10 +47,10 @@ def project(result: dict) -> str:
             f"{row['complete_accounts_mean_account_return_pct']:.4f} & "
             f"{row['complete_accounts_balanced_accuracy_pct']:.4f} & {row['bypass_forecasts']}"
         )
-    lines = [r'% Chiếu từ kết quả đã khóa của lần đánh giá bổ sung.', r'\begin{table}[htbp]',
-             r'\centering\small', r'\caption{Follow-up BICL evaluation. Mean net return and balanced accuracy (BA) use accounts with both trading cycles. Bypass counts cover all forecast slots per method.}\label{tab:bicl-complete-accounts}',
+    lines = [r'% Chiếu từ kết quả đã khóa của lần đánh giá bổ sung.', r'\begin{table}[!htb]',
+             r'\centering\small', r'\caption{Follow-up BICL comparison on accounts with both trading cycles.}\label{tab:bicl-complete-accounts}',
              r'\begin{tabular}{lrrr}\toprule',
-             r'Method & Return (\%) & BA (\%) & Bypasses \\ \midrule']
+             r'Method & Mean net return (\%) & Balanced accuracy (\%) & Fallbacks / 306 \\ \midrule']
     lines.extend(f'{name} & {values(method)}' + r' \\' for method, name in METHODS.items())
     lines.extend([r'\bottomrule\end{tabular}', r'\par\smallskip', (
         f"{{\\footnotesize Each repeat includes {coverage['complete_accounts_per_repeat']} of {coverage['planned_accounts_per_repeat']} "

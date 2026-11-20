@@ -1,4 +1,3 @@
-\FloatBarrier
 \appendix
 \section{Agent Prompt Specifications}
 \label{app:prompts}
@@ -32,14 +31,12 @@ The sentiment input contains saved classifier scores, aggregate counts and avail
 \label{app:prompt_alpha}
 Alpha formats numerical factor values and diagnostic skill fields for Decision; this backtest path does not make an additional Alpha reasoning-model call.
 
-\FloatBarrier
 \section{Shared State and Forecast Records}
 \label{app:state_schema}
 The shared state contains the stock, timeframe, as-of cutoff, observed OHLCV prefix, chart images and five reports. Sentiment observations and availability flags are stored separately from their rendered report. The deterministic Indicator node returns its summary without populating every numerical array declared by the general application schema.
 
 Each immutable snapshot identifies the stock/date/fold, upstream realization, reports, images and causal alpha projection. Forecast records add method, repeat, request identity, optional raw reply and context trace. Policy records retain the raw proposal, final action, fallback/rejection reason and anchor/utility evidence. All required forecasts for a point are persisted before canonical decision/entry/exit prices and net labels enter the outcome record. Missing dependencies, duplicate raw-response reuse and source/data mismatches raise errors rather than becoming CASH observations.
 
-\FloatBarrier
 \setcounter{table}{0}
 \section{Custom Alpha Formula Implementation}
 \label{app:signals}
@@ -64,7 +61,6 @@ BFE uses $\tanh(1.5(\%B-0.5)VolZ_5)$. Negative volume z-score reverses the sign,
 \subsection{Order Flow Exhaustion (OFE)}
 OFE combines adjusted return with the close location relative to the bar midpoint/range. The name does not authenticate signed trade flow. Its guarded OHLCV expression and subsequent native normalization remain part of the actual signal definition.
 
-\FloatBarrier
 \setcounter{table}{0}
 \section{Indicator Signal Classification Logic}
 \label{app:indicator_logic}
@@ -82,7 +78,6 @@ After four-decimal rounding, ROC greater than $+0.5\%$ is bullish, below $-0.5\%
 \subsection{Consensus Rule}
 Nonfinite samples are removed while zero is retained; retained observations need not be consecutive. Missing/error votes are neutral in denominator five. Directional plurality, a mixed tie and heuristic confidence are distinct from a requirement that every directional vote have a strict majority. None is a calibrated forecast probability.
 
-\FloatBarrier
 \section{Software and Historical-Context Resources}
 \label{app:software}
 The experiments use Python 3.13.5 with pinned numerical, graph, model-client and chart dependencies. The local sentiment backend uses Transformers~\cite{wolf2020transformers}; technical indicators use TA-Lib. Exact inputs, requests, responses, errors and checkpoints are archived with hashes. Replaying saved predictions reproduces metric calculations, while new hosted outputs may differ. Installation and application-interface instructions are provided in the repository.
@@ -98,25 +93,31 @@ Utility support requires at least two prior tasks and five gains/five losses amo
 \paragraph{Regime and selector resources}
 The historical-context environment fixes 107 package versions, 51 stock--fold alpha selectors, HMM, scaler, teacher and student. VN-Index regime estimates use only observations available by the cutoff and forward filtering with recorded fit/training-end dates. Bank and query inputs have separate provenance, and all test labels remain outside historical context. These resource pins identify numerical inputs and local models; hosted aliases do not identify immutable served weights.
 
-\FloatBarrier
 \setcounter{table}{0}
 \section{Additional Account and Symbol Results}
 \label{app:additional}
-Tables in this appendix report stock-level component results, execution sensitivities and historical-context comparisons on the observation sets defined in Section~\ref{sec:experimentalsetup}.
-% Cho phép bảng nổi trong phụ lục hiện hành để tránh khoảng trắng do cố định vị trí.
-\input{content/tables/component/by_stock.tex}
-\input{content/tables/component/execution_sensitivity.tex}
-\FloatBarrier
+Table~\ref{tab:symbol_results} shows how the directional comparison varies
+across equities. Each BA column uses that stock's available UP and DOWN
+classes. VNM lacks an UP observation, and BHN contributes six observations
+because it enters the sample later.
 
-\paragraph{Historical-context comparisons}
-The remaining tables summarize 1,530 account executions across ten methods/controls, 51 stock--fold accounts and three repeats. The bank-covered group contains FPT, MWG, VCB and VNM; the other group contains BHN, CMG, HVN, MBB and VJC. The twelve execution sensitivities above apply to the component study only. Per-stock/fold/repeat metrics, raw/final actions and daily NAV are provided in supplementary results.
-\input{content/tables/historical_context/classification.tex}
-\input{content/tables/historical_context/economics.tex}
-\input{content/tables/historical_context/repeats.tex}
-\input{content/tables/historical_context/contrasts.tex}
+\input{content/tables/component/by_stock.tex}
+
+The execution scenarios in Table~\ref{tab:execution} reprice the same
+decisions. Cost changes can change the ordering, and the delayed-entry
+proxy substitutes a different fill schedule. These scenarios do not
+alter the forecast labels.
+
+\input{content/tables/component/execution_sensitivity.tex}
+
+Table~\ref{tab:u09-bridge} traces the earlier BICL v5 decision path. Our
+system and Common use different alpha and prompt profiles. The next two
+rows measure the changes after fact anchoring and after BICL v5 revision.
+Only four final actions differ at the revision step.
+
 \input{content/tables/historical_context/bridge.tex}
-\input{content/tables/historical_context/support.tex}
-\input{content/tables/historical_context/sensitivity_return.tex}
-\input{content/tables/historical_context/sensitivity_ba.tex}
-\input{content/tables/historical_context/sensitivity_covered.tex}
-\FloatBarrier
+
+The supplementary results retain the unrounded per-stock and per-repeat
+outcomes, all paired contrasts, and sensitivity to bootstrap settings and
+bank coverage. The main comparison and the follow-up use separate
+forecast collections and eligibility masks.

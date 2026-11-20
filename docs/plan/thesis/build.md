@@ -29,8 +29,9 @@ sáu chương. Sơ đồ tổng thể là TikZ và có thể sửa trực tiếp
 Tag `thesis-review-20261117-r1` và [manifest lịch sử](../../../outputs/thesis/history/manifest.json)
 giữ đúng bản 67 trang trước FIN15.
 `check.py` xác minh archive P8, tính đầy đủ của sáu chương, các đường dẫn
-LaTeX và 68 dòng số liệu lịch sử, bao gồm 20 ô so sánh. Gói và bản nháp
-Markdown lưu trữ phục vụ truy vết, tách khỏi đường biên dịch.
+LaTeX, 68 dòng số liệu lưu trữ và 54 dòng còn trình bày, bao gồm 20 ô
+so sánh. Gói và bản nháp Markdown phục vụ truy vết, tách khỏi đường biên
+dịch.
 
 Notice [QuantAgent MIT](../../../thesis/latex/licenses/QuantAgent-MIT.txt) giữ theo upstream.
 Bản PDF là bản thảo khóa luận. Thông tin phản biện, chữ ký và nộp nằm ở

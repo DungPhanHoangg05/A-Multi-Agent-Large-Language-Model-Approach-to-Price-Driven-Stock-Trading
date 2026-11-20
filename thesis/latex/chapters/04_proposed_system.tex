@@ -10,7 +10,7 @@ then the joint alpha/sentiment stage. The figure groups computation types
 rather than specifying that node order.
 
 % Ưu tiên đầu trang cùng phần diễn giải, không tạo trang chỉ có sơ đồ.
-\begin{figure}[!htbp]\centering
+\begin{figure}[!htb]\centering
 \input{assets/diagrams/F03_finalized_system_flow.tex}
 \caption[System information and action flow]{From inputs at the cutoff to an evaluated decision. QuantAgent uses the three technical reports and its Decision prompt. Our system adds alpha and sentiment, and BICL uses eligible historical context.}\label{fig:F03}
 \end{figure}
@@ -36,6 +36,44 @@ a saved historical execution, not a trade shown to have occurred then.
 
 \input{latex/tables/system_versions.tex}
 
+\subsection{End-to-end inference and evaluation}
+Algorithm~\ref{alg:bicl-inference} shows when the system shares reports,
+consults historical evidence and records an action. The outcome join
+occurs after the inference loop.
+
+\begin{algorithm}[H]
+\SetKwInOut{AlgInput}{Input}
+\SetKwInOut{AlgOutput}{Output}
+\caption{Regime-aware inference and paired LONG/CASH evaluation.}
+\label{alg:bicl-inference}
+\AlgInput{Scheduled stock cutoffs, OHLCV and dated news, frozen alpha and
+regime models, historical bank, numerical teacher/student and branch schedule.}
+\AlgOutput{Final actions and provenance, paired scores and separate account returns.}
+Reserve all evaluation cutoffs and freeze each fold's historical context\;
+\ForEach{stock and decision cutoff \(t\) in chronological order}{
+  Slice the price prefix at \(t\), admit eligible news and filter the regime\;
+  Run Indicator, Pattern and Trend once; prepare Alpha and Sentiment reports\;
+  Freeze the shared reports and inputs for use by each branch\;
+  \ForEach{Decision repeat}{
+    Obtain the baseline decisions using their own prompt and alpha profile\;
+    \ForEach{BICL v1--v4 branch in dependency order}{
+      Build its context from eligible cycles with exit before \(t\)\;
+      Apply its support rule and record the proposal or same-repeat fallback\;
+    }
+    Resolve Fact Anchor against Common using the chart fact checks\;
+    \eIf{BICL v5 has the required task and utility support}{
+      Form prior and target tasks, run numerical inference and request a revision\;
+      Accept a changed action only when the fact and utility gates pass\;
+    }{
+      Retain Fact Anchor and record the bypass reason\;
+    }
+    Checkpoint proposals, resolved actions and source identifiers\;
+  }
+}
+Once forecasts are locked, join execution labels and update the paired ledgers\;
+\KwRet{the resolved actions, provenance and paired outcomes}\;
+\end{algorithm}
+
 \section{Input preparation and shared state}\label{s:26daba2236295e19}
 The historical provider requires an exact cutoff and 600 clean
 observations through it. It supplies the final 45 as chart/Indicator
@@ -54,7 +92,7 @@ crossing the state boundary must be finite primitive JavaScript Object
 Notation (JSON) values or
 explicitly marked as missing. A zero represents an observed value.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Component input/output contracts]{Compact input/output contracts. Temporal restrictions apply to
 the underlying data, not only to the report's printed date.}\label{tab:contracts}
 \begin{tabular}{@{}P{.20\linewidth}P{.38\linewidth}P{.35\linewidth}@{}}\toprule
@@ -78,9 +116,9 @@ row-wise causal validity.
 
 \section{The base multi-agent pipeline}\label{s:b15ca1cf7b81c6ca}
 Figure~\ref{fig:evidence-channels} shows which information each channel adds to the Decision input.
-\begin{figure}[htbp]\centering
+\begin{figure}[!htb]\centering
 \input{assets/diagrams/evidence_channels}
-\caption{Inputs to the chart roles and the two evidence channels added by Our system.}\label{fig:evidence-channels}
+\caption[Chart, alpha and sentiment inputs]{Inputs to the chart roles and the two evidence channels added by Our system.}\label{fig:evidence-channels}
 \end{figure}
 \paragraph{Indicator.}
 Python computes MACD, RSI, slow stochastic, Williams \%R and ROC using
@@ -98,7 +136,7 @@ neutral signal. Three dominant votes mean medium heuristic confidence,
 four or more high; a tie is mixed/low. These are agreement categories,
 not probabilities. Table~\ref{tab:indicatorrules} makes the priority rules
 explicit without reproducing the full report.
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Indicator classifier priorities]{Indicator classifier priorities, after the numeric calculations defined in Chapter 3.}\label{tab:indicatorrules}
 \begin{tabular}{@{}P{.18\linewidth}P{.75\linewidth}@{}}\toprule
 Family & Priority and fallback\\\midrule
@@ -224,7 +262,7 @@ the Common result from the same repeat when the historical evidence falls short 
 
 \section{Historical memory and market regimes}\label{s:caa6b0b420cdae1c}
 Figure~\ref{fig:context-eligibility} traces how the prior variants screen completed episodes for each query.
-\begin{figure}[htbp]\centering
+\begin{figure}[!htb]\centering
 \input{assets/diagrams/context_eligibility}
 \caption{Eligibility and fallback for the historical-prior variants.}\label{fig:context-eligibility}
 \end{figure}
@@ -358,7 +396,7 @@ ready blocks. No visible block reuses same-repeat Common. Registered
 statistics-only/examples-only modes can bypass independently; their
 existence does not establish completed matched ablations.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Historical-prior variants]{Historical-prior variants share maturity checks and Common as
 the valid dependency. Statistical support is distinct from shown examples.}\label{tab:priors}
 \begin{tabular}{@{}P{.14\linewidth}P{.43\linewidth}P{.36\linewidth}@{}}\toprule
@@ -534,7 +572,7 @@ only to the query logit, using detached teacher probability $q$:
 It does not optimize realized market binary cross-entropy or a sampled synthetic query
 label. The registered recipe is summarized in Table~\ref{tab:student}.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Numerical training and selection]{Frozen numerical training and selection recipe.}\label{tab:student}
 \begin{tabular}{@{}P{.25\linewidth}P{.69\linewidth}@{}}\toprule
 Setting & Recorded value\\\midrule
@@ -639,7 +677,7 @@ margin, regardless of the sign of mean utility. Each record preserves raw propos
 resolved anchor, validity/support, bypass or veto reason and final action,
 plus the request/dependency/context identities.
 
-\begin{figure}[htbp]\centering
+\begin{figure}[!htb]\centering
 \begin{tikzpicture}[>=Stealth,node distance=5mm,
 box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.88\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
 \node[box] (anchor) {\textbf{Resolve Fact Anchor against the numeric packet}\\
@@ -674,7 +712,7 @@ each original design idea was first chosen or constitute preregistration
 of the earlier exposed studies. No recorded parameter sweep establishes
 the chosen values as optimal.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Design parameters and their evidential basis]{Design parameters and their evidential basis. Roles are engineering rationales, not measured optimality claims; all settings remain fixed for the reported evaluation.}\label{tab:parameter-rationale}
 \begin{tabular}{@{}P{.25\linewidth}P{.40\linewidth}P{.28\linewidth}@{}}\toprule
 Setting & Role / trade-off & Source and selection status\\\midrule
@@ -726,28 +764,10 @@ anchor. These are research roles, not eight independent upstream runs or
 eight fresh replies per point. Selecting one enhanced live version
 schedules only its required dependency graph.
 
-The following combined algorithm separates forecast inputs from later
-evaluation. An integrity check stops any inconsistent path. A fallback
-triggered by sparse evidence still produces a traceable completed action.
-\begin{quote}\small\setstretch{1.08}
-\textbf{Paired forecasting and evaluation}\par
-1. Validate point identity, cutoff-limited OHLCV/news and frozen resources.\par
-2. Render once; run Indicator, Pattern and Trend once; prepare alpha/news;
-seal the shared snapshot and make independent branch copies.\par
-3. Build profile-specific reports and mature historical contexts, checking
-fold membership, reserved IDs, scaler/regime and support before projection.\par
-4. For each repeat, resolve Our system and Common once, then each prior and
-Fact Anchor. Record bypasses with the same-repeat dependency identity.\par
-5. For MT, validate anchor, numerical context/student/utility and request;
-obtain an eligible proposal and apply the external factual/quantile policy.\par
-6. Persist each preparation, raw response or bypass, proof and final action.
-Do not reopen a completed slot merely to seek another response.\par
-7. Open the outcome stage only when all required forecasts are durable;
-join candidate-LONG prices/labels, then compute classification and accounts.
-\end{quote}
-The barrier stays closed until every required role and repeat has a
-saved forecast. Temporal validity still depends on how the features
-were constructed and when source data became accessible.
+Algorithm~\ref{alg:bicl-inference} opens the outcome stage after all
+required forecasts have been saved. A support-related fallback records
+its source action. A request with unresolved delivery still needs
+reconciliation before the slot can be completed.
 
 \section{Bounded prompts, recovery and application}\label{s:052b7113d7072810}
 \paragraph{Request and response contracts.}
@@ -790,11 +810,8 @@ from explicit replacements in the recovery records.
 \paragraph{Application and reproducibility.}
 The daily application checks resources and options, then binds the
 prices, index, news and freshness to a checkpointed job. Reload, export
-and language switching reuse the saved context, proposal, final action
-and its resolution reason.
+and language switching reuse the saved context and resolved action.
 
-% Giữ hai đoạn kết cùng tiêu đề ví dụ để tránh một trang chỉ còn vài dòng cuối.
-\begin{samepage}
 \paragraph{Completing the FPT walkthrough.}
 At repeat 0, Our system executes CASH. Common, BICL v1 and Fact Anchor
 propose LONG. BICL v2--v4 inherit Common's action and v5 retains the
@@ -802,4 +819,3 @@ anchor, for five raw replies and three bypasses. After the forecast barrier,
 entry at VND 48,180 on 4 July and exit at VND 48,390 on 6 July yield
 +0.436\% gross and \textbf{$-0.265$\%} net (DOWN, Equation~\ref{eq:net}).
 The LONG cycles lose while the CASH action earns zero.
-\end{samepage}

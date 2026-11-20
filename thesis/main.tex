@@ -9,8 +9,19 @@
 \pagenumbering{roman}
 \input{latex/frontmatter/content}
 \tableofcontents\clearpage
-\listoffigures\clearpage
-\listoftables\clearpage
+\begingroup
+\let\chapter\section
+\small\setstretch{1.06}
+\noindent
+\begin{minipage}[t]{0.47\linewidth}
+  \listoffigures
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\linewidth}
+  \listoftables
+\end{minipage}
+\markboth{Lists of Figures and Tables}{Lists of Figures and Tables}
+\endgroup
+\clearpage
 \input{latex/frontmatter/reference_lists}\clearpage
 \pagenumbering{arabic}
 \input{latex/chapters/01_introduction}

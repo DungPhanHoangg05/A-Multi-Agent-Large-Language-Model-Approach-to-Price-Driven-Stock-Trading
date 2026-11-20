@@ -1,27 +1,20 @@
-\begin{table}[htb]
+\begin{table}[!htb]
 \centering\small
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.15}
-\caption{Account-return sensitivity to twelve execution assumptions.}
+\renewcommand{\arraystretch}{1.13}
+\caption{Mean net return on 51 accounts per method under selected execution assumptions.}
 \label{tab:execution}
-\textbf{Means over 51 accounts per variant}\par\smallskip
-\begin{tabular}{lrrrrr}
-\hline
-Scenario & QuantAgent (\%) & Our system (\%) & $\Delta$Our system (pp) & Stock & Pending \\
-\hline
-reference & -0.750 & -0.797 & 0.000 & 0 & 0 \\
-pending\_t2 & -0.750 & -0.797 & 0.000 & 0 & 0 \\
-advance\_on\_demand & -0.750 & -0.797 & 0.000 & 0 & 0 \\
-advance\_auto & -0.803 & -0.840 & -0.043 & 0 & 0 \\
-lower\_cost & -0.526 & -0.612 & 0.185 & 0 & 0 \\
-higher\_cost & -1.249 & -1.211 & -0.414 & 0 & 0 \\
-sell\_charge\_10bp & -0.805 & -0.843 & -0.046 & 0 & 0 \\
-no\_fill\_proxy & -0.659 & -0.803 & -0.006 & 0 & 0 \\
-delayed\_proxy & -0.621 & -0.766 & 0.030 & 0 & 0 \\
-lot100\_cap1pct & -0.602 & -0.745 & 0.052 & 0 & 0 \\
-combined & -1.074 & -1.166 & -0.369 & 0 & 0 \\
-all\_entries\_missed & 0.000 & 0.000 & 0.797 & 0 & 0 \\
-\hline
-\end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize Stock/Pending count Our system accounts with residual shares/receivables, and no-fill/delay scenarios are execution proxies.\end{minipage}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Execution assumption & Our system (\%) & QuantAgent (\%)\\
+\midrule
+Reference & -0.797 & -0.750\\
+Lower trading costs & -0.612 & -0.526\\
+Higher trading costs & -1.211 & -1.249\\
+Sell charge of 10 bp & -0.843 & -0.805\\
+Missed fills proxy & -0.803 & -0.659\\
+Delayed fills proxy & -0.766 & -0.621\\
+Lot-size and capacity limits & -0.745 & -0.602\\
+Combined assumptions & -1.166 & -1.074\\
+\bottomrule
+\end{tabular}
 \end{table}

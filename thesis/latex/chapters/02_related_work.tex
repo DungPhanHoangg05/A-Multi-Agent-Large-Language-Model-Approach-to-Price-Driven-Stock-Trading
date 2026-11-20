@@ -23,17 +23,11 @@ these foundations while treating its adapted library and five additional
 factors as a distinct implementation family. Our system and Common further
 differ in normalization, orientation, selection and report projection.
 
-Ordinary quantitative controls help locate the behavior added by an agent
-system. Constant actions expose class imbalance and capital exposure;
-momentum and logistic rules provide simpler predictors. Scikit-learn~\cite{pedregosa2011sklearn}
-supports several such controls, but a library citation does not specify
-their fitting recipe. Selection and
-assessment must also remain separate. Varma and Simon~\cite{varma2006bias} demonstrate bias
-when an optimized validation score is reused as an independent error
-estimate; their classification experiments do not by themselves validate
-financial time-series splitting. The numerical
-factor controls in this thesis evaluate their own selection rules, not
-the isolated contribution of an LLM factor selector.
+Selecting inputs and estimating their out-of-sample value require
+separate data. Varma and Simon~\cite{varma2006bias} show how reusing
+validation scores after model selection can bias the estimated error.
+Here, causal alpha signs are fitted on training data and factor choices
+are assessed on chronological partitions separated by label maturity.
 
 \section{Specialist financial agents and input modalities}\label{s:f7594e9d067d74c3}
 QuantAgent~\cite{xiong2025quantagent} is the direct architectural predecessor: Indicator, Pattern,
@@ -148,7 +142,7 @@ evidence. A source hash alone cannot supply either.
 \section{Position of the thesis}\label{s:4979cc5344f8b716}
 Table~\ref{tab:position} locates the integration problem without comparing
 returns across incompatible published experiments.
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Related approaches and thesis position]{Related approaches and the distinction used in this thesis.}\label{tab:position}
 \begin{tabular}{@{}P{0.22\linewidth}P{0.36\linewidth}P{0.35\linewidth}@{}}\toprule
 Approach & Relevant mechanism & Boundary for this thesis\\\midrule

@@ -4,7 +4,7 @@
 The main thesis comparison is the follow-up BICL evaluation. It measures five extensions
 against Our system, Our system (Common), and the Fact Anchor control. The
 earlier component study compares Our system with a price-only QuantAgent
-comparator, with separate numerical and factorial panels. The earlier
+comparator and uses component ablations on separate paired panels. The earlier
 context study is an independent forecast collection at the same cutoffs.
 The name Our system refers to the augmented architecture in each study.
 Model responses, input profiles and estimators remain specific to each
@@ -60,7 +60,7 @@ The study therefore evaluates behavior at a purposively inherited set
 of points; it is not a continuous 2023--2026 backtest, a fresh holdout or
 a preregistered sample of market opportunities.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Shared sampled market schedule]{Shared sampled schedule. Each stock/fold has two endpoints;
 accounts are counted per method/repeat.}\label{tab:schedule}
 \begin{tabular}{@{}l llrr@{}}\toprule
@@ -91,7 +91,7 @@ one, and CONSOLIDATION on ten. These are query-state frequencies, not
 training occupancy or independent market replications. The 54 other
 points bypass the same-stock signal-bank path and lack a regime record in that trace because the detector was not used on that path.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Recorded query-regime support]{Recorded query-regime support on 102 unique stock/cutoff points. An em dash means that the inspected records do not give a count for that category. Repeats do not enlarge the denominator.}\label{tab:regime-support}
 \begin{tabular}{@{}P{.42\linewidth}rr@{}}\toprule
 Query state / availability & Signal bank & MT task regime\\\midrule
@@ -160,7 +160,7 @@ tests approximation to the count-based teacher; 2021 market labels select
 among eligible checkpoints. Synthetic test and 2022 market assessment
 are separate later checks, not additional checkpoint-selection criteria.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Selected student verification results]{Selected student verification and market assessment. Errors concern probabilities; log loss is in nats. Market scores average four stock-level scores equally.}\label{tab:student-evidence}
 \begin{tabular}{@{}P{.35\linewidth}P{.25\linewidth}P{.33\linewidth}@{}}\toprule
 Phase / measure & Recorded value & Support / reference\\\midrule
@@ -185,24 +185,15 @@ as discussed in Section~\ref{sec:probability-support}. No matched calibration
 ranking is inferred from those two context-study scores.
 
 \section{Comparators and interventions}\label{s:351598650d1ea43f}
-The main component controls are CASH, train-majority (strictly more than half
-train labels UP), always-LONG cycles, positive 20-session momentum,
-price logistic, matched numerical-input logistic and oriented factor
-vote. Logistic validation chooses $C\in\{0.01,0.1,1,10\}$ and thresholds in
-order $(0.5,0.4,0.6)$ by balanced accuracy (BA), retaining the first setting in a tie; train imputation/missing
-indicators/scaling precede selected train+validation refit (lbfgs,
-a ceiling of 3,000 iterations). Continuous holding is a separate price-only
-financial reference, not always-LONG sampled cycles.
+The component study compares Our system with QuantAgent on shared
+Indicator, Pattern and Trend reports. The factorial panel compares
+QuantAgent (B), alpha only (A), sentiment only (S), both channels (AS),
+and sentiment with past-donor alpha values (P). The five branches use
+nine cutoffs and three executions. The prompts show individual factor
+values and differ from the compact prompts used in the main comparison.
 
-The factorial panel uses B/A/S/AS/P for neither/alpha/sentiment/both/
-sentiment-plus-past-donor-alpha values on nine units and three executions.
-Its full-value prompts differ from main compact prompts. A separate
-23-strategy numerical experiment retains fixed five, train-ranked five,
-the same five without sign flip and all twenty random-five trials. It
-uses no hosted calls and is not an isolated LLM-selector ablation.
-Context compares five extensions (v1/BICL v2--v4/MT) against \emph{both} Our system
-and Common, with separate Common--Anchor--MT bridges; controls are CASH
-and always-LONG cycles. Missing matched context ablations remain missing.
+The historical-context study compares BICL v1--v5 against both Our system
+and Common. Fact Anchor provides the reference action for BICL v5.
 
 \section{Metrics and descriptive uncertainty}\label{s:ef6038a5b0f5c76d}
 Final LONG predicts UP; CASH predicts DOWN. True positives (TP) and false
@@ -216,7 +207,7 @@ BA&=\tfrac12\left(\frac{TP}{TP+FN}+\frac{TN}{TN+FP}\right),\\
 MCC&=\frac{TP\,TN-FP\,FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}.
 \end{align}
 Accuracy is $(TP+TN)/N$; LONG rate $(TP+FP)/N$. Macro-F1 averages the
-class F1 scores. A table dash marks a metric with an insufficient or zero denominator. Constant predictions may yield BA even when MCC has a zero denominator. Context pools
+class F1 scores. A table dash marks a metric with an insufficient or zero denominator. Context pools
 confusion over points within each repeat, then averages the three scores.
 Percentages and percentage-point (pp) differences are distinguished.
 
@@ -227,9 +218,7 @@ Here $z_{imr}$ is that final-action cycle payoff, not a model probability:
 R_{qmr}=\prod_{i\in q}(1+z_{imr})-1,\qquad
 \bar R_m^{(\%)}=\frac{100}{51}\sum_{q=1}^{51}\frac13\sum_{r=0}^2R_{qmr}.
 \end{equation}
-Component main averages its 51 accounts without Decision repeats. The
-separate numerical headline instead averages nine stock-level accounts;
-it is not that 51-account estimator. Positive-magnitude end-of-day (EOD) drawdown is
+The component study averages its 51 accounts without Decision repeats. Positive-magnitude end-of-day (EOD) drawdown is
 $100\max_d(1-V_d/\max_{u\le d}V_u)$. Account averages are not a shared-capital
 portfolio. Component daily Sharpe~\cite{sharpe1966mutual} uses population SD and nominal
 $\sqrt{252}$; its legacy Sortino uses SD of negative returns. The context study uses the unannualized cycle mean divided by sample SD,
@@ -295,9 +284,9 @@ The paired comparison uses the 45 accounts with both cycles
 joint L2 bootstrap resamples were finite on that set. We report point
 differences without simultaneous bands because some contrasts have zero
 bootstrap variance.
-\begin{figure}[htbp]\centering
+\begin{figure}[!htb]\centering
 \input{assets/diagrams/followup_coverage}
-\caption{Forecast cutoffs, valid labels and cutoffs in complete accounts in the follow-up evaluation.}\label{fig:repaired-coverage}
+\caption[Follow-up sample coverage]{Forecast cutoffs, valid labels and cutoffs in complete accounts in the follow-up evaluation.}\label{fig:repaired-coverage}
 \end{figure}
 \input{latex/tables/finalize_results.tex}
 
@@ -313,55 +302,32 @@ mostly inherits its control. They do not establish a consistent
 account-return improvement. The author attested to the source prices.
 Independent historical point-in-time provenance and prospective
 performance remain open.
-\begin{figure}[htbp]\centering
+\begin{figure}[!htb]\centering
 \input{assets/diagrams/followup_comparison}
-\caption{Follow-up evaluation: returns on 45 complete accounts per repeat and bypasses out of 306 forecast slots per method.}\label{fig:repaired-comparison}
+\caption[Follow-up returns and fallbacks]{Follow-up evaluation: returns on 45 complete accounts per repeat and bypasses out of 306 forecast slots per method.}\label{fig:repaired-comparison}
 \end{figure}
 
 \section{Component-study results}\label{s:1859e39b7acb256f}
-\subsection{Main comparison and controls}
-Table~\ref{tab:component} retains every main method/control on the 102-point
-cohort. Financial means use 51 separate accounts; MDD is positive-magnitude
-daily maximum drawdown averaged across accounts. Classification percentages
-and financial percentages have different denominators. Continuous hold has
-no pointwise forecast. Its classification columns use dashes. Display
-precision is three decimals; contrasts use saved unrounded values.
+\subsection{Our system and QuantAgent}
+Table~\ref{tab:component} compares forecasts at 102 cutoffs, with mean
+net return and maximum daily drawdown (MDD) over 51 accounts per system.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption[Component main results]{Component main results: classification and net account outcomes.}\label{tab:component}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\caption[Our system and QuantAgent]{Forecast metrics and account outcomes for Our system and QuantAgent.}\label{tab:component}
 \begin{tabular}{@{}P{.27\linewidth}rrrrr@{}}\toprule
-Method & BA (\%) & MCC & LONG (\%) & Return (\%) & MDD (\%)\\\midrule
+Method & BA (\%) & MCC & LONGs (\%) & Net return (\%) & MDD (\%)\\\midrule
 Our system & 52.961 & 0.060 & 23.529 & -0.797 & 1.367\\
 QuantAgent & 49.714 & -0.005 & 28.431 & -0.750 & 1.453\\
-CASH & 50.000 & \textemdash & 0.000 & 0.000 & 0.000\\
-Train-majority & 50.000 & \textemdash & 0.000 & 0.000 & 0.000\\
-Always-LONG cycles & 50.000 & \textemdash & 100.000 & -3.000 & 4.523\\
-Momentum 20 & 47.325 & -0.046 & 48.039 & -1.636 & 2.576\\
-Logistic price & 55.610 & 0.114 & 23.529 & -0.683 & 1.177\\
-Logistic matched inputs & 52.416 & 0.044 & 32.353 & -1.105 & 1.602\\
-Factor vote & 51.974 & 0.034 & 49.020 & -1.457 & 2.488\\
-Continuous hold (price only) & \textemdash & \textemdash & \textemdash & -2.127 & 12.939\\
 \bottomrule\end{tabular}\end{table}
 
 Our system's BA exceeds QuantAgent by \textbf{3.247 pp}, yet mean account return is
 \textbf{0.047 pp lower}. The saved Our system--QuantAgent BA percentile interval is
-[$-1.176$,8.125] pp (10,000 draws, none undefined); all eight main Our system
-BA comparison intervals include zero. These descriptive intervals do
-not establish confirmed superiority. The confusion counts for Our system and QuantAgent are respectively
-$(TP,FN,TN,FP)=(7,18,60,17)$ and $(7,18,55,22)$. Both capture seven UP
-points, while Our system avoids five additional false positives and opens 24
-LONGs versus 29. CASH's 75.490\% accuracy reflects class imbalance, not
-UP identification; its BA is 50\% and MCC undefined. Logistic price has
-higher BA (55.610\%) and a less negative return than Our system. Every active
-main strategy has a negative mean net return. Classification gains and
-reduced exposure therefore do not demonstrate profitable trading.
-
-Our system's mean held-session and close-exposure percentages are 2.353\% and
-1.569\%, compared with QuantAgent's 2.843\% and 1.895\%; intraday holding includes exit, whereas close exposure
-does not. Daily costs/marks and cycle-end drawdown answer different
-questions. Continuous hold loses 2.127\% with 12.939\% mean MDD but is a
-different exposure schedule; always-LONG sampled cycles lose 3.000\%.
-Both are separate reference exposure schedules.
+[$-1.176$,8.125] pp. Both systems identify seven of 25 UP outcomes. Our system makes
+17 false LONG forecasts versus 22 for QuantAgent and opens 24 positions
+versus 29. On observed sessions, Our system holds positions 2.353\% of the
+time and QuantAgent 2.843\%. Spending less time invested reduces exposure,
+while the trades selected by Our system have a slightly lower mean net
+account return.
 
 Stock/block detail is heterogeneous and cannot be replaced by the pooled
 ranking. VNM has no UP support, leaving its stock BA undefined. The
@@ -369,48 +335,25 @@ common-eight (96 points), recent-nine (54), leave-block and dependence
 diagnostics remain secondary overlapping subsets. They are not additional
 independent datasets or a reason to drop unfavorable main observations.
 
-\subsection{Numerical selection and small response panels}
-The separate numerical five-factor controls in Table~\ref{tab:numeric}
-retain every strategy family. Their return column averages nine
-stock-level accounts, not the main table's 51 account means. The twenty
-random trials are summarized by their mean, not the best seed or an
-ensemble action. No hosted inference occurs in this comparison.
-
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption[Numerical factor-selection controls]{Numerical factor-selection controls; return uses the separate nine-stock estimator.}\label{tab:numeric}
-\begin{tabular}{@{}P{.38\linewidth}rrrr@{}}\toprule
-Rule & BA (\%) & MCC & LONG (\%) & Return (\%)\\\midrule
-Fixed five & 39.221 & -0.193 & 36.275 & -8.653\\
-Train-ranked five & 55.065 & 0.093 & 32.353 & -5.648\\
-Same five, no sign flip & 48.623 & -0.024 & 46.078 & -7.608\\
-Random five (mean of 20) & 47.738 & -0.039 & 44.216 & -8.097\\
-\bottomrule\end{tabular}\end{table}
-
-\begingroup\raggedright
-Dynamic train-ranking minus fixed/random-mean/no-flip yields BA differences
-15.844/7.327/6.442 pp. Their saved percentile intervals are [6.817,25.217],
-[0.567,13.748] and [$-10.932$,20.263]; adjusted diagnostic p-values are all
-1.000 in the complete 23-contrast Holm family. The bootstrap and fixed-weight
-sign tests have different class-weight conventions. These results neither
-confirm the unverified sign assumptions nor isolate an LLM selector effect.\par\endgroup
-
-Table~\ref{tab:smallpanels} contrasts the two separate nine-unit panels.
+\subsection{Component ablations and repeat variability}
+Table~\ref{tab:smallpanels} compares two separate nine-cutoff panels.
 Values are means $\pm$ recorded SD across three executions on the selected
 support. High upstream-panel BA cannot be transferred to the main cohort:
-the factorial full-value prompt family and selected units differ. A/AS/S
-all underperform B or the donor-value P on that factorial support.
+the fixed-report panel uses different cutoffs and full-value prompts. On
+that panel, alpha only, sentiment only and their combination have lower BA
+than QuantAgent and the past-donor variant.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Selected upstream and factorial panels]{All branches in the selected upstream and factorial panels, with execution dispersion.}\label{tab:smallpanels}
 \begin{tabular}{@{}l l rr@{}}\toprule
-Panel & Branch & BA (\%) & Return (\%)\\\midrule
-upstream & AS & 95.238 \ensuremath{\pm} 4.124 & 0.496 \ensuremath{\pm} 0.222\\
-upstream & B & 90.476 \ensuremath{\pm} 10.911 & 0.371 \ensuremath{\pm} 0.378\\
-factorial & A & 19.048 \ensuremath{\pm} 4.124 & -2.034 \ensuremath{\pm} 0.314\\
-factorial & AS & 19.048 \ensuremath{\pm} 10.911 & -2.228 \ensuremath{\pm} 0.632\\
-factorial & B & 28.571 \ensuremath{\pm} 7.143 & -1.699 \ensuremath{\pm} 0.551\\
-factorial & P & 30.952 \ensuremath{\pm} 4.124 & -1.415 \ensuremath{\pm} 0.331\\
-factorial & S & 14.286 \ensuremath{\pm} 0.000 & -2.342 \ensuremath{\pm} 0.220\\
+Panel & Method & BA (\%) & Return (\%)\\\midrule
+Regenerated reports & Our system & 95.238 \ensuremath{\pm} 4.124 & 0.496 \ensuremath{\pm} 0.222\\
+Regenerated reports & QuantAgent & 90.476 \ensuremath{\pm} 10.911 & 0.371 \ensuremath{\pm} 0.378\\
+Fixed reports & Alpha only & 19.048 \ensuremath{\pm} 4.124 & -2.034 \ensuremath{\pm} 0.314\\
+Fixed reports & Our system & 19.048 \ensuremath{\pm} 10.911 & -2.228 \ensuremath{\pm} 0.632\\
+Fixed reports & QuantAgent & 28.571 \ensuremath{\pm} 7.143 & -1.699 \ensuremath{\pm} 0.551\\
+Fixed reports & Past-donor alpha and sentiment & 30.952 \ensuremath{\pm} 4.124 & -1.415 \ensuremath{\pm} 0.331\\
+Fixed reports & Sentiment only & 14.286 \ensuremath{\pm} 0.000 & -2.342 \ensuremath{\pm} 0.220\\
 \bottomrule\end{tabular}\end{table}
 
 The complete seven-contrast factorial BA envelope is retained in
@@ -421,7 +364,7 @@ recorded scores, not proof of alpha--sentiment synergy. Our system/QuantAgent al
 changes prompt representation, so a joint information effect cannot be
 separated from format or length by this comparison.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Complete factorial BA family]{Complete seven-contrast factorial BA family.}\label{tab:factorial}
 \begin{tabular}{@{}l rr@{}}\toprule
 Contrast & Difference (pp) & Descriptive envelope (pp)\\\midrule
@@ -441,12 +384,12 @@ repeats. Repeat SD describes the three mean-return estimates, not market
 sampling error or a confidence interval. All eight research roles have
 negative means; Our system is least negative and has the highest research-role
 BA, while MT and Fact Anchor are most negative. v1 lies between Our system
-and Common. Constant controls retain undefined MCC.
+and Common.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption[Historical-context main results]{Historical-context main results. Return/MDD are account means; SD is between Decision repeats.}\label{tab:context}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\caption[Earlier historical-context comparison]{Earlier historical-context comparison. SD is the variation in mean return across Decision repeats.}\label{tab:context}
 \begin{tabular}{@{}P{.25\linewidth}rrr@{\hspace{1.2em}}rr@{}}\toprule
-Role/control & BA (\%) & MCC & Return (\%) & SD (pp) & MDD (\%)\\\midrule
+Method & BA (\%) & MCC & Net return (\%) & Return SD (pp) & MDD (\%)\\\midrule
 Our system & 51.844 & 0.037 & -0.653 & 0.093 & 1.186\\
 Our system (Common) & 45.965 & -0.076 & -1.025 & 0.098 & 1.647\\
 BICL v1 & 50.095 & 0.002 & -0.698 & 0.050 & 1.321\\
@@ -455,8 +398,6 @@ BICL v3 & 46.182 & -0.072 & -1.019 & 0.098 & 1.642\\
 BICL v4 & 45.749 & -0.080 & -1.030 & 0.090 & 1.653\\
 BICL v5 & 43.169 & -0.124 & -1.253 & 0.100 & 1.853\\
 Fact Anchor & 42.736 & -0.131 & -1.286 & 0.070 & 1.883\\
-CASH & 50.000 & \textemdash & 0.000 & 0.000 & 0.000\\
-Always-LONG cycles & 50.000 & \textemdash & -3.000 & 0.000 & 4.523\\
 \bottomrule\end{tabular}\end{table}
 
 The two baseline comparisons must both remain visible. Tables
@@ -465,7 +406,7 @@ the registered return/BA family. Each cell gives a paired point difference
 and its saved joint-family descriptive band, in pp. These are not separate
 unadjusted intervals selected after seeing their signs.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Complete joint-family contrasts against Our system]{Five extensions minus Our system: ten cells of the twenty-cell joint family, all in pp.}\label{tab:vsnative}
 \begin{tabular}{@{}P{.17\linewidth}P{.36\linewidth}P{.36\linewidth}@{}}\toprule
 Extension & Return difference [band] & BA difference [band]\\\midrule
@@ -476,7 +417,7 @@ BICL v4 & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]}\\
 BICL v5 & -0.601 {[}-1.090, -0.111{]} & -8.675 {[}-20.239, 2.888{]}\\
 \bottomrule\end{tabular}\end{table}
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Complete joint-family contrasts against Common]{Five extensions minus Common: remaining ten cells of the same joint family, all in pp.}\label{tab:vscommon}
 \begin{tabular}{@{}P{.17\linewidth}P{.36\linewidth}P{.36\linewidth}@{}}\toprule
 Extension & Return difference [band] & BA difference [band]\\\midrule
@@ -492,8 +433,7 @@ Our system by $-0.045$ pp return and $-1.749$ pp BA. The primary Common bands
 exclude zero, whereas Our system bands include it. This is a descriptive,
 baseline-dependent observation, not established superiority or a regime
 effect. MT minus Our system return is $-0.601$ pp with a negative primary
-band; its Common return band includes zero. BICL v2/B BA differences from
-Our system are adverse. The mechanisms and missing interventions are discussed in
+band; its Common return band includes zero. BICL v2 and v4 have lower BA than Our system. The mechanisms and missing interventions are discussed in
 Section~\ref{sec:mechanism-discussion}.
 
 \subsection{Fallback and the anchor bridge}
@@ -502,16 +442,12 @@ Section~\ref{sec:mechanism-discussion}.
 \caption[Return contrasts against both baselines]{Return contrasts against both baselines for 102 points, 51 accounts and three Decision repeats. Bars reproduce the ten return cells of the saved twenty-cell joint family; BA cells remain in the tables. These are descriptive bands under six exposed folds, not calibrated superiority claims.}\label{fig:review-contrasts}
 \end{figure}
 Table~\ref{tab:coverage} keeps all research roles and their denominators.
-Every role has 306 final slots; inherited actions are not fresh responses.
-v1 acts on the 48 bank-covered points in each repeat. BICL v2 and v4 each issue only
-three raw replies, A only 24; their aggregate outcomes mostly reflect
-Common reuse. CASH/always-LONG controls have 306 deterministic slots,
-zero hosted replies and respectively zero/306 LONGs.
+Each method has 306 final actions. BICL v1 obtains a new reply on the 48 bank-covered points in each repeat. BICL v2 and v4 each obtain three new replies, and v3 obtains 24. Most remaining actions come from Common.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Final actions, raw responses and bypasses]{Action and new-response coverage, with valid bypasses retained in primary metrics.}\label{tab:coverage}
 \begin{tabular}{@{}P{.32\linewidth}rrr@{}}\toprule
-Role & Final LONGs /306 & Raw replies & Bypasses\\\midrule
+Method & Final LONGs / 306 & New replies & Fallbacks\\\midrule
 Our system & 69 & 306 & 0\\
 Our system (Common) & 88 & 306 & 0\\
 BICL v1 & 73 & 144 & 162\\
@@ -566,7 +502,7 @@ five disagreement, two veto and 52 incorrect-action candidates. Date/stock
 ordering selects the examples in Table~\ref{tab:cases}; FPT serves two
 categories. Outcomes are disclosed after the facts/proposals/actions.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Selected adverse and policy cases]{Selected saved cases. Net return is the candidate LONG outcome,
 not the payoff of a CASH action; percentages are rounded.}\label{tab:cases}
 \begin{tabular}{@{}P{.25\linewidth}P{.23\linewidth}P{.29\linewidth}r@{}}\toprule
@@ -627,22 +563,22 @@ actual-days/365 (ACT/365) basis.
 The lot/participation proxy uses lots of 100 and 1\% of lagged trailing
 20-session mean vendor volume, not authenticated order-book capacity.
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption[Recorded component execution scenarios]{All saved component execution scenarios with fixed predictions and labels. Returns are mean account percentages; blocked counts are Our system/QuantAgent (F/B).}\label{tab:execution}
+\begin{table}[!htb]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
+\caption[Recorded component execution scenarios]{All saved component execution scenarios with fixed predictions and labels. Returns are mean account percentages; blocked orders are shown as Our system / QuantAgent.}\label{tab:execution}
 \begin{tabular}{@{}P{.41\linewidth}rrr@{}}\toprule
-Scenario & Our system (\%) & QuantAgent (\%) & Blocked F/B\\\midrule
-reference & -0.797 & -0.750 & 0/0\\
-pending\_\allowbreak{}t2 & -0.797 & -0.750 & 0/0\\
-advance\_\allowbreak{}on\_\allowbreak{}demand & -0.797 & -0.750 & 0/0\\
-advance\_\allowbreak{}auto & -0.840 & -0.803 & 0/0\\
-lower\_\allowbreak{}cost & -0.612 & -0.526 & 0/0\\
-higher\_\allowbreak{}cost & -1.211 & -1.249 & 0/0\\
-sell\_\allowbreak{}charge\_\allowbreak{}10bp & -0.843 & -0.805 & 0/0\\
-no\_\allowbreak{}fill\_\allowbreak{}proxy & -0.803 & -0.659 & 1/3\\
-delayed\_\allowbreak{}proxy & -0.766 & -0.621 & 2/4\\
-lot100\_\allowbreak{}cap1pct & -0.745 & -0.602 & 1/3\\
-combined & -1.166 & -1.074 & 3/9\\
-all\_\allowbreak{}entries\_\allowbreak{}missed & 0.000 & 0.000 & 24/29\\
+Scenario & Our system (\%) & QuantAgent (\%) & Blocked orders\\\midrule
+Reference & -0.797 & -0.750 & 0/0\\
+Pending settlement & -0.797 & -0.750 & 0/0\\
+On-demand advance & -0.797 & -0.750 & 0/0\\
+Automatic advance & -0.840 & -0.803 & 0/0\\
+Lower costs & -0.612 & -0.526 & 0/0\\
+Higher costs & -1.211 & -1.249 & 0/0\\
+Sell charge of 10 bp & -0.843 & -0.805 & 0/0\\
+Missed fills proxy & -0.803 & -0.659 & 1/3\\
+Delayed fills proxy & -0.766 & -0.621 & 2/4\\
+Lot-size and capacity limits & -0.745 & -0.602 & 1/3\\
+Combined assumptions & -1.166 & -1.074 & 3/9\\
+All entries missed & 0.000 & 0.000 & 24/29\\
 \bottomrule\end{tabular}\end{table}
 
 Only the delayed proxy leaves one pending QuantAgent order in the saved
@@ -663,9 +599,7 @@ large loss can dominate several correctly avoided small losses, and
 correct CASH predictions earn zero. Our system also opens fewer positions,
 changing exposure and costs together. Its lower held-session fraction
 and daily MDD are consistent with that exposure change, while its lower
-mean return prevents interpreting risk reduction as a profit gain. The
-logistic-price control further shows that the hosted Our system pipeline is
-not the strongest recorded predictor on this cohort. Return-matched or
+mean return leaves the economic benefit unresolved. Return-matched or
 exposure-matched interventions and fixed-prompt component ablations are
 still needed to separate information quality from action timing, trade
 magnitude and presentation effects.
@@ -744,16 +678,6 @@ that alter historical values. These are recorded diagnostic examples,
 not a new run or a measured estimate of their effect on returns.\par
 \endgroup
 
-\begin{table}[htbp]\centering\small\setstretch{1.05}
-\caption[Scope of the causal counterexample and repairs]{Scope of the causal counterexample and repairs. Identifying a counterexample is distinct from establishing causal validity.}\label{tab:causal-scope}
-\begin{tabular}{@{}P{.27\linewidth}P{.30\linewidth}P{.36\linewidth}@{}}\toprule
-Component / property & Branches or path & Permitted interpretation\\\midrule
-Our system full-window normalization and historical scores & Context Our system; recorded Our system alpha machinery & Behavior of that implementation can be described; unbiased row-wise predictive evidence is not established\\
-Common causal alpha projection & Common and dependent v1/BICL v2--v4/Anchor/MT paths & Expanding-prefix normalization, causal adapters and frozen selection repair this alpha path; other inherited inputs remain outside that repair\\
-Purged numerical controls & Separate component numerical-feature path & Its scoped adapter checks do not certify Our system or reproduce the same hosted intervention\\
-Outer query cutoff and forecast barrier & Shared input/output protocol & Later query outcomes are withheld; this cannot repair within-prefix historical features or authenticate sources\\\bottomrule
-\end{tabular}\end{table}
-
 Consequently, comparing an extension with Our system includes the foundation
 change, whereas comparing with Common conditions on that changed
 foundation. Neither comparison alone isolates regime information. The
@@ -764,7 +688,7 @@ of these results.
 The principal contracts and unresolved gates are summarized in
 Table~\ref{tab:audits}. Detection of a known counterexample differs from
 the system passing the property being tested.
-\begin{table}[htbp]\centering\small\setstretch{1.05}
+\begin{table}[!htb]\centering\small\setstretch{1.05}
 \caption[Evidence scope and unresolved validity]{Evidence scope and unresolved validity. Passing a narrower check
 does not resolve the documented historical-consistency limitations.}\label{tab:audits}
 \begin{tabular}{@{}P{.25\linewidth}P{.37\linewidth}P{.31\linewidth}@{}}\toprule
@@ -775,42 +699,17 @@ Prompts and replay & 718 source pins, observed max request 4,750 characters, thr
 Application/execution & Recorded offline application checks and reference execution scenarios & Prospective trading and actual fills remain unvalidated\\\bottomrule
 \end{tabular}\end{table}
 
-The 828/852 count concerns return differences above $10^{-8}$ pp between
-bank and query sources, with maximum approximately 0.042988 pp. It is
-\emph{not} a count of changed binary labels, and does not justify rewriting
-the bank. A Common alpha repair cannot certify all inherited features,
-news content or historical availability. The recorded Our system
-whole-window normalization and other row-wise counterexamples still
-show historical-value changes even when the outer query cutoff is respected.
+Differences in 828 of 852 bank returns exceed $10^{-8}$ pp, with a
+maximum of about 0.043 pp. This count concerns return magnitudes.
+Row-wise alpha checks and strict query cutoffs address different sources
+of temporal error. The remaining limits include independent price/news
+provenance, purposive sampling, six exposed folds and fractional execution.
+The component panels do not isolate regime matching, student inference
+or the utility gate. These distinctions bound the conclusions from the
+stored forecasts.
 
-Other material limits are purposive sampling and unresolved PIT market
-membership, corporate actions/dividends and source adjustment/volume
-units; gaps in dated news and possible overlap with foundation-model
-training data; six dependent exposed folds and conditional Decision repeats;
-coupled information/format changes; and fractional independent accounts
-that omit a validated shared-capital execution model. Reference fills
-do not reproduce queues, partial fills, taxes, impact or settlement
-services. SHORT remains CASH. Fluent chart interpretation and correct
-fact enums supply neither financial ground truth nor profit guarantees.
-
-The explanatory diagrams are author-created; the chart pair is a saved
-research output from adapted QuantAgent tools, not a figure copied from
-its paper. The retained MIT notice covers the attributed upstream
-software; it does not establish rights to market data, news, model
-weights or the institutional cover logo. Permission for public
-redistribution of those resources remains unverified. The pinned 5CD
-model card does not state a license; a backbone citation does not resolve
-that omission. AI assistance is disclosed in the unsigned Declaration.
-
-Matched random/recent/similarity-versus-regime retrieval, examples-only,
-statistics-only, no-prior/no-target/no-utility and student-versus-policy
-decompositions have no completed unified-study outcome panel. Existing
-builders or component factorial results do not fill those gaps. New
-versioned experiments are needed, rather than retrospective claims that
-the combined MT bridge proves an isolated contribution.
-
-The earlier studies show baseline-dependent classification, negative
-financial means and sparse intervention. The follow-up run confirms
-frequent fallback and shows no consistent economic gain over Common.
-Artifact replay verifies the recorded calculations. Independent
-provenance and prospective execution remain open.
+The diagrams are author-created. The chart pair is a saved output from
+adapted QuantAgent tools and is attributed to the upstream MIT-licensed
+implementation. The model card does not state a license for the 5CD
+weights. Permissions for public redistribution of external data, models
+and the cover logo remain to be verified.

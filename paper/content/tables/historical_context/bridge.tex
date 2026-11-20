@@ -1,18 +1,17 @@
-\begin{table}[htb]
+\begin{table}[!htb]
 \centering\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.12}
 \caption{Performance differences and final-action agreement between successive policy components.}
 \label{tab:u09-bridge}
-\textbf{Descriptive differences}\par\smallskip
-\begin{tabular}{lrrr}
-\hline
-Bridge & $\Delta R$ (pp) & $\Delta BA$ (pp) & Same /306 \\
-\hline
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Method change & Return (pp) & BA (pp) & Same action / 306 \\
+\midrule
 Common vs Our system & -0.372 & -5.879 & 273 \\
 Fact Anchor vs Our system (Common) & -0.262 & -3.229 & 273 \\
 BICL v5 vs Fact Anchor & 0.033 & 0.433 & 302 \\
-\hline
+\bottomrule
 \end{tabular}\par\medskip
 \begin{minipage}{\textwidth}\footnotesize Our system--Common changes alpha representation and instructions; the remaining comparisons add the fact anchor and BICL v5 revision policy.\end{minipage}
 \end{table}

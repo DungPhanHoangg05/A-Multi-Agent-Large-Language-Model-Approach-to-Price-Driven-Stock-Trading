@@ -1,40 +1,21 @@
-\begin{table}[htb]
-\centering\small
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.15}
-\caption{Classification performance of nine methods on 102 stock--date observations.}
+\begin{table}[!htb]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.13}
+\caption{Our system and QuantAgent on 102 paired decisions and 51 accounts per system.}
 \label{tab:classification}
-\textbf{A. Pooled (percent except MCC)}\par\smallskip
-\begin{tabular}{lrrrrrrrr}
-\hline
-Strategy & Acc. & BA & MCC & $P_U$ & $R_U$ & $P_D$ & $R_D$ & LONG \\
-\hline
-Our system & 65.69 & 52.96 & 0.060 & 29.17 & 28.00 & 76.92 & 77.92 & 23.53 \\
-QuantAgent & 60.78 & 49.71 & -0.005 & 24.14 & 28.00 & 75.34 & 71.43 & 28.43 \\
-CASH & 75.49 & 50.00 & \textemdash & \textemdash & 0.00 & 75.49 & 100.00 & 0.00 \\
-Train-majority & 75.49 & 50.00 & \textemdash & \textemdash & 0.00 & 75.49 & 100.00 & 0.00 \\
-Always-LONG & 24.51 & 50.00 & \textemdash & 24.51 & 100.00 & \textemdash & 0.00 & 100.00 \\
-Momentum-20 & 49.02 & 47.32 & -0.046 & 22.45 & 44.00 & 73.58 & 50.65 & 48.04 \\
-Logistic-price & 67.65 & 55.61 & 0.114 & 33.33 & 32.00 & 78.21 & 79.22 & 23.53 \\
-Logistic-matched & 60.78 & 52.42 & 0.044 & 27.27 & 36.00 & 76.81 & 68.83 & 32.35 \\
-Factor vote & 51.96 & 51.97 & 0.034 & 26.00 & 52.00 & 76.92 & 51.95 & 49.02 \\
-\hline
-\end{tabular}\par\medskip
-\textbf{B. Unweighted symbol macro summaries}\par\smallskip
-\begin{tabular}{lrrrr}
-\hline
-Strategy & BA (\%) & Defined & MCC & Defined \\
-\hline
-Our system & 55.38 & 8/9 & 0.08 & 8/9 \\
-QuantAgent & 51.48 & 8/9 & 0.00 & 8/9 \\
-CASH & 50.00 & 8/9 & \textemdash & 0/9 \\
-Train-majority & 50.00 & 8/9 & \textemdash & 0/9 \\
-Always-LONG & 50.00 & 8/9 & \textemdash & 0/9 \\
-Momentum-20 & 50.67 & 8/9 & -0.01 & 8/9 \\
-Logistic-price & 59.00 & 8/9 & 0.17 & 7/9 \\
-Logistic-matched & 56.55 & 8/9 & 0.08 & 8/9 \\
-Factor vote & 46.86 & 8/9 & -0.04 & 8/9 \\
-\hline
-\end{tabular}\par\medskip
-\begin{minipage}{\textwidth}\footnotesize UP/DOWN support is 25/77; P/R denote class precision/recall, and a dash marks a metric with a zero denominator.\end{minipage}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+& \multicolumn{3}{c}{Forecasts} & \multicolumn{3}{c}{Accounts}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Acc. (\%) & BA (\%) & LONGs & Net return (\%) & MDD (\%) & Held (\%)\\
+\midrule
+Our system & 65.69 & 52.96 & 24 & -0.797 & 1.37 & 2.35\\
+QuantAgent & 60.78 & 49.71 & 29 & -0.750 & 1.45 & 2.84\\
+\bottomrule
+\end{tabular}
+\par\smallskip
+{\footnotesize BA is balanced accuracy. MDD is mean maximum daily-close
+drawdown. Held is the mean share of observed sessions spent invested.\par}
 \end{table}
