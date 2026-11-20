@@ -6,7 +6,7 @@
 
 **Language:** English throughout the thesis manuscript, including front matter, chapters, captions and figure/table labels. User communication, the writing plan, progress checklists and management guidance use Vietnamese.
 
-**Central argument:** begin with a price-driven multi-agent system, construct historical context that is eligible at the decision time and conditioned on market state, introduce that context through Bayesian priors and MT-BICL, and evaluate its effect on forecasts and LONG/CASH actions under a shared economic contract.
+**Central question:** what do BICL v1–v5 add to Our system, the alpha and sentiment augmentation of QuantAgent? Evaluate eligible historical context, changes in forecasts and LONG/CASH actions, and financial performance on matched support. Report the repaired run alongside the earlier context and component studies. [System names and registry IDs](../README.md#methods-and-profiles)
 
 The title identifies a research direction, not a demonstrated performance advantage. Explain multi-task learning separately from multi-agent orchestration. Attribute inherited components rather than presenting HMMs, Alpha101, QuantAgent or the referenced student architecture as inventions of this thesis.
 
@@ -21,9 +21,9 @@ The title identifies a research direction, not a demonstrated performance advant
 
 | ID | Question | Comparison and evidence | Interpretation boundary |
 | --- | --- | --- | --- |
-| RQ1 | How does the multi-agent system combining price, alpha and sentiment behave relative to its controls? | Component study: paired Full versus Base on 102 points; recorded numerical controls; separate nine-unit upstream and factorial panels. Report BA/MCC, both-class support, account returns and exposure using the recorded protocol. Sources: component scope/classification/accounts tables and saved panel analyses. | Full/Base changes information and prompt representation together. Panel supports differ; numerical controls do not isolate the LLM factor selector. Higher classification performance does not establish profitability. |
-| RQ2 | How does regime-aware historical context and conditional evidence change outcomes under the same upstream realization? | Historical-context study: Bayesian v1, C2, A_tp_pool and B_semantic each versus Common and versus Native on paired support. Use contrasts, prior traces, coverage, recorded example age/similarity and fallback, retaining unsupported points in primary metrics. | Native/Common also changes alpha projection and instructions. Low support limits mechanism attribution. Covered-subset results are secondary; six exposed folds yield descriptive evidence, not confirmation of a regime-specific causal effect. |
-| RQ3 | How do Fact Anchor, MT-BICL and the utility policy affect final actions? | Descriptive bridges Common → Fact Anchor → MT-BICL; compare paired final actions/metrics and inspect raw proposals, anchor validity, eligibility, bypasses, vetoes and utility quantiles. Sources: bridge table, prediction records and policy/context traces in the locked study. | These comparisons add combined interventions. Student, task context and utility effects cannot be isolated without unperformed matched ablations. Retain the observed 302/306 MT/anchor final-action agreements. |
+| RQ1 | How does Our system perform against QuantAgent? | Compare the paired 102-point component panel, with numerical controls and separate upstream and factorial panels. | The comparison changes information and prompt representation together. Balanced accuracy and profitability measure different outcomes. |
+| RQ2 | What do BICL v1–v4 add? | Compare the repaired and earlier studies against Our system and Our system (Common). Report paired returns, balanced accuracy, coverage and fallback. | Sparse support limits attribution. FIN12 full-cohort endpoints are NA and its complete-account analysis uses common support. |
+| RQ3 | How do Fact Anchor and BICL v5 affect final actions? | Compare the two methods in each study, including raw proposals, bypasses, vetoes and implemented changes. | The historical 302/306 action agreement and repaired 303/306 agreement belong to separate runs. The comparisons do not isolate student or utility effects. |
 | RQ4 | Which temporal, economic and operational contracts are supported by evidence, and which limitations remain? | Compare contract requirements with scoped PIT/causality audits, canonical labels/P&L checks, shared-upstream identities, prompt measurements, retry/checkpoint records and cold-replay receipts. This is a contract-to-evidence audit, not a performance contrast. | Report snapshot and tested path for each check. Outer-cutoff compliance and offline replay do not certify native row-wise causality, live execution, prospective profitability or browser acceptance. |
 
 The two studies use separate response collections and statistical conventions. The historical-context design has 102 market points, 51 stock–fold accounts, three Decision repeats and eight forecast roles. Its 2,448 slots are conditional on one shared upstream realization per point. They are not 2,448 independent market observations. [The evidence ledger](evidence.md#2-phạm-vi-nghiên-cứu-và-ranh-giới-luận-điểm) records the source roles and unresolved evidence boundaries for this scope review.
@@ -309,14 +309,15 @@ $$
 
 | Research role | Implementation ID | Main dependency/resource |
 | --- | --- | --- |
-| Native | `original_fix` | Native alpha projection and prompt. |
-| Common | `original_common` | Causal-common alpha and shared instruction family. |
-| Bayesian prior | `bayesian_v1` | Common; signal bank and regime. |
-| Conditional prior | `C2` | Common; conditional statistics/readiness. |
-| Trend–pattern prior | `A_tp_pool` | Common; relaxed Trend/Pattern pooling. |
-| Explicit-count prior | `B_semantic` | Common; explicit evidence presentation. |
-| Fact anchor | `Fact_Anchor` | Common; facts and assertion validation. |
-| MT-BICL | `MT_BICL` | Common and Fact Anchor; task context, student and utility. |
+| QuantAgent | Component `baseline` | Price-derived reports for the local architecture comparator. |
+| Our system | `original_fix` | Alpha and eligible sentiment in the native Decision prompt. |
+| Our system (Common) | `original_common` | Augmented evidence with the shared instruction family. |
+| BICL v1 | `bayesian_v1` | Common and regime-matched prior. |
+| BICL v2 | `C2` | Common and conditional statistics. |
+| BICL v3 | `A_tp_pool` | Common with relaxed Trend/Pattern pooling. |
+| BICL v4 | `B_semantic` | Same conditional evidence as v2 with explicit presentation. |
+| Fact Anchor | `Fact_Anchor` | Common, facts and assertion validation. |
+| BICL v5 | `MT_BICL` | Common, Fact Anchor, task context, student and utility. |
 
 - Run upstream once per point/realization and deep-copy the shared parent to all branches.
 - Resolve dependencies once per repeat; distinguish eight research roles, UI choices, forecast slots and actual calls.

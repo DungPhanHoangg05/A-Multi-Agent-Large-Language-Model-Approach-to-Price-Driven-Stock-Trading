@@ -16,7 +16,7 @@ former with temporal ranks in a single-stock implementation changes the
 formula's meaning. A typical-price proxy also differs from authenticated
 intraday volume-weighted average price (VWAP). \autocite{kakushadze2016formulaic} The thesis attributes
 these foundations while treating its adapted library and five additional
-factors as a distinct implementation family. Native and Common further
+factors as a distinct implementation family. Our system and Common further
 differ in normalization, orientation, selection and report projection.
 
 Ordinary quantitative controls help locate the behavior added by an agent
@@ -82,7 +82,7 @@ not prove that any hosted trading LLM computes a financial posterior.
 semantic parsing. Retrieval is an information-selection mechanism, not
 automatically a Bayesian update. \autocite{rubin2022retrieve}
 
-These distinctions apply directly here. Bayesian v1 reports empirical
+These distinctions apply directly here. BICL v1 reports empirical
 population rates and selected episodes; its name does not make the rates
 Beta-posterior means. C2 instead uses explicit count-based shrinkage and
 readiness gates. The alternative named B\_semantic presents counts and
@@ -154,11 +154,5 @@ Approach & Relevant mechanism & Boundary for this thesis\\\midrule
 Financial agents & Specialist price/chart, news, debate or reflection reports & Inherited organization; different actions, markets and accounting\\
 Regime/ICL retrieval & Estimated state or selected input--output examples & Relevance and availability need separate checks; retrieval is not a posterior\\
 PFN/multi-task ICL & Numerical inference conditioned on marked datasets & Local teacher, student and objective differ; no imported market guarantee\\
-This system & Reports, mature context, numerical predictor, anchor and utility policy & Evaluate combined paths and fallback; isolated mechanism effects remain open\\\bottomrule
+BICL v5 & Reports, mature context, numerical predictor, anchor and utility policy & Evaluate the combined path and fallback, with isolated effects still open\\\bottomrule
 \end{tabular}\end{table}
-
-The thesis evaluates this conditioning and revision design under a common
-temporal and economic contract, separating populations, displayed examples,
-datasets, proposals and final actions. Baseline-dependent negative outcomes,
-mostly retained anchors, Native temporal-consistency limitations and missing matched
-ablations limit conclusions; no general superiority is established.

@@ -37,7 +37,7 @@ tại [frontmatter.md](frontmatter.md); hồ sơ này dùng để quản lý ngu
   khoảng tách với loại khóa luận/ngành/người hướng dẫn. Đây là điều chỉnh
   dàn dòng cho nội dung mới, không phải tuyên bố đồng nhất từng pixel.
 - [Nguồn bìa độc lập](latex/frontmatter/covers.tex) và
-  [trình biên dịch bản xem](latex/covers-preview.tex) chỉ phục vụ kiểm yêu cầu
+  [trình biên dịch bản xem](covers-preview.tex) chỉ phục vụ kiểm yêu cầu
   bìa đã cung cấp sớm; chưa thay thế khung LaTeX toàn văn hay hoàn tất phần đầu.
   [Bản PDF xem bìa](release/covers-preview.pdf) không phải bản khóa luận hoàn chỉnh.
 - Markdown vẫn là nguồn nội dung chính. Khi đổi metadata tại
@@ -1558,7 +1558,7 @@ placeholder. Giữ ID khi sửa cách diễn đạt, không tái dùng cho luậ
 
 | CL272 | [Integrated LaTeX source](archive/p8-source.zip); [cutover map](archive/p8-source.zip); `P8 PDF: Git d025facb:thesis/release/thesis.pdf` | DAN_XUAT | 13 archival Markdown files at e4e31daf; strict dependency/hash check; isolated LuaLaTeX/Biber build; migration and PDF QA; §14.6 | Six chapters and six appendices appear once; 259-page P8 draft; LaTeX became the source of record at 2026-11-16T13:14:55+07:00 | Technical integration only; P9/P10, official institutional requirements and UI acceptance remain open; historical FAIL/NOT_CERTIFIED are retained |
 
-| CL273 | [Reduced source](latex/main.tex); [P8 archive](archive/p8-source.zip) | DAN_XUAT | P8 d025facb; T73a mapping; original cutover arrays; §15 | Core content migrated into six chapters; appendix sources removed with original bytes/hash retained | Archives remain evidence outside the build/submission package |
+| CL273 | [Reduced source](main.tex); [P8 archive](archive/p8-source.zip) | DAN_XUAT | P8 d025facb; T73a mapping; original cutover arrays; §15 | Core content migrated into six chapters; appendix sources removed with original bytes/hash retained | Archives remain evidence outside the build/submission package |
 | CL274 | [Shared contracts](latex/chapters/03_background.tex) | DAN_XUAT | CL007–CL024/TIME/BG; P8 equations; §15/T73 | Net oracle, costs, zero=DOWN, SHORT=CASH, strict maturity and pairing retained | Intended/scoped contracts do not establish whole-system causality or actual fills |
 | CL275 | [Study results](latex/chapters/05_experiments.tex); [cell map](assets/tables/concise_results.source.json) | DAN_XUAT | CL117–CL187/ED/ES;68 exact projected rows including20 joint-family cells | Both studies/baselines, controls, negative means, NA, coverage and sensitivity retained | No new bootstrap/inference or favorable-subset substitution; estimators remain study-specific |
 | CL276 | [Numerical method](latex/chapters/04_proposed_system.tex) | DAN_XUAT | CL078–CL101/TR/BG/SYS; saved EX01; §15/T73 | Task distinctions, frozen seed42-step3000 student, teacher-sign utility and strict policy retained | Student differs from hosted LLM; no isolated student or utility benefit |

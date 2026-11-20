@@ -61,27 +61,27 @@ def main() -> None:
                 raise ValueError('Nguồn LaTeX khác mốc biên tập: ' + row['path'])
         if lf_sha(root / 'references.bib') != record['current_references_lf_sha256']:
             raise ValueError('Bibliography khác mốc biên tập.')
-    for path in latex.rglob('*.tex'):
+    for path in [root / 'main.tex', root / 'covers-preview.tex', *latex.rglob('*.tex')]:
         if 'build' in path.parts:
             continue
         text = path.read_text(encoding='utf-8')
         for command, target in re.findall(r'\\(input|includegraphics|addbibresource)(?:\[[^\]]*\])?\{([^}]+)\}', text):
             if '#' in target:
                 continue
-            dependency = latex / target
+            dependency = root / target
             if command == 'input' and not dependency.suffix:
                 dependency = dependency.with_suffix('.tex')
             if not dependency.is_file() or not dependency.resolve().is_relative_to(root.resolve()):
                 raise ValueError('Dependency thiếu hoặc ra ngoài cây thesis: ' + target)
             checked += 1
-    main_source = (latex / 'main.tex').read_text(encoding='utf-8')
+    main_source = (root / 'main.tex').read_text(encoding='utf-8')
     chapter_paths = sorted((latex / 'chapters').glob('*.tex'))
     if len(chapter_paths) != 6:
         raise ValueError('Bản nộp phải có đúng sáu chương.')
     if archive and ((latex / 'appendices').exists() or (root / 'appendices').exists() or r'\appendix' in main_source):
         raise ValueError('Phụ lục còn trong cây bản nộp hoặc main.tex.')
     for path in chapter_paths:
-        target = path.relative_to(latex).with_suffix('').as_posix()
+        target = path.relative_to(root).with_suffix('').as_posix()
         if main_source.count(r'\input{' + target + '}') != 1:
             raise ValueError('Nội dung thiếu hoặc ghép lặp: ' + target)
     # So mọi ô đã chọn với cả bảng P8 trong archive và nguồn LaTeX hiện tại.
@@ -104,14 +104,21 @@ def main() -> None:
             return [[cell.strip() for cell in line.strip().removesuffix(r'\\').split(' & ')]
                     for line in table.splitlines() if ' & ' in line and line.strip().endswith(r'\\')]
         current_tables = re.findall(r'\\begin\{table\}.*?\\end\{table\}', current, re.S)
+        display_names = {
+            'Full': 'Our system', 'Base': 'QuantAgent', 'Native': 'Our system',
+            'Common': 'Our system (Common)', 'Bayesian v1': 'BICL v1', 'C2': 'BICL v2',
+            r'A\_\allowbreak{}tp\_\allowbreak{}pool': 'BICL v3',
+            r'B\_\allowbreak{}semantic': 'BICL v4', 'MT-BICL': 'BICL v5',
+        }
         for row in projection['rows']:
             if row['original'] not in cells(tables[row['source_table'] - 1]):
                 raise ValueError('Dòng nguồn bảng không khớp P8: ' + row['table'])
             selected = [row['original'][i] for i in row['columns']]
             matches = [table for table in current_tables if r'\label{' + row['table'] + '}' in table]
-            if selected != row['cells'] or len(matches) != 1 or selected not in cells(matches[0]):
+            displayed = [display_names.get(cell, cell) for cell in selected]
+            if selected != row['cells'] or len(matches) != 1 or displayed not in cells(matches[0]):
                 raise ValueError('Ô bảng biên tập khác nguồn: ' + row['table'])
-        print(f'PASS: {len(projection["rows"])} dòng bảng chiếu nguyên ô từ P8, gồm đủ 20 contrast cells.')
+        print(f'PASS: {len(projection["rows"])} dòng bảng giữ nguyên số liệu P8, gồm đủ 20 contrast cells.')
     print(f'PASS: {len(record["markdown_archive"])} bản nháp lưu trữ; {checked} dependency cục bộ; sáu chương ghép một lần; không phụ lục trong bản nộp. Archive không là input biên dịch.')
 
 

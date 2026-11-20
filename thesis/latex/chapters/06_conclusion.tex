@@ -8,6 +8,15 @@ and an external utility policy separate hosted proposals from final
 actions. Shared upstream, canonical net-cycle accounting and a forecast
 barrier make the recorded paths inspectable.
 
+The thesis tests whether BICL adds value to Our system. In the repaired
+evaluation, BICL v1--v4 produce differences of at most $0.0127$ pp in
+mean account return against Our system (Common) on the complete-account
+subset. BICL v5 has lower return and BA than both no-context baselines
+and Fact Anchor. BICL changes the information and action path when
+eligible, yet the measured outcomes do not establish a consistent
+economic benefit. The earlier studies below show how comparison results
+vary with the input profile and available historical support.
+
 The contribution is an attributed adaptation, context/policy integration
 and source-bound evaluation of existing foundations: QuantAgent-style
 roles, indicators, Alpha101, HMMs, Bayesian updating and multi-task ICL.
@@ -16,18 +25,19 @@ empirical value is assessed within the reported limits.
 
 \section{Answers to the research questions}\label{s:72579e525074c634}
 \paragraph{RQ1: combined information and controls.}
-Component Full exceeds Base by 3.247 pp BA on 102 points, with saved
+Component Our system exceeds QuantAgent by 3.247 pp BA on 102 points, with saved
 descriptive interval [$-1.176$,8.125] pp, while its mean net account
 return is 0.047 pp lower. Both identify seven of 25 UP outcomes; price
-logistic has higher BA than Full. Separate numerical and nine-unit
+logistic has higher BA than Our system. Separate numerical and nine-unit
 factorial panels have different supports and prompt families. The
 supported result is a limited classification difference with adverse
 financial outcomes, not a general alpha--sentiment or LLM-selector benefit.
 
 \paragraph{RQ2: historical context.}
-The v1-minus-Common return difference is +0.327 pp [0.067,0.586], while the v1-minus-Native difference is
+In the earlier historical study, BICL v1 returns +0.327 pp [0.067,0.586] relative
+to Our system (Common) and
 $-0.045$ pp [$-0.362$,0.271], within the complete twenty-cell descriptive
-family. Its shorter-block Common band crosses zero. C2 and B each obtain
+family. Its shorter-block Common band crosses zero. BICL v2 and v4 each obtain
 only three new Decision replies and otherwise mostly inherit Common.
 All eight research-role means are negative. Regime awareness is implemented,
 but its isolated benefit and robustness across all regimes have not been
@@ -37,9 +47,9 @@ is not established. A matched comparison with and without regime matching
 on the same points is needed to isolate its contribution.
 
 \paragraph{RQ3: factual anchoring and action revision.}
-MT and Fact Anchor agree in 302/306 final slots: 108 bypasses, 189
+BICL v5 and Fact Anchor agree in 302/306 historical final slots: 108 bypasses, 189
 same-action proposals, five rejected changes and four accepted changes.
-The MT--anchor return/BA bridge is +0.033/+0.433 pp, while MT's mean return
+The BICL v5--anchor return/BA bridge is +0.033/+0.433 pp, while MT's mean return
 remains negative. This combined path does not isolate the student,
 target context or utility benefit. The student is an implemented and
 approximation-verified component; these results do not establish a trading
@@ -49,29 +59,21 @@ changed final action are different events; enum-valid facts do not certify all p
 \paragraph{RQ4: contract evidence.}
 Recorded checks cover economic labels, pairing, forecast/outcome
 separation, prompt/retry/checkpoints and cold artifact replay.
-Native transformations exhibit historical-value changes;
+Our system transformations exhibit historical-value changes;
 the checks do not establish full-system historical causal validity.
 Provenance and execution require further evaluation. These checks neither
 freeze external hosted weights nor establish live trading readiness.
 
 \section{Limitations and future work}\label{s:ff798c832c8c6036}
-The main limits are six already exposed dependent folds, purposive
-stock selection and narrow bank coverage; unavailable sentiment and
-unauthenticated historical source availability; bank/query return-basis
-differences and missing original signal journals; coupled prompt/input
-interventions and missing matched ablations; and reference fractional
-accounts without validated market execution or shared capital. Three
-Decision repeats do not independently resample upstream or markets.
-An accepted revision can lose, and a rejected LONG can miss a gain.
+The main limits are six exposed folds, narrow bank coverage, unavailable
+sentiment, and unverified historical data availability. The three Decision
+repeats share their upstream reports. Reference accounts use fractional
+shares and do not establish actual fills or capital-constrained returns.
 
-Priority work is to repair and test Native row-wise causality and
-reconcile provenance in a separately versioned study, preserving the
-documented historical limitations. Broader authenticated price/news/context coverage
-and independent chart/fact-grounding checks should precede stronger
-claims. Registered matched interventions must separate retrieval,
-regime/statistics, prior/target tasks, numerical student and external
-utility. A same-cohort teacher--student comparison should measure prediction
-error and inference cost. A prospectively collected unexposed evaluation needs appropriate
-dependence/precision planning and independently regenerated upstream
-realizations. Venue-specific lots, fills, capital and settlement modeling
-require independent validation.
+Priority work is to authenticate price and news availability, then test
+BICL on unseen cutoffs with independently regenerated upstream reports.
+Matched interventions should separate regime matching, prior and target
+tasks, student inference and the utility gate. A same-cohort
+teacher--student comparison should measure error and inference cost.
+Prospective economic evaluation needs a model of lots, fills, capital
+and settlement.

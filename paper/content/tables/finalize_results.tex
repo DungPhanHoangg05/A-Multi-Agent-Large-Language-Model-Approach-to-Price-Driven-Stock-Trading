@@ -1,0 +1,18 @@
+% Chiếu từ results.json đã khóa trong receipt FIN12.
+\begin{table}[htbp]
+\centering\small
+\caption{Repaired BICL study. Mean net account return and balanced accuracy (BA) use the common complete-account subset. Bypass counts cover all planned forecasts per method.}\label{tab:fin12-repaired}
+\begin{tabular}{lrrr}\toprule
+Method & Return (\%) & BA (\%) & Bypasses \\ \midrule
+Our system & -0.9379 & 46.2121 & 0 \\
+Our system (Common) & -0.5304 & 53.2828 & 0 \\
+BICL v1 & -0.5315 & 52.3990 & 162 \\
+BICL v2 & -0.5177 & 53.7879 & 300 \\
+BICL v3 & -0.5304 & 53.2828 & 282 \\
+BICL v4 & -0.5177 & 53.7879 & 300 \\
+BICL v5 & -1.0600 & 44.3182 & 117 \\
+Fact Anchor & -1.0257 & 45.0758 & 0 \\
+\bottomrule\end{tabular}
+\par\smallskip
+{\footnotesize 45/51 complete accounts per repeat, 90 shared cutoffs. 96/102 cutoffs have valid labels. The full-cohort return and BA are NA.\\}
+\end{table}

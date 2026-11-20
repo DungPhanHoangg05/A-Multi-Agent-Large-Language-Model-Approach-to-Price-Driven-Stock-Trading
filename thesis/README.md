@@ -2,10 +2,10 @@
 
 Thư mục xây dựng khóa luận độc lập cho đề tài **Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market**.
 
-## Nguồn bản nộp chính sau P8
+## Nguồn bản nộp chính
 
 **Mốc chuyển nguồn: 2026-11-16T13:14:55+07:00 (Asia/Saigon).** Từ mốc T72,
-[main.tex](latex/main.tex), các file trong `latex/chapters/`,
+[main.tex](main.tex), các file trong `latex/chapters/`,
 `latex/frontmatter/`, [bibliography](references.bib)
 và assets dùng chung là nguồn bản nộp chính. Mọi sửa nội dung tiếp theo
 thực hiện trong LaTeX; không tự sinh lại từ Markdown. Các file Markdown
@@ -14,13 +14,11 @@ giữ nguyên byte 13 bản Markdown cùng nguồn LaTeX tại mốc cũ;
 [source map](latex/source-map.json) lưu hash LF và ánh xạ mốc chuyển.
 Kế hoạch, sổ bằng chứng và README quản lý vẫn tiếp tục cập nhật bằng Markdown.
 
-[PDF đã rà nội bộ T80l](release/thesis.pdf) hiện có **67 trang**, toàn A4 dọc,
-không phụ lục. Mốc P8 259 trang vẫn lấy nguyên byte từ Git `d025facb`. Bản nộp mới gồm hai bìa,
-phần đầu, sáu chương và references, không phụ lục. Đây là bản để tiếp tục P10,
-chưa là bản đã phản biện, ký, nộp hoặc được trường chấp thuận.
-[Hướng dẫn build](latex/README.md) dùng LuaLaTeX/Biber và không cần thư mục
-mẫu, PDF mẫu, Pandoc hoặc Markdown. Đã build sạch bốn lượt trong bản sao chỉ gồm LaTeX,
-assets và bibliography, không có archive/Markdown/mẫu; build thiếu file bắt buộc sẽ dừng, không lặng lẽ bỏ chương.
+[Bản FIN15](../output/pdf/thesis-fin15.pdf) đặt câu hỏi BICL v1–v5 có tác dụng
+gì khi ghép vào Our system. Bản thảo có bảng phiên bản, sơ đồ hệ thống và
+bảng kết quả chạy lại FIN12. [Hướng dẫn build](latex/README.md) dùng
+pdfLaTeX hoặc XeLaTeX với Biber và chọn `main.tex` trong gốc dự án Overleaf.
+[Bản 67 trang trước FIN15](release/thesis.pdf) giữ theo manifest lịch sử.
 
 Hạn nộp, giới hạn trang/từ và biểu mẫu chính thức chưa được cung cấp.
 P9 biên tập theo yêu cầu mới: tổng 60–70 trang, mục tiêu 66, không phụ lục,
@@ -32,7 +30,7 @@ là nghiệm thu yêu cầu chính thức khi các mục bắt buộc bên ngoà
 
 - **Trao đổi với người dùng, kế hoạch, checklist và hướng dẫn quản lý:** tiếng Việt.
 - **Nội dung khóa luận:** hoàn toàn bằng tiếng Anh, gồm phần đầu, sáu chương, tiêu đề, chú thích hình/bảng, nhãn sơ đồ và diễn giải khoa học. Dàn bài chương mục trong `outline.md` giữ tiếng Anh để làm khung bản thảo.
-- **Định danh mã nguồn, tên phương pháp và tên tài liệu gốc:** giữ nguyên. Nếu cần dẫn bằng chứng tiếng Việt, phải có diễn giải tiếng Anh và ghi rõ bản dịch phục vụ trình bày; không sửa danh tính của prompt hoặc dữ liệu thực nghiệm gốc.
+- **Tên hệ thống trong bản thảo:** QuantAgent, Our system và BICL v1–v5. Our system (Common) và Fact Anchor là đối chứng. Các định danh máy đọc, prompt và dữ liệu gốc giữ theo [bảng ánh xạ](../README.md#methods-and-profiles).
 
 ## Thứ tự đọc
 
@@ -69,9 +67,9 @@ này. Hạn nộp và quy định trích dẫn/bố cục chính thức hiện c
 Dòng Supervisor trên bìa trong được căn giữa theo trục trang theo đính chính
 của tác giả.
 
-Nguồn bản xem gồm [wrapper](latex/covers-preview.tex),
+Nguồn bản xem gồm [wrapper](covers-preview.tex),
 [hai bìa](latex/frontmatter/covers.tex) và logo trong `assets/figures/`.
-Wrapper này chỉ dàn trang bản xem bìa riêng. Toàn văn dùng `latex/main.tex`
+Wrapper này chỉ dàn trang bản xem bìa riêng. Toàn văn dùng `main.tex`
 và nguồn LaTeX chính đã chuyển tại T72; Markdown phần đầu là bản lưu trữ.
 Khi đổi metadata được tác giả chấp thuận, sửa nguồn LaTeX và kiểm lại PDF.
 Không cần thư mục `Latex/` mẫu để build bản xem hoặc toàn văn.
@@ -81,9 +79,9 @@ TikZ. Thư mục tạm nhận log/aux, chỉ PDF được chép sang thư mục 
 
 ```powershell
 New-Item -ItemType Directory -Force tmp/pdfs/thesis-covers | Out-Null
-Push-Location thesis/latex
-pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../../tmp/pdfs/thesis-covers' covers-preview.tex
-pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../../tmp/pdfs/thesis-covers' covers-preview.tex
+Push-Location thesis
+pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../tmp/pdfs/thesis-covers' covers-preview.tex
+pdflatex --disable-installer --interaction=nonstopmode --halt-on-error '--output-directory=../tmp/pdfs/thesis-covers' covers-preview.tex
 Pop-Location
 Copy-Item tmp/pdfs/thesis-covers/covers-preview.pdf thesis/release/covers-preview.pdf
 ```

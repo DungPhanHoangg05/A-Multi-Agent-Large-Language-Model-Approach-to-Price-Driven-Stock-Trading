@@ -11,10 +11,11 @@ models can interpret chart inputs. QuantAgent provides the specialist
 price/chart architecture adapted in this thesis; multi-agent trading is
 an inherited foundation. \autocite{xiong2025quantagent}
 
-The proposed system combines these reports with adapted alpha signals,
-Vietnamese sentiment and eligible historical context. Estimated market
+Our system adds alpha signals and Vietnamese sentiment to the price-driven
+QuantAgent architecture. This thesis investigates the incremental effect of
+adding Bayesian in-context learning to Our system. Estimated market
 regimes organize earlier completed episodes. Bayesian prior variants
-summarize evidence, and multi-task Bayesian in-context learning (MT-BICL)
+summarize evidence, and multi-task Bayesian in-context learning (BICL v5)
 conditions a numerical predictor on historical datasets and observations
 from the target task. A factual anchor and an external utility policy
 then constrain action revision. \emph{Multi-agent} denotes analysis roles;
@@ -34,8 +35,8 @@ zero and is distinct from that candidate label. These are research
 accounting assumptions, not evidence of actual fills or a statement of
 current exchange rules.
 
-The research problem is to explain this decision path and assess its
-recorded behavior under shared inputs and accounting. Classification,
+The primary research problem is to measure where BICL changes forecasts or
+actions under shared inputs and accounting. Classification,
 economic returns and validity checks answer different questions. An
 eloquent report does not establish correct financial reasoning, and a
 successful replay does not establish prospective profitability.
@@ -50,15 +51,15 @@ organize the investigation:
 and sentiment behave relative to its controls?
 \item \textbf{RQ2.} How does regime-aware historical context and conditional
 evidence change outcomes under the same upstream realization?
-\item \textbf{RQ3.} How do Fact Anchor, MT-BICL and the utility policy affect
+\item \textbf{RQ3.} How do Fact Anchor, BICL v5 and the utility policy affect
 final actions?
 \item \textbf{RQ4.} Which temporal, economic and operational contracts are
 supported by evidence, and which limitations remain?
 \end{enumerate}
-RQ1 uses the component study's Full/Base comparison, numerical controls
+RQ1 uses the component study's Our system/QuantAgent comparison, numerical controls
 and separate small panels. RQ2 compares historical-context extensions
-against both Native and Common. RQ3 examines the combined Common--Fact
-Anchor--MT-BICL path, including retained actions and vetoes. RQ4 compares
+against both Our system and Common. RQ3 examines the combined Common--Fact
+Anchor--BICL v5 path, including retained actions and vetoes. RQ4 compares
 contracts with scoped audits and stored recovery/replay evidence. These
 comparison families cannot identify the effect of every mechanism
 separately.
@@ -68,13 +69,13 @@ Two historical exploratory studies use separate response collections and
 statistical conventions. The context study contains 102 market points,
 51 stock--fold accounts, three Decision repeats and eight roles. Its
 2,448 forecast slots share one upstream realization per point and are
-not independent market observations. Full/Base changes information and
-prompt representation; Native/Common changes alpha projection and
+not independent market observations. Our system/QuantAgent changes information and
+prompt representation; Our system/Our system (Common) changes alpha projection and
 instructions. These baseline pairs are not interchangeable.
 
 The nine stocks were purposively selected and the six temporal folds
 were already exposed. Sparse context coverage and valid fallbacks remain
-in primary comparisons. The Native audit identifies historical feature
+in primary comparisons. The Our system audit identifies historical feature
 values that change when later observations are appended; causal validity
 of the complete historical system remains unestablished. Restricting the outer input to a cutoff does not
 prove that every feature row is causal; cached news dates do not
@@ -98,7 +99,7 @@ Chapter 2 attributes the literature and positions the integration problem.
 Chapter 3 defines the economic and temporal contracts and the concepts
 needed to read the method. Chapter 4 follows one decision through the
 agents, historical context, numerical inference and policy. Chapter 5
-reports the two studies and their uncertainty, coverage and audit limits.
+reports the repaired BICL evaluation and its historical comparisons.
 Chapter 6 answers the research questions and identifies the evidence
 needed for stronger claims. Detailed implementation traces remain in the
 evidence repository; the method and principal results are explained here.

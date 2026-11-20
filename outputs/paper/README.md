@@ -1,4 +1,8 @@
-# PDF bài báo hiện hành
+# PDF bài báo trước FIN15
+
+Bản hiện hành dùng tiêu đề, tên hệ thống và kết quả đã đồng bộ ở FIN15.
+[Bản đầy đủ FIN15](../../output/pdf/paper-fin15.pdf) ·
+[Bản nộp FIN15](../../output/pdf/paper-fin15-submit.pdf)
 
 - [Bản đầy đủ](main.pdf): biên dịch từ `paper/main.tex`.
 - [Bản nộp](main_submit.pdf): biên dịch từ `paper/main_submit.tex`.

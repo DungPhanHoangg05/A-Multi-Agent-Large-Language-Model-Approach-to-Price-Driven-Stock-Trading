@@ -1,12 +1,19 @@
 % Quy ước trình bày quan sát từ mẫu; chưa phải quy định chính thức của trường.
-\usepackage{fontspec}
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{Latin Modern Mono}[Scale=0.85]
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+\else
+  \usepackage{fontspec}
+  \setmainfont{Latin Modern Roman}
+  \setsansfont{Latin Modern Sans}
+  \setmonofont{Latin Modern Mono}[Scale=0.85]
+\fi
 \usepackage[english]{babel}
 \usepackage{geometry}
 \geometry{a4paper,margin=2.5cm,top=3cm,bottom=3cm,headheight=28pt}
-\usepackage{microtype,setspace}
+\usepackage[expansion=false]{microtype}
+\usepackage{setspace}
 \onehalfspacing
 \usepackage{amsmath,amssymb,mathtools,bm}
 \usepackage{graphicx,tikz}
@@ -24,7 +31,7 @@
 \urlstyle{tt}
 \usepackage{csquotes}
 \usepackage[backend=biber,style=numeric,sorting=none,giveninits=true,maxbibnames=99]{biblatex}
-\addbibresource{../references.bib}
+\addbibresource{references.bib}
 % Cho URL bibliography ngắt trong mã phiên bản dài, giữ nguyên đích liên kết.
 \setcounter{biburlnumpenalty}{100}
 \setcounter{biburlucpenalty}{100}

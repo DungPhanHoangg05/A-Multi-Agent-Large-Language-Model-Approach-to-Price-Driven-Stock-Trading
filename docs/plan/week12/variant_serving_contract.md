@@ -5,6 +5,10 @@ Contract `variant_serving_v1`, registry `variant_serving_registry_v1`, config
 `unified_variant_registry_v2` và `unified_experiment_v1/v2` tiếp tục nhận diện
 phương pháp và replay nghiên cứu. Không đổi expected hash/receipt lịch sử.
 
+FIN15 dùng tên QuantAgent, Our system và BICL v1–v5 trong tài liệu.
+Tên nút và ID của giao diện đang vận hành theo hợp đồng bên dưới. Xem
+[bảng ánh xạ tên và ID](../../../README.md#methods-and-profiles).
+
 **Xác nhận hiện hành ngày 17/11/2026 — giao diện đã hoàn thiện và được tác giả nghiệm thu.**
 Theo chỉ đạo của tác giả, toàn bộ giao diện được chấp nhận cho phạm vi sử dụng
 hiện tại của khóa luận; các chỉnh sửa về sau là cải tiến sau nghiệm thu.

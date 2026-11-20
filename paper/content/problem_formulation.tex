@@ -257,12 +257,12 @@ The displayed diagnostic rounding precedes sorting. Up to $K=\min(5,|\mathcal{V}
 This selection and IC orientation remain adaptive reuse of trailing data. They do not demonstrate factor discovery or alpha profitability. Separate train-fit fixed/dynamic/random numerical controls are reported in Section~\ref{sec:backtestresults}.
 
 \paragraph{Causal scope}
-Native backward filling, whole-Series normalization and full-frame volume-availability branching can change earlier historical values when later rows in the supplied prefix change. Synthetic perturbations after the decision cutoff leave outputs unchanged, establishing outer-cutoff isolation but not row-wise causality within the prefix. Native diagnostics are therefore evaluated as in-sample historical constructions.
+In the historical alpha implementation, backward filling and full-prefix statistics can change earlier feature rows. The volume-availability branch can have the same effect. Perturbations after the decision cutoff leave outputs unchanged, so the historical diagnostics show outer-cutoff isolation. Row-wise causality remains unresolved for that version.
 
-Custom handler formulas are in \ref{app:signals}. Native BFE multiplies $(\%B-0.5)$ by signed $VolZ_5$ before tanh: negative volume z-score reverses the sign and zero cancels it. There is no squeeze/volume-expansion gate. Registry/prototype preprocessing differ, and a selected display rank is not a permanent handler ID. Six selected metadata slots differ from their handler descriptions, with unmeasured semantic effects.
+Custom handler formulas are in \ref{app:signals}. Our system BFE multiplies $(\%B-0.5)$ by signed $VolZ_5$ before tanh: negative volume z-score reverses the sign and zero cancels it. There is no squeeze/volume-expansion gate. Registry/prototype preprocessing differ, and a selected display rank is not a permanent handler ID. Six selected metadata slots differ from their handler descriptions, with unmeasured semantic effects.
 
 \paragraph{Separate common alpha projection}
-The common causal projection uses row-causal operator adaptations and training-fitted IC orientation, with top-five selection and a signal threshold chosen on purged validation data. IDs, signs, threshold and preprocessing are frozen before the test scope. Historical-origin and selector hashes bind every projected query. This is a different alpha representation from the native diagnostics above; native and causal constructions are evaluated as distinct representations. Common, all prior methods and the fact/MT branches receive this projection, while Native retains its original projection and prompt. These causal restrictions apply to alpha construction; historical news availability and hosted-model training exposure remain uncertain.
+The common causal projection uses row-causal operator adaptations and training-fitted IC orientation, with top-five selection and a signal threshold chosen on purged validation data. IDs, signs, threshold and preprocessing are frozen before the test scope. Historical-origin and selector hashes bind every projected query. This is a different alpha representation from the native diagnostics above; native and causal constructions are evaluated as distinct representations. Common, all prior methods and the fact/MT branches receive this projection, while Our system retains its original projection and prompt. These causal restrictions apply to alpha construction; historical news availability and hosted-model training exposure remain uncertain.
 
 \subsection{Sentiment Signal Construction}
 Let $\mathcal{D}_e=\{d_1,\ldots,d_{|\mathcal{D}_e|}\}$ denote the target-stock articles admitted by the date, identity and scorer-provenance rules at cutoff $\tau_d$, $d=e-1$. Each article has score
@@ -357,10 +357,10 @@ Decision aggregates the role reports through prompt instructions:
 \end{equation}
 
 
-The inclusion of factor and sentiment sections is variant-specific: Full includes both, Base neither, A only factors, S only sentiment, and P the predetermined past-donor factor replacement with current sentiment. Thus $\mathbf{r}^{\mathrm{alpha}}$ denotes enabled quantitative/text context, not evidence of a learned fusion model. General priority instructions can remain even when their corresponding sections are omitted. Compact main/upstream and explicit-five-row factorial families are reported separately. Binary prediction is distinct from the account action: SHORT maps to CASH; LONG enters the specified cycle under the separate execution assumptions.
+The inclusion of factor and sentiment sections is variant-specific: Our system includes both, QuantAgent neither, A only factors, S only sentiment, and P the predetermined past-donor factor replacement with current sentiment. Thus $\mathbf{r}^{\mathrm{alpha}}$ denotes enabled quantitative/text context, not evidence of a learned fusion model. General priority instructions can remain even when their corresponding sections are omitted. Compact main/upstream and explicit-five-row factorial families are reported separately. Binary prediction is distinct from the account action: SHORT maps to CASH; LONG enters the specified cycle under the separate execution assumptions.
 
 \paragraph{Task-conditioned revision and utility}
-MT-BICL preserves prior-task and target-task boundaries rather than pooling all historical labels. Its frozen numerical student conditions on the selected context and estimates $P(y=+1)$; that probability is not an expected return or calibrated LLM confidence. A separate hierarchical Beta--Bernoulli teacher supplies the posterior success-probability draws used by the utility calculation. With positive net-gain magnitude $g$ and nonpositive-return loss magnitude $\ell$, the stored utility draws use
+BICL v5 preserves prior-task and target-task boundaries rather than pooling all historical labels. Its frozen numerical student conditions on the selected context and estimates $P(y=+1)$; that probability is not an expected return or calibrated LLM confidence. A separate hierarchical Beta--Bernoulli teacher supplies the posterior success-probability draws used by the utility calculation. With positive net-gain magnitude $g$ and nonpositive-return loss magnitude $\ell$, the stored utility draws use
 \begin{equation}
  U=\theta g-(1-\theta)\ell,\qquad
  \Delta U=U(a^{\mathrm{proposed}})-U(a^0),\qquad U(\mathrm{CASH})=0.
@@ -393,8 +393,8 @@ Directional accuracy, its paired difference, the reference cycle return and weal
     \label{eq:acc} \\[4pt]
     \Delta\mathrm{Acc}
     &\;=\;
-    \mathrm{Acc}_{\mathrm{Full}}
-    \;-\; \mathrm{Acc}_{\mathrm{Base}},
+    \mathrm{Acc}_{\mathrm{Our system}}
+    \;-\; \mathrm{Acc}_{\mathrm{QuantAgent}},
     \label{eq:lift} \\[4pt]
     q_e
     &\;=\;
@@ -415,7 +415,7 @@ Directional accuracy, its paired difference, the reference cycle return and weal
 \end{align}
 
 
-The paired $\Delta\mathrm{Acc}$ is a descriptive Full--Base bundle difference, not an isolated alpha treatment. BA is the primary class-aware metric and is defined with MCC in Section~\ref{sec:experimentalsetup}. In the fractional reference ledger, $a_e=1$ for LONG and zero for SHORT/CASH. Each LONG pays fee and slippage at next Open and target Close; $W_0=1$ is normalized wealth, equivalent in return to the VND50 million account initialization. Cycles do not overlap on the selected schedule. Separate accounts are not pooled portfolio capital, and settlement/capacity sensitivities retain receivables and residual shares rather than assuming the reference product always applies.
+The paired $\Delta\mathrm{Acc}$ is a descriptive Our system--QuantAgent bundle difference, not an isolated alpha treatment. BA is the primary class-aware metric and is defined with MCC in Section~\ref{sec:experimentalsetup}. In the fractional reference ledger, $a_e=1$ for LONG and zero for SHORT/CASH. Each LONG pays fee and slippage at next Open and target Close; $W_0=1$ is normalized wealth, equivalent in return to the VND50 million account initialization. Cycles do not overlap on the selected schedule. Separate accounts are not pooled portfolio capital, and settlement/capacity sensitivities retain receivables and residual shares rather than assuming the reference product always applies.
 
 For daily-close wealth $W^{\mathrm{day}}_t$ including CASH gaps and the initial anchor, let $r^{\mathrm{day}}_t=W^{\mathrm{day}}_t/W^{\mathrm{day}}_{t-1}-1$. The account risk conventions use the Sharpe risk-adjusted-return framework \cite{sharpe1966mutual} and are
 

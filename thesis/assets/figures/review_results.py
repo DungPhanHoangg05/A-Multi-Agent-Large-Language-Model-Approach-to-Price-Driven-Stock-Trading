@@ -29,9 +29,9 @@ def main() -> None:
     data=read_results()
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':10.5,'pdf.fonttype':42})
     methods=['bayesian_v1','C2','A_tp_pool','B_semantic','MT_BICL']
-    labels=['v1','C2','A','B','MT']
+    labels=['BICL v1','BICL v2','BICL v3','BICL v4','BICL v5']
     fig,axes=plt.subplots(1,2,figsize=(6.25,2.6),sharey=True)
-    for ax,baseline,title,color in zip(axes,['original_fix','original_common'],['A. Extension minus Native','B. Extension minus Common'],['#245b82','#a05a1b']):
+    for ax,baseline,title,color in zip(axes,['original_fix','original_common'],['Versus Our system','Versus Our system (Common)'],['#245b82','#a05a1b']):
         for y,method in enumerate(methods):
             r=next(x for x in data['contrasts'] if x['method']==method and x['baseline']==baseline and x['endpoint']=='account_return_percentage_points')
             value,lo,hi=[r[k] for k in ['effect_pp','band95_low_pp','band95_high_pp']]
@@ -42,7 +42,7 @@ def main() -> None:
         ax.set_xticks([-1,-.5,0,.5]);ax.set_yticks(range(5),labels)
         ax.grid(axis='x',alpha=.2);ax.spines[['top','right']].set_visible(False)
     fig.supxlabel('Mean account-return difference (percentage points)',fontsize=10.5,y=.015)
-    fig.subplots_adjust(left=.08,right=.99,top=.84,bottom=.23,wspace=.17)
+    fig.subplots_adjust(left=.15,right=.99,top=.84,bottom=.23,wspace=.17)
     save(fig,'review_return_contrasts')
     mt=next(r for r in data['summary'] if r['method']=='MT_BICL')
     reasons=mt['policy_reasons']
@@ -53,7 +53,7 @@ def main() -> None:
     for y,count in enumerate(counts):ax.text(count+4,y,str(count),va='center',fontsize=11)
     ax.set_yticks(range(4),['Bypass to reference','Proposal already matches','Veto proposed change','Accept proposed change'])
     ax.set_xlim(0,220);ax.set_ylim(3.6,-.6);ax.set_xticks([0,50,100,150,200])
-    ax.set_xlabel('MT forecast slots (total 306)',fontsize=10.5)
+    ax.set_xlabel('BICL v5 forecast slots (total 306)',fontsize=10.5)
     ax.grid(axis='x',alpha=.2);ax.set_axisbelow(True);ax.spines[['top','right']].set_visible(False)
     fig.subplots_adjust(left=.40,right=.99,top=.98,bottom=.32)
     save(fig,'review_mt_resolution')

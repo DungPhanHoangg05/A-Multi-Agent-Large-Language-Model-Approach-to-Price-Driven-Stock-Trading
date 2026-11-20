@@ -5,8 +5,7 @@ Vietnamese stock market. It combines a LangGraph multi-agent pipeline, technical
 and visual chart analysis, quantitative alpha factors, Vietnamese financial-news
 sentiment, and historical context conditioned on market regimes.
 
-The repository contains the original agent system, Bayesian prior variants,
-Multi-Task Bayesian In-Context Learning (MT-BICL), a Flask application, paired
+The repository contains Our system, five BICL extensions, a Flask application, paired
 experiment infrastructure, and the sources for the research paper and thesis.
 The original project title is *A Multi-Agent Large Language Model Approach to
 Price-Driven Stock Trading in the Vietnamese Stock Market*.
@@ -61,21 +60,23 @@ plan. Forecast inputs are sealed before the outcome barrier opens.
 
 ### Methods and profiles
 
-The application exposes six primary choices. Registry IDs also identify methods
-in experiment records and exports.
+The manuscript names map to stable registry IDs. The component study
+uses QuantAgent as the price-only comparator and Our system as the
+augmented system. The context studies evaluate what BICL adds.
 
-| Application method | Registry ID | Context or policy |
+| System or control | Registry or study ID | Context or policy |
 | --- | --- | --- |
-| Original | `original_fix` | Native agent reports and decision profile. |
-| Bayesian v1 | `bayesian_v1` | Regime-conditioned historical prior with K=3. |
-| Bayesian v2 — C2 | `C2` | Conditional-quality historical statistics. |
-| Bayesian A — TP Pool | `A_tp_pool` | Price-pool historical retrieval. |
-| Bayesian B — Semantic | `B_semantic` | Semantic historical retrieval. |
-| MT-BICL | `MT_BICL` | Fact anchor, numeric context, student, and utility-based policy. |
+| QuantAgent | Component study `baseline` | Locally evaluated price-only adaptation of the published Indicator, Pattern, Trend, and Risk/Decision architecture. |
+| Our system | `original_fix`, component study `full` | OHLCV alpha and eligible Vietnamese news sentiment with no historical context. |
+| Our system (Common) | `original_common` | Common Decision prompt with augmented evidence and no context prior. |
+| BICL v1 | `bayesian_v1` | Regime-matched historical prior with K=3. |
+| BICL v2 | `C2` | Quality-conditioned historical statistics. |
+| BICL v3 | `A_tp_pool` | Relaxes the condition for historical statistics to trend and pattern. |
+| BICL v4 | `B_semantic` | Uses v2 evidence with explicit counts, intervals, and example descriptions. |
+| Fact Anchor | `Fact_Anchor` | Structured facts and reference action based on the Common result. |
+| BICL v5 | `MT_BICL` | Multi-task numeric context, teacher/student inference, and utility-gated revision. |
 
-The registry additionally contains `original_common`, the common-prompt
-baseline, and `Fact_Anchor`, an MT-BICL dependency. It resolves dependency order
-and declared fallbacks. Native component ablations use `full`, `alpha_only`,
+The registry resolves dependency order and declared fallbacks. Component ablations use `full`, `alpha_only`,
 `sentiment_only`, and `baseline`.
 
 `original_fix_serving_v1` is the default native decision profile.
@@ -309,14 +310,14 @@ records are maintained separately. [Agent instructions](AGENTS.md),
 
 ### Paper and thesis
 
-The paper has `paper/main.tex` and `paper/main_submit.tex` entrypoints, built
-with pdfLaTeX and BibTeX. Its edited tables and figures are included in the
-source tree. The thesis uses `thesis/latex/main.tex`, LuaLaTeX, and Biber.
-Its LaTeX tree is the authoritative manuscript source, with earlier Markdown
-drafts retained as historical material. Build instructions and artifact
-locations are documented in their respective directories.
-[Paper sources](paper/README.md), [paper PDFs](outputs/paper/README.md),
-[thesis sources and build](thesis/latex/README.md).
+The paper evaluates adding alpha and sentiment to QuantAgent. The thesis
+evaluates adding BICL to Our system. The paper uses `paper/main.tex` or
+`paper/main_submit.tex` with pdfLaTeX and BibTeX. The thesis uses
+`thesis/main.tex` with pdfLaTeX or XeLaTeX and Biber. Each directory has
+project-relative references and figure paths for Overleaf. Earlier thesis
+Markdown drafts are retained as historical material.
+[Paper sources](paper/README.md), [paper PDF](output/pdf/paper-fin15.pdf),
+[thesis sources and build](thesis/latex/README.md), [thesis PDF](output/pdf/thesis-fin15.pdf).
 
 ## Attribution and licensing
 

@@ -3,14 +3,14 @@
  box/.style={draw=blue!55!black,fill=blue!4,rounded corners,align=center,text width=4.8cm,minimum height=1.7cm,font=\footnotesize},
  wide/.style={box,text width=15.8cm},arr/.style={->,thick}]
 \node[wide] (in) at (5.7,0) {\textbf{Shared reports $\rightarrow$ profile-specific prompt}\\Distil/cap; total prompt $<6{,}500$ characters; extension prior/context prefix $\le600$\\Retry/checkpoint for technical failures; no failure-to-CASH conversion};
-\node[box] (native) at (0,-2.5) {\textbf{Native Decision}\\Native alpha / instructions\\No extension dependency};
+\node[box] (native) at (0,-2.5) {\textbf{Our system}\\Native Decision prompt\\No extension dependency};
 \node[box] (common) at (5.7,-2.5) {\textbf{Common Decision}\\Causal alpha / instructions\\Parent action for extensions};
 \node[box] (prior) at (11.4,-2.5) {\textbf{Historical priors}\\Qualified historical context\\Support bypass $\rightarrow$ Common};
 \draw[arr] (in.south)--++(0,-0.35)-|(native.north);
 \draw[arr] (in.south)--(common.north);
 \draw[arr] (common.east)--(prior.west);
 \node[box] (fact) at (5.7,-5) {\textbf{Fact anchor}\\PIT facts + Common action\\Invalid assertions $\rightarrow$ Common};
-\node[box] (mt) at (11.4,-5) {\textbf{MT-BICL revision}\\Common + anchor; tasks,\\student and teacher utility\\Ineligible context $\rightarrow$ anchor};
+\node[box] (mt) at (11.4,-5) {\textbf{BICL v5 revision}\\Common + anchor; tasks,\\student and teacher utility\\Ineligible context $\rightarrow$ anchor};
 \draw[arr] (common.south)--(fact.north);
 \draw[arr] (common.south east)--(mt.north west);
 \draw[arr] (fact.east)--(mt.west);

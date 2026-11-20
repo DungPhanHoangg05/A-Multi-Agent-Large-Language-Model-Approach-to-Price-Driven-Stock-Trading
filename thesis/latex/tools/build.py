@@ -15,15 +15,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--pdf', type=Path)
+    parser.add_argument('--engine', choices=('pdflatex', 'xelatex', 'lualatex'), default='pdflatex')
     parser.add_argument('--passes', type=int, default=4, choices=(2, 3, 4))
     parser.add_argument('--skip-bibliography', action='store_true')
     args = parser.parse_args()
-    source = Path(__file__).resolve().parents[1]
+    source = Path(__file__).resolve().parents[2]
     destination = (args.output_dir or source / 'build').resolve()
     destination.mkdir(parents=True, exist_ok=True)
-    engine = shutil.which('lualatex')
+    engine = shutil.which(args.engine)
     if engine is None:
-        raise SystemExit('Thiếu LuaLaTeX trong PATH.')
+        raise SystemExit(f'Thiếu {args.engine} trong PATH.')
     command = [engine, '--disable-installer', '-interaction=nonstopmode',
                '-halt-on-error', '-file-line-error', '-recorder',
                '-output-directory=' + str(destination), 'main.tex']
@@ -42,9 +43,8 @@ def main() -> None:
             # Chỉ đưa bản sao bcf/bib vào thư mục tạm ASCII; không sửa bibliography gốc.
             with TemporaryDirectory(prefix='thesis-biber-') as temporary:
                 bibroot = Path(temporary)
-                bcf = (destination / 'main.bcf').read_text(encoding='utf-8')
-                (bibroot / 'main.bcf').write_text(bcf.replace('../references.bib', 'references.bib'), encoding='utf-8')
-                shutil.copyfile(source.parent / 'references.bib', bibroot / 'references.bib')
+                shutil.copyfile(destination / 'main.bcf', bibroot / 'main.bcf')
+                shutil.copyfile(source / 'references.bib', bibroot / 'references.bib')
                 bibliography = subprocess.run([executable, 'main'], cwd=bibroot,
                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 for suffix in ['bbl', 'blg']:

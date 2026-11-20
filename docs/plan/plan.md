@@ -10,7 +10,8 @@ LLM Stock Trading in the Vietnamese Stock Market.
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
 `paper/` và khóa luận trong `thesis/`.** FIN00–FIN13 đã hoàn tất trong
 phạm vi ghi dưới đây. Giao diện `finalize_serving_v1` đã qua hồi quy offline
-FIN14. Phát hành hosted và chuyển mặc định còn mở cùng FIN15–FIN17.
+FIN14. Tác giả chuyển sang FIN15 trước và để phần giao diện còn lại làm sau.
+Phát hành hosted, chuyển mặc định và FIN16–FIN17 còn mở.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -39,6 +40,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN12 | Đánh giá offline từ receipt FIN11. Có 96/102 nhãn thực thi và 45/51 tài khoản đủ hai chu kỳ. Endpoint chính giữ NA. Oracle và cold verify đạt trên phạm vi có dữ liệu. |
 | FIN13 | `PASS_FIN13_OWNER_ATTESTED_SCOPE` cho cohort gốc và profile sửa trên nguồn giá tác giả xác nhận. Chứng nhận PIT nguồn độc lập vẫn `NOT_CERTIFIED`. |
 | FIN14 | Hồi quy giao diện đạt trên Chromium desktop/mobile với transport đối chứng. Backend ứng dụng vẫn chặn hosted cho `finalize_serving_v1`. Mặc định đang dùng profile hiện hành. |
+| FIN15 | Hai bản thảo thống nhất tên QuantAgent, Our system và BICL v1–v5, có bảng phân biệt và sơ đồ tổng thể. Đã đối soát FIN12 và build sạch cả bài báo lẫn khóa luận. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
 [hợp đồng so sánh](week12/finalize_comparison_contract.json),
@@ -265,13 +267,15 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   động. Kế thừa nghiệm thu giao diện 17/11 trong phần không bị ảnh hưởng.
   Phụ thuộc FIN08 và FIN13. [Hồi quy giao diện offline đã đạt](#fin14--hồi-quy-giao-diện-và-export).
   Còn xác minh hosted ứng dụng trước khi chuyển mặc định.
-- [ ] **FIN15 — Đồng bộ khóa luận, bài báo và tài liệu hệ thống.** Cập nhật
+- [x] **FIN15 — Đồng bộ khóa luận, bài báo và tài liệu hệ thống.** Cập nhật
   nguồn tại `thesis/` và `paper/`, hướng dẫn chạy, mô tả phương pháp, bảng/hình,
   limitations và các tài liệu trình bày còn dùng theo đúng release mới.
   Chương kết quả phân biệt study cũ và lần đánh giá
   sửa đổi; số liệu sinh từ nguồn đã khóa. Khóa luận tiếng Anh, quản lý bằng
   tiếng Việt, root README tiếng Anh. Build/render và kiểm phần tài liệu bị
-  ảnh hưởng; nối phần bàn giao với P10 của thesis. Phụ thuộc FIN12–FIN14.
+  ảnh hưởng; nối phần bàn giao với P10 của thesis. Tác giả cho tiếp tục
+  từ FIN12–FIN13 và kết quả hồi quy offline FIN14. Phần phát hành giao diện
+  chuyển sang lượt sau. [Biên tập và build FIN15](#fin15--đồng-bộ-hai-bản-thảo).
 - [ ] **FIN16 — Đóng gói và khôi phục bản cuối.** Đóng gói source, runtime lock,
   tài nguyên được phép bàn giao, runbook, manifest, kết quả và receipt theo
   layout hiện có; ghi cách lấy asset local hoặc giới hạn phân phối. Kiểm
@@ -1414,6 +1418,34 @@ Backend ứng dụng vẫn trả `HOSTED_RELEASE_PENDING_FIN10` cho profile sử
 Receipt FIN11 bao phủ runner thu dự báo nghiên cứu. FIN14 đã xác minh nút
 chạy bị chặn và hiển thị lý do trên web. Phát hành hosted cần nghiệm thu
 qua caller ứng dụng trước khi chuyển mặc định.
+
+#### FIN15 — Đồng bộ hai bản thảo
+
+Bài báo tập trung vào so sánh Our system với QuantAgent dưới cùng hợp đồng
+giao dịch. BICL v1–v5 được trình bày như nghiên cứu mở rộng. Khóa luận
+lấy đóng góp tăng thêm của BICL làm câu hỏi chính, đồng thời truy vết
+QuantAgent, Our system, hai đối chứng và từng phiên bản trong bảng phương
+pháp. Hai bản thêm sơ đồ khối và phân biệt kết quả thành phần, lượt
+nghiên cứu ngữ cảnh lịch sử và lượt chạy lại FIN12.
+
+Bảng FIN12 được chiếu từ kết quả đã đối soát SHA-256 với receipt. Đã
+kiểm lại 68 dòng bảng lịch sử khi đổi tên bản trình bày và giữ nguyên
+ID của các artifact. Nguồn khóa luận dùng `thesis/main.tex` ở gốc dự án
+Overleaf, với đường dẫn nội bộ và hỗ trợ pdfLaTeX/XeLaTeX. Tiếp tục
+[P10](../../thesis/plan.md#p10-đóng-gói-tái-lập-và-bàn-giao) từ nguồn này.
+
+Đã build sạch hai điểm vào bài báo bằng pdfLaTeX/BibTeX và khóa luận
+bằng pdfLaTeX/Biber cùng XeLaTeX/Biber. Đã render để rà bố cục và kiểm
+tham chiếu, số liệu, sơ đồ và bảng phiên bản. Hai bản bài báo có 45 và 44
+trang. Khóa luận có 69 trang A4 dọc trên cả hai engine. Công việc thay đổi bản thảo
+và công cụ build tài liệu. Các gate nghiên cứu và lượt gọi API thật được
+giữ theo biên bản trước.
+
+[Bài báo](../../output/pdf/paper-fin15.pdf) ·
+[Bản nộp bài báo](../../output/pdf/paper-fin15-submit.pdf) ·
+[Khóa luận](../../output/pdf/thesis-fin15.pdf) ·
+[Gói nguồn Overleaf](../../output/overleaf/thesis-fin15-overleaf.zip) ·
+[Hướng dẫn Overleaf](../../thesis/latex/README.md).
 
 ### Mốc đã ghi nhận trước kế hoạch finalize
 

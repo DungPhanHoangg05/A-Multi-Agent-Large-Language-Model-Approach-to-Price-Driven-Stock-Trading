@@ -34,6 +34,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{tabularx}
+\usepackage{booktabs}
 \usepackage{float}
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 \usepackage[section]{placeins}
@@ -61,7 +62,7 @@
 
 %% Title, authors and addresses
 
-\title{Enhancing Multi-Agent Large Language Models for Stock Trading through Quantitative Alpha Integration\tnoteref{t1}}
+\title{Evaluating Quantitative Alpha and News Sentiment in QuantAgent for Vietnamese Stock Trading\tnoteref{t1}}
 \tnotetext[t1]{This research is funded by Foreign Trade University under research program number FTURP02-2026-08.}
 
 %% Authors
@@ -89,7 +90,7 @@
 
 %% Abstract
 \begin{abstract}
-We present a multi-agent LLM framework for Vietnamese stock trading that integrates quantitative alpha signals, local-language news sentiment and historical decision context with technical and visual market analysis. A configurable OHLCV factor registry supplies quantitative evidence, while specialised agents produce shared indicator, candlestick and trend reports. Regime-aware Bayesian priors and task-conditioned decision refinement extend this evidence with qualified historical information. The framework distinguishes native adaptive factor diagnostics from a training-fitted causal projection and connects directional forecasts to transaction-cost-aware, long-only execution. Paired component and historical-context studies compare information configurations, numerical baselines and decision policies using shared upstream evidence. Quantitative augmentation produces more selective LONG forecasts and higher balanced accuracy than the chart-based baseline, while historical-prior effects depend on the comparator and available support. Classification improvements do not consistently translate into stronger economic performance. Repeated decisions, component ablations and historical placebos help identify the roles of signal representation, missing inputs and fallback behaviour. The findings remain exploratory because temporal coverage and historical input validity are limited. The resulting framework provides an auditable basis for studying quantitative knowledge integration and for designing prospective evaluations of multi-agent trading systems.
+We test whether quantitative alpha and Vietnamese news sentiment improve the price-driven QuantAgent architecture for daily equity forecasts. Our system adds two evidence channels to the same technical and chart reports supplied to the local QuantAgent comparator. On 102 paired observations, balanced accuracy is 52.96\% for Our system and 49.71\% for QuantAgent. Both identify seven of 25 UP cases. The augmented system makes fewer false LONG calls. Mean net account return is slightly lower, and smaller component panels do not isolate a reliable alpha or sentiment contribution. A secondary study evaluates BICL v1--v5, which add eligible historical context. In a repaired rerun, 96 cutoffs have valid outcomes and 45 of 51 accounts per repeat have both cycles. Relative to the matched no-context control, v1--v4 change mean return little on the complete accounts, and v5 reduces it. The results support a limited classification gain for the combined augmentation on the historical panel. Data provenance, coverage and reference execution constrain broader claims.
 \end{abstract}
 
 %%Graphical abstract
@@ -99,9 +100,9 @@ We present a multi-agent LLM framework for Vietnamese stock trading that integra
 \begin{highlights}
 \item Integrates quantitative alpha and Vietnamese news into multi-agent stock trading.
 \item Builds a configurable OHLCV factor registry for market-specific alpha selection.
-\item Adds regime-aware Bayesian priors and task-conditioned decision refinement.
+\item Tests five BICL versions as a secondary historical-context extension.
 \item Shares upstream evidence across methods for controlled trading comparisons.
-\item Links signal attribution and historical support to cost-aware trading outcomes.
+\item Reports a balanced accuracy gain with slightly lower mean net account return.
 \end{highlights}
 
 %% Keywords

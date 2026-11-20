@@ -330,52 +330,64 @@
   },
   "current_latex": [
     {
+      "path": "assets/diagrams/F03_finalized_system_flow.tex",
+      "lf_sha256": "b124d0f725af014af09b0bf594d42b2c7ac8f4fbd27c22f48abf93d8b56fb014"
+    },
+    {
+      "path": "covers-preview.tex",
+      "lf_sha256": "2d200a00053738790d7b70343629bac1e7882ac3ae93bed93c45c74fb3533fd2"
+    },
+    {
       "path": "latex/chapters/01_introduction.tex",
-      "lf_sha256": "5fefc68ead8167a51ff3203ce7c60c1c2308508c5ded5c7203bbf5402ce2d541"
+      "lf_sha256": "61bad97c012ad2d9945cbfccbcc497fcca484fe306a192721e163d3f29ab61f5"
     },
     {
       "path": "latex/chapters/02_related_work.tex",
-      "lf_sha256": "562291a466d48af88ad4b33c16dbb14a686db9b4d659da7e120e8b9f9f934605"
+      "lf_sha256": "847308d1224fd8b7d6ea64a86d09e86b44a0e6d6368b2fe41306df4fc0d7e114"
     },
     {
       "path": "latex/chapters/03_background.tex",
-      "lf_sha256": "de22b4ca4817b5b5ce2f960a78d38eb0cbe1f87d22534e76c7a114f23b3d4cf1"
+      "lf_sha256": "99f862786641059bf7bb3d2eeaf26bc1dc256c0478dabe6c81110878c3586159"
     },
     {
       "path": "latex/chapters/04_proposed_system.tex",
-      "lf_sha256": "20b52d0d569c3d960b5d18765c065cccd5754158f3126ee2ec3dce007f6a5e25"
+      "lf_sha256": "0a175ddf65739d36320c52ad2f7b3417a6138a55ea7c4cf767438138e792e4fb"
     },
     {
       "path": "latex/chapters/05_experiments.tex",
-      "lf_sha256": "8db0bbe28f2706d01c6bf719fea6d55257415d1586d438d6ff4be8b95c6c6075"
+      "lf_sha256": "5c6a1bea12fabb03adc8b914580168d621f60d20f82c69041041c552644bf8f3"
     },
     {
       "path": "latex/chapters/06_conclusion.tex",
-      "lf_sha256": "b190c96f2e609518fb23149f3dcc7d26392fd828ffb7c49270919fae2c6a7e3d"
-    },
-    {
-      "path": "latex/covers-preview.tex",
-      "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+      "lf_sha256": "408c747b3f1f9fd7d3359e11da0c1cefbc9bb8977f481903df3babe70a1dc57e"
     },
     {
       "path": "latex/frontmatter/content.tex",
-      "lf_sha256": "db3c628a5864ffc67e7503d3bb4002f25b6c623100cb58c3f9db58e1f7501bf4"
+      "lf_sha256": "68828594eef235d5e4ac802167486582565f0743921dcbc37a1c5fe65fdd1e38"
     },
     {
       "path": "latex/frontmatter/covers.tex",
-      "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+      "lf_sha256": "1bfa2b68e75a36342cfae2a698277e8bd94b169b506eaf797ca3adfc3bf4f532"
     },
     {
       "path": "latex/frontmatter/reference_lists.tex",
       "lf_sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
     },
     {
-      "path": "latex/main.tex",
-      "lf_sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
+      "path": "latex/preamble.tex",
+      "lf_sha256": "a44b06c7d0d52e9cb78bca06a01fd0a7ce02a403ad97600a86931e00753c5e39"
     },
     {
-      "path": "latex/preamble.tex",
-      "lf_sha256": "46c805cfe6686c9f4706b9a7cba53facae225fc5f7021ea102724918731940d5"
+      "path": "latex/tables/finalize_results.tex",
+      "lf_sha256": "29804376b70f8be665cae6ca7c98d0b2514c1b5fd3106e5dddbde6b1d3eba784"
+    },
+    {
+      "path": "latex/tables/system_versions.tex",
+      "lf_sha256": "821014d1e0945b03097b27e32d5097bbadc234e716ccf9ef9820d6c08a436c22"
+    },
+    {
+      "path": "main.tex",
+      "lf_sha256": "8435c5f1424f3d7ad6ae48b677873505492e0d2d66762f2df1a035d028872f97"
     }
   ],
   "current_references_lf_sha256": "56f3d621ef6be49805604a1956129e917db09dd2800f4fb57320fc4c12cdc462",
@@ -2334,5 +2346,86 @@
     "source_bindings_verified": 19,
     "regime_slot_bindings_verified": 204,
     "manifest_hash_mismatch_negative_checks": "PASS"
+  },
+  "previous_review_latex": [
+    {
+      "path": "latex/chapters/01_introduction.tex",
+      "lf_sha256": "5fefc68ead8167a51ff3203ce7c60c1c2308508c5ded5c7203bbf5402ce2d541"
+    },
+    {
+      "path": "latex/chapters/02_related_work.tex",
+      "lf_sha256": "562291a466d48af88ad4b33c16dbb14a686db9b4d659da7e120e8b9f9f934605"
+    },
+    {
+      "path": "latex/chapters/03_background.tex",
+      "lf_sha256": "de22b4ca4817b5b5ce2f960a78d38eb0cbe1f87d22534e76c7a114f23b3d4cf1"
+    },
+    {
+      "path": "latex/chapters/04_proposed_system.tex",
+      "lf_sha256": "20b52d0d569c3d960b5d18765c065cccd5754158f3126ee2ec3dce007f6a5e25"
+    },
+    {
+      "path": "latex/chapters/05_experiments.tex",
+      "lf_sha256": "8db0bbe28f2706d01c6bf719fea6d55257415d1586d438d6ff4be8b95c6c6075"
+    },
+    {
+      "path": "latex/chapters/06_conclusion.tex",
+      "lf_sha256": "b190c96f2e609518fb23149f3dcc7d26392fd828ffb7c49270919fae2c6a7e3d"
+    },
+    {
+      "path": "latex/covers-preview.tex",
+      "lf_sha256": "40bddeb606e0f1d1536b295e45f5612697d52e2fedbd7a9ea9dd79220900af62"
+    },
+    {
+      "path": "latex/frontmatter/content.tex",
+      "lf_sha256": "db3c628a5864ffc67e7503d3bb4002f25b6c623100cb58c3f9db58e1f7501bf4"
+    },
+    {
+      "path": "latex/frontmatter/covers.tex",
+      "lf_sha256": "4632a8d9d0b732f756fad7ce598d89097b4e44f8e800429e2bb543852701feb9"
+    },
+    {
+      "path": "latex/frontmatter/reference_lists.tex",
+      "lf_sha256": "ff8a90a91a43846a0917eeeb9fff1b6cf074a08109bc88d6656873d8a53d4b55"
+    },
+    {
+      "path": "latex/main.tex",
+      "lf_sha256": "dcca7779f75e8e67a0c1629f0a7bdcdd28dd968e0c18d5703ded19dc99c4ce71"
+    },
+    {
+      "path": "latex/preamble.tex",
+      "lf_sha256": "46c805cfe6686c9f4706b9a7cba53facae225fc5f7021ea102724918731940d5"
+    }
+  ],
+  "current_document_entrypoint": "main.tex",
+  "current_display_names": {
+    "original_fix": "Our system",
+    "original_common": "Our system (Common)",
+    "bayesian_v1": "BICL v1",
+    "C2": "BICL v2",
+    "A_tp_pool": "BICL v3",
+    "B_semantic": "BICL v4",
+    "MT_BICL": "BICL v5",
+    "Fact_Anchor": "Fact Anchor",
+    "baseline": "QuantAgent",
+    "full": "Our system"
+  },
+  "fin15_outputs": {
+    "pdf": {
+      "path": "output/pdf/thesis-fin15.pdf",
+      "bytes": 861871,
+      "sha256": "d095b6af0c3584c5b9bdb2a7f2bd283a8d3b112bc61b2538482d0d15aea58b10"
+    },
+    "overleaf_source": {
+      "path": "output/overleaf/thesis-fin15-overleaf.zip",
+      "bytes": 253616,
+      "sha256": "6a1b58de1a384e1e9c0b967961efe80e76e322885a734486028e6a8d88c48d16"
+    },
+    "pdf_pages": 69,
+    "engines_tested": [
+      "pdflatex",
+      "xelatex"
+    ],
+    "bibliography": "biber"
   }
 }

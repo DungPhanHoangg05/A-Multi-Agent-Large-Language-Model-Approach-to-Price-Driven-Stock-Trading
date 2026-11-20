@@ -1,0 +1,36 @@
+% Sơ đồ khối của profile sửa, dùng các khối và mũi tên để lần theo dữ liệu.
+\begin{tikzpicture}[
+  box/.style={draw=thesisblue,rounded corners=2pt,fill=blue!4,align=center,
+    text width=3.7cm,minimum height=1.05cm,font=\linespread{1}\fontsize{10}{12}\selectfont,inner sep=4pt},
+  wide/.style={box,text width=12.4cm},
+  history/.style={box,fill=green!8},
+  result/.style={wide,fill=orange!12},
+  edge/.style={-{Latex[length=2mm]},semithick,draw=thesisblue}]
+\node[box] (price) at (0,0) {Stock and index\\OHLCV through $t$};
+\node[box] (news) at (4.4,0) {Vietnamese news\\available by $t$};
+\node[history] (history) at (8.8,0) {Historical episodes\\with exit before $t$};
+\node[box] (chart) at (0,-1.6) {Indicator and vision\\Pattern and Trend charts};
+\node[box] (alpha) at (4.4,-1.6) {Alpha and sentiment\\Reports or missingness};
+\node[history] (bank) at (8.8,-1.6) {OHLCV bank\\Frozen models};
+\node[box,text width=8.1cm] (shared) at (2.2,-3.2) {One upstream snapshot per stock and cutoff\\Save chart reports, alpha and sentiment};
+\node[history] (context) at (8.8,-3.2) {Historical context\\Apply support gates};
+\node[box] (native) at (0,-5) {Our system\\Native Decision prompt};
+\node[box] (common) at (4.4,-5) {Our system (Common)\\BICL v1--v4 or fallback};
+\node[box] (mt) at (8.8,-5) {Fact Anchor\\BICL v5 utility gate};
+\node[wide] (record) at (4.4,-6.65) {Save raw forecast, fallback or veto, and final LONG/CASH per repeat};
+\node[result] (outcome) at (4.4,-8.25) {Join execution outcomes after the forecast barrier\\LONG: next open to third close with costs. SHORT: CASH.};
+\draw[edge] (price)--(chart);
+\draw[edge] ([xshift=12mm]price.south)--++(0,-.23)-|([xshift=-12mm]alpha.north);
+\draw[edge] (news)--(alpha);
+\draw[edge] (history)--(bank);
+\foreach \n in {chart,alpha}{\draw[edge] (\n.south)--(\n.south |- shared.north);}
+\draw[edge,draw=green!45!black] (bank)--(context);
+\draw[edge,draw=green!45!black] (context.south west)--++(0,-.12)-|([xshift=10mm]common.north);
+\draw[edge,draw=green!45!black] (context)--(mt);
+\foreach \n in {native,common,mt}{
+  \draw[edge] (\n.south)--(\n.south |- record.north);
+}
+\foreach \n in {native,common}{\draw[edge] (\n.north |- shared.south)--(\n.north);}
+\draw[edge] (common.east)--(mt.west);
+\draw[edge] (record)--(outcome);
+\end{tikzpicture}

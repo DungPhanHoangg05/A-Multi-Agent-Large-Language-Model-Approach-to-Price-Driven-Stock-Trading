@@ -1,15 +1,14 @@
 % Hai nghiên cứu, estimator và phạm vi bằng chứng được giữ riêng.
 \chapter{Experiments and Discussion}\label{s:016253c474e8e6bb}
 \section{Studies and evidence scope}\label{s:26fcfd1c2d723181}
-The component study compares Full/Base and numerical controls, with
-separate upstream and factorial/placebo panels. The historical-context
-study compares eight roles conditional on one shared upstream realization
-per point. They share a sampled market schedule but have separate
-responses, protocol histories and estimators. Full is not a reused Native
-response, and Base is not Common. Both studies are historical exploratory
-assessments, with no new inference or retraining for this manuscript.
-Tables below transcribe the frozen study outputs; the companion evidence
-record identifies source archive members and checksums for detailed tracing.
+The main thesis comparison is the repaired BICL study. It measures five extensions
+against Our system, Our system (Common), and the Fact Anchor control. The
+earlier component study compares Our system with a price-only QuantAgent
+comparator, with separate numerical and factorial panels. The earlier
+context study is an independent forecast collection at the same cutoffs.
+The name Our system refers to the augmented architecture in each study.
+Model responses, input profiles and estimators remain specific to each
+collection. Tables below transcribe the frozen outputs.
 Rounded display cells do not define the paired contrasts: those use
 the unrounded source estimators, so subtracting printed values may differ
 slightly from a reported contrast. Display rounding changes neither source
@@ -205,7 +204,7 @@ Its full-value prompts differ from main compact prompts. A separate
 23-strategy numerical experiment retains fixed five, train-ranked five,
 the same five without sign flip and all twenty random-five trials. It
 uses no hosted calls and is not an isolated LLM-selector ablation.
-Context compares five extensions (v1/C2/A/B/MT) against \emph{both} Native
+Context compares five extensions (v1/BICL v2--v4/MT) against \emph{both} Our system
 and Common, with separate Common--Anchor--MT bridges; controls are CASH
 and always-LONG cycles. Missing matched context ablations remain missing.
 
@@ -282,6 +281,38 @@ CORE4 and leave-one-fold/stock analyses are sensitivities, not independent
 confirmation. Six exposed clusters do not establish calibrated coverage,
 power, significance or causal superiority. No bootstrap was regenerated.
 
+\section{Repaired BICL evaluation}\label{sec:fin12}
+The repaired evaluation asks what BICL adds to Our system. It reruns eight
+research roles on the same 102 stock--date points, with three Decision
+repeats and 2,448 recorded forecasts. The rerun uses a training-fitted
+causal alpha projection, a rebuilt OHLCV memory bank and same-repeat
+fallback. The sentiment channel is unavailable on all repaired queries
+because no news has verified cutoff availability. This study cannot
+estimate a sentiment effect. The historical results later in this chapter
+retain their own forecasts, inputs and estimators.
+
+Five holding periods cross corporate actions, and one entry session has
+zero matched volume. The 96 valid candidate-LONG labels and the 90 points
+in complete accounts represent different supports. The complete-account
+sensitivity compares 45 accounts per repeat on identical support across
+methods (Table~\ref{tab:fin12-repaired}). The planned-cohort BA and account
+return remain NA. All 10,000 joint L2 bootstrap resamples were finite on
+the complete accounts. Some contrasts have zero variance, so the
+simultaneous confidence bands are unavailable.
+\input{latex/tables/finalize_results.tex}
+
+On the common complete accounts, the mean-return differences for
+BICL v1--v4 relative to Our system (Common) are $-0.0011$, $+0.0127$,
+$0.0000$ and $+0.0127$ pp, respectively. BICL v2 and v4 bypass 300 of 306
+slots each. BICL v5 returns $-1.0600$\%, or $-0.1221$ pp relative to Our
+system and $-0.5297$ pp relative to Our system (Common). Compared with
+Fact Anchor, BICL v5 changes return by $-0.0344$ pp and BA by $-0.7576$ pp.
+These comparisons show where BICL changes the decision path and where it
+mostly inherits its control. They do not establish a consistent
+account-return improvement. The author attested to the source prices.
+Independent historical point-in-time provenance and prospective
+performance remain open.
+
 \section{Component-study results}\label{s:1859e39b7acb256f}
 \subsection{Main comparison and controls}
 Table~\ref{tab:component} retains every main method/control on the 102-point
@@ -295,8 +326,8 @@ precision is three decimals; contrasts use saved unrounded values.
 \caption[Component main results]{Component main results: classification and net account outcomes.}\label{tab:component}
 \begin{tabular}{@{}P{.27\linewidth}rrrrr@{}}\toprule
 Method & BA (\%) & MCC & LONG (\%) & Return (\%) & MDD (\%)\\\midrule
-Full & 52.961 & 0.060 & 23.529 & -0.797 & 1.367\\
-Base & 49.714 & -0.005 & 28.431 & -0.750 & 1.453\\
+Our system & 52.961 & 0.060 & 23.529 & -0.797 & 1.367\\
+QuantAgent & 49.714 & -0.005 & 28.431 & -0.750 & 1.453\\
 CASH & 50.000 & NA & 0.000 & 0.000 & 0.000\\
 Train-majority & 50.000 & NA & 0.000 & 0.000 & 0.000\\
 Always-LONG cycles & 50.000 & NA & 100.000 & -3.000 & 4.523\\
@@ -307,21 +338,21 @@ Factor vote & 51.974 & 0.034 & 49.020 & -1.457 & 2.488\\
 Continuous hold (price only) & NA & NA & NA & -2.127 & 12.939\\
 \bottomrule\end{tabular}\end{table}
 
-Full's BA exceeds Base by \textbf{3.247 pp}, yet mean account return is
-\textbf{0.047 pp lower}. The saved Full--Base BA percentile interval is
-[$-1.176$,8.125] pp (10,000 draws, none undefined); all eight main Full
+Our system's BA exceeds QuantAgent by \textbf{3.247 pp}, yet mean account return is
+\textbf{0.047 pp lower}. The saved Our system--QuantAgent BA percentile interval is
+[$-1.176$,8.125] pp (10,000 draws, none undefined); all eight main Our system
 BA comparison intervals include zero. These descriptive intervals do
-not establish confirmed superiority. The confusion counts for Full and Base are respectively
+not establish confirmed superiority. The confusion counts for Our system and QuantAgent are respectively
 $(TP,FN,TN,FP)=(7,18,60,17)$ and $(7,18,55,22)$. Both capture seven UP
-points, while Full avoids five additional false positives and opens 24
+points, while Our system avoids five additional false positives and opens 24
 LONGs versus 29. CASH's 75.490\% accuracy reflects class imbalance, not
 UP identification; its BA is 50\% and MCC undefined. Logistic price has
-higher BA (55.610\%) and a less negative return than Full. Every active
+higher BA (55.610\%) and a less negative return than Our system. Every active
 main strategy has a negative mean net return. Classification gains and
 reduced exposure therefore do not demonstrate profitable trading.
 
-Full's mean held-session and close-exposure percentages are 2.353\% and
-1.569\%, compared with Base's 2.843\% and 1.895\%; intraday holding includes exit, whereas close exposure
+Our system's mean held-session and close-exposure percentages are 2.353\% and
+1.569\%, compared with QuantAgent's 2.843\% and 1.895\%; intraday holding includes exit, whereas close exposure
 does not. Daily costs/marks and cycle-end drawdown answer different
 questions. Continuous hold loses 2.127\% with 12.939\% mean MDD but is a
 different exposure schedule; always-LONG sampled cycles lose 3.000\%.
@@ -381,7 +412,7 @@ The complete seven-contrast factorial BA envelope is retained in
 Table~\ref{tab:factorial}. Its 6,986 jointly finite bootstrap draws leave
 3,014 undefined draws; conditioning on finite support does not establish
 simultaneous calibrated coverage. The interaction is a contrast of
-recorded scores, not proof of alpha--sentiment synergy. Full/Base also
+recorded scores, not proof of alpha--sentiment synergy. Our system/QuantAgent also
 changes prompt representation, so a joint information effect cannot be
 separated from format or length by this comparison.
 
@@ -403,21 +434,21 @@ interaction & 14.286 & {[}-13.333, 41.905{]}\\
 Table~\ref{tab:context} uses all 102 points/51 accounts and three Decision
 repeats. Repeat SD describes the three mean-return estimates, not market
 sampling error or a confidence interval. All eight research roles have
-negative means; Native is least negative and has the highest research-role
-BA, while MT and Fact Anchor are most negative. v1 lies between Native
+negative means; Our system is least negative and has the highest research-role
+BA, while MT and Fact Anchor are most negative. v1 lies between Our system
 and Common. Constant controls retain undefined MCC.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Historical-context main results]{Historical-context main results. Return/MDD are account means; SD is between Decision repeats.}\label{tab:context}
 \begin{tabular}{@{}P{.25\linewidth}rrr@{\hspace{1.2em}}rr@{}}\toprule
 Role/control & BA (\%) & MCC & Return (\%) & SD (pp) & MDD (\%)\\\midrule
-Native & 51.844 & 0.037 & -0.653 & 0.093 & 1.186\\
-Common & 45.965 & -0.076 & -1.025 & 0.098 & 1.647\\
-Bayesian v1 & 50.095 & 0.002 & -0.698 & 0.050 & 1.321\\
-C2 & 45.749 & -0.080 & -1.030 & 0.090 & 1.653\\
-A\_\allowbreak{}tp\_\allowbreak{}pool & 46.182 & -0.072 & -1.019 & 0.098 & 1.642\\
-B\_\allowbreak{}semantic & 45.749 & -0.080 & -1.030 & 0.090 & 1.653\\
-MT-BICL & 43.169 & -0.124 & -1.253 & 0.100 & 1.853\\
+Our system & 51.844 & 0.037 & -0.653 & 0.093 & 1.186\\
+Our system (Common) & 45.965 & -0.076 & -1.025 & 0.098 & 1.647\\
+BICL v1 & 50.095 & 0.002 & -0.698 & 0.050 & 1.321\\
+BICL v2 & 45.749 & -0.080 & -1.030 & 0.090 & 1.653\\
+BICL v3 & 46.182 & -0.072 & -1.019 & 0.098 & 1.642\\
+BICL v4 & 45.749 & -0.080 & -1.030 & 0.090 & 1.653\\
+BICL v5 & 43.169 & -0.124 & -1.253 & 0.100 & 1.853\\
 Fact Anchor & 42.736 & -0.131 & -1.286 & 0.070 & 1.883\\
 CASH & 50.000 & NA & 0.000 & 0.000 & 0.000\\
 Always-LONG cycles & 50.000 & NA & -3.000 & 0.000 & 4.523\\
@@ -430,44 +461,44 @@ and its saved joint-family descriptive band, in pp. These are not separate
 unadjusted intervals selected after seeing their signs.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption[Complete joint-family contrasts against Native]{Five extensions minus Native: ten cells of the twenty-cell joint family, all in pp.}\label{tab:vsnative}
+\caption[Complete joint-family contrasts against Our system]{Five extensions minus Our system: ten cells of the twenty-cell joint family, all in pp.}\label{tab:vsnative}
 \begin{tabular}{@{}P{.17\linewidth}P{.36\linewidth}P{.36\linewidth}@{}}\toprule
 Extension & Return difference [band] & BA difference [band]\\\midrule
-Bayesian v1 & -0.045 {[}-0.362, 0.271{]} & -1.749 {[}-6.374, 2.876{]}\\
-C2 & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]}\\
-A\_\allowbreak{}tp\_\allowbreak{}pool & -0.367 {[}-0.867, 0.133{]} & -5.662 {[}-11.771, 0.446{]}\\
-B\_\allowbreak{}semantic & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]}\\
-MT-BICL & -0.601 {[}-1.090, -0.111{]} & -8.675 {[}-20.239, 2.888{]}\\
+BICL v1 & -0.045 {[}-0.362, 0.271{]} & -1.749 {[}-6.374, 2.876{]}\\
+BICL v2 & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]}\\
+BICL v3 & -0.367 {[}-0.867, 0.133{]} & -5.662 {[}-11.771, 0.446{]}\\
+BICL v4 & -0.377 {[}-0.866, 0.111{]} & -6.095 {[}-11.629, -0.561{]}\\
+BICL v5 & -0.601 {[}-1.090, -0.111{]} & -8.675 {[}-20.239, 2.888{]}\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
 \caption[Complete joint-family contrasts against Common]{Five extensions minus Common: remaining ten cells of the same joint family, all in pp.}\label{tab:vscommon}
 \begin{tabular}{@{}P{.17\linewidth}P{.36\linewidth}P{.36\linewidth}@{}}\toprule
 Extension & Return difference [band] & BA difference [band]\\\midrule
-Bayesian v1 & 0.327 {[}0.067, 0.586{]} & 4.130 {[}2.011, 6.249{]}\\
-C2 & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]}\\
-A\_\allowbreak{}tp\_\allowbreak{}pool & 0.005 {[}-0.005, 0.016{]} & 0.216 {[}-0.235, 0.668{]}\\
-B\_\allowbreak{}semantic & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]}\\
-MT-BICL & -0.229 {[}-0.576, 0.118{]} & -2.797 {[}-11.168, 5.575{]}\\
+BICL v1 & 0.327 {[}0.067, 0.586{]} & 4.130 {[}2.011, 6.249{]}\\
+BICL v2 & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]}\\
+BICL v3 & 0.005 {[}-0.005, 0.016{]} & 0.216 {[}-0.235, 0.668{]}\\
+BICL v4 & -0.005 {[}-0.016, 0.005{]} & -0.216 {[}-0.668, 0.235{]}\\
+BICL v5 & -0.229 {[}-0.576, 0.118{]} & -2.797 {[}-11.168, 5.575{]}\\
 \bottomrule\end{tabular}\end{table}
 
 v1 exceeds Common by +0.327 pp return and +4.130 pp BA, but differs from
-Native by $-0.045$ pp return and $-1.749$ pp BA. The primary Common bands
-exclude zero, whereas Native bands include it. This is a descriptive,
+Our system by $-0.045$ pp return and $-1.749$ pp BA. The primary Common bands
+exclude zero, whereas Our system bands include it. This is a descriptive,
 baseline-dependent observation, not established superiority or a regime
-effect. MT minus Native return is $-0.601$ pp with a negative primary
-band; its Common return band includes zero. C2/B BA differences from
-Native are adverse. The mechanisms and missing interventions are discussed in
+effect. MT minus Our system return is $-0.601$ pp with a negative primary
+band; its Common return band includes zero. BICL v2/B BA differences from
+Our system are adverse. The mechanisms and missing interventions are discussed in
 Section~\ref{sec:mechanism-discussion}.
 
 \subsection{Fallback and the anchor bridge}
 \begin{figure}[!t]\centering
-\includegraphics[width=\linewidth]{../assets/figures/review_return_contrasts.pdf}
+\includegraphics[width=\linewidth]{assets/figures/review_return_contrasts.pdf}
 \caption[Return contrasts against both baselines]{Return contrasts against both baselines for 102 points, 51 accounts and three Decision repeats. Bars reproduce the ten return cells of the saved twenty-cell joint family; BA cells remain in the tables. These are descriptive bands under six exposed folds, not calibrated superiority claims.}\label{fig:review-contrasts}
 \end{figure}
 Table~\ref{tab:coverage} keeps all research roles and their denominators.
 Every role has 306 final slots; inherited actions are not fresh responses.
-v1 acts on the 48 bank-covered points in each repeat. C2 and B each issue only
+v1 acts on the 48 bank-covered points in each repeat. BICL v2 and v4 each issue only
 three raw replies, A only 24; their aggregate outcomes mostly reflect
 Common reuse. CASH/always-LONG controls have 306 deterministic slots,
 zero hosted replies and respectively zero/306 LONGs.
@@ -476,17 +507,17 @@ zero hosted replies and respectively zero/306 LONGs.
 \caption[Final actions, raw responses and bypasses]{Action and new-response coverage, with valid bypasses retained in primary metrics.}\label{tab:coverage}
 \begin{tabular}{@{}P{.32\linewidth}rrr@{}}\toprule
 Role & Final LONGs /306 & Raw replies & Bypasses\\\midrule
-Native & 69 & 306 & 0\\
-Common & 88 & 306 & 0\\
-Bayesian v1 & 73 & 144 & 162\\
-C2 & 89 & 3 & 303\\
-A\_\allowbreak{}tp\_\allowbreak{}pool & 87 & 24 & 282\\
-B\_\allowbreak{}semantic & 89 & 3 & 303\\
-MT-BICL & 105 & 198 & 108\\
+Our system & 69 & 306 & 0\\
+Our system (Common) & 88 & 306 & 0\\
+BICL v1 & 73 & 144 & 162\\
+BICL v2 & 89 & 3 & 303\\
+BICL v3 & 87 & 24 & 282\\
+BICL v4 & 89 & 3 & 303\\
+BICL v5 & 105 & 198 & 108\\
 Fact Anchor & 107 & 306 & 0\\
 \bottomrule\end{tabular}\end{table}
 
-Common versus Native changes 33/306 final actions; Fact Anchor versus
+Common versus Our system changes 33/306 final actions; Fact Anchor versus
 Common changes another 33/306. Their return/BA bridges are respectively
 $-0.372$/$-5.879$ pp and $-0.262$/$-3.229$ pp. MT differs from Fact Anchor
 in only four slots: \textbf{302/306 agreements}, with a +0.033 pp return
@@ -496,11 +527,11 @@ the numerical student, task conditioning or utility contribution.
 \section{Mechanisms, cases and sensitivity}\label{s:300d164b42208c53}
 \subsection{Support and action resolution}\label{sec:probability-support}
 \begin{figure}[!t]\centering
-\includegraphics[width=\linewidth]{../assets/figures/review_mt_resolution.pdf}
+\includegraphics[width=\linewidth]{assets/figures/review_mt_resolution.pdf}
 \caption[Resolution of all MT forecast slots]{Resolution of all 306 MT forecast slots. The 108 bypasses comprise 48 unavailable-query and 60 unsupported-utility cases. Of nine proposals differing from the reference, five are vetoed and four accepted. These counts are dependent forecast slots, not 306 independent markets.}\label{fig:review-mt}
 \end{figure}
 At repeat 0, v1 uses all 48 same-stock bank points and has three examples
-on each. C2 and B have one ready point each, A eight, while all three
+on each. BICL v2 and v4 have one ready point each, A eight, while all three
 have zero effective displayed examples on those 48 points: their limited
 activation is statistics-only in this recorded collection. Population
 counts, ready metrics and shown examples are distinct. Age/similarity
@@ -536,18 +567,18 @@ not the payoff of a CASH action; percentages are rounded.}\label{tab:cases}
 \begin{tabular}{@{}P{.25\linewidth}P{.23\linewidth}P{.29\linewidth}r@{}}\toprule
 Stock/cutoff & Branch & Proposal / reference / final & Net (\%)\\\midrule
 FPT 2023-07-03 & MT & LONG / LONG / LONG & $-0.265$\\
-FPT 2023-07-03 & C2 & absent / Common LONG / LONG & $-0.265$\\
+FPT 2023-07-03 & BICL v2 & absent / Common LONG / LONG & $-0.265$\\
 HVN 2024-07-01 & MT & LONG / CASH / LONG & $-1.574$\\
 MWG 2024-09-20 & MT & LONG / CASH / CASH & $+0.324$\\
-CMG 2023-07-03 & Native & SHORT / none / CASH & $+0.171$\\\bottomrule
+CMG 2023-07-03 & Our system & SHORT / none / CASH & $+0.171$\\\bottomrule
 \end{tabular}\end{table}
 
-Sufficient FPT context does not avoid a loss, and C2 support insufficiency
+Sufficient FPT context does not avoid a loss, and BICL v2 support insufficiency
 does not establish a negative forecast: it inherits LONG. HVN demonstrates
 an accepted change that loses after costs. MWG's rejected LONG misses a
 positive candidate return; its CASH payoff is zero, not $+0.324$\%.
 CMG's CASH likewise misses a profitable LONG and is incorrect for the
-net label. These cases preserve the limits of context, policy and Native
+net label. These cases preserve the limits of context, policy and Our system
 rather than selecting only favorable examples. FPT's chart/prose
 contradictions and unchanged anchor were explained before its outcome.
 
@@ -556,12 +587,12 @@ Saved sensitivities materially change interpretation. For v1 minus Common,
 the return band becomes [$-0.019$,0.672] at block length one, crossing zero,
 versus [0.067,0.586] at primary length two and [0.144,0.509] at length three.
 On CORE4 its return contrast is 0.694 pp [0.132,1.257], a different selected
-population. v1 minus Native on CORE4 is 0.350 pp [$-0.024$,0.725], compared
+population. v1 minus Our system on CORE4 is 0.350 pp [$-0.024$,0.725], compared
 with a negative full-cohort point contrast. MT minus Common on CORE4 is
 $-0.115$ pp [$-0.205$,$-0.026$], while its full-cohort primary band includes
 zero. None may replace the primary family because it looks more favorable.
 
-Leave-one-fold/stock analyses retain directional instability: v1--Native
+Leave-one-fold/stock analyses retain directional instability: v1--Our system
 return ranges [$-0.145$,0.107] across omitted folds and [$-0.162$,0.133]
 across omitted stocks. Their BA ranges and all remaining sensitivity
 cells remain available in the source artifact, without rerunning draws.
@@ -585,16 +616,16 @@ Table~\ref{tab:execution} retains all twelve saved scenario means and
 blocked-order counts. Reference, pending settlement and on-demand
 advance coincide only on this sampled schedule. Lower/higher costs use
 brokerage/slippage 0.10/.05\% and 0.50/.30\% per leg; the canonical reference
-stays 0.25/.10\%. Higher costs reverse the Full/Base return ordering.
+stays 0.25/.10\%. Higher costs reverse the Our system/QuantAgent return ordering.
 Automatic financing assumes a hypothetical 15\% annual charge on an
 actual-days/365 (ACT/365) basis.
 The lot/participation proxy uses lots of 100 and 1\% of lagged trailing
 20-session mean vendor volume, not authenticated order-book capacity.
 
 \begin{table}[htbp]\centering\small\setstretch{1.05}\setlength{\tabcolsep}{4pt}
-\caption[Recorded component execution scenarios]{All saved component execution scenarios with fixed predictions and labels. Returns are mean account percentages; blocked counts are Full/Base (F/B).}\label{tab:execution}
+\caption[Recorded component execution scenarios]{All saved component execution scenarios with fixed predictions and labels. Returns are mean account percentages; blocked counts are Our system/QuantAgent (F/B).}\label{tab:execution}
 \begin{tabular}{@{}P{.41\linewidth}rrr@{}}\toprule
-Scenario & Full (\%) & Base (\%) & Blocked F/B\\\midrule
+Scenario & Our system (\%) & QuantAgent (\%) & Blocked F/B\\\midrule
 reference & -0.797 & -0.750 & 0/0\\
 pending\_\allowbreak{}t2 & -0.797 & -0.750 & 0/0\\
 advance\_\allowbreak{}on\_\allowbreak{}demand & -0.797 & -0.750 & 0/0\\
@@ -609,7 +640,7 @@ combined & -1.166 & -1.074 & 3/9\\
 all\_\allowbreak{}entries\_\allowbreak{}missed & 0.000 & 0.000 & 24/29\\
 \bottomrule\end{tabular}\end{table}
 
-Only the delayed proxy leaves one pending Base order in the saved
+Only the delayed proxy leaves one pending QuantAgent order in the saved
 summary; all residual-stock counts are zero. The all-entries-missed
 zero return means no exposure, not successful return prediction. These
 results retain both avoided losses and foregone gains, while none
@@ -617,38 +648,38 @@ certifies actual tradability or rewrites the canonical economic label.
 
 \subsection{Interpreting the three principal patterns}\label{sec:mechanism-discussion}
 \paragraph{Higher BA with a lower account return.}
-Full has five fewer false positives in aggregate than Base, while both
+Our system has five fewer false positives in aggregate than QuantAgent, while both
 identify seven UP points. This improves a class-balanced directional
 score, but does not imply that the captured UP points are identical or
 that their return magnitudes offset the remaining losing LONGs. BA gives
 equal weight to class recalls; the financial estimator compounds net
 payoffs within each account and then weights 51 accounts equally. A
 large loss can dominate several correctly avoided small losses, and
-correct CASH predictions earn zero. Full also opens fewer positions,
+correct CASH predictions earn zero. Our system also opens fewer positions,
 changing exposure and costs together. Its lower held-session fraction
 and daily MDD are consistent with that exposure change, while its lower
 mean return prevents interpreting risk reduction as a profit gain. The
-logistic-price control further shows that the hosted Full pipeline is
+logistic-price control further shows that the hosted Our system pipeline is
 not the strongest recorded predictor on this cohort. Return-matched or
 exposure-matched interventions and fixed-prompt component ablations are
 still needed to separate information quality from action timing, trade
 magnitude and presentation effects.
 
-\paragraph{Why v1 can improve on Common yet not on Native.}
+\paragraph{Why v1 can improve on Common yet not on Our system.}
 The positive v1--Common difference is conditional on a particular
 foundation. Common changes alpha normalization, selection and bounded
-instructions relative to Native before any prior is added. v1 then
+instructions relative to Our system before any prior is added. v1 then
 uses history on only 48 bank-covered points and inherits Common on the
 other 54. Its aggregate estimate therefore mixes an active intervention
 with unchanged dependency results. The observed outcome is compatible
 with useful conditioning on some supported points, but also with effects
 of example selection, statistics, prompt wording or the altered
-foundation. The Native contrast includes all those foundation changes;
+foundation. The Our system contrast includes all those foundation changes;
 it cannot identify a pure regime effect. Its row-wise limitation also
 prevents treating its higher observed score as proof of a valid causal
 alternative. Changing block length changes whether the v1--Common
 uncertainty band includes zero, while its point estimate remains
-$+0.327$ pp. The v1--Native point estimate changes sign in selected subset
+$+0.327$ pp. The v1--Our system point estimate changes sign in selected subset
 and leave-one-fold/stock analyses. These distinct sensitivities make the
 baseline, support and dependence assumptions substantive. Matched random,
 recent and similarity retrieval, and statistics-only versus examples-only
@@ -713,7 +744,7 @@ distributed with the manuscript.
 \begingroup\raggedright
 \paragraph{A concrete row-wise counterexample.}
 The retained \texttt{alpha\_contract\_v1/leakage.json} diagnostic applies
-the Native whole-series normalizer to a short prefix and then to an
+the Our system whole-series normalizer to a short prefix and then to an
 extended prefix, comparing the same four historical rows. For
 z-score--tanh, their saved values change from
 $(-0.821656,-0.369029,0.369029,0.821656)$ to
@@ -730,16 +761,16 @@ not a new run or a measured estimate of their effect on returns.\par
 \caption[Scope of the causal counterexample and repairs]{Scope of the causal counterexample and repairs. Identifying a counterexample is distinct from establishing causal validity.}\label{tab:causal-scope}
 \begin{tabular}{@{}P{.27\linewidth}P{.30\linewidth}P{.36\linewidth}@{}}\toprule
 Component / property & Branches or path & Permitted interpretation\\\midrule
-Native full-window normalization and historical scores & Context Native; recorded Native alpha machinery & Behavior of that implementation can be described; unbiased row-wise predictive evidence is not established\\
-Common causal alpha projection & Common and dependent v1/C2/A/B/Anchor/MT paths & Expanding-prefix normalization, causal adapters and frozen selection repair this alpha path; other inherited inputs remain outside that repair\\
-Purged numerical controls & Separate component numerical-feature path & Its scoped adapter checks do not certify Native or reproduce the same hosted intervention\\
+Our system full-window normalization and historical scores & Context Our system; recorded Our system alpha machinery & Behavior of that implementation can be described; unbiased row-wise predictive evidence is not established\\
+Common causal alpha projection & Common and dependent v1/BICL v2--v4/Anchor/MT paths & Expanding-prefix normalization, causal adapters and frozen selection repair this alpha path; other inherited inputs remain outside that repair\\
+Purged numerical controls & Separate component numerical-feature path & Its scoped adapter checks do not certify Our system or reproduce the same hosted intervention\\
 Outer query cutoff and forecast barrier & Shared input/output protocol & Later query outcomes are withheld; this cannot repair within-prefix historical features or authenticate sources\\\bottomrule
 \end{tabular}\end{table}
 
-Consequently, comparing an extension with Native includes the foundation
+Consequently, comparing an extension with Our system includes the foundation
 change, whereas comparing with Common conditions on that changed
 foundation. Neither comparison alone isolates regime information. The
-observed Native historical-value changes and the limited scope of
+observed Our system historical-value changes and the limited scope of
 system-wide validation therefore bound the predictive interpretation
 of these results.
 
@@ -751,9 +782,9 @@ the system passing the property being tested.
 does not resolve the documented historical-consistency limitations.}\label{tab:audits}
 \begin{tabular}{@{}P{.25\linewidth}P{.37\linewidth}P{.31\linewidth}@{}}\toprule
 Contract & Available evidence & Remaining boundary\\\midrule
-Cutoff/pairing/economics & Checked prefixes, shared identities, canonical labels/accounting, scoped receipts & Native historical values can change; full-system causal validity is not established\\
+Timing and accounting & Checked prefixes, shared identities, canonical labels/accounting, scoped receipts & Historical native alpha values can change with later rows. Independent input provenance remains unresolved.\\
 Bank/query provenance & Frozen membership and source-bound audit & 828/852 numeric return differences; missing original signal journals\\
-Prompt/recovery/replay & 718 source pins, observed max request 4,750 characters, three-attempt cap; cold artifact replay & Acceptance reused recorded tests; no new inference or hosted-weight guarantee\\
+Prompts and replay & 718 source pins, observed max request 4,750 characters, three-attempt cap; cold artifact replay & Acceptance reused recorded tests. Hosted weights are not pinned.\\
 Application/execution & Recorded offline application checks and reference execution scenarios & Prospective trading and actual fills remain unvalidated\\\bottomrule
 \end{tabular}\end{table}
 
@@ -761,7 +792,7 @@ The 828/852 count concerns return differences above $10^{-8}$ pp between
 bank and query sources, with maximum approximately 0.042988 pp. It is
 \emph{not} a count of changed binary labels, and does not justify rewriting
 the bank. A Common alpha repair cannot certify all inherited features,
-news content or historical availability. The recorded Native
+news content or historical availability. The recorded Our system
 whole-window normalization and other row-wise counterexamples still
 show historical-value changes even when the outer query cutoff is respected.
 
@@ -791,13 +822,8 @@ builders or component factorial results do not fill those gaps. New
 versioned experiments are needed, rather than retrospective claims that
 the combined MT bridge proves an isolated contribution.
 
-RQ1 therefore supports limited classification changes with negative
-financial means and prompt/control dependence. RQ2 supports a v1--Common
-descriptive improvement whose sign/uncertainty depends on baseline and
-support, with very sparse C2/A/B activation. RQ3 shows mostly retained
-anchors and only four accepted MT revisions, without isolated student
-or utility benefit. RQ4 supports source-bound engineering checks and
-artifact replay within their scopes, while Native causality, provenance,
-and execution remain unresolved. The contribution is an
-inspectable system and bounded historical assessment, not prospective
-profitability or a general superiority result.
+The earlier studies show baseline-dependent classification, negative
+financial means and sparse intervention. The repaired run confirms
+frequent fallback and shows no consistent economic gain over Common.
+Artifact replay verifies the recorded calculations. Independent
+provenance and prospective execution remain open.

@@ -521,6 +521,12 @@ Các mục sau là **đề xuất chưa triển khai, không tự chạy và kh�
 
 ### P10. Đóng gói tái lập và bàn giao
 
+FIN15 đồng bộ phương pháp, kết quả FIN12 và tên hệ thống vào bản thảo
+tiếng Anh. P10 dùng [nguồn ở gốc dự án Overleaf](main.tex),
+[hướng dẫn build pdfLaTeX/XeLaTeX](latex/README.md) và
+[PDF sau FIN15](../output/pdf/thesis-fin15.pdf).
+Các mốc đóng gói, đối soát và nộp vẫn theo T81–T84.
+
 | Mã / quy mô | Phụ thuộc | Công việc và đầu ra | Điều kiện nghiệm thu |
 | --- | --- | --- | --- |
 | T81 / M | T80l; G5 chốt lại | Khóa bản thảo cuối sau xử lý rà soát mới, đóng gói nguồn tự đủ, bibliography, hình/bảng và hướng dẫn build. | Không còn phát hiện nội dung/bố cục chưa xử lý hoặc chưa nêu giới hạn; không credential/data riêng tư dư thừa; quyền và hạng mục còn chờ tác giả rõ, không phụ thuộc mẫu/đường dẫn máy. |
