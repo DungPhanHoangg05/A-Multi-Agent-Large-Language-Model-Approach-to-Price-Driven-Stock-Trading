@@ -1470,6 +1470,13 @@ Hai bản bài báo còn 28 trang, khóa luận còn 64 trang trên cả hai eng
 Kiểm cú pháp và chạy lại hai công cụ kiểm tài liệu đã sửa. Phạm vi chỉ sửa
 bản thảo và cách chiếu số liệu nên không chạy lại gate runtime.
 
+Theo yêu cầu bố cục, Highlights và References của bài báo bắt đầu ở trang
+riêng. Khóa luận tách Lời cảm ơn, Cam đoan, Danh mục hình, Danh mục bảng
+và References. Đã rà lại khoảng cách trong danh mục tài liệu và vị trí
+các bảng cuối phụ lục bằng PDF. Bài báo có 29 trang, bản nộp 28 trang và
+khóa luận 66 trang trên cả hai engine. Chỉ thay bố cục, nên đối soát nguồn,
+trích dẫn và bảng hiện hành, không chạy lại suite runtime.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·
