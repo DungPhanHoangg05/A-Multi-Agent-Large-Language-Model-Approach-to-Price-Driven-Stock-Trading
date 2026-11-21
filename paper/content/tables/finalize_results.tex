@@ -1,18 +1,20 @@
-% Chiếu từ kết quả đã khóa của lần đánh giá bổ sung.
+% Bảng đối chiếu từ lần đánh giá bổ sung.
 \begin{table}[!htb]
-\centering\small
-\caption{Follow-up BICL comparison on accounts with both trading cycles.}\label{tab:bicl-complete-accounts}
-\begin{tabular}{lrrr}\toprule
-Method & Mean net return (\%) & Balanced accuracy (\%) & Fallbacks / 306 \\ \midrule
-Our system & -0.9379 & 46.2121 & 0 \\
-Our system (Common) & -0.5304 & 53.2828 & 0 \\
-BICL v1 & -0.5315 & 52.3990 & 162 \\
-BICL v2 & -0.5177 & 53.7879 & 300 \\
-BICL v3 & -0.5304 & 53.2828 & 282 \\
-BICL v4 & -0.5177 & 53.7879 & 300 \\
-BICL v5 & -1.0600 & 44.3182 & 117 \\
-Fact Anchor & -1.0257 & 45.0758 & 0 \\
+\centering\small\setlength{\tabcolsep}{3pt}
+\caption{Follow-up BICL results and final-action changes.}\label{tab:bicl-complete-accounts}
+\begin{tabular}{@{}lrrrrrr@{}}\toprule
+& \multicolumn{2}{c}{Complete accounts} & \multicolumn{4}{c}{All 306 slots per method}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-7}
+Method & Return (\%) & BA (\%) & New replies & Fallbacks & Changes & Stock--dates\\\midrule
+Our system & -0.9379 & 46.2121 & 306 & 0 & \textemdash & \textemdash\\
+Our system (Common) & -0.5304 & 53.2828 & 306 & 0 & \textemdash & \textemdash\\
+BICL v1 & -0.5315 & 52.3990 & 144 & 162 & 4 & 2\\
+BICL v2 & -0.5177 & 53.7879 & 6 & 300 & 2 & 1\\
+BICL v3 & -0.5304 & 53.2828 & 24 & 282 & 2 & 1\\
+BICL v4 & -0.5177 & 53.7879 & 6 & 300 & 2 & 1\\
+BICL v5 & -1.0600 & 44.3182 & 189 & 117 & 3 & 1\\
+Fact Anchor & -1.0257 & 45.0758 & 306 & 0 & \textemdash & \textemdash\\
 \bottomrule\end{tabular}
 \par\smallskip
-{\footnotesize Each repeat includes 45 of 51 accounts with both cycles, covering 90 cutoffs shared by all methods. Across the full sample, 96 of 102 cutoffs have valid execution labels.\par}
+{\footnotesize Return and balanced accuracy (BA) use 45 accounts (90 cutoffs) per repeat. Changes compare final actions in the same repeat with Common for v1--v4 and Fact Anchor for v5. Stock--dates counts distinct cutoffs with a change. CASH returns 0.0000\% and Always-LONG returns -2.9111\%; both score 50.00\% BA on the same complete accounts.\par}
 \end{table}

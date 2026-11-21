@@ -10,9 +10,9 @@
 \node[box] (news) at (4.4,0) {Vietnamese news\\available by $t$};
 \node[history] (history) at (8.8,0) {Historical episodes\\with exit before $t$};
 \node[box] (chart) at (0,-1.6) {Indicator and vision\\Pattern and Trend charts};
-\node[box] (alpha) at (4.4,-1.6) {Alpha and sentiment\\Reports or missingness};
-\node[history] (bank) at (8.8,-1.6) {OHLCV bank\\Frozen models};
-\node[box,text width=8.1cm] (shared) at (2.2,-3.2) {One upstream snapshot per stock and cutoff\\Save chart reports, alpha and sentiment};
+\node[box] (alpha) at (4.4,-1.6) {Frozen causal alpha\\Sentiment marked missing};
+\node[history] (bank) at (8.8,-1.6) {Bank and query\\Deterministic OHLCV keys};
+\node[box,text width=8.1cm] (shared) at (2.2,-3.2) {One upstream snapshot per stock and cutoff\\Chart reports still go to Decision};
 \node[history] (context) at (8.8,-3.2) {Historical context\\Apply support gates};
 \node[box] (native) at (0,-5) {Our system\\Native Decision prompt};
 \node[box] (common) at (4.4,-5) {Our system (Common)\\BICL v1--v4 or fallback};

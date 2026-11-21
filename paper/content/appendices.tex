@@ -29,7 +29,7 @@ The sentiment input contains saved classifier scores, aggregate counts and avail
 
 \subsection{Alpha Report}
 \label{app:prompt_alpha}
-Alpha formats numerical factor values and diagnostic skill fields for Decision; this backtest path does not make an additional Alpha reasoning-model call.
+The main compact prompt carries aggregate alpha direction and vote counts. The separate factorial panel sends individual values. The evaluation formats these reports without an extra Alpha reasoning-model call.
 
 \section{Shared State and Forecast Records}
 \label{app:state_schema}
@@ -103,7 +103,7 @@ because it enters the sample later.
 
 \input{content/tables/component/by_stock.tex}
 
-\pagebreak[3]
+\noindent\begin{minipage}{\linewidth}
 The execution scenarios in Table~\ref{tab:execution} reprice the same
 decisions. Cost changes can change the ordering, and the delayed-entry
 proxy substitutes a different fill schedule. These scenarios do not
@@ -122,3 +122,4 @@ The supplementary results retain the unrounded per-stock and per-repeat
 outcomes, all paired contrasts, and sensitivity to bootstrap settings and
 bank coverage. The main comparison and the follow-up use separate
 forecast collections and eligibility masks.
+\end{minipage}

@@ -12,7 +12,7 @@ rather than specifying that node order.
 % Ưu tiên đầu trang cùng phần diễn giải, không tạo trang chỉ có sơ đồ.
 \begin{figure}[!htb]\centering
 \input{assets/diagrams/F03_finalized_system_flow.tex}
-\caption[System information and action flow]{From inputs at the cutoff to an evaluated decision. QuantAgent uses the three technical reports and its Decision prompt. Our system adds alpha and sentiment, and BICL uses eligible historical context.}\label{fig:F03}
+\caption[System information and action flow]{Follow-up flow from cutoff inputs to evaluation. Rule-based OHLCV keys feed retrieval. The visual chart reports and frozen causal alpha feed the Decision prompts.}\label{fig:F03}
 \end{figure}
 
 Offline resources comprise the Common alpha selector, regime models and
@@ -26,7 +26,7 @@ execution conditional on that point's saved upstream reports. Hosted calls
 run through an external model provider, whereas numerical inference uses
 the frozen local resources.
 
-One running case connects the stages: FPT at the \textbf{3 July 2023}
+One running case from the earlier historical-context study connects the stages: FPT at the \textbf{3 July 2023}
 cutoff, upstream realization 0 and Decision repeat 0. Its 45-bar chart
 and 600-bar prefix end at that cutoff; close is 48.18 in the stored price
 unit, MACD is positive but below its signal, and close exceeds SMA20.
@@ -53,7 +53,7 @@ Reserve all evaluation cutoffs and freeze each fold's historical context\;
 \ForEach{stock and decision cutoff \(t\) in chronological order}{
   Slice the price prefix at \(t\), admit eligible news and filter the regime\;
   Run Indicator, Pattern and Trend once; prepare Alpha and Sentiment reports\;
-  Freeze the shared reports and inputs for use by each branch\;
+  Freeze shared reports; derive follow-up Trend/Pattern keys from OHLCV\;
   \ForEach{Decision repeat}{
     Obtain the baseline decisions using their own prompt and alpha profile\;
     \ForEach{BICL v1--v4 branch in dependency order}{
@@ -251,8 +251,11 @@ itself supplies an \emph{empty} history prefix; mentioning task notation
 does not create context. The shared serving envelope fixes point/repeat,
 model/options and schema, not identical prompt content.
 
-The separate component study compares Our system, enabling alpha and sentiment,
-with QuantAgent, omitting their joint bundle. Indicator--Pattern--Trend run once
+The component study compares the compact native Our system prompt with
+price-only QuantAgent. Its 102 Our system prompts carry the joint
+direction and factor-vote counts. Zero include individual value rows,
+and 79 mark sentiment as missing. The factorial prompt sends explicit
+factor rows. The component comparison uses no historical retrieval. Indicator--Pattern--Trend run once
 and are deep-copied to both branches. Our system/QuantAgent therefore changes both
 information and prompt representation together. It cannot isolate Alpha or Sentiment alone.
 The separate comparison between Our system and Our system (Common)
@@ -286,6 +289,15 @@ a different resource: membership freezes before the first query of each
 fold, excludes all 102 reserved evaluation IDs, and does not append later
 query outcomes. Mature history can legitimately contain labels; the
 current query cannot.
+
+The earlier BICL study retrieves using saved chart-signal categories. Its
+Our system uses native alpha and Common uses causal alpha. The follow-up
+shares frozen causal alpha across baselines, keeps their distinct prompts
+and marks sentiment as missing. Its rebuilt bank and query derive keys
+from 45 verified sessions. Trend uses a 0.5\% directional threshold on
+both the SMA10/SMA30 gap and ten-session return. Pattern uses opposite
+candle bodies and an engulfing last body at least half the candle's range.
+Visual reports still enter Decision.
 
 \paragraph{Fitting and applying regimes.}
 The Chapter 3 five-feature VN-Index representation feeds a train-only
@@ -696,7 +708,12 @@ Passing change $\Rightarrow$ revise; otherwise retain $a_0$.\\Keep raw proposal,
 \end{figure}
 
 FPT's supported MT reply cites the facts, proposes LONG and retains its
-LONG anchor. There is no action change or utility veto. A hypothetical
+LONG anchor in historical repeat 0. Our system chose CASH; Common and
+the other context branches chose or inherited LONG. The historical
+candidate-LONG return was $-0.265$\% net (DOWN), from VND 48,180 on
+4 July to VND 48,390 on 6 July 2023. The follow-up kept the FPT
+3 July forecasts and marked the label and return NA due to a corporate
+action during the holding period. A hypothetical
 LONG$\to$CASH revision would need $-Q90(U)>0$; the saved positive Q90
 does not pass, despite a negative mean. That hypothetical check explains
 the rule without claiming an observed veto. The four displayed groups,
@@ -804,18 +821,5 @@ Checkpoints bind request identity, dependencies, output and digest.
 Resume reuses verified output or parses a saved response, preserving
 attempt counts and cooldowns. An interruption can occur after receipt,
 so the system checks delivery evidence before sending the request again.
-It stops on an identity mismatch and retains the 15 retired requests
-from explicit replacements in the recovery records.
-
-\paragraph{Application and reproducibility.}
-The daily application checks resources and options, then binds the
-prices, index, news and freshness to a checkpointed job. Reload, export
-and language switching reuse the saved context and resolved action.
-
-\paragraph{Completing the FPT walkthrough.}
-At repeat 0, Our system executes CASH. Common, BICL v1 and Fact Anchor
-propose LONG. BICL v2--v4 inherit Common's action and v5 retains the
-anchor, for five raw replies and three bypasses. After the forecast barrier,
-entry at VND 48,180 on 4 July and exit at VND 48,390 on 6 July yield
-+0.436\% gross and \textbf{$-0.265$\%} net (DOWN, Equation~\ref{eq:net}).
-The LONG cycles lose while the CASH action earns zero.
+It stops on identity mismatch and keeps 15 retired requests in the log.
+The application reuses checkpointed inputs and actions on reload or export.

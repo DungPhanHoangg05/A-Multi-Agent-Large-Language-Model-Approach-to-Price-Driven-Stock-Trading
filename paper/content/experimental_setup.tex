@@ -4,8 +4,23 @@
 \subsection{Dataset and Point-in-Time Data Contract}
 The daily universe spans information technology (FPT, CMG), banking (VCB, MBB), retail (MWG), food/beverages (VNM, BHN) and aviation/tourism (HVN, VJC). The reconstructed VCI snapshot via vnstock~\cite{vnstock_docs} covers observed vendor sessions from 2020 through September 2026. The sample is purposive, and original historical data availability is unverified. A valid-suffix policy excludes contradictory BHN OHLC data; insufficient warm-up then excludes BHN from three early blocks. This leaves 102 eligible stock--date observations for the paired comparisons.
 
-\paragraph{Component and historical-context studies}
-The component study evaluates Our system against a local price-only QuantAgent comparator. The historical-context study evaluates BICL v1--v5 against Our system and Our system (Common), called Common below. It uses separate responses and a different statistical protocol. At \UnifiedMissingSentiment/\UnifiedPoints\ historical-context points, the study had too few eligible news scores to provide a sentiment signal. The follow-up evaluation uses the same cutoffs with newly fixed inputs and newly collected forecasts. Its complete-account analysis is reported separately.
+\paragraph{Component study, historical context and follow-up}
+The component study uses the native alpha selector's compact consensus
+and saved sentiment summaries or missingness, with QuantAgent omitting
+both reports. It uses no historical retrieval. The earlier BICL study
+compares native alpha in Our system with a frozen causal projection in
+Common. The two share chart reports and the saved sentiment aggregate
+or missingness flag. Historical retrieval uses the saved categorical
+Trend and Pattern signals where required. Sentiment is missing at
+\UnifiedMissingSentiment/\UnifiedPoints\ points in this collection.
+
+The follow-up binds the same frozen causal alpha projection to Our
+system and Common and keeps their distinct Decision prompts. It uses
+a rebuilt OHLCV bank. Its Trend and Pattern retrieval keys are computed
+from the same 45-session rule for query and bank. The chart-based
+reports still enter Decision. No news meets the availability criterion
+at the follow-up cutoffs. The reference action is Common for BICL
+v1--v4 and Fact Anchor for BICL v5.
 
 \subsection{Walk-Forward Protocol}
 Six blocks cover 2023 H2, 2024 H2, 2025 H1, 2025 Q4, 2026 Q2 and 2026 Q3, with two scheduled dates per block. The sparse walk-forward schedule~\cite{pardo2008evaluation} shares dates across stocks. Each of the 51 eligible stock--block scopes splits train, validation and test chronologically and purges labels whose exit reaches the next partition.
@@ -24,10 +39,15 @@ The extension fixes \UnifiedPoints\ points, \UnifiedAccounts\ symbol--fold accou
 \end{figure}
 
 \subsection{Paired Baseline and Disentangled Ablations}
-Our system and QuantAgent use the same 102 cutoffs, net outcome labels
-and transaction costs. They share the Indicator, Pattern and Trend
-reports. Our system adds Alpha and Sentiment and uses its own Decision
-instructions.
+Our system and QuantAgent share the 102 cutoffs, technical reports,
+net outcome labels and costs. The main compact Our system prompt includes
+a five-factor direction and bullish, bearish and neutral vote counts.
+The saved Decision requests contain individual factor-value rows at
+0/102 cutoffs and mark sentiment as missing at 79/102. The separate
+factorial panel sends individual rows. Table~\ref{tab:classification}
+also includes logistic-price, a price-only classifier using the saved
+purged train/validation fit and threshold, and CASH, which stays flat.
+Both controls use the same cutoffs and account definitions.
 
 The comparison includes differences in report wording, prompt length and trading frequency. The upstream panel has nine units, B/AS and three regenerated upstream realizations with a Decision execution per realization. The factorial panel has nine different-support units, B/A/S/AS/P and three Decision executions with fixed upstream. Both have two UP/seven DOWN per execution, but only the former covers nine symbols. We do not infer main-grid variability or separate upstream/Decision variance components from their SDs.
 

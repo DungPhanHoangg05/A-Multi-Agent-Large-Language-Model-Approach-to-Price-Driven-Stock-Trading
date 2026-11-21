@@ -99,27 +99,29 @@ trends. When adapting QuantAgent to daily Vietnamese equities, it remains
 unclear whether explicit factor signals and local-language news improve
 decisions made from the same technical evidence. We introduce Our system,
 which adds an Alpha Agent and a Sentiment Agent to QuantAgent. Alpha
-ranks price--volume factors and reports their direction and historical
-skill. Sentiment summarizes eligible Vietnamese news and flags gaps in
-coverage, giving the Decision Agent event context alongside the technical
-reports. We compare both systems on paired historical cutoffs with
-shared upstream reports, a common directional target and identical
-trading costs. Our system achieves higher balanced accuracy on this
-sample through fewer incorrect LONG forecasts. The comparison leaves
-the economic benefit and each agent's separate contribution unresolved.
-A secondary study tests Bayesian in-context learning as an extension
-that supplies evidence from past trading episodes.
+ranks price--volume factors and passes their aggregate direction and vote
+counts to Decision in the main evaluation. Sentiment summarizes eligible
+Vietnamese news and flags insufficient coverage. We compare the systems
+at shared historical cutoffs under a common net outcome and cost model.
+None of the 102 main prompts contains individual factor-value rows,
+and 79 mark sentiment as missing. Our system achieves 52.96\% balanced
+accuracy and a mean net account return of $-0.797$\%. QuantAgent achieves
+49.71\% and $-0.750$\%, respectively. The 3.25 percentage-point gain in
+balanced accuracy has a descriptive interval of $[-1.18,+8.13]$.
+Logistic-price ranks higher on both metrics with the same number of LONG
+decisions as Our system. A secondary study evaluates Bayesian in-context
+learning; its follow-up shows little change in final actions.
 \end{abstract}
 
 %%Graphical abstract
 
 
 \begin{highlights}
-\item Integrates quantitative alpha and Vietnamese news into multi-agent stock trading.
-\item Builds a configurable OHLCV factor registry for market-specific alpha selection.
-\item Tests five BICL versions as a secondary historical-context extension.
-\item Shares upstream evidence across methods for controlled trading comparisons.
-\item Reports a balanced accuracy gain with slightly lower mean net account return.
+\item Adds aggregate OHLCV alpha and Vietnamese news context to QuantAgent.
+\item Audits the actual prompts used at all 102 paired stock--date cutoffs.
+\item Finds a 3.25-point balanced accuracy gain over QuantAgent with lower return.
+\item Logistic-price leads on both metrics with the same number of LONG decisions.
+\item Follow-up BICL changes final actions at few distinct stock--date cutoffs.
 \end{highlights}
 
 %% Keywords

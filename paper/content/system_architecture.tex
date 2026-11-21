@@ -47,11 +47,14 @@ ROC & 10 & Percentage price change over the lookback window. & Values above $+0.
 Four-decimal rounding precedes classification, nonfinite samples are removed and zero is retained. Crossovers take priority where specified; overlapping RSI/Williams thresholds require ordered branches rather than two simultaneous unconditional rules. Each missing/error result contributes a neutral vote within the fixed denominator of five. Directional plurality and the confidence categories are deterministic summary heuristics. They are not calibrated probabilities, and an immutable signal tally does not make a downstream narrative correct.
 
 \subsection{Alpha Agent}
-The Alpha Agent turns OHLCV history into a short, reproducible quantitative report. Indicators and vision agents describe momentum, formations and levels. Alpha adds evidence such as unusually strong volume accompanying a move or a reversal after the price returns below a breakout level. It supplies the selected factor names, values and directional signals so that Decision can check whether the numerical evidence supports or challenges the chart interpretation.
-\paragraph{Alpha selection}
-The Alpha Agent ranks 85 native factors using Eq.~\ref{eq:composite}. Its report contains up to five factor values, directions and historical diagnostics. Section~\ref{sec:alpha-representation} explains the native and causal representations.
-
-Selection, IC sign and candidate diagnostics reuse trailing observations. Hence the current value is an input to a report, while the reported skill fields are in-sample ranking statistics. Neither choosing the top five nor reversing negative IC establishes out-of-sample profitability. Six selected metadata slots have description/handler mismatches; actual prompts, metadata and implementation identity are kept distinct. The semantic effect of these mismatches is unmeasured.
+The Alpha Agent turns OHLCV history into a ranked factor report. The
+native implementation computes up to five factor scores and directions
+using Eq.~\ref{eq:composite}. Its main compact Decision prompt carries
+the aggregate direction and bullish, bearish and neutral vote counts.
+The separate factorial panel passes the individual values.
+Section~\ref{sec:alpha-representation} describes native and causal
+normalization. Native orientation and ranking reuse trailing observations,
+so their reported skill statistics describe the selection sample.
 
 \paragraph{Common projection and shared parent}
 The earlier historical-context study bound Common to a frozen selector for the same price prefix and upstream snapshot. Its comparison with Our system changed both the alpha representation and prompt. The follow-up uses the same causal alpha report in both baselines, with distinct Decision prompts. Selector fits precede the test scope.
@@ -103,7 +106,13 @@ The required output includes a binary LONG/SHORT forecast, forecast horizon, con
 QuantAgent retains the same upstream content and general instructions but removes both alpha and sentiment sections; those concepts may still appear in general instructions. Thus Our system--QuantAgent changes a bundle and prompt length, not solely one numerical factor. Main/upstream prompts use compact factor text, whereas factorial A/AS/P deliver five explicit rows. The resulting representation difference remains part of the interpretation of the separate panels.
 
 \paragraph{Historical-prior methods}
-BICL v1 retrieves up to three matured same-stock examples using regime and report-signal context. BICL v2 adds Beta-based statistics matched on Trend, Pattern, Alpha and Indicator states, with disjoint-background shrinkage and separate readiness checks for statistics and examples. BICL v3 relaxes the statistics match to Trend and Pattern. BICL v4 uses the support from v2 and presents counts, intervals and example identifiers more explicitly. Historical rates and plug-in intervals summarize the selected history. Without a qualified prior, the method reuses Common's action for that repeat.
+BICL v1 retrieves up to three matured same-stock examples using regime
+and signal context. In the earlier BICL study the historical-signal
+fields include the saved chart report categories. In the follow-up,
+retrieval receives deterministic OHLCV keys: Trend combines the
+SMA10/SMA30 gap and ten-session return with strict 0.5\% directional
+thresholds; Pattern uses the last two opposite candle bodies and a
+wider engulfing body. Decision still receives the visual reports. BICL v2 adds Beta-based statistics matched on Trend, Pattern, Alpha and Indicator states, with disjoint-background shrinkage and separate readiness checks for statistics and examples. BICL v3 relaxes the statistics match to Trend and Pattern. BICL v4 uses the support from v2 and presents counts, intervals and example identifiers more explicitly. Historical rates and plug-in intervals summarize the selected history. Without a qualified prior, the method reuses Common's action for that repeat.
 
 \paragraph{Fact Anchor and BICL v5}
 Fact Anchor receives a deterministic point-in-time fact packet, including MACD-versus-signal and Close-versus-SMA20 assertions, and the completed Common decision. Valid assertions select its proposed action without the numerical utility veto; invalid assertions select Common with a source proof. BICL v5 constructs numerical prior/target tasks conditioned on the factual bucket, retains a frozen student estimate and teacher-based utility summary, and requests a revision of that anchor only when context is eligible. The external policy in Eq.~\ref{eq:revision_utility} decides whether a changed proposal is accepted. Raw proposals, anchor actions, bypass and final actions are distinct saved fields, so final outcome differences cannot be assigned entirely to the LLM or student.

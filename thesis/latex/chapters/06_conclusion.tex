@@ -32,27 +32,25 @@ separate nine-cutoff ablations use different cutoffs and prompts.
 They leave the individual contributions of alpha and sentiment uncertain.
 
 \paragraph{RQ2: historical context.}
-In the earlier historical study, BICL v1 returns +0.327 pp [0.067,0.586] relative
-to Our system (Common) and
-$-0.045$ pp [$-0.362$,0.271], within the complete twenty-cell descriptive
-family. Its shorter-block Common band crosses zero. BICL v2 and v4 each obtain
-only three new Decision replies and otherwise mostly inherit Common.
-All eight research-role means are negative. Regime awareness is implemented,
-but its isolated benefit and robustness across all regimes have not been
-demonstrated. Signal-bank queries cover BULL, CHOPPY and CONSOLIDATION
-over only twelve dates, with no BEAR observations; MT query-state coverage
-is not established. A matched comparison with and without regime matching
-on the same points is needed to isolate its contribution.
+In the follow-up, v1--v4 make 144, 6, 24 and 6 new Decision replies
+out of 306 slots per method. They change the final action relative to
+same-repeat Common in 4, 2, 2 and 2 slots, spanning 2, 1, 1 and 1
+stock--dates. Their mean-return differences versus Common span
+$-0.0011$ to $+0.0127$ pp on the 45 complete accounts (90 cutoffs)
+per repeat. The registered full-cohort endpoints are undefined because
+six cutoffs lack execution labels. The secondary simultaneous bands
+are undefined because some contrasts have zero bootstrap variance.
+The earlier historical study shows a larger v1 contrast against Common,
+under a different bank, input profile and set of model replies.
 
 \paragraph{RQ3: factual anchoring and action revision.}
-BICL v5 and Fact Anchor agree in 302/306 historical final slots: 108 bypasses, 189
-same-action proposals, five rejected changes and four accepted changes.
-The BICL v5--anchor return/BA bridge is +0.033/+0.433 pp, while MT's mean return
-remains negative. This combined path does not isolate the student,
-target context or utility benefit. The student is an implemented and
-approximation-verified component; these results do not establish a trading
-improvement over direct teacher calculation. A changed proposal and a
-changed final action are different events; enum-valid facts do not certify all prose.
+In the follow-up, v5 makes 189 new Decision replies and bypasses 117
+of 306 slots. Three final actions differ from same-repeat Fact Anchor.
+All three occur at HVN on 1 July 2024. On complete accounts, v5 minus
+Fact Anchor is $-0.0344$ pp in net return and $-0.7576$ pp in BA.
+The effect measured here combines selection, student inference and
+the action policy. The three repeated changes provide evidence for one
+stock--date intervention.
 
 \paragraph{RQ4: contract evidence.}
 Recorded checks cover economic labels, pairing, forecast/outcome

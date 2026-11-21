@@ -1,8 +1,24 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Our system adds OHLCV alpha and Vietnamese news sentiment to the price-driven QuantAgent architecture. The primary paired evaluation measures the combined augmentation on the same forecasts and execution schedule. The BICL extensions separately test the contribution of eligible historical context.
+Our system adds an aggregate OHLCV alpha report and dated Vietnamese news
+context to QuantAgent. The main comparison evaluates the compact prompt
+on 102 paired cutoffs. Its alpha section carries direction and vote
+counts, and its sentiment coverage is limited.
 
-On 102 paired observations, Our system reaches \FullBA\% BA and QuantAgent \BaseBA\%. Both identify seven UP outcomes, while Our system makes fewer false LONG forecasts. Mean net account returns are \FullReturn\% and \BaseReturn\%, respectively. This is evidence of better balanced classification on this panel, with a slightly worse recorded account return and uncertainty about the separate contributions of alpha and sentiment. In the follow-up evaluation, BICL v1--v4 have small mean-return differences versus Our system (Common) on complete accounts. BICL v5 has a lower mean return versus both augmented-system controls. These paired results apply to accounts for which both scheduled cycles can be evaluated.
+Our system reaches \FullBA\% balanced accuracy versus \BaseBA\% for
+QuantAgent, a \DeltaBA{} pp difference with a descriptive
+interval of $[\PrimaryLow,+\PrimaryHigh]$ pp. Mean net account returns
+are \FullReturn\% and \BaseReturn\%, respectively. Logistic-price returns
+$-0.683$\% at 55.61\% BA with the same 24 LONG decisions as Our system.
+The paired results describe the combined prompt and evidence change.
+They leave an economic gain and the individual contributions of alpha
+and sentiment unresolved.
+
+The follow-up BICL evaluation shows small account-return differences for
+v1--v4 versus Common and lower mean net return for v5 versus both
+augmented baselines. These estimates cover the 45 accounts with both
+cycles in each repeat.
+
 
 Information integration changes recorded decisions, but the evidence does not establish stable predictive superiority, causal component value or deployable profitability. Limited dates, native within-history noncausality, uncertain news validity and support-dependent action reuse constrain interpretation. Prospective experiments with causal inputs, broader temporal coverage, repeated upstream realizations and targeted component interventions are needed to assess generalisation.

@@ -94,8 +94,8 @@ scorer provenance and finite scores. Date-only publication is treated as
 available the next day. The separate reliability flag requires at least
 eight articles. Reported missingness means insufficient eligible evidence.
 The historical provider supplies an aggregate and count, so peer-relative
-fields on that path are placeholders. The follow-up supplies a neutral
-missing-context record where historical news cannot be verified.
+fields on that path are placeholders. The follow-up supplies a missing-context record at each cutoff because
+historical news availability could not be verified.
 
 \subsection{Multi-Agent Decision Function}
 QuantAgent~\cite{xiong2025quantagent} uses the shared Indicator, Pattern
@@ -138,7 +138,8 @@ Reserve the evaluation cutoffs outside the historical bank\;
 \ForEach{stock and decision cutoff \(t\) in chronological order}{
   Bound prices and dated news at \(t\); retrieve only cycles that ended before \(t\)\;
   Run Indicator, Pattern and Trend once for the shared upstream realization\;
-  Prepare the selected alpha report and eligible sentiment summary or missingness flag\;
+  Prepare the profile-specific alpha and sentiment sections\;
+  For follow-up retrieval, derive Trend and Pattern keys from cutoff OHLCV\;
   Freeze the reports and chart inputs; give each branch an independent copy\;
   \ForEach{Decision repeat and branch in dependency order}{
     Build the branch prompt from shared technical reports and its enabled evidence\;

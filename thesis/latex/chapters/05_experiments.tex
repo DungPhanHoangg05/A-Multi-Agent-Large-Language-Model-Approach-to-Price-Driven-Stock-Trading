@@ -19,7 +19,7 @@ The main component comparison has 204 Decision outputs. Its nine-unit, three-run
 upstream panel has 54 cells, including 18 reused main outputs; the separate
 five-branch factorial panel has 135 outputs. There are therefore 375
 distinct executions, not independent samples obtained by adding all cells.
-The context study has $102\times3\times8=2,448$ slots: 1,290 raw Decision responses
+The earlier context study has $102\times3\times8=2,448$ slots: 1,290 raw Decision responses
 and 1,158 no-request bypasses. Neither slots, HTTP attempts nor repeated
 responses are new market observations. The six folds were already exposed;
 the component queue freeze occurred after inference began. The provider did not pin model weights to an immutable revision. Artifact integrity and offline
@@ -270,8 +270,8 @@ power, significance or causal superiority. No bootstrap was regenerated.
 The follow-up evaluation asks what BICL adds to Our system. It reruns eight
 research roles on the same 102 stock--date points, with three Decision
 repeats and 2,448 recorded forecasts. The rerun uses a training-fitted
-causal alpha projection, a rebuilt OHLCV memory bank and same-repeat
-fallback. The evaluation excludes news because none could be verified as
+causal alpha projection, a rebuilt OHLCV memory bank with rule-based Trend/Pattern keys, and
+same-repeat fallback. Visual Trend and Pattern reports still feed Decision. The evaluation excludes news because none could be verified as
 published by the respective cutoff. The comparison therefore concerns
 BICL with no sentiment input. The historical results later in this chapter
 retain their own forecasts, inputs and estimators.
@@ -279,16 +279,24 @@ retain their own forecasts, inputs and estimators.
 Five holding periods cross corporate actions, and one entry session has
 zero matched volume. Figure~\ref{fig:repaired-coverage} separates valid
 labels from the narrower support for accounts with both cycles.
-The paired comparison uses the 45 accounts with both cycles
-(Table~\ref{tab:bicl-complete-accounts}). All 10,000
-joint L2 bootstrap resamples were finite on that set. We report point
-differences without simultaneous bands because some contrasts have zero
-bootstrap variance.
+Of 102 forecast cutoffs, 96 have a valid label. The secondary paired
+comparison uses the 45 accounts with both cycles (90 cutoffs per repeat)
+in Table~\ref{tab:bicl-complete-accounts}. The registered full-cohort
+return and BA are undefined. All 10,000 joint L2 bootstrap draws are finite
+on the complete accounts, but some contrasts have zero variance, so
+simultaneous bands are undefined for this secondary analysis.
 \begin{figure}[!htb]\centering
 \input{assets/diagrams/followup_coverage}
 \caption[Follow-up sample coverage]{Forecast cutoffs, valid labels and cutoffs in complete accounts in the follow-up evaluation.}\label{fig:repaired-coverage}
 \end{figure}
 \input{latex/tables/finalize_results.tex}
+
+Across 306 slots per method, the five BICL versions change final actions
+in 4, 2, 2, 2 and 3 slots relative to their reference, spanning 2, 1, 1,
+1 and 1 stock--dates. Common is the reference for v1--v4, and Fact Anchor
+is the reference for v5. The three v5 changes all occur at HVN on
+1 July 2024. The table separates new replies, fallback actions and
+actual changes in final action.
 
 Figure~\ref{fig:repaired-comparison} shows how account return and bypass
 frequency vary across methods. On the common complete accounts, the mean-return differences for
@@ -400,6 +408,14 @@ BICL v5 & 43.169 & -0.124 & -1.253 & 0.100 & 1.853\\
 Fact Anchor & 42.736 & -0.131 & -1.286 & 0.070 & 1.883\\
 \bottomrule\end{tabular}\end{table}
 
+Figure~\ref{fig:review-contrasts} shows the earlier historical study's
+return differences and descriptive bands for the methods in
+Table~\ref{tab:context}.
+\begin{figure}[!htb]\centering
+\includegraphics[width=.9\linewidth,height=.30\textheight,keepaspectratio]{assets/figures/review_return_contrasts.pdf}
+\caption[Return contrasts against both baselines]{Return contrasts against both baselines for 102 points, 51 accounts and three Decision repeats. Bars reproduce the ten return cells of the saved twenty-cell joint family; BA cells remain in the tables. These are descriptive bands under six exposed folds, not calibrated superiority claims.}\label{fig:review-contrasts}
+\end{figure}
+
 The two baseline comparisons must both remain visible. Tables
 \ref{tab:vsnative} and \ref{tab:vscommon} preserve all twenty cells in
 the registered return/BA family. Each cell gives a paired point difference
@@ -437,10 +453,6 @@ band; its Common return band includes zero. BICL v2 and v4 have lower BA than Ou
 Section~\ref{sec:mechanism-discussion}.
 
 \subsection{Fallback and the anchor bridge}
-\begin{figure}[!t]\centering
-\includegraphics[width=\linewidth]{assets/figures/review_return_contrasts.pdf}
-\caption[Return contrasts against both baselines]{Return contrasts against both baselines for 102 points, 51 accounts and three Decision repeats. Bars reproduce the ten return cells of the saved twenty-cell joint family; BA cells remain in the tables. These are descriptive bands under six exposed folds, not calibrated superiority claims.}\label{fig:review-contrasts}
-\end{figure}
 Table~\ref{tab:coverage} keeps all research roles and their denominators.
 Each method has 306 final actions. BICL v1 obtains a new reply on the 48 bank-covered points in each repeat. BICL v2 and v4 each obtain three new replies, and v3 obtains 24. Most remaining actions come from Common.
 
@@ -708,8 +720,5 @@ The component panels do not isolate regime matching, student inference
 or the utility gate. These distinctions bound the conclusions from the
 stored forecasts.
 
-The diagrams are author-created. The chart pair is a saved output from
-adapted QuantAgent tools and is attributed to the upstream MIT-licensed
-implementation. The model card does not state a license for the 5CD
-weights. Permissions for public redistribution of external data, models
-and the cover logo remain to be verified.
+Diagrams are original. QuantAgent chart tools use MIT. Rights to
+redistribute external data, 5CD weights and the logo remain unverified.
