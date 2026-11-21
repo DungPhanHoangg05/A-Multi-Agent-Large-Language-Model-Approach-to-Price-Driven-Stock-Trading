@@ -11,7 +11,7 @@ Bibliography dùng Biber. `covers-preview.tex` là điểm vào riêng để xem
 
 ## Nguồn và tái lập
 
-Nguồn bàn giao tại commit `1b366e59182e7b7371cb2c3a85307445c812337e`.
+Nguồn bàn giao tại commit `383fcf421a8e41d29dde415a8d87919e402639b4`.
 Nghiên cứu chính dùng profile `finalize_serving_v1` của lần chạy
 `FIN11_RESEARCH_V1` và kết quả follow-up đã đối soát với receipt FIN12.
 [Bản chiếu có hash nguồn](../docs/plan/week12/manuscript_evidence.json) ·

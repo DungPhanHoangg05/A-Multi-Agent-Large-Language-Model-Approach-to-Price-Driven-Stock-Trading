@@ -1487,6 +1487,13 @@ Hai bản bài báo có 29 trang; khóa luận có 66 trang trên cả hai engin
 chỉ chiếu bảng và đối chiếu bản thảo nên chạy kiểm phạm vi tài liệu.
 [Nguồn và lệnh tái lập](../../paper/README.md).
 
+Đối soát bổ sung phân biệt bước Common sang Fact Anchor và bước Fact
+Anchor sang BICL v5. Hai bước lần lượt đổi 53 và 3 lượt, trên 20 và 1
+mã–ngày. Toàn bộ 36 phản hồi mới của v2–v4 có thống kê lịch sử và
+không có ví dụ truy xuất. Đã kiểm lại dữ liệu theo receipt, bảng xuất
+và bản render. Số trang giữ ở 29 cho mỗi bản bài báo và 66 cho khóa
+luận. Phạm vi chỉ gồm báo cáo và công cụ chiếu bảng.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·

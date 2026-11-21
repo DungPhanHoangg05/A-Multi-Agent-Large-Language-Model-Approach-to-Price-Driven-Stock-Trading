@@ -375,11 +375,11 @@
     },
     {
       "path": "latex/chapters/05_experiments.tex",
-      "lf_sha256": "e54c02e514a28e8582549ea7443221de2be0cf6f24579a3d86d8b26669d10a5a"
+      "lf_sha256": "28c1da7f5e38caa58c9113f0899ce4c16335dbfd81b16692b5606b4264a293e2"
     },
     {
       "path": "latex/chapters/06_conclusion.tex",
-      "lf_sha256": "c63dc65cde36fe675eff56473b69774dc2b985171fcf4b8c12d594af19709030"
+      "lf_sha256": "c32375372c25125355f52971a305ad64b04e7622b8b0c8c431c7ded57e32e0d1"
     },
     {
       "path": "latex/frontmatter/content.tex",
@@ -399,7 +399,7 @@
     },
     {
       "path": "latex/tables/finalize_results.tex",
-      "lf_sha256": "513df7912fa1908a296c71e4cb2771eed88d0b8c8a09cc8f115e6a6b1efe6608"
+      "lf_sha256": "d53e58479d42d33b613027cb3be564f2b0a9da7d1c048def51c0c1f2212abb07"
     },
     {
       "path": "latex/tables/followup_plot_data.tex",
@@ -2437,8 +2437,8 @@
   "fin15_outputs": {
     "pdf": {
       "path": "outputs/thesis/thesis-fin15.pdf",
-      "bytes": 884816,
-      "sha256": "cea3aa380ba53db8aaf717e48aea168ffbb71fd321cbe60303b5134574693c35"
+      "bytes": 891906,
+      "sha256": "c6eabf0d95bf857eaa326242b0b416045777bbdb3376e8c37476e463332a30fb"
     },
     "overleaf_source_directory": "thesis/",
     "pdf_pages": 66,
@@ -2447,22 +2447,22 @@
       "xelatex"
     ],
     "bibliography": "biber",
-    "source_commit": "1b366e59182e7b7371cb2c3a85307445c812337e",
+    "source_commit": "383fcf421a8e41d29dde415a8d87919e402639b4",
     "manuscript_date": "2026-11-21",
     "paper_pdfs": {
       "paper": {
         "path": "outputs/paper/main-fin15.pdf",
-        "bytes": 711054,
-        "sha256": "cc2846561cd25272a4917034387ecd0e5ab2188e638fb358b5ad005d854cf298",
+        "bytes": 714357,
+        "sha256": "acc393d92f8a0347094af6a9348a24de6f7a3c5e91d4574ec97ec14213445af1",
         "pages": 29
       },
       "paper_submit": {
         "path": "outputs/paper/main-submit-fin15.pdf",
-        "bytes": 682525,
-        "sha256": "22240648ecd2b7ff8e858539bd878fa3e47370696afc8fefbc2a46ca684a4630",
+        "bytes": 685912,
+        "sha256": "a367b5793d3acef7f5a818c5ceecb5dcf3cd24dd333bf98394200826242f4fc2",
         "pages": 29
       }
     },
-    "manuscript_evidence_sha256": "47f43ac5f2a225421661e30d7cd8bc2852e0707f832d6d1003410b876e548e58"
+    "manuscript_evidence_sha256": "3bdfe52bec74e9c5ded71e4265f3d285d3b22855ec27e734b1071817d5cb2118"
   }
 }
