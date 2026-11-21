@@ -1508,6 +1508,11 @@ Theo yêu cầu tác giả, đã bỏ mục khai báo AI khỏi cả hai bản b
 và biên dịch lại. Đã kiểm lại bảng, bố cục, liên kết và hash PDF.
 Thay đổi giới hạn ở tài liệu nên không chạy lại bộ kiểm thử hệ thống.
 
+Đã viết lại Introduction của bài báo theo mạch từ bài toán giao dịch
+ngắn hạn đến nghiên cứu liên quan, đối chứng QuantAgent và hai kênh tín
+hiệu bổ sung. Phần đóng góp được trình bày bằng văn xuôi. Đã biên dịch
+và kiểm tra bố cục, số liệu và tham chiếu trên cả hai bản PDF.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·
