@@ -37,11 +37,8 @@ PDF hiện hành gồm [bản đầy đủ](../outputs/paper/main-fin15.pdf) và
 ## Nguồn và tái lập
 
 Nguồn PDF ngày **21/11/2026** được khóa tại commit
-`0bd49dbc28c6ae2e4ac62564b60fa317e48115c1`.
+`abe5e56b697255db04456409815040b23e97ccbe`.
 [Hash SHA-256 và số trang của PDF bàn giao](../scripts/thesis_docs/source-map.json).
-
-Trước khi nộp, tác giả xác nhận tên công cụ và phạm vi sử dụng trong
-[khai báo hỗ trợ bằng AI](content/ai_declaration.tex).
 
 | Nghiên cứu | Profile và nguồn bảng |
 | --- | --- |

@@ -2447,20 +2447,20 @@
       "xelatex"
     ],
     "bibliography": "biber",
-    "source_commit": "0bd49dbc28c6ae2e4ac62564b60fa317e48115c1",
+    "source_commit": "abe5e56b697255db04456409815040b23e97ccbe",
     "manuscript_date": "2026-11-21",
     "thesis_source_commit": "0bd49dbc28c6ae2e4ac62564b60fa317e48115c1",
     "paper_pdfs": {
       "paper": {
         "path": "outputs/paper/main-fin15.pdf",
-        "bytes": 715329,
-        "sha256": "92798498085f9521b0cc146468a8a886efbe56df5a6aa91884b6f2b8d9b197c1",
+        "bytes": 714892,
+        "sha256": "f4882d3f70bbc4c2c62b559a9150d058df463a995e911e3562cf2d6f7a087eee",
         "pages": 29
       },
       "paper_submit": {
         "path": "outputs/paper/main-submit-fin15.pdf",
-        "bytes": 686908,
-        "sha256": "9239963499f671af7346aae266cb0a6f95ae77521b3c8fdd232ea3da235466c7",
+        "bytes": 686468,
+        "sha256": "7081c332b75451d78878c0235bd10cda6a359a64bd4079f7d04f528336f4a64d",
         "pages": 29
       }
     },
