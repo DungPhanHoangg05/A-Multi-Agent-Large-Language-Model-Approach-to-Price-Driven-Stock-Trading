@@ -1,20 +1,49 @@
 \section{Introduction}
 \label{sec:introduction}
 
-QuantAgent~\cite{xiong2025quantagent} decomposes price-driven trading into roles for technical indicators, chart patterns, trends and risk. This paper asks whether adding quantitative alpha and Vietnamese news sentiment makes that architecture more effective for daily Vietnamese-equity forecasts. We call the augmented configuration \emph{Our system}. We test it against a local price-only implementation of the QuantAgent architecture under the same daily trading protocol. The original publication studies a different market setting and trading horizon.
+At the close of a trading session, a short-horizon equity strategy must
+decide whether to enter at the next open or stay in cash. The decision
+can draw on recent price and volume, chart patterns and news available
+before the cutoff. Even when those signals point upward, the expected
+move over a short holding period has to cover trading costs.
 
-We integrate an OHLCV alpha selector and Vietnamese sentiment with Indicator, Pattern, Trend and Decision roles adapted from QuantAgent. The selector ranks 85 candidate factors, while sentiment enters a separate textual report. Numerical indicators, chart descriptions and the enabled factor/news reports are condensed into the Decision prompt with heuristic evidence priorities. The resulting binary forecast is evaluated against a net three-session LONG cycle; a bearish forecast maps to CASH in the long-only account.
+Multi-agent systems based on large language models organize such evidence
+into specialist reports. TradingAgents~\cite{tradingagents2024} coordinates
+analysts across information sources, while FinMem~\cite{yu2025finmem}
+organizes financial information in layered memory. For short-horizon
+trading, QuantAgent~\cite{xiong2025quantagent} specializes in technical
+indicators, chart patterns, trends and risk. When adapting that
+architecture to daily Vietnamese equities, an open question is whether
+explicit price--volume factors and Vietnamese-language news improve
+decisions made from the same technical evidence.
 
-The primary component study compares Our system and QuantAgent on 102 paired stock--date observations across nine equities, twelve dates and six historical blocks. Small repeated panels examine upstream variability, alpha-only and sentiment-only variants, and a matched-structure placebo. BICL v1--v5 form a secondary extension study asking what historical context adds once the alpha and sentiment channels are already present. The historical evaluation and its repaired rerun each use three Decision repeats with one shared upstream realization per point. We report those collections separately.
+We call the augmented architecture \emph{Our system}. Its Alpha Agent
+ranks 85 candidate OHLCV factors and summarizes the selected signals in
+the Decision prompt as aggregate direction and vote counts. Its Sentiment
+Agent adds a separate summary of eligible Vietnamese news and flags
+insufficient coverage. Both reports accompany the same technical and
+chart reports used by the local price-only QuantAgent implementation.
+This design lets us examine whether the added evidence changes forecasts
+and the net return of a three-session LONG-or-CASH strategy.
 
-In the component study, Our system reaches \FullBA\% balanced accuracy (BA), versus \BaseBA\% for QuantAgent. Both agent systems identify seven of the 25 UP outcomes. Our system makes fewer false LONG forecasts, giving a \DeltaBA{} percentage-point BA advantage, while its mean separate-account net return is slightly lower. The descriptive BA interval is $[\PrimaryLow,+\PrimaryHigh]$ pp for the compact-prompt comparison. Logistic-price exceeds Our system on BA and return with the same 24 LONG decisions. The separate effects of alpha and sentiment remain uncertain.
+The main study compares the systems at 102 paired cutoffs across nine
+equities and twelve dates in six historical blocks. Smaller repeated
+panels examine upstream variability, alpha-only and sentiment-only
+variants, and a matched-structure placebo. A separate extension evaluates
+five Bayesian in-context learning variants (BICL v1--v5) against controls
+that already receive alpha and sentiment. The earlier BICL study and
+its follow-up each share one upstream realization per point and use
+three Decision repeats. We report their results separately.
 
-The contributions are:
-\begin{itemize}
-\item A Vietnamese-equity implementation that combines an 85-candidate OHLCV selector and local-language sentiment with shared chart-agent reports.
-\item A paired comparison with QuantAgent that measures class-aware forecasts, distinguishable component interventions and transaction-cost-aware account outcomes.
-\item Five BICL extensions evaluated against augmented-system controls, with explicit historical support, fallback and action-revision rules.
-\end{itemize}
-
-The exploratory evaluation uses twelve historical dates, and its schedule was finalized after some inference. Within-prefix preprocessing in the native alpha implementation, uncertain historical news availability and limited repetitions constrain causal and deployment conclusions. These limitations motivate interpreting the system as a documented decision-support experiment.
+In the main study, Our system achieves \FullBA\% balanced accuracy (BA)
+versus \BaseBA\% for QuantAgent. Both identify seven of 25 UP outcomes.
+Our system makes fewer false LONG forecasts, yielding a \DeltaBA{}
+percentage-point BA gain with a descriptive interval of
+$[\PrimaryLow,+\PrimaryHigh]$ pp, while its mean net account return is
+slightly lower. Logistic-price exceeds Our system on both metrics with
+the same 24 LONG decisions. The separate effects of alpha and sentiment
+remain uncertain given the limited repetitions, native alpha
+preprocessing and uncertain historical news availability. The evaluation
+schedule was finalized after some inference, which further limits
+generalization from the historical comparison.
 
