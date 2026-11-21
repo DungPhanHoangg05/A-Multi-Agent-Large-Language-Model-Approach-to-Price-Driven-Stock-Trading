@@ -1513,6 +1513,12 @@ ngắn hạn đến nghiên cứu liên quan, đối chứng QuantAgent và hai 
 hiệu bổ sung. Phần đóng góp được trình bày bằng văn xuôi. Đã biên dịch
 và kiểm tra bố cục, số liệu và tham chiếu trên cả hai bản PDF.
 
+Đã thống nhất quy ước T+2.5 cho giao dịch cổ phiếu Việt Nam trên dữ liệu
+ngày trong cả bài báo và khóa luận. Quy ước dùng giá mở cửa phiên kế
+tiếp và giá đóng cửa hai phiên sau ngày mua, dựa trên lịch thanh toán
+T+2 của VSD. Đã kiểm tra PDF và đối soát bảng. Thay đổi giới hạn ở tài
+liệu nên không chạy lại bộ kiểm thử hệ thống.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·
