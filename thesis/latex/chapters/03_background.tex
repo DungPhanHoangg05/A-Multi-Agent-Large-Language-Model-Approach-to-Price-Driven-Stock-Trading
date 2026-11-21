@@ -171,6 +171,18 @@ $p(y_q\mid\boldsymbol x_q,\mathcal C_q,\mathcal D_{1:K})$ while retaining
 task identity. It differs from placing three independent signal examples
 in a hosted prompt.
 
+Zhu, Oermann and Cho~\cite{zhu2026multitask} train a transformer on separate
+prior datasets and target context (Figure~\ref{fig:mtbicl-source}). BICL v5
+applies this separation to cutoff-eligible market history and uses the
+resulting summaries to assess revisions to Fact Anchor.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.85\linewidth]{assets/figures/zhu2026-mtbicl-overview.png}
+\caption[Original multi-task Bayesian in-context learning framework]{Original multi-task Bayesian in-context learning framework. Reproduced from Figure~1 of Zhu, Oermann and Cho~\cite{zhu2026multitask} (\href{https://proceedings.mlr.press/v306/zhu26aj.html}{PMLR publication}). Copyright 2026 by the authors, \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.}
+\label{fig:mtbicl-source}
+\end{figure}
+
 The local teacher uses Beta components $(a_h,b_h)$ with fixed offline
 weights $\pi_h$. Each prior/target task supplies positive/nonpositive
 counts $(s_k,f_k)$. With $B$ the Beta function, inference computes
@@ -223,11 +235,8 @@ scaler, selector and model fitting have their own frozen training periods.
 Outcomes are joined only after durable forecasts, the \emph{forecast
 barrier}. Interrupted executions retain their technical status. A CASH prediction requires a valid decision.
 
-Paired methods receive deep copies of the same once-generated upstream
-reports. Repeating Decision conditional on that realization does not
-resample chart interpretation or market history. Net account returns,
-classification and uncertainty must preserve their respective units and
-support. Shared inputs help comparison but do not repair feature leakage,
-historical exposure or undocumented provenance. The Our system temporal
-limitations and broader validation boundaries in Chapter 5 therefore
-remain compatible with narrower verified engineering properties.
+Paired methods receive deep copies of the same upstream reports.
+Decision repeats hold the chart interpretation and market history fixed.
+Returns, classification and uncertainty retain their own units and
+support. Chapter 5 discusses the remaining limitations involving feature
+leakage, historical exposure and provenance.
