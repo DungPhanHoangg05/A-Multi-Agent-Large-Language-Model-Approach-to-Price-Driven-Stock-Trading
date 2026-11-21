@@ -92,7 +92,8 @@
         ],
         "raw": 24,
         "reference": "original_common",
-        "return_pct": -0.5303772888370718
+        "return_pct": -0.5303772888370718,
+        "statistics_only_replies": 24
       },
       "B_semantic": {
         "ba_pct": 53.78787878787878,
@@ -112,7 +113,8 @@
         ],
         "raw": 6,
         "reference": "original_common",
-        "return_pct": -0.5176892782238747
+        "return_pct": -0.5176892782238747,
+        "statistics_only_replies": 6
       },
       "C2": {
         "ba_pct": 53.78787878787878,
@@ -132,7 +134,8 @@
         ],
         "raw": 6,
         "reference": "original_common",
-        "return_pct": -0.5176892782238747
+        "return_pct": -0.5176892782238747,
+        "statistics_only_replies": 6
       },
       "CASH_EVERY_CYCLE": {
         "ba_pct": 50.0,

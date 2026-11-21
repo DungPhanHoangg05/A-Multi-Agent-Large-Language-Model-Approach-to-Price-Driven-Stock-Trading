@@ -21,6 +21,7 @@ COMPONENT = {'AS': 'Our system', 'B': 'QuantAgent', 'logistic_price': 'Logistic-
 CONTROLS = ('CASH_EVERY_CYCLE', 'ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS')
 REFERENCES = {'bayesian_v1': 'original_common', 'C2': 'original_common',
               'A_tp_pool': 'original_common', 'B_semantic': 'original_common', 'MT_BICL': 'Fact_Anchor'}
+STATISTICS_METHODS = ('C2', 'A_tp_pool', 'B_semantic')
 TARGETS = ('paper/content/tables/finalize_results.tex', 'thesis/latex/tables/finalize_results.tex')
 METHODS = {
     'original_fix': 'Our system',
@@ -133,6 +134,13 @@ def audit_evidence() -> dict:
             'raw': raw, 'fallback': fallbacks, 'changes': changes, 'reference': baseline,
             'profiles': sorted({r.get('profile', 'deterministic control') for r in records.values()}),
         }
+        if method in STATISTICS_METHODS:
+            rows[method]['statistics_only_replies'] = sum(
+                row['llm_response'] and row['prior_stats_ready'] is True
+                and row['prior_examples_ready'] is False and row['effective_K'] == 0
+                and row['prior_selected_ids'] == []
+                for row in records.values()
+            )
 
     with EvidenceArchive(ROOT) as archive:
         audits = json.loads(archive.read('outputs/revision/fusion_prompt_audit_v1/audit.json'))
@@ -251,9 +259,20 @@ def project(result: dict) -> str:
         r'Changes compare final actions in the same repeat with Common for v1--v4 and Fact Anchor for v5. '
         r'Stock--dates counts distinct cutoffs with a change. '
         f"CASH returns {rows[CONTROLS[0]]['return_pct']:.4f}\\% and Always-LONG returns "
-        f"{rows[CONTROLS[1]]['return_pct']:.4f}\\%; both score 50.00\\% BA on the same complete accounts.\\par}}",
+        f"{rows[CONTROLS[1]]['return_pct']:.4f}\\%; both score 50.00\\% BA on the same complete accounts.",
+        statistics_note(rows) + r'\par}',
         r'\end{table}'])
     return '\n'.join(lines)+'\n'
+
+
+def statistics_note(rows: dict) -> str:
+    """Ghi rõ phạm vi của phản hồi có thống kê nhưng không có ví dụ truy xuất."""
+    counts = [rows[method]['statistics_only_replies'] for method in STATISTICS_METHODS]
+    require(counts == [rows[method]['raw'] for method in STATISTICS_METHODS],
+            'Không phải mọi phản hồi v2, v3 và v4 đều chỉ có thống kê.')
+    v2, v3, v4 = counts
+    return (f'The prompts for all {v2}, {v3} and {v4} new replies in BICL v2, v3 and v4, '
+            r'respectively, included historical statistics and zero retrieved examples ($K_{\mathrm{eff}}=0$).')
 
 
 def project_plot_data(result: dict) -> str:
