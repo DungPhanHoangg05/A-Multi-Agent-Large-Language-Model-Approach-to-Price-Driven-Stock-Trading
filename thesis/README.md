@@ -11,7 +11,7 @@ Bibliography dùng Biber. `covers-preview.tex` là điểm vào riêng để xem
 
 ## Nguồn và tái lập
 
-Nguồn bàn giao tại commit `383fcf421a8e41d29dde415a8d87919e402639b4`.
+Nguồn bàn giao tại commit `000fe09390c5fccf603765951ed7f09814d1c9b0`.
 Nghiên cứu chính dùng profile `finalize_serving_v1` của lần chạy
 `FIN11_RESEARCH_V1` và kết quả follow-up đã đối soát với receipt FIN12.
 [Bản chiếu có hash nguồn](../docs/plan/week12/manuscript_evidence.json) ·
@@ -29,7 +29,7 @@ Dùng `--engine xelatex` cho bản dựng XeLaTeX. Checkout có đủ nguồn
 LaTeX, bảng và hình để build. Chế độ `--audit --check` cần kho prompt
 và dự báo cục bộ. [Profile từng nghiên cứu và các nguồn cần khôi phục](../paper/README.md#nguồn-và-tái-lập).
 
-## Tác giả hoàn tất
+## Trang cam đoan
 
-Điền **chữ ký** và **ngày ký** ở mục *Declaration* trước khi nộp.
-Hai trường nằm ở [nguồn trang cam đoan](latex/frontmatter/content.tex).
+Trang *Declaration* trình bày tên **Phan Hoang Dung** dưới mục *Student*.
+Nội dung nằm trong [nguồn phần đầu khóa luận](latex/frontmatter/content.tex).

@@ -1494,6 +1494,12 @@ không có ví dụ truy xuất. Đã kiểm lại dữ liệu theo receipt, b�
 và bản render. Số trang giữ ở 29 cho mỗi bản bài báo và 66 cho khóa
 luận. Phạm vi chỉ gồm báo cáo và công cụ chiếu bảng.
 
+Đã cập nhật Lời cảm ơn và Cam đoan của khóa luận theo mẫu tác giả cung
+cấp. Trang Cam đoan trình bày tên Phan Hoang Dung dưới mục Student. Đã
+build và kiểm bố cục trên pdfLaTeX và XeLaTeX, đồng thời đối soát lại
+hash và kết quả trình bày. Phạm vi chỉ sửa phần đầu khóa luận nên không
+chạy lại bộ kiểm thử hệ thống.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·
