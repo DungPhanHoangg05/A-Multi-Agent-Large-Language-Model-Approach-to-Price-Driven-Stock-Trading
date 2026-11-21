@@ -1,5 +1,8 @@
 # Vận hành study R1 cũ và chuyển sang kế hoạch rút gọn
 
+Các lệnh dựng lại bank, xem tiến độ và đối soát số liệu R1 trong tài liệu này
+dùng [checkout lịch sử và các release được lưu trữ](../docs/plan/week12/README.md#cli-revision-lich-su).
+
 ## Chỉ dẫn hiện hành từ 02/11/2026
 
 **Kế hoạch thay thế:** [mục 0 của plan.md](../plan.md#0-phương-án-rút-gọn-có-hiệu-lực-từ-02112026). Người dùng yêu cầu giảm thời gian và cho biết có 5 key thuộc 5 org Groq. Không còn yêu cầu chạy đủ 8.100 Full decisions/14.580 requests cũ như điều kiện đầu tiên để xử lý R1.

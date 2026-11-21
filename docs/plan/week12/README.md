@@ -39,6 +39,34 @@ giao khớp SHA-256 trong [source map](../../../scripts/thesis_docs/source-map.j
 Các thay đổi thuộc công cụ tài liệu, đầu ra cũ và dữ liệu staging. Vì thế
 phạm vi kiểm thử không gồm toàn bộ unit suite, E2E hoặc inference mới.
 
+<a id="cli-revision-lich-su"></a>
+
+### Công cụ đã kết thúc cùng các nghiên cứu cũ
+
+Đã rà 246 tệp trong `core/` và 150 tệp trong `scripts/` theo các điểm vào,
+tham chiếu trong mã, runbook và manifest. Cả 235 module Python trong `core/`
+đều có SHA-256 riêng trong khóa FIN10 mà FIN11 kiểm khi mở lượt nghiên cứu.
+Sau đợt này `scripts/` còn 141 tệp.
+
+| Phạm vi lịch sử | Công cụ bỏ khỏi checkout hiện hành |
+| --- | --- |
+| Điều phối lượt R1 đã đóng | `continue_revision_common_study.ps1`, `status_revision_common_study.py`, `refreeze_revision_common_bank.py` |
+| Đối chứng số và kiểm tra release R1 | `evaluate_revision_common_numeric.py`, `verify_revision_common_study.py`, `verify_revision_r1.py` |
+| Audit D2-07 và D2-08 | `analyze_revision_execution.py`, `audit_target_contract.py` |
+| Phép đo hiệu năng tích hợp prior ở W4 | `review_prior_integration_performance.py` |
+
+Có thể đọc lại đủ chín CLI bằng `git worktree add --detach ../cli-history 07c43894`.
+Khi tái lập một lượt nghiên cứu, dùng commit và runtime ghi trong receipt của
+lượt đó. Khôi phục các đầu vào R1 theo [chỉ mục revision](../revision_evidence/README.md).
+Verifier U07 kiểm tên và hash của tám file Python đã bỏ trên checkout lịch sử.
+
+Đã kiểm byte của tám release revision, 162 tài nguyên trong khóa FIN10/FIN11
+và chạy `project_finalize_manuscript_tables.py --audit --check` thành công.
+Các module test `test_revision_common_study`, `test_target_contract`,
+`test_revision_execution` và `test_prior_performance` đạt 48/48 sau khi khôi phục
+tạm snapshot `r1_prices_v1`. Không có tệp Python nào được sửa hoặc thêm để
+biên dịch. Phạm vi là CLI cũ nên không chạy toàn bộ unit suite hoặc E2E.
+
 ## Đầu mối làm việc duy nhất trên develop
 
 Ngày **12/11/2026**, theo yêu cầu người dùng, mọi công việc hệ thống, thực nghiệm,

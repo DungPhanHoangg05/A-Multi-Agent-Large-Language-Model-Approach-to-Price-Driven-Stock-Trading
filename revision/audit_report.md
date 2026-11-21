@@ -436,6 +436,7 @@ standalone A4 đúng bề ngang bản thảo, render và kiểm trực quan khô
 
 ```powershell
 py -3.13 -X utf8 -m unittest discover -s tests -p test_revision_execution.py -v
+# Lệnh D2-07 được ghi tại checkout lịch sử của audit.
 py -3.13 -X utf8 scripts/analyze_revision_execution.py --check
 ```
 

@@ -4,6 +4,10 @@ Kế hoạch hiện hành: [docs/plan/plan.md](../docs/plan/plan.md). Mọi côn
 
 **Đầu mối hiện hành từ 12/11/2026:** [README W12](../docs/plan/week12/README.md) và [kế hoạch bài báo/giao diện](../docs/plan/week12/final_paper_ui_plan.md) quản lý công việc trên develop. [Response](response_to_reviewers.md) và [matrix](reviewer_matrix.csv) hiện đối soát đủ **87 yêu cầu/18 comment** với hai nghiên cứu tách biệt; **0/18 comment được chứng nhận đóng**. [Release bản thảo thống nhất](../docs/plan/revision_evidence/README.md#manuscript_unified_final_v1) thay các locator/trạng thái hiện hành cũ, không thay byte evidence lịch sử. U10 là bàn giao bản thảo nội bộ khớp bằng chứng; quyền/PID, thực nghiệm còn thiếu và route nộp bài vẫn là các giới hạn riêng.
 
+Các lệnh R1 cho bank v1–v3 và hai audit D2-07/D2-08 bên dưới dùng
+[checkout và dữ liệu lịch sử](../docs/plan/week12/README.md#cli-revision-lich-su).
+Để đối chiếu bảng FIN15, xem [lệnh hiện hành của bản thảo](../paper/README.md#nguồn-và-tái-lập).
+
 Mọi ghi nhận R1–R4 “closed/addressed” và số liệu/locators phía dưới chỉ thuộc release lịch sử được nêu tại chính mục đó, không phải nghiệm thu hiện tại của toàn comment. Không dùng các checker current-source cũ để chứng nhận nguồn đã thay; [runbook](archive_runbook.md) phân biệt đường historical và gói mới. Những mục dưới đây giữ làm nhật ký lịch sử, không phải checklist hiện hành.
 
 ## Nghiệm thu R4 — 03/11/2026
@@ -188,6 +192,6 @@ Bank v3 giữ nguyên 3.038 feature values/market-input hashes, lịch, protocol
 
 Người dùng chọn giữ quota hiện có, đợi quota phục hồi rồi tự chạy tiếp bằng terminal. Không khởi động lại worker nền. Run v3 đã kiểm tra bằng API thật: đúng **1 attempt**, lỗi TPD với thời gian chờ parse được **714,528 giây**, **0 prediction**, dừng trước fallback/retry. [Receipt dừng ban đầu v3](../docs/plan/revision_evidence/README.md#r1_common_run_v3) lưu usage snapshot riêng để không bị thay đổi khi resume. Thời gian đó là phản hồi tại thời điểm lỗi, không phải cam kết reset theo giờ lịch. Lệnh API và bước phân tích nằm trong runbook; cần hoàn thành toàn grid trước khi cập nhật bản thảo.
 
-Đối soát hiện hành (không gọi API): `py -3.13 -X utf8 scripts/verify_revision_common_study.py`. Script kiểm bank v3 trực tiếp, đối chiếu nguồn lịch sử qua archive đúng hash, cả ba feature receipts, hai release số v2/v3, ba receipt dừng và replay calibration chẩn đoán. Đây là kiểm tra integrity, không đóng Full/R1.
+Đối soát trên checkout lịch sử (offline): `py -3.13 -X utf8 scripts/verify_revision_common_study.py`. Script kiểm bank v3 trực tiếp, đối chiếu nguồn lịch sử qua archive đúng hash, cả ba feature receipts, hai release số v2/v3, ba receipt dừng và replay calibration chẩn đoán. Đây là kiểm tra integrity, không đóng Full/R1.
 
 Diff check phần code/tài liệu/releases mới PASS; giữ nguyên CRLF của hai artifacts gốc `r1_common_run_v2/worker_20261101T170916Z.log` và `worker_status.json`, loại riêng chúng khỏi whitespace check. Hash của chúng trong stopped receipt vẫn PASS; không strip hoặc sửa encoding bằng chứng để xóa cảnh báo whitespace.
