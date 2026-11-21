@@ -331,7 +331,7 @@
   "current_latex": [
     {
       "path": "assets/diagrams/context_eligibility.tex",
-      "lf_sha256": "8fabb39fe86885c535676ff30ce3dbca208779d2dd63c8e280ba48f71c41bec1"
+      "lf_sha256": "ff1a2e29c82d9edb9c0a21a945b0a30dd313b6b4b88ef049b6828f953368b38a"
     },
     {
       "path": "assets/diagrams/evidence_channels.tex",
@@ -339,7 +339,7 @@
     },
     {
       "path": "assets/diagrams/F03_finalized_system_flow.tex",
-      "lf_sha256": "b124d0f725af014af09b0bf594d42b2c7ac8f4fbd27c22f48abf93d8b56fb014"
+      "lf_sha256": "835b99a5b4a2fcf094f2978b3fad2e33924c70efad72b721051de73680cdb52e"
     },
     {
       "path": "assets/diagrams/followup_comparison.tex",
@@ -371,19 +371,19 @@
     },
     {
       "path": "latex/chapters/04_proposed_system.tex",
-      "lf_sha256": "0b450e1f3130727a52717138815c77f7fc90f2deb92015b5ed81d0fad77820d6"
+      "lf_sha256": "234a55e3feaecec31bd581f3fe026e56a800ac5f5810aaf8aa2e252a97455d4d"
     },
     {
       "path": "latex/chapters/05_experiments.tex",
-      "lf_sha256": "4bf4fb3d5d1134cab6dc5d83b5f7633b9319c5d3e4de6642aeeb1f8b611dca3a"
+      "lf_sha256": "e54c02e514a28e8582549ea7443221de2be0cf6f24579a3d86d8b26669d10a5a"
     },
     {
       "path": "latex/chapters/06_conclusion.tex",
-      "lf_sha256": "5682800cc31b15fbe93e0218e2fca40b71b73cab0f8755b5654d649c39133ced"
+      "lf_sha256": "c63dc65cde36fe675eff56473b69774dc2b985171fcf4b8c12d594af19709030"
     },
     {
       "path": "latex/frontmatter/content.tex",
-      "lf_sha256": "f0f07ce2cce34bb20dcb76cd30cf347d1d897c269f24c4bc7da430ada3d24482"
+      "lf_sha256": "1bbc384371afd9b97d4f7c680cf00a362ad7366a005899a4cf5ecdd54570f74e"
     },
     {
       "path": "latex/frontmatter/covers.tex",
@@ -399,7 +399,7 @@
     },
     {
       "path": "latex/tables/finalize_results.tex",
-      "lf_sha256": "52542a4a137306fe74bc8c4a0a4d02703d28ea90dd5b83c560a3f9e4c6c941f4"
+      "lf_sha256": "513df7912fa1908a296c71e4cb2771eed88d0b8c8a09cc8f115e6a6b1efe6608"
     },
     {
       "path": "latex/tables/followup_plot_data.tex",
@@ -2437,8 +2437,8 @@
   "fin15_outputs": {
     "pdf": {
       "path": "outputs/thesis/thesis-fin15.pdf",
-      "bytes": 884319,
-      "sha256": "aebc45611e91da23ec472481443023e8b0709e72775a25ddb55d4cc9fe2fb063"
+      "bytes": 884816,
+      "sha256": "cea3aa380ba53db8aaf717e48aea168ffbb71fd321cbe60303b5134574693c35"
     },
     "overleaf_source_directory": "thesis/",
     "pdf_pages": 66,
@@ -2446,6 +2446,23 @@
       "pdflatex",
       "xelatex"
     ],
-    "bibliography": "biber"
+    "bibliography": "biber",
+    "source_commit": "1b366e59182e7b7371cb2c3a85307445c812337e",
+    "manuscript_date": "2026-11-21",
+    "paper_pdfs": {
+      "paper": {
+        "path": "outputs/paper/main-fin15.pdf",
+        "bytes": 711054,
+        "sha256": "cc2846561cd25272a4917034387ecd0e5ab2188e638fb358b5ad005d854cf298",
+        "pages": 29
+      },
+      "paper_submit": {
+        "path": "outputs/paper/main-submit-fin15.pdf",
+        "bytes": 682525,
+        "sha256": "22240648ecd2b7ff8e858539bd878fa3e47370696afc8fefbc2a46ca684a4630",
+        "pages": 29
+      }
+    },
+    "manuscript_evidence_sha256": "47f43ac5f2a225421661e30d7cd8bc2852e0707f832d6d1003410b876e548e58"
   }
 }

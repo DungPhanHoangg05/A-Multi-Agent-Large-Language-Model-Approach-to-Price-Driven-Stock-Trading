@@ -1477,6 +1477,16 @@ các bảng cuối phụ lục bằng PDF. Bài báo có 29 trang, bản nộp 2
 khóa luận 66 trang trên cả hai engine. Chỉ thay bố cục, nên đối soát nguồn,
 trích dẫn và bảng hiện hành, không chạy lại suite runtime.
 
+Lượt chốt bản thảo ngày 21/11/2026 đối chiếu 102 prompt compact theo
+điểm, 3.060 bản ghi theo điểm/lượt/phương pháp gồm 2.448 dự báo nghiên
+cứu và hai đối chứng không gọi mô hình, cùng mẫu 96 nhãn và 90 điểm
+trong 45 tài khoản đủ hai chu kỳ. Bảng chính khớp baseline đã khóa;
+bảng follow-up tách phản hồi mới, fallback, lượt đổi và mã–ngày đổi.
+Hai bản bài báo có 29 trang; khóa luận có 66 trang trên cả hai engine.
+Đã kiểm render, liên kết nội bộ, số bảng, ngày và hash PDF. Mã thay đổi
+chỉ chiếu bảng và đối chiếu bản thảo nên chạy kiểm phạm vi tài liệu.
+[Nguồn và lệnh tái lập](../../paper/README.md).
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·

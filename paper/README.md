@@ -34,6 +34,29 @@ PDF hiện hành gồm [bản đầy đủ](../outputs/paper/main-fin15.pdf) và
 [bản nộp](../outputs/paper/main-submit-fin15.pdf). Nguồn tự đủ để biên dịch.
 [PDF và manifest của bản trước](../outputs/paper/README.md) giữ vai trò bằng chứng lịch sử.
 
-Chạy `py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --check`
-từ gốc kho mã để so bảng trình bày với biên bản của lần đánh giá bổ sung. Bằng chứng nguồn cũ
-và cách khôi phục nằm ở [kho bằng chứng](../docs/plan/revision_evidence/README.md).
+## Nguồn và tái lập
+
+Nguồn PDF ngày **21/11/2026** được khóa tại commit
+`1b366e59182e7b7371cb2c3a85307445c812337e`.
+[Hash SHA-256 và số trang của PDF bàn giao](../scripts/thesis_docs/source-map.json).
+
+| Nghiên cứu | Profile và nguồn bảng |
+| --- | --- |
+| Thành phần | Main compact `AS` và `B`, với logistic-price và CASH cùng 102 điểm. [Bảng baseline đã khóa](../outputs/revision/final_baselines_v1/main_comparison.csv). |
+| BICL lịch sử | Our system dùng alpha native, Common dùng alpha causal và khóa truy xuất dùng nhóm tín hiệu đã ghi. [Bảng và hình lịch sử](../outputs/revision/u09_manuscript_assets_v1/artifacts/). |
+| BICL follow-up | `FIN11_RESEARCH_V1`, profile `finalize_serving_v1` với alpha causal dùng chung và khóa truy xuất `ohlcv_retrieval_keys_v1`. [Bản chiếu từ receipt FIN12](../docs/plan/week12/manuscript_evidence.json). |
+
+Từ gốc checkout, tái tạo bảng chính, bảng follow-up và dữ liệu hình khóa
+luận, rồi biên dịch PDF bằng các lệnh phía trên:
+
+```powershell
+py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py
+py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --check
+```
+
+Để đối chiếu trực tiếp prompt thực gửi, kết quả lịch sử của FPT và từng
+dự báo follow-up, chạy thêm
+`py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --audit --check`.
+Chế độ này cần các phần ZIP `local-*` của kho nghiên cứu được cấp quyền,
+`outputs/unified_integration/u09_analysis_r1/` và
+`outputs/finalize/fin12_v1/` cùng receipt. [Tra và khôi phục kho bằng chứng](../docs/plan/revision_evidence/README.md).
