@@ -1500,6 +1500,13 @@ build và kiểm bố cục trên pdfLaTeX và XeLaTeX, đồng thời đối so
 hash và kết quả trình bày. Phạm vi chỉ sửa phần đầu khóa luận nên không
 chạy lại bộ kiểm thử hệ thống.
 
+Đã bổ sung trích dẫn Zhu, Oermann và Cho ở phần Fact Anchor và BICL v5
+của bài báo. Chương 3 của khóa luận dùng lại Hình 1 từ bản ICML với
+nguồn và giấy phép CC BY 4.0. Cả hai bản thảo mô tả vai trò hỗ trợ của
+Codex và trách nhiệm của tác giả đối với nội dung cuối. Đã kiểm lại bảng,
+liên kết, bố cục và hash PDF. Thay đổi giới hạn ở tài liệu nên không chạy
+lại bộ kiểm thử hệ thống.
+
 [Bài báo](../../outputs/paper/main-fin15.pdf) ·
 [Bản nộp bài báo](../../outputs/paper/main-submit-fin15.pdf) ·
 [Khóa luận](../../outputs/thesis/thesis-fin15.pdf) ·
