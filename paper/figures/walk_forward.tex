@@ -7,7 +7,7 @@
 \node[above,align=center,font=\footnotesize] at (4.2,0.3) {45-bar chart $[e-45,e)$\\Visible bars end at decision $d=e-1$};
 \foreach \x/\lab in {0/{e-45},8.4/{d=e-1},10/{e},13.6/{e+2}}{\draw (\x,-0.12)--(\x,0.12);\node[below,font=\footnotesize] at (\x,-0.15) {$\lab$};}
 \draw[<->,thick,orange!80!black] (10,1.4)--(13.6,1.4);
-\node[above,align=center,font=\footnotesize] at (11.8,1.5) {Entry Open to exit Close\\$L=3$ observed bars};
+\node[above,align=center,font=\footnotesize] at (11.8,1.5) {T+2.5: entry Open to exit Close\\$L=3$ observed bars};
 \node[box] (train) at (2,-2.1) {\textbf{Chronological training}\\Fit orientation / scaler / teacher\\Labels mature before validation};
 \node[box] (valid) at (7.1,-2.1) {\textbf{Purged validation}\\Select before the test fold\\Freeze resources / checkpoint};
 \node[box] (test) at (12.2,-2.1) {\textbf{Held test schedule}\\Twelve dates / six folds\\BHN early cells excluded};

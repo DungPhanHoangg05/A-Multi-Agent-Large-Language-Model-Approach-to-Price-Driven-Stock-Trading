@@ -34,7 +34,7 @@ The extension fixes \UnifiedPoints\ points, \UnifiedAccounts\ symbol--fold accou
 
 \begin{figure}[!htb]
 \centering\input{figures/walk_forward.tex}
-\caption{Chronological data preparation, shared inference and three-session execution timing.}
+\caption{Chronological data preparation, shared inference and T+2.5 execution.}
 \label{fig:walkforward}
 \end{figure}
 
@@ -71,7 +71,7 @@ The relevant metric is undefined when a required denominator is zero. Macro mean
 
 Each of 51 symbol--block accounts starts with VND50 million, without cross-symbol capital competition. LONG follows Eq.~\ref{eq:label}; CASH stays flat. Wealth includes pending receivables and residual shares at recorded mark-to-market prices. Daily-close drawdown uses an initial-capital anchor. Daily Sharpe~\cite{sharpe1966mutual} uses population SD, 252 sessions and a zero risk-free rate. Daily Sortino~\cite{sortino1994downside} in the companion uses the SD of negative daily observations. Irregular spacing precludes annualizing cycle ratios.
 
-The reference assumes fractional fills at recorded prices and two-leg fees/slippage. The archived T+2 settlement rule~\cite{vsd2022settlement} motivates afternoon sellability given allocation and fill. Sale proceeds stay pending until the specified settlement phase. L=3 is a fixed observed-bar protocol choice, not an optimized horizon. Daily OHLC cannot authenticate opening-auction queues, price-limit fills, partial fills or correct volume units. Selected execution sensitivities appear in \ref{app:additional}. Ten HVN stock--date observations have unresolved venue/calendar consistency flags.
+The T+2.5 reference assumes fractional fills at recorded prices and two-leg fees and slippage. Sale proceeds stay pending until the specified settlement phase. The fixed cycle covers \(L=3\) observed bars, including entry. Daily OHLC cannot authenticate opening-auction queues, price-limit fills, partial fills or correct volume units. Selected execution sensitivities appear in \ref{app:additional}. Ten HVN stock--date observations have unresolved venue/calendar consistency flags.
 
 \paragraph{Historical-context metrics}
 In the historical-context study, each method has three independent-capital executions per stock--fold account. Returns are averaged across repeats within account and then equally over 51 accounts; BA is computed separately on 102 points per repeat and then averaged. Evaluated predictions follow final policy actions. Daily EOD NAV, cycle drawdown, costs, turnover and held-session fraction retain their own units. Cycle Sharpe uses sample SD (ddof=1); cycle Sortino uses the RMS of negative-part returns over all cycles with MAR zero. The irregular schedule does not support annualized ratios. Metrics with zero or missing denominators are left blank in the analysis.

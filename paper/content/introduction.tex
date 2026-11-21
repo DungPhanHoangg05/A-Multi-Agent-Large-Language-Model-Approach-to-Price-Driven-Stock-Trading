@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-At the close of a trading session, a short-horizon equity strategy must
+At the close of a trading session, a daily equity strategy must
 decide whether to enter at the next open or stay in cash. The decision
 can draw on recent price and volume, chart patterns and news available
 before the cutoff. Even when those signals point upward, the expected
@@ -10,9 +10,9 @@ move over a short holding period has to cover trading costs.
 Multi-agent systems based on large language models organize such evidence
 into specialist reports. TradingAgents~\cite{tradingagents2024} coordinates
 analysts across information sources, while FinMem~\cite{yu2025finmem}
-organizes financial information in layered memory. For short-horizon
-trading, QuantAgent~\cite{xiong2025quantagent} specializes in technical
-indicators, chart patterns, trends and risk. When adapting that
+organizes financial information in layered memory.
+QuantAgent~\cite{xiong2025quantagent} provides a price-driven architecture
+with roles for technical indicators, chart patterns, trends and risk. When adapting that
 architecture to daily Vietnamese equities, an open question is whether
 explicit price--volume factors and Vietnamese-language news improve
 decisions made from the same technical evidence.
@@ -24,7 +24,7 @@ Agent adds a separate summary of eligible Vietnamese news and flags
 insufficient coverage. Both reports accompany the same technical and
 chart reports used by the local price-only QuantAgent implementation.
 This design lets us examine whether the added evidence changes forecasts
-and the net return of a three-session LONG-or-CASH strategy.
+and net returns under the T+2.5 convention used for Vietnamese equities.
 
 The main study compares the systems at 102 paired cutoffs across nine
 equities and twelve dates in six historical blocks. Smaller repeated

@@ -16,10 +16,8 @@ Warm-up rows support indicators and the 200-bar regime feature; they do
 not become additional forecast points. Future prices are reserved for
 evaluation after forecasts have been recorded.
 
-Figure~\ref{fig:F01} distinguishes information time from execution time.
-For the running FPT example, the cutoff is 3 July 2023; the next observed
-entry and third-session exit are 4 and 6 July. Its later outcome is
-revealed only after explaining the forecast path in Chapter 4.
+Figure~\ref{fig:F01} shows the T+2.5 timeline for FPT in July 2023,
+with the cutoff on the 3rd, entry on the 4th and exit on the 6th.
 \begin{figure}[!htb]\centering
 \begin{tikzpicture}[>=Stealth,node distance=5mm,
 box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.85\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
@@ -33,14 +31,15 @@ The reference LONG remains open. FPT: 5 July 2023.};
 Third observed session; brokerage and slippage on selling.\\FPT: 6 July 2023.};
 \draw[->] (cut)--(entry);\draw[->] (entry)--(middle);\draw[->] (middle)--(exit);
 \end{tikzpicture}
-\caption[Cutoff and three-session execution timeline]{Cutoff and three-session execution timeline. Indices count observed sessions; calendar gaps do not change the index convention. Future prices enter evaluation only after durable forecasts.}\label{fig:F01}
+\caption[Cutoff and T+2.5 execution timeline]{Cutoff and T+2.5 execution timeline. Indices count observed sessions. Future prices enter evaluation only after forecasts are saved.}\label{fig:F01}
 \end{figure}
 
 \section{Economic contract and prediction target}\label{s:e2142a9a841370b4}
-LONG buys at $O_{t+1}$ and liquidates at $C_{t+3}$, after three observed
-sessions including entry. For brokerage $f=0.0025$ and slippage $s=0.001$
-on \emph{each} leg, one unit costs $O_{t+1}(1+s)(1+f)$ and yields
-$C_{t+3}(1-s)(1-f)$. The canonical candidate-LONG net return is
+The 2022 Vietnam Securities Depository schedule~\cite{vsd2022settlement}
+allows resale on the afternoon of T+2 from purchase. The daily-bar
+T+2.5 convention enters LONG at $O_{t+1}$ and exits at $C_{t+3}$.
+Brokerage $f=0.0025$ and slippage $s=0.001$ apply on each leg. The
+candidate-LONG net return is
 \begin{equation}\label{eq:net}
 r_t^{\mathrm{net}}=\frac{C_{t+3}}{O_{t+1}}
 \frac{(1-s)(1-f)}{(1+s)(1+f)}-1.

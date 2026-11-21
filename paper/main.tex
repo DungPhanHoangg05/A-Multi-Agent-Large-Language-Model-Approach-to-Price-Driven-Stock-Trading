@@ -93,16 +93,17 @@
 Financial trading systems built with large language models increasingly
 combine market data with textual evidence. TradingAgents coordinates
 specialist analysts across information sources, and FinMem retrieves
-financial information from layered memory. QuantAgent specializes in
-short-horizon decisions driven by technical indicators, patterns and
-trends. When adapting QuantAgent to daily Vietnamese equities, it remains
+financial information from layered memory. QuantAgent organizes technical
+indicators, patterns and trends into specialist reports. When adapting
+QuantAgent to daily Vietnamese equities, it remains
 unclear whether explicit factor signals and local-language news improve
 decisions made from the same technical evidence. We introduce Our system,
 which adds an Alpha Agent and a Sentiment Agent to QuantAgent. Alpha
 ranks price--volume factors and passes their aggregate direction and vote
 counts to Decision in the main evaluation. Sentiment summarizes eligible
 Vietnamese news and flags insufficient coverage. We compare the systems
-at shared historical cutoffs under a common net outcome and cost model.
+at shared historical cutoffs under a T+2.5 execution convention and
+a common cost model.
 None of the 102 main prompts contains individual factor-value rows,
 and 79 mark sentiment as missing. Our system achieves 52.96\% balanced
 accuracy and a mean net account return of $-0.797$\%. QuantAgent achieves

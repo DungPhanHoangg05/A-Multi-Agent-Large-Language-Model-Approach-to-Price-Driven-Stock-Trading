@@ -18,8 +18,8 @@ reference action, and a utility gate determines whether to accept a revision.
 
 At decision cutoff $t$, prices end at $t$, dates determine news eligibility,
 and each historical cycle must end strictly before $t$. Forecasts and
-final actions are recorded separately. LONG buys at $Open(t+1)$ and
-liquidates at $Close(t+3)$, with 0.25\% brokerage and 0.10\% slippage on
+final actions are recorded separately. Under the T+2.5 convention, LONG
+buys at $Open(t+1)$ and liquidates at $Close(t+3)$, with 0.25\% brokerage and 0.10\% slippage on
 each leg. A positive candidate-LONG return is UP. SHORT maps to CASH
 in the long-only ledger.
 

@@ -5,10 +5,13 @@
 For a given stock, let \(t\) be the last observed session at the decision
 cutoff. Indicator and chart tools use the 45 daily open, high, low, close and
 volume (OHLCV) bars through \(t\). Alpha uses up to 600 observed bars through
-the same cutoff. The standard cycle enters at the next observed Open
-\(O_{t+1}\) and exits at the third observed Close \(C_{t+3}\). The session
-index counts observed bars. Calendar or execution evidence is checked
-separately, and an incomplete cycle cannot be shortened to produce a label.
+the same cutoff. The 2022 Vietnam Securities Depository schedule~\cite{vsd2022settlement}
+allows resale in the afternoon of T+2, counting T from the purchase date.
+We use T+2.5 to denote the corresponding daily-bar convention
+throughout the evaluation. LONG enters at the next observed Open
+\(O_{t+1}\) and exits at the observed Close \(C_{t+3}\) two sessions after
+entry. The session index counts observed bars. Calendar and execution
+evidence are checked separately, and incomplete cycles have no label.
 
 \subsection{Directional Prediction Task}
 The target asks whether a candidate LONG would earn a positive net return.
