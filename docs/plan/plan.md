@@ -1575,10 +1575,10 @@ chọn FPT tại cutoff 03/07/2023 theo quy tắc không dùng outcome, nối ng
 đầu vào/lịch sử/proposal/policy và tách kết quả sau cutoff.
 [Khung sáu chương](thesis/evidence.md#8-khung-bản-thảo-và-đối-soát-luận-điểm)
 đã đủ bản nháp nội dung tiếng Anh và dùng sổ bằng chứng chung; P7 đã có phần đầu/sáu phụ lục, còn LaTeX, rà soát và bàn giao cuối ở P8–P10.
-P2 đã có [bản nháp Chương 3 §3.1–§3.7](thesis/chapters/03_background.md),
+P2 đã có [bản nháp Chương 3 §3.1–§3.7](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/thesis/chapters/03_background.md),
 từ quan sát/kinh tế đến tín hiệu, HMM, Bayes, MT/utility và PIT/đánh giá,
 kèm F01/F02 có source. Chưa rà soát toàn văn cuối hoặc tạo kết quả thực
-nghiệm mới. **P3 đã đủ bản nháp [Chương 4 §4.1–§4.10](thesis/chapters/04_proposed_system.md)**:
+nghiệm mới. **P3 đã đủ bản nháp [Chương 4 §4.1–§4.10](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/thesis/chapters/04_proposed_system.md)**:
 từ tổng quan/hợp đồng/các agent và Native/Common tới lịch sử/regime, bốn prior,
 MT/teacher–student, facts/utility/policy, projection, tám vai trò/ba thuật toán,
 ngân sách/phục hồi và ứng dụng. F03/F04/F05/F05a/F06/F07/F08/F11 có nguồn;

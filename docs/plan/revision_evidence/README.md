@@ -11,9 +11,8 @@ PDF ở [outputs/paper/](../../../outputs/paper/README.md).
 Các gói ZIP nguồn/PDF cũ, raw, manifest và receipt bên trong đều giữ nguyên byte.
 Không có ZIP bài báo hiện hành được tạo mới.
 
-Trong workspace đang dọn, bản thư mục gốc được chuyển tạm tới
-`tmp/artifact_cleanup/retired_revision/` để có thể hoàn tác; thư mục tạm này
-không được đưa vào Git và không được ứng dụng đọc.
+Bản staging trong `tmp/artifact_cleanup/retired_revision/` đã được xóa sau khi
+kiểm SHA-256 từng tệp với kho. Có thể khôi phục bằng CLI dưới đây.
 
 ## Cách tra và khôi phục
 

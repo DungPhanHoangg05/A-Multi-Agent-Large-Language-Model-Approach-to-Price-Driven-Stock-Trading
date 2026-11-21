@@ -18,11 +18,9 @@ def read_results() -> dict[str,Any]:
     return json.loads(raw)
 
 def save(fig: Any,name: str) -> None:
-    """Ghi PDF vector và PNG để kiểm chữ ở kích thước bản in."""
-    base=Path(__file__).with_name(name)
+    """Ghi PDF vector dùng trong khóa luận."""
     active = Path(__file__).resolve().parents[5] / 'thesis/assets/figures' / (name + '.pdf')
     fig.savefig(active,metadata={'CreationDate':None,'Title':name})
-    fig.savefig(base.with_suffix('.png'),dpi=160)
     plt.close(fig)
 
 def main() -> None:

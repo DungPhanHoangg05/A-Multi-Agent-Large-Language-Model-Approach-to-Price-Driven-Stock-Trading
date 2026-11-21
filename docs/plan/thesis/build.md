@@ -26,7 +26,7 @@ sáu chương. Sơ đồ tổng thể là TikZ và có thể sửa trực tiếp
 ## Đối soát và truy vết
 
 [PDF FIN15](../../../outputs/thesis/thesis-fin15.pdf) được build bằng pdfLaTeX.
-Tag `thesis-review-20261117-r1` và [manifest lịch sử](../../../outputs/thesis/history/manifest.json)
+Tag `thesis-review-20261117-r1` và [manifest lịch sử](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/thesis/release/manifest.json)
 giữ đúng bản 67 trang trước FIN15.
 `check.py` xác minh archive P8, tính đầy đủ của sáu chương, các đường dẫn
 LaTeX, 68 dòng số liệu lưu trữ và 54 dòng còn trình bày, bao gồm 20 ô
@@ -36,3 +36,15 @@ dịch.
 Notice [QuantAgent MIT](../../../thesis/latex/licenses/QuantAgent-MIT.txt) giữ theo upstream.
 Bản PDF là bản thảo khóa luận. Thông tin phản biện, chữ ký và nộp nằm ở
 [P10](plan.md#p10-đóng-gói-tái-lập-và-bàn-giao).
+
+<a id="ban-truoc-fin15"></a>
+
+## Tra cứu bản trước FIN15
+
+Các chương Markdown gốc nằm trong [gói P8](archive/p8-source.zip).
+Để xem bản biên tập, mã vẽ F09/F10, bản xem trước và PDF cũ ở đúng
+đường dẫn, mở một checkout riêng từ gốc kho mã.
+
+```powershell
+git worktree add --detach ../fin15-history de5d0d13ef6617ed2eaff1e3dd2bdd7f40e3390d
+```

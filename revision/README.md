@@ -125,6 +125,7 @@ Sau khi sửa manuscript, lệnh verify cũ với đường dẫn `paper/` hiệ
 
 ```powershell
 py -3.13 -X utf8 scripts/verify_revision_r1.py
+# Chạy trong checkout lịch sử de5d0d13 để dựng riêng bảng R1.
 py -3.13 -X utf8 scripts/build_revision_r1_tables.py
 ```
 

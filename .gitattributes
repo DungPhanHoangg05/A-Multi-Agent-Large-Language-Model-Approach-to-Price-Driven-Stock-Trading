@@ -1,6 +1,4 @@
 *.pdf binary
-ESWA/elsarticle.cls -whitespace
-ESWA/elsarticle-num.bst -whitespace
 
 # Giữ nguyên byte của artifact có checksum khi checkout trên các hệ điều hành.
 scripts/evaluate_finalize_study.py text eol=lf

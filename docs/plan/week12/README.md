@@ -7,6 +7,38 @@ Hệ thống giữ Original, Bayesian Prior v1, Bayesian Prior v2/C2,
 Bayesian Prior A/B và MT-BICL. Giai đoạn hiện hành đánh giá lại trên
 dữ liệu historical đã exposed; chưa có release xác nhận forward.
 
+## Dọn kho để đối chiếu hai bản FIN15
+
+Ngày 21/11/2026 đã kiểm kê 1.489 tệp trong Git và 76.140 tệp tại checkout
+(kể cả tệp ignored, trừ metadata Git). Đã bỏ 56 tệp được Git theo dõi,
+gồm bản trình bày cũ, bản nháp Markdown trùng phạm vi P8, hình minh họa
+trước FIN15, hai PNG xem trước và bốn script dành cho ESWA, R1 và hình cũ.
+[Tra bản trước FIN15 bằng Git](../thesis/build.md#ban-truoc-fin15).
+
+| Phần cần đối chiếu | Đầu vào được giữ |
+| --- | --- |
+| So sánh Our system với QuantAgent | [Bảng baseline](../../../outputs/revision/final_baselines_v1/main_comparison.csv) và [kho bằng chứng revision](../revision_evidence/README.md) |
+| BICL lịch sử | [Gói kết quả U09](unified_analysis_results.zip), journal nghiên cứu U08 và nguồn của hai hình vector trong khóa luận |
+| BICL follow-up | Journal FIN06 dùng để đối soát quota, bank và tài nguyên đã khóa, dự báo FIN11, receipt FIN12 và [bản chiếu cho hai bản thảo](manuscript_evidence.json) |
+
+Đã kiểm toàn bộ 21.136 tệp trong kho revision, sau đó so SHA-256 của
+21.121 bản staging trước khi xóa. Cả 7.225 tệp của fixture U07 đã trích
+cũng trùng byte với [gói QA U07](unified_execution_checks.zip). Lệnh
+`verify_package.py --restore` trong mục nghiệm thu U07 khôi phục đúng
+namespace khi cần. Bản dựng thử, script biên tập và dữ liệu khôi phục chỉ
+có trên máy được chuyển ra ngoài checkout. Sau dọn còn 28.511 tệp tại máy
+kiểm kê, kể cả các kho nghiên cứu cục bộ.
+
+Kiểm bằng Python 3.13.5. Lệnh `project_finalize_manuscript_tables.py --audit --check`
+đã đọc được prompt và dự báo cục bộ. Khóa FIN10 dùng cho FIN11, năm test
+kho revision và kiểm tra lịch sử F11 đều đạt. Đã biên dịch ba tệp Python
+sửa, tái tạo hai hình U09 trùng byte và kiểm nguồn khóa luận ở cả hai chế độ
+strict (68 dòng P8, 54 dòng trình bày, 27 dependency). Biên dịch mới bằng
+pdfLaTeX cho 66 trang khóa luận và 29 trang cho mỗi bản bài báo. Ba PDF bàn
+giao khớp SHA-256 trong [source map](../../../scripts/thesis_docs/source-map.json).
+Các thay đổi thuộc công cụ tài liệu, đầu ra cũ và dữ liệu staging. Vì thế
+phạm vi kiểm thử không gồm toàn bộ unit suite, E2E hoặc inference mới.
+
 ## Đầu mối làm việc duy nhất trên develop
 
 Ngày **12/11/2026**, theo yêu cầu người dùng, mọi công việc hệ thống, thực nghiệm,
@@ -404,7 +436,7 @@ Checklist duy nhất giữ tại thesis/plan.md; nguồn/claim gộp trong sổ 
 
 Ngày **15/11/2026**, thực hiện **T41** trên nhánh
 `docs/thesis-component-results` từ develop đã cập nhật origin. Đã viết
-[§5.6](../thesis/chapters/05_experiments.md#56-component-study-results)
+[§5.6](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/thesis/chapters/05_experiments.md#56-component-study-results)
 và bảy bảng B05a–g trong Markdown: main/confusion/exposure, mã/block,
 23 đối chứng số, ba diagnostic chính với Holm23, hai panel lặp và đủ bảy
 contrast factorial. [Sổ chung §10.7](../thesis/evidence.md#107-kết-quả-thành-phần-và-ánh-xạ-từng-ô-b05)
@@ -668,7 +700,7 @@ không tạo checklist hoặc receipt riêng.
 Ngày **15/11/2026**, thực hiện trên nhánh `docs/thesis-observations-time-indexing`
 từ develop `12508f18fc6348fdde53aff264e8e98547f4e316` đã cập nhật remote.
 
-- **T09; [Chương 3 §3.1](../thesis/chapters/03_background.md#31-observations-and-time-indexing);**
+- **T09; [Chương 3 §3.1](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/thesis/chapters/03_background.md#31-observations-and-time-indexing);**
   viết năm mục nhỏ bằng tiếng Anh: OHLCV/phiên quan sát, cutoff và boundary,
   cửa sổ/warm-up, thiếu/lỗi bản ghi, EX01 theo ngày. Phân biệt date với index
   zero-based, [e−W,e), t=e−1, entry=e, exit=e+L−1 và L=3 trong study daily;
@@ -990,7 +1022,7 @@ dung theo thứ tự đề xuất trong `thesis/outline.md`.
   sáu hình và một thuật toán dùng `[htb]`, 29 caption vẫn một câu.
 - [x] Rà 57 mục BibTeX/79 URL và DOI, bao gồm đủ 43 mục được dẫn; đối chiếu
   25/25 DOI với registry. Bổ sung/thay 16 URL, giữ DOI gốc; kiểm nội dung trang
-  thay vì chỉ tin HTTP 200. [Kết quả từng link](../../../outputs/paper/reference_links.json)
+  thay vì chỉ tin HTTP 200. [Kết quả từng link](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/outputs/paper/reference_links.json)
   ghi 42/43 đích truy cập xác nhận được; reference 38 Sortino–Price vẫn bị
   xác minh trình duyệt của nhà xuất bản, không ghi tất cả website mở được.
 - [x] Build hai bản bằng tám lệnh cuối pdfLaTeX/BibTeX exit 0, 44 trang/bản,

@@ -30,32 +30,26 @@ def main() -> None:
     archive_home = repo / 'docs/plan/thesis'
     record = json.loads((tools / 'source-map.json').read_text(encoding='utf-8'))
     checked = 0
-    archive = record.get('p8_archive')
+    archive = record['p8_archive']
+    archive_path = archive_home / archive['path']
+    if hashlib.sha256(archive_path.read_bytes()).hexdigest() != archive['sha256']:
+        raise ValueError('Archive P8 khác hash đã khóa.')
     historical: dict[str, bytes] = {}
-    if archive:
-        archive_path = archive_home / archive['path']
-        if hashlib.sha256(archive_path.read_bytes()).hexdigest() != archive['sha256']:
-            raise ValueError('Archive P8 khác hash đã khóa.')
-        with ZipFile(archive_path) as bundle:
-            for row in archive['members']:
-                content = bundle.read(row['path'])
-                if hashlib.sha256(content).hexdigest() != row['sha256']:
-                    raise ValueError('Member archive khác byte gốc: ' + row['path'])
-                historical[row['path']] = content
+    with ZipFile(archive_path) as bundle:
+        for row in archive['members']:
+            content = bundle.read(row['path'])
+            if hashlib.sha256(content).hexdigest() != row['sha256']:
+                raise ValueError('Member archive khác byte gốc: ' + row['path'])
+            historical[row['path']] = content
     for row in record['markdown_archive']:
-        content = historical.get(row['path'])
-        actual = hashlib.sha256(content.replace(b'\r\n', b'\n')).hexdigest() if content is not None else lf_sha(archive_home / row['path'])
-        if actual != row['lf_sha256']:
+        content = historical[row['path']]
+        if hashlib.sha256(content.replace(b'\r\n', b'\n')).hexdigest() != row['lf_sha256']:
             raise ValueError('Bản nháp lưu trữ đã đổi: ' + row['path'])
     if args.strict_cutover_targets:
         for row in record['latex_cutover']:
-            content = historical.get(row['path'])
-            actual = hashlib.sha256(content.replace(b'\r\n', b'\n')).hexdigest() if content is not None else lf_sha(root / row['path'])
-            if actual != row['lf_sha256']:
+            content = historical[row['path']]
+            if hashlib.sha256(content.replace(b'\r\n', b'\n')).hexdigest() != row['lf_sha256']:
                 raise ValueError('Nguồn P8 lưu trữ khác mốc chuyển: ' + row['path'])
-    for row in record.get('markdown_navigation_updates', []):
-        if lf_sha(archive_home / row['path']) != row['lf_sha256']:
-            raise ValueError('Bản điều hướng Markdown khác cập nhật đã ghi: ' + row['path'])
     if args.strict_current_targets:
         if 'current_latex' not in record:
             raise ValueError('Chưa khóa hash nguồn LaTeX sau biên tập.')

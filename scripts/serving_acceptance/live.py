@@ -42,6 +42,7 @@ def sources() -> dict:
 def historical() -> dict:
     """Bằng chứng cũ đã chuyển archive vẫn phải khớp byte; không ép nguồn paper mới giống F05."""
     from core.revision_evidence_archive import EvidenceArchive
+    from core.unified_protocol import git_blob
     with EvidenceArchive(ROOT) as archive:
         with zipfile.ZipFile(DOC/'final_evidence_snapshot.zip') as package:
             snapshot = json.loads(package.read('snapshot_manifest.json'))
@@ -64,10 +65,14 @@ def historical() -> dict:
     for name in preserved:
         if (DOC/name).read_bytes() != subprocess.check_output(['git','show',BASE+':docs/plan/week12/'+name],cwd=ROOT):
             raise ValueError('Receipt/gói QA lịch sử đã đổi')
-    for name in ('outputs/paper/main.pdf','outputs/paper/main_submit.pdf','outputs/paper/manifest.json',
-                 'docs/plan/revision_evidence/index.json'):
-        if (ROOT/name).read_bytes() != subprocess.check_output(['git','show',BASE+':'+name],cwd=ROOT):
-            raise ValueError('Bản thảo hoặc archive mới từ develop đã đổi')
+    # Bộ PDF trước FIN15 còn nguyên byte trong commit của gate F11.
+    paper = json.loads(git_blob(ROOT, BASE, 'outputs/paper/manifest.json'))
+    for name, expected in paper['pdfs'].items():
+        if binding(git_blob(ROOT, BASE, 'outputs/paper/' + name)) != expected:
+            raise ValueError('PDF lịch sử khác manifest F11: ' + name)
+    index = 'docs/plan/revision_evidence/index.json'
+    if (ROOT/index).read_bytes() != git_blob(ROOT, BASE, index):
+        raise ValueError('Chỉ mục kho bằng chứng khác bản đã khóa')
     return {'frozen_packages':20,'legacy_archives':30,'f05_outputs_restored_verified':len(manifest['outputs']),
         'f05_sources_restored_verified':len(manifest['sources']),'old_qa_preserved':list(preserved),
         'f10_and_f11_v1':'HISTORICAL_ONLY; CHANGED_CALLERS_RETESTED_NOT_BLINDLY_REUSED',
