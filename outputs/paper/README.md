@@ -1,8 +1,13 @@
 # PDF bài báo FIN15
 
-[Bản đầy đủ](main-fin15.pdf) và [bản nộp](main-submit-fin15.pdf) đều có 29 trang.
-[Nguồn và cách biên dịch](../../paper/README.md) ·
-[SHA-256 của hai PDF](../../scripts/thesis_docs/source-map.json).
+Bản hiện hành (FIN15 r2) cập nhật mục *Data and Code Availability* với đường dẫn đến kho mã nguồn trên GitHub. Hai PDF đều có 29 trang, biên dịch từ commit `282812aaefeabeef520af48968a6198c43699a89`. [Cách biên dịch](../../paper/README.md)
+
+| PDF hiện hành | SHA-256 |
+| --- | --- |
+| [Bản đầy đủ](main-fin15-r2.pdf) | `adc7d4fbae13261f990da2f268335f86791c643c82a905f0b94b2ec83e89ba20` |
+| [Bản nộp](main-submit-fin15-r2.pdf) | `d912c8966f32aab2054e3b16e99545def9e398a72efa157b952c8116c5b4a4d6` |
+
+Bản FIN15 ban đầu gồm [bản đầy đủ](main-fin15.pdf) và [bản nộp](main-submit-fin15.pdf). [SHA-256 của bản ban đầu](../../scripts/thesis_docs/source-map.json)
 
 Bản 44 trang trước FIN15 có [manifest](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/outputs/paper/manifest.json)
 và [kết quả kiểm tra liên kết](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/outputs/paper/reference_links.json).

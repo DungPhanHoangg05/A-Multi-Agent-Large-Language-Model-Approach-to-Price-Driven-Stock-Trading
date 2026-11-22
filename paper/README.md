@@ -30,13 +30,12 @@ pdflatex -halt-on-error main.tex
 ```
 
 Đổi `main` thành `main_submit` để biên dịch bản nộp.
-PDF hiện hành gồm [bản đầy đủ](../outputs/paper/main-fin15.pdf) và
-[bản nộp](../outputs/paper/main-submit-fin15.pdf). Nguồn tự đủ để biên dịch.
-[PDF và manifest của bản trước](../outputs/paper/README.md) giữ vai trò bằng chứng lịch sử.
+PDF hiện hành gồm [bản đầy đủ](../outputs/paper/main-fin15-r2.pdf) và
+[bản nộp](../outputs/paper/main-submit-fin15-r2.pdf). [Commit nguồn, SHA-256 và các bản trước](../outputs/paper/README.md).
 
 ## Nguồn và tái lập
 
-Nguồn PDF ngày **21/11/2026** được khóa tại commit
+Nguồn PDF FIN15 ban đầu ngày **21/11/2026** được khóa tại commit
 `6bc661987ea80ce6c7fe44c2e094016f4a45afb9`.
 [Hash SHA-256 và số trang của PDF bàn giao](../scripts/thesis_docs/source-map.json).
 
