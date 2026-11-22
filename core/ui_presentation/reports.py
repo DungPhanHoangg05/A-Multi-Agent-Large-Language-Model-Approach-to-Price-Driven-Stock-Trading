@@ -69,6 +69,8 @@ def pair_for(role: str, state: dict, output: dict, captured: dict) -> dict:
     if role=='indicator':
         en=captured.get('indicator',{}).get('en') or indicator_english(captured['_indicator_data'],state['kline_data'])
     elif role=='full': en=alpha_english(output['sentiment_data'],state['stock_name'],state['time_frame'],captured.get('alpha',{}).get('en',''))
+    elif captured[role]['en'] is None:
+        en = None
     elif role=='pattern':
         from agents.pattern_agent import _enforce_pattern_markdown_format,_verify_pattern_against_ohlcv
         en=_verify_pattern_against_ohlcv(_enforce_pattern_markdown_format(captured['pattern']['en'],lang='en',kline_data=state['kline_data']),state['kline_data'],lang='en')

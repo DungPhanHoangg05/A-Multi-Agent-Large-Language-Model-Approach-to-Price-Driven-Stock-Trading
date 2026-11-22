@@ -1,7 +1,7 @@
 <section id="bt-result" class="serving-ui" hidden>
 <section class="serving-panel"><h2>{{ B.results }}</h2><p id="bt-run-meta"></p><p id="bt-state" role="status" aria-live="polite"></p><p id="bt-progress"></p><p id="bt-result-error" role="alert"></p><p id="bt-incomplete" class="serving-notice">{{ B.no_metrics }}</p>
   <div class="serving-actions"><button id="bt-refresh" type="button">{{ B.refresh }}</button><button id="bt-stop" type="button" disabled>{{ B.stop }}</button><button id="bt-resume" type="button" disabled>{{ B.resume }}</button><a id="bt-experiments-link" hidden>{{ B.catalog }}</a></div></section>
-<form id="bt-result-filters" class="serving-panel"><h2>{{ B.filters }}</h2><p>{{ B.filter_note }}</p>
+<form id="bt-result-filters" class="serving-panel" data-preserve-locale><h2>{{ B.filters }}</h2><p>{{ B.filter_note }}</p>
   <fieldset><legend>{{ B.methods }}</legend><div id="bt-method-filters" class="serving-choices"></div></fieldset>
   <div class="serving-grid"><label class="serving-field">{{ B.symbol }}<select id="bt-filter-symbol"></select></label><label class="serving-field">{{ B.repeat }}<select id="bt-filter-repeat"></select></label><label class="serving-field">{{ B.baseline }}<select id="bt-filter-baseline"></select></label><label class="serving-field">{{ B.start_date }}<input id="bt-filter-start" type="date"></label><label class="serving-field">{{ B.end_date }}<input id="bt-filter-end" type="date"></label></div><button type="submit">{{ B.apply }}</button>
 </form>

@@ -21,35 +21,6 @@
             "1d": { label: "1D - " + tr('tf_1d'), desc: tr('tf_recent_candles', { n: 45 }), icon: "fas fa-calendar-day" },
         };
 
-        // ── Step tracking (7 steps) ────────────────────────────────────────────────
-        const STEP_IDS = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6'];
-        let _currentStep = 0;
-
-        function setLoadingStep(step) {
-            _currentStep = step;
-            STEP_IDS.forEach((id, idx) => {
-                const stepNum = idx + 1;
-                const el = document.getElementById(id);
-                if (!el) return;
-                el.classList.remove('active', 'done');
-                if (step >= 7) {
-                    el.classList.add('done');
-                } else if (stepNum < step) {
-                    el.classList.add('done');
-                } else if (stepNum === step) {
-                    el.classList.add('active');
-                }
-            });
-        }
-
-        function resetLoadingSteps() {
-            _currentStep = 0;
-            STEP_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.classList.remove('active', 'done');
-            });
-        }
-
         // ── API Key ────────────────────────────────────────────────────────────────
         function toggleKeyVisibility() {
             const inp = document.getElementById('groqApiKeyInput');
@@ -207,69 +178,20 @@
         }
 
         function resetBtn() {
-            document.dispatchEvent(new Event('analysis-legacy-end'));
             const btn = document.getElementById('analyzeBtn');
-            btn.disabled = false;
             btn.innerHTML = '<i class="fas fa-play"></i> ' + tr('run_analysis') + ' <i class="fas fa-arrow-right"></i>';
             document.getElementById('loadingOverlay').classList.remove('active');
-            resetLoadingSteps();
         }
 
-        function beginAnalysis(upgraded = false) {
+        function beginAnalysis() {
             if (!maDaChon) { hienThongBao(tr('warn_select_stock'), 'warn'); return false; }
             if (!keyDaLuu) { hienThongBao(tr('warn_save_key'), 'warn'); document.getElementById('groqApiKeyInput').focus(); return false; }
-            const order = upgraded ? [2,4,5,3,6] : [2,3,4,5,6];
-            order.forEach((label,index) => {
-                document.getElementById('step'+(index+2)).querySelector('span').textContent = tr('load_step'+label).replaceAll('&amp;','&');
-            });
-            document.getElementById('step-bicl').hidden = !upgraded;
-            document.getElementById('step-bicl').classList.remove('active','done');
             document.getElementById('analysis-progress-message').textContent = tr('loading_sub');
-            document.dispatchEvent(new Event('analysis-legacy-start'));
             const btn = document.getElementById('analyzeBtn');
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + tr('analyzing');
             document.getElementById('loadingOverlay').classList.add('active');
-            resetLoadingSteps();
-            setLoadingStep(1);
-
-            // Update step1 label with selected timeframe
-            const tfMeta = TF_META[KHUNG_THOI_GIAN] || {};
-            const step1El = document.getElementById('step1Text');
-            if (step1El) step1El.textContent = tr('load_step1_tf', { tf: tfMeta.label || KHUNG_THOI_GIAN });
             return true;
-        }
-
-        function chayPhanTich() {
-            if (!beginAnalysis()) return;
-
-            // Gửi kèm ngôn ngữ để các tác tử trả lời đúng ngôn ngữ / send language so agents reply in it
-            fetch('/api/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ asset: maDaChon, timeframe: KHUNG_THOI_GIAN, language: LANG }) })
-                .then(r => r.json()).then(data => {
-                    if (data.error) { resetBtn(); hienThongBao(data.error, 'error'); return; }
-                    if (!data.job_id) { resetBtn(); hienThongBao(tr('err_no_job_id'), 'error'); return; }
-                    pollJob(data.job_id, 0);
-                }).catch(err => { resetBtn(); hienThongBao(tr('err_no_flask') + ' (' + err.message + ')', 'error'); });
-        }
-
-        function pollJob(jobId, attempt) {
-            if (attempt >= 150) { resetBtn(); hienThongBao(tr('err_timeout'), 'error'); return; }
-            setTimeout(() => {
-                fetch('/api/analyze/status/' + jobId).then(r => r.json()).then(data => {
-                    if (typeof data.step === 'number' && data.step > _currentStep) setLoadingStep(data.step);
-                    if (data.status === 'running') { pollJob(jobId, attempt + 1); return; }
-                    setLoadingStep(7);
-                    setTimeout(() => {
-                        resetBtn();
-                        const result = data.result || {};
-                        if (data.status === 'error' || result.error) { hienThongBao(result.error || tr('err_unknown'), 'error'); return; }
-                        if (result.redirect) {
-                            sessionStorage.setItem('analysisResults', JSON.stringify(result));
-                            window.location.href = result.redirect;
-                        }
-                    }, 600);
-                }).catch(err => { resetBtn(); hienThongBao(tr('err_poll') + err.message, 'error'); });
-            }, 2000);
         }
 
         function lamMoiTatCa() { kiemTraGroq(); kiemTraTrangThaiRT(); }
@@ -290,8 +212,8 @@
 
         });
 
-// Chỉ tải danh sách realtime khi chọn nguồn legacy; giữ nhịp kiểm trạng thái năm phút.
-window.legacyAnalysis = {run: chayPhanTich, begin:beginAnalysis, end:resetBtn,
+// Tải danh sách mã realtime và giữ nhịp kiểm trạng thái năm phút.
+window.legacyAnalysis = {begin:beginAnalysis, end:resetBtn,
     selection: () => ({symbol:maDaChon,timeframe:KHUNG_THOI_GIAN}), load: () => {
     kiemTraTrangThaiRT(); taiDanhSachMa();
     setInterval(kiemTraTrangThaiRT,5 * 60 * 1000);

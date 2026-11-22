@@ -1,5 +1,6 @@
-import {byId, element, label, FINALIZED_PROFILE, profileText, jobUrl} from './common.js';
+import {byId, element, label, FINALIZED_PROFILE, profileText, jobUrl, displayWithoutTaskCodes} from './common.js';
 import {chart} from './chart.js';
+import {normalizeIndicator} from './report.js';
 
 // Mỗi card chỉ trình bày một slot durable, không tính lại quyết định hoặc policy.
 export function renderer(config) {
@@ -18,8 +19,14 @@ export function renderer(config) {
     node.append(list);
     const detail = data.policy_details?.[`forecast/${row.point_id}/r${repeat}/${id}`];
     node.append(element('p',text.reason+': '+[row.fallback_reason,row.bypass_reason,detail?.policy?.reason].filter(Boolean).filter((v,i,a) => a.indexOf(v) === i).join(' · ')));
-    if (detail) {
-      const details = element('details'); details.append(element('summary',text.details),element('pre',JSON.stringify(detail,null,2)));
+    const reply = config.language === 'en' ? detail?.display_en ?? detail?.raw_reply : detail?.raw_reply;
+    const explanations = [['justification',text.decision_rationale],['evidence_for',text.decision_support],
+      ['evidence_against',text.decision_opposition]].filter(([field]) => typeof reply?.[field] === 'string' && reply[field]);
+    if (explanations.length) {
+      const details = element('details'); details.append(element('summary',text.details));
+      const list = element('dl');
+      for (const [key,name] of explanations) field(list,name,displayWithoutTaskCodes(reply[key]));
+      details.append(list);
       const key = `${data.run_id}/${row.point_id}/${repeat}/${id}`;
       details.open = detailNodes.get(key)?.open ?? false;
       detailNodes.set(key,details);
@@ -42,10 +49,15 @@ export function renderer(config) {
       chart(group,data.realtime_chart ?? payload.price_prefix,point,data.live_input?.chart_timeframe ?? '1d');
       for (const role of ['indicator','pattern','trend','alpha','sentiment']) {
         const report = element('details',null,'serving-report');
-        const paired=data.presentations?.[point]?.[role]?.[config.language];
-        const content=element('pre',paired ?? (config.language==='vi' ? payload[role+'_report'] : text.unavailable) ?? text.unavailable);
-        content.setAttribute('data-localize',''); content.setAttribute('data-source-language',config.language); content.setAttribute('data-locale-pending','');
-        report.append(element('summary',role === 'alpha' ? text.native_alpha : text[role+'_report']),content);
+        const pair=data.presentations?.[point]?.[role];
+        const fallback=config.language==='en' && pair?.en===null && pair.vi;
+        const display=pair?.[config.language] ?? (fallback || (config.language==='vi' ? payload[role+'_report'] : text.unavailable)) ?? text.unavailable;
+        const clean = displayWithoutTaskCodes(display);
+        const content=element('pre',role === 'indicator' ? normalizeIndicator(clean) : clean);
+        content.setAttribute('data-localize',''); content.setAttribute('data-source-language',fallback ? 'vi' : config.language); content.setAttribute('data-locale-pending','');
+        report.append(element('summary',role === 'alpha' ? text.native_alpha : text[role+'_report']));
+        if (fallback) report.append(element('p',text.report_vi_fallback));
+        report.append(content);
         if (role === 'pattern' || role === 'trend') image(report,payload[role+'_image'],text[role+'_report']);
         group.append(report);
       }
@@ -69,6 +81,12 @@ export function renderer(config) {
     byId('job-meta').textContent = `${source} · ${request.symbols.join(', ')} · ${request.start_date} · ${request.chart_timeframe ?? request.timeframe} · ${request.language.toUpperCase()} · ${data.run_id}`;
     if (data.live_input) byId('job-meta').textContent += ` · ${text.live_captured}: ${data.live_input.captured_at}`;
     byId('job-profile').textContent = profileText(request.version, config.language);
+    const fullReport = byId('full-report');
+    if (fullReport) {
+      const daily = request.chart_timeframe === '1d' || (request.version === FINALIZED_PROFILE && !request.chart_timeframe && request.timeframe === '1d');
+      fullReport.hidden = config.source !== 'live' || data.state !== 'completed' || request.mode !== 'analyze' || request.repeats !== 1 || !daily;
+      if (!fullReport.hidden) fullReport.href = jobUrl(data.run_id, config.language, 'live')+'&presentation=analysis';
+    }
     const exportLink = byId('export-job');
     if (exportLink) {
       exportLink.hidden = config.source !== 'live' && request.version !== FINALIZED_PROFILE;
@@ -102,13 +120,13 @@ export function renderer(config) {
     shared(data);
     byId('job-provenance').textContent = JSON.stringify({run_id:data.run_id, identity:data.identity,
       identity_sha256:data.identity_sha256,input_snapshot_scope:data.input_snapshot_scope,
-      scientific_status:data.scientific_status,context_receipt_sha256:data.context_receipt_sha256,
+      scientific_status:data.scientific_status,execution_scope:data.execution_scope,context_receipt_sha256:data.context_receipt_sha256,
       shared:Object.fromEntries(Object.entries(data.snapshots ?? {}).map(([point,snapshot]) => [point,{sha256:snapshot.sha256,provenance:snapshot.provenance}]))},null,2);
   }
   function error(message) {
     cardsKey = reportsKey = undefined; detailNodes.clear();
     for (const id of ['job-meta','job-profile','job-progress','retry-at','decision-cards','control-cards','shared-reports','job-provenance']) byId(id).replaceChildren();
-    if (byId('export-job')) byId('export-job').hidden = true;
+    for (const id of ['export-job','full-report']) if (byId(id)) byId(id).hidden = true;
     byId('no-decisions').hidden = false; byId('control-details').hidden = true;
     byId('partial-note').hidden = true;
     byId('job-error').textContent = message;

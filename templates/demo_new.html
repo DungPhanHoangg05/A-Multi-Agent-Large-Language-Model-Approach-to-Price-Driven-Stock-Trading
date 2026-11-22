@@ -15,11 +15,15 @@
 <body>
 {% include 'shared/preferences.html' %}
 
-    <!-- Loading overlay - 7 steps -->
+    <!-- Tiến trình phân tích -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-card">
             <div class="loading-spinner"></div>
-            <h3>{{ T.loading_title }}</h3>
+            <h3 id="analysis-progress-title">{{ T.loading_title }}</h3>
+            <div class="site-language analysis-progress-language" aria-label="Tiếng Việt / English">
+                <button type="button" lang="vi" data-progress-language="vi" aria-pressed="{{ 'true' if LANG == 'vi' else 'false' }}">VI</button>
+                <button type="button" lang="en" data-progress-language="en" aria-pressed="{{ 'true' if LANG == 'en' else 'false' }}">EN</button>
+            </div>
             <p id="analysis-progress-message" role="status" aria-live="polite">{{ T.loading_sub }}</p>
             <div class="loading-steps">
                 <div class="loading-step" id="step1">
@@ -29,13 +33,13 @@
                     <div class="step-dot"></div> <span>{{ T.load_step2 }}</span>
                 </div>
                 <div class="loading-step" id="step3">
-                    <div class="step-dot"></div> <span>{{ T.load_step3 }}</span>
-                </div>
-                <div class="loading-step" id="step4">
                     <div class="step-dot"></div> <span>{{ T.load_step4 }}</span>
                 </div>
-                <div class="loading-step" id="step5">
+                <div class="loading-step" id="step4">
                     <div class="step-dot"></div> <span>{{ T.load_step5 }}</span>
+                </div>
+                <div class="loading-step" id="step5">
+                    <div class="step-dot"></div> <span>{{ T.load_step3 }}</span>
                 </div>
                 <div class="loading-step" id="step-bicl" hidden>
                     <div class="step-dot"></div> <span>{{ A.bicl_step }}</span>
@@ -283,7 +287,13 @@
     </section>
 
     <script type="application/json" id="legacy-config">{{ {'messages': T, 'language': LANG}|tojson }}</script>
-    <script type="application/json" id="analysis-config">{{ {'messages': A, 'language': LANG, 'registry': serving_registry}|tojson }}</script>
+    {% set progress = namespace(views={}) %}
+    {% for locale in ('vi', 'en') %}
+      {% set labels = catalogue_for(locale) %}
+      {% set progress.views = dict(progress.views, **{locale:{'messages':analysis_messages_for(locale),'title':labels.loading_title,
+        'intro':labels.loading_sub,'steps':[labels.load_step1,labels.load_step2,labels.load_step4,labels.load_step5,labels.load_step3,labels.load_step6]}}) %}
+    {% endfor %}
+    <script type="application/json" id="analysis-config">{{ {'messages': A, 'language': LANG, 'registry': serving_registry, 'progressLocales':progress.views}|tojson }}</script>
     <script src="{{ url_for('static', filename='js/analysis/legacy_form.js') }}"></script>
 </body>
 

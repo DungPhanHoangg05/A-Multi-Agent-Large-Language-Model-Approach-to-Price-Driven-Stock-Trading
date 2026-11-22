@@ -34,7 +34,7 @@ def required_resources(identifiers: list[str]) -> list[str]:
 def registry_document() -> dict[str, Any]:
     """Metadata không nạp weights, đọc archive, tạo graph hoặc cấp quyền chạy."""
     variants = []
-    from core.finalize_serving_profile import PENDING, SCIENTIFIC_STATUS, VERSION as FINALIZED, method_profile
+    from core.finalize_serving_profile import SCIENTIFIC_STATUS, VERSION as FINALIZED, method_profile
     for identifier in (*MAIN_IDS, *ADVANCED_IDS):
         method = get_variant(identifier)
         variants.append({
@@ -53,6 +53,7 @@ def registry_document() -> dict[str, Any]:
         })
     return {
         "version": REGISTRY_VERSION, "contract_version": CONTRACT_VERSION, "config_version": CONFIG_VERSION,
+        "default_profile": FINALIZED,
         "model_binding": "JOB_REQUEST_ALL_SIX_AGENT_ROLES",
         "prompt_binding": "SERVER_CONFIG_PROMPT_VERSIONS_INCLUDING_DEPENDENCIES",
         "method_registry_version": RESEARCH_REGISTRY_VERSION, "default": "original_fix",
@@ -78,7 +79,7 @@ def registry_document() -> dict[str, Any]:
                    "default_variant": "original_fix", "contract": "legacy_native_unchanged",
                    "research_registry": "/api/experiments/registry"},
         "job_states": list(JOB_STATES),
-        "opt_in_profiles": {FINALIZED: {"request_version": FINALIZED, "launch_status": PENDING,
+        "opt_in_profiles": {FINALIZED: {"request_version": FINALIZED, "launch_status": "CONDITIONAL_SERVER_PREFLIGHT",
             "scientific_status": SCIENTIFIC_STATUS, "method_profiles": {v: method_profile(v) for v in (*MAIN_IDS, *ADVANCED_IDS)}}},
         "scientific_limits": {"native_rowwise_causal_gate": "FAIL",
                               "whole_system_causal_gate": "NOT_CERTIFIED"},

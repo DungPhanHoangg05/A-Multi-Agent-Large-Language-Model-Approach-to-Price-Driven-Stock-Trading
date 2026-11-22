@@ -20,13 +20,19 @@ from core.serving_runtime.runner import Runner, safe_error
 from core.serving_runtime.store import Store
 from core.serving_runtime.transport import Calls, GroqHTTP
 
+FINALIZED_HOSTED_RUNNER = FINALIZED + "/hosted"
+FINALIZED_SCOPES = {FINALIZED: "OFFLINE_FIXTURE", FINALIZED_HOSTED_RUNNER: "HOSTED"}
+# Phiên bản ngay trước khi mở hosted có cùng logic đọc và khóa evaluator.
+PREVIOUS_EVALUATION_CALLER_SHA256 = "efd42733923db23bbf2e80c602cb3bf145d80f434f08aa16b9dd2e25002caf76"
+
 
 class Service:
     """Mỗi job có provider/client/config riêng; chỉ ledger quota và scheduler được chia sẻ."""
 
     def __init__(self, root: Path, *, provider_factory: Callable | None = None,
                  sender_factory: Callable = GroqHTTP, resources_factory: Callable = Resources,
-                 clock=time.time, state_root: Path | None = None, finalize_fixture: bool = False) -> None:
+                 clock=time.time, state_root: Path | None = None, finalize_fixture: bool = False,
+                 finalize_hosted: bool = False) -> None:
         self.root = root.resolve()
         self.store = Store(state_root or root)
         self.quota = Quota(self.store.root/"quota.sqlite3", clock)
@@ -35,9 +41,9 @@ class Service:
             from core.serving_runtime.providers import AsOfProvider
             provider_factory = AsOfProvider
         self.provider_factory, self.sender_factory, self.resources_factory = provider_factory, sender_factory, resources_factory
-        if finalize_fixture and sender_factory is GroqHTTP:
-            raise ValueError("Preview FIN08 chỉ dùng sender fixture")
-        self.finalize_fixture = finalize_fixture
+        if finalize_fixture and (finalize_hosted or sender_factory is GroqHTTP):
+            raise ValueError("Preview FIN08 chỉ dùng sender fixture trong phạm vi offline")
+        self.finalized_runner = FINALIZED if finalize_fixture else FINALIZED_HOSTED_RUNNER if finalize_hosted else None
         self.tasks: dict[str, threading.Thread] = {}
         self.mutex = threading.RLock()
 
@@ -46,8 +52,8 @@ class Service:
         request = spec.document()
         blockers, points = [], []
         finalized = request["version"] == FINALIZED
-        if finalized and not self.finalize_fixture:
-            blockers.append({"code": PENDING, "message": "Cần nghiệm thu FIN10 trước khi chạy hosted profile finalize"})
+        if finalized and self.finalized_runner is None:
+            blockers.append({"code": PENDING, "message": "Caller này chưa mở chạy hosted cho profile nghiên cứu"})
         try:
             resources = self.resources(request)
             resources.verify()
@@ -79,7 +85,7 @@ class Service:
             "quota_policy": "CONSERVATIVE_SINGLE_POOL_ALL_SERVING_JOBS_KEYS_AND_MODELS"}
         if finalized:
             result.update(scientific_status=SCIENTIFIC_STATUS, context_receipt_sha256=RECEIPT_SHA256,
-                          execution_scope="OFFLINE_FIXTURE" if self.finalize_fixture else PENDING)
+                          execution_scope=FINALIZED_SCOPES.get(self.finalized_runner, PENDING))
         return result
 
     def create(self, spec: ServingRequest, key: str, owner: str, *, background: bool = True) -> str:
@@ -92,7 +98,8 @@ class Service:
         resource_provider = self.resources(request)
         resources = resource_provider.document()
         finalized = request["version"] == FINALIZED
-        config = {"version": CONFIG_VERSION, "registry_version": REGISTRY_VERSION, "runner_version": FINALIZED if finalized else "serving_runner_v1",
+        config = {"version": CONFIG_VERSION, "registry_version": REGISTRY_VERSION,
+            "runner_version": self.finalized_runner if finalized else "serving_runner_v1",
             "provider_version": getattr(resource_provider, "version", VERSION), "source_sha256": digest(source), "calendar_sha256": digest(resources["support"]["calendar"]),
             "support_sha256": digest(resources["support"]), "credential_scope_sha256": self.quota.credential_scope(key),
             "resources": {name: resources["resources"][name] for name in required_resources(request["variant_ids"])},
@@ -118,7 +125,8 @@ class Service:
         request = reservation["job"]["identity"]["request"]
         if request["version"] == FINALIZED:
             from core.finalize_serving_provider import FinalizedProvider
-            return FinalizedProvider(self.resources(request), reservation["points"], request["models"], request["variant_ids"])
+            return FinalizedProvider(self.resources(request), reservation["points"], request["models"], request["variant_ids"],
+                                     preview=self.finalized_runner == FINALIZED)
         return self.provider_factory(self.root, reservation["points"], request["models"], request["variant_ids"])
 
     def _guard(self, reservation: dict, resources: Any) -> None:
@@ -147,6 +155,7 @@ class Service:
                 return False
             if self.store.status(identifier)["state"] == "completed":
                 return False
+            self._check_finalized_runner(reservation)
             generation = self.store.control(identifier)["generation"]
             worker = threading.Thread(target=self.work, args=(identifier, str(key), owner),
                                       kwargs={"resume_generation": generation}, daemon=True,
@@ -154,6 +163,12 @@ class Service:
             self.tasks[identifier] = worker
             worker.start()
         return True
+
+    def _check_finalized_runner(self, reservation: dict) -> None:
+        """Giữ phạm vi hosted hoặc đối chứng đã khóa khi tạo job."""
+        identity = reservation["job"]["identity"]
+        if identity["request"]["version"] == FINALIZED and identity["config"]["runner_version"] != self.finalized_runner:
+            raise ValueError("Phạm vi thực thi không khớp identity job")
 
     def work(self, identifier: str, key: str, owner: str, *, wait: bool = True, resume_generation: int | None = None) -> None:
         """Không retry mù timeout; waiting/quota có heartbeat và có thể dừng giữa các lượt chờ."""
@@ -164,11 +179,10 @@ class Service:
             with PriorRunLock(directory/"worker", reservation["job"]["identity_sha256"]):
                 if self.quota.credential_scope(key) != reservation["job"]["identity"]["config"]["credential_scope_sha256"]:
                     raise ValueError("Credential khác identity job")
+                self._check_finalized_runner(reservation)
                 if resume_generation is not None:
                     self.store.control(identifier, False, expected_generation=resume_generation)
                 request = reservation["job"]["identity"]["request"]
-                if request["version"] == FINALIZED and not self.finalize_fixture:
-                    raise ValueError("Chưa cấp hosted cho profile finalized")
                 resources = self.resources(request)
                 self._guard(reservation, resources)
                 provider = self.provider(reservation)
@@ -225,7 +239,7 @@ class Service:
         result["worker_alive"] = bool(identifier in self.tasks and self.tasks[identifier].is_alive())
         if result["version"] == FINALIZED:
             result.update(scientific_status=SCIENTIFIC_STATUS, context_receipt_sha256=RECEIPT_SHA256,
-                          execution_scope="OFFLINE_FIXTURE")
+                          execution_scope=FINALIZED_SCOPES[result["identity"]["config"]["runner_version"]])
         return result
 
     def catalog(self, owner: str) -> list[dict]:
@@ -262,6 +276,13 @@ class Service:
             if state['runtime'] != reservation['source']['runtime']: raise ValueError('Runtime evaluator khác job')
             sealed = reservation['source']['files']; current = state['files']
             for name in files:
+                if name == 'core/serving_runtime/service.py' and sealed.get(name) == PREVIOUS_EVALUATION_CALLER_SHA256:
+                    continue
                 if current.get(name) != sealed.get(name): raise ValueError('Evaluator source khác job')
             return prices(self.root,reservation,book.outcomes(),self.resources(request))
-        return evaluate(reservation,public,book.outcomes(),query,loader)
+        result = evaluate(reservation,public,book.outcomes(),query,loader)
+        if request['version'] == FINALIZED:
+            result['provenance']['execution_scope'] = public['execution_scope']
+            if public['execution_scope'] == 'HOSTED':
+                result['limitations'][-1] = SCIENTIFIC_STATUS
+        return result

@@ -23,7 +23,7 @@ def messages(language: str) -> dict[str,str]:
         'results':('Kết quả backtest','Backtest results'),'filters':('Bộ lọc cùng support','Common support filters'),
         'all':('Tất cả','All'),'apply':('Áp dụng','Apply'),'baseline':('Mốc so sánh','Comparison baseline'),
         'none':('Không có / chưa chạy baseline','None / baseline not executed'),
-        'filter_note':('Filter tính lại metric trên cùng subset của job; không giữ band U09 cho run/subset mới.','Filters recompute metrics on a common subset of this job; U09 intervals are not reused.'),
+        'filter_note':('Bộ lọc tính lại chỉ số trên cùng tập dữ liệu của lượt chạy. Khoảng tin cậy trong nghiên cứu áp dụng cho tập đánh giá gốc.','Filters recompute metrics on a common subset of this run. Published confidence intervals apply to the original evaluation set.'),
         'accounts_note':('Mỗi mã/repeat là tài khoản độc lập 50 triệu VND; số trung bình không phải portfolio. Daily NAV và return chu kỳ tách riêng.','Each symbol/repeat is an independent VND 50 million account. The average is not a portfolio. Daily NAV and cycle returns are separate.'),
         'summary':('Metrics theo phiên bản','Metrics by version'),'method':('Phiên bản','Version'),
         'returns':('Return tài khoản (%)','Account return (%)'),'accuracy':('Accuracy (%)','Accuracy (%)'),

@@ -291,7 +291,7 @@ def _get(url: str, retries: int = 3) -> Optional[requests.Response]:
 
 # ── CafeF listing page parser ──────────────────────────────────────────────────
 
-def _parse_listing_page(html: str) -> List[dict]:
+def _parse_listing_page(html: str, *, include_time: bool = False) -> List[dict]:
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(html, "html.parser")
     articles = []
@@ -321,8 +321,13 @@ def _parse_listing_page(html: str) -> List[dict]:
         date_str = ""
         parent = h3.parent
         if parent:
-            text_parent = parent.get_text(" ", strip=True)
-            date_match = re.search(r'\d{1,2}[/\-]\d{1,2}[/\-]\d{4}', text_parent)
+            time_element = parent.select_one('span.time, time') if include_time else None
+            text_parent = (time_element.get_text(" ", strip=True) if time_element else
+                           "" if include_time else parent.get_text(" ", strip=True))
+            pattern = r'\d{1,2}[/\-]\d{1,2}[/\-]\d{4}'
+            if time_element:
+                pattern += r'(?:\s+\d{1,2}:\d{2})?'
+            date_match = re.search(pattern, text_parent)
             if date_match:
                 date_str = date_match.group(0)
 

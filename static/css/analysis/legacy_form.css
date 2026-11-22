@@ -905,6 +905,10 @@
             display: flex;
         }
 
+        .analysis-progress-language {display:flex;justify-content:center;gap:.5rem;margin:.35rem 0 .7rem}
+        .analysis-progress-language button {border:1px solid var(--gray-300);border-radius:6px;padding:.25rem .6rem;background:transparent;color:inherit;cursor:pointer}
+        .analysis-progress-language button[aria-pressed=true] {background:var(--vn-red);color:white;border-color:var(--vn-red)}
+
         .loading-card {
             background: #fff;
             border-radius: 20px;

@@ -1,5 +1,16 @@
 import {element} from './common.js';
 
+const INDICATOR_HEADING = /^(?:\s*===\s*(.*?)\s*===\s*|\s*(#{1,6})[ \t]+(.+))$/u;
+const INDICATOR_TITLE_GUARD = /(?:chỉ đọc số trong section này|only read (?:the )?(?:numbers|values) in this section|(?:đã )?(?:xác định|đếm|tính) bởi hệ thống|(?:determined|confirmed|counted|calculated) by the system|không (?:thay đổi|tự đếm lại)|do not (?:change|recount|recalculate))/iu;
+const INDICATOR_RULE_HEADING = /^(?:#{1,6}\s+)?\*{0,2}(?:quy tắc bắt buộc|quy tắc quan trọng nhất|mandatory rules|most important rules|system instructions)(?:[\s:*]|$)/iu;
+const INDICATOR_INTERNAL_NOTE = new RegExp([
+  String.raw`(?:^\s*(?:(?:[-*]|\d+[.)])\s+)?|(?<=[.!?])[ \t]+)(?:(?:lưu ý|note):[ \t]*)?(?:`,
+  String.raw`không (?:dùng (?:số liệu|số này|giá trị)|áp dụng cho chỉ báo khác|tự đếm lại)|chỉ số này không liên quan đến|`,
+  String.raw`đây là chỉ báo momentum, không phải|stochastic không có histogram|thang đo(?=\s|:)|sử dụng đúng tín hiệu từng chỉ báo|mỗi section \[end|`,
+  String.raw`do not (?:use|recount|change the summary)|this (?:index|indicator) is not related to|this is a momentum indicator, not|`,
+  String.raw`stochastic has no histogram|scale(?=[ \t]*(?::|[−-]?\d))|use exactly the (?:per-indicator|indicator) signals|each \[end).*$`,
+].join(''),'iu');
+
 // Dựng Markdown bằng node an toàn; không diễn giải HTML hoặc URL do model cung cấp.
 function inline(parent,text) {
   for (const chunk of text.split(/(\*\*[^*]+\*\*|`[^`]+`|\*[^*\n]+\*)/g)) {
@@ -11,8 +22,31 @@ function inline(parent,text) {
 }
 
 export function normalizeIndicator(text) {
-  return text.replace(/^\s*===\s*(.*?)\s*===\s*$/gm,(_,name) => '### '+name.replace(/\s*—\s*CHỈ ĐỌC SỐ TRONG SECTION NÀY\s*$/u,''))
-    .replace(/^\s*\[END [^\n]*SECTION[^\n]*\]\s*$/gm,'');
+  // Chỉ lọc bản hiển thị. Dòng kết quả có thể đứng sau các chỉ dẫn trong báo cáo cũ.
+  const lines = [];
+  let inRules = false;
+  for (const raw of text.split(/\r?\n/u)) {
+    let line = raw.replace(/\p{Dash}/gu,'-')
+      .replace(/[ \t]*[←→↔⇐⇒⇔➜➔][ \t]*/gu,' - ')
+      .replace(/^([ \t]*)[•◦▪▫●○][ \t]*/u,'$1- ')
+      .replace(/[\p{Extended_Pictographic}\p{Emoji_Presentation}\u200d\ufe0e\ufe0f\u20e3✓✔✗✘]/gu,'');
+    if (INDICATOR_RULE_HEADING.test(line.trim())) { inRules = true; continue; }
+    if (inRules && (!line.trim() || /^\s*(?:\d+[.)]|[-*])\s+\S/u.test(line))) continue;
+    inRules = false;
+    const section = line.match(INDICATOR_HEADING);
+    const boldTitle = line.match(/^\s*\*\*([^*]+)\*\*\s*$/u)?.[1];
+    const name = section?.[1] ?? section?.[3] ?? boldTitle;
+    if (name) {
+      const parts = name.split(/[ \t]+-[ \t]+/u);
+      const guard = parts.findIndex(part => INDICATOR_TITLE_GUARD.test(part));
+      const title = (guard < 0 ? parts : parts.slice(0,guard)).join(' - ').trim();
+      if (!title) continue;
+      if (section || guard >= 0) line = (section?.[2] ?? '###')+' '+title;
+    }
+    line = line.replace(INDICATOR_INTERNAL_NOTE,'').replace(/\[END\b[^\n\]]*\bSECTION\b[^\n\]]*\]/giu,'');
+    if (line.trim() || !raw.trim()) lines.push(line.trimEnd());
+  }
+  return lines.join('\n').trim();
 }
 
 const cells = line => line.trim().replace(/^\|/,'').replace(/\|$/,'').split(/(?<!\\)\|/).map(value => value.trim().replace(/\\\|/g,'|'));

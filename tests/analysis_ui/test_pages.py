@@ -64,9 +64,15 @@ class AnalysisPages(unittest.TestCase):
             self.assertNotIn('<option value="latest"',raw); self.assertNotIn('<option value="asof"',raw)
             self.assertNotIn('id="asof-inputs"',raw)
             self.assertEqual([a['data-tf'] for tag,a in page.nodes if 'data-tf' in a],['1d'])
-            self.assertEqual(len([a for tag,a in page.nodes if a.get('id') == 'step-bicl']),1)
-            self.assertLess(raw.index('id="step-bicl"'),raw.index('id="step6"'))
-            self.assertEqual(raw.count('<option value='),6)
+            steps = [a for _,a in page.nodes if 'loading-step' in a.get('class','').split()]
+            self.assertEqual([a['id'] for a in steps],['step1','step2','step3','step4','step5','step-bicl','step6'])
+            self.assertIn('hidden',steps[-2])
+            for i, key in enumerate(('load_step1','load_step2','load_step4','load_step5','load_step3','load_step6')):
+                self.assertEqual(config['progressLocales'][lang]['steps'][i], self.web.catalogue(lang)[key])
+            self.assertEqual(raw.split('id="analysis-version">',1)[1].split('</select>',1)[0].count('<option value='),6)
+            self.assertEqual(config['registry']['default_profile'],'finalize_serving_v1')
+            self.assertNotIn('id="analysis-profile"',raw)
+            self.assertNotIn('Execution profile' if lang == 'en' else 'Hồ sơ chạy',raw)
             self.assertIn('disabled',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
             self.assertNotIn('onclick',next(a for tag,a in page.nodes if a.get('id') == 'analyzeBtn'))
             for tag,attrs in page.nodes:

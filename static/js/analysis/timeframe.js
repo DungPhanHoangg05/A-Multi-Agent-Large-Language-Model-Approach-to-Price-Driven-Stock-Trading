@@ -6,7 +6,8 @@ export async function runTimeframe(config, selection, models, io, status) {
   if (!selection.symbol) throw new Error(text.timeframe_choose_symbol);
   if (selection.timeframe !== '1d') throw new Error(text.daily_note);
   const finalized = selection.version === FINALIZED_PROFILE;
-  status(text.live_loading);
+  if (finalized && !config.registry.domain.released_symbols.includes(selection.symbol)) throw new Error(text.blocked_support);
+  status(text.live_loading,'live_loading');
   let snapshot;
   const capture = finalized ? {symbol:selection.symbol,profile:FINALIZED_PROFILE}
     : {symbol:selection.symbol,timeframe:selection.timeframe};
@@ -19,13 +20,13 @@ export async function runTimeframe(config, selection, models, io, status) {
     snapshot_id:snapshot.snapshot_id,...(finalized ? {} : {chart_timeframe:selection.timeframe}),
     request:requestFor({version:selection.version,mode:'analyze',ids:[selection.variant],symbol:selection.symbol,date:snapshot.cutoff,
       language:selection.language,repeats:selection.repeats},models)};
-  status(text.waiting);
+  status(text.waiting,'waiting');
   const checked = await io('/api/serving/live/v1/preflight',body);
   if (!checked.run_enabled || checked.status !== 'ready') throw new Error((checked.blockers ?? []).map(b => blockerText(b,text,config.language)).join(' · ') || text.failed);
-  status(text.running);
+  status(text.running,'running');
   let data;
   try { data = await io('/api/serving/live/v1/jobs',structuredClone(body)); }
   catch { throw new Error(text.start_unknown); }
   const url = jobUrl(data.run_id,config.language,'live');
-  return {runId:data.run_id,url:finalized ? url : url+'&presentation=analysis'};
+  return {runId:data.run_id,url:url+'&presentation=analysis'};
 }

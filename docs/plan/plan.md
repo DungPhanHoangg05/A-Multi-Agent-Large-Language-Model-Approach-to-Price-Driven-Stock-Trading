@@ -9,9 +9,9 @@ LLM Stock Trading in the Vietnamese Stock Market.
 
 **Mục tiêu bàn giao ngày 20/11/2026 gồm hệ thống đã sửa, bài báo trong
 `paper/` và khóa luận trong `thesis/`.** FIN00–FIN13 đã hoàn tất trong
-phạm vi ghi dưới đây. Giao diện `finalize_serving_v1` đã qua hồi quy offline
-FIN14. Tác giả chuyển sang FIN15 trước và để phần giao diện còn lại làm sau.
-Phát hành hosted, chuyển mặc định và FIN16–FIN17 còn mở.
+phạm vi ghi dưới đây. FIN14 đã nối `finalize_serving_v1` làm mặc định cho
+Phân tích và Backtest trong bản sửa giao diện. Xác minh với Groq thật,
+triển khai và FIN16–FIN17 còn mở.
 Mục tiêu là bàn giao một bản hệ thống có định danh và miền hỗ trợ rõ ràng,
 đạt các kiểm tra nhân quả dữ liệu, kinh tế, ghép cặp và phục hồi áp dụng,
 chạy được qua các điểm vào thực tế, có kết quả đánh giá và tài liệu khớp nguồn.
@@ -39,7 +39,7 @@ mốc được ghi. Task finalize tham chiếu các bằng chứng đó theo đ�
 | FIN11 | `PASS_FIN11`. Smoke đạt 8 forecast. Nghiên cứu đủ 102 điểm và 2.448 forecast. Đã đối soát 1.511 attempt kể cả smoke và bản lưu. Outcome thị trường chưa được mở. |
 | FIN12 | Đánh giá offline từ receipt FIN11. Có 96/102 nhãn thực thi và 45/51 tài khoản đủ hai chu kỳ. Endpoint chính giữ NA. Oracle và cold verify đạt trên phạm vi có dữ liệu. |
 | FIN13 | `PASS_FIN13_OWNER_ATTESTED_SCOPE` cho cohort gốc và profile sửa trên nguồn giá tác giả xác nhận. Chứng nhận PIT nguồn độc lập vẫn `NOT_CERTIFIED`. |
-| FIN14 | Hồi quy giao diện đạt trên Chromium desktop/mobile với transport đối chứng. Backend ứng dụng vẫn chặn hosted cho `finalize_serving_v1`. Mặc định đang dùng profile hiện hành. |
+| FIN14 | Bản sửa UI chọn `finalize_serving_v1` mặc định ở Phân tích và Backtest. Job đi qua preflight ứng dụng và phân biệt định danh hosted với fixture. Xác minh Groq thật còn mở. |
 | FIN15 | Hai bản thảo thống nhất tên QuantAgent, Our system và BICL v1–v5, có bảng phân biệt và sơ đồ tổng thể. Đã đối soát FIN12 và build sạch cả bài báo lẫn khóa luận. |
 
 Bằng chứng đối chiếu gồm [inventory](week12/finalize_inventory.json),
@@ -266,7 +266,8 @@ hiệu lực của người dùng. Lập kế hoạch tự nó chỉ hoàn thàn
   Đạt khi UI trình bày đúng nguồn/profile/gate và các thao tác vận hành hoạt
   động. Kế thừa nghiệm thu giao diện 17/11 trong phần không bị ảnh hưởng.
   Phụ thuộc FIN08 và FIN13. [Hồi quy giao diện offline đã đạt](#fin14--hồi-quy-giao-diện-và-export).
-  Còn xác minh hosted ứng dụng trước khi chuyển mặc định.
+  Bản sửa đã chọn mặc định tại form và mở preflight cho caller ứng dụng.
+  Còn xác minh Groq thật và triển khai.
 - [x] **FIN15 — Đồng bộ khóa luận, bài báo và tài liệu hệ thống.** Cập nhật
   nguồn tại `thesis/` và `paper/`, hướng dẫn chạy, mô tả phương pháp, bảng/hình,
   limitations và các tài liệu trình bày còn dùng theo đúng release mới.
@@ -1414,10 +1415,103 @@ viewer nghiên cứu và tùy chọn hiển thị, 5 kiểm thử FIN08 về PIT
 template, CSS và JavaScript của ứng dụng cùng test JS. Không biên dịch
 Python hay chạy lại bốn gate toàn hệ. Số lượt Groq thật là 0.
 
-Backend ứng dụng vẫn trả `HOSTED_RELEASE_PENDING_FIN10` cho profile sửa.
-Receipt FIN11 bao phủ runner thu dự báo nghiên cứu. FIN14 đã xác minh nút
-chạy bị chặn và hiển thị lý do trên web. Phát hành hosted cần nghiệm thu
-qua caller ứng dụng trước khi chuyển mặc định.
+Ở lượt 20/11, backend ứng dụng còn trả `HOSTED_RELEASE_PENDING_FIN10`.
+Receipt FIN11 bao phủ runner thu dự báo nghiên cứu.
+
+Bản sửa ngày 21/11 chọn **Bản nghiên cứu** (`finalize_serving_v1`) mặc
+định ở cả hai form và giữ lựa chọn **Bản chạy trước đây**. Caller web
+được phép tạo job hosted sau preflight. Kết quả ghi phạm vi đã khóa cùng
+job, còn fixture vẫn khóa outcome. Khi nguồn VNINDEX live giới hạn độ dài,
+capture dùng lịch đã khóa cho phần đầu bị thiếu và kiểm từng phiên trong
+toàn bộ phần giao nhau. File nguồn và receipt nghiên cứu giữ nguyên byte.
+
+Đã đối soát 162 pin tài nguyên, lấy dữ liệu thị trường thật cho FPT tại
+phiên 20/11/2026 và chuẩn bị ngữ cảnh MT-BICL. Chromium desktop/mobile
+đã chạy hai form, đọc kết quả và export trên Flask với phản hồi đối chứng.
+Backtest tại một cutoff ghi đủ tám slot và chỉ đọc outcome sau khi đã lưu
+đủ dự báo. Hai bộ DOM `analysis_ui` và `backtest_ui` đạt 38 kiểm thử.
+Các nhóm Python `serving_runtime`, `serving_live`, `backtest_ui`,
+`analysis_ui/test_pages.py` và `test_variant_serving.py` bao phủ caller,
+hợp đồng request, checkpoint và export. Ba bộ `test_finalize_*_leakage.py`
+được chọn theo phạm vi serving, giá và truy xuất ngữ cảnh. Tổng cộng
+111 kiểm thử Python đạt. Biên dịch các file Python đã sửa và kiểm tra diff
+đều đạt. Số lượt gọi Groq thật là 0.
+
+Theo mẫu HTML người dùng cung cấp, Phân tích live 1D đã hoàn tất quay về
+bố cục báo cáo đầy đủ sau khi chạy và khi mở lại link đã lưu. Báo cáo
+hiển thị quyết định, Chỉ báo, Alpha/Sentiment, Mô hình nến và Xu hướng
+cùng ảnh đã lưu. Với `finalize_serving_v1`, năm nhân tố dùng chính
+projection Alpha trong checkpoint. IC và lợi nhuận validation chỉ hiển thị
+khi đối chiếu được hash selector. Tin thiếu giữ trạng thái và lý do FIN05.
+Chi tiết lượt chạy và xuất JSON vẫn dùng quyền owner của job.
+Đã kiểm Chromium cho Hệ gốc và MT-BICL với phản hồi đối chứng, gồm
+mở lại link cũ, VI/EN, hai biểu đồ, xuất JSON và bố cục mobile. Đạt 28
+kiểm thử Python về projection, trang phân tích, tùy chọn, sentiment và
+báo cáo song ngữ, cùng 24 kiểm thử DOM. Biên dịch các file Python đã sửa
+và kiểm tra diff đều đạt. Không gọi Groq thật.
+
+Hai job live ngày 21/11 lỗi `INVALID_MODEL_OUTPUT` vì kiểm phần hiển thị
+song ngữ coi `20/11` và `Nov 20`, `CASH` và `cash` là dữ kiện khác nhau.
+Các phản hồi HTTP thật đều đã có trong journal. Bộ kiểm mới nhận cách viết
+tương đương và giữ nguyên văn trả về của model. Nếu EN đổi dữ kiện, báo cáo
+giữ phần VI và đánh dấu rõ khi hiển thị. Schema canonical và hành động vẫn
+qua các kiểm tra hiện hữu. Đã phát lại Pattern MBB và hoàn tất FPT với ba
+phản hồi Groq đã lưu, khớp hash request và không gửi thêm API.
+
+Khi đổi VI/EN, form giữ cấu hình đã chọn, màn hình tiến trình giữ job và
+báo cáo dùng hai bản đã lưu cùng số liệu. Backtest giữ bộ lọc và UUID khi
+chuyển ngôn ngữ. Kiểm tra theo phạm vi dùng các nhóm projection song ngữ,
+serving/leakage đã sửa và DOM Phân tích, Backtest, tùy chọn hiển thị.
+
+Phần Sentiment và Alpha trên trang kết quả theo mẫu HTML của tác giả. Các
+ô Sentiment dùng dữ liệu đã lưu, hiển thị đầy đủ vị trí của điểm, phân bố,
+công ty liên quan và biến chuẩn hóa. FIN05 giữ giá trị thiếu ở NA. Báo cáo
+Alpha dùng bảng tổng hợp và trình bày lần lượt từng nhân tố, với toàn bộ
+biểu thức triển khai, bước chuẩn hóa, thông số đã khóa và kết quả cuối.
+Việc dựng báo cáo chỉ đọc checkpoint và mã nguồn, không chạy lại tác tử.
+
+Phân tích live lấy tin CafeF lúc bắt đầu mỗi lượt. Snapshot lưu đường dẫn,
+giờ công bố, văn bản đưa vào bộ chấm và điểm từng bài. Điểm tổng hợp dùng
+tối đa 30 bài liên quan trong 90 ngày, với trọng số giảm một nửa sau 30
+ngày. Một bài hợp lệ đã đủ để tính điểm live. Mốc tin là lúc bắt đầu lượt,
+còn mốc giá là phiên đã đóng. Tiếp tục job, mở báo cáo và đổi ngôn ngữ đều
+dùng dữ liệu đã lưu. Backtest và bằng chứng paper/KLTN dùng FIN05 tại từng
+cutoff đánh giá. Đã thử capture FPT với nguồn thật và chấm 15 bài bằng
+ViSoBERT. Kiểm tra theo phạm vi gồm leakage của FIN05, capture và replay live,
+projection báo cáo hai ngôn ngữ và biên dịch các file Python thay đổi.
+
+Snapshot live v2 lưu thêm tối đa bốn mã đối chiếu cùng bài đã chấm của
+từng mã. Chọn theo mã hoặc thương hiệu cùng xuất hiện trong tin và bổ
+sung theo nhóm ngành ICB. Cùng áp dụng mốc thời gian của lượt chạy.
+`SENT_ZSCORE` dùng trung bình và độ lệch chuẩn của điểm gốc từng bài.
+`REL_SENTIMENT` trừ trung bình điểm các mã đối chiếu có từ hai bài.
+Báo cáo hiển thị lý do khi thiếu mẫu hoặc các bài có cùng điểm. Snapshot
+v1 vẫn đọc được và báo cáo cũ dùng đúng bộ tin đã lưu.
+
+Hai form Phân tích và Backtest dùng `finalize_serving_v1` theo cấu hình mặc
+định của máy chủ. Luồng Phân tích của Hệ gốc đi từ Alpha đến Quyết định.
+Năm phương pháp nâng cấp hiện bước BICL giữa hai bước này. Đã kiểm 38 ca
+DOM của hai form, các trang Flask song ngữ, tiến trình theo checkpoint
+và lượt phân tích qua dịch vụ của cả sáu phương pháp với phản hồi đối chứng.
+
+Trang kết quả live đọc `counts`, `conditional` và trạng thái sẵn sàng từ
+checkpoint của các phương pháp prior OHLCV. Bảng phân biệt số chu kỳ, số
+quan sát hợp lệ của từng chỉ số và phần được đưa vào prompt. Đã mở lại
+checkpoint FPT TP Pool ở cả hai ngôn ngữ, khớp 62/12/50 chu kỳ và 4/12 LONG
+ròng dương trong nhóm khớp T/P. Đạt 12 ca projection và biên dịch các file
+Python đã sửa. Kiểm thử đọc kết quả sử dụng checkpoint có sẵn.
+
+Báo cáo Chỉ báo trên trang kết quả và màn hình chi tiết loại phần hướng dẫn
+prompt, bỏ biểu tượng và dùng dấu gạch ngang ASCII. Bảng số, tín hiệu và nhận
+định được đọc từ checkpoint. Đã kiểm 29 ca DOM, 12 ca projection và mở lại
+báo cáo FPT trong Chromium ở cả hai ngôn ngữ. Thay đổi ở lớp hiển thị, nên
+phạm vi kiểm thử không gồm chạy lại tác tử hoặc backtest.
+
+Giao diện dùng mô tả thay mã công việc nội bộ. Báo cáo BICL hiển thị mã
+cổ phiếu, ngày và lợi nhuận của ví dụ lịch sử cùng bảng thống kê. Prompt
+và trace nguyên bản nằm trong JSON tải xuống. Đã kiểm 50 ca DOM, 13 ca
+projection, hai ca trang Flask và đọc lại báo cáo FPT Việt–Anh cùng
+JSON của lượt đã lưu.
 
 #### FIN15 — Đồng bộ hai bản thảo
 

@@ -1,8 +1,10 @@
-import {byId,element,json,jobUrl,blockerText,CURRENT_PROFILE,profileText} from '../analysis/common.js';
+import {byId,element,json,jobUrl,blockerText} from '../analysis/common.js';
+import {restoreLocaleControls} from '../display_locale.js?v=bilingual-v1';
 
 export function formController(config,io=json,navigate=url => location.assign(url)) {
   const text = config.messages;
   let defaults,grant,generation=0,abort,timer,starting=false;
+  let destinationLanguage = config.language;
   function request() {
     const ids = name => [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(node => node.value);
     const models = structuredClone(defaults.models);
@@ -10,7 +12,7 @@ export function formController(config,io=json,navigate=url => location.assign(ur
       models[role].options.temperature = Number(byId('bt-'+role+'-temperature').value);
       models[role].options.max_tokens = Number(byId('bt-'+role+'-tokens').value);
     }
-    return {version:byId('bt-profile')?.value || CURRENT_PROFILE,mode:'backtest',variant_ids:ids('bt-variant'),symbols:ids('bt-symbol'),
+    return {version:config.registry.default_profile,mode:'backtest',variant_ids:ids('bt-variant'),symbols:ids('bt-symbol'),
       start_date:byId('bt-start').value,end_date:byId('bt-end').value,timeframe:'1d',language:byId('bt-language').value,
       repeats:Number(byId('bt-repeats').value),models};
   }
@@ -25,7 +27,7 @@ export function formController(config,io=json,navigate=url => location.assign(ur
       if (mine !== generation || signal.aborted) return;
       if (data.run_enabled && data.status === 'ready') {
         grant = structuredClone(spec); byId('bt-start-job').disabled = false;
-        byId('bt-preflight').textContent = `${text.ready} · ${profileText(spec.version,config.language)} · ${text.points}: ${data.points.length} · ${text.slots}: ${data.planned_decision_slots} · ${text.attempts} ≤ ${data.estimated_max_api_attempts}`;
+        byId('bt-preflight').textContent = `${text.ready} · ${text.points}: ${data.points.length} · ${text.slots}: ${data.planned_decision_slots} · ${text.attempts} ≤ ${data.estimated_max_api_attempts}`;
       } else byId('bt-preflight').textContent = (data.blockers ?? []).map(row => blockerText(row,text,config.language)).join(' · ');
     } catch { if (mine === generation && !signal.aborted) byId('bt-preflight').textContent = text.failed; }
   }
@@ -38,12 +40,18 @@ export function formController(config,io=json,navigate=url => location.assign(ur
     try {
       const data = await io('/api/serving/v1/jobs',spec); jobUrl(data.run_id,config.language);
       try { localStorage.setItem('qa_last_backtest',data.run_id); } catch {}
-      navigate('/backtest?'+new URLSearchParams({run_id:data.run_id,lang:config.language}));
+      navigate('/backtest?'+new URLSearchParams({run_id:data.run_id,lang:destinationLanguage}));
     } catch (error) { byId('bt-start-error').textContent = error.status === 409 ?
       (error.data?.blockers ?? []).map(row => blockerText(row,text,config.language)).join(' · ') || text.failed : text.start_unknown;
     } finally { starting = false; controls.forEach(node => node.disabled = false); }
   }
   async function init() {
+    document.addEventListener?.('click',event => {
+      const link = event.target.closest?.('.site-language a[lang]');
+      if (starting && link && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+        event.preventDefault(); destinationLanguage = link.lang;
+      }
+    },true);
     byId('bt-form').addEventListener('submit',start); byId('bt-form').addEventListener('input',invalidate);
     byId('bt-form').addEventListener('change',invalidate); byId('bt-check').addEventListener('click',check);
     try { const previous = localStorage.getItem('qa_last_backtest');
@@ -60,6 +68,7 @@ export function formController(config,io=json,navigate=url => location.assign(ur
         }
         byId('bt-models').append(section);
       }
+      restoreLocaleControls(byId('bt-form'));
       await check();
     } catch { byId('bt-start-error').textContent = text.failed; }
   }

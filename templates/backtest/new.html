@@ -10,9 +10,7 @@
 <header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/demo?lang={{ LANG }}">{{ B.analysis }}</a><a href="/output?lang={{ LANG }}">{{ B.output }}</a><a aria-current="page" href="/backtest?lang={{ LANG }}">{{ B.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ B.research }}</a></nav></header>
 <main class="serving-ui"><h1>{{ B.title }}</h1><p class="serving-notice">{{ B.domain_note }} {{ B.quota_note }}</p>
 <details class="serving-panel" id="bt-config-panel"{% if not request.args.get('run_id') %} open{% endif %}><summary>{{ B.settings }}</summary>
-  <form id="bt-form">
-  {% from 'shared/serving_profile.html' import select_profile with context %}
-  {{ select_profile('bt-profile') }}
+  <form id="bt-form" data-preserve-locale>
   <fieldset><legend>{{ B.symbols }}</legend><div class="serving-choices">{% for symbol in serving_registry.domain.released_symbols %}<label><input type="checkbox" name="bt-symbol" value="{{ symbol }}"{% if symbol == 'FPT' %} checked{% endif %}> {{ symbol }}</label>{% endfor %}</div></fieldset>
   <div class="serving-grid"><label class="serving-field">{{ B.start_date }}<input id="bt-start" type="date" value="2026-07-02" min="2026-07-01" max="2026-09-23" required></label><label class="serving-field">{{ B.end_date }}<input id="bt-end" type="date" value="2026-07-07" min="2026-07-01" max="2026-09-23" required></label><label class="serving-field">{{ B.language }}<select id="bt-language"><option value="vi"{% if LANG=='vi' %} selected{% endif %}>Tiếng Việt · VI</option><option value="en"{% if LANG=='en' %} selected{% endif %}>English · EN</option></select></label></div>
   <p>{{ B.report_note }}</p><fieldset><legend>{{ B.methods }}</legend><div class="serving-choices">{% for variant in serving_registry.variants if variant.group == 'main' %}<label><input type="checkbox" name="bt-variant" value="{{ variant.id }}"{% if variant.id in ['original_fix','bayesian_v1'] %} checked{% endif %}> {{ variant.label[LANG] }}</label>{% endfor %}</div></fieldset>

@@ -19,7 +19,7 @@ live = Blueprint('serving_live',__name__,url_prefix='/api/serving/live/v1')
 def default_service() -> LiveService:
     """Khởi tạo store private, không fetch giá/tin hoặc tạo model cho đến thao tác người dùng."""
     from utils.serving_web import service as asof_service
-    backend = LiveService(ROOT)
+    backend = LiveService(ROOT, finalize_hosted=True)
     # Hai namespace job vẫn dùng chung ledger admission để không nhân đôi TPM/RPM.
     backend.quota = asof_service().quota
     return backend

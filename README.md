@@ -179,11 +179,20 @@ Open `http://127.0.0.1:5000`.
 | `/backtest` | Configure walk-forward backtests and inspect progress and results. |
 | `/experiments` | Browse verified research results and serving jobs, compare supported methods, and export JSON/CSV. |
 
-The analysis form uses a single daily timeframe. Upgraded methods capture the
-latest completed daily session, validate resources through server preflight,
-and run a checkpointed job. Completed results expose historical context,
+The Analysis and Backtest forms use the server's research execution profile
+(`finalize_serving_v1`), used for the thesis's main BICL evaluation and the
+paper's BICL follow-up. Original analysis goes from Alpha directly to Decision.
+The five upgraded methods show a BICL context step before Decision. Live analysis
+captures the latest completed daily session. The server validates resources and the Groq key in preflight
+before starting a checkpointed job. Completed results expose historical context,
 common alpha inputs, fallback/bypass reasons, and raw/final actions where
 applicable. Backtests use their own supported symbols, dates, and resource bindings.
+
+Each new Research-profile live run captures CafeF news for the selected ticker
+up to the instant the run was started. It scores article titles and available
+summaries, then saves the article set and scores with the run. Resuming a run
+and reopening its report read that snapshot. Research backtests use the frozen
+FIN05 news inputs for their evaluation dates.
 
 New live reports prepare Vietnamese and English presentations during existing
 agent invocations or from deterministic numeric templates. Language switching

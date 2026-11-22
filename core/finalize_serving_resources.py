@@ -44,6 +44,12 @@ class FinalizedResources:
         self.calendar = pd.read_csv(root/self.acceptance["calendar"], parse_dates=["Datetime"])
         if live is not None:
             self._validate_live()
+            if 'live_news' in live:
+                from core.serving_live.cafef_news import CapturedNews
+                self.live_news = CapturedNews(live)
+                self.version += '/' + live['live_news']['version']
+            elif live['news']:
+                raise ValueError('Bản ghi raw live cũ không có hợp đồng tin CafeF')
 
     def verify(self) -> None:
         """Dừng trước transport khi bất kỳ nguồn/receipt đã bind đổi byte."""
@@ -125,6 +131,8 @@ class FinalizedResources:
             support.update(symbols=[live["symbol"]], start_date=live["cutoff"], end_date=live["cutoff"],
                            calendar=live["index"]["Datetime"], snapshot_id=self.snapshot_id,
                            calendar_policy=live["calendar_policy"], source=live["source"])
+            if 'live_news' in live:
+                support['live_news'] = dict(live['live_news'])
         resources = {role: {"version": VERSION + "/" + role,
                      "sha256": digest({"role": role, "bindings": bindings})}
                      for role in ("prices", "news", "calendar", "bank", "regime", "scaler", "context", "student", "teacher", "facts")}

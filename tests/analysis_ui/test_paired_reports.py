@@ -7,7 +7,7 @@ from unittest.mock import Mock,patch
 from langchain_core.messages import AIMessage,HumanMessage
 
 from core.ui_presentation.capture import capture,ReportClient,DecisionClient
-from core.ui_presentation.wire import decision_body,decision_reply
+from core.ui_presentation.wire import decision_body,decision_reply,report_reply
 from agents.decision_agent import TradeDecisionOutput
 from utils.paired_reports import result_views
 
@@ -95,6 +95,37 @@ class PairedReports(unittest.TestCase):
         canonical,en=decision_reply(reply); TradeDecisionOutput.model_validate(canonical,strict=True)
         self.assertNotIn('display_en',canonical); self.assertEqual(en['justification'],'Price 50.1')
         self.assertIn('display_en',reply)
+
+    def test_live_translations_accept_localized_dates_and_cash_without_changing_raw_text(self) -> None:
+        import json
+
+        vi = 'Nến đỏ ngày 20/11 phá hỗ trợ 18.75.'
+        en = 'The red candle on Nov 20 broke support at 18.75.'
+        self.assertEqual(report_reply(json.dumps({'vi':vi,'en':en})), {'vi':vi,'en':en})
+        for incorrect in ('The red candle on Nov 21 broke support at 18.75.',
+                          'The red candle on Nov 20 broke support at 18.50.'):
+            self.assertEqual(report_reply(json.dumps({'vi':vi,'en':incorrect})), {'vi':vi,'en':None})
+        source = {'justification':'Chọn SHORT để giữ CASH; LONG thiếu xác nhận.',
+                  'evidence_for':'MACD 18.75', 'evidence_against':'RSI 39', 'decision':'SHORT'}
+        english = {'justification':'Choose SHORT to hold cash; LONG is unconfirmed.',
+                   'evidence_for':'MACD 18.50', 'evidence_against':'RSI 39'}
+        canonical, shown = decision_reply({**source, 'display_en':english})
+        self.assertEqual(canonical, source)
+        self.assertEqual(shown, {**english,'evidence_for':None})
+        from core.serving_runtime.quota import Failed
+        for invalid in ('```', '[]', '{"vi":" "}', '{"en":"English only"}'):
+            with self.assertRaisesRegex(Failed, 'INVALID_MODEL_OUTPUT'):
+                report_reply(invalid)
+
+    def test_invalid_english_display_uses_original_text_with_language_marker(self) -> None:
+        from utils.paired_reports import result_views
+        views = result_views({'report_language':'vi','pattern_analysis':'Nến đỏ ngày 20/11',
+                              'final_decision':{'decision':'SHORT','justification':'Giữ CASH'},
+                              'ui_report_pairs':{'pattern':{'vi':'Nến đỏ ngày 20/11','en':None},
+                                                 'decision':{'en':{'justification':None}}}}, {})
+        self.assertEqual(views['en']['pattern_analysis'], views['vi']['pattern_analysis'])
+        self.assertEqual(views['en']['final_decision']['justification'], 'Giữ CASH')
+        self.assertEqual(views['en']['report_source_languages'], {'pattern_analysis':'vi','justification':'vi'})
 
     def test_view_uses_stored_pairs_and_keeps_numeric_decision_unchanged(self) -> None:
         source={'report_language':'vi','asset_name':'FPT','alpha_analysis':'Alpha gốc',

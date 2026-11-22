@@ -34,7 +34,7 @@ def view(reader: ResearchResults, query: dict[str, str], *, export: bool = False
         raise ValueError("Danh sách phương pháp không hợp lệ")
     baseline = query.get("baseline", "original_fix")
     if baseline not in ("original_fix", "original_common"):
-        raise ValueError("Baseline không thuộc hai family U09")
+        raise ValueError("Nhóm đối chứng không thuộc phạm vi đánh giá của nghiên cứu")
     repeat = query.get("repeat", "all")
     if repeat not in ("all", "0", "1", "2"):
         raise ValueError("Repeat không hợp lệ")

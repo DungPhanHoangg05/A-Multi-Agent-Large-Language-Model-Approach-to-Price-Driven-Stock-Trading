@@ -17,7 +17,7 @@
 </header>
 <main>
   <div class="heading"><div><span class="eyebrow">{{ E.offline }}</span><h1>{{ E.title }}</h1><p>{{ E.subtitle }}</p></div><span id="state" role="status" aria-live="polite">{{ E.loading }}</span></div>
-  <p class="notice">U09 · {{ E.notice }}</p>
+  <p class="notice">{{ E.notice }}</p>
   <p id="bt-catalog-error" role="status"></p>
   <form id="filters" class="panel">
     <div class="filter-row"><label>{{ E.kind }}<select id="kind"><option value="all">{{ E.all }}</option><option value="paper_evidence">{{ E.paper_evidence }}</option><option value="serving_backtest">{{ B.new_backtest }}</option><option value="legacy_backtest">{{ B.legacy_backtest }}</option><option value="legacy_offline">{{ E.legacy_offline }}</option></select></label>

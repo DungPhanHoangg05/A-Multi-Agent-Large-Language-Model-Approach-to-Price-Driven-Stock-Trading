@@ -59,7 +59,7 @@ test('Profile sửa dùng snapshot raw và preflight riêng, kết quả giữ �
   assert.equal(calls[1].body.request.version,'finalize_serving_v1');
   assert.equal(calls[1].body.chart_timeframe,undefined);
   assert.deepEqual(calls[1].body,calls[2].body);
-  assert.doesNotMatch(result.url,/presentation=analysis/);
+  assert.match(result.url,/presentation=analysis/);
 });
 test('Preflight chặn hosted profile sửa và giữ thông báo tiếng Anh', async () => {
   const calls=[];
@@ -76,7 +76,7 @@ test('Preflight chặn hosted profile sửa và giữ thông báo tiếng Anh', 
 
 test('Kết quả profile sửa hiển thị phạm vi PIT và xuất đúng namespace owner', () => {
   const data = structuredClone(fixture.data);
-  data.identity.request.version = 'finalize_serving_v1';
+  data.identity.request = {...data.identity.request,version:'finalize_serving_v1',mode:'analyze'};
   data.scientific_status = 'EXPLORATORY_NOT_CERTIFIED';
   const view = renderer({...fixture.config,language:'en',source:'live'});
   view.render(data);
@@ -84,9 +84,14 @@ test('Kết quả profile sửa hiển thị phạm vi PIT và xuất đúng nam
   assert.match(node('job-provenance').textContent,/EXPLORATORY_NOT_CERTIFIED/);
   assert.equal(node('export-job').href,`/api/serving/live/v1/jobs/${data.run_id}/export`);
   assert.equal(node('export-job').hidden,false);
+  data.identity.request.repeats = 1;
+  view.render(data);
+  assert.match(node('full-report').href,/presentation=analysis/);
+  assert.equal(node('full-report').hidden,false);
   view.error('Không đọc được job');
   assert.equal(node('job-profile').textContent,'');
   assert.equal(node('export-job').hidden,true);
+  assert.equal(node('full-report').hidden,true);
 });
 
 test('Request dùng đúng IDs, model/options snapshot; compare từ chối một bản', () => {
@@ -224,28 +229,32 @@ test('Capture lỗi trả đúng VNINDEX/giai đoạn trong UI, không che thàn
   assert.equal(calls.filter(url => url.endsWith('/jobs')).length,0); assert.equal(legacyRuns,0);
 });
 
-test('Form chỉ realtime; Original vẫn dùng pipeline cũ và không cần defaults thành công', async () => {
-  const form = formController(fixture.config,async () => { throw new Error('offline'); });
+test('Hệ gốc chờ cấu hình chạy của máy chủ và khóa nút nếu không tải được', async () => {
+  const calls = [];
+  const form = formController(fixture.config,async url => { calls.push(url); throw new Error('offline'); });
   await form.init();
   assert.equal(legacyLoads,1);
-  assert.equal(node('legacy-inputs').hidden,false); assert.equal(node('analyzeBtn').disabled,false);
-  await form.start('compare'); assert.equal(legacyRuns,0);
-  await form.start(); assert.equal(legacyRuns,1);
-  assert.equal(node('analysis-version').disabled,true);
+  assert.equal(node('legacy-inputs').hidden,false); assert.equal(node('analyzeBtn').disabled,true);
+  await form.start(); assert.equal(legacyRuns,0);
+  assert.deepEqual(calls,['/api/serving/v1/defaults']);
 });
 
-test('Năm bản nâng cấp chờ từng agent hoàn tất rồi mở cùng bố cục Original; double click chỉ tạo một job', async () => {
-  for (const variant of ['bayesian_v1','C2','A_tp_pool','B_semantic','MT_BICL']) {
+test('Sáu phương pháp dùng profile nghiên cứu mặc định; nhấn hai lần chỉ tạo một job', async () => {
+  for (const variant of ['original_fix','bayesian_v1','C2','A_tp_pool','B_semantic','MT_BICL']) {
     node('analysis-version').value = variant;
     const calls = [],routes = []; let polls = 0;
     const io = async (url,body) => {
       calls.push({url,body});
       if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-      if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'1d',snapshot_id:'c'.repeat(64)};
+      if (url.endsWith('/snapshot')) {
+        assert.equal(node('step-bicl').hidden,variant === 'original_fix');
+        assert.ok(node('step1').classes.has('active'));
+        return {symbol:'MWG',cutoff:'2026-11-13',capture_version:'finalize_live_raw_capture_v1',snapshot_id:'c'.repeat(64)};
+      }
       if (url.endsWith('/preflight')) return ready;
       if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
       assert.equal(routes.length,0);
-      const result = structuredClone(fixture.data); result.identity.request.mode = 'analyze';
+      const result = structuredClone(fixture.data); Object.assign(result.identity.request,{mode:'analyze',variant_ids:[variant]});
       result.state = ++polls === 1 ? 'running' : 'completed'; result.worker_alive = polls === 1;
       result.agent_progress = {loading:'complete',indicator:'complete',pattern:'complete',trend:'complete',alpha:'complete',context:'complete',decision:polls===1 ? 'running' : 'complete'};
       return result;
@@ -254,8 +263,12 @@ test('Năm bản nâng cấp chờ từng agent hoàn tất rồi mở cùng b�
     await form.init(); await Promise.all([form.start(),form.start()]);
     const jobs = calls.filter(call => call.url.endsWith('/jobs'));
     assert.equal(jobs.length,1); assert.deepEqual(jobs[0].body.request.variant_ids,[variant]);
-    assert.equal(jobs[0].body.chart_timeframe,'1d'); assert.equal(jobs[0].body.request.repeats,1);
+    assert.equal(jobs[0].body.request.timeframe,'1d'); assert.equal(jobs[0].body.request.repeats,1);
+    assert.equal(jobs[0].body.request.version,'finalize_serving_v1');
+    assert.deepEqual(calls.find(call => call.url.endsWith('/preflight')).body,jobs[0].body);
     assert.equal(polls,2); assert.match(routes[0],/presentation=analysis/);
+    assert.equal(node('step-bicl').hidden,variant === 'original_fix');
+    assert.equal(node('step-bicl').classes.has('done'),variant !== 'original_fix');
     assert.ok(node('step6').classes.has('done')); assert.equal(node('analysis-version').disabled,false);
   }
   assert.equal(legacyRuns,0);
@@ -277,7 +290,7 @@ test('POST tạo job mơ hồ khóa gửi lại; capture/preflight không rơi s
   node('analysis-version').value = 'C2'; let jobs = 0;
   const form = formController(fixture.config,async url => {
     if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-    if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'1d',snapshot_id:'c'.repeat(64)};
+    if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',capture_version:'finalize_live_raw_capture_v1',snapshot_id:'c'.repeat(64)};
     if (url.endsWith('/preflight')) return ready;
     jobs++; throw new Error('offline');
   });
@@ -302,7 +315,7 @@ test('Preflight blocked giữ lỗi resource, không gọi model hoặc chuyển
   const form = formController(fixture.config,async url => {
     calls.push(url);
     if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
-    if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',chart_timeframe:'1d',snapshot_id:'c'.repeat(64)};
+    if (url.endsWith('/snapshot')) return {symbol:'MWG',cutoff:'2026-11-13',capture_version:'finalize_live_raw_capture_v1',snapshot_id:'c'.repeat(64)};
     return {run_enabled:false,status:'blocked',blockers:[{code:'RESOURCES_NOT_READY'}]};
   });
   await form.init(); await form.start();
@@ -310,27 +323,29 @@ test('Preflight blocked giữ lỗi resource, không gọi model hoặc chuyển
   assert.equal(calls.filter(url => url.endsWith('/jobs')).length,0); assert.equal(legacyRuns,0);
 });
 
-test('Overlay Original giữ thứ tự agent và gửi 1D; bản nâng cấp đổi đúng nhãn và thêm BICL', () => {
-  const registry = new Map(),calls = [],dispatched = [];
-  const mockDocument = {addEventListener(){},dispatchEvent:event => dispatched.push(event.type),getElementById(id) {
-    if (!registry.has(id)) {
-      const classes = new Set();
-      const item = {textContent:'',innerHTML:'',value:'',disabled:false,hidden:false,
-        classList:{add:key => classes.add(key),remove:(...keys) => keys.forEach(key => classes.delete(key))},querySelector:() => item.label};
-      item.label = {textContent:''}; registry.set(id,item);
-    }
-    return registry.get(id);
-  }};
-  mockDocument.getElementById('legacy-config').textContent = JSON.stringify({messages:{load_step3:'Alpha &amp; sentiment',load_step4:'Pattern',load_step5:'Trend'},language:'en'});
-  const context = {document:mockDocument,window:{},Event:class {constructor(type){this.type=type;}},
-    fetch:(url,body) => { calls.push({url,body}); return new Promise(() => {}); }};
-  runInNewContext(readFileSync(root+'/static/js/analysis/legacy_form.js','utf8')+"\nmaDaChon='FPT'; keyDaLuu=true;",context);
-  context.window.legacyAnalysis.begin(true);
-  assert.equal(registry.get('step3').label.textContent,'Pattern'); assert.equal(registry.get('step-bicl').hidden,false);
-  context.window.legacyAnalysis.end(); context.window.legacyAnalysis.run();
-  assert.equal(registry.get('step3').label.textContent,'Alpha & sentiment'); assert.equal(registry.get('step-bicl').hidden,true);
-  assert.equal(calls[0].url,'/api/analyze'); assert.equal(JSON.parse(calls[0].body.body).timeframe,'1d');
-  assert.equal(JSON.parse(calls[0].body.body).language,'en'); assert.ok(dispatched.includes('analysis-legacy-end'));
+test('Đổi VI/EN trước lần poll đầu không thêm BICL vào hệ gốc', async () => {
+  const baseQuery = document.querySelectorAll;
+  const en = new Element('button'); en.lang = 'en';
+  document.querySelectorAll = selector => selector === '[data-progress-language]' ? [en] : baseQuery(selector);
+  for (const id of ['step1','step2','step3','step4','step5','step-bicl','step6']) {
+    const span = new Element('span');
+    node(id).querySelector = () => span;
+  }
+  const config = {...fixture.config,progressLocales:{
+    vi:{title:'Đang phân tích',messages:fixture.config.messages,steps:['Dữ liệu','Chỉ báo','Mô hình','Xu hướng','Alpha','Quyết định']},
+    en:{title:'Analysis',messages:{bicl_step:'BICL context'},steps:['Data','Indicator','Pattern','Trend','Alpha','Decision']}}};
+  const form = formController(config,async url => {
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    en.listeners.click();
+    throw new Error('fixture capture');
+  });
+  await form.init();
+  await form.start();
+  assert.equal(node('step-bicl').hidden,true);
+  assert.equal(node('step3').querySelector().textContent,'Pattern');
+  assert.equal(node('step5').querySelector().textContent,'Alpha');
+  assert.equal(node('analysis-progress-title').textContent,'Analysis');
+  assert.equal(node('loadingOverlay').lang,'en');
 });
 
 test('HTML Original tham chiếu giữ đủ 5 alpha, công thức, thành phần, chuyên gia và table header thật', () => {
@@ -355,4 +370,52 @@ test('Indicator số được chuẩn hóa header/bảng mà không đổi số 
   assert.match(target.textContent,/-2\.8411/); assert.match(target.textContent,/30\.4664/);
   assert.doesNotMatch(target.textContent,/CHỈ ĐỌC|END MACD|===/);
   assert.equal(tags(target).filter(tag => tag==='h3').length,2);
+});
+
+test('Indicator VI/EN bỏ cảnh báo nội bộ và icon, giữ giá trị, dấu âm và nhận định sau quy tắc', () => {
+  const saved = JSON.parse(readFileSync(root+'/tests/analysis_ui/locale_regression.json','utf8'));
+  const forbidden = /ĐÃ XÁC ĐỊNH BỞI HỆ THỐNG|ĐÃ ĐẾM BỞI HỆ THỐNG|Quy tắc bắt buộc|CHỈ ĐỌC SỐ|KHÔNG dùng|KHÔNG có Histogram|Mandatory rules|BY THE SYSTEM|DO NOT use|NO Histogram|ranh giới cứng|cross-reference|\p{Extended_Pictographic}|[←→]|[^\S\n]*[−–—]/iu;
+  for (const [raw, title, afterwards] of [
+    [saved.source,'## PHÂN LOẠI TÍN HIỆU','### Nhận xét\n- ⚡ MACD−Signal = −0.1974 ‒ rủi ro tăng–giảm.'],
+    [saved.expected_translation,'## INDICATOR CLASSIFICATION','### Outlook\n- ✔️ MACD−Signal = −0.1974 ‒ upside–downside risk.'],
+  ]) {
+    const text = normalizeIndicator(raw+'\n\n'+afterwards);
+    assert.ok(text.includes(title));
+    for (const value of ['Histogram=0.1286','MACD Line=-2.8411','-4.9336%','%K=10.5486, %D=12.3251',
+      '3/5','2/5','0/5','MACD-Signal = -0.1974 -']) assert.ok(text.includes(value), value);
+    assert.doesNotMatch(text,forbidden);
+    assert.equal(normalizeIndicator(text),text);
+  }
+});
+
+test('Màn hình chi tiết lọc Indicator giống báo cáo và giữ nguyên nội dung đã lưu', () => {
+  const data = structuredClone(fixture.data);
+  const {source,expected_translation} = JSON.parse(readFileSync(root+'/tests/analysis_ui/locale_regression.json','utf8'));
+  const point = Object.keys(data.snapshots)[0];
+  data.presentations = {[point]:{indicator:{vi:source,en:expected_translation}}};
+  for (const language of ['vi','en']) {
+    renderer({...fixture.config,language}).render(data);
+    const sections = node('shared-reports').children[0].children;
+    const indicator = sections.find(section => section.tag === 'details' &&
+      section.children[0].textContent === fixture.config.messages.indicator_report);
+    const report = indicator.children.find(child => child.tag === 'pre').textContent;
+    assert.match(report,/Histogram=0\.1286/);
+    assert.doesNotMatch(report,/Quy tắc bắt buộc|Mandatory rules|⚠️|—/u);
+  }
+  assert.equal(data.presentations[point].indicator.vi,source);
+  assert.equal(data.presentations[point].indicator.en,expected_translation);
+});
+
+test('Màn hình chi tiết hiển thị giải thích quyết định và bỏ mã task trong trace', () => {
+  const data = structuredClone(fixture.data);
+  const point = Object.keys(data.snapshots)[0];
+  const detail = data.policy_details[`forecast/${point}/r0/original_fix`];
+  detail.context.trace = {episode_id:'MWG:2025-01-06', task_id:'MWG:block0021', population_ids:['MWG:2025-01-07']};
+  detail.raw_reply.justification = 'FIN05 · MWG@2025-01-06 suy yếu.';
+  const before = structuredClone(detail);
+  renderer(fixture.config).render(data);
+  const text = node('decision-cards').children[0].textContent;
+  assert.match(text,/MWG · 2025-01-06 suy yếu/);
+  assert.doesNotMatch(text,/FIN05|MWG[@:]2025|block0021|episode_id|task_id|population_ids/u);
+  assert.deepEqual(detail,before);
 });

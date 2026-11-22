@@ -67,7 +67,8 @@ async function load() {
 function selectRuns(defaultId) {
   const kind = byId('kind').value, filtered = runs.filter(run => kind === 'all' || run.kind === kind);
   byId('run').replaceChildren(...filtered.map(run => {
-      const option = new Option(`${text[run.kind] ?? config.backtestMessages?.[run.kind === 'serving_backtest' ? 'new_backtest' : run.kind]} · ${run.label}`, run.id);
+      const caption = text[run.kind] ?? config.backtestMessages?.[run.kind === 'serving_backtest' ? 'new_backtest' : run.kind];
+      const option = new Option(run.kind === 'paper_evidence' ? caption : `${caption} · ${run.label}`, run.id);
     option.dataset.kind = run.kind; return option;
   }));
   if (filtered.some(r => r.id === defaultId)) byId('run').value = defaultId;

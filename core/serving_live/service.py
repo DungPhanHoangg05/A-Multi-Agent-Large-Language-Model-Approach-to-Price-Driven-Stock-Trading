@@ -130,7 +130,8 @@ class LiveService(Service):
             from core.finalize_serving_provider import FinalizedProvider
             from core.finalize_serving_resources import FinalizedResources
             resources = FinalizedResources(self.root, record, request['snapshot_id'])
-            return FinalizedProvider(resources, reservation['points'], request['models'], request['variant_ids'])
+            return FinalizedProvider(resources, reservation['points'], request['models'], request['variant_ids'],
+                                     preview=self.finalized_runner == FINALIZED)
         if 'chart_timeframe' in record:
             from core.serving_live.timeframe_provider import TimeframeProvider
             return TimeframeProvider(self.root,reservation['points'],request['models'],request['variant_ids'],record)

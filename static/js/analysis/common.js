@@ -2,6 +2,12 @@
 export const byId = id => document.getElementById(id);
 export const CURRENT_PROFILE = 'variant_serving_v1';
 export const FINALIZED_PROFILE = 'finalize_serving_v1';
+export function displayWithoutTaskCodes(text) {
+  return text.replace(/\b([A-Z][A-Z0-9]{1,11})[:@-](\d{4}-\d{2}-\d{2})\b/g,'$1 · $2')
+    .replace(/\b[A-Z][A-Z0-9]{1,11}:block\d+\b/g,'')
+    .replace(/\b(?:FIN\d{2,}[A-Z]?|U0\d)\b(?:[ \t]*·[ \t]*)?/gi,'')
+    .trim();
+}
 export function element(tag, text, className) {
   const node = document.createElement(tag);
   if (text != null) node.textContent = String(text);
@@ -40,8 +46,8 @@ export function blockerText(blocker, text, language = 'vi') {
 export function profileText(version, language) {
   if (!version) return '';
   if (version !== FINALIZED_PROFILE) return version;
-  const label = language === 'en' ? 'Repaired profile · exploratory · PIT unverified independently'
-    : 'Bản sửa · nghiên cứu thăm dò · PIT nguồn chưa xác minh độc lập';
+  const label = language === 'en' ? 'Research profile · exploratory · PIT unverified independently'
+    : 'Bản nghiên cứu · thăm dò · PIT nguồn chưa xác minh độc lập';
   return `${label} (${version})`;
 }
 

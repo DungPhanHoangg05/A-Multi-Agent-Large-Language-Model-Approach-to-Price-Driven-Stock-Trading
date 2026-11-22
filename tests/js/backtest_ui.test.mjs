@@ -43,9 +43,8 @@ beforeEach(() => {
   globalThis.Option=class extends Element { constructor(text,value) { super('option'); this.textContent=text; this.value=value; }};
   for (const [id,value] of Object.entries({'bt-start':'2026-07-02','bt-end':'2026-07-07','bt-language':'vi','bt-repeats':'2','kind':'all'})) node(id).value=value;
 });
-test('Preflight và start giữ hồ sơ chạy của backtest sửa', async () => {
+test('Preflight và start giữ hồ sơ nghiên cứu mặc định của backtest', async () => {
   const calls = [];
-  node('bt-profile').value = 'finalize_serving_v1';
   const io = async (url,body) => {
     calls.push({url,body});
     if (url.endsWith('/defaults')) return {models:fixture.data.request.models};

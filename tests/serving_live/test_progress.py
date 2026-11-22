@@ -12,10 +12,13 @@ from core.unified_execution import StageBook
 class AgentProgress(unittest.TestCase):
     def setUp(self) -> None:
         self.temp=TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
-        service=Service(ROOT,state_root=Path(self.temp.name),resources_factory=runtime.FixtureResources)
-        identifier=service.create(runtime.spec(['C2']),'fixture','a'*64,background=False)
-        self.store=service.store; self.reservation=service.store.reservation(identifier,'a'*64)
-        self.book=StageBook(service.store.path(identifier)/'journal',self.reservation['job'])
+        self.service=Service(ROOT,state_root=Path(self.temp.name),resources_factory=runtime.FixtureResources)
+        self.select('C2')
+
+    def select(self, variant: str) -> None:
+        identifier=self.service.create(runtime.spec([variant]),'fixture','a'*64,background=False)
+        self.store=self.service.store; self.reservation=self.store.reservation(identifier,'a'*64)
+        self.book=StageBook(self.store.path(identifier)/'journal',self.reservation['job'])
         self.point=self.reservation['points'][0]['id']
 
     def complete(self,slot: str) -> None:
@@ -50,3 +53,14 @@ class AgentProgress(unittest.TestCase):
         self.complete('forecast/'+self.point+'/r0/C2')
         self.assertEqual(self.progress()['context'],'complete')
         self.assertEqual(self.progress()['decision'],'complete')
+
+    def test_original_has_no_context_step_even_when_decision_request_is_prepared(self) -> None:
+        self.select('original_fix')
+        self.assertNotIn('context',self.progress())
+        self.complete('shared/'+self.point)
+        self.complete('prepare/forecast/'+self.point+'/r0/original_fix')
+        self.assertEqual(self.progress()['decision'],'pending')
+        self.assertNotIn('context',self.progress())
+        self.complete('forecast/'+self.point+'/r0/original_fix')
+        self.assertEqual(self.progress()['decision'],'complete')
+        self.assertNotIn('context',self.progress())

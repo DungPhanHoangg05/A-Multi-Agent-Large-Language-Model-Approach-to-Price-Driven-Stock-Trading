@@ -35,14 +35,18 @@ def result_views(result: dict, cache: dict) -> dict:
     """Hai bản dùng chung decision/value/công thức; chỉ thay các đoạn trình bày đã có sẵn."""
     pairs=result.get('ui_report_pairs') or {}; views={}
     for language in ('vi','en'):
-        view=deepcopy(result); missing=[]
+        view=deepcopy(result); missing=[]; source_languages={}
         for role,field in FIELDS.items():
             original=unescape(str(result.get(field) or ''))
             text=(normalized(original) if role=='indicator' else original).rstrip()
             existing_en=result.get('report_language')=='en'
             reverse={value:key for key,value in cache.items()}
-            pair=pairs.get(role) or {'vi':reverse.get(text) if existing_en else text,'en':text if existing_en else cache.get(text,cache.get(original))}
+            stored_pair = pairs.get(role)
+            pair=stored_pair or {'vi':reverse.get(text) if existing_en else text,'en':text if existing_en else cache.get(text,cache.get(original))}
             value=pair.get(language)
+            if value is None and language == 'en' and stored_pair and stored_pair.get('vi'):
+                value = stored_pair['vi']
+                source_languages[field] = 'vi'
             if value is None and original:
                 missing.append(role)
                 value=('Bản ghi cũ chưa có nội dung ở ngôn ngữ này.' if language=='vi' else 'This older record has no stored report in this language.')
@@ -53,9 +57,13 @@ def result_views(result: dict, cache: dict) -> dict:
             source=decision.get(field)
             if isinstance(source,str): source=source.rstrip()
             if language=='en':
-                decision[field]=stored.get('en',{}).get(field,cache.get(source,source if result.get('report_language')=='en' else 'No stored English explanation for this older record.'))
+                english = (stored.get('en') or {}).get(field)
+                if english is None and 'en' in stored and source:
+                    english = source
+                    source_languages[field] = 'vi'
+                decision[field] = english if english is not None else cache.get(source, source if result.get('report_language')=='en' else 'No stored English explanation for this older record.')
             elif stored.get('vi'): decision[field]=stored['vi'].get(field,source)
-        view.update(final_decision=decision,report_language=language,missing_presentation=missing)
+        view.update(final_decision=decision,report_language=language,missing_presentation=missing,report_source_languages=source_languages)
         if result.get('analysis_version_id'):
             from core.serving_registry import LABELS
             view['analysis_version']=LABELS[result['analysis_version_id']][int(language=='en')]

@@ -1,5 +1,6 @@
 import {byId,element,json,jobUrl,label} from '../analysis/common.js';
 import {renderer} from './view.js';
+import {restoreLocaleControls} from '../display_locale.js?v=bilingual-v1';
 
 // Một controller dùng cho /backtest và /experiments; GET/poll không tự start/resume.
 export function resultController(config,io=json,schedule=setTimeout,cancel=clearTimeout) {
@@ -20,7 +21,7 @@ export function resultController(config,io=json,schedule=setTimeout,cancel=clear
     byId(id).value = values[0]?.[0] ?? '';
   }
   function setup(data) {
-    if (initialized || kind === 'legacy_backtest') return;
+    if (initialized || kind === 'legacy_backtest') return false;
     byId('bt-method-filters').replaceChildren(...data.execution_plan.map(id => {
       const node = element('label'),input = element('input'); input.type = 'checkbox'; input.name = 'bt-filter-method'; input.value = id;
       input.checked = data.request.variant_ids.includes(id); node.append(input,element('span',label(config,id))); return node;
@@ -33,6 +34,7 @@ export function resultController(config,io=json,schedule=setTimeout,cancel=clear
       byId(id).value = data.request[key]; byId(id).min = data.request.start_date; byId(id).max = data.request.end_date;
     }
     initialized = true;
+    return restoreLocaleControls(byId('bt-result-filters'));
   }
   async function refresh() {
     stop(); const mine = generation; abort = new AbortController();
@@ -43,7 +45,8 @@ export function resultController(config,io=json,schedule=setTimeout,cancel=clear
       const data = await io(endpoint()+(query ? '?'+query : ''),undefined,abort.signal);
       if (mine !== generation) return;
       if (data.run_id !== runId || data.kind !== kind) throw new Error(text.failed);
-      setup(data); view.render(data,endpoint(),query);
+      if (setup(data)) return refresh();
+      view.render(data,endpoint(),query);
       if (kind === 'serving_backtest' && ['queued','running','partial','stop_requested'].includes(data.status) && data.worker_alive)
         timer = schedule(refresh,3000);
     } catch (error) { if (mine === generation) view.error(error.message === text.select_methods ? error.message : error.status === 404 ? text.read_error : text.failed); }

@@ -11,7 +11,7 @@ from unittest.mock import patch
 from fixtures import ROOT, Clock, Provider, Sender, Resources, spec, original, prices
 from core.backtest_engine import compute_round_trip_net_return
 from core.historical_evaluation_journal import save
-from core.serving_runtime.service import Service
+from core.serving_runtime.service import PREVIOUS_EVALUATION_CALLER_SHA256, Service
 from core.serving_runtime.runner import Runner, slot_id
 from core.serving_runtime.evaluation import evaluate
 from core.unified_contracts import digest
@@ -101,6 +101,14 @@ class EvaluationTests(unittest.TestCase):
         sources = self.service.sources(); sources['runtime']['python'] = '0.0.0'
         with patch.object(self.service,'sources',return_value=sources),self.assertRaises(ValueError):
             self.service.evaluation(identifier,self.owner,{})
+    def test_completed_backtest_from_previous_caller_remains_readable(self) -> None:
+        sources = self.service.sources()
+        sources['files']['core/serving_runtime/service.py'] = PREVIOUS_EVALUATION_CALLER_SHA256
+        with patch.object(self.service, 'sources', return_value=sources):
+            identifier = self.start()
+        result = self.service.evaluation(identifier, self.owner, {})
+        self.assertEqual(result['evaluation_status'], 'COMPLETE')
+        self.assertEqual(len(result['predictions']), 8)
     def test_raw_tampering_is_not_silently_accepted_as_success(self) -> None:
         identifier = self.start(); reservation = self.service.store.reservation(identifier,self.owner)
         point = reservation['points'][0]; slot = slot_id(point,0,'original_fix')

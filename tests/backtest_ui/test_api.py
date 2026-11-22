@@ -46,6 +46,8 @@ class BacktestApiTests(unittest.TestCase):
             self.assertEqual(response.status_code,200)
             self.assertIn('js/backtest/main.js',raw); self.assertIn('name="bt-variant"',raw)
             self.assertIn('name="bt-symbol"',raw); self.assertIn('id="bt-start-job" type="submit" disabled',raw)
+            self.assertNotIn('id="bt-profile"',raw)
+            self.assertNotIn('Execution profile' if language == 'en' else 'Hồ sơ chạy',raw)
             self.assertNotIn('onclick="startBacktest()"',raw); self.assertNotIn('legacy.js',raw)
             raw = self.client.get('/backtest?source=legacy&lang='+language).get_data(as_text=True)
             self.assertIn('legacy.js',raw); self.assertIn('source=legacy&amp;lang=',raw)
@@ -105,6 +107,7 @@ class BacktestApiTests(unittest.TestCase):
         for kind in ('paper_evidence','serving_backtest','legacy_backtest','legacy_offline'):
             self.assertIn('value="'+kind+'"',raw)
         self.assertIn('id="bt-result"',raw)
+        self.assertNotIn('U09 ·',raw)
         catalog = self.client.get('/api/research-results/runs').get_json()
         self.assertEqual(catalog['default'],'u09_analysis_r1')
         self.assertEqual(self.senders,[])

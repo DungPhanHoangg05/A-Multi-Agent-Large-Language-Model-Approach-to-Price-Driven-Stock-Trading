@@ -37,6 +37,8 @@ class ServingProjection(FinalizedProviders):
         ledger = self.ledgers
         live = resources.live
         if live is not None:
+            if 'live_news' in live:
+                self.news = resources.live_news
             symbol, cutoff = live["symbol"], live["cutoff"]
             self.frames[symbol] = resources.live_frame.copy(deep=True)
             self.market = resources.live_market.copy(deep=True)
@@ -65,7 +67,7 @@ class ServingProjection(FinalizedProviders):
         self.prior = self._prior()
 
     def add_point(self, point: dict, ledgers: dict, live: bool) -> None:
-        """Dùng cùng key_at, price_feature, HMM đã pin và tin FIN05 ở cutoff mới."""
+        """Dùng cùng key_at, price_feature, HMM đã pin và khóa hash tin của điểm."""
         symbol, cutoff, identifier = (point[name] for name in ("symbol", "cutoff", "id"))
         raw = self.frames[symbol]
         prefix = raw_point_in_time_snapshot(raw, cutoff)
@@ -137,7 +139,7 @@ class FinalizedProvider(LivePresentation, AsOfProvider):
                 self.projection.context.facts(point)
 
     def alpha_stage(self, state: dict) -> dict:
-        """Cấp chung đúng năm factor và report tin FIN05 cho cả Native lẫn các extension."""
+        """Cấp chung năm factor và report tin đã khóa cho Native lẫn các extension."""
         symbol, cutoff = state["stock_name"], state["as_of_date"]
         point = self.projection.points[symbol+"-"+cutoff]
         alpha = self.alpha(point)

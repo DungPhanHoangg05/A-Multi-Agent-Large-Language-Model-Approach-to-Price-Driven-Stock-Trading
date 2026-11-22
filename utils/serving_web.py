@@ -27,7 +27,7 @@ serving = Blueprint("serving", __name__, url_prefix="/api/serving/v1")
 def _default_service() -> Service:
     """Khởi tạo private store, không tạo LLM client/provider trước POST start."""
     from core.serving_runtime.service import Service
-    return Service(ROOT)
+    return Service(ROOT, finalize_hosted=True)
 
 
 def service() -> Service:

@@ -69,9 +69,14 @@ def render_localized(template: str, **ctx):
     lang = current_lang()
     if template=='output.html' and ctx.get('results'):
         from utils.paired_reports import cached_pairs,result_views
-        from utils.serving_web import owner
-        scope,_=owner()
-        ctx['localized_result_views']=result_views(ctx['results'],cached_pairs(Path(__file__).resolve().parent,scope))
+        if ctx['results'].get('serving_analysis'):
+            from utils.realtime_analysis_view import research_factor_metadata
+            ctx['research_factor_metadata'] = research_factor_metadata
+            ctx['localized_result_views'] = result_views(ctx['results'], {})
+        else:
+            from utils.serving_web import owner
+            scope,_=owner()
+            ctx['localized_result_views'] = result_views(ctx['results'], cached_pairs(Path(__file__).resolve().parent,scope))
     if template in ("demo_new.html", "output.html", "backtest.html"):
         from utils.analysis_ui import messages
         from core.serving_registry import registry_document
@@ -351,18 +356,21 @@ def demo():
 @app.route("/output")
 def output():
     if "serving_run" in request.args:
-        if request.args.get('serving_source') == 'live' and request.args.get('presentation') == 'analysis':
+        if request.args.get('serving_source') == 'live' and request.args.get('presentation') != 'details':
             from utils.serving_web import owner
             from utils.serving_live_web import service
-            from utils.realtime_analysis_view import project
+            from utils.realtime_analysis_view import can_project, project
             scope,_ = owner()
-            if scope is None: return render_localized('output.html',serving_run=request.args.get('serving_run')),404
-            try:
-                data = service().result(request.args.get('serving_run'),scope)
-                if data['state'] == 'completed':
-                    snapshot = service().snapshots.read(data['identity']['request']['snapshot_id'],scope)
-                    return render_localized('output.html',results=project(data,current_lang(),articles=snapshot['news']))
-            except (PermissionError,FileNotFoundError,ValueError,KeyError,StopIteration):
+            if scope is not None:
+                try:
+                    backend = service()
+                    data = backend.result(request.args.get('serving_run'),scope)
+                    if can_project(data):
+                        snapshot = backend.snapshots.read(data['identity']['request']['snapshot_id'],scope)
+                        return render_localized('output.html',results=project(data,current_lang(),articles=snapshot['news']))
+                except (PermissionError,FileNotFoundError,ValueError,KeyError,StopIteration):
+                    return render_localized('output.html',serving_run=request.args.get('serving_run')),404
+            elif request.args.get('presentation') == 'analysis':
                 return render_localized('output.html',serving_run=request.args.get('serving_run')),404
         # Trang chỉ chứa shell; API owner kiểm UUID và journal, không khởi động inference qua GET.
         return render_localized("output.html", serving_run=request.args.get("serving_run"))

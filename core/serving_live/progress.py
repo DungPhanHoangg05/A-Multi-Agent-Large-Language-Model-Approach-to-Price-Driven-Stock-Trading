@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any
 
 from core.unified_execution import StageBook
+from core.variant_registry import get_variant
 
 
 def agent_progress(store: Any, reservation: dict) -> dict[str,str]:
@@ -25,10 +26,12 @@ def agent_progress(store: Any, reservation: dict) -> dict[str,str]:
     shared_complete = book.complete('shared/'+point)
     if book.path('graph/'+point+'/full').exists():
         progress['alpha'] = 'complete' if shared_complete else 'running'
-    context_slots = ['prepare/forecast/'+point+'/r'+str(repeat)+'/'+variant
-        for repeat in range(request['repeats']) for variant in request['variant_ids']]
-    progress['context'] = state(context_slots)
-    if shared_complete and progress['context'] == 'pending': progress['context'] = 'running'
+    context_variants = [variant for variant in request['variant_ids'] if get_variant(variant).dependencies]
+    if context_variants:
+        context_slots = ['prepare/forecast/'+point+'/r'+str(repeat)+'/'+variant
+            for repeat in range(request['repeats']) for variant in context_variants]
+        progress['context'] = state(context_slots)
+        if shared_complete and progress['context'] == 'pending': progress['context'] = 'running'
     progress['decision'] = state(['forecast/'+point+'/r'+str(repeat)+'/'+variant
         for repeat in range(request['repeats']) for variant in request['variant_ids']])
     return progress
