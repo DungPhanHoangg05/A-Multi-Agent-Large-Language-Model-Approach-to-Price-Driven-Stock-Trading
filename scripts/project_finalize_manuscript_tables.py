@@ -8,6 +8,7 @@ from collections import Counter
 import csv
 from hashlib import sha256
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -73,12 +74,44 @@ def baseline_rows() -> dict:
     return rows
 
 
+def prompt_parts(text: str) -> dict:
+    """Tách đúng sections thực gửi API, không nhận câu nhắc alpha trong rules là alpha data."""
+    marker = '\n\nTHỨ TỰ ƯU TIÊN BẰNG CHỨNG:'
+    if text.count(marker) != 1:
+        raise ValueError('Prompt không có đúng một khối rules')
+    reports, rules = text.split(marker)
+    matches = list(re.finditer(r'### \[(\d)\] ([^\n]+)\n', reports))
+    if not matches or [int(m[1]) for m in matches] != list(range(1, len(matches)+1)):
+        raise ValueError('Sections prompt thiếu hoặc sai thứ tự')
+    names = {'PHÂN TÍCH XU HƯỚNG': 'trend', 'MÔ HÌNH NẾN': 'pattern',
+             'CHỈ BÁO KỸ THUẬT': 'indicator', 'ALPHA FACTORS ĐỊNH LƯỢNG': 'alpha',
+             'TIN TỨC & TÂM LÝ THỊ TRƯỜNG': 'sentiment'}
+    result = {'prefix': reports[:matches[0].start()], 'rules': marker+rules}
+    for i, m in enumerate(matches):
+        result[names[m[2]]] = reports[m.end():matches[i+1].start() if i+1 < len(matches) else len(reports)].strip()
+    if not {'trend', 'pattern', 'indicator'} <= result.keys():
+        raise ValueError('Thiếu ba báo cáo upstream')
+    return result
+
+
+def actual_text(request: dict) -> str:
+    """Chỉ chấp nhận một human prompt, không âm thầm gộp history khác hợp đồng."""
+    messages = request['messages']
+    if len(messages) != 1 or len(messages[0]) != 1 or messages[0][0]['type'] != 'human':
+        raise ValueError('Request không đúng một human message')
+    return messages[0][0]['data']['content']
+
+
+def factor_rows(text: str) -> int:
+    """Đếm rows có số thứ tự thực, không đếm header hoặc consensus."""
+    return len(re.findall(r'^\| [1-5] \| ', text, re.M))
+
+
 def audit_evidence() -> dict:
     """Đối soát prompt thực gửi, dự báo và bảng nguồn từ các gói bằng chứng FIN15."""
     import sys
     sys.path.insert(0, str(ROOT))
     from core.research_results import ResearchResults
-    from core.revision_r4_factorial import actual_text, factor_rows, prompt_parts
 
     with ZipFile(FIN12_ARCHIVE) as archive:
         def read_json(name: str, expected: dict) -> dict | list:

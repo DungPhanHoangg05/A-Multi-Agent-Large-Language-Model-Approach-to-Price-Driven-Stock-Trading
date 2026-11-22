@@ -20,7 +20,7 @@ from core.alpha_compare import build_forward_execution_returns
 from utils.target_contract import target_fields, validate_target_record
 from agents.agent_state import IndicatorAgentState
 
-SCHEMA = json.loads((Path(__file__).resolve().parents[1] / "revision/target_schema.json").read_bytes())
+SCHEMA = json.loads((Path(__file__).resolve().parents[1] / "evidence/target_schema.json").read_bytes())
 
 
 def frame() -> pd.DataFrame:

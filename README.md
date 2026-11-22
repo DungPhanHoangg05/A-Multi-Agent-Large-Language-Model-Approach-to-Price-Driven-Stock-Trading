@@ -20,8 +20,8 @@ Price-Driven Stock Trading in the Vietnamese Stock Market*.
   and policy reasons in a Vietnamese/English interface with light and dark themes.
 - Run walk-forward backtests and compare methods using shared snapshots,
   explicit execution costs, account-level metrics, and CASH/ALWAYS_LONG controls.
-- Validate, replay, inspect, and export experiments with versioned contracts,
-  source hashes, checkpoints, and request/response provenance.
+- Inspect and export recorded experiments with versioned contracts, source
+  hashes, checkpoints, and request/response provenance.
 
 ## System architecture
 
@@ -123,7 +123,9 @@ Point-in-time inputs and execution follow these boundaries.
 
 ## Installation
 
-Run commands from the repository root. Python **3.13.5** is pinned in
+Use a full Git clone. The serving profiles compare frozen inputs and model code
+against historical Git objects during preflight. Run commands from the repository
+root. Python **3.13.5** is pinned in
 `.python-version`. On Windows with the Python launcher installed,
 
 ```powershell
@@ -225,38 +227,15 @@ docker compose logs -f web
 The Compose application is available at `http://127.0.0.1:8000`. Its image uses
 Python 3.13.5, CPU PyTorch, and one threaded Gunicorn worker to share in-process
 job state. Named volumes persist model cache, backtest results, and research
-outputs. Research methods also require their declared resource bundles in the
-deployment. Reverse-proxy and Oracle VM configuration are documented separately.
+outputs. Research profiles in a container also require the frozen study inputs
+under `outputs/`, the Git executable and the historical Git objects used by preflight. Reverse-proxy and Oracle VM configuration are documented separately.
 [Deployment guide](docs/oracle_deployment.md), [Compose configuration](compose.yaml).
 
 ## Experiments and reproducibility
 
-The unified experiment CLI supports offline registry inspection, spec
-validation, prepared-response replay, verification, and export.
-
-```powershell
-.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py registry
-.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py validate path/to/spec.json
-.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py replay path/to/bundle.json --sha256 <full-bundle-sha256>
-.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py verify outputs/unified_integration/<run-id>
-.\.venv\Scripts\python.exe -I -X utf8 scripts/run_unified_experiment.py export outputs/unified_integration/<run-id> --format csv --output table.csv
-```
-
-Replace placeholder paths, run IDs, and hashes with the intended experiment's
-inputs. Export destinations must be new files. `ExperimentSpec` binds methods,
-dependencies, cohort order, repeats, realizations, model options, source/resource
-hashes, runtime, calendar, costs, and missing-support policy. `SharedSnapshot`
-seals reports, images, factors, and PIT provenance. The runner keeps raw proposals
-and final policy actions separately and resets accounts by symbol, fold,
-realization, and repeat.
-
-A replay bundle contains `spec`, `snapshots`, `preparations`, `responses`, and
-`outcomes`. Replay reconstructs requests, schema validation, policy, and
-accounting from these assets. Numeric provider preparation, retrieval, and
-student execution have separate verification paths. Historical reproduction
-requires the source snapshot, runtime, original assets, and hashes identified
-by its manifest. Some large or ignored model/data assets require restoration
-from the author's archive.
+Open `/experiments` to inspect the six methods, compare outcomes and export the
+recorded results. For an analysis you run yourself, use `/demo` for the latest
+completed session or `/backtest` for a historical date range.
 
 To check the published paper and thesis against the saved study records, run the
 following command from the repository root. It reads the shipped evidence offline.
@@ -267,7 +246,7 @@ py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --audit --check
 
 The reader guide identifies inputs for the component, historical BICL and follow-up
 comparisons. It also gives the source commits for replaying historical experiments.
-[FIN15 evidence guide](evidence/README.md), [causal alpha CLI](scripts/manage_causal_profile.py).
+[FIN15 evidence guide](evidence/README.md).
 
 ### Research scope
 
@@ -316,12 +295,12 @@ prompt-budget, and recovery contracts. [Development instructions](AGENTS.md).
 | `core/` | Accounting, market loaders, priors, MT-BICL, causal alpha, experiment runners, and serving runtime. |
 | `data_manager/`, `data/` | Historical memory, regime assets, sentiment storage, and market-data inputs. |
 | `templates/`, `static/`, `web_interface.py` | Flask pages, browser scripts, styles, and application entrypoint. |
-| `scripts/`, `tests/` | Research and maintenance CLIs, audits, and regression checks. |
+| `scripts/`, `tests/` | Resource installation, manuscript checks and regression tests for the UI and trading contracts. |
 | `default_config.py`, `requirements*.txt` | Runtime defaults and dependency specifications. |
 | `deploy/`, `Dockerfile`, `compose.yaml` | Container and reverse-proxy deployment configuration. |
 | `paper/`, `outputs/paper/` | Paper LaTeX sources and generated PDFs. |
 | `thesis/` | Thesis LaTeX sources, bibliography, figures, build tools, and release artifacts. |
-| `revision/`, `outputs/revision/` | Research protocols, reproduction tools, and preserved study results. |
+| `outputs/revision/` | Published baseline tables, U09 supplements and their manifests. |
 | `outputs/unified_integration/` | Unified experiment records, checkpoints, and analysis artifacts. |
 | `evidence/`, `resources/` | FIN15 audit inputs and pinned resources for the application. |
 

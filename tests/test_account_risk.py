@@ -14,7 +14,6 @@ import numpy as np
 
 from core.backtest_engine import BacktestEngine, TestPoint, compute_account_metrics
 from utils.account_risk import cycle_frequency, risk_ratios
-from scripts.audit_account_annualisation import daily_returns, economics_ast_check
 
 
 def points() -> list[TestPoint]:
@@ -119,23 +118,6 @@ class AccountRiskTests(unittest.TestCase):
         summary = engine._build_summary("FPT", "1d", 4, 45, 3, rows, "2023-01-01", "2024-01-19")
         self.assertIsNone(summary.sharpe_full)
         self.assertEqual(summary.risk_metrics_full["frequency_status"], "missing_bar_indices")
-
-    def test_daily_ledger_anchor_and_cash_gaps_are_retained(self) -> None:
-        values = daily_returns([90., 90., 99.], 100.)
-        np.testing.assert_allclose(values, [-.1, 0., .1], atol=1e-15)
-        self.assertEqual(len(values), 3)
-        with self.assertRaises(ValueError):
-            daily_returns([0., 1.], 100.)
-
-    def test_ast_guard_rejects_unrelated_economics_change(self) -> None:
-        unchanged = "\n".join(f"def {name}():\n    return 1\n" for name in
-            ("_validate_account_costs", "compute_round_trip_net_return", "_get_actual_direction", "_parse_prediction",
-             "_run_ablation_variants", "_run_paired_point"))
-        before = ("def compute_variant():\n    cash = 1\n    returns_array = []\n    equity_array = []\n    peak = 1\n    return cash\n" + unchanged).encode()
-        after = before.replace(b"returns_array = []", b"frequency = {}")
-        self.assertTrue(all(economics_ast_check(before, after).values()))
-        with self.assertRaises(ValueError):
-            economics_ast_check(before, after.replace(b"cash = 1", b"cash = 2"))
 
 
 if __name__ == "__main__":

@@ -14,6 +14,8 @@ py -3.13 -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets --strict-
 | BICL follow-up | [Gói FIN12](fin12_audit.zip) chứa receipt và bốn tệp kết quả được audit đọc. Lệnh trên kiểm hash, lưới dự báo, nhãn, lệnh trong sổ tài khoản và số fallback, rồi đối chiếu [bản chiếu FIN15](manuscript_evidence.json) với bảng LaTeX của cả hai bản thảo. |
 | PDF bàn giao | [Source map](../scripts/thesis_docs/source-map.json) ghi SHA-256, số trang và commit nguồn ở mục `fin15_outputs`. [Hướng dẫn bài báo](../paper/README.md) và [hướng dẫn khóa luận](../docs/thesis_build.md) có lệnh biên dịch. |
 
+Reviewer có thể tra [schema nhãn giao dịch](target_schema.json), [công thức sổ tài khoản và kiểm tra bằng Decimal](../scripts/fin12_evaluation_oracle.py), [cách tính các chỉ tiêu FIN12](../scripts/fin12_evaluation.py) và [tài liệu công thức alpha được trích dẫn](alpha101_1601.00991v3.pdf).
+
 Để kiểm hash của ba PDF trong PowerShell, chạy từ gốc checkout.
 
 ```powershell

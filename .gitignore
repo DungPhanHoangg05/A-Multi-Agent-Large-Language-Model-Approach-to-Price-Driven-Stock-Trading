@@ -13,79 +13,16 @@ Thumbs.db
 sentiment_cache_*
 .env
 
-# Staging và bản sao lưu của lượt sinh Memory Bank; kho chính thức giữ trong Git.
-/outputs/historical_memory_run/
-/outputs/historical_memory_archives/
-
-# Pilot giữ checkpoint/telemetry cục bộ; nguồn OOS có manifest vẫn được quản lý.
-/outputs/oos_pilot/
-/outputs/pilot_fpt_run*/
-
-# Coverage/lịch benchmark được tái lập từ nguồn đã khóa, giữ cục bộ.
-/outputs/bayesian_benchmark/
-
-# H04 giữ journal/HTTP/ảnh và HMM prefix ở local, không lẫn artifact fixture với research.
-/outputs/historical_reevaluation/h04_fixture/
-/outputs/historical_reevaluation/h04_fixture_pre_phase_fix/
-/outputs/historical_reevaluation/run_r1/
-/outputs/historical_reevaluation/h04_assets/legacy_regimes/
-/outputs/historical_reevaluation/h04_assets/h05_validation.log
-/outputs/historical_reevaluation/h06_quota.json
-/outputs/historical_reevaluation/h06_quota_evidence/
-/outputs/historical_reevaluation/h06_prepare/
-/outputs/historical_reevaluation/h06_smoke_r1/
-/outputs/historical_reevaluation/managed_r1/
-/outputs/historical_reevaluation/quota_history/
-/outputs/historical_reevaluation/free_pilot_r1/
-tmp/
-
-# Journal, quota SQLite và trạng thái vận hành FIN11 giữ cục bộ.
-/outputs/finalize/fin11_v1/
-
-# Kết quả FIN12 tái lập từ journal FIN11 cục bộ và khóa runtime.
-/outputs/finalize/fin12_v1/
-/outputs/finalize/fin12_v1_worker/
-/outputs/finalize/fin12-analyze-*/
-
-# Trạng thái vận hành cục bộ của lượt R1 đã chốt; bằng chứng vẫn được theo dõi.
-/outputs/revision/r1_72h_run_v2/migration.lock
-/outputs/revision/r1_72h_run_v2/provider_locks/
-/outputs/revision/r1_72h_run_v2/quota.sqlite3*
-/outputs/revision/r1_72h_run_v2/shards/org*/worker.lock
-/outputs/revision/r1_72h_run_v2/shards/org*/status.json
-/outputs/revision/r1_72h_run_v2/shards/org*/usage.json
-/outputs/revision/r1_72h_run_v2/shards/org*/work/
-
-# Runtime cục bộ của lượt sửa prompt R4; raw calls/checkpoints/analysis vẫn theo dõi.
-/outputs/revision/r4_value_run_v1/provider_locks/
-/outputs/revision/r4_value_run_v1/quota.sqlite3*
-/outputs/revision/r4_value_run_v1/shards/org*/worker.lock
-/outputs/revision/r4_value_run_v1/shards/org*/usage.json
-
-# Runtime local của chart rerun; raw calls/checkpoints và receipts vẫn được theo dõi.
-/outputs/revision/chart_r1_run_v1/quota.sqlite3*
-/outputs/revision/chart_r1_run_v1/provider_locks/
-/outputs/revision/chart_r1_run_v1/shards/org*/worker.lock
-/outputs/revision/chart_r1_run_v1/shards/org*/status.json
-/outputs/revision/chart_r1_run_v1/shards/org*/usage.json
-/outputs/revision/chart_r1_run_v1/shards/org*/work/
-/outputs/revision/chart_r4_run_v1/quota.sqlite3*
-/outputs/revision/chart_r4_run_v1/provider_locks/
-/outputs/revision/chart_r4_run_v1/shards/org*/worker.lock
-/outputs/revision/chart_r4_run_v1/shards/org*/usage.json
-
-# Trạng thái vận hành queue chung; manifest, raw và checkpoint vẫn được theo dõi.
-/outputs/revision/revision_minimal_v1/quota.sqlite3*
-/outputs/revision/revision_minimal_v1/runner.lock
-/outputs/revision/revision_minimal_v1/provider_locks/
-/outputs/revision/revision_minimal_v1/shards/org*/worker.lock
-/outputs/revision/revision_minimal_v1/shards/org*/usage.json
-
-# Sidecar weights cục bộ của package; manifest giữ hash, không đưa weights lớn vào Git.
-/outputs/revision/reproducibility*/model_weights.zip
-
-# Gói tổng hợp nội bộ lớn; index, hashes và QA vẫn được theo dõi trong Git.
-/outputs/revision/reviewer_response_v1/private_bundle.zip
-
-# Kế hoạch nội bộ và các đầu vào được cài từ gói phát hành.
+# Đầu ra mới của demo, journal và dữ liệu nghiên cứu cục bộ.
+# Git tiếp tục quản lý các đầu vào đã khóa và các bộ kết quả công bố.
+/outputs/*
+!/outputs/paper/
+!/outputs/thesis/
+!/outputs/revision/
+/outputs/revision/*
+!/outputs/revision/README.md
+!/outputs/revision/final_baselines_v1/
+!/outputs/revision/u09_manuscript_assets_v1/
+/backtest_result/
+/tmp/
 /docs/plan/
