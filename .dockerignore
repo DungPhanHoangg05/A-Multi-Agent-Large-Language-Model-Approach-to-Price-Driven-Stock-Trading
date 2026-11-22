@@ -12,3 +12,5 @@ backtest_result
 sentiment_cache_*.json
 record.csv
 *.log
+docs/plan
+tmp

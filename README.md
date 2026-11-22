@@ -138,6 +138,13 @@ TA-Lib, PyTorch, Transformers, LangGraph, LangChain, HMMlearn, and scikit-learn.
 can be installed using `pip install -r requirements-unified.lock.txt`.
 Platform-specific deployments require compatible package builds.
 
+The web launcher installs the pinned serving inputs on first use. For direct
+research commands and serving tests, install them once from a full Git checkout.
+
+```powershell
+.\.venv\Scripts\python.exe scripts/install_study_resources.py
+```
+
 Market access uses `vnstock==4.0.9` and `vnai==2.6.2` through the extra package
 index declared in the requirements. Vendor access and configuration are covered
 in the market-data guide. [Market-data setup](docs/vnstock_upgrade.md).
@@ -203,9 +210,8 @@ their `unknown` state until reconciliation.
 Serving support is checked against the server's resource manifest. Frozen
 as-of resources cover nine symbols over 1 July–23 September 2026, with exact
 point availability checked during preflight. The live daily provider has a
-separate snapshot lifecycle. API contracts, ownership, recovery, resource
-requirements, and presentation rules are documented in the serving guide.
-[Serving and UI guide](docs/plan/week12/variant_serving_contract.md).
+separate snapshot lifecycle. The method registry defines dependencies and supported profiles.
+[Serving registry](core/serving_registry.py).
 
 ### Docker deployment
 
@@ -252,12 +258,16 @@ requires the source snapshot, runtime, original assets, and hashes identified
 by its manifest. Some large or ignored model/data assets require restoration
 from the author's archive.
 
-Use the evidence map to locate preserved study inputs and the clean-replay
-runbook to restore their execution context. The causal alpha CLI provides
-`fit`, `verify`, `predict`, and `bridge` operations for explicit price and
-schedule inputs. [Evidence and restoration map](docs/plan/week12/final_evidence_map.md),
-[clean-replay runbook](revision/clean_replay_runbook.md),
-[causal alpha CLI](scripts/manage_causal_profile.py).
+To check the published paper and thesis against the saved study records, run the
+following command from the repository root. It reads the shipped evidence offline.
+
+```powershell
+py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --audit --check
+```
+
+The reader guide identifies inputs for the component, historical BICL and follow-up
+comparisons. It also gives the source commits for replaying historical experiments.
+[FIN15 evidence guide](evidence/README.md), [causal alpha CLI](scripts/manage_causal_profile.py).
 
 ### Research scope
 
@@ -295,9 +305,7 @@ py -3.13 -X utf8 -m unittest discover -s tests -p "test_*leakage.py" -v
 
 Create task branches from `develop`, use Conventional Commits, and merge after
 the applicable checks pass. Preserve the economic, PIT, paired-execution,
-prompt-budget, and recovery contracts. Development instructions and planning
-records are maintained separately. [Agent instructions](AGENTS.md),
-[project plan](docs/plan/plan.md).
+prompt-budget, and recovery contracts. [Development instructions](AGENTS.md).
 
 ## Repository guide
 
@@ -313,9 +321,9 @@ records are maintained separately. [Agent instructions](AGENTS.md),
 | `deploy/`, `Dockerfile`, `compose.yaml` | Container and reverse-proxy deployment configuration. |
 | `paper/`, `outputs/paper/` | Paper LaTeX sources and generated PDFs. |
 | `thesis/` | Thesis LaTeX sources, bibliography, figures, build tools, and release artifacts. |
-| `revision/`, `outputs/revision/` | Reviewer-response material, reproduction tools, and preserved study evidence. |
+| `revision/`, `outputs/revision/` | Research protocols, reproduction tools, and preserved study results. |
 | `outputs/unified_integration/` | Unified experiment records, checkpoints, and analysis artifacts. |
-| `docs/plan/` | Protocols, evidence indexes, acceptance records, and development checklists. |
+| `evidence/`, `resources/` | FIN15 audit inputs and pinned resources for the application. |
 
 ### Paper and thesis
 
@@ -326,7 +334,7 @@ evaluates adding BICL to Our system. The paper uses `paper/main.tex` or
 project-relative references and figure paths for Overleaf. Earlier thesis
 Markdown drafts are retained as historical material.
 [Paper sources](paper/README.md), [paper PDF](outputs/paper/main-fin15.pdf),
-[thesis sources and build](docs/plan/thesis/build.md), [thesis PDF](outputs/thesis/thesis-fin15.pdf).
+[thesis sources and build](docs/thesis_build.md), [thesis PDF](outputs/thesis/thesis-fin15.pdf).
 
 ## Attribution and licensing
 

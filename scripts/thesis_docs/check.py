@@ -27,7 +27,7 @@ def main() -> None:
     repo = tools.parents[1]
     root = repo / 'thesis'
     latex = root / 'latex'
-    archive_home = repo / 'docs/plan/thesis'
+    archive_home = repo / 'evidence/thesis'
     record = json.loads((tools / 'source-map.json').read_text(encoding='utf-8'))
     checked = 0
     archive = record['p8_archive']

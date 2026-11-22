@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import argparse
+import io
+from zipfile import ZipFile
 from collections import Counter
 import csv
 from hashlib import sha256
@@ -9,12 +11,13 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / 'outputs/finalize/fin12_v1'
+FIN12_ARCHIVE = ROOT / 'evidence/fin12_audit.zip'
 RECEIPT_SHA = 'd304f01ca78f3eef6666f14a6e39df60dd6dda4af3a8095c1a490ff9ec831c31'
-EVIDENCE = ROOT / 'docs/plan/week12/manuscript_evidence.json'
+EVIDENCE = ROOT / 'evidence/manuscript_evidence.json'
 BASELINES = ROOT / 'outputs/revision/final_baselines_v1'
 HISTORICAL = ROOT / 'outputs/revision/u09_manuscript_assets_v1/artifacts'
-HISTORICAL_RUN = ROOT / 'outputs/unified_integration/u09_analysis_r1'
+COMPONENT_ARCHIVE = ROOT / 'evidence/component_audit.zip'
+COMPONENT_SHA = '003e258bb46c16cec256e9e073f4ef7d0f045780183361a9cdb2411d864cf4bf'
 BASELINES_SHA = '0a20fbe49049dd61fae2eb8bf3289f65039395e6bcac6745b851a5a00d804226'
 COMPONENT = {'AS': 'Our system', 'B': 'QuantAgent', 'logistic_price': 'Logistic-price',
              'constant_down_cash': 'CASH'}
@@ -71,21 +74,25 @@ def baseline_rows() -> dict:
 
 
 def audit_evidence() -> dict:
-    """Đối soát prompt thực gửi, dự báo và bảng nguồn từ kho nghiên cứu cục bộ."""
+    """Đối soát prompt thực gửi, dự báo và bảng nguồn từ các gói bằng chứng FIN15."""
     import sys
     sys.path.insert(0, str(ROOT))
-    from core.revision_evidence_archive import EvidenceArchive
+    from core.research_results import ResearchResults
     from core.revision_r4_factorial import actual_text, factor_rows, prompt_parts
 
-    receipt = json.loads(verified_bytes(SOURCE / 'receipt.json', {'sha256': RECEIPT_SHA}))['payload']
-    def fin12(name: str) -> dict | list:
-        """Đọc đúng artifact được ràng buộc trong receipt."""
-        return json.loads(verified_bytes(SOURCE / name, receipt['artifacts'][name]))
+    with ZipFile(FIN12_ARCHIVE) as archive:
+        def read_json(name: str, expected: dict) -> dict | list:
+            """Đối chiếu từng thành viên với receipt trước khi dùng số liệu."""
+            raw = archive.read(name)
+            require(sha256(raw).hexdigest() == expected['sha256']
+                    and len(raw) == expected.get('bytes', len(raw)), f'Sai nguồn FIN12: {name}')
+            return json.loads(raw)
 
-    results = fin12('results.json')
-    predictions = fin12('predictions.json')
-    outcomes = fin12('outcomes.json')
-    cycles = fin12('cycles.json')
+        receipt = read_json('receipt.json', {'sha256': RECEIPT_SHA})['payload']
+        names = ('results.json', 'predictions.json', 'outcomes.json', 'cycles.json')
+        results, predictions, outcomes, cycles = (
+            read_json(name, receipt['artifacts'][name]) for name in names
+        )
     methods = (*METHODS, *CONTROLS)
     indexed = {(r['point_id'], r['repeat'], r['method']): r for r in predictions}
     require(len(indexed) == len(predictions) and set(indexed) == {
@@ -142,7 +149,7 @@ def audit_evidence() -> dict:
                 for row in records.values()
             )
 
-    with EvidenceArchive(ROOT) as archive:
+    with ZipFile(io.BytesIO(verified_bytes(COMPONENT_ARCHIVE, {'sha256': COMPONENT_SHA}))) as archive:
         audits = json.loads(archive.read('outputs/revision/fusion_prompt_audit_v1/audit.json'))
         original = json.loads(archive.read('outputs/revision/revision_minimal_final_v1/main_predictions.json'))
         dependence = json.loads(archive.read('outputs/revision/final_temporal_v1/primary_dependence.json'))
@@ -183,8 +190,7 @@ def audit_evidence() -> dict:
             and historical_missing == json.loads((HISTORICAL / 'support.json').read_bytes())['sentiment_missing'],
             'Mẫu sentiment lịch sử không khớp.')
     interval = next(r['percentile_95'] for r in dependence['cohorts']['all_102']['intervals'] if r['contrast'] == 'AS-B')
-    historic_receipt = json.loads((HISTORICAL_RUN / 'receipt.json').read_bytes())['payload']
-    historic_csv = verified_bytes(HISTORICAL_RUN / 'predictions.csv', historic_receipt['artifacts']['predictions.csv'])
+    historic_csv = ResearchResults(ROOT).artifact('predictions.csv')
     fpt = {float(r['r_net']) for r in csv.DictReader(historic_csv.decode().splitlines()) if r['point_id'] == 'FPT-2023-07-03'}
     require(len(fpt) == 1 and outcomes['FPT-2023-07-03']['reason'] == 'CORPORATE_ACTION_DURING_HOLDING',
             'Kết quả FPT giữa hai nghiên cứu không khớp.')
@@ -210,7 +216,9 @@ def audit_evidence() -> dict:
 
 def read_results() -> dict:
     """Đọc bản chiếu đã khóa. Tùy chọn audit đối chiếu lại kho gốc."""
-    data = json.loads(EVIDENCE.read_bytes())
+    source_map = json.loads((ROOT / 'scripts/thesis_docs/source-map.json').read_bytes())
+    expected = source_map['fin15_outputs']['manuscript_evidence_sha256']
+    data = json.loads(verified_bytes(EVIDENCE, {'sha256': expected}))
     require(data['fin12_receipt_sha256'] == RECEIPT_SHA, 'Bản chiếu không khớp receipt FIN12.')
     return data
 
@@ -300,7 +308,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--audit', action='store_true',
-                        help='Đối chiếu kho dữ liệu cục bộ với bản chiếu đã khóa')
+                        help='Đối chiếu các bản ghi nguồn với bảng và dữ liệu hình FIN15')
     args = parser.parse_args()
     evidence = read_results()
     if args.audit:

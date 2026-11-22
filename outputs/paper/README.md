@@ -6,4 +6,4 @@
 
 Bản 44 trang trước FIN15 có [manifest](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/outputs/paper/manifest.json)
 và [kết quả kiểm tra liên kết](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/outputs/paper/reference_links.json).
-Có thể mở lại cả hai PDF cũ bằng [checkout lịch sử](../../docs/plan/thesis/build.md#ban-truoc-fin15).
+Có thể mở lại cả hai PDF cũ bằng [checkout lịch sử](../../docs/thesis_build.md#ban-truoc-fin15).

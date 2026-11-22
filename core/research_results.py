@@ -13,7 +13,7 @@ import zipfile
 from core.unified_contracts import digest, json_bytes
 
 RUN_ID = "u09_analysis_r1"
-PACKAGE = "docs/plan/week12/unified_analysis_results.zip"
+PACKAGE = "evidence/unified_analysis_results.zip"
 PACKAGE_SHA256 = "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9"
 PREFIX = "outputs/unified_integration/" + RUN_ID + "/"
 SUPPORT = "outputs/revision/u09_manuscript_assets_v1/artifacts/support.json"

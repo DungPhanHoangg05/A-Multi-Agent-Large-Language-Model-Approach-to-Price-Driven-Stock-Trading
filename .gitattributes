@@ -3,22 +3,12 @@
 # Giữ nguyên byte của artifact có checksum khi checkout trên các hệ điều hành.
 scripts/evaluate_finalize_study.py text eol=lf
 scripts/fin12_evaluation*.py text eol=lf
-docs/plan/week12/finalize_system_gate_v1.json text eol=lf
-docs/plan/week12/finalize_system_gate_v2.json text eol=lf
 data/execution_prices_oos/* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 data_manager/regime_memory_store*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week2/memory_bank_audit.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week3/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week4/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 outputs/vnindex_regimes_2018_2022.manifest.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 outputs/vnindex_regimes_2018_2022.svg -text -whitespace
 
-# Giữ byte inventory/benchmark và mã đo có SHA-256 khi checkout trên Windows.
 
-# Khóa byte nguồn và manifest development trước response W11 đầu tiên.
-
-# Giữ byte nguồn utility v3 ổn định khi checkout trên Windows.
-docs/plan/week11/validation_checks_v3/*.json -text
 
 # Readiness lịch sử giữ nguyên byte donor và receipt, không chuyển LF/CRLF.
 outputs/historical_reevaluation/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
@@ -31,13 +21,11 @@ core/mt_bicl_replica_*.py text eol=lf
 core/historical_h02_data.py text eol=lf
 scripts/run_mt_bicl_replica.py text eol=lf
 tests/test_mt_bicl_replica_leakage.py text eol=lf
-docs/plan/week11/mt_bicl_replica_full_r1.json -text
 outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/dense_bank.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 
 core/mt_bicl*.py text eol=lf
 scripts/*mt_bicl*.py text eol=lf
 tests/*mt_bicl*.py text eol=lf
-docs/plan/week11/mt_bicl*.json -text
 
 # Giữ gói model replica và receipt nghiệm thu nguyên byte sau checkout.
 outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/model/* -text
@@ -49,56 +37,30 @@ outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/regime_models.json -t
 outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/pilot/report.json -text
 
 # Khóa protocol H03 và bộ sinh bằng byte ổn định.
-docs/plan/week11/historical_evaluation_*.json -text
 core/historical_evaluation_*.py text eol=lf
 scripts/prepare_historical_evaluation.py text eol=lf
 tests/test_historical_evaluation*.py text eol=lf
 tests/test_historical_adapter*.py text eol=lf
 tests/test_historical_regime_prefix_leakage.py text eol=lf
 scripts/validate_historical_evaluation.py text eol=lf
-scripts/prepare_historical_smoke.py text eol=lf
 core/historical_live_smoke.py text eol=lf
 scripts/run_historical_smoke.py text eol=lf
 tests/test_historical_live_smoke.py text eol=lf
-docs/plan/week11/historical_evaluation_quota.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week11/historical_evaluation_runtime_pre_schema_title.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week11/historical_evaluation_transport_amendment.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week11/historical_evaluation_smoke_plan.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week11/historical_evaluation_release.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week11/historical_evaluation_smoke.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-tests/test_historical_smoke_freeze.py text eol=lf
 core/historical_transport_observer.py text eol=lf
 scripts/run_historical_evaluation_observed.py text eol=lf
 tests/test_historical_transport_observer.py text eol=lf
 tests/test_historical_reset_recovery.py text eol=lf
-scripts/run_historical_collection.py text eol=lf
-tests/test_historical_collection_supervisor.py text eol=lf
-docs/plan/week11/historical_evaluation_collection.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-docs/plan/week11/historical_evaluation_freeze.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 tests/test_historical_validation_leakage.py text eol=lf
-docs/plan/week11/historical_evaluation_validation.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 scripts/run_historical_evaluation.py text eol=lf
-docs/plan/week11/historical_evaluation_runtime.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 core/free_pilot_assets.py text eol=lf
 core/free_pilot_runtime.py text eol=lf
 scripts/run_free_paired_pilot.py text eol=lf
 tests/test_free_pilot_leakage.py text eol=lf
-core/free_pilot_recovery.py text eol=lf
-core/free_pilot_manager.py text eol=lf
-scripts/run_free_pilot.py text eol=lf
-tests/test_free_pilot_manager.py text eol=lf
 core/free_pilot_statistics.py text eol=lf
-core/free_pilot_analysis.py text eol=lf
-scripts/analyze_free_pilot.py text eol=lf
 tests/test_free_pilot_statistics.py text eol=lf
-tests/test_free_pilot_analysis.py text eol=lf
-scripts/package_free_pilot.py text eol=lf
-tests/test_free_pilot_package.py text eol=lf
-docs/plan/week11/free_pilot_*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 outputs/historical_reevaluation/h04_assets/prepared.json -text
 # Giữ nguyên byte của code và bundle audit khi checkout trên Windows.
 AGENTS.md text eol=crlf
-plan.md text eol=lf
 core/revision_audit.py text eol=lf
 scripts/audit_revision_baselines.py text eol=lf
 tests/test_revision_baselines.py text eol=lf
@@ -106,7 +68,6 @@ utils/statistical_tests.py text eol=crlf
 revision/*.md text eol=lf
 outputs/revision/** -text -whitespace
 scripts/finalize_revision_r1.py text eol=lf
-revision/reviewer_matrix.csv text eol=lf
 core/revision_r2_panel.py text eol=lf
 scripts/analyze_revision_r2.py text eol=lf
 tests/test_revision_r2_leakage.py text eol=lf
@@ -226,14 +187,11 @@ tests/test_revision_execution_final.py text eol=lf
 outputs/** -text -whitespace
 data/** -text
 data_manager/*.json -text
-docs/plan/**/*.json -text
 paper/** -text -whitespace
 revision/** -text -whitespace
-docs/plan/week12/*.zip binary
 requirements-unified.lock.txt text eol=lf
 core/prior_backtest.py text eol=lf
 core/research_input_lock.py text eol=lf
-scripts/verify_unified_evidence.py text eol=lf
 tests/test_unified_contract_integration.py text eol=lf
 core/decision_profiles.py text eol=lf
 scripts/verify_original_fix_parity.py text eol=lf
@@ -270,3 +228,10 @@ scripts/audit_unified_provider.py text eol=lf
 scripts/prepare_unified_comparison_v2.py text eol=lf
 tests/test_unified_preflight.py text eol=lf
 tests/test_unified_preflight_leakage.py text eol=lf
+
+# Bao toan byte nguon doi chieu khi checkout.
+evidence/**/*.json -text
+evidence/*.json -text
+evidence/**/*.zip binary
+evidence/*.zip binary
+resources/*.zip binary

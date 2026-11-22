@@ -33,6 +33,10 @@ from core.realtime_loader import (
     clear_cache,
 )
 
+from scripts.install_study_resources import install
+
+# Các module đã khóa đọc schema và selector theo tên lúc thu nghiên cứu.
+install()
 app = Flask(__name__)
 
 # ── i18n ──────────────────────────────────────────────────────────────────────

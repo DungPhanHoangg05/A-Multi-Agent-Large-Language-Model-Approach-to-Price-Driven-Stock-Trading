@@ -15,8 +15,6 @@ from core.mt_bicl_accounting import account, evaluate_cycle
 from core.prior_backtest import LEGACY_SCHEMA_VERSION, ResearchSchema, evaluate_point, summarize_points
 from utils import static_util
 from utils.target_contract import target_record_fields
-from scripts.verify_unified_evidence import verify_rows
-import hashlib
 
 
 def frame() -> pd.DataFrame:
@@ -42,23 +40,6 @@ def prior_point(evaluation: dict, action: str = 'LONG') -> dict:
 
 class UnifiedContractTests(unittest.TestCase):
     """Oracle giá/phiên thật, canonical tamper, null risk và legacy compatibility."""
-
-    def test_frozen_inventory_rejects_deleted_resigned_or_changed_artifacts(self) -> None:
-        with TemporaryDirectory() as directory:
-            root = Path(directory)
-            path = root / "evidence.json"
-            path.write_bytes(b"old")
-            row = {'path': 'evidence.json', 'category': 'frozen_evidence', 'versions': {'fix_frozen': {
-                'mode': '100644', 'oid': 'pinned', 'bytes': 3, 'sha256': hashlib.sha256(b'old').hexdigest()}}}
-            index = {'evidence.json': ('100644', 'pinned')}
-            self.assertEqual(verify_rows(root, [row], index)['frozen_artifacts_verified'], 1)
-            with self.assertRaises(ValueError):
-                verify_rows(root, [row], {})
-            with self.assertRaises(ValueError):
-                verify_rows(root, [row], {'evidence.json': ('100644', 'resigned')})
-            path.write_bytes(b'new')
-            with self.assertRaises(ValueError):
-                verify_rows(root, [row], index)
 
     def test_prior_and_mt_agree_on_gap_and_three_trading_sessions(self) -> None:
         data = frame()

@@ -126,8 +126,7 @@ Mọi thông điệp commit **BẮT BUỘC** phải tuân thủ chuẩn Conventi
 ### 5.1. Môi trường & Ngôn ngữ
 - **Runtime chuẩn**: Python **3.13.5** (đã ghim trong `.python-version`). Không sử dụng các tính năng không tương thích phiên bản này.
 - **Ngôn ngữ diễn giải**: Toàn bộ chú thích mã (comments), docstrings, nhật ký ghi log trên console và giải thích kỹ thuật phải viết bằng **tiếng Việt chuẩn mực, rõ ràng**. Tên hàm, tên biến, tên lớp và schema JSON giữ nguyên bằng tiếng Anh chuẩn.
-- **Thư mục kế hoạch theo tuần**: Đặt tài liệu, checklist và receipt của tuần tại `docs/plan/week<N>/`, cùng cây thư mục với `docs/plan/plan.md`. Các tuần tiếp theo tiếp tục dùng cấu trúc này theo thay đổi của người dùng; khi chuyển file phải cập nhật đường dẫn trong script, test và liên kết Markdown, giữ nguyên byte các bằng chứng đã đóng băng.
-- **Giữ tài liệu gọn**: README của từng tuần là nơi cập nhật checklist và tiến độ. Chỉ tách Markdown khi cần hướng dẫn vận hành hoặc phương pháp độc lập; không tạo thêm biên bản/receipt theo từng task nếu chỉ lặp lại kết quả đã ghi. Giữ schema, QA và fixture JSON mà code/test đọc; bằng chứng lịch sử dư thừa được đóng gói nguyên byte trong `docs/plan/implementation_evidence.zip`.
+- **Kế hoạch cục bộ**: Git bỏ qua toàn bộ `docs/plan/`. Đặt tài nguyên vận hành tại `resources/` và bằng chứng đối chiếu bản công bố tại `evidence/`. Bảo toàn byte của mọi nguồn đã khóa.
 - **README.md tổng (Root README)**: Viết 100% bằng tiếng Anh chuẩn, đóng vai trò tài liệu giới thiệu hệ thống, kiến trúc, cài đặt, kiểm thử và hướng dẫn vận hành. Tuyệt đối **KHÔNG cập nhật tiến độ, checklist, nhật ký tuần hay biên bản thực nghiệm** vào file `README.md` tổng. Toàn bộ tiến độ và checklist được quản lý độc lập tại `docs/plan/` (trong `docs/plan/plan.md` và `docs/plan/week<N>/README.md`).
 
 ### 5.2. Tối ưu hóa Vector hóa (Vectorization First)
@@ -146,11 +145,11 @@ Khi nhận bất kỳ yêu cầu phát triển nào, Coding Agent phải thực 
 
 ```text
 [Bước 1: Khảo sát] ──► [Bước 2: Tạo Branch] ──► [Bước 3: Lập trình] ──► [Bước 4: Kiểm thử] ──► [Bước 5: Commit & Merge]
-  Đọc plan.md &          git checkout -b          Tuân thủ Clean          Kiểm tra                Conventional Commit
+  Đọc tài liệu &          git checkout -b          Tuân thủ Clean          Kiểm tra                Conventional Commit
   code liên quan          feat/<task-name>         Code & P0 rules         theo phạm vi            Merge vào develop
 ```
 
-1. **Bước 1 - Khảo sát**: Đọc kỹ [docs/plan/plan.md](docs/plan/plan.md), kiểm tra các file mã nguồn liên quan và xác định phạm vi ảnh hưởng.
+1. **Bước 1 - Khảo sát**: Đọc tài liệu vận hành, [hướng dẫn đối chiếu FIN15](evidence/README.md) và mã liên quan để xác định phạm vi ảnh hưởng. Nếu checkout có kế hoạch cục bộ liên quan thì đọc thêm.
 2. **Bước 2 - Tạo Branch**: Tạo nhánh mới từ `develop` theo quy ước `feat/...`, `fix/...`, `test/...`.
 3. **Bước 3 - Lập trình**: Viết mã tối giản, module hóa cao, có đầy đủ type annotations và docstrings tiếng Việt.
 4. **Bước 4 - Kiểm tra theo phạm vi**: Áp dụng mục 1.2; chỉ chạy test và biên dịch Python liên quan đến thay đổi, ghi phạm vi/kết quả hoặc lý do không chạy. Task thuần tài liệu không cần chạy suite; mốc cần bốn gate đối soát receipt/code/runtime đã khóa, không tự động chạy lại toàn bộ.
