@@ -92,3 +92,74 @@ evidence/*.json -text
 evidence/**/*.zip binary
 evidence/*.zip binary
 resources/*.zip binary
+
+# Giữ nguyên quy tắc checkout LF và byte của tài nguyên cho các thư mục ứng dụng.
+core/**/unified_execution.py text eol=lf
+core/**/unified_execution_transport.py text eol=lf
+core/**/unified_execution_providers.py text eol=lf
+core/**/realtime_index.py text eol=lf
+core/**/display_translation.py text eol=lf
+core/**/finalize_price_audit.py text eol=lf
+core/**/finalize_price_acceptance.py text eol=lf
+core/**/finalize_news.py text eol=lf
+core/**/finalize_news_release.py text eol=lf
+core/**/finalize_bank_resources.py text eol=lf
+core/**/finalize_raw_selector.py text eol=lf
+core/**/finalize_bank_signals.py text eol=lf
+core/**/finalize_ohlcv_keys.py text eol=lf
+core/**/finalize_deterministic_bank.py text eol=lf
+core/**/finalize_context.py text eol=lf
+core/**/finalize_prior.py text eol=lf
+core/**/finalize_serving_profile.py text eol=lf
+core/**/finalize_serving_resources.py text eol=lf
+core/**/finalize_serving_provider.py text eol=lf
+core/**/finalize_serving_evaluation.py text eol=lf
+core/**/finalize_live_capture.py text eol=lf
+scripts/**/prepare_finalize_bank.py text eol=lf
+scripts/**/prepare_finalize_ohlcv_bank.py text eol=lf
+scripts/**/verify_finalize_ohlcv_bank.py text eol=lf
+scripts/**/check_finalize_context.py text eol=lf
+templates/**/demo_new.html text eol=lf
+templates/**/output.html text eol=lf
+templates/**/backtest.html text eol=lf
+tests/**/test_realtime_index.py text eol=lf
+tests/**/test_realtime_decision_budget.py text eol=lf
+tests/**/test_variant_serving.py text eol=lf
+tests/js/site_preferences.test.mjs text eol=lf
+tests/**/test_finalize_alpha_leakage.py text eol=lf
+tests/**/test_finalize_news.py text eol=lf
+tests/**/test_finalize_news_leakage.py text eol=lf
+tests/**/test_finalize_ohlcv_bank_leakage.py text eol=lf
+tests/**/test_finalize_serving_leakage.py text eol=lf
+utils/**/analysis_ui.py text eol=lf
+utils/**/backtest_export.py text eol=lf
+utils/**/legacy_backtest.py text eol=lf
+utils/**/backtest_ui.py text eol=lf
+utils/**/serving_live_web.py text eol=lf
+utils/**/realtime_analysis_view.py text eol=lf
+utils/**/analysis_sentiment_view.py text eol=lf
+utils/**/site_preferences.py text eol=lf
+utils/**/paired_reports.py text eol=lf
+core/serving_live/**/*.py text eol=lf
+core/serving_runtime/**/*.py text eol=lf
+core/ui_presentation/**/*.py text eol=lf
+core/unified_analysis/**/* -text
+static/css/**/site_theme.css text eol=lf
+static/js/**/site_preferences.js text eol=lf
+static/js/**/display_locale.js text eol=lf
+templates/analysis/**/*.html text eol=lf
+templates/backtest/**/*.html text eol=lf
+templates/shared/**/*.html text eol=lf
+tests/analysis_ui/**/*.py text eol=lf
+tests/analysis_ui/**/report_reference.json -text
+tests/analysis_ui/**/locale_regression.json -text
+tests/backtest_ui/**/*.py text eol=lf
+tests/js/**/analysis_ui.test.mjs text eol=lf
+tests/js/**/backtest_ui.test.mjs text eol=lf
+tests/serving_integration/**/*.py text eol=lf
+tests/serving_live/**/*.py text eol=lf
+tests/serving_runtime/**/*.py text eol=lf
+static/css/analysis/**/*.css text eol=lf
+static/css/backtest/**/*.css text eol=lf
+static/js/analysis/**/*.js text eol=lf
+static/js/backtest/**/*.js text eol=lf

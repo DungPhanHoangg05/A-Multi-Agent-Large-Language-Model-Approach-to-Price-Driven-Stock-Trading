@@ -21,12 +21,56 @@ from core.serving_live.snapshots import Snapshots, ZONE
 from core.serving_runtime.resources import default_models
 from core.serving_runtime.service import Service
 from core.unified_contracts import digest
-from scripts.finalize_serving_preview import FixtureClock, FixtureSender
 from utils.serving_live_web import live
 from utils.serving_web import serving
 
 ROOT = Path(__file__).resolve().parents[1]
 KEY = "offline-finalize-fixture"
+
+
+class FixtureClock:
+    """Tiến ngày ảo sau mỗi lượt giả lập để kiểm journal mà không chờ quota thật."""
+    def __init__(self) -> None:
+        self.now = 1_700_000_000.
+
+    def __call__(self) -> float:
+        return self.now
+
+
+class FixtureSender:
+    """Giữ raw response ABI, không có kết nối hoặc cơ chế fetch dự phòng."""
+    def __init__(self, clock: FixtureClock) -> None:
+        self.clock = clock
+        self.calls: list[tuple[str, str]] = []
+
+    def send(self, body: dict) -> tuple[int, bytes, dict]:
+        """Tạo phản hồi tối thiểu hợp lệ cho vision, Decision và facts."""
+        from core.mt_bicl_decision import OUTPUT_MARKER
+        self.clock.now += 86401
+        prompt = body["messages"][0]["content"]
+        if "response_format" in body:
+            reply = {"decision": "SHORT", "forecast_horizon": "T+2.5", "confidence": "Thấp", "risk_reward_ratio": 1.,
+                     "justification": "Đối chứng offline.", "evidence_for": "Đối chứng offline.",
+                     "evidence_against": "Đối chứng offline."}
+            schema = body["response_format"]["json_schema"]["schema"]
+            if "fact_ids" in schema.get("properties", {}):
+                template = json.loads(prompt.rsplit(OUTPUT_MARKER, 1)[-1])
+                reply.update({k: template[k] for k in ("version", "fact_ids", "fact_assertions", "context_reason")})
+            if len(body["messages"]) > 1:
+                reply["display_en"] = {k: "Offline fixture." for k in ("justification", "evidence_for", "evidence_against")}
+            content = json.dumps(reply, ensure_ascii=False)
+            self.calls.append(("decision", digest(body)))
+        else:
+            vi = "**Thiên lệch dự báo:** NEUTRAL\n**Hướng xu hướng:** NEUTRAL\nĐối chứng offline."
+            en = "**Directional bias:** NEUTRAL\n**Trend direction:** NEUTRAL\nOffline fixture."
+            content = (json.dumps({"vi": vi, "en": en}, ensure_ascii=False)
+                       if "LIVE UI OUTPUT OVERRIDE" in body["messages"][-1]["content"] else vi)
+            self.calls.append(("vision", digest(body)))
+        raw = {"choices": [{"message": {"content": content}}], "usage": {"total_tokens": 20}}
+        return 200, json.dumps(raw, ensure_ascii=False).encode(), {}
+
+    def close(self) -> None:
+        """Transport fixture không giữ socket hoặc client."""
 
 
 def request(mode: str, cutoff: str, variants: list[str], *, repeats: int = 1) -> dict:

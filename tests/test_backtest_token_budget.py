@@ -16,7 +16,21 @@ from agents.alpha_agent import create_alpha_agent
 from agents import decision_agent
 from agents.decision_agent import create_final_trade_decider, TradeDecisionOutput
 from agents.indicator_agent import create_indicator_agent
-from scripts.verify_prior_prompt_budget import report_fixture
+
+
+def report_fixture(lang: str, style: str = "saturated") -> dict[str, str]:
+    """Báo cáo dài có đầu/kết luận; thử cả payload chạm cap và nhánh distill theo heading."""
+    text = "Diễn giải kỹ thuật và cảnh báo biến động. " if lang == "vi" else "Technical observations and volatility risks. "
+    body = text * 500 if style == "structured" else ("Đ" if lang == "vi" else "A") * 20000
+    reports = {name: f"{name.upper()}_BEGIN\n{body}\n{name.upper()}_END" for name in ("trend", "pattern", "indicator", "alpha", "sentiment")}
+    if style == "structured":
+        convergence = "Tổng hợp hội tụ tín hiệu" if lang == "vi" else "Signal convergence summary"
+        articles = "### 15 BÀI GẦN NHẤT" if lang == "vi" else "### 15 MOST RECENT ARTICLES"
+        summary = "TỔNG HỢP:" if lang == "vi" else "SUMMARY:"
+        reports["indicator"] = f"CHI_TIET_BO\n---\n{convergence}\n" + reports["indicator"]
+        reports["alpha"] += f"\n---\nBINH_LUAN_BO\n{summary} ALPHA_END"
+        reports["sentiment"] += f"\n{articles}\nBAI_BAO_BO"
+    return reports
 
 
 class _CountingLlm:

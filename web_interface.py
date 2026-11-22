@@ -606,14 +606,6 @@ def get_image(image_type):
         return jsonify({"error": str(e)})
 
 
-@app.route("/assets/<path:filename>")
-def serve_assets(filename):
-    try:
-        return send_file(f"assets/{filename}")
-    except FileNotFoundError:
-        return jsonify({"error": "Asset not found"}), 404
-
-
 # ── Backtest globals ──────────────────────────────────────────────────────────
  
 _bt_jobs: dict = {}
