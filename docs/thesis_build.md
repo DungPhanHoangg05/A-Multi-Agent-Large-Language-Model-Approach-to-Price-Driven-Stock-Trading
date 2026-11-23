@@ -25,7 +25,7 @@ sáu chương. Sơ đồ tổng thể là TikZ và có thể sửa trực tiếp
 
 ## Đối soát và truy vết
 
-[PDF FIN15](../outputs/thesis/thesis-fin15.pdf) được build bằng pdfLaTeX.
+[PDF FIN15](../outputs/thesis/thesis.pdf) được build bằng pdfLaTeX.
 Tag `thesis-review-20261117-r1` và [manifest lịch sử](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/thesis/release/manifest.json)
 giữ đúng bản 67 trang trước FIN15.
 `check.py` xác minh archive P8, tính đầy đủ của sáu chương, các đường dẫn

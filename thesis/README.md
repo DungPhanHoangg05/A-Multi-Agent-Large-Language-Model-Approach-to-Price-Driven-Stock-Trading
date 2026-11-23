@@ -7,7 +7,7 @@ Bibliography dùng Biber. `covers-preview.tex` là điểm vào riêng để xem
 
 [Hướng dẫn biên dịch cục bộ](../docs/thesis_build.md) ·
 [Bằng chứng FIN15](../evidence/README.md) ·
-[PDF hiện hành](../outputs/thesis/thesis-fin15.pdf)
+[PDF hiện hành](../outputs/thesis/thesis.pdf)
 
 ## Nguồn và tái lập
 

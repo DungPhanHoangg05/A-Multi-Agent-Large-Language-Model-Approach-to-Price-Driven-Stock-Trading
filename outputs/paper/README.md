@@ -4,10 +4,10 @@ Bản hiện hành (FIN15 r2) cập nhật mục *Data and Code Availability* v�
 
 | PDF hiện hành | SHA-256 |
 | --- | --- |
-| [Bản đầy đủ](main-fin15-r2.pdf) | `adc7d4fbae13261f990da2f268335f86791c643c82a905f0b94b2ec83e89ba20` |
-| [Bản nộp](main-submit-fin15-r2.pdf) | `d912c8966f32aab2054e3b16e99545def9e398a72efa157b952c8116c5b4a4d6` |
+| [Bản đầy đủ](paper.pdf) | `adc7d4fbae13261f990da2f268335f86791c643c82a905f0b94b2ec83e89ba20` |
+| [Bản nộp](paper-submit.pdf) | `d912c8966f32aab2054e3b16e99545def9e398a72efa157b952c8116c5b4a4d6` |
 
-Bản FIN15 ban đầu gồm [bản đầy đủ](main-fin15.pdf) và [bản nộp](main-submit-fin15.pdf). [SHA-256 của bản ban đầu](../../scripts/thesis_docs/source-map.json)
+Hai PDF FIN15 ban đầu có trong [kho lưu tại commit 28a22bd1](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading/tree/28a22bd183ba5462b3876fc702201e3634f8eb88/outputs/paper).
 
 Bản 44 trang trước FIN15 có [manifest](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/outputs/paper/manifest.json)
 và [kết quả kiểm tra liên kết](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/outputs/paper/reference_links.json).

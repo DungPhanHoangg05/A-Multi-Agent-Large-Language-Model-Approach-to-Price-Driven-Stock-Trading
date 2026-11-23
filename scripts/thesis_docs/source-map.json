@@ -2436,7 +2436,7 @@
   },
   "fin15_outputs": {
     "pdf": {
-      "path": "outputs/thesis/thesis-fin15.pdf",
+      "path": "outputs/thesis/thesis.pdf",
       "bytes": 5488219,
       "sha256": "72da6ba33c4e347090ecd4b008ea40db18a7b6809fb4fc778c4204ff84fcf31e"
     },
@@ -2450,17 +2450,18 @@
     "source_commit": "6bc661987ea80ce6c7fe44c2e094016f4a45afb9",
     "manuscript_date": "2026-11-21",
     "thesis_source_commit": "6bc661987ea80ce6c7fe44c2e094016f4a45afb9",
+    "paper_source_commit": "282812aaefeabeef520af48968a6198c43699a89",
     "paper_pdfs": {
       "paper": {
-        "path": "outputs/paper/main-fin15.pdf",
-        "bytes": 715181,
-        "sha256": "f79b1f437bc6954e897ef4caa877540b7273bee567b452dbbf4cfef4abbdf4f9",
+        "path": "outputs/paper/paper.pdf",
+        "bytes": 718193,
+        "sha256": "adc7d4fbae13261f990da2f268335f86791c643c82a905f0b94b2ec83e89ba20",
         "pages": 29
       },
       "paper_submit": {
-        "path": "outputs/paper/main-submit-fin15.pdf",
-        "bytes": 686888,
-        "sha256": "b17ba1daa8f53d74256d0cff957f18b6c79feb1a1ece3d9fe065e95ac7b8220d",
+        "path": "outputs/paper/paper-submit.pdf",
+        "bytes": 689705,
+        "sha256": "d912c8966f32aab2054e3b16e99545def9e398a72efa157b952c8116c5b4a4d6",
         "pages": 29
       }
     },

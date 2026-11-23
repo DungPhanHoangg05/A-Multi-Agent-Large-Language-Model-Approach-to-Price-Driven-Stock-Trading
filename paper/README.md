@@ -30,8 +30,8 @@ pdflatex -halt-on-error main.tex
 ```
 
 Đổi `main` thành `main_submit` để biên dịch bản nộp.
-PDF hiện hành gồm [bản đầy đủ](../outputs/paper/main-fin15-r2.pdf) và
-[bản nộp](../outputs/paper/main-submit-fin15-r2.pdf). [Commit nguồn, SHA-256 và các bản trước](../outputs/paper/README.md).
+PDF hiện hành gồm [bản đầy đủ](../outputs/paper/paper.pdf) và
+[bản nộp](../outputs/paper/paper-submit.pdf). [Commit nguồn, SHA-256 và các bản trước](../outputs/paper/README.md).
 
 ## Nguồn và tái lập
 
