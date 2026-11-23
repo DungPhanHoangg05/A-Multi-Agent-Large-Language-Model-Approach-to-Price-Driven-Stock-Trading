@@ -123,15 +123,23 @@ Point-in-time inputs and execution follow these boundaries.
 
 ## Installation
 
-Use a full Git clone. The serving profiles compare frozen inputs and model code
-against historical Git objects during preflight. Run commands from the repository
-root. Python **3.13.5** is pinned in
+Clone the `develop` branch with its full history. It contains the demo and the
+FIN15 evidence. The serving profiles compare frozen inputs and model code
+against historical Git objects during preflight.
+
+```powershell
+git clone --branch develop https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading.git stock-trading
+cd stock-trading
+```
+
+Run commands from the repository root. Python **3.13.5** is pinned in
 `.python-version`. On Windows with the Python launcher installed,
 
 ```powershell
 py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -c "import tiktoken; tiktoken.get_encoding('o200k_base')"
 ```
 
 Verify that the selected interpreter reports Python 3.13.5. Dependencies include
