@@ -12,6 +12,7 @@ from urllib.parse import urlsplit
 
 from core.finalize_news import VERSION as SNAPSHOT_SCHEMA, ZONE, publication, timestamp
 from core.serving_live.cafef_related import ALIASES, MAX_RELATED, live_directory, mentioned, select_related
+from core.serving_live.catalog import stock_symbol
 from core.unified_contracts import digest
 
 VERSION = 'cafef_live_sentiment_v1'
@@ -48,7 +49,7 @@ def _collect_news(symbol: str, as_of: datetime, fetch: Callable[[str], Any] | No
     from agents.sentiment_agent import CAFEF_BASE_URL, _get, _get_company_keywords, _is_article_relevant
     from agents.sentiment_agent import _parse_listing_page
 
-    if not re.fullmatch(r'[A-Z]{3}', symbol) or as_of.tzinfo is None:
+    if not stock_symbol(symbol) or as_of.tzinfo is None:
         raise ValueError('Mã hoặc giờ cutoff tin CafeF không hợp lệ')
     fetch = fetch or (lambda url: _get(url, retries=1))
     as_of = as_of.astimezone(ZONE)

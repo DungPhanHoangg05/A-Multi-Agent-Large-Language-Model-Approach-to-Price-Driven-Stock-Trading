@@ -12,6 +12,7 @@ from core.finalize_bank_signals import check_bindings
 from core.finalize_price_acceptance import ACCEPTANCE
 from core.finalize_price_audit import visible_event_dates
 from core.finalize_serving_profile import LIVE_CAPTURE, RECEIPT, RECEIPT_SHA256, SCIENTIFIC_STATUS, UNAVAILABLE_OUTCOME, VERSION
+from core.serving_live.catalog import CATALOG, MIN_BARS, ORIGIN, stock_symbol
 from core.serving_runtime.resources import END, MAX_POINTS, START
 from core.unified_contracts import checksum, digest
 from core.unified_protocol import binding, read
@@ -44,12 +45,19 @@ class FinalizedResources:
         self.calendar = pd.read_csv(root/self.acceptance["calendar"], parse_dates=["Datetime"])
         if live is not None:
             self._validate_live()
+            if self.catalog:
+                self.version += '/catalog_v1'
             if 'live_news' in live:
                 from core.serving_live.cafef_news import CapturedNews
                 self.live_news = CapturedNews(live)
                 self.version += '/' + live['live_news']['version']
             elif live['news']:
                 raise ValueError('Bản ghi raw live cũ không có hợp đồng tin CafeF')
+
+    @property
+    def catalog(self) -> bool:
+        """Phân biệt mã danh mục live và mã có nguồn giá/selector đã khóa."""
+        return self.live is not None and self.live['symbol'] not in self.sources
 
     def verify(self) -> None:
         """Dừng trước transport khi bất kỳ nguồn/receipt đã bind đổi byte."""
@@ -85,7 +93,9 @@ class FinalizedResources:
         from core.execution_prices import validate_raw_frame
         from core.serving_live.snapshots import ZONE
         live = self.live
-        if (live["version"] != LIVE_CAPTURE or digest(live) != self.snapshot_id or live["symbol"] not in self.sources
+        scope = CATALOG if self.catalog else None
+        if (live["version"] != LIVE_CAPTURE or digest(live) != self.snapshot_id or not stock_symbol(live["symbol"])
+                or live.get('support_scope') != scope
                 or live["source"] != "VCI_RAW_EXECUTION_FIELDS" or live["price_unit"] != "thousand_VND"
                 or "chart_timeframe" in live or any(not live["source_receipts"][kind] or
                     any(not checksum(page["response_sha256"]) for page in live["source_receipts"][kind])
@@ -101,7 +111,7 @@ class FinalizedResources:
         validate_raw_frame(stock)
         if (cutoff > closed or (pd.Timestamp(local.date())-cutoff).days > 10 or live["cutoff"] < START
                 or stock.Datetime.iloc[-1] != cutoff or market.Datetime.iloc[-1] != cutoff
-                or len(stock) < 600 or not pd.DatetimeIndex(stock.Datetime).isin(market.Datetime).all()
+                or len(stock) < (MIN_BARS if self.catalog else 600) or not pd.DatetimeIndex(stock.Datetime).isin(market.Datetime).all()
                 or not np.isfinite(stock.Reference).all() or (stock.Reference <= 0).any()):
             raise ValueError("Live thiếu phiên hoàn tất/tham chiếu hoặc phủ khác cutoff")
 
@@ -111,9 +121,12 @@ class FinalizedResources:
             expected = pinned.loc[pinned.Datetime <= end, columns].reset_index(drop=True)
             return len(actual) == len(expected) and bool(actual.eq(expected).all(axis=None))
 
-        accepted = self.stock(live["symbol"])
-        if (not overlap(stock, accepted, ["Datetime", "Open", "High", "Low", "Close", "Volume", "Reference"])
-                or not overlap(market, self.calendar, ["Datetime", "Close"])):
+        if not overlap(market, self.calendar, ["Datetime", "Close"]):
+            raise ValueError("Live đổi origin, lịch hoặc giá overlap đã khóa")
+        if self.catalog:
+            if stock.Datetime.iloc[0] < pd.Timestamp(ORIGIN) or 'live_news' not in live:
+                raise ValueError('Capture danh mục live sai nguồn hoặc thiếu snapshot tin')
+        elif not overlap(stock, self.stock(live["symbol"]), ["Datetime", "Open", "High", "Low", "Close", "Volume", "Reference"]):
             raise ValueError("Live đổi origin, lịch hoặc giá overlap đã khóa")
 
     def document(self) -> dict:
@@ -133,6 +146,8 @@ class FinalizedResources:
                            calendar_policy=live["calendar_policy"], source=live["source"])
             if 'live_news' in live:
                 support['live_news'] = dict(live['live_news'])
+            if self.catalog:
+                support['support_scope'] = CATALOG
         resources = {role: {"version": VERSION + "/" + role,
                      "sha256": digest({"role": role, "bindings": bindings})}
                      for role in ("prices", "news", "calendar", "bank", "regime", "scaler", "context", "student", "teacher", "facts")}
@@ -157,14 +172,14 @@ class FinalizedResources:
                     or request["mode"] not in ("analyze", "compare") or "chart_timeframe" in request):
                 raise ValueError("Form live khác capture daily")
             points = [{"id": live["symbol"]+"-"+live["cutoff"], "symbol": live["symbol"], "cutoff": live["cutoff"],
-                       "fold": "finalize_live_daily", "quality": "FINALIZE_LIVE_RAW_TRANSFER"}]
+                       "fold": "finalize_live_daily", "quality": CATALOG if self.catalog else "FINALIZE_LIVE_RAW_TRANSFER"}]
         frames = {s: self.stock(s) for s in request["symbols"]} if self.live is None else {self.live["symbol"]: self.live_frame}
         calendar = pd.DatetimeIndex((self.calendar if self.live is None else self.live_market).Datetime)
         for point in points:
             symbol, cutoff = point["symbol"], point["cutoff"]
             prefix = raw_point_in_time_snapshot(frames[symbol], cutoff)
-            if (symbol not in support["symbols"] or len(prefix) < 600
-                    or key_at(prefix, calendar, cutoff)["reason"] is not None):
+            if (symbol not in support["symbols"] or len(prefix) < (MIN_BARS if self.catalog else 600)
+                    or (not self.catalog and key_at(prefix, calendar, cutoff)["reason"] is not None)):
                 raise ValueError("Prefix FIN08 thiếu 600 nến hoặc lịch 45 phiên")
         return points
 

@@ -12,7 +12,7 @@
 <body>
 {% include 'shared/preferences.html' %}
 <header class="topbar"><a class="brand" href="/?lang={{ LANG }}">QuantAgent <span>VN</span></a>
-  <nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ E.analysis }}</a><a href="/output?lang={{ LANG }}">{{ E.output }}</a><a href="/backtest?lang={{ LANG }}">{{ E.backtest }}</a><a aria-current="page" href="/experiments?lang={{ LANG }}">{{ E.research }}</a></nav>
+  <nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ E.analysis }}</a>{% include 'shared/compare_link.html' %}<a href="/output?lang={{ LANG }}">{{ E.output }}</a><a href="/backtest?lang={{ LANG }}">{{ E.backtest }}</a><a aria-current="page" href="/experiments?lang={{ LANG }}">{{ E.research }}</a></nav>
 
 </header>
 <main>

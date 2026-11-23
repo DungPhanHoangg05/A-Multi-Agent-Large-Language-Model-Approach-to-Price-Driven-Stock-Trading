@@ -1,0 +1,134 @@
+{% set pairs = {
+  'title': [
+    "So sánh phiên bản",
+    "Compare versions"
+  ],
+  'intro': [
+    "Chọn hai phương pháp cho cùng mã và cùng một phiên. Hai kết quả dùng chung báo cáo đầu vào.",
+    "Select two methods for the same stock and session. Both outputs share the same input reports."
+  ],
+  'first': [
+    "Phiên bản thứ nhất",
+    "First version"
+  ],
+  'second': [
+    "Phiên bản thứ hai",
+    "Second version"
+  ],
+  'source_mode': [
+    "Dữ liệu đánh giá",
+    "Evaluation data"
+  ],
+  'live_mode': [
+    "Phiên mới nhất",
+    "Latest completed session"
+  ],
+  'history_mode': [
+    "Một phiên lịch sử",
+    "One historical session"
+  ],
+  'run_pair': [
+    "Chạy so sánh",
+    "Run comparison"
+  ],
+  'distinct': [
+    "Hãy chọn hai phiên bản khác nhau.",
+    "Select two different versions."
+  ],
+  'invalid_date': [
+    "Chọn một phiên trong khoảng ngày được hỗ trợ.",
+    "Select a session within the supported dates."
+  ],
+  'new_pair': [
+    "So sánh cặp khác",
+    "Compare another pair"
+  ],
+  'view_details': [
+    "Chi tiết lượt chạy",
+    "Run details"
+  ],
+  'open_report': [
+    "Mở báo cáo đầy đủ",
+    "Open full report"
+  ],
+  'overview': [
+    "Tổng quan so sánh",
+    "Comparison overview"
+  ],
+  'asset_unavailable': [
+    "Mã này có thể chạy live. Dữ liệu đánh giá lịch sử đã khóa có sẵn cho các mã",
+    "This stock is available in live mode. The frozen historical evaluation covers"
+  ],
+  'live_outcome_note': [
+    "Phiên mới nhất dùng để so sánh đầu ra. P&L chỉ có khi chọn một phiên lịch sử có kết quả đã xác minh.",
+    "Use the latest session to compare outputs. P&L is available for historical sessions with verified outcomes."
+  ],
+  'history_outcome_note': [
+    "P&L lịch sử đã trừ phí và trượt giá theo hợp đồng T+2.5.",
+    "Historical P&L includes fees and slippage under the T+2.5 execution contract."
+  ],
+  'same_decision': [
+    "Cùng quyết định cuối",
+    "Same final decision"
+  ],
+  'different_decisions': [
+    "Khác quyết định cuối",
+    "Different final decisions"
+  ],
+  'same_effective': [
+    "Cả hai dùng cùng phương pháp thực thi.",
+    "Both outputs use the same effective method."
+  ],
+  'delta_return': [
+    "Chênh lệch P&L thứ hai trừ thứ nhất",
+    "P&L difference, second minus first"
+  ],
+  'percentage_points': [
+    "điểm %",
+    "percentage points"
+  ],
+  'net_return': [
+    "P&L ròng",
+    "Net P&L"
+  ],
+  'no_outcome': [
+    "Chưa có kết quả thực thi đã xác minh.",
+    "No verified execution outcome is available."
+  ],
+  'no_own_proposal': [
+    "Không có đề xuất riêng",
+    "No separate proposal"
+  ],
+  'same_behavior': [
+    "LONG là mở vị thế mua. SHORT là giữ tiền mặt.",
+    "LONG opens a buy position. SHORT holds cash."
+  ],
+  'reasons_unavailable': [
+    "Chưa có lập luận đã lưu cho đầu ra này.",
+    "No saved rationale is available for this output."
+  ],
+  'fallback': [
+    "Dùng kết quả từ phương pháp thực thi ghi bên trên.",
+    "Uses the result from the effective method shown above."
+  ],
+  'reason_NO_SAME_SYMBOL_FROZEN_BANK_OOD': [
+    "Chưa có kho lịch sử phù hợp cho mã này.",
+    "No suitable historical bank is available for this stock."
+  ],
+  'reason_NO_SAME_REGIME_MATURE_BANK': [
+    "Thiếu chu kỳ lịch sử cùng chế độ thị trường.",
+    "No closed historical cycles match the current market regime."
+  ],
+  'reason_INSUFFICIENT_EVIDENCE': [
+    "Bằng chứng lịch sử chưa đủ điều kiện.",
+    "Historical evidence did not meet the eligibility criteria."
+  ],
+  'reason_QUERY_OHLCV_KEY_UNAVAILABLE': [
+    "Thiếu dữ kiện giá để truy xuất lịch sử.",
+    "Price data for historical retrieval is unavailable."
+  ]
+} %}
+{% set messages = dict(A) %}
+{% for key, pair in pairs.items() %}
+{% set _ = messages.update({key: pair[1 if LANG == "en" else 0]}) %}
+{% endfor %}

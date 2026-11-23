@@ -64,6 +64,7 @@ def registry_document() -> dict[str, Any]:
             "released_date_ranges": [{"start_date": "2026-07-01", "end_date": "2026-09-23"}],
             "resource_version": "serving_asof_q3_2026_v1", "max_points": 30, "live_latest_supported": True,
             "live": {"version": "serving_live_daily_v1", "api": "/api/serving/live/v1",
+                     "symbol_scope": "LIVE_STOCK_CATALOG; FROZEN_ASOF_SCOPE_UNCHANGED",
                      "timeframes": ["1d"], "languages": ["vi","en"], "generation_languages":["vi"], "modes": ["analyze", "compare"],
                      "session_policy": "LATEST_COMPLETED_DAILY_SESSION_AFTER_15_30_ASIA_HO_CHI_MINH",
                      "snapshot_policy": "CAPTURE_ONCE_PER_OWNER; NO_REFETCH_ON_RESUME",

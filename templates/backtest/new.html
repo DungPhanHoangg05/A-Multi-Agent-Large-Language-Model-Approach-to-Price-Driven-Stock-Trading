@@ -7,7 +7,7 @@
 {% include 'shared/preferences_head.html' %}
 </head><body class="serving-result">
 {% include 'shared/preferences.html' %}
-<header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/demo?lang={{ LANG }}">{{ B.analysis }}</a><a href="/output?lang={{ LANG }}">{{ B.output }}</a><a aria-current="page" href="/backtest?lang={{ LANG }}">{{ B.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ B.research }}</a></nav></header>
+<header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/demo?lang={{ LANG }}">{{ B.analysis }}</a>{% include 'shared/compare_link.html' %}<a href="/output?lang={{ LANG }}">{{ B.output }}</a><a aria-current="page" href="/backtest?lang={{ LANG }}">{{ B.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ B.research }}</a></nav></header>
 <main class="serving-ui"><h1>{{ B.title }}</h1><p class="serving-notice">{{ B.domain_note }} {{ B.quota_note }}</p>
 <details class="serving-panel" id="bt-config-panel"{% if not request.args.get('run_id') %} open{% endif %}><summary>{{ B.settings }}</summary>
   <form id="bt-form" data-preserve-locale>

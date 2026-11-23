@@ -8,7 +8,7 @@ from typing import Any
 import pandas as pd
 
 from core.causal_alpha import frame_document
-from core.causal_bridge import REPAIRED_NATIVE_PROFILE, decision_payload
+from core.causal_bridge import REPAIRED_NATIVE_PROFILE, bind_snapshot, decision_payload
 from core.execution_prices import raw_point_in_time_snapshot
 from core.finalize_bank_resources import HMM, SOURCE
 from core.finalize_context import FinalizedProviders, RawFrozenSelector
@@ -22,8 +22,9 @@ from core.pit_price_features import extract_pit_price_features
 from core.regime_detector import MarketRegimeDetector, training_data_hash
 from core.serving_runtime.providers import AsOfProvider, NUMERIC_LOCK
 from core.serving_runtime.resources import START, decision_config
+from core.serving_live.catalog import MIN_BARS, CatalogAlpha, CatalogPrior
 from core.ui_presentation.live import LivePresentation
-from core.unified_contracts import SharedSnapshot, digest
+from core.unified_contracts import REPORTS, SharedSnapshot, digest
 from core.variant_registry import execution_order
 
 
@@ -32,6 +33,7 @@ class ServingProjection(FinalizedProviders):
     def __init__(self, resources: FinalizedResources, points: list[dict], models: dict) -> None:
         super().__init__(resources.root)
         self.decision = decision_config(models)
+        self.catalog = resources.catalog
         archived_fit = self.market.loc[self.market.Datetime <= pd.Timestamp("2022-12-30")]
         self.hmm = MarketRegimeDetector.load(resources.root/HMM, expected_training_hash=training_data_hash(archived_fit))
         ledger = self.ledgers
@@ -47,12 +49,20 @@ class ServingProjection(FinalizedProviders):
             ledger = {**ledger, symbol: live["events"]}
             # Transfer chỉ mở cửa sổ query. Origin, giá fit, top5, orientation,
             # ngưỡng và lựa chọn của selector FIN06 đều qua kiểm hash gốc.
-            artifact = self.selector_docs[symbol]
-            reserved = {p["cutoff"] for p in self.points.values() if p["symbol"] == symbol}
-            transfer = RawFrozenSelector(artifact, reserved)
-            transfer._artifact["payload"]["schedule"]["test_end"] = max(cutoff, artifact["payload"]["schedule"]["test_end"])
-            transfer._artifact["sha256"] = digest({"version": VERSION + "/live_selector_transfer_v1",
-                "parent": artifact["sha256"], "capture": resources.snapshot_id, "cutoff": cutoff})
+            if self.catalog:
+                from core.unified_asset_providers import StudyScope
+                self.scope = StudyScope(self.root, source=SOURCE)
+                self.scope.symbols = (*self.scope.symbols, symbol)
+                self.context.data.scope = self.scope
+                self.context.ledgers = ledger
+                transfer = CatalogAlpha(self.selector_docs)
+            else:
+                artifact = self.selector_docs[symbol]
+                reserved = {p["cutoff"] for p in self.points.values() if p["symbol"] == symbol}
+                transfer = RawFrozenSelector(artifact, reserved)
+                transfer._artifact["payload"]["schedule"]["test_end"] = max(cutoff, artifact["payload"]["schedule"]["test_end"])
+                transfer._artifact["sha256"] = digest({"version": VERSION + "/live_selector_transfer_v1",
+                    "parent": artifact["sha256"], "capture": resources.snapshot_id, "cutoff": cutoff})
             self._selectors[symbol] = transfer
             context_data = self.context.data
             # Chỉ TaskBuilder cần metadata dự kiến t+1/t+3; HMM/khóa T/P
@@ -65,6 +75,8 @@ class ServingProjection(FinalizedProviders):
         for point in points:
             self.add_point(point, ledger, live is not None)
         self.prior = self._prior()
+        if self.catalog:
+            self.prior = CatalogPrior(self.prior)
 
     def add_point(self, point: dict, ledgers: dict, live: bool) -> None:
         """Dùng cùng key_at, price_feature, HMM đã pin và khóa hash tin của điểm."""
@@ -76,12 +88,13 @@ class ServingProjection(FinalizedProviders):
         feature = extract_pit_price_features(features, [{"exrightDate": day} for day in visible],
                                              self.calendar, cutoff, source=SOURCE)
         regime = self.hmm.classify_regime(self.market.loc[self.market.Datetime <= cutoff].copy(), cutoff)
-        if (len(prefix) < 600 or regime["feature_end_date"] > cutoff
-                or key_at(prefix, self.calendar, cutoff)["reason"] is not None):
+        key = key_at(prefix, self.calendar, cutoff)
+        if (len(prefix) < (MIN_BARS if self.catalog else 600) or regime["feature_end_date"] > cutoff
+                or (not self.catalog and key["reason"] is not None)):
             raise ValueError("Preparation FIN08 thiếu prefix hoặc regime tại cutoff")
         projection = {**point, "regime": regime["regime_name"], "feature": feature,
-            "retrieval_key": key_at(prefix, self.calendar, cutoff), "price_prefix_sha256": digest(frame_document(prefix)),
-            "selector_sha256": self.selector_docs[symbol]["sha256"],
+            "retrieval_key": key, "price_prefix_sha256": digest(frame_document(prefix)),
+            "selector_sha256": self._selectors[symbol].sha256 if self.catalog else self.selector_docs[symbol]["sha256"],
             "news_snapshot_sha256": self.news.snapshot(symbol, cutoff)["sha256"]}
         if not live and identifier in self.points:
             existing = self.points[identifier]
@@ -91,6 +104,28 @@ class ServingProjection(FinalizedProviders):
         calendar = self.context.data.calendar
         planned_exit = str(calendar[calendar.get_loc(pd.Timestamp(cutoff)) + 3].date())
         self.context.data.by_day[(symbol, cutoff)] = {"id": identifier, "exit_date": planned_exit}
+
+    def bind(self, snapshot: SharedSnapshot) -> SharedSnapshot:
+        """Giữ xác minh nguồn và bỏ Alpha có lý do khi mã live mới thiếu lịch sử."""
+        if not self.catalog:
+            return super().bind(snapshot)
+        doc = snapshot.document()
+        point = self.points[doc['point']['id']]
+        symbol, cutoff = point['symbol'], point['cutoff']
+        prefix = raw_point_in_time_snapshot(self.frames[symbol], cutoff)
+        source = self.source_hashes[symbol]
+        selector = self._selectors[symbol]
+        if (any(doc['point'][k] != point[k] for k in ('symbol', 'cutoff', 'fold'))
+                or doc['provenance']['source_sha256'] != source
+                or digest(frame_document(prefix)) != point['price_prefix_sha256']
+                or doc['payload']['price_prefix'] != frame_document(prefix.tail(600))
+                or selector.sha256 != point['selector_sha256']):
+            raise ValueError('Snapshot danh mục live khác nguồn đã khóa')
+        if selector.predict(prefix, cutoff) is None:
+            if 'causal_alpha' in doc['payload']:
+                raise ValueError('Snapshot chứa Alpha không khả dụng')
+            return snapshot
+        return bind_snapshot(snapshot, selector, prefix, source)
 
 
 class FinalizedProvider(LivePresentation, AsOfProvider):
@@ -125,7 +160,8 @@ class FinalizedProvider(LivePresentation, AsOfProvider):
             if symbol not in projection._selectors:
                 reserved = {p["cutoff"] for p in projection.points.values() if p["symbol"] == symbol}
                 projection._selectors[symbol] = RawFrozenSelector(projection.selector_docs[symbol], reserved)
-            self._alpha[key] = projection._selectors[symbol].predict(self.prefix(point), cutoff)
+            self._alpha[key] = projection._selectors[symbol].predict(self.prefix(point), cutoff) or {
+                'factors': [], 'report': 'Chưa đủ dữ liệu để tính bộ Alpha chuyển giao. Tín hiệu Alpha không khả dụng.'}
         return deepcopy(self._alpha[key])
 
     def validate_point(self, point: dict) -> None:
@@ -153,14 +189,27 @@ class FinalizedProvider(LivePresentation, AsOfProvider):
             return super().report_pair(role, state, output, display)
         from utils.i18n import signal_label
         lines = [f"{r['alpha_id']}: {r['value']:+.6f}; {signal_label(r['signal'], 'en')}" for r in output["alpha_factors"]]
-        return {"vi": output["alpha_report"], "en": "Causal alpha from the frozen five-factor selector.\n" + "\n".join(lines)}
+        intro = 'Causal alpha from the frozen five-factor selector.'
+        if self.resources.catalog:
+            intro = ('Live alpha uses factors transferred from the frozen selectors.' if lines else
+                     'Insufficient data for transferred alpha. Alpha signals are unavailable.')
+        return {"vi": output["alpha_report"], "en": "\n".join([intro, *lines])}
 
     def snapshot(self, point: dict, state: dict) -> dict:
         """Seal snapshot đã ràng buộc giá/source và projection trước mọi branch."""
         from core.unified_methods import snapshot_from_graph
         prefix = self.prefix(point)
         source = self.projection.source_hashes[point["symbol"]]
-        original = snapshot_from_graph(point, 0, state, prefix.tail(600), source, [])
+        if self.resources.catalog and len(prefix) < 600:
+            from utils.json_util import to_json_compatible
+            keys = (*REPORTS, 'stock_name', 'as_of_date', 'time_frame', 'language', 'is_backtest',
+                    'pattern_image', 'trend_image', 'alpha_factors', 'sentiment_data')
+            payload = to_json_compatible({**{key: state[key] for key in keys if key in state},
+                                          'price_prefix': frame_document(prefix)})
+            original = SharedSnapshot.create(point, 0, payload, {'source_sha256': source,
+                'upstream_sha256': digest(payload), 'price_end': point['cutoff'], 'news_dates': []})
+        else:
+            original = snapshot_from_graph(point, 0, state, prefix.tail(600), source, [])
         return self.projection.bind(original).document()
 
     def adapter(self, snapshot: SharedSnapshot) -> Any:
@@ -179,11 +228,11 @@ class FinalizedProvider(LivePresentation, AsOfProvider):
             from core.unified_methods import native_request
             bound = adapter.bind_point(snapshot)
             adapter.verify_dependencies(variant, bound, dependencies, repeat)
-            shared = decision_payload(bound, variant, decision_profile=REPAIRED_NATIVE_PROFILE)
+            alpha = bound.document()['payload'].get('causal_alpha')
+            shared = decision_payload(bound, variant, decision_profile=REPAIRED_NATIVE_PROFILE if alpha else None)
             request = native_request(shared, {"decision": self.config}, repeat)
-            alpha = bound.document()["payload"]["causal_alpha"]["projection"]
             return {"request": request, "trace": {"fallback": False, "decision_profile": REPAIRED_NATIVE_PROFILE,
-                    "alpha_projection_sha256": alpha["projection_sha256"]}, "aux": {}}
+                    "alpha_projection_sha256": alpha['projection']['projection_sha256'] if alpha else None}, "aux": {}}
 
     def validate_bound(self, variant: str, snapshot: SharedSnapshot, dependencies: dict, repeat: int, prepared: dict) -> None:
         """Cold replay tái kiểm đúng bộ dependency/canonical request của profile mới."""
@@ -192,6 +241,14 @@ class FinalizedProvider(LivePresentation, AsOfProvider):
                 self.adapter(snapshot).validate(variant, snapshot, dependencies, repeat, prepared)
             elif self.prepare(variant, snapshot, dependencies, repeat) != prepared:
                 raise ValueError("Native causal khác preparation sealed")
+
+    def wire_body(self, request: dict) -> dict:
+        """Nhắc đối chiếu facts trên wire live của các nhánh anchored."""
+        from core.ui_presentation.wire import decision_body
+        from core.unified_execution_transport import body_for
+        if self.resources.live is None:
+            return super().wire_body(request)
+        return decision_body(body_for(request), ground_facts=True)
 
     def resolve_bound(self, variant: str, snapshot: SharedSnapshot, dependencies: dict, repeat: int,
                       prepared: dict, raw: dict | None) -> dict:

@@ -19,9 +19,10 @@ export function renderer(config) {
     node.append(list);
     const detail = data.policy_details?.[`forecast/${row.point_id}/r${repeat}/${id}`];
     node.append(element('p',text.reason+': '+[row.fallback_reason,row.bypass_reason,detail?.policy?.reason].filter(Boolean).filter((v,i,a) => a.indexOf(v) === i).join(' · ')));
-    const reply = config.language === 'en' ? detail?.display_en ?? detail?.raw_reply : detail?.raw_reply;
-    const explanations = [['justification',text.decision_rationale],['evidence_for',text.decision_support],
-      ['evidence_against',text.decision_opposition]].filter(([field]) => typeof reply?.[field] === 'string' && reply[field]);
+    const verified = detail?.decision_display?.[config.language];
+    const reply = verified ?? (config.language === 'en' ? detail?.display_en ?? detail?.raw_reply : detail?.raw_reply);
+    const explanations = [['justification',text.decision_rationale],['evidence_for',verified ? text.decision_verified_facts : text.decision_support],
+      ['evidence_against',verified ? text.decision_historical_utility : text.decision_opposition]].filter(([field]) => typeof reply?.[field] === 'string' && reply[field]);
     if (explanations.length) {
       const details = element('details'); details.append(element('summary',text.details));
       const list = element('dl');
@@ -80,7 +81,8 @@ export function renderer(config) {
     const source = request.chart_timeframe ? text.timeframe_source : request.data_source === 'live' ? text.live_source : text.asof_source;
     byId('job-meta').textContent = `${source} · ${request.symbols.join(', ')} · ${request.start_date} · ${request.chart_timeframe ?? request.timeframe} · ${request.language.toUpperCase()} · ${data.run_id}`;
     if (data.live_input) byId('job-meta').textContent += ` · ${text.live_captured}: ${data.live_input.captured_at}`;
-    byId('job-profile').textContent = profileText(request.version, config.language);
+    byId('job-profile').textContent = data.live_input?.support_scope === 'LIVE_CATALOG_EXPLORATORY' ?
+      text.catalog_live : profileText(request.version, config.language);
     const fullReport = byId('full-report');
     if (fullReport) {
       const daily = request.chart_timeframe === '1d' || (request.version === FINALIZED_PROFILE && !request.chart_timeframe && request.timeframe === '1d');

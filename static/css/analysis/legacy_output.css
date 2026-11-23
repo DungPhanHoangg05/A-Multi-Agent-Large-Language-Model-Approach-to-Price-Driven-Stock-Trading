@@ -1122,3 +1122,8 @@
                 padding: 1rem;
             }
         }
+.report-navigation {display:flex;align-items:center;flex-wrap:wrap;gap:.65rem 1rem}
+.report-navigation > a:not(.btn-back) {color:inherit}
+.report-switcher {display:flex;flex-wrap:wrap;gap:.55rem}
+.report-switcher a {display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:8px;color:inherit;padding:.45rem .75rem;text-decoration:none;min-height:40px}
+.report-switcher a[aria-current] {font-weight:700;text-decoration:underline;text-underline-offset:.2rem}

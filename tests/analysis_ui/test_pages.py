@@ -6,8 +6,9 @@ import json
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT),str(ROOT/'tests/serving_runtime')]
@@ -84,6 +85,70 @@ class AnalysisPages(unittest.TestCase):
         self.assertIn('js/analysis/result.js',raw)
         self.assertNotIn('legacy_output.js',raw); self.assertNotIn('/api/images/',raw)
         self.assertEqual(json.loads(Page(raw).config)['messages']['metric'],'No outcome yet · NOT_EVALUATED')
+        self.assertEqual(self.senders,[])
+    def test_comparison_tab_form_is_bilingual_safe_and_read_only(self) -> None:
+        assets = [{'code':'HPG', 'name':'Hòa Phát <fixture>', 'exchange':'HOSE'},
+                  {'code':'FPT', 'name':'FPT', 'exchange':'HOSE'}]
+        for lang, title in (('vi', 'So sánh phiên bản'), ('en', 'Compare versions')):
+            with patch.object(self.web.analyzer, '_stock_list', assets), self.client.get('/compare?lang='+lang) as response:
+                self.assertEqual(response.status_code,200)
+                raw=response.get_data(as_text=True)
+            self.assertIn(f'aria-current="page">{title}</a>',raw)
+            self.assertIn('value="HPG">HPG · Hòa Phát &lt;fixture&gt; (HOSE)', raw)
+            self.assertEqual(raw.count('value="FPT"'), 1)
+            for selector in ('compare-first','compare-second'):
+                options=raw.split(f'id="{selector}"',1)[1].split('</select>',1)[0]
+                self.assertEqual(options.count('<option value='),len(MAIN_IDS))
+            self.assertIn('id="compare-date"',raw)
+            self.assertIn('/static/js/analysis/comparison.js',raw)
+            for url in ('/demo','/backtest','/experiments','/output'):
+                with self.client.get(url+'?lang='+lang) as response:
+                    self.assertIn('/compare?lang='+lang,response.get_data(as_text=True))
+        attack='</script><img src=x onerror=attack()>'
+        raw=self.client.get('/compare',query_string={'run_id':attack,'source':'history'}).get_data(as_text=True)
+        self.assertNotIn(attack,raw)
+        self.assertIn('id="compare-cards"',raw)
+        self.assertIn('"source": "history"',raw)
+        self.assertEqual(self.senders,[])
+
+    def test_comparison_switches_between_owned_full_reports(self) -> None:
+        from fixture import fixture
+        from itsdangerous import URLSafeTimedSerializer
+        from core.finalize_serving_profile import VERSION
+        from core.unified_contracts import digest
+        from utils.serving_web import COOKIE
+
+        data = fixture()['data']
+        methods = ['original_fix', 'MT_BICL']
+        data['requested_ids'] = methods
+        data['identity']['request'].update(version=VERSION, variant_ids=methods)
+        mt = next(row for row in data['rows'] if row['requested_id']=='MT_BICL')
+        mt.update(final_prediction='LONG', final_action='LONG')
+        identifier = 'owner-of-comparison-fixture'
+        signer = URLSafeTimedSerializer(self.service.quota.secret(), salt='serving-owner-v1')
+        self.client.set_cookie(COOKIE, signer.dumps(identifier))
+        for source in ('live', 'history'):
+            with self.subTest(source=source):
+                data['identity']['request'].update(mode='compare' if source=='live' else 'backtest', data_source='live' if source=='live' else None)
+                path = f"/compare?run_id={data['run_id']}&source={source}"
+                reader = Mock(return_value=data)
+                with patch.dict(self.web.app.config, {'SERVING_LIVE_SERVICE':SimpleNamespace(result=reader)}), patch.object(self.service, 'result', reader):
+                    with self.client.get(path+'&report=original_fix&lang=vi') as original, self.client.get(path+'&report=MT_BICL&lang=en') as upgraded:
+                        self.assertEqual(original.status_code,200)
+                        self.assertEqual(upgraded.status_code,200)
+                        self.assertEqual(original.headers['Cache-Control'],'no-store')
+                        original_html, upgraded_html = original.get_data(as_text=True), upgraded.get_data(as_text=True)
+                        self.assertIn('class="report-switcher"', original_html)
+                        self.assertIn('aria-current="page">Hệ gốc</a>', original_html)
+                        self.assertIn('aria-current="page">MT-BICL</a>', upgraded_html)
+                        self.assertIn('<div class="decision-text">SHORT</div>', original_html)
+                        self.assertIn('<div class="decision-text">LONG</div>', upgraded_html)
+                        self.assertIn('&amp;report=original_fix&amp;lang=en', upgraded_html)
+                        api = '/api/serving/live/v1/jobs/' if source=='live' else '/api/serving/v1/jobs/'
+                        self.assertIn(api+data['run_id']+'/export', upgraded_html)
+                    reader.assert_called_with(data['run_id'],digest(identifier))
+                    self.assertEqual(self.client.get(path+'&report=Fact_Anchor').status_code,404)
+                    self.assertEqual(self.web.app.test_client().get(path+'&report=MT_BICL').status_code,404)
         self.assertEqual(self.senders,[])
     def test_untrusted_query_is_json_escaped_and_empty_id_stays_in_serving_shell(self) -> None:
         attack = '</script><img src=x onerror=attack()>'

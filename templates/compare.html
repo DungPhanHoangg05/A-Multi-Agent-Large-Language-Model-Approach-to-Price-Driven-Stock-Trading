@@ -1,0 +1,94 @@
+{% from 'shared/compare_messages.html' import messages as C with context -%}
+<!doctype html>
+<html lang="{{ LANG }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ C.title }} · QuantAgent VN</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/serving.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/comparison.css') }}">
+  <script type="module" src="{{ url_for('static', filename='js/analysis/comparison.js') }}"></script>
+  {% include 'shared/preferences_head.html' %}
+</head>
+<body class="serving-result">
+{% include 'shared/preferences.html' %}
+<header class="serving-topbar">
+  <a href="{{ url_for('index', lang=LANG) }}">QuantAgent VN</a>
+  <nav aria-label="{{ P.navigation }}">
+    <a href="{{ url_for('demo', lang=LANG) }}">{{ C.analysis }}</a>
+    {% include 'shared/compare_link.html' %}
+    <a href="{{ url_for('backtest_page', lang=LANG) }}">{{ C.backtest }}</a>
+    <a href="/experiments?lang={{ LANG }}">{{ C.research }}</a>
+  </nav>
+</header>
+{% set run_id = request.args.get('run_id') %}
+{% set source = 'history' if request.args.get('source') == 'history' else 'live' %}
+<main class="serving-ui comparison">
+  <h1>{{ C.title }}</h1>
+  {% if not run_id %}
+    <p class="serving-muted">{{ C.intro }}</p>
+    {% set supported = serving_registry.domain.released_date_ranges[0] %}
+    <form id="compare-form" class="serving-panel" data-preserve-locale>
+      <div class="serving-grid">
+        <label class="serving-field">{{ C.first }}
+          <select id="compare-first" required>{% for variant in serving_registry.variants if variant.group == 'main' %}
+            <option value="{{ variant.id }}">{{ variant.label[LANG] }}</option>
+          {% endfor %}</select>
+        </label>
+        <label class="serving-field">{{ C.second }}
+          <select id="compare-second" required>{% for variant in serving_registry.variants if variant.group == 'main' %}
+            <option value="{{ variant.id }}"{% if variant.id == 'MT_BICL' %} selected{% endif %}>{{ variant.label[LANG] }}</option>
+          {% endfor %}</select>
+        </label>
+        <label class="serving-field">{{ C.symbol }}
+          <select id="compare-symbol" required aria-describedby="compare-support">
+            {% for asset in assets %}
+              <option value="{{ asset.code }}"{% if asset.code == 'FPT' %} selected{% endif %}>{{ asset.code }}{% if asset.name and asset.name != asset.code %} · {{ asset.name }}{% endif %}{% if asset.exchange %} ({{ asset.exchange }}){% endif %}</option>
+            {% endfor %}
+            {% set listed = assets|map(attribute='code')|list %}
+            {% for symbol in serving_registry.domain.released_symbols if symbol not in listed %}
+              <option value="{{ symbol }}"{% if symbol == 'FPT' %} selected{% endif %}>{{ symbol }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="serving-field">{{ T.search_placeholder }}
+          <input id="compare-symbol-search" type="search" autocomplete="off" aria-controls="compare-symbol">
+        </label>
+        <label class="serving-field">{{ C.source_mode }}
+          <select id="compare-source"><option value="live">{{ C.live_mode }}</option><option value="history">{{ C.history_mode }}</option></select>
+        </label>
+        <label class="serving-field" id="compare-date-field" hidden>{{ C.date }}
+          <input id="compare-date" type="date" min="{{ supported.start_date }}" max="{{ supported.end_date }}" value="{{ supported.start_date }}" disabled>
+        </label>
+      </div>
+      <p id="compare-support" role="status" class="serving-muted" hidden></p>
+      <p class="serving-muted" id="compare-source-note">{{ C.live_outcome_note }}</p>
+      <p id="compare-status" role="status" aria-live="polite"></p>
+      <div class="serving-actions">
+        <button id="compare-start" type="submit" disabled>{{ C.run_pair }}</button>
+        <a href="{{ url_for('demo', lang=LANG) }}#phan-tich">{{ T.groq_settings }}</a>
+      </div>
+    </form>
+  {% else %}
+    <p id="compare-meta"></p>
+    <section class="serving-panel" id="job-status-panel" aria-busy="true">
+      <h2 id="job-state" role="status" aria-live="polite">{{ C.loading }}</h2>
+      <p id="job-progress"></p>
+      <p id="job-error" role="alert"></p>
+      <div class="serving-actions">
+        <button id="refresh-job" type="button">{{ C.refresh }}</button>
+        <button id="stop-job" type="button" disabled>{{ C.stop }}</button>
+        <button id="resume-job" type="button" disabled>{{ C.resume }}</button>
+        <a id="compare-export" hidden>{{ C.export_json }}</a>
+        <a id="compare-details" hidden>{{ C.view_details }}</a>
+        <a href="{{ url_for('compare', lang=LANG) }}">{{ C.new_pair }}</a>
+      </div>
+    </section>
+    <section id="compare-summary" class="comparison-summary" hidden aria-live="polite"></section>
+    <div id="compare-cards" class="comparison-pair"></div>
+    <p id="compare-outcome-note" class="serving-muted" hidden></p>
+  {% endif %}
+</main>
+<script type="application/json" id="compare-config">{{ {'messages': C, 'language': LANG, 'registry':serving_registry, 'runId':run_id, 'source':source}|tojson }}</script>
+</body>
+</html>

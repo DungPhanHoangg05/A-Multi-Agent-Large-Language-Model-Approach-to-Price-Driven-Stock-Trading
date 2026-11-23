@@ -11,7 +11,7 @@ from core.serving_runtime.quota import Failed as ServingFailure
 from dataclasses import asdict
 
 import pandas as pd
-from flask import Flask, jsonify, make_response, render_template, request, send_file
+from flask import Flask, Response, jsonify, make_response, render_template, request, send_file
 
 from utils import static_util
 from utils.json_util import to_json_compatible
@@ -81,7 +81,7 @@ def render_localized(template: str, **ctx):
             from utils.serving_web import owner
             scope,_=owner()
             ctx['localized_result_views'] = result_views(ctx['results'], cached_pairs(Path(__file__).resolve().parent,scope))
-    if template in ("demo_new.html", "output.html", "backtest.html"):
+    if template in ("demo_new.html", "output.html", "backtest.html", "compare.html"):
         from utils.analysis_ui import messages
         from core.serving_registry import registry_document
         ctx.update(A=messages(lang), serving_registry=registry_document())
@@ -355,6 +355,39 @@ def index():
 @app.route("/demo")
 def demo():
     return render_localized("demo_new.html")
+
+
+@app.get("/compare")
+def compare() -> Response | tuple[Response, int]:
+    """Hiện form, tổng quan hoặc báo cáo của một phương pháp đã lưu thuộc owner."""
+    identifier, variant = request.args.get('run_id'), request.args.get('report')
+    if not identifier:
+        return render_localized('compare.html', assets=analyzer.get_available_assets())
+    if variant is None:
+        return render_localized('compare.html')
+
+    from core.serving_registry import LABELS
+    from utils.realtime_analysis_view import can_project, project
+    from utils.serving_live_web import service as live_service
+    from utils.serving_web import owner, service as historical_service
+
+    scope, _ = owner()
+    source = 'history' if request.args.get('source') == 'history' else 'live'
+    if scope is not None:
+        try:
+            backend = historical_service() if source == 'history' else live_service()
+            data = backend.result(identifier, scope)
+            live = data['identity']['request'].get('data_source') == 'live'
+            if live == (source == 'live') and can_project(data, variant=variant):
+                report = project(data, current_lang(), variant=variant)
+                navigation = {'run_id': identifier, 'source': source, 'selected': variant,
+                              'methods': [(method, LABELS[method]) for method in data['requested_ids']]}
+                response = render_localized('output.html', results=report, comparison_report=navigation)
+                response.headers['Cache-Control'] = 'no-store'
+                return response
+        except (PermissionError, FileNotFoundError, ValueError, KeyError, StopIteration):
+            pass
+    return render_localized('compare.html'), 404
 
 
 @app.route("/output")

@@ -151,7 +151,7 @@ class Snapshots:
     def summary(identifier: str, record: dict) -> dict:
         """Metadata công khai không có key hoặc đường dẫn máy chủ."""
         return {key:record[key] for key in ('symbol','cutoff','captured_at','source','price_unit','calendar_policy','corporate_actions','scientific_status')} | {
-            **{key:record[key] for key in ('chart_timeframe','daily_provisional','index_contract','live_news') if key in record},
+            **{key:record[key] for key in ('chart_timeframe','daily_provisional','index_contract','live_news','support_scope') if key in record},
             'snapshot_id':identifier, 'price_rows':len(record['prices']['Datetime']), 'news_articles':len(record['news'])}
 
 

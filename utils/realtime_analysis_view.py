@@ -13,6 +13,7 @@ from markupsafe import escape
 
 from core.finalize_serving_profile import VERSION as FINALIZED
 from core.serving_registry import LABELS, MAIN_IDS
+from core.serving_live.catalog import CATALOG
 
 METHODS = {
     'bayesian_v1': ('Truy xuất tối đa ba chu kỳ đã đóng của cùng mã trong chế độ thị trường hiện tại, đưa prior Bayesian vào Decision.',
@@ -90,14 +91,20 @@ def selector_statistics(symbol: str, cutoff: str, snapshot_id: str | None, selec
         return {}
 
 
-def can_project(data: dict) -> bool:
-    """Bố cục báo cáo nhận một phương pháp, một điểm và một repeat live 1D đã hoàn tất."""
+def can_project(data: dict, *, variant: str | None = None) -> bool:
+    """Chỉ mở báo cáo từ kết quả 1D hoàn tất có đúng một điểm và một repeat."""
     request = data['identity']['request']
     ids = data['requested_ids']
     timeframe = request.get('chart_timeframe')
     daily = timeframe == '1d' or (timeframe is None and request.get('version') == FINALIZED and request.get('timeframe') == '1d')
-    return (data['state'] == 'completed' and request['mode'] == 'analyze' and request.get('data_source') == 'live'
-            and daily and request['repeats'] == 1 and len(ids) == 1 and ids[0] in MAIN_IDS and len(data['snapshots']) == 1)
+    if data['state'] != 'completed' or not daily or request['repeats'] != 1 or len(data['snapshots']) != 1:
+        return False
+    live = request.get('data_source') == 'live'
+    if variant is None:
+        return live and request['mode'] == 'analyze' and len(ids) == 1 and ids[0] in MAIN_IDS
+    return (request['version'] == FINALIZED and request['mode'] == ('compare' if live else 'backtest')
+            and len(request['symbols']) == 1 and request['start_date'] == request['end_date']
+            and len(ids) == 2 and ids[0] != ids[1] and all(item in MAIN_IDS for item in ids) and variant in ids)
 
 
 def _saved_prior_statistics(trace: dict, evidence: dict, sent: bool) -> dict | None:
@@ -155,14 +162,14 @@ def _historical_examples(trace: dict, evidence: dict, projection: dict) -> list[
     return examples
 
 
-def project(data: dict, language: str, *, articles: list[dict] | None = None) -> dict:
+def project(data: dict, language: str, *, articles: list[dict] | None = None, variant: str | None = None) -> dict:
     """Chiếu báo cáo đã lưu, không gọi model hoặc tính lại policy."""
-    if not can_project(data):
-        raise ValueError('Bố cục phân tích chỉ nhận một kết quả realtime 1D hoàn tất')
+    if not can_project(data, variant=variant):
+        raise ValueError('Bố cục phân tích chỉ nhận một kết quả 1D hoàn tất của phương pháp đã chọn')
     request = data['identity']['request']
     finalized = request['version'] == FINALIZED
-    ids = data['requested_ids']
-    variant = ids[0]
+    if variant is None:
+        variant = data['requested_ids'][0]
     row = next(row for row in data['rows'] if row['requested_id'] == variant and row['repeat'] == 0)
     point = row['point_id']
     payload = data['snapshots'][point]['payload']
@@ -170,6 +177,9 @@ def project(data: dict, language: str, *, articles: list[dict] | None = None) ->
     detail = details[f'forecast/{point}/r0/{variant}']
     executed = details[f"forecast/{point}/r0/{row['executed_id']}"]
     reply = deepcopy(executed['raw_reply'] or {})
+    verified_decision = detail.get('decision_display')
+    if verified_decision:
+        reply.update(verified_decision['vi'])
     # Policy có thể giữ anchor/common thay đề xuất raw; UI luôn hiện quyết định cuối đã durable.
     reply['decision'] = row['final_prediction']
     reply.setdefault('forecast_horizon','T+2.5')
@@ -204,9 +214,13 @@ def project(data: dict, language: str, *, articles: list[dict] | None = None) ->
         'final_decision':reply,'analysis_version_id':variant,'analysis_version':LABELS[variant][int(language=='en')],
         'run_id':data['run_id'],'execution_profile':request['version'],'analysis_cutoff':row['as_of_date'],
         'analysis_captured_at':(data.get('live_input') or {}).get('captured_at'), 'final_action':row['final_action'],
-        'research_profile':finalized,'scientific_status':data.get('scientific_status')}
+        'research_profile':finalized,'scientific_status':data.get('scientific_status'),
+        'catalog_live':(data.get('live_input') or {}).get('support_scope') == CATALOG}
     result['ui_report_pairs']=deepcopy(data.get('presentations',{}).get(point,{}))
-    if executed.get('display_en'):
+    if verified_decision:
+        result['verified_decision_explanation'] = True
+        result['ui_report_pairs']['decision'] = deepcopy(verified_decision)
+    elif executed.get('display_en'):
         result['ui_report_pairs']['decision']={'vi':reply,'en':deepcopy(executed['display_en'])}
     common = payload.get('causal_alpha',{}).get('projection') or {}
     if finalized:

@@ -9,7 +9,7 @@
 <body class="serving-result">
 {% include 'shared/preferences.html' %}
 {% set serving_source = 'live' if request.args.get('serving_source') == 'live' else 'asof' %}
-<header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ A.analysis }}</a><a aria-current="page" href="/output?serving_run={{ serving_run|urlencode }}&amp;serving_source={{ serving_source }}&amp;lang={{ LANG }}">{{ A.output }}</a><a href="/backtest?lang={{ LANG }}">{{ A.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ A.research }}</a></nav></header>
+<header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ A.analysis }}</a>{% include 'shared/compare_link.html' %}<a aria-current="page" href="/output?serving_run={{ serving_run|urlencode }}&amp;serving_source={{ serving_source }}&amp;lang={{ LANG }}">{{ A.output }}</a><a href="/backtest?lang={{ LANG }}">{{ A.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ A.research }}</a></nav></header>
 <main class="serving-ui">
   <h1>{{ A.output }}</h1><p id="job-meta"></p><p id="job-profile" class="serving-notice"></p><p class="serving-notice">{{ A.quota_note }}</p>
   <section class="serving-panel" aria-busy="true" id="job-status-panel"><h2 id="job-state" role="status" aria-live="polite">{{ A.loading }}</h2><p id="job-progress"></p><p id="retry-at"></p><p id="partial-note" hidden>{{ A.partial_note }}</p><p id="job-error" role="alert"></p>

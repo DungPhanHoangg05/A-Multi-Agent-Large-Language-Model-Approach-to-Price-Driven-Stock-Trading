@@ -1,0 +1,1 @@
+<a href="{{ url_for('compare', lang=LANG) }}"{% if request.endpoint == 'compare' %} aria-current="page"{% endif %}>{{ 'So sánh phiên bản' if LANG == 'vi' else 'Compare versions' }}</a>
