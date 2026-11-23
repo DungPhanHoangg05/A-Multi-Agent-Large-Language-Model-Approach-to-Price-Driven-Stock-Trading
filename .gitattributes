@@ -79,7 +79,14 @@ utils/experiment_web.py text eol=lf
 templates/experiments.html text eol=lf
 web_interface.py text eol=lf
 core/causal_alpha.py text eol=lf
+# Giữ đúng byte mà manifest tài nguyên của demo dùng để kiểm SHA-256.
 core/pit_price_features.py text eol=lf
+core/alpha_compare.py text eol=crlf
+core/execution_prices.py text eol=crlf
+core/bayesian_memory.py text eol=crlf
+core/regime_detector.py text eol=crlf
+core/price_feature_index.py text eol=crlf
+core/historical_signals.py text eol=crlf
 core/causal_bridge.py text eol=lf
 tests/causal_profile_support.py text eol=lf
 core/unified_protocol.py text eol=lf
