@@ -117,10 +117,10 @@ Bayesian in-context learning variants that use completed trading episodes.
 
 
 \begin{highlights}
-\item Adds an Alpha Agent to rank OHLCV factors and summarize their direction.
-\item Adds a Sentiment Agent to summarize Vietnamese news and flag missing coverage.
-\item Compares decisions at 102 paired cutoffs under a shared T+2.5 protocol.
-\item Audits which alpha and sentiment signals reach the Decision Agent.
+\item Adapts QuantAgent, a price-driven multi-agent system, to daily stock trading.
+\item Adds two agents for price--volume factor summaries and local-language news sentiment.
+\item Pairs 102 stock--date decisions with shared technical reports under T+2.5.
+\item Flags as many profitable cases as QuantAgent, with fewer false buy signals.
 \item Tests five Bayesian in-context variants using completed trading episodes.
 \end{highlights}
 
