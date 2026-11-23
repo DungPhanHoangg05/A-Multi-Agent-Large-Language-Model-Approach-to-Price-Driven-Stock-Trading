@@ -1,11 +1,11 @@
 # PDF bài báo FIN15
 
-B?n hi?n h?nh (FIN15 r3) c?p nh?t *Highlights* v? *Abstract* ?? n?u r? hai agent b? sung, thi?t k? ??nh gi? gh?p c?p v? nghi?n c?u BICL. Hai PDF ??u c? 29 trang, bi?n d?ch t? commit `4fdac3d5f69cc3e5840ceb1003df6ae6fd5f6931`. [C?ch bi?n d?ch](../../paper/README.md)
+Bản hiện hành (FIN15 r4) trình bày lại *Highlights* theo bối cảnh, đóng góp phương pháp, thiết kế đánh giá và kết quả. Hai PDF đều có 29 trang, biên dịch từ commit `2f73c2c59f14714ad78fb2317ef8cb5ad3fc471e`. [Cách biên dịch](../../paper/README.md)
 
 | PDF hiện hành | SHA-256 |
 | --- | --- |
-| [Bản đầy đủ](paper.pdf) | `4ab3823fb572d8e4ea8c64bbc6b04cc514aa0bc53c9317e29bce973737265806` |
-| [Bản nộp](paper-submit.pdf) | `6593a5b332fdaff886fd14290ac45b5a4ff28285aae6f7c12c2cbf3183f7de55` |
+| [Bản đầy đủ](paper.pdf) | `522a21e7b2988cc7ca3a1f291fc01c5a61cd31bd81c0c6a1083c7aca04b8677d` |
+| [Bản nộp](paper-submit.pdf) | `9be9c456e962f8fc0e853da2e96630d24696871fa202237771ba1c05b56a588b` |
 
 Hai PDF FIN15 ban đầu có trong [kho lưu tại commit 28a22bd1](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading/tree/28a22bd183ba5462b3876fc702201e3634f8eb88/outputs/paper).
 

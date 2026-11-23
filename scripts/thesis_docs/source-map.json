@@ -2450,18 +2450,18 @@
     "source_commit": "6bc661987ea80ce6c7fe44c2e094016f4a45afb9",
     "manuscript_date": "2026-11-21",
     "thesis_source_commit": "6bc661987ea80ce6c7fe44c2e094016f4a45afb9",
-    "paper_source_commit": "4fdac3d5f69cc3e5840ceb1003df6ae6fd5f6931",
+    "paper_source_commit": "2f73c2c59f14714ad78fb2317ef8cb5ad3fc471e",
     "paper_pdfs": {
       "paper": {
         "path": "outputs/paper/paper.pdf",
-        "bytes": 718012,
-        "sha256": "4ab3823fb572d8e4ea8c64bbc6b04cc514aa0bc53c9317e29bce973737265806",
+        "bytes": 718047,
+        "sha256": "522a21e7b2988cc7ca3a1f291fc01c5a61cd31bd81c0c6a1083c7aca04b8677d",
         "pages": 29
       },
       "paper_submit": {
         "path": "outputs/paper/paper-submit.pdf",
-        "bytes": 689522,
-        "sha256": "6593a5b332fdaff886fd14290ac45b5a4ff28285aae6f7c12c2cbf3183f7de55",
+        "bytes": 689553,
+        "sha256": "9be9c456e962f8fc0e853da2e96630d24696871fa202237771ba1c05b56a588b",
         "pages": 29
       }
     },
