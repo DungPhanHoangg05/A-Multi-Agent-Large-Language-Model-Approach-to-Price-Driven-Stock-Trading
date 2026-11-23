@@ -1,0 +1,188 @@
+% Giữ tên và cấu trúc tác giả; số liệu và diễn giải theo bằng chứng hiện hành.
+\PassOptionsToPackage{pdfusetitle=false,hypertexnames=false,hidelinks}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage[
+    left=1.8cm,
+    right=1.8cm,
+    top=2.0cm,
+    bottom=2.0cm
+]{geometry}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout -- left commented, preprint style is used here.
+%% \documentclass[final,3p,times]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in elsarticle.cls.
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsmath package provides various useful equation environments.
+\usepackage{amsmath}
+
+%% Packages required by the original manuscript content (tables,
+%% algorithms, float placement) -- preserved from the source document.
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage[section]{placeins}
+
+
+\usepackage{orcidlink}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{hyperref}
+\input{layout.tex}
+
+\journal{Knowledge-Based Systems}
+
+%% Figures live under figures/figs/... in this project; original
+%% \includegraphics calls use the relative path "figs/..." as in the
+%% source manuscript, so we add "figures/" to the graphics search path.
+\graphicspath{{./}}
+
+\input{content/tables/component/summary_numbers.tex}
+\input{content/tables/historical_context/summary_numbers.tex}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+\title{Enhancing Multi-Agent Large Language Models for Stock Trading through Quantitative Alpha Integration\tnoteref{t1}}
+\tnotetext[t1]{This research is funded by Foreign Trade University under research program number FTURP02-2026-08.}
+
+%% Authors
+\author[1]{Hong-Viet Tran\,\orcidlink{0000-0002-4675-2123}}
+\author[1]{Hoang-Dung Phan\,\orcidlink{0009-0003-6859-0852}}
+\author[1,2]{Thanh-Tam Do Thi\,\orcidlink{0000-0002-7594-276X}}
+\author[1]{Phuong-Thai Nguyen\,\orcidlink{0009-0006-2033-7788}}
+\author[3]{Van-Tang Nguyen\,\corref{cor1}\orcidlink{0009-0009-7266-2437}}
+
+%% Affiliations
+\affiliation[1]{organization={Institute for Artificial Intelligence, University of Engineering and Technology, Vietnam National University},
+            city={Hanoi},
+            country={Vietnam}}
+
+\affiliation[2]{organization={Faculty of Economic Information System and E-Commerce, Thuongmai University},
+            city={Hanoi},
+            country={Vietnam}}
+
+\affiliation[3]{organization={Faculty of Technology and Data Science, Foreign Trade University},
+            city={Hanoi},
+            country={Vietnam}}
+
+\cortext[cor1]{Corresponding author}
+
+
+%% Abstract
+\begin{abstract}
+Multi-agent systems based on large language models can combine price data
+and written reports for trading decisions. TradingAgents coordinates
+specialist analysts across information sources, while FinMem retrieves
+information from layered financial memory. QuantAgent organizes technical
+indicators, chart patterns and trends into specialist reports. For daily
+Vietnamese equities, an open question is what explicit price--volume
+factors and Vietnamese-language news add to the same technical evidence.
+Our system extends QuantAgent with two agents. The Alpha Agent ranks candidate
+factors and passes aggregate direction and vote counts to the Decision
+Agent. The Sentiment Agent summarizes eligible Vietnamese news and
+flags when coverage is insufficient. We compare the systems at 102 paired
+stock--date cutoffs under a T+2.5 execution convention and a common cost
+model. The paired design holds the technical reports fixed to assess the
+augmented Decision prompt. We evaluate directional forecasts at the cutoff
+level and net returns at the account level. An audit of the decision
+prompts verifies which signals reached the model. In this historical sample,
+the augmented system made fewer false LONG calls and identified the same
+number of profitable LONG opportunities as QuantAgent. The observed
+change describes directional decisions in the sample, and limited news
+coverage constrains attribution to sentiment. A secondary study tests five
+Bayesian in-context learning variants that use completed trading episodes.
+\end{abstract}
+
+%%Graphical abstract
+
+
+\begin{highlights}
+\item Adapts QuantAgent, a price-driven multi-agent system, to daily stock trading.
+\item Adds two agents for price--volume factor summaries and local-language news sentiment.
+\item Pairs 102 stock--date decisions with shared technical reports under T+2.5.
+\item Flags as many profitable cases as QuantAgent, with fewer false buy signals.
+\item Tests five Bayesian in-context variants using completed trading episodes.
+\end{highlights}
+
+%% Keywords
+\begin{keyword}
+Multi-agent LLM \sep Knowledge fusion \sep Knowledge integration \sep Financial decision support \sep Alpha factor selection
+\end{keyword}
+
+\end{frontmatter}
+
+
+%% main text
+\input{content/introduction.tex}
+\input{content/related_work.tex}
+\input{content/problem_formulation.tex}
+\input{content/system_architecture.tex}
+\input{content/experimental_setup.tex}
+\input{content/results.tex}
+\input{content/limitations.tex}
+\input{content/conclusion.tex}
+
+%% CRediT authorship contribution statement
+%% (elsarticle.cls has no \credit/\printcredits macros; the CRediT
+%% roles from the original cas-sc source are preserved here verbatim
+%% as a standard Elsevier "CRediT authorship contribution statement"
+%% section instead.)
+\section*{CRediT authorship contribution statement}
+
+\textbf{Van-Tang Nguyen:} Conceptualization (C); Software (So); Validation (Va); Investigation (I); Original draft preparation (O); Project administration (P); Funding acquisition (Fu).
+
+\textbf{Hoang-Dung Phan:} Methodology (M); Software (So); Formal analysis (Fo); Investigation (I); Resources (R); Data curation (D); Original draft preparation (O); Writing-review and editing (E); Visualization (Vi); Supervision (Su).
+
+\textbf{Thanh-Tam Do Thi:} Methodology (M); Investigation (I); Data curation (D); Original draft preparation (O); Writing-review and editing (E); Supervision (Su).
+
+\textbf{Phuong-Thai Nguyen:} Methodology (M); Investigation (I); Data curation (D); Original draft preparation (O); Visualization (Vi); Supervision (Su).
+
+\textbf{Hong-Viet Tran:} Conceptualization (C); Methodology (M); Software (So); Validation (Va); Formal analysis (Fo); Data curation (D); Original draft preparation (O); Writing-review and editing (E); Project administration (P).
+
+\section*{Declaration of competing interest}
+Authors state no conflict of interest.
+
+% \section*{INFORMED CONSENT (if applicable)}
+% The protection of privacy is a legal right that must not be breached without individual informed consent. In cases where the identification of personal information is necessary for scientific reasons, authors should obtain full documentation of informed consent, including written permission from the patient prior to inclusion in the study. Incorporate the following (or a similar) statement: We have obtained informed consent from all individuals included in this study.
+
+% \section*{ETHICAL APPROVAL (if applicable)}
+% When papers talk about using people or animals, authors should make it clear that the research followed all national rules and institutional policies, and it was approved by the authors' institutional review board or a similar committee. The Helsinki Declaration's tenets must guide all investigations involving human subjects. Authors must also identify the committee or review board approving the experiments and provide a statement indicating approval of the research. Incorporate the following (or a similar) statement: The research related to human use has been complied with all the relevant national regulations and institutional policies in accordance with the tenets of the Helsinki Declaration and has been approved by the authors' institutional review board or equivalent committee; or: The research related to animal use has been complied with all the relevant national regulations and institutional policies for the care and use of animals.
+
+
+\input{content/availability.tex}
+
+\input{content/acknowledgments.tex}
+
+\input{content/appendices.tex}
+
+\clearpage
+
+%% Loading bibliography style file
+\bibliographystyle{elsarticle-num}
+
+%% Loading bibliography database
+\bibliography{references}
+
+\clearpage
+
+\end{document}

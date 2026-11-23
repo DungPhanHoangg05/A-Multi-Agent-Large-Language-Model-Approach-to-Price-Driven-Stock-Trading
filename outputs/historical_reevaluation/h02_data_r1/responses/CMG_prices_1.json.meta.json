@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "fca8ca6820457f33506762079742b071946a6a7a530eefe593f6efca3fd1b964",
+  "retrieved_at_utc": "2026-11-08T03:40:58.978813+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/CMG/price-history?fromDate=20200101&toDate=20260930&page=1&size=1000"
+}

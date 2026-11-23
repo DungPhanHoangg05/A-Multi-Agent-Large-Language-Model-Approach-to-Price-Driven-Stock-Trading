@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "1d8428d191299472e8b6cab911d7ac27997d8914d60da9f7fd95ec8932ab330d",
+  "retrieved_at_utc": "2026-11-08T03:41:22.053399+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/VNM/price-history?fromDate=20200101&toDate=20260930&page=1&size=1000"
+}

@@ -1,0 +1,170 @@
+\section{Problem Formulation}
+\label{sec:formulation}
+
+\subsection{Market Model and Data}
+For a given stock, let \(t\) be the last observed session at the decision
+cutoff. Indicator and chart tools use the 45 daily open, high, low, close and
+volume (OHLCV) bars through \(t\). Alpha uses up to 600 observed bars through
+the same cutoff. The 2022 Vietnam Securities Depository schedule~\cite{vsd2022settlement}
+allows resale in the afternoon of T+2, counting T from the purchase date.
+We use T+2.5 to denote the corresponding daily-bar convention
+throughout the evaluation. LONG enters at the next observed Open
+\(O_{t+1}\) and exits at the observed Close \(C_{t+3}\) two sessions after
+entry. The session index counts observed bars. Calendar and execution
+evidence are checked separately, and incomplete cycles have no label.
+
+\subsection{Directional Prediction Task}
+The target asks whether a candidate LONG would earn a positive net return.
+With fee \(f=0.0025\) and slippage \(s=0.001\) applied on each leg, it is
+\begin{equation}
+  r_t = \frac{C_{t+3}}{O_{t+1}}
+        \frac{(1-s)(1-f)}{(1+s)(1+f)}-1,
+  \qquad
+  y_t =
+  \begin{cases}
+    \mathrm{UP},   & r_t>0,\\
+    \mathrm{DOWN}, & r_t\leq 0 .
+  \end{cases}
+  \label{eq:label}
+\end{equation}
+A LONG prediction maps to a buy followed by liquidation. SHORT maps to
+CASH in the long-only ledger. For a complete account with non-overlapping
+cycles and fractional execution at the reference prices, let \(a_t=1\)
+for LONG and \(a_t=0\) for CASH. Its net return is
+\(\prod_t(1+a_t r_t)-1\). Scenarios with lot sizes, delayed fills or pending
+cash use their own ledger. The follow-up scores direction only where the
+candidate LONG label is defined and compares account returns only where both
+scheduled cycles meet the rule, even when a method chose CASH.
+
+\subsection{Alpha Factor Formalisation and Adaptation}
+\label{sec:alpha-representation}
+The native registry combines 80 adaptations of
+\emph{101 Formulaic Alphas}~\cite{kakushadze2016formulaic} with five
+custom price--volume factors. A cross-sectional rank becomes a rank
+against a stock's own trailing observations (20 bars by default).
+Average daily volume uses recorded share volume, and the daily
+typical-price proxy substitutes for intraday volume-weighted average price.
+These changes alter what the source expressions measure. The registry
+excludes 17 industry-neutralisation expressions, one market-capitalisation
+expression and three price/volume expressions whose exclusion rationale is
+undocumented. The custom formulas are given in \ref{app:signals}.
+
+The native z-score--tanh transformation uses statistics from the supplied
+prefix. Some handlers also fill earlier values or choose a volume proxy
+from the supplied frame. The prefix ends at the decision cutoff, but its
+later rows can still change an earlier diagnostic value. The causal
+projection uses row-available operators and expanding normalization.
+
+\subsection{Walk-Forward Alpha Selection}
+The native rank uses the absolute Spearman information
+coefficient (IC)~\cite{grinold1999active} between a factor and next-entry
+net returns. A negative IC reverses the factor for the diagnostics and
+report. Directional accuracy uses absolute scores above 0.05 and defaults
+to 0.5 with fewer than ten such signals. The ranking Sharpe proxy uses
+factor-signed net returns and population standard deviation. The account
+ledger uses the actual LONG or CASH action. On the eligible candidate set \(\mathcal V\), let \(\mathcal N\)
+be min--max scaling within a metric, with a value of 0.5 on a flat range.
+The native score is
+\begin{equation}
+  S_k=0.40\,\mathcal N_{\mathcal V}(|\mathrm{IC}_k|)
+      +0.35\,\mathcal N_{\mathcal V}(\mathrm{Acc}_k)
+      +0.25\,\mathcal N_{\mathcal V}(\mathrm{Sharpe}_k).
+  \label{eq:composite}
+\end{equation}
+Up to five candidates are reported after ranking the displayed scores.
+Orientation and ranking reuse the same observations, so these are
+selection diagnostics. The causal projection fits orientation on training
+data and picks five factors and a threshold on purged validation data.
+It freezes those choices and preprocessing before the test queries.
+
+The earlier historical-context study paired the native Our system
+projection with the common causal projection used by the BICL branches.
+The follow-up uses the same causal alpha values for Our system and Common
+and retains their distinct Decision prompts.
+
+\subsection{Sentiment Signal Construction}
+The Sentiment Agent uses the pinned
+5CD-AI Vietnamese sentiment classifier~\cite{hf5cdsentiment}, built on
+ViSoBERT~\cite{nguyen2023visobert}. For admitted articles \(i\), it
+weights polarity \(\rho_i=P_i(\mathrm{POS})-P_i(\mathrm{NEG})\) by
+publication age \(\Delta_i\) in days:
+\begin{equation}
+  S_t=\frac{\sum_i w_i\rho_i}{\sum_i w_i},
+  \qquad w_i=2^{-\Delta_i/30}.
+\end{equation}
+The 90-day window requires three distinct, dated articles with accepted
+scorer provenance and finite scores. Date-only publication is treated as
+available the next day. The separate reliability flag requires at least
+eight articles. Reported missingness means insufficient eligible evidence.
+The historical provider supplies an aggregate and count, so peer-relative
+fields on that path are placeholders. The follow-up supplies a missing-context record at each cutoff because
+historical news availability could not be verified.
+
+\subsection{Multi-Agent Decision Function}
+QuantAgent~\cite{xiong2025quantagent} uses the shared Indicator, Pattern
+and Trend reports. Our system adds the Alpha and Sentiment reports.
+Component controls retain alpha only (A), sentiment only (S), or current
+sentiment with past-donor alpha values (P). The backtest formats the
+additional reports without an extra Alpha LLM call. The Decision Agent
+receives the variant-specific prompt and emits LONG or SHORT. Historical
+context branches can retain a completed parent action when their dependency
+or revision rules apply. The scored prediction follows the final action,
+and the ledger keeps the raw proposal separately.
+
+BICL v5 estimates the probability of UP from separate historical and
+target tasks. A Beta--Bernoulli teacher supplies probability draws
+\(\theta\) for the utility check. With net-gain magnitude \(g\) and
+loss magnitude \(\ell\),
+\begin{equation}
+  U(\mathrm{LONG})=\theta g-(1-\theta)\ell,\qquad
+  U(\mathrm{CASH})=0,\qquad
+  \Delta U=U(a^{\mathrm{proposed}})-U(a^0),
+  \label{eq:revision_utility}
+\end{equation}
+where \(a^0\) is the Fact Anchor action. An eligible, fact-checked
+revision replaces the anchor only if \(Q_{0.10}(\Delta U)>0\).
+The utility quantile describes the specified teacher and magnitude model.
+
+\subsection{Walk-Forward Evaluation Protocol}
+Algorithm~\ref{alg:shared-reports} describes how the price-only and augmented
+systems produce paired decisions and how BICL branches add context in the follow-up evaluation.
+
+\begin{algorithm}[H]
+\SetKwInOut{AlgInput}{Input}
+\SetKwInOut{AlgOutput}{Output}
+\caption{Walk-forward decisions with shared technical reports.}
+\label{alg:shared-reports}
+\AlgInput{Daily OHLCV, alpha registry, dated news, scheduled cutoffs,
+          frozen historical resources and paired branch/repeat schedule.}
+\AlgOutput{Recorded proposals and final actions, paired metrics and separate accounts.}
+Reserve the evaluation cutoffs outside the historical bank\;
+\ForEach{stock and decision cutoff \(t\) in chronological order}{
+  Bound prices and dated news at \(t\); retrieve only cycles that ended before \(t\)\;
+  Run Indicator, Pattern and Trend once for the shared upstream realization\;
+  Prepare the profile-specific alpha and sentiment sections\;
+  For follow-up retrieval, derive Trend and Pattern keys from cutoff OHLCV\;
+  Freeze the reports and chart inputs; give each branch an independent copy\;
+  \ForEach{Decision repeat and branch in dependency order}{
+    Build the branch prompt from shared technical reports and its enabled evidence\;
+    Add the eligible prior or task context for the corresponding BICL branch\;
+    \eIf{the branch must reuse a parent action}{
+      Record the same-repeat action and the reason for reuse\;
+    }{
+      Obtain a Decision proposal through retry and checkpoint handling\;
+      Resolve the proposal under the branch policy and save the final action\;
+    }
+  }
+}
+After forecasts are locked, join eligible outcomes using Eq.~\ref{eq:label}\;
+Score paired decisions and update separate LONG/CASH ledgers\;
+\KwRet{the forecast records, account ledgers and paired metrics}\;
+\end{algorithm}
+
+The scheduled dates are evaluated chronologically with purging at the
+train--validation and validation--test boundaries. Paired branches
+reuse one upstream snapshot per point within each shared-report panel.
+Historical context is frozen before the first query in a fold and excludes
+all reserved evaluation points. Each retrieved cycle must have exited
+strictly before the decision date. In the follow-up, forecasts are locked
+before evaluation outcomes are computed. Section~\ref{sec:experimentalsetup}
+gives the schedules, repetitions and account-level comparisons.

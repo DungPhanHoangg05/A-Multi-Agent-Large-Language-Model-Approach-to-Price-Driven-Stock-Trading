@@ -8,6 +8,10 @@ from langchain_core.messages import HumanMessage, SystemMessage
 # ── Retry wrapper ──────────────────────────────────────────────────────────────
 
 def _invoke_with_retry(call_fn, *args, retries=3, wait_sec=5):
+    from core.research_invocation import CURRENT, invoke_once
+    if CURRENT.get() is not None:
+        return invoke_once(call_fn, *args)
+
     last_err = None
     for attempt in range(retries):
         try:
@@ -635,6 +639,9 @@ def create_indicator_agent(llm, toolkit):
         print("[IndicatorAgent] Đang phân loại tín hiệu bằng Python...")
         classified = _classify_signals(indicators, kline_data)
         summary    = classified.pop("__summary__")   # tách ra để dùng riêng
+        from core.ui_presentation.capture import CURRENT
+        if CURRENT.get() is not None:
+            CURRENT.get()['_indicator_data']={'indicators':indicators,'classified':classified,'summary':summary}
 
         indicator_table      = _render_indicator_table(indicators, kline_data)
         classification_block = _render_classification_block(classified, summary, lang)

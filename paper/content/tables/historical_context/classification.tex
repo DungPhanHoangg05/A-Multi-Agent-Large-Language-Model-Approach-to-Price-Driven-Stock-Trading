@@ -1,0 +1,25 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Classification metrics averaged across three historical-context Decision repeats.}
+\label{tab:u09-classification}
+\textbf{Mean of per-repeat metrics}\par\smallskip
+\begin{tabular}{lrrrrrr}
+\hline
+Role & Acc. (\%) & BA (\%) & MCC & $F1_U$ (\%) & $F1_D$ (\%) & Macro F1 (\%) \\
+\hline
+Our system & 65.36 & 51.84 & 0.037 & 26.26 & 77.34 & 51.80 \\
+Our system (Common) & 57.84 & 45.97 & -0.076 & 20.91 & 71.26 & 46.08 \\
+BICL v1 & 63.40 & 50.10 & 0.002 & 24.33 & 75.86 & 50.09 \\
+BICL v2 & 57.52 & 45.75 & -0.080 & 20.77 & 70.97 & 45.87 \\
+BICL v3 & 58.17 & 46.18 & -0.072 & 21.05 & 71.54 & 46.29 \\
+BICL v4 & 57.52 & 45.75 & -0.080 & 20.77 & 70.97 & 45.87 \\
+BICL v5 & 52.94 & 43.17 & -0.124 & 20.00 & 66.66 & 43.33 \\
+Fact Anchor & 52.29 & 42.74 & -0.131 & 19.78 & 66.05 & 42.91 \\
+CASH & 75.49 & 50.00 & \textemdash & 0.00 & 86.03 & 43.02 \\
+Always-LONG & 24.51 & 50.00 & \textemdash & 39.37 & 0.00 & 19.69 \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize Metrics average three per-repeat evaluations on 102 observations; a dash marks a metric with a zero denominator.\end{minipage}
+\end{table}

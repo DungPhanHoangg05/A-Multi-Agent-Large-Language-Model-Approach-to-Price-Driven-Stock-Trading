@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="{{ LANG }}">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ T.page_title_backtest }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/backtest/legacy.css') }}">
+{% include 'shared/preferences_head.html' %}
+</head>
+
+<body>
+{% include 'shared/preferences.html' %}
+
+    <!-- Top bar -->
+    <div class="topbar">
+        <div>
+            <div class="topbar-brand">⚡ {{ T.bt_brand }}</div>
+            <div class="topbar-sub">{{ T.bt_sub }}</div>
+        </div>
+        <div class="topbar-actions">
+
+            <a href="/demo" class="btn-back"><i class="fas fa-arrow-left"></i> {{ T.back_home }}</a>
+        </div>
+    </div>
+
+    <div class="wrap">
+
+        <!-- ── Cột trái: Cấu hình / Left column: config ────────── -->
+        <div>
+
+            <!-- Config panel -->
+            <div class="panel" style="margin-bottom:1.25rem;">
+                <div class="panel-head">
+                    <div class="panel-head-icon icon-red"><i class="fas fa-sliders"></i></div>
+                    <div>
+                        <div class="panel-head-title">{{ T.bt_config }}</div>
+                        <div class="panel-head-sub">{{ T.bt_config_sub }}</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-row">
+                        <label class="form-label"><i class="fas fa-chart-candlestick"></i> {{ T.bt_symbol }}</label>
+                        <input type="text" class="form-control" id="cfgSymbol" value="VNM"
+                            placeholder="{{ T.bt_symbol_placeholder }}" style="text-transform:uppercase;"
+                            oninput="this.value=this.value.toUpperCase()">
+                    </div>
+
+                    <div class="range-row">
+                        <div class="form-row">
+                            <label class="form-label">{{ T.bt_n_tests }}</label>
+                            <input type="number" class="form-control" id="cfgNTests" value="10" min="3" max="30">
+                            <div class="hint">{{ T.bt_n_tests_hint }}</div>
+                        </div>
+                        <div class="form-row">
+                            <label class="form-label">{{ T.bt_window }}</label>
+                            <input type="number" class="form-control" id="cfgWindow" value="45" min="20" max="90">
+                            <div class="hint">{{ T.bt_window_hint }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="form-label">{{ T.bt_step }}</label>
+                        <input type="number" class="form-control" id="cfgStep" value="3" min="3" max="15">
+                        <div class="hint">{{ T.bt_step_hint }}</div>
+                    </div>
+
+                    <button class="btn-primary" id="btnStart" onclick="startBacktest()">
+                        <i class="fas fa-play"></i> {{ T.bt_start }}
+                    </button>
+                    <button class="btn-stop hidden" id="btnStop" onclick="stopBacktest()">
+                        <i class="fas fa-stop"></i> {{ T.bt_stop }}
+                    </button>
+
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle" style="flex-shrink:0;margin-top:.1rem;"></i>
+                        <span>
+                            {{ T.bt_warning | safe }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status panel -->
+            <div class="panel">
+                <div class="panel-head">
+                    <div class="panel-head-icon icon-amber"><i class="fas fa-circle-notch"></i></div>
+                    <div>
+                        <div class="panel-head-title">{{ T.bt_status }}</div>
+                        <div class="panel-head-sub" id="statusSub">{{ T.bt_not_started }}</div>
+                    </div>
+                    <span class="dot dot-idle" id="statusDot" style="margin-left:auto;"></span>
+                </div>
+                <div class="panel-body">
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <span class="progress-label">{{ T.bt_progress }}</span>
+                            <span class="progress-count" id="progressCount">0 / 0</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="step-list" id="stepList">
+                        <div class="step-item" id="step-data">
+                            <div class="step-dot"></div> {{ T.bt_step_data }}
+                        </div>
+                        <div class="step-item" id="step-full">
+                            <div class="step-dot"></div> {{ T.bt_step_full }}
+                        </div>
+                        <div class="step-item" id="step-no">
+                            <div class="step-dot"></div> {{ T.bt_step_no }}
+                        </div>
+                        <div class="step-item" id="step-save">
+                            <div class="step-dot"></div> {{ T.bt_step_save }}
+                        </div>
+                    </div>
+
+                    <div id="lastTestInfo" style="margin-top:1rem;font-size:.78rem;color:var(--gray-6);"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Cột phải: Kết quả / Right column: results ───────── -->
+        <div>
+
+            <!-- Score cards -->
+            <div class="score-grid" style="margin-bottom:1.25rem;">
+
+                <div class="score-card score-card-full">
+                    <div class="score-system"><i class="fas fa-flask" style="color:#2563eb;"></i> {{ T.bt_full_system }}
+                    </div>
+                    <div class="score-acc score-full"><span id="accFull">-</span><span class="score-unit">%</span></div>
+                    <div class="score-sub" id="accFullSub">{{ T.bt_waiting }}</div>
+                </div>
+
+                <div class="score-card score-card-no">
+                    <div class="score-system"><i class="fas fa-minus-circle" style="color:var(--green);"></i>
+                        {{ T.bt_no_alpha }}
+                    </div>
+                    <div class="score-acc score-no"><span id="accNo">-</span><span class="score-unit">%</span></div>
+                    <div class="score-sub" id="accNoSub">{{ T.bt_waiting }}</div>
+                </div>
+
+                <div class="score-card score-card-lift-pos" id="liftCard">
+                    <div class="score-system">{{ T.bt_alpha_lift }}</div>
+                    <div class="score-lift"><span id="liftVal">-</span></div>
+                    <div class="score-sub" id="liftSub">{{ T.bt_acc_gain }}</div>
+                </div>
+
+                <!-- P&L Cards -->
+                <div class="score-card" style="border-left: 5px solid var(--blue);">
+                    <div class="score-system">{{ T.bt_pnl_full }}</div>
+                    <div class="score-acc" style="color:var(--blue);"><span id="pnlFullText">-</span><span
+                            class="score-unit">%</span></div>
+                    <div class="score-sub" id="pnlFullSub">{{ T.bt_pnl_sub }}</div>
+                </div>
+
+                <div class="score-card" style="border-left: 5px solid var(--green);">
+                    <div class="score-system">{{ T.bt_pnl_no }}</div>
+                    <div class="score-acc" style="color:var(--green);"><span id="pnlNoText">-</span><span
+                            class="score-unit">%</span></div>
+                    <div class="score-sub" id="pnlNoSub">{{ T.bt_pnl_sub }}</div>
+                </div>
+
+                <div class="score-card" style="background:var(--gray-0);border:2px solid var(--gray-2);">
+                    <div class="score-system">{{ T.bt_progress }}</div>
+                    <div class="score-acc" style="color:var(--gray-8);"><span id="nDone">0</span><span
+                            class="score-unit" style="font-size:1rem;"> / <span id="nTotal">-</span></span></div>
+                    <div class="score-sub" id="etaSub">-</div>
+                </div>
+
+            </div>
+
+            <!-- ── Charts Section ── -->
+            <div id="chartSection" class="chart-grid" style="display: none;">
+                <div class="chart-box">
+                    <div class="chart-title"><i class="fas fa-chart-line" style="color: var(--blue);"></i>
+                        {{ T.bt_chart_pnl }}</div>
+                    <div style="height: 280px;"><canvas id="pnlChart"></canvas></div>
+                </div>
+                <div class="chart-box">
+                    <div class="chart-title"><i class="fas fa-bullseye" style="color: var(--red);"></i>
+                        {{ T.bt_chart_acc }}</div>
+                    <div style="height: 280px;"><canvas id="accChart"></canvas></div>
+                </div>
+            </div>
+
+            <!-- Detailed metrics -->
+            <div class="panel" style="margin-bottom:1.25rem;">
+                <div class="panel-head">
+                    <div class="panel-head-icon icon-blue"><i class="fas fa-chart-bar"></i></div>
+                    <div>
+                        <div class="panel-head-title">{{ T.bt_compare }}</div>
+                        <div class="panel-head-sub">{{ T.bt_compare_sub }}</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="metricsBody">
+                        <div class="empty"><i class="fas fa-chart-bar"></i>
+                            <p>{{ T.bt_no_data }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="panel">
+                <div class="panel-head">
+                    <div class="panel-head-icon icon-green"><i class="fas fa-table"></i></div>
+                    <div>
+                        <div class="panel-head-title">{{ T.bt_timeline }}</div>
+                        <div class="panel-head-sub" id="timelineSub">{{ T.bt_no_data }}</div>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding:0;">
+                    <div class="timeline-wrap">
+                        <table class="timeline" id="timelineTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{ T.bt_th_window }}</th>
+                                    <th>{{ T.bt_th_actual }}</th>
+                                    <th>{{ T.bt_th_execution }}</th>
+                                    <th>{{ T.bt_th_full_pred }}</th>
+                                    <th>{{ T.bt_th_full_ok }}</th>
+                                    <th>{{ T.bt_th_full_return }}</th>
+                                    <th>{{ T.bt_th_no_pred }}</th>
+                                    <th>{{ T.bt_th_no_ok }}</th>
+                                    <th>{{ T.bt_th_no_return }}</th>
+                                    <th>{{ T.bt_th_alpha_adds }}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timelineTbody">
+                                <tr>
+                                    <td colspan="11">
+                                        <div class="empty"><i class="fas fa-spinner fa-spin"></i>
+                                            <p>{{ T.bt_waiting_first }}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="application/json" id="legacy-config">{{ {'messages': T, 'language': LANG}|tojson }}</script>
+    <script src="{{ url_for('static', filename='js/backtest/legacy.js') }}"></script>
+</body>
+
+</html>

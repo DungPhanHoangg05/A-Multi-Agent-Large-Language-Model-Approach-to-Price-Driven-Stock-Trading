@@ -1,0 +1,152 @@
+% Tổng hợp theo vấn đề; không suy hiệu quả thị trường từ tài liệu nền tảng.
+\chapter{Related Work}\label{s:9827c64bef49c4b1}
+\section{Signals, selection and financial evaluation}\label{s:14b05e24677e26cb}
+Technical analysis converts observable price and volume patterns into
+testable hypotheses. Lo, Mamaysky and Wang~\cite{lo2000technical} formalize chart-pattern
+recognition and examine conditional return distributions, providing a
+way to study patterns beyond subjective inspection. Their evidence does
+not validate every indicator or establish profitability after transaction
+costs. Accordingly, the present system separates
+features, reports, directional proposals and executed actions.
+
+Gu, Kelly and Xiu~\cite{gu2020assetpricing} compare machine-learning
+predictions of cross-sectional risk premiums and identify momentum,
+liquidity and volatility among the important predictors in their data.
+That motivates explicit price--volume features here, where the target
+is a short, cost-adjusted cycle. Kakushadze's formulaic-alpha library~\cite{kakushadze2016formulaic} supplies explicit transformations.
+Cross-sectional rank and group neutralization operate across securities;
+temporal operators operate over a security's history. Replacing the
+former with temporal ranks in a single-stock implementation changes the
+formula's meaning. A typical-price proxy also differs from authenticated
+intraday volume-weighted average price (VWAP). The thesis attributes
+these foundations while treating its adapted library and five additional
+factors as a distinct implementation family. Our system and Common further
+differ in normalization, orientation, selection and report projection.
+
+Selecting inputs and estimating their out-of-sample value require
+separate data. Varma and Simon~\cite{varma2006bias} show how reusing
+validation scores after model selection can bias the estimated error.
+Here, causal alpha signs are fitted on training data and factor choices
+are assessed on chronological partitions separated by label maturity.
+
+\section{Specialist financial agents and input modalities}\label{s:f7594e9d067d74c3}
+QuantAgent~\cite{xiong2025quantagent} is the direct architectural predecessor: Indicator, Pattern,
+Trend and Risk roles supply complementary price-derived analyses, with
+a separately described final DecisionAgent. The thesis adapts its state
+contracts, chart tools, orchestration and interface elements, and evaluates
+daily LONG/CASH decisions under a fixed T+2.5 convention.
+The
+\href{https://github.com/Y-Research-SBU/QuantHarness/tree/92519f806286192345e940e7ab77496462d662b7}{inspected upstream code snapshot}
+identifies the version used for attribution. The originally adopted
+commit was not recorded.
+
+TradingAgents~\cite{tradingagents2024} organizes financial analysis,
+research debate, trading and risk across specialist roles. Its
+historical US-stock simulation uses buy, sell and hold actions.
+FinMem~\cite{yu2025finmem} layers financial memories and retrieves
+them by criteria such as relevance and recency. This thesis retrieves
+completed trading cycles under an explicit regime and outcome-eligibility
+rule, then tests when their outcomes justify a different action.
+
+Tetlock~\cite{tetlock2007news} links the tone of financial coverage to
+market activity. Loughran and McDonald~\cite{loughran2011liability}
+show how general-purpose word lists misclassify terms in financial
+disclosures, and FinBERT~\cite{araci2019finbert} demonstrates domain
+adaptation for financial sentiment. For Vietnamese, ViSoBERT~\cite{nguyen2023visobert}
+supplies a social-media backbone and the pinned 5CD model~\cite{hf5cdsentiment}
+supplies the three-label classifier used here. Its scores require
+separate validation on historical Vietnamese financial news.
+
+\section{Regimes and historical-context inference}\label{s:72ac96e2a9d3b286}
+Hamilton's regime-switching account~\cite{hamilton1989regimes} models persistent changes through a
+latent state; the state is an estimated representation rather than an
+observed economic truth. Rabiner~\cite{rabiner1989hmm} separates hidden Markov model (HMM) transition and emission models, parameter fitting and state inference.
+Forward/backward inference makes the information boundary explicit:
+smoothing an earlier state can use later observations from the supplied
+sequence. Both the fitting period and inference prefix therefore matter.
+This thesis uses distinct frozen signal-bank and
+numerical regime resources; they can assign different states to the same
+date. A matched comparison is still needed to isolate regime value.
+
+In-context examples can change a model's predictions without changing its
+weights. Xie et al.~\cite{xie2022implicitbayes} analyze an implicit Bayesian interpretation under a
+specified mixture-of-HMMs pretraining construction; the assumptions do
+not prove that any hosted trading LLM computes a financial posterior.
+Rubin et al.~\cite{rubin2022retrieve} learn example retrieval for
+semantic parsing. Retrieval is an information-selection mechanism, not
+automatically a Bayesian update.
+
+These distinctions apply directly here. BICL v1 reports empirical
+population rates and selected episodes; its name does not make the rates
+Beta-posterior means. C2 instead uses explicit count-based shrinkage and
+readiness gates. The alternative named B\_semantic presents counts and
+intervals; it is not an embedding retriever. Counts, top-$K$ examples and
+numerical task datasets have different denominators and functions.
+
+\section{Multi-task Bayesian ICL and numerical students}\label{s:b46bc1f71efb86f5}
+Prior-Data Fitted Networks (PFNs)~\cite{muller2022transformers} train on datasets sampled from a specified
+prior, approximating a posterior-predictive mapping through prior-data
+negative log-likelihood. A sampled training prior is central to this
+construction; it is not generic prompting of a pretrained language model.
+Zhu, Oermann and Cho~\cite{zhu2026multitask} extend context to
+multiple prior datasets, target observations and an unlabeled target
+query while retaining task boundaries. Their hierarchical predictive
+adaptation is studied in synthetic regression and temperature prediction,
+not Vietnamese stock trading.
+
+The thesis adapts the task distinction to historical same-stock blocks.
+A fitted mixture of sixteen Beta components supplies count-based teacher
+probabilities. Synthetic distillation trains a small numerical student
+on soft query targets; sampled features are independent of synthetic
+latent rates and labels. The local two-block/four-head architecture and
+objective differ from the reference paper's eight-layer/eight-head
+synthetic setup and target-observation likelihood training. Names
+containing ``replica'' identify local resources, not exact replication.
+
+At market inference the numerical weights are frozen. Context can change,
+and a hosted Decision LLM receives a bounded text projection. A magnitude
+model and an external utility gate decide whether a proposal may replace
+Fact Anchor. Teacher approximation, market probability calibration, LLM
+verbal confidence and final action are separate objects. Synthetic
+agreement does not establish the student's causal contribution to returns.
+
+\section{Dependent comparisons and reproducibility}\label{s:eabd76a8c5a70fc6}
+Arnott, Harvey and Markowitz~\cite{arnott2019backtesting} emphasize a financial research protocol that
+addresses data, selection, shortfall and changing markets; prediction
+scores require explicit execution assumptions.
+White~\cite{white2000reality} explains how specification search and repeated data use can produce
+apparently favorable results. A chronological
+split does not remove prior historical exposure, overlapping label
+windows or feature-construction leakage. Shared upstream reports make
+method comparisons conditional on the same realized information, whereas
+repeating only Decision measures conditional response variation.
+
+Uncertainty methods retain assumptions. Politis and Romano's stationary
+bootstrap~\cite{politis1994stationary} motivates preserving dependence, but differs from the recorded
+fixed circular blocks and whole-fold resampling here.
+Newey--West covariance estimation~\cite{newey1987hac} addresses
+heteroskedasticity and autocorrelation under regularity conditions; a stored heteroskedasticity and autocorrelation consistent (HAC) diagnostic is not a small-sample guarantee.
+Holm adjustment~\cite{holm1979multiple} requires valid underlying tests
+and cannot repair unverified sign-symmetry or post-inference selection.
+Six already exposed folds support descriptive
+and sensitivity analysis, not confirmed significance or calibrated band
+coverage. The thesis reports its actual estimators without claiming to
+have run these papers' procedures where it did not.
+
+Stored sources, prompts, responses and checkpoints support inspection and
+offline replay. A new hosted request can still change with service/model
+versions; input authenticity and prospective evaluation require additional
+evidence. A source hash alone cannot supply either.
+
+\section{Position of the thesis}\label{s:4979cc5344f8b716}
+Table~\ref{tab:position} locates the integration problem without comparing
+returns across incompatible published experiments.
+\begin{table}[!htb]\centering\small\setstretch{1.05}
+\caption[Related approaches and thesis position]{Related approaches and the distinction used in this thesis.}\label{tab:position}
+\begin{tabular}{@{}P{0.22\linewidth}P{0.36\linewidth}P{0.35\linewidth}@{}}\toprule
+Approach & Relevant mechanism & Boundary for this thesis\\\midrule
+Financial agents & Specialist price/chart, news, debate or reflection reports & Inherited organization; different actions, markets and accounting\\
+Regime/ICL retrieval & Estimated state or selected input--output examples & Relevance and availability need separate checks; retrieval is not a posterior\\
+PFN/multi-task ICL & Numerical inference conditioned on marked datasets & Local teacher, student and objective differ; no imported market guarantee\\
+BICL v5 & Reports, mature context, numerical predictor, anchor and utility policy & Evaluate the combined path and fallback, with isolated effects still open\\\bottomrule
+\end{tabular}\end{table}

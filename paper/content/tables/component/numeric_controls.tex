@@ -1,0 +1,29 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\caption{Performance of training-fitted fixed, dynamic and random numerical factor selectors.}
+\label{tab:numeric}
+\textbf{A. Pooled numeric results; random mean (SD)}\par\smallskip
+\begin{tabular}{lrrrrr}
+\hline
+Strategy & Trials & Acc. (\%) & BA (\%) & MCC & Random BA range \\
+\hline
+Fixed custom five & 1 & 49.02 & 39.22 & -0.193 & -- \\
+Dynamic train top-five & 1 & 62.75 & 55.06 & 0.093 & -- \\
+Same IDs, no flip & 1 & 50.98 & 48.62 & -0.024 & -- \\
+Random eligible five & 20 & 51.27 (5.32) & 47.74 (5.38) & -0.039 (0.094) & [37.97, 57.17] \\
+\hline
+\end{tabular}\par\medskip
+\textbf{B. Three primary contrasts; multiplicity family = 23}\par\smallskip
+\begin{tabular}{lrrrr}
+\hline
+Contrast & $\Delta$BA (pp) & Percentile interval & Exact $p$ & Holm $p$ \\
+\hline
+Dynamic - fixed & 15.84 & [6.82, 25.22] & 0.0625 & 1.0000 \\
+Dynamic - random mean & 7.33 & [0.57, 13.75] & 0.1250 & 1.0000 \\
+Dynamic - no flip & 6.44 & [-10.93, 20.26] & 0.5312 & 1.0000 \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize All selectors use 102 observations across 51 training scopes; Holm correction covers 23 contrasts, including all twenty random trials.\end{minipage}
+\end{table}

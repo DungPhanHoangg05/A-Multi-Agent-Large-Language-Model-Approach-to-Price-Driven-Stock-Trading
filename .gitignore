@@ -12,3 +12,17 @@ record.csv
 Thumbs.db
 sentiment_cache_*
 .env
+
+# Đầu ra mới của demo, journal và dữ liệu nghiên cứu cục bộ.
+# Git tiếp tục quản lý các đầu vào đã khóa và các bộ kết quả công bố.
+/outputs/*
+!/outputs/paper/
+!/outputs/thesis/
+!/outputs/revision/
+/outputs/revision/*
+!/outputs/revision/README.md
+!/outputs/revision/final_baselines_v1/
+!/outputs/revision/u09_manuscript_assets_v1/
+/backtest_result/
+/tmp/
+/docs/plan/

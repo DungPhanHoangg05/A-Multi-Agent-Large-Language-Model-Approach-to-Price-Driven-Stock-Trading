@@ -1,0 +1,68 @@
+\begin{table}[htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\caption{Paired return and balanced-accuracy differences against Our system and Common baselines.}
+\label{tab:u09-contrasts}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\textbf{Return vs Our system (pp)}\par\smallskip
+\begin{tabular}{lrrr}
+\hline
+Method & Difference & Lower & Upper \\
+\hline
+BICL v1 & -0.045 & -0.362 & 0.271 \\
+BICL v2 & -0.377 & -0.866 & 0.111 \\
+BICL v3 & -0.367 & -0.867 & 0.133 \\
+BICL v4 & -0.377 & -0.866 & 0.111 \\
+BICL v5 & -0.601 & -1.090 & -0.111 \\
+\hline
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\textbf{Return vs Common (pp)}\par\smallskip
+\begin{tabular}{lrrr}
+\hline
+Method & Difference & Lower & Upper \\
+\hline
+BICL v1 & 0.327 & 0.067 & 0.586 \\
+BICL v2 & -0.005 & -0.016 & 0.005 \\
+BICL v3 & 0.005 & -0.005 & 0.016 \\
+BICL v4 & -0.005 & -0.016 & 0.005 \\
+BICL v5 & -0.229 & -0.576 & 0.118 \\
+\hline
+\end{tabular}
+\end{minipage}\par\medskip
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\textbf{BA vs Our system (pp)}\par\smallskip
+\begin{tabular}{lrrr}
+\hline
+Method & Difference & Lower & Upper \\
+\hline
+BICL v1 & -1.749 & -6.374 & 2.876 \\
+BICL v2 & -6.095 & -11.629 & -0.561 \\
+BICL v3 & -5.662 & -11.771 & 0.446 \\
+BICL v4 & -6.095 & -11.629 & -0.561 \\
+BICL v5 & -8.675 & -20.239 & 2.888 \\
+\hline
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\textbf{BA vs Common (pp)}\par\smallskip
+\begin{tabular}{lrrr}
+\hline
+Method & Difference & Lower & Upper \\
+\hline
+BICL v1 & 4.130 & 2.011 & 6.249 \\
+BICL v2 & -0.216 & -0.668 & 0.235 \\
+BICL v3 & 0.216 & -0.235 & 0.668 \\
+BICL v4 & -0.216 & -0.668 & 0.235 \\
+BICL v5 & -2.797 & -11.168 & 5.575 \\
+\hline
+\end{tabular}
+\end{minipage}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize Bands are descriptive joint 95\% bootstrap bands over twenty contrasts, using block length two and 10,000 draws.\end{minipage}
+\end{table}

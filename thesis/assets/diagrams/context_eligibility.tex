@@ -1,0 +1,15 @@
+% Luồng chọn chu kỳ đã trưởng thành và fallback tại cutoff.
+\begin{tikzpicture}[
+  stage/.style={draw=thesisblue,rounded corners=2pt,fill=blue!5,text width=3.7cm,
+    align=center,font=\linespread{1}\fontsize{10}{12}\selectfont,minimum height=9mm,inner sep=3pt},
+  edge/.style={-{Latex[length=2mm]},thick,draw=thesisblue}]
+\node[stage] (bank) at (0,0) {Completed cycles\\Exclude test IDs};
+\node[stage] (mature) at (4.35,0) {Stock and exit filter\\Require exit $<t$};
+\node[stage] (regime) at (8.7,0) {Regime and retrieval keys\\Apply support gates};
+\node[stage,fill=green!9] (prior) at (8.7,-1.55) {Eligible prior\\Stats and examples};
+\node[stage,fill=orange!12] (fallback) at (4.35,-1.55) {Insufficient support\\Reuse Common action};
+\draw[edge] (bank)--(mature);
+\draw[edge] (mature)--(regime);
+\draw[edge] (regime)--(prior);
+\draw[edge] ([yshift=-3mm]regime.west)--++(-.2,-.35)-|(fallback.north);
+\end{tikzpicture}

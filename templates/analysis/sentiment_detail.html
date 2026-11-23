@@ -1,0 +1,134 @@
+{% set sd = results.sentiment_data or {} %}
+{% set ms = sd.main_sentiment or {} %}
+{% set score_available = ms.avg_score is defined and ms.avg_score is not none %}
+{% set count = results.research_news_count if results.research_profile else ms.get('article_count') %}
+{% set has_distribution = sd.distribution_available and count and count > 0 %}
+{% set peers = sd.related_sentiment or {} %}
+{% set sn = sd.sentiment_norm or {} %}
+{% set rn = sd.related_norm or {} %}
+{% set live_metrics = sd.live_news and sn %}
+{% macro article_table(articles) %}
+<div class="report-table">
+  <table>
+    <thead><tr><th scope="col">{{ A.article_date }}</th><th scope="col">{{ A.article_title }}</th>{% if results.research_profile %}<th scope="col">{{ A.article_source }}</th>{% endif %}<th scope="col">{{ A.sent_score }}</th></tr></thead>
+    <tbody>
+    {% for article in articles %}
+    <tr>
+      <td>{% if results.live_news %}<time datetime="{{ article.published_at }}">{{ article.published_at|replace('T', ' ') }}</time>{% else %}{{ article.date_parsed or article.published_at or A.na }}{% endif %}</td>
+      <td lang="vi">{{ article.title or A.na }}</td>
+      {% if results.research_profile %}<td>{% if results.live_news %}<a href="{{ article.source_url_or_archive_id }}" target="_blank" rel="noopener noreferrer">CafeF</a>{% else %}{{ article.source_url_or_archive_id or A.na }}{% endif %}</td>{% endif %}
+      <td>{{ '%+.4f'|format(article.numeric_score) if article.numeric_score is not none else A.na }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endmacro %}
+{% if score_available or results.research_profile %}
+<section class="serving-sentiment-report">
+  <h4 class="sentiment-detail-title"><i class="fas fa-newspaper" aria-hidden="true"></i> {{ A.cafef_live_title if results.live_news else A.research_sentiment_title if results.research_profile else T.sentiment_data_title }}</h4>
+  <div class="sentiment-summary">
+    <div class="sentiment-score-badge">
+      <div class="sentiment-score-num {{ ms.label if score_available else '' }}">{{ '%+.3f'|format(ms.avg_score) if score_available else 'NA' }}</div>
+      <div class="sentiment-label-text">
+        {% if not score_available %}{{ A.unavailable }}{% elif ms.label == 'positive' %}{{ T.sent_positive_up }}{% elif ms.label == 'negative' %}{{ T.sent_negative_up }}{% else %}{{ T.sent_neutral_up }}{% endif %}
+      </div>
+      {% if sd.model_used %}<span class="visobert-badge" title="{{ sd.model_used }}"><i class="fas fa-brain" aria-hidden="true"></i> {{ 'ViSoBERT' if results.research_profile and not results.live_news else sd.model_used }}</span>{% endif %}
+    </div>
+    <div class="sentiment-bar-section">
+      <div class="sentiment-bar-label">{{ T.article_distribution.replace('{n}', (count if count is not none else A.na)|string) }}</div>
+      {% if has_distribution %}
+      {% for key, label, color in [('positive', T.sent_positive, 'pos'), ('negative', T.sent_negative, 'neg')] %}
+      {% set pct = 100 * ms[key] / count %}
+      <div class="sent-bar-track" role="img" aria-label="{{ label }} {{ '%.1f'|format(pct) }}%"><div class="sent-bar-fill {{ color }}" style="width:{{ pct }}%"></div></div>
+      {% endfor %}
+      {% else %}<p>{{ A.sent_distribution_missing }}</p>{% endif %}
+    </div>
+    <div class="sentiment-stat-row">
+      {% for key, label, color in [('positive', T.sent_positive, 'positive'), ('neutral_count', T.sent_neutral, 'neutral'), ('negative', T.sent_negative, 'negative')] %}
+      <div class="sentiment-stat {{ color }}"><span class="sentiment-stat-val">{{ ms[key] if has_distribution else 'NA' }}</span><span class="sentiment-stat-lbl">{{ label }}</span></div>
+      {% endfor %}
+    </div>
+  </div>
+  {% if results.research_profile %}
+  <div class="alpha-profile-note">
+    {% if results.research_news_missing_reason %}<p>{{ A.get('research_news_' ~ results.research_news_missing_reason, A.sentiment_note) }}</p>{% endif %}
+    {% if results.live_news %}
+    <p>{{ A.cafef_news_cutoff }} · <time datetime="{{ results.live_news.as_of_at }}">{{ results.live_news.as_of_at[:19]|replace('T', ' ') }} {{ results.live_news.as_of_at[-6:] }}</time></p>
+    {% if sd.fallback_article_count %}<p>{{ A.cafef_fallback_articles }} · {{ sd.fallback_article_count }}</p>{% endif %}
+    {% else %}<p>{{ A.research_sentiment_source }}</p>{% endif %}
+  </div>
+  {% endif %}
+  {% if peers or results.research_profile %}
+  <h5 class="sentiment-detail-title"><i class="fas fa-sitemap" aria-hidden="true"></i> {{ A.sent_related_title }}</h5>
+  {% if peers %}
+  <div class="related-grid">
+    {% for symbol, peer in peers.items() %}
+    {% set peer_score = peer.get('avg_score') %}
+    <div class="related-card">
+      <div class="related-card-code" title="{{ peer.name or symbol }}">{{ symbol }}</div>
+      <div class="related-card-score">{{ '%+.3f'|format(peer_score) if peer_score is not none else A.na }}</div>
+      <div class="related-card-label">{{ peer.get('article_count', A.na) }} {{ T.articles }}</div>
+      {% if live_metrics %}
+      <div class="related-card-label">{{ A.cafef_mentioned if peer.mention_urls else A.cafef_same_industry }}</div>
+      {% if peer_score is none %}<div class="related-card-label">{{ A.cafef_peer_source_down if peer.status == 'CAFEF_UNAVAILABLE' else A.cafef_peer_no_articles }}</div>{% endif %}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}<p>{{ A.cafef_norm_legacy if results.live_news and not live_metrics else A.sent_peers_missing }}</p>{% endif %}
+  {% endif %}
+  {% if results.sentiment_analysis and score_available %}<div id="sentimentContent" data-localize data-markdown="true" data-locale-pending data-source-language="{{ LANG }}" class="auto-beautify sentiment-report-text">{{ results.sentiment_analysis|safe }}</div>{% endif %}
+  {% if sn or results.research_profile %}
+  <div class="sentiment-norm-section">
+    <div class="sentiment-norm-title"><i class="fas fa-calculator" aria-hidden="true"></i> {{ A.cafef_norm_title if results.live_news else T.norm_title }}{% if sn.is_reliable %} <span class="norm-reliable-badge">{{ T.norm_reliable }}</span>{% endif %}</div>
+    {% if live_metrics %}<p>{{ A.cafef_norm_note }}</p>
+    {% elif not results.live_news %}<p>{{ A.research_sentiment_normalization if results.research_profile else A.sent_saved_norm }}</p>{% endif %}
+    <div class="norm-vars-grid">
+      {% set zscore = sn.get('z_score') %}{% set rel = sn.get('rel_sentiment') %}
+      <div class="norm-var-card">
+        <div class="nv-name">SENT_ZSCORE</div>
+        <div class="nv-value">{{ '%+.4f'|format(zscore) if zscore is not none and (live_metrics or sn.is_reliable) else A.na }}</div>
+        <div class="nv-formula">{{ T.nv_zscore_formula }}</div><div class="nv-desc">{{ T.nv_zscore_desc|safe }}</div>
+        {% if live_metrics and not sn.is_reliable %}<p>{{ A.get('cafef_norm_' ~ sn.missing_reason, A.cafef_small_sample) }}</p>{% endif %}
+      </div>
+      <div class="norm-var-card">
+        <div class="nv-name">REL_SENTIMENT</div>
+        <div class="nv-value">{{ '%+.4f'|format(rel) if rel is not none and sd.relative_available else A.na }}</div>
+        <div class="nv-formula">{{ A.cafef_relative_formula if results.live_news else T.nv_rel_formula }}</div>
+        <div class="nv-desc">{{ A.cafef_relative_desc if results.live_news else T.nv_rel_desc|safe }}</div>
+        {% if live_metrics %}<p>{{ A.cafef_relative_missing if rel is none else A.cafef_relative_peer_count ~ ' · ' ~ sn.relative_peer_count }}</p>{% endif %}
+      </div>
+    </div>
+    {% if rn %}
+    <h5 class="sentiment-detail-title">{{ A.cafef_peer_zscores if live_metrics else T.related_zscore_title }}</h5>
+    <div class="related-grid">
+      {% for symbol, peer in rn.items() %}
+      {% set peer_zscore = peer.get('z_score') %}
+      <div class="related-card">
+        <div class="related-card-code">{{ symbol }}</div>
+        <div class="related-card-score">{{ '%+.3f'|format(peer_zscore) if peer_zscore is not none and (live_metrics or peer.is_reliable) else A.na }}</div>
+        {% if live_metrics and not peer.is_reliable %}<div class="related-card-label">{{ A.get('cafef_norm_' ~ peer.missing_reason, A.cafef_small_sample) }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% if sd.scored_articles or results.research_profile %}
+  <details class="sentiment-articles"{% if sd.scored_articles %} open{% endif %}><summary>{{ A.sent_articles }} ({{ (sd.scored_articles or [])|length }})</summary>
+    {% if sd.scored_articles %}
+    {{ article_table(sd.scored_articles) }}
+    {% else %}<p>{{ A.unavailable }}</p>{% endif %}
+  </details>
+  {% endif %}
+  {% if live_metrics %}
+  {% for symbol, peer in peers.items() if peer.scored_articles %}
+  <details class="sentiment-articles">
+    <summary>{{ A.sent_articles }} · {{ symbol }} ({{ peer.article_count }})</summary>
+    {{ article_table(peer.scored_articles) }}
+  </details>
+  {% endfor %}
+  {% endif %}
+</section>
+{% else %}<p class="alpha-profile-note">{{ T.no_sentiment_note }}</p>{% endif %}

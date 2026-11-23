@@ -1,0 +1,4 @@
+<details class="panel"><summary>{{ E.method_roles }}</summary><div class="scroll" tabindex="0"><table>
+  <thead><tr><th>{{ E.method }}</th><th>ID</th><th>{{ E.profile }}</th><th>{{ E.dependencies }}</th><th>{{ E.fallback }}</th></tr></thead><tbody>
+  {% for v in serving_registry.variants %}<tr><td>{{ v.label[LANG] }} · {{ E.main if v.group == 'main' else E.advanced }}</td><td>{{ v.id }}</td><td>{{ v.profile_version }}</td><td>{{ v.dependencies|join(', ') or '—' }}</td><td>{{ v.fallback or '—' }}</td></tr>{% endfor %}
+  </tbody></table></div></details>

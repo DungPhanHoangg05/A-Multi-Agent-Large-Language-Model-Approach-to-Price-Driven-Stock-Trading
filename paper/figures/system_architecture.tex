@@ -1,0 +1,18 @@
+% Sơ đồ hai nhánh cho so sánh chính, lịch sử nằm ở nhánh mở rộng.
+\begin{tikzpicture}[
+ box/.style={draw=blue!55!black,rounded corners=2pt,fill=blue!4,align=center,
+   text width=4.1cm,minimum height=1.15cm,font=\small,inner sep=4pt},
+ wide/.style={box,text width=14.8cm},
+ flow/.style={-{Latex[length=2mm]},semithick,draw=blue!55!black}]
+\node[wide] (input) at (5.25,0) {Stock OHLCV through the decision cutoff\\Eligible dated news for the sentiment report};
+\node[wide] (shared) at (5.25,-1.55) {Shared Indicator, Pattern and Trend reports, generated once per stock and cutoff};
+\node[box] (qa) at (0,-3.45) {\textbf{QuantAgent}\\Price and chart reports};
+\node[box] (ours) at (5.25,-3.45) {\textbf{Our system}\\Aggregate alpha + dated news};
+\node[box,fill=green!9] (bicl) at (10.5,-3.45) {\textbf{BICL v1--v5}\\Historical signal bank or follow-up OHLCV keys};
+\node[wide,fill=orange!10] (outcome) at (5.25,-5.4) {Save each forecast and final action, then evaluate the same LONG/CASH contract\\LONG: next open to third close, costs on entry and exit. SHORT: cash.};
+\draw[flow] (input)--(shared);
+\foreach \step in {qa,ours,bicl}{
+  \draw[flow] (\step.north |- shared.south)--(\step.north);
+  \draw[flow] (\step.south)--(\step.south |- outcome.north);
+}
+\end{tikzpicture}

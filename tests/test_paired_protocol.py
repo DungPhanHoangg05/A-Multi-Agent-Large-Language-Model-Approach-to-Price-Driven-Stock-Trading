@@ -155,6 +155,11 @@ class PairedProtocolTests(unittest.TestCase):
         self.assertEqual(summary.test_points[0]["pred_no_alpha"], "SHORT")
         self.assertEqual(summary.test_points[0]["decision_source_full"], "llm_json")
         self.assertEqual(summary.test_points[0]["decision_source_no_alpha"], "llm_json")
+        point = summary.test_points[0]
+        self.assertEqual(point["label_contract_version"], "net_cycle_v1")
+        self.assertEqual(point["label_net"], point["actual_direction"])
+        self.assertEqual(point["decision_close"], float(df["Close"].iloc[point["decision_bar_index"]]))
+        self.assertAlmostEqual(point["net_return"] * 100, point["actual_pct_change"], places=3)
 
     def test_dynamic_alpha_failure_aborts_benchmark_immediately(self):
         engine = BacktestEngine({"use_historical_sentiment": False})
@@ -185,7 +190,9 @@ class PairedProtocolTests(unittest.TestCase):
         calls = []
 
         def factory(name: str, output: dict):
-            def make_node(*_args):
+            def make_node(*_args, decision_profile=None):
+                if name == "decision":
+                    self.assertEqual(decision_profile, "original_fix_serving_v1")
                 def node(_state: dict) -> dict:
                     calls.append(name)
                     return output

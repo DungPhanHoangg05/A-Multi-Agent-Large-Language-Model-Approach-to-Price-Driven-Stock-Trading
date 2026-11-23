@@ -1,0 +1,16 @@
+\begin{table}[!htb]
+\centering\small
+\caption{System names and the component or historical information each receives.}\label{tab:system-versions}
+\begin{tabularx}{\linewidth}{@{}lX@{}}\toprule
+System or control & Evidence and decision path \\ \midrule
+QuantAgent & Published price-driven Indicator, Pattern, Trend and Risk/Decision architecture. The local paired comparator uses its price-only roles under the same daily execution contract as Our system. \\
+Our system & Adds an OHLCV alpha report and an eligible Vietnamese news sentiment report to the chart-based architecture. No historical examples. \\
+Our system (Common) & Same augmented evidence with a common Decision prompt. This is the no-context control for BICL v1--v4. \\
+BICL v1 & Adds a compact regime-matched prior from eligible historical episodes. \\
+BICL v2 & Conditions the prior on quality and explicit historical counts. \\
+BICL v3 & Computes conditional statistics from a broader trend--pattern pool. \\
+BICL v4 & Uses the same eligible evidence as v2 and presents counts, intervals and examples explicitly. \\
+Fact Anchor & Adds a structured factual anchor to the Common decision. This control isolates the reference action for BICL v5. \\
+BICL v5 & Adds multi-task numerical context, teacher/student inference and a utility gate to the anchored decision path. \\
+\bottomrule\end{tabularx}
+\end{table}

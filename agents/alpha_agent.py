@@ -12,6 +12,10 @@ from core import alpha_compare
 # ── Retry wrapper ──────────────────────────────────────────────────────────────
 
 def _invoke_with_retry(call_fn, *args, retries=3, wait_sec=5):
+    from core.research_invocation import CURRENT, invoke_once
+    if CURRENT.get() is not None:
+        return invoke_once(call_fn, *args)
+
     last_err = None
     for attempt in range(retries):
         try:
@@ -642,10 +646,9 @@ def _compute_all_alphas(
     historical_df: Optional[pd.DataFrame] = None,
     as_of_date: Optional[str] = None,
     is_backtest: bool = False,
+    strict_research_mode: bool = False,
 ) -> Tuple[List[dict], dict]:
-    """
-    Computes top-5 dynamic alphas or falls back to original 5.
-    """
+    """Tính năm alpha động; chế độ nghiên cứu nghiêm ngặt không che lỗi dữ liệu."""
     from utils.i18n import t as _t
 
     tv = _extract_tech_vars(kline_data)
@@ -662,6 +665,8 @@ def _compute_all_alphas(
             is_backtest=is_backtest,
         )
     except Exception as e:
+        if strict_research_mode:
+            raise
         print(f"[AlphaAgent] Lỗi select_top_alphas: {e}")
         top_alphas = []
 
@@ -708,6 +713,8 @@ def _compute_all_alphas(
                 val = float(normalized.iloc[-1])
                 if math.isnan(val) or math.isinf(val): val = 0.0
             except Exception as e:
+                if strict_research_mode:
+                    raise
                 print(f"[AlphaAgent] Lỗi tính alpha {aid}: {e}")
                 val = 0.0
             
@@ -887,6 +894,7 @@ def create_alpha_agent(
     llm,
     enable_alpha_factors: bool = True,
     enable_sentiment: bool = True,
+    strict_research_mode: bool = False,
 ):
     """Tạo node đặc trưng với Alpha Factors và Sentiment bật/tắt độc lập."""
 
@@ -925,10 +933,14 @@ def create_alpha_agent(
                         llm=llm, window_days=90,
                     )
                 except Exception as e:
+                    if strict_research_mode:
+                        raise
                     print(f"[AlphaAgent] Lỗi historical sentiment: {e}")
                     sentiment_data   = _NEUTRAL_SENTIMENT_DATA
                     sentiment_report = f"Lỗi: {e}"
             else:
+                if strict_research_mode:
+                    raise ValueError("Trích tín hiệu lịch sử cần sentiment store và cutoff tường minh")
                 print(f"[AlphaAgent] Backtest neutral mode — {stock_name}")
                 sentiment_data   = _NEUTRAL_SENTIMENT_DATA
                 sentiment_report = _BACKTEST_NO_CACHE_REPORT
@@ -971,6 +983,7 @@ def create_alpha_agent(
             norm_method=norm_method, weights=weights, lang=lang,
             historical_df=point_in_time_df, as_of_date=alpha_as_of_date,
             is_backtest=is_backtest,
+            strict_research_mode=strict_research_mode,
         )
         # Inject động horizon vào từng alpha
         for a in alphas:

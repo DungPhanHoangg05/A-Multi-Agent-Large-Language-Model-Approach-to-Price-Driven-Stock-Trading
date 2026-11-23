@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="{{ LANG }}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ A.output }} · QuantAgent VN</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/serving.css') }}">
+  <script type="module" src="{{ url_for('static', filename='js/analysis/result.js') }}"></script>
+{% include 'shared/preferences_head.html' %}
+</head>
+<body class="serving-result">
+{% include 'shared/preferences.html' %}
+{% set serving_source = 'live' if request.args.get('serving_source') == 'live' else 'asof' %}
+<header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ A.analysis }}</a><a aria-current="page" href="/output?serving_run={{ serving_run|urlencode }}&amp;serving_source={{ serving_source }}&amp;lang={{ LANG }}">{{ A.output }}</a><a href="/backtest?lang={{ LANG }}">{{ A.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ A.research }}</a></nav></header>
+<main class="serving-ui">
+  <h1>{{ A.output }}</h1><p id="job-meta"></p><p id="job-profile" class="serving-notice"></p><p class="serving-notice">{{ A.quota_note }}</p>
+  <section class="serving-panel" aria-busy="true" id="job-status-panel"><h2 id="job-state" role="status" aria-live="polite">{{ A.loading }}</h2><p id="job-progress"></p><p id="retry-at"></p><p id="partial-note" hidden>{{ A.partial_note }}</p><p id="job-error" role="alert"></p>
+    <div class="serving-actions"><button id="refresh-job" type="button">{{ A.refresh }}</button><button id="stop-job" type="button" disabled>{{ A.stop }}</button><button id="resume-job" type="button" disabled>{{ A.resume }}</button><a id="full-report" hidden>{{ A.report_full }}</a><a id="export-job" hidden>{{ A.export_json }}</a><a href="/?lang={{ LANG }}">{{ A.new }}</a></div>
+  </section>
+  <section class="serving-panel"><h2>{{ A.requested }}</h2><p id="no-decisions">{{ A.empty }}</p><div id="decision-cards" class="serving-grid"></div><details id="control-details"><summary>{{ A.controls }}</summary><div id="control-cards" class="serving-grid"></div></details></section>
+  <section class="serving-panel"><h2>{{ A.shared }}</h2><p>{{ A.sentiment_note }}</p><div id="shared-reports"></div></section>
+  <details class="serving-panel"><summary>{{ A.snapshot }}</summary><pre id="job-provenance"></pre></details>
+</main>
+<script type="application/json" id="analysis-config">{{ {'messages': A, 'language': LANG, 'registry': serving_registry, 'runId': serving_run, 'source': serving_source}|tojson }}</script>
+</body></html>

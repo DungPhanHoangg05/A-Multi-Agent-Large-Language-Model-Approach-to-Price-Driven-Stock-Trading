@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "a6f62a8f1e47e687eaa2b134c9530529d1d9b4357e690b8acaf9c9aecc0e5544",
+  "retrieved_at_utc": "2026-11-08T03:41:06.851885+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/company/HVN/price-history?fromDate=20200101&toDate=20260930&page=1&size=1000"
+}

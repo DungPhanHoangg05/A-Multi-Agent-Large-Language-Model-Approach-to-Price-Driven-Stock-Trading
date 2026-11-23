@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "c4cf27f55135cd685e55204567c1e2beb85ed12bdd3b314cd194b9617623c23d",
+  "retrieved_at_utc": "2026-11-08T03:41:10.117159+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/events?ticker=MBB&fromDate=20190101&toDate=20261231&eventCode=DIV%2CISS%2CAIS%2CMA%2CMOVE%2CNLIS%2COTHE%2CRETU%2CSUSP&page=0&size=1000"
+}

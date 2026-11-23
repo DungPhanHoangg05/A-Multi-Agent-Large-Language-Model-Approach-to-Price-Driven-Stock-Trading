@@ -1,0 +1,31 @@
+/* UI serving riêng; các giá trị từ model được render như văn bản. */
+.serving-ui {color:#293344;line-height:1.6;font-family:'Segoe UI',sans-serif;min-width:0}
+.serving-ui [hidden],#legacy-inputs[hidden],.run-btn-wrapper [hidden],[data-legacy-only][hidden] {display:none!important}
+.loading-step[hidden] {display:none!important}
+.loading-card {max-height:90vh;overflow-y:auto}
+.panel-group:has([data-legacy-only][hidden]) {grid-template-columns:1fr}
+.serving-ui h1 {font-size:2rem}.serving-ui h2 {font-size:1.25rem;margin:0 0 .6rem}
+.serving-ui p {margin:.6rem 0}.serving-ui fieldset {border:1px solid #d9dee7;border-radius:10px;padding:1rem;margin:1rem 0}
+.serving-ui legend {font-weight:650;padding:0 .4rem}.serving-ui summary {cursor:pointer;font-weight:650;padding:.6rem 0}
+.serving-field {display:flex;flex-direction:column;gap:.35rem;font-weight:600;min-width:0;margin:.6rem 0}
+.serving-ui select,.serving-ui input[type=date],.serving-ui input[type=number] {box-sizing:border-box;font:inherit;border:1px solid #acb6c4;border-radius:8px;min-height:44px;padding:.5rem;background:white;color:#293344;max-width:100%;width:100%}
+.serving-ui input[type=checkbox] {width:18px;height:18px;accent-color:#a61b34;flex-shrink:0}
+.serving-choices {display:flex;flex-wrap:wrap;gap:.5rem 1.3rem}.serving-choices label {display:flex;align-items:center;gap:.4rem;min-height:40px}
+.serving-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem}
+.serving-muted {font-size:.85rem;color:#566274}.serving-notice {background:#fff1dc;border-left:4px solid #a45c13;padding:.8rem 1rem;border-radius:6px}
+.serving-ui button,.serving-button {font:inherit;font-weight:650;border:1px solid #a61b34;border-radius:8px;background:#a61b34;color:#fff;padding:.6rem 1rem;cursor:pointer;min-height:44px}
+.serving-ui button:disabled,.serving-compare:disabled {opacity:.5;cursor:not-allowed}.serving-ui :focus-visible {outline:3px solid #1764ac;outline-offset:3px}
+.serving-ui a {color:#a61b34}.serving-actions {display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}
+.serving-compare {background:#6f2943!important;margin:.6rem}.serving-result {margin:0;background:#fff5f5;font-family:'Segoe UI',sans-serif}
+.serving-result main {max-width:1240px;margin:auto;padding:1.5rem 1rem}.serving-topbar {display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding:1rem 2rem;background:#8b1528;color:#fff}
+.serving-topbar a {color:#fff;text-decoration:none;display:inline-block;min-height:40px;padding:.3rem}.serving-topbar nav {display:flex;flex-wrap:wrap;gap:.5rem;flex:1}
+.serving-topbar [aria-current] {text-decoration:underline;text-underline-offset:.4rem}.serving-panel {background:#fff;border:1px solid #e1dce0;border-radius:14px;margin:1rem 0;padding:1.25rem;min-width:0}
+.decision-card {border:1px solid #d9dee7;border-top:4px solid #8b1528;border-radius:10px;padding:1rem;min-width:0}.decision-card h3 {margin:0 0 .6rem;color:#8b1528}.decision-card dl {display:grid;grid-template-columns:1fr 1fr;gap:.35rem;margin:0}.decision-card dt {color:#566274}.decision-card dd {margin:0;font-weight:650;overflow-wrap:anywhere}
+.serving-ui pre {white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;background:#f6f7f9;padding:1rem;border-radius:8px;font: .86rem/1.65 ui-monospace,monospace;max-height:34rem;overflow:auto}
+.serving-ui img {max-width:100%;height:auto;border:1px solid #dde2e8;border-radius:8px}.serving-ui svg {display:block;width:100%;height:auto;max-height:240px}.serving-report {border-top:1px solid #d9dee7;padding-top:.6rem;margin-top:1rem}
+#serving-form-error,#job-error {color:#9d1730;overflow-wrap:anywhere}#preflight-status {margin:.75rem 0}#job-meta {overflow-wrap:anywhere}
+html[data-theme=dark] .serving-panel {background:var(--site-panel);border-color:var(--site-border)}
+html[data-theme=dark] .serving-report {border-color:var(--site-border)}
+html[data-theme=dark] .decision-card dt {color:var(--site-muted)}
+html[data-theme=dark] :is(.decision-card h3,#job-error) {color:var(--site-accent)}
+@media(max-width:600px) {.serving-topbar {padding:.7rem}.serving-result main {padding:.7rem}.serving-panel {padding:1rem}.serving-ui h1 {font-size:1.5rem}.decision-card dl {grid-template-columns:1fr}.serving-grid {grid-template-columns:1fr}.run-btn-wrapper {display:flex;flex-direction:column;align-items:stretch}}

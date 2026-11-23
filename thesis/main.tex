@@ -1,0 +1,23 @@
+% Nguồn LaTeX toàn văn; không đọc nội dung hay macro từ thư mục mẫu.
+\documentclass[12pt,a4paper,twoside,openany]{report}
+\input{latex/preamble}
+\begin{document}
+\hypersetup{pageanchor=false}
+\input{latex/frontmatter/covers}
+\clearpage
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\input{latex/frontmatter/content}
+\tableofcontents\clearpage
+\listoffigures\clearpage
+\listoftables\clearpage
+\input{latex/frontmatter/reference_lists}\clearpage
+\pagenumbering{arabic}
+\input{latex/chapters/01_introduction}
+\input{latex/chapters/02_related_work}
+\input{latex/chapters/03_background}
+\input{latex/chapters/04_proposed_system}
+\input{latex/chapters/05_experiments}
+\input{latex/chapters/06_conclusion}
+\printbibliography[heading=bibintoc,title={References}]
+\end{document}

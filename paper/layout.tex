@@ -1,0 +1,30 @@
+% Kiểu trình bày chung; không thay giá trị thực nghiệm hoặc metadata tác giả.
+\hypersetup{pdftitle={Enhancing Multi-Agent Large Language Models for Stock Trading through Quantitative Alpha Integration}}
+% Ưu tiên ghép bảng/hình với văn bản, giữ khoảng cách vừa đủ và tránh giãn dọc trang.
+\raggedbottom
+\renewcommand{\topfraction}{0.86}
+\renewcommand{\bottomfraction}{0.68}
+\renewcommand{\textfraction}{0.16}
+\renewcommand{\floatpagefraction}{0.96}
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{3}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{12pt plus 2pt minus 3pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+% Footer trung tính, không suy rằng bản thảo đã được gửi tới tạp chí.
+\date{21 November 2026}
+\makeatletter
+% Căn đầu trang float; không kéo giãn khoảng cách giữa các bảng trên cùng trang.
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt plus 2pt minus 2pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\pdfstringdefDisableCommands{\let\orcidlink\@gobble\let\corref\@gobble\def\,{ }\let\cnotenum\@empty\let\@corref\@empty}
+\def\ps@pprintTitle{%
+  \let\@oddhead\@empty
+  \let\@evenhead\@empty
+  \def\@oddfoot{\footnotesize\itshape Research manuscript\hfill\@date}%
+  \let\@evenfoot\@oddfoot}
+\makeatother
+\renewcommand{\bibfont}{\small\setlength{\baselineskip}{12pt}}
+\setlength{\bibsep}{0pt}

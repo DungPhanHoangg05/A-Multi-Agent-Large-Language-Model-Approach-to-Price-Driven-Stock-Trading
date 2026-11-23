@@ -1,0 +1,88 @@
+<div class="agent-panel bicl-panel">
+  <div class="agent-panel-header">
+    <div class="agent-icon-wrap agent-icon-purple"><i class="fas fa-brain"></i></div>
+    <div><div class="agent-title">{{ A.bicl_title }}</div><div class="agent-subtitle">{{ results.analysis_version }}</div></div>
+  </div>
+  <div class="agent-panel-body">
+    <p>{{ results.bicl.method }}</p>
+    <h4>{{ A.bicl_policy }}</h4>
+    <p>{{ results.bicl.application_note }}</p>
+    <p>{{ results.bicl.status }} · {{ results.bicl.reason }}</p>
+    <p>{{ A.bicl_raw }}: {{ results.bicl.raw if results.bicl.raw is not none else A.na }} → <strong>{{ results.bicl.final }}</strong> · {{ results.bicl.action }}</p>
+    {% if results.bicl.baseline %}<p>{{ A.bicl_baseline }}: {{ results.bicl.baseline }} → {{ results.bicl.final }}</p>{% endif %}
+    <h4>{{ A.bicl_context }}</h4>
+    <p>{{ results.asset_name }} · {{ results.bicl.cutoff }} · {{ results.bicl.captured_at }}</p>
+    {% if results.bicl.regime %}<p>{{ A.bicl_regime }} · {{ results.bicl.regime }}</p>{% endif %}
+    {% set stats = results.bicl.statistics %}
+    <details{% if stats or results.bicl.groups or results.bicl.examples %} open{% endif %}>
+      <summary>{{ A.bicl_facts if results.analysis_version_id == 'MT_BICL' else A.bicl_prior }}</summary>
+      {% if stats %}
+        <p>{{ A.bicl_population }} · {{ stats.population_count }} {{ A.bicl_cycles }}{% if stats.conditional %} · {{ A.bicl_conditional }} · {{ stats.conditional_count }} · {{ A.bicl_background }} · {{ stats.background_count }}{% endif %}</p>
+        <div class="report-table"><table>
+          <thead><tr>
+            <th scope="col">{{ A.bicl_metric }}</th>
+            <th scope="col">{{ A.bicl_population }}</th>
+            {% if stats.conditional %}
+            <th scope="col">{{ A.bicl_conditional }}</th>
+            <th scope="col">{{ A.bicl_background }}</th>
+            <th scope="col">{{ A.bicl_posterior }}</th>
+            <th scope="col">{{ A.bicl_interval }}</th>
+            {% else %}
+            <th scope="col">{{ A.bicl_rate }}</th>
+            {% endif %}
+            <th scope="col">{{ A.bicl_in_prompt }}</th>
+          </tr></thead>
+          <tbody>
+            {% for row in stats.rows %}
+            <tr>
+              <th scope="row">{{ A.get('bicl_' ~ row.id, row.id) }}</th>
+              <td>{{ row.population }}</td>
+              {% if stats.conditional %}
+              <td{% if row.conditional == '0/0' %} title="{{ A.bicl_no_support }}"{% endif %}>{{ row.conditional }}</td>
+              <td>{{ row.background }}</td>
+              <td>{{ '%.1f%%'|format(row.posterior * 100) if row.posterior is not none else A.na }}</td>
+              <td>{% if row.interval %}{{ '%.1f%%–%.1f%%'|format(row.interval.lower * 100, row.interval.upper * 100) }}{% else %}{{ A.na }}{% endif %}</td>
+              {% else %}
+              <td>{{ '%.1f%%'|format(row.rate * 100) if row.rate is not none else A.na }}</td>
+              {% endif %}
+              <td>{{ A.bicl_metric_sent if row.in_prompt else A.bicl_metric_not_sent }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table></div>
+        <p>{{ A.bicl_statistics_note }}</p>
+      {% elif not (results.bicl.examples or results.bicl.groups or results.bicl.facts) %}
+        <p>{{ A.bicl_no_saved_evidence }}</p>
+      {% endif %}
+      {% if results.bicl.facts %}
+        <div class="report-table"><table><thead><tr><th scope="col">{{ A.bicl_metric }}</th><th scope="col">{{ A.bicl_value }}</th></tr></thead>
+          <tbody>{% for key, value in results.bicl.facts.items() %}<tr><th scope="row">{{ A['bicl_fact_' ~ key] }}</th><td>{{ '%.4f'|format(value) if value is not none else A.na }}</td></tr>{% endfor %}</tbody>
+        </table></div>
+      {% endif %}
+      {% if results.bicl.groups %}
+        <div class="report-table"><table><thead><tr>
+          <th scope="col">{{ A.bicl_group }}</th><th scope="col">{{ A.bicl_cycles }}</th>
+          <th scope="col">{{ A.bicl_win_rate_long }}</th><th scope="col">{{ A.bicl_mean_return }}</th>
+        </tr></thead><tbody>
+          {% for group in results.bicl.groups %}<tr><th scope="row">{{ A.bicl_group }} {{ loop.index }}</th>
+          <td>{{ group.n }}</td><td>{{ group.wins }}/{{ group.n }}</td>
+          <td>{{ '%+.2f%%'|format(group.mean_r_net_fraction * 100) if group.mean_r_net_fraction is not none else A.na }}</td></tr>{% endfor %}
+        </tbody></table></div>
+      {% endif %}
+      {% if stats or results.bicl.examples %}
+        <p>{{ A.bicl_examples }} · {{ results.bicl.examples|length }}{% if stats and 'NO_QUALIFIED_EXAMPLES' in stats.example_reasons %} · {{ A.bicl_no_qualified_examples }}{% endif %}</p>
+        {% if results.bicl.examples %}
+          {% set closed = results.bicl.examples|selectattr('exit_date')|list %}
+          <div class="report-table"><table><thead><tr>
+            <th scope="col">{{ A.symbol }}</th><th scope="col">{{ A.bicl_signal_date }}</th>
+            {% if closed %}<th scope="col">{{ A.bicl_closed }}</th>{% endif %}
+            <th scope="col">{{ A.bicl_net_return }}</th>
+          </tr></thead><tbody>
+            {% for example in results.bicl.examples %}<tr><td>{{ example.symbol or A.na }}</td><td>{{ example.date or A.na }}</td>
+            {% if closed %}<td>{{ example.exit_date or A.na }}</td>{% endif %}<td>{{ example.net_return or A.na }}</td></tr>{% endfor %}
+          </tbody></table></div>
+        {% endif %}
+      {% endif %}
+    </details>
+  </div>
+</div>

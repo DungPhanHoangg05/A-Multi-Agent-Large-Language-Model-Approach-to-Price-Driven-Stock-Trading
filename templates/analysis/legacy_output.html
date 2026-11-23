@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{{ LANG }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ T.page_title_output }}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/legacy_output.css') }}">
+    {% if results.serving_analysis %}<link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/daily_output.css') }}">{% endif %}
+{% include 'shared/preferences_head.html' %}
+</head>
+
+<body>
+{% include 'shared/preferences.html' %}
+    {% set views = localized_result_views|default({LANG:results}) %}
+    <div id="localized-report-view">{% with results=views.get(LANG,results) %}{% include 'analysis/report_body.html' %}{% endwith %}</div>
+    {% if views|length == 2 %}
+    {% for locale,view in views.items() %}
+    <template id="report-view-{{ locale }}" data-title="{{ catalogue_for(locale).page_title_output }}">
+      {% with results=view, LANG=locale, T=catalogue_for(locale), A=analysis_messages_for(locale) %}{% include 'analysis/report_body.html' %}{% endwith %}
+    </template>
+    {% endfor %}
+    {% endif %}
+    <script type="application/json" id="legacy-config">{{ {'messages': T, 'language': LANG}|tojson }}</script>
+    {% if not results.serving_analysis %}
+    <script src="{{ url_for('static', filename='js/analysis/legacy_output.js') }}"></script>
+    {% endif %}
+</body>
+
+</html>

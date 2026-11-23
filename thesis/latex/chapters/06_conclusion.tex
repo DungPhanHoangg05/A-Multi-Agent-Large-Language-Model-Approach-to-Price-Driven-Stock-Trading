@@ -1,0 +1,81 @@
+% Kết luận tổng hợp đúng phạm vi đã báo cáo; không tạo kết quả mới.
+\chapter{Conclusions and Future Work}\label{s:3929b96346005341}
+\section{Approach and contributions}\label{s:fec2d201a3e32bcc}
+This thesis integrates specialist price/chart reports, adapted alpha and
+dated sentiment with regime-aware historical context and numerical
+multi-task inference for Vietnamese-stock LONG/CASH decisions. Fact Anchor
+and an external utility policy separate hosted proposals from final
+actions. Shared upstream, canonical net-cycle accounting and a forecast
+barrier make the recorded paths inspectable.
+
+The thesis tests whether BICL adds value to Our system. In the follow-up
+evaluation, BICL v1--v4 produce differences of at most $0.0127$ pp in
+mean account return against Our system (Common) on the complete-account
+subset. BICL v5 has lower return and BA than both no-context baselines
+and Fact Anchor. BICL changes the information and action path when
+eligible, yet the measured outcomes do not establish a consistent
+economic benefit. The earlier studies below show how comparison results
+vary with the input profile and available historical support.
+
+The contribution is an attributed adaptation, context/policy integration
+and source-bound evaluation of existing foundations: QuantAgent-style
+roles, indicators, Alpha101, HMMs, Bayesian updating and multi-task ICL.
+The local teacher/student model adapts the reference approach; its
+empirical value is assessed within the reported limits.
+
+\section{Answers to the research questions}\label{s:72579e525074c634}
+\paragraph{RQ1: combined information and controls.}
+Component Our system exceeds QuantAgent by 3.247 pp BA on 102 points, with saved
+descriptive interval [$-1.176$,8.125] pp, while its mean net account
+return is 0.047 pp lower. Both identify seven of 25 UP outcomes.
+On the same sample, logistic-price achieves 55.61\% BA and $-0.683$\%
+return versus 52.96\% and $-0.797$\% for Our system, each with 24 LONG
+decisions, and CASH returns zero. The
+separate nine-cutoff ablations use different cutoffs and prompts.
+They leave the individual contributions of alpha and sentiment uncertain.
+
+\paragraph{RQ2: historical context.}
+In the follow-up, v1--v4 make 144, 6, 24 and 6 new Decision replies
+out of 306 slots per method. They change the final action relative to
+same-repeat Common in 4, 2, 2 and 2 slots, spanning 2, 1, 1 and 1
+stock--dates. Their mean-return differences versus Common span
+$-0.0011$ to $+0.0127$ pp on the 45 complete accounts (90 cutoffs)
+per repeat. The registered full-cohort endpoints are undefined because
+six cutoffs lack execution labels. The secondary simultaneous bands
+are undefined because some contrasts have zero bootstrap variance.
+The earlier historical study shows a larger v1 contrast against Common,
+under a different bank, input profile and set of model replies.
+
+\paragraph{RQ3: factual anchoring and action revision.}
+In the follow-up, most of the decline relative to Common occurs at Fact
+Anchor, which changes 53/306 actions across 20 stock--dates and lowers
+net return by 0.4953 pp and BA by 8.2071 pp on complete accounts.
+BICL v5 makes 189 new Decision replies and bypasses 117
+of 306 slots. Three final actions differ from same-repeat Fact Anchor.
+All three occur at HVN on 1 July 2024. On complete accounts, v5 minus
+Fact Anchor is $-0.0344$ pp in net return and $-0.7576$ pp in BA.
+The effect measured here combines selection, student inference and
+the action policy. The three repeated changes provide evidence for one
+stock--date intervention.
+
+\paragraph{RQ4: contract evidence.}
+Recorded checks cover economic labels, pairing, forecast/outcome
+separation, prompt/retry/checkpoints and cold artifact replay.
+Our system transformations exhibit historical-value changes;
+the checks do not establish full-system historical causal validity.
+Provenance and execution require further evaluation. These checks neither
+freeze external hosted weights nor establish live trading readiness.
+
+\section{Limitations and future work}\label{s:ff798c832c8c6036}
+The main limits are six exposed folds, narrow bank coverage, sparse news evidence, and uncertainty about when
+historical data first became accessible. The three Decision
+repeats share their upstream reports. Reference accounts use fractional
+shares and do not establish actual fills or capital-constrained returns.
+
+Priority work is to authenticate price and news availability, then test
+BICL on unseen cutoffs with independently regenerated upstream reports.
+Matched interventions should separate regime matching, prior and target
+tasks, student inference and the utility gate. A same-cohort
+teacher--student comparison should measure error and inference cost.
+Prospective economic evaluation needs a model of lots, fills, capital
+and settlement.

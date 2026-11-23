@@ -1,0 +1,22 @@
+\begin{table}[!htb]
+\centering\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.13}
+\caption{Main component-study results at 102 paired cutoffs and 51 accounts per method.}
+\label{tab:classification}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+& \multicolumn{3}{c}{Forecasts} & \multicolumn{3}{c}{Accounts}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Acc. (\%) & BA (\%) & LONGs & Net return (\%) & MDD (\%) & Held (\%)\\
+\midrule
+Our system & 65.69 & 52.96 & 24 & -0.797 & 1.37 & 2.35\\
+QuantAgent & 60.78 & 49.71 & 29 & -0.750 & 1.45 & 2.84\\
+Logistic-price & 67.65 & 55.61 & 24 & -0.683 & 1.18 & 2.35\\
+CASH & 75.49 & 50.00 & 0 & 0.000 & 0.00 & 0.00\\
+\bottomrule
+\end{tabular}
+\par\smallskip
+{\footnotesize BA is balanced accuracy. MDD is mean maximum daily-close drawdown.
+Held is the mean share of observed sessions spent invested.\par}
+\end{table}

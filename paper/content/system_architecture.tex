@@ -1,0 +1,122 @@
+\section{System architecture}
+\label{sec:systemarchitecture}
+\subsection{Overview}
+\input{content/tables/system_versions.tex}
+Our system keeps the Indicator, Pattern, Trend and Decision roles of QuantAgent~\cite{xiong2025quantagent} and adds two evidence-producing roles. The Alpha Agent tests whether measurable price and volume behaviour supports the chart interpretation. The Sentiment Agent gives Decision dated Vietnamese news context that a price chart alone cannot describe. They write separate reports to the shared LangGraph~\cite{langgraph_docs} state. In the evaluated implementation, one upstream stage runs both routines and passes their reports to the existing Decision Agent.
+
+The historical-context study compares eight methods. Our system uses the native alpha report and instructions; Common uses a training-fitted causal alpha projection with a common prompt and both alpha and sentiment enabled. Four historical priors depend on Common. Fact Anchor also receives Common's completed decision, and BICL v5 receives both Common and Fact Anchor for the same repeat. The component study separately compares Our system and QuantAgent by switching factor and sentiment sections.
+
+Figure~\ref{fig:flow} shows the price-only comparator, augmented evidence and BICL extension. In the evaluated backtest, Indicator is deterministic and the numerical/report Alpha path bypasses an additional alpha-reasoning LLM call. Pattern and Trend consume separate chart images. Decision receives the condensed reports and enabled quantitative/text sections. Model aliases and request accounting are specified in Section~\ref{sec:experimentalsetup}.
+
+\begin{figure}[!htb]
+\centering
+\input{figures/system_architecture.tex}
+\caption{System flow for the primary QuantAgent--Our system comparison and the secondary BICL extension.}
+\label{fig:flow}
+\end{figure}
+
+\subsection{Indicator Agent}
+Indicator Agent converts five TA-Lib-based indicators into bullish,
+bearish and neutral votes. Table~\ref{tab:indicator_overview} describes
+each vote, including the moving-average convergence/divergence
+indicator~\cite{appel2005technical} and stochastic oscillator~\cite{murphy1999technical}.
+The backtest node computes the report deterministically.
+Bollinger variables are computed on the alpha path. The vote boundaries
+and missing-data rules are given in \ref{app:indicator_logic}. The TA-Lib
+functions for RSI~\cite{talib_rsi_docs} and Williams \%R~\cite{talib_willr_docs}
+supply the numerical series.
+
+\begin{table}[!htb]
+\centering\small
+\renewcommand{\arraystretch}{1.18}
+\caption{Technical indicators and their roles in the Indicator Agent.}
+\label{tab:indicator_overview}
+\begin{tabularx}{\textwidth}{p{2.0cm}p{1.6cm}XX}
+\hline
+Indicator & Periods & Information supplied & Vote interpretation \\
+\hline
+MACD & 12, 26, 9 & Fast/slow moving-average difference, signal line and histogram. & Crossovers take priority, followed by histogram sign and change. \\
+RSI & 14 & Relative strength of recent upward and downward price changes. & Ordered level thresholds and retained-sample direction determine the vote. \\
+Stochastic & 14, 3, 3 & Smoothed \%K and \%D locate the close within its recent price range. & Crossovers take priority over overbought/oversold levels and interior rules. \\
+Williams \%R & 14 & Position of the close relative to the recent high--low range. & Extreme levels take priority, followed by retained-sample direction. \\
+ROC & 10 & Percentage price change over the lookback window. & Values above $+0.5\%$ or below $-0.5\%$ yield bullish or bearish votes. \\
+\hline
+\end{tabularx}
+\end{table}
+
+Four-decimal rounding precedes classification, nonfinite samples are removed and zero is retained. Crossovers take priority where specified; overlapping RSI/Williams thresholds require ordered branches rather than two simultaneous unconditional rules. Each missing/error result contributes a neutral vote within the fixed denominator of five. Directional plurality and the confidence categories are deterministic summary heuristics. They are not calibrated probabilities, and an immutable signal tally does not make a downstream narrative correct.
+
+\subsection{Alpha Agent}
+The Alpha Agent turns OHLCV history into a ranked factor report. The
+native implementation computes up to five factor scores and directions
+using Eq.~\ref{eq:composite}. Its main compact Decision prompt carries
+the aggregate direction and bullish, bearish and neutral vote counts.
+The separate factorial panel passes the individual values.
+Section~\ref{sec:alpha-representation} describes native and causal
+normalization. Native orientation and ranking reuse trailing observations,
+so their reported skill statistics describe the selection sample.
+
+\paragraph{Common projection and shared parent}
+The earlier historical-context study bound Common to a frozen selector for the same price prefix and upstream snapshot. Its comparison with Our system changed both the alpha representation and prompt. The follow-up uses the same causal alpha report in both baselines, with distinct Decision prompts. Selector fits precede the test scope.
+
+\paragraph{Sentiment integration}
+The Sentiment Agent scores eligible dated Vietnamese articles and reports the aggregate tone, article coverage and an availability or reliability flag. This lets Decision treat news as supporting or conflicting evidence and distinguish sparse coverage from observed neutral tone. The report is a separate prompt input. The OHLCV factor formulas and selection score remain price- and volume-based. In the archived evaluation, the provider supplies aggregates and counts with empty article-detail and peer lists. Relative sentiment and z-score fields are therefore zero-valued normalizer outputs. Section~\ref{sec:formulation} gives the date filter, 90-day window, 30-day decay and distinction between availability and reliability.
+
+Figure~\ref{fig:alpha_agent} separates native selection, the frozen causal-common alpha projection and sentiment-context construction. Optional live endpoints, lexicon fallbacks and peer discovery are repository capabilities; they are not evidence that the corresponding inputs were used or historically available in the evaluated calls.
+
+\begin{figure}[!htb]
+\centering\input{figures/alpha_processing.tex}
+\caption{Our system and causal alpha processing with separate Vietnamese sentiment context.}
+\label{fig:alpha_agent}
+\end{figure}
+
+\subsection{Pattern Agent}
+Pattern Agent analyses a candlestick PNG rendered with mplfinance~\cite{mplfinance_docs} from the exact 45-bar window. The prompt requests a chart formation, recent-candle evidence, directional bias, confidence and trading implication. The report parser retains the structured text fields; format completion and consistency checks are distinguished from financial correctness. Figure~\ref{fig:charts} presents an actual archived chart pair rather than a synthetic demonstration.
+
+Candle bodies are green when Close exceeds Open and red otherwise, including a doji. This is an Open--Close body rule, not the Vietnamese exchange board's reference-price colouring rule. The exchange-board convention is not used to infer candle direction. After inference, consistency rules compare the claimed bias with simple OHLCV-derived properties such as the final body and recent closes. A contradiction flag can reduce displayed confidence; it cannot reveal which candle the VLM actually attended to. The reported vision requests use their stored chart inputs.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.77\textwidth]{figures/candlestick.png}\par\smallskip
+\includegraphics[width=0.77\textwidth]{figures/trendlines.png}
+\caption{Candlestick and support--resistance inputs for CMG at the 3 July 2023 decision cutoff.}
+\label{fig:charts}
+\end{figure}
+
+\subsection{Trend Agent}
+Trend Agent receives a separate chart with fitted support/resistance lines. The inherited fitting utility starts with a least-squares close-price line, selects upper/lower deviation pivots, and optimizes a slope through each pivot under a non-crossing constraint. It implements both a close-only channel and a high/low channel, the latter using close-price regression to find pivots and high/low data for the bounds. These are numerical lines over the supplied window, not human-verified latent support levels.
+
+For row position $u$, a fitted line has form $b+mu$. A support bound must remain below the corresponding price sequence within the implementation tolerance; resistance must remain above it. The local slope search reduces its step when a trial step leaves squared deviation unchanged, increases it or violates the constraint. The VLM then describes direction, levels, slope, price relative to support, forecast and confidence. Support is drawn blue and resistance red. A deterministic consistency check against simple price/trend summaries does not validate every reported level or coordinate.
+
+Input checks match 204 chart images across 102 units byte for byte and pixel for pixel, and 240 recorded vision requests match their image caches and Vietnamese templates. The charts use blue support and red resistance lines, while the Vietnamese word \emph{xanh} is less colour-specific than the English term ``blue.'' The model's interpretation of the chart instructions remains unverified.
+
+\subsection{Decision Agent}
+Decision receives condensed Indicator, Pattern and Trend reports plus enabled factor/sentiment sections. Reports are distilled and capped before prompt composition. The component study's observed successful Decision prompts are at most 4,187 characters, below the 6,500-character guard. Figure~\ref{fig:decision_agent} shows the extension dependencies, raw proposals, fallback and separate action policy.
+
+\begin{figure}[!htb]
+\centering\input{figures/decision_policy.tex}
+\caption{Decision dependencies, fallback rules and final-action policy.}
+\label{fig:decision_agent}
+\end{figure}
+
+The instructions ask for trend/key-level assessment, recent-candle evidence, momentum confirmation and comparison with enabled factor/sentiment context. Price/chart evidence has priority, quantitative factors may challenge it, and sentiment has lower priority. These instructions describe an intended analysis sequence; they are not an independently observed internal reasoning trace or a guaranteed conflict-resolution algorithm.
+
+The required output includes a binary LONG/SHORT forecast, forecast horizon, confidence, risk/reward field, evidence for/against and justification. Model confidence and risk/reward statements do not constitute calibrated uncertainty or executable price levels. In the long-only reference ledger, SHORT maps to CASH and LONG to the specified next-open/target-close cycle. The classifier's labels and account execution remain distinct.
+
+QuantAgent retains the same upstream content and general instructions but removes both alpha and sentiment sections; those concepts may still appear in general instructions. Thus Our system--QuantAgent changes a bundle and prompt length, not solely one numerical factor. Main/upstream prompts use compact factor text, whereas factorial A/AS/P deliver five explicit rows. The resulting representation difference remains part of the interpretation of the separate panels.
+
+\paragraph{Historical-prior methods}
+BICL v1 retrieves up to three matured same-stock examples using regime
+and signal context. In the earlier BICL study the historical-signal
+fields include the saved chart report categories. In the follow-up,
+retrieval receives deterministic OHLCV keys: Trend combines the
+SMA10/SMA30 gap and ten-session return with strict 0.5\% directional
+thresholds; Pattern uses the last two opposite candle bodies and a
+wider engulfing body. Decision still receives the visual reports. BICL v2 adds Beta-based statistics matched on Trend, Pattern, Alpha and Indicator states, with disjoint-background shrinkage and separate readiness checks for statistics and examples. BICL v3 relaxes the statistics match to Trend and Pattern. BICL v4 uses the support from v2 and presents counts, intervals and example identifiers more explicitly. Historical rates and plug-in intervals summarize the selected history. Without a qualified prior, the method reuses Common's action for that repeat.
+
+\paragraph{Fact Anchor and BICL v5}
+BICL v5 inherits from Zhu, Oermann and Cho~\cite{zhu2026multitask} the idea of using separate prior datasets to represent prior information for a target task in the same context.
+The BICL v5 extension conditions these numerical tasks on point-in-time market facts, starts from a Fact Anchor decision, and accepts a proposed change only when the external utility rule in Eq.~\ref{eq:revision_utility} is satisfied.
+Fact Anchor receives a deterministic fact packet, including MACD-versus-signal and Close-versus-SMA20 assertions, and the completed Common decision. Valid assertions select its proposed action without the numerical utility veto; invalid assertions select Common with a source proof. BICL v5 retains a frozen student estimate and teacher-based utility summary, and requests a revision only when context is eligible. Raw proposals, anchor actions, bypass and final actions are distinct saved fields, so final outcome differences cannot be assigned entirely to the LLM or student.
+
+All extension prompts preserve report distillation/capping, require fewer than 6,500 characters and cap their prior/context prefix at 600 characters. The component-study maximum of 4,187 characters above is not an extension-run maximum. Exact prompt projections, readiness thresholds and request schemas are given in \ref{app:prompts} and~\ref{app:state_schema}; runtime resources and restore instructions are in \ref{app:software}.

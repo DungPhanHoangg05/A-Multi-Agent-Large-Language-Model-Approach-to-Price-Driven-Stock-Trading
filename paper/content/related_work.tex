@@ -1,0 +1,42 @@
+\section{Related Work}
+\label{sec:relatedworks}
+
+\subsection{LLM Agents in Financial Analysis}
+TradingAgents~\cite{tradingagents2024} assigns financial analysis, debate,
+trading and risk to specialist roles. FinMem~\cite{yu2025finmem} uses
+layered memory to organize financial information for a trading agent.
+QuantAgent~\cite{xiong2025quantagent} decomposes price-driven analysis
+into specialist roles. Our comparison tests what explicit price--volume
+factors and local news add to the same technical reports.
+
+\subsection{Technical Analysis and Pattern Recognition}
+Lo et al.~\cite{lo2000technical} formalize chart-pattern recognition and
+examine conditional returns. ChartLlama~\cite{han2023chartllama} studies
+multimodal chart understanding. They motivate the use of numerical indicators and chart images as
+separate inputs.
+
+\subsection{Quantitative Alpha Factor Research}
+The \emph{101 Formulaic Alphas} catalogue~\cite{kakushadze2016formulaic}
+supplies source expressions. Candidate search raises multiple-testing
+concerns~\cite{harvey2016}. We distinguish in-sample diagnostics from
+chronological assessment.
+
+\subsection{Sentiment Analysis in Finance and Vietnamese NLP}
+Tetlock~\cite{tetlock2007news} relates financial-media tone to market
+activity. FinBERT~\cite{araci2019finbert} adapts a language model to
+financial sentiment. ViSoBERT~\cite{nguyen2023visobert} is a Vietnamese
+social-media backbone. The downstream 5CD-AI classifier~\cite{hf5cdsentiment}
+requires separate assessment on Vietnamese financial news.
+
+\subsection{Regime Context and In-Context Learning}
+Hidden Markov models~\cite{rabiner1989hmm} distinguish filtering at the
+current cutoff from smoothing with later observations. Xie et
+al.~\cite{xie2022implicitbayes} study implicit Bayesian inference under a
+mixture-of-HMMs construction. Rubin et al.~\cite{rubin2022retrieve} learn
+to retrieve in-context examples. These ideas motivate the secondary study of eligible historical episodes and
+explicit numerical updates.
+
+\subsection{Evaluation in Emerging Markets}
+Local-language news, market calendars and settlement assumptions affect
+which information and trades are admissible. A purposive sample supports
+comparisons on the observed equities and cutoffs.

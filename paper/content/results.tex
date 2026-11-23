@@ -1,0 +1,102 @@
+\section{Backtest Results}
+\label{sec:backtestresults}
+
+\subsection{Nine-Symbol Paired Benchmark}
+\subsubsection{Directional forecasts and account returns}
+On the 102 paired observations, Our system identifies seven of 25 UP
+outcomes, as does QuantAgent. It issues five fewer false LONG forecasts
+(17 versus 22), which raises balanced accuracy by \DeltaBA{} percentage
+points in the main compact profile, with a paired descriptive interval
+of $[\PrimaryLow,+\PrimaryHigh]$ pp. Table~\ref{tab:classification}
+reports the pooled forecasts and mean outcomes of 51 accounts per method.
+Logistic-price achieves 55.61\% BA and $-0.683$\% mean net return with
+24 LONG decisions, the same count as Our system. CASH returns zero.
+
+\input{content/tables/component/classification.tex}
+
+Our system has lower drawdown on average and spends less time invested
+(2.35\% of observed sessions, versus 2.84\%). Its mean net return is
+nevertheless 0.047 pp lower. Balanced accuracy weights the two classes
+equally, whereas returns depend on the size and timing of the selected
+trades. The comparison measures the contribution of the two added reports
+and the augmented Decision prompt together.
+
+\subsubsection{Historical-context comparison}
+Table~\ref{tab:u09-comparison} reports the earlier evaluation of BICL and
+both augmented-system baselines. BICL v1 improves mean return versus
+Common by $+\UnifiedVOneCommonReturnEffect$ pp, with a descriptive band of
+$[\UnifiedVOneCommonReturnLow,\UnifiedVOneCommonReturnHigh]$ pp. Its
+difference versus Our system is $\UnifiedVOneNativeReturnEffect$ pp, with
+a band of $[\UnifiedVOneNativeReturnLow,\UnifiedVOneNativeReturnHigh]$ pp.
+Figure~\ref{fig:u09-return-contrasts} shows the corresponding differences
+for all five versions.
+
+\input{content/tables/historical_context/comparison.tex}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.84\textwidth,height=.40\textheight,keepaspectratio]{figures/return_comparisons.pdf}
+\caption{Earlier historical-context study. Mean account-return differences against each augmented-system baseline, with descriptive simultaneous bands.}
+\label{fig:u09-return-contrasts}
+\end{figure}
+
+In the earlier historical-context study, BICL v2 and v4 each receive
+three new Decision replies across 306 slots.
+Consequently, their aggregate outcomes mostly reflect fallback to Common.
+BICL v5 agrees with Fact Anchor on 302 of 306 final actions. The three
+successive comparisons in Table~\ref{tab:u09-bridge} show how much each
+policy change affected actions and outcomes.
+
+\FloatBarrier
+\paragraph{Follow-up historical-context evaluation}
+The follow-up records forecasts at all 102 cutoffs. Five holding periods
+cross a corporate action and one required entry has zero matched volume,
+leaving 96 valid labels. The paired secondary analysis covers 90 cutoffs
+in 45 accounts with two labeled cycles per repeat
+(Table~\ref{tab:bicl-complete-accounts}). The registered full-cohort
+return and BA are undefined. The secondary simultaneous bands are
+undefined because at least one contrast has zero resampling variance.
+
+\input{content/tables/finalize_results.tex}
+
+Counts in Table~\ref{tab:bicl-complete-accounts} use all 306 slots per
+method. Relative to the same-repeat Common action, BICL v1--v4 change
+4, 2, 2 and 2 final actions across 2, 1, 1 and 1 distinct stock--dates.
+BICL v5 changes three final actions versus Fact Anchor, all on HVN on
+1 July 2024. Mean-return differences for v1--v4 versus Common range
+from $-0.0011$ to $+0.0127$ pp. BICL v5 returns $-1.0600$\%, or
+$-0.1221$ and $-0.5297$ pp versus Our system and Common, respectively.
+Historical availability still needs independent verification. For
+example, FPT on 3 July 2023 has a candidate-LONG return of $-0.265$\%
+in the earlier BICL study. The follow-up records its forecasts and
+marks the execution label NA because a corporate action falls in
+the holding period.
+
+\subsection{Component Contrasts and Variability}
+Table~\ref{tab:repeats} reports a panel that regenerates chart reports and
+a separate panel that holds the reports fixed while changing the
+evidence shown to Decision. Each uses nine observations and three
+executions. With a fixed upstream, the two-report branch trails
+QuantAgent by 9.52 pp in balanced accuracy and the donor-value
+variant by 11.90 pp. All seven descriptive factorial intervals include
+zero. With regenerated reports, the paired difference is $+4.76$ pp
+with a descriptive percentile interval of $[0,10]$ pp. The panels use
+different cutoffs and cannot be combined to estimate variability for
+the main 102-point cohort.
+
+\input{content/tables/component/variability.tex}
+
+\subsection{Robustness and Sensitivity}
+Balanced accuracy varies across stocks and cutoffs
+(Table~\ref{tab:symbol_results}). VNM has only DOWN observations, so
+stock-level balanced accuracy is omitted there. On the common eight
+stocks, the Our system--QuantAgent BA difference is $+2.08$ pp on 96
+observations. Restricting the comparison to the three recent blocks
+gives $+6.41$ pp on 54 observations. These overlapping cohorts share
+dates and shocks.
+
+Execution assumptions can change the return ordering. Higher costs
+reverse the ordering under the reference ledger (Table~\ref{tab:execution}).
+The additional comparisons in \ref{app:additional} use the same paired
+forecasts. Repeated Decision calls and resampling quantify variability
+conditional on the recorded dates and upstream realization.

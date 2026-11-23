@@ -1,0 +1,241 @@
+% Nền tảng và hợp đồng dùng chung; cấu hình triển khai đặt ở Chương 4--5.
+\chapter{Background and Problem Formulation}\label{s:fdbe0ddc4bf58507}
+\section{Observations and time indexing}\label{s:4198cffbcb5c733c}
+For one stock, daily OHLCV observations are
+$b_i=(d_i,O_i,H_i,L_i,C_i,V_i)$: date, open, high, low, close and volume.
+Dates increase strictly after constructing the analysis view. Index $i+1$
+denotes the next observed row, not necessarily the next calendar day or
+an independently verified exchange session. Vendor gaps, price units and
+adjustment conventions must therefore retain their provenance.
+
+Let $t$ index the last completed bar available to a decision. The engine
+uses the exclusive boundary $e=t+1$: a chart window $[e-W,e)$ contains
+exactly $W$ rows and ends at $t=e-1$. With $W=45$, the chart is a recent
+view, while alpha calculations can require a longer admissible prefix.
+Warm-up rows support indicators and the 200-bar regime feature; they do
+not become additional forecast points. Future prices are reserved for
+evaluation after forecasts have been recorded.
+
+Figure~\ref{fig:F01} shows the T+2.5 timeline for FPT in July 2023,
+with the cutoff on the 3rd, entry on the 4th and exit on the 6th.
+\begin{figure}[!htb]\centering
+\begin{tikzpicture}[>=Stealth,node distance=5mm,
+box/.style={draw=thesisblue,rounded corners,fill=blue!3,text width=.85\linewidth,align=center,font=\fontsize{10}{12}\selectfont,inner sep=6pt}]
+\node[box] (cut) {\textbf{Cutoff: completed bar $t$; exclusive boundary $e=t+1$}\\
+Visible chart $[e-45,e)$ and longer prefix end here.\\FPT: 3 July 2023. No future execution prices are visible.};
+\node[box,below=of cut] (entry) {\textbf{Entry at Open$(t+1)$}\\
+First future observed session; brokerage and slippage on buying.\\FPT: 4 July 2023.};
+\node[box,below=of entry] (middle) {\textbf{Second observed session, $t+2$}\\
+The reference LONG remains open. FPT: 5 July 2023.};
+\node[box,below=of middle] (exit) {\textbf{Exit at Close$(t+3)$}\\
+Third observed session; brokerage and slippage on selling.\\FPT: 6 July 2023.};
+\draw[->] (cut)--(entry);\draw[->] (entry)--(middle);\draw[->] (middle)--(exit);
+\end{tikzpicture}
+\caption[Cutoff and T+2.5 execution timeline]{Cutoff and T+2.5 execution timeline. Indices count observed sessions. Future prices enter evaluation only after forecasts are saved.}\label{fig:F01}
+\end{figure}
+
+\section{Economic contract and prediction target}\label{s:e2142a9a841370b4}
+The 2022 Vietnam Securities Depository schedule~\cite{vsd2022settlement}
+allows resale on the afternoon of T+2 from purchase. The daily-bar
+T+2.5 convention enters LONG at $O_{t+1}$ and exits at $C_{t+3}$.
+Brokerage $f=0.0025$ and slippage $s=0.001$ apply on each leg. The
+candidate-LONG net return is
+\begin{equation}\label{eq:net}
+r_t^{\mathrm{net}}=\frac{C_{t+3}}{O_{t+1}}
+\frac{(1-s)(1-f)}{(1+s)(1+f)}-1.
+\end{equation}
+This is the shared \texttt{compute\_round\_trip\_net\_return} oracle used
+for canonical historical labels and evaluation. A fixed subtraction of
+0.70 percentage points is only an approximation. Prices must be finite
+and positive. Net break-even requires a price ratio of approximately
+1.007025. These are research assumptions, not verified live fills.
+
+The label and final-action payoff are
+\begin{equation}\label{eq:label}
+y_t=\mathbf1\{r_t^{\mathrm{net}}>0\},\qquad
+r_t^{\mathrm{strategy}}=\mathbf1\{a_t=\mathrm{LONG}\}r_t^{\mathrm{net}}.
+\end{equation}
+UP means $y_t=1$; DOWN includes zero. The comparison uses the unrounded
+return. A raw SHORT recommendation maps to CASH, with zero cycle payoff,
+no short-sale profit and no modeled interest. Thus correctly avoiding a
+DOWN trade can improve classification without earning a positive return.
+A hypothetical LONG label is distinct from the payoff of an account that
+stayed in CASH. Account compounding and averaging are defined in Chapter 5.
+
+\section{Price, alpha and sentiment representations}\label{s:3d7214e9b7762ca0}
+Indicators describe momentum or location within a recent price range.
+An exponential moving average has update weight $2/(n+1)$ after
+initialization. Moving average convergence divergence (MACD) uses $M_t=EMA_{12}(C)_t-EMA_{26}(C)_t$, a nine-period
+signal $EMA_9(M)_t$ and their difference as histogram. The relative strength index, RSI(14), is
+$100G_t/(G_t+D_t)$ for Wilder-smoothed gains/losses with weight $1/14$
+after initialization, when the denominator is nonzero.
+
+For highest/lowest prices $H_t^{(14)},L_t^{(14)}$, raw stochastic is
+$k_t=100(C_t-L_t^{(14)})/(H_t^{(14)}-L_t^{(14)})$; slow \%K and \%D apply
+successive three-period moving averages. Williams \%R is
+$-100(H_t^{(14)}-C_t)/(H_t^{(14)}-L_t^{(14)})$, and the ten-session rate of change, ROC(10), is
+$100(C_t/C_{t-10}-1)$. Flat ranges, initialization and missing inputs
+require explicit handling. A zero value differs from a missing estimate.
+Votes derived from these shared prices are not independent evidence.
+
+Alpha factors are numerical transformations rather than probabilities.
+The adapted Alpha101 family~\cite{kakushadze2016formulaic} changes cross-sectional operations where
+single-security inputs cannot implement them directly.
+In the causal-common profile, a finite
+factor value $a_u$ is transformed using its expanding-prefix mean and
+sample standard deviation:
+\begin{equation}
+\widetilde a_u=\tanh((a_u-\mu_u)/\sigma_u).
+\end{equation}
+Near-constant finite prefixes map to zero; missingness is retained.
+Training Spearman information coefficients (ICs) determine orientation, while
+declared validation support selects factors and thresholds before
+freezing. These are fitted choices, not independent proof of profitability.
+
+Sentiment represents text, separately from price-derived alpha. A bounded
+sentiment score, indicator vote, information coefficient and LLM confidence
+phrase do not automatically estimate the chance of a profitable LONG.
+The historical provider requires verified dated scores in $[-1,1]$,
+uses a 90-day window and weights age $a$ by $\exp[-(\log2)a/30]$. Date-only
+articles become available the next day. The system needs three eligible scores to report a sentiment estimate.
+Undated articles and articles published after the cutoff are excluded.
+A missing sentiment estimate differs from a measured neutral tone.
+
+\section{Hidden market regimes}\label{s:5afcb21224a45c1c}
+A hidden Markov model (HMM)~\cite{rabiner1989hmm} models an unobserved state $S_u$, initial distribution
+$\boldsymbol\pi$, transition probabilities $A_{ij}=P(S_u=j\mid S_{u-1}=i)$
+and emission density $b_j(\boldsymbol x_u)$. Gaussian emissions describe
+state-dependent feature distributions. Fitting estimates parameters;
+inference conditions on observations. Both operations have temporal
+boundaries.
+
+The forward recursion, with normalization after each step, is
+\begin{equation}
+\alpha_u(j)\propto b_j(\boldsymbol x_u)\sum_i\alpha_{u-1}(i)A_{ij}.
+\end{equation}
+Inferring the endpoint of a prefix through $t$ uses no observations after
+$t$. Smoothing an earlier state using the full prefix may use observations
+later than that earlier date. An outer cutoff alone therefore does not
+certify row-wise causality. Scalers must be fitted on declared training
+data and held fixed for later transformations.
+
+The implementation uses VN-Index log return, 20-return sample volatility
+and distances to 20/50/200-period moving averages. Four diagonal-Gaussian
+states are named using training MA200 distance and volatility rather than
+their arbitrary numeric IDs. The system can use the documented multi-factor rule if the fitted model
+misses a convergence, occupancy or separation criterion. A fallback category
+is not an HMM posterior. Signal-bank and numerical task regimes have
+distinct frozen resources and can disagree; neither state is the outcome
+label or a direct trading instruction.
+
+\section{Historical rates and Bayesian summaries}\label{s:6be2c9c58fe86050}
+For $n$ conditionally independent Bernoulli events with $s$ successes,
+conjugate updating of $\theta\sim Beta(a,b)$ gives
+\begin{equation}
+\theta\mid Y\sim Beta(a+s,b+n-s),\qquad
+E[\theta\mid Y]=\frac{a+s}{a+b+n}.
+\end{equation}
+The event and denominator must be defined. A profitable-LONG rate and a
+bull-trap rate conditional on bullish reports need not use the same rows.
+For illustration only, $Beta(2,2)$ and seven successes in ten trials give
+$Beta(9,5)$, mean $9/14$, rather than raw rate 0.7. This is not a stock
+result. Equal-tailed Beta quantiles describe uncertainty under the chosen
+rate model, not a return prediction interval or calibrated LLM confidence.
+
+The implemented conditional construction first forms a same-stock,
+same-regime eligible population $\mathcal P$. A signal condition selects
+$\mathcal C$; background $\mathcal B=\mathcal P\setminus\mathcal C$ is
+disjoint. For metric-specific success/support counts, it uses
+\begin{align}
+\mu_b&=\frac{s_b+1}{n_b+2},& a&=\tau\mu_b,&b&=\tau(1-\mu_b),\\
+\theta\mid\mathcal C,\widehat\mu_b&\sim Beta(a+s_c,b+n_c-s_c),&&\tau=4.
+\end{align}
+Only conditional counts enter the likelihood, avoiding double counting
+the same episodes through a whole-population prior. The estimated
+background mean is plugged in; its uncertainty is not integrated. No
+background gives mean 0.5; the corresponding posterior summary requires at least one conditional observation.
+
+Computability is weaker than readiness. Support/interval gates and
+feature availability determine whether statistics or examples can be
+used. Top-$K$ examples ($K\le3$) are not the population or a metric's
+denominator. BICL v1 reports empirical rates, whereas C2 implements
+the shrinkage above. Neither selected profitable examples nor an estimated
+rate alone establishes a profitable action.
+
+\section{Multi-task inference and utility}\label{s:0a1a29f8abd969a0}
+Write prior datasets as $\mathcal D_k=\{(\boldsymbol x_{ki},y_{ki})\}$,
+target context as $\mathcal C_q$, and the unlabeled query as
+$\boldsymbol x_q$. Multi-task inference~\cite{muller2022transformers,zhu2026multitask} targets
+$p(y_q\mid\boldsymbol x_q,\mathcal C_q,\mathcal D_{1:K})$ while retaining
+task identity. It differs from placing three independent signal examples
+in a hosted prompt.
+
+Zhu, Oermann and Cho~\cite{zhu2026multitask} train a transformer on separate
+prior datasets and target context (Figure~\ref{fig:mtbicl-source}). BICL v5
+applies this separation to cutoff-eligible market history and uses the
+resulting summaries to assess revisions to Fact Anchor.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.85\linewidth]{assets/figures/zhu2026-mtbicl-overview.png}
+\caption[Original multi-task Bayesian in-context learning framework]{Original multi-task Bayesian in-context learning framework. Reproduced from Figure~1 of Zhu, Oermann and Cho~\cite{zhu2026multitask} (\href{https://proceedings.mlr.press/v306/zhu26aj.html}{PMLR publication}). Copyright 2026 by the authors, \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.}
+\label{fig:mtbicl-source}
+\end{figure}
+
+The local teacher uses Beta components $(a_h,b_h)$ with fixed offline
+weights $\pi_h$. Each prior/target task supplies positive/nonpositive
+counts $(s_k,f_k)$. With $B$ the Beta function, inference computes
+\begin{equation}
+\lambda_h\propto\pi_h\prod_k\frac{B(a_h+s_k,b_h+f_k)}{B(a_h,b_h)},\qquad
+p_{T,q}=\sum_h\lambda_h\frac{a_h+s_q}{a_h+b_h+s_q+f_q}.
+\end{equation}
+The product includes the $K$ prior tasks and the observed target context;
+$(s_q,f_q)$ are the target's positive/nonpositive counts. Normalize
+$\lambda_h$ to sum to one over mixture components before prediction.
+Prior observations reweight the shared component, rather than entering
+the target task's counts. This teacher likelihood is count-based, not
+continuous feature regression. A separate numerical transformer is
+distilled offline using soft-target cross-entropy
+$-p_T\log p_S-(1-p_T)\log(1-p_S)$, with the query label masked. Inference
+keeps its weights fixed. The hosted Decision LLM is a different model.
+
+For sign probability $\theta$, positive net-return magnitude $g$ and
+nonnegative loss magnitude $\ell$, LONG utility relative to CASH is
+\begin{equation}\label{eq:utility}
+U=\theta g-(1-\theta)\ell.
+\end{equation}
+A high win probability can coexist with negative utility: illustrative
+$\theta=0.8,g=0.01,\ell=0.06$ gives $U=-0.004$. The implementation samples
+teacher sign probabilities and randomized magnitude means over eligible
+history; costs are already included in net magnitudes. It records mean,
+Q10 and Q90 (the 10th and 90th percentiles) separately from the student
+probability. These are model-based
+policy inputs, not empirical guarantees.
+
+Let $a_0$ be the resolved Fact Anchor. A different valid proposal has
+$\Delta U=U$ for CASH$\to$LONG and $\Delta U=-U$ for LONG$\to$CASH. The
+external policy accepts it only with adequate support and
+$Q_{0.1}(\Delta U)>0$: equivalently $Q_{0.1}(U)>0$ or $-Q_{0.9}(U)>0$ for the
+respective direction. Equality does not pass. Otherwise the anchor is
+retained; invalid anchor assertions follow the declared Common fallback.
+Probability, proposal, anchor and final action must remain distinguishable.
+
+\section{Temporal validity and paired evaluation}\label{s:e96c9e0900bb66c1}
+Figure~\ref{fig:regime-prefix} shows the time boundary for regime inference.
+\begin{figure}[!htb]\centering
+\input{assets/diagrams/regime_prefix}
+\caption[Regime estimation at the cutoff]{Train the regime model on its designated history, then infer the state at the cutoff from the available prefix.}\label{fig:regime-prefix}
+\end{figure}
+
+Price rows must satisfy $d_i\le d_t$; news needs both a date and declared
+availability no later than $d_t$. Historical outcomes require the strict
+boundary $d_i^{exit}<d_t$, excluding open or straddling cycles. Feature,
+scaler, selector and model fitting have their own frozen training periods.
+Outcomes are joined only after durable forecasts, the \emph{forecast
+barrier}. Interrupted executions retain their technical status. A CASH prediction requires a valid decision.
+
+Paired methods receive deep copies of the same upstream reports.
+Decision repeats hold the chart interpretation and market history fixed.
+Returns, classification and uncertainty retain their own units and
+support. Chapter 5 discusses the remaining limitations involving feature
+leakage, historical exposure and provenance.

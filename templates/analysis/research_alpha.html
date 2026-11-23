@@ -1,0 +1,53 @@
+{% set selector = results.research_alpha_statistics %}
+<section id="researchAlphaFactors" class="alpha-sequential-report">
+    <h4 class="research-alpha-title"><i class="fas fa-flask" aria-hidden="true"></i> {{ T.alpha_factors }}</h4>
+    <div class="report-table">
+        <table>
+            <thead><tr><th scope="col">{{ T.ar_th_alpha }}</th><th scope="col">{{ T.ar_th_type }}</th><th scope="col">{{ T.ar_th_value }}</th><th scope="col">{{ T.ar_th_signal }}</th><th scope="col">{{ T.ar_th_horizon }}</th></tr></thead>
+            <tbody>
+                {% for factor in results.research_alpha_factors %}
+                {% set metadata = research_factor_metadata(factor.alpha_id, LANG) %}
+                <tr><th scope="row">{{ metadata.name or factor.alpha_id }}</th><td>{{ metadata.type or A.na }}</td><td>{{ '%+.6f'|format(factor.value) }}</td><td>{{ display_signal(factor.signal, LANG) }}</td><td>T+2.5</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="research-alpha-method">
+        <p><strong>{{ T.ar_calc_steps }}</strong></p>
+        <p>{{ A.research_alpha_method }}</p>
+        <p class="alpha-formula"><code>sᵢ(t) = oᵢ × tanh((rᵢ(t) − μᵢ(t)) / σᵢ(t))</code></p>
+        {% if selector %}<p><strong>η = {{ selector.threshold }}</strong> · {{ A.research_alpha_threshold }}</p>{% endif %}
+    </div>
+    {% for factor in results.research_alpha_factors %}
+    {% set metadata = research_factor_metadata(factor.alpha_id, LANG) %}
+    {% set stats = selector.get('factors', {}).get(factor.alpha_id) %}
+    {% set signal_class = 'long' if factor.signal == 'TĂNG' else 'short' if factor.signal == 'GIẢM' else 'neutral' %}
+    <article class="alpha-card {{ signal_class }}">
+        <h5 class="alpha-name">Alpha {{ loop.index }} · {{ metadata.name or factor.alpha_id }}</h5>
+        <p><strong>{{ T.ar_lbl_type }}</strong> {{ metadata.type or A.na }} · <strong>{{ T.ar_lbl_horizon }}</strong> T+2.5</p>
+        <p><strong>{{ T.ar_full_formula }}</strong></p>
+        {% if metadata.formula %}<p class="alpha-value">{{ A.research_alpha_formula_summary }} <code>{{ metadata.formula }}</code></p>{% endif %}
+        {% if metadata.implementation %}<pre class="alpha-formula factor-implementation"><code>{{ metadata.implementation }}</code></pre>{% endif %}
+        <p><strong>{{ T.ar_calc_steps }}</strong></p>
+        <ul>
+            <li>{{ A.factor_orientation }} <code>oᵢ = {{ '%+d'|format(factor.orientation) }}</code></li>
+            {% if stats %}
+            <li>{{ A.research_alpha_ic }} <strong>{{ '%+.4f'|format(stats.train_ic) }}</strong></li>
+            <li>{{ A.research_alpha_validation }} <strong>{{ '%+.4f'|format(stats.validation_return_pct) }}%</strong></li>
+            {% endif %}
+        </ul>
+        {% if metadata.interp %}<p><strong>{{ T.ar_interpretation }}</strong> {{ metadata.interp }}</p>{% endif %}
+        <p><strong>{{ T.ar_final_value }}</strong> <code>{{ '%+.6f'|format(factor.value) }}</code></p>
+        <p><strong>{{ T.ar_signal }}</strong> <span class="alpha-signal {{ signal_class }}">{{ display_signal(factor.signal, LANG) }}</span></p>
+    </article>
+    {% endfor %}
+    <div class="alpha-consensus-section">
+        <strong class="consensus-label">{{ A.research_alpha_summary }}</strong>
+        {% for signal in ('TĂNG', 'GIẢM', 'TRUNG TÍNH') %}
+        <span>{{ display_signal(signal, LANG) }} {{ results.research_alpha_counts[signal] }}</span>
+        {% endfor %}
+    </div>
+    {% if results.research_alpha_selector %}
+    <details class="research-alpha-method"><summary>{{ A.snapshot }}</summary><p class="alpha-selector">{{ results.research_alpha_selector }}</p></details>
+    {% endif %}
+</section>

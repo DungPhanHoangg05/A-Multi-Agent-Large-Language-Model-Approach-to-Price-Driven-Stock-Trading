@@ -1,0 +1,20 @@
+\begin{table}[!htb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\caption{Our system custom factor definitions before normalization and IC orientation.}
+\label{tab:custom_definitions}
+\textbf{Before global normalization and IC orientation}\par\smallskip
+\begin{tabular}{lp{8.0cm}p{5.0cm}}
+\hline
+ID & Our system handler expression & Distinction \\
+\hline
+FDM & $\tanh(0.5\,a_t V_t/ADV_{20,t})$ & Adjusted one-bar return with relative volume. \\
+SFA & $\tanh(1.5\tanh(H_t/(0.005C_t+\epsilon))+0.5a_t)$ & MACD histogram and adjusted return. \\
+LVR & $\tanh(-0.8\,z_{20}((C_t-SMA_{5,t})/C_t))$ & Rolling mean/SD conventions and partial windows are implementation-specific. \\
+BFE & $\tanh(1.5(\%B_t-0.5)\,VolZ_{5,t})$ & Signed volume z-score reverses the signal when negative. \\
+OFE & $\tanh(3a_t\,CP_t)$ & OHLCV proxy, not measured signed order flow. \\
+\hline
+\end{tabular}\par\medskip
+\begin{minipage}{\textwidth}\footnotesize Expressions use OHLCV proxies with implementation-specific windows and guards, as defined in this appendix.\end{minipage}
+\end{table}

@@ -1,0 +1,14 @@
+<section id="bt-result" class="serving-ui" hidden>
+<section class="serving-panel"><h2>{{ B.results }}</h2><p id="bt-run-meta"></p><p id="bt-state" role="status" aria-live="polite"></p><p id="bt-progress"></p><p id="bt-result-error" role="alert"></p><p id="bt-incomplete" class="serving-notice">{{ B.no_metrics }}</p>
+  <div class="serving-actions"><button id="bt-refresh" type="button">{{ B.refresh }}</button><button id="bt-stop" type="button" disabled>{{ B.stop }}</button><button id="bt-resume" type="button" disabled>{{ B.resume }}</button><a id="bt-experiments-link" hidden>{{ B.catalog }}</a></div></section>
+<form id="bt-result-filters" class="serving-panel" data-preserve-locale><h2>{{ B.filters }}</h2><p>{{ B.filter_note }}</p>
+  <fieldset><legend>{{ B.methods }}</legend><div id="bt-method-filters" class="serving-choices"></div></fieldset>
+  <div class="serving-grid"><label class="serving-field">{{ B.symbol }}<select id="bt-filter-symbol"></select></label><label class="serving-field">{{ B.repeat }}<select id="bt-filter-repeat"></select></label><label class="serving-field">{{ B.baseline }}<select id="bt-filter-baseline"></select></label><label class="serving-field">{{ B.start_date }}<input id="bt-filter-start" type="date"></label><label class="serving-field">{{ B.end_date }}<input id="bt-filter-end" type="date"></label></div><button type="submit">{{ B.apply }}</button>
+</form>
+<section class="serving-panel"><h2>{{ B.summary }}</h2><p>{{ B.accounts_note }}</p><p id="bt-coverage"></p><div class="bt-scroll" tabindex="0"><table><thead id="bt-summary-head"></thead><tbody id="bt-summary-rows"></tbody></table></div></section>
+<section class="serving-panel" id="bt-contrasts-section"><h2>{{ B.contrasts }}</h2><p>{{ B.contrast_note }}</p><div class="bt-scroll" tabindex="0"><table><thead id="bt-contrasts-head"></thead><tbody id="bt-contrasts-rows"></tbody></table></div></section>
+<section class="serving-panel" id="bt-charts-section"><h2>{{ B.daily_nav }}</h2><label class="serving-field">{{ B.chart_account }}<select id="bt-chart-account"></select></label><div id="bt-nav-chart"></div><h2>{{ B.cycle_returns }}</h2><div id="bt-cycle-chart"></div></section>
+<section class="serving-panel"><h2>{{ B.predictions }}</h2><div class="bt-scroll" tabindex="0"><table><thead id="bt-predictions-head"></thead><tbody id="bt-predictions-rows"></tbody></table></div></section>
+<section class="serving-panel"><h2>{{ B.export }}</h2><div id="bt-downloads" class="serving-actions"></div></section>
+<details class="serving-panel"><summary>{{ B.snapshot }}</summary><pre id="bt-provenance"></pre></details>
+</section>

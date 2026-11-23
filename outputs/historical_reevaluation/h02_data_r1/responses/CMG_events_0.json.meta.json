@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "9183a3370847a45a1040b2eb540b83aa633aa4004658e0317768ad6bd29a5f67",
+  "retrieved_at_utc": "2026-11-08T03:40:59.204847+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/events?ticker=CMG&fromDate=20190101&toDate=20261231&eventCode=DIV%2CISS%2CAIS%2CMA%2CMOVE%2CNLIS%2COTHE%2CRETU%2CSUSP&page=0&size=1000"
+}

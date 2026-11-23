@@ -1,0 +1,24 @@
+\begin{table}[!htb]
+\centering\small
+\renewcommand{\arraystretch}{1.12}
+\caption{Earlier historical-context evaluation on 102 cutoffs and 51 accounts per repeat.}
+\label{tab:u09-comparison}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Method & Net return (\%) & BA (\%) & Fallbacks / 306\\
+\midrule
+Our system & -0.653 & 51.84 & 0\\
+Our system (Common) & -1.025 & 45.97 & 0\\
+\addlinespace
+BICL v1 & -0.698 & 50.10 & 162\\
+BICL v2 & -1.030 & 45.75 & 303\\
+BICL v3 & -1.019 & 46.18 & 282\\
+BICL v4 & -1.030 & 45.75 & 303\\
+Fact Anchor & -1.286 & 42.74 & 0\\
+BICL v5 & -1.253 & 43.17 & 108\\
+\bottomrule
+\end{tabular}
+\par\smallskip
+{\footnotesize Return and balanced accuracy are averaged over three
+repeats. A fallback uses the same-repeat reference action.\par}
+\end{table}

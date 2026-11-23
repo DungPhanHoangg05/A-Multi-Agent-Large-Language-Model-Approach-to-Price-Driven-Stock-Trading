@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "e47b5a351a1c1ea872bb801341e9f1513e92e61ae773b5b4b6c2b96bad8351bf",
+  "retrieved_at_utc": "2026-11-08T03:41:02.673211+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/events?ticker=FPT&fromDate=20190101&toDate=20261231&eventCode=DIV%2CISS%2CAIS%2CMA%2CMOVE%2CNLIS%2COTHE%2CRETU%2CSUSP&page=0&size=1000"
+}

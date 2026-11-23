@@ -1,0 +1,26 @@
+\section{Limitations and Future Work}
+\label{sec:limitations}
+
+\subsection{Limitations}
+\paragraph{Component attribution}
+Our system--QuantAgent changes factor and sentiment content together with prompt length. Compact reports in the main/upstream panel also differ from the explicit factor rows in the factorial panel. The placebo uses one predetermined past donor, and only nine market units support each repeated component panel. These differences limit attribution of forecast changes to specific information sources. The evaluations lack matched ablations for retrieval, statistics, prior tasks, target tasks and utility.
+
+\paragraph{Factor construction and sentiment validity}
+Our system backward filling, whole-Series normalization and volume-availability branching can make an earlier historical row depend on later rows within the supplied prefix. Isolation from prices after the current decision cutoff therefore coexists with noncausal historical diagnostics. Our system orientation and ranking also reuse their calibration observations. The causal projection fits orientation and selection before testing. Six selected metadata slots differ from their handler descriptions, and the semantic effect of these mismatches is unmeasured.
+
+Historical news content and publication availability are not independently authenticated, and no financial-domain sentiment test set or annotation agreement is available. Legacy scores without a recorded scorer and locally rescored excerpts come from distinct sources. Missing sentiment, including 79/102 historical-context points, reduces the information actually available to the methods. Bank and query return calculations also differ numerically in 828/852 bank records, with maximum absolute discrepancy about 0.042988489 percentage points; this comparison concerns returns rather than a count of label changes.
+
+\paragraph{Sampling and model variability}
+The nine equities form a purposive sample with unverified point-in-time listing, delisting and suspension membership. Twelve selected dates and six correlated temporal blocks provide limited independent market evidence. Model-training contamination is possible because outcomes precede the data freeze. The schedule was finalized after some inference, and hosted routing, call order and serving revisions introduce further uncertainty. Three Decision repeats conditional on one upstream realization do not measure full-system variability or add market dates.
+
+\paragraph{Historical support and action policy}
+In the earlier historical-context study, the 852-example bank covers four stocks. BICL v2 and v4 each receive three new replies per 306 slots, and v5 agrees with Fact Anchor on 302/306 final actions. In the follow-up, the corresponding counts are six new replies per method and 303/306 agreements. These figures reflect frequent fallback and anchor retention. The earlier Our system--Common comparison changes both alpha projection and instructions, and Fact Anchor adds a further intervention. The aggregate results combine these changes with retrieval and student inference.
+
+\paragraph{Execution and visual interpretation}
+Negative account means provide no evidence of a deployable profitable strategy. Fractional fills, fixed fees/slippage, settlement phases, lot/capacity limits and volume units are assumptions or proxies. Corporate actions, price-limit queues, spreads, depth and partial fills are unverified, and separate accounts omit portfolio capital competition. Chart geometry and consistency checks constrain inputs and obvious contradictions, while local visual grounding remains untested. Prompt priorities likewise provide heuristic rather than learned evidence weighting.
+
+\subsection{Future Work}
+A prospective study should correct native row causality, repeat selection and preprocessing within chronological training, and reserve an untouched evaluation interval. Candidate search can be assessed with White's Reality Check~\cite{white2000reality} or the Deflated Sharpe Ratio~\cite{bailey2014deflated}. Broader stock/date coverage, authenticated historical inputs and independently regenerated upstream realizations would improve inference. Prior/retrieval/MT ablations, financial-news annotations and matched counterfactual charts would test component mechanisms, while portfolio simulation requires venue-specific execution data.
+
+\subsection{Broader Impact}
+Financial decision support can make heterogeneous evidence accessible, but fluent reports may overstate the reliability of sparse or contradictory inputs. Forecast confidence should therefore remain distinct from action policy and realised account performance. Use and distribution of news, price data and model assets must also respect their respective licences and source terms.

@@ -4,8 +4,10 @@ import time
 import threading
 from copy import deepcopy
 from dataclasses import dataclass, asdict, field
-from datetime import datetime
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from datetime import datetime, timezone
+from uuid import uuid4
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Tuple, TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
@@ -16,6 +18,19 @@ from default_config import DEFAULT_CONFIG
 from data_manager.sentiment_cache import BacktestSentimentStore
 from utils.statistical_tests import calculate_metrics_with_significance
 from utils.graph_setup import ABLATION_CONFIGS
+from utils.account_risk import cycle_frequency, risk_ratios, round_ratio
+from utils.target_contract import require_prompt_costs, target_fields, validate_target_record
+
+if TYPE_CHECKING:
+    from core.prior_checkpoint import CheckpointSession
+    from core.prior_context import PriorContextAdapter, PriorPointContext
+    from utils.graph_setup import SetGraph
+
+PRIOR_BRANCH_MODES = {
+    "original": ("bayesian_regime", 0), "random": ("random", 3),
+    "recent": ("recent", 3), "similarity": ("similarity", 3),
+    "bayesian": ("bayesian_regime", 3),
+}
 
 
 ALPHA_HISTORY_CANDLES = 600
@@ -136,6 +151,18 @@ class TestPoint:
     decision_source_no_alpha: str = ""
     decision_fallback_reason_full: str = ""
     decision_fallback_reason_no_alpha: str = ""
+    entry_bar_index: Optional[int] = None
+    exit_bar_index: Optional[int] = None
+    decision_close: Optional[float] = None
+    gross_return: Optional[float] = None
+    net_return: Optional[float] = None
+    label_net: Optional[str] = None
+    label_gross: Optional[str] = None
+    decision_bar_index: Optional[int] = None
+    target_horizon_bars: Optional[int] = None
+    label_fee_each_side: Optional[float] = None
+    label_slippage_each_side: Optional[float] = None
+    label_contract_version: str = "legacy_unverified"
 
 
 @dataclass
@@ -155,8 +182,10 @@ class PartialSummary:
     equity_full_vnd: float = 50_000_000.0
     equity_no_alpha_vnd: float = 50_000_000.0
     initial_capital_vnd: float = 50_000_000.0
-    sharpe_full: float = 0.0
-    sharpe_no_alpha: float = 0.0
+    sharpe_full: Optional[float] = None
+    sharpe_no_alpha: Optional[float] = None
+    risk_metrics_full: dict = field(default_factory=dict)
+    risk_metrics_no_alpha: dict = field(default_factory=dict)
     mdd_full: float = 0.0
     mdd_no_alpha: float = 0.0
     equity_curve_full: List[float] = field(default_factory=lambda: [1.0])
@@ -168,8 +197,8 @@ class AccountMetrics:
     """Các chỉ số kinh tế tính trên đường vốn tài khoản lãi kép."""
 
     total_return_pct: float
-    sharpe_ratio: float
-    sortino_ratio: float
+    sharpe_ratio: Optional[float]
+    sortino_ratio: Optional[float]
     max_drawdown_pct: float
     hit_rate_pct: float
     avg_trade_pct: float
@@ -181,6 +210,7 @@ class AccountMetrics:
     final_cash_vnd: float
     final_shares: float
     equity_curve_vnd: List[float]
+    risk_metrics: dict
 
 @dataclass
 class BacktestSummary:
@@ -221,16 +251,16 @@ class BacktestSummary:
 
     # Advanced PnL metrics Full
     pnl_full: float = 0.0
-    sharpe_full: float = 0.0
-    sortino_full: float = 0.0
+    sharpe_full: Optional[float] = None
+    sortino_full: Optional[float] = None
     mdd_full: float = 0.0
     hit_rate_full: float = 0.0
     avg_trade_full: float = 0.0
 
     # Advanced PnL metrics No-Alpha
     pnl_no_alpha: float = 0.0
-    sharpe_no_alpha: float = 0.0
-    sortino_no_alpha: float = 0.0
+    sharpe_no_alpha: Optional[float] = None
+    sortino_no_alpha: Optional[float] = None
     mdd_no_alpha: float = 0.0
     hit_rate_no_alpha: float = 0.0
     avg_trade_no_alpha: float = 0.0
@@ -249,6 +279,8 @@ class BacktestSummary:
     equity_curve_no_alpha_vnd: List[float] = field(default_factory=lambda: [50_000_000.0])
 
     test_points: List[dict] = field(default_factory=list)
+    risk_metrics_full: dict = field(default_factory=dict)
+    risk_metrics_no_alpha: dict = field(default_factory=dict)
 
 
 def _validate_account_costs(fee: float, slippage: float) -> Tuple[float, float, float]:
@@ -300,6 +332,7 @@ def compute_account_metrics(
     slippage: float = 0.001,
     initial_capital_vnd: float = 50_000_000.0,
     price_multiplier: float = 1_000.0,
+    risk_frequency: Optional[dict] = None,
 ) -> Dict[str, AccountMetrics]:
     """Mô phỏng hai tài khoản theo các chu kỳ Open-to-Close khép kín.
 
@@ -307,6 +340,8 @@ def compute_account_metrics(
     Mỗi SHORT giữ CASH trong toàn bộ horizon vì không bán khống cổ phiếu cơ sở.
     Phí môi giới và trượt giá được áp dụng riêng trên cả hai chiều BUY/SELL.
     Cách thực thi này đồng nhất tuyệt đối horizon của P&L với horizon chấm nhãn.
+    risk_frequency phải khai báo tần suất return đã xác thực; thiếu thì ratio
+    annualised là null. Drawdown vẫn tính ở cycle-end, không phải daily MTM.
     """
 
     del allow_shorting  # Giữ tham số tương thích; hợp đồng mới luôn là long-only.
@@ -317,6 +352,8 @@ def compute_account_metrics(
         raise ValueError("initial_capital_vnd phải là số dương hữu hạn")
     if not np.isfinite(price_multiplier) or price_multiplier <= 0.0:
         raise ValueError("price_multiplier phải là số dương hữu hạn")
+    for point in test_points:
+        validate_target_record(asdict(point))
 
     def compute_variant(prediction_field: str, variant: str) -> AccountMetrics:
         cash_vnd = initial_capital_vnd
@@ -458,24 +495,10 @@ def compute_account_metrics(
                 point.transaction_fee_no_alpha_vnd = round(transaction_fee_vnd, 4)
                 point.slippage_cost_no_alpha_vnd = round(slippage_cost_vnd, 4)
 
-        returns_array = np.asarray(period_returns, dtype=float)
-        if returns_array.size:
-            mean_return = float(np.mean(returns_array))
-            std_return = float(np.std(returns_array))
-            sharpe = (
-                mean_return / std_return * np.sqrt(252.0)
-                if std_return > 1e-12
-                else 0.0
-            )
-            downside = returns_array[returns_array < 0.0]
-            downside_std = float(np.std(downside)) if downside.size else 0.0
-            sortino = (
-                mean_return / downside_std * np.sqrt(252.0)
-                if downside_std > 1e-12
-                else 0.0
-            )
-        else:
-            sharpe = sortino = 0.0
+        frequency = risk_frequency or {"return_basis": "cycle_end", "periods_per_year": None,
+                                        "frequency_status": "unspecified"}
+        risk = {**frequency, **risk_ratios(period_returns, frequency.get("periods_per_year")),
+                "drawdown_basis": "cycle_end_including_initial_wealth"}
 
         equity_array = np.asarray(equity_curve, dtype=float)
         running_peak = np.maximum.accumulate(equity_array)
@@ -502,8 +525,8 @@ def compute_account_metrics(
         final_equity_vnd = previous_equity_vnd
         return AccountMetrics(
             total_return_pct=(final_equity_vnd / initial_capital_vnd - 1.0) * 100.0,
-            sharpe_ratio=float(sharpe),
-            sortino_ratio=float(sortino),
+            sharpe_ratio=risk["sharpe_ratio"],
+            sortino_ratio=risk["sortino_ratio"],
             max_drawdown_pct=max_drawdown_pct,
             hit_rate_pct=hit_rate_pct,
             avg_trade_pct=avg_trade_pct,
@@ -515,6 +538,7 @@ def compute_account_metrics(
             final_cash_vnd=cash_vnd,
             final_shares=0.0,
             equity_curve_vnd=equity_curve_vnd,
+            risk_metrics=risk,
         )
 
     return {
@@ -548,7 +572,10 @@ class BacktestEngine:
         self._stop_event     = threading.Event()
         self._started_at     = ""
         self._sentiment_store = None
-        self._use_historical_sentiment = config.get("use_historical_sentiment", True)
+        self._use_historical_sentiment = self.config.get("use_historical_sentiment", True)
+        self._prior_point_attempts: set[tuple[str, str]] = set()
+        self._prior_point_lock = threading.Lock()
+        self._prior_run_lock = threading.Lock()
 
     def _init_sentiment_store(self, symbol: str, force_recrawl: bool = False):
         """
@@ -565,6 +592,9 @@ class BacktestEngine:
     # ── Graph initialization ───────────────────────────────────────────────────
 
     def _init_graphs(self):
+        require_prompt_costs(self.config)
+        from core.decision_profiles import NATIVE_PROFILE, validate_decision_profile
+        profile = validate_decision_profile(self.config.get("decision_profile", NATIVE_PROFILE))
         import os
         from langchain_groq import ChatGroq
         from utils.graph_setup import SetGraph
@@ -605,7 +635,7 @@ class BacktestEngine:
         )
         toolkit = TechnicalTools()
 
-        graph_builder = SetGraph(agent_llm, graph_llm, toolkit)
+        graph_builder = SetGraph(agent_llm, graph_llm, toolkit, decision_profile=profile)
         print("[BacktestEngine] Khởi tạo shared upstream graph...")
         self._graph_upstream = graph_builder.compile_upstream()
         self._graph_decision_variants = {
@@ -645,7 +675,7 @@ class BacktestEngine:
         Lấy nhãn kinh tế sau cửa sổ phân tích.
 
         Args:
-            end_idx   : index cuối cửa sổ (nến cuối cùng agent nhìn thấy)
+            end_idx   : boundary exclusive e; nến cuối nhìn thấy là e-1
             lookahead : số nến phía trước để đánh giá.
                         - 1 = entry Open[end_idx], exit Close[end_idx]
                         - 3 = entry Open[end_idx], exit Close[end_idx+2]
@@ -654,6 +684,8 @@ class BacktestEngine:
                  entry_open = open đầu kỳ thực thi (end_idx)
                  next_close = close của nến end_idx + lookahead - 1
         """
+        if any(not isinstance(v, (int, np.integer)) or isinstance(v, (bool, np.bool_)) or v < 1 for v in (end_idx, lookahead)):
+            raise ValueError("Boundary/horizon phải là integer dương")
         target_idx = end_idx + lookahead - 1
         if target_idx >= len(df):
             return "UNKNOWN", 0.0, 0.0, 0.0, 0.0
@@ -875,9 +907,191 @@ class BacktestEngine:
 
         return full_state, full_sec, no_alpha_state, no_alpha_sec
 
+    def run_prior_point(
+        self, point: "PriorPointContext", *, graph_builder: "SetGraph",
+        branch_order: tuple[str, ...] = tuple(PRIOR_BRANCH_MODES),
+        checkpoint: "CheckpointSession | None" = None,
+    ) -> dict[str, Any]:
+        """Chạy Full chung và năm Decision tuần tự trên một điểm đã kiểm PIT.
+
+        Adapter/builder do caller khởi tạo một lần với cấu hình model đã khóa.
+        Chỉ trả báo cáo/Decision JSON; đánh giá kinh tế và checkpoint thuộc các
+        bước kế tiếp. Một engine không tự gọi lại điểm đã bắt đầu, kể cả khi lỗi.
+        """
+        from core.historical_signals import digest, native_json
+        from core.prior_config import copy_prior_json
+        from core.prior_context import PriorPointContext, REPORT_FIELDS
+        from utils.graph_setup import SetGraph
+
+        if not isinstance(point, PriorPointContext) or not isinstance(graph_builder, SetGraph):
+            raise ValueError("Nghiên cứu cần context PIT và builder đã khởi tạo")
+        if (type(branch_order) is not tuple or len(branch_order) != 5
+                or any(type(name) is not str for name in branch_order)
+                or set(branch_order) != set(PRIOR_BRANCH_MODES)):
+            raise ValueError("Thứ tự phải chứa đúng năm nhánh nghiên cứu, mỗi nhánh một lần")
+        config = point.prior_config
+        if config["seed"] != 42 or config["scope"] != "same_symbol":
+            raise ValueError("Ma trận năm nhánh khóa seed=42 và scope=same_symbol")
+        if not self._prior_point_lock.acquire(blocking=False):
+            raise RuntimeError("Engine đang chạy một điểm nghiên cứu; không chạy song song")
+        try:
+            if self._stop_event.is_set():
+                raise InterruptedError("Đã yêu cầu dừng trước điểm nghiên cứu")
+            initial = point.agent_state()  # Kiểm lại byte nguồn trước upstream.
+            key = (initial["stock_name"], initial["as_of_date"])
+            if checkpoint is not None:
+                from core.prior_checkpoint import CheckpointSession
+                if (not isinstance(checkpoint, CheckpointSession) or checkpoint.point is not point
+                        or checkpoint.store.lock.handle is None):
+                    raise ValueError("Checkpoint cần session đã kiểm và OS lock đang sở hữu")
+            if checkpoint is None and key in self._prior_point_attempts:
+                raise RuntimeError("Điểm đã bắt đầu; không tự gọi lại upstream/Full, cần rà soát checkpoint")
+            self._prior_point_attempts.add(key)
+            started = time.monotonic()
+            print(f"[BacktestEngine] Chuẩn bị Full dùng chung: {key[0]} @ {key[1]}")
+            stage = "not_started" if checkpoint is None else checkpoint.stage
+            durable = checkpoint is not None and checkpoint.journal is not None
+            stage_options = {"stage_checkpoint": checkpoint.journal.invoke} if durable else {}
+            shared = None
+            if stage == "not_started" or (durable and stage in ("upstream_started", "upstream_complete", "full_started")):
+                if checkpoint is not None and stage == "not_started":
+                    checkpoint.mark_stage("upstream_started")
+                initial["pattern_image"] = static_util.generate_kline_image(
+                    deepcopy(initial["kline_data"]), write_artifacts=False).get("pattern_image")
+                initial["trend_image"] = static_util.generate_trend_image(
+                    deepcopy(initial["kline_data"]), write_artifacts=False).get("trend_image")
+                if any(type(initial[name]) is not str or not initial[name].strip()
+                       for name in ("pattern_image", "trend_image")):
+                    raise ValueError("Nghiên cứu thiếu ảnh PIT cho Pattern/Trend")
+                upstream = graph_builder.compile_upstream(**stage_options).invoke(deepcopy(initial))
+                # Upstream không được đổi dữ liệu đã kiểm trước khi Alpha dùng chúng.
+                expected = point.agent_state()
+                for field in ("stock_name", "as_of_date", "time_frame", "is_backtest", "language",
+                              "window_end_date", "alpha_norm_method", "alpha_weights", "kline_data"):
+                    if digest(upstream.get(field)) != digest(expected[field]):
+                        raise ValueError(f"Upstream thay input PIT: {field}")
+                frame = upstream.get("point_in_time_df")
+                if not isinstance(frame, pd.DataFrame) or not frame.equals(expected["point_in_time_df"]):
+                    raise ValueError("Upstream thay snapshot giá PIT")
+                upstream["sentiment_store"] = expected["sentiment_store"]
+                if checkpoint is not None and checkpoint.stage == "upstream_started":
+                    checkpoint.mark_stage("upstream_complete", reports={field: upstream[field] for field in REPORT_FIELDS[:3]})
+            elif stage == "upstream_complete":
+                upstream = point.agent_state()
+                upstream.update(deepcopy(checkpoint.document["shared"]["upstream_reports"]))
+            elif stage == "shared_complete":
+                shared = checkpoint.restore_shared()
+                full_bundle = deepcopy(checkpoint.document["shared"]["full_bundle"])
+            else:
+                raise ValueError("Checkpoint upstream/Full chưa có output durable; không tự gọi lại")
+            if shared is None:
+                if self._stop_event.is_set():
+                    raise InterruptedError("Đã yêu cầu dừng sau upstream")
+                if checkpoint is not None and checkpoint.stage == "upstream_complete":
+                    checkpoint.mark_stage("full_started")
+                full = graph_builder.compile_full_preparation(strict_research_mode=True, **stage_options).invoke(deepcopy(upstream))
+                shared = point.bind_full(full)
+                full_bundle = copy_prior_json({
+                    "reports": {field: shared[field] for field in REPORT_FIELDS},
+                    **{field: shared[field] for field in ("current_signals", "market_regime", "prior_provenance")},
+                    "alpha_factors": native_json(full["sentiment_data"]["alpha_results"]),
+                    "sentiment_data": native_json(full["sentiment_data"]),
+                })
+                if checkpoint is not None:
+                    checkpoint.mark_stage("shared_complete", bundle=full_bundle)
+            shared_seconds = float(time.monotonic() - started)
+            branches: dict[str, Any] = {}
+            population_hash = None
+            for index, branch_id in enumerate(branch_order):
+                if checkpoint is not None and checkpoint.document["branches"][branch_id]["status"] == "complete":
+                    output = checkpoint.branch_output(branch_id, shared)
+                    point.verify_source(output["state"])
+                    branches[branch_id] = output
+                    if PRIOR_BRANCH_MODES[branch_id][1]:
+                        current = digest(output["state"]["prior_stats"])
+                        if population_hash is not None and current != population_hash:
+                            raise ValueError("Stats các nhánh đã lưu không cùng population")
+                        population_hash = current
+                    continue
+                if self._stop_event.is_set():
+                    raise InterruptedError(f"Đã yêu cầu dừng trước Decision {branch_id}")
+                state = deepcopy(shared)
+                mode, k = PRIOR_BRANCH_MODES[branch_id]
+                state["prior_config"].update(mode=mode, k=k)
+                expected_config = deepcopy(state["prior_config"])
+                hooks = {}
+                if checkpoint is not None:
+                    checkpoint.active_branch = branch_id
+                    hooks["before_decision"] = lambda prepared, prompt, name=branch_id: checkpoint.before_decision(name, shared, prepared, prompt)
+                graph = graph_builder.compile_report_decision(
+                    prior_config=expected_config, prior_retriever=point.retrieve,
+                    prior_source_validator=point.verify_source,
+                    **hooks,
+                )
+                branch_started = time.monotonic()
+                attempt_started = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+                result = graph.invoke(state)
+                attempt_finished = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+                # Messages/ảnh/DataFrame là dữ liệu runtime, không xuất sang JSON.
+                output = copy_prior_json({field: result.get(field) for field in
+                    (*shared, "final_trade_decision", "decision_prompt")})
+                if output["prior_config"] != expected_config:
+                    raise ValueError("Decision thay config nhánh nghiên cứu")
+                for field in (*REPORT_FIELDS, "current_signals", "market_regime", "prior_provenance",
+                              "stock_name", "as_of_date", "time_frame", "is_backtest", "language", "ablation_config"):
+                    if digest(output[field]) != digest(shared[field]):
+                        raise ValueError(f"Decision thay Full dùng chung: {field}")
+                point.verify_source(output)
+                self._parse_prediction(output)
+                if k:
+                    current = digest(output["prior_stats"])
+                    if population_hash is not None and current != population_hash:
+                        raise ValueError("Bốn prior modes phải có stats cùng population")
+                    population_hash = current
+                responses = result.get("messages", [])
+                response = responses[-1] if responses else None
+                raw_response = getattr(response, "content", None)
+                tool_calls = getattr(response, "tool_calls", None)
+                if not raw_response and tool_calls:
+                    raw_response = json.dumps(native_json({"content": raw_response, "tool_calls": tool_calls}),
+                                              ensure_ascii=False, allow_nan=False)
+                branches[branch_id] = {"state": output,
+                    "elapsed_seconds": float(time.monotonic() - branch_started),
+                    "raw_response": native_json(raw_response),
+                    "attempt_id": str(uuid4()), "started_at": attempt_started,
+                    "finished_at": attempt_finished}
+                if checkpoint is not None:
+                    checkpoint.complete_branch(branch_id, shared, branches[branch_id])
+                if index < len(branch_order) - 1:
+                    if self._stop_event.wait(self.DELAY_BETWEEN_VARIANTS):
+                        raise InterruptedError("Đã yêu cầu dừng giữa các Decision")
+            return copy_prior_json({"shared": shared, "full_bundle": full_bundle,
+                                    "shared_seconds": shared_seconds, "branches": branches})
+        finally:
+            self._prior_point_lock.release()
+
+    def run_prior_backtest(
+        self, symbol: str, *, adapter: "PriorContextAdapter", graph_builder: "SetGraph",
+        output_dir: "Path", time_frame: str = "1d", n_tests: int = 15,
+        step: int = 3, cutoffs: tuple[str, ...] | None = None,
+        execution_mode: str = "research", callback: Callable[[dict[str, Any]], None] | None = None,
+        resume: bool = False,
+    ) -> dict[str, Any]:
+        """Walk-forward năm nhánh; resume chỉ phần còn thiếu với cùng identity."""
+        from core.prior_backtest import PriorBacktestRunner
+
+        if not self._prior_run_lock.acquire(blocking=False):
+            raise RuntimeError("Engine đang chạy backtest nghiên cứu khác")
+        try:
+            runner = PriorBacktestRunner(self, adapter, graph_builder, execution_mode=execution_mode)
+            return runner.run(symbol, output_dir=output_dir, time_frame=time_frame,
+                              n_tests=n_tests, step=step, cutoffs=cutoffs, callback=callback, resume=resume)
+        finally:
+            self._prior_run_lock.release()
+
     # ── Metrics helpers ────────────────────────────────────────────────────────
 
-    def _compute_partial(self, tps: List[TestPoint]) -> PartialSummary:
+    def _compute_partial(self, tps: List[TestPoint], *, timeframe: str = "", step: Optional[int] = None) -> PartialSummary:
         vf = [tp for tp in tps if tp.pred_full     not in ("UNKNOWN", "")]
         vn = [tp for tp in tps if tp.pred_no_alpha not in ("UNKNOWN", "")]
         cf = sum(1 for tp in vf if tp.correct_full)
@@ -892,6 +1106,7 @@ class BacktestEngine:
             slippage=self.config.get("slippage", 0.001),
             initial_capital_vnd=self.config.get("initial_capital_vnd", 50_000_000.0),
             price_multiplier=self.config.get("price_multiplier", 1_000.0),
+            risk_frequency=cycle_frequency(tps, timeframe, step),
         )
         full_account = account["full"]
         no_alpha_account = account["no_alpha"]
@@ -908,8 +1123,10 @@ class BacktestEngine:
             equity_full_vnd=round(full_account.final_equity_vnd, 0),
             equity_no_alpha_vnd=round(no_alpha_account.final_equity_vnd, 0),
             initial_capital_vnd=full_account.initial_capital_vnd,
-            sharpe_full=round(full_account.sharpe_ratio, 2),
-            sharpe_no_alpha=round(no_alpha_account.sharpe_ratio, 2),
+            sharpe_full=round_ratio(full_account.sharpe_ratio),
+            sharpe_no_alpha=round_ratio(no_alpha_account.sharpe_ratio),
+            risk_metrics_full=full_account.risk_metrics,
+            risk_metrics_no_alpha=no_alpha_account.risk_metrics,
             mdd_full=round(full_account.max_drawdown_pct, 2),
             mdd_no_alpha=round(no_alpha_account.max_drawdown_pct, 2),
             equity_curve_full=full_account.equity_curve,
@@ -950,6 +1167,7 @@ class BacktestEngine:
             slippage=self.config.get("slippage", 0.001),
             initial_capital_vnd=self.config.get("initial_capital_vnd", 50_000_000.0),
             price_multiplier=self.config.get("price_multiplier", 1_000.0),
+            risk_frequency=cycle_frequency(tps, timeframe, step),
         )
         full_account = account["full"]
         no_alpha_account = account["no_alpha"]
@@ -975,14 +1193,14 @@ class BacktestEngine:
             newey_west_statistic=float(significance["newey_west_statistic"]),
             newey_west_p_value=float(significance["newey_west_p_value"]),
             pnl_full=round(full_account.total_return_pct, 2),
-            sharpe_full=round(full_account.sharpe_ratio, 2),
-            sortino_full=round(full_account.sortino_ratio, 2),
+            sharpe_full=round_ratio(full_account.sharpe_ratio),
+            sortino_full=round_ratio(full_account.sortino_ratio),
             mdd_full=round(full_account.max_drawdown_pct, 2),
             hit_rate_full=round(full_account.hit_rate_pct, 2),
             avg_trade_full=round(full_account.avg_trade_pct, 2),
             pnl_no_alpha=round(no_alpha_account.total_return_pct, 2),
-            sharpe_no_alpha=round(no_alpha_account.sharpe_ratio, 2),
-            sortino_no_alpha=round(no_alpha_account.sortino_ratio, 2),
+            sharpe_no_alpha=round_ratio(no_alpha_account.sharpe_ratio),
+            sortino_no_alpha=round_ratio(no_alpha_account.sortino_ratio),
             mdd_no_alpha=round(no_alpha_account.max_drawdown_pct, 2),
             hit_rate_no_alpha=round(no_alpha_account.hit_rate_pct, 2),
             avg_trade_no_alpha=round(no_alpha_account.avg_trade_pct, 2),
@@ -1000,6 +1218,8 @@ class BacktestEngine:
             equity_curve_full_vnd=full_account.equity_curve_vnd,
             equity_curve_no_alpha_vnd=no_alpha_account.equity_curve_vnd,
             test_points=[asdict(tp) for tp in tps],
+            risk_metrics_full=full_account.risk_metrics,
+            risk_metrics_no_alpha=no_alpha_account.risk_metrics,
         )
 
     # ── Save helper ────────────────────────────────────────────────────────────
@@ -1161,16 +1381,20 @@ class BacktestEngine:
                 exit_time=pd.Timestamp(
                     df["Datetime"].iloc[end_idx + lookahead - 1]
                 ).isoformat(),
+                entry_bar_index=int(end_idx), exit_bar_index=int(end_idx + lookahead - 1),
                 error_full=err_f, error_no_alpha=err_n,
                 decision_source_full=source_f,
                 decision_source_no_alpha=source_n,
                 decision_fallback_reason_full=fallback_reason_f,
                 decision_fallback_reason_no_alpha=fallback_reason_n,
+                **{k: v for k, v in target_fields(df, int(end_idx), int(lookahead),
+                    self.config.get("tx_cost", .0025), self.config.get("slippage", .001)).items()
+                   if k not in ("entry_open", "exit_close")},
             )
             test_points.append(tp)
 
             # Tính P&L lũy kế tại điểm này và lưu vào TestPoint
-            partial = self._compute_partial(test_points)
+            partial = self._compute_partial(test_points, timeframe=timeframe, step=step)
 
             # Callback tiến trình
             if callback:

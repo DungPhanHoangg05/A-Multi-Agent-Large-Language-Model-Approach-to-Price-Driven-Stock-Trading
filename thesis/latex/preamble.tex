@@ -1,0 +1,84 @@
+% Quy ước trình bày quan sát từ mẫu; chưa phải quy định chính thức của trường.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+\else
+  \usepackage{fontspec}
+  \setmainfont{Latin Modern Roman}
+  \setsansfont{Latin Modern Sans}
+  \setmonofont{Latin Modern Mono}[Scale=0.85]
+\fi
+\usepackage[english]{babel}
+\usepackage{geometry}
+\geometry{a4paper,margin=2.5cm,top=3cm,bottom=3cm,headheight=28pt}
+\usepackage[expansion=false]{microtype}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{graphicx,tikz}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+% Chừa chỗ cho văn bản trên cùng trang với bảng và hình.
+\renewcommand{\topfraction}{0.87}
+\renewcommand{\bottomfraction}{0.72}
+\renewcommand{\textfraction}{0.13}
+\renewcommand{\floatpagefraction}{0.95}
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{3}
+\setlength{\textfloatsep}{13pt plus 2pt minus 3pt}
+\setlength{\floatsep}{12pt plus 2pt minus 3pt}
+\usetikzlibrary{calc,arrows.meta,positioning}
+\usepackage[table]{xcolor}
+\definecolor{thesisblue}{HTML}{1F3445}
+\usepackage{booktabs,array,longtable,calc}
+\usepackage{caption}
+\newcounter{none}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{ThesisCode}{Verbatim}{fontsize=\small,breaklines=true,breakanywhere=true,commandchars=\\\{\}}
+\usepackage{xurl,hyperref,bookmark}
+\hypersetup{colorlinks=true,allcolors=thesisblue,pdftitle={Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading in the Vietnamese Stock Market},pdfauthor={Phan Hoang Dung}}
+\urlstyle{tt}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=numeric,sorting=none,giveninits=true,maxbibnames=99]{biblatex}
+\addbibresource{references.bib}
+% Cho URL bibliography ngắt trong mã phiên bản dài, giữ nguyên đích liên kết.
+\setcounter{biburlnumpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+\setcounter{biburllcpenalty}{100}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE,LO]{\small\itshape\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+% Giữ cơ chế section/anchor gốc của report/hyperref; chỉ định dạng phần đầu chương.
+% titlesec có thể đặt anchor trước điểm ngắt trang của tiêu đề được đánh số.
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  \vspace*{-20pt}{\parindent\z@\raggedright\normalfont
+  \ifnum\c@secnumdepth>\m@ne
+    \huge\bfseries\@chapapp\space\thechapter\par\nobreak\vskip10pt
+  \fi
+  \interlinepenalty\@M\Huge\bfseries #1\par\nobreak\vskip30pt}}
+\renewcommand{\@makeschapterhead}[1]{%
+  \vspace*{-20pt}{\parindent\z@\raggedright\normalfont
+  \interlinepenalty\@M\Huge\bfseries #1\par\nobreak\vskip30pt}}
+\makeatother
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+\setlength{\emergencystretch}{3em}
+\raggedbottom
+\interfootnotelinepenalty=100
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.2em}
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{6pt}
+\newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\pandocbounded}[1]{#1}
+\newcommand{\real}[1]{\ensuremath{\mathbb{#1}}}
+
+% Bảng đoạn văn căn trái để tránh khoảng trắng kéo giãn trong ô hẹp.
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}

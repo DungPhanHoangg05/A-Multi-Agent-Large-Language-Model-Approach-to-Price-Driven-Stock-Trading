@@ -1,142 +1,340 @@
-# A Multi-Agent Large Language Model Approach to Price-Driven Stock Trading in the Vietnamese Stock Market
+# Regime-Aware Multi-Task Bayesian In-Context Learning for Multi-Agent LLM Stock Trading
 
-Research code for a LangGraph-based stock-direction framework designed for the Vietnamese market. The pipeline combines technical indicators, chart-pattern and trend analysis, dynamically selected quantitative alpha factors, Vietnamese financial-news sentiment, and a structured decision stage that emits a binary `LONG` or `SHORT` forecast.
+A research system for stock analysis and LONG/CASH trading simulation in the
+Vietnamese stock market. It combines a LangGraph multi-agent pipeline, technical
+and visual chart analysis, quantitative alpha factors, Vietnamese financial-news
+sentiment, and historical context conditioned on market regimes.
 
-The forecast label and the economic simulation are intentionally separate. A `LONG` forecast opens a fixed-horizon buy-at-open, sell-at-target-close cycle. A `SHORT` forecast remains in cash because the simulator does not assume uncovered short selling of Vietnamese underlying equities. Account returns are compounded from an initial VND 50,000,000 balance and apply a 0.25% brokerage fee plus 0.10% slippage on both the buy and sell legs.
+The repository contains Our system, five BICL extensions, a Flask application, paired
+experiment infrastructure, and the sources for the research paper and thesis.
+The original project title is *A Multi-Agent Large Language Model Approach to
+Price-Driven Stock Trading in the Vietnamese Stock Market*.
 
-## What is implemented
+## Capabilities
 
-- Five-stage LangGraph workflow: Indicator, Alpha/Sentiment, Pattern, Trend, and Decision.
-- Point-in-time alpha selection from an 85-factor registry, using at most 600 candles ending at the decision cutoff.
-- Strict historical-sentiment filtering that rejects future-dated and undated records in research mode.
-- Shared upstream reports for paired comparisons, preventing repeated vision or indicator inference from contaminating treatment/control results.
-- Four ablation modes: `full`, `alpha_only`, `sentiment_only`, and `baseline`.
-- Compounded account P&L, two-sided trading costs, maximum drawdown, Sharpe ratio, and hit-rate reporting.
-- McNemar, Wilcoxon, Newey-West, and block-bootstrap significance utilities.
-- OHLCV consistency guards for chart-pattern and trend reports.
-- A deterministic offline end-to-end regression test that does not require API credentials.
+- Analyze Vietnamese stocks using OHLCV, technical indicators, chart patterns,
+  trend analysis, alpha factors, and ViSoBERT-based news sentiment.
+- Select among six application methods, including the original system, four
+  Bayesian variants, and MT-BICL.
+- Inspect reports, charts, historical context, raw proposals, final actions,
+  and policy reasons in a Vietnamese/English interface with light and dark themes.
+- Run walk-forward backtests and compare methods using shared snapshots,
+  explicit execution costs, account-level metrics, and CASH/ALWAYS_LONG controls.
+- Inspect and export recorded experiments with versioned contracts, source
+  hashes, checkpoints, and request/response provenance.
 
-## Requirements
+## System architecture
 
-- Windows with the Python launcher (`py`) for the commands below.
-- Python **3.13**. The checked-in `.python-version` pins 3.13.5.
-- Internet access for live market data, model download, and hosted-model inference.
-- A Groq API key for live agent inference, supplied through `.env` or the web interface.
-- ViSoBERT runs locally through Transformers by default. A Hugging Face token is optional for the public model, but is normally required for a protected Dedicated Inference Endpoint.
+```mermaid
+flowchart TD
+    A[OHLCV and dated financial news] --> B[Shared agent reports and charts]
+    B --> C[Versioned decision request]
+    D[Historical memory and market regime] --> C
+    E[MT-BICL numeric context and student] --> C
+    C --> F[Structured LLM proposal]
+    F --> G[Method-specific fallback and policy]
+    G --> H[Final LONG or CASH action]
+    H --> I[Post-forecast outcomes and account evaluation]
+```
+
+| Component | Responsibility |
+| --- | --- |
+| Indicator Agent | Calculate technical indicators and summarize their signals. |
+| Pattern Agent | Interpret chart patterns using visual inputs. |
+| Trend Agent | Analyze trend direction and trendline structure. |
+| Alpha Agent | Calculate and select quantitative factors and integrate enabled sentiment evidence. |
+| Sentiment module | Score Vietnamese financial news and preserve publication-date eligibility. |
+| Decision Agent | Combine distilled reports and optional context into a structured `LONG`/`SHORT` prediction. |
+| Bayesian context | Retrieve eligible historical episodes and construct compact regime-conditioned priors. |
+| MT-BICL | Combine fact anchoring, historical numeric context, a student model, posterior utility, and policy checks. |
+| Evaluation layer | Convert predictions into LONG/CASH actions and evaluate execution, accounts, and classification. |
+
+The regime detector uses a Gaussian Hidden Markov Model (HMM) over VN-Index
+features. MT-BICL includes teacher–student distillation for numeric context and
+uses posterior utility in its final policy.
+
+Paired experiments run Indicator → Pattern → Trend once per test point and
+deep-copy the shared upstream state into comparison branches. Alpha, sentiment,
+context preparation, and dependencies follow the selected method's execution
+plan. Forecast inputs are sealed before the outcome barrier opens.
+
+### Methods and profiles
+
+The manuscript names map to stable registry IDs. The component study
+uses QuantAgent as the price-only comparator and Our system as the
+augmented system. The context studies evaluate what BICL adds.
+
+| System or control | Registry or study ID | Context or policy |
+| --- | --- | --- |
+| QuantAgent | Component study `baseline` | Locally evaluated price-only adaptation of the published Indicator, Pattern, Trend, and Risk/Decision architecture. |
+| Our system | `original_fix`, component study `full` | OHLCV alpha and eligible Vietnamese news sentiment with no historical context. |
+| Our system (Common) | `original_common` | Common Decision prompt with augmented evidence and no context prior. |
+| BICL v1 | `bayesian_v1` | Regime-matched historical prior with K=3. |
+| BICL v2 | `C2` | Quality-conditioned historical statistics. |
+| BICL v3 | `A_tp_pool` | Relaxes the condition for historical statistics to trend and pattern. |
+| BICL v4 | `B_semantic` | Uses v2 evidence with explicit counts, intervals, and example descriptions. |
+| Fact Anchor | `Fact_Anchor` | Structured facts and reference action based on the Common result. |
+| BICL v5 | `MT_BICL` | Multi-task numeric context, teacher/student inference, and utility-gated revision. |
+
+The registry resolves dependency order and declared fallbacks. Component ablations use `full`, `alpha_only`,
+`sentiment_only`, and `baseline`.
+
+`original_fix_serving_v1` is the default native decision profile.
+`common_decision_v1` supplies the common comparison prompt.
+`causal_common_v1` supplies a separate alpha input profile with prefix-based
+preprocessing and a selector frozen after purged train/validation fitting.
+Experiment identities record the selected profiles. Their implementations and
+method dependencies are defined in the source registries.
+[Decision profiles](core/decision_profiles.py), [method registry](core/variant_registry.py),
+[application registry](core/serving_registry.py).
+
+## Trading and data contracts
+
+The simulator implements the project's T+2.5 economic contract.
+
+| Setting | Contract |
+| --- | --- |
+| `LONG` | Enter at `Open(t+1)` and liquidate at `Close(t+3)`, using trading-session positions. |
+| `SHORT` prediction | Hold cash, represented as the final action `CASH`. |
+| Brokerage fee | 0.25% on each entry and exit leg. |
+| Slippage | 0.10% on each entry and exit leg. |
+| Default account capital | VND 50,000,000. |
+| Stock-price conversion | Prices in thousands of VND are multiplied by 1,000 once for accounting. |
+| Historical labels | Canonical `net_cycle_v1` records use `compute_round_trip_net_return`. |
+
+The round-trip return oracle and account simulation live in the backtest
+engine. Accounts compound independently within their configured reset groups.
+Cross-account averages summarize those accounts. Risk metrics retain their
+return frequency and convention, with separate daily-NAV and cycle-return
+representations. Undefined values serialize as `null`.
+[Backtest engine](core/backtest_engine.py).
+
+Point-in-time inputs and execution follow these boundaries.
+
+- Price candles end at or before the query cutoff. Shared chart/report snapshots
+  use up to 600 candles.
+- Research news has a known publication date at or before the cutoff.
+- Retrieved memory episodes have `exit_date < as_of_date`.
+- Economic outcomes become available only after the required forecasts are durable.
+- Decision research prompts remain below 6,500 characters, with a K=3 Bayesian
+  Regime Prior Prefix of at most 600 characters.
+- Retry wrappers apply backoff and provider retry delays. Checkpoints preserve
+  completed work, identity, and unresolved-attempt state for recovery.
 
 ## Installation
 
+Clone the `develop` branch with its full history. It contains the demo and the
+FIN15 evidence. The serving profiles compare frozen inputs and model code
+against historical Git objects during preflight.
+
 ```powershell
-git clone https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma.git
-cd A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma
+git clone --branch develop https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading.git stock-trading
+cd stock-trading
+```
+
+Run commands from the repository root. Python **3.13.5** is pinned in
+`.python-version`. On Windows with the Python launcher installed,
+
+```powershell
 py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -c "import tiktoken; tiktoken.get_encoding('o200k_base')"
 ```
 
-`TA-Lib` is declared in `requirements.txt`. If a wheel is unavailable on another platform, install that platform's native TA-Lib dependency before rerunning the final command. Do not switch Python versions silently; the supported runtime is Python 3.13.
+Verify that the selected interpreter reports Python 3.13.5. Dependencies include
+TA-Lib, PyTorch, Transformers, LangGraph, LangChain, HMMlearn, and scikit-learn.
+`requirements-unified.lock.txt` records the Windows integration environment and
+can be installed using `pip install -r requirements-unified.lock.txt`.
+Platform-specific deployments require compatible package builds.
 
-Create a local `.env` file for credentials and optional ViSoBERT settings:
-
-```dotenv
-GROQ_API_KEY=replace_with_your_groq_key
-HF_TOKEN=replace_with_your_optional_huggingface_token
-
-# auto (default), local, endpoint, or lexicon
-VISOBERT_BACKEND=auto
-# auto (default), cpu, or cuda:0
-VISOBERT_DEVICE=auto
-# Required only when VISOBERT_BACKEND=endpoint. Use the exact URL created by
-# Hugging Face Dedicated Inference Endpoints, not router.huggingface.co.
-HF_INFERENCE_ENDPOINT_URL=https://your-endpoint.endpoints.huggingface.cloud
-```
-
-Never commit `.env` or credentials.
-
-In `auto` mode, the application calls `HF_INFERENCE_ENDPOINT_URL` when it is set and falls back to the local Transformers model if that endpoint fails. Without an endpoint URL it loads `5CD-AI/Vietnamese-Sentiment-visobert` locally. The first local request downloads and caches the model, so it can take longer than later requests. The lexicon scorer is used only if the selected ViSoBERT backend cannot run, and each article records `scorer`, `scorer_backend`, and `is_fallback` provenance fields.
-
-## Verify the system
-
-Run the deterministic end-to-end test:
+The web launcher installs the pinned serving inputs on first use. For direct
+research commands and serving tests, install them once from a full Git checkout.
 
 ```powershell
-py -3.13 scripts/run_end_to_end_test.py
+.\.venv\Scripts\python.exe scripts/install_study_resources.py
 ```
 
-It exercises the production data contracts with fixed local OHLCV and CafeF fixtures, generates the charts, selects alpha factors, executes the LangGraph workflow with deterministic LLM doubles, computes account metrics, and validates the statistical summary. A successful run ends with:
+Market access uses `vnstock==4.0.9` and `vnai==2.6.2` through the extra package
+index declared in the requirements. Vendor access and configuration are covered
+in the market-data guide. [Market-data setup](docs/vnstock_upgrade.md).
 
-```text
-[PASS] ALL PIPELINE CHECKS SUCCESSFUL IN <runtime>s
-```
+### Configuration
 
-Run the complete unit-test suite:
+Set `GROQ_API_KEY` in the process environment or enter it through the application's
+API-key controls. Model IDs, providers, generation settings, and accounting
+defaults are defined in `default_config.py`. Hosted execution requires a valid
+key and provider access to the configured models. [Default configuration](default_config.py).
+
+| Environment variable | Purpose |
+| --- | --- |
+| `GROQ_API_KEY` | Groq credentials for hosted agent inference. |
+| `PORT` | Local Flask port, defaulting to `5000`. |
+| `VISOBERT_BACKEND` | Sentiment backend, one of `auto`, `local`, `endpoint`, or `lexicon`. |
+| `VISOBERT_DEVICE` | Device selection for local sentiment inference. |
+| `HF_TOKEN` | Optional Hugging Face credentials. |
+| `HF_INFERENCE_ENDPOINT_URL` | Optional Hugging Face sentiment endpoint. |
+
+The local sentiment backend may download model weights on first use. The direct
+Flask launcher reads process environment variables. A launcher using `.env`
+must load it explicitly. Docker Compose loads `.env` through `env_file`.
+Keep credentials in local environment configuration.
+
+## Running the application
 
 ```powershell
+.\.venv\Scripts\python.exe web_interface.py
+```
+
+Open `http://127.0.0.1:5000`.
+
+| Page | Workflow |
+| --- | --- |
+| `/` | Application landing page. |
+| `/demo` | Select a stock and one of the six methods, then run realtime 1D analysis. |
+| `/output` | Inspect a completed analysis and its reports, charts, decision, and context. |
+| `/backtest` | Configure walk-forward backtests and inspect progress and results. |
+| `/experiments` | Browse verified research results and serving jobs, compare supported methods, and export JSON/CSV. |
+
+The Analysis and Backtest forms use the server's research execution profile
+(`finalize_serving_v1`), used for the thesis's main BICL evaluation and the
+paper's BICL follow-up. Original analysis goes from Alpha directly to Decision.
+The five upgraded methods show a BICL context step before Decision. Live analysis
+captures the latest completed daily session. The server validates resources and the Groq key in preflight
+before starting a checkpointed job. Completed results expose historical context,
+common alpha inputs, fallback/bypass reasons, and raw/final actions where
+applicable. Backtests use their own supported symbols, dates, and resource bindings.
+
+Each new Research-profile live run captures CafeF news for the selected ticker
+up to the instant the run was started. It scores article titles and available
+summaries, then saves the article set and scores with the run. Resuming a run
+and reopening its report read that snapshot. Research backtests use the frozen
+FIN05 news inputs for their evaluation dates.
+
+New live reports prepare Vietnamese and English presentations during existing
+agent invocations or from deterministic numeric templates. Language switching
+displays the saved presentation immediately. Older records depend on the
+presentations available in their cache. Jobs with unresolved attempts keep
+their `unknown` state until reconciliation.
+
+Serving support is checked against the server's resource manifest. Frozen
+as-of resources cover nine symbols over 1 July–23 September 2026, with exact
+point availability checked during preflight. The live daily provider has a
+separate snapshot lifecycle. The method registry defines dependencies and supported profiles.
+[Serving registry](core/serving_registry.py).
+
+### Docker deployment
+
+Create a local `.env` containing the required environment settings, then run
+
+```powershell
+docker compose up --build -d
+docker compose logs -f web
+```
+
+The Compose application is available at `http://127.0.0.1:8000`. Its image uses
+Python 3.13.5, CPU PyTorch, and one threaded Gunicorn worker to share in-process
+job state. Named volumes persist model cache, backtest results, and research
+outputs. Research profiles in a container also require the frozen study inputs
+under `outputs/`, the Git executable and the historical Git objects used by preflight. Reverse-proxy and Oracle VM configuration are documented separately.
+[Deployment guide](docs/oracle_deployment.md), [Compose configuration](compose.yaml).
+
+## Experiments and reproducibility
+
+Open `/experiments` to inspect the six methods, compare outcomes and export the
+recorded results. For an analysis you run yourself, use `/demo` for the latest
+completed session or `/backtest` for a historical date range.
+
+To check the published paper and thesis against the saved study records, run the
+following command from the repository root. It reads the shipped evidence offline.
+
+```powershell
+py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --audit --check
+```
+
+The reader guide identifies inputs for the component, historical BICL and follow-up
+comparisons. It also gives the source commits for replaying historical experiments.
+[FIN15 evidence guide](evidence/README.md).
+
+### Research scope
+
+The preserved studies evaluate agent components and historical-context methods
+on their declared cohorts. Results are exploratory and depend on support,
+provider provenance, model serving conditions, and previously exposed data.
+The native alpha selector fails the recorded row-wise causality audit.
+`causal_common_v1` addresses the alpha preprocessing and selector contract.
+Whole-system causality remains uncertified, and statistical superiority and
+profitable trading remain unestablished. Detailed outcomes and limitations
+belong to the paper, thesis, and evidence records.
+
+## Validation and contribution workflow
+
+Choose checks for changed modules, contracts, and callers. For example,
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -p "test_account_risk.py" -v
+.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -p "test_target_contract.py" -v
+.\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -p "test_paired_protocol.py" -v
+```
+
+Documentation-only changes require diff, link, and source-consistency checks.
+Code changes require relevant regression tests and compilation of changed
+Python files. Data, PIT, and retrieval changes also require their affected
+leakage tests. Full-system acceptance can use the four reference gates when
+the task explicitly calls for a complete regression run.
+
+```powershell
+py -3.13 -m compileall agents core data_manager scripts tests utils
 py -3.13 -X utf8 -m unittest discover -s tests -v
+py -3.13 scripts/run_end_to_end_test.py
+py -3.13 -X utf8 -m unittest discover -s tests -p "test_*leakage.py" -v
 ```
 
-Optionally compile every Python module before running the tests:
+Create task branches from `develop`, use Conventional Commits, and merge after
+the applicable checks pass. Preserve the economic, PIT, paired-execution,
+prompt-budget, and recovery contracts. [Development instructions](AGENTS.md).
 
-```powershell
-py -3.13 -m compileall agents core data_manager scripts tests utils web_interface.py
-```
+## Repository guide
 
-## Run the web application
+| Path | Contents |
+| --- | --- |
+| `agents/` | Agent implementations and shared LangGraph state. |
+| `utils/` | Graph assembly, charting, report presentation, and Flask blueprints. |
+| `core/` | Accounting, market loaders, priors, MT-BICL, causal alpha, experiment runners, and serving runtime. |
+| `data_manager/`, `data/` | Historical memory, regime assets, sentiment storage, and market-data inputs. |
+| `templates/`, `static/`, `web_interface.py` | Flask pages, browser scripts, styles, and application entrypoint. |
+| `scripts/`, `tests/` | Resource installation, manuscript checks and regression tests for the UI and trading contracts. |
+| `default_config.py`, `requirements*.txt` | Runtime defaults and dependency specifications. |
+| `deploy/`, `Dockerfile`, `compose.yaml` | Container and reverse-proxy deployment configuration. |
+| `paper/`, `outputs/paper/` | Paper LaTeX sources and generated PDFs. |
+| `thesis/` | Thesis LaTeX sources, bibliography, figures, build tools, and release artifacts. |
+| `outputs/revision/` | Published baseline tables, U09 supplements and their manifests. |
+| `outputs/unified_integration/` | Unified experiment records, checkpoints, and analysis artifacts. |
+| `evidence/`, `resources/` | FIN15 audit inputs and pinned resources for the application. |
 
-```powershell
-py -3.13 web_interface.py
-```
+### Paper and thesis
 
-Open `http://127.0.0.1:5000`. Set `PORT` to override the default port. The interface accepts a Groq key at runtime when `GROQ_API_KEY` is not already configured.
+The paper evaluates adding alpha and sentiment to QuantAgent. The thesis
+evaluates adding BICL to Our system. The paper uses `paper/main.tex` or
+`paper/main_submit.tex` with pdfLaTeX and BibTeX. The thesis uses
+`thesis/main.tex` with pdfLaTeX or XeLaTeX and Biber. Each directory has
+project-relative references and figure paths for Overleaf. Earlier thesis
+Markdown drafts are retained as historical material.
+[Paper sources](paper/README.md), [paper PDF](outputs/paper/paper.pdf),
+[thesis sources and build](docs/thesis_build.md), [thesis PDF](outputs/thesis/thesis.pdf).
 
-The UI supports live analysis and walk-forward backtesting. Generated JSON and PNG files are written to `backtest_result/`, which is intentionally excluded from version control.
+## Attribution and licensing
 
-## Run the research experiments
+The agent/chart-analysis foundation adapts QuantAgent from Y-Research @SBU,
+including its Indicator, Pattern, Trend, and Decision agents, LangGraph
+structure, chart tools, and portions of the web interface. Vietnamese market
+access, alpha/sentiment integration, accounting, historical priors, MT-BICL,
+and paired research infrastructure extend that foundation.
 
-These commands use live market data and hosted models, so exact reruns depend on provider availability, the requested data cutoff, local dated sentiment caches, and model revisions.
-
-Robustness sweeps:
-
-```powershell
-py -3.13 core/run_robustness.py --mode hyperparams --symbol FPT --n_tests 20
-py -3.13 core/run_robustness.py --mode norm --symbol FPT --n_tests 20
-py -3.13 core/run_robustness.py --mode weights --symbol FPT --n_tests 20
-```
-
-Four-way ablation on the representative sample:
-
-```powershell
-py -3.13 scripts/run_ablation_matrix.py --symbols FPT,VNM,VCB --n_tests 20
-```
-
-Both runners checkpoint completed work. If a hosted service returns HTTP 429, stop the process, update the credential if necessary, and rerun the same command to resume. Their generated files are written beneath `outputs/`, which is also excluded from version control.
-
-Use `--data-cutoff YYYY-MM-DD` to freeze the final market-data date and `--output-dir <path>` to choose a different local artifact directory.
-
-## Architecture
-
-1. **Indicator Agent** computes momentum, volatility, and trend-strength indicators from the decision window.
-2. **Alpha/Sentiment stage** selects the top five point-in-time alpha factors and, when enabled, loads only news available at the cutoff.
-3. **Pattern Agent** analyzes a candlestick chart and applies OHLCV-based consistency checks.
-4. **Trend Agent** analyzes chart structure, support, resistance, and direction with numerical verification.
-5. **Decision Agent** receives only the reports enabled by the selected ablation mode and returns structured `LONG` or `SHORT` output.
-
-For paired backtests, Indicator, Pattern, and Trend run once per test point. Their state is deep-copied into the treatment and baseline decision branches so upstream stochasticity cannot alter the control input.
-
-## Repository layout
-
-- `agents/`: agent implementations, prompts, and structured output contracts.
-- `core/`: market-data loading, alpha evaluation, the backtest engine, and robustness runner.
-- `data_manager/`: historical sentiment-cache filtering and lookup.
-- `scripts/`: deterministic end-to-end testing and experiment utilities.
-- `tests/`: leakage, pairing, ablation, financial, statistical, token-budget, and vision-guard tests.
-- `utils/`: graph assembly, technical tools, decision parsing, alpha selection, and statistical helpers.
-- `templates/`, `static/`, `web_interface.py`: Flask user interface.
-
-## Reproducibility notes
-
-The offline regression path seeds Python and NumPy with 42 and replaces network/LLM boundaries with deterministic fixtures. It verifies software behavior, not the exact empirical outputs of a historical hosted-model run.
-
-Exact empirical reproduction additionally requires the original point-in-time market snapshots, dated sentiment caches, model identifiers/revisions, and private result artifacts. Hosted inference is not guaranteed to be bit-reproducible across provider revisions.
-
-This project is a research prototype, not investment advice. It does not model every exchange rule, tax, liquidity constraint, market-impact effect, or production execution risk.
+The upstream comparison is pinned to
+`92519f806286192345e940e7ab77496462d662b7`. The originally adopted upstream
+commit is unrecorded. Upstream-derived material retains its MIT copyright
+and license notice. Project additions, datasets, model weights, and other
+dependencies retain their respective licensing and distribution terms.
+[Third-party notices](THIRD_PARTY_NOTICES.md),
+[preserved QuantAgent MIT license](LICENSES/QuantAgent-MIT.txt).

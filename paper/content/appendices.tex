@@ -1,0 +1,125 @@
+\appendix
+\section{Agent Prompt Specifications}
+\label{app:prompts}
+The agents use Vietnamese requests with the following role-level inputs and output requirements; complete messages and image inputs are retained in the research archive.
+
+\subsection{Decision Agent}
+\label{app:prompt_decision}
+Decision receives condensed technical, pattern and trend reports with enabled factor/sentiment sections, then returns direction, horizon, confidence, risk/reward, supporting/opposing evidence and justification. Our system enables factors and sentiment, QuantAgent omits both, and the factorial variants enable individual components or a past-donor replacement. Main/upstream requests use compact factor text, while factorial requests contain five explicit rows.
+
+Historical priors use the Common reports and add qualified examples or conditional statistics. The Bayesian prior displays at most three matured same-stock examples. The conditional prior matches Trend/Pattern/Alpha/Indicator states; the trend--pattern prior relaxes the statistics match to Trend/Pattern; the explicit-count prior explains the conditional counts and intervals in more detail. For conditional methods, population support must be at least 20; a statistic additionally requires conditional support of five and credible-interval width at most 0.75. Example selection uses $K=3$, seed 42, signal weight 0.5, a 365-day recency half-life, maximum age 730 days, similarity threshold 0.625 and minimum five-session spacing. Statistics and examples have separate readiness checks, and an empty prior retains Common's action.
+
+Fact Anchor receives deterministic fact assertions and the completed Common reply. BICL v5 additionally receives prior/target task summaries, query features, student probability and teacher utility when context is eligible. Both requests identify the source facts and anchor. Each context prefix is at most 600 characters, and the full request is below 6,500 characters. Fact checks enforce the declared assertions; the external utility policy controls whether a changed MT proposal is accepted.
+
+\subsection{Pattern Agent}
+\label{app:prompt_pattern}
+Pattern receives a candlestick chart and reports pattern, confidence, directional bias, evidence, key candles and trading implication. Green bodies indicate Close greater than Open; red includes the remaining cases. A numerical consistency check compares directional claims with selected OHLCV properties.
+
+\subsection{Trend Agent}
+\label{app:prompt_trend}
+Trend receives a daily candlestick chart with blue support and red resistance lines and reports direction, levels, slope, price position, analysis, forecast and confidence.
+
+\subsection{Indicator Report}
+\label{app:prompt_indicator}
+Indicator deterministically renders five numerical votes, their counts and heuristic confidence using the rules in \ref{app:indicator_logic}, without a separate reporting-model call.
+
+\subsection{Sentiment Report}
+\label{app:prompt_sentiment}
+The sentiment input contains saved classifier scores, aggregate counts and availability flags as defined in Section~\ref{sec:formulation}; the evaluated provider supplies empty article-detail and peer lists.
+
+\subsection{Alpha Report}
+\label{app:prompt_alpha}
+The main compact prompt carries aggregate alpha direction and vote counts. The separate factorial panel sends individual values. The evaluation formats these reports without an extra Alpha reasoning-model call.
+
+\section{Shared State and Forecast Records}
+\label{app:state_schema}
+The shared state contains the stock, timeframe, as-of cutoff, observed OHLCV prefix, chart images and five reports. Sentiment observations and availability flags are stored separately from their rendered report. The deterministic Indicator node returns its summary without populating every numerical array declared by the general application schema.
+
+Each immutable snapshot identifies the stock/date/fold, upstream realization, reports, images and causal alpha projection. Forecast records add method, repeat, request identity, optional raw reply and context trace. Policy records retain the raw proposal, final action, fallback/rejection reason and anchor/utility evidence. All required forecasts for a point are persisted before canonical decision/entry/exit prices and net labels enter the outcome record. Missing dependencies, duplicate raw-response reuse and source/data mismatches raise errors rather than becoming CASH observations.
+
+\setcounter{table}{0}
+\section{Custom Alpha Formula Implementation}
+\label{app:signals}
+The native custom factors in Table~\ref{tab:custom_definitions} precede global normalization and IC orientation. Here $a_t$ is one-bar percentage change divided by rolling twenty-bar sample SD with a minimum of five observations, $H_t$ is MACD(12,26,9) histogram, and $CP_t$ is close position relative to the bar midpoint/range. ADV denotes mean share volume. Partial windows, denominator guards and fills follow the implementation. Factor handler IDs are distinct from their selected display ranks.
+\input{content/tables/component/custom_factors.tex}
+
+\paragraph{Common operators are a separate profile}
+The extension retains the native formulas above and in the archived registry. Its row-causal adapters remove backward fills, use only row-available rolling information and keep warm-up/missingness explicit. Training fixes IC orientation; purged validation selects five factor IDs and a threshold from $\{0.05,0.10,0.20\}$. The frozen policy requires at least 60 train observations, 30 validation observations and five validation LONG cycles. Fixed historical origin, query-prefix hash and selector identity are checked on every projection. The native and causal profiles in Section~\ref{sec:alpha-representation} use different preprocessing.
+
+\subsection{Flow-Driven Momentum (FDM)}
+FDM multiplies volatility-adjusted one-bar return by a volume/ADV20 ratio before the scaled tanh. The return adjustment uses rolling sample SD with its implementation-specific minimum observations. It is an OHLCV proxy, not directly measured order flow.
+
+\subsection{MACD/Return Proxy (SFA)}
+The native SFA handler combines a normalized MACD histogram and adjusted return. Its handler ID identifies the numerical expression independently of its selected display rank. No sentiment variable enters this native formula; the prototype has a separate sentiment branch.
+
+\subsection{Liquidity Void Reversion (LVR)}
+LVR applies a rolling z-score to the Close--SMA5 deviation divided by Close, with a negative multiplier before tanh. Guarded denominators, rolling windows, partial samples and sample-SD conventions are retained from the implementation.
+
+\subsection{Bollinger Squeeze \& Flow (BFE)}
+BFE uses $\tanh(1.5(\%B-0.5)VolZ_5)$. Negative volume z-score reverses the sign, and zero cancels it. There is no volume-expansion or squeeze gate in this formula. Registry preprocessing uses sample SD and differs from the rounded/population-SD prototype; they are not treated as interchangeable.
+
+\subsection{Order Flow Exhaustion (OFE)}
+OFE combines adjusted return with the close location relative to the bar midpoint/range. The name does not authenticate signed trade flow. Its guarded OHLCV expression and subsequent native normalization remain part of the actual signal definition.
+
+\setcounter{table}{0}
+\section{Indicator Signal Classification Logic}
+\label{app:indicator_logic}
+\input{content/tables/component/indicator_rules.tex}
+\subsection{MACD Classification}
+Previous strict/current inclusive line crossing is checked before histogram sign/change. Parameters are 12/26/9. Histogram direction is evaluated only after the crossover rule.
+\subsection{RSI Classification}
+The ordered extreme branches ($\ge70$ bearish, $\le30$ bullish) precede interior trend bands. Thus $55\le RSI<70$ is bullish and $30<RSI\le45$ bearish; the middle interval uses change against the third retained observation. The ordered branches make the extreme and interior regions mutually exclusive.
+\subsection{Stochastic Oscillator Classification}
+Crossing has priority over overbought/oversold thresholds. The implementation retains equality and Boolean fallback behaviour when \%D is zero.
+\subsection{Williams \%R Classification}
+Values $\ge-20$ are bearish and $\le-80$ bullish before the interior retained-sample direction rule. This is a bounded momentum indicator, not a volatility measure.
+\subsection{ROC Classification}
+After four-decimal rounding, ROC greater than $+0.5\%$ is bullish, below $-0.5\%$ bearish, and equality is neutral.
+\subsection{Consensus Rule}
+Nonfinite samples are removed while zero is retained; retained observations need not be consecutive. Missing/error votes are neutral in denominator five. Directional plurality, a mixed tie and heuristic confidence are distinct from a requirement that every directional vote have a strict majority. None is a calibrated forecast probability.
+
+\section{Software and Historical-Context Resources}
+\label{app:software}
+The experiments use Python 3.13.5 with pinned numerical, graph, model-client and chart dependencies. The local sentiment backend uses Transformers~\cite{wolf2020transformers}; technical indicators use TA-Lib. Exact inputs, requests, responses, errors and checkpoints are archived with hashes. Replaying saved predictions reproduces metric calculations, while new hosted outputs may differ. Installation and application-interface instructions are provided in the repository.
+
+\paragraph{Tasks and numerical features}
+A task is a same-stock segment of 63 observed sessions, distinct from an individual prediction query. Context contains up to three prior tasks and at most eight matured observations per prior/target task, with disjoint IDs and holding intervals. Four coordinates represent five/twenty-session momentum, twenty-session volatility and distance from the twenty-session moving average. Training fixes the scaler and clipping. Factual buckets use the signs of MACD minus signal and Close minus SMA20; a zero or missing value on either axis leaves the observation outside those buckets. Context is fixed before the first query of each fold and excludes all 102 evaluation IDs.
+
+\paragraph{Teacher, student and utility}
+The teacher uses conjugate Bayesian updating~\cite{gelman2013bayesian} with sixteen Beta components on $\mu\in\{0.2,0.4,0.6,0.8\}$ and $\kappa\in\{2,8,32,128\}$, where $\alpha=\mu\kappa$ and $\beta=(1-\mu)\kappa$. Training-only MAP-EM~\cite{dempster1977em} estimates mixture weights, and positive and nonpositive target outcomes update the task posterior. The causal-mask student uses task/role markers and observed context labels with the query label masked; checkpoint seed 42/step 3000 is fixed before evaluation. Its probability is supplied as context separately from teacher utility.
+
+Utility support requires at least two prior tasks and five gains/five losses among admitted magnitude observations. The 4,096 utility draws combine teacher-posterior probabilities with Bayesian-bootstrap~\cite{rubin1981bootstrap} estimates of gain and loss magnitudes. Neither teacher nor student is refitted during inference.
+
+\paragraph{Regime and selector resources}
+The historical-context environment fixes 107 package versions, 51 stock--fold alpha selectors, HMM, scaler, teacher and student. VN-Index regime estimates use only observations available by the cutoff and forward filtering with recorded fit/training-end dates. Bank and query inputs have separate provenance, and all test labels remain outside historical context. These resource pins identify numerical inputs and local models; hosted aliases do not identify immutable served weights.
+
+\setcounter{table}{0}
+\section{Additional Account and Symbol Results}
+\label{app:additional}
+Table~\ref{tab:symbol_results} shows how the directional comparison varies
+across equities. Each BA column uses that stock's available UP and DOWN
+classes. VNM lacks an UP observation, and BHN contributes six observations
+because it enters the sample later.
+
+\input{content/tables/component/by_stock.tex}
+
+\noindent\begin{minipage}{\linewidth}
+The execution scenarios in Table~\ref{tab:execution} reprice the same
+decisions. Cost changes can change the ordering, and the delayed-entry
+proxy substitutes a different fill schedule. These scenarios do not
+alter the forecast labels.
+
+\input{content/tables/component/execution_sensitivity.tex}
+
+Table~\ref{tab:u09-bridge} traces the earlier BICL v5 decision path. Our
+system and Common use different alpha and prompt profiles. The next two
+rows measure the changes after fact anchoring and after BICL v5 revision.
+Only four final actions differ at the revision step.
+
+\input{content/tables/historical_context/bridge.tex}
+
+The supplementary results retain the unrounded per-stock and per-repeat
+outcomes, all paired contrasts, and sensitivity to bootstrap settings and
+bank coverage. The main comparison and the follow-up use separate
+forecast collections and eligibility masks.
+\end{minipage}

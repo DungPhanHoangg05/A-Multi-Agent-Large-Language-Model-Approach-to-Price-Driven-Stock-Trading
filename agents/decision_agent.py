@@ -1,9 +1,12 @@
 import json
 import re
 import time
-from typing import Literal
+from typing import Any, Callable, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
+from core.decision_prior import DecisionPriorPreparer, PriorSourceValidator, prepare_decision_prior
+from core.prior_config import PRIOR_STATE_FIELDS, copy_prior_json, normalize_prior_config
+from core.decision_profiles import INTEGRATED_PROFILE, NATIVE_PROFILE, validate_decision_profile
 
 
 class TradeDecisionOutput(BaseModel):
@@ -18,6 +21,41 @@ class TradeDecisionOutput(BaseModel):
     evidence_for: str
     evidence_against: str
     justification: str
+
+
+class PriorUseOutput(BaseModel):
+    """Trace tự báo cáo; chỉ tham chiếu metric/ví dụ thực sự được hiển thị."""
+
+    model_config = ConfigDict(extra="forbid", strict=True)
+    metric_ids: list[Literal["win_rate_long", "bull_trap_rate", "trend_false_bullish_rate", "pattern_false_bullish_rate"]] = Field(
+        description="IDs metric có số liệu đã hiển thị; loại N/A.")
+    example_ids: list[str]
+    assessment: Literal["SUPPORTS", "CONFLICTS", "MIXED", "NOT_USED"]
+    reason: str = Field(min_length=1, max_length=800)
+
+
+class TradeDecisionPriorOutput(TradeDecisionOutput):
+    """Schema C3 khi có prior hiển thị; giữ schema Original cho prior-off."""
+
+    model_config = ConfigDict(extra="forbid", strict=True)
+    prior_use: PriorUseOutput
+
+
+def _normalize_prior_result(result: dict, lang: str, request: dict[str, Any]) -> tuple[str, object]:
+    """Kiểm schema/IDs trước khi lưu; không dùng agreement để sửa hoặc retry action."""
+    if type(result) is not dict or result.get("parsing_error") is not None or result.get("parsed") is None:
+        raise ValueError("Structured Output thiếu trace prior hợp lệ")
+    parsed = result["parsed"]
+    data = parsed.model_dump() if isinstance(parsed, BaseModel) else parsed
+    data = TradeDecisionPriorOutput.model_validate(copy_prior_json(data), strict=True).model_dump()
+    use, visible = data["prior_use"], request["trace"]
+    for field, allowed in (("metric_ids", visible["visible_metric_ids"]), ("example_ids", visible["visible_example_ids"])):
+        if len(use[field]) != len(set(use[field])) or not set(use[field]).issubset(allowed):
+            raise ValueError("Trace prior viện dẫn ID trùng, ẩn hoặc không có trong prompt")
+    cited = bool(use["metric_ids"] or use["example_ids"])
+    if not use["reason"].strip() or (use["assessment"] == "NOT_USED") == cited:
+        raise ValueError("Trace prior thiếu lý do hoặc assessment không khớp IDs")
+    return _normalize_structured_result({**result, "parsed": data}, lang)
 
 
 DECISION_FORMAT_ATTEMPTS = 2
@@ -39,18 +77,22 @@ def _retry_delay(error: Exception, wait_sec: float, attempt: int) -> float:
 
 
 def _invoke_with_retry(call_fn, *args, retries=3, wait_sec=5):
+    from core.research_invocation import CURRENT, invoke_once
+    if CURRENT.get() is not None:
+        return invoke_once(call_fn, *args)
+
     last_err = None
     for attempt in range(retries):
         try:
             return call_fn(*args)
         except Exception as e:
             last_err = e
-            print(f"[DecisionAgent] Lỗi lần {attempt + 1}/{retries}: {e}")
+            print(f"[DecisionAgent] Lời gọi thất bại lần {attempt + 1}/{retries}; không ghi request/key vào log")
             if attempt < retries - 1:
                 delay = _retry_delay(e, wait_sec, attempt)
                 print(f"[DecisionAgent] Chờ {delay:.1f}s trước khi retry...")
                 time.sleep(delay)
-    raise RuntimeError(f"[DecisionAgent] Thất bại sau {retries} lần thử. Lỗi: {last_err}")
+    raise RuntimeError(f"[DecisionAgent] Thất bại sau {retries} lần thử; kiểm trạng thái retry/checkpoint") from last_err
 
 
 # ── Parse + strict validation ─────────────────────────────────────────────────
@@ -141,10 +183,20 @@ _REPORT_CHAR_LIMITS = {
     "sentiment": 600,
 }
 
+# Cap riêng cho backtest, giữ ngân sách live và các phép đo bàn giao W3.
+_BACKTEST_REPORT_CHAR_LIMITS = {
+    "trend": 800, "pattern": 800, "indicator": 800,
+    "alpha": 1_100, "sentiment": 500,
+}
+BACKTEST_PROMPT_CHAR_LIMIT_EXCLUSIVE = 6_500
 
-def _cap_report(text: str, report_type: str, lang: str) -> str:
+
+def _cap_report(
+    text: str, report_type: str, lang: str, *, report_limits: dict[str, int] | None = None,
+) -> str:
     """Giữ đầu và kết luận cuối báo cáo trong một ngân sách cố định."""
-    limit = _REPORT_CHAR_LIMITS.get(report_type, 900)
+    limits = _REPORT_CHAR_LIMITS if report_limits is None else report_limits
+    limit = limits.get(report_type, 900)
     if len(text) <= limit:
         return text
     marker = "\n...[truncated]...\n" if lang == "en" else "\n...[đã rút gọn]...\n"
@@ -153,7 +205,10 @@ def _cap_report(text: str, report_type: str, lang: str) -> str:
     return text[:head_size].rstrip() + marker + text[-tail_size:].lstrip()
 
 
-def _distill_report(report_type: str, text: str, lang: str = "vi") -> str:
+def _distill_report(
+    report_type: str, text: str, lang: str = "vi", *,
+    report_limits: dict[str, int] | None = None,
+) -> str:
     """
     Rút gọn báo cáo để tiết kiệm token khi gửi cho Decision Agent.
     Giữ lại các bảng tóm tắt và kết luận, loại bỏ các chi tiết tính toán dài dòng.
@@ -197,7 +252,26 @@ def _distill_report(report_type: str, text: str, lang: str = "vi") -> str:
                 distilled = f"**{heading}**\n{summary_part}"
                 break
 
-    return _cap_report(distilled, report_type, lang)
+    return _cap_report(distilled, report_type, lang, report_limits=report_limits)
+
+
+def _guard_backtest_prompt(
+    prompt: str, *, lang: str, time_frame: str, report_lengths: dict[str, int],
+    prefix_length: int = 0,
+    report_limits: dict[str, int] | None = None,
+) -> None:
+    """Kiểm prompt cuối trước API; lỗi ngân sách không đi vào retry output."""
+    length = len(prompt)
+    limits = _BACKTEST_REPORT_CHAR_LIMITS if report_limits is None else report_limits
+    details = (f"lang={lang}, khung={time_frame}, cap={limits}, "
+               f"report={report_lengths}, prefix={prefix_length}, prompt={length}")
+    if length >= BACKTEST_PROMPT_CHAR_LIMIT_EXCLUSIVE:
+        raise ValueError(
+            f"Prompt Decision backtest vượt ngân sách: {details}; "
+            f"yêu cầu <{BACKTEST_PROMPT_CHAR_LIMIT_EXCLUSIVE} ký tự"
+        )
+    print(f"[DecisionAgent] Ngân sách backtest: {details}; "
+          f"giới hạn <{BACKTEST_PROMPT_CHAR_LIMIT_EXCLUSIVE} ký tự.")
 
 
 # ── Prompt builders ────────────────────────────────────────────────────────────
@@ -500,17 +574,64 @@ Return one valid JSON object only; no Markdown or text outside JSON:
 
 # ── Main agent factory ─────────────────────────────────────────────────────────
 
-def create_final_trade_decider(llm):
+_PRIOR_REASONING = {
+    "vi": ("PRIOR: Đọc regime/tỷ lệ mẫu rồi tín hiệu hiện tại. Chỉ là bối cảnh, không quyết định "
+           "hay posterior LLM hiệu chuẩn. Giữ n/N và N/A; không smoothing. W/L là lịch sử, không nhãn query."),
+    "en": ("PRIOR: Read regime/sample rates, then current signals. Context, not a decision or calibrated LLM "
+           "posterior. Keep n/N and N/A; no smoothing. W/L labels closed history, not the query."),
+}
+
+
+def _insert_prior_context(prompt: str, prefix: str, lang: str) -> str:
+    """Chèn prefix nguyên vẹn một lần trước report; Original giữ prompt nguyên byte."""
+    if not prefix:
+        return prompt
+    if len(prefix) > 600:
+        raise ValueError("BRPP vượt 600 ký tự")
+    head, marker, tail = prompt.partition("### [1]")
+    if not marker or any(tag in prompt for tag in ("[BRPP v1]", "[BRPP v2]", "[BRPP v3]")):
+        raise ValueError("Prompt thiếu điểm chèn hoặc đã chứa BRPP")
+    reasoning = _PRIOR_REASONING[lang]
+    if prefix.startswith(("[BRPP v2]", "[BRPP v3]")):
+        reasoning = ("PRIOR v2: Counts và Beta mean/CrI95% mô tả lịch sử, không phải xác suất query. "
+                     "Ví dụ đã đóng khác tín hiệu hiện tại. Không ép quyết định theo prior; SHORT=CASH."
+                     if lang == "vi" else "PRIOR v2: Counts and Beta mean/CrI95% describe history, not query probabilities. "
+                     "Closed examples differ from current signals. Do not force agreement; SHORT=CASH.")
+    return head + prefix + "\n" + reasoning + "\n" + marker + tail
+
+
+def create_final_trade_decider(
+    llm, *, prior_source_validator: PriorSourceValidator | None = None,
+    decision_profile: str = INTEGRATED_PROFILE,
+    _prior_preparer: DecisionPriorPreparer | None = None,
+    _before_invoke: Callable[[dict[str, Any], str], None] | None = None,
+    _prior_request: dict[str, Any] | None = None,
+):
     """
     Decision Agent v3 — Pure LLM reasoning.
     Đọc 3–5 báo cáo theo cấu hình ablation và tự ra quyết định.
+    Hook _prior_preparer chỉ dùng nội bộ graph/runner kiểm nguồn liền trước.
+    _prior_request phải do builder tạo; khi đọc artifact phải tái kiểm semantic.
+    Hai tham số không là field cấu hình JSON hoặc cơ chế tự xác nhận nguồn.
     """
 
+    profile = validate_decision_profile(decision_profile)
+    if profile == NATIVE_PROFILE and any(hook is not None for hook in (
+            prior_source_validator, _prior_preparer, _before_invoke, _prior_request)):
+        raise ValueError("Profile original_fix không nhận prior hoặc hook nghiên cứu")
+    if _prior_preparer is not None and (not callable(_prior_preparer) or prior_source_validator is not None):
+        raise ValueError("Hook nội bộ graph phải callable và không đi cùng verifier Decision")
+    if _before_invoke is not None and not callable(_before_invoke):
+        raise ValueError("Hook persist Decision phải callable")
+    request = copy_prior_json(_prior_request)
+    if request is not None and (type(request) is not dict or _prior_preparer is None):
+        raise ValueError("Request ứng viên cần hook nội bộ kiểm nguồn trước Decision")
+    use_contract = request is not None and request.get("decision_contract_version") == "decision_prior_use_v1"
     structured_llm = None
     if hasattr(llm, "with_structured_output"):
         try:
             structured_llm = llm.with_structured_output(
-                TradeDecisionOutput,
+                TradeDecisionPriorOutput if use_contract else TradeDecisionOutput,
                 method="json_schema",
                 include_raw=True,
             )
@@ -518,12 +639,26 @@ def create_final_trade_decider(llm):
             print(f"[DecisionAgent] Structured Output không khả dụng: {exc}")
 
     def trade_decision_node(state) -> dict:
+        if profile == NATIVE_PROFILE:
+            if type(state) is not dict or normalize_prior_config(state.get("prior_config"))["enable_bayesian_prior"]:
+                raise ValueError("Profile original_fix không được bật prior")
+        if _prior_preparer is None:
+            state, prior_prefix = prepare_decision_prior(state, source_validator=prior_source_validator)
+        else:
+            # Chỉ graph có node chuẩn bị ngay trước Decision được gắn hook nội bộ này.
+            state, prior_prefix = _prior_preparer(state)
+        if request is not None:
+            from core.prior_prompt import check_request_binding
+            check_request_binding(request, state, prior_prefix)
         # ── i18n ──────────────────────────────────────────────────────────────
         from utils.i18n import lang_of, get_horizon, t as _t
         lang  = lang_of(state)
         is_en = lang == "en"
 
         no_data = _t("no_data", lang)
+        is_backtest = bool(state.get("is_backtest", False))
+        limits = (_BACKTEST_REPORT_CHAR_LIMITS if is_backtest and profile != NATIVE_PROFILE
+                  else _REPORT_CHAR_LIMITS)
 
         indicator_raw = state.get("indicator_report", no_data)
         pattern_raw   = state.get("pattern_report",   no_data)
@@ -533,11 +668,11 @@ def create_final_trade_decider(llm):
 
         # Rút gọn mọi báo cáo theo ngân sách cứng để tránh cạn quota Groq ở
         # cuối benchmark 20 điểm.
-        indicator_report = _distill_report("indicator", indicator_raw, lang)
-        alpha_report     = _distill_report("alpha",     alpha_raw,     lang)
-        sentiment_report = _distill_report("sentiment", sentiment_raw, lang)
-        pattern_report   = _distill_report("pattern",   pattern_raw,   lang)
-        trend_report     = _distill_report("trend",     trend_raw,     lang)
+        indicator_report = _distill_report("indicator", indicator_raw, lang, report_limits=limits)
+        alpha_report     = _distill_report("alpha",     alpha_raw,     lang, report_limits=limits)
+        sentiment_report = _distill_report("sentiment", sentiment_raw, lang, report_limits=limits)
+        pattern_report   = _distill_report("pattern",   pattern_raw,   lang, report_limits=limits)
+        trend_report     = _distill_report("trend",     trend_raw,     lang, report_limits=limits)
 
         def has_report(value) -> bool:
             return bool(
@@ -562,7 +697,6 @@ def create_final_trade_decider(llm):
 
         print(f"[DecisionAgent] Tổng hợp {count} báo cáo (condensed, horizon={h_val}, lang={lang})...")
 
-        is_backtest = bool(state.get("is_backtest", False))
         if is_backtest:
             build = _build_compact_prompt_en if is_en else _build_compact_prompt_vi
         else:
@@ -573,11 +707,26 @@ def create_final_trade_decider(llm):
             trend_report, pattern_report, indicator_report,
             alpha_report, sentiment_report,
         )
+        prompt = _insert_prior_context(prompt, prior_prefix, lang)
+        if request is not None:
+            from core.prior_prompt import add_prior_use_contract
+            prompt = add_prior_use_contract(prompt, request, lang)
+        # UI realtime gửi prompt gốc đầy đủ; trần 6.500 chỉ thuộc đường backtest.
         if is_backtest:
-            print(
-                f"[DecisionAgent] Prompt compact: {len(prompt)} ký tự "
-                f"(giới hạn 7500)."
+            report_lengths = {
+                "trend": len(trend_report or ""), "pattern": len(pattern_report or ""),
+                "indicator": len(indicator_report or ""),
+                "alpha": len(alpha_report or "") if has_alpha else 0,
+                "sentiment": len(sentiment_report or "") if has_sentiment else 0,
+            }
+            _guard_backtest_prompt(
+                prompt, lang=lang, time_frame=time_frame, report_lengths=report_lengths,
+                prefix_length=len(prior_prefix),
+                report_limits=limits,
             )
+        if _before_invoke is not None:
+            if _before_invoke(copy_prior_json(state), prompt) is not None:
+                raise ValueError("Hook persist Decision phải trả None")
         response = None
         last_format_error = None
         normalized = ""
@@ -585,14 +734,18 @@ def create_final_trade_decider(llm):
             try:
                 if structured_llm is not None:
                     structured_result = _invoke_with_retry(structured_llm.invoke, prompt)
-                    normalized, response = _normalize_structured_result(
-                        structured_result, lang
-                    )
+                    if use_contract:
+                        normalized, response = _normalize_prior_result(structured_result, lang, request)
+                    else:
+                        normalized, response = _normalize_structured_result(structured_result, lang)
                 else:
                     response = _invoke_with_retry(llm.invoke, prompt)
-                    normalized = _safe_parse_and_enrich(
-                        getattr(response, "content", ""), stock_name, lang=lang
-                    )
+                    if use_contract:
+                        normalized, response = _normalize_prior_result(
+                            {"parsed": json.loads(getattr(response, "content", "")), "raw": response}, lang, request)
+                    else:
+                        normalized = _safe_parse_and_enrich(
+                            getattr(response, "content", ""), stock_name, lang=lang)
                 break
             except ValueError as exc:
                 last_format_error = exc
@@ -611,6 +764,16 @@ def create_final_trade_decider(llm):
             "final_trade_decision": normalized,
             "messages": [response] if response is not None else [],
             "decision_prompt": prompt,
+            **{field: copy_prior_json(state[field]) for field in PRIOR_STATE_FIELDS if field in state},
+            **({"prior_decision_trace": {"trace_version": "prior_decision_trace_v1", "request": copy_prior_json(request),
+                "raw_action": json.loads(normalized)["decision"], "prior_use": json.loads(normalized).get("prior_use")}}
+               if request is not None else {}),
         }
 
-    return trade_decision_node
+    def bounded_decision_node(state):
+        """Cùng budget cho HTTP retry và format repair khi run mới bật policy v2."""
+        from core.research_invocation import invocation_scope
+        with invocation_scope("decision"):
+            return trade_decision_node(state)
+
+    return bounded_decision_node

@@ -1,0 +1,6 @@
+{
+  "http_status": 200,
+  "response_sha256": "18ead252d810bc2e7c87b4cb0a8b27422009c6967b8588847042ed0cbdfb2a3a",
+  "retrieved_at_utc": "2026-11-08T03:41:07.043392+00:00",
+  "url": "https://iq.vietcap.com.vn/api/iq-insight-service/v1/events?ticker=HVN&fromDate=20190101&toDate=20261231&eventCode=DIV%2CISS%2CAIS%2CMA%2CMOVE%2CNLIS%2COTHE%2CRETU%2CSUSP&page=0&size=1000"
+}

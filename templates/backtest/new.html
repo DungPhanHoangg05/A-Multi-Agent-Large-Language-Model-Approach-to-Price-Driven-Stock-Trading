@@ -1,0 +1,26 @@
+<!doctype html><html lang="{{ LANG }}"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ B.title }} · QuantAgent VN</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/analysis/serving.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/backtest/serving.css') }}">
+<script type="module" src="{{ url_for('static',filename='js/backtest/main.js') }}"></script>
+{% include 'shared/preferences_head.html' %}
+</head><body class="serving-result">
+{% include 'shared/preferences.html' %}
+<header class="serving-topbar"><a href="/?lang={{ LANG }}">QuantAgent VN</a><nav aria-label="{{ P.navigation }}"><a href="/demo?lang={{ LANG }}">{{ B.analysis }}</a><a href="/output?lang={{ LANG }}">{{ B.output }}</a><a aria-current="page" href="/backtest?lang={{ LANG }}">{{ B.backtest }}</a><a href="/experiments?lang={{ LANG }}">{{ B.research }}</a></nav></header>
+<main class="serving-ui"><h1>{{ B.title }}</h1><p class="serving-notice">{{ B.domain_note }} {{ B.quota_note }}</p>
+<details class="serving-panel" id="bt-config-panel"{% if not request.args.get('run_id') %} open{% endif %}><summary>{{ B.settings }}</summary>
+  <form id="bt-form" data-preserve-locale>
+  <fieldset><legend>{{ B.symbols }}</legend><div class="serving-choices">{% for symbol in serving_registry.domain.released_symbols %}<label><input type="checkbox" name="bt-symbol" value="{{ symbol }}"{% if symbol == 'FPT' %} checked{% endif %}> {{ symbol }}</label>{% endfor %}</div></fieldset>
+  <div class="serving-grid"><label class="serving-field">{{ B.start_date }}<input id="bt-start" type="date" value="2026-07-02" min="2026-07-01" max="2026-09-23" required></label><label class="serving-field">{{ B.end_date }}<input id="bt-end" type="date" value="2026-07-07" min="2026-07-01" max="2026-09-23" required></label><label class="serving-field">{{ B.language }}<select id="bt-language"><option value="vi"{% if LANG=='vi' %} selected{% endif %}>Tiếng Việt · VI</option><option value="en"{% if LANG=='en' %} selected{% endif %}>English · EN</option></select></label></div>
+  <p>{{ B.report_note }}</p><fieldset><legend>{{ B.methods }}</legend><div class="serving-choices">{% for variant in serving_registry.variants if variant.group == 'main' %}<label><input type="checkbox" name="bt-variant" value="{{ variant.id }}"{% if variant.id in ['original_fix','bayesian_v1'] %} checked{% endif %}> {{ variant.label[LANG] }}</label>{% endfor %}</div></fieldset>
+  <details><summary>{{ B.advanced }}</summary><p>{{ B.dependency }}</p><div class="serving-choices">{% for variant in serving_registry.variants if variant.group == 'advanced' %}<label><input type="checkbox" name="bt-variant" value="{{ variant.id }}"> {{ variant.label[LANG] }}</label>{% endfor %}</div>
+  <label class="serving-field">{{ B.repeat }}<input id="bt-repeats" type="number" min="1" max="3" value="1" required></label><div id="bt-models" class="serving-grid"></div></details>
+  <p>{{ B.native_note }}</p><a href="/demo?lang={{ LANG }}">{{ B.key_settings }}</a>
+  <p id="bt-preflight" role="status" aria-live="polite">{{ B.unchecked }}</p><p id="bt-start-error" role="alert"></p>
+  <div class="serving-actions"><button id="bt-check" type="button">{{ B.check }}</button><button id="bt-start-job" type="submit" disabled>{{ B.run }}</button><a id="bt-last" hidden>{{ B.last }}</a></div></form>
+</details>
+<p><a href="/backtest?source=legacy&amp;lang={{ LANG }}">{{ B.legacy_backtest }}</a> · <a href="/experiments?kind=legacy_backtest&amp;lang={{ LANG }}">{{ B.saved }}</a></p>
+{% include 'backtest/results.html' %}
+</main><script type="application/json" id="backtest-config">{{ {'messages':B,'language':LANG,'registry':serving_registry,'runId':request.args.get('run_id')}|tojson }}</script>
+</body></html>

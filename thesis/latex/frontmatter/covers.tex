@@ -1,0 +1,70 @@
+% Giữ khung, logo và kiểu chữ từ mẫu; ngắt đề tài mới thành năm dòng.
+\newcommand{\thesiscoverframe}{%
+    \begin{tikzpicture}[remember picture,overlay]
+        \draw[line width=1pt] ($(current page.north west)+(2.0cm,-1.5cm)$)
+            |- ($(current page.south east)+(-1.5cm,2.0cm)$) |- cycle;
+        \draw[line width=2.5pt] ($(current page.north west)+(2.15cm,-1.65cm)$)
+            |- ($(current page.south east)+(-1.65cm,2.15cm)$) |- cycle;
+    \end{tikzpicture}%
+}
+\newcommand{\thesisinstitution}{%
+    {\large\textbf{VIETNAM NATIONAL UNIVERSITY, HANOI}\par}
+    {\large\textbf{UNIVERSITY OF ENGINEERING AND TECHNOLOGY}\par}
+}
+\newcommand{\thesistitle}{%
+    {\Large\textbf{REGIME-AWARE MULTI-TASK}\par}
+    {\Large\textbf{BAYESIAN IN-CONTEXT LEARNING}\par}
+    {\Large\textbf{FOR MULTI-AGENT LLM STOCK}\par}
+    {\Large\textbf{TRADING IN THE VIETNAMESE}\par}
+    {\Large\textbf{STOCK MARKET}\par}
+}
+\newcommand{\thesisdegree}{%
+    {\large\textbf{BACHELOR'S GRADUATION THESIS}\par}
+    \vspace{0.3cm}
+    {\large\textbf{Major:} Artificial Intelligence\par}
+}
+
+% Bìa ngoài có logo, theo đúng mẫu người dùng chọn.
+\begin{titlepage}
+    \thispagestyle{empty}
+    \thesiscoverframe\par
+    \centering
+    \setstretch{1.2}
+    \thesisinstitution
+    \vspace{1.5cm}
+    \includegraphics[width=0.25\textwidth]{assets/figures/UET_logo.jpg}\par
+    \vspace{1.5cm}
+    {\Large\textbf{PHAN HOANG DUNG}\par}
+    \vspace{3.5cm}
+    \thesistitle
+    \vfill
+    \thesisdegree
+    \vspace{2cm}
+    {\large\textbf{HA NOI - 2026}\par}
+    \vspace{0.5cm}
+\end{titlepage}
+\clearpage
+
+% Bìa trong không có logo; cân khoảng trắng cho đề tài dài hơn mẫu.
+\begin{titlepage}
+    \thispagestyle{empty}
+    \thesiscoverframe\par
+    \centering
+    \setstretch{1.2}
+    \thesisinstitution
+    \vspace{2.5cm}
+    {\Large\textbf{PHAN HOANG DUNG}\par}
+    \vspace{2.1cm}
+    \thesistitle
+    \vspace{1.1cm}
+    \thesisdegree
+    \vspace{2.5cm}
+    \begin{tabular}{ll}
+        \textbf{Supervisor:} & Dr. Tran Hong Viet \\
+    \end{tabular}\par
+    \vfill
+    \centering
+    {\large\textbf{HA NOI - 2026}\par}
+    \vspace{0.5cm}
+\end{titlepage}
+\clearpage

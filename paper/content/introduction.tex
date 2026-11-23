@@ -1,0 +1,49 @@
+\section{Introduction}
+\label{sec:introduction}
+
+At the close of a trading session, a daily equity strategy must
+decide whether to enter at the next open or stay in cash. The decision
+can draw on recent price and volume, chart patterns and news available
+before the cutoff. Even when those signals point upward, the expected
+move over a short holding period has to cover trading costs.
+
+Multi-agent systems based on large language models organize such evidence
+into specialist reports. TradingAgents~\cite{tradingagents2024} coordinates
+analysts across information sources, while FinMem~\cite{yu2025finmem}
+organizes financial information in layered memory.
+QuantAgent~\cite{xiong2025quantagent} provides a price-driven architecture
+with roles for technical indicators, chart patterns, trends and risk. When adapting that
+architecture to daily Vietnamese equities, an open question is whether
+explicit price--volume factors and Vietnamese-language news improve
+decisions made from the same technical evidence.
+
+We call the augmented architecture \emph{Our system}. Its Alpha Agent
+ranks 85 candidate OHLCV factors and summarizes the selected signals in
+the Decision prompt as aggregate direction and vote counts. Its Sentiment
+Agent adds a separate summary of eligible Vietnamese news and flags
+insufficient coverage. Both reports accompany the same technical and
+chart reports used by the local price-only QuantAgent implementation.
+This design lets us examine whether the added evidence changes forecasts
+and net returns under the T+2.5 convention used for Vietnamese equities.
+
+The main study compares the systems at 102 paired cutoffs across nine
+equities and twelve dates in six historical blocks. Smaller repeated
+panels examine upstream variability, alpha-only and sentiment-only
+variants, and a matched-structure placebo. A separate extension evaluates
+five Bayesian in-context learning variants (BICL v1--v5) against controls
+that already receive alpha and sentiment. The earlier BICL study and
+its follow-up each share one upstream realization per point and use
+three Decision repeats. We report their results separately.
+
+In the main study, Our system achieves \FullBA\% balanced accuracy (BA)
+versus \BaseBA\% for QuantAgent. Both identify seven of 25 UP outcomes.
+Our system makes fewer false LONG forecasts, yielding a \DeltaBA{}
+percentage-point BA gain with a descriptive interval of
+$[\PrimaryLow,+\PrimaryHigh]$ pp, while its mean net account return is
+slightly lower. Logistic-price exceeds Our system on both metrics with
+the same 24 LONG decisions. The separate effects of alpha and sentiment
+remain uncertain given the limited repetitions, native alpha
+preprocessing and uncertain historical news availability. The evaluation
+schedule was finalized after some inference, which further limits
+generalization from the historical comparison.
+

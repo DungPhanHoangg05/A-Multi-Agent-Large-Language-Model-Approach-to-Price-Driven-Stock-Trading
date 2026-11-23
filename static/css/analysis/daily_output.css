@@ -1,0 +1,44 @@
+/* Bổ sung BICL và báo cáo an toàn trên cùng bố cục Original. */
+.bicl-panel {margin-top:1.5rem}
+.bicl-panel p {line-height:1.65;overflow-wrap:anywhere}
+.bicl-panel summary {cursor:pointer;font-weight:650;padding:.7rem 0}
+.report-table {overflow-x:auto;max-width:100%}
+.auto-beautify p {overflow-wrap:anywhere}
+.report-table {margin:1rem 0;border:1px solid #e2e8f0;border-radius:10px}
+.report-table table {border-collapse:collapse;width:100%;font-size:.92rem;line-height:1.6}
+.report-table th,.report-table td {padding:.7rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid #e2e8f0}
+.report-table th {background:#fff1f2;color:#9f1239;font-weight:750;white-space:nowrap}
+.report-table tbody tr:nth-child(even) {background:#f8fafc}
+.report-table td {min-width:8rem;overflow-wrap:anywhere}
+.report-table th:first-child,.report-table td:first-child {min-width:4rem}
+.auto-beautify hr {border:0;border-top:1px solid #e2e8f0;margin:1.5rem 0}
+.auto-beautify blockquote {border-left:4px solid #d9a443;background:#fffbeb;margin:1rem 0;padding:.75rem 1rem}
+.auto-beautify pre {white-space:pre-wrap;overflow-wrap:anywhere;background:#f8fafc;padding:1rem;border-radius:8px}
+.alpha-profile-note {padding:.8rem 1rem;background:#fff7ed;border-left:4px solid #d97706;line-height:1.6}
+.common-alpha-section {margin-top:2rem;padding-top:1.5rem;border-top:2px solid #fda4af}
+.alpha-selector {overflow-wrap:anywhere;font-family:monospace}
+.sentiment-detail-title {color:#0d9488;margin-bottom:.75rem}
+.sentiment-articles {margin:1rem 0}
+.sentiment-norm-section .norm-vars-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+.sentiment-stat.positive .sentiment-stat-val {color:#059669}
+.sentiment-stat.negative .sentiment-stat-val {color:#dc2626}
+.sentiment-articles summary,.common-alpha-section summary {cursor:pointer;font-weight:650;padding:.6rem 0}
+.report-run-links {display:flex;align-items:baseline;gap:.5rem 1.25rem;flex-wrap:wrap;margin:.75rem 0;font-size:.9rem}
+.report-run-links a {color:inherit;text-decoration:underline;text-underline-offset:.2em}
+.research-alpha-method {margin-top:1rem;line-height:1.6}
+.research-alpha-method summary {cursor:pointer;font-weight:650}
+.research-alpha-title {margin:1.5rem 0 .75rem;color:var(--vn-red)}
+.alpha-sequential-report .alpha-card {margin-top:1rem;line-height:1.65}
+.alpha-sequential-report .alpha-card ul {padding-inline-start:1.5rem;margin:.3rem 0}
+.alpha-sequential-report .factor-implementation {white-space:pre-wrap;overflow-wrap:anywhere}
+.serving-sentiment-report :is(.sentiment-detail-title,.sent-bar-track + .sent-bar-track) {margin-top:.5rem}
+.serving-sentiment-report .visobert-badge {display:inline-block;max-width:100%;white-space:normal;overflow-wrap:anywhere;margin-top:.4rem}
+.serving-sentiment-report .sentiment-summary {grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) auto}
+.serving-sentiment-report .alpha-profile-note {margin-bottom:1rem}
+html[data-theme=dark] .serving-sentiment-report .sentiment-summary {background:var(--site-panel);color:var(--site-fg);border-color:var(--site-border)}
+html[data-theme=dark] #researchAlphaFactors .alpha-card {background:var(--site-panel);border-color:var(--site-border)}
+html[data-theme=dark] #researchAlphaFactors :is(.alpha-name,.alpha-value strong,.alpha-formula,.alpha-edge) {color:var(--site-fg);border-color:var(--site-border)}
+html[data-theme=dark] .alpha-consensus-section {background:#332b19;border-color:#8c702a;color:#fde68a}
+html[data-theme=dark] .alpha-consensus-section .consensus-label {color:inherit}
+@media(max-width:640px) {.report-table th,.report-table td {padding:.55rem .65rem}.norm-vars-grid {grid-template-columns:1fr!important}}
+@media(max-width:768px) {.serving-sentiment-report .sentiment-summary {grid-template-columns:minmax(0,1fr)}}

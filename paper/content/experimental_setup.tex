@@ -1,0 +1,89 @@
+\section{Experimental Setup}
+\label{sec:experimentalsetup}
+
+\subsection{Dataset and Point-in-Time Data Contract}
+The daily universe spans information technology (FPT, CMG), banking (VCB, MBB), retail (MWG), food/beverages (VNM, BHN) and aviation/tourism (HVN, VJC). The reconstructed VCI snapshot via vnstock~\cite{vnstock_docs} covers observed vendor sessions from 2020 through September 2026. The sample is purposive, and original historical data availability is unverified. A valid-suffix policy excludes contradictory BHN OHLC data; insufficient warm-up then excludes BHN from three early blocks. This leaves 102 eligible stock--date observations for the paired comparisons.
+
+\paragraph{Component study, historical context and follow-up}
+The component study uses the native alpha selector's compact consensus
+and saved sentiment summaries or missingness, with QuantAgent omitting
+both reports. It uses no historical retrieval. The earlier BICL study
+compares native alpha in Our system with a frozen causal projection in
+Common. The two share chart reports and the saved sentiment aggregate
+or missingness flag. Historical retrieval uses the saved categorical
+Trend and Pattern signals where required. Sentiment is missing at
+\UnifiedMissingSentiment/\UnifiedPoints\ points in this collection.
+
+The follow-up binds the same frozen causal alpha projection to Our
+system and Common and keeps their distinct Decision prompts. It uses
+a rebuilt OHLCV bank. Its Trend and Pattern retrieval keys are computed
+from the same 45-session rule for query and bank. The chart-based
+reports still enter Decision. No news meets the availability criterion
+at the follow-up cutoffs. The reference action is Common for BICL
+v1--v4 and Fact Anchor for BICL v5.
+
+\subsection{Walk-Forward Protocol}
+Six blocks cover 2023 H2, 2024 H2, 2025 H1, 2025 Q4, 2026 Q2 and 2026 Q3, with two scheduled dates per block. The sparse walk-forward schedule~\cite{pardo2008evaluation} shares dates across stocks. Each of the 51 eligible stock--block scopes splits train, validation and test chronologically and purges labels whose exit reaches the next partition.
+
+The evaluation schedule was finalized after some inference, making this an exploratory historical analysis. The 375 component-study Decisions comprise 193 reused successful executions and 182 additional successes. The upstream panel shares 18 calls with the main comparison, so 204+54+135-18=375 unique Decisions. Factorial units were selected by stock/date round-robin metadata. Table~\ref{tab:scope} reports the supports of the main, upstream and factorial panels.
+
+\input{content/tables/component/scope.tex}
+
+The extension fixes \UnifiedPoints\ points, \UnifiedAccounts\ symbol--fold accounts, \UnifiedUpstreamRealizations\ upstream realization per point and \UnifiedDecisionRepeats\ Decision repeats. One immutable report/image parent is deep-copied into all roles; each repeat uses new Decision responses where a call is eligible. The \UnifiedForecastSlots\ research slots are not independent market samples, full-system executions or successful HTTP calls. All 102 evaluation IDs are reserved globally before context labels can be computed, including IDs belonging to earlier folds. Context is frozen before the first test query in a fold and reused at its second anchor; test labels are never added prequentially.
+\input{content/tables/historical_context/scope.tex}
+
+\begin{figure}[!htb]
+\centering\input{figures/walk_forward.tex}
+\caption{Chronological data preparation, shared inference and T+2.5 execution.}
+\label{fig:walkforward}
+\end{figure}
+
+\subsection{Paired Baseline and Disentangled Ablations}
+Our system and QuantAgent share the 102 cutoffs, technical reports,
+net outcome labels and costs. The main compact Our system prompt includes
+a five-factor direction and bullish, bearish and neutral vote counts.
+The saved Decision requests contain individual factor-value rows at
+0/102 cutoffs and mark sentiment as missing at 79/102. The separate
+factorial panel sends individual rows. Table~\ref{tab:classification}
+also includes logistic-price, a price-only classifier using the saved
+purged train/validation fit and threshold, and CASH, which stays flat.
+Both controls use the same cutoffs and account definitions.
+
+The comparison includes differences in report wording, prompt length and trading frequency. The upstream panel has nine units, B/AS and three regenerated upstream realizations with a Decision execution per realization. The factorial panel has nine different-support units, B/A/S/AS/P and three Decision executions with fixed upstream. Both have two UP/seven DOWN per execution, but only the former covers nine symbols. We do not infer main-grid variability or separate upstream/Decision variance components from their SDs.
+
+P retains current factor names, headings, schema/missingness and sentiment, replacing scalar values, signals and skill fields using a predetermined earlier train-only rank-vector donor. Donor label exits precede validation/test. Rank mapping is not name-matched covariance preservation, a placebo distribution or exposure matching. Five explicit rows reach each A/AS/P factorial prompt. Main/upstream compact prompts are a separate representation family. Interaction is defined as $AS-A-S+B$; the observed best-single gap $AS-\max(A,S)$ is a different, post-hoc diagnostic and not an eighth factorial contrast.
+
+\paragraph{Historical-context comparators}
+This study compares BICL v1--v5 with Our system and Common and uses Fact Anchor to examine the revision step. Each of the five methods is compared with Our system in the system family and with Common in the method family. Fact Anchor is a dependency and control. Three additional comparisons describe Common versus Our system, Fact Anchor versus Common, and BICL v5 versus Fact Anchor; these are outside the primary contrast families. The nine-unit upstream/factorial panels evaluate component interventions on separate observation sets.
+
+\subsection{Account and Statistical Metrics}
+Balanced accuracy (BA)~\cite{brodersen2010balanced}, Matthews correlation coefficient (MCC)~\cite{chicco2020mcc} and per-class precision and recall accompany ordinary accuracy and LONG rate. Main contrasts use dependent-data resampling~\cite{lahiri2003resampling} with 10,000 paired whole-block resamples, seed 20261102, retaining dates, cross-section, variants and eligibility together. Repeat diagnostics jointly resample recorded blocks and paired execution indices. Intervals condition on finite draws; undefined counts remain visible. Circular block lengths, leave-one-block-out and Bartlett HAC~\cite{newey1987hac} at lags 0/1/2 are sensitivity diagnostics. HAC uses calendar-aligned accuracy differences in fixed-universe panels, with a $t(n_{dates}-1)$ reference; few clusters, irregular gaps and post-inference additions prevent calibrated significance or power claims.
+
+To specify the classification estimand, let TP/FN count UP outcomes and TN/FP count DOWN outcomes. We use
+\begin{equation}
+ \begin{aligned}
+ BA&=\frac12\left(\frac{TP}{TP+FN}+\frac{TN}{TN+FP}\right),\\
+ MCC&=\frac{TP\,TN-FP\,FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}.
+ \end{aligned}
+ \label{eq:classification_metrics}
+\end{equation}
+The relevant metric is undefined when a required denominator is zero. Macro means average defined symbol-level values while retaining the planned and defined denominators.
+
+Each of 51 symbol--block accounts starts with VND50 million, without cross-symbol capital competition. LONG follows Eq.~\ref{eq:label}; CASH stays flat. Wealth includes pending receivables and residual shares at recorded mark-to-market prices. Daily-close drawdown uses an initial-capital anchor. Daily Sharpe~\cite{sharpe1966mutual} uses population SD, 252 sessions and a zero risk-free rate. Daily Sortino~\cite{sortino1994downside} in the companion uses the SD of negative daily observations. Irregular spacing precludes annualizing cycle ratios.
+
+The T+2.5 reference assumes fractional fills at recorded prices and two-leg fees and slippage. Sale proceeds stay pending until the specified settlement phase. The fixed cycle covers \(L=3\) observed bars, including entry. Daily OHLC cannot authenticate opening-auction queues, price-limit fills, partial fills or correct volume units. Selected execution sensitivities appear in \ref{app:additional}. Ten HVN stock--date observations have unresolved venue/calendar consistency flags.
+
+\paragraph{Historical-context metrics}
+In the historical-context study, each method has three independent-capital executions per stock--fold account. Returns are averaged across repeats within account and then equally over 51 accounts; BA is computed separately on 102 points per repeat and then averaged. Evaluated predictions follow final policy actions. Daily EOD NAV, cycle drawdown, costs, turnover and held-session fraction retain their own units. Cycle Sharpe uses sample SD (ddof=1); cycle Sortino uses the RMS of negative-part returns over all cycles with MAR zero. The irregular schedule does not support annualized ratios. Metrics with zero or missing denominators are left blank in the analysis.
+
+The extension uses paired circular fold bootstrap draws with block length two, 10,000 draws, PCG64 seed 20261110, retaining cross-section, eligibility and all methods/repeats together. Identical resample indices serve all twenty return/BA endpoint contrasts in the two specified families. Simultaneous descriptive bands use standardized maximum deviation across those twenty columns. Finite/null rules apply jointly; draws are not redrawn to hide an undefined endpoint, and a degenerate family does not receive substitute bands. L1/L3, leave-one-fold-out, leave-one-symbol-out and the bank-covered subset remain sensitivity analyses. These six historically exposed folds do not establish calibrated coverage, significance or power. The component-study seed, estimands and finite-draw conventions remain unchanged.
+
+\subsection{Implementation and Robustness Design}
+Archived SDK aliases are \texttt{openai/gpt-oss-20b} for text and \texttt{qwen/qwen3.8-27b} for vision. Configured temperature zero appears as $10^{-8}$ in observed SDK metadata; no hosted decoding seed is recorded. Text/vision output caps are 2,048/1,024 tokens. Retry/checkpoint records preserve individual attempts and completed outputs. Aliases and 40 response fingerprints do not authenticate an immutable weight revision or historical provider catalogue; 91 original Pattern requests lack provider organization and execution-epoch records. Offline replay reproduces saved-prediction metrics, not a fresh hosted inference experiment.
+
+The component-study execution records contain 649 attempts, 615 successes and 34 errors, including 120 shared Pattern calls. Observed usage totals 1,063,328 prompt and 340,736 completion tokens; the ledger has no usage or latency for interrupted requests and no monetary billing. Recorded callback elapsed times exclude unobserved waiting and do not measure wall-clock runtime.
+
+\paragraph{Historical context and execution resources}
+The historical-context study fixes prompts, aliases, decoding options and dependency order before its own execution. Retry handling allows three total attempts including schema repair, with durable checkpoints and reconciliation of uncertain requests. Records contain 1,702 HTTP attempts, including 15 superseded attempt records, and 1,290 active raw Decision responses. These counts refer to attempts and responses respectively and remain separate from the component-study totals.
+
+The prior bank contains 852 fixed historical examples for FPT, MWG, VCB and VNM; the other five stocks follow the specified support/fallback policy. Bank and query inputs have separate provenance. Numeric MT context, scaler, HMM and teacher are fixed with student checkpoint seed 42/step 3000, and all 51 causal alpha selectors are fitted before their queries. Inference uses these resources without refitting.

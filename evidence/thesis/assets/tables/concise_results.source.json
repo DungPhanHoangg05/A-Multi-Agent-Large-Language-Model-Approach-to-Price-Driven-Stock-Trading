@@ -1,0 +1,1693 @@
+{
+  "baseline_commit": "d025facb",
+  "source": "chapters/05_experiments.md",
+  "source_lf_sha256": "016cea32b7f7fbac052a7be730733baf9ee8b9a4ad05ff97e9b8ac3884f9c21b",
+  "method": "Exact projection of 68 locked LaTeX table rows; column indices retain original cells; source manuscript remains archived at the stated commit.",
+  "rows": [
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Full",
+        "65.686",
+        "52.961",
+        "0.060",
+        "0.530",
+        "23.529",
+        "-0.797",
+        "1.367"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Full",
+        "52.961",
+        "0.060",
+        "23.529",
+        "-0.797",
+        "1.367"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Base",
+        "60.784",
+        "49.714",
+        "-0.005",
+        "0.496",
+        "28.431",
+        "-0.750",
+        "1.453"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Base",
+        "49.714",
+        "-0.005",
+        "28.431",
+        "-0.750",
+        "1.453"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "CASH",
+        "75.490",
+        "50.000",
+        "NA",
+        "0.430",
+        "0.000",
+        "0.000",
+        "0.000"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "CASH",
+        "50.000",
+        "NA",
+        "0.000",
+        "0.000",
+        "0.000"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Train-majority",
+        "75.490",
+        "50.000",
+        "NA",
+        "0.430",
+        "0.000",
+        "0.000",
+        "0.000"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Train-majority",
+        "50.000",
+        "NA",
+        "0.000",
+        "0.000",
+        "0.000"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Always-LONG cycles",
+        "24.510",
+        "50.000",
+        "NA",
+        "0.197",
+        "100.000",
+        "-3.000",
+        "4.523"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Always-LONG cycles",
+        "50.000",
+        "NA",
+        "100.000",
+        "-3.000",
+        "4.523"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Momentum 20",
+        "49.020",
+        "47.325",
+        "-0.046",
+        "0.449",
+        "48.039",
+        "-1.636",
+        "2.576"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Momentum 20",
+        "47.325",
+        "-0.046",
+        "48.039",
+        "-1.636",
+        "2.576"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Logistic price",
+        "67.647",
+        "55.610",
+        "0.114",
+        "0.557",
+        "23.529",
+        "-0.683",
+        "1.177"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Logistic price",
+        "55.610",
+        "0.114",
+        "23.529",
+        "-0.683",
+        "1.177"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Logistic matched inputs",
+        "60.784",
+        "52.416",
+        "0.044",
+        "0.518",
+        "32.353",
+        "-1.105",
+        "1.602"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Logistic matched inputs",
+        "52.416",
+        "0.044",
+        "32.353",
+        "-1.105",
+        "1.602"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Factor vote",
+        "51.961",
+        "51.974",
+        "0.034",
+        "0.483",
+        "49.020",
+        "-1.457",
+        "2.488"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Factor vote",
+        "51.974",
+        "0.034",
+        "49.020",
+        "-1.457",
+        "2.488"
+      ]
+    },
+    {
+      "table": "tab:component",
+      "source_table": 11,
+      "original": [
+        "Continuous hold (price only)",
+        "NA",
+        "NA",
+        "NA",
+        "NA",
+        "NA",
+        "-2.127",
+        "12.939"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Continuous hold (price only)",
+        "NA",
+        "NA",
+        "NA",
+        "-2.127",
+        "12.939"
+      ]
+    },
+    {
+      "table": "tab:numeric",
+      "source_table": 14,
+      "original": [
+        "Fixed five",
+        "49.020",
+        "39.221",
+        "-0.193",
+        "36.275",
+        "-8.653"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Fixed five",
+        "39.221",
+        "-0.193",
+        "36.275",
+        "-8.653"
+      ]
+    },
+    {
+      "table": "tab:numeric",
+      "source_table": 14,
+      "original": [
+        "Train-ranked five",
+        "62.745",
+        "55.065",
+        "0.093",
+        "32.353",
+        "-5.648"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Train-ranked five",
+        "55.065",
+        "0.093",
+        "32.353",
+        "-5.648"
+      ]
+    },
+    {
+      "table": "tab:numeric",
+      "source_table": 14,
+      "original": [
+        "Same five, no sign flip",
+        "50.980",
+        "48.623",
+        "-0.024",
+        "46.078",
+        "-7.608"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Same five, no sign flip",
+        "48.623",
+        "-0.024",
+        "46.078",
+        "-7.608"
+      ]
+    },
+    {
+      "table": "tab:numeric",
+      "source_table": 14,
+      "original": [
+        "Random five (mean of 20)",
+        "51.275",
+        "47.738",
+        "-0.039",
+        "44.216",
+        "-8.097"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Random five (mean of 20)",
+        "47.738",
+        "-0.039",
+        "44.216",
+        "-8.097"
+      ]
+    },
+    {
+      "table": "tab:smallpanels",
+      "source_table": 16,
+      "original": [
+        "upstream",
+        "AS",
+        "95.238 \\ensuremath{\\pm} 4.124",
+        "0.837 \\ensuremath{\\pm} 0.141",
+        "29.630 \\ensuremath{\\pm} 6.415",
+        "0.496 \\ensuremath{\\pm} 0.222"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "cells": [
+        "upstream",
+        "AS",
+        "95.238 \\ensuremath{\\pm} 4.124",
+        "0.496 \\ensuremath{\\pm} 0.222"
+      ]
+    },
+    {
+      "table": "tab:smallpanels",
+      "source_table": 16,
+      "original": [
+        "upstream",
+        "B",
+        "90.476 \\ensuremath{\\pm} 10.911",
+        "0.745 \\ensuremath{\\pm} 0.261",
+        "37.037 \\ensuremath{\\pm} 16.973",
+        "0.371 \\ensuremath{\\pm} 0.378"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "cells": [
+        "upstream",
+        "B",
+        "90.476 \\ensuremath{\\pm} 10.911",
+        "0.371 \\ensuremath{\\pm} 0.378"
+      ]
+    },
+    {
+      "table": "tab:smallpanels",
+      "source_table": 16,
+      "original": [
+        "factorial",
+        "A",
+        "19.048 \\ensuremath{\\pm} 4.124",
+        "-0.518 \\ensuremath{\\pm} 0.069",
+        "48.148 \\ensuremath{\\pm} 6.415",
+        "-2.034 \\ensuremath{\\pm} 0.314"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "cells": [
+        "factorial",
+        "A",
+        "19.048 \\ensuremath{\\pm} 4.124",
+        "-2.034 \\ensuremath{\\pm} 0.314"
+      ]
+    },
+    {
+      "table": "tab:smallpanels",
+      "source_table": 16,
+      "original": [
+        "factorial",
+        "AS",
+        "19.048 \\ensuremath{\\pm} 10.911",
+        "-0.537 \\ensuremath{\\pm} 0.196",
+        "48.148 \\ensuremath{\\pm} 16.973",
+        "-2.228 \\ensuremath{\\pm} 0.632"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "cells": [
+        "factorial",
+        "AS",
+        "19.048 \\ensuremath{\\pm} 10.911",
+        "-2.228 \\ensuremath{\\pm} 0.632"
+      ]
+    },
+    {
+      "table": "tab:smallpanels",
+      "source_table": 16,
+      "original": [
+        "factorial",
+        "B",
+        "28.571 \\ensuremath{\\pm} 7.143",
+        "-0.381 \\ensuremath{\\pm} 0.096",
+        "33.333 \\ensuremath{\\pm} 11.111",
+        "-1.699 \\ensuremath{\\pm} 0.551"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "cells": [
+        "factorial",
+        "B",
+        "28.571 \\ensuremath{\\pm} 7.143",
+        "-1.699 \\ensuremath{\\pm} 0.551"
+      ]
+    },
+    {
+      "table": "tab:smallpanels",
+      "source_table": 16,
+      "original": [
+        "factorial",
+        "P",
+        "30.952 \\ensuremath{\\pm} 4.124",
+        "-0.347 \\ensuremath{\\pm} 0.053",
+        "29.630 \\ensuremath{\\pm} 6.415",
+        "-1.415 \\ensuremath{\\pm} 0.331"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "cells": [
+        "factorial",
+        "P",
+        "30.952 \\ensuremath{\\pm} 4.124",
+        "-1.415 \\ensuremath{\\pm} 0.331"
+      ]
+    },
+    {
+      "table": "tab:smallpanels",
+      "source_table": 16,
+      "original": [
+        "factorial",
+        "S",
+        "14.286 \\ensuremath{\\pm} 0.000",
+        "-0.598 \\ensuremath{\\pm} 0.000",
+        "55.556 \\ensuremath{\\pm} 0.000",
+        "-2.342 \\ensuremath{\\pm} 0.220"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "cells": [
+        "factorial",
+        "S",
+        "14.286 \\ensuremath{\\pm} 0.000",
+        "-2.342 \\ensuremath{\\pm} 0.220"
+      ]
+    },
+    {
+      "table": "tab:factorial",
+      "source_table": 17,
+      "original": [
+        "AS-B",
+        "-9.524",
+        "{[}-37.143, 18.095{]}"
+      ],
+      "columns": [
+        0,
+        1,
+        2
+      ],
+      "cells": [
+        "AS-B",
+        "-9.524",
+        "{[}-37.143, 18.095{]}"
+      ]
+    },
+    {
+      "table": "tab:factorial",
+      "source_table": 17,
+      "original": [
+        "A-B",
+        "-9.524",
+        "{[}-37.143, 18.095{]}"
+      ],
+      "columns": [
+        0,
+        1,
+        2
+      ],
+      "cells": [
+        "A-B",
+        "-9.524",
+        "{[}-37.143, 18.095{]}"
+      ]
+    },
+    {
+      "table": "tab:factorial",
+      "source_table": 17,
+      "original": [
+        "AS-S",
+        "4.762",
+        "{[}-22.857, 32.381{]}"
+      ],
+      "columns": [
+        0,
+        1,
+        2
+      ],
+      "cells": [
+        "AS-S",
+        "4.762",
+        "{[}-22.857, 32.381{]}"
+      ]
+    },
+    {
+      "table": "tab:factorial",
+      "source_table": 17,
+      "original": [
+        "S-B",
+        "-14.286",
+        "{[}-41.905, 13.333{]}"
+      ],
+      "columns": [
+        0,
+        1,
+        2
+      ],
+      "cells": [
+        "S-B",
+        "-14.286",
+        "{[}-41.905, 13.333{]}"
+      ]
+    },
+    {
+      "table": "tab:factorial",
+      "source_table": 17,
+      "original": [
+        "AS-A",
+        "0.000",
+        "{[}-27.619, 27.619{]}"
+      ],
+      "columns": [
+        0,
+        1,
+        2
+      ],
+      "cells": [
+        "AS-A",
+        "0.000",
+        "{[}-27.619, 27.619{]}"
+      ]
+    },
+    {
+      "table": "tab:factorial",
+      "source_table": 17,
+      "original": [
+        "AS-P",
+        "-11.905",
+        "{[}-39.524, 15.714{]}"
+      ],
+      "columns": [
+        0,
+        1,
+        2
+      ],
+      "cells": [
+        "AS-P",
+        "-11.905",
+        "{[}-39.524, 15.714{]}"
+      ]
+    },
+    {
+      "table": "tab:factorial",
+      "source_table": 17,
+      "original": [
+        "interaction",
+        "14.286",
+        "{[}-13.333, 41.905{]}"
+      ],
+      "columns": [
+        0,
+        1,
+        2
+      ],
+      "cells": [
+        "interaction",
+        "14.286",
+        "{[}-13.333, 41.905{]}"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "Native",
+        "65.359",
+        "51.844",
+        "0.037",
+        "0.518",
+        "-0.653",
+        "0.093",
+        "1.186"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Native",
+        "51.844",
+        "0.037",
+        "-0.653",
+        "0.093",
+        "1.186"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "Common",
+        "57.843",
+        "45.965",
+        "-0.076",
+        "0.461",
+        "-1.025",
+        "0.098",
+        "1.647"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Common",
+        "45.965",
+        "-0.076",
+        "-1.025",
+        "0.098",
+        "1.647"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "Bayesian v1",
+        "63.399",
+        "50.095",
+        "0.002",
+        "0.501",
+        "-0.698",
+        "0.050",
+        "1.321"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Bayesian v1",
+        "50.095",
+        "0.002",
+        "-0.698",
+        "0.050",
+        "1.321"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "C2",
+        "57.516",
+        "45.749",
+        "-0.080",
+        "0.459",
+        "-1.030",
+        "0.090",
+        "1.653"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "C2",
+        "45.749",
+        "-0.080",
+        "-1.030",
+        "0.090",
+        "1.653"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "58.170",
+        "46.182",
+        "-0.072",
+        "0.463",
+        "-1.019",
+        "0.098",
+        "1.642"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "46.182",
+        "-0.072",
+        "-1.019",
+        "0.098",
+        "1.642"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "B\\_\\allowbreak{}semantic",
+        "57.516",
+        "45.749",
+        "-0.080",
+        "0.459",
+        "-1.030",
+        "0.090",
+        "1.653"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "B\\_\\allowbreak{}semantic",
+        "45.749",
+        "-0.080",
+        "-1.030",
+        "0.090",
+        "1.653"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "MT-BICL",
+        "52.941",
+        "43.169",
+        "-0.124",
+        "0.433",
+        "-1.253",
+        "0.100",
+        "1.853"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "MT-BICL",
+        "43.169",
+        "-0.124",
+        "-1.253",
+        "0.100",
+        "1.853"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "Fact Anchor",
+        "52.288",
+        "42.736",
+        "-0.131",
+        "0.429",
+        "-1.286",
+        "0.070",
+        "1.883"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Fact Anchor",
+        "42.736",
+        "-0.131",
+        "-1.286",
+        "0.070",
+        "1.883"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "CASH",
+        "75.490",
+        "50.000",
+        "NA",
+        "0.430",
+        "0.000",
+        "0.000",
+        "0.000"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "CASH",
+        "50.000",
+        "NA",
+        "0.000",
+        "0.000",
+        "0.000"
+      ]
+    },
+    {
+      "table": "tab:context",
+      "source_table": 18,
+      "original": [
+        "Always-LONG cycles",
+        "24.510",
+        "50.000",
+        "NA",
+        "0.197",
+        "-3.000",
+        "0.000",
+        "4.523"
+      ],
+      "columns": [
+        0,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "cells": [
+        "Always-LONG cycles",
+        "50.000",
+        "NA",
+        "-3.000",
+        "0.000",
+        "4.523"
+      ]
+    },
+    {
+      "table": "tab:vsnative",
+      "source_table": 21,
+      "original": [
+        "Native",
+        "Bayesian v1",
+        "-0.045 {[}-0.362, 0.271{]}",
+        "-1.749 {[}-6.374, 2.876{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "Bayesian v1",
+        "-0.045 {[}-0.362, 0.271{]}",
+        "-1.749 {[}-6.374, 2.876{]}"
+      ]
+    },
+    {
+      "table": "tab:vsnative",
+      "source_table": 21,
+      "original": [
+        "Native",
+        "C2",
+        "-0.377 {[}-0.866, 0.111{]}",
+        "-6.095 {[}-11.629, -0.561{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "C2",
+        "-0.377 {[}-0.866, 0.111{]}",
+        "-6.095 {[}-11.629, -0.561{]}"
+      ]
+    },
+    {
+      "table": "tab:vsnative",
+      "source_table": 21,
+      "original": [
+        "Native",
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "-0.367 {[}-0.867, 0.133{]}",
+        "-5.662 {[}-11.771, 0.446{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "-0.367 {[}-0.867, 0.133{]}",
+        "-5.662 {[}-11.771, 0.446{]}"
+      ]
+    },
+    {
+      "table": "tab:vsnative",
+      "source_table": 21,
+      "original": [
+        "Native",
+        "B\\_\\allowbreak{}semantic",
+        "-0.377 {[}-0.866, 0.111{]}",
+        "-6.095 {[}-11.629, -0.561{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "B\\_\\allowbreak{}semantic",
+        "-0.377 {[}-0.866, 0.111{]}",
+        "-6.095 {[}-11.629, -0.561{]}"
+      ]
+    },
+    {
+      "table": "tab:vsnative",
+      "source_table": 21,
+      "original": [
+        "Native",
+        "MT-BICL",
+        "-0.601 {[}-1.090, -0.111{]}",
+        "-8.675 {[}-20.239, 2.888{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "MT-BICL",
+        "-0.601 {[}-1.090, -0.111{]}",
+        "-8.675 {[}-20.239, 2.888{]}"
+      ]
+    },
+    {
+      "table": "tab:vscommon",
+      "source_table": 21,
+      "original": [
+        "Common",
+        "Bayesian v1",
+        "0.327 {[}0.067, 0.586{]}",
+        "4.130 {[}2.011, 6.249{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "Bayesian v1",
+        "0.327 {[}0.067, 0.586{]}",
+        "4.130 {[}2.011, 6.249{]}"
+      ]
+    },
+    {
+      "table": "tab:vscommon",
+      "source_table": 21,
+      "original": [
+        "Common",
+        "C2",
+        "-0.005 {[}-0.016, 0.005{]}",
+        "-0.216 {[}-0.668, 0.235{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "C2",
+        "-0.005 {[}-0.016, 0.005{]}",
+        "-0.216 {[}-0.668, 0.235{]}"
+      ]
+    },
+    {
+      "table": "tab:vscommon",
+      "source_table": 21,
+      "original": [
+        "Common",
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "0.005 {[}-0.005, 0.016{]}",
+        "0.216 {[}-0.235, 0.668{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "0.005 {[}-0.005, 0.016{]}",
+        "0.216 {[}-0.235, 0.668{]}"
+      ]
+    },
+    {
+      "table": "tab:vscommon",
+      "source_table": 21,
+      "original": [
+        "Common",
+        "B\\_\\allowbreak{}semantic",
+        "-0.005 {[}-0.016, 0.005{]}",
+        "-0.216 {[}-0.668, 0.235{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "B\\_\\allowbreak{}semantic",
+        "-0.005 {[}-0.016, 0.005{]}",
+        "-0.216 {[}-0.668, 0.235{]}"
+      ]
+    },
+    {
+      "table": "tab:vscommon",
+      "source_table": 21,
+      "original": [
+        "Common",
+        "MT-BICL",
+        "-0.229 {[}-0.576, 0.118{]}",
+        "-2.797 {[}-11.168, 5.575{]}"
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "MT-BICL",
+        "-0.229 {[}-0.576, 0.118{]}",
+        "-2.797 {[}-11.168, 5.575{]}"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "Native",
+        "102",
+        "306",
+        "69",
+        "306",
+        "0"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Native",
+        "69",
+        "306",
+        "0"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "Common",
+        "102",
+        "306",
+        "88",
+        "306",
+        "0"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Common",
+        "88",
+        "306",
+        "0"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "Bayesian v1",
+        "102",
+        "306",
+        "73",
+        "144",
+        "162"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Bayesian v1",
+        "73",
+        "144",
+        "162"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "C2",
+        "102",
+        "306",
+        "89",
+        "3",
+        "303"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "C2",
+        "89",
+        "3",
+        "303"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "102",
+        "306",
+        "87",
+        "24",
+        "282"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "A\\_\\allowbreak{}tp\\_\\allowbreak{}pool",
+        "87",
+        "24",
+        "282"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "B\\_\\allowbreak{}semantic",
+        "102",
+        "306",
+        "89",
+        "3",
+        "303"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "B\\_\\allowbreak{}semantic",
+        "89",
+        "3",
+        "303"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "MT-BICL",
+        "102",
+        "306",
+        "105",
+        "198",
+        "108"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "MT-BICL",
+        "105",
+        "198",
+        "108"
+      ]
+    },
+    {
+      "table": "tab:coverage",
+      "source_table": 19,
+      "original": [
+        "Fact Anchor",
+        "102",
+        "306",
+        "107",
+        "306",
+        "0"
+      ],
+      "columns": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "cells": [
+        "Fact Anchor",
+        "107",
+        "306",
+        "0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "reference",
+        "-0.797",
+        "-0.750",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "reference",
+        "-0.797",
+        "-0.750",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "pending\\_\\allowbreak{}t2",
+        "-0.797",
+        "-0.750",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "pending\\_\\allowbreak{}t2",
+        "-0.797",
+        "-0.750",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "advance\\_\\allowbreak{}on\\_\\allowbreak{}demand",
+        "-0.797",
+        "-0.750",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "advance\\_\\allowbreak{}on\\_\\allowbreak{}demand",
+        "-0.797",
+        "-0.750",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "advance\\_\\allowbreak{}auto",
+        "-0.840",
+        "-0.803",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "advance\\_\\allowbreak{}auto",
+        "-0.840",
+        "-0.803",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "lower\\_\\allowbreak{}cost",
+        "-0.612",
+        "-0.526",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "lower\\_\\allowbreak{}cost",
+        "-0.612",
+        "-0.526",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "higher\\_\\allowbreak{}cost",
+        "-1.211",
+        "-1.249",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "higher\\_\\allowbreak{}cost",
+        "-1.211",
+        "-1.249",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "sell\\_\\allowbreak{}charge\\_\\allowbreak{}10bp",
+        "-0.843",
+        "-0.805",
+        "0/0",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "sell\\_\\allowbreak{}charge\\_\\allowbreak{}10bp",
+        "-0.843",
+        "-0.805",
+        "0/0"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "no\\_\\allowbreak{}fill\\_\\allowbreak{}proxy",
+        "-0.803",
+        "-0.659",
+        "1/3",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "no\\_\\allowbreak{}fill\\_\\allowbreak{}proxy",
+        "-0.803",
+        "-0.659",
+        "1/3"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "delayed\\_\\allowbreak{}proxy",
+        "-0.766",
+        "-0.621",
+        "2/4",
+        "0/1",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "delayed\\_\\allowbreak{}proxy",
+        "-0.766",
+        "-0.621",
+        "2/4"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "lot100\\_\\allowbreak{}cap1pct",
+        "-0.745",
+        "-0.602",
+        "1/3",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "lot100\\_\\allowbreak{}cap1pct",
+        "-0.745",
+        "-0.602",
+        "1/3"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "combined",
+        "-1.166",
+        "-1.074",
+        "3/9",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "combined",
+        "-1.166",
+        "-1.074",
+        "3/9"
+      ]
+    },
+    {
+      "table": "tab:execution",
+      "source_table": 34,
+      "original": [
+        "all\\_\\allowbreak{}entries\\_\\allowbreak{}missed",
+        "0.000",
+        "0.000",
+        "24/29",
+        "0/0",
+        "0/0"
+      ],
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cells": [
+        "all\\_\\allowbreak{}entries\\_\\allowbreak{}missed",
+        "0.000",
+        "0.000",
+        "24/29"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+% Hai profile alpha tách biệt; sentiment không đi vào công thức factor.
+\begin{tikzpicture}[>=Latex,
+ box/.style={draw=blue!55!black,fill=blue!4,rounded corners,align=center,text width=4.8cm,minimum height=1.5cm,font=\footnotesize},
+ sent/.style={box,draw=green!40!black,fill=green!4},arr/.style={->,thick}]
+\node[box] (n1) at (0,0) {\textbf{Native OHLCV path}\\Observed prefix through $d$\\Up to 600 bars};
+\node[box] (c1) at (5.7,0) {\textbf{Common causal path}\\Same prefix / parent hash\\Row-available operators};
+\node[sent] (s1) at (11.4,0) {\textbf{Separate sentiment path}\\Saved scores / provenance\\PIT validity unverified};
+\node[box] (n2) at (0,-2.1) {85 native candidates\\80 adaptations + five custom\\Native transforms retained};
+\node[box] (c2) at (5.7,-2.1) {Train: eligibility / IC sign\\Validation: top five / cutoff\\Purged fits precede test};
+\node[sent] (s2) at (11.4,-2.1) {90-day cutoff window\\At least three valid records\\30-day decay half-life};
+\node[box] (n3) at (0,-4.2) {Same-sample IC / diagnostics\\Weighted score; top five\\Row-wise causal defect};
+\node[box] (c3) at (5.7,-4.2) {Frozen selector binding\\No query/repeat refit\\Origin / prefix checks};
+\node[sent] (s3) at (11.4,-4.2) {Aggregate/count or missing\\No verified peer comparison\\Reliability $\ge8$: separate flag};
+\node[box] (n4) at (0,-6.3) {\textbf{Native Alpha report}\\Main prompt: direction\\and vote counts};
+\node[box] (c4) at (5.7,-6.3) {\textbf{Causal Alpha report}\\Earlier: Common only\\Follow-up: both baselines};
+\node[sent] (s4) at (11.4,-6.3) {\textbf{Shared sentiment context}\\Earlier: scores or missing\\Follow-up: missing};
+\foreach \a/\b in {n1/n2,n2/n3,n3/n4,c1/c2,c2/c3,c3/c4,s1/s2,s2/s3,s3/s4}{\draw[arr] (\a)--(\b);}
+\node[box,text width=15.8cm,fill=orange!7] (out) at (5.7,-8.5) {\textbf{Variant-enabled Decision sections}\\Native/common instructions differ; I/P/T and sentiment stay shared in the extension bridge.\\No extra Alpha reasoning-model call on this evaluated backtest path.};
+\foreach \n in {n4,c4,s4}{\draw[arr] (\n.south)--(\n.south |- out.north);}
+\end{tikzpicture}

@@ -1,0 +1,243 @@
+{
+  "component": {
+    "ba_interval_pp": [
+      -1.1764705882352955,
+      8.125000000000004
+    ],
+    "missing_sentiment": 79,
+    "points": 102,
+    "profile": "main compact AS versus B",
+    "prompts_with_factor_value_rows": 0
+  },
+  "fin12_artifacts": {
+    "accounts.json": {
+      "bytes": 872405,
+      "sha256": "1e13cf5c6b2e4dba0ea8bab8509f9c5e6dd6cd78905d3d4283dd8ea9c302498d"
+    },
+    "classification.json": {
+      "bytes": 483148,
+      "sha256": "555b42f7a58d9fbf597570fd4f327bb5a65aade81f5236f07b78ae3af40c72fb"
+    },
+    "cycles.json": {
+      "bytes": 1058239,
+      "sha256": "aff2e4adf9d1cdbe9858d271fb44d3dabfa14d5a315bfe30d738ecfc15308656"
+    },
+    "daily_nav.json": {
+      "bytes": 9437140,
+      "sha256": "3d2df6db503420bbd14e7aa6cd17d736e64520593584f75d2d85e1105e492919"
+    },
+    "outcomes.json": {
+      "bytes": 56243,
+      "sha256": "fd1c74bf8db6de18942713f3435215900bc28274442e8259b0a825042b2f9349"
+    },
+    "per_repeat.json": {
+      "bytes": 8484,
+      "sha256": "8ec04422c752d2b558cfce3d4466cf80700228d2507d325d4858a4aafe21699d"
+    },
+    "predictions.json": {
+      "bytes": 4796501,
+      "sha256": "6303cba6e96705020fabb8179138d4db955c9dedf05d3c4d036ed0311ca3affa"
+    },
+    "prior_traces.json": {
+      "bytes": 1418482,
+      "sha256": "ffc746b94f9e9d2763f4993e48e9e6483d34bad1687ed37b3fe791737cde5b4f"
+    },
+    "results.json": {
+      "bytes": 43447,
+      "sha256": "96d93ac961346048734cd9eeecb710797f66f656df02655bba6b8064bac5c1f6"
+    }
+  },
+  "fin12_receipt_sha256": "d304f01ca78f3eef6666f14a6e39df60dd6dda4af3a8095c1a490ff9ec831c31",
+  "followup": {
+    "band_reasons": [
+      "ZERO_SD_IN_JOINT_FAMILY"
+    ],
+    "band_status": "NULL_SIMULTANEOUS_BANDS",
+    "coverage": {
+      "available_outcomes": 96,
+      "complete_account_points": 90,
+      "complete_accounts_per_repeat": 45,
+      "forecast_slots": 2448,
+      "outcomes_opened_after_forecast_barrier": true,
+      "planned_accounts_per_repeat": 51,
+      "planned_points": 102
+    },
+    "method_rows": {
+      "ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS": {
+        "ba_pct": 50.0,
+        "changes": [],
+        "fallback": 306,
+        "profiles": [
+          "deterministic control"
+        ],
+        "raw": 0,
+        "reference": null,
+        "return_pct": -2.9111047198192077
+      },
+      "A_tp_pool": {
+        "ba_pct": 53.28282828282829,
+        "changes": [
+          [
+            "VNM-2025-10-01",
+            0
+          ],
+          [
+            "VNM-2025-10-01",
+            2
+          ]
+        ],
+        "fallback": 282,
+        "profiles": [
+          "finalize_serving_v1/common_decision_v1"
+        ],
+        "raw": 24,
+        "reference": "original_common",
+        "return_pct": -0.5303772888370718,
+        "statistics_only_replies": 24
+      },
+      "B_semantic": {
+        "ba_pct": 53.78787878787878,
+        "changes": [
+          [
+            "VNM-2025-10-01",
+            0
+          ],
+          [
+            "VNM-2025-10-01",
+            1
+          ]
+        ],
+        "fallback": 300,
+        "profiles": [
+          "finalize_serving_v1/common_decision_v1"
+        ],
+        "raw": 6,
+        "reference": "original_common",
+        "return_pct": -0.5176892782238747,
+        "statistics_only_replies": 6
+      },
+      "C2": {
+        "ba_pct": 53.78787878787878,
+        "changes": [
+          [
+            "VNM-2025-10-01",
+            0
+          ],
+          [
+            "VNM-2025-10-01",
+            1
+          ]
+        ],
+        "fallback": 300,
+        "profiles": [
+          "finalize_serving_v1/common_decision_v1"
+        ],
+        "raw": 6,
+        "reference": "original_common",
+        "return_pct": -0.5176892782238747,
+        "statistics_only_replies": 6
+      },
+      "CASH_EVERY_CYCLE": {
+        "ba_pct": 50.0,
+        "changes": [],
+        "fallback": 306,
+        "profiles": [
+          "deterministic control"
+        ],
+        "raw": 0,
+        "reference": null,
+        "return_pct": 0.0
+      },
+      "Fact_Anchor": {
+        "ba_pct": 45.07575757575758,
+        "changes": [],
+        "fallback": 0,
+        "profiles": [
+          "finalize_serving_v1/fact_anchor_v3"
+        ],
+        "raw": 306,
+        "reference": null,
+        "return_pct": -1.0256767999224026
+      },
+      "MT_BICL": {
+        "ba_pct": 44.31818181818182,
+        "changes": [
+          [
+            "HVN-2024-07-01",
+            0
+          ],
+          [
+            "HVN-2024-07-01",
+            1
+          ],
+          [
+            "HVN-2024-07-01",
+            2
+          ]
+        ],
+        "fallback": 117,
+        "profiles": [
+          "finalize_serving_v1/utility_icl_v3"
+        ],
+        "raw": 189,
+        "reference": "Fact_Anchor",
+        "return_pct": -1.0600457656178084
+      },
+      "bayesian_v1": {
+        "ba_pct": 52.39898989898989,
+        "changes": [
+          [
+            "VCB-2024-09-20",
+            0
+          ],
+          [
+            "VCB-2024-09-20",
+            2
+          ],
+          [
+            "VNM-2025-10-01",
+            0
+          ],
+          [
+            "VNM-2025-10-01",
+            1
+          ]
+        ],
+        "fallback": 162,
+        "profiles": [
+          "finalize_serving_v1/common_decision_v1"
+        ],
+        "raw": 144,
+        "reference": "original_common",
+        "return_pct": -0.531525102861283
+      },
+      "original_common": {
+        "ba_pct": 53.28282828282828,
+        "changes": [],
+        "fallback": 0,
+        "profiles": [
+          "finalize_serving_v1/common_decision_v1"
+        ],
+        "raw": 306,
+        "reference": null,
+        "return_pct": -0.5303772888370718
+      },
+      "original_fix": {
+        "ba_pct": 46.21212121212121,
+        "changes": [],
+        "fallback": 0,
+        "profiles": [
+          "original_fix_causal_serving_v1"
+        ],
+        "raw": 306,
+        "reference": null,
+        "return_pct": -0.937920629280855
+      }
+    },
+    "primary_status": "UNAVAILABLE_INCOMPLETE_EXECUTION_OUTCOMES"
+  },
+  "historical": {
+    "fpt_return_pct": -0.264731712420041,
+    "missing_sentiment": 79
+  }
+}

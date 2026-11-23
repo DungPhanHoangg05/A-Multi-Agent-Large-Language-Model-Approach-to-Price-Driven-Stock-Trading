@@ -1,0 +1,9 @@
+{
+  "historical_run_snapshot_authenticated": false,
+  "price_unit": "index_points",
+  "requested_end": "2026-09-30",
+  "requested_start": "2025-01-01",
+  "retrieved_at_utc": "2026-11-08T03:40:49.957567+00:00",
+  "source": "vnstock/VCI",
+  "symbol": "VNINDEX"
+}

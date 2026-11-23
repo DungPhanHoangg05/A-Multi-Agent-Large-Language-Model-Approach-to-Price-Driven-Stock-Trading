@@ -1,0 +1,13 @@
+/* Tài khoản độc lập và trạng thái NA hiển thị rõ trên màn hình nhỏ. */
+.bt-scroll {max-width:100%;overflow:auto;border:1px solid #dee3ea;border-radius:8px;max-height:38rem}
+.bt-scroll table {border-collapse:collapse;white-space:nowrap;width:100%;font:inherit;font-size:.85rem}
+.bt-scroll th,.bt-scroll td {padding:.65rem .8rem;text-align:left;border-bottom:1px solid #e0e5eb;max-width:24rem;white-space:normal;overflow-wrap:anywhere}
+.bt-scroll th {position:sticky;top:0;background:#f3f4f7;color:#293344;z-index:1}.bt-scroll .na {color:#687386}
+#bt-result [hidden] {display:none!important}#bt-result-error,#bt-start-error {color:#9d1730}
+.bt-legend {display:flex;flex-wrap:wrap;gap:.6rem;font-size:.85rem;margin:.5rem 0}.bt-legend span {border-left:5px solid;padding-left:.4rem}
+#bt-result-filters[hidden] {display:none!important}#bt-method-filters input {margin-right:.3rem}.serving-panel svg {min-width:290px}
+html[data-theme=dark] :is(.bt-scroll,.bt-scroll th,.bt-scroll td) {border-color:var(--site-border)}
+html[data-theme=dark] .bt-scroll th {background:var(--site-panel);color:var(--site-fg)}
+html[data-theme=dark] .bt-scroll .na {color:var(--site-muted)}
+html[data-theme=dark] :is(#bt-result-error,#bt-start-error) {color:var(--site-accent)}
+@media(max-width:600px) {.bt-scroll table {font-size:.8rem}.bt-scroll th,.bt-scroll td {padding:.5rem;min-width:6rem}}

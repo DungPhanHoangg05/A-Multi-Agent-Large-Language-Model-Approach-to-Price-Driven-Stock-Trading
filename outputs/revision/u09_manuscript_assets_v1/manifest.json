@@ -1,0 +1,361 @@
+{
+  "acceptance": "docs/plan/week12/unified_analysis_acceptance.json",
+  "derived_support": {
+    "definition": "COUNT_FROZEN_SHARED_AND_PREDICTIONS_ONLY_NO_NEW_METRICS",
+    "predictions": {
+      "member": "outputs/unified_integration/u09_analysis_r1/predictions.csv",
+      "package": "docs/plan/week12/unified_analysis_results.zip"
+    },
+    "shared_slots": "points.json/source_member in pinned U08 archive"
+  },
+  "figure": {
+    "companion": "outputs/unified_integration/u09_analysis_r1/contrasts.csv",
+    "input": "outputs/unified_integration/u09_analysis_r1/results.json",
+    "new_resampling": false,
+    "pointer": "/contrasts",
+    "rows": "ten predeclared return contrasts; both baselines; original order",
+    "units": "percentage_points"
+  },
+  "generator_source_commit": "3ac6a28a36c15b63e4d73b082465ca392e5fed6b",
+  "historical_gate": "F01_PASS_U09_COLD_REPLAY_729_SOURCES_15_ARTIFACTS",
+  "historical_source_commit": "384725a66fec074700963fac67c358b28b842092",
+  "input_identity": {
+    "asset_pins": 286,
+    "outcomes_sha256": "39ee19354355f1264a92e37f3cd10a649ab42d79bb9e7c30056043149774dc44",
+    "protocol_sha256": "02e620df1399835c0bec8bd0a99684384ba8ba43160319e32fec4240a3820cb3",
+    "records_sha256": "c5c9d18fc8175b9067d2d08df9925a6c6c80d83f70acd613e95874fa80ac414c",
+    "runtime": {
+      "packages": {
+        "Flask": "3.1.3",
+        "Jinja2": "3.1.6",
+        "MarkupSafe": "3.0.2",
+        "PyYAML": "6.0.2",
+        "Pygments": "2.19.2",
+        "TA-Lib": "0.6.8",
+        "Werkzeug": "3.1.6",
+        "annotated-types": "0.7.0",
+        "anyio": "4.9.0",
+        "attrs": "25.3.0",
+        "beautifulsoup4": "4.13.4",
+        "blinker": "1.9.0",
+        "build": "1.4.0",
+        "certifi": "2025.6.15",
+        "cffi": "2.0.0",
+        "charset-normalizer": "3.4.2",
+        "click": "8.2.1",
+        "colorama": "0.4.6",
+        "contourpy": "1.3.3",
+        "cycler": "0.12.1",
+        "distro": "1.9.0",
+        "et_xmlfile": "2.0.0",
+        "filelock": "3.18.0",
+        "fonttools": "4.61.1",
+        "fsspec": "2025.5.1",
+        "groq": "0.37.1",
+        "h11": "0.16.0",
+        "hf-xet": "1.4.2",
+        "hmmlearn": "0.3.3",
+        "httpcore": "1.0.9",
+        "httpx": "0.28.1",
+        "huggingface_hub": "1.8.0",
+        "idna": "3.10",
+        "importlib_metadata": "8.7.1",
+        "itsdangerous": "2.2.0",
+        "joblib": "1.5.1",
+        "jsonpatch": "1.33",
+        "jsonpointer": "3.0.0",
+        "jsonschema": "4.24.0",
+        "jsonschema-specifications": "2025.4.1",
+        "kiwisolver": "1.4.9",
+        "langchain": "1.2.10",
+        "langchain-core": "1.2.17",
+        "langchain-groq": "1.1.2",
+        "langgraph": "1.0.10",
+        "langgraph-checkpoint": "4.0.1",
+        "langgraph-prebuilt": "1.0.8",
+        "langgraph-sdk": "0.3.9",
+        "langsmith": "0.7.10",
+        "markdown-it-py": "3.0.0",
+        "matplotlib": "3.10.8",
+        "mdurl": "0.1.2",
+        "mplfinance": "0.12.10b0",
+        "mpmath": "1.3.0",
+        "networkx": "3.5",
+        "numpy": "2.1.2",
+        "openpyxl": "3.1.5",
+        "orjson": "3.11.7",
+        "ormsgpack": "1.12.2",
+        "packaging": "25.0",
+        "pandas": "2.3.3",
+        "pillow": "11.0.0",
+        "psutil": "7.0.0",
+        "pycparser": "2.22",
+        "pydantic": "2.11.7",
+        "pydantic_core": "2.33.2",
+        "pyparsing": "3.3.2",
+        "pyproject_hooks": "1.2.0",
+        "python-dateutil": "2.9.0.post0",
+        "python-dotenv": "1.2.2",
+        "pytz": "2025.2",
+        "referencing": "0.36.2",
+        "regex": "2026.2.28",
+        "requests": "2.32.4",
+        "requests-toolbelt": "1.0.0",
+        "rich": "14.1.0",
+        "rpds-py": "0.26.0",
+        "safetensors": "0.7.0",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.16.1",
+        "seaborn": "0.13.2",
+        "sentencepiece": "0.2.1",
+        "setuptools": "80.9.0",
+        "shellingham": "1.5.4",
+        "six": "1.17.0",
+        "sniffio": "1.3.1",
+        "soupsieve": "2.7",
+        "sympy": "1.14.0",
+        "tenacity": "9.1.2",
+        "threadpoolctl": "3.6.0",
+        "tiktoken": "0.12.0",
+        "tokenizers": "0.22.2",
+        "torch": "2.11.0+cu128",
+        "tqdm": "4.67.1",
+        "transformers": "5.4.0",
+        "typer": "0.16.0",
+        "typing-inspection": "0.4.1",
+        "typing_extensions": "4.15.0",
+        "tzdata": "2025.3",
+        "urllib3": "2.6.3",
+        "uuid_utils": "0.14.1",
+        "vnai": "2.6.2",
+        "vnstock": "4.0.9",
+        "vnstock_ezchart": "1.0.2",
+        "xxhash": "3.6.0",
+        "zipp": "3.23.0",
+        "zstandard": "0.25.0"
+      },
+      "python": "3.13.5"
+    },
+    "source_pins": 718,
+    "u08_package_sha256": "5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c"
+  },
+  "inputs": {
+    "docs/plan/week12/final_evidence_snapshot.zip": {
+      "bytes": 93154448,
+      "sha256": "80fed8c9a1c265098a394bfc40f13d7f0266c1e05abdb142fba01d873cb8b8b5"
+    },
+    "docs/plan/week12/unified_analysis_acceptance.json": {
+      "bytes": 5064,
+      "sha256": "6b435c21c89000775be1f1e1d043b6b3429a0729f37efc16f4bd03be92355456"
+    },
+    "docs/plan/week12/unified_analysis_results.zip": {
+      "bytes": 1383945,
+      "sha256": "e168d1d59218804d1f587fcb342d02c4e7bafbb963162eddae706039a00769a9"
+    },
+    "docs/plan/week12/unified_live_research.zip": {
+      "bytes": 78438700,
+      "sha256": "5936bc971bebf1b139a34b93f154ad8e54d0a0e37fdaa6ac4673295f8b60a11c"
+    }
+  },
+  "installation": {
+    "enabled": true,
+    "members": [
+      "scope.tex",
+      "comparison.tex",
+      "classification.tex",
+      "economics.tex",
+      "repeats.tex",
+      "contrasts.tex",
+      "bridge.tex",
+      "support.tex",
+      "sensitivity_return.tex",
+      "sensitivity_ba.tex",
+      "sensitivity_core4.tex",
+      "summary_numbers.tex",
+      "return_contrasts.svg",
+      "return_contrasts.png"
+    ],
+    "namespace": "paper/generated/u09"
+  },
+  "macro_prefix": "Unified",
+  "method_labels": {
+    "ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS": "Always-LONG",
+    "A_tp_pool": "A pool",
+    "B_semantic": "B semantic",
+    "C2": "C2",
+    "CASH_EVERY_CYCLE": "CASH",
+    "Fact_Anchor": "Fact anchor",
+    "MT_BICL": "MT-BICL",
+    "bayesian_v1": "Bayes v1",
+    "original_common": "Common",
+    "original_fix": "Native"
+  },
+  "metric_reestimation": false,
+  "native_rowwise_causal_gate": "FAIL",
+  "new_api_calls": 0,
+  "numeric_lineage": "numeric_cells.json",
+  "outputs": {
+    "bridge.tex": {
+      "bytes": 799,
+      "sha256": "e7abd8939032acc73c03d013645340cb546e407913bc769fc7e5b7f93a47abc7"
+    },
+    "classification.tex": {
+      "bytes": 1345,
+      "sha256": "d1b3258dedc6b48d18f0b3628b962c6d5f281cdf474ae9f5695108e8bdfdc34e"
+    },
+    "comparison.tex": {
+      "bytes": 1484,
+      "sha256": "6c87369d065a5aca002be747a5594a05213689cb429d99627e706f03b9ba4269"
+    },
+    "contrasts.tex": {
+      "bytes": 2003,
+      "sha256": "6d3d009771f867d8a919f040145d754336e98d18a707d8e0fcbba993f51cdf7e"
+    },
+    "economics.tex": {
+      "bytes": 1500,
+      "sha256": "257fb0cfee336373e11893d5e87f60068c58418b45a46ece7979535f1ec5378d"
+    },
+    "numeric_cells.json": {
+      "bytes": 279379,
+      "sha256": "fcb7c549036454cdc4743751426e174c53bad71c719130bbefc06bccde2da7b3"
+    },
+    "points.json": {
+      "bytes": 36950,
+      "sha256": "e4ee75395731fa33db79723bbf02271956f5057452806b5a30c07430b7c2c5b3"
+    },
+    "repeats.tex": {
+      "bytes": 1469,
+      "sha256": "d0c074d59281df53463a6ff0eaf51b6704cfbe29d88e5c21c3fb11eb1e715c38"
+    },
+    "return_contrasts.png": {
+      "bytes": 61161,
+      "sha256": "ec9448d436af29509830548d456dab18fb24615bb4d2ae0065c782eedc041fb6"
+    },
+    "return_contrasts.svg": {
+      "bytes": 25313,
+      "sha256": "5f9a4e0a6a8e5d91d0ecf3657750ee68417eac10f404695daa7426855f2767d1"
+    },
+    "scope.tex": {
+      "bytes": 1075,
+      "sha256": "c4ae371dbd17f50609c281b2c2ac56de3e0a1b90c62a33d264b0da9655751fa3"
+    },
+    "sensitivity_ba.tex": {
+      "bytes": 1561,
+      "sha256": "8c2abc76aba8e7f0f7cbfab5f770c8ec9ae415f265304ce4d82f22f550de17c0"
+    },
+    "sensitivity_core4.tex": {
+      "bytes": 1829,
+      "sha256": "05152f252d96363e9802bd932e2da6590d77fad8bac00d655a7cf37d7a21e31a"
+    },
+    "sensitivity_return.tex": {
+      "bytes": 1555,
+      "sha256": "136d05559c2a185aee30a91a2af78f3a56fb0d29ffdd415a4829932ab0243f47"
+    },
+    "summary_numbers.tex": {
+      "bytes": 4782,
+      "sha256": "09c3ee779c8050a055ebeb95e79c56ee2ca9b0c7cd70151b9d92778ec6f84687"
+    },
+    "supplement/accounts.csv": {
+      "bytes": 354464,
+      "sha256": "15dc3b3a89fc5d659fe471fe828e6be0c14ac6facc1fd7aaee4df604fee1a431"
+    },
+    "supplement/bridge.csv": {
+      "bytes": 419,
+      "sha256": "73ce43d0de0d8e62b49bac6ad075f5019172534e9ae01145f5143d6c668deaaa"
+    },
+    "supplement/classification_by_group.csv": {
+      "bytes": 113625,
+      "sha256": "cd0c12b3363c7466ec9e167ffdacb3daf05db6e6fae125f94e2e08413c449cbb"
+    },
+    "supplement/classification_by_repeat.csv": {
+      "bytes": 8270,
+      "sha256": "c51da231256de8eda3e4cfcb3c7219aedc9514758fca9caa5890d5cf1d97e584"
+    },
+    "supplement/contrasts.csv": {
+      "bytes": 3008,
+      "sha256": "e9be5b9d28e38ea7aae38684df9ec561ac8fcab6f962868c68b392d12bda65b6"
+    },
+    "supplement/leave_one_out.csv": {
+      "bytes": 33148,
+      "sha256": "a9bbf28d809a79e1d4e0fd5c7af437230a1f6f6c0bb2e634d3367b52389050da"
+    },
+    "supplement/per_repeat.csv": {
+      "bytes": 2842,
+      "sha256": "71f54c70b71672d3e8b2d2e4bdb56281e932f1764dfa24d0bd79c15c9a1f236e"
+    },
+    "supplement/sensitivity.json": {
+      "bytes": 17718,
+      "sha256": "d2a1e250532eb5c79871759f28c8b6d1114f04597c3c0c066f01bed8576f89b3"
+    },
+    "supplement/summary.csv": {
+      "bytes": 7865,
+      "sha256": "1173fb0e92a062137dc4a8d5b99c461723b4182c724fd0313e9c2a13ccec1d07"
+    },
+    "support.json": {
+      "bytes": 7141,
+      "sha256": "cbdb936e5731f56eef0326d74cab5a52c052a34a0d1524ef88fc7cb7bbb3046b"
+    },
+    "support.tex": {
+      "bytes": 1597,
+      "sha256": "d1bd93c14a6eae839081fce1cc6527564dff5fe8cfc0c7293ce86144169298c6"
+    }
+  },
+  "runtime": {
+    "font": {
+      "bytes": 756072,
+      "name": "DejaVuSans.ttf",
+      "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22"
+    },
+    "packages": {
+      "fonttools": "4.61.1",
+      "matplotlib": "3.10.8",
+      "numpy": "2.1.2",
+      "pillow": "11.0.0"
+    },
+    "python": "3.13.5"
+  },
+  "sha256": "7da308f118c929cfdf72a9640c45f3d6a692c9425ae1991df289ed62694e53e3",
+  "sources": {
+    "core/manuscript_u09/.gitattributes": {
+      "bytes": 14,
+      "sha256": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9"
+    },
+    "core/manuscript_u09/__init__.py": {
+      "bytes": 100,
+      "sha256": "69b2ee482b80f26ba48904028b47ffd1b01c2e10571443518628e4b3b8fc281f"
+    },
+    "core/manuscript_u09/release.py": {
+      "bytes": 7838,
+      "sha256": "28bce89b98a85ac4a202ad11b5c32a3731b7a422b524615cae99f54053d38100"
+    },
+    "core/manuscript_u09/render.py": {
+      "bytes": 22952,
+      "sha256": "637364bda2d8eb85d5f62dd700b6f86d66601329d16b2fda02e3ad5ed474c254"
+    },
+    "core/manuscript_u09/sources.py": {
+      "bytes": 11947,
+      "sha256": "9405fd856aa502a57aaccb09883ccf6660876360f5018c6e36c8313613371bcd"
+    },
+    "scripts/manuscript_u09/.gitattributes": {
+      "bytes": 14,
+      "sha256": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9"
+    },
+    "scripts/manuscript_u09/run.py": {
+      "bytes": 1167,
+      "sha256": "fa68398d72475415ad37b4dfd223c4c58fc3fd129662c23a8a4a962da6ff7f81"
+    },
+    "tests/manuscript_u09/.gitattributes": {
+      "bytes": 14,
+      "sha256": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9"
+    },
+    "tests/manuscript_u09/test_export.py": {
+      "bytes": 13582,
+      "sha256": "a212aec38ced2f0f9fb66b275f80eb1cc1ec72778bd26e61e32b4408cf119228"
+    }
+  },
+  "status": "PASS_U09_MANUSCRIPT_ASSETS",
+  "study_id": "unified_u08_u09_r1",
+  "training": false,
+  "version": "u09_manuscript_assets_v1",
+  "whole_system_causal_gate": "NOT_CERTIFIED"
+}

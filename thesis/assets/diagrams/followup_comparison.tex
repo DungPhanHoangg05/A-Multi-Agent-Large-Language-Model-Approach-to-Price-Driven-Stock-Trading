@@ -1,0 +1,18 @@
+% Hai trục hiển thị các số liệu trên đúng mẫu số của từng chỉ tiêu.
+\begin{tikzpicture}[x=1cm,y=.36cm,font=\small]
+\node at (2.1,0.15) {Net account return (\%)};
+\node at (8.45,0.15) {Bypassed forecasts};
+\foreach \method/\return/\bypass [count=\i] in \FinMethodRows {
+  \pgfmathsetmacro{\yy}{-\i}
+  \pgfmathsetmacro{\value}{4.15+3.35*\return}
+  \pgfmathsetmacro{\barend}{6.2+4.7*\bypass/306}
+  \node[anchor=east,font=\footnotesize] at (0,\yy) {\method};
+  \fill[blue!60!black] (\value,\yy-.24) rectangle (4.15,\yy+.24);
+  \fill[orange!72!black] (6.2,\yy-.24) rectangle (\barend,\yy+.24);
+  \node[anchor=west,font=\footnotesize] at (\barend+.08,\yy) {\bypass};
+}
+\draw[gray] (.13,-7.5)--(4.15,-7.5);
+\foreach \tick/\pos in {-1.2/.13,-.8/1.47,-.4/2.81,0/4.15} {
+  \draw[gray] (\pos,-7.5)--++(0,-.15) node[below,font=\footnotesize] {\tick};
+}
+\end{tikzpicture}

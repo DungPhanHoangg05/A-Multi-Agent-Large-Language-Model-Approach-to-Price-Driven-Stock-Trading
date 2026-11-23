@@ -1,0 +1,25 @@
+% Mũi tên giữa vai trò là dependency cùng repeat; policy tách raw/final.
+\begin{tikzpicture}[>=Latex,
+ box/.style={draw=blue!55!black,fill=blue!4,rounded corners,align=center,text width=4.8cm,minimum height=1.7cm,font=\footnotesize},
+ wide/.style={box,text width=15.8cm},arr/.style={->,thick}]
+\node[wide] (in) at (5.7,0) {\textbf{Shared reports $\rightarrow$ profile-specific prompt}\\Distil/cap; total prompt $<6{,}500$ characters; extension prior/context prefix $\le600$\\Retry and checkpoint interrupted requests. CASH requires a valid decision.};
+\node[box] (native) at (0,-2.5) {\textbf{Our system}\\Native Decision prompt\\No extension dependency};
+\node[box] (common) at (5.7,-2.5) {\textbf{Common Decision}\\Causal alpha / instructions\\Parent action for extensions};
+\node[box] (prior) at (11.4,-2.5) {\textbf{Historical priors}\\Qualified historical context\\Support bypass $\rightarrow$ Common};
+\draw[arr] (in.south)--++(0,-0.35)-|(native.north);
+\draw[arr] (in.south)--(common.north);
+\draw[arr] (common.east)--(prior.west);
+\node[box] (fact) at (5.7,-5) {\textbf{Fact anchor}\\PIT facts + Common action\\Invalid assertions $\rightarrow$ Common};
+\node[box] (mt) at (11.4,-5) {\textbf{BICL v5 revision}\\Common + anchor; tasks,\\student and teacher utility\\Ineligible context $\rightarrow$ anchor};
+\draw[arr] (common.south)--(fact.north);
+\draw[arr] (common.south east)--(mt.north west);
+\draw[arr] (fact.east)--(mt.west);
+\node[wide,fill=orange!7,minimum height=2cm] (policy) at (5.7,-7.9) {\textbf{Retain raw proposals; apply the specified external policy}\\Prior support bypass reuses Common; valid fact assertions select the anchor action.\\MT changes require valid assertions and $Q_{0.10}(\Delta U)>0$; otherwise retain the anchor.\\Persist final action, bypass/rejection reason and source proof for every role.};
+\draw[arr] (native.south)--(native.south |- policy.north);
+\draw[arr] (common.west)--(2.8,-2.5)--(2.8,-6.8)--(2.8,-6.8 |- policy.north);
+\draw[arr] (prior.east)--(14.2,-2.5)--(14.2,-6.4)--(13,-6.4)--(13,-6.4 |- policy.north);
+\draw[arr] (fact.south)--(fact.south |- policy.north);
+\draw[arr] (mt.south)--(mt.south |- policy.north);
+\node[wide,minimum height=1.35cm] (ledger) at (5.7,-10.3) {\textbf{Final action $\rightarrow$ outcome barrier $\rightarrow$ separate-account ledger}\\LONG: buy Open$(t+1)$, exit Close$(t+3)$, fee/slippage each leg; SHORT: CASH.\\Prompt priorities and model confidence are heuristics, not calibrated trading guarantees.};
+\draw[arr] (policy)--(ledger);
+\end{tikzpicture}

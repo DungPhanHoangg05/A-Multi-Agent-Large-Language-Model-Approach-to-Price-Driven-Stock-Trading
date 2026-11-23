@@ -1,3 +1,173 @@
 *.pdf binary
-ESWA/elsarticle.cls -whitespace
-ESWA/elsarticle-num.bst -whitespace
+
+# Giữ nguyên byte của artifact có checksum khi checkout trên các hệ điều hành.
+scripts/fin12_evaluation*.py text eol=lf
+data/execution_prices_oos/* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+data_manager/regime_memory_store*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Readiness lịch sử giữ nguyên byte donor và receipt, không chuyển LF/CRLF.
+outputs/historical_reevaluation/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+core/historical_asset_readiness.py text eol=lf
+
+# Source/protocol replica được pin byte trước fit, giữ LF khi checkout Windows.
+core/mt_bicl_replica_*.py text eol=lf
+
+core/mt_bicl*.py text eol=lf
+scripts/*mt_bicl*.py text eol=lf
+tests/*mt_bicl*.py text eol=lf
+
+# Giữ gói model replica và receipt nghiệm thu nguyên byte sau checkout.
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/model/* -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/evaluation/*.json -text
+outputs/bayesian_benchmark/mt_bicl/replicas/full_r1/inputs/regime_models.json -text
+
+# Khóa protocol H03 và bộ sinh bằng byte ổn định.
+core/historical_evaluation_*.py text eol=lf
+tests/test_historical_evaluation*.py text eol=lf
+tests/test_historical_adapter*.py text eol=lf
+core/historical_live_smoke.py text eol=lf
+core/historical_transport_observer.py text eol=lf
+core/free_pilot_assets.py text eol=lf
+core/free_pilot_runtime.py text eol=lf
+core/free_pilot_statistics.py text eol=lf
+# Giữ nguyên byte của code và bundle audit khi checkout trên Windows.
+AGENTS.md text eol=crlf
+utils/statistical_tests.py text eol=crlf
+revision/*.md text eol=lf
+outputs/revision/** -text -whitespace
+# Source blobs lịch sử giữ nguyên cả whitespace để đối soát SHA-256.
+outputs/revision/legacy_lineage_v1/historical_sources/** -whitespace
+utils/account_risk.py text eol=lf
+tests/test_account_risk.py text eol=lf
+core/backtest_engine.py text eol=lf
+tests/test_account_pnl.py text eol=lf
+utils/target_contract.py text eol=lf
+tests/test_target_contract.py text eol=lf
+tests/test_paired_protocol.py text eol=lf
+
+.gitattributes text eol=lf
+utils/color_style.py text eol=lf
+agents/trend_agent.py text eol=lf
+outputs/revision/chart_convention_v1/prior_sources/** -whitespace
+utils/static_util.py text eol=lf
+.gitignore text eol=lf
+README.md text eol=lf
+THIRD_PARTY_NOTICES.md text eol=lf
+LICENSES/QuantAgent-MIT.txt -text
+
+# Giữ đúng byte blob của data/schema và nguồn bài báo khi checkout hai nhánh.
+outputs/** -text -whitespace
+data/** -text
+data_manager/*.json -text
+paper/** -text -whitespace
+revision/** -text -whitespace
+requirements-unified.lock.txt text eol=lf
+core/prior_backtest.py text eol=lf
+core/research_input_lock.py text eol=lf
+core/decision_profiles.py text eol=lf
+scripts/verify_original_fix_parity.py text eol=lf
+agents/decision_agent.py text eol=lf
+utils/graph_setup.py text eol=lf
+utils/trading_graph.py text eol=lf
+default_config.py text eol=lf
+core/variant_registry.py text eol=lf
+core/unified_contracts.py text eol=lf
+core/unified_methods.py text eol=lf
+core/unified_experiment.py text eol=lf
+utils/experiment_io.py text eol=lf
+utils/experiment_web.py text eol=lf
+templates/experiments.html text eol=lf
+web_interface.py text eol=lf
+core/causal_alpha.py text eol=lf
+# Giữ đúng byte mà manifest tài nguyên của demo dùng để kiểm SHA-256.
+core/pit_price_features.py text eol=lf
+core/alpha_compare.py text eol=crlf
+core/execution_prices.py text eol=crlf
+core/bayesian_memory.py text eol=crlf
+core/regime_detector.py text eol=crlf
+core/price_feature_index.py text eol=crlf
+core/historical_signals.py text eol=crlf
+core/causal_bridge.py text eol=lf
+tests/causal_profile_support.py text eol=lf
+core/unified_protocol.py text eol=lf
+core/unified_preflight_assets.py text eol=lf
+core/unified_asset_providers.py text eol=lf
+core/unified_preflight.py text eol=lf
+
+# Bao toan byte nguon doi chieu khi checkout.
+evidence/**/*.json -text
+evidence/*.json -text
+evidence/**/*.zip binary
+evidence/*.zip binary
+resources/*.zip binary
+
+# Giữ nguyên quy tắc checkout LF và byte của tài nguyên cho các thư mục ứng dụng.
+core/**/unified_execution.py text eol=lf
+core/**/unified_execution_transport.py text eol=lf
+core/**/unified_execution_providers.py text eol=lf
+core/**/realtime_index.py text eol=lf
+core/**/display_translation.py text eol=lf
+core/**/finalize_price_audit.py text eol=lf
+core/**/finalize_price_acceptance.py text eol=lf
+core/**/finalize_news.py text eol=lf
+core/**/finalize_news_release.py text eol=lf
+core/**/finalize_bank_resources.py text eol=lf
+core/**/finalize_raw_selector.py text eol=lf
+core/**/finalize_bank_signals.py text eol=lf
+core/**/finalize_ohlcv_keys.py text eol=lf
+core/**/finalize_deterministic_bank.py text eol=lf
+core/**/finalize_context.py text eol=lf
+core/**/finalize_prior.py text eol=lf
+core/**/finalize_serving_profile.py text eol=lf
+core/**/finalize_serving_resources.py text eol=lf
+core/**/finalize_serving_provider.py text eol=lf
+core/**/finalize_serving_evaluation.py text eol=lf
+core/**/finalize_live_capture.py text eol=lf
+scripts/**/prepare_finalize_bank.py text eol=lf
+scripts/**/prepare_finalize_ohlcv_bank.py text eol=lf
+scripts/**/verify_finalize_ohlcv_bank.py text eol=lf
+scripts/**/check_finalize_context.py text eol=lf
+templates/**/demo_new.html text eol=lf
+templates/**/output.html text eol=lf
+templates/**/backtest.html text eol=lf
+tests/**/test_realtime_index.py text eol=lf
+tests/**/test_realtime_decision_budget.py text eol=lf
+tests/**/test_variant_serving.py text eol=lf
+tests/js/site_preferences.test.mjs text eol=lf
+tests/**/test_finalize_alpha_leakage.py text eol=lf
+tests/**/test_finalize_news.py text eol=lf
+tests/**/test_finalize_news_leakage.py text eol=lf
+tests/**/test_finalize_ohlcv_bank_leakage.py text eol=lf
+tests/**/test_finalize_serving_leakage.py text eol=lf
+utils/**/analysis_ui.py text eol=lf
+utils/**/backtest_export.py text eol=lf
+utils/**/legacy_backtest.py text eol=lf
+utils/**/backtest_ui.py text eol=lf
+utils/**/serving_live_web.py text eol=lf
+utils/**/realtime_analysis_view.py text eol=lf
+utils/**/analysis_sentiment_view.py text eol=lf
+utils/**/site_preferences.py text eol=lf
+utils/**/paired_reports.py text eol=lf
+core/serving_live/**/*.py text eol=lf
+core/serving_runtime/**/*.py text eol=lf
+core/ui_presentation/**/*.py text eol=lf
+core/unified_analysis/**/* -text
+static/css/**/site_theme.css text eol=lf
+static/js/**/site_preferences.js text eol=lf
+static/js/**/display_locale.js text eol=lf
+templates/analysis/**/*.html text eol=lf
+templates/backtest/**/*.html text eol=lf
+templates/shared/**/*.html text eol=lf
+tests/analysis_ui/**/*.py text eol=lf
+tests/analysis_ui/**/report_reference.json -text
+tests/analysis_ui/**/locale_regression.json -text
+tests/backtest_ui/**/*.py text eol=lf
+tests/js/**/analysis_ui.test.mjs text eol=lf
+tests/js/**/backtest_ui.test.mjs text eol=lf
+tests/serving_integration/**/*.py text eol=lf
+tests/serving_live/**/*.py text eol=lf
+tests/serving_runtime/**/*.py text eol=lf
+static/css/analysis/**/*.css text eol=lf
+static/css/backtest/**/*.css text eol=lf
+static/js/analysis/**/*.js text eol=lf
+static/js/backtest/**/*.js text eol=lf

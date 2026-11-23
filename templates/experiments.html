@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ LANG }}">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ E.title }} · QuantAgent VN</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/experiments.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis/serving.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/backtest/serving.css') }}">
+  <script type="module" src="{{ url_for('static', filename='js/experiments/main.js') }}"></script>
+{% include 'shared/preferences_head.html' %}
+</head>
+<body>
+{% include 'shared/preferences.html' %}
+<header class="topbar"><a class="brand" href="/?lang={{ LANG }}">QuantAgent <span>VN</span></a>
+  <nav aria-label="{{ P.navigation }}"><a href="/?lang={{ LANG }}">{{ E.analysis }}</a><a href="/output?lang={{ LANG }}">{{ E.output }}</a><a href="/backtest?lang={{ LANG }}">{{ E.backtest }}</a><a aria-current="page" href="/experiments?lang={{ LANG }}">{{ E.research }}</a></nav>
+
+</header>
+<main>
+  <div class="heading"><div><span class="eyebrow">{{ E.offline }}</span><h1>{{ E.title }}</h1><p>{{ E.subtitle }}</p></div><span id="state" role="status" aria-live="polite">{{ E.loading }}</span></div>
+  <p class="notice">{{ E.notice }}</p>
+  <p id="bt-catalog-error" role="status"></p>
+  <form id="filters" class="panel">
+    <div class="filter-row"><label>{{ E.kind }}<select id="kind"><option value="all">{{ E.all }}</option><option value="paper_evidence">{{ E.paper_evidence }}</option><option value="serving_backtest">{{ B.new_backtest }}</option><option value="legacy_backtest">{{ B.legacy_backtest }}</option><option value="legacy_offline">{{ E.legacy_offline }}</option></select></label>
+      <label class="grow">{{ E.run }}<select id="run" required></select></label><button type="submit" id="load">{{ E.apply }}</button></div>
+    <div id="research-filters"><fieldset><legend>{{ E.methods }}</legend><div class="choices">
+      {% for v in serving_registry.variants if v.group == 'main' %}<label><input type="checkbox" name="method" value="{{ v.id }}" checked>{{ v.label[LANG] }}</label>{% endfor %}
+    </div></fieldset>
+    <details><summary>{{ E.advanced }}</summary><div class="choices">
+      {% for v in serving_registry.variants if v.group == 'advanced' %}<label><input type="checkbox" name="method" value="{{ v.id }}" checked>{{ v.label[LANG] }}</label>{% endfor %}
+      <label><input type="checkbox" name="method" value="CASH_EVERY_CYCLE">CASH</label><label><input type="checkbox" name="method" value="ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS">ALWAYS_LONG</label>
+    </div></details>
+    <label class="baseline">{{ E.baseline }}<select id="baseline"><option value="original_fix">{{ serving_registry.variants[0].label[LANG] }} · original_fix</option><option value="original_common">original_common</option></select></label></div>
+    <div id="legacy-filter" hidden><label>{{ E.method }}<select id="variant">{% for v in registry.variants %}<option value="{{ v.id }}" {% if v.id == registry.default %}selected{% endif %}>{{ v.id }}</option>{% endfor %}</select></label></div>
+  </form>
+  <p id="error" role="alert"></p><p id="empty" hidden>{{ E.empty }}</p>
+  {% include 'experiments/methods.html' %}
+  <div id="research-result" hidden aria-busy="false">
+    <div id="stats" class="stats"></div>
+    {% include 'experiments/metrics.html' %}
+    {% include 'experiments/details.html' %}
+    <section class="panel"><h2>{{ E.exports }}</h2><p>{{ E.export_note }}</p><div id="downloads" class="downloads"></div></section>
+    <details class="panel"><summary>{{ E.provenance }}</summary><pre id="provenance"></pre></details>
+  </div>
+  <section id="legacy-result" class="panel" hidden><h2>{{ E.legacy_offline }}</h2><p class="notice">{{ E.legacy_notice }}</p><p id="legacy-support"></p><div id="legacy-downloads" class="downloads"></div><div class="scroll" tabindex="0"><table><thead><tr><th>{{ E.date }}</th><th>{{ E.raw }}</th><th>{{ E.action }}</th><th>{{ E.cycle_return }}</th><th>{{ E.policy }}</th><th>{{ E.quality }}</th></tr></thead><tbody id="legacy-rows"></tbody></table></div><p id="legacy-accounts"></p></section>
+  {% include 'backtest/results.html' %}
+</main>
+<script type="application/json" id="research-config">{{ {'messages': E, 'backtestMessages':B, 'language': LANG, 'variants': serving_registry.variants, 'registry':serving_registry}|tojson }}</script>
+</body></html>
