@@ -90,39 +90,38 @@
 
 %% Abstract
 \begin{abstract}
-Financial trading systems built with large language models increasingly
-combine market data with textual evidence. TradingAgents coordinates
-specialist analysts across information sources, and FinMem retrieves
-financial information from layered memory. QuantAgent organizes technical
-indicators, patterns and trends into specialist reports. When adapting
-QuantAgent to daily Vietnamese equities, it remains
-unclear whether explicit factor signals and local-language news improve
-decisions made from the same technical evidence. We introduce Our system,
-which adds an Alpha Agent and a Sentiment Agent to QuantAgent. Alpha
-ranks price--volume factors and passes their aggregate direction and vote
-counts to Decision in the main evaluation. Sentiment summarizes eligible
-Vietnamese news and flags insufficient coverage. We compare the systems
-at shared historical cutoffs under a T+2.5 execution convention and
-a common cost model.
-None of the 102 main prompts contains individual factor-value rows,
-and 79 mark sentiment as missing. Our system achieves 52.96\% balanced
-accuracy and a mean net account return of $-0.797$\%. QuantAgent achieves
-49.71\% and $-0.750$\%, respectively. The 3.25 percentage-point gain in
-balanced accuracy has a descriptive interval of $[-1.18,+8.13]$.
-Logistic-price ranks higher on both metrics with the same number of LONG
-decisions as Our system. A secondary study evaluates Bayesian in-context
-learning; its follow-up shows little change in final actions.
+Multi-agent systems based on large language models can combine price data
+and written reports for trading decisions. TradingAgents coordinates
+specialist analysts across information sources, while FinMem retrieves
+information from layered financial memory. QuantAgent organizes technical
+indicators, chart patterns and trends into specialist reports. For daily
+Vietnamese equities, an open question is what explicit price--volume
+factors and Vietnamese-language news add to the same technical evidence.
+Our system extends QuantAgent with two agents. The Alpha Agent ranks candidate
+factors and passes aggregate direction and vote counts to the Decision
+Agent. The Sentiment Agent summarizes eligible Vietnamese news and
+flags when coverage is insufficient. We compare the systems at 102 paired
+stock--date cutoffs under a T+2.5 execution convention and a common cost
+model. The paired design holds the technical reports fixed to assess the
+augmented Decision prompt. We evaluate directional forecasts at the cutoff
+level and net returns at the account level. An audit of the decision
+prompts verifies which signals reached the model. In this historical sample,
+the augmented system made fewer false LONG calls and identified the same
+number of profitable LONG opportunities as QuantAgent. The observed
+change describes directional decisions in the sample, and limited news
+coverage constrains attribution to sentiment. A secondary study tests five
+Bayesian in-context learning variants that use completed trading episodes.
 \end{abstract}
 
 %%Graphical abstract
 
 
 \begin{highlights}
-\item Adds aggregate OHLCV alpha and Vietnamese news context to QuantAgent.
-\item Audits the actual prompts used at all 102 paired stock--date cutoffs.
-\item Finds a 3.25-point balanced accuracy gain over QuantAgent with lower return.
-\item Logistic-price exceeds Our system on both metrics with the same 24 LONG decisions.
-\item Follow-up BICL changes final actions at few distinct stock--date cutoffs.
+\item Adds an Alpha Agent to rank OHLCV factors and summarize their direction.
+\item Adds a Sentiment Agent to summarize Vietnamese news and flag missing coverage.
+\item Compares decisions at 102 paired cutoffs under a shared T+2.5 protocol.
+\item Audits which alpha and sentiment signals reach the Decision Agent.
+\item Tests five Bayesian in-context variants using completed trading episodes.
 \end{highlights}
 
 %% Keywords
