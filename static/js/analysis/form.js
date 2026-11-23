@@ -36,19 +36,20 @@ export function formController(config, io = json, navigate = url => location.ass
     const id = byId('analysis-version').value;
     const summary = id === 'original_fix' ? text.native_description :
       id === 'MT_BICL' ? text.mt_description : text.prior_description;
-    byId('version-description').textContent = `${summary} ${text.supported_symbols} ${config.registry.domain.released_symbols.join(', ')}.`;
+    byId('version-description').textContent = `${summary} ${text.live_full_catalog}`;
     buttons();
   }
   async function start(mode = 'analyze') {
     if (mode !== 'analyze' || starting || uncertain || !defaults || !window.legacyAnalysis.begin()) return;
     const variant = byId('analysis-version').value;
-    starting = true; buttons(); byId('timeframe-run-status').textContent = '';
+    const selection = window.legacyAnalysis.selection();
+    const status = byId('timeframe-run-status');
+    starting = true; buttons(); status.textContent = '';
     phase = undefined; progress = undefined;
     showAgentSteps([variant],{loading:'running'},progressConfig);
     chooseDisplayLanguage(config.language);
     try {
-      const chosen = {...window.legacyAnalysis.selection(),timeframe:'1d',version:config.registry.default_profile,
-        variant,language:config.language,repeats:1};
+      const chosen = {...selection,timeframe:'1d',version:config.registry.default_profile,variant,language:config.language,repeats:1};
       const result = await runTimeframe(config,chosen,structuredClone(defaults.models),io,
         (value,key) => { phase = key; byId('analysis-progress-message').textContent = progressConfig.messages[key] ?? value; });
       const link = byId('last-serving-job'); link.href = result.url; link.hidden = false;
@@ -58,7 +59,7 @@ export function formController(config, io = json, navigate = url => location.ass
       navigate(route.pathname+route.search);
     } catch (error) {
       uncertain = error.message === text.start_unknown;
-      byId('timeframe-run-status').textContent = error.message || text.failed;
+      status.textContent = error.message || text.failed;
     } finally { starting = false; window.legacyAnalysis.end(); buttons(); }
   }
   async function init() {

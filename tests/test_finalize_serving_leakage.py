@@ -195,6 +195,8 @@ class FinalizedServingTests(unittest.TestCase):
         resources = FinalizedResources(ROOT)
         market = resources.calendar[["Datetime", "Close"]].copy(deep=True)
         cutoff = "2026-10-01"
+        index_cutoff = "2026-10-02"
+        captured_at = datetime(2026, 10, 2, 15, 33, tzinfo=ZONE)
         market.loc[len(market)] = [pd.Timestamp(cutoff), float(market.Close.iloc[-1])]
         stock = resources.stock("FPT")
         suffix = stock.iloc[-1:].copy()
@@ -210,10 +212,12 @@ class FinalizedServingTests(unittest.TestCase):
         seen = []
         def index(symbol: str) -> pd.DataFrame:
             seen.append(symbol)
-            return market.iloc[223:].copy(deep=True)
+            published = market.iloc[223:].reset_index(drop=True)
+            published.loc[len(published)] = [pd.Timestamp(index_cutoff), float(market.Close.iloc[-1])]
+            return published
 
         snapshots = Snapshots(self.temp/"capture", prices=index, news=lambda *_: self.fail("Tin legacy"),
-                              now=lambda: datetime(2026, 10, 2, 10, tzinfo=ZONE))
+                              now=lambda: captured_at)
         self.service(fixture=False, hosted=True)
         live_service = self.service(fixture=False, hosted=True, snapshots=snapshots)
         base = "/api/serving/live/v1"
@@ -221,11 +225,11 @@ class FinalizedServingTests(unittest.TestCase):
             return (f'<div><h3><a href="/ket-qua-{identifier}.chn">{title}</a></h3>'
                     f'<span class="time">{when}</span></div>')
 
-        listing = "".join([article(123456, "02/10/2026 09:00"), article(123457, "02/10/2026 11:00"),
+        listing = "".join([article(123456, "02/10/2026 09:00"), article(123457, "02/10/2026 16:00"),
             article(123458, "02/10/2026"), article(123459, ""), article(123460, "01/10/2026", "HPG tăng sản lượng"),
             article(123461, "01/06/2026 09:00")])
         peer_listing = "".join([article(223456, "02/10/2026 08:00", "CMG công bố doanh thu"),
-            article(223457, "01/10/2026 12:00", "CMG ký kết hợp đồng"), article(223458, "02/10/2026 12:00", "CMG sắp tới")])
+            article(223457, "01/10/2026 12:00", "CMG ký kết hợp đồng"), article(223458, "02/10/2026 16:00", "CMG sắp tới")])
         news_inputs = []
         news_urls = []
 
@@ -249,12 +253,15 @@ class FinalizedServingTests(unittest.TestCase):
             captured = self.client.post(base+"/snapshot", json={"symbol": "FPT", "profile": VERSION})
             self.assertEqual(captured.status_code, 200, captured.get_json())
             capture = captured.get_json()
-            fetch.assert_called_once_with("FPT", "2020-01-02", cutoff)
-            capture_articles.assert_called_once_with("FPT", datetime(2026, 10, 2, 10, tzinfo=ZONE))
+            fetch.assert_called_once_with("FPT", "2020-01-02", index_cutoff)
+            capture_articles.assert_called_once_with("FPT", captured_at)
         self.assertEqual(capture["capture_version"], LIVE_CAPTURE)
+        self.assertEqual(capture["cutoff"], cutoff)
         self.assertEqual(capture["live_news"]["status"], "AVAILABLE")
         value = {"version": "variant_serving_live_v1", "snapshot_id": capture["snapshot_id"],
                  "request": request("compare", cutoff, ["original_fix", "MT_BICL"])}
+        single = {**value, "request": request("analyze", cutoff, ["original_fix"])}
+        self.assertTrue(self.client.post(base+"/preflight", json=single).get_json()["run_enabled"])
         with patch("agents.sentiment_agent._get", side_effect=AssertionError("Đọc lại CafeF")), patch(
                 "agents.sentiment_agent._score_text", side_effect=AssertionError("Chấm lại tin")), patch.object(
                 self.sender, "send", wraps=self.sender.send) as transport:
@@ -275,6 +282,18 @@ class FinalizedServingTests(unittest.TestCase):
         self.assertIn(LIVE_CAPTURE, result["identity"]["config"]["provider_version"])
         self.assertEqual(result["outcome_points"], 0)
         self.assertEqual(sum(k == "vision" for k, _ in self.sender.calls), 2)
+        decision_calls = [call.args[0] for call in transport.call_args_list if "response_format" in call.args[0]]
+        grounded = [body for body in decision_calls if "MACD_ZERO gives the sign" in body["messages"][-1]["content"]]
+        self.assertEqual(len(grounded), 1)
+        self.assertTrue(all(sum(len(message["content"]) for message in body["messages"]) < 6500 for body in grounded))
+        slot = result["policy_details"][f"forecast/FPT-{cutoff}/r0/MT_BICL"]
+        self.assertTrue(slot["policy"]["bypass"])
+        self.assertIsNone(slot["raw_reply"])
+        display = slot["decision_display"]
+        self.assertIn("thiếu ngữ cảnh đủ điều kiện", display["vi"]["justification"])
+        self.assertIn("lacked eligible context", display["en"]["justification"])
+        number = format(slot["context"]["aux"]["packet"]["numeric"]["macd"], ".6g")
+        self.assertIn(f"MACD {number}", display["en"]["evidence_for"])
         payload = result["snapshots"]["FPT-"+cutoff]
         self.assertEqual(payload["payload"]["price_prefix"]["Datetime"][-1], cutoff)
         self.assertEqual(payload["provenance"]["source_sha256"], capture["snapshot_id"])
@@ -312,12 +331,12 @@ class FinalizedServingTests(unittest.TestCase):
         self.assertEqual(record["news"][0]["score_input"], news_inputs[0])
         self.assertEqual(record["news"][0]["score_input_sha256"], digest(news_inputs[0]))
         future_news = deepcopy(record)
-        future_news["news"][0]["published_at"] = future_news["news"][0]["available_at"] = "2026-10-02T11:00:00+07:00"
+        future_news["news"][0]["published_at"] = future_news["news"][0]["available_at"] = "2026-10-02T16:00:00+07:00"
         with self.assertRaisesRegex(ValueError, "CafeF"):
             FinalizedResources(ROOT, future_news, digest(future_news))
         peer_future = deepcopy(record)
         peer_row = peer_future["related_news"]["CMG"]["articles"][0]
-        peer_row["published_at"] = peer_row["available_at"] = "2026-10-02T11:00:00+07:00"
+        peer_row["published_at"] = peer_row["available_at"] = "2026-10-02T16:00:00+07:00"
         with self.assertRaisesRegex(ValueError, "CafeF"):
             CapturedNews(peer_future)
         previous = deepcopy(record)
@@ -353,6 +372,62 @@ class FinalizedServingTests(unittest.TestCase):
                 self.assertEqual(payload["missing_reason"], status)
                 self.assertIsNone(payload["main_sentiment"]["avg_score"])
                 self.assertEqual(payload["scored_articles"], [])
+
+    def test_live_catalog_runs_all_methods_on_short_listing_without_inventing_alpha(self) -> None:
+        """Mã ngoài mẫu và mới niêm yết giữ cùng snapshot, fallback và dữ kiện thật."""
+        from core.serving_live.cafef_news import RELATED_VERSION
+        from core.serving_live.catalog import CATALOG, ORIGIN
+        from core.serving_registry import MAIN_IDS
+
+        resources = FinalizedResources(ROOT)
+        symbol, cutoff = 'HPG', '2026-09-30'
+        now = datetime(2026, 10, 1, 10, tzinfo=ZONE)
+        frame = resources.stock('FPT').tail(60)
+        columns = {'Datetime':'tradingDate', 'Open':'openPrice', 'High':'highestPrice',
+                   'Low':'lowestPrice', 'Close':'closePrice', 'Volume':'totalMatchVolume', 'Reference':'referencePrice'}
+        source = frame.rename(columns=columns).copy()
+        source['tradingDate'] = frame.Datetime.dt.strftime('%Y-%m-%d')
+        source['ticker'] = symbol
+        for field in ('openPrice', 'highestPrice', 'lowestPrice', 'closePrice', 'referencePrice'):
+            source[field] = source[field].mul(1000).round(7)
+        receipts = {'prices':[{'response_sha256':'1'*64}], 'events':[{'response_sha256':'2'*64}]}
+        snapshots = Snapshots(self.temp/'capture', prices=lambda _: resources.calendar[['Datetime','Close']], now=lambda: now)
+        self.service(fixture=False, hosted=True)
+        backend = self.service(fixture=False, hosted=True, snapshots=snapshots)
+        meta = {'version':RELATED_VERSION, 'as_of_at':now.isoformat(), 'status':'NO_ELIGIBLE_NEWS'}
+        base = '/api/serving/live/v1'
+        with patch('core.finalize_live_capture.raw_pages', return_value=(source.to_dict('records'), [], receipts)) as prices, patch(
+                'core.finalize_live_capture.capture_live_news', return_value=([], meta, {})):
+            response = self.client.post(base+'/snapshot', json={'symbol':symbol, 'profile':VERSION})
+            prices.assert_called_once_with(symbol, ORIGIN, cutoff)
+        self.assertEqual(response.status_code, 200, response.get_json())
+        capture = response.get_json()
+        self.assertEqual(capture['support_scope'], CATALOG)
+        spec = {**request('compare', cutoff, list(MAIN_IDS)), 'symbols':[symbol]}
+        # Historical support vẫn dựa trên manifest đã khóa.
+        historical = {**spec, 'mode':'backtest'}
+        self.assertFalse(self.client.post('/api/serving/v1/preflight', json=historical).get_json()['run_enabled'])
+        body = {'version':'variant_serving_live_v1', 'snapshot_id':capture['snapshot_id'], 'request':spec}
+        self.assertTrue(self.client.post(base+'/preflight', json=body).get_json()['run_enabled'])
+        started = self.client.post(base+'/jobs', json=body)
+        self.assertEqual(started.status_code, 202, started.get_json())
+        self.join(backend)
+        result = self.client.get(base+'/jobs/'+started.get_json()['run_id']).get_json()
+        self.assertEqual(result['state'], 'completed', result.get('error'))
+        self.assertEqual(result['outcome_points'], 0)
+        self.assertEqual(sum(role == 'vision' for role, _ in self.sender.calls), 2)
+        rows = {row['requested_id']:row for row in result['rows']}
+        self.assertTrue(set(MAIN_IDS).issubset(rows))
+        for method in ('bayesian_v1', 'C2', 'A_tp_pool', 'B_semantic'):
+            self.assertEqual(rows[method]['executed_id'], 'original_common')
+        point = symbol+'-'+cutoff
+        payload = result['snapshots'][point]['payload']
+        self.assertNotIn('causal_alpha', payload)
+        self.assertEqual(payload['alpha_factors'], [])
+        self.assertEqual(len(payload['price_prefix']['Datetime']), 60)
+        mt = result['policy_details'][f'forecast/{point}/r0/MT_BICL']
+        self.assertEqual(mt['context']['aux']['packet']['point_id'], point)
+        self.assertTrue(mt['policy']['bypass'])
 
     def test_live_news_normalizes_actual_article_scores_and_checks_mention(self) -> None:
         """Tên thương hiệu có chứng cứ; điểm tương đối dùng mã đủ bài, z-score dùng điểm gốc."""

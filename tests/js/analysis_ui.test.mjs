@@ -12,6 +12,8 @@ import {runTimeframe} from '../../static/js/analysis/timeframe.js';
 globalThis.document = {getElementById:() => null};
 const {formController} = await import('../../static/js/analysis/form.js');
 const {resultController} = await import('../../static/js/analysis/result.js');
+const {comparisonForm} = await import('../../static/js/analysis/comparison.js');
+const {comparisonView,isPairedResult} = await import('../../static/js/analysis/comparison_view.js');
 const root = fileURLToPath(new URL('../../',import.meta.url));
 const fixture = JSON.parse(execFileSync('py',['-3.13','-X','utf8','tests/analysis_ui/fixture.py'],{cwd:root,encoding:'utf8'}));
 let nodes, selected, events, legacyRuns, legacyLoads;
@@ -45,6 +47,92 @@ beforeEach(() => {
   for (const [id,value] of Object.entries({'analysis-source':'asof','analysis-version':'original_fix','asof-symbol':'MWG',
     'asof-date':'2026-07-02','report-language':'vi','analysis-repeats':'1'})) node(id).value = value;
 });
+
+test('Tab so sánh live nhận mã ngoài mẫu và chỉ capture một lần cho hai phương pháp', async () => {
+  const calls=[], routes=[];
+  const config={...fixture.config,messages:{...fixture.config.messages,distinct:'Chọn hai phiên bản khác nhau'}};
+  const form=comparisonForm(config,async (url,body)=>{
+    calls.push({url,body});
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    if (url.endsWith('/snapshot')) return {symbol:'HPG',cutoff:'2026-11-20',capture_version:'finalize_live_raw_capture_v1',snapshot_id:'c'.repeat(64)};
+    if (url.endsWith('/preflight')) return ready;
+    return {run_id:fixture.data.run_id};
+  },url=>routes.push(url));
+  node('compare-first').value='C2';
+  node('compare-second').value='C2';
+  node('compare-symbol').value='HPG';
+  node('compare-source').value='live';
+  await form.init(); await form.start();
+  assert.match(node('compare-status').textContent,/khác nhau/);
+  assert.equal(calls.length,1);
+  node('compare-second').value='A_tp_pool';
+  await Promise.all([form.start(),form.start()]);
+  assert.deepEqual(calls.slice(1).map(row=>row.url),['/api/serving/live/v1/snapshot','/api/serving/live/v1/preflight','/api/serving/live/v1/jobs']);
+  assert.deepEqual(calls[2].body,calls[3].body);
+  assert.deepEqual(calls[3].body.request.variant_ids,['C2','A_tp_pool']);
+  assert.deepEqual(calls[3].body.request.symbols,['HPG']);
+  assert.equal(calls[3].body.request.mode,'compare');
+  assert.match(routes[0],/\/compare\?run_id=.*&source=live&lang=vi/);
+});
+
+test('So sánh lịch sử dùng backtest đúng một ngày và dừng khi preflight chặn', async () => {
+  const calls=[],routes=[];
+  let enabled=false;
+  const form=comparisonForm({...fixture.config},async (url,body)=>{
+    calls.push({url,body});
+    if (url.endsWith('/defaults')) return {models:fixture.data.identity.request.models};
+    if (url.endsWith('/preflight')) return enabled ? ready : {run_enabled:false,status:'blocked',blockers:[{code:'SUPPORT_MISMATCH'}]};
+    return {run_id:fixture.data.run_id};
+  },url=>routes.push(url));
+  node('compare-first').value='MT_BICL';
+  node('compare-second').value='original_fix';
+  node('compare-symbol').value='FPT';
+  node('compare-source').value='history';
+  node('compare-date').value='2026-07-10';
+  await form.init(); await form.start();
+  assert.match(node('compare-status').textContent,/ngoài miền/);
+  assert.equal(routes.length,0);
+  enabled=true; await form.start();
+  assert.equal(calls[3].url,'/api/serving/v1/jobs');
+  const spec=calls[3].body;
+  assert.deepEqual(spec,calls[2].body);
+  assert.deepEqual(spec.variant_ids,['MT_BICL','original_fix']);
+  assert.deepEqual([spec.mode,spec.start_date,spec.end_date,spec.repeats],['backtest','2026-07-10','2026-07-10',1]);
+  assert.match(routes[0],/&source=history&/);
+});
+
+test('Bảng so sánh giữ thứ tự chọn, hiện fallback và chỉ tính chênh lệch khi đủ P&L', () => {
+  const data=structuredClone(fixture.data);
+  const config={...fixture.config,source:'history',language:'en',messages:{...fixture.config.messages,
+    same_decision:'Same final decision', different_decisions:'Different final decisions', fallback:'Uses fallback.',
+    delta_return:'P&L difference',percentage_points:'percentage points',net_return:'Net P&L',
+    no_outcome:'No verified execution outcome.',no_own_proposal:'No separate proposal'}};
+  const request=data.identity.request;
+  Object.assign(request,{version:'finalize_serving_v1',mode:'backtest',variant_ids:['C2','original_fix']});
+  const left=data.rows.find(row=>row.requested_id==='C2');
+  const right=data.rows.find(row=>row.requested_id==='original_fix');
+  const point=left.point_id;
+  data.policy_details[`forecast/${point}/r0/original_common`].display_en={justification:'Saved English fallback.'};
+  const view=comparisonView(config);
+  assert.equal(isPairedResult(data,config),true);
+  assert.equal(isPairedResult(data,{...config,source:'live'}),false);
+  view.render(data);
+  assert.match(node('compare-summary').textContent,/Same final decision/);
+  assert.match(node('compare-outcome-note').textContent,/No verified execution/);
+  assert.match(node('compare-cards').children[0].textContent,/No separate proposal.*Uses fallback.*Saved English fallback/);
+  assert.match(node('compare-cards').children[0].children[0].textContent,/C2/);
+  assert.match(node('compare-cards').children[0].children.at(-1).href,/source=history&report=C2&lang=en/);
+  assert.match(node('compare-cards').children[1].children.at(-1).href,/source=history&report=original_fix&lang=en/);
+  assert.doesNotMatch(node('compare-summary').textContent,/P&L difference/);
+  Object.assign(right,{net_return_pct:1.5,final_prediction:'LONG',final_action:'LONG'});
+  left.net_return_pct=0;
+  view.render(data);
+  assert.match(node('compare-summary').textContent,/Different final decisions.*\+1\.5 percentage points/);
+  data.rows=data.rows.filter(row=>row!==right);
+  view.render(data);
+  assert.equal(node('compare-summary').hidden,true);
+  assert.match(node('compare-cards').children[1].textContent,/Chưa hoàn tất/);
+});
 test('Profile sửa dùng snapshot raw và preflight riêng, kết quả giữ đúng route/schema', async () => {
   const calls = [], config = fixture.config;
   const selection = {symbol:'MWG',timeframe:'1d',version:'finalize_serving_v1',variant:'original_fix',language:'vi',repeats:1};
@@ -72,6 +160,30 @@ test('Preflight chặn hosted profile sửa và giữ thông báo tiếng Anh', 
   };
   await assert.rejects(runTimeframe(config,selection,fixture.data.identity.request.models,io,() => {}), /Hosted execution.*pending/);
   assert.equal(calls.length,2);
+});
+
+test('Hiển thị lời giải thích MT-BICL đã xác minh ở cả hai màn hình kết quả', () => {
+  const data=structuredClone(fixture.data);
+  Object.assign(data.identity.request,{mode:'compare',variant_ids:['original_fix','MT_BICL']});
+  data.requested_ids=['original_fix','MT_BICL'];
+  const row=data.rows.find(value=>value.requested_id==='MT_BICL');
+  const detail=data.policy_details[`forecast/${row.point_id}/r0/MT_BICL`];
+  detail.raw_reply={justification:'MACD vẫn dương.'};
+  detail.display_en={justification:'MACD remains positive.'};
+  detail.decision_display={
+    vi:{justification:'Giữ quyết định của Fact Anchor.',evidence_for:'MACD -0,3613 (âm).'},
+    en:{justification:'Kept the Fact Anchor decision.',evidence_for:'MACD -0.3613 (negative).'},
+  };
+  for (const [language,verified,raw] of [['vi',/MACD -0,3613 \(âm\)/,/MACD vẫn dương/],
+                                         ['en',/MACD -0\.3613 \(negative\)/,/MACD remains positive/]]) {
+    const config={...fixture.config,source:'live',language};
+    comparisonView(config).render(data);
+    assert.match(node('compare-cards').textContent,verified);
+    assert.doesNotMatch(node('compare-cards').textContent,raw);
+    renderer(config).render(data);
+    assert.match(node('decision-cards').textContent,verified);
+    assert.doesNotMatch(node('decision-cards').textContent,raw);
+  }
 });
 
 test('Kết quả profile sửa hiển thị phạm vi PIT và xuất đúng namespace owner', () => {
@@ -239,7 +351,8 @@ test('Hệ gốc chờ cấu hình chạy của máy chủ và khóa nút nếu 
   assert.deepEqual(calls,['/api/serving/v1/defaults']);
 });
 
-test('Sáu phương pháp dùng profile nghiên cứu mặc định; nhấn hai lần chỉ tạo một job', async () => {
+test('Sáu phương pháp dùng cùng luồng live ngoài mẫu; nhấn hai lần chỉ tạo một job', async () => {
+  window.legacyAnalysis.selection = () => ({symbol:'HPG',timeframe:'1d'});
   for (const variant of ['original_fix','bayesian_v1','C2','A_tp_pool','B_semantic','MT_BICL']) {
     node('analysis-version').value = variant;
     const calls = [],routes = []; let polls = 0;
@@ -249,7 +362,7 @@ test('Sáu phương pháp dùng profile nghiên cứu mặc định; nhấn hai 
       if (url.endsWith('/snapshot')) {
         assert.equal(node('step-bicl').hidden,variant === 'original_fix');
         assert.ok(node('step1').classes.has('active'));
-        return {symbol:'MWG',cutoff:'2026-11-13',capture_version:'finalize_live_raw_capture_v1',snapshot_id:'c'.repeat(64)};
+        return {symbol:'HPG',cutoff:'2026-11-13',capture_version:'finalize_live_raw_capture_v1',snapshot_id:'c'.repeat(64)};
       }
       if (url.endsWith('/preflight')) return ready;
       if (url.endsWith('/jobs')) return {run_id:fixture.data.run_id};
@@ -263,6 +376,7 @@ test('Sáu phương pháp dùng profile nghiên cứu mặc định; nhấn hai 
     await form.init(); await Promise.all([form.start(),form.start()]);
     const jobs = calls.filter(call => call.url.endsWith('/jobs'));
     assert.equal(jobs.length,1); assert.deepEqual(jobs[0].body.request.variant_ids,[variant]);
+    assert.deepEqual(jobs[0].body.request.symbols,['HPG']);
     assert.equal(jobs[0].body.request.timeframe,'1d'); assert.equal(jobs[0].body.request.repeats,1);
     assert.equal(jobs[0].body.request.version,'finalize_serving_v1');
     assert.deepEqual(calls.find(call => call.url.endsWith('/preflight')).body,jobs[0].body);

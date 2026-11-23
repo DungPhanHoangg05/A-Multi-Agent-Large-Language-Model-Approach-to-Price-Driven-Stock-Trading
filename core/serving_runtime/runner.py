@@ -195,6 +195,9 @@ class Runner:
                                      "context": {"trace": preparation.get("trace"), "aux": preparation.get("aux")},
                                      "shared_sha256": snapshots[point["id"]]["sha256"]}
                     if 'display_en' in record: details[slot]['display_en']=record['display_en']
+                    if self.finalized and self.request.get('data_source') == 'live' and variant == 'MT_BICL':
+                        from core.ui_presentation.mt_bicl import explanation
+                        details[slot]['decision_display'] = explanation(preparation['aux'], policy)
             rows.extend(point_rows)
             points_complete += int(len(point_rows) == len(self.plan)*self.request["repeats"])
         progress = {"points_total": len(self.reservation["points"]), "points_complete": points_complete,

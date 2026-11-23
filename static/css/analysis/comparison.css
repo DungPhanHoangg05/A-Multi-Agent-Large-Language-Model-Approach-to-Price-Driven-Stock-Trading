@@ -1,0 +1,10 @@
+.comparison-pair {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.comparison-pair .decision-card {background:var(--site-panel);padding:1.15rem}
+.comparison-pair .decision-card dd {overflow-wrap:anywhere}
+.comparison-pair .decision-card h4 {margin:1rem 0 .25rem}
+.comparison-summary {border-left:4px solid var(--site-accent);border-radius:6px;background:var(--site-panel);margin:1rem 0;padding:.55rem 1rem}
+.comparison-summary h2 {margin:.3rem 0}
+.comparison #job-error {color:var(--site-accent)}
+.comparison input[type=search] {box-sizing:border-box;font:inherit;border:1px solid var(--site-border);border-radius:8px;min-height:44px;padding:.5rem;background:var(--site-panel);color:var(--site-fg);width:100%}
+.comparison-open-report {display:inline-block;margin-top:.8rem;font-weight:650}
+@media(max-width:640px) {.comparison-pair {grid-template-columns:1fr}}

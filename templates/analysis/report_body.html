@@ -12,7 +12,8 @@
                     </div>
                     <div class="meta-pills">
                         {% if results.analysis_version %}<span class="meta-pill">{{ results.analysis_version }}</span>{% endif %}
-                        {% if results.research_profile %}<span class="meta-pill" title="{{ results.execution_profile }}">{{ A.research_profile }}</span>{% endif %}
+                        {% if results.catalog_live %}<span class="meta-pill">{{ A.catalog_live }}</span>
+                        {% elif results.research_profile %}<span class="meta-pill" title="{{ results.execution_profile }}">{{ A.research_profile }}</span>{% endif %}
                         <span class="meta-pill"><i class="fas fa-chart-candlestick"></i> {{ results.asset_name if
                             results.asset_name else 'N/A' }}</span>
                         <span class="meta-pill"><i class="fas fa-clock"></i> {{ display_timeframe(results.timeframe,LANG) if results.timeframe
@@ -23,7 +24,20 @@
                         <span class="meta-pill"><i class="fas fa-newspaper"></i> Sentiment AI</span>
                     </div>
                 </div>
-                <a href="{{ url_for('demo', lang=LANG) }}" class="btn-back"><i class="fas fa-arrow-left"></i> {{ T.new_analysis }}</a>
+                <div class="report-navigation">
+                    {% if comparison_report is defined %}
+                        {% from 'shared/compare_messages.html' import messages as C with context %}
+                        <nav class="report-switcher" aria-label="{{ C.title }}">
+                            <a href="{{ url_for('compare', run_id=comparison_report.run_id, source=comparison_report.source, lang=LANG) }}">{{ C.overview }}</a>
+                            {% for method, labels in comparison_report.methods %}
+                                <a href="{{ url_for('compare', run_id=comparison_report.run_id, source=comparison_report.source, report=method, lang=LANG) }}"{% if method == comparison_report.selected %} aria-current="page"{% endif %}>{{ labels[1 if LANG == 'en' else 0] }}</a>
+                            {% endfor %}
+                        </nav>
+                    {% else %}
+                        <a href="{{ url_for('demo', lang=LANG) }}" class="btn-back"><i class="fas fa-arrow-left"></i> {{ T.new_analysis }}</a>
+                        {% include 'shared/compare_link.html' %}
+                    {% endif %}
+                </div>
             </div>
         </div>
 
@@ -91,7 +105,9 @@
                 <h5><i class="fas fa-lightbulb"></i> {{ T.justification }}</h5>
                 <p lang="{{ field_languages.get('justification', LANG) }}" data-localize data-locale-pending data-source-language="{{ field_languages.get('justification', results.report_language or 'vi') }}">{{ results.final_decision.justification }}</p>
                 {% if results.research_profile %}
-                {% for field, label in [('evidence_for', A.decision_support), ('evidence_against', A.decision_opposition)] %}
+                {% set facts_label = A.decision_verified_facts if results.verified_decision_explanation else A.decision_support %}
+                {% set history_label = A.decision_historical_utility if results.verified_decision_explanation else A.decision_opposition %}
+                {% for field, label in [('evidence_for', facts_label), ('evidence_against', history_label)] %}
                 {% if results.final_decision[field] %}<p><strong>{{ label }}</strong> · <span lang="{{ field_languages.get(field, LANG) }}" data-localize data-locale-pending>{{ results.final_decision[field] }}</span></p>{% endif %}
                 {% endfor %}
                 {% endif %}
@@ -101,8 +117,13 @@
             {% if results.serving_analysis and results.run_id %}
             <div class="report-run-links">
                 <span>{{ results.analysis_cutoff }}{% if results.research_profile %} · {{ A.research_pit_status }}{% endif %}</span>
-                <a href="{{ url_for('serving_live.result', identifier=results.run_id) }}">{{ A.export_json }}</a>
-                <a href="{{ url_for('output', serving_run=results.run_id, serving_source='live', presentation='details', lang=LANG) }}">{{ A.report_run_details }}</a>
+                {% if comparison_report is defined and comparison_report.source == 'history' %}
+                    <a href="{{ url_for('serving.backtest_evaluation', identifier=results.run_id) }}">{{ A.export_json }}</a>
+                    <a href="{{ url_for('backtest_page', run_id=results.run_id, lang=LANG) }}">{{ A.report_run_details }}</a>
+                {% else %}
+                    <a href="{{ url_for('serving_live.result', identifier=results.run_id) }}">{{ A.export_json }}</a>
+                    <a href="{{ url_for('output', serving_run=results.run_id, serving_source='live', presentation='details', lang=LANG) }}">{{ A.report_run_details }}</a>
+                {% endif %}
             </div>
             {% endif %}
 

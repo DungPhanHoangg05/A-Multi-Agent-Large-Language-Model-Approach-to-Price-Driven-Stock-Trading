@@ -8,6 +8,8 @@ MESSAGES = {
     'chart.validate':('Nến khung chọn có timestamp hoặc OHLCV không hợp lệ.','The selected chart has invalid timestamps or OHLCV.'),
     'prices.daily':('Không lấy được giá ngày của cổ phiếu từ VCI/KBS.','Could not load daily stock prices from VCI/KBS.'),
     'prices.validate':('Giá ngày cổ phiếu có lịch hoặc OHLCV không hợp lệ.','Daily stock timestamps or OHLCV are invalid.'),
+    'prices.session':('Giá ngày mới nhất của cổ phiếu đã quá cũ hoặc ngày giao dịch không khớp lịch VNINDEX.','The latest daily stock price is stale or its session is missing from the VNINDEX calendar.'),
+    'prices.history':('Nguồn giá cổ phiếu chưa có đủ 45 phiên hợp lệ để phân tích.','The stock price source has fewer than 45 valid sessions for analysis.'),
     'index.daily':('Không lấy được ngày/Close VNINDEX từ VCI/KBS.','Could not load VNINDEX dates/Close from VCI/KBS.'),
     'index.intraday':('Không lấy được Close VNINDEX intraday khi cần bổ sung phiên đang diễn ra.','Could not load intraday VNINDEX Close for the current session.'),
     'index.validate':('Ngày hoặc Close VNINDEX không hợp lệ, thiếu hoặc vượt cutoff.','VNINDEX dates or Close are invalid, missing or beyond the cutoff.'),

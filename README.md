@@ -193,6 +193,7 @@ Open `http://127.0.0.1:5000`.
 | `/` | Application landing page. |
 | `/demo` | Select a stock and one of the six methods, then run realtime 1D analysis. |
 | `/output` | Inspect a completed analysis and its reports, charts, decision, and context. |
+| `/compare` | Run any two of the six methods on the same stock and session. Compare their decisions, reasoning, and historical net P&L when available. |
 | `/backtest` | Configure walk-forward backtests and inspect progress and results. |
 | `/experiments` | Browse verified research results and serving jobs, compare supported methods, and export JSON/CSV. |
 
@@ -204,6 +205,15 @@ captures the latest completed daily session. The server validates resources and 
 before starting a checkpointed job. Completed results expose historical context,
 common alpha inputs, fallback/bypass reasons, and raw/final actions where
 applicable. Backtests use their own supported symbols, dates, and resource bindings.
+
+Comparison captures one shared live snapshot or uses one supported historical
+session. Its historical mode runs both forecasts before reading the settled
+outcome. Live Analysis and Comparison accept the full stock directory where VCI
+provides at least 45 valid daily bars, using the same checkpointed runner. Stocks
+outside the study sample are marked exploratory. They use transferred alpha when
+enough history is available, the common baseline when a Bayesian method lacks a
+same-stock bank, and MT-BICL's existing context eligibility rules. Open either full report from the comparison overview and
+switch versions or languages within the same saved run.
 
 Each new Research-profile live run captures CafeF news for the selected ticker
 up to the instant the run was started. It scores article titles and available

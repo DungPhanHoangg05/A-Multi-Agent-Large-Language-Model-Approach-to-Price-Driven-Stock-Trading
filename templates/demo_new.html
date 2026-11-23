@@ -14,6 +14,14 @@
 
 <body>
 {% include 'shared/preferences.html' %}
+<header class="serving-topbar">
+    <nav aria-label="{{ P.navigation }}">
+        <a href="{{ url_for('demo', lang=LANG) }}" aria-current="page">{{ A.analysis }}</a>
+        {% include 'shared/compare_link.html' %}
+        <a href="{{ url_for('backtest_page', lang=LANG) }}">{{ A.backtest }}</a>
+        <a href="/experiments?lang={{ LANG }}">{{ A.research }}</a>
+    </nav>
+</header>
 
     <!-- Tiến trình phân tích -->
     <div class="loading-overlay" id="loadingOverlay">

@@ -84,7 +84,7 @@ def report_reply(value: str) -> dict[str, str | None]:
     except (ValueError,TypeError,AttributeError): raise Failed('INVALID_MODEL_OUTPUT') from None
 
 
-def decision_body(body: dict) -> dict:
+def decision_body(body: dict, *, ground_facts: bool = False) -> dict:
     """Schema wire có thêm bản EN; request canonical và policy vẫn dùng phản hồi VI."""
     result=deepcopy(body)
     schema=result['response_format']['json_schema']['schema']
@@ -94,7 +94,12 @@ def decision_body(body: dict) -> dict:
     node['properties']['display_en']={'type':'object','properties':{key:{'type':'string'} for key in DECISION_TEXT},
         'required':list(DECISION_TEXT),'additionalProperties':False}
     node['required']=[*node['required'],'display_en']
-    result['messages'].append({'role':'user','content':'Keep canonical fields in Vietnamese. In the SAME response add display_en: English justification, evidence_for, evidence_against. One decision, same facts. Copy numbers, signs, formulas and LONG/SHORT/CASH exactly; do not add facts. Keep both versions concise.'})
+    directive = 'Keep canonical fields in Vietnamese. In the SAME response add display_en: English justification, evidence_for, evidence_against. One decision, same facts. Copy numbers, signs, formulas and LONG/SHORT/CASH exactly; do not add facts. Keep both versions concise.'
+    if ground_facts and 'fact_assertions' in node['properties']:
+        directive = ('Write Vietnamese and matching English display_en with identical action and numbers. '
+                     'Use FACTS in both decision and prose: MACD_ZERO gives the sign; MACD_SIGNAL compares with Signal. '
+                     'A possible crossover is not confirmation. Historical utility is not the realized outcome.')
+    result['messages'].append({'role':'user','content':directive})
     return result
 
 
