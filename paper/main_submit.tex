@@ -90,38 +90,38 @@
 
 %% Abstract
 \begin{abstract}
-Multi-agent systems based on large language models can combine price data
-and written reports for trading decisions. TradingAgents coordinates
-specialist analysts across information sources, while FinMem retrieves
-information from layered financial memory. QuantAgent organizes technical
-indicators, chart patterns and trends into specialist reports. For daily
-Vietnamese equities, an open question is what explicit price--volume
-factors and Vietnamese-language news add to the same technical evidence.
-Our system extends QuantAgent with two agents. The Alpha Agent ranks candidate
-factors and passes aggregate direction and vote counts to the Decision
-Agent. The Sentiment Agent summarizes eligible Vietnamese news and
-flags when coverage is insufficient. We compare the systems at 102 paired
-stock--date cutoffs under a T+2.5 execution convention and a common cost
-model. The paired design holds the technical reports fixed to assess the
-augmented Decision prompt. We evaluate directional forecasts at the cutoff
-level and net returns at the account level. An audit of the decision
-prompts verifies which signals reached the model. In this historical sample,
-the augmented system made fewer false LONG calls and identified the same
-number of profitable LONG opportunities as QuantAgent. The observed
-change describes directional decisions in the sample, and limited news
-coverage constrains attribution to sentiment. A secondary study tests five
-Bayesian in-context learning variants that use completed trading episodes.
+We propose a method for integrating chart, price--volume and news
+evidence in a multi-agent large language model (LLM) system for daily
+Vietnamese equity trading. Vision--language agents interpret chart
+patterns and trends. A deterministic Alpha Agent ranks 85 candidate
+price--volume factors and summarizes selected signals as a direction
+and vote counts. A Sentiment Agent uses a ViSoBERT-based classifier to
+score eligible Vietnamese-language news and flags insufficient coverage.
+The LLM Decision Agent combines these structured summaries with the
+technical reports in a single prompt to make a directional forecast
+for a long-or-cash strategy.
+We compare the augmented system with the price-only QuantAgent baseline
+at 102 paired stock--date cutoffs. Both systems receive the same
+technical reports and use the same T+2.5 execution and trading costs.
+A prompt audit verifies which signals reach the decision model.
+In this historical sample, both systems identified seven profitable
+LONG opportunities. False LONG calls decreased from 22 to 17, and
+balanced accuracy rose from 49.71\% to 52.96\%. Mean net account return
+was slightly lower for the augmented system, and limited news coverage
+constrains attribution to sentiment. A separate study evaluates five
+Bayesian in-context learning variants that condition decisions on
+completed trading episodes.
 \end{abstract}
 
 %%Graphical abstract
 
 
 \begin{highlights}
-\item Adapts QuantAgent, a price-driven multi-agent system, to daily stock trading.
-\item Adds two agents for price--volume factor summaries and local-language news sentiment.
-\item Pairs 102 stock--date decisions with shared technical reports under T+2.5.
-\item Flags as many profitable cases as QuantAgent, with fewer false buy signals.
-\item Tests five Bayesian in-context variants using completed trading episodes.
+\item A multi-agent LLM system fuses chart, price--volume and news evidence.
+\item Alpha votes and Vietnamese news sentiment inform the LLM decision prompt.
+\item Shared technical reports support paired tests at 102 stock--date cutoffs.
+\item The system cut false LONG calls from 22 to 17 and retained 7 true positives.
+\item Five Bayesian in-context variants use completed trading episodes.
 \end{highlights}
 
 %% Keywords
