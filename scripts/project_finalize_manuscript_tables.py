@@ -1,4 +1,4 @@
-"""Chiếu bảng FIN12 từ artifact đã khóa sang hai bản thảo tự chứa."""
+"""Chiếu bảng FIN12 từ artifact đã khóa sang các bản thảo có sẵn."""
 from __future__ import annotations
 
 import argparse
@@ -26,7 +26,6 @@ CONTROLS = ('CASH_EVERY_CYCLE', 'ALWAYS_LONG_EVERY_CYCLE_WITH_FULL_COSTS')
 REFERENCES = {'bayesian_v1': 'original_common', 'C2': 'original_common',
               'A_tp_pool': 'original_common', 'B_semantic': 'original_common', 'MT_BICL': 'Fact_Anchor'}
 STATISTICS_METHODS = ('C2', 'A_tp_pool', 'B_semantic')
-TARGETS = ('paper/content/tables/finalize_results.tex', 'thesis/latex/tables/finalize_results.tex')
 METHODS = {
     'original_fix': 'Our system',
     'original_common': 'Our system (Common)',
@@ -337,7 +336,7 @@ def project_plot_data(result: dict) -> str:
 
 
 def main() -> None:
-    """Cập nhật hoặc đối chiếu bảng và dữ liệu hình ở hai bản thảo."""
+    """Cập nhật hoặc đối chiếu bảng của bài báo và khóa luận cục bộ."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--audit', action='store_true',
@@ -347,9 +346,14 @@ def main() -> None:
     if args.audit:
         require(audit_evidence() == evidence, 'Bản chiếu không khớp bản ghi nguồn.')
     result = evidence['followup']
-    projections = dict.fromkeys(TARGETS, project(result))
-    projections['paper/content/tables/component/classification.tex'] = project_component(baseline_rows())
-    projections['thesis/latex/tables/followup_plot_data.tex'] = project_plot_data(result)
+    followup_table = project(result)
+    projections = {
+        'paper/content/tables/finalize_results.tex': followup_table,
+        'paper/content/tables/component/classification.tex': project_component(baseline_rows()),
+    }
+    if (ROOT / 'thesis/main.tex').is_file():
+        projections['thesis/latex/tables/finalize_results.tex'] = followup_table
+        projections['thesis/latex/tables/followup_plot_data.tex'] = project_plot_data(result)
     for relative, expected in projections.items():
         path = ROOT / relative
         if args.check:

@@ -45,8 +45,8 @@ Nguồn PDF FIN15 ban đầu ngày **21/11/2026** được khóa tại commit
 | BICL lịch sử | Our system dùng alpha native, Common dùng alpha causal và khóa truy xuất dùng nhóm tín hiệu đã ghi. [Bảng và hình lịch sử](../outputs/revision/u09_manuscript_assets_v1/artifacts/). |
 | BICL follow-up | `FIN11_RESEARCH_V1`, profile `finalize_serving_v1` với alpha causal dùng chung và khóa truy xuất `ohlcv_retrieval_keys_v1`. [Bản chiếu từ receipt FIN12](../evidence/manuscript_evidence.json). |
 
-Từ gốc checkout, tái tạo bảng chính, bảng follow-up và dữ liệu hình khóa
-luận, rồi biên dịch PDF bằng các lệnh phía trên:
+Từ gốc checkout, tái tạo và đối chiếu bảng chính và bảng follow-up của
+bài báo, rồi biên dịch PDF bằng các lệnh phía trên.
 
 ```powershell
 py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py
