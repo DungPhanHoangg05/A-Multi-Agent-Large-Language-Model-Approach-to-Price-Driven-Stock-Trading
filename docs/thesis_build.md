@@ -9,13 +9,14 @@ Trên Overleaf, chọn `main.tex` làm **Main document** và dùng **pdfLaTeX** 
 Từ gốc kho mã, dùng MiKTeX hoặc TeX Live có Biber và các gói trong `preamble.tex`:
 
 ```powershell
-py -3.13 scripts/thesis_docs/build.py --engine pdflatex --output-dir tmp/pdfs/thesis-pdftex
+py -3.13 scripts/thesis_docs/build.py --engine pdflatex --output-dir tmp/pdfs/thesis-pdftex --pdf outputs/thesis/thesis.pdf
 py -3.13 scripts/thesis_docs/build.py --engine xelatex --output-dir tmp/pdfs/thesis-xetex
-py -3.13 -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets --strict-current-targets
+py -3.13 -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets
 ```
 
-Script chạy bốn lượt biên dịch và một lượt Biber. Có thể dùng `--pdf` để
-sao chép PDF sau khi build thành công. Bản xem riêng hai bìa dùng
+Script chạy bốn lượt biên dịch và một lượt Biber. Tùy chọn `--pdf` sao
+chép bản dựng vào `outputs/thesis/thesis.pdf` sau khi biên dịch thành
+công. Git bỏ qua thư mục đầu ra này. Bản xem riêng hai bìa dùng
 [covers-preview.tex](../thesis/covers-preview.tex) từ thư mục `thesis/`.
 
 Toàn văn dùng A4 dọc, chữ Latin Modern 12 pt, giãn dòng 1,5, hai bìa và
@@ -25,7 +26,8 @@ sáu chương. Sơ đồ tổng thể là TikZ và có thể sửa trực tiếp
 
 ## Đối soát và truy vết
 
-[PDF FIN15](../outputs/thesis/thesis.pdf) được build bằng pdfLaTeX.
+PDF FIN15 được lưu trong Git tại commit `824bc436ef706a97da2901835399aaedef61ff33`,
+ở đường dẫn `outputs/thesis/thesis.pdf` của commit đó.
 Tag `thesis-review-20261117-r1` và [manifest lịch sử](https://github.com/DungPhanHoangg05/A-Multi-Agent-Large-Language-Model-Approach-to-Price-Driven-Stock-Trading-in-the-Vietnamese-Stock-Ma/blob/0b19e9fc4b285be63bc452068ec6ab261206744d/thesis/release/manifest.json)
 giữ đúng bản 67 trang trước FIN15.
 `check.py` xác minh archive P8, tính đầy đủ của sáu chương, các đường dẫn

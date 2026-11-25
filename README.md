@@ -6,9 +6,9 @@ technical indicators, visual chart analysis, quantitative alpha factors,
 Vietnamese news sentiment, and historical context conditioned on market regimes.
 
 The Flask application supports single-stock analysis, paired comparisons, and
-historical backtests. The published studies, manuscript sources, and audit
-evidence are included in the repository.
-[Paper](outputs/paper/paper.pdf) · [Thesis](outputs/thesis/thesis.pdf) · [Evidence guide](evidence/README.md)
+historical backtests. The repository includes the paper, its sources, and
+the published audit evidence.
+[Paper](outputs/paper/paper.pdf) · [Thesis build guide](docs/thesis_build.md) · [Evidence guide](evidence/README.md)
 
 ## Run locally
 
@@ -178,14 +178,15 @@ evaluation and its limitations apply to the declared cohorts. Catalog-wide
 live runs are exploratory. The historical native Alpha selector failed its
 recorded row-wise causality audit. Whole-system causality and profitable
 trading remain unestablished.
-[Full paper](outputs/paper/paper.pdf) · [Submission PDF](outputs/paper/paper-submit.pdf) · [Thesis PDF](outputs/thesis/thesis.pdf)
+[Full paper](outputs/paper/paper.pdf) · [Submission PDF](outputs/paper/paper-submit.pdf)
 
 Verify the manuscript tables and presentation against the shipped evidence
-without running hosted inference.
+without running hosted inference. The thesis document check reads local
+LaTeX sources from the thesis directory.
 
 ```powershell
 .\.venv\Scripts\python.exe -X utf8 scripts/project_finalize_manuscript_tables.py --audit --check
-.\.venv\Scripts\python.exe -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets --strict-current-targets
+.\.venv\Scripts\python.exe -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets
 ```
 
 The evidence guide maps the component study, historical BICL results, and
@@ -217,8 +218,9 @@ contracts. [Development instructions](AGENTS.md)
 | `templates/`, `static/`, `web_interface.py` | Flask pages, browser scripts, styles, and the local entrypoint. |
 | `scripts/`, `tests/` | Resource installation, reproducibility checks, and regression tests. |
 | `resources/`, `evidence/` | Pinned runtime inputs and published study evidence. |
-| `paper/`, `thesis/` | LaTeX sources, references, and build instructions. |
-| `outputs/paper/`, `outputs/thesis/`, `outputs/revision/` | Published PDFs, tables, supplements, and manifests. |
+| `paper/` | Paper LaTeX sources, references, and build instructions. |
+| `thesis/`, `outputs/thesis/` | Local thesis LaTeX sources and compiled PDF. |
+| `outputs/paper/`, `outputs/revision/` | Published paper PDFs, tables, supplements, and manifests. |
 
 ## Attribution and licensing
 

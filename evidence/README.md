@@ -4,7 +4,7 @@ Từ gốc checkout có Python 3.13.5 và môi trường của dự án, chạy 
 
 ```powershell
 py -3.13 -X utf8 scripts/project_finalize_manuscript_tables.py --audit --check
-py -3.13 -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets --strict-current-targets
+py -3.13 -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets
 ```
 
 | Nội dung cần đối chiếu | Bằng chứng và phép kiểm |
@@ -16,11 +16,13 @@ py -3.13 -X utf8 scripts/thesis_docs/check.py --strict-cutover-targets --strict-
 
 Reviewer có thể tra [schema nhãn giao dịch](target_schema.json), [công thức sổ tài khoản và kiểm tra bằng Decimal](../scripts/fin12_evaluation_oracle.py), [cách tính các chỉ tiêu FIN12](../scripts/fin12_evaluation.py) và [tài liệu công thức alpha được trích dẫn](alpha101_1601.00991v3.pdf).
 
-Để kiểm SHA-256 của cả ba PDF hiện hành trong PowerShell, chạy từ gốc checkout.
+Để kiểm SHA-256 của hai PDF bài báo trong PowerShell, chạy từ gốc checkout.
+Hash của khóa luận trong source map áp dụng cho bản FIN15 đã lưu trong Git.
+[Tra cứu bản FIN15](../docs/thesis_build.md#đối-soát-và-truy-vết).
 
 ```powershell
 $fin15 = (Get-Content -Raw scripts/thesis_docs/source-map.json | ConvertFrom-Json).fin15_outputs
-foreach ($pdf in @($fin15.pdf, $fin15.paper_pdfs.paper, $fin15.paper_pdfs.paper_submit)) {
+foreach ($pdf in @($fin15.paper_pdfs.paper, $fin15.paper_pdfs.paper_submit)) {
     if ((Get-FileHash -Algorithm SHA256 -LiteralPath $pdf.path).Hash -ne $pdf.sha256) { throw $pdf.path }
 }
 ```
@@ -36,4 +38,4 @@ git worktree add --detach ../fin15-source 6bc661987ea80ce6c7fe44c2e094016f4a45af
 git worktree add --detach ../fin15-before-cleanup a034c8bb39f77fb47c9387937c590b762e7711f6
 ```
 
-Các lượt thu có gọi nhà cung cấp còn phụ thuộc thông tin xác thực và journal gốc của tác giả. Gói FIN12 phân phối các đầu ra dẫn xuất mà người đọc cần để kiểm số liệu. Kết quả và giới hạn khoa học được ghi trong [paper](../outputs/paper/paper.pdf) và [khóa luận](../outputs/thesis/thesis.pdf).
+Các lượt thu có gọi nhà cung cấp còn phụ thuộc thông tin xác thực và journal gốc của tác giả. Gói FIN12 phân phối các đầu ra dẫn xuất mà người đọc cần để kiểm số liệu. Kết quả và giới hạn khoa học được ghi trong [bài báo](../outputs/paper/paper.pdf).
