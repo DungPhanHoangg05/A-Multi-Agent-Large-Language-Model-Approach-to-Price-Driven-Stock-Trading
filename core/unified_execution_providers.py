@@ -17,14 +17,15 @@ from core.unified_protocol import MANIFEST, read
 
 class StudyProviders:
     """Node upstream độc lập từng stage, một snapshot cho cả tám nhánh và ba repeat."""
-    def __init__(self, root: Path, calls: DurableCalls, *, fixture_images: bool = False) -> None:
+    def __init__(self, root: Path, calls: DurableCalls, *, fixture_images: bool = False,
+                 cohort: list[dict[str, Any]] | None = None) -> None:
         from core.unified_asset_providers import study_data, FrozenStudyBank
         from core.unified_preflight_assets import frames
         from core.historical_evaluation_graph import GraphProvider
         from core.historical_evaluation_runner import Regimes
         self.root, self.calls = root, calls
         self.data = study_data(root)
-        self.original = read(root, MANIFEST, True)["points"]
+        self.original = read(root, MANIFEST, True)["points"] if cohort is None else deepcopy(cohort)
         self.points = [{"id": p["runner_point_id"], "symbol": p["symbol"], "cutoff": p["date"],
                         "fold": p["fold"], "quality": "U07_CONTROL_NOT_MARKET_FORECAST"} for p in self.original]
         ids = {p["id"] for p in self.original}

@@ -31,11 +31,12 @@ class PilotStop(KeyboardInterrupt):
 
 
 def reset_seconds(value: str) -> float | None:
-    """Đọc thời lượng header Groq; thiếu/sai giữ cách dừng bảo thủ 24 giờ."""
-    match = re.fullmatch(r"(?:(\d+(?:\.\d+)?)h)?(?:(\d+(?:\.\d+)?)m)?(?:(\d+(?:\.\d+)?)s)?", value)
+    """Đọc thời lượng reset trong header quota, kể cả mili giây."""
+    match = re.fullmatch(r"(?:(\d+(?:\.\d+)?)h)?(?:(\d+(?:\.\d+)?)m)?"
+                         r"(?:(\d+(?:\.\d+)?)s)?(?:(\d+(?:\.\d+)?)ms)?", value)
     if not match or not any(match.groups()):
         return None
-    result = sum(float(part or 0) * scale for part, scale in zip(match.groups(), (3600, 60, 1)))
+    result = sum(float(part or 0) * scale for part, scale in zip(match.groups(), (3600, 60, 1, .001)))
     return result if math.isfinite(result) else None
 
 

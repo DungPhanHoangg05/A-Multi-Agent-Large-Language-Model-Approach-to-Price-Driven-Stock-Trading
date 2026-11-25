@@ -41,7 +41,9 @@ def execution_outcomes(points: list[dict], resources: FinalizedResources) -> tup
         dates = calendar[boundary:boundary+4].strftime("%Y-%m-%d").tolist()
         outcomes[identifier] = {**outcome, "dates": dates+[None]*(4-len(dates)),
                                 "target": {"label_net": None, "net_return": None}}
-    known = {p["id"] for p in resources.acceptance["points"] if not p["economic_label_eligible"]}
+    requested = {p["id"] for p in points}
+    known = {p["id"] for p in resources.acceptance["points"]
+             if p["id"] in requested and not p["economic_label_eligible"]}
     if not known <= unavailable.keys():
         raise ValueError("Nhãn FIN12 vượt qua sàng lọc quyền đã khóa trước thu")
     check_outcomes(points, outcomes, frames, calendar)

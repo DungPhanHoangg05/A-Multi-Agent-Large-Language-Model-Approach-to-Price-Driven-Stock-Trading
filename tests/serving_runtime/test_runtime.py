@@ -9,6 +9,7 @@ import threading
 import unittest
 from unittest.mock import patch
 
+from core.groq_pacing import reset_seconds
 from core.historical_evaluation_journal import load, save
 from core.serving_runtime.service import Service
 from core.serving_runtime.transport import Calls, retry_until
@@ -188,6 +189,44 @@ class RuntimeTests(unittest.TestCase):
 
 
 class QuotaTests(unittest.TestCase):
+    def test_provider_reset_supports_milliseconds_and_compound_durations(self):
+        self.assertAlmostEqual(reset_seconds("12ms"), .012)
+        self.assertAlmostEqual(reset_seconds("1m2s34ms"), 62.034)
+        self.assertEqual(reset_seconds("24h"), 86400.)
+        self.assertIsNone(reset_seconds("unparseable"))
+        row = {"status": 200, "completed_at": 100., "response": "{}", "headers": {
+            "x-ratelimit-remaining-requests": "0", "x-ratelimit-reset-requests": "12ms"}}
+        self.assertAlmostEqual(retry_until(row, 0), 100.112)
+
+    def test_repairs_only_legacy_deadline_supported_by_latest_raw(self):
+        """Hết mốc ms đã ghi thì cho tiếp tục, giữ nguyên lượt và quota thật."""
+        with TemporaryDirectory() as folder:
+            clock = Clock()
+            ledger = Quota(Path(folder) / "luna.sqlite3", clock, limits=None)
+            ledger.reserve("last", "followup", 1000)
+            observed_at = clock()
+            headers = {"x-ratelimit-remaining-requests": "4999", "x-ratelimit-reset-requests": "12ms",
+                       "x-ratelimit-remaining-tokens": "1", "x-ratelimit-reset-tokens": "30s"}
+            with patch("core.groq_pacing.reset_seconds", side_effect=lambda v: None if v.endswith("ms") else 30.):
+                ledger.observe("last", headers, observed_at)
+            ledger.finish("last", "200", 150)
+            with ledger.connect() as db:
+                db.execute("UPDATE headroom SET remaining=0 WHERE kind='requests'")
+            clock.advance(1)
+            row = {"id": "last", "status": 200, "completed_at": observed_at, "headers": headers}
+            with self.assertRaises(Waiting) as blocked:
+                ledger.reserve("next", "followup", 1000)
+            self.assertAlmostEqual(blocked.exception.until, observed_at + 86400.1)
+            self.assertEqual(ledger.repair_millisecond_deadline("other", row), [])
+            self.assertEqual(ledger.repair_millisecond_deadline("followup", row), ["requests"])
+            self.assertEqual(ledger.attempts("followup"), 1)
+            with self.assertRaises(Waiting) as token_wait:
+                ledger.reserve("next", "followup", 1000)
+            self.assertAlmostEqual(token_wait.exception.until, observed_at + 30.1)
+            clock.advance(31)
+            ledger.reserve("next", "followup", 1000)
+            self.assertEqual(ledger.attempts("followup"), 2)
+
     def test_provider_remaining_headers_lower_admission_and_replay_never_restores_quota(self):
         with TemporaryDirectory() as folder:
             clock = Clock(); quota = Quota(Path(folder)/'quota.sqlite3',clock)

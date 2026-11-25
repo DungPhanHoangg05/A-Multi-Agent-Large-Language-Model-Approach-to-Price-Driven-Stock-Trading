@@ -87,10 +87,11 @@ class Calls:
 
     def __init__(self, directory: Path, run_id: str, quota: Quota, sender: Any,
                  guard: Callable[[], None], *, clock=time.time, hook=lambda _: None,
-                 total_prompt_guard: bool = False) -> None:
+                 total_prompt_guard: bool = False, token_budget: Callable[[dict], int] | None = None) -> None:
         self.directory, self.run_id, self.quota, self.sender = directory, run_id, quota, sender
         self.guard, self.clock, self.hook = guard, clock, hook
         self.total_prompt_guard = total_prompt_guard
+        self.token_budget = token_budget
 
     def _rows(self, slot: str) -> tuple[Path, list[dict]]:
         """Không nhận đường dẫn tùy ý; một file envelope riêng cho mỗi slot."""
@@ -128,7 +129,8 @@ class Calls:
         if until > self.clock():
             raise Waiting(until)
 
-    def call(self, slot: str, body: dict, attempt: str) -> tuple[Any, dict]:
+    def call(self, slot: str, body: dict, attempt: str, *,
+             validate_reply: Callable[[Any], None] | None = None) -> tuple[Any, dict]:
         """Replay raw đã fsync; ngoại lệ BaseException thoát agent, không suy báo cáo/CASH."""
         from core.groq_pacing import PilotStop, request_budget
         from agents.decision_agent import _invoke_with_retry
@@ -168,9 +170,14 @@ class Calls:
                     raise Failed("TOKEN_ESTIMATE_UNDERRUN")
                 try:
                     reply = parsed(row["body"], json.loads(row["response"]))
+                    if validate_reply is not None:
+                        validate_reply(reply)
                 except (ValueError, KeyError, TypeError, IndexError, ValidationError):
                     if "response_format" not in body:
                         raise Failed("INVALID_MODEL_OUTPUT") from None
+                    if validate_reply is not None and not row.get("schema_error"):
+                        row["schema_error"] = True
+                        save(path, {"run_id": self.run_id, "slot": slot, "rows": rows})
                     repair = True
                 else:
                     if ordinal != len(rows)-1:
@@ -192,7 +199,7 @@ class Calls:
             if sum(len(message["content"]) for message in messages) >= 6500:
                 raise Failed("PROMPT_BUDGET_EXCEEDED")
         identifier = str(uuid4())
-        tokens = request_budget(actual)
+        tokens = (self.token_budget or request_budget)(actual)
         self.quota.reserve(identifier, self.run_id, tokens)
         row = {**self.attempt_metadata(), "id": identifier, "attempt": attempt, "slot": slot, "base_sha256": digest(body), "body": actual,
                "repair": repair, "started_at": self.clock(), "reserved_tokens": tokens, "status": "UNKNOWN",
@@ -218,6 +225,8 @@ class Calls:
         save(path, {"run_id": self.run_id, "slot": slot, "rows": rows})
         self.response_committed(recorded)
         self.hook("raw")
+        if validate_reply is not None:
+            return self.call(slot, body, attempt, validate_reply=validate_reply)
         return self.call(slot, body, attempt)
 
     def reconcile_not_sent(self, slot: str, request_id: str, evidence: str) -> None:

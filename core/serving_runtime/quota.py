@@ -13,6 +13,7 @@ from typing import Iterator
 from uuid import uuid4
 
 LIMITS = {"rpm": 30, "rpd": 1000, "tpm": 8000, "tpd": 200000}
+HEADER_WINDOWS = (("tokens", 61.), ("requests", 86400.))
 
 
 class Waiting(BaseException):
@@ -36,9 +37,10 @@ class Stopped(BaseException):
 class Quota:
     """SQLite transaction cấp reserve trước dispatch, không nhân quota theo worker/key/model."""
 
-    def __init__(self, path: Path, clock=time.time) -> None:
+    def __init__(self, path: Path, clock=time.time, *, limits: dict[str, int] | None = LIMITS) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         self.path, self.clock = path, clock
+        self.limits = None if limits is None else dict(limits)
         with self.connect() as db:
             db.executescript("CREATE TABLE IF NOT EXISTS metadata (name TEXT PRIMARY KEY,value TEXT NOT NULL);"
                 "CREATE TABLE IF NOT EXISTS credentials (fingerprint TEXT PRIMARY KEY,scope TEXT NOT NULL);"
@@ -76,7 +78,8 @@ class Quota:
 
     def reserve(self, identifier: str, run: str, tokens: int) -> None:
         """UNKNOWN giữ toàn reserve; response có usage zero vẫn giữ đúng số zero cho quota ngày."""
-        if type(tokens) is not int or not 0 < tokens <= LIMITS["tpm"]:
+        limits = self.limits
+        if type(tokens) is not int or tokens <= 0 or (limits is not None and tokens > limits["tpm"]):
             raise Failed("TOKEN_ADMISSION_FAILED")
         now = self.clock()
         with self.connect() as db:
@@ -86,10 +89,11 @@ class Quota:
             for kind, remaining, until in db.execute("SELECT kind,remaining,until FROM headroom WHERE until>?", (now,)):
                 if (tokens if kind == "tokens" else 1) > remaining:
                     waits.append(until)
-            for span, rpm, tpm in ((61, LIMITS["rpm"], LIMITS["tpm"]), (86400, LIMITS["rpd"], LIMITS["tpd"])):
+            windows = () if limits is None else ((61, limits["rpm"], limits["tpm"]), (86400, limits["rpd"], limits["tpd"]))
+            for span, rpm, tpm in windows:
                 selected = [row for row in rows if row[0] > now-span]
                 charged = sum(row[1] if span == 61 or row[2] is None else row[2] for row in selected)
-                if len(selected) >= rpm or charged + tokens > tpm:
+                if selected and (len(selected) >= rpm or charged + tokens > tpm):
                     waits.append(min(row[0] for row in selected) + span + .1)
             if waits:
                 raise Waiting(max(waits))
@@ -106,7 +110,7 @@ class Quota:
                 raise ValueError("Header không có intent quota")
             if marker[0]:
                 return
-            for kind, span in (("tokens",61.),("requests",86400.)):
+            for kind, span in HEADER_WINDOWS:
                 value = headers.get("x-ratelimit-remaining-"+kind)
                 if value is None:
                     continue
@@ -120,6 +124,34 @@ class Quota:
                     remaining,until = min(remaining,previous[0]),max(until,previous[1])
                 db.execute("INSERT OR REPLACE INTO headroom VALUES (?,?,?)",(kind,remaining,until))
             db.execute("UPDATE attempts SET observed=1 WHERE id=?",(identifier,))
+
+    def repair_millisecond_deadline(self, run: str, row: dict) -> list[str]:
+        """Sửa mốc fallback cũ khi raw HTTP cuối xác nhận đơn vị ms và quota còn."""
+        from core.groq_pacing import reset_seconds
+
+        if self.limits is not None or row["status"] != 200:
+            return []
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            latest = db.execute("SELECT id,run,state,observed FROM attempts ORDER BY started DESC LIMIT 1").fetchone()
+            if latest != (row["id"], run, "200", 1):
+                return []
+            corrected = []
+            observed_at = row["completed_at"]
+            headers = row["headers"]
+            for kind, fallback in HEADER_WINDOWS:
+                reset = headers.get("x-ratelimit-reset-" + kind, "")
+                seconds = reset_seconds(reset)
+                remaining = float(headers.get("x-ratelimit-remaining-" + kind, 0))
+                if (not reset.endswith("ms") or seconds is None or seconds >= fallback
+                        or not math.isfinite(remaining) or remaining <= 0):
+                    continue
+                current = db.execute("SELECT until FROM headroom WHERE kind=?", (kind,)).fetchone()
+                old_deadline = observed_at + fallback + .1
+                if current is not None and math.isclose(current[0], old_deadline, rel_tol=0, abs_tol=1e-5):
+                    db.execute("UPDATE headroom SET until=? WHERE kind=?", (observed_at + seconds + .1, kind))
+                    corrected.append(kind)
+            return corrected
 
     def finish(self, identifier: str, status: str, usage: int | None, retry_until: float = 0) -> None:
         """Chỉ cập nhật request đã reserve; không xóa request retry hoặc UNKNOWN khỏi chi phí."""
