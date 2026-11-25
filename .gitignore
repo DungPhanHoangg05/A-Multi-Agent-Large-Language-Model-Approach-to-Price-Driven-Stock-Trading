@@ -17,7 +17,6 @@ sentiment_cache_*
 # Git tiếp tục quản lý các đầu vào đã khóa và các bộ kết quả công bố.
 /outputs/*
 !/outputs/paper/
-!/outputs/thesis/
 !/outputs/revision/
 /outputs/revision/*
 !/outputs/revision/README.md
@@ -27,3 +26,4 @@ sentiment_cache_*
 /tmp/
 /docs/plan/
 /thesis/
+/outputs/thesis/
